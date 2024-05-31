@@ -464,22 +464,22 @@ With the proliferation of streaming services, users often face the challenge of 
     - Integrate voice recognition software like Google Assistant, Siri, or Alexa to allow users to search and schedule movies or shows using voice commands.
 
 
-## Lessons Learned and Next Steps
+## Next Steps
 
-- **Lessons Learned**:
-    - Importance of clear API documentation for seamless integration.
-    - Effective state management using Redux.
-    - Challenges of implementing JWT authentication and handling user sessions.
-    - Integrating multiple APIs to provide a cohesive user experience.
-
-- **Next Steps**:
-    - Continue refining the recommendation algorithm to improve accuracy.
-    - Explore additional notification options, such as email reminders.
-    - Implement social features to enhance user interaction.
-    - Optimize performance and scalability for handling a larger user base.
+- Continue refining the recommendation algorithm to improve accuracy.
+- Explore additional notification options, such as email reminders.
+- Implement social features to enhance user interaction.
+- Optimize performance and scalability for handling a larger user base.
 
 
-## Installation Instructions
+## Lessons Learned: - will probably have to update this later:
+- Importance of clear API documentation for seamless integration.
+- Effective state management using Redux.
+- Challenges of implementing JWT authentication and handling user sessions.
+- Integrating multiple APIs to provide a cohesive user experience.
+
+
+## Installation Instructions - will probably have to update this later:
 - **Follow these steps to set up the NextStream application on your local development environment**:
 
 ### Prerequisites
