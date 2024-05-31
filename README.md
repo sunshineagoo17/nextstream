@@ -101,26 +101,26 @@ With the proliferation of streaming services, users often face the challenge of 
 ### Mockups
 
 #### Home Page
-![](homepage.png)
+![Homepage](homepage.png)
 
 #### Search Results Page
-![](search-results-page.png)
+![Search Results Page](search-results-page.png)
 
 #### Recommendations Page
-![](recommendations-page.png)
+![Recommendations Page](recommendations-page.png)
 
 #### Schedule Page
-![](schedule-page.png)
+![Schedule Page](schedule-page.png)
 
 #### Register Page
-![](register-page.png)
+![Register Page](register-page.png)
 
 #### Login Page
-![](login-page.png)
+![Login Page](login-page.png)
 
 
 ### Data
-![](sql-diagram.png)
+![MySQL](sql-diagram.png)
 
 
 ### Endpoints
@@ -477,3 +477,98 @@ With the proliferation of streaming services, users often face the challenge of 
     - Explore additional notification options, such as email reminders.
     - Implement social features to enhance user interaction.
     - Optimize performance and scalability for handling a larger user base.
+
+
+## Installation Instructions
+- **Follow these steps to set up the NextStream application on your local development environment**:
+
+### Prerequisites
+- **Ensure you have the following installed on your machine**:
+    - Node.js (v14 or later)
+    - npm (v6 or later) or Yarn (v1.22 or later)
+    - MySQL (v8 or later)
+
+### Installing Node.js and npm
+- **You can download and install Node.js and npm from the offical website**: 
+    - [Visit Node.js Website"](https://nodejs.org/en)
+
+- **Alternatively, use a package manager**:
+
+#### On macOS:
+- **Using Homebrew**: 
+    - brew install node
+
+- **On Ubuntu/Debian**:
+    - sudo apt update
+    - sudo apt install nodejs npm
+
+### Installing MySQL
+
+#### On macOS:
+- **Using Homebrew**: 
+    - brew install mysql
+    - brew services start mysql
+
+- **On Ubuntu/Debian**:
+    - sudo apt update
+    - sudo apt install mysql-server
+    - sudo systemctl start mysql
+    - sudo systemctl enable mysql
+
+#### On Windows:
+- **Download the MySQL installer from the official website**:
+    - [MySQL's Website](https://dev.mysql.com/downloads/installer/)
+
+- **Clone the Repository**: 
+    - git clone https://github.com/sunshineagoo17/nextstream.git
+    - cd nextstream
+
+- **Install Dependencies**:
+    - Install the server-side dependencies:
+        - cd server
+        - npm install
+        # or
+        - yarn install
+
+    - Install the client-side dependencies**:
+        - cd ../client
+        - npm install
+        # or
+        - yarn install
+
+- **Set Up the Environment Variables**:
+    - Create a `.env` file in the root directory of both the `server` and `client` folders, based on the `.env.sample` provided. Fill in the necessary values for your local environment.
+    - For the server (`server/.env`):
+        - PORT=8080
+        DB_HOST=localhost
+        DB_USER=root
+        DB_PASSWORD=yourpassword
+        DB_NAME=nextstream
+        JWT_SECRET=yourjwtsecret
+    
+    - For the client (`client/.env`):
+        - REACT_APP_API_URL=http://localhost:8080
+
+- **Set Up the Database**:
+    - Start MySQL and create a database named `nextstream`:
+        - CREATE DATABASE nextstream;
+    
+    - Run the database migrations to set up the necessary tables:
+        - cd server
+        - npx knex migrate:latest
+
+- **Start the Development Servers**:
+    - Start the server:
+        - cd server
+        npm start
+        # or
+        yarn start
+
+    - Start the client:
+        - cd ../client
+        npm start
+        # or 
+        yarn start
+
+- **Access the Application**:
+    - Open your browser and navigate to `http://localhost:3000` to access the NextStream application.
