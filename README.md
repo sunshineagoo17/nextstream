@@ -3,12 +3,10 @@ NextStream
 
 
 ## Overview
-
 NextStream is a CRUD web application designed to help users easily find where their favourite movies and shows are being streamed based on their global location. It also offers personalized recommendations and advanced scheduling features, enabling users to effortlessly plan their perfect viewing experience, whether they're lounging or planning ahead. Users can create accounts, search for movies and shows, and delete schedules they no longer need. Say goodbye to the hassle of deciding what to watch at the last minute!
 
 
 ### Problem
-
 With the proliferation of streaming services, users often face the challenge of finding where a particular movie or show is available to stream. Additionally, deciding what to watch next and keeping track of scheduled viewing can be time-consuming and overwhelming. Endless scrolling and searching through various platforms add to the frustration. NextStream addresses these issues by informing users where content is available to stream and helping them plan their viewing schedule in advance.
 
 
@@ -92,7 +90,6 @@ With the proliferation of streaming services, users often face the challenge of 
 
 
 ### Sitemap
-
 - Home Page
 - Search Results Page
 - Recommendations Page
@@ -441,7 +438,7 @@ With the proliferation of streaming services, users often face the challenge of 
 
 - **Deployment**:
     - Deploy the client and server to a hosting platform.
-    - Ensure continuous deployment and integration to reflect changes in the production environment promptly.
+    - Ensure continuous deployment and integration to promptly reflect changes in the production environment.
 
 - **Bug Fixes**:
     - Address any issues indentified during testing or reported by users.
@@ -477,6 +474,6 @@ With the proliferation of streaming services, users often face the challenge of 
 
 - **Next Steps**:
     - Continue refining the recommendation algorithm to improve accuracy.
-    - Explor additional notification options, such as email reminders.
+    - Explore additional notification options, such as email reminders.
     - Implement social features to enhance user interaction.
     - Optimize performance and scalability for handling a larger user base.
