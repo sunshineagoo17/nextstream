@@ -57,24 +57,30 @@ With the proliferation of streaming services, users often face the challenge of 
 ### Tech Stack
 
 - **Frontend**:
-    - React
-    - Redux (for state management)
-    - SASS (for styling)
+    - React: For building reusable UI components and a dynamic user interface.
+    - Redux: For efficient state management across the application.
+    - SASS: For flexible and maintanable styling.
 
 - **Backend**:
-    - Node.js
-    - Express
-    - MySQL (for data persistence)
+    - Node.js: For scalable server-side scripting.
+    - Express: For building the server and handling API requests.
+    - MySQL: For robust and reliable data persistence.
 
 - **Client Libraries**:
-    - react
-    - react-router
-    - axios
+    - React: For managing the view layer and component lifecycle.
+    - react-router: For handling client-side routing.
+    - axios: For making HTTP requests to the backend API.
 
 - **Server Libraries**:
-    - express
-    - knex (for MySQL)
-    - bcrypt (for password hashing)
+    - express: For building the server and handling API requests.
+    - knex: For managing the database and performing SQL queries.
+    - bcrypt: For securing user passwords.
+
+- **Tools**:
+    - Jira: For project management and issue tracking.
+    - Asana: For personal task management and organization.
+    - Confluence: For personal documentation and whiteboarding.
+    - Figma: For designing and prototyping user interfaces.
 
 
 ### APIs and Integrations
@@ -90,12 +96,12 @@ With the proliferation of streaming services, users often face the challenge of 
 
 
 ### Sitemap
-- Home Page
-- Search Results Page
-- Recommendations Page
-- Schedule Page
-- Register Page
-- Login Page
+- Home Page: Intro to the app and quick access to features.
+- Search Results Page: Displays search results based on user input.
+- Recommendations Page: Shows personalized recommendations.
+- Schedule Page - Allows users to schedule their viewing times.
+- Register Page - For user registration.
+- Login Page - For user login.
 
 
 ### Mockups
