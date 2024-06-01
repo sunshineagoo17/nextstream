@@ -126,7 +126,7 @@ With the proliferation of streaming services, users often face the challenge of 
 
 
 ### Data
-![MySQL](sql-diagram.png)
+![Next Stream MySQL EER Diagram](./docs/images/nextstream-eer-diagram.png)
 
 
 ### Endpoints
