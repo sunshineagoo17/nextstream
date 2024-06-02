@@ -102,6 +102,7 @@ With the proliferation of streaming services, users often face the challenge of 
 - Schedule Page - Allows users to schedule their viewing times.
 - Register Page - For user registration.
 - Login Page - For user login.
+- Profile Page - User profile information.
 
 
 ### Mockups
@@ -123,6 +124,9 @@ With the proliferation of streaming services, users often face the challenge of 
 
 #### Login Page
 ![Login Page](login-page.png)
+
+#### Profile Page
+![Profile Page](profile-page.png)
 
 
 ### Data
