@@ -99,7 +99,7 @@ With the proliferation of streaming services, users often face the challenge of 
 - Home Page: Intro to the app and quick access to features.
 - Search Results Page: Displays search results based on user input.
 - Recommendations Page: Shows personalized recommendations.
-- Schedule Page - Allows users to schedule their viewing times.
+- Schedule Page - Enable users to manage their viewing schedule with tabbed views for Calendar, Upcoming Movies/Shows, and Viewing History.
 - Register Page - For user registration.
 - Login Page - For user login.
 - Profile Page - User profile information.
@@ -108,25 +108,25 @@ With the proliferation of streaming services, users often face the challenge of 
 ### Mockups
 
 #### Home Page
-![Homepage](homepage.png)
+![Homepage](/docs/images/homepage.png)
 
 #### Search Results Page
-![Search Results Page](search-results-page.png)
+![Search Results Page](/docs/images/search-results-page.png)
 
 #### Recommendations Page
-![Recommendations Page](recommendations-page.png)
+![Recommendations Page](/docs/images/recommendations-page.png)
 
 #### Schedule Page
-![Schedule Page](schedule-page.png)
+![Schedule Page](/docs/images/schedule-page.png)
 
 #### Register Page
-![Register Page](register-page.png)
+![Register Page](/docs/images/register-page.png)
 
 #### Login Page
-![Login Page](login-page.png)
+![Login Page](/docs/images/login-page.png)
 
 #### Profile Page
-![Profile Page](profile-page.png)
+![Profile Page](/docs/images/profile-page.png)
 
 
 ### Data
