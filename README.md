@@ -83,6 +83,10 @@ With the proliferation of streaming services, users often face the challenge of 
     - Figma: For designing and prototyping user interfaces.
 
 
+### Environmental Variables
+- This project will use a `.env` file to manage environmental variables securely. A `.env.sample` file will be provided to illustrate the required variables and their formats, without exposing sensitive data. This file will be part of the final project submission.
+
+
 ### APIs and Integrations
 
 - **TMDB API**:
