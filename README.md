@@ -1,5 +1,4 @@
-# Project Title
-NextStream
+# Project: NextStream
 
 
 ## Overview
