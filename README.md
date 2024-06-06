@@ -404,6 +404,11 @@ With the proliferation of streaming services, users often face the challenge of 
 
 ## Roadmap
 
+### Milestones
+- [x] Create project proposal
+- [x] Set up project repository
+- [ ] Implement initial features
+
 - **Initialize Client**:
     - Set up the React project with necessary routes and initial structure.
     - Implement basic components and layout to serve as the foundation for the application.
