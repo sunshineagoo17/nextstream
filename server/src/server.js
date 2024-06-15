@@ -22,10 +22,17 @@ app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
+// Test database connection
+app.get('/test-db', async (req, res) => {
+    try {
+        const result = await db.raw('SELECT 1+1 AS result');
+        res.status(200).json({ message: 'Database connection successful', result: result[0] });
+    } catch (error) {
+        console.error('Database connection error:', error);
+        res.status(500).json({ error: 'Database connection error' });
+    }
+});
+  
 app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-  console.log('Database Host:', process.env.DB_HOST);
-  console.log('Database User:', process.env.DB_USER);
-  console.log('Database Password:', process.env.DB_PASSWORD);
-  console.log('Database Name:', process.env.DB_NAME);
+    console.log(`Server is running on port ${port}`);
 });
