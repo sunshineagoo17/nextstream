@@ -1,0 +1,58 @@
+// Color palette 
+
+// Define base color for primary darker blue
+$base-darker-blue: #0E1C30;
+$overlay-black: rgba(0, 0, 0, 0.2);
+
+// Create mixed color for primary darker blue
+$primary-darker-blue-overlay: mix($overlay-black, $base-darker-blue);
+
+// Primary Colors
+$primary-darker-blue: $primary-darker-blue-overlay;
+$primary-dark-blue: #012E71;
+$primary-medium-blue: #0045B6;
+$primary-light-blue: #4092FF;
+$primary-very-light-blue: #BBD9FF;
+$primary-pale-blue: #EEF4FC;
+$primary-cyan: #00C9FF;
+$primary-light-cyan: #CBF4FF;
+$primary-pale-cyan: #F1FEFE;
+
+// Secondary Colors
+$secondary-pink: #E66EB2;
+$secondary-light-pink: #E8B3C5;
+$secondary-very-light-pink: #FCE6F2;
+
+// Neutral Colors
+$neutral-black: #000000;
+$neutral-light-grey: #F0F0F0;
+$neutral-white: #FFFFFF;
+
+// Feedback Colors
+$feedback-success-green: #6FCF97;
+$feedback-error-red: #FFA2A2;
+$feedback-warning-yellow: #FFDC72;
+$feedback-info-blue: #56CCF2;
+$feedback-error-label: #C92929;
+$feedback-error-peach: #FF7387;
+$feedback-error-light-peach: #FF96A5;
+$feedback-mint-green: #3EEBBE;
+$feedback-mint-light-green: #68FCD6;
+
+// Gradient Colors
+$primary-dark-blue-gradient: linear-gradient(#0E1C30, #4092FF);
+$primary-medium-blue-gradient: linear-gradient(#0045B6, #00C9FF);
+$primary-light-blue-gradient: linear-gradient(#4092FF, #EEF4FC);
+
+$secondary-pink-gradient: linear-gradient(#E66EB2, #E8B3C5);
+$secondary-light-pink-gradient: linear-gradient(#E8B3C5, #FCE6F2);
+$button-dark-gradient: linear-gradient(#4092FF, #0045B6);
+$button-light-gradient: linear-gradient(#4092FF, #4092FF);
+
+$neutral-grey-gradient: linear-gradient(#F0F0F0, #FFFFFF);
+$neutral-black-gradient: linear-gradient(#000000, #F0F0F0);
+
+$feedback-green-gradient: linear-gradient(#6FCF97, #E6FCE7);
+$feedback-red-gradient: linear-gradient(to right, #FFE6E6 70%, #FFA2A2 100%);
+$feedback-yellow-gradient: linear-gradient(#FFDC72, #FFF5CC);
+$feedback-blue-gradient: linear-gradient(#56CCF2, #E0F7FF);

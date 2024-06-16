@@ -1,0 +1,98 @@
+// Import partials
+@use 'variables' as *;
+@use 'colors' as *;
+@use 'fonts' as *;
+
+// Breakpoints mixins
+@mixin mobile {
+    @media screen and (min-width: #{$mobile-breakpoint}) {
+        @content;
+    }
+}
+
+@mixin large-mobile {
+    @media screen and (min-width: #{$large-mobile-breakpoint}) {
+        @content;
+    }
+}
+
+@mixin tablet {
+    @media screen and (min-width: #{$tablet-breakpoint}) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media screen and (min-width: #{$desktop-breakpoint}) {
+        @content;
+    }
+}
+
+@mixin large-desktop {
+    @media screen and (min-width: #{$large-desktop-breakpoint}) {
+        @content;
+    }
+}
+
+// Block item mixin
+@mixin block-item($width, $height) {
+    width: $width;
+    height: $height;
+}
+
+// Font mixins
+@mixin primary-font($weight) {
+    font-family: "fieldwork", sans-serif;
+    font-weight: $weight;
+}
+  
+@mixin secondary-font($weight) {
+    font-family: "IBM Plex Sans", sans-serif;
+    font-weight: $weight;
+}
+  
+@mixin tertiary-font($weight) {
+    font-family: "IBM Plex Serif", serif;
+    font-weight: $weight;
+}
+  
+// Base button mixin
+@mixin button-style {
+    border-radius: 0.25rem;
+    text-transform: uppercase;
+    border: $secondary;
+    font-size: .75rem;
+    width: $width;
+    height: $height;
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+    border: none;
+}
+
+// Color variations for buttons
+@mixin primary-button($width, $height) {
+    @include button-style;
+    background-color: $primary-dark-blue;
+    color: $neutral-white;
+}
+  
+@mixin secondary-button($width, $height) {
+    @include button-style;
+    background-color: $secondary-pink;
+    color: $neutral-white;
+}
+  
+@mixin success-button($width, $height) {
+    @include button-style;
+    background-color: $feedback-success-green;
+    color: $neutral-black;
+}
+  
+@mixin error-button($width, $height) {
+    @include button-style;
+    background-color: $feedback-error-red;
+    color: $neutral-white;
+}

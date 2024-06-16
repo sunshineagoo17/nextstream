@@ -1,0 +1,135 @@
+// Imports Adobe and IBM fonts
+@import url('https://use.typekit.net/mbo2ylu.css');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500;700&display=swap');
+
+// Fieldwork Geo fonts
+@font-face {
+  font-family: "fieldwork";
+  src: url("https://use.typekit.net/mbo2ylu.css");
+  font-weight: 100;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "fieldwork";
+  src: url("https://use.typekit.net/mbo2ylu.css");
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "fieldwork";
+  src: url("https://use.typekit.net/mbo2ylu.css");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "fieldwork";
+  src: url("https://use.typekit.net/mbo2ylu.css");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "fieldwork";
+  src: url("https://use.typekit.net/mbo2ylu.css");
+  font-weight: 700;
+  font-style: normal;
+}
+
+// IBM Plex Sans fonts
+@font-face {
+  font-family: "IBM Plex Sans";
+  src: url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;700&display=swap");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "IBM Plex Sans";
+  src: url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;700&display=swap");
+  font-weight: 500;
+  font-style: medium;
+}
+
+@font-face {
+  font-family: "IBM Plex Sans";
+  src: url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;700&display=swap");
+  font-weight: 700;
+  font-style: bold;
+}
+
+// IBM Plex Serif fonts
+@font-face {
+  font-family: "IBM Plex Serif";
+  src: url("https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500;700&display=swap");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "IBM Plex Serif";
+  src: url("https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500;700&display=swap");
+  font-weight: 500;
+  font-style: medium;
+}
+
+@font-face {
+  font-family: "IBM Plex Serif";
+  src: url("https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500;700&display=swap");
+  font-weight: 700;
+  font-style: bold;
+}
+
+// Variables for font families
+$primary-font: 'fieldwork', sans-serif; 
+$secondary-font: 'IBM Plex Sans', sans-serif; 
+$tertiary-font: 'IBM Plex Serif', serif; 
+
+// Base styles
+body {
+  font-family: $primary-font;
+}
+
+h1, h2 {
+    font-family: $primary-font;
+}
+
+h3, h4, h5, h6 {
+  font-family: $secondary-font;
+}
+
+.hair {
+  font-family: $primary-font;
+  font-weight: 100;
+}
+
+.thin {
+  font-family: $primary-font;
+  font-weight: 200;
+}
+
+.light {
+  font-family: $primary-font;
+  font-weight: 300;
+}
+
+.regular {
+  font-family: $primary-font;
+  font-weight: 400;
+}
+
+.bold {
+  font-family: $primary-font;
+  font-weight: 700;
+}
+
+.secondary {
+  font-family: $secondary-font;
+}
+
+.tertiary {
+  font-family: $tertiary-font;
+}
