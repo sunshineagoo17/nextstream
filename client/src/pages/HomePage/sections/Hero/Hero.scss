@@ -1,0 +1,106 @@
+// Import partials
+@use "../../../../styles/partials/colors" as *;
+@use "../../../../styles/partials/fonts" as *;
+@use "../../../../styles/partials/mixins" as *;
+
+.hero {
+  background-color: $neutral-light-bg;
+  height: 41.6875rem;
+  width: 80rem;
+  position: relative;
+
+
+  &__logo-container {
+    backdrop-filter: blur(.25rem) brightness(100%);
+    background: $primary-darker-blue-gradient;
+    border-radius: 1.5625rem;
+    height: 31.375rem;
+    left: 40.8125rem;
+    position: absolute;
+    top: 4.9375rem;
+    width: 31.375rem;
+  }
+
+  &__logo {
+    height: 33.9375rem;
+    left: -1.25rem;
+    position: absolute;
+    top: .5rem;
+    width: 33.9375rem;
+  }
+  
+  &__copy-container {
+    height: 23.1875rem;
+    left: 7.75rem;
+    position: absolute;
+    top: 8.5625rem;
+    width: 28.25rem;
+  }
+  
+  &__copy {
+    height: 13.0625rem;
+    left: 0;
+    position: absolute;
+    top: 10.125rem;
+    width: 26.375rem;
+  }
+
+  &__btn-container {
+        all: unset;
+        align-items: center;
+        background: $button-dark-gradient;
+        border-radius: .75rem;
+        box-shadow: $shadow-primary;
+        box-sizing: border-box;
+        display: inline-flex;
+        gap: .5rem;
+        justify-content: center;
+        left: 0;
+        padding: .75rem 2rem;
+        position: absolute;
+        top: 10.0625rem;
+  }
+
+  &__btn {
+    color: $neutral-white;
+    font-family: $primary-font;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: -.05rem;
+    line-height: 1.5rem;
+    margin-top: -.0625rem;
+    position: relative;
+    white-space: nowrap;
+    width: fit-content;
+  }
+
+
+  &__subtitle {
+    color: $primary-dark-blue;
+    font-family: $secondary-font;
+    font-size: 1.25rem;
+    font-weight: 400;
+    left: 0;
+    letter-spacing: 0;
+    line-height: 1.7563rem;
+    position: absolute;
+    top: 0;
+    width: 26.375rem;
+  }
+    
+
+  &__title {
+    color: $primary-medium-blue;
+    font-family: $primary-font;
+    font-size: 3.4375rem;
+    font-weight: 400;
+    left: 0;
+    letter-spacing: 0;
+    line-height: 4.2062rem;
+    position: absolute;
+    text-shadow: $shadow-primary;
+    top: 0;
+    width: 28rem;
+  }
+}
+

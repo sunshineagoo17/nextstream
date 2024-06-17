@@ -1,0 +1,134 @@
+// Import partials
+@use "../../styles/partials/colors" as *;
+@use "../../styles/partials/fonts" as *;
+@use "../../styles/partials/mixins" as *;
+
+.footer {
+  background-color: var(--primarydarker-blue);
+  width: 100%;
+  height: auto;
+
+  .overlap-group {
+    background: $primary-darker-blue-gradient;
+    height: 96px;
+    position: relative;
+    top: -1px;
+    width: 1280px;
+
+    .footer-copy {
+      height: 20px;
+      left: 300px;
+      position: absolute;
+      top: 40px;
+      width: 318px;
+
+      .copyright {
+        color: var(--primarypale-blue);
+        font-family: "Fieldwork-GeoDemiBold", Helvetica;
+        font-size: 14px;
+        font-weight: 700;
+        left: 0;
+        letter-spacing: 0;
+        line-height: 19.7px;
+        position: absolute;
+        text-align: center;
+        top: 0;
+        white-space: nowrap;
+      }
+
+      .privacy-and-terms {
+        color: var(--primarylight-blue);
+        font-family: "Fieldwork-GeoDemiBold", Helvetica;
+        font-size: 14px;
+        font-weight: 700;
+        left: 66px;
+        letter-spacing: 0;
+        line-height: 19.7px;
+        position: absolute;
+        text-align: center;
+        top: 0;
+        white-space: nowrap;
+      }
+
+      .text-wrapper {
+        color: var(--primarylight-blue);
+        font-family: "Fieldwork-GeoDemiBold", Helvetica;
+        font-size: 14px;
+        font-weight: 700;
+        left: 174px;
+        letter-spacing: 0;
+        line-height: 19.7px;
+        position: absolute;
+        text-align: center;
+        top: 0;
+        white-space: nowrap;
+      }
+    }
+
+    .btn-register {
+      all: unset;
+      align-items: center;
+      background: linear-gradient(180deg, rgb(64, 146, 255) 0%, rgb(0, 69, 182) 100%);
+      border-radius: 12px;
+      box-shadow: var(--shadow-primary);
+      box-sizing: border-box;
+      display: inline-flex;
+      gap: 8px;
+      justify-content: center;
+      left: 885px;
+      padding: 12px 32px;
+      position: absolute;
+      top: 25px;
+
+      .body {
+        color: var(--primarywhite-1);
+        font-family: "Fieldwork-GeoDemiBold", Helvetica;
+        font-size: 16px;
+        font-weight: 700;
+        letter-spacing: -0.8px;
+        line-height: 24px;
+        margin-top: -1px;
+        position: relative;
+        white-space: nowrap;
+        width: fit-content;
+      }
+    }
+
+    .btn-contact {
+      all: unset;
+      align-items: center;
+      background-color: var(--primarypale-blue);
+      border-radius: 12px;
+      box-shadow: var(--shadow-primary);
+      box-sizing: border-box;
+      display: inline-flex;
+      gap: 8px;
+      justify-content: center;
+      left: 1018px;
+      padding: 12px 32px;
+      position: absolute;
+      top: 25px;
+
+      .body-pt {
+        color: var(--primarydarker-blue);
+        font-family: "Fieldwork-GeoDemiBold", Helvetica;
+        font-size: 16px;
+        font-weight: 700;
+        letter-spacing: -0.8px;
+        line-height: 24px;
+        margin-top: -1px;
+        position: relative;
+        white-space: nowrap;
+        width: fit-content;
+      }
+    }
+
+    .logo-wordmark-wh {
+      height: 17px;
+      left: 126px;
+      position: absolute;
+      top: 40px;
+      width: 135px;
+    }
+  }
+}

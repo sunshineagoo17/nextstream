@@ -27,6 +27,7 @@ $secondary-very-light-pink: #FCE6F2;
 $neutral-black: #000000;
 $neutral-light-grey: #F0F0F0;
 $neutral-white: #FFFFFF;
+$neutral-light-bg: #e9ecef;
 
 // Feedback Colors
 $feedback-success-green: #6FCF97;
@@ -40,9 +41,11 @@ $feedback-mint-green: #3EEBBE;
 $feedback-mint-light-green: #68FCD6;
 
 // Gradient Colors
+$primary-darker-blue-gradient: linear-gradient(180deg, rgb(14, 28, 48) 0%, rgb(0, 71, 163) 100%);
 $primary-dark-blue-gradient: linear-gradient(#0E1C30, #4092FF);
 $primary-medium-blue-gradient: linear-gradient(#0045B6, #00C9FF);
 $primary-light-blue-gradient: linear-gradient(#4092FF, #EEF4FC);
+$primary-icon-bg: linear-gradient(112deg, #0e1c30 0%, #4092ff 100%);
 
 $secondary-pink-gradient: linear-gradient(#E66EB2, #E8B3C5);
 $secondary-light-pink-gradient: linear-gradient(#E8B3C5, #FCE6F2);
@@ -56,3 +59,9 @@ $feedback-green-gradient: linear-gradient(#6FCF97, #E6FCE7);
 $feedback-red-gradient: linear-gradient(to right, #FFE6E6 70%, #FFA2A2 100%);
 $feedback-yellow-gradient: linear-gradient(#FFDC72, #FFF5CC);
 $feedback-blue-gradient: linear-gradient(#56CCF2, #E0F7FF);
+
+// Shadow definitions
+$shadow-primary: 0px 0px 1px rgba(33, 37, 41, 0.32), 0px 4px 6px rgba(33, 37, 41, 0.2);
+$shadow-quaternary: 0px 12px 16px 0px rgba(0, 0, 0, 0.3);
+$shadow-quinary: 0px 28px 84px 0px rgba(0, 0, 0, 0.18);
+$shadow-tertiary: 0px 16px 24px -4px rgba(30, 41, 59, 0.16), 0px 2px 2px -1px rgba(30, 41, 59, 0.04);
