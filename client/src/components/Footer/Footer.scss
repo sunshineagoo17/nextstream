@@ -4,18 +4,18 @@
 @use "../../styles/partials/mixins" as *;
 
 .footer {
+  @include block-item(80rem, 6rem);
   background: $primary-darker-blue-gradient;
-  width: 100%;
-  height: 6rem;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
+  padding: 0 3.375rem;
 
     &__copy-container {
-      height: 1.25rem;
-      left: 18.75rem;
-      position: absolute;
-      width: 19.875rem;
+      @include block-item(25rem, 1.25rem);
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
     }
 
     &__copyright {
@@ -23,8 +23,6 @@
       font-family: $primary-font;
       font-size: .875rem;
       font-weight: 400;
-      position: absolute;
-      text-align: center;
     }
 
     &__privacy-policy {
@@ -32,19 +30,20 @@
       font-family: $primary-font;
       font-size: .875rem;
       font-weight: 400;
-      left: 4.125rem;
-      position: absolute;
-      text-align: center;
     }
 
-    &__tac{
+    &__tac {
       color: $primary-light-blue;
       font-family: $primary-font;
       font-size: .875rem;
       font-weight: 400;
-      left: 10.875rem;
-      position: absolute;
-      text-align: center;
+    }
+
+    &__btn-container {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      width: 15rem;
     }
 
     &__btn-register {
@@ -54,12 +53,10 @@
       border-radius: .75rem;
       box-shadow: $shadow-primary;
       box-sizing: border-box;
-      display: inline-flex;
-      gap: .5rem;
+      display: inline-flex; 
       justify-content: center;
-      left: 55.3125rem;
       padding: .75rem 2rem;
-      position: absolute;
+      margin-right: .8125rem;
     }
 
     &__register {
@@ -67,11 +64,6 @@
       font-family: $primary-font;
       font-size: 1rem;
       font-weight: 400;
-      letter-spacing: -0.05rem;
-      line-height: 1.5rem;
-      position: relative;
-      white-space: nowrap;
-      width: fit-content;
     }
 
     &__btn-contact {
@@ -82,11 +74,8 @@
       box-shadow: $shadow-primary;
       box-sizing: border-box;
       display: inline-flex;
-      gap: .5rem;
       justify-content: center;
-      left: 63.625rem;
       padding: .75rem 2rem;
-      position: absolute;
     }
 
     &__contact {
@@ -94,17 +83,10 @@
       font-family: $primary-font;
       font-size: 1rem;
       font-weight: 400;
-      letter-spacing: -0.05rem;
-      line-height: 1.5rem;
-      position: relative;
       white-space: nowrap;
-      width: fit-content;
     }
 
     &__logo-wordmark {
-      height: 1.0625rem;
-      left:  7.875rem;
-      position: absolute;
-      width: 8.4375rem;
+      @include block-item(8.4375rem, 1.0625rem);
     }
   }
