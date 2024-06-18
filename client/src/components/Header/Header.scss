@@ -1,194 +1,165 @@
-// Import partials
 @use "../../styles/partials/colors" as *;
 @use "../../styles/partials/fonts" as *;
 @use "../../styles/partials/mixins" as *;
 
 .header {
+  @include block-item(80rem, 4.375rem);
   display: flex;
+  justify-content: space-between;
+  align-items: center;
   background-color: $neutral-white;
-  width: 100vw;
-  height: 4.375rem;
-  
-    &__logo {
-      height: 1.063rem;
-      left: 35.75rem;
-      position: absolute;
-      top: 1.5rem;
-      width: 8.375rem; 
-    }
-  
-    &__login-container {
-      all: unset;
-      align-items: center;
-      background: $button-dark-gradient;
-      border-radius: .75rem;
-      box-shadow: $shadow-primary;
-      box-sizing: border-box;
-      display: inline-flex;
-      gap: .5rem;
-      justify-content: center;
-      left: 69.8125rem;
-      padding: .75rem 2rem;
-      position: absolute;
-      top: .5rem;
-    }
-      
-    &__login {
-      color: $neutral-white;
-      font-family: $primary-font;
-      font-size: 1rem;
-      font-weight: 500;
-      letter-spacing: -0.05rem;
-      line-height: 1.5rem;
-      margin-top: -.0625rem;
-      position: relative;
-      white-space: nowrap;
-      width: fit-content;
-    }
-  
-    &__search-bar {
-      align-items: center;
-      background-color: $neutral-white;
-      border: .0625rem solid;
-      border-color: $primary-light-blue;
-      border-radius: .75rem;
-      box-shadow: $shadow-primary;
-      display: flex;
-      gap: 1rem;
-      left: 7.8125rem;
-      position: absolute;
-      top: .5rem;
-      width: 13.0625rem;
-    }
-  
-    &__search-icon {
-      background: $button-light-gradient;
-      border: .0625rem solid;
-      border-color: $neutral-white;
-      border-radius: .75rem;
-      height: 3.0625rem;
-      position: relative;
-      width: 3rem;
-    }
+  padding: 0 3.375rem;
+  margin: 0 auto;
+  position: relative;
 
-    &__magnifying-glass {
-      height: 1.875rem;
-      left: .875rem;
-      position: relative;
-      top: .875rem;
-      width: 1.0625rem;
-    }
-  
-    &__icon-container {
-      height: 1.875rem;
-      left: -.4375rem;
-      position: relative;
-      width: 1.5rem;
-    }
-  
-    &__search-vector {
-      height: 1.1875rem;
-      left: 0;
-      position: absolute;
-      top: .625rem;
-      width: 1.1875rem;
-    }
-  
-    &__search-ellipse {
-      border: .1094rem solid;
-      border-color: $neutral-white;
-      border-radius: .4581rem;
-      box-shadow: $shadow-primary;
-      height: .9375rem;
-      left: .625rem;
-      position: absolute;
-      top: 0;
-      width: .9375rem;
-    }
-  
-    &__search-content {
-      align-items: flex-start;
-      align-self: stretch;
-      display: flex;
-      flex: 1;
-      flex-direction: column;
-      flex-grow: 1;
-      gap: .125rem;
-      justify-content: center;
-      position: relative;
-    }
+  &__logo {
+    @include block-item(8.375rem, 1.063rem);
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 
-    &__search {
-      align-self: stretch;
-      color: $primary-light-blue;
-      font-family: $primary-font;
-      font-size: .875rem;
-      font-weight: 400;
-      letter-spacing: 0;
-      line-height: normal;
-      margin-top: -.0625rem;
-      position: relative;
-    }
-      
-    &__menu-container {
-      align-items: flex-start;
-      background: $button-light-gradient;
-      border-radius: .5rem;
-      box-shadow: $shadow-primary;
-      display: inline-flex;
-      left: 3.5rem;
-      padding: .75rem;
-      position: absolute;
-      top: .5rem;
-    }
+  &__login-container {
+    all: unset;
+    align-items: center;
+    background: $button-dark-gradient;
+    border-radius: .75rem;
+    box-shadow: $shadow-primary;
+    box-sizing: border-box;
+    display: inline-flex;
+    justify-content: center;
+    padding: .75rem 2rem;
+  }
 
-    &__menu {
-      height: 1.5rem;
-      position: relative;
-      width: 1.5rem;
-    }
-  
-    &__menu-circle1 {
-      background-color: $neutral-white;
-      border-radius: .125rem;
-      box-shadow: $shadow-primary;
-      height: .5625rem;
-      left: 0;
-      position: absolute;
-      top: 0;
-      width: .5625rem;
-    }
-  
-    &__menu-circle2 {
-      background-color: $neutral-white;
-      border-radius: .125rem;
-      box-shadow: $shadow-primary;
-      height: .5625rem;
-      left: 0;
-      position: absolute;
-      top: .9375rem;
-      width: .5625rem;
-    }
-  
-    &__menu-circle3 {
-      background-color: $neutral-white;
-      border-radius: .125rem;
-      box-shadow: $shadow-primary;
-      height: .5625rem;
-      left: .9375rem;
-      position: absolute;
-      top: 0;
-      width: .5625rem;
-    }
-  
-    &__menu-circle4 {
-      background-color: $neutral-white;
-      border-radius: .125rem;
-      box-shadow: $shadow-primary;
-      height: .5625rem;
-      left: .9375rem;
-      position: absolute;
-      top: .9375rem;
-      width: .5625rem;
-    }
+  &__login {
+    color: $neutral-white;
+    font-family: $primary-font;
+    font-size: 1rem;
+    font-weight: 500;
+  }
+
+  &__search-bar {
+    align-items: center;
+    background-color: $neutral-white;
+    border: .0625rem solid;
+    border-color: $primary-light-blue;
+    border-radius: .75rem;
+    box-shadow: $shadow-primary;
+    display: flex;
+    gap: 1rem;
+    width: 13.0625rem;
+  }
+
+  &__search-icon {
+    @include block-item(3rem, 3.0625rem);
+    background: $button-light-gradient;
+    border: .0625rem solid;
+    border-color: $neutral-white;
+    border-radius: .75rem;
+  }
+
+  &__magnifying-glass {
+    left: .875rem;
+    position: relative;
+    top: .875rem;
+  }
+
+  &__icon-container {
+    @include block-item(1.5rem, 1.875rem);
+    left: -.4375rem;
+    position: relative;
+  }
+
+  &__search-vector {
+    @include block-item(1.1875rem, 1.1875rem);
+    position: absolute;
+    top: .625rem;
+  }
+
+  &__search-ellipse {
+    @include block-item(.9375rem, .9375rem);
+    border: .1094rem solid;
+    border-color: $neutral-white;
+    border-radius: .4581rem;
+    box-shadow: $shadow-primary;
+    left: .625rem;
+    position: absolute;
+  }
+
+  &__search-content {
+    align-items: flex-start;
+    align-self: stretch;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: .125rem;
+    justify-content: center;
+  }
+
+  &__search {
+    display: flex;
+    align-self: stretch;
+    color: $primary-light-blue;
+    font-family: $primary-font;
+    font-size: .875rem;
+    font-weight: 400;
+    margin-top: -.0625rem;
+  }
+
+  &__nav-container {
+    display: flex;
+    flex-direction: row;
+  }
+
+  &__menu-container {
+    align-items: flex-start;
+    background: $button-light-gradient;
+    border-radius: .5rem;
+    box-shadow: $shadow-primary;
+    display: inline-flex;
+    padding: .75rem;
+    margin-right: 2.0625rem;
+  }
+
+  &__menu {
+    @include block-item(1.5rem, 1.5rem);
+    position: relative;
+  }
+
+  &__menu-circle1 {
+    @include block-item(.5625rem, .5625rem);
+    background-color: $neutral-white;
+    border-radius: .125rem;
+    box-shadow: $shadow-primary;
+  }
+
+  &__menu-circle2 {
+    @include block-item(.5625rem, .5625rem);
+    background-color: $neutral-white;
+    border-radius: .125rem;
+    box-shadow: $shadow-primary;
+    position: absolute;
+    top: .9375rem;
+  }
+
+  &__menu-circle3 {
+    @include block-item(.5625rem, .5625rem);
+    background-color: $neutral-white;
+    border-radius: .125rem;
+    box-shadow: $shadow-primary;
+    left: .9375rem;
+    position: absolute;
+    top: 0;
+  }
+
+  &__menu-circle4 {
+    @include block-item(.5625rem, .5625rem);
+    background-color: $neutral-white;
+    border-radius: .125rem;
+    box-shadow: $shadow-primary;
+    left: .9375rem;
+    position: absolute;
+    top: .9375rem;
+  }
 }
