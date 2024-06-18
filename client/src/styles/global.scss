@@ -1,0 +1,64 @@
+@use "./partials/colors" as *;
+@use "./partials/fonts" as *;
+@use "./partials/mixins" as *;
+
+:root {
+  // Global Variables
+  --global-border-radius-md: 0.5rem;
+  --global-space-xxs: 0.125rem;
+  
+  // Border Variables
+  --theme-border-card: var(--global-border-radius-md);
+  
+  // Spacing Variables
+  --spacing-gap-xxs: var(--global-space-xxs);
+  
+  // Font Variables
+  --font-body-b2-medium-size: 0.875rem;
+  --font-body-b2-medium-style: normal;
+  --font-body-b2-medium-weight: 500;
+  --font-body-b2-medium-letter-spacing: 0.01rem;
+  --font-body-b2-medium-line-height: 1.25rem;
+
+  --font-body-text-size: 1rem;
+  --font-body-text-style: normal;
+  --font-body-text-weight: 400;
+  --font-body-text-letter-spacing: 0;
+  --font-body-text-line-height: 1.625rem;
+
+  --font-button-size: 1rem;
+  --font-button-style: normal;
+  --font-button-weight: 700;
+  --font-button-letter-spacing: -0.05rem;
+  --font-button-line-height: 1.5rem;
+
+  --font-heading-1-size: 2rem;
+  --font-heading-1-style: normal;
+  --font-heading-1-weight: 700;
+  --font-heading-1-letter-spacing: 0;
+  --font-heading-1-line-height: 1.625rem;
+
+  --font-heading-2-size: 1.5rem;
+  --font-heading-2-style: normal;
+  --font-heading-2-weight: 700;
+  --font-heading-2-letter-spacing: 0;
+  --font-heading-2-line-height: 1.625rem;
+
+  --font-heading-3-size: 1.125rem;
+  --font-heading-3-style: normal;
+  --font-heading-3-weight: 400;
+  --font-heading-3-letter-spacing: 0;
+  --font-heading-3-line-height: 1.625rem;
+
+  --font-label-size: 0.75rem;
+  --font-label-style: normal;
+  --font-label-weight: 400;
+  --font-label-letter-spacing: 0;
+  --font-label-line-height: normal;
+
+  --font-light-text-size: 1rem;
+  --font-light-text-style: normal;
+  --font-light-text-weight: 300;
+  --font-light-text-letter-spacing: 0;
+  --font-light-text-line-height: 1.625rem;
+}

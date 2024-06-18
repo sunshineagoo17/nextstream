@@ -15,6 +15,7 @@ export const Content = () => {
   return (
     <div className="content">
       <div className="content__container">
+
         <div className="content__features-container">
           <div className="content__label-header-container">
             <div className="content__label-header-background" />
@@ -58,14 +59,14 @@ export const Content = () => {
          
           <div className="content__card-media-container">
             <div className="content__card-media">
-              <div className="content__card">
-                <img className="content__poster" alt="Justice league" src={JusticeLeague} />
+              <div className="content__card1">
+                <img className="content__poster1" alt="Avatar" src={Avatar} />
               </div>
               <div className="content__card2">
                 <img className="content__poster2" alt="Black adam" src={BlackAdam} />
               </div>
               <div className="content__card3">
-                <img className="content__poster3" alt="Avatar" src={Avatar} />
+                <img className="content__poster3" alt="Justice league" src={JusticeLeague} />
               </div>
             </div>
             <div className="content__icon-bg-video">

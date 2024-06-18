@@ -3,7 +3,7 @@ import api from './services/api';
 import { HomePage } from './pages/HomePage/HomePage';
 import { Header } from "./components/Header/Header";
 import { Footer } from "./components/Footer/Footer";
-import './styleguide.scss';
+import './styles/global.scss';
 
 const App = () => {
   const [error, setError] = useState(null);

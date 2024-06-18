@@ -41,17 +41,15 @@
 
     &__page-wrapper1 {
       align-items: center;
-      background-color: $primary-darker-blue;
+      background-color: $base-darker-blue;
+      box-shadow: $shadow-primary;
       border: 0.0625rem solid;
       border-color: $primary-light-blue;
-      border-radius: var(--4-border-theme-card);
-      box-shadow: $shadow-primary;
+      border-radius: .5rem;
       display: flex;
-      flex-direction: column;
       height: 1.9375rem;
       justify-content: center;
       left: 3.5625rem;
-      padding: var(--3-spacing-theme-gap-xxs);
       position: absolute;
       top: -0.0625rem;
       width: 1.9375rem;
@@ -60,11 +58,10 @@
     &__page1 {
       color: $primary-pale-blue;
       font-family: $primary-font;
-      font-size: var(--body-b2-medium-font-size);
-      font-style: var(--body-b2-medium-font-style);
-      font-weight: var(--body-b2-medium-font-weight);
-      letter-spacing: var(--body-b2-medium-letter-spacing);
-      line-height: var(--body-b2-medium-line-height);
+      font-size: .875rem;
+      font-weight: 500;
+      letter-spacing: .0088rem;
+      line-height: 1.25rem;
       position: relative;
       white-space: nowrap;
       width: fit-content;
@@ -75,7 +72,7 @@
       background-color: $primary-very-light-blue;
       border: 0.0625rem solid;
       border-color: $primary-pale-blue;
-      border-radius: var(--4-border-theme-card);
+      border-radius: .5rem;
       box-shadow: $shadow-primary;
       display: flex;
       flex-direction: column;
@@ -125,7 +122,7 @@
       width: 64.4375rem;
     }
 
-    &__card {
+    &__card3 {
       background: $primary-darker-blue-gradient;
       border-radius: 1.5625rem;
       box-shadow: $shadow-tertiary;
@@ -136,7 +133,7 @@
       width: 20.1875rem;
     }
 
-    &__poster {
+    &__poster3 {
       height: 25.8125rem;
       left: 0;
       position: absolute;
@@ -163,7 +160,7 @@
       width: 20.1875rem;
     }
 
-    &__card3 {
+    &__card1 {
       background: $primary-darker-blue-gradient;
       border-radius: 1.5625rem;
       box-shadow: $shadow-tertiary;
@@ -174,7 +171,7 @@
       width: 20.1875rem;
     }
 
-    &__poster3 {
+    &__poster1 {
       height: 25.8125rem;
       left: 0;
       position: absolute;
@@ -183,7 +180,7 @@
     }
 
     &__icon-bg-video {
-      background-color: $primary-darker-blue;
+      background-color: $base-darker-blue;
       border-radius: 0.5rem;
       height: 2.3125rem;
       left: 61.625rem;
@@ -201,7 +198,7 @@
     }
 
     &__icon-bg-video2 {
-      background-color: $primary-darker-blue;
+      background-color: $base-darker-blue;
       border-radius: 0.5rem;
       height: 2.3125rem;
       left: 39.625rem;
@@ -219,7 +216,7 @@
     }
 
     &__icon-bg-tv {
-      background-color: $primary-darker-blue;
+      background-color: $base-darker-blue;
       border-radius: 0.5rem;
       height: 2.3125rem;
       left: 17.375rem;

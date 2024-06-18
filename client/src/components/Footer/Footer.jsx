@@ -5,20 +5,18 @@ import logoMark from "../../assets/images/logo-wordmark-wh.png";
 export const Footer = () => {
   return (
     <footer className="footer">
-      <div className="overlap-group">
-        <div className="footer-copy">
-          <div className="copyright">© 2024</div>
-          <div className="privacy-and-terms">Privacy Policy</div>
-          <div className="text-wrapper">Terms and Conditions</div>
+        <div className="footer__copy-container">
+          <div className="footer__copyright">© 2024</div>
+          <div className="footer__privacy-policy">Privacy Policy</div>
+          <div className="footer__tac">Terms and Conditions</div>
         </div>
-        <button className="btn-register">
-          <div className="body">Register</div>
+        <button className="footer__btn-register">
+          <div className="footer__register">Register</div>
         </button>
-        <button className="btn-contact">
-          <div className="body-pt">Contact Us</div>
+        <button className="footer__btn-contact">
+          <div className="footer__contact">Contact Us</div>
         </button>
-        <img className="logo-wordmark-wh" alt="Logo wordmark wh" src={logoMark} />
-      </div>
+        <img className="footer__logo-wordmark" alt="NextStream Logo" src={logoMark} />
     </footer>
   );
 };
