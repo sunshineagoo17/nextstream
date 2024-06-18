@@ -1,6 +1,6 @@
 import React from "react";
-import Pagination from "../../../../assets/images/pagination.svg";
-import Pagination2 from "../../../../assets/images/pagination-1.svg";
+import PreviousIcon from "../../../../assets/images/previous.svg";
+import NextIcon from "../../../../assets/images/next.svg";
 import JusticeLeague from "../../../../assets/images/justice-league.png";
 import BlackAdam from "../../../../assets/images/black-adam.png";
 import Avatar from "../../../../assets/images/avatar.png";
@@ -62,33 +62,35 @@ export const Content = () => {
               <div className="content__card1">
                 <img className="content__poster1" alt="Avatar" src={Avatar} />
               </div>
+              <div className="content__icon-bg-video">
+                <img className="content__video-icon" alt="Video icon" src={VideoCamera} />
+              </div>
+
               <div className="content__card2">
                 <img className="content__poster2" alt="Black adam" src={BlackAdam} />
               </div>
+              <div className="content__icon-bg-video2">
+                <img className="content__video-icon2" alt="Video icon" src={VideoCamera} />
+              </div>
+
               <div className="content__card3">
                 <img className="content__poster3" alt="Justice league" src={JusticeLeague} />
               </div>
-            </div>
-            <div className="content__icon-bg-video">
-              <img className="content__video-icon" alt="Video icon" src={VideoCamera} />
-            </div>
-            <div className="content__icon-bg-video2">
-              <img className="content__video-icon2" alt="Video icon" src={VideoCamera} />
-            </div>
-            <div className="content__icon-bg-tv">
-              <img className="content__tv-icon" alt="TV icon" src={TvIcon} />
+              <div className="content__icon-bg-tv">
+                <img className="content__tv-icon" alt="TV icon" src={TvIcon} />
+              </div>
             </div>
           </div>
 
           <div className="content__pagination-container">
-            <img className="content__pagination" alt="Pagination" src={Pagination} />
+            <img className="content__pagination" alt="Previous" src={PreviousIcon} />
             <div className="content__page-wrapper1">
               <div className="content__page1">00</div>
             </div>
             <div className="content__page-wrapper2">
               <div className="content__page2">00</div>
             </div>
-            <img className="content__next" alt="Pagination" src={Pagination2} />
+            <img className="content__next" alt="Next" src={NextIcon} />
           </div>
         </div>
       </div>
