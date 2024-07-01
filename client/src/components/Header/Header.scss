@@ -10,7 +10,8 @@
   background-color: $neutral-white;
   padding: 0 3.375rem;
   margin: 0 auto;
-  // position: relative;
+  box-shadow: $shadow-primary;
+  position: relative;
 
   &__logo {
     @include block-item(8.375rem, 1.063rem);

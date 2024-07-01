@@ -12,7 +12,7 @@ export const Hero = () => {
           <br />
           Try NextStream!
         </div>
-        <p className="hero__subtitle">
+        <p className="hero__subtitle regular">
             Discover where your favourite movies and shows are streaming, all in one place. Enjoy personalized
             recommendations and easy scheduling to enhance your viewing experience.
         </p>

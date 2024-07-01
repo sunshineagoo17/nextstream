@@ -4,13 +4,14 @@
 @use "../../../../styles/partials/mixins" as *;
 
 .hero {
-  @include block-item(80rem, 41.6875rem);
+  @include block-item(100%, 41.6875rem);
   background-color: $neutral-light-bg;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   padding: 0 7.8125rem;
+  box-shadow: $shadow-primary;
 
   &__logo-container {
     @include block-item(35rem, 35rem);
@@ -93,7 +94,7 @@
 
   &__subtitle {
     color: $primary-dark-blue;
-    font-family: $secondary-font;
+    font-family: $primary-font;
     font-size: 1.25rem;
     font-weight: 400;
     width: 26.375rem;
