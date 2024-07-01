@@ -3,14 +3,14 @@
 @use "../../styles/partials/mixins" as *;
 
 .header {
-  @include block-item(80rem, 4.375rem);
+  height: 4.375rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: $neutral-white;
   padding: 0 3.375rem;
   margin: 0 auto;
-  position: relative;
+  // position: relative;
 
   &__logo {
     @include block-item(8.375rem, 1.063rem);
@@ -41,9 +41,8 @@
   &__search-bar {
     align-items: center;
     background-color: $neutral-white;
-    border: .0625rem solid;
-    border-color: $primary-light-blue;
-    border-radius: .75rem;
+    border: solid $primary-light-blue;
+    border-radius: .5rem;
     box-shadow: $shadow-primary;
     display: flex;
     gap: 1rem;
@@ -51,17 +50,17 @@
   }
 
   &__search-icon {
-    @include block-item(3rem, 3.0625rem);
+    @include block-item(2.75rem, 2.75rem);
     background: $button-light-gradient;
-    border: .0625rem solid;
-    border-color: $neutral-white;
-    border-radius: .75rem;
+    border: .1rem solid $neutral-white;
+    border-radius: .35rem;
+    box-shadow: $shadow-primary;
   }
 
   &__magnifying-glass {
-    left: .875rem;
+    left: .65rem;
     position: relative;
-    top: .875rem;
+    top: .65rem;
   }
 
   &__icon-container {
@@ -80,7 +79,7 @@
     @include block-item(.9375rem, .9375rem);
     border: .1094rem solid;
     border-color: $neutral-white;
-    border-radius: .4581rem;
+    border-radius: .5rem;
     box-shadow: $shadow-primary;
     left: .625rem;
     position: absolute;

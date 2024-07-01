@@ -1,5 +1,5 @@
 import React from "react";
-import NextStreamLogo from "../../../../assets/images/logo-brand-mark-white.png";
+import NextStreamLogo from "../../../../assets/images/logo-brand-mark-white.svg";
 import "./Hero.scss";
 
 export const Hero = () => {
@@ -22,7 +22,9 @@ export const Hero = () => {
       </div>
 
       <div className="hero__logo-container">
-        <img className="hero__logo" alt="NextStream Logo" src={NextStreamLogo} />
+        <div className="hero__logo-border">
+          <img className="hero__logo" alt="NextStream Logo" src={NextStreamLogo} />
+        </div>
       </div>
       
     </div>
