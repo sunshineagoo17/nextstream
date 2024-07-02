@@ -297,6 +297,10 @@
       position: absolute;
       left: 8rem;
       top: 0;
+      border: 2px solid $neutral-white;
+      box-shadow: $shadow-primary;
+      border-bottom-left-radius: .5rem;
+      border-bottom-right-radius: .5rem;
     }
 
     &__label-header-background {

@@ -24,6 +24,36 @@
   animation: borderGlowLogo 3s infinite alternate;
 }
 
+@mixin animateBorder() {
+  @keyframes animateBorder {
+    0% {
+      border-color: $primary-dark-blue;
+    }
+    25% {
+      border-color: $primary-medium-blue;
+    }
+    35% {
+      border-color: $primary-light-blue;
+    }
+    50% {
+      border-color: $primary-very-light-blue;
+    }
+    75% {
+      border-color: $primary-pale-blue;
+    }
+    85% {
+    border-color: $primary-light-cyan;
+    }
+    100% {
+      border-color: $primary-cyan;
+    }
+  }
+}
+
+@mixin borderAnimation {
+  animation: animateBorder 10s infinite alternate;
+}
+
 @mixin btn-main-container {
   all: unset;
   align-items: center;

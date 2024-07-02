@@ -28,39 +28,16 @@
     box-shadow: $shadow-tertiary;
   }
   
-  @keyframes animateBorder {
-    0% {
-      border-color: $primary-dark-blue;
-    }
-    25% {
-      border-color: $primary-medium-blue;
-    }
-    35% {
-      border-color: $primary-light-blue;
-    }
-    50% {
-      border-color: $primary-very-light-blue;
-    }
-    75% {
-      border-color: $primary-pale-blue;
-    }
-    85% {
-    border-color: $primary-light-cyan;
-    }
-    100% {
-      border-color: $primary-cyan;
-    }
-  }
-  
   &__logo-border {
     @include block-item(30rem, 30rem);
+    @include animateBorder;
+    @include borderAnimation;
     border-radius: 6.25rem;
     display: flex;
     justify-content: center;
     align-items: center;
     border: .875rem solid;
     background: $primary-darker-blue-gradient;
-    animation: animateBorder 10s infinite alternate;
   }  
   
   &__copy-container {
