@@ -5,7 +5,7 @@
 @use "../../styles/global.scss" as *;
 
 .footer {
-  @include block-item(80rem, 6rem);
+  @include block-item(100%, 6rem);
   background: $primary-darker-blue-gradient;
   display: flex;
   align-items: center;
