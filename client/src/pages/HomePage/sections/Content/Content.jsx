@@ -48,7 +48,7 @@ export const Content = () => {
               <p className="content__new-releases-subtitle">
                 Check out the latest movies and shows that have just become available for streaming.
               </p>
-            <div className="content__label-headers-container">
+            <div className="content__label-header-new-container">
               <div className="content__label-header-new-releases">NEW RELEASES</div>
             </div>
           </div>

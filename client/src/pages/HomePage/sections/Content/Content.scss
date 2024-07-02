@@ -60,12 +60,11 @@
   }
 
   &__page-nav-wrapper1, &__page-nav-wrapper2 {
-    @include block-item (2.75rem, 2.75rem);
+    @include block-item (2.6rem, 2.6rem);
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 0.85rem;
-    margin: 0 0.5rem;
     box-shadow: $shadow-quaternary;
     cursor: pointer;
   }
@@ -104,7 +103,7 @@
   &__card-media {
     display: flex;
     justify-content: space-between;
-    gap: 1.5rem;
+    gap: 1.1rem;
   }
 
   &__card1-container, &__card2-container, &__card3-container {
@@ -174,6 +173,11 @@
     border-bottom-right-radius: .5rem;
     padding: 1rem 2rem;
     margin-bottom: 2rem;
+
+    &:hover {
+      @include glow-animation;
+      cursor: pointer;
+    }
   }
 
   &__label-features {
@@ -221,13 +225,18 @@
     font-weight: 500;
   }
 
-  &__label-headers-container {
+  &__label-header-new-container {
     background-color: $primary-very-light-blue;
     border-bottom-left-radius: 0.5rem;
     border-bottom-right-radius: 0.5rem;
     border: 2px solid $neutral-white;
     box-shadow: $shadow-quinary;
     margin-top: .05rem;
+
+    &:hover {
+      @include glow-animation;
+      cursor: pointer;
+    }
   }
 
   &__label-header-new-releases {
@@ -285,7 +294,7 @@
     justify-content: space-evenly;
     align-items: center;
     width: 100%;
-    padding: 0 3rem;
+    padding: 0 2.7rem;
 
     &__feature {
       @include block-item(16.875rem, 12.4375rem);
