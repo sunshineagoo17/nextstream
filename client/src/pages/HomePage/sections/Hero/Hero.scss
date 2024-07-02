@@ -11,7 +11,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 0 7.8125rem;
+  padding: 0 8.35rem;
   box-shadow: $shadow-primary;
 
   &__logo-container {
@@ -20,7 +20,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-left: 3rem;
+    padding-left: .5rem;
   }
   
   &__logo {
@@ -43,13 +43,12 @@
   }  
   
   &__copy-container {
-    @include block-item(28.25rem, 30rem);
+    @include block-item(32rem, 30rem);
     display: flex;
     flex-direction: column;
     align-items:first baseline;
     justify-content: center;
     gap: 2rem;
-    margin-left: .65rem;
   }
   
   &__copy {
@@ -69,7 +68,7 @@
     font-family: $primary-font;
     font-size: 1.25rem;
     font-weight: 400;
-    width: 26.375rem;
+    padding-right: 3rem;
   }
     
   &__title {
