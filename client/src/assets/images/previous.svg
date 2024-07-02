@@ -1,24 +1,38 @@
-<svg width="43" height="43" viewBox="0 0 43 43" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g filter="url(#filter0_dd_165_1401)">
-<path d="M7 11C7 6.58172 10.5817 3 15 3H28C32.4183 3 36 6.58172 36 11V24C36 28.4183 32.4183 32 28 32H15C10.5817 32 7 28.4183 7 24V11Z" fill="#0E1C30"/>
-<path d="M7 11C7 6.58172 10.5817 3 15 3H28C32.4183 3 36 6.58172 36 11V24C36 28.4183 32.4183 32 28 32H15C10.5817 32 7 28.4183 7 24V11Z" fill="black" fill-opacity="0.2"/>
-<path d="M28 2.5H15C10.3056 2.5 6.5 6.30558 6.5 11V24C6.5 28.6944 10.3056 32.5 15 32.5H28C32.6944 32.5 36.5 28.6944 36.5 24V11C36.5 6.30558 32.6944 2.5 28 2.5Z" stroke="#4092FF"/>
-<path d="M24 12.5L19 17.5L24 22.5" stroke="#EEF4FC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
-<defs>
-<filter id="filter0_dd_165_1401" x="0" y="0" width="43" height="43" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-<feFlood flood-opacity="0" result="BackgroundImageFix"/>
-<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-<feOffset/>
-<feGaussianBlur stdDeviation="0.5"/>
-<feColorMatrix type="matrix" values="0 0 0 0 0.129412 0 0 0 0 0.145098 0 0 0 0 0.160784 0 0 0 0.32 0"/>
-<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_165_1401"/>
-<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-<feOffset dy="4"/>
-<feGaussianBlur stdDeviation="3"/>
-<feColorMatrix type="matrix" values="0 0 0 0 0.129412 0 0 0 0 0.145098 0 0 0 0 0.160784 0 0 0 0.2 0"/>
-<feBlend mode="normal" in2="effect1_dropShadow_165_1401" result="effect2_dropShadow_165_1401"/>
-<feBlend mode="normal" in="SourceGraphic" in2="effect2_dropShadow_165_1401" result="shape"/>
-</filter>
-</defs>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 43 43">
+  <defs>
+    <style>
+      .cls-1 {
+        stroke: #eef4fc;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 1.5px;
+      }
+
+      .cls-1, .cls-2 {
+        fill: none;
+      }
+
+      .cls-3 {
+        fill: #000;
+        fill-opacity: .2;
+      }
+
+      .cls-3, .cls-4 {
+        stroke-width: 0px;
+      }
+
+      .cls-2 {
+        stroke: #4092ff;
+      }
+
+      .cls-4 {
+        fill: #0e1c30;
+      }
+    </style>
+  </defs>
+  <path class="cls-4" d="M7,15c0-4.4,3.6-8,8-8h13c4.4,0,8,3.6,8,8v13c0,4.4-3.6,8-8,8h-13c-4.4,0-8-3.6-8-8v-13Z"/>
+  <path class="cls-3" d="M7,15c0-4.4,3.6-8,8-8h13c4.4,0,8,3.6,8,8v13c0,4.4-3.6,8-8,8h-13c-4.4,0-8-3.6-8-8v-13Z"/>
+  <path class="cls-2" d="M28,6.5h-13c-4.7,0-8.5,3.8-8.5,8.5v13c0,4.7,3.8,8.5,8.5,8.5h13c4.7,0,8.5-3.8,8.5-8.5v-13c0-4.7-3.8-8.5-8.5-8.5Z"/>
+  <path class="cls-1" d="M24,16.5l-5,5,5,5"/>
 </svg>
