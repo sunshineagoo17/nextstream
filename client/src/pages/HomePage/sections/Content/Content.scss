@@ -5,256 +5,214 @@
 @use "../../../../styles/global.scss" as *;
 
 .content {
-    height: 80.5rem;
-    overflow: hidden;
-    width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; 
+  flex-direction: column;
+  width: 100%;
+  margin-top: .025rem;
 
-    &__container {
-      position: relative;
+  &__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  &__features-container,
+    &__new-releases {
+      width: 100%;
+      padding-bottom: 4rem;
+      box-shadow: $shadow-quaternary;
     }
 
     &__new-releases {
       background-color: $primary-pale-blue;
       box-shadow: $shadow-primary;
-      height: 54.4375rem;
-      left: 0;
-      position: absolute;
-      top: 26.125rem;
-      width: 100%;
+      height: 58.5rem;
+      border: 2px solid $primary-very-light-blue;
     }
 
     &__pagination-container {
-      height: 1.8125rem;
-      left: 7.8125rem;
-      position: absolute;
-      top: 46.0625rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 1rem;
       width: 12.6875rem;
     }
 
-    &__pagination {
-      height: 2.6875rem;
-      left: -0.4375rem;
-      position: absolute;
-      top: -0.1875rem;
-      width: 2.6875rem;
+    &__paginationn, &__next {
+      @include block-item (2.6875rem, 2.6875rem);
+      cursor: pointer;
+    }
+
+    &__page-wrapper1, &__page-wrapper2 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.9375rem;
+      height: 1.9375rem;
+      border-radius: 0.5rem;
+      margin: 0 0.5rem;
+      box-shadow: $shadow-primary;
     }
 
     &__page-wrapper1 {
-      align-items: center;
       background-color: $base-darker-blue;
-      box-shadow: $shadow-primary;
-      border: 0.0625rem solid;
-      border-color: $primary-light-blue;
-      border-radius: .5rem;
-      display: flex;
-      height: 1.9375rem;
-      justify-content: center;
-      left: 3.5625rem;
-      position: absolute;
-      top: -0.0625rem;
-      width: 1.9375rem;
-    }
-
-    &__page1 {
-      color: $primary-pale-blue;
-      font-family: $primary-font;
-      font-size: .875rem;
-      font-weight: 500;
-      letter-spacing: .0088rem;
-      line-height: 1.25rem;
-      position: relative;
-      white-space: nowrap;
-      width: fit-content;
+      border: 0.0625rem solid $primary-light-blue;
     }
 
     &__page-wrapper2 {
-      align-items: center;
       background-color: $primary-very-light-blue;
-      border: 0.0625rem solid;
-      border-color: $primary-pale-blue;
-      border-radius: .5rem;
-      box-shadow: $shadow-primary;
-      display: flex;
-      flex-direction: column;
-      height: 1.9375rem;
-      justify-content: center;
-      left: 7.1875rem;
-      padding: var(--3-spacing-theme-gap-xxs);
-      position: absolute;
-      top: -0.0625rem;
-      width: 1.9375rem;
+      border: 0.0625rem solid $primary-pale-blue;
+    }
+
+    &__page1, &__page2 {
+      font-family: $primary-font;
+      font-size: 0.875rem;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    &__page1 {
+      color: $neutral-white;
     }
 
     &__page2 {
       color: $primary-medium-blue;
-      font-family: $primary-font;
-      font-size: var(--body-b2-medium-font-size);
-      font-style: var(--body-b2-medium-font-style);
-      font-weight: var(--body-b2-medium-font-weight);
-      letter-spacing: var(--body-b2-medium-letter-spacing);
-      line-height: var(--body-b2-medium-line-height);
-      position: relative;
-      white-space: nowrap;
-      width: fit-content;
-    }
-
-    &__next {
-      height: 2.6875rem;
-      left: 10.4375rem;
-      position: absolute;
-      top: -0.1875rem;
-      width: 2.6875rem;
     }
 
     &__card-media-container {
-      height: 29.125rem;
-      left: 7.75rem;
-      position: absolute;
-      top: 12.5rem;
-      width: 64.4375rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 2rem;
     }
 
     &__card-media {
-      height: 29.125rem;
-      left: 0;
-      position: absolute;
-      top: 0;
-      width: 64.4375rem;
+      display: flex;
+      gap: 2rem;
     }
 
-    &__card3 {
+    &__card1, &__card2, &__card3 {
       background: $primary-darker-blue-gradient;
       border-radius: 1.5625rem;
       box-shadow: $shadow-tertiary;
+      width: 20.1875rem;
       height: 29.125rem;
-      left: 44.25rem;
-      position: absolute;
-      top: 0;
-      width: 20.1875rem;
+      overflow: hidden;
     }
 
-    &__poster3 {
-      height: 25.8125rem;
-      left: 0;
-      position: absolute;
-      top: 1.6875rem;
-      width: 20.1875rem;
+    &__poster1, &__poster2, &__poster3 {
+      width: 100%;
+      height: auto;
     }
 
-    &__card2 {
-      background: $primary-darker-blue-gradient;
-      border-radius: 1.5625rem;
-      box-shadow: $shadow-tertiary;
-      height: 29.125rem;
-      left: 22.125rem;
-      position: absolute;
-      top: 0;
-      width: 20.1875rem;
-    }
-
-    &__poster2 {
-      height: 25.8125rem;
-      left: 0;
-      position: absolute;
-      top: 1.6875rem;
-      width: 20.1875rem;
-    }
-
-    &__card1 {
-      background: $primary-darker-blue-gradient;
-      border-radius: 1.5625rem;
-      box-shadow: $shadow-tertiary;
-      height: 29.125rem;
-      left: 0;
-      position: absolute;
-      top: 0;
-      width: 20.1875rem;
-    }
-
-    &__poster1 {
-      height: 25.8125rem;
-      left: 0;
-      position: absolute;
-      top: 1.6875rem;
-      width: 20.1875rem;
-    }
-
-    &__icon-bg-video {
+    &__icon-bg-video, &__icon-bg-video2, &__icon-bg-tv {
+      width: 2.3125rem;
+      height: 2.3125rem;
       background-color: $base-darker-blue;
       border-radius: 0.5rem;
-      height: 2.3125rem;
-      left: 61.625rem;
-      position: absolute;
-      top: 24.6875rem;
-      width: 2.3125rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
-    &__video-icon {
-      height: 1.5625rem;
-      left: 0.375rem;
-      position: absolute;
-      top: 0.375rem;
+    &__video-icon, &__video-icon2, &__tv-icon {
       width: 1.5625rem;
-    }
-
-    &__icon-bg-video2 {
-      background-color: $base-darker-blue;
-      border-radius: 0.5rem;
-      height: 2.3125rem;
-      left: 39.625rem;
-      position: absolute;
-      top: 24.6875rem;
-      width: 2.3125rem;
-    }
-
-    &__video-icon2 {
-      height: 1.5625rem;
-      left: 0.375rem;
-      position: absolute;
-      top: 0.375rem;
-      width: 1.5625rem;
-    }
-
-    &__icon-bg-tv {
-      background-color: $base-darker-blue;
-      border-radius: 0.5rem;
-      height: 2.3125rem;
-      left: 17.375rem;
-      position: absolute;
-      top: 24.6875rem;
-      width: 2.3125rem;
-    }
-
-    &__tv-icon {
-      height: 1.5625rem;
-      left: 0.375rem;
-      position: absolute;
-      top: 0.375rem;
-      width: 1.5625rem;
+      height: auto;
     }
 
     &__new-releases-header {
-      height: 6.375rem;
-      left: 7.8125rem;
-      position: absolute;
-      top: 0;
-      width: 64.4375rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      margin-bottom: 2rem;
     }
 
-    &__new-releases-subtitle-container {
-      height: 6.375rem;
-      position: relative;
+    &__new-releases-subtitle {
+      color: $primary-dark-blue;
+      font-family: $primary-font;
+      font-size: 1.125rem;
+      text-align: center;
+    }
+
+    &__label-header-new-releases {
+      color: $primary-dark-blue;
+      font-family: $primary-font;
+      font-size: 1.875rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    &__features-container {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    &__label-header-container {
+      margin-left: 8.4rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: $primary-very-light-blue;
+      box-shadow: $shadow-primary;
+      border-bottom-left-radius: .5rem;
+      border-bottom-right-radius: .5rem;
+      padding: 1rem 2rem;
+      margin-bottom: 2rem;
+    }
+
+    &__label-features {
+      color: $primary-dark-blue;
+      font-size: 1.875rem;
+      font-family: $primary-font;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    &__feature {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: $neutral-white;
+      box-shadow: 0 1.75rem 5.25rem rgba($neutral-black, 0.18);
+      border-radius: 0.5rem;
+      text-align: center;
+    }
+
+    &__feature__icon-bg {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 9.6875rem;
+      height: 9.6875rem;
+      background: $primary-icon-bg;
+      box-shadow: $shadow-primary;
+      border-radius: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    &__feature__search-icon, &__feature__favourites-icon, &__feature__calendar-icon {
+      width: 5.4375rem;
+      height: auto;
+    }
+
+    &__feature__label {
+      color: $primary-medium-blue;
+      font-size: 1.25rem;
+      font-family: $secondary-font;
+      font-weight: 500;
     }
 
     &__label-headers-container {
-      height: 6.375rem;
-      left: 42.9375rem;
-      position: absolute;
       background-color: $primary-very-light-blue;
       border-bottom-left-radius: 0.5rem;
       border-bottom-right-radius: 0.5rem;
       box-shadow: $shadow-quinary;
-      top: 0;
       width: 21.5rem;
     }
 
@@ -263,40 +221,26 @@
       font-family: $primary-font;
       font-size: 1.875rem;
       font-weight: 700;
-      left: 2.25rem;
       letter-spacing: 0;
       line-height: normal;
-      position: absolute;
       text-align: center;
-      top: 1.5625rem;
       width: 16.8125rem;
     }
 
     &__new-releases-subtitle {
+      @include block-item(44.6875rem, 3.375rem);
       color: $primary-dark-blue;
       font-family: $primary-font;
       font-size: 1.125rem;
       font-weight: 400;
-      height: 3.375rem;
-      left: 0;
       letter-spacing: 0;
       line-height: normal;
-      position: absolute;
-      top: 1.5rem;
-      width: 44.6875rem;
-    }
-
-    &__features-container {
-      width: 100%;
-      height: 26.125rem;
     }
 
     &__label-header-container {
+      @include block-item(17.625rem, 4.9375rem);
       width: 17.625rem;
       height: 4.9375rem;
-      position: absolute;
-      left: 8rem;
-      top: 0;
       border: 2px solid $neutral-white;
       box-shadow: $shadow-primary;
       border-bottom-left-radius: .5rem;
@@ -304,21 +248,16 @@
     }
 
     &__label-header-background {
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      background: $primary-very-light-blue;
-      box-shadow: 0 1.75rem 5.25rem rgba($neutral-black, 0.18);
+      @include block-item(100%, 100%);
       border-bottom-left-radius: 0.5rem;
-      border-bottom-right-radius: 0.5rem;
+      border-bottom-right-radius: 0.5rem; 
     }
 
     &__label-features {
-      width: 13.875rem;
-      height: 2.1875rem;
-      position: absolute;
-      left: 1.875rem;
-      top: 0.75rem;
+      @include block-item(13.875rem, 2.1875rem);
+      display: flex;
+      justify-content: center;
+      align-items: center;
       text-align: center;
       color: $primary-dark-blue;
       font-size: 1.875rem;
@@ -328,36 +267,30 @@
     }
 
     &__card-features {
-      width: 64.375rem;
-      height: 12.4375rem;
-      position: absolute;
-      left: 7.8125rem;
-      top: 6.625rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        gap: 4rem;
 
       &__feature {
         width: 16.875rem;
         height: 12.4375rem;
-        position: absolute;
-
-        &--1 {
-          left: 0;
-        }
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
 
         &--2 {
           width: 20.125rem;
-          left: 22rem;
-        }
-
-        &--3 {
-          left: 47.5rem;
         }
 
         &__icon-bg {
           width: 9.6875rem;
           height: 9.6875rem;
-          position: absolute;
-          left: 3.625rem;
-          top: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
           background: $primary-icon-bg;
           box-shadow: $shadow-primary;
           border-top-left-radius: 0.5rem;
@@ -369,9 +302,6 @@
         &__search-icon {
           width: 5.4375rem;
           height: 4.625rem;
-          position: absolute;
-          left: 2.125rem;
-          top: 1.1875rem;
           border-top-left-radius: 0.5rem;
           border-top-right-radius: 0.5rem;
         }
@@ -379,9 +309,6 @@
         &__label {
           width: 16.875rem;
           height: 5.5625rem;
-          position: absolute;
-          left: 0;
-          top: 6.875rem;
           background: $neutral-white;
           box-shadow: 0 1.75rem 5.25rem rgba($neutral-black, 0.18);
           border-radius: 0.5rem;

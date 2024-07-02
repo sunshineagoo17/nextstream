@@ -32,6 +32,7 @@
     @include block-item(30rem, 30rem);
     @include animateBorder;
     @include borderAnimation;
+    box-shadow: $shadow-primary;
     border-radius: 6.25rem;
     display: flex;
     justify-content: center;

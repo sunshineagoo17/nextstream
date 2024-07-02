@@ -18,7 +18,6 @@ export const Content = () => {
 
         <div className="content__features-container">
           <div className="content__label-header-container">
-            <div className="content__label-header-background" />
             <div className="content__label-features">FEATURES</div>
           </div>
           <div className="content__card-features">
