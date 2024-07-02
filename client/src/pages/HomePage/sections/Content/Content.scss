@@ -7,7 +7,7 @@
 .content {
   display: flex;
   justify-content: center;
-  align-items: flex-start; 
+  align-items: flex-start;
   flex-direction: column;
   width: 100%;
   margin-top: .025rem;
@@ -20,11 +20,9 @@
   }
 
   &__new-releases {
-    padding: 0 8.25rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 100%;
     padding-bottom: 4rem;
   }
 
@@ -32,6 +30,7 @@
     width: 100%;
     display: flex;
     flex-direction: row;
+    justify-content: center;
     align-items: center;
   }
 
@@ -46,26 +45,28 @@
     justify-content: space-between;
     align-items: center;
     margin-top: 1rem;
+    margin-left: 8rem;
     width: 12.6875rem;
   }
 
   &__pagination, &__next {
-    @include block-item (2.6875rem, 2.6875rem);
+    @include block-item(2.6875rem, 2.6875rem);
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    box-shadow: $shadow-quaternary;
+    border-radius: .85rem;
   }
 
   &__page-wrapper1, &__page-wrapper2 {
+    @include block-item (2.75rem, 2.75rem);
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 1.9375rem;
-    height: 1.9375rem;
-    border-radius: 0.5rem;
+    border-radius: 0.85rem;
     margin: 0 0.5rem;
-    box-shadow: $shadow-primary;
+    box-shadow: $shadow-quaternary;
   }
 
   &__page-wrapper1 {
@@ -105,6 +106,12 @@
     gap: 1.5rem;
   }
 
+  &__card1-container, &__card2-container, &__card3-container {
+    position: relative;
+    border-radius: 1.6rem;
+    box-shadow: $shadow-quaternary;
+  }
+
   &__card1, &__card2, &__card3 {
     @include block-item(20.1875rem, 29.125rem);
     background: $primary-darker-blue-gradient;
@@ -113,6 +120,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
   }
 
   &__poster1, &__poster2, &__poster3 {
@@ -123,10 +131,14 @@
   &__icon-bg-video, &__icon-bg-video2, &__icon-bg-tv {
     @include block-item(2.3125rem, 2.3125rem);
     background-color: $base-darker-blue;
+    box-shadow: $shadow-quaternary;
     border-radius: 0.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
+    position: absolute;
+    bottom: 2rem;
+    right: 0.5rem;
   }
 
   &__video-icon, &__video-icon2, &__tv-icon {
@@ -138,8 +150,9 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
+    width: 100%;
     align-items: center;
-    margin-bottom: 2rem;
+    padding: 0 8.75rem 2rem 8.35rem; 
   }
 
   &__features-container {
@@ -230,13 +243,13 @@
   }
 
   &__new-releases-subtitle {
-    @include block-item(44.6875rem, auto);
+    width: 100%;
     color: $primary-dark-blue;
     font-family: $primary-font;
-    font-size: .95rem;
+    font-size: 1.25rem;
     font-weight: 400;
     letter-spacing: 0;
-    line-height: 1.25rem;
+    line-height: 1.75rem;
   }
 
   &__label-header-container {
@@ -250,7 +263,7 @@
   &__label-header-background {
     @include block-item(100%, 100%);
     border-bottom-left-radius: 0.5rem;
-    border-bottom-right-radius: 0.5rem; 
+    border-bottom-right-radius: 0.5rem;
   }
 
   &__label-features {
@@ -267,18 +280,18 @@
   }
 
   &__card-features {
-      display: flex;
-      justify-content: space-evenly;
-      align-items: center;
-      width: 100%;
-      padding: 0 1.9rem;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    padding: 0 3rem;
 
-      &__feature {
-        @include block-item(16.875rem, 12.4375rem);
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+    &__feature {
+      @include block-item(16.875rem, 12.4375rem);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
 
       &__icon-bg {
         width: 9.6875rem;
