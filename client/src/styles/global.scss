@@ -2,6 +2,28 @@
 @use "./partials/fonts" as *;
 @use "./partials/mixins" as *;
 
+@mixin borderGlowLogo() {
+  @keyframes borderGlowLogo {
+    0% {
+      border-color: $primary-dark-blue;
+    }
+    25% {
+      border-color: $primary-medium-blue;
+    }
+    50% {
+      border-color: $primary-light-blue;
+    }
+    75% {
+      border-color: $primary-very-light-blue;
+    }
+    100% {
+      border-color: $primary-cyan;
+    }
+  }
+
+  animation: borderGlowLogo 3s infinite alternate;
+}
+
 :root {
   // Global Variables
   --global-border-radius-md: 0.5rem;

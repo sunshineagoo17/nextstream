@@ -31,7 +31,9 @@ export const Header = () => {
         </div>
       </div>
 
-      <img className="header__logo" alt="Nextstream logo" src={nextStreamLogo} />
+      <div className="header__logo-wrapper">
+        <img className="header__logo" alt="Nextstream logo" src={nextStreamLogo} />
+      </div>
       
       <button className="header__login-container">
         <div className="header__login">Sign In</div>

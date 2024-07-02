@@ -2,6 +2,7 @@
 @use "../../styles/partials/colors" as *;
 @use "../../styles/partials/fonts" as *;
 @use "../../styles/partials/mixins" as *;
+@use "../../styles/global.scss" as *;
 
 .footer {
   @include block-item(80rem, 6rem);
