@@ -13,10 +13,10 @@
   padding: 0 3.375rem;
 
     &__copy-container {
-      @include block-item(25rem, 1.25rem);
+      @include block-item(20rem, 1.25rem);
       display: flex;
       flex-direction: row;
-      justify-content: space-around;
+      justify-content: space-between;
     }
 
     &__copyright {
