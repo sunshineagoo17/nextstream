@@ -130,6 +130,16 @@
     display: inline-flex;
     padding: .75rem;
     margin-right: 2.0625rem;
+    transition: box-shadow 0.3s ease, transform 0.2s ease;
+
+    &:hover {
+      box-shadow: 0 0 10px rgba($primary-medium-blue, 0.4), 0 0 10px rgba($primary-medium-blue, 0.3);
+      border: 1px solid $neutral-white;
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
   }
 
   &__menu {
@@ -137,39 +147,28 @@
     position: relative;
   }
 
-  &__menu-circle1 {
-    @include block-item(.5625rem, .5625rem);
-    background-color: $neutral-white;
-    border-radius: .125rem;
-    box-shadow: $shadow-primary;
-  }
-
-  &__menu-circle2 {
-    @include block-item(.5625rem, .5625rem);
-    background-color: $neutral-white;
-    border-radius: .125rem;
-    box-shadow: $shadow-primary;
-    position: absolute;
-    top: .9375rem;
-  }
-
-  &__menu-circle3 {
-    @include block-item(.5625rem, .5625rem);
-    background-color: $neutral-white;
-    border-radius: .125rem;
-    box-shadow: $shadow-primary;
-    left: .9375rem;
-    position: absolute;
-    top: 0;
-  }
-
+  &__menu-circle1,
+  &__menu-circle2,
+  &__menu-circle3,
   &__menu-circle4 {
     @include block-item(.5625rem, .5625rem);
     background-color: $neutral-white;
     border-radius: .125rem;
     box-shadow: $shadow-primary;
-    left: .9375rem;
     position: absolute;
+  }
+
+  &__menu-circle2 {
+    top: .9375rem;
+  }
+
+  &__menu-circle3 {
+    left: .9375rem;
+    top: 0;
+  }
+
+  &__menu-circle4 {
+    left: .9375rem;
     top: .9375rem;
   }
 }
