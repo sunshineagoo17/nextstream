@@ -45,33 +45,38 @@ export const Content = () => {
         <div className="content__new-releases">
           <div className="content__new-releases-header">
             <div className="content__new-releases-subtitle-container">
-              <div className="content__label-headers-container">
-                <div className="content__label-header-new-releases">NEW RELEASES</div>
-              </div>
               <p className="content__new-releases-subtitle">
                 Check out the latest movies and shows that have just 
                 <br />
                 become available for streaming.
               </p>
+            <div className="content__label-headers-container">
+              <div className="content__label-header-new-releases">NEW RELEASES</div>
             </div>
           </div>
+        </div>
          
-          <div className="content__card-media-container">
-            <div className="content__card-media">
+        <div className="content__card-media-container">
+          <div className="content__card-media">
+            <div className="content__card1-container">
               <div className="content__card1">
                 <img className="content__poster1" alt="Avatar" src={Avatar} />
               </div>
               <div className="content__icon-bg-video">
                 <img className="content__video-icon" alt="Video icon" src={VideoCamera} />
               </div>
+            </div>
 
+            <div className="content__card2-container">
               <div className="content__card2">
                 <img className="content__poster2" alt="Black adam" src={BlackAdam} />
               </div>
               <div className="content__icon-bg-video2">
                 <img className="content__video-icon2" alt="Video icon" src={VideoCamera} />
               </div>
+            </div>
 
+            <div className="content__card3-container">
               <div className="content__card3">
                 <img className="content__poster3" alt="Justice league" src={JusticeLeague} />
               </div>
@@ -80,20 +85,21 @@ export const Content = () => {
               </div>
             </div>
           </div>
+        </div>
 
-          <div className="content__pagination-container">
-            <img className="content__pagination" alt="Previous" src={PreviousIcon} />
-            <div className="content__page-wrapper1">
-              <div className="content__page1">00</div>
-            </div>
-            <div className="content__page-wrapper2">
-              <div className="content__page2">00</div>
-            </div>
-            <img className="content__next" alt="Next" src={NextIcon} />
+        <div className="content__pagination-container">
+          <img className="content__pagination" alt="Previous" src={PreviousIcon} />
+          <div className="content__page-wrapper1">
+            <div className="content__page1">00</div>
           </div>
+          <div className="content__page-wrapper2">
+            <div className="content__page2">00</div>
+          </div>
+          <img className="content__next" alt="Next" src={NextIcon} />
         </div>
       </div>
     </div>
+  </div>
   );
 };
 

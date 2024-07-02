@@ -19,18 +19,24 @@
     width: 100%;
   }
 
+  &__new-releases {
+    padding: 0 8.25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  &__new-releases-subtitle-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
   &__features-container,
     &__new-releases {
       width: 100%;
-      padding-bottom: 4rem;
-      box-shadow: $shadow-quaternary;
-    }
-
-    &__new-releases {
-      background-color: $primary-pale-blue;
       box-shadow: $shadow-primary;
-      height: 58.5rem;
-      border: 2px solid $primary-very-light-blue;
     }
 
     &__pagination-container {
@@ -87,7 +93,6 @@
       justify-content: center;
       align-items: center;
       flex-wrap: wrap;
-      gap: 2rem;
     }
 
     &__card-media {
@@ -96,12 +101,13 @@
     }
 
     &__card1, &__card2, &__card3 {
+      @include block-item(20.1875rem, 29.125rem);
       background: $primary-darker-blue-gradient;
       border-radius: 1.5625rem;
       box-shadow: $shadow-tertiary;
-      width: 20.1875rem;
-      height: 29.125rem;
-      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     &__poster1, &__poster2, &__poster3 {
@@ -110,8 +116,7 @@
     }
 
     &__icon-bg-video, &__icon-bg-video2, &__icon-bg-tv {
-      width: 2.3125rem;
-      height: 2.3125rem;
+      @include block-item(2.3125rem, 2.3125rem);
       background-color: $base-darker-blue;
       border-radius: 0.5rem;
       display: flex;
@@ -127,30 +132,16 @@
     &__new-releases-header {
       display: flex;
       justify-content: center;
-      align-items: center;
       flex-direction: column;
+      align-items: center;
       margin-bottom: 2rem;
-    }
-
-    &__new-releases-subtitle {
-      color: $primary-dark-blue;
-      font-family: $primary-font;
-      font-size: 1.125rem;
-      text-align: center;
-    }
-
-    &__label-header-new-releases {
-      color: $primary-dark-blue;
-      font-family: $primary-font;
-      font-size: 1.875rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
     }
 
     &__features-container {
       display: flex;
       justify-content: center;
       flex-direction: column;
+      padding-bottom: 4rem;
     }
 
     &__label-header-container {
@@ -202,6 +193,9 @@
     }
 
     &__feature__label {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       color: $primary-medium-blue;
       font-size: 1.25rem;
       font-family: $secondary-font;
@@ -212,36 +206,37 @@
       background-color: $primary-very-light-blue;
       border-bottom-left-radius: 0.5rem;
       border-bottom-right-radius: 0.5rem;
+      border: 2px solid $neutral-white;
       box-shadow: $shadow-quinary;
-      width: 21.5rem;
+      margin-top: .05rem;
     }
 
     &__label-header-new-releases {
+      @include block-item(22rem, 4.9375rem);
       color: $primary-dark-blue;
       font-family: $primary-font;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       font-size: 1.875rem;
       font-weight: 700;
       letter-spacing: 0;
       line-height: normal;
-      text-align: center;
-      width: 16.8125rem;
     }
 
     &__new-releases-subtitle {
-      @include block-item(44.6875rem, 3.375rem);
+      @include block-item(44.6875rem, auto);
       color: $primary-dark-blue;
       font-family: $primary-font;
-      font-size: 1.125rem;
+      font-size: .95rem;
       font-weight: 400;
       letter-spacing: 0;
-      line-height: normal;
+      line-height: 1.25rem;
     }
 
     &__label-header-container {
       @include block-item(17.625rem, 4.9375rem);
-      width: 17.625rem;
-      height: 4.9375rem;
-      border: 2px solid $neutral-white;
+      border: .125rem solid $neutral-white;
       box-shadow: $shadow-primary;
       border-bottom-left-radius: .5rem;
       border-bottom-right-radius: .5rem;
@@ -268,22 +263,16 @@
 
     &__card-features {
         display: flex;
-        justify-content: center;
+        justify-content: space-evenly;
         align-items: center;
         width: 100%;
-        gap: 4rem;
 
       &__feature {
-        width: 16.875rem;
-        height: 12.4375rem;
+        @include block-item(16.875rem, 12.4375rem);
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-
-        &--2 {
-          width: 20.125rem;
-        }
 
         &__icon-bg {
           width: 9.6875rem;
@@ -314,24 +303,13 @@
           border-radius: 0.5rem;
           text-align: center;
           color: $primary-medium-blue;
-          font-size: 1.25rem;
+          font-size: 1.1rem;
           font-family: $secondary-font;
           font-weight: 500;
           word-wrap: break-word;
-          padding-top: 2.0625rem;
-
-          &--schedule-planner {
-            left: 0;
-          }
-
-          &--custom-recommendations {
-            width: 20.125rem;
-            left: 0;
-          }
-
-          &--stream-locator {
-            left: 0;
-          }
+          display: flex;
+          justify-content: center;
+          align-items: center;
         }
       }
     }
