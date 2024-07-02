@@ -1,21 +1,22 @@
+import React from 'react';
 import nextStreamLogo from "../../assets/images/nextstream-wordmark.png";
 import searchVector from "../../assets/images/searh-vector-handle.svg";
+import HoverMenu from "./sections/HoverMenu";
 import "./Header.scss";
 
 export const Header = () => {
   return (
     <div className="header">
-      
       <div className="header__nav-container">
         <div className="header__menu-container">
-          <div className="header__menu">
+          <HoverMenu />
+          {/* <div className="header__menu">
             <div className="header__menu-circle1" />
             <div className="header__menu-circle2" />
             <div className="header__menu-circle3" />
             <div className="header__menu-circle4" />
-          </div>
+          </div> */}
         </div>
-
         <div className="header__search-bar">
           <div className="header__search-icon">
             <div className="header__magnifying-glass">
@@ -30,15 +31,12 @@ export const Header = () => {
           </div>
         </div>
       </div>
-
       <div className="header__logo-wrapper">
         <img className="header__logo" alt="Nextstream logo" src={nextStreamLogo} />
       </div>
-      
       <button className="header__login-container">
         <div className="header__login">Sign In</div>
       </button>
-      
     </div>
   );
 };

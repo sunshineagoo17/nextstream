@@ -141,9 +141,12 @@
     background: $button-light-gradient;
     border-radius: .5rem;
     box-shadow: $shadow-primary;
-    display: inline-flex;
-    padding: .75rem;
+    display: flex;
+    align-items: center;
+    padding: .5rem;
     margin-right: 2.0625rem;
+    border: 2px solid $neutral-white;
+    height: 2.9375rem;
     cursor: pointer;
     transition: box-shadow 0.3s ease, transform 0.2s ease;
 

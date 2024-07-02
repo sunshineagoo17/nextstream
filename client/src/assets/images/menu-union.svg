@@ -3,7 +3,7 @@
   <defs>
     <style>
       .cls-1 {
-        fill: #0e1c30;
+        <!-- fill: #0e1c30; -->
         fill-opacity: .2;
         fill-rule: evenodd;
         stroke: #4092ff;
