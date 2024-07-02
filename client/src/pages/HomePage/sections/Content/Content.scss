@@ -45,7 +45,7 @@
     justify-content: space-between;
     align-items: center;
     margin-top: 1rem;
-    margin-left: 8rem;
+    margin-left: 8.5rem;
     width: 12.6875rem;
   }
 
@@ -59,7 +59,7 @@
     border-radius: .85rem;
   }
 
-  &__page-wrapper1, &__page-wrapper2 {
+  &__page-nav-wrapper1, &__page-nav-wrapper2 {
     @include block-item (2.75rem, 2.75rem);
     display: flex;
     align-items: center;
@@ -67,14 +67,15 @@
     border-radius: 0.85rem;
     margin: 0 0.5rem;
     box-shadow: $shadow-quaternary;
+    cursor: pointer;
   }
 
-  &__page-wrapper1 {
+  &__page-nav-wrapper1 {
     background-color: $base-darker-blue;
     border: 0.0625rem solid $primary-light-blue;
   }
 
-  &__page-wrapper2 {
+  &__page-nav-wrapper2 {
     background-color: $primary-very-light-blue;
     border: 0.0625rem solid $primary-pale-blue;
   }

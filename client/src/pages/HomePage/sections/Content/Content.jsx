@@ -46,9 +46,7 @@ export const Content = () => {
           <div className="content__new-releases-header">
             <div className="content__new-releases-subtitle-container">
               <p className="content__new-releases-subtitle">
-                Check out the latest movies and shows that have just 
-                <br />
-                become available for streaming.
+                Check out the latest movies and shows that have just become available for streaming.
               </p>
             <div className="content__label-headers-container">
               <div className="content__label-header-new-releases">NEW RELEASES</div>
@@ -89,10 +87,10 @@ export const Content = () => {
 
         <div className="content__pagination-container">
           <img className="content__pagination" alt="Previous" src={PreviousIcon} />
-          <div className="content__page-wrapper1">
+          <div className="content__page-nav-wrapper1">
             <div className="content__page1">00</div>
           </div>
-          <div className="content__page-wrapper2">
+          <div className="content__page-nav-wrapper2">
             <div className="content__page2">00</div>
           </div>
           <img className="content__next" alt="Next" src={NextIcon} />

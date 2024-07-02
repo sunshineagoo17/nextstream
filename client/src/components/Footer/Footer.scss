@@ -67,6 +67,7 @@
     &__logo-wordmark {
       @include block-item(8.4375rem, 1.0625rem);
       transition: transform 0.2s ease;
+      cursor: pointer;
     }
 
     &__logo-container {

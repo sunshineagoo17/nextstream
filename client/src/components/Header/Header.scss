@@ -14,19 +14,20 @@
   box-shadow: $shadow-primary;
   position: relative;
 
-
   &__logo-wrapper {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
-    padding: 0; 
-    border: 0.125rem solid transparent; 
+    padding: 0;
+    border: 0.125rem solid transparent;
     transition: border 0.3s ease, padding 0.3s ease, border-radius 0.3s ease, transform 0.2s ease;
 
     &:hover {
-      @include borderGlowLogo(); 
-      padding: 1rem; 
+      @include borderGlowLogo();
+      padding: 1rem;
       border-radius: 1rem;
     }
 
@@ -38,10 +39,11 @@
   &__logo {
     @include block-item(8.375rem, 1.063rem);
     transition: transform 0.2s ease;
+    cursor: pointer;
   }
 
   &__login-container {
-   @include btn-main-container;
+    @include btn-main-container;
   }
 
   &__login {
@@ -110,7 +112,7 @@
     font-family: $primary-font;
     font-size: .875rem;
     font-weight: 400;
-    padding: .25rem;  
+    padding: .25rem;
     outline: none;
     border: none;
     color: $primary-light-blue;
@@ -140,6 +142,7 @@
     display: inline-flex;
     padding: .75rem;
     margin-right: 2.0625rem;
+    cursor: pointer;
     transition: box-shadow 0.3s ease, transform 0.2s ease;
 
     &:hover {
