@@ -4,9 +4,11 @@ import logoMark from "../../assets/images/logo-wordmark-wh.png";
 export const Footer = () => {
   return (
     <footer className="footer">
-
-      <img className="footer__logo-wordmark" alt="NextStream Logo" src={logoMark} />
       
+      <div className="footer__logo-container">
+        <img className="footer__logo-wordmark" alt="NextStream Logo" src={logoMark} />
+      </div>
+
       <div className="footer__copy-container">
         <div className="footer__copyright">© 2024</div>
         <div className="footer__privacy-policy">Privacy Policy</div>

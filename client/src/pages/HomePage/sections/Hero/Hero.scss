@@ -78,19 +78,11 @@
   }
 
   &__btn-container {
-    all: unset;
-    background: $button-dark-gradient;
-    border-radius: .75rem;
-    box-shadow: $shadow-primary;
-    box-sizing: border-box;
-    padding: .75rem 2rem;
+    @include btn-main-container;
   }
 
   &__btn {
-    color: $neutral-white;
-    font-family: $primary-font;
-    font-size: 1rem;
-    font-weight: 500;
+    @include btn-txt;
   }
 
   &__subtitle {

@@ -48,46 +48,45 @@
     }
 
     &__btn-register {
-      all: unset;
-      align-items: center;
-      background: $button-dark-gradient;
-      border-radius: .75rem;
-      box-shadow: $shadow-primary;
-      box-sizing: border-box;
-      display: inline-flex; 
-      justify-content: center;
-      padding: .75rem 2rem;
+      @include btn-main-container;
       margin-right: .8125rem;
     }
 
     &__register {
-      color: $neutral-white;
-      font-family: $primary-font;
-      font-size: 1rem;
-      font-weight: 400;
+      @include btn-txt;
     }
 
     &__btn-contact {
-      all: unset;
-      align-items: center;
-      background-color: $primary-pale-blue;
-      border-radius: .75rem;
-      box-shadow: $shadow-primary;
-      box-sizing: border-box;
-      display: inline-flex;
-      justify-content: center;
-      padding: .75rem 2rem;
+      @include btn-secondary-container;
     }
 
     &__contact {
-      color: $base-darker-blue;
-      font-family: $primary-font;
-      font-size: 1rem;
-      font-weight: 400;
+      @include btn-secondary-txt;
       white-space: nowrap;
     }
 
     &__logo-wordmark {
       @include block-item(8.4375rem, 1.0625rem);
+      transition: transform 0.2s ease;
+    }
+
+    &__logo-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      padding: 0; 
+      border: 0.125rem solid transparent; 
+      transition: border 0.3s ease, padding 0.3s ease, border-radius 0.3s ease, transform 0.2s ease;
+    
+      &:hover {
+      @include borderGlowLogo(); 
+      padding: 1rem; 
+      border-radius: 1rem;
+    }
+
+      &:active {
+        transform: scale(0.95);
+      }
     }
   }

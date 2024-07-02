@@ -54,6 +54,36 @@
   font-weight: 500;
 }
 
+@mixin btn-secondary-container {
+  all: unset;
+  align-items: center;
+  background-color: $primary-pale-blue;
+  border-radius: .75rem;
+  box-shadow: $shadow-primary;
+  box-sizing: border-box;
+  display: inline-flex;
+  justify-content: center;
+  padding: .75rem 2rem;
+
+  &:hover {
+    border: none;
+    box-shadow: 0 0 15px $primary-light-blue; 
+  }
+
+  &:active {
+    border: 1.5px solid $primary-medium-blue;
+    transition: transform 0.2s ease;
+    transform: scale(0.95);
+  }
+}
+
+@mixin btn-secondary-txt {
+  color: $base-darker-blue;
+  font-family: $primary-font;
+  font-size: 1rem;
+  font-weight: 400;
+}
+
 :root {
   // Global Variables
   --global-border-radius-md: 0.5rem;
