@@ -22,7 +22,7 @@
     position: relative;
     padding: 0; 
     border: 0.125rem solid transparent; 
-    transition: border 0.3s ease, padding 0.3s ease, border-radius 0.3s ease;
+    transition: border 0.3s ease, padding 0.3s ease, border-radius 0.3s ease, transform 0.2s ease;
 
     &:hover {
       @include borderGlowLogo(); 
@@ -41,22 +41,11 @@
   }
 
   &__login-container {
-    all: unset;
-    align-items: center;
-    background: $button-dark-gradient;
-    border-radius: .75rem;
-    box-shadow: $shadow-primary;
-    box-sizing: border-box;
-    display: inline-flex;
-    justify-content: center;
-    padding: .75rem 2rem;
+   @include btn-main-container;
   }
 
   &__login {
-    color: $neutral-white;
-    font-family: $primary-font;
-    font-size: 1rem;
-    font-weight: 500;
+    @include btn-txt;
   }
 
   &__search-bar {

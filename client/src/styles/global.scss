@@ -24,6 +24,36 @@
   animation: borderGlowLogo 3s infinite alternate;
 }
 
+@mixin btn-main-container {
+  all: unset;
+  align-items: center;
+  background: $button-dark-gradient;
+  border-radius: .75rem;
+  box-shadow: $shadow-primary;
+  box-sizing: border-box;
+  display: inline-flex;
+  justify-content: center;
+  padding: .75rem 2rem;
+
+  &:hover {
+    border: none;
+    box-shadow: 0 0 15px $primary-light-blue; 
+  }
+
+  &:active {
+    border: 1.5px solid $neutral-white;
+    transition: transform 0.2s ease;
+    transform: scale(0.95);
+  }
+}
+
+@mixin btn-txt {
+  color: $neutral-white;
+  font-family: $primary-font;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
 :root {
   // Global Variables
   --global-border-radius-md: 0.5rem;
