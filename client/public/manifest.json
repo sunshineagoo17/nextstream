@@ -1,21 +1,21 @@
 {
   "short_name": "NextStream",
-  "name": "NextStream - Your Next Streaming Companion",
+  "name": "NextStream - Your Ultimate Streaming Companion",
   "icons": [
     {
-      "src": "nextstream-favicon.ico",
+      "src": "favicon.ico",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     },
     {
-      "src": "nextstream-brandmark-logo.svg",
-      "type": "image/svg",
-      "sizes": "72.6x72.6"
+      "src": "logo192.png",
+      "type": "image/png",
+      "sizes": "192x192"
     },
     {
-      "src": "nextstream-brandmark-logo.svg",
-      "type": "image/svg",
-      "sizes": "72.6x72.6"
+      "src": "logo512.png",
+      "type": "image/png",
+      "sizes": "512x512"
     }
   ],
   "start_url": ".",
