@@ -31,6 +31,20 @@ export const Header = () => {
       <button className="header__login-container">
         <div className="header__login">Sign In</div>
       </button>
+      {/* Search Bar - only present on mobile breakpoints */}
+      <div className="header__search-bar--mobile">
+        <div className="header__search-icon--mobile">
+          <div className="header__magnifying-glass--mobile">
+            <div className="header__icon-container--mobile">
+              <img className="header__search-vector--mobile" alt="Magnifying Glass" src={searchVector} />
+              <div className="header__search-ellipse--mobile" />
+            </div>
+          </div>
+        </div>
+        <div className="header__search-content--mobile">
+          <input className="header__search--mobile" type="text" placeholder="Search..." />
+        </div>
+      </div>
     </div>
   );
 };

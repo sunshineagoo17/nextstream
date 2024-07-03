@@ -224,18 +224,124 @@
       position: relative;
     }
   }
-}
 
-.input {
-  @include tablet {
-    border: none;
+  &__search-bar--mobile {
+    display: none;
 
-    &:focus {
-      border: none;
+    @include mobile {
+      align-items: center;
+      background-color: $neutral-white;
+      border: solid $primary-light-blue;
+      border-radius: .5rem;
+      box-shadow: $shadow-primary;
+      padding-right: .5rem;
+      gap: .5rem;
+      width: 8.5rem;
     }
+  }
 
-    &.active {
+  &__search-icon--mobile {
+    display: none;
+
+    @include mobile {
+      display: block;
+      @include block-item(2.75rem, 2.75rem);
+      background: $button-light-gradient;
+      border: .1rem solid $neutral-white;
+      border-radius: .35rem;
+      box-shadow: $shadow-primary;
+    }
+  }
+
+  &__magnifying-glass--mobile {
+    display: none;
+
+    @include mobile {
+      display: block;
+      left: .35rem;
+      position: relative;
+      top: .65rem;
+    }
+  }
+
+  &__icon-container--mobile {
+    display: none;
+
+    @include mobile {
+      display: block;
+      @include block-item(1.5rem, 1.875rem);
+      left: -.4375rem;
+      position: relative;
+    }
+  }
+
+  &__search-vector--mobile {
+    display: none;
+
+    @include mobile {
+      display: block;
+      @include block-item(1.1rem, 1.1rem);
+      position: absolute;
+      top: .625rem;
+    }
+  }
+
+  &__search-ellipse--mobile {
+    display: none;
+
+    @include mobile {
+      display: block;
+      @include block-item(.8rem, .8rem);
+      border: .1094rem solid;
+      border-color: $neutral-white;
+      border-radius: .5rem;
+      box-shadow: $shadow-primary;
+      left: .625rem;
+      position: absolute;
+    }
+  }
+
+  &__search-content--mobile {
+    display: none;
+
+    @include mobile {
+      display: block;
+      width: 4rem;
+      align-items: flex-start;
+      align-self: stretch;
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      flex-grow: 1;
+      gap: .125rem;
+      justify-content: center;
+    }
+  }
+
+  &__search--mobile {
+    display: none;
+
+    @include mobile {
+      display: block;
+      font-family: $primary-font;
+      width: 100%;
+      font-size: .875rem;
+      font-weight: 400;
+      padding: .25rem;
+      outline: none;
       border: none;
+      color: $primary-light-blue;
+
+      &::placeholder {
+        color: $primary-light-blue;
+      }
+
+      &:focus {
+        color: $primary-dark-blue;
+        transition: box-shadow 0.3s ease, background-color 0.3s ease;
+        background-color: $primary-very-light-blue;
+        border-radius: .35rem;
+      }
     }
   }
 }
