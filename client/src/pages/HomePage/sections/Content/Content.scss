@@ -95,10 +95,17 @@
   }
 
   &__card-media-container {
+    @include pulsate-animation;
     display: flex;
     justify-content: center;
     align-items: center;
-  }
+    background: rgba($primary-light-blue, 0.3);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 1rem;
+    padding: 1rem;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  }  
 
   &__card-media {
     display: flex;

@@ -133,3 +133,20 @@
 @mixin glow-animation {
   animation: glow 3s infinite;
 }
+
+// Pulsate animation
+@mixin pulsate-animation($color: rgba(64, 146, 255, 0.5), $duration: 5s) {
+  animation: pulsate $duration infinite;
+  
+  @keyframes pulsate {
+    0% {
+      box-shadow: 0 0 5px $color, 0 0 15px rgba(64, 146, 255, 0.2), 0 0 20px rgba(64, 146, 255, 0.1);
+    }
+    50% {
+      box-shadow: 0 0 10px rgba(64, 146, 255, 0.7), 0 0 20px rgba(64, 146, 255, 0.3), 0 0 25px rgba(64, 146, 255, 0.2);
+    }
+    100% {
+      box-shadow: 0 0 5px $color, 0 0 15px rgba(64, 146, 255, 0.2), 0 0 20px rgba(64, 146, 255, 0.1);
+    }
+  }
+}
