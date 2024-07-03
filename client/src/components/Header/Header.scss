@@ -214,9 +214,9 @@
 
     &:focus {
       color: $primary-dark-blue;
-      transition: box-shadow 0.3s ease, background-color 0.3s ease;
-      background-color: $primary-very-light-blue;
+      background-color: $neutral-white; 
       border-radius: .35rem;
+      box-shadow: $shadow-senary;
     }
   }
 
@@ -265,8 +265,8 @@
     border: solid $primary-light-blue;
     border-radius: .5rem;
     box-shadow: $shadow-primary;
-    padding-right: .5rem;
-    gap: .5rem;
+    padding-right: 1.5rem;
+    gap: 1.25rem;
     width: 100%;
     margin: 0 1rem;
 
@@ -372,9 +372,9 @@
 
     &:focus {
       color: $primary-dark-blue;
-      transition: box-shadow 0.3s ease, background-color 0.3s ease;
-      background-color: $primary-very-light-blue;
+      background-color: $neutral-white; 
       border-radius: .35rem;
+      box-shadow: $shadow-senary; 
     }
   }
 }
