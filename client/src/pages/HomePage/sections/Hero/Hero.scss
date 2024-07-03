@@ -5,83 +5,131 @@
 @use "../../../../styles/global.scss" as *;
 
 .hero {
-  @include block-item(100%, 41.6875rem);
-  background-color: $neutral-light-bg;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 8.35rem;
-  box-shadow: $shadow-primary;
+  @include tablet {
+    @include block-item(100%, 32rem);
+    background-color: $neutral-light-bg;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0 3.5rem;
+    box-shadow: $shadow-primary;
+  }
+
+  @include desktop {
+    height: 41.6875rem;
+    padding: 0 8.35rem;
+    justify-content: space-between;
+  }
 
   @include large-desktop {
     justify-content: center;
   }
 
   &__logo-container {
-    @include block-item(35rem, 35rem);
-    border-radius: 6.25rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-left: .5rem;
+    @include tablet {
+      border-radius: 5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding-left: .5rem;
+    }
+
+    @include desktop {
+      @include block-item(35rem, 35rem);
+    }
   }
   
   &__logo {
-    @include block-item(22rem, 22rem);
-    border-radius: 4.6rem;
-    box-shadow: $shadow-tertiary;
+    @include tablet {
+      @include block-item(15rem, 15rem);
+      border-radius: 1.5rem;
+      box-shadow: $shadow-tertiary;
+    }
+
+    @include desktop {
+      @include block-item(22rem, 22rem);
+      border-radius: 4.6rem;
+    }
   }
   
   &__logo-border {
-    @include block-item(30rem, 30rem);
-    @include animateBorder;
-    @include borderAnimation;
-    box-shadow: $shadow-primary;
-    border-radius: 6.25rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: .875rem solid;
-    background: $primary-darker-blue-gradient;
+    @include tablet {
+      @include block-item(21rem, 21rem);
+      @include animateBorder;
+      @include borderAnimation;
+      box-shadow: $shadow-primary;
+      border-radius: 4rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: .875rem solid;
+      background: $primary-darker-blue-gradient;
+    }
+
+    @include desktop {
+      @include block-item(30rem, 30rem);
+      border-radius: 6.25rem;
+    }
   }  
   
   &__copy-container {
-    height: 30rem;
-    display: flex;
-    flex-direction: column;
-    align-items: first baseline;
-    justify-content: center;
-    gap: 2rem;
+    @include tablet {
+      height: 30rem;
+      display: flex;
+      padding-right: .75rem;
+      flex-direction: column;
+      align-items: first baseline;
+      justify-content: center;
+      gap: 2rem;
+    }
   }
   
   &__copy {
-    @include block-item(26.375rem, 25rem);
+    @include tablet {
+      @include block-item(26.375rem, 25rem);
+    }
   }
 
   &__btn-container {
-    @include btn-main-container;
+    @include tablet {
+      @include btn-main-container;
+    }
   }
 
   &__btn {
-    @include btn-txt;
+    @include tablet {
+      @include btn-txt;
+    }
   }
 
   &__subtitle {
-    color: $primary-dark-blue;
-    font-family: $primary-font;
-    font-size: 1.25rem;
-    font-weight: 400;
-    padding-right: 3rem;
+    @include tablet {
+      color: $primary-dark-blue;
+      font-family: $primary-font;
+      font-size: 1rem;
+      font-weight: 400;
+    }
+
+    @include desktop {
+      font-size: 1.25rem;
+      padding-right: 3rem;
+    }
   }
     
   &__title {
-    color: $primary-medium-blue;
-    font-family: $primary-font;
-    font-size: 3.4375rem;
-    font-weight: 400;
-    text-shadow: $shadow-primary;
-    width: 28rem;
-    line-height: 4.2062rem;
+    @include tablet {
+      color: $primary-medium-blue;
+      font-family: $primary-font;
+      font-size: 2.5rem;
+      font-weight: 400;
+      text-shadow: $shadow-primary;
+      line-height: 3rem;
+    }
+
+    @include desktop {
+      font-size: 3.4375rem;
+      width: 28rem;
+      line-height: 4.2062rem;
+    }
   }
 }
