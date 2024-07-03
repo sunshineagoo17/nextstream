@@ -9,21 +9,21 @@ export const HoverMenu = () => {
   };
 
   return (
-    <div className="hover-menu-container">
-      <div className="menu-button" onClick={handleMenuClick}>
-        <div className={`menu-lines ${menuOpen ? 'open' : ''}`}>
+    <div className="hover-menu__container">
+      <div className="hover-menu__button" onClick={handleMenuClick}>
+        <div className={`hover-menu__lines ${menuOpen ? 'open' : ''}`}>
           <span></span>
           <span></span>
           <span></span>
         </div>
       </div>
       {menuOpen && (
-        <div className="menu-content">
-          <div className="menu-item">Search Results</div>
-          <div className="menu-item">Picks</div>
-          <div className="menu-item">Register</div>
-          <div className="menu-item">Profile</div>
-          <div className="menu-item">Calendar</div>
+        <div className="hover-menu__content">
+          <div className="hover-menu__item">Register</div>
+          <div className="hover-menu__item">Search Results</div>
+          <div className="hover-menu__item">Top Picks</div>
+          <div className="hover-menu__item">Calendar</div>
+          <div className="hover-menu__item">Profile</div>
         </div>
       )}
     </div>
