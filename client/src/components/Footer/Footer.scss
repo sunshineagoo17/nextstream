@@ -38,6 +38,7 @@
   &__privacy-policy,
   &__tac {
     @include tablet {
+      @include hover-raise-effect-footer;
       font-size: .725rem;
       color: $primary-pale-blue;
       font-family: $primary-font;

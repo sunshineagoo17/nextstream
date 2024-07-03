@@ -161,3 +161,22 @@
     box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
   }
 }
+
+@mixin hover-raise-effect-no-bg {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-7px);
+  }
+}
+
+@mixin hover-raise-effect-footer {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-2px);
+    font-weight: bold;
+  }
+}
