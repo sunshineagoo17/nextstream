@@ -233,11 +233,14 @@
     display: flex;
     align-items: center;
     padding: .5rem;
-    margin-right: 1rem;
     border: 2px solid $neutral-white;
     height: 2.9375rem;
     cursor: pointer;
     transition: box-shadow 0.3s ease, transform 0.2s ease;
+
+    @include tablet {
+      margin-right: 1rem;
+    }
 
     &:hover {
       box-shadow: 0 0 10px rgba($primary-medium-blue, 0.4), 0 0 10px rgba($primary-medium-blue, 0.3);
@@ -277,7 +280,7 @@
 
   &__search-icon--mobile {
     display: flex;
-    @include block-item(3.1rem, 2.75rem);
+    @include block-item(3.8rem, 2.75rem);
     background: $button-light-gradient;
     border: .1rem solid $neutral-white;
     border-radius: .35rem;
