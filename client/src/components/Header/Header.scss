@@ -4,72 +4,92 @@
 @use "../../styles/global.scss" as *;
 
 .header {
+  @include block-item(100%, 9.5rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: $neutral-white;
+  padding: 0 1.5rem;
+  margin: 0 auto;
+  box-shadow: $shadow-primary;
+  position: relative;
+
   @include tablet {
+    flex-direction: row;
     @include block-item(100%, 4.375rem);
-    display: flex;
     justify-content: space-between;
-    align-items: center;
-    background-color: $neutral-white;
     padding: 0 3.375rem;
-    margin: 0 auto;
-    box-shadow: $shadow-primary;
-    position: relative;
+  }
+
+  &__main-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    @include tablet {
+      flex-direction: column;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
   }
 
   &__logo-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    border: 0.125rem solid transparent;
+    transition: border 0.3s ease, padding 0.3s ease, border-radius 0.3s ease;
+
+    &:hover {
+      @include borderGlowLogo();
+      padding: 1rem;
+      border-radius: 1rem;
+    }
+
+    &:active {
+      .header__logo {
+        transform: scale(0.95);
+      }
+    }
+
     @include tablet {
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 0;
-      border: 0.125rem solid transparent;
-      transition: border 0.3s ease, padding 0.3s ease, border-radius 0.3s ease;
-
-      &:hover {
-        @include borderGlowLogo();
-        padding: 1rem;
-        border-radius: 1rem;
-      }
-
-      &:active {
-        .header__logo {
-          transform: scale(0.95);
-        }
-      }
     }
   }
 
   &__logo {
-    @include tablet {
-      @include block-item(8.375rem, 1.063rem);
-      transition: transform 0.2s ease;
-      cursor: pointer;
-    }
+    @include block-item(8.375rem, 1.063rem);
+    transition: transform 0.2s ease;
+    cursor: pointer;
   }
 
   &__login-container {
-    @include tablet {
-      @include btn-main-container;
-    }
+    @include btn-main-container;
+    width: 10rem;
   }
 
   &__login {
-    @include tablet {
-      @include btn-txt;
-    }
+    @include btn-txt;
   }
 
   &__search-bar {
+    display: none;
+
     @include tablet {
+      display: flex;
       align-items: center;
       background-color: $neutral-white;
       border: solid $primary-light-blue;
       border-radius: .5rem;
       box-shadow: $shadow-primary;
-      display: flex;
       padding-right: .5rem;
       gap: .5rem;
       width: 8.5rem;
@@ -86,41 +106,33 @@
   }
 
   &__search-icon {
-    @include tablet {
-      @include block-item(2.75rem, 2.75rem);
-      background: $button-light-gradient;
-      border: .1rem solid $neutral-white;
-      border-radius: .35rem;
-      box-shadow: $shadow-primary;
-    }
+    @include block-item(2.75rem, 2.75rem);
+    background: $button-light-gradient;
+    border: .1rem solid $neutral-white;
+    border-radius: .35rem;
+    box-shadow: $shadow-primary;
   }
 
   &__magnifying-glass {
-    @include tablet {
-      left: .35rem;
-      position: relative;
-      top: .65rem;
-    }
+    left: .35rem;
+    position: relative;
+    top: .65rem;
 
-    @include desktop {
-      left: .65rem;
+    @include tablet {
+      left: .75rem;
     }
   }
 
   &__icon-container {
-    @include desktop {
-      @include block-item(1.5rem, 1.875rem);
-      left: -.4375rem;
-      position: relative;
-    }
+    @include block-item(1.5rem, 1.875rem);
+    left: -.4375rem;
+    position: relative;
   }
 
   &__search-vector {
-    @include tablet {
-      @include block-item(1.1rem, 1.1rem);
-      position: absolute;
-      top: .625rem;
-    }
+    @include block-item(1.1rem, 1.1rem);
+    position: absolute;
+    top: .625rem;
 
     @include desktop {
       @include block-item(1.1875rem, 1.1875rem);
@@ -128,29 +140,25 @@
   }
 
   &__search-ellipse {
-    @include tablet {
-      @include block-item(.8rem, .8rem);
-      border: .1094rem solid;
-      border-color: $neutral-white;
-      border-radius: .5rem;
-      box-shadow: $shadow-primary;
-      left: .625rem;
-      position: absolute;
-    }
+    @include block-item(.8rem, .8rem);
+    border: .1094rem solid;
+    border-color: $neutral-white;
+    border-radius: .5rem;
+    box-shadow: $shadow-primary;
+    left: .625rem;
+    position: absolute;
   }
 
   &__search-content {
-    @include tablet {
-      width: 4rem;
-      align-items: flex-start;
-      align-self: stretch;
-      display: flex;
-      flex: 1;
-      flex-direction: column;
-      flex-grow: 1;
-      gap: .125rem;
-      justify-content: center;
-    }
+    width: 4rem;
+    align-items: flex-start;
+    align-self: stretch;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: .125rem;
+    justify-content: center;
 
     @include desktop {
       width: 100%;
@@ -158,59 +166,53 @@
   }
 
   &__search {
-    @include tablet {
-      font-family: $primary-font;
-      width: 100%;
-      font-size: .875rem;
-      font-weight: 400;
-      padding: .25rem;
-      outline: none;
-      border: none;
+    font-family: $primary-font;
+    width: 100%;
+    font-size: .875rem;
+    font-weight: 400;
+    padding: .25rem;
+    outline: none;
+    border: none;
+    color: $primary-light-blue;
+
+    &::placeholder {
       color: $primary-light-blue;
+    }
 
-      &::placeholder {
-        color: $primary-light-blue;
-      }
-
-      &:focus {
-        color: $primary-dark-blue;
-        transition: box-shadow 0.3s ease, background-color 0.3s ease;
-        background-color: $primary-very-light-blue;
-        border-radius: .35rem;
-      }
+    &:focus {
+      color: $primary-dark-blue;
+      transition: box-shadow 0.3s ease, background-color 0.3s ease;
+      background-color: $primary-very-light-blue;
+      border-radius: .35rem;
     }
   }
 
   &__nav-container {
-    @include tablet {
-      display: flex;
-      flex-direction: row;
-    }
+    display: flex;
+    flex-direction: row;
   }
 
   &__menu-container {
-    @include tablet {
-      align-items: flex-start;
-      background: $button-light-gradient;
-      border-radius: .5rem;
-      box-shadow: $shadow-primary;
-      display: flex;
-      align-items: center;
-      padding: .5rem;
-      margin-right: 1rem;
-      border: 2px solid $neutral-white;
-      height: 2.9375rem;
-      cursor: pointer;
-      transition: box-shadow 0.3s ease, transform 0.2s ease;
+    align-items: flex-start;
+    background: $button-light-gradient;
+    border-radius: .5rem;
+    box-shadow: $shadow-primary;
+    display: flex;
+    align-items: center;
+    padding: .5rem;
+    margin-right: 1rem;
+    border: 2px solid $neutral-white;
+    height: 2.9375rem;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease, transform 0.2s ease;
 
-      &:hover {
-        box-shadow: 0 0 10px rgba($primary-medium-blue, 0.4), 0 0 10px rgba($primary-medium-blue, 0.3);
-        border: 1px solid $neutral-white;
-      }
+    &:hover {
+      box-shadow: 0 0 10px rgba($primary-medium-blue, 0.4), 0 0 10px rgba($primary-medium-blue, 0.3);
+      border: 1px solid $neutral-white;
+    }
 
-      &:active {
-        transform: scale(0.95);
-      }
+    &:active {
+      transform: scale(0.95);
     }
 
     @include desktop {
@@ -219,129 +221,127 @@
   }
 
   &__menu {
-    @include tablet {
-      @include block-item(1.5rem, 1.5rem);
-      position: relative;
-    }
+    @include block-item(1.5rem, 1.5rem);
+    position: relative;
   }
 
   &__search-bar--mobile {
-    display: none;
+    display: flex;
+    align-items: center;
+    background-color: $neutral-white;
+    border: solid $primary-light-blue;
+    border-radius: .5rem;
+    box-shadow: $shadow-primary;
+    padding-right: .5rem;
+    gap: .5rem;
+    width: 100%;
+    margin: 0 1rem;
 
-    @include mobile {
-      align-items: center;
-      background-color: $neutral-white;
-      border: solid $primary-light-blue;
-      border-radius: .5rem;
-      box-shadow: $shadow-primary;
-      padding-right: .5rem;
-      gap: .5rem;
-      width: 8.5rem;
+    @include tablet {
+      display: none;
     }
   }
 
   &__search-icon--mobile {
-    display: none;
+    display: flex;
+    @include block-item(3.1rem, 2.75rem);
+    background: $button-light-gradient;
+    border: .1rem solid $neutral-white;
+    border-radius: .35rem;
+    box-shadow: $shadow-primary;
 
-    @include mobile {
-      display: block;
-      @include block-item(2.75rem, 2.75rem);
-      background: $button-light-gradient;
-      border: .1rem solid $neutral-white;
-      border-radius: .35rem;
-      box-shadow: $shadow-primary;
+    @include tablet {
+      display: none;
     }
   }
 
   &__magnifying-glass--mobile {
-    display: none;
+    display: block;
+    left: .8rem;
+    position: relative;
+    top: .65rem;
 
-    @include mobile {
-      display: block;
-      left: .35rem;
-      position: relative;
-      top: .65rem;
+    @include tablet {
+      display: none;      
     }
   }
 
   &__icon-container--mobile {
-    display: none;
+    display: block;
+    @include block-item(1.5rem, 1.875rem);
+    left: -.4375rem;
+    position: relative;
 
-    @include mobile {
-      display: block;
-      @include block-item(1.5rem, 1.875rem);
-      left: -.4375rem;
-      position: relative;
+    @include tablet {
+      display: none;
     }
   }
 
   &__search-vector--mobile {
-    display: none;
+    display: block;
+    @include block-item(1.1rem, 1.1rem);
+    position: absolute;
+    top: .625rem;
 
-    @include mobile {
-      display: block;
-      @include block-item(1.1rem, 1.1rem);
-      position: absolute;
-      top: .625rem;
+    @include tablet {
+      display: none;      
     }
   }
 
   &__search-ellipse--mobile {
-    display: none;
+    display: block;
+    @include block-item(.8rem, .8rem);
+    border: .1094rem solid;
+    border-color: $neutral-white;
+    border-radius: .5rem;
+    box-shadow: $shadow-primary;
+    left: .625rem;
+    position: absolute;
 
-    @include mobile {
-      display: block;
-      @include block-item(.8rem, .8rem);
-      border: .1094rem solid;
-      border-color: $neutral-white;
-      border-radius: .5rem;
-      box-shadow: $shadow-primary;
-      left: .625rem;
-      position: absolute;
+    @include tablet {
+      display: none;      
     }
   }
 
   &__search-content--mobile {
-    display: none;
+    display: flex;
+    width: 100%;
+    align-items: flex-start;
+    align-self: stretch;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: .125rem;
+    justify-content: center;
 
-    @include mobile {
-      display: block;
-      width: 4rem;
-      align-items: flex-start;
-      align-self: stretch;
-      display: flex;
-      flex: 1;
-      flex-direction: column;
-      flex-grow: 1;
-      gap: .125rem;
-      justify-content: center;
+    @include tablet {
+      display: none;
     }
   }
 
   &__search--mobile {
-    display: none;
+    display: block;
+    font-family: $primary-font;
+    width: 100%;
+    font-size: .875rem;
+    font-weight: 400;
+    padding: .25rem;
+    outline: none;
+    border: none;
+    color: $primary-light-blue;
 
-    @include mobile {
-      display: block;
-      font-family: $primary-font;
-      width: 100%;
-      font-size: .875rem;
-      font-weight: 400;
-      padding: .25rem;
-      outline: none;
-      border: none;
+    @include tablet {
+      display: none;
+    }
+
+    &::placeholder {
       color: $primary-light-blue;
+    }
 
-      &::placeholder {
-        color: $primary-light-blue;
-      }
-
-      &:focus {
-        color: $primary-dark-blue;
-        transition: box-shadow 0.3s ease, background-color 0.3s ease;
-        background-color: $primary-very-light-blue;
-        border-radius: .35rem;
-      }
+    &:focus {
+      color: $primary-dark-blue;
+      transition: box-shadow 0.3s ease, background-color 0.3s ease;
+      background-color: $primary-very-light-blue;
+      border-radius: .35rem;
     }
   }
 }
