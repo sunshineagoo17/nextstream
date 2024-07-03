@@ -171,6 +171,15 @@
   }
 }
 
+@mixin hover-raise-effect-nav {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-2.75px);
+  }
+}
+
 @mixin hover-raise-effect-footer {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;

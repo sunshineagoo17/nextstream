@@ -63,7 +63,7 @@
 
   &__pagination, &__next {
     @include tablet {
-      @include hover-raise-effect-no-bg;
+      @include hover-raise-effect-nav;
       @include block-item(2.6875rem, 2.6875rem);
       display: flex;
       justify-content: center;
@@ -77,7 +77,7 @@
   &__page-nav-wrapper1, &__page-nav-wrapper2 {
     @include tablet {
       @include block-item(2.6rem, 2.6rem);
-      @include hover-raise-effect-no-bg;
+      @include hover-raise-effect-nav;
       display: flex;
       align-items: center;
       justify-content: center;
