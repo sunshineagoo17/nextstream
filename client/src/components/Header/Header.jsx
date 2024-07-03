@@ -2,6 +2,7 @@ import React from 'react';
 import nextStreamLogo from "../../assets/images/nextstream-wordmark.png";
 import searchVector from "../../assets/images/searh-vector-handle.svg";
 import HoverMenu from "./sections/HoverMenu";
+import UserIcon from "../../assets/images/user-icon.svg";
 import "./Header.scss";
 
 export const Header = () => {
@@ -30,7 +31,10 @@ export const Header = () => {
           <img className="header__logo" alt="Nextstream logo" src={nextStreamLogo} />
         </div>
         <button className="header__login-container">
-          <div className="header__login">Sign In</div>
+          <div className="header__login">
+            <div className="header__sign-in-txt">Sign In</div>
+            <img className="header__sign-in-icon" src={UserIcon} alt="User Icon" />
+          </div>
         </button>
       </div>
       {/* Search Bar - only present on mobile breakpoints */}

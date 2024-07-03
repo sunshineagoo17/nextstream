@@ -22,6 +22,40 @@
     padding: 0 3.375rem;
   }
 
+  &__sign-in-icon {
+    @include block-item(1.5rem, 1.5rem);
+    display: block;
+    box-shadow: $shadow-primary;
+  
+    @include tablet {
+      display: none;
+    }
+  }
+
+  &__sign-in-txt {
+    display: none;
+
+    @include tablet {
+      display: block;
+    }
+  }
+
+  &__login-container {
+    @include btn-small;
+    @include block-item(1.5rem, 2.75rem);
+    display: flex;
+
+    @include tablet {
+      width: 10rem;
+    }
+  }
+
+  &__login {
+    @include btn-txt;
+    display: block;
+    align-items: center;
+  }
+
   &__main-container {
     width: 100%;
     display: flex;
@@ -71,15 +105,6 @@
     cursor: pointer;
   }
 
-  &__login-container {
-    @include btn-main-container;
-    width: 10rem;
-  }
-
-  &__login {
-    @include btn-txt;
-  }
-
   &__search-bar {
     display: none;
 
@@ -102,6 +127,14 @@
 
     @include large-desktop {
       width: 16rem;
+    }
+  }
+
+  &__user-icon {
+    display: block;
+
+    @include tablet {
+      display: none;
     }
   }
 
