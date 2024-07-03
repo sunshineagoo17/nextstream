@@ -10,12 +10,6 @@ export const Header = () => {
       <div className="header__nav-container">
         <div className="header__menu-container">
           <HoverMenu />
-          {/* <div className="header__menu">
-            <div className="header__menu-circle1" />
-            <div className="header__menu-circle2" />
-            <div className="header__menu-circle3" />
-            <div className="header__menu-circle4" />
-          </div> */}
         </div>
         <div className="header__search-bar">
           <div className="header__search-icon">

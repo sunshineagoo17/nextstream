@@ -14,6 +14,10 @@
   padding: 0 8.35rem;
   box-shadow: $shadow-primary;
 
+  @include large-desktop {
+    justify-content: center;
+  }
+
   &__logo-container {
     @include block-item(35rem, 35rem);
     border-radius: 6.25rem;
@@ -43,10 +47,10 @@
   }  
   
   &__copy-container {
-    @include block-item(32rem, 30rem);
+    height: 30rem;
     display: flex;
     flex-direction: column;
-    align-items:first baseline;
+    align-items: first baseline;
     justify-content: center;
     gap: 2rem;
   }
