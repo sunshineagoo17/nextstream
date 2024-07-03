@@ -150,3 +150,14 @@
     }
   }
 }
+
+// Hover raise effect
+@mixin hover-raise-effect {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+  }
+}

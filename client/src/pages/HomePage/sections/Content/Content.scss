@@ -113,7 +113,10 @@
     gap: 1.1rem;
   }
 
-  &__card1-container, &__card2-container, &__card3-container {
+  &__card1-container,
+  &__card2-container,
+  &__card3-container {
+    @include hover-raise-effect;
     position: relative;
     border-radius: 1.6rem;
     box-shadow: $shadow-quaternary;
