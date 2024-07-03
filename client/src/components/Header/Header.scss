@@ -4,201 +4,238 @@
 @use "../../styles/global.scss" as *;
 
 .header {
-  height: 4.375rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: $neutral-white;
-  padding: 0 3.375rem;
-  margin: 0 auto;
-  box-shadow: $shadow-primary;
-  position: relative;
+  @include tablet {
+    @include block-item(100%, 4.375rem);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: $neutral-white;
+    padding: 0 3.375rem;
+    margin: 0 auto;
+    box-shadow: $shadow-primary;
+    position: relative;
+  }
 
   &__logo-wrapper {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0;
-    border: 0.125rem solid transparent;
-    transition: border 0.3s ease, padding 0.3s ease, border-radius 0.3s ease;
+    @include tablet {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0;
+      border: 0.125rem solid transparent;
+      transition: border 0.3s ease, padding 0.3s ease, border-radius 0.3s ease;
 
-    &:hover {
-      @include borderGlowLogo();
-      padding: 1rem;
-      border-radius: 1rem;
-    }
+      &:hover {
+        @include borderGlowLogo();
+        padding: 1rem;
+        border-radius: 1rem;
+      }
 
-    &:active {
-      .header__logo {
-        transform: scale(0.95);
+      &:active {
+        .header__logo {
+          transform: scale(0.95);
+        }
       }
     }
   }
 
   &__logo {
-    @include block-item(8.375rem, 1.063rem);
-    transition: transform 0.2s ease;
-    cursor: pointer;
+    @include tablet {
+      @include block-item(8.375rem, 1.063rem);
+      transition: transform 0.2s ease;
+      cursor: pointer;
+    }
   }
 
   &__login-container {
-    @include btn-main-container;
+    @include tablet {
+      @include btn-main-container;
+    }
   }
 
   &__login {
-    @include btn-txt;
+    @include tablet {
+      @include btn-txt;
+    }
   }
 
   &__search-bar {
-    align-items: center;
-    background-color: $neutral-white;
-    border: solid $primary-light-blue;
-    border-radius: .5rem;
-    box-shadow: $shadow-primary;
-    display: flex;
-    gap: 1rem;
-    width: 15rem;
+    @include tablet {
+      align-items: center;
+      background-color: $neutral-white;
+      border: solid $primary-light-blue;
+      border-radius: .5rem;
+      box-shadow: $shadow-primary;
+      display: flex;
+      padding-right: .5rem;
+      gap: .5rem;
+      width: 8.5rem;
+    }
+
+    @include desktop {
+      width: 13rem;
+      padding-right: 1rem;
+    }
+
+    @include large-desktop {
+      width: 16rem;
+    }
   }
 
   &__search-icon {
-    @include block-item(2.75rem, 2.75rem);
-    background: $button-light-gradient;
-    border: .1rem solid $neutral-white;
-    border-radius: .35rem;
-    box-shadow: $shadow-primary;
+    @include tablet {
+      @include block-item(2.75rem, 2.75rem);
+      background: $button-light-gradient;
+      border: .1rem solid $neutral-white;
+      border-radius: .35rem;
+      box-shadow: $shadow-primary;
+    }
   }
 
   &__magnifying-glass {
-    left: .65rem;
-    position: relative;
-    top: .65rem;
+    @include tablet {
+      left: .35rem;
+      position: relative;
+      top: .65rem;
+    }
+
+    @include desktop {
+      left: .65rem;
+    }
   }
 
   &__icon-container {
-    @include block-item(1.5rem, 1.875rem);
-    left: -.4375rem;
-    position: relative;
+    @include desktop {
+      @include block-item(1.5rem, 1.875rem);
+      left: -.4375rem;
+      position: relative;
+    }
   }
 
   &__search-vector {
-    @include block-item(1.1875rem, 1.1875rem);
-    position: absolute;
-    top: .625rem;
+    @include tablet {
+      @include block-item(1.1rem, 1.1rem);
+      position: absolute;
+      top: .625rem;
+    }
+
+    @include desktop {
+      @include block-item(1.1875rem, 1.1875rem);
+    }
   }
 
   &__search-ellipse {
-    @include block-item(.8rem, .8rem);
-    border: .1094rem solid;
-    border-color: $neutral-white;
-    border-radius: .5rem;
-    box-shadow: $shadow-primary;
-    left: .625rem;
-    position: absolute;
+    @include tablet {
+      @include block-item(.8rem, .8rem);
+      border: .1094rem solid;
+      border-color: $neutral-white;
+      border-radius: .5rem;
+      box-shadow: $shadow-primary;
+      left: .625rem;
+      position: absolute;
+    }
   }
 
   &__search-content {
-    align-items: flex-start;
-    align-self: stretch;
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    flex-grow: 1;
-    gap: .125rem;
-    justify-content: center;
+    @include tablet {
+      width: 4rem;
+      align-items: flex-start;
+      align-self: stretch;
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      flex-grow: 1;
+      gap: .125rem;
+      justify-content: center;
+    }
+
+    @include desktop {
+      width: 100%;
+    }
   }
 
   &__search {
-    font-family: $primary-font;
-    font-size: .875rem;
-    font-weight: 400;
-    padding: .25rem;
-    outline: none;
-    border: none;
-    color: $primary-light-blue;
-
-    &::placeholder {
+    @include tablet {
+      font-family: $primary-font;
+      width: 100%;
+      font-size: .875rem;
+      font-weight: 400;
+      padding: .25rem;
+      outline: none;
+      border: none;
       color: $primary-light-blue;
-    }
 
-    &:focus {
-      color: $primary-dark-blue;
-      transition: box-shadow 0.3s ease, background-color 0.3s ease;
-      background-color: $primary-very-light-blue;
-      border-radius: .35rem;
+      &::placeholder {
+        color: $primary-light-blue;
+      }
+
+      &:focus {
+        color: $primary-dark-blue;
+        transition: box-shadow 0.3s ease, background-color 0.3s ease;
+        background-color: $primary-very-light-blue;
+        border-radius: .35rem;
+      }
     }
   }
 
   &__nav-container {
-    display: flex;
-    flex-direction: row;
+    @include tablet {
+      display: flex;
+      flex-direction: row;
+    }
   }
 
   &__menu-container {
-    align-items: flex-start;
-    background: $button-light-gradient;
-    border-radius: .5rem;
-    box-shadow: $shadow-primary;
-    display: flex;
-    align-items: center;
-    padding: .5rem;
-    margin-right: 2.0625rem;
-    border: 2px solid $neutral-white;
-    height: 2.9375rem;
-    cursor: pointer;
-    transition: box-shadow 0.3s ease, transform 0.2s ease;
+    @include tablet {
+      align-items: flex-start;
+      background: $button-light-gradient;
+      border-radius: .5rem;
+      box-shadow: $shadow-primary;
+      display: flex;
+      align-items: center;
+      padding: .5rem;
+      margin-right: 1rem;
+      border: 2px solid $neutral-white;
+      height: 2.9375rem;
+      cursor: pointer;
+      transition: box-shadow 0.3s ease, transform 0.2s ease;
 
-    &:hover {
-      box-shadow: 0 0 10px rgba($primary-medium-blue, 0.4), 0 0 10px rgba($primary-medium-blue, 0.3);
-      border: 1px solid $neutral-white;
+      &:hover {
+        box-shadow: 0 0 10px rgba($primary-medium-blue, 0.4), 0 0 10px rgba($primary-medium-blue, 0.3);
+        border: 1px solid $neutral-white;
+      }
+
+      &:active {
+        transform: scale(0.95);
+      }
     }
 
-    &:active {
-      transform: scale(0.95);
+    @include desktop {
+      margin-right: 2.0625rem;
     }
   }
 
   &__menu {
-    @include block-item(1.5rem, 1.5rem);
-    position: relative;
-  }
-
-  &__menu-circle1,
-  &__menu-circle2,
-  &__menu-circle3,
-  &__menu-circle4 {
-    @include block-item(.5625rem, .5625rem);
-    background-color: $neutral-white;
-    border-radius: .125rem;
-    box-shadow: $shadow-primary;
-    position: absolute;
-  }
-
-  &__menu-circle2 {
-    top: .9375rem;
-  }
-
-  &__menu-circle3 {
-    left: .9375rem;
-    top: 0;
-  }
-
-  &__menu-circle4 {
-    left: .9375rem;
-    top: .9375rem;
+    @include tablet {
+      @include block-item(1.5rem, 1.5rem);
+      position: relative;
+    }
   }
 }
 
 .input {
-  border: none;
-
-  &:focus {
+  @include tablet {
     border: none;
-  }
 
-  &.active {
-    border: none;
+    &:focus {
+      border: none;
+    }
+
+    &.active {
+      border: none;
+    }
   }
 }
