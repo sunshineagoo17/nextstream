@@ -60,7 +60,7 @@
   }
 
   &__page-nav-wrapper1, &__page-nav-wrapper2 {
-    @include block-item (2.6rem, 2.6rem);
+    @include block-item(2.6rem, 2.6rem);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -124,8 +124,7 @@
   }
 
   &__poster1, &__poster2, &__poster3 {
-    width: 100%;
-    height: auto;
+    @include block-item(100%, auto);
   }
 
   &__icon-bg-video, &__icon-bg-video2, &__icon-bg-tv {
@@ -142,8 +141,7 @@
   }
 
   &__video-icon, &__video-icon2, &__tv-icon {
-    width: 1.5625rem;
-    height: auto;
+    @include block-item(1.5625rem, auto);
   }
 
   &__new-releases-header {
@@ -199,11 +197,10 @@
   }
 
   &__feature__icon-bg {
+    @include block-item(9.6875rem, 9.6875rem);
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 9.6875rem;
-    height: 9.6875rem;
     background: $primary-icon-bg;
     box-shadow: $shadow-primary;
     border-radius: 0.5rem;
@@ -211,8 +208,7 @@
   }
 
   &__feature__search-icon, &__feature__favourites-icon, &__feature__calendar-icon {
-    width: 5.4375rem;
-    height: auto;
+    @include block-item(5.4375rem, auto);
   }
 
   &__feature__label {
@@ -304,8 +300,7 @@
       align-items: center;
 
       &__icon-bg {
-        width: 9.6875rem;
-        height: 9.6875rem;
+        @include block-item(9.6875rem, 9.6875rem);
         display: flex;
         justify-content: center;
         align-items: center;
@@ -318,15 +313,13 @@
       &__favourites-icon,
       &__calendar-icon,
       &__search-icon {
-        width: 5.4375rem;
-        height: 4.625rem;
+        @include block-item(5.4375rem, 4.625rem);
         border-top-left-radius: 0.5rem;
         border-top-right-radius: 0.5rem;
       }
 
       &__label {
-        width: 16.875rem;
-        height: 5.5625rem;
+        @include block-item(16.875rem, 5.5625rem);
         background: $neutral-white;
         box-shadow: 0 1.75rem 5.25rem rgba($neutral-black, 0.18);
         border-radius: 0.5rem;
