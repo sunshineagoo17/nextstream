@@ -9,10 +9,38 @@ const ContactModal = ({ onClose }) => {
   const [success, setSuccess] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const validateForm = () => {
+    if (!name) {
+      return "Please enter your name.";
+    }
+    if (!email) {
+      return "Please enter your email.";
+    }
+    if (email && !validateEmail(email)) {
+      return "Please enter a valid email address.";
+    }
+    if (!message) {
+      return "Please enter your message.";
+    }
+    return null;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
     setSuccess(null);
+
+    const validationError = validateForm();
+    if (validationError) {
+      setError(validationError);
+      return;
+    }
+
     setLoading(true);
 
     try {
@@ -49,9 +77,7 @@ const ContactModal = ({ onClose }) => {
       <div className="modal-contact__container">
         <span className="modal-contact__close" onClick={onClose}>&times;</span>
         <div className="modal-contact__label-container">
-          <div className="modal-contact__label">
-            Contact Us
-          </div>
+          <div className="modal-contact__label">Contact Us</div>
         </div>
         {error && (
           <div className="error">
@@ -69,24 +95,39 @@ const ContactModal = ({ onClose }) => {
             {success}
           </div>
         )}
-        <form className="modal-contact__form" onSubmit={handleSubmit}>
+        <form className="modal-contact__form" onSubmit={handleSubmit} noValidate>
           <label className="modal-contact__label-input">
-            <div className="modal-contact__label-txt">
-              Name:
-            </div>
-            <input className="modal-contact__input" type="text" value={name} onChange={(e) => setName(e.target.value)} required />
+            <div className="modal-contact__label-txt">Name:</div>
+            <input
+              className="modal-contact__input"
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+              data-required-msg="Please enter your name."
+            />
           </label>
           <label className="modal-contact__label-input">
-            <div className="modal-contact__label-txt">
-              Email:
-            </div>
-            <input className="modal-contact__input" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+            <div className="modal-contact__label-txt">Email:</div>
+            <input
+              className="modal-contact__input"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              data-required-msg="Please enter your email."
+              data-type-mismatch-msg="Please include a valid email address."
+            />
           </label>
           <label className="modal-contact__label-txtarea">
-            <div className="modal-contact__label-txtarea-txt">
-              Message:
-            </div>
-            <textarea className="modal-contact__txtarea" value={message} onChange={(e) => setMessage(e.target.value)} required />
+            <div className="modal-contact__label-txtarea-txt">Message:</div>
+            <textarea
+              className="modal-contact__txtarea"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              required
+              data-required-msg="Please enter your message."
+            />
           </label>
           <button type="submit" disabled={loading}>
             {loading ? 'Sending...' : 'Send'}
