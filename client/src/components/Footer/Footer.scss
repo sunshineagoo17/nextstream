@@ -5,15 +5,18 @@
 @use "../../styles/global.scss" as *;
 
 .footer {
-  @include block-item(100%, 6rem);
+  @include block-item(100%, auto);
   background: $primary-darker-blue-gradient;
   display: flex;
   align-items: center;
+  flex-direction: column;
   justify-content: space-between;
-  padding: 0 3.375rem;
+  padding: 1.5rem 3.375rem;
 
   @include tablet {
+    flex-direction: row;
     padding: 0 2rem;
+    @include block-item(100%, 6rem);
   }
 
   @include desktop {
@@ -88,7 +91,12 @@
 
     @include tablet {
       @include btn-main-container;
+      width: 7rem;
       margin-right: .8125rem;
+    }
+    
+    @include desktop {
+      width: 10rem;
     }
   }
 
@@ -104,13 +112,19 @@
 
   &__btn-contact {
     @include btn-secondary-container;
+    width: 7.3338rem;
     font-size: .875rem;
     height: 2.9375rem;
 
     @include tablet {
       @include btn-secondary-container;
+      width: 7.5rem;
       font-size: .875rem;
       height: 2.9375rem;
+    }
+
+    @include desktop {
+      width: 10rem;
     }
   }
 
