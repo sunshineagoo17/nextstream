@@ -15,7 +15,6 @@ export const Hero = () => {
           </div>
           <div className="hero__title">
             Can’t Stream?
-            <br />
             Try NextStream!
           </div>
         </div>

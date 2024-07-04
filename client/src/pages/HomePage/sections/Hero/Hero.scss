@@ -29,7 +29,6 @@
 
   &__top-container {
     display: flex;
-    justify-content: space-between;
     margin-top: 1.25rem;
 
     @include tablet {
@@ -43,8 +42,13 @@
   &__logo-container--mobile {
     border-radius: 5rem;
     display: flex;
+    margin-right: .5rem;
     justify-content: center;
     align-items: center;
+
+    @include large-mobile {
+      margin-right: 1.5rem;
+    }
 
     @include tablet {
       display: none;
@@ -196,6 +200,11 @@
     font-weight: 400;
     text-shadow: $shadow-primary;
     line-height: 1.5rem;
+
+    @include large-mobile {
+      font-size: 1.5rem;
+      line-height: 1.85rem;
+    }
 
     @include tablet {
       font-size: 2.5rem;
