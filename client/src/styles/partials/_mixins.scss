@@ -10,6 +10,12 @@
     }
 }
 
+@mixin small-mobile {
+    @media (min-width: 321px) and (max-width: 374px) {
+        @content;
+    }
+}
+
 @mixin large-mobile {
     @media screen and (min-width: #{$large-mobile-breakpoint}) {
         @content;
