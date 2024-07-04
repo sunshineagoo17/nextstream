@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./Footer.scss";
 import logoMark from "../../assets/images/logo-wordmark-wh.png";
 
@@ -12,7 +13,7 @@ export const Footer = () => {
       <div className="footer__copy-container">
         <div className="footer__copyright">© 2024</div>
         <div className="footer__privacy-policy">Privacy Policy</div>
-        <div className="footer__tac">Terms and Conditions</div>
+        <Link to="/terms"><div className="footer__tac">Terms and Conditions</div></Link>
       </div>
       
       <div className="footer__btn-container">

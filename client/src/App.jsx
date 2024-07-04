@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import api from './services/api';
-import { HomePage } from './pages/HomePage/HomePage';
+import React, { useEffect, useState } from "react";
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import api from "./services/api";
+import { HomePage } from "./pages/HomePage/HomePage";
 import { Header } from "./components/Header/Header";
 import { Footer } from "./components/Footer/Footer";
+import { TermsAndConditions } from "./pages/TermsAndConditions/TermsAndConditions";
 import './styles/global.scss';
 
 const App = () => {
@@ -20,12 +22,17 @@ const App = () => {
   }, []);
 
   return (
-    <div>
-      {error && <div>Error: {error.message}</div>}
-      <Header />
-      <HomePage />
-      <Footer />
-    </div>
+    <Router>
+      <div>
+        {error && <div>Error: {error.message}</div>}
+        <Header />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/terms" element={<TermsAndConditions />} />
+        </Routes>
+        <Footer />
+      </div>
+    </Router>
   );
 };
 
