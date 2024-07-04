@@ -7,11 +7,13 @@ const ContactModal = ({ onClose }) => {
   const [message, setMessage] = useState('');
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
     setSuccess(null);
+    setLoading(true);
 
     try {
       const response = await fetch('http://localhost:8080/api/email/send', {
@@ -37,6 +39,8 @@ const ContactModal = ({ onClose }) => {
     } catch (error) {
       setError('An error occurred while sending the email.');
       setSuccess(null);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -60,7 +64,9 @@ const ContactModal = ({ onClose }) => {
             Message:
             <textarea value={message} onChange={(e) => setMessage(e.target.value)} required />
           </label>
-          <button type="submit">Send</button>
+          <button type="submit" disabled={loading}>
+            {loading ? 'Sending...' : 'Send'}
+          </button>
         </form>
       </div>
     </div>

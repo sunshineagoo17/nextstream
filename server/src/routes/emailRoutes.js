@@ -1,76 +1,37 @@
-import React, { useState } from 'react';
-import './ContactModal.scss';
+const express = require('express');
+const router = express.Router();
+const sgMail = require('@sendgrid/mail');
+require('dotenv').config();
 
-const ContactModal = ({ onClose }) => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
-  const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(null);
-  const [loading, setLoading] = useState(false);
+// Set SendGrid API key
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError(null);
-    setSuccess(null);
-    setLoading(true);
+router.post('/send', async (req, res) => {
+  const { name, email, message } = req.body;
 
-    try {
-      const response = await fetch('http://localhost:8080/api/email/send', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ name, email, message }),
-      });
+  // Validate required fields
+  if (!name || !email || !message) {
+    return res.status(400).json({ message: 'Missing required fields: name, email, message' });
+  }
 
-      const data = await response.json();
-
-      if (response.ok) {
-        setSuccess(data.message);
-        setError(null);
-        setName('');
-        setEmail('');
-        setMessage('');
-      } else {
-        setError(data.message || 'Failed to send email.');
-        setSuccess(null);
-      }
-    } catch (error) {
-      setError('An error occurred while sending the email.');
-      setSuccess(null);
-    } finally {
-      setLoading(false);
-    }
+  const msg = {
+    to: 'contact@nextstream.ca', // Your recipient's email address
+    from: 'contact@nextstream.ca', // Verified sender's email
+    replyTo: email, // User's email
+    subject: `Contact Form Submission from ${name}`,
+    text: message,
   };
 
-  return (
-    <div className="modal-overlay">
-      <div className="modal-content">
-        <span className="modal-close" onClick={onClose}>&times;</span>
-        <h2>Contact Us</h2>
-        {error && <div className="error">{error}</div>}
-        {success && <div className="success">{success}</div>}
-        <form onSubmit={handleSubmit}>
-          <label>
-            Name:
-            <input type="text" value={name} onChange={(e) => setName(e.target.value)} required />
-          </label>
-          <label>
-            Email:
-            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-          </label>
-          <label>
-            Message:
-            <textarea value={message} onChange={(e) => setMessage(e.target.value)} required />
-          </label>
-          <button type="submit" disabled={loading}>
-            {loading ? 'Sending...' : 'Send'}
-          </button>
-        </form>
-      </div>
-    </div>
-  );
-};
+  try {
+    console.log('Sending email with the following details:', msg);
+    // Send email using SendGrid
+    const response = await sgMail.send(msg);
+    console.log('Email sent response:', response);
+    res.status(200).json({ message: 'Email sent successfully!' });
+  } catch (error) {
+    console.error('Error sending email:', error.response ? error.response.body : error);
+    res.status(500).json({ message: 'Error sending email', error: error.response ? error.response.body : error });
+  }
+});
 
-export default ContactModal;
+module.exports = router;

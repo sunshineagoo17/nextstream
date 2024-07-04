@@ -5,11 +5,12 @@ import { HomePage } from "./pages/HomePage/HomePage";
 import { Header } from "./components/Header/Header";
 import { Footer } from "./components/Footer/Footer";
 import { TermsAndConditions } from "./pages/TermsAndConditions/TermsAndConditions";
+import ContactModal from "./components/ContactModal/ContactModal"; 
 import './styles/global.scss';
 
 const App = () => {
   const [error, setError] = useState(null);
-
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false); 
   useEffect(() => {
     api.get('/')
       .then(response => {
@@ -21,6 +22,14 @@ const App = () => {
       });
   }, []);
 
+  const handleContactClick = () => {
+    setIsContactModalOpen(true); 
+  };
+
+  const handleCloseModal = () => {
+    setIsContactModalOpen(false);
+  };
+
   return (
     <Router>
       <div>
@@ -30,7 +39,8 @@ const App = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="/terms" element={<TermsAndConditions />} />
         </Routes>
-        <Footer />
+        <Footer onContactClick={handleContactClick} />
+        {isContactModalOpen && <ContactModal onClose={handleCloseModal} />}
       </div>
     </Router>
   );
