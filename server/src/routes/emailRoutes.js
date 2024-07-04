@@ -30,7 +30,7 @@ router.post('/send', async (req, res) => {
     res.status(200).json({ message: 'Email sent successfully!' });
   } catch (error) {
     console.error('Error sending email:', error.response ? error.response.body : error);
-    res.status(500).json({ message: 'Error sending email', error: error.response ? error.response.body : error });
+    res.status(500).json({ message: "Sorry, we couldn't send your message.", error: error.response ? error.response.body : error });
   }
 });
 
