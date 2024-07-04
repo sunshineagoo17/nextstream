@@ -243,9 +243,9 @@
   }
 
   &__card1, &__card2, &__card3 {
-    @include block-item(12rem, 18.5rem);
+    @include block-item(6rem, 10rem);
     background: $primary-darker-blue-gradient;
-    border-radius: 1.5625rem;
+    border-radius: 1rem;
     box-shadow: $shadow-tertiary;
     display: flex;
     justify-content: center;
@@ -269,7 +269,7 @@
   }
 
   &__poster1, &__poster2, &__poster3 {
-    @include block-item(12rem, auto);
+    @include block-item(6rem, auto);
 
     @include tablet {
       @include block-item(12rem, auto);
@@ -472,6 +472,7 @@
       border: 2px solid $neutral-white;
       box-shadow: $shadow-quinary;
       margin-top: .05rem;
+      margin-left: .6rem;
 
       &:hover {
         @include glow-animation;
