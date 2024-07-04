@@ -4,6 +4,7 @@ import { HomePage } from "./pages/HomePage/HomePage";
 import { Header } from "./components/Header/Header";
 import { Footer } from "./components/Footer/Footer";
 import { TermsAndConditions } from "./pages/TermsAndConditions/TermsAndConditions";
+import { PrivacyPolicy } from "./pages/PrivacyPolicy/PrivacyPolicy"; 
 import ContactModal from "./components/ContactModal/ContactModal"; 
 import './styles/global.scss';
 
@@ -25,6 +26,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/terms" element={<TermsAndConditions />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} /> 
         </Routes>
         <Footer onContactClick={handleContactClick} />
         {isContactModalOpen && <ContactModal onClose={handleCloseModal} />}
