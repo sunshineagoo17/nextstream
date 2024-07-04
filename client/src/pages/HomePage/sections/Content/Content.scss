@@ -212,7 +212,7 @@
       padding: 1rem;
       box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     }
-  }
+  }  
 
   &__card-media {
     display: flex;
@@ -320,7 +320,7 @@
     flex-direction: column;
     width: 100%;
     align-items: center;
-    padding: 0 3.65rem 2rem 3.65rem;
+    padding: 0 3.65rem 2rem 3.65rem; 
 
     @include tablet {
       display: flex;
@@ -328,10 +328,10 @@
       flex-direction: column;
       width: 100%;
       align-items: center;
-      padding: 0 3.65rem 2rem 3.65rem;
+      padding: 0 3.65rem 2rem 3.65rem; 
 
       @include desktop {
-        padding: 0 8.75rem 2rem 8.35rem;
+        padding: 0 8.75rem 2rem 8.35rem; 
       }
     }
   }
@@ -421,6 +421,18 @@
       box-shadow: $shadow-primary;
       border-radius: 0.5rem;
       margin-bottom: 1rem;
+    }
+  }
+
+  &__feature__search-icon, &__feature__favourites-icon, &__feature__calendar-icon {
+    @include block-item(1.5rem, 1.5rem);
+
+    @include tablet {
+      @include block-item(3.5rem, 3.5rem);
+    }
+
+    @include desktop {
+      @include block-item(5.4375rem, auto);
     }
   }
 
@@ -574,69 +586,85 @@
       @include desktop {
         padding: 0 2.7rem;
       }
+    }
 
-      &__feature {
+    &__feature {
+      @include hover-raise-effect-no-bg;
+      @include block-item(10rem, 10rem);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      @include tablet {
         @include hover-raise-effect-no-bg;
-        @include block-item(10rem, 10rem);
+        @include block-item(16.875rem, 12.4375rem);
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
+      }
+
+      &__icon-bg {
+        @include block-item(2.5rem, 2rem);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: $primary-icon-bg;
+        box-shadow: $shadow-primary;
+        border-top-left-radius: 0.25rem;
+        border-top-right-radius: 0.25rem;
 
         @include tablet {
-          @include hover-raise-effect-no-bg;
-          @include block-item(16.875rem, 12.4375rem);
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
-
-        &__icon-bg {
-          @include block-item(2.5rem, 2rem);
+          @include block-item(5.5rem, 4.5rem);
           display: flex;
           justify-content: center;
           align-items: center;
           background: $primary-icon-bg;
           box-shadow: $shadow-primary;
-          border-top-left-radius: 0.25rem;
-          border-top-right-radius: 0.25rem;
-
-          @include tablet {
-            @include block-item(5.5rem, 4.5rem);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: $primary-icon-bg;
-            box-shadow: $shadow-primary;
-            border-top-left-radius: 0.5rem;
-            border-top-right-radius: 0.5rem;
-
-            @include desktop {
-              @include block-item(9.6875rem, 9.6875rem);
-            }
-          }
-        }
-
-        &__favourites-icon,
-        &__calendar-icon,
-        &__search-icon {
-          @include block-item(2rem, 2rem);
           border-top-left-radius: 0.5rem;
           border-top-right-radius: 0.5rem;
 
-          @include tablet {
-            @include block-item(3.25rem, 3.25rem);
-            border-top-left-radius: 0.5rem;
-            border-top-right-radius: 0.5rem;
-
-            @include desktop {
-              @include block-item(5.25rem, 5.25rem);
-            }
+          @include desktop {
+            @include block-item(9.6875rem, 9.6875rem);
           }
         }
+      }
 
-        &__label {
+      &__favourites-icon,
+      &__calendar-icon,
+      &__search-icon {
+        @include block-item(1.5rem, 1.5rem);
+        border-top-left-radius: 0.5rem;
+        border-top-right-radius: 0.5rem;
+
+        @include tablet {
+          @include block-item(3.5rem, 3.5rem);
+          border-top-left-radius: 0.5rem;
+          border-top-right-radius: 0.5rem;
+        }
+
+        @include desktop {
+          @include block-item(5.4375rem, auto);
+        }
+      }
+
+      &__label {
+        @include block-item(12rem, 4rem);
+        background: $neutral-white;
+        box-shadow: 0 1.75rem 5.25rem rgba($neutral-black, 0.18);
+        border-radius: 0.5rem;
+        text-align: center;
+        color: $primary-medium-blue;
+        font-size: 1.1rem;
+        font-family: $secondary-font;
+        font-weight: 500;
+        word-wrap: break-word;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        @include tablet {
           @include block-item(12rem, 4rem);
           background: $neutral-white;
           box-shadow: 0 1.75rem 5.25rem rgba($neutral-black, 0.18);
@@ -651,24 +679,8 @@
           justify-content: center;
           align-items: center;
 
-          @include tablet {
-            @include block-item(12rem, 4rem);
-            background: $neutral-white;
-            box-shadow: 0 1.75rem 5.25rem rgba($neutral-black, 0.18);
-            border-radius: 0.5rem;
-            text-align: center;
-            color: $primary-medium-blue;
-            font-size: 1.1rem;
-            font-family: $secondary-font;
-            font-weight: 500;
-            word-wrap: break-word;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            @include desktop {
-              @include block-item(16.875rem, 5.5625rem);
-            }
+          @include desktop {
+            @include block-item(16.875rem, 5.5625rem);
           }
         }
       }
