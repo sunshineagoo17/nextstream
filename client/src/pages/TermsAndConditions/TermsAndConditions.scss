@@ -5,15 +5,11 @@
 @use "../../styles/global.scss" as *;
 
 .terms {
-  position: relative;
-  padding: 2rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(10px);
-  border-radius: 1rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
   &__container {
     position: relative;
@@ -23,11 +19,8 @@
   }
 
   &__content-card {
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(10px);
+    @include bg-white;
     padding: 2rem;
-    border-radius: 1rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
 
   &__title {

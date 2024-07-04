@@ -108,3 +108,12 @@
     background-color: $feedback-error-red;
     color: $neutral-white;
 }
+
+// BG for TAC and Privacy Policy pages
+@mixin bg-white {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+  
