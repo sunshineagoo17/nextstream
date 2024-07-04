@@ -1,9 +1,23 @@
-import AnimatedBg from '../../components/AnimatedBg/AnimatedBg';
+import React, { useState } from 'react';
 import './TermsAndConditions.scss';
+import AnimatedBg from '../../components/AnimatedBg/AnimatedBg';
+import ContactModal from '../../components/ContactModal/ContactModal';
 
 export const TermsAndConditions = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  const handleLinkClick = (e) => {
+    e.preventDefault();
+    setIsAnimating(true);
+    setTimeout(() => {
+      setIsAnimating(false);
+      setIsModalOpen(true);
+    }, 500); // Adjust the duration of the animation as needed
+  };
+
   return (
-    <div className="terms">
+    <div className={`terms ${isAnimating ? 'terms--animating' : ''}`}>
       <div className="terms__container">
         <div className="terms__content-card">
           <h1 className="terms__title">Terms and Conditions</h1>
@@ -43,12 +57,13 @@ export const TermsAndConditions = () => {
 
           <h2 className="terms__subtitle">Contact Us</h2>
           <p className="terms__text">If you have any questions about these Terms and Conditions, please contact us at:</p>
-          <p className="terms__text"><a href="mailto:contact.nextstream@gmail.com" className="terms__link">contact.nextstream@gmail.com</a></p>
+          <p className="terms__text"><button className="terms__link" onClick={handleLinkClick}>contact@nextstream.ca</button></p>
         </div>
       </div>
       <div className="terms__background">
         <AnimatedBg />
       </div>
+      {isModalOpen && <ContactModal onClose={() => setIsModalOpen(false)} />}
     </div>
   );
 };
