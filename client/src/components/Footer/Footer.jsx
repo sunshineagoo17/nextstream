@@ -1,11 +1,22 @@
-import { Link } from "react-router-dom";
-import "./Footer.scss";
-import logoMark from "../../assets/images/logo-wordmark-wh.png";
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import './Footer.scss';
+import logoMark from '../../assets/images/logo-wordmark-wh.png';
+import ContactModal from '../ContactModal/ContactModal';
 
 export const Footer = () => {
+  const [showModal, setShowModal] = useState(false);
+
+  const handleOpenModal = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
   return (
     <footer className="footer">
-      
       <div className="footer__logo-container">
         <img className="footer__logo-wordmark" alt="NextStream Logo" src={logoMark} />
       </div>
@@ -13,18 +24,21 @@ export const Footer = () => {
       <div className="footer__copy-container">
         <div className="footer__copyright">© 2024</div>
         <div className="footer__privacy-policy">Privacy Policy</div>
-        <Link to="/terms" className="footer__tac-link"><div className="footer__tac">Terms and Conditions</div></Link>
+        <Link to="/terms" className="footer__tac-link">
+          <div className="footer__tac">Terms and Conditions</div>
+        </Link>
       </div>
-      
+
       <div className="footer__btn-container">
         <button className="footer__btn-register">
           <div className="footer__register">Register</div>
         </button>
-        <a href="mailto:contact.nextstream@gmail.com" className="footer__btn-contact">
+        <button className="footer__btn-contact" onClick={handleOpenModal}>
           <div className="footer__contact">Contact Us</div>
-        </a>
+        </button>
       </div>
-    
+
+      {showModal && <ContactModal onClose={handleCloseModal} />}
     </footer>
   );
 };
