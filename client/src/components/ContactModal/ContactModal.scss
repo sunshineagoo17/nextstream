@@ -136,7 +136,19 @@
     padding: .25rem;
     font-size: 1.5rem;
     cursor: pointer;
-    @include hover-raise-effect;
+
+    &:hover {
+        transform: translateY(-1.5px);
+        background-color: $primary-dark-blue;
+        color: $primary-very-light-blue;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      &:active {
+        transform: scale(0.98);
+        color: $neutral-white;
+        box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+      }
   }
 
   &__input {
@@ -159,8 +171,9 @@
     &:focus {
       color: $primary-dark-blue;
       background-color: $neutral-white;
-      border-radius: .35rem;
       box-shadow: $shadow-senary;
+      border-radius: 0.5rem;
+      border: 2px solid $primary-dark-blue;
     }
 
     &:active {
@@ -189,8 +202,9 @@
     &:focus {
       color: $primary-dark-blue;
       background-color: $neutral-white;
-      border-radius: .35rem;
+      border-radius: .75rem;
       box-shadow: $shadow-senary;
+      border: 2px solid $primary-dark-blue;
     }
 
     &:active {
@@ -216,12 +230,15 @@
       box-shadow: $shadow-primary;
 
       &:hover {
-        transform: translateY(-2px);
+        background-color: $primary-dark-blue;
+        font-weight: bold;
+        color: $primary-very-light-blue;
         box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
       }
 
       &:active {
-        transform: scale(0.97);
+        transform: scale(0.98);
+        color: $neutral-white;
         box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
       }
     }
