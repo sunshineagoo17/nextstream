@@ -20,9 +20,9 @@ export const Footer = () => {
         <button className="footer__btn-register">
           <div className="footer__register">Register</div>
         </button>
-        <button className="footer__btn-contact">
+        <a href="mailto:contact.nextstream@gmail.com" className="footer__btn-contact">
           <div className="footer__contact">Contact Us</div>
-        </button>
+        </a>
       </div>
     
     </footer>
