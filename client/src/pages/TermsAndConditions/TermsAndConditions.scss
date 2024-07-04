@@ -5,14 +5,94 @@
 @use "../../styles/global.scss" as *;
 
 .terms {
+  position: relative;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  &__container {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    width: 100%;
+  }
+
+  &__content-card {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
     padding: 2rem;
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-    }
-    p {
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  &__title {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: $primary-dark-blue;
+    text-align: center;
+  }
+
+  &__intro {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: $primary-medium-blue;
+  }
+
+  &__text {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    color: $primary-dark-blue;
+  }
+
+  &__subtitle {
+    font-size: 1.75rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: $primary-dark-blue;
+  }
+
+  &__list {
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+
+    &-item {
       font-size: 1rem;
-      margin-bottom: 1rem;
+      color: $primary-dark-blue;
+      margin-bottom: 0.5rem;
     }
   }
-  
+
+  &__link {
+    color: $primary-medium-blue;
+    text-decoration: none;
+    border: 1px solid $primary-medium-blue;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+
+    &:hover,
+    &:active,
+    &:focus,
+    &:visited {
+      background-color: $primary-medium-blue;
+      color: $neutral-white;
+      border-color: $primary-dark-blue;
+      text-decoration: none;
+    }
+  }
+
+  &__background {
+    position: absolute;
+    bottom: 0; 
+    left: 0;
+    width: 100%;
+    height: 10%;
+    overflow: hidden;
+    z-index: 0;
+  }
+}
