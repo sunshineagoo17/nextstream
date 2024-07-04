@@ -214,9 +214,13 @@
 
     &:focus {
       color: $primary-dark-blue;
-      background-color: $neutral-white; 
+      background-color: $neutral-white;
       border-radius: .35rem;
       box-shadow: $shadow-senary;
+    }
+
+    &:active {
+      background-color: $primary-very-light-blue; 
     }
   }
 
