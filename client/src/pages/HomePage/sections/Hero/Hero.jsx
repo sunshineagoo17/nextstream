@@ -7,11 +7,19 @@ export const Hero = () => {
     <div className="hero">
 
       <div className="hero__copy-container">
-        <div className="hero__title">
-          Can’t Stream?
-          <br />
-          Try NextStream!
+        <div className="hero__top-container">
+          <div className="hero__logo-container--mobile">
+            <div className="hero__logo-border--mobile">
+              <img className="hero__logo--mobile" alt="NextStream Logo" src={NextStreamLogo} />
+            </div>
+          </div>
+          <div className="hero__title">
+            Can’t Stream?
+            <br />
+            Try NextStream!
+          </div>
         </div>
+        
         <p className="hero__subtitle regular">
             Discover where your favourite movies and shows are streaming, all in one place. Enjoy personalized
             recommendations and easy scheduling to enhance your viewing experience.
