@@ -54,9 +54,9 @@
   &__new-releases-subtitle-container {
     width: 100%;
     display: flex;
-    flex-direction: row;
+    flex-direction: column-reverse;
     justify-content: center;
-    align-items: center;
+    align-items: first baseline;
 
     @include tablet {
       width: 100%;
@@ -320,7 +320,7 @@
     flex-direction: column;
     width: 100%;
     align-items: center;
-    padding: 0 3.65rem 2rem 3.65rem; 
+    padding: 0 1.5rem 2rem 1.5rem; 
 
     @include tablet {
       display: flex;
@@ -357,7 +357,7 @@
   &__label-header-container {
     @include block-item(9rem, 3.5rem);
     margin-left: 1.5rem;
-    margin-bottom: 2rem;
+    margin-bottom: .75rem;
     border: .125rem solid $neutral-white;
     border-bottom-left-radius: .5rem;
     border-bottom-right-radius: .5rem;
@@ -371,6 +371,7 @@
     @include tablet {
       @include block-item(10.95rem, 3.5rem);
       margin-left: 3.5rem;
+      margin-bottom: 2rem;
 
       @include desktop {
         @include block-item(17.625rem, 4.9375rem);
@@ -425,7 +426,7 @@
   }
 
   &__feature__search-icon, &__feature__favourites-icon, &__feature__calendar-icon {
-    @include block-item(1.5rem, 1.5rem);
+    @include block-item(2.5rem, 2.5rem);
 
     @include tablet {
       @include block-item(3.5rem, 3.5rem);
@@ -480,13 +481,13 @@
   }
 
   &__label-header-new-releases {
-    @include block-item(13rem, 3.5rem);
+    @include block-item(10rem, 3.5rem);
     color: $primary-dark-blue;
     font-family: $primary-font;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 1.25rem;
+    font-size: 1rem;
     font-weight: 700;
     letter-spacing: 0;
     line-height: normal;
@@ -514,10 +515,11 @@
     width: 100%;
     color: $primary-dark-blue;
     font-family: $primary-font;
-    font-size: 1rem;
+    margin-top: 1rem;
+    font-size: .85rem;
     font-weight: 400;
     letter-spacing: 0;
-    line-height: 1.25rem;
+    line-height: 1.15rem;
 
     @include tablet {
       width: 100%;
@@ -527,6 +529,7 @@
       font-weight: 400;
       letter-spacing: 0;
       line-height: 1.25rem;
+      margin-top: 0;
 
       @include desktop {
         font-size: 1.25rem;
@@ -572,20 +575,19 @@
 
   &__card-features {
     display: flex;
+    flex-direction: column;
     align-items: center;
     width: 100%;
-    padding: 0 2.25rem;
+    justify-content: space-evenly;
+    padding: 0 1.5rem;
 
     @include tablet {
-      display: flex;
-      justify-content: space-evenly;
-      align-items: center;
-      width: 100%;
+      flex-direction: row;
       padding: 0 2.25rem;
+    }
 
-      @include desktop {
-        padding: 0 2.7rem;
-      }
+    @include desktop {
+      padding: 0 2.7rem;
     }
 
     &__feature {
@@ -606,7 +608,7 @@
       }
 
       &__icon-bg {
-        @include block-item(2.5rem, 2rem);
+        @include block-item(5rem, 5rem);
         display: flex;
         justify-content: center;
         align-items: center;
@@ -634,7 +636,7 @@
       &__favourites-icon,
       &__calendar-icon,
       &__search-icon {
-        @include block-item(1.5rem, 1.5rem);
+        @include block-item(2.75rem, 2.75rem);
         border-top-left-radius: 0.5rem;
         border-top-right-radius: 0.5rem;
 
@@ -650,13 +652,13 @@
       }
 
       &__label {
-        @include block-item(12rem, 4rem);
+        @include block-item(9.5rem, 3.5rem);
         background: $neutral-white;
         box-shadow: 0 1.75rem 5.25rem rgba($neutral-black, 0.18);
         border-radius: 0.5rem;
         text-align: center;
         color: $primary-medium-blue;
-        font-size: 1.1rem;
+        font-size: 1rem;
         font-family: $secondary-font;
         font-weight: 500;
         word-wrap: break-word;
