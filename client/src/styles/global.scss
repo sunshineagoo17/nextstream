@@ -233,13 +233,26 @@
   }
 }
 
-@mixin hover-raise-effect-footer {
+@mixin animate-effect-footer {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
+
+  &:link,
+  &:visited,
+  &:focus,
+  &:hover,
+  &:active {
+    text-decoration: none;
+  }
 
   &:hover {
     transform: translateY(-2px);
     font-weight: bold;
+  }
+
+  &:active {
+    transform: scale(0.97);
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   }
 }
 
