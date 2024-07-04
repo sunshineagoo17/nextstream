@@ -1,20 +1,9 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import './Footer.scss';
-import logoMark from '../../assets/images/logo-wordmark-wh.png';
-import ContactModal from '../ContactModal/ContactModal';
+import React from 'react';
+import { Link } from "react-router-dom";
+import "./Footer.scss";
+import logoMark from "../../assets/images/logo-wordmark-wh.png";
 
-export const Footer = () => {
-  const [showModal, setShowModal] = useState(false);
-
-  const handleOpenModal = () => {
-    setShowModal(true);
-  };
-
-  const handleCloseModal = () => {
-    setShowModal(false);
-  };
-
+export const Footer = ({ onContactClick }) => {
   return (
     <footer className="footer">
       <div className="footer__logo-container">
@@ -33,12 +22,10 @@ export const Footer = () => {
         <button className="footer__btn-register">
           <div className="footer__register">Register</div>
         </button>
-        <button className="footer__btn-contact" onClick={handleOpenModal}>
+        <button className="footer__btn-contact" onClick={onContactClick}>
           <div className="footer__contact">Contact Us</div>
         </button>
       </div>
-
-      {showModal && <ContactModal onClose={handleCloseModal} />}
     </footer>
   );
 };

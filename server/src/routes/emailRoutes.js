@@ -15,8 +15,8 @@ router.post('/send', async (req, res) => {
   }
 
   const msg = {
-    to: 'contact@nextstream.ca', 
-    from: 'contact@nextstream.ca', 
+    to: 'contact@nextstream.ca', // Your recipient's email address
+    from: 'contact@nextstream.ca', // Verified sender's email
     replyTo: email, // User's email
     subject: `Contact Form Submission from ${name}`,
     text: message,

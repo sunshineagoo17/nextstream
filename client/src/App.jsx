@@ -5,13 +5,12 @@ import { HomePage } from "./pages/HomePage/HomePage";
 import { Header } from "./components/Header/Header";
 import { Footer } from "./components/Footer/Footer";
 import { TermsAndConditions } from "./pages/TermsAndConditions/TermsAndConditions";
-import ContactModal from "./components/ContactModal/ContactModal";
+import ContactModal from "./components/ContactModal/ContactModal"; 
 import './styles/global.scss';
 
 const App = () => {
   const [error, setError] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false); 
   useEffect(() => {
     api.get('/')
       .then(response => {
@@ -23,12 +22,12 @@ const App = () => {
       });
   }, []);
 
-  const openModal = () => {
-    setIsModalOpen(true);
+  const handleContactClick = () => {
+    setIsContactModalOpen(true); 
   };
 
-  const closeModal = () => {
-    setIsModalOpen(false);
+  const handleCloseModal = () => {
+    setIsContactModalOpen(false);
   };
 
   return (
@@ -40,10 +39,8 @@ const App = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="/terms" element={<TermsAndConditions />} />
         </Routes>
-        <Footer openModal={openModal} />
-        {isModalOpen && (
-          <ContactModal show={isModalOpen} handleClose={closeModal} />
-        )}
+        <Footer onContactClick={handleContactClick} />
+        {isContactModalOpen && <ContactModal onClose={handleCloseModal} />}
       </div>
     </Router>
   );
