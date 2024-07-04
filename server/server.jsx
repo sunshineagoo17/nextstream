@@ -1,7 +1,9 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const path = require('path');
 const emailRoutes = require('./src/routes/emailRoutes');
+const rateLimit = require('express-rate-limit');
 require('dotenv').config(); 
 
 const app = express();
@@ -10,8 +12,24 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-// Routes
+// Apply rate limiting to all requests
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100 // Limit each IP to 100 requests per windowMs
+});
+app.use(limiter);
+
+// API Routes
 app.use('/api/email', emailRoutes);
+
+// Serve static files from the React app if needed
+app.use(express.static(path.join(__dirname, 'client/build')));
+
+// Serve React app for specific routes
+const allowedRoutes = ['/','/terms'];
+app.get(allowedRoutes, (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/build/index.html'));
+});
 
 // Error handling middleware
 app.use((err, req, res, next) => {
