@@ -45,24 +45,34 @@ const ContactModal = ({ onClose }) => {
   };
 
   return (
-    <div className="modal-overlay">
-      <div className="modal-content">
-        <span className="modal-close" onClick={onClose}>&times;</span>
-        <h2>Contact Us</h2>
+    <div className="modal-contact">
+      <div className="modal-contact__container">
+        <span className="modal-contact__close" onClick={onClose}>&times;</span>
+        <div className="modal-contact__label-container">
+          <div className="modal-contact__label">
+            Contact Us
+          </div>
+        </div>
         {error && <div className="error">{error}</div>}
         {success && <div className="success">{success}</div>}
-        <form onSubmit={handleSubmit}>
-          <label>
-            Name:
-            <input type="text" value={name} onChange={(e) => setName(e.target.value)} required />
+        <form className="modal-contact__form" onSubmit={handleSubmit}>
+          <label className="modal-contact__label-input">
+            <div className="modal-contact__label-txt">
+              Name:
+            </div>
+            <input className="modal-contact__input" type="text" value={name} onChange={(e) => setName(e.target.value)} required />
           </label>
-          <label>
-            Email:
-            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+          <label className="modal-contact__label-input">
+            <div className="modal-contact__label-txt">
+              Email:
+            </div>
+            <input className="modal-contact__input" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
           </label>
-          <label>
-            Message:
-            <textarea value={message} onChange={(e) => setMessage(e.target.value)} required />
+          <label className="modal-contact__label-txtarea">
+            <div className="modal-contact__label-txtarea-txt">
+              Message:
+            </div>
+            <textarea className="modal-contact__txtarea" value={message} onChange={(e) => setMessage(e.target.value)} required />
           </label>
           <button type="submit" disabled={loading}>
             {loading ? 'Sending...' : 'Send'}
