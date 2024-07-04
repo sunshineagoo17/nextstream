@@ -13,7 +13,7 @@ export const TermsAndConditions = () => {
     setTimeout(() => {
       setIsAnimating(false);
       setIsModalOpen(true);
-    }, 500); // Adjust the duration of the animation as needed
+    }, 500);
   };
 
   return (
@@ -22,7 +22,7 @@ export const TermsAndConditions = () => {
         <div className="terms__content-card">
           <h1 className="terms__title">Terms and Conditions</h1>
           <p className="terms__intro">Welcome to NextStream!</p>
-          <p className="terms__text">These terms and conditions outline the rules and regulations for the use of NextStream's Website, located at [NextStream URL].</p>
+          <p className="terms__text">These terms and conditions outline the rules and regulations for the use of NextStream's Website, located at <a href="https://www.nextstream.ca" aria-label="Visit NextStream" className="terms__nextstream-link">https://www.nextstream.ca</a>.</p>
           <p className="terms__text">By accessing this website, we assume you accept these terms and conditions. Do not continue to use NextStream if you do not agree to take all of the terms and conditions stated on this page.</p>
 
           <h2 className="terms__subtitle">License</h2>
@@ -50,14 +50,14 @@ export const TermsAndConditions = () => {
           <p className="terms__text">Please refer to our Privacy Policy for information on how we collect, use, and disclose information from our users.</p>
 
           <h2 className="terms__subtitle">Governing Law</h2>
-          <p className="terms__text">These terms and conditions are governed by and construed in accordance with the laws of [Your Country/State], and you irrevocably submit to the exclusive jurisdiction of the courts in that location.</p>
+          <p className="terms__text">These terms and conditions are governed by and construed in accordance with the laws of Ontario, Canada, and you irrevocably submit to the exclusive jurisdiction of the courts in that location.</p>
 
           <h2 className="terms__subtitle">Changes to These Terms</h2>
           <p className="terms__text">NextStream reserves the right to revise these terms and conditions at any time without notice. By using this website, you are expected to review these Terms and Conditions on a regular basis to ensure you understand all terms and conditions governing the use of this website.</p>
 
           <h2 className="terms__subtitle">Contact Us</h2>
           <p className="terms__text">If you have any questions about these Terms and Conditions, please contact us at:</p>
-          <p className="terms__text"><button className="terms__link" onClick={handleLinkClick}>contact@nextstream.ca</button></p>
+          <p className="terms__text"><button className="terms__link" onClick={handleLinkClick} aria-label="Contact NextStream Support">contact@nextstream.ca</button></p>
         </div>
       </div>
       <div className="terms__background">
