@@ -2,8 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const emailRoutes = require('./src/routes/emailRoutes');
-require('dotenv').config(); // Ensure dotenv is configured
-
+require('dotenv').config(); 
 const app = express();
 
 // Middleware
