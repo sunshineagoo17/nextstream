@@ -5,6 +5,13 @@
 @use "../../../../styles/global.scss" as *;
 
 .content {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  width: 100%;
+  margin-top: .025rem;
+
   @include tablet {
     display: flex;
     justify-content: center;
@@ -15,6 +22,11 @@
   }
 
   &__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+
     @include tablet {
       display: flex;
       flex-direction: column;
@@ -24,6 +36,12 @@
   }
 
   &__new-releases {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 4rem;
+
     @include tablet {
       display: flex;
       flex-direction: column;
@@ -34,6 +52,12 @@
   }
 
   &__new-releases-subtitle-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
     @include tablet {
       width: 100%;
       display: flex;
@@ -45,6 +69,9 @@
 
   &__features-container,
   &__new-releases {
+    width: 100%;
+    box-shadow: $shadow-primary;
+
     @include tablet {
       width: 100%;
       box-shadow: $shadow-primary;
@@ -52,6 +79,12 @@
   }
 
   &__pagination-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2rem;
+    width: 12.6875rem;
+
     @include tablet {
       display: flex;
       justify-content: space-between;
@@ -62,6 +95,15 @@
   }
 
   &__pagination, &__next {
+    @include hover-raise-effect-nav;
+    @include block-item(2.6875rem, 2.6875rem);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: $shadow-quaternary;
+    border-radius: .85rem;
+
     @include tablet {
       @include hover-raise-effect-nav;
       @include block-item(2.6875rem, 2.6875rem);
@@ -75,6 +117,15 @@
   }
 
   &__page-nav-wrapper1, &__page-nav-wrapper2 {
+    @include block-item(2.6rem, 2.6rem);
+    @include hover-raise-effect-nav;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.85rem;
+    box-shadow: $shadow-quaternary;
+    cursor: pointer;
+
     @include tablet {
       @include block-item(2.6rem, 2.6rem);
       @include hover-raise-effect-nav;
@@ -88,6 +139,9 @@
   }
 
   &__page-nav-wrapper1 {
+    background-color: $base-darker-blue;
+    border: 0.0625rem solid $primary-light-blue;
+
     @include tablet {
       background-color: $base-darker-blue;
       border: 0.0625rem solid $primary-light-blue;
@@ -95,6 +149,9 @@
   }
 
   &__page-nav-wrapper2 {
+    background-color: $primary-very-light-blue;
+    border: 0.0625rem solid $primary-pale-blue;
+
     @include tablet {
       background-color: $primary-very-light-blue;
       border: 0.0625rem solid $primary-pale-blue;
@@ -102,6 +159,11 @@
   }
 
   &__page1, &__page2 {
+    font-family: $primary-font;
+    font-size: 0.875rem;
+    font-weight: 500;
+    white-space: nowrap;
+
     @include tablet {
       font-family: $primary-font;
       font-size: 0.875rem;
@@ -111,18 +173,33 @@
   }
 
   &__page1 {
+    color: $neutral-white;
+
     @include tablet {
       color: $neutral-white;
     }
   }
 
   &__page2 {
+    color: $primary-medium-blue;
+
     @include tablet {
       color: $primary-medium-blue;
     }
   }
 
   &__card-media-container {
+    @include pulsate-animation;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba($primary-light-blue, 0.3);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 1rem;
+    padding: 1rem;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+
     @include tablet {
       @include pulsate-animation;
       display: flex;
@@ -138,6 +215,10 @@
   }  
 
   &__card-media {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.1rem;
+
     @include tablet {
       display: flex;
       justify-content: space-between;
@@ -148,6 +229,11 @@
   &__card1-container,
   &__card2-container,
   &__card3-container {
+    @include hover-raise-effect;
+    position: relative;
+    border-radius: 1.6rem;
+    box-shadow: $shadow-quaternary;
+
     @include tablet {
       @include hover-raise-effect;
       position: relative;
@@ -157,6 +243,15 @@
   }
 
   &__card1, &__card2, &__card3 {
+    @include block-item(12rem, 18.5rem);
+    background: $primary-darker-blue-gradient;
+    border-radius: 1.5625rem;
+    box-shadow: $shadow-tertiary;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
     @include tablet {
       @include block-item(12rem, 18.5rem);
       background: $primary-darker-blue-gradient;
@@ -174,6 +269,8 @@
   }
 
   &__poster1, &__poster2, &__poster3 {
+    @include block-item(12rem, auto);
+
     @include tablet {
       @include block-item(12rem, auto);
 
@@ -184,6 +281,17 @@
   }
 
   &__icon-bg-video, &__icon-bg-video2, &__icon-bg-tv {
+    @include block-item(2.3125rem, 2.3125rem);
+    background-color: $base-darker-blue;
+    box-shadow: $shadow-quaternary;
+    border-radius: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 2rem;
+    right: 0.5rem;
+
     @include tablet {
       @include block-item(2.3125rem, 2.3125rem);
       background-color: $base-darker-blue;
@@ -199,12 +307,21 @@
   }
 
   &__video-icon, &__video-icon2, &__tv-icon {
+    @include block-item(1.5625rem, auto);
+
     @include tablet {
       @include block-item(1.5625rem, auto);
     }
   }
 
   &__new-releases-header {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    padding: 0 3.65rem 2rem 3.65rem; 
+
     @include tablet {
       display: flex;
       justify-content: center;
@@ -220,6 +337,11 @@
   }
 
   &__features-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding-bottom: 2.5rem;
+
     @include tablet {
       display: flex;
       justify-content: center;
@@ -233,19 +355,22 @@
   }
 
   &__label-header-container {
+    @include block-item(9rem, 3.5rem);
+    margin-left: 1.5rem;
+    margin-bottom: 2rem;
+    border: .125rem solid $neutral-white;
+    border-bottom-left-radius: .5rem;
+    border-bottom-right-radius: .5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: $shadow-primary;
+    background-color: $primary-very-light-blue;
+    padding: 1rem 2rem;
+
     @include tablet {
       @include block-item(10.95rem, 3.5rem);
       margin-left: 3.5rem;
-      margin-bottom: 2rem;
-      border: .125rem solid $neutral-white;
-      border-bottom-left-radius: .5rem;
-      border-bottom-right-radius: .5rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      box-shadow: $shadow-primary;
-      background-color: $primary-very-light-blue;
-      padding: 1rem 2rem;
 
       @include desktop {
         @include block-item(17.625rem, 4.9375rem);
@@ -260,6 +385,13 @@
   }
 
   &__feature {
+    flex-direction: column;
+    align-items: center;
+    background-color: $neutral-white;
+    box-shadow: 0 1.75rem 5.25rem rgba($neutral-black, 0.18);
+    border-radius: 0.5rem;
+    text-align: center;
+
     @include tablet {
       flex-direction: column;
       align-items: center;
@@ -271,6 +403,15 @@
   }
 
   &__feature__icon-bg {
+    @include block-item(9.6875rem, 9.6875rem);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: $primary-icon-bg;
+    box-shadow: $shadow-primary;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+
     @include tablet {
       @include block-item(9.6875rem, 9.6875rem);
       display: flex;
@@ -284,12 +425,22 @@
   }
 
   &__feature__search-icon, &__feature__favourites-icon, &__feature__calendar-icon {
+    @include block-item(5.4375rem, auto);
+
     @include tablet {
       @include block-item(5.4375rem, auto);
     }
   }
 
   &__feature__label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $primary-medium-blue;
+    font-size: 1.25rem;
+    font-family: $secondary-font;
+    font-weight: 500;
+
     @include tablet {
       display: flex;
       justify-content: center;
@@ -302,6 +453,13 @@
   }
 
   &__label-header-new-container {
+    background-color: $primary-very-light-blue;
+    border-bottom-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+    border: 2px solid $neutral-white;
+    box-shadow: $shadow-quinary;
+    margin-top: .05rem;
+
     @include tablet {
       background-color: $primary-very-light-blue;
       border-bottom-left-radius: 0.5rem;
@@ -318,6 +476,17 @@
   }
 
   &__label-header-new-releases {
+    @include block-item(13rem, 3.5rem);
+    color: $primary-dark-blue;
+    font-family: $primary-font;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: normal;
+
     @include tablet {
       @include block-item(13rem, 3.5rem);
       color: $primary-dark-blue;
@@ -338,6 +507,14 @@
   }
 
   &__new-releases-subtitle {
+    width: 100%;
+    color: $primary-dark-blue;
+    font-family: $primary-font;
+    font-size: 1rem;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 1.25rem;
+
     @include tablet {
       width: 100%;
       color: $primary-dark-blue;
@@ -355,6 +532,10 @@
   }
 
   &__label-header-background {
+    @include block-item(100%, 100%);
+    border-bottom-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+
     @include tablet {
       @include block-item(100%, 100%);
       border-bottom-left-radius: 0.5rem;
@@ -363,17 +544,20 @@
   }
 
   &__label-features {
+    @include block-item(10rem, 2rem);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: $primary-dark-blue;
+    font-size: 1rem;
+    font-family: $primary-font;
+    font-weight: 600;
+    word-wrap: break-word;
+
     @include tablet {
       @include block-item(10rem, 2rem);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      color: $primary-dark-blue;
       font-size: 1.25rem;
-      font-family: $primary-font;
-      font-weight: 600;
-      word-wrap: break-word;
     }
 
     @include desktop {
@@ -383,6 +567,12 @@
   }
 
   &__card-features {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    padding: 0 2.25rem;
+
     @include tablet {
       display: flex;
       justify-content: space-evenly;
@@ -395,6 +585,13 @@
       }
 
       &__feature {
+        @include hover-raise-effect-no-bg;
+        @include block-item(16.875rem, 12.4375rem);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
         @include tablet {
           @include hover-raise-effect-no-bg;
           @include block-item(16.875rem, 12.4375rem);
@@ -405,6 +602,15 @@
         }
 
         &__icon-bg {
+          @include block-item(3.5rem, 2.5rem);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background: $primary-icon-bg;
+          box-shadow: $shadow-primary;
+          border-top-left-radius: 0.5rem;
+          border-top-right-radius: 0.5rem;
+
           @include tablet {
             @include block-item(5.5rem, 4.5rem);
             display: flex;
@@ -424,6 +630,10 @@
         &__favourites-icon,
         &__calendar-icon,
         &__search-icon {
+          @include block-item(1.5rem, 1.5rem);
+          border-top-left-radius: 0.5rem;
+          border-top-right-radius: 0.5rem;
+
           @include tablet {
             @include block-item(3.5rem, 3.5rem);
             border-top-left-radius: 0.5rem;
@@ -436,6 +646,20 @@
         }
 
         &__label {
+          @include block-item(12rem, 4rem);
+          background: $neutral-white;
+          box-shadow: 0 1.75rem 5.25rem rgba($neutral-black, 0.18);
+          border-radius: 0.5rem;
+          text-align: center;
+          color: $primary-medium-blue;
+          font-size: 1.1rem;
+          font-family: $secondary-font;
+          font-weight: 500;
+          word-wrap: break-word;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
           @include tablet {
             @include block-item(12rem, 4rem);
             background: $neutral-white;
