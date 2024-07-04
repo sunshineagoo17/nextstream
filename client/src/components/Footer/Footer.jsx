@@ -13,9 +13,7 @@ export const Footer = ({ onContactClick }) => {
       <div className="footer__copy-container">
         <div className="footer__copyright">© 2024</div>
         <div className="footer__privacy-policy">Privacy Policy</div>
-        <Link to="/terms" className="footer__tac-link">
-          <div className="footer__tac">Terms and Conditions</div>
-        </Link>
+        <Link to="/terms" className="footer__tac-link"><div className="footer__tac">Terms and Conditions</div></Link>
       </div>
 
       <div className="footer__btn-container">
