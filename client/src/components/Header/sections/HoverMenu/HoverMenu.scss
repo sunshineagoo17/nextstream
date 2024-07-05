@@ -31,6 +31,16 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: all 0.3s ease;
+
+    &:hover {
+      box-shadow: 0 0 10px $primary-light-blue; 
+    }
+  
+    &:active {
+      transform: scale(0.95);
+      box-shadow: 0 0 10px $primary-dark-blue;
+    }
 
     @include tablet {
       @include block-item(2.95rem, 3.1rem);
