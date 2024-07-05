@@ -23,9 +23,9 @@ export const Footer = ({ onContactClick }) => {
       </div>
 
       <div className="footer__btn-container">
-        <button className="footer__btn-register">
+        <Link to="/register" className="footer__btn-register">
           <div className="footer__register">Register</div>
-        </button>
+        </Link>
         <button className="footer__btn-contact" onClick={onContactClick}>
           <div className="footer__contact">Contact Us</div>
         </button>
