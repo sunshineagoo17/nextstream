@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import { HomePage } from "./pages/HomePage/HomePage";
 import { Footer } from "./components/Footer/Footer";
 import { TermsAndConditions } from "./pages/TermsAndConditions/TermsAndConditions";
@@ -14,6 +14,7 @@ import './styles/global.scss';
 
 const App = () => {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+  const location = useLocation();
 
   const handleContactClick = () => {
     setIsContactModalOpen(true);
@@ -24,23 +25,27 @@ const App = () => {
   };
 
   return (
-    <Router>
-      <div>
-        <Header />
-        <HoverMenu />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/terms" element={<TermsAndConditions />} />
-          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-        <Footer onContactClick={handleContactClick} />
-        {isContactModalOpen && <ContactModal onClose={handleCloseModal} />}
-      </div>
-    </Router>
+    <div className={location.pathname === '/login' || location.pathname === '/register' ? 'login-page register-page' : ''}>
+      <Header />
+      <HoverMenu />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/terms" element={<TermsAndConditions />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+      <Footer onContactClick={handleContactClick} />
+      {isContactModalOpen && <ContactModal onClose={handleCloseModal} />}
+    </div>
   );
 };
 
-export default App;
+const RootApp = () => (
+  <Router>
+    <App />
+  </Router>
+);
+
+export default RootApp;

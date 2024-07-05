@@ -118,3 +118,34 @@
     }
   }
 }
+
+/* Specific styles for the login and register pages */
+.login-page, .register-page {
+  .hover-menu__container {
+    .hover-menu__content {
+      background: rgba(255, 255, 255, 0.8); // Lighter background for login and register pages
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+      .hover-menu__item {
+        color: $primary-dark-blue;
+
+        &:hover {
+          background: rgba(64, 146, 255, 0.2);
+          border: 1px solid $primary-medium-blue;
+          color: $primary-medium-blue;
+        }
+
+        &:active {
+          background: $primary-dark-blue;
+          color: $neutral-white;
+          border: 3px solid $primary-light-blue;
+        }
+      }
+
+      .hover-menu__lines span {
+        background-color: $primary-dark-blue;
+      }
+    }
+  }
+}
