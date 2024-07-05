@@ -6,6 +6,7 @@ import { TermsAndConditions } from "./pages/TermsAndConditions/TermsAndCondition
 import { PrivacyPolicy } from "./pages/PrivacyPolicy/PrivacyPolicy";
 import { NotFound } from "./pages/NotFound/NotFound";
 import { RegisterPage } from "./pages/RegisterPage/RegisterPage";
+import { LoginPage } from "./pages/LoginPage/LoginPage";
 import ContactModal from "./components/ContactModal/ContactModal";
 import Header from "./components/Header/Header";
 import HoverMenu from "./components/Header/sections/HoverMenu/HoverMenu";
@@ -32,6 +33,7 @@ const App = () => {
           <Route path="/terms" element={<TermsAndConditions />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/login" element={<LoginPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer onContactClick={handleContactClick} />
