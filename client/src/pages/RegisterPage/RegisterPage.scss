@@ -25,18 +25,17 @@
     text-align: center;
     margin-top: -15rem; 
     font-family: $primary-font;
-    font-size: 1.15rem;
     font-weight: 400;
     text-shadow: $shadow-primary;
     line-height: 1.5rem;
 
     @include large-mobile {
-      font-size: 1.5rem;
+      font-size: 2.75rem;
       line-height: 1.85rem;
     }
 
     @include tablet {
-      font-size: 2.5rem;
+      font-size: 3rem;
       line-height: 3rem;
     }
 
@@ -223,6 +222,24 @@
     }
   }
 
+  &__signin-link {
+    cursor: pointer;
+    color: $primary-light-blue;
+    font-weight: bold;
+    transition: transform 0.1s ease, color 0.1s ease;
+
+    &:hover {
+      background-color: $primary-dark-blue;
+      color: $neutral-white;
+      padding: 0.1rem 0.5rem;
+      border-radius: 0.25rem;
+    }
+
+    &:active {
+      transform: scale(0.9);
+    }
+  }
+
   &__button-group {
     display: flex;
     gap: 1rem;
@@ -255,6 +272,16 @@
       &:hover {
         background: $primary-medium-blue;
         color: $neutral-white;
+
+        .register__button-icon {
+          filter: invert(100%);
+        }
+      }
+
+      &:active {
+        .register__button-icon {
+          filter: invert(100%);
+        }
       }
 
       &::before {
