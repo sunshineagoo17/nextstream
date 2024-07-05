@@ -1,3 +1,4 @@
+// App.jsx
 import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { HomePage } from "./pages/HomePage/HomePage";
@@ -8,6 +9,7 @@ import { NotFound } from "./pages/NotFound/NotFound";
 import { RegisterPage } from "./pages/RegisterPage/RegisterPage";
 import ContactModal from "./components/ContactModal/ContactModal";
 import Header from "./components/Header/Header";
+import HoverMenu from "./components/Header/sections/HoverMenu/HoverMenu";
 import './styles/global.scss';
 
 const App = () => {
@@ -25,6 +27,7 @@ const App = () => {
     <Router>
       <div>
         <Header />
+        <HoverMenu />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/terms" element={<TermsAndConditions />} />

@@ -5,10 +5,28 @@ const useMenuLinks = () => {
 
   const getMenuLinks = (path) => {
     switch (path) {
+      case "/privacy-policy":
+        return [
+          { name: "Home", path: "/" },
+          { name: "Register", path: "/register" },
+          { name: "Stream Locator", path: "/stream-locator" },
+          { name: "Top Picks", path: "/top-picks" },
+          { name: "Calendar", path: "/calendar" },
+          { name: "Profile", path: "/profile" }
+        ];
+      case "/terms":
+        return [
+          { name: "Home", path: "/" },
+          { name: "Register", path: "/register" },
+          { name: "Stream Locator", path: "/stream-locator" },
+          { name: "Top Picks", path: "/top-picks" },
+          { name: "Calendar", path: "/calendar" },
+          { name: "Profile", path: "/profile" }
+        ];
       case "/register":
         return [
           { name: "Home", path: "/" },
-          { name: "Search Results", path: "/search" },
+          { name: "Stream Locator", path: "/stream-locator" },
           { name: "Top Picks", path: "/top-picks" },
           { name: "Calendar", path: "/calendar" },
           { name: "Profile", path: "/profile" }
@@ -17,7 +35,7 @@ const useMenuLinks = () => {
       default:
         return [
           { name: "Register", path: "/register" },
-          { name: "Search Results", path: "/search" },
+          { name: "Stream Locator", path: "/stream-locator" },
           { name: "Top Picks", path: "/top-picks" },
           { name: "Calendar", path: "/calendar" },
           { name: "Profile", path: "/profile" }
@@ -25,6 +43,7 @@ const useMenuLinks = () => {
     }
   };
 
+  console.log("Current path:", location.pathname);
   return getMenuLinks(location.pathname);
 };
 

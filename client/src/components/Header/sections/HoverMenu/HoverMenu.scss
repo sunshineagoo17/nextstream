@@ -4,17 +4,23 @@
 @use "../../../../styles/global.scss" as *;
 
 .hover-menu__container {
-  position: relative;
-  display: inline-block;
+  position: absolute;
+  top: 2.5rem;
+  left: 1.5rem; 
+  transform: translateY(-50%);
   z-index: 1000;
 
   .hover-menu__button {
+    @include block-item(2.85rem, 2.75rem);
+    padding: .25rem;
+    background-color: $primary-light-blue;
+    border: 2px solid $neutral-white;
+    box-shadow: $shadow-primary;
+    border-radius: .35rem;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 1.675rem;
-    padding-right: .75px;
   }
 
   .hover-menu__lines {

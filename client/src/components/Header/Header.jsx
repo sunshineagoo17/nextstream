@@ -1,9 +1,9 @@
+// Header.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
 import nextStreamLogo from "../../assets/images/nextstream-wordmark.png";
 import searchVector from "../../assets/images/searh-vector-handle.svg";
 import UserIcon from "../../assets/images/user-icon.svg";
-import HoverMenu from './sections/HoverMenu/HoverMenu';
 import "./Header.scss";
 
 export const Header = () => {
@@ -11,9 +11,6 @@ export const Header = () => {
     <div className="header">
       <div className="header__main-container">
         <div className="header__nav-container">
-          <div className="header__menu-container">
-            <HoverMenu />
-          </div>
           <div className="header__search-bar">
             <div className="header__search-icon">
               <div className="header__magnifying-glass">
