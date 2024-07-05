@@ -10,8 +10,18 @@
   transform: translateY(-50%);
   z-index: 1000;
 
+  @include tablet {
+    top: 2.25rem;
+    left: 2.25rem;
+  }
+
+  @include desktop {
+    top: 2.175rem;
+    left: 3.45rem;
+  }
+
   .hover-menu__button {
-    @include block-item(2.85rem, 2.75rem);
+    @include block-item(2.85rem, 2.85rem);
     padding: .25rem;
     background-color: $primary-light-blue;
     border: 2px solid $neutral-white;
@@ -21,6 +31,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
+    @include tablet {
+      @include block-item(2.95rem, 3.1rem);
+    }
   }
 
   .hover-menu__lines {

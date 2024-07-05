@@ -121,17 +121,18 @@
       box-shadow: $shadow-primary;
       padding-right: .5rem;
       gap: .5rem;
-      width: 8.5rem;
+      width: 12rem;
+      left: 3.5rem;
       position: relative;
     }
 
     @include desktop {
-      width: 13rem;
+      width: 18rem;
       padding-right: 1rem;
     }
 
     @include large-desktop {
-      width: 16rem;
+      width: 22rem;
     }
   }
 
@@ -232,7 +233,12 @@
   &__nav-container {
     display: flex;
     flex-direction: row;
+    width: 100%;
     position: relative;
+
+    @include desktop {
+      padding-left: 1rem;
+    }
   }
 
   &__menu-container {
@@ -290,7 +296,7 @@
 
   &__search-icon--mobile {
     display: flex;
-    @include block-item(3.8rem, 2.75rem);
+    @include block-item(3.1rem, 2.75rem);
     background: $button-light-gradient;
     border: .1rem solid $neutral-white;
     border-radius: .35rem;
