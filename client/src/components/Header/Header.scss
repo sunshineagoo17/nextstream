@@ -296,7 +296,8 @@
 
   &__search-icon--mobile {
     display: flex;
-    @include block-item(3.1rem, 2.75rem);
+    @include block-item(2.8rem, 2.75rem);
+    min-width: 2.8rem;
     background: $button-light-gradient;
     border: .1rem solid $neutral-white;
     border-radius: .35rem;
