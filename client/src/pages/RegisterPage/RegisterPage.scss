@@ -226,7 +226,7 @@
     cursor: pointer;
     color: $primary-light-blue;
     font-weight: bold;
-    transition: transform 0.1s ease, color 0.1s ease;
+    transition: transform 0.1s ease, background-color 0.1s ease, color 0.1s ease;
 
     &:hover {
       background-color: $primary-dark-blue;
@@ -236,7 +236,11 @@
     }
 
     &:active {
-      transform: scale(0.9);
+      transform: scale(0.85);
+      background-color: $primary-very-light-blue;
+      color: $primary-darker-blue;
+      padding: 0.1rem 0.5rem;
+      border-radius: 0.25rem;
     }
   }
 
