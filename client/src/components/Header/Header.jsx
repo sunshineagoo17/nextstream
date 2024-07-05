@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import nextStreamLogo from "../../assets/images/nextstream-wordmark.png";
 import searchVector from "../../assets/images/searh-vector-handle.svg";
 import HoverMenu from "./sections/HoverMenu";
@@ -28,7 +29,9 @@ export const Header = () => {
           </div>
         </div>
         <div className="header__logo-wrapper">
-          <img className="header__logo" alt="Nextstream logo" src={nextStreamLogo} />
+          <Link to="/">
+            <img className="header__logo" alt="Nextstream logo" src={nextStreamLogo} />
+          </Link>
         </div>
         <button className="header__login-container">
           <div className="header__login">

@@ -7,7 +7,9 @@ export const Footer = ({ onContactClick }) => {
   return (
     <footer className="footer">
       <div className="footer__logo-container">
-        <img className="footer__logo-wordmark" alt="NextStream Logo" src={logoMark} />
+        <Link to="/">
+          <img className="footer__logo-wordmark" alt="NextStream Logo" src={logoMark} />
+        </Link>
       </div>
 
       <div className="footer__copy-container">
