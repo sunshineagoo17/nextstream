@@ -80,16 +80,20 @@
     border-radius: 0.5rem;
     font-size: 1rem;
     box-shadow: $shadow-primary;
-    background: none;
+    background: $neutral-white;
     color: $neutral-black;
 
     &:focus,
     &:not(:placeholder-shown) {
+        background-color: $primary-very-light-blue;
+      color: $primary-medium-blue;
+
       & + .register__label {
-        top: -1.5rem;
+        top: -.85rem;
         font-size: 1rem;
         font: $secondary-font;
         background-color: $primary-medium-blue;
+        border: 1px solid $primary-light-blue;
         color: $neutral-white;
       }
 
@@ -177,6 +181,7 @@
   &__button--previous {
     background: $neutral-light-grey;
     color: $primary-darker-blue;
+    border: 1.5px solid $neutral-white;
     box-shadow: $shadow-primary;
 
     &:hover {
