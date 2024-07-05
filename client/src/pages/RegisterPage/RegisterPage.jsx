@@ -5,6 +5,7 @@ import ArrowIcon from "../../assets/images/register-arrow-icon.svg";
 import ShowIcon from "../../assets/images/register-visible-icon.svg";
 import HideIcon from "../../assets/images/register-invisible-icon.svg";
 import NextStreamBg from "../../assets/images/nextstream-bg.jpg";
+import RegisterCouple from "../../assets/images/register-couple-logging-in.svg";
 import "./RegisterPage.scss";
 
 export const RegisterPage = () => {
@@ -100,6 +101,9 @@ export const RegisterPage = () => {
               </button>
             </div>
           </div>
+        </div>
+        <div className="register__image-card">
+          <img src={RegisterCouple} alt="Registering Couple" />
         </div>
       </div>
     </div>
