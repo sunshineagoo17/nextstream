@@ -16,7 +16,7 @@
     justify-content: center;
     align-items: center;
     position: relative;
-    z-index: 1;
+    z-index: -1;
   }
 
   &__title {
@@ -71,7 +71,7 @@
 
     @include desktop {
       flex-direction: row;
-      gap: 3rem; /* Added gap for spacing */
+      gap: 3rem; 
     }
   }
 
