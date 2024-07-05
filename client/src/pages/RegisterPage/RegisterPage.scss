@@ -58,11 +58,12 @@
   &__container {
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     position: absolute;
     top: 25vh; 
     width: 100%;
     z-index: 2;
+    flex-direction: column; 
 
     @include tablet {
       flex-direction: column;
@@ -70,6 +71,7 @@
 
     @include desktop {
       flex-direction: row;
+      gap: 5.5rem;
     }
   }
 
@@ -80,24 +82,28 @@
     width: 100%;
     border-radius: 1rem;
     box-shadow: $shadow-primary;
+    margin-bottom: 2rem; 
+
+    @include desktop {
+      margin-bottom: 0;
+    }
   }
 
   &__image-card {
     display: none;
-    margin-top: 2rem;
 
     @include tablet {
       display: block;
       max-width: 400px;
       width: 100%;
+      margin-bottom: 2rem; 
     }
 
     @include desktop {
       display: block;
-      margin-top: 0;
-      margin-left: 2rem;
       max-width: 400px;
       width: 100%;
+      align-self: center; 
     }
 
     img {
@@ -337,7 +343,7 @@
       }
 
       .register__button-icon {
-        height: 1rem; // Adjusting the size of the arrow icon
+        height: 1rem;
         width: 1rem;
       }
     }
