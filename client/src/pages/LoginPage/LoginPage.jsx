@@ -98,6 +98,12 @@ export const LoginPage = () => {
                 <span>Sign In</span>
               </button>
             </div>
+            <div className="login__btn-create-account-wrapper">
+              <div className="login__btn-create-account-bg"></div>
+              <button className="login__btn-create-account">
+                <span className="login__btn-create-account-txt">Create an Account</span>
+              </button>
+            </div>
           </div>
         </div>
         <div className="login__image-card">

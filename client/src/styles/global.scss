@@ -50,10 +50,12 @@
   }
 }
 
+// Mixin for Animated Border - Logo
 @mixin borderAnimation {
   animation: animateBorder 10s infinite alternate;
 }
 
+// Button Mixins
 @mixin btn-main-container {
   all: unset;
   align-items: center;
