@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from "react-router-dom";
 import './HoverMenu.scss';
 
 export const HoverMenu = () => {
@@ -19,7 +20,7 @@ export const HoverMenu = () => {
       </div>
       {menuOpen && (
         <div className="hover-menu__content">
-          <div className="hover-menu__item">Register</div>
+          <Link to="/register" className="hover-menu__item">Register</Link>
           <div className="hover-menu__item">Search Results</div>
           <div className="hover-menu__item">Top Picks</div>
           <div className="hover-menu__item">Calendar</div>
