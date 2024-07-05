@@ -85,12 +85,12 @@ export const LoginPage = () => {
             </div>
             <label className="login__checkbox">
               <input type="checkbox" className="login__checkbox-box" />
-              <p className="login__terms-txt">Remember Me</p>
+              <p className="login__remember-txt">Remember Me</p>
             </label>
-            <p className="login__forgot-password">Forgot Password?</p>
+            <p className="login__forgot-password-link">Forgot Password?</p>
             <div className="login__button-group">
               <button className="login__button login__button--previous" onClick={goToPreviousPage}>
-                <img src={ArrowIcon} className="login__button-icon" alt="Arrow Icon" />
+                <img src={ArrowIcon} className="previous__button-icon" alt="Arrow Icon" />
                 <span>Previous</span>
               </button>
               <button className="login__button login__button--signin" onClick={handleSignIn}>
