@@ -71,7 +71,7 @@
 
     @include desktop {
       flex-direction: row;
-      gap: 5.5rem;
+      gap: 3rem; /* Added gap for spacing */
     }
   }
 
@@ -83,6 +83,9 @@
     border-radius: 1rem;
     box-shadow: $shadow-primary;
     margin-bottom: 2rem; 
+    border: .85rem solid;
+    @include animateBorder;
+    @include borderAnimation;
 
     @include desktop {
       margin-bottom: 0;
