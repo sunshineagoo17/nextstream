@@ -43,7 +43,6 @@ const useMenuLinks = () => {
     }
   };
 
-  console.log("Current path:", location.pathname);
   return getMenuLinks(location.pathname);
 };
 

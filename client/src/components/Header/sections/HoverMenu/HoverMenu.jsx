@@ -1,4 +1,3 @@
-// HoverMenu.jsx
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './HoverMenu.scss';
@@ -28,7 +27,6 @@ const HoverMenu = () => {
               to={link.path}
               key={link.name}
               className="hover-menu__item"
-              onClick={() => console.log('Clicked link path:', link.path)}
             >
               {link.name}
             </Link>
