@@ -142,7 +142,20 @@
     fill: #012E71; /* Very Dark Blue */
   }
 }
+/* Movement Animation */
+.cls-19 {
+  fill: #EEF4FC;
+  animation: moveAnimation 20s ease-in-out infinite;
+}
 
+@keyframes moveAnimation {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(20px); /* Slight horizontal movement */
+  }
+}
     </style>
   </defs>
   <g>
