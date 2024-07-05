@@ -10,7 +10,7 @@
 
   &__hero {
     background: linear-gradient(180deg, rgb(64, 146, 255) 0%, rgb(64, 146, 255) 100%);
-    height: 40vh;
+    height: 50vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -28,8 +28,10 @@
 
   &__bg {
     background: url('../../assets/images/nextstream-bg.jpg') center center / cover no-repeat;
-    height: 60vh;
+    height: 50vh;
     width: 100%;
+    position: absolute;
+    top: 50vh;
     z-index: 0;
   }
 
@@ -38,7 +40,7 @@
     justify-content: center;
     align-items: flex-start;
     position: absolute;
-    top: 20vh;
+    top: 25vh; 
     width: 100%;
     z-index: 2;
   }
@@ -61,35 +63,60 @@
   &__inputs {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.75rem;
     width: 100%;
   }
 
   &__input-group {
     position: relative;
     width: 100%;
-    margin-bottom: 1rem;
   }
 
   &__input {
+    font: $primary-font;
     width: 100%;
     padding: 1rem;
     border: 2px solid $primary-light-blue;
     border-radius: 0.5rem;
     font-size: 1rem;
     box-shadow: $shadow-primary;
+    background: none;
+    color: $neutral-black;
+
+    &:focus,
+    &:not(:placeholder-shown) {
+      & + .register__label {
+        top: -1.5rem;
+        font-size: 1rem;
+        font: $secondary-font;
+        background-color: $primary-medium-blue;
+        color: $neutral-white;
+      }
+
+      &::placeholder {
+        color: $primary-light-blue;
+      }
+    }
+
+    &:not(:focus):placeholder-shown {
+      &::placeholder {
+        color: transparent;
+      }
+    }
   }
 
   &__label {
     position: absolute;
-    top: -1rem;
+    top: 1rem;
     left: 1rem;
-    background: $primary-very-light-blue;
-    border-radius: .25rem;
+    background: $primary-light-blue;
+    border-radius: .35rem;
     padding: 0 0.5rem;
-    color: $primary-dark-blue;
-    box-shadow: $shadow-primary;
+    box-shadow: $shadow-tertiary;
+    color: $neutral-light-grey;
     font-size: 1rem;
+    transition: all 0.3s ease;
+    pointer-events: none;
   }
 
   &__input-group--password {
