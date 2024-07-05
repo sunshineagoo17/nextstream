@@ -70,8 +70,9 @@ export const RegisterPage = () => {
                   type="button"
                   className="register__password-toggle"
                   onClick={togglePasswordVisibility}
+                  aria-label={passwordVisible ? "Hide password" : "Show password"}
                 >
-                  <img src={passwordVisible ? HideIcon : ShowIcon} alt="Toggle visibility" />
+                  <img src={passwordVisible ? HideIcon : ShowIcon} alt="Toggle visibility" className="register__password-toggle-icon" />
                 </button>
               </div>
             </div>

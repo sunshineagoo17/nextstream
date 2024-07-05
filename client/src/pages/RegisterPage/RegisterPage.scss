@@ -85,7 +85,7 @@
 
     &:focus,
     &:not(:placeholder-shown) {
-        background-color: $primary-very-light-blue;
+      background-color: $primary-very-light-blue;
       color: $primary-medium-blue;
 
       & + .register__label {
@@ -135,6 +135,27 @@
     background: none;
     border: none;
     cursor: pointer;
+
+    .register__password-toggle-icon {
+      width: 24px;
+      height: 24px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1);
+      border-radius: 50%;
+      background: linear-gradient(145deg, #e6e6e6, #ffffff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.1s ease;
+
+      img {
+        width: 16px;
+        height: 16px;
+      }
+    }
+
+    &:active .register__password-toggle-icon {
+      transform: scale(0.9);
+    }
   }
 
   &__checkbox {
@@ -143,10 +164,18 @@
     align-items: center;
     gap: 0.5rem;
     color: $primary-medium-blue;
-  }
 
-  &__checkbox-box {
-    cursor: pointer;
+    .register__checkbox-box {
+      cursor: pointer;
+      box-shadow: $shadow-primary;
+      border-radius: .25rem;
+      border: 1px solid $primary-dark-blue;
+      transition: transform 0.1s ease;
+    }
+
+    .register__checkbox-box:active {
+      transform: scale(0.9);
+    }
   }
 
   &__already-account {
