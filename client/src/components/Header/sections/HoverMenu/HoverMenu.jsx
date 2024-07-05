@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 import './HoverMenu.scss';
+import useMenuLinks from '../../../../hooks/useMenuLinks';
 
 export const HoverMenu = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const links = useMenuLinks();
 
   const handleMenuClick = () => {
     setMenuOpen(!menuOpen);
@@ -20,11 +22,11 @@ export const HoverMenu = () => {
       </div>
       {menuOpen && (
         <div className="hover-menu__content">
-          <Link to="/register" className="hover-menu__item">Register</Link>
-          <div className="hover-menu__item">Search Results</div>
-          <div className="hover-menu__item">Top Picks</div>
-          <div className="hover-menu__item">Calendar</div>
-          <div className="hover-menu__item">Profile</div>
+          {links.map(link => (
+            <Link to={link.path} key={link.name} className="hover-menu__item">
+              {link.name}
+            </Link>
+          ))}
         </div>
       )}
     </div>

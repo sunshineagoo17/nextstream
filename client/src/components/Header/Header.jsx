@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import nextStreamLogo from "../../assets/images/nextstream-wordmark.png";
 import searchVector from "../../assets/images/searh-vector-handle.svg";
-import HoverMenu from "./sections/HoverMenu";
 import UserIcon from "../../assets/images/user-icon.svg";
+import HoverMenu from './sections/HoverMenu/HoverMenu';
 import "./Header.scss";
 
 export const Header = () => {
@@ -40,7 +40,6 @@ export const Header = () => {
           </div>
         </button>
       </div>
-      {/* Search Bar - only present on mobile breakpoints */}
       <div className="header__search-bar--mobile">
         <div className="header__search-icon--mobile">
           <div className="header__magnifying-glass--mobile">

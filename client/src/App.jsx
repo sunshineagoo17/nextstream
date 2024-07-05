@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { HomePage } from "./pages/HomePage/HomePage";
-import { Header } from "./components/Header/Header";
 import { Footer } from "./components/Footer/Footer";
 import { TermsAndConditions } from "./pages/TermsAndConditions/TermsAndConditions";
 import { PrivacyPolicy } from "./pages/PrivacyPolicy/PrivacyPolicy";
 import { NotFound } from "./pages/NotFound/NotFound";
 import { RegisterPage } from "./pages/RegisterPage/RegisterPage";
 import ContactModal from "./components/ContactModal/ContactModal";
+import Header from "./components/Header/Header";
 import './styles/global.scss';
 
 const App = () => {
