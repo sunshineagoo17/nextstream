@@ -1,3 +1,4 @@
+// Import partials
 @use "../../styles/partials/colors" as *;
 @use "../../styles/partials/fonts" as *;
 @use "../../styles/partials/mixins" as *;
@@ -5,18 +6,26 @@
 
 .register {
   &__hero {
-    background: $primary-dark-blue-gradient;
-    height: 340px;
-    position: relative;
-    width: 100%;
+    background: linear-gradient(180deg, rgb(64, 146, 255) 0%, rgb(64, 146, 255) 100%);
+    height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__bg {
     background-size: cover;
+    background-position: center;
+    height: 50vh;
   }
 
   &__container {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 2rem;
+    position: relative;
+    top: -25vh;
+    width: 100%;
   }
 
   &__content-card {
@@ -26,13 +35,14 @@
     width: 100%;
     border-radius: 1rem;
     box-shadow: $shadow-primary;
+    margin-top: 2rem;
   }
 
   &__title {
     font-size: 2.5rem;
-    margin-bottom: 1rem;
-    color: $primary-dark-blue;
+    color: $neutral-white;
     text-align: center;
+    margin-top: 1rem;
   }
 
   &__input-section {

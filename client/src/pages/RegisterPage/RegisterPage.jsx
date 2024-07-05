@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import SignUpIcon from "../../assets/images/register-arrow-icon.svg";
+import SignUpIcon from "../../assets/images/register-sign-up-icon.svg";
 import ArrowIcon from "../../assets/images/register-arrow-icon.svg";
 import ShowIcon from "../../assets/images/register-visible-icon.svg";
 import HideIcon from "../../assets/images/register-invisible-icon.svg";
@@ -15,10 +15,12 @@ export const RegisterPage = () => {
 
   return (
     <div className="register">
-      <div className="register__hero" style={{ backgroundImage: `url(${NextStreamBg})` }}></div>
+      <div className="register__hero">
+        <h1 className="register__title">Register</h1>
+      </div>
+      <div className="register__bg" style={{ backgroundImage: `url(${NextStreamBg})` }}></div>
       <div className="register__container">
         <div className="register__content-card">
-          <h1 className="register__title">Register</h1>
           <div className="register__input-section">
             <div className="register__inputs">
               <div className="register__input-group">
