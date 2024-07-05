@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 472 351">
   <defs>
     <style>
@@ -109,6 +108,66 @@
       .cls-23 {
         opacity: .2;
       }
+
+/* Stroke Animation */
+.cls-1, .cls-21, .cls-8, .cls-7, .cls-4, .cls-9 {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: dash 5s linear forwards;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Fill Animation */
+.cls-3, .cls-4, .cls-7, .cls-8, .cls-9 {
+  animation: fillAnimation 15s ease-in-out infinite;
+}
+
+@keyframes fillAnimation {
+  0%, 100% {
+    fill: #f5f5f5;
+  }
+  50% {
+    fill: #BBD9FF;
+  }
+}
+
+/* Background Animation */
+.cls-12 {
+  animation: backgroundMove 40s linear infinite, colorChange 40s linear infinite;
+}
+
+@keyframes backgroundMove {
+  0% {
+    transform: translateX(0%);
+  }
+  45% {
+    transform: translateX(100%);
+  }
+  55% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes colorChange {
+  0% {
+    fill: #BBD9FF; /* Light blue */
+  }
+  50% {
+    fill: #0045b6; /* Darker blue */
+  }
+  100% {
+    fill: #BBD9FF; /* Light blue */
+  }
+}
+
     </style>
     <mask id="mask" x="-957" y="-1502.8" width="4096" height="2569.6" maskUnits="userSpaceOnUse">
       <g id="mask0_9_6529" data-name="mask0 9 6529">
@@ -191,7 +250,7 @@
         </g>
         <path class="cls-9" d="M340.3,314.4l-6.7,2.6,5.8,15,6.7-2.6-5.8-15Z"/>
         <path class="cls-9" d="M370.3,333.9h-7.1l-2.6-16.4h7.1l2.6,16.4Z"/>
-        <path class="cls-11" d="M362.7,333.1h8c.1,0,.3,0,.4.1.1,0,.2.2.2.4l1,6.3c0,.2,0,.3,0,.5,0,.2-.1.3-.2.4-.1.1-.2.2-.4.3-.1,0-.3,0-.5,0-2.8,0-4.1-.2-7.6-.2s-6.6.2-9.6.2-3.2-2.9-2-3.2c5.5-1.2,7.7-2.8,9.5-4.4.3-.3.7-.4,1.2-.4Z"/>
+        <path class="cls-11" d="M362.7,333.1h8c.1,0,.3,0,.4.1.1,0,.2.2.2.4l1,6.3c0,.2,0,.3,0,.5,0,.2-.1.3-.2.4-.1.1-.2.2-.4.3-.1,0-.3,0-.5,0-2.8,0-4.1-.2-7.6-.2s-6.6.2-9.6.2-3.2-2.9-2-3.2c5.5-1.2,7.7-2.8,9.5-4.4.3-.3.7-.4 1.2-.4Z"/>
         <path class="cls-11" d="M339.2,330.7l7.5-2.2c.1,0,.3,0,.4,0,.1,0,.2.2.3.3l2.8,5.7c0,.1,0,.3,0,.5,0,.2,0,.3-.1.5,0,.1-.2.3-.3.4-.1.1-.3.2-.4.2-2.7.8-4.6,1.2-8,2.2-2.4.7-4.8,1.8-7.1,2.6-1.6.5-5.4.5-7.4.5-2.9,0-3.6-3.1-2.3-3.2,3.2-.3,3.6-.2,5.3-1.1,2.9-1.2,5.4-3,7.6-5.3.4-.5.9-.8,1.5-1Z"/>
         <path class="cls-9" d="M284.4,128.6l-7.8-3.3-3.2,8.6c3.2.5,6.4.5,9.6,0l1.4-5.4Z"/>
         <path class="cls-9" d="M270.8,125.1l-.2,5.7,2.8,3.1,3.2-8.6-5.8-.2Z"/>
