@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import SignUpIcon from "../../assets/images/register-sign-up-icon.svg";
 import ArrowIcon from "../../assets/images/register-arrow-icon.svg";
 import ShowIcon from "../../assets/images/register-visible-icon.svg";
@@ -8,9 +9,14 @@ import "./RegisterPage.scss";
 
 export const RegisterPage = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const navigate = useNavigate();
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
+  };
+
+  const goToPreviousPage = () => {
+    navigate(-1);
   };
 
   return (
@@ -84,7 +90,7 @@ export const RegisterPage = () => {
               Already have an account? <span className="register__signin-link">Sign In</span>
             </p>
             <div className="register__button-group">
-              <button className="register__button register__button--previous">
+              <button className="register__button register__button--previous" onClick={goToPreviousPage}>
                 <img src={ArrowIcon} className="register__button-icon" alt="Arrow Icon" />
                 <span>Previous</span>
               </button>

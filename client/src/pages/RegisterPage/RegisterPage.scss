@@ -24,6 +24,27 @@
     color: $neutral-white;
     text-align: center;
     margin-top: -15rem; 
+    font-family: $primary-font;
+    font-size: 1.15rem;
+    font-weight: 400;
+    text-shadow: $shadow-primary;
+    line-height: 1.5rem;
+
+    @include large-mobile {
+      font-size: 1.5rem;
+      line-height: 1.85rem;
+    }
+
+    @include tablet {
+      font-size: 2.5rem;
+      line-height: 3rem;
+    }
+
+    @include desktop {
+      font-size: 3.4375rem;
+      width: 28rem;
+      line-height: 4.2062rem;
+    }
   }
 
   &__bg {
@@ -169,7 +190,7 @@
       cursor: pointer;
       box-shadow: $shadow-primary;
       border-radius: .25rem;
-      border: 1px solid $primary-dark-blue;
+      border: 1px solid $primary-medium-blue;
       transition: transform 0.1s ease;
     }
 
@@ -182,12 +203,24 @@
     margin: 1rem 0;
     font-size: 1rem;
     color: $primary-medium-blue;
-  }
 
-  &__signin-link {
-    font-weight: bold;
-    cursor: pointer;
-    color: $primary-light-blue;
+    &-link {
+      font-weight: bold;
+      cursor: pointer;
+      color: $primary-medium-blue; 
+      transition: background-color 0.3s ease, color 0.3s ease;
+
+      &:hover {
+        background-color: $primary-dark-blue;
+        color: $neutral-white;
+        padding: 0.1rem 0.5rem;
+        border-radius: 0.25rem;
+      }
+
+      &:active {
+        transform: scale(0.95);
+      }
+    }
   }
 
   &__button-group {
@@ -205,33 +238,77 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-  }
+    transition: transform 0.1s ease;
 
-  &__button--previous {
-    background: $neutral-light-grey;
-    color: $primary-darker-blue;
-    border: 1.5px solid $neutral-white;
-    box-shadow: $shadow-primary;
-
-    &:hover {
-      background: $primary-medium-blue;
-      color: $neutral-white;
+    &:active {
+      transform: scale(0.95);
     }
-  }
 
-  &__button--signup {
-    background: $button-dark-gradient;
-    color: $neutral-white;
-    box-shadow: $shadow-primary;
+    &--previous {
+      background: $neutral-light-grey;
+      color: $primary-darker-blue;
+      border: 1.5px solid $neutral-white;
+      box-shadow: $shadow-primary;
+      position: relative;
+      overflow: hidden;
 
-    &:hover {
-      background: $primary-dark-blue;
-      color: $neutral-white;
+      &:hover {
+        background: $primary-medium-blue;
+        color: $neutral-white;
+      }
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 200%;
+        height: 100%;
+        background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: left 0.5s;
+      }
+
+      &:hover::before {
+        left: 100%;
+      }
+
+      .register__button-icon {
+        height: 1rem; // Adjusting the size of the arrow icon
+        width: 1rem;
+      }
     }
-  }
 
-  &__button-icon {
-    height: 1rem;
-    width: 1rem;
+    &--signup {
+      background: $button-dark-gradient;
+      color: $neutral-white;
+      box-shadow: $shadow-primary;
+      position: relative;
+      overflow: hidden;
+
+      &:hover {
+        background: $primary-dark-blue;
+        color: $neutral-white;
+      }
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: -100%;
+        width: 200%;
+        height: 100%;
+        background: linear-gradient(to left, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: right 0.5s;
+      }
+
+      &:hover::before {
+        right: 100%;
+      }
+
+      .register__button-icon {
+        height: 1.5rem; 
+        width: 1.5rem;
+      }
+    }
   }
 }
