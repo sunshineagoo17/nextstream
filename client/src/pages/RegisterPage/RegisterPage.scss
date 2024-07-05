@@ -281,6 +281,7 @@
     cursor: pointer;
     color: $primary-light-blue;
     font-weight: bold;
+    text-decoration: none;
     transition: transform 0.1s ease, background-color 0.1s ease, color 0.1s ease;
 
     &:hover {
@@ -288,6 +289,11 @@
       color: $neutral-white;
       padding: 0.1rem 0.5rem;
       border-radius: 0.25rem;
+      text-decoration: none;
+    }
+
+    &:visited {
+      text-decoration: none;
     }
 
     &:active {
@@ -296,6 +302,7 @@
       color: $neutral-black;
       padding: 0.1rem 0.5rem;
       border-radius: 0.25rem;
+      text-decoration: none;
     }
   }
 

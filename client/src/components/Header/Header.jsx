@@ -1,5 +1,3 @@
-// Header.jsx
-import React from 'react';
 import { Link } from 'react-router-dom';
 import nextStreamLogo from "../../assets/images/nextstream-wordmark.png";
 import searchVector from "../../assets/images/searh-vector-handle.svg";
@@ -26,16 +24,18 @@ export const Header = () => {
           </div>
         </div>
         <div className="header__logo-wrapper">
-          <Link to="/">
+          <Link to="/" aria-label="Homepage">
             <img className="header__logo" alt="Nextstream logo" src={nextStreamLogo} />
           </Link>
         </div>
-        <button className="header__login-container">
-          <div className="header__login">
-            <div className="header__sign-in-txt">Sign In</div>
-            <img className="header__sign-in-icon" src={UserIcon} alt="User Icon" />
-          </div>
-        </button>
+        <Link to="/login" aria-label="Sign In">
+          <button className="header__login-container">
+            <div className="header__login">
+              <div className="header__sign-in-txt">Sign In</div>
+              <img className="header__sign-in-icon" src={UserIcon} alt="User Icon" />
+            </div>
+          </button>
+        </Link>
       </div>
       <div className="header__search-bar--mobile">
         <div className="header__search-icon--mobile">

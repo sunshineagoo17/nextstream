@@ -1,4 +1,4 @@
-import React from "react";
+import { Link } from 'react-router-dom';
 import NextStreamLogo from "../../../../assets/images/logo-brand-mark-white.svg";
 import "./Hero.scss";
 
@@ -23,9 +23,11 @@ export const Hero = () => {
             Discover where your favourite movies and shows are streaming, all in one place. Enjoy personalized
             recommendations and easy scheduling to enhance your viewing experience.
         </p>
-        <button className="hero__btn-container">
-          <div className="hero__btn">Start Watching</div>
-        </button>
+        <Link to="/register" aria-label="Register">
+          <button className="hero__btn-container">
+            <div className="hero__btn">Start Watching</div>
+          </button>
+        </Link>
       </div>
 
       <div className="hero__logo-container">

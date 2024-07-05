@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import SignUpIcon from "../../assets/images/register-sign-up-icon.svg";
 import ArrowIcon from "../../assets/images/register-arrow-icon.svg";
@@ -118,7 +119,7 @@ export const RegisterPage = () => {
               <p className="register__terms-txt">I agree to the terms and conditions</p>
             </label>
             <p className="register__already-account">
-              Already have an account? <span className="register__signin-link">Sign In</span>
+              Already have an account? <Link to="/login" aria-label="Log In"><span className="register__signin-link">Sign In</span></Link>
             </p>
             <div className="register__button-group">
               <button className="register__button register__button--previous" onClick={goToPreviousPage}>
