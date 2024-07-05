@@ -1,5 +1,156 @@
-// Import partials
 @use "../../styles/partials/colors" as *;
 @use "../../styles/partials/fonts" as *;
 @use "../../styles/partials/mixins" as *;
 @use "../../styles/global.scss" as *;
+
+.register {
+  &__hero {
+    background: $primary-dark-blue-gradient;
+    height: 340px;
+    position: relative;
+    width: 100%;
+    background-size: cover;
+  }
+
+  &__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+  }
+
+  &__content-card {
+    @include bg-white;
+    padding: 2rem;
+    max-width: 400px;
+    width: 100%;
+    border-radius: 1rem;
+    box-shadow: $shadow-primary;
+  }
+
+  &__title {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: $primary-dark-blue;
+    text-align: center;
+  }
+
+  &__input-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  &__input-group {
+    position: relative;
+    width: 100%;
+  }
+
+  &__input {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid $primary-light-blue;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    box-shadow: $shadow-primary;
+  }
+
+  &__label {
+    position: absolute;
+    top: -1rem;
+    left: 1rem;
+    background: $neutral-white;
+    padding: 0 0.5rem;
+    color: $primary-medium-blue;
+    font-size: 1rem;
+  }
+
+  &__input-group--password {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+
+  &__password-toggle {
+    position: absolute;
+    right: 1rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  &__checkbox {
+    margin: 1rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: $primary-medium-blue;
+  }
+
+  &__checkbox-box {
+    cursor: pointer;
+  }
+
+  &__already-account {
+    margin: 1rem 0;
+    font-size: 1rem;
+    color: $primary-medium-blue;
+  }
+
+  &__signin-link {
+    font-weight: bold;
+    cursor: pointer;
+    color: $primary-light-blue;
+  }
+
+  &__button-group {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  &__button {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  &__button--previous {
+    background: $neutral-light-grey;
+    color: $primary-darker-blue;
+    box-shadow: $shadow-primary;
+
+    &:hover {
+      background: $primary-medium-blue;
+      color: $neutral-white;
+    }
+  }
+
+  &__button--signup {
+    background: $button-dark-gradient;
+    color: $neutral-white;
+    box-shadow: $shadow-primary;
+
+    &:hover {
+      background: $primary-dark-blue;
+      color: $neutral-white;
+    }
+  }
+
+  &__button-icon {
+    height: 1rem;
+    width: 1rem;
+  }
+}

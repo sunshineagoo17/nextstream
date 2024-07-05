@@ -4,16 +4,17 @@ import { HomePage } from "./pages/HomePage/HomePage";
 import { Header } from "./components/Header/Header";
 import { Footer } from "./components/Footer/Footer";
 import { TermsAndConditions } from "./pages/TermsAndConditions/TermsAndConditions";
-import { PrivacyPolicy } from "./pages/PrivacyPolicy/PrivacyPolicy"; 
+import { PrivacyPolicy } from "./pages/PrivacyPolicy/PrivacyPolicy";
 import { NotFound } from "./pages/NotFound/NotFound";
-import ContactModal from "./components/ContactModal/ContactModal"; 
+import { RegisterPage } from "./pages/RegisterPage/RegisterPage";
+import ContactModal from "./components/ContactModal/ContactModal";
 import './styles/global.scss';
 
 const App = () => {
-  const [isContactModalOpen, setIsContactModalOpen] = useState(false); 
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
 
   const handleContactClick = () => {
-    setIsContactModalOpen(true); 
+    setIsContactModalOpen(true);
   };
 
   const handleCloseModal = () => {
@@ -27,7 +28,8 @@ const App = () => {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/terms" element={<TermsAndConditions />} />
-          <Route path="/privacy-policy" element={<PrivacyPolicy />} /> 
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/register" element={<RegisterPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer onContactClick={handleContactClick} />
