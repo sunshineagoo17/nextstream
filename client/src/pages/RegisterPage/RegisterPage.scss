@@ -23,13 +23,14 @@
     font-size: 2.5rem;
     color: $neutral-white;
     text-align: center;
-    margin-top: -15rem; 
+    margin-top: -25rem; 
     font-family: $primary-font;
     font-weight: 400;
     text-shadow: $shadow-primary;
     line-height: 1.5rem;
 
     @include large-mobile {
+      margin-top: -15rem; 
       font-size: 2.75rem;
       line-height: 1.85rem;
     }
@@ -55,6 +56,14 @@
     z-index: 0;
   }
 
+  &__terms-txt {
+    font-size: .65rem;
+
+    @include tablet {
+      font-size: .85rem;
+    }
+  }
+
   &__container {
     display: flex;
     justify-content: center;
@@ -63,9 +72,13 @@
     top: 25vh; 
     width: 100%;
     z-index: 2;
+    padding-left: 1rem;
+    padding-right: 1rem;
     flex-direction: column; 
+    margin-top: -5rem;
 
     @include tablet {
+      margin-top: 0;
       flex-direction: column;
     }
 
@@ -308,12 +321,17 @@
     }
 
     &--previous {
+      @include block-item (6.8119rem, 3.5rem);
       background: $neutral-light-grey;
       color: $primary-darker-blue;
       border: 1.5px solid $neutral-white;
       box-shadow: $shadow-primary;
       position: relative;
       overflow: hidden;
+
+      @include tablet {
+        @include block-item (9rem, 4.5rem);
+      }
 
       &:hover {
         background: $primary-medium-blue;
@@ -352,11 +370,16 @@
     }
 
     &--signup {
+      @include block-item (6.8119rem, 3.5rem);
       background: $button-dark-gradient;
       color: $neutral-white;
       box-shadow: $shadow-primary;
       position: relative;
       overflow: hidden;
+      
+      @include tablet {
+        @include block-item (9rem, 4.5rem);
+      }
 
       &:hover {
         background: $primary-dark-blue;

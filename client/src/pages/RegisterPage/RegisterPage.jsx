@@ -115,7 +115,7 @@ export const RegisterPage = () => {
             </div>
             <label className="register__checkbox">
               <input type="checkbox" className="register__checkbox-box" />
-              I agree to the terms and conditions
+              <p className="register__terms-txt">I agree to the terms and conditions</p>
             </label>
             <p className="register__already-account">
               Already have an account? <span className="register__signin-link">Sign In</span>
