@@ -29,7 +29,6 @@ const useMenuLinks = () => {
           { name: "Stream Locator", path: "/stream-locator" },
           { name: "Top Picks", path: "/top-picks" },
           { name: "Calendar", path: "/calendar" },
-          { name: "Profile", path: "/profile" }
         ];
       case "/login":
         return [
@@ -37,7 +36,13 @@ const useMenuLinks = () => {
           { name: "Stream Locator", path: "/stream-locator" },
           { name: "Top Picks", path: "/top-picks" },
           { name: "Calendar", path: "/calendar" },
-          { name: "Profile", path: "/profile" }
+        ];
+      case "/profile":
+        return [
+          { name: "Home", path: "/" },
+          { name: "Stream Locator", path: "/stream-locator" },
+          { name: "Top Picks", path: "/top-picks" },
+          { name: "Calendar", path: "/calendar" },
         ];
       case "/":
       default:
