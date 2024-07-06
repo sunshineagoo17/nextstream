@@ -24,15 +24,35 @@ export const LoginPage = () => {
     navigate(-1);
   };
 
+  const validateUsername = () => {
+    setUsername((prevUsername) => prevUsername.trim() !== '');
+  };
+
+  const validatePassword = () => {
+    setPassword((prevPassword) => prevPassword.trim() !== '');
+  };
+
   const handleSignIn = async () => {
+    validateUsername();
+    validatePassword();
+
+    if (username.trim() === '' || password.trim() === '') {
+      setErrors({ general: 'Please fill in all fields' });
+      return;
+    }
+
     const userData = { username, password };
     try {
-      const response = await axios.post('https://nextstream-api-url.com/login', userData);
-      if (response.data.success) {
-        navigate('/dashboard'); 
+      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/auth/login`, userData);
+      if (response.data.token) {
+        navigate('/profile'); // Navigate to profile page after successful login
       }
     } catch (error) {
-      setErrors(error.response.data.errors);
+      if (error.response && error.response.data && error.response.data.message) {
+        setErrors({ general: error.response.data.message });
+      } else {
+        setErrors({ general: 'An error occurred. Please try again.' });
+      }
     }
   };
 
@@ -108,6 +128,7 @@ export const LoginPage = () => {
               </Link>
             </div>
             
+            {errors.general && <p className="error">{errors.general}</p>}
           </div>
         </div>
         <div className="login__image-card">

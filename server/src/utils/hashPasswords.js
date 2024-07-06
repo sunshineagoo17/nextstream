@@ -11,14 +11,6 @@ async function hashPassword(password) {
   }
 }
 
-// Replace 'myPassword123' with the password you want to hash
-const passwordToHash = 'myPassword123';
-
-hashPassword(passwordToHash)
-  .then(hashedPassword => {
-    console.log('Original Password:', passwordToHash);
-    console.log('Hashed Password:', hashedPassword);
-  })
-  .catch(error => {
-    console.error('Error hashing password:', error);
-  });
+module.exports = {
+  hashPassword,
+};

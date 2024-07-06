@@ -25,27 +25,15 @@ router.post('/register', async (req, res) => {
 // Login Route
 router.post('/login', async (req, res) => {
     try {
-        const { email, password } = req.body;
-        
-        // Retrieve user from 'users' table based on email
-        const user = await knex('users').where({ email }).first();
-        
-        // If no user found or password doesn't match, return unauthorized
+        const { username, password } = req.body; // Changed from email to username
+        const user = await knex('users').where({ username }).first();
         if (!user || !(await bcrypt.compare(password, user.password))) {
-            return res.status(401).json({ message: 'Invalid email or password' });
+            return res.status(401).json({ message: 'Invalid username or password' }); // Changed from email to username
         }
-        
-        // Generate JWT token with userId payload
         const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-        
-        // Set cookie with token (optional based on your application's needs)
         res.cookie('token', token, { httpOnly: true });
-        
-        // Respond with success message and token
         res.json({ message: 'Logged in successfully', token });
     } catch (error) {
-        // Handle login error
-        console.error('Error logging in:', error);
         res.status(500).json({ message: 'Error logging in', error });
     }
 });
