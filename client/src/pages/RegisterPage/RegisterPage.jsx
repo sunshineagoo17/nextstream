@@ -134,27 +134,31 @@ export const RegisterPage = () => {
                 {!isValidEmail && <p className="error">Please enter a valid email address</p>}
               </div>
               <div className="register__input-group register__input-group--password">
-                <input
-                  className="register__input"
-                  id="input-password"
-                  placeholder="Enter your password"
-                  type={passwordVisible ? "text" : "password"}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  onBlur={validatePassword} // Validate on blur
-                />
-                <label className="register__label" htmlFor="input-password">
-                  Password
-                </label>
-                {!isValidPassword && <p className="error">Password must be at least 8 characters long</p>}
-                <button
-                  type="button"
-                  className="register__password-toggle"
-                  onClick={togglePasswordVisibility}
-                  aria-label={passwordVisible ? "Hide password" : "Show password"}
-                >
-                  <img src={passwordVisible ? HideIcon : ShowIcon} alt="Toggle visibility" className="register__password-toggle-icon" />
-                </button>
+                <div className="register__input-wrapper">
+                  <input
+                    className="register__input"
+                    id="input-password"
+                    placeholder="Enter your password"
+                    type={passwordVisible ? "text" : "password"}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    onBlur={validatePassword} // Validate on blur
+                  />
+                  <label className="register__label" htmlFor="input-password">
+                    Password
+                  </label>
+                  <button
+                    type="button"
+                    className="register__password-toggle"
+                    onClick={togglePasswordVisibility}
+                    aria-label={passwordVisible ? "Hide password" : "Show password"}
+                  >
+                    <img src={passwordVisible ? HideIcon : ShowIcon} alt="Toggle visibility" className="register__password-toggle-icon" />
+                  </button>
+                </div>
+                <div className="register__validation-pw">
+                  {!isValidPassword && <p className="error">Password must be 8+ chars</p>}
+                </div>
               </div>
             </div>
             <label className="register__checkbox">
