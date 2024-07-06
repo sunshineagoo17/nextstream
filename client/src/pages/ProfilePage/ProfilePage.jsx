@@ -6,39 +6,41 @@ export const ProfilePage = () => {
   return (
     <div className="profile">
       <div className="profile__hero">
-        <h1 className="profile__title">Your Profile</h1>
-      </div>
-      <div className="profile__main">
-        <div className="profile__content">
-          <div className="profile__content-details">
-            <div className="profile__details-header">
-              <div className="profile__container">
-                <div className="profile__text-wrapper">Profile Details</div>
-              </div>
+
+        <div className="profile__main">
+            <h1 className="profile__title">Your Profile</h1>
+            <div className="profile__content">
+            <div className="profile__content-details">
+                <div className="profile__details-header">
+                <div className="profile__container">
+                    <div className="profile__text-wrapper">Profile Details</div>
+                </div>
+                </div>
+                <div className="profile__details-content">
+                <div className="profile__details-inputs">
+                    <div className="profile__input-group">
+                        <label className="profile__label" htmlFor="input-1">Name</label>
+                        <div className="profile__input-wrapper">
+                            <input className="profile__input" id="input-1" placeholder="Enter your name" type="text" />
+                        </div>
+                    </div>
+                    <div className="profile__input-group">
+                        <label className="profile__label" htmlFor="input-2">Username</label>
+                        <div className="profile__input-wrapper">
+                            <input className="profile__input" id="input-2" placeholder="Enter your username" type="text" />
+                        </div>
+                    </div>
+                    <div className="profile__input-group">
+                        <label className="profile__label" htmlFor="input-3">Email</label>
+                        <div className="profile__input-wrapper">
+                            <input className="profile__input" id="input-3" placeholder="Enter your email address" type="email" />
+                        </div>
+                    </div>
+                </div>
+                </div>
             </div>
-            <div className="profile__details-content">
-              <div className="profile__details-inputs">
-                <div className="profile__input-group">
-                  <div className="profile__input-wrapper">
-                    <input className="profile__input" id="input-1" placeholder="Enter your name" type="text" />
-                  </div>
-                  <label className="profile__label" htmlFor="input-1">Name</label>
-                </div>
-                <div className="profile__input-group">
-                  <div className="profile__input-wrapper">
-                    <input className="profile__input" id="input-2" placeholder="Enter your username" type="text" />
-                  </div>
-                  <label className="profile__label" htmlFor="input-2">Username</label>
-                </div>
-                <div className="profile__input-group">
-                  <div className="profile__input-wrapper">
-                    <input className="profile__input" id="input-3" placeholder="Enter your email address" type="email" />
-                  </div>
-                  <label className="profile__label" htmlFor="input-3">Email</label>
-                </div>
-              </div>
-            </div>
-          </div>
+        </div>
+
           <div className="profile__content-password">
             <div className="profile__password-header">
               <div className="profile__container">
@@ -48,32 +50,35 @@ export const ProfilePage = () => {
             <div className="profile__password-content">
               <div className="profile__password-inputs">
                 <div className="profile__input-group">
-                  <div className="profile__input-wrapper">
-                    <div className="profile__input-frame">
-                      <div className="profile__input-placeholder">Enter current password</div>
+                    <div className="profile__label">Current Password</div>
+                    <div className="profile__input-wrapper">
+                        <div className="profile__input-frame">
+                        <div className="profile__input-placeholder">Enter current password</div>
+                        </div>
                     </div>
-                  </div>
-                  <div className="profile__label">Current Password</div>
                 </div>
+                
                 <div className="profile__input-group">
-                  <div className="profile__input-wrapper">
-                    <div className="profile__input-frame">
-                      <div className="profile__input-placeholder">Choose a new password</div>
+                    <div className="profile__label">New Password</div>
+                    <div className="profile__input-wrapper">
+                        <div className="profile__input-frame">
+                        <div className="profile__input-placeholder">Choose a new password</div>
+                        </div>
                     </div>
-                  </div>
-                  <div className="profile__label">New Password</div>
                 </div>
+
                 <div className="profile__input-group">
-                  <div className="profile__input-wrapper">
-                    <div className="profile__input-frame">
-                      <div className="profile__input-placeholder">Re-enter new password</div>
+                    <div className="profile__label">Confirm New Password</div>
+                    <div className="profile__input-wrapper">
+                        <div className="profile__input-frame">
+                        <div className="profile__input-placeholder">Re-enter new password</div>
+                        </div>
                     </div>
-                  </div>
-                  <div className="profile__label">Confirm New Password</div>
                 </div>
               </div>
             </div>
           </div>
+
           <div className="profile__content-notifications">
             <div className="profile__notifications-header">
               <div className="profile__text-wrapper">Notifications</div>
@@ -93,6 +98,7 @@ export const ProfilePage = () => {
               </div>
             </div>
           </div>
+
           <div className="profile__content-subscription">
             <div className="profile__subscription-header">
               <div className="profile__text-wrapper">Account Plan</div>
@@ -104,7 +110,6 @@ export const ProfilePage = () => {
                   <div className="profile__subscription-active">
                     <div className="profile__checkbox-wrapper">
                       <div className="profile__checkbox">
-                        <img className="profile__vector" alt="Vector" src="vector.svg" />
                       </div>
                     </div>
                     <div className="profile__status-wrapper">
@@ -118,6 +123,7 @@ export const ProfilePage = () => {
               </div>
             </div>
           </div>
+
           <div className="profile__content-region">
             <div className="profile__region-header">
               <div className="profile__container">
@@ -134,6 +140,7 @@ export const ProfilePage = () => {
               </div>
             </div>
           </div>
+
           <button className="profile__btn-save">
             <div className="profile__btn-overlap">
               <div className="profile__btn-bg" />
