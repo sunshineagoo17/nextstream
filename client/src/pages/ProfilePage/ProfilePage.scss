@@ -37,6 +37,11 @@
     flex-direction: column;
   }
 
+  &__region-heading {
+    display: flex;
+    flex-direction: row;
+  }
+
   &__hero {
     background: $primary-darker-blue-gradient;
     width: 100%;
@@ -155,9 +160,9 @@
   }
 
   &__location-icon {
-    width: 1rem;
-    height: 1rem;
-    margin-right: 0.5rem;
+    @include block-item(1rem, 1rem);
+    margin-right: 0.25rem;
+    margin-top: .1rem;
   }
 
   &__input-group {
@@ -400,6 +405,7 @@
 
       &:focus {
         outline: none;
+        background-color: #BBD9FF;
       }
 
       option {

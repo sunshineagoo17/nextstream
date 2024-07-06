@@ -185,9 +185,11 @@ export const ProfilePage = () => {
                 </div>
                 <div className="profile__region-content">
                 <div className="profile__select-your-region">
-                    <div className="profile__region-title">Select Your Region</div>
+                    <div className="profile__region-heading">
+                        <img src={LocationIcon} className="profile__location-icon" alt="Location Icon" />
+                        <div className="profile__region-title">Select Your Region</div>
+                    </div>
                     <div className="profile__region-input">
-                    <img src={LocationIcon} className="profile__location-icon" alt="Location Icon" />
                     <select
                         className="profile__dropdown"
                         value={selectedRegion}
