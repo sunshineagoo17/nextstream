@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
+import { AuthContext } from '../../context/AuthContext/AuthContext';  
 import ShowIcon from "../../assets/images/register-visible-icon.svg";
 import HideIcon from "../../assets/images/register-invisible-icon.svg";
 import NextStreamBg from "../../assets/images/nextstream-bg.jpg";
@@ -13,8 +14,10 @@ export const LoginPage = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [rememberMe, setRememberMe] = useState(false);
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -45,6 +48,7 @@ export const LoginPage = () => {
     try {
       const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/auth/login`, userData);
       if (response.data.token) {
+        login(response.data.token, rememberMe);
         navigate('/profile'); // Navigate to profile page after successful login
       }
     } catch (error) {
@@ -54,6 +58,10 @@ export const LoginPage = () => {
         setErrors({ general: 'An error occurred. Please try again.' });
       }
     }
+  };
+
+  const handleCheckboxChange = (event) => {
+    setRememberMe(event.target.checked);
   };
 
   return (
@@ -104,7 +112,12 @@ export const LoginPage = () => {
               </div>
             </div>
             <label className="login__checkbox">
-              <input type="checkbox" className="login__checkbox-box" />
+              <input 
+                type="checkbox" 
+                className="login__checkbox-box" 
+                checked={rememberMe}
+                onChange={handleCheckboxChange} 
+              />
               <p className="login__remember-txt">Remember Me</p>
             </label>
             <p className="login__forgot-password-link">Forgot Password?</p>

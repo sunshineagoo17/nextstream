@@ -11,6 +11,7 @@ import { ProfilePage } from "./pages/ProfilePage/ProfilePage";
 import ContactModal from "./components/ContactModal/ContactModal";
 import Header from "./components/Header/Header";
 import HoverMenu from "./components/Header/sections/HoverMenu/HoverMenu";
+import { AuthProvider } from './context/AuthContext/AuthContext';  
 import './styles/global.scss';
 
 const App = () => {
@@ -46,7 +47,9 @@ const App = () => {
 
 const RootApp = () => (
   <Router>
-    <App />
+    <AuthProvider>
+      <App />
+    </AuthProvider>
   </Router>
 );
 

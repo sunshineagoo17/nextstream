@@ -1,10 +1,20 @@
-import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext/AuthContext';
 import nextStreamLogo from "../../assets/images/nextstream-wordmark.png";
 import searchVector from "../../assets/images/searh-vector-handle.svg";
 import UserIcon from "../../assets/images/user-icon.svg";
 import "./Header.scss";
 
 export const Header = () => {
+  const { isAuthenticated, logout } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  };
+
   return (
     <div className="header">
       <div className="header__main-container">
@@ -28,14 +38,23 @@ export const Header = () => {
             <img className="header__logo" alt="Nextstream logo" src={nextStreamLogo} />
           </Link>
         </div>
-        <Link to="/login" aria-label="Sign In">
-          <button className="header__login-container">
+        {isAuthenticated ? (
+          <button className="header__login-container" onClick={handleLogout}>
             <div className="header__login">
-              <div className="header__sign-in-txt">Sign In</div>
+              <div className="header__sign-in-txt">Logout</div>
               <img className="header__sign-in-icon" src={UserIcon} alt="User Icon" />
             </div>
           </button>
-        </Link>
+        ) : (
+          <Link to="/login" aria-label="Sign In">
+            <button className="header__login-container">
+              <div className="header__login">
+                <div className="header__sign-in-txt">Sign In</div>
+                <img className="header__sign-in-icon" src={UserIcon} alt="User Icon" />
+              </div>
+            </button>
+          </Link>
+        )}
       </div>
       <div className="header__search-bar--mobile">
         <div className="header__search-icon--mobile">
