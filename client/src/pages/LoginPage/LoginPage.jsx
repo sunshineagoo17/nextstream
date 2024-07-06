@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from '../../context/AuthContext/AuthContext';
@@ -19,6 +19,16 @@ export const LoginPage = () => {
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
 
+  useEffect(() => {
+    const storedUsername = localStorage.getItem('rememberedUsername');
+    const storedPassword = localStorage.getItem('rememberedPassword');
+    if (storedUsername && storedPassword) {
+      setUsername(storedUsername);
+      setPassword(storedPassword);
+      setRememberMe(true);
+    }
+  }, []);
+
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
@@ -27,28 +37,29 @@ export const LoginPage = () => {
     navigate(-1);
   };
 
-  const validateUsername = () => {
-    setUsername((prevUsername) => prevUsername.trim() !== '');
-  };
-
-  const validatePassword = () => {
-    setPassword((prevPassword) => prevPassword.trim() !== '');
+  const validateFields = () => {
+    if (!username.trim() || !password.trim()) {
+      setErrors({ general: 'Please fill in all fields' });
+      return false;
+    }
+    return true;
   };
 
   const handleSignIn = async () => {
-    validateUsername();
-    validatePassword();
-
-    if (username.trim() === '' || password.trim() === '') {
-      setErrors({ general: 'Please fill in all fields' });
-      return;
-    }
+    if (!validateFields()) return;
 
     const userData = { username, password };
     try {
       const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/auth/login`, userData);
       if (response.data.token) {
         login(response.data.token, rememberMe);
+        if (rememberMe) {
+          localStorage.setItem('rememberedUsername', username);
+          localStorage.setItem('rememberedPassword', password);
+        } else {
+          localStorage.removeItem('rememberedUsername');
+          localStorage.removeItem('rememberedPassword');
+        }
         navigate('/profile'); // Navigate to profile page after successful login
       }
     } catch (error) {
