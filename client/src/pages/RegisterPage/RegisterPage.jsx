@@ -30,7 +30,7 @@ export const RegisterPage = () => {
   const handleSignUp = async () => {
     const userData = { name, username, email, password };
     try {
-      const response = await axios.post('/api/auth/register', userData);
+      const response = await axios.post('/api/auth/register', userData); // Ensure this URL matches your backend
       if (response.status === 201) {
         navigate('/success'); 
       }
