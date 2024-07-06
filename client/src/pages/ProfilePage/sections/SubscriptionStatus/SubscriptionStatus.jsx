@@ -19,12 +19,12 @@ const SubscriptionStatus = () => {
         <div className="subscription-status__title">Subscription Status</div>
         <div className="subscription-status__active">
           <div className="subscription-status__select" onClick={toggleActiveStatus}>
-            <div className={`subscription-status__checkbox ${isActive ? 'subscription-status__checkbox--active' : ''}`}>
+            <div className={`subscription-status__checkbox ${isActive ? 'subscription-status__checkbox--active' : 'subscription-status__checkbox--inactive'}`}>
               {isActive && <div className="subscription-status__check">✔</div>}
             </div>
           </div>
-          <div className="subscription-status__box">
-            <div className="subscription-status__input">Active</div>
+          <div className={`subscription-status__box ${isActive ? '' : 'subscription-status__box--inactive'}`}>
+            <div className="subscription-status__input">{isActive ? 'Active' : 'Inactive'}</div>
           </div>
         </div>
       </div>

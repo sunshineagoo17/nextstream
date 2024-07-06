@@ -60,6 +60,16 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent);
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
   }
 
   &__checkbox {
@@ -72,16 +82,21 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: all 0.3s ease;
 
     &--active {
       background-color: $feedback-mint-light-green;
       border-color: $feedback-mint-light-green;
+
+      &__check {
+        color: $neutral-white;
+        font-size: 2rem;
+        font-weight: bold;
+      }
     }
 
-    &__check {
-      color: $neutral-white;
-      font-size: 2rem;
-      font-weight: bold;
+    &--inactive {
+      border-color: $feedback-error-peach;
     }
   }
 
@@ -96,6 +111,20 @@
     height: 3rem;
     width: 8.4375rem;
     justify-content: center;
+    transition: all 0.3s ease;
+
+    &--inactive {
+      border-color: $feedback-error-peach;
+    }
+
+    &-text {
+      color: $neutral-white;
+      font-family: $primary-font;
+      font-size: 1rem;
+      font-weight: 400;
+      white-space: nowrap;
+      width: 100%;
+    }
   }
 
   &__delete-account {
@@ -113,15 +142,20 @@
     position: relative;
     transition: all 0.3s ease;
 
+    &:hover {
+      backdrop-filter: blur(0.25rem);
+      box-shadow: 0 0 0.625rem rgba(255, 0, 0, 0.5);
+      background: $feedback-error-light-peach;
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+
     &--delete {
       background-color: $feedback-error-peach;
       border-color: $feedback-error-peach;
       box-shadow: 0 0 0.625rem rgba(255, 0, 0, 0.3);
-    }
-
-    &:hover {
-      backdrop-filter: blur(0.25rem);
-      box-shadow: 0 0 0.625rem rgba(255, 0, 0, 0.5);
     }
   }
 }
