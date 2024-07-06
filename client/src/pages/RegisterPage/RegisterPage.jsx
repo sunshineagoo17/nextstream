@@ -17,6 +17,11 @@ export const RegisterPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
+  const [isValidName, setIsValidName] = useState(true);
+  const [isValidUsername, setIsValidUsername] = useState(true);
+  const [isValidEmail, setIsValidEmail] = useState(true);
+  const [isValidPassword, setIsValidPassword] = useState(true);
+  const [isCheckedTerms, setIsCheckedTerms] = useState(false);
   const navigate = useNavigate();
 
   const togglePasswordVisibility = () => {
@@ -27,12 +32,42 @@ export const RegisterPage = () => {
     navigate(-1);
   };
 
+  const validateName = () => {
+    setIsValidName(name.trim() !== '');
+  };
+
+  const validateUsername = () => {
+    setIsValidUsername(username.trim() !== '');
+  };
+
+  const validateEmail = () => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    setIsValidEmail(emailRegex.test(email));
+  };
+
+  const validatePassword = () => {
+    setIsValidPassword(password.length >= 8); 
+  };
+
+  const handleCheckboxChange = (event) => {
+    setIsCheckedTerms(event.target.checked);
+  };
+
   const handleSignUp = async () => {
+    validateName();
+    validateUsername();
+    validateEmail();
+    validatePassword();
+
+    if (!isValidName || !isValidUsername || !isValidEmail || !isValidPassword || !isCheckedTerms) {
+      return; // Prevent registration if any validation fails or terms checkbox is not checked
+    }
+
     const userData = { name, username, email, password };
     try {
-      const response = await axios.post('/api/auth/register', userData); // Ensure this URL matches your backend
+      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/auth/register`, userData);
       if (response.status === 201) {
-        navigate('/success'); 
+        navigate('/profile'); // Navigate to profile page after successful registration
       }
     } catch (error) {
       if (error.response && error.response.data && error.response.data.errors) {
@@ -61,11 +96,12 @@ export const RegisterPage = () => {
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
+                  onBlur={validateName} // Validate on blur
                 />
                 <label className="register__label" htmlFor="input-name">
                   Name
                 </label>
-                {errors.name && <p className="error">{errors.name}</p>}
+                {!isValidName && <p className="error">Please enter your name</p>}
               </div>
               <div className="register__input-group">
                 <input
@@ -75,11 +111,12 @@ export const RegisterPage = () => {
                   type="text"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
+                  onBlur={validateUsername} // Validate on blur
                 />
                 <label className="register__label" htmlFor="input-username">
                   Username
                 </label>
-                {errors.username && <p className="error">{errors.username}</p>}
+                {!isValidUsername && <p className="error">Please enter your username</p>}
               </div>
               <div className="register__input-group">
                 <input
@@ -89,11 +126,12 @@ export const RegisterPage = () => {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  onBlur={validateEmail} // Validate on blur
                 />
                 <label className="register__label" htmlFor="input-email">
                   Email
                 </label>
-                {errors.email && <p className="error">{errors.email}</p>}
+                {!isValidEmail && <p className="error">Please enter a valid email address</p>}
               </div>
               <div className="register__input-group register__input-group--password">
                 <input
@@ -103,10 +141,12 @@ export const RegisterPage = () => {
                   type={passwordVisible ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  onBlur={validatePassword} // Validate on blur
                 />
                 <label className="register__label" htmlFor="input-password">
                   Password
                 </label>
+                {!isValidPassword && <p className="error">Password must be at least 8 characters long</p>}
                 <button
                   type="button"
                   className="register__password-toggle"
@@ -115,13 +155,19 @@ export const RegisterPage = () => {
                 >
                   <img src={passwordVisible ? HideIcon : ShowIcon} alt="Toggle visibility" className="register__password-toggle-icon" />
                 </button>
-                {errors.password && <p className="error">{errors.password}</p>}
               </div>
             </div>
             <label className="register__checkbox">
-              <input type="checkbox" className="register__checkbox-box" />
+              <input
+                type="checkbox"
+                className="register__checkbox-box"
+                checked={isCheckedTerms}
+                onChange={handleCheckboxChange}
+                required
+              />
               <p className="register__terms-txt">I agree to the terms and conditions</p>
             </label>
+            {!isCheckedTerms && <p className="error">Please agree to the terms and conditions</p>}
             <p className="register__already-account">
               Already have an account? <Link to="/login" aria-label="Log In"><span className="register__signin-link">Sign In</span></Link>
             </p>
