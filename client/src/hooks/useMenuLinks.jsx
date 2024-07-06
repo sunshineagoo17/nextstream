@@ -31,6 +31,14 @@ const useMenuLinks = () => {
           { name: "Calendar", path: "/calendar" },
           { name: "Profile", path: "/profile" }
         ];
+      case "/login":
+        return [
+          { name: "Home", path: "/" },
+          { name: "Stream Locator", path: "/stream-locator" },
+          { name: "Top Picks", path: "/top-picks" },
+          { name: "Calendar", path: "/calendar" },
+          { name: "Profile", path: "/profile" }
+        ];
       case "/":
       default:
         return [
