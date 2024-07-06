@@ -3,6 +3,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path');
 const emailRoutes = require('./src/routes/emailRoutes');
+const passwordResetRoutes = require('./src/routes/passwordResetRoutes');
 const rateLimit = require('express-rate-limit');
 const cookieParser = require('cookie-parser'); 
 const authRoutes = require('./src/routes/auth'); 
@@ -25,6 +26,7 @@ app.use(limiter);
 // API Routes
 app.use('/api/email', emailRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/password-reset', passwordResetRoutes); 
 
 // Serve static files from the React app if needed
 app.use(express.static(path.join(__dirname, 'client/build')));
