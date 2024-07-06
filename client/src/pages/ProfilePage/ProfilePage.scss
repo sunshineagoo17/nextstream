@@ -71,6 +71,21 @@
     margin-bottom: 1rem;
   }
 
+  &__notifications-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: .75rem;
+  }
+
+  &__notification-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    flex-direction: row;
+  }
+
   &__content-details,
   &__content-region,
   &__content-subscription,

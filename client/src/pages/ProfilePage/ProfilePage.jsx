@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import LocationIcon from "../../assets/images/location-icon.svg";
 import ShowIcon from "../../assets/images/register-visible-icon.svg";
 import HideIcon from "../../assets/images/register-invisible-icon.svg";
+import ToggleButton from "../../components/ToggleButton/ToggleButton";
 import "./ProfilePage.scss";
 
 export const ProfilePage = () => {
@@ -12,6 +13,8 @@ export const ProfilePage = () => {
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [receiveReminders, setReceiveReminders] = useState(false);
+  const [receiveNotifications, setReceiveNotifications] = useState(false);
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -143,16 +146,18 @@ export const ProfilePage = () => {
             </div>
             <div className="profile__notifications-content">
               <div className="profile__notification-item">
+                <ToggleButton
+                  checked={receiveReminders}
+                  onChange={setReceiveReminders}
+                />
                 <p className="profile__notification-text">Receive reminders for scheduled shows/movies</p>
-                <div className="profile__toggle-on">
-                  <div className="profile__toggle-indicator" />
-                </div>
               </div>
               <div className="profile__notification-item">
+                <ToggleButton
+                  checked={receiveNotifications}
+                  onChange={setReceiveNotifications}
+                />
                 <p className="profile__notification-text">Receive notifications for new recommendations</p>
-                <div className="profile__toggle-on">
-                  <div className="profile__toggle-indicator" />
-                </div>
               </div>
             </div>
           </div>
