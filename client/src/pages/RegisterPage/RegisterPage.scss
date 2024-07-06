@@ -47,6 +47,42 @@
     }
   }
 
+  &__terms-link {
+    font: $primary-font;
+    cursor: help;
+    text-decoration: none;
+    padding: 0.25rem 0.1rem;
+    border-radius: 0.25rem;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+
+    &:hover,
+    &:focus,
+    &:visited {
+      background-color: $primary-medium-blue;
+      border-color: $primary-dark-blue;
+      text-decoration: none;
+      box-shadow: $shadow-primary;
+    }
+
+    &:focus,
+    &:visited {
+    color: $primary-dark-blue;
+    }
+
+    &:hover {
+      color: $neutral-white;
+    }
+
+    &:active {
+      background-color: $primary-medium-blue;
+      color: $neutral-white;
+      border: 1px solid $primary-cyan;
+      border-radius: .25rem;
+      transform: translateY(1.5px);
+      text-decoration: none;
+    }
+  }
+
   &__bg {
     background: url('../../assets/images/nextstream-bg.jpg') center center / cover no-repeat;
     height: 50vh;
