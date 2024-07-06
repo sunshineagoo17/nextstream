@@ -34,7 +34,7 @@ export const ProfilePage = () => {
                   </div>
                 </div>
                 <div className="profile__input-group">
-                  <label className="profile__label" htmlFor="input-3">Email</label>
+                  <label className="profile__label" htmlFor="input-3">Email Address</label>
                   <div className="profile__input-wrapper">
                     <input className="profile__input" id="input-3" placeholder="Enter your email address" type="email" />
                   </div>
@@ -64,7 +64,7 @@ export const ProfilePage = () => {
                   </div>
                 </div>
                 <div className="profile__input-group">
-                  <label className="profile__label">Confirm New Password</label>
+                  <label className="profile__label">Confirm Password</label>
                   <div className="profile__input-wrapper">
                     <input className="profile__input" placeholder="Re-enter new password" type="password" />
                   </div>
