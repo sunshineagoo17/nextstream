@@ -6,26 +6,23 @@
 
 .profile {
   width: 100%;
-  min-height: calc(100vh - 10rem);
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2rem 1rem;
 
   &__hero {
     background: linear-gradient(180deg, rgb(14, 28, 48) 0%, rgb(64, 146, 255) 100%);
     width: 100%;
-    padding: 2rem 0;
+    padding: 0;
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
   &__title {
-    color: var(--neutral-white);
-    font-family: "Fieldwork-GeoDemiBold", Helvetica;
+    color: $neutral-white;
+    font-family: $primary-font;
     font-size: 2rem;
-    font-weight: 700;
   }
 
   &__content {
@@ -40,10 +37,10 @@
   &__content-notifications,
   &__content-password,
   &__content-details {
-    background-color: #ffffff;
-    border: 0.125rem solid var(--primary-very-light-blue);
+    background-color: $neutral-white;
+    border: 0.125rem solid $primary-very-light-blue;
     border-radius: 0.5rem;
-    box-shadow: var(--shadow-quinary);
+    box-shadow: $shadow-quinary;
     padding: 1rem;
     width: 100%;
     max-width: 25rem;
@@ -54,19 +51,18 @@
   &__subscription-header,
   &__notifications-header,
   &__region-header {
-    background-color: var(--primary-darker-blue);
-    border: 0.1875rem solid var(--primary-pale-blue);
-    border-radius: 0.5rem 0.5rem 0 0;
-    box-shadow: var(--shadow-primary);
-    padding: 0.5rem;
+    background-color: $primary-darker-blue;
+    border: 2px solid $primary-pale-blue;
+    box-shadow: $shadow-primary;
     text-align: center;
+    width: 15rem;
   }
 
   &__text-wrapper {
-    color: var(--primary-very-light-blue);
-    font-family: "Fieldwork-GeoDemiBold", Helvetica;
+    background-color: $primary-darker-blue;
+    color: $primary-very-light-blue;
+    font-family: $primary-font;
     font-size: 1rem;
-    font-weight: 700;
   }
 
   &__details-content,
@@ -75,10 +71,10 @@
   &__notifications-content,
   &__region-content {
     align-items: center;
-    background-color: var(--primary-very-light-blue);
-    border: 0.1875rem solid var(--primary-pale-blue);
+    background-color: $primary-very-light-blue;
+    border: 0.1875rem solid $primary-pale-blue;
     border-radius: 0 0 0.5rem 0.5rem;
-    box-shadow: var(--shadow-primary);
+    box-shadow: $shadow-primary;
     display: flex;
     justify-content: center;
     padding: 1rem;
@@ -92,7 +88,7 @@
   }
 
   &__input-group {
-    background-color: #ffffff;
+    background-color: $neutral-white;
     border-radius: 0.75rem;
     height: 3rem;
     width: 100%;
@@ -100,10 +96,10 @@
   }
 
   &__input-wrapper {
-    background-color: #ffffff;
-    border: 0.125rem solid var(--primary-light-blue);
+    background-color: $neutral-white;
+    border: 0.125rem solid $primary-light-blue;
     border-radius: 0.75rem;
-    box-shadow: var(--shadow-primary);
+    box-shadow: $shadow-primary;
     height: 3rem;
     width: 100%;
   }
@@ -116,32 +112,25 @@
   }
 
   &__input-placeholder {
-    color: var(--neutral-dark-grey);
-    font-family: "Fieldwork-GeoRegular", Helvetica;
+    color: $neutral-dark-grey;
+    font-family: $primary-font;
     font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5rem;
     white-space: nowrap;
   }
 
   &__input {
     background: none;
     border: none;
-    color: var(--neutral-dark-grey);
-    font-family: "Fieldwork-GeoRegular", Helvetica;
+    color: $neutral-dark-grey;
+    font-family: $primary-font;
     font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5rem;
     width: 100%;
   }
 
   &__label {
-    color: var(--primary-medium-blue);
-    font-family: "Fieldwork-GeoRegular", Helvetica;
+    color: $primary-medium-blue;
+    font-family: $primary-font;
     font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5rem;
-    margin-top: 0.5rem;
   }
 
   &__btn-save {
@@ -161,7 +150,7 @@
   &__btn-bg {
     background: linear-gradient(180deg, rgb(238, 244, 252) 0%, rgb(64, 146, 255) 100%);
     border-radius: 0.75rem;
-    box-shadow: var(--shadow-quinary);
+    box-shadow: $shadow-quinary;
     height: 3rem;
     position: absolute;
     top: 0.5rem;
@@ -170,23 +159,21 @@
 
   &__btn-wrapper {
     all: unset;
-    box-shadow: var(--shadow-quinary);
+    box-shadow: $shadow-quinary;
     box-sizing: border-box;
     height: 2.875rem;
     position: absolute;
-    top: 0;
     width: 5.9375rem;
   }
 
   &__btn-text {
     align-items: center;
-    background-color: var(--neutral-white);
-    border: 0.125rem solid var(--primary-very-light-blue);
+    background-color: $neutral-white;
+    border: 0.125rem solid $primary-very-light-blue;
     border-radius: 0.75rem;
-    box-shadow: var(--shadow-quinary);
+    box-shadow: $shadow-quinary;
     box-sizing: border-box;
     display: flex;
-    gap: 0.5rem;
     height: 2.875rem;
     justify-content: center;
     padding: 0.75rem 2rem;
