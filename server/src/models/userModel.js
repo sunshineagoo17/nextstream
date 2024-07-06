@@ -28,7 +28,10 @@ const createUser = async (user) => {
 };
 
 // Update a user's profile
-const updateUser = (id, user) => {
+const updateUser = async (id, user) => {
+    if (user.password) {
+        user.password = await bcrypt.hash(user.password, 10);
+    }
     return db('users')
         .where({ id })
         .update(user);

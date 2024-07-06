@@ -31,16 +31,29 @@ router.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body;
 
+        console.log('Login attempt with email:', email);
+
         const user = await knex('users').where({ email }).first();
 
-        if (!user || !(await bcrypt.compare(password, user.password))) {
+        if (!user) {
+            console.log('User not found');
+            return res.status(401).json({ success: false, message: 'Invalid email or password' });
+        }
+
+        console.log('User found:', user);
+
+        const isMatch = await bcrypt.compare(password, user.password);
+        console.log('Password match:', isMatch);
+
+        if (!isMatch) {
+            console.log('Invalid password');
             return res.status(401).json({ success: false, message: 'Invalid email or password' });
         }
 
         const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-
         res.cookie('token', token, { httpOnly: true });
 
+        console.log('Login successful');
         res.json({ success: true, message: 'Logged in successfully', token });
     } catch (error) {
         console.error('Error logging in:', error);
