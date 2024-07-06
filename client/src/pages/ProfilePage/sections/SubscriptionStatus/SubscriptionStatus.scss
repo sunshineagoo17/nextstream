@@ -101,7 +101,7 @@
   }
 
   &__box {
-    @include block-item(8.4375rem, 3rem);
+    @include block-item(10.5rem, 3rem);
     background-color: $primary-light-blue;
     border: 0.1875rem solid $feedback-mint-light-green;
     border-radius: 0.75rem;
@@ -114,6 +114,7 @@
 
     &--inactive {
       border-color: $feedback-error-peach;
+      @include block-item(9.5rem, 3rem);
     }
 
     &-text {
@@ -127,13 +128,13 @@
   }
 
   &__delete-account {
+    @include block-item(13.9688rem, 3.5625rem);
     align-items: center;
     background-color: $primary-light-blue;
     border: 0.1875rem solid $feedback-error-peach;
     border-radius: 0.75rem;
     box-shadow: $shadow-primary;
     cursor: pointer;
-    width: 11.75rem;
     display: inline-flex;
     gap: 0.5rem;
     justify-content: center;

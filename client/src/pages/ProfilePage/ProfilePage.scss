@@ -160,7 +160,7 @@
     }
 
     @include desktop {
-      width: 35rem; 
+      width: 40rem; 
     }
   }
 
@@ -194,6 +194,10 @@
     justify-content: center;
     align-items: center;
     gap: .75rem;
+  }
+
+  &__container {
+    width: 11rem;
   }
 
   &__notification-item {
@@ -231,7 +235,7 @@
     }
 
     @include desktop {
-      max-width: 30rem; 
+      width: 30rem;
     }
   }
 
@@ -245,7 +249,7 @@
     box-shadow: $shadow-primary;
     text-align: center;
     border-radius: 0.5rem 0.5rem 0 0;
-    width: 100%; 
+    width: 11rem; 
 
     @include tablet {
       font-size: 1.25rem; 
@@ -263,11 +267,11 @@
     font-size: 1rem;
 
     @include tablet {
-      font-size: 1.25rem; 
+      font-size: 1.1rem; 
     }
 
     @include desktop {
-      font-size: 1.25rem;
+      font-size: 1.125rem;
     }
   }
 
@@ -320,7 +324,8 @@
       color: $primary-medium-blue;
       border-color: $primary-medium-blue;
       font-family: $primary-font;
-      padding: .5rem;
+      padding-left: .85rem;
+      font-size: 1rem;
 
       & + .profile__label {
         top: -0.85rem;
@@ -333,6 +338,7 @@
 
       &::placeholder {
         color: $primary-light-blue;
+        font-size: 1rem;
       }
     }
 
@@ -379,11 +385,12 @@
     }
 
     @include tablet {
-      font-size: 1.125rem; 
+      font-size: 1rem; 
     }
 
     @include desktop {
-      font-size: 1.125rem; 
+      font-size: 1rem; 
+      @include block-item(13.9688rem, 3.5625rem);
     }
   }
 
@@ -396,6 +403,10 @@
     justify-content: center;
     transition: transform 0.1s ease;
 
+    @include desktop {
+      margin-top: -.15rem;
+    }
+
     img {
       @include block-item(1rem, 1rem);
     }
@@ -407,6 +418,10 @@
 
   &__location-icon {
     @include block-item(1.25rem, 1.25rem);
+
+    @include desktop {
+      margin-top: -.1.25rem;
+    }
   }
 
   &__label {
@@ -447,85 +462,17 @@
     cursor: pointer;
   }
 
-  &__checkbox {
-    width: 1.5rem;
-    height: 1.5rem;
-    border: 2px solid $primary-light-blue;
-    border-radius: 0.25rem;
-    background: $neutral-white;
-    cursor: pointer;
-    position: relative;
-    box-shadow: $shadow-primary;
-    transition: all 0.3s ease;
-
-    &.active {
-      border-color: $feedback-mint-light-green;
-      background: $feedback-mint-light-green;
-      box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
-    }
-
-    &.active::before {
-      content: '✔';
-      color: $neutral-white;
-      font-size: 1rem;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-
-    &:hover {
-      background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent);
-    }
-
-    &:active {
-      transform: scale(0.95);
-    }
-  }
-
-  &__delete-account {
-    width: 100%;
-    background: $primary-light-blue;
-    border: 2px solid $feedback-error-peach;
-    border-radius: 0.5rem;
-    padding: 1rem;
-    text-align: center;
-    color: $neutral-white;
-    font-family: $primary-font;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: $shadow-primary;
-
-    &.delete {
-      background: $feedback-error-peach;
-      color: $neutral-white;
-      border-color: $feedback-error-peach;
-      box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
-    }
-
-    &:hover {
-      backdrop-filter: blur(0.25rem);
-      box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
-      background: $feedback-error-light-peach;
-    }
-
-    &:active {
-      transform: scale(0.95);
-    }
-  }
-
   &__region-input {
+    @include block-item(13.9688rem, 3.5625rem);
     display: flex;
     align-items: center;
     gap: 0.5rem;
     font-family: $primary-font;
     font-size: 1rem;
-    width: 100%; 
     background: $neutral-white;
     border-radius: 0.5rem;
     box-shadow: $shadow-primary;
-    height: 2.875rem;
+    
     cursor: pointer;
     color: $primary-dark-blue;
 
@@ -551,13 +498,5 @@
     font-size: 1rem;
     color: $primary-medium-blue;
     margin-bottom: 0.5rem;
-
-    @include tablet {
-      font-size: 1.125rem; 
-    }
-
-    @include desktop {
-      font-size: 1.125rem; 
-    }
   }
 }
