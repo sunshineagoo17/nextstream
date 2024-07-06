@@ -152,11 +152,10 @@
     border: 1px solid $neutral-white;
     border-radius: 1rem;
     box-shadow: $shadow-senary;
-    margin-top: 2.5rem;
-    margin-bottom: 2.5rem;
+    margin: 2.5rem 0 2.5rem 0;
 
     @include tablet {
-      width: 30rem;
+      width: 35rem;
     }
 
     @include desktop {
@@ -297,7 +296,6 @@
   &__location-icon {
     @include block-item(1.5rem, 1.5rem);
     margin-right: 0.25rem;
-    margin-top: -.15rem;
   }
 
   &__input-group {
@@ -338,7 +336,7 @@
 
       &::placeholder {
         color: $primary-light-blue;
-        font-size: 1rem;
+        font-size: .85rem;
       }
     }
 
@@ -384,6 +382,7 @@
     }
 
     @include tablet {
+      @include block-item(12.6563rem, 3.5625rem);
       font-size: 1rem; 
     }
 
@@ -397,16 +396,18 @@
     @include block-item(1.5rem, 1.5rem);
     border-radius: 50%;
     display: flex;
-    margin-top: -.5rem;
+    margin-top: -.075rem;
     align-items: center;
     justify-content: center;
     transition: transform 0.1s ease;
 
     @include tablet {
+      @include block-item(1rem, 1rem);
       margin-top: .15rem;
     }
 
     @include desktop {
+      @include block-item(1.5rem, 1.5rem);
       margin-top: -.15rem;
     }
 
@@ -421,8 +422,9 @@
 
   &__location-icon {
     @include block-item(1.25rem, 1.25rem);
+    margin-top: -.15rem;
 
-    @include desktop {
+    @include tablet {
       margin-top: -.1.25rem;
     }
   }
@@ -487,10 +489,12 @@
     }
 
     @include tablet {
+      @include block-item(12.6563rem, 3.5625rem);
       font-size: 1.125rem; 
     }
 
     @include desktop {
+      @include block-item(13.9688rem, 3.5625rem);
       font-size: 1.125rem; 
     }
   }

@@ -45,7 +45,6 @@
   }
 
   &__active {
-    @include block-item(100%, 3rem);
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -112,6 +111,13 @@
     justify-content: center;
     transition: all 0.3s ease;
 
+    @include tablet {
+      @include block-item(9.25rem, 3rem);
+    }
+    @include desktop {
+      @include block-item(10.5rem, 3rem);
+    }
+
     &--inactive {
       border-color: $feedback-error-peach;
       @include block-item(9.5rem, 3rem);
@@ -142,6 +148,14 @@
     position: relative;
     transition: all 0.3s ease;
 
+    @include tablet {
+      @include block-item(12.6563rem, 3.5625rem);
+    }
+
+    @include desktop {
+      @include block-item(13.9688rem, 3.5625rem);
+    }
+
     &:hover {
       backdrop-filter: blur(0.25rem);
       box-shadow: 0 0 0.625rem rgba(255, 0, 0, 0.5);
@@ -153,9 +167,17 @@
     }
 
     &--delete {
+      width: 12.6563rem;
       background-color: $feedback-error-peach;
       border-color: $feedback-error-peach;
       box-shadow: 0 0 0.625rem rgba(255, 0, 0, 0.3);
+
+      @include tablet {
+        width: 12.6563rem;
+      }
+      @include desktop {
+        width: 13.9688rem;
+      }
     }
   }
 }
