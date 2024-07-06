@@ -8,7 +8,7 @@
   <rect width="32" height="32" rx="4" filter="url(#shadow)" />
   <path
     d="M12 16.5L16 20L22 13"
-    stroke="white"
+    stroke="#012E71"
     stroke-width="2.5"
     stroke-linecap="round"
     stroke-linejoin="round"

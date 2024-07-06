@@ -22,7 +22,7 @@ export const ProfilePage = () => {
     setPasswordVisible(!passwordVisible);
   };
 
-  const regions = ['Region 1', 'Region 2', 'Region 3'];
+  const regions = ['Canada', 'United States', 'United Kingdom'];
 
   return (
     <div className="profile">
@@ -166,35 +166,42 @@ export const ProfilePage = () => {
             </div>
           </div>
 
-          <div className="profile__content-subscription">
-            <SubscriptionStatus />
-          </div>
-
-          <div className="profile__content-region">
-            <div className="profile__region-header">
-              <div className="profile__container">
-                <div className="profile__text-wrapper">Region Settings</div>
-              </div>
-            </div>
-            <div className="profile__region-content">
-              <div className="profile__select-your-region">
-                <div className="profile__region-title">Select Your Region</div>
-                <div className="profile__region-input">
-                  <img src={LocationIcon} className="profile__location-icon" alt="Location Icon" />
-                  <select
-                    className="profile__dropdown"
-                    value={selectedRegion}
-                    onChange={(e) => setSelectedRegion(e.target.value)}
-                  >
-                    <option disabled>Choose your area...</option>
-                    {regions.map((region, index) => (
-                      <option key={index} value={region}>{region}</option>
-                    ))}
-                  </select>
+          <div className="profile__content-subscription-container">
+                <div className="profile__subscription-header">
+                <div className="profile__text-wrapper">Account Plan</div>
                 </div>
-              </div>
+                <div className="profile__subscription-status-wrapper">    
+                    <div className="profile__content-subscription">
+                        <SubscriptionStatus />
+                    </div>
+                </div>
             </div>
-          </div>
+
+            <div className="profile__content-region">
+                <div className="profile__region-header">
+                <div className="profile__container">
+                    <div className="profile__text-wrapper">Region Settings</div>
+                </div>
+                </div>
+                <div className="profile__region-content">
+                <div className="profile__select-your-region">
+                    <div className="profile__region-title">Select Your Region</div>
+                    <div className="profile__region-input">
+                    <img src={LocationIcon} className="profile__location-icon" alt="Location Icon" />
+                    <select
+                        className="profile__dropdown"
+                        value={selectedRegion}
+                        onChange={(e) => setSelectedRegion(e.target.value)}
+                    >
+                        <option disabled>Choose your area...</option>
+                        {regions.map((region, index) => (
+                        <option key={index} value={region}>{region}</option>
+                        ))}
+                    </select>
+                    </div>
+                </div>
+                </div>
+            </div>
 
           <button className="profile__btn-save">
             <div className="profile__btn-overlap">
