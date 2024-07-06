@@ -288,4 +288,54 @@
     padding: 0.75rem 2rem;
     width: 5.9375rem;
   }
+
+&__checkbox {
+    width: 1.5rem;
+    height: 1.5rem;
+    border: 2px solid $primary-light-blue;
+    border-radius: 0.25rem;
+    background: $neutral-white;
+    cursor: pointer;
+    position: relative;
+    box-shadow: $shadow-primary;
+    transition: all 0.3s ease;
+
+    &.active {
+      border-color: $feedback-mint-light-green;
+      background: $feedback-mint-light-green;
+      box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+    }
+
+    &.active::before {
+      content: '✔';
+      color: $neutral-white;
+      font-size: 1rem;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  &__delete-account {
+    width: 100%;
+    background: $primary-light-blue;
+    border: 2px solid $feedback-error-peach;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    text-align: center;
+    color: $neutral-white;
+    font-family: $primary-font;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: $shadow-primary;
+
+    &.delete {
+      background: $feedback-error-peach;
+      color: $neutral-white;
+      border-color: $feedback-error-peach;
+      box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+    }
+  }
 }

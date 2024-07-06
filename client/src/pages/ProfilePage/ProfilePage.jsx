@@ -3,6 +3,7 @@ import LocationIcon from "../../assets/images/location-icon.svg";
 import ShowIcon from "../../assets/images/register-visible-icon.svg";
 import HideIcon from "../../assets/images/register-invisible-icon.svg";
 import ToggleButton from "../../components/ToggleButton/ToggleButton";
+import SubscriptionStatus from "./sections/SubscriptionStatus/SubscriptionStatus";
 import "./ProfilePage.scss";
 
 export const ProfilePage = () => {
@@ -163,27 +164,7 @@ export const ProfilePage = () => {
           </div>
 
           <div className="profile__content-subscription">
-            <div className="profile__subscription-header">
-              <div className="profile__text-wrapper">Account Plan</div>
-            </div>
-            <div className="profile__subscription-status-wrapper">
-              <div className="profile__subscription-status">
-                <div className="profile__subscription-group">
-                  <div className="profile__subscription-title">Subscription Status</div>
-                  <div className="profile__subscription-active">
-                    <div className="profile__checkbox-wrapper">
-                      <div className="profile__checkbox"></div>
-                    </div>
-                    <div className="profile__status-wrapper">
-                      <div className="profile__status-text">Active</div>
-                    </div>
-                  </div>
-                </div>
-                <div className="profile__delete-account">
-                  <div className="profile__delete-account-text">Delete Account</div>
-                </div>
-              </div>
-            </div>
+            <SubscriptionStatus />
           </div>
 
           <div className="profile__content-region">
