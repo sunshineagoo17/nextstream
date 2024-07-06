@@ -205,14 +205,12 @@ export const ProfilePage = () => {
                 </div>
             </div>
 
-          <button className="profile__btn-save">
-            <div className="profile__btn-overlap">
-              <div className="profile__btn-bg" />
-              <div className="profile__btn-wrapper">
-                <div className="profile__btn-text">Save</div>
-              </div>
+            <div className="profile__btn-save-account-wrapper">
+                <div className="profile__btn-save-account-bg"></div>
+                <div className="profile__btn-save-account">
+                  <span className="profile__btn-save-account-txt">Save</span>
+                </div>
             </div>
-          </button>
         </div>
       </div>
     </div>

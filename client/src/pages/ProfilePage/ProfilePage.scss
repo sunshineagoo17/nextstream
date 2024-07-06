@@ -31,6 +31,98 @@
     width: 11rem;
   }
 
+  &__btn-save-account-wrapper {
+    @include block-item(9.625rem, 3.375rem);
+    bottom: .5rem; 
+    transform: translateX(1%);
+    margin-bottom: 1.5rem;
+
+    @include tablet {
+        bottom: 21.5rem;
+    }
+
+    @include desktop {
+        bottom: -1.5rem; 
+    }
+  
+    &:hover .profile__btn-save-account {
+      background: linear-gradient(180deg, rgb(238, 244, 252) 0%, rgb(64, 146, 255) 100%);
+      animation: shimmer 0.5s linear infinite;
+    }
+
+    &:active {
+        transform: scale(0.95);
+    }
+  }
+  
+  &__btn-save-account-bg {
+    @include block-item(9.625rem, 3.1875rem);
+    background: linear-gradient(180deg, rgb(238, 244, 252) 0%, rgb(64, 146, 255) 100%);
+    border-radius: .75rem;
+    box-shadow: $shadow-quinary;
+    position: absolute;
+    top: .1875rem;
+  }
+  
+  &__btn-save-account {
+    @include block-item(9.25rem, 2.875rem);
+    align-items: center;
+    background-color: $neutral-white;
+    border: 2px solid;
+    border-color: $primary-very-light-blue;
+    border-radius: .75rem;
+    box-shadow: $shadow-quinary;
+    display: flex;
+    justify-content: center;
+    padding: .75rem 2rem;
+    position: absolute;
+    transition: background 0.3s ease;
+    cursor: pointer;
+
+    &:hover .login__btn-save-account-txt {
+        color: $primary-darker-blue;
+      }
+    
+    &:active {
+        transform: scale(0.95);
+    }
+  }
+  
+  &__btn-save-account-txt {
+    font-family: $primary-font;
+    font-size: 1rem;
+    letter-spacing: -0.05rem;
+    position: relative;
+    white-space: nowrap;
+    cursor: pointer;
+
+    &:hover {
+        color: $primary-darker-blue;
+    }
+
+    &:focus,
+    &:active {
+        color: $primary-darker-blue;
+    }
+
+    &:visited {
+        color: $primary-darker-blue; 
+    }
+  }
+
+ &__btn-save-account-container:visited {
+    color: $primary-darker-blue; 
+  }
+  
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+
   &__select-your-region {
     display: flex;
     align-items: center;
@@ -259,53 +351,6 @@
     &:active .profile__password-toggle-icon {
       transform: scale(0.9);
     }
-  }
-
-  &__btn-save {
-    all: unset;
-    box-sizing: border-box;
-    height: 3.5rem;
-    margin-bottom: 1rem;
-    width: 6.4375rem;
-  }
-
-  &__btn-overlap {
-    height: 3.5rem;
-    width: 100%;
-    position: relative;
-  }
-
-  &__btn-bg {
-    background: linear-gradient(180deg, rgb(238, 244, 252) 0%, rgb(64, 146, 255) 100%);
-    border-radius: 0.75rem;
-    box-shadow: $shadow-quinary;
-    height: 3rem;
-    position: absolute;
-    top: 0.5rem;
-    width: 6.125rem;
-  }
-
-  &__btn-wrapper {
-    all: unset;
-    box-shadow: $shadow-quinary;
-    box-sizing: border-box;
-    height: 2.875rem;
-    position: absolute;
-    width: 5.9375rem;
-  }
-
-  &__btn-text {
-    align-items: center;
-    background-color: $neutral-white;
-    border: 0.125rem solid $primary-very-light-blue;
-    border-radius: 0.75rem;
-    box-shadow: $shadow-quinary;
-    box-sizing: border-box;
-    display: flex;
-    height: 2.875rem;
-    justify-content: center;
-    padding: 0.75rem 2rem;
-    width: 5.9375rem;
   }
 
   &__checkbox {
