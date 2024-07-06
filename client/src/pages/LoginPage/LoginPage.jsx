@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
-import { AuthContext } from '../../context/AuthContext/AuthContext';  
+import { AuthContext } from '../../context/AuthContext/AuthContext';
 import ShowIcon from "../../assets/images/register-visible-icon.svg";
 import HideIcon from "../../assets/images/register-invisible-icon.svg";
 import NextStreamBg from "../../assets/images/nextstream-bg.jpg";

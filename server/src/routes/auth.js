@@ -9,31 +9,42 @@ router.post('/register', async (req, res) => {
     try {
         const { name, username, email, password } = req.body;
         const hashedPassword = await bcrypt.hash(password, 10);
-        
-        // Insert user data into the 'users' table
-        await knex('users').insert({ name, username, email, password: hashedPassword }); 
-        
-        // Respond with success message
-        res.status(201).json({ message: 'User registered successfully' });
+
+        const [userId] = await knex('users').insert({
+            name,
+            username,
+            email,
+            password: hashedPassword
+        });
+
+        const token = jwt.sign({ userId }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+        res.status(201).json({ success: true, message: 'User registered successfully', token });
     } catch (error) {
-        // Handle registration error
         console.error('Error registering user:', error);
-        res.status(500).json({ message: 'Error registering user', error });
+        res.status(500).json({ success: false, message: 'Error registering user', error });
     }
 });
 
 // Login Route
 router.post('/login', async (req, res) => {
     try {
-        const { username, password } = req.body;
-        const user = await knex('users').where({ username }).first();
+        const { email, password } = req.body;
+
+        const user = await knex('users').where({ email }).first();
+
         if (!user || !(await bcrypt.compare(password, user.password))) {
-            return res.status(401).json({ message: 'Invalid username or password' });
+            return res.status(401).json({ success: false, message: 'Invalid email or password' });
         }
+
         const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-        res.json({ message: 'Logged in successfully', token });
+
+        res.cookie('token', token, { httpOnly: true });
+
+        res.json({ success: true, message: 'Logged in successfully', token });
     } catch (error) {
-        res.status(500).json({ message: 'Error logging in', error });
+        console.error('Error logging in:', error);
+        res.status(500).json({ success: false, message: 'Error logging in', error });
     }
 });
 

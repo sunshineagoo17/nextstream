@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { AuthContext } from '../../context/AuthContext/AuthContext';
 import SignUpIcon from "../../assets/images/register-sign-up-icon.svg";
 import ArrowIcon from "../../assets/images/register-arrow-icon.svg";
 import ShowIcon from "../../assets/images/register-visible-icon.svg";
@@ -23,6 +24,7 @@ export const RegisterPage = () => {
   const [isValidPassword, setIsValidPassword] = useState(true);
   const [isCheckedTerms, setIsCheckedTerms] = useState(false);
   const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -66,8 +68,10 @@ export const RegisterPage = () => {
     const userData = { name, username, email, password };
     try {
       const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/auth/register`, userData);
-      if (response.status === 201) {
-        navigate('/profile'); // Navigate to profile page after successful registration
+      if (response.data.success) {
+        const { token } = response.data;
+        login(token, true); 
+        navigate('/profile'); 
       }
     } catch (error) {
       if (error.response && error.response.data && error.response.data.errors) {
@@ -134,31 +138,27 @@ export const RegisterPage = () => {
                 {!isValidEmail && <p className="error">Please enter a valid email address</p>}
               </div>
               <div className="register__input-group register__input-group--password">
-                <div className="register__input-wrapper">
-                  <input
-                    className="register__input"
-                    id="input-password"
-                    placeholder="Enter your password"
-                    type={passwordVisible ? "text" : "password"}
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    onBlur={validatePassword} // Validate on blur
-                  />
-                  <label className="register__label" htmlFor="input-password">
-                    Password
-                  </label>
-                  <button
-                    type="button"
-                    className="register__password-toggle"
-                    onClick={togglePasswordVisibility}
-                    aria-label={passwordVisible ? "Hide password" : "Show password"}
-                  >
-                    <img src={passwordVisible ? HideIcon : ShowIcon} alt="Toggle visibility" className="register__password-toggle-icon" />
-                  </button>
-                </div>
-                <div className="register__validation-pw">
-                  {!isValidPassword && <p className="error">Password must be 8+ chars</p>}
-                </div>
+                <input
+                  className="register__input"
+                  id="input-password"
+                  placeholder="Enter your password"
+                  type={passwordVisible ? "text" : "password"}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  onBlur={validatePassword} // Validate on blur
+                />
+                <label className="register__label" htmlFor="input-password">
+                  Password
+                </label>
+                {!isValidPassword && <p className="error">Password must be at least 8 characters</p>}
+                <button
+                  type="button"
+                  className="register__password-toggle"
+                  onClick={togglePasswordVisibility}
+                  aria-label={passwordVisible ? "Hide password" : "Show password"}
+                >
+                  <img src={passwordVisible ? HideIcon : ShowIcon} alt="Toggle visibility" className="register__password-toggle-icon" />
+                </button>
               </div>
             </div>
             <label className="register__checkbox">
