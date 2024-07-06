@@ -393,10 +393,9 @@
   }
 
   &__password-toggle-icon {
-    @include block-item(1.5rem, 1.5rem);
+    @include block-item(.85rem, .85rem);
     border-radius: 50%;
     display: flex;
-    margin-top: -.075rem;
     align-items: center;
     justify-content: center;
     transition: transform 0.1s ease;
@@ -504,5 +503,14 @@
     font-size: 1rem;
     color: $primary-medium-blue;
     margin-bottom: 0.5rem;
+  }
+}
+
+.toggle-button__slider {
+  @include block-item(1rem, 1rem);
+  left: -.25rem;
+
+  @include tablet {
+    left: auto;
   }
 }
