@@ -45,17 +45,15 @@
   }
 
   &__active {
+    @include block-item(100%, 3rem);
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    height: 3rem;
-    width: 100%;
     justify-content: center;
   }
 
   &__select {
-    height: 3rem;
-    width: 3rem;
+    @include block-item(3rem, 3rem);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -73,12 +71,11 @@
   }
 
   &__checkbox {
+    @include block-item(100%, 100%);
     box-shadow: $shadow-primary;
     background-color: $primary-light-blue;
     border: 0.1875rem solid $feedback-mint-light-green;
     border-radius: 0.75rem;
-    height: 100%;
-    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -89,18 +86,22 @@
       border-color: $feedback-mint-light-green;
 
       &__check {
-        color: $neutral-white;
-        font-size: 2rem;
-        font-weight: bold;
+        @include block-item(3.5rem, 3.5rem);
       }
     }
 
     &--inactive {
       border-color: $feedback-error-peach;
     }
+
+    &:hover {
+      background-color: lighten($feedback-mint-light-green, 10%);
+      border-color: lighten($feedback-mint-light-green, 10%);
+    }
   }
 
   &__box {
+    @include block-item(8.4375rem, 3rem);
     background-color: $primary-light-blue;
     border: 0.1875rem solid $feedback-mint-light-green;
     border-radius: 0.75rem;
@@ -108,8 +109,6 @@
     display: flex;
     align-items: center;
     padding: 0 0.5rem;
-    height: 3rem;
-    width: 8.4375rem;
     justify-content: center;
     transition: all 0.3s ease;
 

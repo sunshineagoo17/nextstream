@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './SubscriptionStatus.scss';
+import checkmarkIcon from '../../../../assets/images/checkmark-icon.svg'; 
 
 const SubscriptionStatus = () => {
   const [isActive, setIsActive] = useState(false);
@@ -20,7 +21,7 @@ const SubscriptionStatus = () => {
         <div className="subscription-status__active">
           <div className="subscription-status__select" onClick={toggleActiveStatus}>
             <div className={`subscription-status__checkbox ${isActive ? 'subscription-status__checkbox--active' : 'subscription-status__checkbox--inactive'}`}>
-              {isActive && <div className="subscription-status__check">✔</div>}
+              {isActive && <img src={checkmarkIcon} alt="Checkmark" className="subscription-status__check" />}
             </div>
           </div>
           <div className={`subscription-status__box ${isActive ? '' : 'subscription-status__box--inactive'}`}>
