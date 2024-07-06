@@ -1,17 +1,16 @@
 const jwt = require('jsonwebtoken');
 
 const authenticate = (req, res, next) => {
-    const token = req.header('Authorization').replace('Bearer ', '');
+    const token = req.cookies.token;
     if (!token) {
-        return res.status(401).json({ message: 'Access denied' });
+        return res.status(401).json({ message: 'Access denied. No token provided.' });
     }
-
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         req.user = decoded;
         next();
-    } catch (err) {
-        res.status(400).json({ message: 'Invalid token' });
+    } catch (ex) {
+        res.status(400).json({ message: 'Invalid token.' });
     }
 };
 

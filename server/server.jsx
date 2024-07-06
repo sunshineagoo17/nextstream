@@ -4,12 +4,15 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const emailRoutes = require('./src/routes/emailRoutes');
 const rateLimit = require('express-rate-limit');
+const cookieParser = require('cookie-parser'); 
+const authRoutes = require('./src/routes/auth'); 
 require('dotenv').config(); 
 
 const app = express();
 
 // Middleware
 app.use(bodyParser.json());
+app.use(cookieParser());
 app.use(cors());
 
 // Apply rate limiting to all requests
@@ -21,6 +24,7 @@ app.use(limiter);
 
 // API Routes
 app.use('/api/email', emailRoutes);
+app.use('/api/auth', authRoutes);
 
 // Serve static files from the React app if needed
 app.use(express.static(path.join(__dirname, 'client/build')));
@@ -34,11 +38,11 @@ app.get(allowedRoutes, (req, res) => {
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).send('Something broke!');
+  res.status(500).send('Wait! Something broke!');
 });
 
 // Server listen
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`Hey you. The server's running on port ${PORT}`);
 });
