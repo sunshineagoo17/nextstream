@@ -30,12 +30,16 @@ export const RegisterPage = () => {
   const handleSignUp = async () => {
     const userData = { name, username, email, password };
     try {
-      const response = await axios.post('https://nextstream-api-url.com/register', userData);
-      if (response.data.success) {
+      const response = await axios.post('/api/auth/register', userData);
+      if (response.status === 201) {
         navigate('/success'); 
       }
     } catch (error) {
-      setErrors(error.response.data.errors);
+      if (error.response && error.response.data && error.response.data.errors) {
+        setErrors(error.response.data.errors);
+      } else {
+        setErrors({ general: 'An error occurred. Please try again.' });
+      }
     }
   };
 
@@ -131,6 +135,7 @@ export const RegisterPage = () => {
                 <span>Sign Up</span>
               </button>
             </div>
+            {errors.general && <p className="error">{errors.general}</p>}
           </div>
         </div>
         <div className="register__image-card">
