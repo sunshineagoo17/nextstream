@@ -341,7 +341,6 @@
         align-items: center;
         justify-content: center;
         transition: transform 0.1s ease;
-        box-shadow: $shadow-quinary;
 
       img {
         @include block-item(1rem, 1rem);
