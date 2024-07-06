@@ -5,41 +5,43 @@ import "./ProfilePage.scss";
 export const ProfilePage = () => {
   return (
     <div className="profile">
-      <div className="profile__hero">
-
-        <div className="profile__main">
-            <h1 className="profile__title">Your Profile</h1>
-            <div className="profile__content">
-            <div className="profile__content-details">
-                <div className="profile__details-header">
-                <div className="profile__container">
-                    <div className="profile__text-wrapper">Profile Details</div>
-                </div>
-                </div>
-                <div className="profile__details-content">
-                <div className="profile__details-inputs">
-                    <div className="profile__input-group">
-                        <label className="profile__label" htmlFor="input-1">Name</label>
-                        <div className="profile__input-wrapper">
-                            <input className="profile__input" id="input-1" placeholder="Enter your name" type="text" />
-                        </div>
-                    </div>
-                    <div className="profile__input-group">
-                        <label className="profile__label" htmlFor="input-2">Username</label>
-                        <div className="profile__input-wrapper">
-                            <input className="profile__input" id="input-2" placeholder="Enter your username" type="text" />
-                        </div>
-                    </div>
-                    <div className="profile__input-group">
-                        <label className="profile__label" htmlFor="input-3">Email</label>
-                        <div className="profile__input-wrapper">
-                            <input className="profile__input" id="input-3" placeholder="Enter your email address" type="email" />
-                        </div>
-                    </div>
-                </div>
-                </div>
+      <div className="profile__background">
+        <div className="profile__background-top"></div>
+        <div className="profile__background-bottom"></div>
+      </div>
+      <div className="profile__main">
+        <h1 className="profile__title">Your Profile</h1>
+        
+        <div className="profile__card">
+          <div className="profile__content-details">
+            <div className="profile__details-header">
+              <div className="profile__container">
+                <div className="profile__text-wrapper">Profile Details</div>
+              </div>
             </div>
-        </div>
+            <div className="profile__details-content">
+              <div className="profile__details-inputs">
+                <div className="profile__input-group">
+                  <label className="profile__label" htmlFor="input-1">Name</label>
+                  <div className="profile__input-wrapper">
+                    <input className="profile__input" id="input-1" placeholder="Enter your name" type="text" />
+                  </div>
+                </div>
+                <div className="profile__input-group">
+                  <label className="profile__label" htmlFor="input-2">Username</label>
+                  <div className="profile__input-wrapper">
+                    <input className="profile__input" id="input-2" placeholder="Enter your username" type="text" />
+                  </div>
+                </div>
+                <div className="profile__input-group">
+                  <label className="profile__label" htmlFor="input-3">Email</label>
+                  <div className="profile__input-wrapper">
+                    <input className="profile__input" id="input-3" placeholder="Enter your email address" type="email" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
           <div className="profile__content-password">
             <div className="profile__password-header">
@@ -50,30 +52,22 @@ export const ProfilePage = () => {
             <div className="profile__password-content">
               <div className="profile__password-inputs">
                 <div className="profile__input-group">
-                    <div className="profile__label">Current Password</div>
-                    <div className="profile__input-wrapper">
-                        <div className="profile__input-frame">
-                        <div className="profile__input-placeholder">Enter current password</div>
-                        </div>
-                    </div>
+                  <label className="profile__label">Current Password</label>
+                  <div className="profile__input-wrapper">
+                    <input className="profile__input" placeholder="Enter current password" type="password" />
+                  </div>
                 </div>
-                
                 <div className="profile__input-group">
-                    <div className="profile__label">New Password</div>
-                    <div className="profile__input-wrapper">
-                        <div className="profile__input-frame">
-                        <div className="profile__input-placeholder">Choose a new password</div>
-                        </div>
-                    </div>
+                  <label className="profile__label">New Password</label>
+                  <div className="profile__input-wrapper">
+                    <input className="profile__input" placeholder="Choose a new password" type="password" />
+                  </div>
                 </div>
-
                 <div className="profile__input-group">
-                    <div className="profile__label">Confirm New Password</div>
-                    <div className="profile__input-wrapper">
-                        <div className="profile__input-frame">
-                        <div className="profile__input-placeholder">Re-enter new password</div>
-                        </div>
-                    </div>
+                  <label className="profile__label">Confirm New Password</label>
+                  <div className="profile__input-wrapper">
+                    <input className="profile__input" placeholder="Re-enter new password" type="password" />
+                  </div>
                 </div>
               </div>
             </div>
@@ -109,8 +103,7 @@ export const ProfilePage = () => {
                   <div className="profile__subscription-title">Subscription Status</div>
                   <div className="profile__subscription-active">
                     <div className="profile__checkbox-wrapper">
-                      <div className="profile__checkbox">
-                      </div>
+                      <div className="profile__checkbox"></div>
                     </div>
                     <div className="profile__status-wrapper">
                       <div className="profile__status-text">Active</div>

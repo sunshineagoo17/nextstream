@@ -9,6 +9,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  background: linear-gradient(to bottom, $neutral-white, #EEF4FC, #BBD9FF, #BBD9FF, #EEF4FC, $neutral-white);
 
   &__hero {
     background: $primary-darker-blue-gradient;
@@ -31,7 +32,14 @@
     box-shadow: $shadow-senary;
     margin-top: 2.5rem;
     margin-bottom: 2.5rem;
-    gap: 1rem;
+  }
+
+  &__card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 1.5rem;
   }
 
   &__title {
@@ -43,7 +51,7 @@
     margin-bottom: 1rem;
   }
 
-  &__content,
+  &__content-details,
   &__content-region,
   &__content-subscription,
   &__content-notifications,
@@ -149,7 +157,7 @@
     all: unset;
     box-sizing: border-box;
     height: 3.5rem;
-    margin: 2rem auto;
+    margin-bottom: 1rem;
     width: 6.4375rem;
   }
 
