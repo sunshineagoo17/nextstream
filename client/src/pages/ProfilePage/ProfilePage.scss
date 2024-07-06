@@ -160,9 +160,9 @@
   }
 
   &__location-icon {
-    @include block-item(1rem, 1rem);
+    @include block-item(1.5rem, 1.5rem);
     margin-right: 0.25rem;
-    margin-top: .1rem;
+    margin-top: -.15rem;
   }
 
   &__input-group {
@@ -243,13 +243,13 @@
 
     .profile__password-toggle-icon {
         @include block-item(1.5rem, 1.5rem);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1);
         border-radius: 50%;
-        background: linear-gradient(145deg, #e6e6e6, #ffffff);
         display: flex;
+        margin-top: -.5rem;
         align-items: center;
         justify-content: center;
         transition: transform 0.1s ease;
+        box-shadow: $shadow-quinary;
 
       img {
         @include block-item(1rem, 1rem);
@@ -380,31 +380,48 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    font-family: $primary-font;
+    font-size: 1rem;
+    width: 11.75rem;
     background: $neutral-white;
-    padding: 1rem;
-    border: 2px solid $primary-light-blue;
     border-radius: 0.5rem;
     box-shadow: $shadow-primary;
-    position: relative;
     height: 2.875rem;
+    cursor: pointer;
+    color: $primary-dark-blue;
+
+    &:focus {
+        outline: none;
+        background-color: #BBD9FF;
+      }
+
+      option {
+        color: $primary-dark-blue;
+      }
 
     .profile__location-icon {
         @include block-item(1.25rem, 1.25rem);
+        box-shadow: $shadow-quinary;
     }
 
     .profile__dropdown {
-      border: none;
-      outline: none;
-      font-family: $primary-font;
-      font-size: 1rem;
-      width: 100%;
-      background: none;
-      cursor: pointer;
-      color: $primary-dark-blue;
-      padding: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-family: $primary-font;
+        font-size: 1rem;
+        width: 11.75rem;
+        background: $neutral-white;
+        border: 2px solid $primary-light-blue;
+        border-radius: 0.5rem;
+        box-shadow: $shadow-primary;
+        height: 2.875rem;
+        cursor: pointer;
+        color: $primary-dark-blue;
+        padding-left: .25rem;
 
       &:focus {
-        outline: none;
+        border: 1px solid $primary-dark-blue;
         background-color: #BBD9FF;
       }
 
