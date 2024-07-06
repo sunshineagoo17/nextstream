@@ -470,6 +470,7 @@
       &:hover {
         background: $primary-dark-blue;
         color: $neutral-white;
+        border: 1px solid $primary-light-blue;
       }
 
       &::before {
