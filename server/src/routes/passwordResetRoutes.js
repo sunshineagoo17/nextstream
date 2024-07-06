@@ -2,6 +2,7 @@ const express = require('express');
 const sgMail = require('@sendgrid/mail');
 const crypto = require('crypto');
 const knex = require('../config/db');
+const { hashPassword } = require('../utils/hashPasswords'); 
 const router = express.Router();
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
@@ -22,13 +23,13 @@ router.post('/forgot-password', async (req, res) => {
       .where({ email })
       .update({ resetPasswordToken: token, resetPasswordExpires: tokenExpiry });
 
-    const resetURL = `http://localhost:3000/reset-password?token=${token}`; 
+    const resetURL = `http://localhost:3000/reset-password?token=${token}`;
 
     const msg = {
       to: email,
-      from: 'contact@nextstream.ca',
-      subject: 'NextStream Password Reset Request',
-      text: `Hello from NextStream Support! You requested a password reset. Please use the following link to reset your password: ${resetURL}`,
+      from: 'contact@nextstream.ca', 
+      subject: 'Password Reset Request',
+      text: `You requested a password reset. Please use the following link to reset your password: ${resetURL}`,
       html: `<strong>You requested a password reset. Please use the following link to reset your password:</strong> <a href="${resetURL}">Reset Password</a>`,
     };
 
@@ -37,6 +38,35 @@ router.post('/forgot-password', async (req, res) => {
   } catch (error) {
     console.error('Error sending password reset email:', error);
     res.status(500).json({ message: 'Error sending password reset email.' });
+  }
+});
+
+// Handle password reset
+router.post('/reset-password', async (req, res) => {
+  const { token, newPassword } = req.body;
+  try {
+    const user = await knex('users')
+      .where({ resetPasswordToken: token })
+      .andWhere('resetPasswordExpires', '>', Date.now())
+      .first();
+
+    if (!user) {
+      return res.status(400).json({ message: 'Password reset token is invalid or has expired.' });
+    }
+
+    const hashedPassword = await hashPassword(newPassword);
+    await knex('users')
+      .where({ id: user.id })
+      .update({
+        password: hashedPassword,
+        resetPasswordToken: null,
+        resetPasswordExpires: null,
+      });
+
+    res.status(200).json({ message: 'Password has been reset.', success: true });
+  } catch (error) {
+    console.error('Error resetting password:', error);
+    res.status(500).json({ message: 'Error resetting password.' });
   }
 });
 
