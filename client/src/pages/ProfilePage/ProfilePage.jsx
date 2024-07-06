@@ -1,8 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import LocationIcon from "../../assets/images/location-icon.svg";
+import ShowIcon from "../../assets/images/register-visible-icon.svg";
+import HideIcon from "../../assets/images/register-invisible-icon.svg";
 import "./ProfilePage.scss";
 
 export const ProfilePage = () => {
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [name, setName] = useState('');
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [currentPassword, setCurrentPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
+
   return (
     <div className="profile">
       <div className="profile__background">
@@ -22,22 +36,43 @@ export const ProfilePage = () => {
             <div className="profile__details-content">
               <div className="profile__details-inputs">
                 <div className="profile__input-group">
-                  <label className="profile__label" htmlFor="input-1">Name</label>
-                  <div className="profile__input-wrapper">
-                    <input className="profile__input" id="input-1" placeholder="Enter your name" type="text" />
-                  </div>
+                  <input
+                    className="profile__input"
+                    id="input-name"
+                    placeholder="Enter your name"
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                  />
+                  <label className="profile__label" htmlFor="input-name">
+                    Name
+                  </label>
                 </div>
                 <div className="profile__input-group">
-                  <label className="profile__label" htmlFor="input-2">Username</label>
-                  <div className="profile__input-wrapper">
-                    <input className="profile__input" id="input-2" placeholder="Enter your username" type="text" />
-                  </div>
+                  <input
+                    className="profile__input"
+                    id="input-username"
+                    placeholder="Enter your username"
+                    type="text"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                  />
+                  <label className="profile__label" htmlFor="input-username">
+                    Username
+                  </label>
                 </div>
                 <div className="profile__input-group">
-                  <label className="profile__label" htmlFor="input-3">Email Address</label>
-                  <div className="profile__input-wrapper">
-                    <input className="profile__input" id="input-3" placeholder="Enter your email address" type="email" />
-                  </div>
+                  <input
+                    className="profile__input"
+                    id="input-email"
+                    placeholder="Enter your email address"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                  <label className="profile__label" htmlFor="input-email">
+                    Email Address
+                  </label>
                 </div>
               </div>
             </div>
@@ -51,23 +86,52 @@ export const ProfilePage = () => {
             </div>
             <div className="profile__password-content">
               <div className="profile__password-inputs">
-                <div className="profile__input-group">
-                  <label className="profile__label">Current Password</label>
-                  <div className="profile__input-wrapper">
-                    <input className="profile__input" placeholder="Enter current password" type="password" />
-                  </div>
+                <div className="profile__input-group profile__input-group--password">
+                  <input
+                    className="profile__input"
+                    id="input-current-password"
+                    placeholder="Enter current password"
+                    type={passwordVisible ? "text" : "password"}
+                    value={currentPassword}
+                    onChange={(e) => setCurrentPassword(e.target.value)}
+                  />
+                  <label className="profile__label" htmlFor="input-current-password">
+                    Current Password
+                  </label>
+                  <button
+                    type="button"
+                    className="profile__password-toggle"
+                    onClick={togglePasswordVisibility}
+                    aria-label={passwordVisible ? "Hide password" : "Show password"}
+                  >
+                    <img src={passwordVisible ? HideIcon : ShowIcon} alt="Toggle visibility" className="profile__password-toggle-icon" />
+                  </button>
                 </div>
                 <div className="profile__input-group">
-                  <label className="profile__label">New Password</label>
-                  <div className="profile__input-wrapper">
-                    <input className="profile__input" placeholder="Choose a new password" type="password" />
-                  </div>
+                  <input
+                    className="profile__input"
+                    id="input-new-password"
+                    placeholder="Choose a new password"
+                    type={passwordVisible ? "text" : "password"}
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                  />
+                  <label className="profile__label" htmlFor="input-new-password">
+                    New Password
+                  </label>
                 </div>
                 <div className="profile__input-group">
-                  <label className="profile__label">Confirm Password</label>
-                  <div className="profile__input-wrapper">
-                    <input className="profile__input" placeholder="Re-enter new password" type="password" />
-                  </div>
+                  <input
+                    className="profile__input"
+                    id="input-confirm-password"
+                    placeholder="Re-enter new password"
+                    type={passwordVisible ? "text" : "password"}
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                  />
+                  <label className="profile__label" htmlFor="input-confirm-password">
+                    Confirm Password
+                  </label>
                 </div>
               </div>
             </div>

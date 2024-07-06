@@ -140,8 +140,9 @@
     border: 2px solid $primary-light-blue;
     border-radius: 0.5rem;
     font-size: 1rem;
-    box-shadow: $shadow-primary;
+    box-shadow: $shadow-senary;
     background: $neutral-white;
+    margin-bottom: 1rem;
     color: $neutral-black;
     transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 
@@ -150,6 +151,8 @@
       background-color: $primary-very-light-blue;
       color: $primary-medium-blue;
       border-color: $primary-medium-blue;
+      font-family: $primary-font;
+      padding: .5rem;
 
       & + .profile__label {
         top: -0.85rem;
@@ -194,25 +197,25 @@
 
   &__password-toggle {
     position: absolute;
-    right: 1rem;
+    right: .5rem;
+    top: 1.1rem;
+    display: flex;
     background: none;
     border: none;
     cursor: pointer;
 
     .profile__password-toggle-icon {
-      width: 24px;
-      height: 24px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1);
-      border-radius: 50%;
-      background: linear-gradient(145deg, #e6e6e6, #ffffff);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: transform 0.1s ease;
+        @include block-item(1.5rem, 1.5rem);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1);
+        border-radius: 50%;
+        background: linear-gradient(145deg, #e6e6e6, #ffffff);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.1s ease;
 
       img {
-        width: 16px;
-        height: 16px;
+        @include block-item(1rem, 1rem);
       }
     }
 
