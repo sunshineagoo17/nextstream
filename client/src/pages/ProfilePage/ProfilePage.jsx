@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import LocationIcon from "../../assets/images/location-icon.svg";
+import LocationIcon from "../../assets/images/profile-location.svg";
 import ShowIcon from "../../assets/images/register-visible-icon.svg";
 import HideIcon from "../../assets/images/register-invisible-icon.svg";
 import ToggleButton from "../../components/ToggleButton/ToggleButton";
@@ -16,10 +16,13 @@ export const ProfilePage = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [receiveReminders, setReceiveReminders] = useState(false);
   const [receiveNotifications, setReceiveNotifications] = useState(false);
+  const [selectedRegion, setSelectedRegion] = useState('Choose your area...');
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
+
+  const regions = ['Region 1', 'Region 2', 'Region 3'];
 
   return (
     <div className="profile">
@@ -178,7 +181,16 @@ export const ProfilePage = () => {
                 <div className="profile__region-title">Select Your Region</div>
                 <div className="profile__region-input">
                   <img src={LocationIcon} className="profile__location-icon" alt="Location Icon" />
-                  <div className="profile__text-input">Choose your area...</div>
+                  <select
+                    className="profile__dropdown"
+                    value={selectedRegion}
+                    onChange={(e) => setSelectedRegion(e.target.value)}
+                  >
+                    <option disabled>Choose your area...</option>
+                    {regions.map((region, index) => (
+                      <option key={index} value={region}>{region}</option>
+                    ))}
+                  </select>
                 </div>
               </div>
             </div>
