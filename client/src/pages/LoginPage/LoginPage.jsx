@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from '../../context/AuthContext/AuthContext';
+import ErrorIcon from "../../assets/images/error-icon.svg";
 import ShowIcon from "../../assets/images/register-visible-icon.svg";
 import HideIcon from "../../assets/images/register-invisible-icon.svg";
 import NextStreamBg from "../../assets/images/nextstream-bg.jpg";
@@ -152,7 +153,13 @@ export const LoginPage = () => {
               </Link>
             </div>
             
-            {errors.general && <p className="error">{errors.general}</p>}
+            {errors.general && (
+              <div className="login__error-container">
+                <img src={ErrorIcon} className="login__error-icon" alt="error icon" />
+                <p className="error">{errors.general}</p>
+              </div>
+            )}
+
           </div>
         </div>
         <div className="login__image-card">

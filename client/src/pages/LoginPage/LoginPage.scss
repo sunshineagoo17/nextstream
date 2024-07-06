@@ -250,6 +250,17 @@
     }
   }
 
+  &__error-icon {
+    @include block-item(1rem, 1rem);
+  }
+
+  &__error-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+  }
+
   &__input-section {
     display: flex;
     flex-direction: column;
