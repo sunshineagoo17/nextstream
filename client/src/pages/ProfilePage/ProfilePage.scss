@@ -11,6 +11,13 @@
   align-items: center;
   background: linear-gradient(to bottom, $neutral-white, #EEF4FC, #BBD9FF, #BBD9FF, #EEF4FC, $neutral-white);
 
+  &__text-wrapper {
+    border-radius: 0.5rem 0.5rem 0 0;
+    border: 1px solid $primary-pale-blue;
+    box-shadow: $shadow-senary;
+    width: 11rem;
+  }
+
   &__hero {
     background: $primary-darker-blue-gradient;
     width: 100%;
@@ -58,7 +65,7 @@
   &__content-password {
     background-color: $neutral-white;
     border: 0.125rem solid $primary-very-light-blue;
-    border-radius: 0.5rem;
+    border-radius: 0.75rem;
     box-shadow: $shadow-quinary;
     padding: 1rem;
     width: 100%;
@@ -74,7 +81,8 @@
     border: 2px solid $primary-pale-blue;
     box-shadow: $shadow-primary;
     text-align: center;
-    width: 15rem;
+    border-radius: 0.5rem 0.5rem 0 0;
+    width: 11rem;
   }
 
   &__text-wrapper {
@@ -93,7 +101,7 @@
     align-items: center;
     background-color: $primary-very-light-blue;
     border: 0.1875rem solid $primary-pale-blue;
-    border-radius: 0 0 0.5rem 0.5rem;
+    border-radius: 0 .5rem 0.5rem 0.5rem;
     box-shadow: $shadow-primary;
     display: flex;
     justify-content: center;
