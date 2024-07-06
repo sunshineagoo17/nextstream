@@ -2,41 +2,42 @@ const db = require('../config/db');
 const bcrypt = require('bcrypt');
 
 // Get all users (for testing purposes, not to be exposed in the final API)
-const getAll = () => {
+const getAllUsers = () => {
     return db('users').select('*');
 };
 
 // Get a user by email
-const getByEmail = (email) => {
+const getUserByEmail = (email) => {
     return db('users').where({ email }).first();
 };
 
 // Get a user by ID
-const getById = (id) => {
+const getUserById = (id) => {
     return db('users').where({ id }).first();
 };
 
 // Create a new user
-const create = async (user) => {
+const createUser = async (user) => {
     const hashedPassword = await bcrypt.hash(user.password, 10);
-    return db('users').insert({
+    const [id] = await db('users').insert({
         username: user.username,
         email: user.email,
         password: hashedPassword,
     });
+    return getUserById(id);
 };
 
 // Update a user's profile
-const update = (id, user) => {
+const updateUser = (id, user) => {
     return db('users')
         .where({ id })
         .update(user);
 };
 
 module.exports = {
-    getAll,
-    getByEmail,
-    getById,
-    create,
-    update,
+    getAllUsers,
+    getUserByEmail,
+    getUserById,
+    createUser,
+    updateUser,
 };
