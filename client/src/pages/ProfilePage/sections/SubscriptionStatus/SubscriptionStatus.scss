@@ -4,122 +4,115 @@
 @use "../../../../styles/global.scss" as *;
 
 .subscription-status {
-  align-items: flex-start;
   display: flex;
+  align-items: center;
   flex-direction: column;
   gap: 1.5625rem;
   justify-content: center;
   position: relative;
   width: 16.375rem;
 
-    &__container {
-        height: 5.133125rem;
-        width: 16.46875rem;
+  &__delete-txt {
+    color: $neutral-white;
+    font-family: $primary-font;
+    font-size: 1rem;
+    letter-spacing: -0.05rem;
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  &__title {
+    color: $primary-medium-blue;
+    font-family: $primary-font;
+    font-size: 1rem;
+    font-weight: 400;
+    letter-spacing: -0.01125rem;
+    line-height: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  &__input {
+    color: $neutral-white;
+    font-family: $primary-font;
+    font-size: 1rem;
+    font-weight: 400;
+    white-space: nowrap;
+  }
+
+  &__active {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    height: 3rem;
+    width: 100%;
+    justify-content: center;
+  }
+
+  &__select {
+    height: 3rem;
+    width: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  &__checkbox {
+    box-shadow: $shadow-primary;
+    background-color: $primary-light-blue;
+    border: 0.1875rem solid $feedback-mint-light-green;
+    border-radius: 0.75rem;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &--active {
+      background-color: $feedback-mint-light-green;
+      border-color: $feedback-mint-light-green;
     }
 
-    &__title {
-        color: $primary-medium-blue;
-        font-family: $primary-font;
-        font-size: 1rem;
-        font-weight: 400;
-        left: 0;
-        letter-spacing: -0.01125rem;
-        line-height: 1.5rem;
-        position: absolute;
-        top: 0;
-        width: 16.3125rem;
+    &__check {
+      color: $neutral-white;
+      font-size: 2rem;
+      font-weight: bold;
     }
+  }
 
-    &__active {
-      align-items: center;
-      display: flex;
-      gap: 0.5rem;
-      height: 3rem;
-      left: 0;
-      position: absolute;
-      top: 2.125rem;
-      width: 12.6875rem;
-    }
+  &__box {
+    background-color: $primary-light-blue;
+    border: 0.1875rem solid $feedback-mint-light-green;
+    border-radius: 0.75rem;
+    box-shadow: $shadow-primary;
+    display: flex;
+    align-items: center;
+    padding: 0 0.5rem;
+    height: 3rem;
+    width: 8.4375rem;
+    justify-content: center;
+  }
 
-    &__select {
-        box-shadow: $shadow-primary;
-        height: 3rem;
-        position: relative;
-        width: 3rem;
-    }
+  &__delete-account {
+    align-items: center;
+    background-color: $primary-light-blue;
+    border: 0.1875rem solid $feedback-error-peach;
+    border-radius: 0.75rem;
+    box-shadow: $shadow-primary;
+    cursor: pointer;
+    display: inline-flex;
+    gap: 0.5rem;
+    justify-content: center;
+    padding: 0.75rem 2rem;
+    position: relative;
+    transition: all 0.3s ease;
 
-    &__checkbox {
-        background-color: $primary-light-blue;
-        border: 0.1875rem solid;
-        border-color: $feedback-mint-light-green;
-        border-radius: 0.75rem;
-        height: 3rem;
-        position: relative;
-        cursor: pointer;
-    }
-
-    &__active {
-        border-color: $feedback-mint-light-green;
-        background-color: $feedback-mint-light-green;
-    }
-
-    &__vector {
-        color: $neutral-white;
-        font-size: 2rem;
-        font-weight: bold;
-        left: 50%;
-        position: absolute;
-        top: 50%;
-        transform: translate(-50%, -50%);
-    }
-
-    &__active {
-        background-color: $primary-light-blue;
-        border: 0.1875rem solid;
-        border-color: $feedback-mint-light-green;
-        border-radius: 0.75rem;
-        box-shadow: $shadow-primary;
-        display: flex;
-        align-items: center;
-        padding: 0 0.5rem;
-        height: 3rem;
-        width: 8.4375rem;
-    }
-
-    &__input {
-        color: $neutral-white;
-        font-family: $primary-font;
-        font-size: 1rem;
-        font-weight: 400;
-        white-space: nowrap;
-        width: 100%;
-    }
-
-
-    &__delete-txt {
-        color: $neutral-white;
-        font-family: $primary-font;
-        font-size: 1rem;
-        letter-spacing: -0.05rem;
-      }
-      
-    &__delete-account {
-        align-items: center;
-        background-color: $primary-light-blue;
-        border: 0.1875rem solid;
-        border-color: $feedback-error-peach;
-        border-radius: 0.75rem;
-        box-shadow: $shadow-primary;
-        cursor: pointer;
-        display: inline-flex;
-        gap: 0.5rem;
-        justify-content: center;
-        padding: 0.75rem 2rem;
-        position: relative;
-        transition: all 0.3s ease;
-    }
-
-    &__delete {
+    &--delete {
       background-color: $feedback-error-peach;
       border-color: $feedback-error-peach;
       box-shadow: 0 0 0.625rem rgba(255, 0, 0, 0.3);
@@ -129,4 +122,5 @@
       backdrop-filter: blur(0.25rem);
       box-shadow: 0 0 0.625rem rgba(255, 0, 0, 0.5);
     }
+  }
 }

@@ -86,6 +86,12 @@
     flex-direction: row;
   }
 
+  &__content-subscription {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   &__content-details,
   &__content-region,
   &__content-subscription,
