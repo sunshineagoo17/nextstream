@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -13,18 +13,27 @@ import "./RegisterPage.scss";
 
 export const RegisterPage = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [name, setName] = useState('');
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [name, setName] = useState(localStorage.getItem('name') || '');
+  const [username, setUsername] = useState(localStorage.getItem('username') || '');
+  const [email, setEmail] = useState(localStorage.getItem('email') || '');
+  const [password, setPassword] = useState(localStorage.getItem('password') || '');
   const [errors, setErrors] = useState({});
   const [isValidName, setIsValidName] = useState(true);
   const [isValidUsername, setIsValidUsername] = useState(true);
   const [isValidEmail, setIsValidEmail] = useState(true);
   const [isValidPassword, setIsValidPassword] = useState(true);
   const [isCheckedTerms, setIsCheckedTerms] = useState(false);
+  const [termsError, setTermsError] = useState(false);
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
+
+  useEffect(() => {
+    // Load values from local storage
+    setName(localStorage.getItem('name') || '');
+    setUsername(localStorage.getItem('username') || '');
+    setEmail(localStorage.getItem('email') || '');
+    setPassword(localStorage.getItem('password') || '');
+  }, []);
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -48,11 +57,14 @@ export const RegisterPage = () => {
   };
 
   const validatePassword = () => {
-    setIsValidPassword(password.length >= 8); 
+    setIsValidPassword(password.length >= 8);
   };
 
   const handleCheckboxChange = (event) => {
     setIsCheckedTerms(event.target.checked);
+    if (event.target.checked) {
+      setTermsError(false);
+    }
   };
 
   const handleSignUp = async () => {
@@ -62,6 +74,9 @@ export const RegisterPage = () => {
     validatePassword();
 
     if (!isValidName || !isValidUsername || !isValidEmail || !isValidPassword || !isCheckedTerms) {
+      if (!isCheckedTerms) {
+        setTermsError(true);
+      }
       return; // Prevent registration if any validation fails or terms checkbox is not checked
     }
 
@@ -70,8 +85,15 @@ export const RegisterPage = () => {
       const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/auth/register`, userData);
       if (response.data.success) {
         const { token } = response.data;
-        login(token, true); 
-        navigate('/profile'); 
+        login(token, true);
+
+        // Save input values to local storage
+        localStorage.setItem('name', name);
+        localStorage.setItem('username', username);
+        localStorage.setItem('email', email);
+        localStorage.setItem('password', password);
+
+        navigate('/profile');
       }
     } catch (error) {
       if (error.response && error.response.data && error.response.data.errors) {
@@ -171,7 +193,7 @@ export const RegisterPage = () => {
               />
               <p className="register__terms-txt">I agree to the <Link to="/terms" aria-label="Terms and Conditions" className="register__terms-link">terms and conditions</Link>.</p>
             </label>
-            {!isCheckedTerms && <p className="error">Please agree to the terms and conditions</p>}
+            {termsError && <p className="error">Please agree to the terms and conditions</p>}
             <p className="register__already-account">
               Already have an account? <Link to="/login" aria-label="Log In"><span className="register__signin-link">Sign In</span></Link>
             </p>

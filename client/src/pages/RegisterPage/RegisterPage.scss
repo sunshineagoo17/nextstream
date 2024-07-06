@@ -256,18 +256,21 @@
     cursor: pointer;
 
     .register__password-toggle-icon {
-      width: 24px;
-      height: 24px;
+      @include block-item(1.5rem, 1.5rem);
       border-radius: 50%;
       background: linear-gradient(145deg, #e6e6e6, #ffffff);
       display: flex;
       align-items: center;
+      margin-top: 1rem;
       justify-content: center;
       transition: transform 0.1s ease;
 
+      @include tablet {
+        margin-top: .85rem;
+      }
+
       img {
-        width: 16px;
-        height: 16px;
+        @include block-item(1rem, 1rem);
       }
     }
 
