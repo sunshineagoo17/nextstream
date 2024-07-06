@@ -118,6 +118,9 @@
     box-shadow: $shadow-primary;
     display: flex;
     justify-content: center;
+    flex-direction: column;
+    line-height: 1.25rem;
+    color: $primary-medium-blue;
     padding: 1rem;
     width: 100%;
   }
