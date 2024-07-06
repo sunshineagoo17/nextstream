@@ -9,6 +9,7 @@ import NextStreamBg from "../../assets/images/nextstream-bg.jpg";
 import ArrowIcon from "../../assets/images/register-arrow-icon.svg";
 import SignUpIcon from "../../assets/images/register-sign-up-icon.svg";
 import SignInCouple from "../../assets/images/login-hero-couple-watching.svg";
+import ForgotPasswordModal from "../../components/ForgotPasswordModal/ForgotPasswordModal";
 import "./LoginPage.scss";
 
 export const LoginPage = () => {
@@ -17,6 +18,7 @@ export const LoginPage = () => {
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
   const [errors, setErrors] = useState({});
+  const [isForgotPasswordModalOpen, setIsForgotPasswordModalOpen] = useState(false);
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
 
@@ -76,6 +78,14 @@ export const LoginPage = () => {
     setRememberMe(event.target.checked);
   };
 
+  const openForgotPasswordModal = () => {
+    setIsForgotPasswordModalOpen(true);
+  };
+
+  const closeForgotPasswordModal = () => {
+    setIsForgotPasswordModalOpen(false);
+  };
+
   return (
     <div className="login">
       <div className="login__hero">
@@ -132,7 +142,7 @@ export const LoginPage = () => {
               />
               <p className="login__remember-txt">Remember Me</p>
             </label>
-            <p className="login__forgot-password-link">Forgot Password?</p>
+            <p className="login__forgot-password-link" onClick={openForgotPasswordModal}>Forgot Password?</p>
             <div className="login__button-group">
               <button className="login__button login__button--previous" onClick={goToPreviousPage}>
                 <img src={ArrowIcon} className="previous__button-icon" alt="Arrow Icon" />
@@ -166,6 +176,7 @@ export const LoginPage = () => {
           <img src={SignInCouple} alt="Logging in Couple" />
         </div>
       </div>
+      {isForgotPasswordModalOpen && <ForgotPasswordModal onClose={closeForgotPasswordModal} />}
     </div>
   );
 };

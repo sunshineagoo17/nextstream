@@ -6,6 +6,7 @@ import { TermsAndConditions } from "./pages/TermsAndConditions/TermsAndCondition
 import { PrivacyPolicy } from "./pages/PrivacyPolicy/PrivacyPolicy";
 import { NotFound } from "./pages/NotFound/NotFound";
 import { RegisterPage } from "./pages/RegisterPage/RegisterPage";
+import { ResetPasswordPage } from "./pages/ResetPasswordPage/ResetPasswordPage";
 import { LoginPage } from "./pages/LoginPage/LoginPage";
 import { ProfilePage } from "./pages/ProfilePage/ProfilePage";
 import ContactModal from "./components/ContactModal/ContactModal";
@@ -37,6 +38,7 @@ const App = () => {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer onContactClick={handleContactClick} />
