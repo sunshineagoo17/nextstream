@@ -174,7 +174,6 @@ With the proliferation of streaming services, users often face the challenge of 
     - Response:
     ```json
     {
-        "token": "jwt_token",
         "email": "user_email",
         "username": "user1_username"
     }
@@ -190,26 +189,32 @@ With the proliferation of streaming services, users often face the challenge of 
     - Response:
     ```json
     {
-        "token": "jwt_token",
         "email": "user_email",
         "username": "user1_username"
     }
     ```
 
-- **PUT /users/profile**
-    - Update the profile information of the logged-in user.
+- **GET /users/profile**
+    - Get the profile information of the logged-in user.
 
     - Parameters:
         - `userId`: ID of the logged-in user.
         - `token`: JWT token for authenticated requests.
-        - `email` (optional): Updated email.
-        - `password` (optional): Updated password.
-        - `username` (optional): Updated username.
+        - `includeSchedules` (optional): Boolean to include schedules in the response.
 
     - Response:
     ```json
     {
-        "message": "Profile updated successfully"
+         "userId": "1",
+        "username": "user1_username",
+        "email": "user_email",
+        "schedules": [
+            {
+                "id": 1,
+                "title": "Inception",
+                "scheduledTime": "2024-06-01"
+            }
+        ]
     }
     ```
 
@@ -396,7 +401,7 @@ With the proliferation of streaming services, users often face the challenge of 
 - **JWT Auth**:
     - Initially, all API requests will use a fake user with ID 1. 
     - JWT authentication will be added after the core features are implemented.
-    - Store JWT in localStorage and remove it on logout.
+    - Store JWT in cookies and remove it on logout.
     - Use JWT for user-specific actions like scheduling and recommendations.
     - Add states for logged-in users to show different UI elements as specified in the mockups.
 
