@@ -31,6 +31,12 @@
     width: 11rem;
   }
 
+  &__select-your-region {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+
   &__hero {
     background: $primary-darker-blue-gradient;
     width: 100%;
@@ -371,14 +377,14 @@
     gap: 0.5rem;
     background: $neutral-white;
     padding: 1rem;
-    border: 1px solid $primary-light-blue;
-    border-radius: 0.25rem;
+    border: 2px solid $primary-light-blue;
+    border-radius: 0.5rem;
     box-shadow: $shadow-primary;
     position: relative;
+    height: 2.875rem;
 
     .profile__location-icon {
-      width: 1rem;
-      height: 1rem;
+        @include block-item(1.25rem, 1.25rem);
     }
 
     .profile__dropdown {
@@ -400,20 +406,12 @@
         color: $primary-dark-blue;
       }
     }
-
-    .profile__chevron-icon {
-      width: 1rem;
-      height: 1rem;
-      position: absolute;
-      right: 0.5rem;
-      pointer-events: none;
-    }
   }
 
   &__region-title {
     font-family: $primary-font;
     font-size: 1rem;
-    color: $primary-dark-blue;
+    color: $primary-medium-blue;
     margin-bottom: 0.5rem;
   }
 }
