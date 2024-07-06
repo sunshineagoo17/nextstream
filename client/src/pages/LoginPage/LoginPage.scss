@@ -202,6 +202,15 @@
     &:hover {
         color: $primary-darker-blue;
     }
+
+    &:visited {
+        color: $primary-darker-blue; 
+    }
+  }
+
+
+ &__btn-create-account-container:visited {
+    color: $primary-darker-blue; 
   }
   
   @keyframes shimmer {

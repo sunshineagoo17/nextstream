@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import ShowIcon from "../../assets/images/register-visible-icon.svg";
 import HideIcon from "../../assets/images/register-invisible-icon.svg";
@@ -98,12 +98,16 @@ export const LoginPage = () => {
                 <span>Sign In</span>
               </button>
             </div>
+            
             <div className="login__btn-create-account-wrapper">
-              <div className="login__btn-create-account-bg"></div>
-              <button className="login__btn-create-account">
-                <span className="login__btn-create-account-txt">Create an Account</span>
-              </button>
+              <Link to="/register" aria-label="Create a NextStream Account" className="login__btn-create-account-container">
+                <div className="login__btn-create-account-bg"></div>
+                <div className="login__btn-create-account">
+                  <span className="login__btn-create-account-txt">Create an Account</span>
+                </div>
+              </Link>
             </div>
+            
           </div>
         </div>
         <div className="login__image-card">
