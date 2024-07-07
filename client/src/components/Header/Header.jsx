@@ -4,6 +4,7 @@ import { AuthContext } from '../../context/AuthContext/AuthContext';
 import nextStreamLogo from "../../assets/images/nextstream-wordmark.png";
 import searchVector from "../../assets/images/searh-vector-handle.svg";
 import UserIcon from "../../assets/images/user-icon.svg";
+import LogoutIcon from "../../assets/images/logout-icon.svg";
 import "./Header.scss";
 
 export const Header = () => {
@@ -42,7 +43,7 @@ export const Header = () => {
           <button className="header__login-container" onClick={handleLogout}>
             <div className="header__login">
               <div className="header__sign-in-txt">Logout</div>
-              <img className="header__sign-in-icon" src={UserIcon} alt="User Icon" />
+              <img className="header__sign-in-icon" src={LogoutIcon} alt="Logout Icon" />
             </div>
           </button>
         ) : (
