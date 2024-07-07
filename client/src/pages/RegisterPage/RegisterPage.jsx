@@ -93,13 +93,11 @@ export const RegisterPage = () => {
         const { userId, token } = response.data;
         login(token, userId, true);
 
-        // Save input values to cookies
         Cookies.set('name', name, { expires: 7 });
         Cookies.set('username', username, { expires: 7 });
         Cookies.set('email', email, { expires: 7 });
         Cookies.set('password', password, { expires: 7 });
 
-        // Show success toast
         toast.success('Registration successful! Redirecting to profile page...', {
           position: "top-center",
           className: "custom-toast",
@@ -120,15 +118,18 @@ export const RegisterPage = () => {
           }
         });
 
-        // Delay the navigation to allow users to see the toast
         setTimeout(() => {
           navigate(`/profile/${userId}`);
         }, 4000);
       }
     } catch (error) {
-      console.error('Registration error:', error); 
-      if (error.response && error.response.data && error.response.data.errors) {
-        setErrors(error.response.data.errors);
+      console.error('Registration error:', error);
+      if (error.response && error.response.data && error.response.data.message) {
+        if (error.response.data.message === 'Email already in use') {
+          setErrors({ email: 'Email already in use. Please use a different email address.' });
+        } else {
+          setErrors({ general: error.response.data.message });
+        }
       } else {
         setErrors({ general: 'An error occurred. Please try again.' });
       }
@@ -190,6 +191,7 @@ export const RegisterPage = () => {
                   Email
                 </label>
                 {!isValidEmail && <p className="error">Please enter a valid email address</p>}
+                {errors.email && <p className="error">{errors.email}</p>}
               </div>
               <div className="register__input-group register__input-group--password">
                 <input
