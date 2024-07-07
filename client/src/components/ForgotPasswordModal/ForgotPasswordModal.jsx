@@ -23,17 +23,21 @@ const ForgotPasswordModal = ({ onClose }) => {
     <div className="modal-contact">
       <div className="modal-contact__container">
         <button className="modal-contact__close" onClick={onClose}>×</button>
-        <h2>Forgot Password</h2>
+        <div className="modal-contact__label-container">
+          <h2 className="modal-contact__label">Forgot Password</h2>
+        </div>
         <form className="modal-contact__form" onSubmit={handleSubmit}>
-          <label className="modal-contact__label-txt" htmlFor="email">Email Address</label>
-          <input
-            className="modal-contact__input"
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+          <div className="modal-contact__label-input">
+            <label className="modal-contact__label-txt" htmlFor="email">Email Address</label>
+            <input
+              className="modal-contact__input"
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
           <button type="submit">Send Reset Link</button>
         </form>
         {message && <p className={`modal-contact__message ${isError ? 'error' : 'success'}`}>{message}</p>}
