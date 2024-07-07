@@ -20,27 +20,49 @@ export const ProfilePage = () => {
   const [receiveNotifications, setReceiveNotifications] = useState(false);
   const [selectedRegion, setSelectedRegion] = useState('Choose your area...');
   const [isLoading, setIsLoading] = useState(true);
+  const [saveMessage, setSaveMessage] = useState('');
 
   useEffect(() => {
-    console.log('ProfilePage userId:', userId); 
     const fetchProfile = async () => {
       try {
         const response = await api.get(`/api/profile/${userId}`);
         setUser(response.data);
+        setReceiveReminders(response.data.receiveReminders);
+        setReceiveNotifications(response.data.receiveNotifications);
+        setSelectedRegion(response.data.region);
       } catch (error) {
         console.error('Error fetching profile:', error);
       } finally {
-        setIsLoading(false); 
+        setIsLoading(false);
       }
     };
   
     if (userId) {
       fetchProfile();
     }
-  }, [userId]);   
+  }, [userId]);
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
+  };
+
+  const handleSave = async () => {
+    const updatedUser = {
+      name: user.name,
+      username: user.username,
+      email: user.email,
+      receiveReminders,
+      receiveNotifications,
+      region: selectedRegion,
+    };
+
+    try {
+      await api.put(`/api/profile/${userId}`, updatedUser);
+      setSaveMessage('Profile updated successfully!');
+    } catch (error) {
+      console.error('Error updating profile:', error);
+      setSaveMessage('Error updating profile. Please try again.');
+    }
   };
 
   const regions = ['Canada', 'United States', 'United Kingdom'];
@@ -230,10 +252,11 @@ export const ProfilePage = () => {
 
               <div className="profile__btn-save-account-wrapper">
                   <div className="profile__btn-save-account-bg"></div>
-                  <div className="profile__btn-save-account">
+                  <button className="profile__btn-save-account" onClick={handleSave}>
                     <span className="profile__btn-save-account-txt">Save</span>
-                  </div>
+                  </button>
               </div>
+              {saveMessage && <p className="profile__save-message">{saveMessage}</p>}
           </div>
         </div>
       </div>
