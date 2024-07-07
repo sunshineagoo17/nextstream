@@ -1,15 +1,15 @@
-import React, { useState, useContext, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import api from '../../services/api'; 
 import { AuthContext } from '../../context/AuthContext/AuthContext';
-import SignUpIcon from "../../assets/images/register-sign-up-icon.svg";
-import ArrowIcon from "../../assets/images/register-arrow-icon.svg";
-import ShowIcon from "../../assets/images/register-visible-icon.svg";
-import HideIcon from "../../assets/images/register-invisible-icon.svg";
-import NextStreamBg from "../../assets/images/nextstream-bg.jpg";
-import RegisterCouple from "../../assets/images/register-couple-logging-in.svg";
-import "./RegisterPage.scss";
+import SignUpIcon from '../../assets/images/register-sign-up-icon.svg';
+import ArrowIcon from '../../assets/images/register-arrow-icon.svg';
+import ShowIcon from '../../assets/images/register-visible-icon.svg';
+import HideIcon from '../../assets/images/register-invisible-icon.svg';
+import NextStreamBg from '../../assets/images/nextstream-bg.jpg';
+import RegisterCouple from '../../assets/images/register-couple-logging-in.svg';
+import './RegisterPage.scss';
 
 export const RegisterPage = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -77,14 +77,14 @@ export const RegisterPage = () => {
       if (!isCheckedTerms) {
         setTermsError(true);
       }
-      return; // Prevent registration if any validation fails or terms checkbox is not checked
+      return; 
     }
 
     const userData = { name, username, email, password };
     try {
-      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/auth/register`, userData);
+      const response = await api.post('/api/auth/register', userData); 
       if (response.data.success) {
-        const { token } = response.data;
+        const { userId, token } = response.data;
         login(token, true);
 
         // Save input values to local storage
@@ -93,7 +93,7 @@ export const RegisterPage = () => {
         localStorage.setItem('email', email);
         localStorage.setItem('password', password);
 
-        navigate('/profile');
+        navigate(`/profile/${userId}`);
       }
     } catch (error) {
       if (error.response && error.response.data && error.response.data.errors) {

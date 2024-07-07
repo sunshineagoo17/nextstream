@@ -1,16 +1,16 @@
-import React, { useState, useContext, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import axios from "axios";
+import React, { useState, useContext, useEffect } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import api from '../../services/api';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
-import ErrorIcon from "../../assets/images/error-icon.svg";
-import ShowIcon from "../../assets/images/register-visible-icon.svg";
-import HideIcon from "../../assets/images/register-invisible-icon.svg";
-import NextStreamBg from "../../assets/images/nextstream-bg.jpg";
-import ArrowIcon from "../../assets/images/register-arrow-icon.svg";
-import SignUpIcon from "../../assets/images/register-sign-up-icon.svg";
-import SignInCouple from "../../assets/images/login-hero-couple-watching.svg";
-import ForgotPasswordModal from "../../components/ForgotPasswordModal/ForgotPasswordModal";
-import "./LoginPage.scss";
+import ErrorIcon from '../../assets/images/error-icon.svg';
+import ShowIcon from '../../assets/images/register-visible-icon.svg';
+import HideIcon from '../../assets/images/register-invisible-icon.svg';
+import NextStreamBg from '../../assets/images/nextstream-bg.jpg';
+import ArrowIcon from '../../assets/images/register-arrow-icon.svg';
+import SignUpIcon from '../../assets/images/register-sign-up-icon.svg';
+import SignInCouple from '../../assets/images/login-hero-couple-watching.svg';
+import ForgotPasswordModal from '../../components/ForgotPasswordModal/ForgotPasswordModal';
+import './LoginPage.scss';
 
 export const LoginPage = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -53,7 +53,7 @@ export const LoginPage = () => {
 
     const userData = { email, password };
     try {
-      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/auth/login`, userData);
+      const response = await api.post('/api/auth/login', userData);
       if (response.data.token) {
         login(response.data.token, rememberMe);
         if (rememberMe) {
@@ -63,7 +63,7 @@ export const LoginPage = () => {
           localStorage.removeItem('rememberedEmail');
           localStorage.removeItem('rememberedPassword');
         }
-        navigate('/profile'); // Navigate to profile page after successful login
+        navigate(`/profile/${response.data.userId}`); 
       }
     } catch (error) {
       if (error.response && error.response.data && error.response.data.message) {
@@ -115,7 +115,7 @@ export const LoginPage = () => {
                   className="login__input"
                   id="input-password"
                   placeholder="Enter your password"
-                  type={passwordVisible ? "text" : "password"}
+                  type={passwordVisible ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
@@ -126,7 +126,7 @@ export const LoginPage = () => {
                   type="button"
                   className="login__password-toggle"
                   onClick={togglePasswordVisibility}
-                  aria-label={passwordVisible ? "Hide password" : "Show password"}
+                  aria-label={passwordVisible ? 'Hide password' : 'Show password'}
                 >
                   <img src={passwordVisible ? HideIcon : ShowIcon} alt="Toggle visibility" className="login__password-toggle-icon" />
                 </button>

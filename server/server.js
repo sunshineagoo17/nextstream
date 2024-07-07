@@ -7,6 +7,7 @@ const passwordResetRoutes = require('./src/routes/passwordResetRoutes');
 const rateLimit = require('express-rate-limit');
 const cookieParser = require('cookie-parser'); 
 const authRoutes = require('./src/routes/auth'); 
+const profileRoutes = require('./src/routes/profileRoutes'); 
 require('dotenv').config(); 
 
 const app = express();
@@ -27,6 +28,7 @@ app.use(limiter);
 app.use('/api/email', emailRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/password-reset', passwordResetRoutes); 
+app.use('/api/profile', profileRoutes); 
 
 // Serve static files from the React app if needed
 app.use(express.static(path.join(__dirname, 'client/build')));

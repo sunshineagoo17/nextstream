@@ -1,22 +1,36 @@
-import React, { useState } from "react";
-import LocationIcon from "../../assets/images/profile-location.svg";
-import ShowIcon from "../../assets/images/register-visible-icon.svg";
-import HideIcon from "../../assets/images/register-invisible-icon.svg";
-import ToggleButton from "../../components/ToggleButton/ToggleButton";
-import SubscriptionStatus from "./sections/SubscriptionStatus/SubscriptionStatus";
-import "./ProfilePage.scss";
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import api from '../../services/api'; 
+import LocationIcon from '../../assets/images/profile-location.svg';
+import ShowIcon from '../../assets/images/register-visible-icon.svg';
+import HideIcon from '../../assets/images/register-invisible-icon.svg';
+import ToggleButton from '../../components/ToggleButton/ToggleButton';
+import SubscriptionStatus from './sections/SubscriptionStatus/SubscriptionStatus';
+import './ProfilePage.scss';
 
 export const ProfilePage = () => {
+  const { userId } = useParams();
+  const [user, setUser] = useState({});
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [name, setName] = useState('');
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [receiveReminders, setReceiveReminders] = useState(false);
   const [receiveNotifications, setReceiveNotifications] = useState(false);
   const [selectedRegion, setSelectedRegion] = useState('Choose your area...');
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const response = await api.get(`/api/profile/${userId}`); 
+        setUser(response.data);
+      } catch (error) {
+        console.error('Error fetching profile:', error);
+      }
+    };
+
+    fetchProfile();
+  }, [userId]);
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -48,8 +62,8 @@ export const ProfilePage = () => {
                     id="input-name"
                     placeholder="Enter your name"
                     type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
+                    value={user.name || ''}
+                    onChange={(e) => setUser({ ...user, name: e.target.value })}
                   />
                   <label className="profile__label" htmlFor="input-name">
                     Name
@@ -61,8 +75,8 @@ export const ProfilePage = () => {
                     id="input-username"
                     placeholder="Enter your username"
                     type="text"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
+                    value={user.username || ''}
+                    onChange={(e) => setUser({ ...user, username: e.target.value })}
                   />
                   <label className="profile__label" htmlFor="input-username">
                     Username
@@ -74,8 +88,8 @@ export const ProfilePage = () => {
                     id="input-email"
                     placeholder="Enter your email address"
                     type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    value={user.email || ''}
+                    onChange={(e) => setUser({ ...user, email: e.target.value })}
                   />
                   <label className="profile__label" htmlFor="input-email">
                     Email Address
@@ -98,7 +112,7 @@ export const ProfilePage = () => {
                     className="profile__input"
                     id="input-current-password"
                     placeholder="Enter current password"
-                    type={passwordVisible ? "text" : "password"}
+                    type={passwordVisible ? 'text' : 'password'}
                     value={currentPassword}
                     onChange={(e) => setCurrentPassword(e.target.value)}
                   />
@@ -109,7 +123,7 @@ export const ProfilePage = () => {
                     type="button"
                     className="profile__password-toggle"
                     onClick={togglePasswordVisibility}
-                    aria-label={passwordVisible ? "Hide password" : "Show password"}
+                    aria-label={passwordVisible ? 'Hide password' : 'Show password'}
                   >
                     <img src={passwordVisible ? HideIcon : ShowIcon} alt="Toggle visibility" className="profile__password-toggle-icon" />
                   </button>
@@ -119,7 +133,7 @@ export const ProfilePage = () => {
                     className="profile__input"
                     id="input-new-password"
                     placeholder="Choose a new password"
-                    type={passwordVisible ? "text" : "password"}
+                    type={passwordVisible ? 'text' : 'password'}
                     value={newPassword}
                     onChange={(e) => setNewPassword(e.target.value)}
                   />
@@ -132,7 +146,7 @@ export const ProfilePage = () => {
                     className="profile__input"
                     id="input-confirm-password"
                     placeholder="Re-enter new password"
-                    type={passwordVisible ? "text" : "password"}
+                    type={passwordVisible ? 'text' : 'password'}
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                   />
