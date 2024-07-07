@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Cookies from 'js-cookie'; 
 import './ForgotPasswordModal.scss';
 
 const ForgotPasswordModal = ({ onClose }) => {
@@ -13,6 +14,7 @@ const ForgotPasswordModal = ({ onClose }) => {
       const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/password-reset/forgot-password`, { email });
       setMessage(response.data.message);
       setIsError(false);
+      Cookies.set('forgotPasswordEmail', email, { expires: 1 });
     } catch (error) {
       setMessage('Error sending password reset email. Try again.');
       setIsError(true);

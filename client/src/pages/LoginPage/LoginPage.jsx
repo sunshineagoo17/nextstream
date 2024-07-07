@@ -11,6 +11,7 @@ import SignUpIcon from '../../assets/images/register-sign-up-icon.svg';
 import SignInCouple from '../../assets/images/login-hero-couple-watching.svg';
 import ForgotPasswordModal from '../../components/ForgotPasswordModal/ForgotPasswordModal';
 import './LoginPage.scss';
+import Cookies from 'js-cookie';
 
 export const LoginPage = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -23,8 +24,8 @@ export const LoginPage = () => {
   const { login } = useContext(AuthContext);
 
   useEffect(() => {
-    const storedEmail = localStorage.getItem('rememberedEmail');
-    const storedPassword = localStorage.getItem('rememberedPassword');
+    const storedEmail = Cookies.get('rememberedEmail');
+    const storedPassword = Cookies.get('rememberedPassword');
     if (storedEmail && storedPassword) {
       setEmail(storedEmail);
       setPassword(storedPassword);
@@ -54,18 +55,27 @@ export const LoginPage = () => {
     const userData = { email, password };
     try {
       const response = await api.post('/api/auth/login', userData);
+      console.log('Login response:', response); // Log the entire response object
       if (response.data.token) {
-        login(response.data.token, rememberMe);
+        // Assuming login function handles setting up user session
+        login(response.data.token, response.data.userId, rememberMe);
+
         if (rememberMe) {
-          localStorage.setItem('rememberedEmail', email);
-          localStorage.setItem('rememberedPassword', password);
+          Cookies.set('token', response.data.token, { expires: 7, secure: true, sameSite: 'strict' });
+          Cookies.set('userId', response.data.userId, { expires: 7, secure: true, sameSite: 'strict' });
         } else {
-          localStorage.removeItem('rememberedEmail');
-          localStorage.removeItem('rememberedPassword');
+          Cookies.remove('token');
+          Cookies.remove('userId');
         }
-        navigate(`/profile/${response.data.userId}`); 
+
+        console.log('Navigating to profile page'); // Add this log to track navigation
+        navigate(`/profile/${response.data.userId}`);
+      } else {
+        console.log('Login failed: Token missing in response');
+        setErrors({ general: 'Login failed. Please try again.' });
       }
     } catch (error) {
+      console.error('Login error:', error);
       if (error.response && error.response.data && error.response.data.message) {
         setErrors({ general: error.response.data.message });
       } else {
@@ -134,11 +144,11 @@ export const LoginPage = () => {
               </div>
             </div>
             <label className="login__checkbox">
-              <input 
-                type="checkbox" 
-                className="login__checkbox-box" 
+              <input
+                type="checkbox"
+                className="login__checkbox-box"
                 checked={rememberMe}
-                onChange={handleCheckboxChange} 
+                onChange={handleCheckboxChange}
               />
               <p className="login__remember-txt">Remember Me</p>
             </label>
@@ -153,7 +163,7 @@ export const LoginPage = () => {
                 <span>Sign In</span>
               </button>
             </div>
-            
+
             <div className="login__btn-create-account-wrapper">
               <Link to="/register" aria-label="Create a NextStream Account" className="login__btn-create-account-container">
                 <div className="login__btn-create-account-bg"></div>
@@ -162,7 +172,7 @@ export const LoginPage = () => {
                 </div>
               </Link>
             </div>
-            
+
             {errors.general && (
               <div className="login__error-container">
                 <img src={ErrorIcon} className="login__error-icon" alt="error icon" />

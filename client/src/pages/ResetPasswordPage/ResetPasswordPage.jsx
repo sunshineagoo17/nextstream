@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
+import Cookies from 'js-cookie'; // Import js-cookie for managing cookies
 import AnimatedBg from '../../components/AnimatedBg/AnimatedBg';
 import ShowIcon from "../../assets/images/register-visible-icon.svg";
 import HideIcon from "../../assets/images/register-invisible-icon.svg";
@@ -56,6 +57,8 @@ export const ResetPasswordPage = () => {
       setMessage(response.data.message);
       setMessageType(response.data.success ? 'success' : 'error');
       if (response.data.success) {
+        // Set cookies here instead of localStorage
+        Cookies.set('resetPasswordMessage', response.data.message, { expires: 1 }); // Expires in 1 day
         navigate('/login');
       }
     } catch (error) {

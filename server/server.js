@@ -2,10 +2,10 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path');
+const cookieParser = require('cookie-parser'); 
 const emailRoutes = require('./src/routes/emailRoutes');
 const passwordResetRoutes = require('./src/routes/passwordResetRoutes');
 const rateLimit = require('express-rate-limit');
-const cookieParser = require('cookie-parser'); 
 const authRoutes = require('./src/routes/auth'); 
 const profileRoutes = require('./src/routes/profileRoutes'); 
 require('dotenv').config(); 
@@ -14,8 +14,14 @@ const app = express();
 
 // Middleware
 app.use(bodyParser.json());
-app.use(cookieParser());
-app.use(cors());
+app.use(cookieParser()); // Use cookie-parser middleware
+
+// Configure CORS
+const corsOptions = {
+  origin: 'http://localhost:3000', // Allow only this origin to access resources
+  credentials: true // Allow cookies to be sent along with requests
+};
+app.use(cors(corsOptions));
 
 // Apply rate limiting to all requests
 const limiter = rateLimit({

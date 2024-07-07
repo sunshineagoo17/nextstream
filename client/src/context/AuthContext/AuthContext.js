@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
+import Cookies from 'js-cookie';
 
 export const AuthContext = createContext();
 
@@ -7,31 +8,28 @@ export const AuthProvider = ({ children }) => {
   const [userId, setUserId] = useState(null);
 
   useEffect(() => {
-    const token = localStorage.getItem('token') || sessionStorage.getItem('token');
-    const storedUserId = localStorage.getItem('userId') || sessionStorage.getItem('userId');
+    const token = Cookies.get('token');
+    const storedUserId = Cookies.get('userId');
+    console.log('Initial token:', token);
+    console.log('Initial userId:', storedUserId);
     if (token && storedUserId) {
       setIsAuthenticated(true);
-      setUserId(storedUserId);
+      setUserId(parseInt(storedUserId)); // Parse userId as integer if necessary
     }
   }, []);
 
   const login = (token, userId, rememberMe) => {
-    if (rememberMe) {
-      localStorage.setItem('token', token);
-      localStorage.setItem('userId', userId);
-    } else {
-      sessionStorage.setItem('token', token);
-      sessionStorage.setItem('userId', userId);
-    }
+    console.log('Login token:', token);
+    console.log('Login userId:', userId);
+    Cookies.set('token', token, { expires: rememberMe ? 7 : null });
+    Cookies.set('userId', userId.toString(), { expires: rememberMe ? 7 : null }); 
     setIsAuthenticated(true);
-    setUserId(userId);
+    setUserId(userId); 
   };
 
   const logout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('userId');
-    sessionStorage.removeItem('token');
-    sessionStorage.removeItem('userId');
+    Cookies.remove('token');
+    Cookies.remove('userId');
     setIsAuthenticated(false);
     setUserId(null);
   };

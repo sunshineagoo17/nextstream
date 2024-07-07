@@ -10,13 +10,14 @@ import HideIcon from '../../assets/images/register-invisible-icon.svg';
 import NextStreamBg from '../../assets/images/nextstream-bg.jpg';
 import RegisterCouple from '../../assets/images/register-couple-logging-in.svg';
 import './RegisterPage.scss';
+import Cookies from 'js-cookie';
 
 export const RegisterPage = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [name, setName] = useState(localStorage.getItem('name') || '');
-  const [username, setUsername] = useState(localStorage.getItem('username') || '');
-  const [email, setEmail] = useState(localStorage.getItem('email') || '');
-  const [password, setPassword] = useState(localStorage.getItem('password') || '');
+  const [name, setName] = useState('');
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
   const [isValidName, setIsValidName] = useState(true);
   const [isValidUsername, setIsValidUsername] = useState(true);
@@ -28,11 +29,16 @@ export const RegisterPage = () => {
   const { login } = useContext(AuthContext);
 
   useEffect(() => {
-    // Load values from local storage
-    setName(localStorage.getItem('name') || '');
-    setUsername(localStorage.getItem('username') || '');
-    setEmail(localStorage.getItem('email') || '');
-    setPassword(localStorage.getItem('password') || '');
+    // Load values from cookies if they exist
+    const rememberedName = Cookies.get('name');
+    const rememberedUsername = Cookies.get('username');
+    const rememberedEmail = Cookies.get('email');
+    const rememberedPassword = Cookies.get('password');
+    
+    if (rememberedName) setName(rememberedName);
+    if (rememberedUsername) setUsername(rememberedUsername);
+    if (rememberedEmail) setEmail(rememberedEmail);
+    if (rememberedPassword) setPassword(rememberedPassword);
   }, []);
 
   const togglePasswordVisibility = () => {
@@ -87,11 +93,11 @@ export const RegisterPage = () => {
         const { userId, token } = response.data;
         login(token, true);
 
-        // Save input values to local storage
-        localStorage.setItem('name', name);
-        localStorage.setItem('username', username);
-        localStorage.setItem('email', email);
-        localStorage.setItem('password', password);
+        // Save input values to cookies
+        Cookies.set('name', name, { expires: 7 });
+        Cookies.set('username', username, { expires: 7 });
+        Cookies.set('email', email, { expires: 7 });
+        Cookies.set('password', password, { expires: 7 });
 
         navigate(`/profile/${userId}`);
       }

@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import api from '../../services/api'; 
+import React, { useState, useEffect, useContext } from 'react';
+import { AuthContext } from '../../context/AuthContext/AuthContext';
+import api from '../../services/api';
 import LocationIcon from '../../assets/images/profile-location.svg';
 import ShowIcon from '../../assets/images/register-visible-icon.svg';
 import HideIcon from '../../assets/images/register-invisible-icon.svg';
@@ -9,7 +9,7 @@ import SubscriptionStatus from './sections/SubscriptionStatus/SubscriptionStatus
 import './ProfilePage.scss';
 
 export const ProfilePage = () => {
-  const { userId } = useParams();
+  const { userId } = useContext(AuthContext); 
   const [user, setUser] = useState({});
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [currentPassword, setCurrentPassword] = useState('');
@@ -20,16 +20,19 @@ export const ProfilePage = () => {
   const [selectedRegion, setSelectedRegion] = useState('Choose your area...');
 
   useEffect(() => {
+    console.log('ProfilePage userId:', userId); 
     const fetchProfile = async () => {
       try {
-        const response = await api.get(`/api/profile/${userId}`); 
+        const response = await api.get(`/api/profile/${userId}`);
         setUser(response.data);
       } catch (error) {
         console.error('Error fetching profile:', error);
       }
     };
 
-    fetchProfile();
+    if (userId) {
+      fetchProfile();
+    }
   }, [userId]);
 
   const togglePasswordVisibility = () => {

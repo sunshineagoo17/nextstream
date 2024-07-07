@@ -1,58 +1,48 @@
+import { useContext } from 'react';
 import { useLocation } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext/AuthContext'; 
 
 const useMenuLinks = () => {
   const location = useLocation();
+  const { isAuthenticated } = useContext(AuthContext);
 
   const getMenuLinks = (path) => {
-    switch (path) {
-      case "/privacy-policy":
-        return [
-          { name: "Home", path: "/" },
-          { name: "Register", path: "/register" },
-          { name: "Stream Locator", path: "/stream-locator" },
-          { name: "Top Picks", path: "/top-picks" },
-          { name: "Calendar", path: "/calendar" },
-          { name: "Profile", path: "/profile" }
-        ];
-      case "/terms":
-        return [
-          { name: "Home", path: "/" },
-          { name: "Register", path: "/register" },
-          { name: "Stream Locator", path: "/stream-locator" },
-          { name: "Top Picks", path: "/top-picks" },
-          { name: "Calendar", path: "/calendar" },
-          { name: "Profile", path: "/profile" }
-        ];
-      case "/register":
-        return [
-          { name: "Home", path: "/" },
-          { name: "Stream Locator", path: "/stream-locator" },
-          { name: "Top Picks", path: "/top-picks" },
-          { name: "Calendar", path: "/calendar" },
-        ];
-      case "/login":
-        return [
-          { name: "Home", path: "/" },
-          { name: "Stream Locator", path: "/stream-locator" },
-          { name: "Top Picks", path: "/top-picks" },
-          { name: "Calendar", path: "/calendar" },
-        ];
-      case "/profile":
-        return [
-          { name: "Home", path: "/" },
-          { name: "Stream Locator", path: "/stream-locator" },
-          { name: "Top Picks", path: "/top-picks" },
-          { name: "Calendar", path: "/calendar" },
-        ];
-      case "/":
-      default:
-        return [
-          { name: "Register", path: "/register" },
-          { name: "Stream Locator", path: "/stream-locator" },
-          { name: "Top Picks", path: "/top-picks" },
-          { name: "Calendar", path: "/calendar" },
-          { name: "Profile", path: "/profile" }
-        ];
+    if (isAuthenticated) {
+      return [
+        { name: "Stream Locator", path: "/stream-locator" },
+        { name: "Top Picks", path: "/top-picks" },
+        { name: "Calendar", path: "/calendar" },
+        { name: "Profile", path: "/profile" }
+      ];
+    } else {
+      // User is not logged in, restrict access to certain pages
+      switch (path) {
+        case "/privacy-policy":
+        case "/terms":
+          return [
+            { name: "Home", path: "/" },
+            { name: "Register", path: "/register" },
+            { name: "Login", path: "/login" }
+          ];
+        case "/register":
+        case "/login":
+          return [
+            { name: "Home", path: "/" },
+            { name: "Stream Locator", path: "/stream-locator" },
+            { name: "Top Picks", path: "/top-picks" },
+            { name: "Calendar", path: "/calendar" },
+            { name: "Profile", path: "/profile" }
+          ];
+        case "/":
+        default:
+          return [
+            { name: "Register", path: "/register" },
+            { name: "Stream Locator", path: "/stream-locator" },
+            { name: "Top Picks", path: "/top-picks" },
+            { name: "Calendar", path: "/calendar" },
+            { name: "Profile", path: "/profile" }
+          ];
+      }
     }
   };
 

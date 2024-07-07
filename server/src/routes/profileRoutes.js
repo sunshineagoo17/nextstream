@@ -4,9 +4,9 @@ const knex = require('../config/db');
 const router = express.Router();
 
 // Get user profile
-router.get('/:userId', authenticate, async (req, res) => {
+router.get('/', authenticate, async (req, res) => {
   try {
-    const user = await knex('users').where({ id: req.params.userId }).first();
+    const user = await knex('users').where({ id: req.user.userId }).first();
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
