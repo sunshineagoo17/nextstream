@@ -24,6 +24,13 @@
     }
   }
 
+  &__error {
+    margin-bottom: 1rem;
+    font-size: .95rem;
+    text-align: center;
+    color: $feedback-error-peach;
+  }
+
   &__text-wrapper {
     border-radius: 0.5rem 0.5rem 0 0;
     border: 1px solid $primary-pale-blue;
