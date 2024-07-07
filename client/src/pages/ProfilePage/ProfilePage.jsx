@@ -227,14 +227,14 @@ export const ProfilePage = () => {
                 <div className="profile__notification-item">
                   <ToggleButton
                     checked={receiveReminders}
-                    onChange={setReceiveReminders}
+                    onChange={(checked) => setReceiveReminders(checked)}
                   />
                   <p className="profile__notification-text">Receive reminders for scheduled shows/movies</p>
                 </div>
                 <div className="profile__notification-item">
                   <ToggleButton
                     checked={receiveNotifications}
-                    onChange={setReceiveNotifications}
+                    onChange={(checked) => setReceiveNotifications(checked)}
                   />
                   <p className="profile__notification-text">Receive notifications for new recommendations</p>
                 </div>

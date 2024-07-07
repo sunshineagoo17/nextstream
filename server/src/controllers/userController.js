@@ -10,8 +10,12 @@ const getProfile = async (req, res) => {
     }
     res.json({
       userId: user.id,
+      name: user.name,
       username: user.username,
       email: user.email,
+      receiveReminders: user.receiveReminders,
+      receiveNotifications: user.receiveNotifications,
+      region: user.region
     });
   } catch (err) {
     res.status(500).json({ message: 'Error fetching user profile', error: err.message });
@@ -21,10 +25,14 @@ const getProfile = async (req, res) => {
 // Update user profile
 const updateProfile = async (req, res) => {
   try {
-    const { username, email, password } = req.body;
+    const { name, username, email, password, receiveReminders, receiveNotifications, region } = req.body;
     const updates = {};
+    if (name) updates.name = name;
     if (username) updates.username = username;
     if (email) updates.email = email;
+    if (receiveReminders !== undefined) updates.receiveReminders = receiveReminders;
+    if (receiveNotifications !== undefined) updates.receiveNotifications = receiveNotifications;
+    if (region) updates.region = region;
     if (password) updates.password = await bcrypt.hash(password, 10);
 
     await User.updateUser(req.user.id, updates);
