@@ -48,7 +48,7 @@ export const ProfilePage = () => {
         <div className="profile__background-bottom"></div>
       </div>
       <div className="profile__main">
-        <h1 className="profile__title">Your Profile</h1>
+        <h1 className="profile__title">{user.name}'s Profile</h1>
         
         <div className="profile__card">
           <div className="profile__content-details">
