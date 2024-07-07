@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AnimatedBg from '../../components/AnimatedBg/AnimatedBg';
 import './NotFound.scss';
-
+import Loader from '../../components/Loader/Loader';
 import AlienAbductionImage from "../../assets/images/404-alien-abduction.jpg";
 import DeveloperImage from "../../assets/images/404-developer-sleeping.jpg";
 import MatrixImage from "../../assets/images/404-matrix.jpg";
@@ -32,6 +32,7 @@ const imageArr = [
 ];
 
 export const NotFound = () => {
+    const [isLoading, setIsLoading] = useState(true);
     const navigate = useNavigate();
 
     const getNextOption = useCallback(() => {
@@ -57,28 +58,36 @@ export const NotFound = () => {
         navigate('/');
     };
 
+    useEffect(() => {
+        // Set isLoading to false after component mounts
+        setIsLoading(false);
+    }, []);
+
     return (
-        <div className="not-found">
-            <div className="not-found__container">
-                <div className="not-found__content-card">
-                    <h1 className="not-found__title">Page Not Found</h1>
-                    <p className="not-found__intro">Looks like we've hit a snag!</p>
-                    <p className="not-found__text">
-                        {currentOption?.copy} Don't worry, you can find plenty of other awesome things to check out on our{" "}
-                        <button className="not-found__homepage-link" onClick={handleNextOptionClick} aria-label="Go back to Homepage">
-                            homepage
-                        </button>
-                        .
-                    </p>
-                    <div className="not-found__graphic-container">
-                        <img src={currentOption?.image} alt="404 graphic" className="not-found__graphic" />
+        <>
+            {isLoading && <Loader />}
+            <div className="not-found">
+                <div className="not-found__container">
+                    <div className="not-found__content-card">
+                        <h1 className="not-found__title">Page Not Found</h1>
+                        <p className="not-found__intro">Looks like we've hit a snag!</p>
+                        <p className="not-found__text">
+                            {currentOption?.copy} Don't worry, you can find plenty of other awesome things to check out on our{" "}
+                            <button className="not-found__homepage-link" onClick={handleNextOptionClick} aria-label="Go back to Homepage">
+                                homepage
+                            </button>
+                            .
+                        </p>
+                        <div className="not-found__graphic-container">
+                            <img src={currentOption?.image} alt="404 graphic" className="not-found__graphic" />
+                        </div>
                     </div>
                 </div>
+                <div className="not-found__background">
+                    <AnimatedBg />
+                </div>
             </div>
-            <div className="not-found__background">
-                <AnimatedBg />
-            </div>
-        </div>
+        </>
     );
 };
 

@@ -10,10 +10,12 @@ import ArrowIcon from '../../assets/images/register-arrow-icon.svg';
 import SignUpIcon from '../../assets/images/register-sign-up-icon.svg';
 import SignInCouple from '../../assets/images/login-hero-couple-watching.svg';
 import ForgotPasswordModal from '../../components/ForgotPasswordModal/ForgotPasswordModal';
+import Loader from '../../components/Loader/Loader';
 import './LoginPage.scss';
 import Cookies from 'js-cookie';
 
 export const LoginPage = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -31,7 +33,10 @@ export const LoginPage = () => {
       setPassword(storedPassword);
       setRememberMe(true);
     }
-  }, []);
+
+    // Set isLoading to false after component mounts
+    setIsLoading(false);
+}, []);
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -54,33 +59,36 @@ export const LoginPage = () => {
 
     const userData = { email, password };
     try {
-      const response = await api.post('/api/auth/login', userData);
-      console.log('Login response:', response); // Log the entire response object
-      if (response.data.token) {
-        // Assuming login function handles setting up user session
-        login(response.data.token, response.data.userId, rememberMe);
+        setIsLoading(true);
+        const response = await api.post('/api/auth/login', userData);
+        console.log('Login response:', response); // Log the entire response object
+        if (response.data.token) {
+            // Assuming login function handles setting up user session
+            login(response.data.token, response.data.userId, rememberMe);
 
-        if (rememberMe) {
-          Cookies.set('token', response.data.token, { expires: 7, secure: true, sameSite: 'strict' });
-          Cookies.set('userId', response.data.userId, { expires: 7, secure: true, sameSite: 'strict' });
+            if (rememberMe) {
+                Cookies.set('token', response.data.token, { expires: 7, secure: true, sameSite: 'strict' });
+                Cookies.set('userId', response.data.userId, { expires: 7, secure: true, sameSite: 'strict' });
+            } else {
+                Cookies.remove('token');
+                Cookies.remove('userId');
+            }
+
+            console.log('Navigating to profile page'); // Add this log to track navigation
+            navigate(`/profile/${response.data.userId}`);
         } else {
-          Cookies.remove('token');
-          Cookies.remove('userId');
+            console.log('Login failed: Token missing in response');
+            setErrors({ general: 'Login failed. Please try again.' });
         }
-
-        console.log('Navigating to profile page'); // Add this log to track navigation
-        navigate(`/profile/${response.data.userId}`);
-      } else {
-        console.log('Login failed: Token missing in response');
-        setErrors({ general: 'Login failed. Please try again.' });
-      }
     } catch (error) {
-      console.error('Login error:', error);
-      if (error.response && error.response.data && error.response.data.message) {
-        setErrors({ general: error.response.data.message });
-      } else {
-        setErrors({ general: 'An error occurred. Please try again.' });
-      }
+        console.error('Login error:', error);
+        if (error.response && error.response.data && error.response.data.message) {
+            setErrors({ general: error.response.data.message });
+        } else {
+            setErrors({ general: 'An error occurred. Please try again.' });
+        }
+    } finally {
+        setIsLoading(false);
     }
   };
 
@@ -97,97 +105,100 @@ export const LoginPage = () => {
   };
 
   return (
-    <div className="login">
-      <div className="login__hero">
-        <h1 className="login__title">Login</h1>
-      </div>
-      <div className="login__bg" style={{ backgroundImage: `url(${NextStreamBg})` }}></div>
-      <div className="login__container">
-        <div className="login__content-card">
-          <div className="login__input-section">
-            <div className="login__inputs">
-              <div className="login__input-group">
-                <input
-                  className="login__input"
-                  id="input-email"
-                  placeholder="Enter your email"
-                  type="text"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-                <label className="login__label" htmlFor="input-email">
-                  Email
-                </label>
-                {errors.email && <p className="error">{errors.email}</p>}
-              </div>
-              <div className="login__input-group login__input-group--password">
-                <input
-                  className="login__input"
-                  id="input-password"
-                  placeholder="Enter your password"
-                  type={passwordVisible ? 'text' : 'password'}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                <label className="login__label" htmlFor="input-password">
-                  Password
-                </label>
-                <button
-                  type="button"
-                  className="login__password-toggle"
-                  onClick={togglePasswordVisibility}
-                  aria-label={passwordVisible ? 'Hide password' : 'Show password'}
-                >
-                  <img src={passwordVisible ? HideIcon : ShowIcon} alt="Toggle visibility" className="login__password-toggle-icon" />
-                </button>
-                {errors.password && <p className="error">{errors.password}</p>}
-              </div>
-            </div>
-            <label className="login__checkbox">
-              <input
-                type="checkbox"
-                className="login__checkbox-box"
-                checked={rememberMe}
-                onChange={handleCheckboxChange}
-              />
-              <p className="login__remember-txt">Remember Me</p>
-            </label>
-            <p className="login__forgot-password-link" onClick={openForgotPasswordModal}>Forgot Password?</p>
-            <div className="login__button-group">
-              <button className="login__button login__button--previous" onClick={goToPreviousPage}>
-                <img src={ArrowIcon} className="previous__button-icon" alt="Arrow Icon" />
-                <span>Previous</span>
-              </button>
-              <button className="login__button login__button--signin" onClick={handleSignIn}>
-                <img src={SignUpIcon} className="login__button-icon" alt="Sign In Icon" />
-                <span>Sign In</span>
-              </button>
-            </div>
-
-            <div className="login__btn-create-account-wrapper">
-              <Link to="/register" aria-label="Create a NextStream Account" className="login__btn-create-account-container">
-                <div className="login__btn-create-account-bg"></div>
-                <div className="login__btn-create-account">
-                  <span className="login__btn-create-account-txt">Create an Account</span>
+    <>
+      {isLoading && <Loader />}
+      <div className="login">
+        <div className="login__hero">
+          <h1 className="login__title">Login</h1>
+        </div>
+        <div className="login__bg" style={{ backgroundImage: `url(${NextStreamBg})` }}></div>
+        <div className="login__container">
+          <div className="login__content-card">
+            <div className="login__input-section">
+              <div className="login__inputs">
+                <div className="login__input-group">
+                  <input
+                    className="login__input"
+                    id="input-email"
+                    placeholder="Enter your email"
+                    type="text"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                  <label className="login__label" htmlFor="input-email">
+                    Email
+                  </label>
+                  {errors.email && <p className="error">{errors.email}</p>}
                 </div>
-              </Link>
-            </div>
-
-            {errors.general && (
-              <div className="login__error-container">
-                <img src={ErrorIcon} className="login__error-icon" alt="error icon" />
-                <p className="error">{errors.general}</p>
+                <div className="login__input-group login__input-group--password">
+                  <input
+                    className="login__input"
+                    id="input-password"
+                    placeholder="Enter your password"
+                    type={passwordVisible ? 'text' : 'password'}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                  <label className="login__label" htmlFor="input-password">
+                    Password
+                  </label>
+                  <button
+                    type="button"
+                    className="login__password-toggle"
+                    onClick={togglePasswordVisibility}
+                    aria-label={passwordVisible ? 'Hide password' : 'Show password'}
+                  >
+                    <img src={passwordVisible ? HideIcon : ShowIcon} alt="Toggle visibility" className="login__password-toggle-icon" />
+                  </button>
+                  {errors.password && <p className="error">{errors.password}</p>}
+                </div>
               </div>
-            )}
+              <label className="login__checkbox">
+                <input
+                  type="checkbox"
+                  className="login__checkbox-box"
+                  checked={rememberMe}
+                  onChange={handleCheckboxChange}
+                />
+                <p className="login__remember-txt">Remember Me</p>
+              </label>
+              <p className="login__forgot-password-link" onClick={openForgotPasswordModal}>Forgot Password?</p>
+              <div className="login__button-group">
+                <button className="login__button login__button--previous" onClick={goToPreviousPage}>
+                  <img src={ArrowIcon} className="previous__button-icon" alt="Arrow Icon" />
+                  <span>Previous</span>
+                </button>
+                <button className="login__button login__button--signin" onClick={handleSignIn}>
+                  <img src={SignUpIcon} className="login__button-icon" alt="Sign In Icon" />
+                  <span>Sign In</span>
+                </button>
+              </div>
 
+              <div className="login__btn-create-account-wrapper">
+                <Link to="/register" aria-label="Create a NextStream Account" className="login__btn-create-account-container">
+                  <div className="login__btn-create-account-bg"></div>
+                  <div className="login__btn-create-account">
+                    <span className="login__btn-create-account-txt">Create an Account</span>
+                  </div>
+                </Link>
+              </div>
+
+              {errors.general && (
+                <div className="login__error-container">
+                  <img src={ErrorIcon} className="login__error-icon" alt="error icon" />
+                  <p className="error">{errors.general}</p>
+                </div>
+              )}
+
+            </div>
+          </div>
+          <div className="login__image-card">
+            <img src={SignInCouple} alt="Logging in Couple" />
           </div>
         </div>
-        <div className="login__image-card">
-          <img src={SignInCouple} alt="Logging in Couple" />
-        </div>
+        {isForgotPasswordModalOpen && <ForgotPasswordModal onClose={closeForgotPasswordModal} />}
       </div>
-      {isForgotPasswordModalOpen && <ForgotPasswordModal onClose={closeForgotPasswordModal} />}
-    </div>
+    </>
   );
 };
 
