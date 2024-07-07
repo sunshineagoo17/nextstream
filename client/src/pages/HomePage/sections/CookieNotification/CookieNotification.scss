@@ -5,39 +5,42 @@
 @use "../../../../styles/global.scss" as *;
 
 .cookie-notification {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background: rgba(255, 255, 255, 0.7); /* Frosted glass effect */
-    backdrop-filter: blur(10px);
-    color: white;
-    padding: 1rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
-    transition: opacity 0.5s ease-in-out;
-  
-    &__message {
-      margin: 0;
-      font-size: 0.875rem;
-      text-align: center;
-      color: black; /* Make text black for readability */
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  color: $neutral-white;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+  transition: opacity 0.5s ease-in-out;
+
+  &__message {
+    margin: 0;
+    font-size: 0.875rem;
+    text-align: center;
+    color: $neutral-black;
+  }
+
+  &__close-btn {
+    background: none;
+    border: none;
+    color: $neutral-black;
+    font-size: 1.5rem;
+    margin-left: 1rem;
+    cursor: pointer;
+    transition: transform 0.1s ease;
+
+    &:hover {
+      color: $primary-medium-blue;
     }
-  
-    &__close-btn {
-      background: none;
-      border: none;
-      color: black;
-      font-size: 1.5rem;
-      margin-left: 1rem;
-      cursor: pointer;
-      transition: color 0.3s ease;
-  
-      &:hover {
-        color: $feedback-error-red;
-      }
+
+    &:active {
+      transform: scale(0.85);
     }
   }
-  
+}
