@@ -514,3 +514,23 @@
     left: auto;
   }
 }
+
+.save-message {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 0.5rem;
+  text-align: center;
+  box-shadow: $shadow-primary;
+
+  &.success {
+    background-color: rgba($feedback-mint-light-green, 0.8); 
+    color: $toast-success;
+    border: 3px solid $feedback-mint-green;
+  }
+
+  &.error {
+    background-color: rgba($feedback-error-light-peach, 0.8); 
+    color: $feedback-error-label;
+    border: 1px solid $feedback-error-peach;
+  }
+}

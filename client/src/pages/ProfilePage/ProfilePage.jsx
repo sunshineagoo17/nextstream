@@ -57,7 +57,7 @@ export const ProfilePage = () => {
     if (!user.name) newErrors.name = 'Name is required';
     if (!user.username) newErrors.username = 'Username is required';
     if (!user.email) newErrors.email = 'Email is required';
-    if (newPassword && newPassword.length < 8) newErrors.newPassword = 'Password must be at least 8 characters';
+    if (newPassword && newPassword.length < 8) newErrors.newPassword = 'Password must be 8+ chars';
     if (newPassword !== confirmPassword) newErrors.confirmPassword = 'Passwords do not match';
 
     setErrors(newErrors);
@@ -82,7 +82,7 @@ export const ProfilePage = () => {
 
     try {
       await api.put(`/api/profile/${userId}`, updatedUser);
-      setSaveMessage('Profile updated successfully!');
+      setSaveMessage({ text: 'Profile updated successfully!', className: 'success' });
 
       if (newPassword) {
         setCurrentPassword(newPassword);
@@ -91,7 +91,7 @@ export const ProfilePage = () => {
       }
     } catch (error) {
       console.error('Error updating profile:', error);
-      setSaveMessage('Error updating profile. Please try again.');
+      setSaveMessage({ text: 'Error updating profile. Please try again.', className: 'error' });
     }
   };
 
@@ -309,12 +309,16 @@ export const ProfilePage = () => {
               </div>
 
               <div className="profile__btn-save-account-wrapper">
-                  <div className="profile__btn-save-account-bg"></div>
-                  <button className="profile__btn-save-account" onClick={handleSave}>
-                    <span className="profile__btn-save-account-txt">Save</span>
-                  </button>
+              <div className="profile__btn-save-account-bg"></div>
+              <button className="profile__btn-save-account" onClick={handleSave}>
+                <span className="profile__btn-save-account-txt">Save</span>
+              </button>
+            </div>
+            {saveMessage.text && (
+              <div className={`save-message ${saveMessage.className}`}>
+                <p className="save-message__text">{saveMessage.text}</p>
               </div>
-              {saveMessage && <p className="profile__save-message">{saveMessage}</p>}
+            )}
           </div>
         </div>
       </div>
