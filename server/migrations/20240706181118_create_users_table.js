@@ -12,6 +12,7 @@ exports.up = function(knex) {
     table.boolean('receiveReminders').defaultTo(false); 
     table.boolean('receiveNotifications').defaultTo(false); 
     table.string('region').defaultTo(''); 
+    table.boolean('isSubscribed').defaultTo(false); 
     table.timestamps(true, true);
   });
 };

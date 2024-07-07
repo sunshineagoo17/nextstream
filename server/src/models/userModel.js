@@ -36,13 +36,14 @@ const createUser = async (user) => {
     try {
         const hashedPassword = await bcrypt.hash(user.password, 10);
         const [id] = await db('users').insert({
-            name: user.name,
             username: user.username,
             email: user.email,
             password: hashedPassword,
-            receiveReminders: user.receiveReminders || false,
-            receiveNotifications: user.receiveNotifications || false,
-            region: user.region || ''
+            receiveReminders: user.receiveReminders,
+            receiveNotifications: user.receiveNotifications,
+            region: user.region,
+            isSubscribed: user.isSubscribed,
+            isActive: user.isActive // Add isActive field
         });
         return getUserById(id);
     } catch (error) {
@@ -67,10 +68,23 @@ const updateUser = async (id, user) => {
     }
 };
 
+// Delete a user's profile
+const deleteUser = async (id) => {
+    try {
+        await db('users')
+            .where({ id })
+            .del();
+    } catch (error) {
+        console.error('Error deleting user:', error);
+        throw error;
+    }
+};
+
 module.exports = {
     getAllUsers,
     getUserByEmail,
     getUserById,
     createUser,
     updateUser,
+    deleteUser
 };

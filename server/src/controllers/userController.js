@@ -15,7 +15,9 @@ const getProfile = async (req, res) => {
       email: user.email,
       receiveReminders: user.receiveReminders,
       receiveNotifications: user.receiveNotifications,
-      region: user.region
+      region: user.region,
+      isSubscribed: user.isSubscribed,
+      isActive: user.isActive 
     });
   } catch (err) {
     res.status(500).json({ message: 'Error fetching user profile', error: err.message });
@@ -25,7 +27,7 @@ const getProfile = async (req, res) => {
 // Update user profile
 const updateProfile = async (req, res) => {
   try {
-    const { name, username, email, password, receiveReminders, receiveNotifications, region } = req.body;
+    const { name, username, email, password, receiveReminders, receiveNotifications, region, isSubscribed, isActive } = req.body;
     const updates = {};
     if (name) updates.name = name;
     if (username) updates.username = username;
@@ -33,6 +35,8 @@ const updateProfile = async (req, res) => {
     if (receiveReminders !== undefined) updates.receiveReminders = receiveReminders;
     if (receiveNotifications !== undefined) updates.receiveNotifications = receiveNotifications;
     if (region) updates.region = region;
+    if (isSubscribed !== undefined) updates.isSubscribed = isSubscribed;
+    if (isActive !== undefined) updates.isActive = isActive; 
     if (password) updates.password = await bcrypt.hash(password, 10);
 
     await User.updateUser(req.user.id, updates);
@@ -42,7 +46,23 @@ const updateProfile = async (req, res) => {
   }
 };
 
+// Delete user profile
+const deleteUser = async (req, res) => {
+  try {
+    const user = await User.getUserById(req.user.id);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    await User.deleteUser(req.user.id);
+    res.json({ message: 'User account deleted successfully' });
+  } catch (err) {
+    res.status(500).json({ message: 'Error deleting account', error: err.message });
+  }
+};
+
 module.exports = {
   getProfile,
   updateProfile,
+  deleteUser
 };

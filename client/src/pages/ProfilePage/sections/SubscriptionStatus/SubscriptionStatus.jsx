@@ -2,16 +2,21 @@ import React, { useState } from 'react';
 import './SubscriptionStatus.scss';
 import checkmarkIcon from '../../../../assets/images/checkmark-icon.svg'; 
 
-const SubscriptionStatus = () => {
-  const [isActive, setIsActive] = useState(false);
+const SubscriptionStatus = ({ isSubscribed, onSubscriptionChange, onDeleteAccount }) => {
+  const [isActive, setIsActive] = useState(isSubscribed);
   const [deleteAccount, setDeleteAccount] = useState(false);
 
   const toggleActiveStatus = () => {
-    setIsActive(!isActive);
+    const newStatus = !isActive;
+    setIsActive(newStatus);
+    onSubscriptionChange(newStatus);
   };
 
   const handleDeleteAccount = () => {
     setDeleteAccount(!deleteAccount);
+    if (!deleteAccount) {
+      onDeleteAccount();
+    }
   };
 
   return (

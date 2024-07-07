@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
+import { useNavigate } from 'react-router-dom';
 import api from '../../services/api';
 import LocationIcon from '../../assets/images/profile-location.svg';
 import ShowIcon from '../../assets/images/register-visible-icon.svg';
@@ -10,7 +11,8 @@ import Loader from '../../components/Loader/Loader';
 import './ProfilePage.scss';
 
 export const ProfilePage = () => {
-  const { userId } = useContext(AuthContext); 
+  const { userId, logout } = useContext(AuthContext); 
+  const navigate = useNavigate();
   const [user, setUser] = useState({});
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [currentPassword, setCurrentPassword] = useState('');
@@ -19,6 +21,7 @@ export const ProfilePage = () => {
   const [receiveReminders, setReceiveReminders] = useState(false);
   const [receiveNotifications, setReceiveNotifications] = useState(false);
   const [selectedRegion, setSelectedRegion] = useState('Choose your area...');
+  const [isSubscribed, setIsSubscribed] = useState(true); 
   const [isLoading, setIsLoading] = useState(true);
   const [saveMessage, setSaveMessage] = useState('');
   const [errors, setErrors] = useState({});
@@ -31,6 +34,7 @@ export const ProfilePage = () => {
         setReceiveReminders(response.data.receiveReminders);
         setReceiveNotifications(response.data.receiveNotifications);
         setSelectedRegion(response.data.region);
+        setIsSubscribed(response.data.isSubscribed); 
       } catch (error) {
         console.error('Error fetching profile:', error);
       } finally {
@@ -69,6 +73,7 @@ export const ProfilePage = () => {
       receiveReminders,
       receiveNotifications,
       region: selectedRegion,
+      isSubscribed
     };
 
     if (newPassword) {
@@ -87,6 +92,25 @@ export const ProfilePage = () => {
     } catch (error) {
       console.error('Error updating profile:', error);
       setSaveMessage('Error updating profile. Please try again.');
+    }
+  };
+
+  const handleSubscriptionChange = (newStatus) => {
+    setIsSubscribed(newStatus);
+    if (!newStatus) {
+      setReceiveReminders(false);
+      setReceiveNotifications(false);
+    }
+  };
+
+  const handleDeleteAccount = async () => {
+    try {
+      await api.delete(`/api/profile/${userId}`);
+      logout();
+      navigate('/');
+    } catch (error) {
+      console.error('Error deleting account:', error);
+      setSaveMessage('Error deleting account. Please try again.');
     }
   };
 
@@ -247,7 +271,11 @@ export const ProfilePage = () => {
                   </div>
                   <div className="profile__subscription-status-wrapper">    
                       <div className="profile__content-subscription">
-                          <SubscriptionStatus />
+                          <SubscriptionStatus
+                            isSubscribed={isSubscribed}
+                            onSubscriptionChange={handleSubscriptionChange}
+                            onDeleteAccount={handleDeleteAccount}
+                          />
                       </div>
                   </div>
               </div>
