@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import api from '../../services/api'; 
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import SignUpIcon from '../../assets/images/register-sign-up-icon.svg';
@@ -29,7 +28,6 @@ export const RegisterPage = () => {
   const { login } = useContext(AuthContext);
 
   useEffect(() => {
-    // Load values from cookies if they exist
     const rememberedName = Cookies.get('name');
     const rememberedUsername = Cookies.get('username');
     const rememberedEmail = Cookies.get('email');
@@ -91,7 +89,7 @@ export const RegisterPage = () => {
       const response = await api.post('/api/auth/register', userData); 
       if (response.data.success) {
         const { userId, token } = response.data;
-        login(token, true);
+        login(token, userId, true); // Fix here
 
         // Save input values to cookies
         Cookies.set('name', name, { expires: 7 });
@@ -102,6 +100,7 @@ export const RegisterPage = () => {
         navigate(`/profile/${userId}`);
       }
     } catch (error) {
+      console.error('Registration error:', error); // Log the error
       if (error.response && error.response.data && error.response.data.errors) {
         setErrors(error.response.data.errors);
       } else {
@@ -128,7 +127,7 @@ export const RegisterPage = () => {
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  onBlur={validateName} // Validate on blur
+                  onBlur={validateName}
                 />
                 <label className="register__label" htmlFor="input-name">
                   Name
@@ -143,7 +142,7 @@ export const RegisterPage = () => {
                   type="text"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  onBlur={validateUsername} // Validate on blur
+                  onBlur={validateUsername}
                 />
                 <label className="register__label" htmlFor="input-username">
                   Username
@@ -158,7 +157,7 @@ export const RegisterPage = () => {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  onBlur={validateEmail} // Validate on blur
+                  onBlur={validateEmail}
                 />
                 <label className="register__label" htmlFor="input-email">
                   Email
@@ -173,7 +172,7 @@ export const RegisterPage = () => {
                   type={passwordVisible ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  onBlur={validatePassword} // Validate on blur
+                  onBlur={validatePassword}
                 />
                 <label className="register__label" htmlFor="input-password">
                   Password
