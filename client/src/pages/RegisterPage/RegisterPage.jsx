@@ -73,6 +73,14 @@ export const RegisterPage = () => {
     }
   };
 
+  const clearError = (field) => {
+    setErrors((prevErrors) => {
+      const newErrors = { ...prevErrors };
+      delete newErrors[field];
+      return newErrors;
+    });
+  };
+
   const handleSignUp = async () => {
     validateName();
     validateUsername();
@@ -154,7 +162,10 @@ export const RegisterPage = () => {
                   placeholder="Enter your name"
                   type="text"
                   value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  onChange={(e) => {
+                    setName(e.target.value);
+                    clearError('name');
+                  }}
                   onBlur={validateName}
                 />
                 <label className="register__label" htmlFor="input-name">
@@ -169,7 +180,10 @@ export const RegisterPage = () => {
                   placeholder="Enter your username"
                   type="text"
                   value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  onChange={(e) => {
+                    setUsername(e.target.value);
+                    clearError('username');
+                  }}
                   onBlur={validateUsername}
                 />
                 <label className="register__label" htmlFor="input-username">
@@ -184,7 +198,10 @@ export const RegisterPage = () => {
                   placeholder="Enter your email address"
                   type="email"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                    clearError('email');
+                  }}
                   onBlur={validateEmail}
                 />
                 <label className="register__label" htmlFor="input-email">
@@ -200,7 +217,10 @@ export const RegisterPage = () => {
                   placeholder="Enter your password"
                   type={passwordVisible ? "text" : "password"}
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                    clearError('password');
+                  }}
                   onBlur={validatePassword}
                 />
                 <label className="register__label" htmlFor="input-password">
