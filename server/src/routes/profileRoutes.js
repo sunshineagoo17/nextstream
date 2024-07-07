@@ -11,7 +11,7 @@ router.get('/:userId', authenticate, async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
-    res.json({ id: user.id, name: user.name, username: user.username, email: user.email });
+    res.json({ id: user.id, name: user.name, username: user.username, email: user.email, receiveReminders: user.receiveReminders, receiveNotifications: user.receiveNotifications, region: user.region });
   } catch (error) {
     console.error('Error fetching profile:', error);
     res.status(500).json({ message: 'Error fetching profile' });
@@ -20,11 +20,14 @@ router.get('/:userId', authenticate, async (req, res) => {
 
 // Update user profile
 router.put('/:userId', authenticate, async (req, res) => {
-  const { name, username, email, password } = req.body;
+  const { name, username, email, password, receiveReminders, receiveNotifications, region } = req.body;
   const updatedUser = {
     name,
     username,
     email,
+    receiveReminders,
+    receiveNotifications,
+    region
   };
 
   if (password) {

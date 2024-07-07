@@ -21,6 +21,7 @@ export const ProfilePage = () => {
   const [selectedRegion, setSelectedRegion] = useState('Choose your area...');
   const [isLoading, setIsLoading] = useState(true);
   const [saveMessage, setSaveMessage] = useState('');
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -47,6 +48,20 @@ export const ProfilePage = () => {
   };
 
   const handleSave = async () => {
+    const newErrors = {};
+
+    if (!user.name) newErrors.name = 'Name is required';
+    if (!user.username) newErrors.username = 'Username is required';
+    if (!user.email) newErrors.email = 'Email is required';
+    if (newPassword && newPassword.length < 8) newErrors.newPassword = 'Password must be at least 8 characters';
+    if (newPassword !== confirmPassword) newErrors.confirmPassword = 'Passwords do not match';
+
+    setErrors(newErrors);
+
+    if (Object.keys(newErrors).length > 0) {
+      return;
+    }
+
     const updatedUser = {
       name: user.name,
       username: user.username,
@@ -55,6 +70,10 @@ export const ProfilePage = () => {
       receiveNotifications,
       region: selectedRegion,
     };
+
+    if (newPassword) {
+      updatedUser.password = newPassword;
+    }
 
     try {
       await api.put(`/api/profile/${userId}`, updatedUser);
@@ -99,6 +118,7 @@ export const ProfilePage = () => {
                     <label className="profile__label" htmlFor="input-name">
                       Name
                     </label>
+                    {errors.name && <p className="error">{errors.name}</p>}
                   </div>
                   <div className="profile__input-group">
                     <input
@@ -112,6 +132,7 @@ export const ProfilePage = () => {
                     <label className="profile__label" htmlFor="input-username">
                       Username
                     </label>
+                    {errors.username && <p className="error">{errors.username}</p>}
                   </div>
                   <div className="profile__input-group">
                     <input
@@ -125,6 +146,7 @@ export const ProfilePage = () => {
                     <label className="profile__label" htmlFor="input-email">
                       Email Address
                     </label>
+                    {errors.email && <p className="error">{errors.email}</p>}
                   </div>
                 </div>
               </div>
@@ -171,6 +193,7 @@ export const ProfilePage = () => {
                     <label className="profile__label" htmlFor="input-new-password">
                       New Password
                     </label>
+                    {errors.newPassword && <p className="error">{errors.newPassword}</p>}
                   </div>
                   <div className="profile__input-group">
                     <input
@@ -184,6 +207,7 @@ export const ProfilePage = () => {
                     <label className="profile__label" htmlFor="input-confirm-password">
                       Confirm Password
                     </label>
+                    {errors.confirmPassword && <p className="error">{errors.confirmPassword}</p>}
                   </div>
                 </div>
               </div>
