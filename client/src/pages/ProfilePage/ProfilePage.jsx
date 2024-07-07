@@ -59,6 +59,10 @@ export const ProfilePage = () => {
     setSaveMessage({ text: '', className: '' });
   };
 
+  const clearErrors = () => {
+    setErrors({});
+  };
+
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
@@ -160,7 +164,7 @@ export const ProfilePage = () => {
                       placeholder="Enter your name"
                       type="text"
                       value={user.name || ''}
-                      onChange={(e) => { setUser({ ...user, name: e.target.value }); clearSaveMessage(); }}
+                      onChange={(e) => { setUser({ ...user, name: e.target.value }); clearSaveMessage(); clearErrors(); }}
                     />
                     <label className="profile__label" htmlFor="input-name">
                       Name
@@ -174,7 +178,7 @@ export const ProfilePage = () => {
                       placeholder="Enter your username"
                       type="text"
                       value={user.username || ''}
-                      onChange={(e) => { setUser({ ...user, username: e.target.value }); clearSaveMessage(); }}
+                      onChange={(e) => { setUser({ ...user, username: e.target.value }); clearSaveMessage(); clearErrors(); }}
                     />
                     <label className="profile__label" htmlFor="input-username">
                       Username
@@ -188,7 +192,7 @@ export const ProfilePage = () => {
                       placeholder="Enter your email address"
                       type="email"
                       value={user.email || ''}
-                      onChange={(e) => { setUser({ ...user, email: e.target.value }); clearSaveMessage(); }}
+                      onChange={(e) => { setUser({ ...user, email: e.target.value }); clearSaveMessage(); clearErrors(); }}
                     />
                     <label className="profile__label" htmlFor="input-email">
                       Email Address
@@ -214,7 +218,7 @@ export const ProfilePage = () => {
                       placeholder="Enter current password"
                       type={passwordVisible ? 'text' : 'password'}
                       value={currentPassword}
-                      onChange={(e) => { setCurrentPassword(e.target.value); clearSaveMessage(); }}
+                      onChange={(e) => { setCurrentPassword(e.target.value); clearSaveMessage(); clearErrors(); }}
                     />
                     <label className="profile__label" htmlFor="input-current-password">
                       Current Password
@@ -235,7 +239,7 @@ export const ProfilePage = () => {
                       placeholder="Choose a new password"
                       type={passwordVisible ? 'text' : 'password'}
                       value={newPassword}
-                      onChange={(e) => { setNewPassword(e.target.value); clearSaveMessage(); }}
+                      onChange={(e) => { setNewPassword(e.target.value); clearSaveMessage(); clearErrors(); }}
                     />
                     <label className="profile__label" htmlFor="input-new-password">
                       New Password
@@ -249,7 +253,7 @@ export const ProfilePage = () => {
                       placeholder="Re-enter new password"
                       type={passwordVisible ? 'text' : 'password'}
                       value={confirmPassword}
-                      onChange={(e) => { setConfirmPassword(e.target.value); clearSaveMessage(); }}
+                      onChange={(e) => { setConfirmPassword(e.target.value); clearSaveMessage(); clearErrors(); }}
                     />
                     <label className="profile__label" htmlFor="input-confirm-password">
                       Confirm Password
@@ -268,14 +272,14 @@ export const ProfilePage = () => {
                 <div className="profile__notification-item">
                   <ToggleButton
                     checked={receiveReminders}
-                    onChange={(checked) => { setReceiveReminders(checked); clearSaveMessage(); }}
+                    onChange={(checked) => { setReceiveReminders(checked); clearSaveMessage(); clearErrors(); }}
                   />
                   <p className="profile__notification-text">Receive reminders for scheduled shows/movies</p>
                 </div>
                 <div className="profile__notification-item">
                   <ToggleButton
                     checked={receiveNotifications}
-                    onChange={(checked) => { setReceiveNotifications(checked); clearSaveMessage(); }}
+                    onChange={(checked) => { setReceiveNotifications(checked); clearSaveMessage(); clearErrors(); }}
                   />
                   <p className="profile__notification-text">Receive notifications for new recommendations</p>
                 </div>
@@ -311,7 +315,7 @@ export const ProfilePage = () => {
                     <select
                       className="profile__dropdown"
                       value={selectedRegion}
-                      onChange={(e) => { setSelectedRegion(e.target.value); clearSaveMessage(); }}
+                      onChange={(e) => { setSelectedRegion(e.target.value); clearSaveMessage(); clearErrors(); }}
                     >
                       <option disabled>Choose your area...</option>
                       {regions.map((region, index) => (
