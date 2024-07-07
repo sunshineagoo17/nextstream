@@ -4,7 +4,7 @@ import { AuthContext } from '../context/AuthContext/AuthContext';
 
 const useMenuLinks = () => {
   const location = useLocation();
-  const { isAuthenticated } = useContext(AuthContext);
+  const { isAuthenticated, userId } = useContext(AuthContext);
 
   const getMenuLinks = (path) => {
     if (isAuthenticated) {
@@ -12,7 +12,7 @@ const useMenuLinks = () => {
         { name: "Stream Locator", path: "/stream-locator" },
         { name: "Top Picks", path: "/top-picks" },
         { name: "Calendar", path: "/calendar" },
-        { name: "Profile", path: "/profile" }
+        { name: "Profile", path: `/profile/${userId}` }
       ];
     } else {
       // User is not logged in, restrict access to certain pages
