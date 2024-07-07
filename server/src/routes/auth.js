@@ -1,5 +1,5 @@
 const express = require('express');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const knex = require('../config/db');
 const router = express.Router();
@@ -28,37 +28,26 @@ router.post('/register', async (req, res) => {
 
 // Login Route
 router.post('/login', async (req, res) => {
-    try {
-        const { email, password } = req.body;
+  try {
+    const { email, password } = req.body;
+    console.log('Login attempt with email:', email); // Log the login attempt
 
-        console.log('Login attempt with email:', email);
+    const user = await knex('users').where({ email }).first();
+    console.log('User found:', user); // Log the user found
 
-        const user = await knex('users').where({ email }).first();
-
-        if (!user) {
-            console.log('User not found');
-            return res.status(401).json({ success: false, message: 'Invalid email or password' });
-        }
-
-        console.log('User found:', user);
-
-        const isMatch = await bcrypt.compare(password, user.password);
-        console.log('Password match:', isMatch);
-
-        if (!isMatch) {
-            console.log('Invalid password');
-            return res.status(401).json({ success: false, message: 'Invalid email or password' });
-        }
-
-        const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-        res.cookie('token', token, { httpOnly: true });
-
-        console.log('Login successful');
-        res.json({ success: true, message: 'Logged in successfully', token });
-    } catch (error) {
-        console.error('Error logging in:', error);
-        res.status(500).json({ success: false, message: 'Error logging in', error });
+    if (!user || !(await bcrypt.compare(password, user.password))) {
+      console.log('Invalid email or password'); // Log invalid login attempts
+      return res.status(401).json({ success: false, message: 'Invalid email or password' });
     }
+
+    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    res.cookie('token', token, { httpOnly: true });
+
+    res.json({ success: true, message: 'Logged in successfully', token });
+  } catch (error) {
+    console.error('Error logging in:', error);
+    res.status(500).json({ success: false, message: 'Error logging in', error });
+  }
 });
 
 module.exports = router;

@@ -1,5 +1,5 @@
 const db = require('../config/db');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 // Get all users (for testing purposes, not to be exposed in the final API)
 const getAllUsers = () => {

@@ -14,7 +14,7 @@ import "./LoginPage.scss";
 
 export const LoginPage = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
   const [errors, setErrors] = useState({});
@@ -23,10 +23,10 @@ export const LoginPage = () => {
   const { login } = useContext(AuthContext);
 
   useEffect(() => {
-    const storedUsername = localStorage.getItem('rememberedUsername');
+    const storedEmail = localStorage.getItem('rememberedEmail');
     const storedPassword = localStorage.getItem('rememberedPassword');
-    if (storedUsername && storedPassword) {
-      setUsername(storedUsername);
+    if (storedEmail && storedPassword) {
+      setEmail(storedEmail);
       setPassword(storedPassword);
       setRememberMe(true);
     }
@@ -41,7 +41,7 @@ export const LoginPage = () => {
   };
 
   const validateFields = () => {
-    if (!username.trim() || !password.trim()) {
+    if (!email.trim() || !password.trim()) {
       setErrors({ general: 'Please fill in all fields' });
       return false;
     }
@@ -51,16 +51,16 @@ export const LoginPage = () => {
   const handleSignIn = async () => {
     if (!validateFields()) return;
 
-    const userData = { username, password };
+    const userData = { email, password };
     try {
       const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/auth/login`, userData);
       if (response.data.token) {
         login(response.data.token, rememberMe);
         if (rememberMe) {
-          localStorage.setItem('rememberedUsername', username);
+          localStorage.setItem('rememberedEmail', email);
           localStorage.setItem('rememberedPassword', password);
         } else {
-          localStorage.removeItem('rememberedUsername');
+          localStorage.removeItem('rememberedEmail');
           localStorage.removeItem('rememberedPassword');
         }
         navigate('/profile'); // Navigate to profile page after successful login
@@ -99,16 +99,16 @@ export const LoginPage = () => {
               <div className="login__input-group">
                 <input
                   className="login__input"
-                  id="input-username"
-                  placeholder="Enter your username"
+                  id="input-email"
+                  placeholder="Enter your email"
                   type="text"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
-                <label className="login__label" htmlFor="input-username">
-                  Username
+                <label className="login__label" htmlFor="input-email">
+                  Email
                 </label>
-                {errors.username && <p className="error">{errors.username}</p>}
+                {errors.email && <p className="error">{errors.email}</p>}
               </div>
               <div className="login__input-group login__input-group--password">
                 <input
