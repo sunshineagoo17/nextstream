@@ -8,8 +8,13 @@ const router = express.Router();
 router.post('/register', async (req, res) => {
   try {
     const { name, username, email, password } = req.body;
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const existingUser = await knex('users').where({ email }).first();
 
+    if (existingUser) {
+      return res.status(400).json({ success: false, message: 'Email already in use' });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
     const [userId] = await knex('users').insert({
       name,
       username,
@@ -21,10 +26,11 @@ router.post('/register', async (req, res) => {
 
     res.cookie('token', token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
+      secure: process.env.NODE_ENV === 'production', 
       sameSite: 'strict'
     });
-    res.json({ success: true, token, userId });
+
+    res.status(201).json({ success: true, message: 'User registered successfully', userId, token });
   } catch (error) {
     console.error('Error registering user:', error);
     res.status(500).json({ success: false, message: 'Error registering user', error });
