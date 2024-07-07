@@ -29,11 +29,11 @@ export const ProfilePage = () => {
         console.error('Error fetching profile:', error);
       }
     };
-
+  
     if (userId) {
       fetchProfile();
     }
-  }, [userId]);
+  }, [userId]);  
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
