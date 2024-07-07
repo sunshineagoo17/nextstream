@@ -78,6 +78,12 @@ export const ProfilePage = () => {
     try {
       await api.put(`/api/profile/${userId}`, updatedUser);
       setSaveMessage('Profile updated successfully!');
+
+      if (newPassword) {
+        setCurrentPassword(newPassword);
+        setNewPassword('');
+        setConfirmPassword('');
+      }
     } catch (error) {
       console.error('Error updating profile:', error);
       setSaveMessage('Error updating profile. Please try again.');
