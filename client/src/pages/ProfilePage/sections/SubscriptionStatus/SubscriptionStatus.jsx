@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './SubscriptionStatus.scss';
 import checkmarkIcon from '../../../../assets/images/checkmark-icon.svg'; 
 
 const SubscriptionStatus = ({ isSubscribed, onSubscriptionChange, onDeleteAccount }) => {
   const [isActive, setIsActive] = useState(isSubscribed);
   const [deleteAccount, setDeleteAccount] = useState(false);
+
+  useEffect(() => {
+    setIsActive(isSubscribed);
+  }, [isSubscribed]);
 
   const toggleActiveStatus = () => {
     const newStatus = !isActive;
@@ -26,7 +30,7 @@ const SubscriptionStatus = ({ isSubscribed, onSubscriptionChange, onDeleteAccoun
         <div className="subscription-status__active">
           <div className="subscription-status__select" onClick={toggleActiveStatus}>
             <div className={`subscription-status__checkbox ${isActive ? 'subscription-status__checkbox--active' : 'subscription-status__checkbox--inactive'}`}>
-              {isActive && <img src={checkmarkIcon} alt="Checkmark" className="subscription-status__check" />}
+              {isActive ? <img src={checkmarkIcon} alt="Checkmark" className="subscription-status__check" /> : <span className="subscription-status__check">X</span>}
             </div>
           </div>
           <div className={`subscription-status__box ${isActive ? '' : 'subscription-status__box--inactive'}`}>

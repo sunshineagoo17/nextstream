@@ -13,11 +13,11 @@ const getProfile = async (req, res) => {
       name: user.name,
       username: user.username,
       email: user.email,
-      receiveReminders: user.receiveReminders,
-      receiveNotifications: user.receiveNotifications,
+      receiveReminders: user.receiveReminders !== undefined ? user.receiveReminders : true,
+      receiveNotifications: user.receiveNotifications !== undefined ? user.receiveNotifications : true,
       region: user.region,
-      isSubscribed: user.isSubscribed,
-      isActive: user.isActive 
+      isSubscribed: user.isSubscribed !== undefined ? user.isSubscribed : true,
+      isActive: user.isActive !== undefined ? user.isActive : true 
     });
   } catch (err) {
     res.status(500).json({ message: 'Error fetching user profile', error: err.message });

@@ -23,10 +23,11 @@ export const ProfilePage = () => {
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [receiveReminders, setReceiveReminders] = useState(false);
-  const [receiveNotifications, setReceiveNotifications] = useState(false);
+  const [receiveReminders, setReceiveReminders] = useState(true);
+  const [receiveNotifications, setReceiveNotifications] = useState(true);
   const [selectedRegion, setSelectedRegion] = useState('Choose your area...');
   const [isSubscribed, setIsSubscribed] = useState(true);
+  const [isActive, setIsActive] = useState(true); // New state for isActive
   const [isLoading, setIsLoading] = useState(true);
   const [saveMessage, setSaveMessage] = useState({ text: '', className: '' });
   const [errors, setErrors] = useState({});
@@ -45,10 +46,11 @@ export const ProfilePage = () => {
         try {
           const response = await api.get(`/api/profile/${userId}`);
           setUser(response.data);
-          setReceiveReminders(response.data.receiveReminders);
-          setReceiveNotifications(response.data.receiveNotifications);
+          setReceiveReminders(response.data.receiveReminders ?? true);
+          setReceiveNotifications(response.data.receiveNotifications ?? true);
           setSelectedRegion(response.data.region);
-          setIsSubscribed(response.data.isSubscribed);
+          setIsSubscribed(response.data.isSubscribed ?? true);
+          setIsActive(response.data.isActive ?? true); // Set isActive
         } catch (error) {
           console.error('Error fetching profile:', error);
           setSaveMessage({ text: 'Error fetching profile. Please try again.', className: 'error' });
@@ -114,7 +116,8 @@ export const ProfilePage = () => {
       receiveReminders,
       receiveNotifications,
       region: selectedRegion,
-      isSubscribed
+      isSubscribed,
+      isActive // Include isActive in the updated user object
     };
   
     try {
@@ -145,6 +148,7 @@ export const ProfilePage = () => {
 
   const handleSubscriptionChange = (newStatus) => {
     setIsSubscribed(newStatus);
+    setIsActive(newStatus); // Update isActive along with isSubscribed
     if (!newStatus) {
       setReceiveReminders(false);
       setReceiveNotifications(false);

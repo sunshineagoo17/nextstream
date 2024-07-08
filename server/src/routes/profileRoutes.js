@@ -57,11 +57,11 @@ router.put('/:userId', async (req, res) => {
     name,
     username,
     email,
-    receiveReminders,
-    receiveNotifications,
+    receiveReminders: receiveReminders !== undefined ? receiveReminders : true,
+    receiveNotifications: receiveNotifications !== undefined ? receiveNotifications : true,
     region,
-    isSubscribed,
-    isActive // Include isActive field
+    isSubscribed: isSubscribed !== undefined ? isSubscribed : true,
+    isActive: isActive !== undefined ? isActive : true // Set default to true if not provided
   };
 
   if (password) {

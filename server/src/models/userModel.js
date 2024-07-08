@@ -39,11 +39,11 @@ const createUser = async (user) => {
             username: user.username,
             email: user.email,
             password: hashedPassword,
-            receiveReminders: user.receiveReminders,
-            receiveNotifications: user.receiveNotifications,
+            receiveReminders: user.receiveReminders !== undefined ? user.receiveReminders : true,
+            receiveNotifications: user.receiveNotifications !== undefined ? user.receiveNotifications : true,
             region: user.region,
-            isSubscribed: user.isSubscribed,
-            isActive: user.isActive // Add isActive field
+            isSubscribed: user.isSubscribed !== undefined ? user.isSubscribed : true,
+            isActive: user.isActive !== undefined ? user.isActive : true // Add isActive field
         });
         return getUserById(id);
     } catch (error) {

@@ -3,6 +3,24 @@
  * @returns { Promise<void> }
  */
 exports.up = async function(knex) {
+    // Create the users table
+    await knex.schema.createTable('users', function(table) {
+      table.increments('id').primary();
+      table.string('name').notNullable();
+      table.string('username').notNullable();
+      table.string('email').notNullable().unique();
+      table.string('password').notNullable();
+      table.boolean('isActive').defaultTo(true);
+      table.boolean('isSubscribed').defaultTo(true);
+      table.boolean('receiveReminders').defaultTo(true);
+      table.boolean('receiveNotifications').defaultTo(true);
+      table.string('region').defaultTo('');
+      table.string('resetPasswordToken').nullable();
+      table.bigint('resetPasswordExpires').nullable();
+      table.timestamps(true, true);
+    });
+  
+    // Check and add unique constraint on email if not present
     const hasUniqueConstraint = await knex.schema.hasTable('users').then(exists => {
       if (exists) {
         return knex.raw(`
@@ -26,9 +44,12 @@ exports.up = async function(knex) {
    * @returns { Promise<void> }
    */
   exports.down = async function(knex) {
+    // Remove unique constraint from email and drop the table
     await knex.schema.alterTable('users', function(table) {
       table.dropUnique('email');
       table.string('email').nullable().alter();
     });
+  
+    await knex.schema.dropTable('users');
   };
   
