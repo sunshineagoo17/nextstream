@@ -136,6 +136,18 @@
     display: flex;
     gap: .35rem;
     transition: transform 0.5s ease-in-out;
+      
+    @include tablet {
+        gap: 1rem;
+
+        @include desktop {
+          gap: 1.15rem;
+
+          @include large-desktop {
+            gap: 2.25rem;
+          }
+        }
+    }
   }
 
   &__card1-container,
