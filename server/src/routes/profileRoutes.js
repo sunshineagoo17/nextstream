@@ -8,6 +8,15 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 
+// Middleware to ensure the uploads/avatars directory exists
+const ensureUploadsDirectoryExists = (req, res, next) => {
+  const dir = path.join(__dirname, '../uploads/avatars');
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true });
+  }
+  next();
+};
+
 // Set up multer for file uploads
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -121,7 +130,7 @@ router.put('/:userId', async (req, res) => {
 });
 
 // Upload user avatar
-router.post('/:userId/avatar', authenticate, upload.single('avatar'), async (req, res) => {
+router.post('/:userId/avatar', authenticate, ensureUploadsDirectoryExists, upload.single('avatar'), async (req, res) => {
   try {
     const avatarPath = req.file.path;
     await knex('users').where({ id: req.params.userId }).update({ avatar: avatarPath });
@@ -139,18 +148,8 @@ router.delete('/:userId/avatar', authenticate, async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
-
-    const avatarPath = user.avatar;
-    if (avatarPath) {
-      fs.unlink(avatarPath, (err) => {
-        if (err) {
-          console.error('Error deleting avatar file:', err);
-          return res.status(500).json({ message: 'Error deleting avatar file' });
-        }
-      });
-      await knex('users').where({ id: req.params.userId }).update({ avatar: null });
-    }
-
+    
+    await knex('users').where({ id: req.params.userId }).update({ avatar: null });
     res.json({ message: 'Avatar deleted successfully' });
   } catch (error) {
     console.error('Error deleting avatar:', error);
@@ -160,14 +159,14 @@ router.delete('/:userId/avatar', authenticate, async (req, res) => {
 
 // Update user status
 router.post('/:userId/update-status', authenticate, async (req, res) => {
-  const { userId, isActive } = req.body;
+  const { isActive } = req.body;
   try {
-    const user = await knex('users').where({ id: userId }).first();
+    const user = await knex('users').where({ id: req.params.userId }).first();
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    await knex('users').where({ id: userId }).update({ isActive });
+    await knex('users').where({ id: req.params.userId }).update({ isActive });
     res.json({ message: 'User status updated successfully' });
   } catch (error) {
     console.error('Error updating status:', error);

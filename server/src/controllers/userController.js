@@ -44,7 +44,7 @@ const getProfile = async (req, res) => {
       region: user.region,
       isSubscribed: user.isSubscribed !== undefined ? user.isSubscribed : true,
       isActive: user.isActive !== undefined ? user.isActive : true,
-      avatar: user.avatar || null // Add avatar to the response
+      avatar: user.avatar || null 
     });
   } catch (err) {
     res.status(500).json({ message: 'Error fetching user profile', error: err.message });
