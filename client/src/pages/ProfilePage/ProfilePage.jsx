@@ -102,6 +102,7 @@ export const ProfilePage = () => {
       ];
       const firstErrorField = errorFields.find(field => field.error);
       if (firstErrorField) {
+        console.log(`Scrolling to first error field: ${firstErrorField.error}`);
         firstErrorField.ref.current.scrollIntoView({ behavior: 'smooth' });
       }
       return;
@@ -122,6 +123,7 @@ export const ProfilePage = () => {
         const passwordCheck = await api.post(`/api/profile/check-password`, { userId, currentPassword });
         if (!passwordCheck.data.valid) {
           setErrors({ currentPassword: 'Current password is incorrect' });
+          console.log('Current password is incorrect');
           currentPasswordRef.current.scrollIntoView({ behavior: 'smooth' });
           return;
         }
@@ -137,17 +139,25 @@ export const ProfilePage = () => {
         setConfirmPassword('');
       }
     } catch (error) {
-      if (error.response && error.response.data.message === 'Email is already taken') {
-        setErrors({ email: 'Email is already taken' });
-        emailRef.current.scrollIntoView({ behavior: 'smooth' });
+      if (error.response) {
+        console.log('Error response:', error.response); // Log the entire error response
+        if (error.response.status === 409 && error.response.data.message === 'Email is already taken') {
+          setErrors({ email: 'Email is already taken' });
+          console.log('Email is already taken error set');
+          emailRef.current.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          console.error('Error updating profile:', error);
+          setSaveMessage({ text: 'Error updating profile. Please try again.', className: 'error' });
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
       } else {
         console.error('Error updating profile:', error);
         setSaveMessage({ text: 'Error updating profile. Please try again.', className: 'error' });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       }
-      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };  
-
+  
   const handleSubscriptionChange = (newStatus) => {
     setIsSubscribed(newStatus);
     if (!newStatus) {
