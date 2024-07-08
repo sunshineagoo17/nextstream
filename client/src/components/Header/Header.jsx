@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import nextStreamLogo from "../../assets/images/nextstream-wordmark.png";
@@ -10,17 +10,29 @@ import "./Header.scss";
 const Header = () => {
   const { isAuthenticated, logout } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState('');
 
   const handleLogout = () => {
     logout();
     navigate('/');
   };
 
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const handleSearchSubmit = (event) => {
+    event.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/search?query=${encodeURIComponent(searchQuery)}`);
+    }
+  };
+
   return (
     <div className="header">
       <div className="header__main-container">
         <div className="header__nav-container">
-          <div className="header__search-bar">
+          <form className="header__search-bar" onSubmit={handleSearchSubmit}>
             <div className="header__search-icon">
               <div className="header__magnifying-glass">
                 <div className="header__icon-container">
@@ -30,9 +42,15 @@ const Header = () => {
               </div>
             </div>
             <div className="header__search-content">
-              <input className="header__search" type="text" placeholder="Search..." />
+              <input 
+                className="header__search" 
+                type="text" 
+                placeholder="Search..." 
+                value={searchQuery} 
+                onChange={handleSearchChange} 
+              />
             </div>
-          </div>
+          </form>
         </div>
         <div className="header__logo-wrapper">
           <Link to="/" aria-label="Homepage">
@@ -57,7 +75,7 @@ const Header = () => {
           </Link>
         )}
       </div>
-      <div className="header__search-bar--mobile">
+      <form className="header__search-bar--mobile" onSubmit={handleSearchSubmit}>
         <div className="header__search-icon--mobile">
           <div className="header__magnifying-glass--mobile">
             <div className="header__icon-container--mobile">
@@ -67,9 +85,15 @@ const Header = () => {
           </div>
         </div>
         <div className="header__search-content--mobile">
-          <input className="header__search--mobile" type="text" placeholder="Search..." />
+          <input 
+            className="header__search--mobile" 
+            type="text" 
+            placeholder="Search..." 
+            value={searchQuery} 
+            onChange={handleSearchChange} 
+          />
         </div>
-      </div>
+      </form>
     </div>
   );
 };
