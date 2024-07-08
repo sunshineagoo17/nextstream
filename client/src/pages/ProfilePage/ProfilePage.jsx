@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import api from '../../services/api';
@@ -31,13 +31,19 @@ export const ProfilePage = () => {
   const [saveMessage, setSaveMessage] = useState({ text: '', className: '' });
   const [errors, setErrors] = useState({});
 
+  // Refs for input fields
+  const nameRef = useRef(null);
+  const usernameRef = useRef(null);
+  const emailRef = useRef(null);
+  const currentPasswordRef = useRef(null);
+  const newPasswordRef = useRef(null);
+  const confirmPasswordRef = useRef(null);
+
   useEffect(() => {
     const fetchProfile = async () => {
       if (userId) {
         try {
-          console.log('Fetching profile for userId:', userId);
           const response = await api.get(`/api/profile/${userId}`);
-          console.log('Profile data:', response.data);
           setUser(response.data);
           setReceiveReminders(response.data.receiveReminders);
           setReceiveNotifications(response.data.receiveNotifications);
@@ -50,7 +56,6 @@ export const ProfilePage = () => {
           setIsLoading(false);
         }
       } else {
-        console.log('No userId found');
         setIsLoading(false); // Stop loading if userId is not available
       }
     };
@@ -72,7 +77,7 @@ export const ProfilePage = () => {
 
   const handleSave = async () => {
     const newErrors = {};
-
+  
     if (!user.name) newErrors.name = 'Name is required';
     if (!user.username) newErrors.username = 'Username is required';
     if (!user.email) {
@@ -82,13 +87,26 @@ export const ProfilePage = () => {
     }
     if (newPassword && newPassword.length < 8) newErrors.newPassword = 'Password must be at least 8 characters';
     if (newPassword !== confirmPassword) newErrors.confirmPassword = 'Passwords do not match';
-
+  
     setErrors(newErrors);
-
+  
     if (Object.keys(newErrors).length > 0) {
+      // Scroll to the first error field
+      const errorFields = [
+        { ref: nameRef, error: newErrors.name },
+        { ref: usernameRef, error: newErrors.username },
+        { ref: emailRef, error: newErrors.email },
+        { ref: currentPasswordRef, error: newErrors.currentPassword },
+        { ref: newPasswordRef, error: newErrors.newPassword },
+        { ref: confirmPasswordRef, error: newErrors.confirmPassword },
+      ];
+      const firstErrorField = errorFields.find(field => field.error);
+      if (firstErrorField) {
+        firstErrorField.ref.current.scrollIntoView({ behavior: 'smooth' });
+      }
       return;
     }
-
+  
     const updatedUser = {
       name: user.name,
       username: user.username,
@@ -98,20 +116,21 @@ export const ProfilePage = () => {
       region: selectedRegion,
       isSubscribed
     };
-
+  
     try {
       if (currentPassword && newPassword) {
         const passwordCheck = await api.post(`/api/profile/check-password`, { userId, currentPassword });
         if (!passwordCheck.data.valid) {
           setErrors({ currentPassword: 'Current password is incorrect' });
+          currentPasswordRef.current.scrollIntoView({ behavior: 'smooth' });
           return;
         }
         updatedUser.password = newPassword;
       }
-
+  
       await api.put(`/api/profile/${userId}`, updatedUser);
       setSaveMessage({ text: 'Profile updated successfully!', className: 'success' });
-
+  
       if (newPassword) {
         setCurrentPassword('');
         setNewPassword('');
@@ -120,8 +139,9 @@ export const ProfilePage = () => {
     } catch (error) {
       console.error('Error updating profile:', error);
       setSaveMessage({ text: 'Error updating profile. Please try again.', className: 'error' });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-  };
+  };  
 
   const handleSubscriptionChange = (newStatus) => {
     setIsSubscribed(newStatus);
@@ -140,6 +160,7 @@ export const ProfilePage = () => {
     } catch (error) {
       console.error('Error deleting account:', error);
       setSaveMessage({ text: 'Error deleting account. Please try again.', className: 'error' });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
@@ -172,6 +193,7 @@ export const ProfilePage = () => {
                       placeholder="Enter your name"
                       type="text"
                       value={user.name || ''}
+                      ref={nameRef}
                       onChange={(e) => { setUser({ ...user, name: e.target.value }); clearSaveMessage(); clearErrors(); }}
                     />
                     <label className="profile__label" htmlFor="input-name">
@@ -186,6 +208,7 @@ export const ProfilePage = () => {
                       placeholder="Enter your username"
                       type="text"
                       value={user.username || ''}
+                      ref={usernameRef}
                       onChange={(e) => { setUser({ ...user, username: e.target.value }); clearSaveMessage(); clearErrors(); }}
                     />
                     <label className="profile__label" htmlFor="input-username">
@@ -200,6 +223,7 @@ export const ProfilePage = () => {
                       placeholder="Enter your email address"
                       type="email"
                       value={user.email || ''}
+                      ref={emailRef}
                       onChange={(e) => { setUser({ ...user, email: e.target.value }); clearSaveMessage(); clearErrors(); }}
                     />
                     <label className="profile__label" htmlFor="input-email">
@@ -226,6 +250,7 @@ export const ProfilePage = () => {
                       placeholder="Enter current password"
                       type={passwordVisible ? 'text' : 'password'}
                       value={currentPassword}
+                      ref={currentPasswordRef}
                       onChange={(e) => { setCurrentPassword(e.target.value); clearSaveMessage(); clearErrors(); }}
                     />
                     <label className="profile__label" htmlFor="input-current-password">
@@ -248,6 +273,7 @@ export const ProfilePage = () => {
                       placeholder="Choose a new password"
                       type={passwordVisible ? 'text' : 'password'}
                       value={newPassword}
+                      ref={newPasswordRef}
                       onChange={(e) => { setNewPassword(e.target.value); clearSaveMessage(); clearErrors(); }}
                     />
                     <label className="profile__label" htmlFor="input-new-password">
@@ -262,6 +288,7 @@ export const ProfilePage = () => {
                       placeholder="Re-enter new password"
                       type={passwordVisible ? 'text' : 'password'}
                       value={confirmPassword}
+                      ref={confirmPasswordRef}
                       onChange={(e) => { setConfirmPassword(e.target.value); clearSaveMessage(); clearErrors(); }}
                     />
                     <label className="profile__label" htmlFor="input-confirm-password">
