@@ -249,13 +249,15 @@
   }
 
   &__poster1, &__poster2, &__poster3 {
-    @include block-item(6rem, auto);
+    @include block-item(5.8rem, auto);
 
     @include tablet {
-      @include block-item(12rem, auto);
+      @include block-item(11rem, auto);
+      box-shadow: $shadow-primary;
+      border-radius: 1rem;
 
       @include desktop {
-        @include block-item(100%, auto);
+        @include block-item(90%, auto);
       }
     }
   }
@@ -277,6 +279,11 @@
       border-radius: 0.5rem;
       bottom: 2rem;
       right: 0.5rem;
+    }
+
+    @include desktop {
+      bottom: 2rem;
+      right: 1.25rem;
     }
   }
 
