@@ -24,15 +24,20 @@ const useMenuLinks = () => {
             { name: "Register", path: "/register" },
             { name: "Login", path: "/login" }
           ];
-        case "/register":
         case "/login":
           return [
             { name: "Home", path: "/" },
-            { name: "Stream Locator", path: "/stream-locator" },
-            { name: "Top Picks", path: "/top-picks" },
-            { name: "Calendar", path: "/calendar" },
-            { name: "Profile", path: "/profile" }
+            { name: "Register", path: "/register" },
+            { name: "Terms", path: "/terms" },
+            { name: "Privacy Policy", path: "/privacy-policy" },
           ];
+        case "/register":
+            return [
+              { name: "Home", path: "/" },
+              { name: "Login", path: "/login" },
+              { name: "Terms", path: "/terms" },
+              { name: "Privacy Policy", path: "/privacy-policy" },
+            ];
         case "/":
         default:
           return [
