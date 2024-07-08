@@ -26,25 +26,33 @@ const getProfile = async (req, res) => {
 
 // Update user profile
 const updateProfile = async (req, res) => {
-  try {
-    const { name, username, email, password, receiveReminders, receiveNotifications, region, isSubscribed, isActive } = req.body;
-    const updates = {};
-    if (name) updates.name = name;
-    if (username) updates.username = username;
-    if (email) updates.email = email;
-    if (receiveReminders !== undefined) updates.receiveReminders = receiveReminders;
-    if (receiveNotifications !== undefined) updates.receiveNotifications = receiveNotifications;
-    if (region) updates.region = region;
-    if (isSubscribed !== undefined) updates.isSubscribed = isSubscribed;
-    if (isActive !== undefined) updates.isActive = isActive; 
-    if (password) updates.password = await bcrypt.hash(password, 10);
-
-    await User.updateUser(req.user.id, updates);
-    res.json({ message: 'Profile updated successfully' });
-  } catch (err) {
-    res.status(500).json({ message: 'Error updating profile', error: err.message });
-  }
-};
+    try {
+      const { name, username, email, password, receiveReminders, receiveNotifications, region, isSubscribed, isActive } = req.body;
+      const updates = {};
+  
+      if (name) updates.name = name;
+      if (username) updates.username = username;
+      if (email) {
+        // Check if the email is already taken
+        const existingUser = await User.getUserByEmail(email);
+        if (existingUser && existingUser.id !== req.user.id) {
+          return res.status(400).json({ message: 'Email is already taken' });
+        }
+        updates.email = email;
+      }
+      if (receiveReminders !== undefined) updates.receiveReminders = receiveReminders;
+      if (receiveNotifications !== undefined) updates.receiveNotifications = receiveNotifications;
+      if (region) updates.region = region;
+      if (isSubscribed !== undefined) updates.isSubscribed = isSubscribed;
+      if (isActive !== undefined) updates.isActive = isActive;
+      if (password) updates.password = await bcrypt.hash(password, 10);
+  
+      await User.updateUser(req.user.id, updates);
+      res.json({ message: 'Profile updated successfully' });
+    } catch (err) {
+      res.status(500).json({ message: 'Error updating profile', error: err.message });
+    }
+  };  
 
 // Delete user profile
 const deleteUser = async (req, res) => {

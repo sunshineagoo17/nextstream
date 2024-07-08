@@ -77,7 +77,7 @@ export const ProfilePage = () => {
 
   const handleSave = async () => {
     const newErrors = {};
-
+  
     if (!user.name) newErrors.name = 'Name is required';
     if (!user.username) newErrors.username = 'Username is required';
     if (!user.email) {
@@ -87,9 +87,9 @@ export const ProfilePage = () => {
     }
     if (newPassword && newPassword.length < 8) newErrors.newPassword = 'Password must be at least 8 characters';
     if (newPassword !== confirmPassword) newErrors.confirmPassword = 'Passwords do not match';
-
+  
     setErrors(newErrors);
-
+  
     if (Object.keys(newErrors).length > 0) {
       // Scroll to the first error field
       const errorFields = [
@@ -106,7 +106,7 @@ export const ProfilePage = () => {
       }
       return;
     }
-
+  
     const updatedUser = {
       name: user.name,
       username: user.username,
@@ -116,7 +116,7 @@ export const ProfilePage = () => {
       region: selectedRegion,
       isSubscribed
     };
-
+  
     try {
       if (currentPassword && newPassword) {
         const passwordCheck = await api.post(`/api/profile/check-password`, { userId, currentPassword });
@@ -127,21 +127,26 @@ export const ProfilePage = () => {
         }
         updatedUser.password = newPassword;
       }
-
+  
       await api.put(`/api/profile/${userId}`, updatedUser);
       setSaveMessage({ text: 'Profile updated successfully!', className: 'success' });
-
+  
       if (newPassword) {
         setCurrentPassword('');
         setNewPassword('');
         setConfirmPassword('');
       }
     } catch (error) {
-      console.error('Error updating profile:', error);
-      setSaveMessage({ text: 'Error updating profile. Please try again.', className: 'error' });
+      if (error.response && error.response.data.message === 'Email is already taken') {
+        setErrors({ email: 'Email is already taken' });
+        emailRef.current.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        console.error('Error updating profile:', error);
+        setSaveMessage({ text: 'Error updating profile. Please try again.', className: 'error' });
+      }
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-  };
+  };  
 
   const handleSubscriptionChange = (newStatus) => {
     setIsSubscribed(newStatus);
