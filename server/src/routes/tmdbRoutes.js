@@ -31,7 +31,15 @@ router.get('/new-releases', async (req, res) => {
     combinedResults.sort((a, b) => new Date(b.release_date || b.first_air_date) - new Date(a.release_date || a.first_air_date));
 
     // Send the first 3 results
-    res.json({ results: combinedResults.slice(0, 3) });
+    const newReleases = combinedResults.slice(0, 3).map(item => ({
+      id: item.id,
+      title: item.title || item.name,
+      poster_path: item.poster_path,
+      media_type: item.media_type || (item.title ? 'movie' : 'tv'), // Determine media type if not provided
+      url: `https://www.themoviedb.org/${item.title ? 'movie' : 'tv'}/${item.id}`
+    }));
+
+    res.json({ results: newReleases });
   } catch (error) {
     console.error('Error fetching new releases:', error);
     res.status(500).json({ message: 'Error fetching new releases' });
