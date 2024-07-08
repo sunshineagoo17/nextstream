@@ -355,7 +355,7 @@
   }
 
   &__label-header-new-releases {
-    @include block-item(10rem, 3.5rem);
+    @include block-item(9rem, 3.5rem);
     color: $primary-dark-blue;
     font-family: $primary-font;
     display: flex;
@@ -367,11 +367,11 @@
     line-height: normal;
 
     @include tablet {
-      @include block-item(13rem, 3.5rem);
+      @include block-item(10.95rem, 3.5rem);
       font-size: 1.25rem;
 
       @include desktop {
-        @include block-item(22rem, 4.9375rem);
+        @include block-item(17.625rem, 4.9375rem);
         font-size: 1.875rem;
       }
     }
