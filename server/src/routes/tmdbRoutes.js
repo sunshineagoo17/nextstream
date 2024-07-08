@@ -30,8 +30,8 @@ router.get('/new-releases', async (req, res) => {
     const combinedResults = [...moviesResponse.data.results, ...showsResponse.data.results];
     combinedResults.sort((a, b) => new Date(b.release_date || b.first_air_date) - new Date(a.release_date || a.first_air_date));
 
-    // Send the first 3 results
-    const newReleases = combinedResults.slice(0, 3).map(item => ({
+    // Send the first 6 results
+    const newReleases = combinedResults.slice(0, 6).map(item => ({
       id: item.id,
       title: item.title || item.name,
       poster_path: item.poster_path,

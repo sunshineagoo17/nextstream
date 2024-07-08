@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from 'axios'; // Import axios to make API requests
+import axios from 'axios';
 import PreviousIcon from "../../../../assets/images/previous.svg";
 import NextIcon from "../../../../assets/images/next.svg";
 import VideoCamera from "../../../../assets/images/videocamera-1.png";
@@ -11,13 +11,14 @@ import "./Content.scss";
 
 export const Content = () => {
   const [newReleases, setNewReleases] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     // Fetch the newest releases from the backend
     const fetchNewReleases = async () => {
       try {
         const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/tmdb/new-releases`);
-        setNewReleases(response.data.results.slice(0, 3)); // Set the first 3 releases
+        setNewReleases(response.data.results);
       } catch (error) {
         console.error("Error fetching new releases:", error);
       }
@@ -25,6 +26,14 @@ export const Content = () => {
 
     fetchNewReleases();
   }, []);
+
+  const handlePrevious = () => {
+    setCurrentIndex((prevIndex) => (prevIndex === 0 ? newReleases.length - 3 : prevIndex - 3));
+  };
+
+  const handleNext = () => {
+    setCurrentIndex((prevIndex) => (prevIndex === newReleases.length - 3 ? 0 : prevIndex + 3));
+  };
 
   return (
     <div className="content">
@@ -69,7 +78,7 @@ export const Content = () => {
          
           <div className="content__card-media-container">
             <div className="content__card-media">
-              {newReleases.map((release, index) => (
+              {newReleases.slice(currentIndex, currentIndex + 3).map((release, index) => (
                 <div key={index} className={`content__card${index + 1}-container`}>
                   <a href={release.url} target="_blank" rel="noopener noreferrer">
                     <div className={`content__card${index + 1}`}>
@@ -89,15 +98,8 @@ export const Content = () => {
           </div>
 
           <div className="content__pagination-container">
-            <img className="content__pagination" alt="Previous" src={PreviousIcon} />
-            {/* For version 2.0 - to add more posters down the road */}
-            {/* <div className="content__page-nav-wrapper1">
-              <div className="content__page1">00</div>
-            </div>
-            <div className="content__page-nav-wrapper2">
-              <div className="content__page2">00</div>
-            </div> */}
-            <img className="content__next" alt="Next" src={NextIcon} />
+            <img className="content__pagination" alt="Previous" src={PreviousIcon} onClick={handlePrevious} />
+            <img className="content__next" alt="Next" src={NextIcon} onClick={handleNext} />
           </div>
         </div>
       </div>
