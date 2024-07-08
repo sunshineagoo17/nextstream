@@ -80,8 +80,8 @@ export const Content = () => {
                       />
                     </div>
                   </a>
-                  <div className={`content__icon-bg-${index === 2 ? 'tv' : 'video'}`}>
-                    <img className={`content__${index === 2 ? 'tv' : 'video'}-icon`} alt="Media icon" src={index === 2 ? TvIcon : VideoCamera} />
+                  <div className={`content__icon-bg-${release.media_type === 'tv' ? 'tv' : 'video'}`}>
+                    <img className={`content__${release.media_type === 'tv' ? 'tv' : 'video'}-icon`} alt="Media icon" src={release.media_type === 'tv' ? TvIcon : VideoCamera} />
                   </div>
                 </div>
               ))}
