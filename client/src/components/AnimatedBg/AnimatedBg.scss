@@ -5,4 +5,5 @@
 
 .animated-bg {
   @include animated-bg(100%, 100px, 150px, 200px, 250px, 300px);
+  z-index: -999;
 }
