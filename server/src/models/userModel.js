@@ -43,7 +43,8 @@ const createUser = async (user) => {
             receiveNotifications: user.receiveNotifications !== undefined ? user.receiveNotifications : true,
             region: user.region,
             isSubscribed: user.isSubscribed !== undefined ? user.isSubscribed : true,
-            isActive: user.isActive !== undefined ? user.isActive : true // Add isActive field
+            isActive: user.isActive !== undefined ? user.isActive : true, 
+            avatar: user.avatar || null 
         });
         return getUserById(id);
     } catch (error) {
