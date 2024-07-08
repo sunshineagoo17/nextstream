@@ -5,153 +5,213 @@
 @use "../../styles/global.scss" as *;
 
 .search-results {
-  position: relative;
-  padding: 2rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  &__container {
     position: relative;
-    z-index: 1;
-    max-width: 1200px;
-    width: 100%;
-  }
-
-  &__content-card {
-    @include bg-white;
     padding: 2rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-  }
-
-  &__intro {
-    font-size: 1.25rem;
-    margin-bottom: 1rem;
-    color: $primary-medium-blue;
-  }
-
-  &__text {
-    font-size: 1rem;
-    margin-bottom: 1rem;
-    color: $primary-dark-blue;
-  }
-
-  &__login-link,
-  &__register-link {
-    background: none;
-    border: none;
-    font: $primary-font;
-    font-size: 1rem;
-    color: $primary-medium-blue;
-    cursor: pointer;
-    text-decoration: none;
-    border: 1px solid $primary-medium-blue;
-    padding: 0.25rem 0.5rem;
-    border-radius: 0.25rem;
-    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-
-    &:hover,
-    &:focus,
-    &:visited {
-      background-color: $primary-medium-blue;
-      color: $neutral-white;
-      border-color: $primary-dark-blue;
-      text-decoration: none;
-      box-shadow: $shadow-primary;
+  
+    &__container {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      width: 100%;
     }
 
-    &:active {
-      background-color: $primary-medium-blue;
-      color: $neutral-white;
-      border: 1px solid $primary-cyan;
-      border-radius: .25rem;
-      transform: translateY(1px);
-      text-decoration: none;
-      font-weight: bold;
-    }
-  }
-
-  &__background {
-    position: absolute;
-    bottom: -2.1875rem;
-    left: 0;
-    width: 100%;
-    height: 8.4375rem;
-    overflow: hidden;
-    z-index: -1;
-
-    @include small-mobile {
-      bottom: -.3125rem;
-      height: 8.4375rem;
-    }
-
-    @include large-mobile {
-      bottom: 0rem;
-      height: 9.375rem;
-    }
-
-    @include tablet {
-      bottom: 0rem;
-      height: 12.5rem;
-    }
-
-    @include desktop {
-      bottom: 0rem;
-      height: 15.625rem;
-    }
-
-    @include large-desktop {
-      bottom: 0rem;
-      height: 17.5rem;
-    }
-  }
-
-  &__title {
-    line-height: 2.75rem;
-    font-size: 2.5rem;
-    margin-bottom: 2rem;
-    color: $primary-dark-blue;
-    text-align: center;
-  }
-
-  &__grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 2rem;
-  }
-
-  &__card {
-    @include hover-raise-effect-cards;
-    background: $neutral-white;
-    border-radius: 0.5rem;
-    box-shadow: $shadow-primary;
-    transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
-    overflow: hidden;
-    width: 15rem;
-    height: 20rem;
-    text-align: center;
-
-    &:hover {
-      transform: scale(1.05);
+    &__link {
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     &__poster {
-      width: 15rem;
-      height: 10rem;
-      border-bottom: 1px solid $primary-light-blue;
+        @include block-item(4.8rem, auto);
+
+        @include tablet {
+        @include block-item(11rem, auto);
+        box-shadow: $shadow-primary;
+        border-radius: 1rem;
+
+            @include desktop {
+                @include block-item(90%, auto);
+            }
+        }
     }
-
-    &__info {
+  
+    &__content-card {
+      background-color: white; 
+      padding: 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+  
+    &__intro {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+      color: $primary-medium-blue;
+    }
+  
+    &__text--bottom,
+    &__text--top {
+      font-size: 1rem;
+      color: $primary-dark-blue;
+    }
+    &__text--top {
+      margin-top: 1rem;
+    }
+    &__text--bottom {
+      margin-bottom: 2.25rem;
+    }
+  
+    &__login-link,
+    &__register-link {
+      background: none;
+      border: none;
+      font: $primary-font;
+      font-size: 1rem;
+      color: $primary-medium-blue;
+      cursor: pointer;
+      text-decoration: none;
+      border: 1px solid $primary-medium-blue;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.25rem;
+      transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  
+      &:hover,
+      &:focus,
+      &:visited {
+        background-color: $primary-medium-blue;
+        color: $neutral-white;
+        border-color: $primary-dark-blue;
+        text-decoration: none;
+        box-shadow: $shadow-primary;
+      }
+  
+      &:active {
+        background-color: $primary-medium-blue;
+        color: $neutral-white;
+        border: 1px solid $primary-cyan;
+        border-radius: .25rem;
+        transform: translateY(1px);
+        text-decoration: none;
+        font-weight: bold;
+      }
+    }
+  
+    &__background {
+      position: absolute;
+      bottom: -2.1875rem;
+      left: 0;
+      width: 100%;
+      height: 8.4375rem;
+      overflow: hidden;
+      z-index: -1;
+  
+      @include small-mobile {
+        bottom: -.3125rem;
+        height: 8.4375rem;
+      }
+  
+      @include large-mobile {
+        bottom: 0rem;
+        height: 9.375rem;
+      }
+  
+      @include tablet {
+        bottom: 0rem;
+        height: 12.5rem;
+      }
+  
+      @include desktop {
+        bottom: 0rem;
+        height: 15.625rem;
+      }
+  
+      @include large-desktop {
+        bottom: 0rem;
+        height: 17.5rem;
+      }
+    }
+  
+    &__card-media-container {
+      overflow: hidden;
+      @include block-item(16.5rem, 19rem);
+      @include pulsate-animation;
+      display: flex;
+      gap: .5rem;
+      justify-content: center;
+      align-items: center;
+      background: rgba($primary-light-blue, 0.3);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 1rem;
       padding: 1rem;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  
+      @include tablet {
+        gap: 1rem;
+        @include block-item(40.3244rem, 20.625rem);
+  
+        @include desktop {
+          @include block-item(64.8869rem, 31.25rem);
+        }
+  
+        @include large-desktop {
+          @include block-item(70rem, 31.25rem);
+        }
+      }
+    }
+  
+    &__title {
+      line-height: 2.75rem;
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      color: $primary-dark-blue;
+      text-align: center;
+    }
+  
+    &__card {
+      @include block-item(5rem, 9.5rem);
+      @include hover-raise-effect-cards;
+      background: $primary-darker-blue-gradient;
+      border-radius: 1rem;
+      box-shadow: $shadow-tertiary;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+      overflow: hidden;
 
-      &__name {
-        font-size: 1.25rem;
-        color: $primary-dark-blue;
+      &:active {
+        transform: scale(0.8); // Adjust scale for active state on mobile
+      }
+  
+      @include tablet {
+        @include block-item(12rem, 18.5rem);
+        border-radius: 1.5625rem;
+  
+        @include desktop {
+          @include block-item(20.1875rem, 29.125rem);
+        }
+  
+        &:hover {
+          transform: scale(1.05);
+        }
+
+        &:active {
+            transform: scale(0.9);
+        }
+      }
+  
+      &__info {
+        padding: 1rem;
+  
+        &__name {
+          font-size: 1.25rem;
+          color: $primary-dark-blue;
+        }
       }
     }
   }
-}

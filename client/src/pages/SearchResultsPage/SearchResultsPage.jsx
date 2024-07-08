@@ -74,32 +74,29 @@ const SearchResultsPage = () => {
         <div className="search-results__content-card">
           <h1 className="search-results__title">Search Results</h1>
           <p className="search-results__intro">Here's where you'll find your top 3 results.</p>
-          <p className="search-results__text">
+          <p className="search-results__text--top">
             To view where these titles are streaming and add them to your calendar, please{' '}
             <button className="search-results__login-link" onClick={handleLoginClick} aria-label="Go to Login Page">
               sign in.
             </button>
           </p>
-          <p className="search-results__text">
+          <p className="search-results__text--bottom">
             Don't have an account?{' '}
             <button className="search-results__register-link" onClick={handleRegisterClick} aria-label="Go to Register Page">
               Register
             </button>{' '}
             now!
           </p>
-          <div className="search-results__grid">
+          <div className="search-results__card-media-container">
             {results.map(result => (
               <div key={result.id} className="search-results__card">
-                <a href={`https://www.themoviedb.org/${result.media_type}/${result.id}`} target="_blank" rel="noopener noreferrer">
+                <a href={`https://www.themoviedb.org/${result.media_type}/${result.id}`} className="search-results__link" target="_blank" rel="noopener noreferrer">
                   <img
                     className="search-results__poster"
                     alt={result.title || result.name}
                     src={`https://image.tmdb.org/t/p/w500${result.poster_path}`}
                   />
                 </a>
-                <div className="search-results__info">
-                  <h2 className="search-results__name">{result.title || result.name}</h2>
-                </div>
               </div>
             ))}
           </div>
