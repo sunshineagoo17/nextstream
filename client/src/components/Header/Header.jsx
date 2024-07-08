@@ -10,21 +10,17 @@ import "./Header.scss";
 const Header = () => {
   const { isAuthenticated, logout } = useContext(AuthContext);
   const navigate = useNavigate();
-  const [searchQuery, setSearchQuery] = useState('');
+  const [query, setQuery] = useState('');
 
   const handleLogout = () => {
     logout();
     navigate('/');
   };
 
-  const handleSearchChange = (event) => {
-    setSearchQuery(event.target.value);
-  };
-
-  const handleSearchSubmit = (event) => {
-    event.preventDefault();
-    if (searchQuery.trim()) {
-      navigate(`/search?query=${encodeURIComponent(searchQuery)}`);
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (query.trim()) {
+      navigate(`/search?q=${query}`);
     }
   };
 
@@ -32,7 +28,7 @@ const Header = () => {
     <div className="header">
       <div className="header__main-container">
         <div className="header__nav-container">
-          <form className="header__search-bar" onSubmit={handleSearchSubmit}>
+          <div className="header__search-bar">
             <div className="header__search-icon">
               <div className="header__magnifying-glass">
                 <div className="header__icon-container">
@@ -42,15 +38,17 @@ const Header = () => {
               </div>
             </div>
             <div className="header__search-content">
-              <input 
-                className="header__search" 
-                type="text" 
-                placeholder="Search..." 
-                value={searchQuery} 
-                onChange={handleSearchChange} 
-              />
+              <form onSubmit={handleSearch}>
+                <input 
+                  className="header__search" 
+                  type="text" 
+                  placeholder="Search..." 
+                  value={query} 
+                  onChange={(e) => setQuery(e.target.value)} 
+                />
+              </form>
             </div>
-          </form>
+          </div>
         </div>
         <div className="header__logo-wrapper">
           <Link to="/" aria-label="Homepage">
@@ -75,7 +73,7 @@ const Header = () => {
           </Link>
         )}
       </div>
-      <form className="header__search-bar--mobile" onSubmit={handleSearchSubmit}>
+      <div className="header__search-bar--mobile">
         <div className="header__search-icon--mobile">
           <div className="header__magnifying-glass--mobile">
             <div className="header__icon-container--mobile">
@@ -85,15 +83,17 @@ const Header = () => {
           </div>
         </div>
         <div className="header__search-content--mobile">
-          <input 
-            className="header__search--mobile" 
-            type="text" 
-            placeholder="Search..." 
-            value={searchQuery} 
-            onChange={handleSearchChange} 
-          />
+          <form onSubmit={handleSearch}>
+            <input 
+              className="header__search--mobile" 
+              type="text" 
+              placeholder="Search..." 
+              value={query} 
+              onChange={(e) => setQuery(e.target.value)} 
+            />
+          </form>
         </div>
-      </form>
+      </div>
     </div>
   );
 };

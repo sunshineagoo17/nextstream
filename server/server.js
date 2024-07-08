@@ -12,7 +12,6 @@ const passwordResetRoutes = require('./src/routes/passwordResetRoutes');
 const authRoutes = require('./src/routes/auth');
 const profileRoutes = require('./src/routes/profileRoutes');
 const tmdbRoutes = require('./src/routes/tmdbRoutes');
-const searchRoutes = require('./src/routes/search'); 
 require('dotenv').config();
 
 const app = express();
@@ -82,20 +81,39 @@ const fetchPopularReleases = async () => {
     const streamingMovies = [];
     const streamingShows = [];
 
+    // Filter movies
     for (const movie of movies) {
       const providers = await getWatchProviders('movie', movie.id);
       if (providers.some(provider => STREAMING_PROVIDERS.includes(provider.provider_name))) {
         streamingMovies.push({ ...movie, media_type: 'movie', providers });
       }
-      if (streamingMovies.length === 3) break;
+      if (streamingMovies.length === 3) break; // Stop once we have 3 movies
     }
 
+    // Filter shows
     for (const show of shows) {
       const providers = await getWatchProviders('tv', show.id);
       if (providers.some(provider => STREAMING_PROVIDERS.includes(provider.provider_name))) {
         streamingShows.push({ ...show, media_type: 'tv', providers });
       }
-      if (streamingShows.length === 3) break;
+      if (streamingShows.length === 3) break; // Stop once we have 3 shows
+    }
+
+    // Ensure we have 3 movies and 3 shows
+    while (streamingMovies.length < 3 && movies.length > streamingMovies.length) {
+      const movie = movies[streamingMovies.length];
+      const providers = await getWatchProviders('movie', movie.id);
+      if (providers.some(provider => STREAMING_PROVIDERS.includes(provider.provider_name))) {
+        streamingMovies.push({ ...movie, media_type: 'movie', providers });
+      }
+    }
+
+    while (streamingShows.length < 3 && shows.length > streamingShows.length) {
+      const show = shows[streamingShows.length];
+      const providers = await getWatchProviders('tv', show.id);
+      if (providers.some(provider => STREAMING_PROVIDERS.includes(provider.provider_name))) {
+        streamingShows.push({ ...show, media_type: 'tv', providers });
+      }
     }
 
     const popularReleases = [...streamingMovies, ...streamingShows].map(item => ({
@@ -107,6 +125,7 @@ const fetchPopularReleases = async () => {
       providers: item.providers.map(provider => provider.provider_name)
     }));
 
+    // Cache the results
     cache.set('popularReleases', popularReleases);
   } catch (error) {
     console.error('Error fetching popular releases:', error);
@@ -125,7 +144,6 @@ app.use('/api/auth', authRoutes);
 app.use('/api/password-reset', passwordResetRoutes);
 app.use('/api/profile', profileRoutes);
 app.use('/api/tmdb', tmdbRoutes);
-app.use('/api', searchRoutes); 
 
 // Serve static files from the React app if needed
 app.use(express.static(path.join(__dirname, 'client/build')));

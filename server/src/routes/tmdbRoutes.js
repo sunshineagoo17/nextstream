@@ -3,6 +3,7 @@ const axios = require('axios');
 const router = express.Router();
 const NodeCache = require('node-cache');
 const cron = require('node-cron');
+require('dotenv').config();
 
 const cache = new NodeCache({ stdTTL: 3600 }); 
 
@@ -116,6 +117,24 @@ router.get('/popular', async (req, res) => {
     res.json({ results: popularReleases });
   } else {
     res.status(500).json({ message: 'Popular releases not available at the moment. Please try again later.' });
+  }
+});
+
+// Endpoint to search for movies and TV shows
+router.get('/search', async (req, res) => {
+  const { query } = req.query;
+  try {
+    const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+      params: {
+        api_key: TMDB_API_KEY,
+        query: query,
+      },
+    });
+
+    res.json(response.data);
+  } catch (error) {
+    console.error('Error fetching search results:', error);
+    res.status(500).json({ message: 'Error fetching search results' });
   }
 });
 
