@@ -235,6 +235,16 @@
   }
 }
 
+@mixin hover-raise-effect-cards {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-9px);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+  }
+}
+
 @mixin animate-effect-footer {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
