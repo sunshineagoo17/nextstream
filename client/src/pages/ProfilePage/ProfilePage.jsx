@@ -103,6 +103,7 @@ export const ProfilePage = () => {
       ];
       const firstErrorField = errorFields.find(field => field.error);
       if (firstErrorField) {
+        console.log(`Scrolling to first error field: ${firstErrorField.error}`);
         firstErrorField.ref.current.scrollIntoView({ behavior: 'smooth' });
       }
       return;
@@ -120,10 +121,11 @@ export const ProfilePage = () => {
 
     try {
       if (currentPassword && newPassword) {
-        // Check current password validity during save operation
+        // Check current password validity
         const passwordCheck = await api.post(`/api/profile/check-password`, { userId, currentPassword });
         if (!passwordCheck.data.valid) {
           setErrors({ currentPassword: 'Current password is incorrect' });
+          console.log('Current password is incorrect');
           currentPasswordRef.current.scrollIntoView({ behavior: 'smooth' });
           return;
         }
@@ -145,7 +147,11 @@ export const ProfilePage = () => {
         console.log('Error response:', error.response); 
         if (error.response.status === 409 && error.response.data.message === 'Email is already taken') {
           setErrors({ email: 'Email is already taken' });
+          console.log('Email is already taken error set');
           emailRef.current.scrollIntoView({ behavior: 'smooth' });
+        } else if (error.response.status === 401 && error.response.data.message === 'Incorrect password') {
+          setErrors({ currentPassword: 'Current password is incorrect' });
+          currentPasswordRef.current.scrollIntoView({ behavior: 'smooth' });
         } else {
           console.error('Error updating profile:', error);
           setSaveMessage({ text: 'Error updating profile. Please try again.', className: 'error' });
@@ -155,25 +161,6 @@ export const ProfilePage = () => {
         console.error('Error updating profile:', error);
         setSaveMessage({ text: 'Error updating profile. Please try again.', className: 'error' });
         window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-    }
-  };
-
-  const handleCurrentPasswordChange = async (e) => {
-    const password = e.target.value;
-    setCurrentPassword(password);
-    if (password) {
-      try {
-        const passwordCheck = await api.post(`/api/profile/check-password`, { userId, currentPassword: password });
-        if (!passwordCheck.data.valid) {
-          setErrors({ currentPassword: 'Current password is incorrect' });
-          currentPasswordRef.current.scrollIntoView({ behavior: 'smooth' });
-        } else {
-          setErrors((prevErrors) => ({ ...prevErrors, currentPassword: null }));
-        }
-      } catch (error) {
-        console.error('Error checking password:', error);
-        setErrors({ currentPassword: 'Error checking password' });
       }
     }
   };
@@ -286,7 +273,29 @@ export const ProfilePage = () => {
                       type={passwordVisible ? 'text' : 'password'}
                       value={currentPassword}
                       ref={currentPasswordRef}
-                      onChange={handleCurrentPasswordChange}
+                      onChange={async (e) => {
+                        setCurrentPassword(e.target.value);
+                        clearSaveMessage();
+                        clearErrors();
+                        if (e.target.value) {
+                          try {
+                            const passwordCheck = await api.post('/api/profile/check-password', { userId, currentPassword: e.target.value });
+                            if (!passwordCheck.data.valid) {
+                              setErrors({ currentPassword: <p className="profile__error">Current password is incorrect</p> });
+                              currentPasswordRef.current.scrollIntoView({ behavior: 'smooth' });
+                            } else {
+                              setErrors({});
+                            }
+                          } catch (error) {
+                            if (error.response && error.response.status === 401) {
+                              setErrors({ currentPassword: <p className="profile__error">Current password is incorrect</p> });
+                              currentPasswordRef.current.scrollIntoView({ behavior: 'smooth' });
+                            } else {
+                              console.error('Error checking password:', error);
+                            }
+                          }                          
+                        }
+                      }}
                     />
                     <label className="profile__label" htmlFor="input-current-password">
                       Current Password

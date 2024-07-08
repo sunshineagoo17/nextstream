@@ -460,6 +460,7 @@
   &__input-group--password {
     display: flex;
     align-items: center;
+    flex-direction: column;
     position: relative;
   }
 
