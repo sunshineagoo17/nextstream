@@ -3,22 +3,38 @@ const axios = require('axios');
 const router = express.Router();
 
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
+const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
 
-router.get('/newest', async (req, res) => {
+// Endpoint to get the latest movies and shows
+router.get('/new-releases', async (req, res) => {
   try {
-    const response = await axios.get(`https://api.themoviedb.org/3/discover/movie`, {
+    // Fetch the latest movies
+    const moviesResponse = await axios.get(`${TMDB_BASE_URL}/movie/now_playing`, {
       params: {
         api_key: TMDB_API_KEY,
-        sort_by: 'release_date.desc',
+        language: 'en-US',
         page: 1
       }
     });
 
-    const movies = response.data.results.slice(0, 3);
-    res.json(movies);
+    // Fetch the latest TV shows
+    const showsResponse = await axios.get(`${TMDB_BASE_URL}/tv/on_the_air`, {
+      params: {
+        api_key: TMDB_API_KEY,
+        language: 'en-US',
+        page: 1
+      }
+    });
+
+    // Combine the results and sort by release date
+    const combinedResults = [...moviesResponse.data.results, ...showsResponse.data.results];
+    combinedResults.sort((a, b) => new Date(b.release_date || b.first_air_date) - new Date(a.release_date || a.first_air_date));
+
+    // Send the first 3 results
+    res.json({ results: combinedResults.slice(0, 3) });
   } catch (error) {
-    console.error('Error fetching newest movies:', error);
-    res.status(500).json({ message: 'Error fetching newest movies' });
+    console.error('Error fetching new releases:', error);
+    res.status(500).json({ message: 'Error fetching new releases' });
   }
 });
 

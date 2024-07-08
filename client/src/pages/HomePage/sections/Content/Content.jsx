@@ -1,21 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from 'axios'; // Import axios to make API requests
 import PreviousIcon from "../../../../assets/images/previous.svg";
 import NextIcon from "../../../../assets/images/next.svg";
-import JusticeLeague from "../../../../assets/images/justice-league.png";
-import BlackAdam from "../../../../assets/images/black-adam.png";
-import Avatar from "../../../../assets/images/avatar.png";
-import TvIcon from "../../../../assets/images/tv-icon.png";
 import VideoCamera from "../../../../assets/images/videocamera-1.png";
+import TvIcon from "../../../../assets/images/tv-icon.png";
 import CalendarIcon from "../../../../assets/images/calendar-icon.svg";
 import Favourites from "../../../../assets/images/favourites-icon.svg";
 import SearchIcon from "../../../../assets/images/search-icon.svg";
 import "./Content.scss";
 
 export const Content = () => {
+  const [newReleases, setNewReleases] = useState([]);
+
+  useEffect(() => {
+    // Fetch the newest releases from the backend
+    const fetchNewReleases = async () => {
+      try {
+        const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/tmdb/new-releases`);
+        setNewReleases(response.data.results.slice(0, 3)); // Set the first 3 releases
+      } catch (error) {
+        console.error("Error fetching new releases:", error);
+      }
+    };
+
+    fetchNewReleases();
+  }, []);
+
   return (
     <div className="content">
       <div className="content__container">
-
         <div className="content__features-container">
           <div className="content__label-header-container">
             <div className="content__label-features">FEATURES</div>
@@ -48,56 +61,44 @@ export const Content = () => {
               <p className="content__new-releases-subtitle">
                 Check out the latest movies and shows that have just become available for streaming.
               </p>
-            <div className="content__label-header-new-container">
-              <div className="content__label-header-new-releases">NEW RELEASES</div>
+              <div className="content__label-header-new-container">
+                <div className="content__label-header-new-releases">NEW RELEASES</div>
+              </div>
             </div>
           </div>
-        </div>
          
-        <div className="content__card-media-container">
-          <div className="content__card-media">
-            <div className="content__card1-container">
-              <div className="content__card1">
-                <img className="content__poster1" alt="Avatar" src={Avatar} />
-              </div>
-              <div className="content__icon-bg-video">
-                <img className="content__video-icon" alt="Video icon" src={VideoCamera} />
-              </div>
-            </div>
-
-            <div className="content__card2-container">
-              <div className="content__card2">
-                <img className="content__poster2" alt="Black adam" src={BlackAdam} />
-              </div>
-              <div className="content__icon-bg-video2">
-                <img className="content__video-icon2" alt="Video icon" src={VideoCamera} />
-              </div>
-            </div>
-
-            <div className="content__card3-container">
-              <div className="content__card3">
-                <img className="content__poster3" alt="Justice league" src={JusticeLeague} />
-              </div>
-              <div className="content__icon-bg-tv">
-                <img className="content__tv-icon" alt="TV icon" src={TvIcon} />
-              </div>
+          <div className="content__card-media-container">
+            <div className="content__card-media">
+              {newReleases.map((release, index) => (
+                <div key={index} className={`content__card${index + 1}-container`}>
+                  <div className={`content__card${index + 1}`}>
+                    <img
+                      className={`content__poster${index + 1}`}
+                      alt={release.title || release.name}
+                      src={`https://image.tmdb.org/t/p/w500${release.poster_path}`}
+                    />
+                  </div>
+                  <div className={`content__icon-bg-${index === 2 ? 'tv' : 'video'}`}>
+                    <img className={`content__${index === 2 ? 'tv' : 'video'}-icon`} alt="Media icon" src={index === 2 ? TvIcon : VideoCamera} />
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
-        </div>
 
-        <div className="content__pagination-container">
-          <img className="content__pagination" alt="Previous" src={PreviousIcon} />
-          <div className="content__page-nav-wrapper1">
-            <div className="content__page1">00</div>
+          <div className="content__pagination-container">
+            <img className="content__pagination" alt="Previous" src={PreviousIcon} />
+            <div className="content__page-nav-wrapper1">
+              <div className="content__page1">00</div>
+            </div>
+            <div className="content__page-nav-wrapper2">
+              <div className="content__page2">00</div>
+            </div>
+            <img className="content__next" alt="Next" src={NextIcon} />
           </div>
-          <div className="content__page-nav-wrapper2">
-            <div className="content__page2">00</div>
-          </div>
-          <img className="content__next" alt="Next" src={NextIcon} />
         </div>
       </div>
     </div>
-  </div>
   );
 };
 
