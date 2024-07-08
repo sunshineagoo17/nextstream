@@ -522,11 +522,12 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-
+      position: relative; // Ensure positioning context for the tooltip
+    
       @include tablet {
         @include block-item(16.875rem, 12.4375rem);
       }
-
+    
       &__icon-bg {
         @include block-item(5rem, 5rem);
         display: flex;
@@ -536,16 +537,45 @@
         box-shadow: $shadow-primary;
         border-top-left-radius: 0.25rem;
         border-top-right-radius: 0.25rem;
-
+    
         @include tablet {
           @include block-item(5.5rem, 4.5rem);
           border-top-left-radius: 0.5rem;
           border-top-right-radius: 0.5rem;
-
+    
           @include desktop {
             @include block-item(9.6875rem, 9.6875rem);
           }
         }
+      }
+    
+      // Tooltip styling
+      &::after {
+        content: attr(data-tooltip);
+        position: absolute;
+        bottom: 105%; 
+        left: 50%;
+        transform: translateX(-50%);
+        background: $neutral-white;
+        color: $primary-dark-blue;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        box-shadow: $shadow-tertiary;
+        white-space: nowrap; 
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+        font-size: 0.65rem;
+        z-index: 10;
+    
+        @include tablet {
+          font-size: 1rem;
+        }
+      }
+    
+      &:hover::after {
+        opacity: 1;
+        visibility: visible;
       }
 
       &__favourites-icon,
