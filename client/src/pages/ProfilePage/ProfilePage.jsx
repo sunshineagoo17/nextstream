@@ -35,7 +35,9 @@ export const ProfilePage = () => {
     const fetchProfile = async () => {
       if (userId) {
         try {
+          console.log('Fetching profile for userId:', userId);
           const response = await api.get(`/api/profile/${userId}`);
+          console.log('Profile data:', response.data);
           setUser(response.data);
           setReceiveReminders(response.data.receiveReminders);
           setReceiveNotifications(response.data.receiveNotifications);
@@ -48,6 +50,7 @@ export const ProfilePage = () => {
           setIsLoading(false);
         }
       } else {
+        console.log('No userId found');
         setIsLoading(false); // Stop loading if userId is not available
       }
     };

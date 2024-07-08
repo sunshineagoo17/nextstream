@@ -14,17 +14,17 @@ export const AuthProvider = ({ children }) => {
     console.log('Initial userId:', storedUserId);
     if (token && storedUserId) {
       setIsAuthenticated(true);
-      setUserId(parseInt(storedUserId)); // Parse userId as integer if necessary
+      setUserId(parseInt(storedUserId)); 
     }
   }, []);
 
   const login = (token, userId, rememberMe) => {
     console.log('Login token:', token);
     console.log('Login userId:', userId);
-    Cookies.set('token', token, { expires: rememberMe ? 7 : null });
-    Cookies.set('userId', userId.toString(), { expires: rememberMe ? 7 : null }); 
+    Cookies.set('token', token, { expires: rememberMe ? 7 : 1 });
+    Cookies.set('userId', userId.toString(), { expires: rememberMe ? 7 : 1 });
     setIsAuthenticated(true);
-    setUserId(userId); 
+    setUserId(userId);
   };
 
   const logout = () => {
