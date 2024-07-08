@@ -5,44 +5,99 @@ const router = express.Router();
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
 const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
 
-// Endpoint to get the latest movies and shows
-router.get('/new-releases', async (req, res) => {
+// Streaming providers to filter by
+const STREAMING_PROVIDERS = ['Amazon Prime Video', 'Apple TV Plus', 'Netflix', 'Crave', 'Disney Plus'];
+
+// Function to get the watch providers
+const getWatchProviders = async (mediaType, mediaId) => {
   try {
-    // Fetch the latest movies
-    const moviesResponse = await axios.get(`${TMDB_BASE_URL}/movie/now_playing`, {
+    const url = `${TMDB_BASE_URL}/${mediaType}/${mediaId}/watch/providers?api_key=${TMDB_API_KEY}`;
+    const response = await axios.get(url);
+    return response.data.results?.CA?.flatrate || [];
+  } catch (error) {
+    console.error(`Error fetching watch providers for ${mediaType} ${mediaId}:`, error);
+    return [];
+  }
+};
+
+// Endpoint to get the popular movies and shows
+router.get('/popular', async (req, res) => {
+  try {
+    // Fetch the popular movies
+    const moviesResponse = await axios.get(`${TMDB_BASE_URL}/movie/popular`, {
       params: {
         api_key: TMDB_API_KEY,
         language: 'en-US',
+        region: 'CA',
         page: 1
       }
     });
 
-    // Fetch the latest TV shows
-    const showsResponse = await axios.get(`${TMDB_BASE_URL}/tv/on_the_air`, {
+    // Fetch the popular TV shows
+    const showsResponse = await axios.get(`${TMDB_BASE_URL}/tv/popular`, {
       params: {
         api_key: TMDB_API_KEY,
         language: 'en-US',
+        region: 'CA',
         page: 1
       }
     });
 
-    // Combine the results and sort by release date
-    const combinedResults = [...moviesResponse.data.results, ...showsResponse.data.results];
-    combinedResults.sort((a, b) => new Date(b.release_date || b.first_air_date) - new Date(a.release_date || a.first_air_date));
+    // Combine the results
+    const movies = moviesResponse.data.results;
+    const shows = showsResponse.data.results;
 
-    // Send the first 6 results
-    const newReleases = combinedResults.slice(0, 6).map(item => ({
+    const streamingMovies = [];
+    const streamingShows = [];
+
+    // Filter movies
+    for (const movie of movies) {
+      const providers = await getWatchProviders('movie', movie.id);
+      if (providers.some(provider => STREAMING_PROVIDERS.includes(provider.provider_name))) {
+        streamingMovies.push({ ...movie, media_type: 'movie', providers });
+      }
+      if (streamingMovies.length === 3) break; // Stop once we have 3 movies
+    }
+
+    // Filter shows
+    for (const show of shows) {
+      const providers = await getWatchProviders('tv', show.id);
+      if (providers.some(provider => STREAMING_PROVIDERS.includes(provider.provider_name))) {
+        streamingShows.push({ ...show, media_type: 'tv', providers });
+      }
+      if (streamingShows.length === 3) break; // Stop once we have 3 shows
+    }
+
+    // Ensure we have 3 movies and 3 shows
+    while (streamingMovies.length < 3 && movies.length > streamingMovies.length) {
+      const movie = movies[streamingMovies.length];
+      const providers = await getWatchProviders('movie', movie.id);
+      if (providers.some(provider => STREAMING_PROVIDERS.includes(provider.provider_name))) {
+        streamingMovies.push({ ...movie, media_type: 'movie', providers });
+      }
+    }
+
+    while (streamingShows.length < 3 && shows.length > streamingShows.length) {
+      const show = shows[streamingShows.length];
+      const providers = await getWatchProviders('tv', show.id);
+      if (providers.some(provider => STREAMING_PROVIDERS.includes(provider.provider_name))) {
+        streamingShows.push({ ...show, media_type: 'tv', providers });
+      }
+    }
+
+    const popularReleases = [...streamingMovies, ...streamingShows].map(item => ({
       id: item.id,
       title: item.title || item.name,
       poster_path: item.poster_path,
-      media_type: item.media_type || (item.title ? 'movie' : 'tv'), // Determine media type if not provided
-      url: `https://www.themoviedb.org/${item.title ? 'movie' : 'tv'}/${item.id}`
+      media_type: item.media_type,
+      url: `https://www.themoviedb.org/${item.media_type}/${item.id}`,
+      providers: item.providers.map(provider => provider.provider_name)
     }));
 
-    res.json({ results: newReleases });
+    res.json({ results: popularReleases });
   } catch (error) {
-    console.error('Error fetching new releases:', error);
-    res.status(500).json({ message: 'Error fetching new releases' });
+    console.error('Error fetching popular releases:', error);
+    res.status(500).json({ message: 'Error fetching popular releases' });
   }
 });
 
