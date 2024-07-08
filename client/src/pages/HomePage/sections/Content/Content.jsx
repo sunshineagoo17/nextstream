@@ -17,7 +17,7 @@ export const Content = () => {
     // Fetch the newest releases from the backend
     const fetchNewReleases = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/tmdb/new-releases`);
+        const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/tmdb/popular`);
         setNewReleases(response.data.results);
       } catch (error) {
         console.error("Error fetching new releases:", error);
@@ -71,7 +71,7 @@ export const Content = () => {
                 Check out the latest movies and shows that have just become available for streaming.
               </p>
               <div className="content__label-header-new-container">
-                <div className="content__label-header-new-releases">NEW RELEASES</div>
+                <div className="content__label-header-new-releases">POPULAR</div>
               </div>
             </div>
           </div>
