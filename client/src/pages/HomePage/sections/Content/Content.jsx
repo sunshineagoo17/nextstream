@@ -52,19 +52,19 @@ export const Content = () => {
             <div className="content__label-features">FEATURES</div>
           </div>
           <div className="content__card-features">
-            <div className="content__card-features__feature content__card-features__feature--1">
+            <div className="content__card-features__feature content__card-features__feature--1" data-tooltip="Find where your fave shows/movies are being streamed.">
               <div className="content__card-features__feature__icon-bg">
                 <img className="content__card-features__feature__search-icon" src={SearchIcon} alt="Search icon" />
               </div>
               <div className="content__card-features__feature__label content__card-features__feature__label--stream-locator">Stream Locator</div>
             </div>
-            <div className="content__card-features__feature content__card-features__feature--2">
+            <div className="content__card-features__feature content__card-features__feature--2" data-tooltip="Personalized recommendations based on your history.">
               <div className="content__card-features__feature__icon-bg">
                 <img className="content__card-features__feature__favourites-icon" src={Favourites} alt="Favourites icon" />
               </div>
               <div className="content__card-features__feature__label content__card-features__feature__label--custom-recommendations">Custom Recommendations</div>
             </div>
-            <div className="content__card-features__feature content__card-features__feature--3">
+            <div className="content__card-features__feature content__card-features__feature--3" data-tooltip="Plan your schedule and never miss a show/movie.">
               <div className="content__card-features__feature__icon-bg">
                 <img className="content__card-features__feature__calendar-icon" src={CalendarIcon} alt="Calendar icon" />
               </div>
@@ -77,7 +77,7 @@ export const Content = () => {
           <div className="content__new-releases-header">
             <div className="content__new-releases-subtitle-container">
               <p className="content__new-releases-subtitle">
-              Discover the most popular movies and TV shows currently available for streaming. Stay updated with the top trending content right at your fingertips.
+                Discover the most popular movies and TV shows currently available for streaming. Stay updated with the top trending content right at your fingertips.
               </p>
               <div className="content__label-header-new-container">
                 <div className="content__label-header-new-releases">POPULAR</div>
@@ -108,7 +108,7 @@ export const Content = () => {
 
           <div className="content__pagination-container">
             <div className="content__page-nav-wrapper-next" onClick={handlePrevious}>
-            <img src={PreviousIcon} className="content__previous-icon" alt="Previous" />
+              <img src={PreviousIcon} className="content__previous-icon" alt="Previous" />
             </div>
             <div className="content__page-nav-wrapper-previous" onClick={handleNext}>
               <img src={NextIcon} className="content__next-icon" alt="Next" />
