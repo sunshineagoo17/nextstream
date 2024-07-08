@@ -77,7 +77,8 @@ export const ProfilePage = () => {
 
   const handleSave = async () => {
     const newErrors = {};
-  
+
+    // Validate fields
     if (!user.name) newErrors.name = 'Name is required';
     if (!user.username) newErrors.username = 'Username is required';
     if (!user.email) {
@@ -87,9 +88,9 @@ export const ProfilePage = () => {
     }
     if (newPassword && newPassword.length < 8) newErrors.newPassword = 'Password must be at least 8 characters';
     if (newPassword !== confirmPassword) newErrors.confirmPassword = 'Passwords do not match';
-  
+
     setErrors(newErrors);
-  
+
     if (Object.keys(newErrors).length > 0) {
       // Scroll to the first error field
       const errorFields = [
@@ -102,12 +103,11 @@ export const ProfilePage = () => {
       ];
       const firstErrorField = errorFields.find(field => field.error);
       if (firstErrorField) {
-        console.log(`Scrolling to first error field: ${firstErrorField.error}`);
         firstErrorField.ref.current.scrollIntoView({ behavior: 'smooth' });
       }
       return;
     }
-  
+
     const updatedUser = {
       name: user.name,
       username: user.username,
@@ -117,22 +117,24 @@ export const ProfilePage = () => {
       region: selectedRegion,
       isSubscribed
     };
-  
+
     try {
       if (currentPassword && newPassword) {
+        // Check current password validity during save operation
         const passwordCheck = await api.post(`/api/profile/check-password`, { userId, currentPassword });
         if (!passwordCheck.data.valid) {
           setErrors({ currentPassword: 'Current password is incorrect' });
-          console.log('Current password is incorrect');
           currentPasswordRef.current.scrollIntoView({ behavior: 'smooth' });
           return;
         }
+        // Update user with new password
         updatedUser.password = newPassword;
       }
-  
+
       await api.put(`/api/profile/${userId}`, updatedUser);
       setSaveMessage({ text: 'Profile updated successfully!', className: 'success' });
-  
+
+      // Clear password fields
       if (newPassword) {
         setCurrentPassword('');
         setNewPassword('');
@@ -140,10 +142,9 @@ export const ProfilePage = () => {
       }
     } catch (error) {
       if (error.response) {
-        console.log('Error response:', error.response); // Log the entire error response
+        console.log('Error response:', error.response); 
         if (error.response.status === 409 && error.response.data.message === 'Email is already taken') {
           setErrors({ email: 'Email is already taken' });
-          console.log('Email is already taken error set');
           emailRef.current.scrollIntoView({ behavior: 'smooth' });
         } else {
           console.error('Error updating profile:', error);
@@ -156,8 +157,27 @@ export const ProfilePage = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     }
-  };  
-  
+  };
+
+  const handleCurrentPasswordChange = async (e) => {
+    const password = e.target.value;
+    setCurrentPassword(password);
+    if (password) {
+      try {
+        const passwordCheck = await api.post(`/api/profile/check-password`, { userId, currentPassword: password });
+        if (!passwordCheck.data.valid) {
+          setErrors({ currentPassword: 'Current password is incorrect' });
+          currentPasswordRef.current.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          setErrors((prevErrors) => ({ ...prevErrors, currentPassword: null }));
+        }
+      } catch (error) {
+        console.error('Error checking password:', error);
+        setErrors({ currentPassword: 'Error checking password' });
+      }
+    }
+  };
+
   const handleSubscriptionChange = (newStatus) => {
     setIsSubscribed(newStatus);
     if (!newStatus) {
@@ -266,7 +286,7 @@ export const ProfilePage = () => {
                       type={passwordVisible ? 'text' : 'password'}
                       value={currentPassword}
                       ref={currentPasswordRef}
-                      onChange={(e) => { setCurrentPassword(e.target.value); clearSaveMessage(); clearErrors(); }}
+                      onChange={handleCurrentPasswordChange}
                     />
                     <label className="profile__label" htmlFor="input-current-password">
                       Current Password
