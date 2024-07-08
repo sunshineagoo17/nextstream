@@ -23,11 +23,10 @@ export const ProfilePage = () => {
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [receiveReminders, setReceiveReminders] = useState(true);
-  const [receiveNotifications, setReceiveNotifications] = useState(true);
+  const [receiveReminders, setReceiveReminders] = useState(false);
+  const [receiveNotifications, setReceiveNotifications] = useState(false);
   const [selectedRegion, setSelectedRegion] = useState('Choose your area...');
   const [isSubscribed, setIsSubscribed] = useState(true);
-  const [isActive, setIsActive] = useState(true); // New state for isActive
   const [isLoading, setIsLoading] = useState(true);
   const [saveMessage, setSaveMessage] = useState({ text: '', className: '' });
   const [errors, setErrors] = useState({});
@@ -46,11 +45,10 @@ export const ProfilePage = () => {
         try {
           const response = await api.get(`/api/profile/${userId}`);
           setUser(response.data);
-          setReceiveReminders(response.data.receiveReminders ?? true);
-          setReceiveNotifications(response.data.receiveNotifications ?? true);
+          setReceiveReminders(response.data.receiveReminders);
+          setReceiveNotifications(response.data.receiveNotifications);
           setSelectedRegion(response.data.region);
-          setIsSubscribed(response.data.isSubscribed ?? true);
-          setIsActive(response.data.isActive ?? true); // Set isActive
+          setIsSubscribed(response.data.isSubscribed);
         } catch (error) {
           console.error('Error fetching profile:', error);
           setSaveMessage({ text: 'Error fetching profile. Please try again.', className: 'error' });
@@ -79,7 +77,7 @@ export const ProfilePage = () => {
 
   const handleSave = async () => {
     const newErrors = {};
-  
+
     if (!user.name) newErrors.name = 'Name is required';
     if (!user.username) newErrors.username = 'Username is required';
     if (!user.email) {
@@ -89,9 +87,9 @@ export const ProfilePage = () => {
     }
     if (newPassword && newPassword.length < 8) newErrors.newPassword = 'Password must be at least 8 characters';
     if (newPassword !== confirmPassword) newErrors.confirmPassword = 'Passwords do not match';
-  
+
     setErrors(newErrors);
-  
+
     if (Object.keys(newErrors).length > 0) {
       // Scroll to the first error field
       const errorFields = [
@@ -108,7 +106,7 @@ export const ProfilePage = () => {
       }
       return;
     }
-  
+
     const updatedUser = {
       name: user.name,
       username: user.username,
@@ -116,10 +114,9 @@ export const ProfilePage = () => {
       receiveReminders,
       receiveNotifications,
       region: selectedRegion,
-      isSubscribed,
-      isActive // Include isActive in the updated user object
+      isSubscribed
     };
-  
+
     try {
       if (currentPassword && newPassword) {
         const passwordCheck = await api.post(`/api/profile/check-password`, { userId, currentPassword });
@@ -130,10 +127,10 @@ export const ProfilePage = () => {
         }
         updatedUser.password = newPassword;
       }
-  
+
       await api.put(`/api/profile/${userId}`, updatedUser);
       setSaveMessage({ text: 'Profile updated successfully!', className: 'success' });
-  
+
       if (newPassword) {
         setCurrentPassword('');
         setNewPassword('');
@@ -144,11 +141,10 @@ export const ProfilePage = () => {
       setSaveMessage({ text: 'Error updating profile. Please try again.', className: 'error' });
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-  };  
+  };
 
   const handleSubscriptionChange = (newStatus) => {
     setIsSubscribed(newStatus);
-    setIsActive(newStatus); // Update isActive along with isSubscribed
     if (!newStatus) {
       setReceiveReminders(false);
       setReceiveNotifications(false);
