@@ -96,16 +96,21 @@ export const ProfilePage = () => {
       isSubscribed
     };
 
-    if (newPassword) {
-      updatedUser.password = newPassword;
-    }
-
     try {
+      if (currentPassword && newPassword) {
+        const passwordCheck = await api.post(`/api/profile/check-password`, { userId, currentPassword });
+        if (!passwordCheck.data.valid) {
+          setErrors({ currentPassword: 'Current password is incorrect' });
+          return;
+        }
+        updatedUser.password = newPassword;
+      }
+
       await api.put(`/api/profile/${userId}`, updatedUser);
       setSaveMessage({ text: 'Profile updated successfully!', className: 'success' });
 
       if (newPassword) {
-        setCurrentPassword(newPassword);
+        setCurrentPassword('');
         setNewPassword('');
         setConfirmPassword('');
       }
@@ -223,6 +228,7 @@ export const ProfilePage = () => {
                     <label className="profile__label" htmlFor="input-current-password">
                       Current Password
                     </label>
+                    {errors.currentPassword && <p className="profile__error">{errors.currentPassword}</p>}
                     <button
                       type="button"
                       className="profile__password-toggle"

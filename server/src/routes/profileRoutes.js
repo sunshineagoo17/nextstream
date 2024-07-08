@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const authenticate = require('../middleware/authenticate');
 const knex = require('../config/db');
 const router = express.Router();
+const { comparePassword } = require('../utils/hashPasswords'); 
 
 // Get user profile
 router.get('/:userId', authenticate, async (req, res) => {
@@ -28,8 +29,29 @@ router.get('/:userId', authenticate, async (req, res) => {
   }
 });
 
+// Check password endpoint
+router.post('/check-password', async (req, res) => {
+  const { userId, currentPassword } = req.body;
+  try {
+    const user = await knex('users').where({ id: userId }).first();
+    if (!user) {
+      return res.status(404).json({ valid: false, message: 'User not found' });
+    }
+
+    const isValid = await comparePassword(currentPassword, user.password);
+    if (!isValid) {
+      return res.status(401).json({ valid: false, message: 'Incorrect password' });
+    }
+
+    res.status(200).json({ valid: true });
+  } catch (error) {
+    console.error('Error checking password:', error);
+    res.status(500).json({ valid: false, message: 'Server error' });
+  }
+});
+
 // Update user profile
-router.put('/:userId', authenticate, async (req, res) => {
+router.put('/:userId', async (req, res) => {
   const { name, username, email, password, receiveReminders, receiveNotifications, region, isSubscribed, isActive } = req.body;
   const updatedUser = {
     name,
@@ -43,7 +65,9 @@ router.put('/:userId', authenticate, async (req, res) => {
   };
 
   if (password) {
+    console.log('Hashing password:', password); // Log the plain password (for debugging only)
     const hashedPassword = await bcrypt.hash(password, 10);
+    console.log('Hashed password:', hashedPassword); // Log the hashed password (for debugging only)
     updatedUser.password = hashedPassword;
   }
 
@@ -54,6 +78,7 @@ router.put('/:userId', authenticate, async (req, res) => {
     }
 
     await knex('users').where({ id: req.params.userId }).update(updatedUser);
+    console.log('Updated user:', updatedUser); // Log the updated user object (for debugging only)
     res.json({ message: 'User profile updated successfully' });
   } catch (error) {
     console.error('Error updating profile:', error);

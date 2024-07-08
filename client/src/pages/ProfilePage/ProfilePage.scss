@@ -539,5 +539,7 @@
     background-color: rgba($feedback-error-light-peach, 0.8); 
     color: $feedback-error-label;
     border: 1px solid $feedback-error-peach;
+    margin-left: .75rem;
+    margin-right: .75rem;
   }
 }

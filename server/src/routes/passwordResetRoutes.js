@@ -2,7 +2,7 @@ const express = require('express');
 const sgMail = require('@sendgrid/mail');
 const crypto = require('crypto');
 const knex = require('../config/db');
-const { hashPassword } = require('../utils/hashPasswords');
+const { hashPassword } = require('../utils/hashPasswords'); 
 const router = express.Router();
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
