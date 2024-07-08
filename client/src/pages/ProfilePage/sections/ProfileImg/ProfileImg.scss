@@ -55,11 +55,11 @@
       top: -.0625rem;
     }
   
-    &__ellipse--active .profile-img__ellipse {
+    &__ellipse--active {
       background-color: $feedback-mint-green;
     }
   
-    &__ellipse--inactive .profile-img__ellipse {
+    &__ellipse--inactive {
       background-color: $neutral-light-grey;
     }
   
