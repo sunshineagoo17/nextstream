@@ -77,7 +77,7 @@ export const Content = () => {
           <div className="content__new-releases-header">
             <div className="content__new-releases-subtitle-container">
               <p className="content__new-releases-subtitle">
-                Check out the latest movies and shows that have just become available for streaming.
+              Discover the most popular movies and TV shows currently available for streaming. Stay updated with the top trending content right at your fingertips.
               </p>
               <div className="content__label-header-new-container">
                 <div className="content__label-header-new-releases">POPULAR</div>
