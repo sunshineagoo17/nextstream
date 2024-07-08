@@ -59,7 +59,7 @@ const App = () => {
           path="/calendar/:userId" 
           element={isAuthenticated ? <CalendarPage /> : <Navigate to="/login-required" />} 
         />
-        <Route path="/search-results" element={<SearchResultsPage />} />
+        <Route path="/search" element={<SearchResultsPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route path="/login-required" element={<LoginRequired />} />
         <Route path="*" element={<NotFound />} />
