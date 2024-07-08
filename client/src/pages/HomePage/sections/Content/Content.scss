@@ -54,20 +54,8 @@
     width: 12.6875rem;
   }
 
-  &__pagination,
-  &__next {
-    @include hover-raise-effect-nav;
-    @include block-item(2.6875rem, 2.6875rem);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    box-shadow: $shadow-quaternary;
-    border-radius: 0.85rem;
-  }
-
-  &__page-nav-wrapper1,
-  &__page-nav-wrapper2 {
+  &__page-nav-wrapper-next,
+  &__page-nav-wrapper-previous {
     @include block-item(2.6rem, 2.6rem);
     @include hover-raise-effect-nav;
     display: flex;
@@ -78,14 +66,15 @@
     cursor: pointer;
   }
 
-  &__page-nav-wrapper1 {
+  &__page-nav-wrapper-next,
+  &__page-nav-wrapper-previous {
     background-color: $base-darker-blue;
-    border: 0.0625rem solid $primary-light-blue;
+    border: .15rem solid $primary-light-blue;
   }
 
-  &__page-nav-wrapper2 {
-    background-color: $primary-very-light-blue;
-    border: 0.0625rem solid $primary-pale-blue;
+  &__previous-icon,
+  &__next-icon {
+    @include block-item(1.1rem, 1.1rem);
   }
 
   &__page1,
