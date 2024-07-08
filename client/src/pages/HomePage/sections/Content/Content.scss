@@ -139,23 +139,84 @@
     }
   }
 
-  &__card1-container,
-  &__card2-container,
-  &__card3-container,
-  &__card4-container,
-  &__card5-container,
-  &__card6-container {
-    @include hover-raise-effect;
-    position: relative;
-    border-radius: 1.6rem;
-    box-shadow: $shadow-quaternary;
+// Add the sliding animations
+@keyframes slideInFromRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutToRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes slideOutToLeft {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+.content__card1-container,
+.content__card2-container,
+.content__card3-container,
+.content__card4-container,
+.content__card5-container,
+.content__card6-container {
+  @include hover-raise-effect;
+  position: relative;
+  border-radius: 1.6rem;
+  box-shadow: $shadow-quaternary;
+
+  &.slide-in-right {
+    animation: slideInFromRight 1s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+  }
+
+  &.slide-in-left {
+    animation: slideInFromLeft 1s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+  }
+
+  &.slide-out-right {
+    animation: slideOutToRight 1s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+  }
+
+  &.slide-out-left {
+    animation: slideOutToLeft 1s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+  }  
 
     @include tablet {
       margin-top: 0;
       margin-left: 0;
     }
   }
-  
+
   &__card1,
   &__card2,
   &__card3,
