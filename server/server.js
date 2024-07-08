@@ -37,6 +37,9 @@ app.use(limiter);
 // Initialize NodeCache with TTL of 1 hour
 const cache = new NodeCache({ stdTTL: 3600 });
 
+// Serve uploaded avatars
+app.use('/uploads/avatars', express.static(path.join(__dirname, 'uploads/avatars')));
+
 // TMDB API configuration
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
 const TMDB_BASE_URL = 'https://api.themoviedb.org/3';

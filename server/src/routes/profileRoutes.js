@@ -4,6 +4,32 @@ const authenticate = require('../middleware/authenticate');
 const knex = require('../config/db');
 const router = express.Router();
 const { comparePassword } = require('../utils/hashPasswords'); 
+const multer = require('multer');
+const path = require('path');
+
+// Set up multer for file uploads
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/avatars'); // Directory to store uploaded files
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${req.params.userId}-${Date.now()}${path.extname(file.originalname)}`);
+  }
+});
+
+const upload = multer({
+  storage: storage,
+  fileFilter: (req, file, cb) => {
+    const filetypes = /jpeg|jpg|png/;
+    const mimetype = filetypes.test(file.mimetype);
+    const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+
+    if (mimetype && extname) {
+      return cb(null, true);
+    }
+    cb(new Error('Error: File upload only supports the following filetypes - ' + filetypes));
+  }
+});
 
 // Get user profile
 router.get('/:userId', authenticate, async (req, res) => {
@@ -21,7 +47,8 @@ router.get('/:userId', authenticate, async (req, res) => {
       receiveNotifications: user.receiveNotifications,
       region: user.region,
       isSubscribed: user.isSubscribed,
-      isActive: user.isActive
+      isActive: user.isActive,
+      avatar: user.avatar // Add avatar to response
     });
   } catch (error) {
     console.error('Error fetching profile:', error);
@@ -89,6 +116,18 @@ router.put('/:userId', async (req, res) => {
   } catch (error) {
     console.error('Error updating profile:', error);
     res.status(500).json({ message: 'Error updating profile' });
+  }
+});
+
+// Upload user avatar
+router.post('/:userId/avatar', authenticate, upload.single('avatar'), async (req, res) => {
+  try {
+    const avatarPath = req.file.path;
+    await knex('users').where({ id: req.params.userId }).update({ avatar: avatarPath });
+    res.json({ message: 'Avatar uploaded successfully', avatar: avatarPath });
+  } catch (error) {
+    console.error('Error uploading avatar:', error);
+    res.status(500).json({ message: 'Error uploading avatar', error: error.message });
   }
 });
 

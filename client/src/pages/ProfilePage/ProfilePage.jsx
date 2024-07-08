@@ -28,6 +28,7 @@ export const ProfilePage = () => {
   const [receiveNotifications, setReceiveNotifications] = useState(false);
   const [selectedRegion, setSelectedRegion] = useState('Choose your area...');
   const [isSubscribed, setIsSubscribed] = useState(true);
+  const [isActive, setIsActive] = useState(true); 
   const [isLoading, setIsLoading] = useState(true);
   const [saveMessage, setSaveMessage] = useState({ text: '', className: '' });
   const [errors, setErrors] = useState({});
@@ -50,6 +51,7 @@ export const ProfilePage = () => {
           setReceiveNotifications(response.data.receiveNotifications);
           setSelectedRegion(response.data.region);
           setIsSubscribed(response.data.isSubscribed);
+          setIsActive(response.data.isActive); 
         } catch (error) {
           console.error('Error fetching profile:', error);
           setSaveMessage({ text: 'Error fetching profile. Please try again.', className: 'error' });
@@ -117,7 +119,8 @@ export const ProfilePage = () => {
       receiveReminders,
       receiveNotifications,
       region: selectedRegion,
-      isSubscribed
+      isSubscribed,
+      isActive
     };
 
     try {
@@ -168,6 +171,7 @@ export const ProfilePage = () => {
 
   const handleSubscriptionChange = (newStatus) => {
     setIsSubscribed(newStatus);
+    setIsActive(newStatus); 
     if (!newStatus) {
       setReceiveReminders(false);
       setReceiveNotifications(false);
@@ -199,7 +203,7 @@ export const ProfilePage = () => {
         </div>
         <div className="profile__main">
           <h1 className="profile__title">{user.name}'s Profile</h1>
-          <ProfileImg />
+          <ProfileImg userId={userId} username={user.username} isActive={isActive} onStatusToggle={setIsActive} />
 
           <div className="profile__card">
             <div className="profile__content-details">
