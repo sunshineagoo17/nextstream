@@ -12,6 +12,7 @@ const passwordResetRoutes = require('./src/routes/passwordResetRoutes');
 const authRoutes = require('./src/routes/auth');
 const profileRoutes = require('./src/routes/profileRoutes');
 const tmdbRoutes = require('./src/routes/tmdbRoutes');
+const searchRoutes = require('./src/routes/search'); 
 require('dotenv').config();
 
 const app = express();
@@ -124,6 +125,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/password-reset', passwordResetRoutes);
 app.use('/api/profile', profileRoutes);
 app.use('/api/tmdb', tmdbRoutes);
+app.use('/api', searchRoutes); 
 
 // Serve static files from the React app if needed
 app.use(express.static(path.join(__dirname, 'client/build')));
