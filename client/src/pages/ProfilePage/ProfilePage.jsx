@@ -8,6 +8,7 @@ import HideIcon from '../../assets/images/register-invisible-icon.svg';
 import ToggleButton from '../../components/ToggleButton/ToggleButton';
 import SubscriptionStatus from './sections/SubscriptionStatus/SubscriptionStatus';
 import Loader from '../../components/Loader/Loader';
+import ProfileImg from './sections/ProfileImg/ProfileImg';
 import './ProfilePage.scss';
 
 const validateEmail = (email) => {
@@ -198,6 +199,7 @@ export const ProfilePage = () => {
         </div>
         <div className="profile__main">
           <h1 className="profile__title">{user.name}'s Profile</h1>
+          <ProfileImg />
 
           <div className="profile__card">
             <div className="profile__content-details">
