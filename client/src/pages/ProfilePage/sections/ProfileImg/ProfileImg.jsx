@@ -58,10 +58,24 @@ const ProfileImg = ({ userId, username, isActive, onStatusToggle }) => {
     }
   };
 
+  const handleImageDelete = async () => {
+    try {
+      const response = await axios.delete(`${process.env.REACT_APP_BASE_URL}/api/profile/${userId}/avatar`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      console.log(response.data);
+      setImagePreview(AvatarImg); // Reset to default image
+    } catch (error) {
+      console.error("Error deleting avatar:", error);
+    }
+  };
+
   const toggleStatus = async () => {
     const newStatus = !isActive;
     try {
-      await axios.post(`${process.env.REACT_APP_BASE_URL}/api/profile/update-status`, { userId, isActive: newStatus }, {
+      await axios.post(`${process.env.REACT_APP_BASE_URL}/api/profile/${userId}/update-status`, { userId, isActive: newStatus }, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -95,6 +109,9 @@ const ProfileImg = ({ userId, username, isActive, onStatusToggle }) => {
         <input className="profile-img__input" type="file" accept="image/*" onChange={handleImageChange} />
         <button className="profile-img__button" onClick={handleImageUpload}>
           <img src={ProfileUploadBtn} alt="Upload" className="profile-img__button-icon" />
+        </button>
+        <button className="profile-img__button" onClick={handleImageDelete}>
+          Delete Avatar
         </button>
       </div>
     </div>

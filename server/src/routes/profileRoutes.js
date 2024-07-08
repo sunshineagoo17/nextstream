@@ -6,6 +6,7 @@ const router = express.Router();
 const { comparePassword } = require('../utils/hashPasswords'); 
 const multer = require('multer');
 const path = require('path');
+const fs = require('fs');
 
 // Set up multer for file uploads
 const storage = multer.diskStorage({
@@ -128,6 +129,49 @@ router.post('/:userId/avatar', authenticate, upload.single('avatar'), async (req
   } catch (error) {
     console.error('Error uploading avatar:', error);
     res.status(500).json({ message: 'Error uploading avatar', error: error.message });
+  }
+});
+
+// Delete user avatar
+router.delete('/:userId/avatar', authenticate, async (req, res) => {
+  try {
+    const user = await knex('users').where({ id: req.params.userId }).first();
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const avatarPath = user.avatar;
+    if (avatarPath) {
+      fs.unlink(avatarPath, (err) => {
+        if (err) {
+          console.error('Error deleting avatar file:', err);
+          return res.status(500).json({ message: 'Error deleting avatar file' });
+        }
+      });
+      await knex('users').where({ id: req.params.userId }).update({ avatar: null });
+    }
+
+    res.json({ message: 'Avatar deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting avatar:', error);
+    res.status(500).json({ message: 'Error deleting avatar' });
+  }
+});
+
+// Update user status
+router.post('/:userId/update-status', authenticate, async (req, res) => {
+  const { userId, isActive } = req.body;
+  try {
+    const user = await knex('users').where({ id: userId }).first();
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    await knex('users').where({ id: userId }).update({ isActive });
+    res.json({ message: 'User status updated successfully' });
+  } catch (error) {
+    console.error('Error updating status:', error);
+    res.status(500).json({ message: 'Error updating status' });
   }
 });
 
