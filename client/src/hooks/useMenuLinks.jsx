@@ -1,55 +1,96 @@
 import { useContext } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext/AuthContext';
 
 const useMenuLinks = () => {
   const location = useLocation();
-  const navigate = useNavigate();
-  const { isAuthenticated, userId } = useContext(AuthContext);
+  const { isAuthenticated, userId: authUserId } = useContext(AuthContext);
 
-  const authenticatedLinks = [
+  const authenticatedLinksSet1 = [
     { name: "Stream Locator", path: "/stream-locator" },
     { name: "Top Picks", path: "/top-picks" },
     { name: "Calendar", path: "/calendar" },
-    { name: "Profile", path: `/profile/${userId}` }
+    { name: "Profile", path: `/profile/${authUserId}` }
+  ];
+
+  const authenticatedLinksSet2 = [
+    { name: "Stream Locator", path: "/stream-locator" },
+    { name: "Top Picks", path: "/top-picks" },
+    { name: "Calendar", path: "/calendar" },
   ];
 
   const unauthenticatedLinks = [
-    { name: "Home", path: "/" },
-    { name: "Register", path: "/register" },
-    { name: "Login", path: "/login" },
     { name: "Terms", path: "/terms" },
     { name: "Privacy Policy", path: "/privacy-policy" }
   ];
 
+  const unauthenticatedHomeLink = [
+    { name: "Home", path: "/" }
+  ];
+
+  const unauthenticatedRegisterLink = [
+    { name: "Register", path: "/register" }
+  ];
+
+  const unauthenticatedLoginLink = [
+    { name: "Register", path: "/login" }
+  ];
+
+  const loginRequiredPath = '/login-required';
+
+  const navigateToLoginRequired = () => {
+    window.location.href = loginRequiredPath; 
+  };
+
   const getMenuLinks = (path) => {
     if (isAuthenticated) {
-      return authenticatedLinks;
+      if (path.startsWith(`/profile/${authUserId}`)) {
+        return [
+          { name: "Home", path: "/" },
+          ...authenticatedLinksSet2
+        ];
+      } else {
+        // Handle other authenticated routes
+        return authenticatedLinksSet1;
+      }
     } else {
       switch (path) {
         case "/privacy-policy":
         case "/terms":
           return [
-            { name: "Home", path: "/" },
-            { name: "Register", path: "/register" },
-            { name: "Login", path: "/login" }
+            ...unauthenticatedHomeLink,
+            ...authenticatedLinksSet1,
+            ...unauthenticatedRegisterLink,
           ];
-        case "/login":
         case "/register":
           return [
-            { name: "Home", path: "/" },
-            { name: "Register", path: "/register" },
-            { name: "Terms", path: "/terms" },
-            { name: "Privacy Policy", path: "/privacy-policy" }
+            ...unauthenticatedHomeLink,
+            ...unauthenticatedLoginLink,
+            ...unauthenticatedLinks
           ];
-        case "/profile":
-        case "/stream-locator":
-        case "/top-picks":
-        case "/calendar":
-          navigate('/login-required');
-          return [];
+        case "/login-required":
+          return [
+            ...unauthenticatedHomeLink,
+            ...unauthenticatedRegisterLink,
+            ...unauthenticatedLinks
+          ];
+        case "/login":
+          return [
+            ...unauthenticatedHomeLink,
+            ...unauthenticatedRegisterLink,
+            ...unauthenticatedLinks
+          ];
         case "/":
+          return [
+            ...unauthenticatedRegisterLink,
+            ...authenticatedLinksSet1
+          ];
         default:
+          // Redirect to login-required page for authenticated routes if not logged in
+          if (authenticatedLinksSet1.some(link => link.path === path)) {
+            navigateToLoginRequired();
+            return [];
+          }
           return unauthenticatedLinks;
       }
     }
