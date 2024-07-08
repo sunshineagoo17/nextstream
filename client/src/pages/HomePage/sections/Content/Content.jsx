@@ -12,6 +12,7 @@ import "./Content.scss";
 export const Content = () => {
   const [newReleases, setNewReleases] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [animationClass, setAnimationClass] = useState('');
 
   useEffect(() => {
     // Fetch the newest releases from the backend
@@ -28,11 +29,19 @@ export const Content = () => {
   }, []);
 
   const handlePrevious = () => {
-    setCurrentIndex((prevIndex) => (prevIndex === 0 ? newReleases.length - 3 : prevIndex - 3));
+    setAnimationClass('slide-out-left');
+    setTimeout(() => {
+      setCurrentIndex((prevIndex) => (prevIndex === 0 ? newReleases.length - 3 : prevIndex - 3));
+      setAnimationClass('slide-in-left');
+    }, 500);
   };
 
   const handleNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex === newReleases.length - 3 ? 0 : prevIndex + 3));
+    setAnimationClass('slide-out-right');
+    setTimeout(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 3 >= newReleases.length ? 0 : prevIndex + 3));
+      setAnimationClass('slide-in-right');
+    }, 500);
   };
 
   return (
@@ -75,11 +84,11 @@ export const Content = () => {
               </div>
             </div>
           </div>
-         
+
           <div className="content__card-media-container">
             <div className="content__card-media">
               {newReleases.slice(currentIndex, currentIndex + 3).map((release, index) => (
-                <div key={index} className={`content__card${index + 1}-container`}>
+                <div key={index} className={`content__card${index + 1}-container ${animationClass}`}>
                   <a href={release.url} target="_blank" rel="noopener noreferrer">
                     <div className={`content__card${index + 1}`}>
                       <img
