@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
-import PreviousIcon from "../../../../assets/images/previous.svg";
-import NextIcon from "../../../../assets/images/next.svg";
 import VideoCamera from "../../../../assets/images/videocamera-1.png";
 import TvIcon from "../../../../assets/images/tv-icon.png";
 import CalendarIcon from "../../../../assets/images/calendar-icon.svg";
 import Favourites from "../../../../assets/images/favourites-icon.svg";
 import SearchIcon from "../../../../assets/images/search-icon.svg";
+import PreviousIcon from "../../../../assets/images/previous-icon.svg";
+import NextIcon from "../../../../assets/images/next-icon.svg";
 import "./Content.scss";
 
 export const Content = () => {
@@ -98,8 +98,12 @@ export const Content = () => {
           </div>
 
           <div className="content__pagination-container">
-            <img className="content__pagination" alt="Previous" src={PreviousIcon} onClick={handlePrevious} />
-            <img className="content__next" alt="Next" src={NextIcon} onClick={handleNext} />
+            <div className="content__page-nav-wrapper-next" onClick={handlePrevious}>
+            <img src={PreviousIcon} className="content__previous-icon" alt="Previous" />
+            </div>
+            <div className="content__page-nav-wrapper-previous" onClick={handleNext}>
+              <img src={NextIcon} className="content__next-icon" alt="Next" />
+            </div>
           </div>
         </div>
       </div>
