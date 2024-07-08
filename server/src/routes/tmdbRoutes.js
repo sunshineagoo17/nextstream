@@ -1,6 +1,10 @@
 const express = require('express');
 const axios = require('axios');
 const router = express.Router();
+const NodeCache = require('node-cache');
+const cron = require('node-cron');
+
+const cache = new NodeCache({ stdTTL: 3600 }); 
 
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
 const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
@@ -20,10 +24,9 @@ const getWatchProviders = async (mediaType, mediaId) => {
   }
 };
 
-// Endpoint to get the popular movies and shows
-router.get('/popular', async (req, res) => {
+// Function to fetch and cache popular movies and shows
+const fetchPopularReleases = async () => {
   try {
-    // Fetch the popular movies
     const moviesResponse = await axios.get(`${TMDB_BASE_URL}/movie/popular`, {
       params: {
         api_key: TMDB_API_KEY,
@@ -33,7 +36,6 @@ router.get('/popular', async (req, res) => {
       }
     });
 
-    // Fetch the popular TV shows
     const showsResponse = await axios.get(`${TMDB_BASE_URL}/tv/popular`, {
       params: {
         api_key: TMDB_API_KEY,
@@ -43,7 +45,6 @@ router.get('/popular', async (req, res) => {
       }
     });
 
-    // Combine the results
     const movies = moviesResponse.data.results;
     const shows = showsResponse.data.results;
 
@@ -94,10 +95,27 @@ router.get('/popular', async (req, res) => {
       providers: item.providers.map(provider => provider.provider_name)
     }));
 
-    res.json({ results: popularReleases });
+    // Cache the results
+    cache.set('popularReleases', popularReleases);
   } catch (error) {
     console.error('Error fetching popular releases:', error);
-    res.status(500).json({ message: 'Error fetching popular releases' });
+  }
+};
+
+// Schedule the fetching task every hour
+cron.schedule('0 * * * *', fetchPopularReleases);
+
+// Fetch popular releases initially on server start
+fetchPopularReleases();
+
+// Endpoint to get the popular movies and shows
+router.get('/popular', async (req, res) => {
+  const popularReleases = cache.get('popularReleases');
+
+  if (popularReleases) {
+    res.json({ results: popularReleases });
+  } else {
+    res.status(500).json({ message: 'Popular releases not available at the moment. Please try again later.' });
   }
 });
 
