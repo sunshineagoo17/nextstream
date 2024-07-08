@@ -72,6 +72,12 @@ router.put('/:userId', async (req, res) => {
   }
 
   try {
+    // Check for duplicate email
+    const existingUser = await knex('users').where({ email }).whereNot({ id: req.params.userId }).first();
+    if (existingUser) {
+      return res.status(409).json({ message: 'Email is already taken' });
+    }
+
     const user = await knex('users').where({ id: req.params.userId }).first();
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
