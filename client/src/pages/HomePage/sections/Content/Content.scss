@@ -64,6 +64,11 @@
     border-radius: 0.85rem;
     box-shadow: $shadow-quaternary;
     cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+    
+    &:active {
+      transform: scale(0.95);
+    }
   }
 
   &__page-nav-wrapper-next,
@@ -194,6 +199,7 @@
   position: relative;
   border-radius: 1.6rem;
   box-shadow: $shadow-quaternary;
+  transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
 
   &.slide-in-right {
     animation: slideInFromRight 1s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
@@ -210,6 +216,10 @@
   &.slide-out-left {
     animation: slideOutToLeft 1s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
   }  
+
+  &:active {
+    transform: scale(0.95);
+  }
 
     @include tablet {
       margin-top: 0;
