@@ -7,7 +7,7 @@ import UserIcon from "../../assets/images/user-icon.svg";
 import LogoutIcon from "../../assets/images/logout-icon.svg";
 import "./Header.scss";
 
-export const Header = () => {
+const Header = () => {
   const { isAuthenticated, logout } = useContext(AuthContext);
   const navigate = useNavigate();
 
