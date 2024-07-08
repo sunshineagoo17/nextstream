@@ -26,16 +26,18 @@
     }
 
     &__no-image {
-        @include block-item(7rem, 7rem);
-        display: flex; 
-        justify-content: center;
-        align-items: center;
+        display: flex;
         flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: $primary-light-blue;
+        border-radius: 1rem;
+        padding: 1rem;
+        box-shadow: $shadow-tertiary;
     }
 
     &__error-no-img-title,
     &__error-no-img-txt {
-        
         text-align: center;
     }
 

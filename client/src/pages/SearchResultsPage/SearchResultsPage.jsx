@@ -6,7 +6,7 @@ import AnimatedBg from '../../components/AnimatedBg/AnimatedBg';
 import 'react-toastify/dist/ReactToastify.css';
 import './SearchResultsPage.scss';
 import Loader from '../../components/Loader/Loader';
-import DefaultVideoImg from "../../assets/images/video-img-default.png";
+import DefaultVideoImg from '../../assets/images/video-img-default.png';
 
 const SearchResultsPage = () => {
   const [results, setResults] = useState([]);
@@ -69,7 +69,7 @@ const SearchResultsPage = () => {
 
   return (
     <>
-      <ToastContainer /> 
+      <ToastContainer />
       {isLoading && <Loader />}
       <div className="search-results">
         <div className="search-results__content-card">
@@ -92,20 +92,24 @@ const SearchResultsPage = () => {
             {results.map(result => (
               <div key={result.id} className="search-results__card">
                 <a href={`https://www.themoviedb.org/${result.media_type}/${result.id}`} className="search-results__link" target="_blank" rel="noopener noreferrer">
-                    <div className="search-results__content-items">
-                        <img
-                            className="search-results__poster"
-                            alt={result.title || result.name}
-                            src={`https://image.tmdb.org/t/p/w500${result.poster_path}`}
-                            onError={(e) => { e.target.src = DefaultVideoImg; }}
-                        />
-                        {!result.poster_path && (
-                        <div className="search-results__no-image">
-                            <span className="search-results__error-no-img-txt">No Image Available for: </span>
-                            <span className="search-results__error-no-img-title">{result.title || result.name}</span>
-                        </div>
-                        )}
+                  {result.poster_path ? (
+                    <img
+                      className="search-results__poster"
+                      alt={result.title || result.name}
+                      src={`https://image.tmdb.org/t/p/w500${result.poster_path}`}
+                      onError={(e) => { e.target.src = DefaultVideoImg; }}
+                    />
+                  ) : (
+                    <div className="search-results__no-image">
+                      <img
+                        className="search-results__poster search-results__poster--default"
+                        alt={result.title || result.name}
+                        src={DefaultVideoImg}
+                      />
+                      <span className="search-results__error-no-img-txt">No Image Available for:</span>
+                      <span className="search-results__error-no-img-title">{result.title || result.name}</span>
                     </div>
+                  )}
                 </a>
               </div>
             ))}

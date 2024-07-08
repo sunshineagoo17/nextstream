@@ -40,7 +40,7 @@ const Header = () => {
             <div className="header__search-content">
               <form onSubmit={handleSearch}>
                 <input 
-                  className="header__search" 
+                  className="header__search-input" 
                   type="text" 
                   placeholder="Search..." 
                   value={query} 
@@ -85,7 +85,7 @@ const Header = () => {
         <div className="header__search-content--mobile">
           <form onSubmit={handleSearch}>
             <input 
-              className="header__search--mobile" 
+              className="header__search-input--mobile" 
               type="text" 
               placeholder="Search..." 
               value={query} 
