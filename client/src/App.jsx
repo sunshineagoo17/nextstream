@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
+import React, { useState, useContext } from "react";
+import { BrowserRouter as Router, Route, Routes, useLocation, Navigate } from 'react-router-dom';
 import { HomePage } from "./pages/HomePage/HomePage";
 import { Footer } from "./components/Footer/Footer";
 import { TermsAndConditions } from "./pages/TermsAndConditions/TermsAndConditions";
@@ -9,15 +9,20 @@ import { RegisterPage } from "./pages/RegisterPage/RegisterPage";
 import { ResetPasswordPage } from "./pages/ResetPasswordPage/ResetPasswordPage";
 import { LoginPage } from "./pages/LoginPage/LoginPage";
 import { ProfilePage } from "./pages/ProfilePage/ProfilePage";
+import { StreamLocatorPage } from "./pages/StreamLocatorPage/StreamLocatorPage"; 
+import { TopPicksPage } from "./pages/TopPicksPage/TopPicksPage";
+import { CalendarPage } from "./pages/CalendarPage/CalendarPage";
 import ContactModal from "./components/ContactModal/ContactModal";
 import Header from "./components/Header/Header";
 import HoverMenu from "./components/Header/sections/HoverMenu/HoverMenu";
-import { AuthProvider } from './context/AuthContext/AuthContext';  
+import { AuthProvider, AuthContext } from './context/AuthContext/AuthContext';  
+import LoginRequired from "./pages/LoginRequired/LoginRequired"; 
 import './styles/global.scss';
 
 const App = () => {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const location = useLocation();
+  const { isAuthenticated } = useContext(AuthContext);
 
   const handleContactClick = () => {
     setIsContactModalOpen(true);
@@ -37,8 +42,24 @@ const App = () => {
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/profile/:userId" element={<ProfilePage />} />
+        <Route 
+          path="/profile/:userId" 
+          element={isAuthenticated ? <ProfilePage /> : <Navigate to="/login-required" />} 
+        />
+        <Route 
+          path="/stream-locator" 
+          element={isAuthenticated ? <StreamLocatorPage /> : <Navigate to="/login-required" />} 
+        />
+        <Route 
+          path="/top-picks" 
+          element={isAuthenticated ? <TopPicksPage /> : <Navigate to="/login-required" />} 
+        />
+        <Route 
+          path="/calendar" 
+          element={isAuthenticated ? <CalendarPage /> : <Navigate to="/login-required" />} 
+        />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
+        <Route path="/login-required" element={<LoginRequired />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer onContactClick={handleContactClick} />

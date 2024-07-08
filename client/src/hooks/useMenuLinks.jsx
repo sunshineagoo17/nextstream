@@ -1,21 +1,31 @@
 import { useContext } from 'react';
-import { useLocation } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext/AuthContext'; 
+import { useLocation, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext/AuthContext';
 
 const useMenuLinks = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const { isAuthenticated, userId } = useContext(AuthContext);
+
+  const authenticatedLinks = [
+    { name: "Stream Locator", path: "/stream-locator" },
+    { name: "Top Picks", path: "/top-picks" },
+    { name: "Calendar", path: "/calendar" },
+    { name: "Profile", path: `/profile/${userId}` }
+  ];
+
+  const unauthenticatedLinks = [
+    { name: "Home", path: "/" },
+    { name: "Register", path: "/register" },
+    { name: "Login", path: "/login" },
+    { name: "Terms", path: "/terms" },
+    { name: "Privacy Policy", path: "/privacy-policy" }
+  ];
 
   const getMenuLinks = (path) => {
     if (isAuthenticated) {
-      return [
-        { name: "Stream Locator", path: "/stream-locator" },
-        { name: "Top Picks", path: "/top-picks" },
-        { name: "Calendar", path: "/calendar" },
-        { name: "Profile", path: `/profile/${userId}` }
-      ];
+      return authenticatedLinks;
     } else {
-      // User is not logged in, restrict access to certain pages
       switch (path) {
         case "/privacy-policy":
         case "/terms":
@@ -25,28 +35,22 @@ const useMenuLinks = () => {
             { name: "Login", path: "/login" }
           ];
         case "/login":
+        case "/register":
           return [
             { name: "Home", path: "/" },
             { name: "Register", path: "/register" },
             { name: "Terms", path: "/terms" },
-            { name: "Privacy Policy", path: "/privacy-policy" },
+            { name: "Privacy Policy", path: "/privacy-policy" }
           ];
-        case "/register":
-            return [
-              { name: "Home", path: "/" },
-              { name: "Login", path: "/login" },
-              { name: "Terms", path: "/terms" },
-              { name: "Privacy Policy", path: "/privacy-policy" },
-            ];
+        case "/profile":
+        case "/stream-locator":
+        case "/top-picks":
+        case "/calendar":
+          navigate('/login-required');
+          return [];
         case "/":
         default:
-          return [
-            { name: "Register", path: "/register" },
-            { name: "Stream Locator", path: "/stream-locator" },
-            { name: "Top Picks", path: "/top-picks" },
-            { name: "Calendar", path: "/calendar" },
-            { name: "Profile", path: "/profile" }
-          ];
+          return unauthenticatedLinks;
       }
     }
   };
