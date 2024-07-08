@@ -190,7 +190,7 @@
 .content__card4-container,
 .content__card5-container,
 .content__card6-container {
-  @include hover-raise-effect;
+  @include hover-raise-effect-cards;
   position: relative;
   border-radius: 1.6rem;
   box-shadow: $shadow-quaternary;
