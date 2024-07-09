@@ -1,11 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './CookieNotification.scss';
 
 const CookieNotification = () => {
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const cookieNotificationSeen = sessionStorage.getItem('cookieNotificationSeen');
+    if (!cookieNotificationSeen) {
+      setVisible(true);
+    }
+  }, []);
 
   const handleClose = () => {
     setVisible(false);
+    sessionStorage.setItem('cookieNotificationSeen', 'true');
   };
 
   if (!visible) {
@@ -15,7 +23,7 @@ const CookieNotification = () => {
   return (
     <div className="cookie-notification">
       <p className="cookie-notification__message">
-        We use cookies to improve your experience on our site. By using our site, you consent to cookies.
+        We use cookies to enhance your experience. Please enable cookies.
       </p>
       <button className="cookie-notification__close-btn" onClick={handleClose} aria-label="Close notification">
         &times;
