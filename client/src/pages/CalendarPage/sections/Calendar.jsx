@@ -10,7 +10,7 @@ import { AuthContext } from '../../../context/AuthContext/AuthContext';
 import './Calendar.scss';
 
 const Calendar = () => {
-  const { userId } = useContext(AuthContext);
+  const { userId, isAuthenticated } = useContext(AuthContext); 
   const [events, setEvents] = useState([]);
   const [miniCalendarVisible, setMiniCalendarVisible] = useState(true);
   const [currentMonth, setCurrentMonth] = useState(new Date());
@@ -129,9 +129,11 @@ const Calendar = () => {
           <FontAwesomeIcon icon={faSearch} className="search-icon" />
           <input className="search-bar" type="text" placeholder="Search events..." />
         </div>
-        <button className="toggle-sidebar-btn" onClick={() => setMiniCalendarVisible(!miniCalendarVisible)}>
-          {miniCalendarVisible ? 'Hide Mini Calendar' : 'Show Mini Calendar'}
-        </button>
+        {isAuthenticated && (
+          <button className="toggle-sidebar-btn" onClick={() => setMiniCalendarVisible(!miniCalendarVisible)}>
+            {miniCalendarVisible ? 'Hide Mini Calendar' : 'Show Mini Calendar'}
+          </button>
+        )}
       </div>
       <div className="calendar-content">
         {miniCalendarVisible && renderMiniCalendar()}
