@@ -99,24 +99,24 @@ const Calendar = () => {
 
     return (
       <div className="mini-calendar">
-        <div className="mini-calendar-header">
-          <button className="nav-btn" onClick={handlePrevMonth}>{'<'}</button>
-          <span className="mini-calendar-title">
+        <div className="mini-calendar__header">
+          <button className="mini-calendar__nav-btn" onClick={handlePrevMonth}>{'<'}</button>
+          <span className="mini-calendar__title">
             {currentMonth.toLocaleString('default', { month: 'long' })} {currentMonth.getFullYear()}
           </span>
-          <button className="nav-btn" onClick={handleNextMonth}>{'>'}</button>
+          <button className="mini-calendar__nav-btn" onClick={handleNextMonth}>{'>'}</button>
         </div>
-        <div className="mini-calendar-body">
-          <div className="mini-calendar-day-names">
+        <div className="mini-calendar__body">
+          <div className="mini-calendar__day-names">
             {['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'].map(day => (
-              <div key={day} className="mini-calendar-day-name">{day}</div>
+              <div key={day} className="mini-calendar__day-name">{day}</div>
             ))}
           </div>
-          <div className="mini-calendar-days">
+          <div className="mini-calendar__days">
             {daysArray.map((day, index) => (
               <div
                 key={index}
-                className={`mini-calendar-day${day ? '' : ' empty'}`}
+                className={`mini-calendar__day${day ? '' : ' mini-calendar__day--empty'}`}
                 onClick={() => day && handleDateSelect(day)}
               >
                 {day}
@@ -124,7 +124,7 @@ const Calendar = () => {
             ))}
           </div>
         </div>
-        <button className="close-btn" onClick={() => setMiniCalendarVisible(false)}>Close</button>
+        <button className="mini-calendar__close-btn" onClick={() => setMiniCalendarVisible(false)}>Close</button>
       </div>
     );
   };
@@ -134,22 +134,22 @@ const Calendar = () => {
   }
 
   return (
-    <div className="calendar-container">
-      <div className="calendar-header">
-        <div className="search-container">
-          <FontAwesomeIcon icon={faSearch} className="search-icon" />
-          <input className="search-bar" type="text" placeholder="Search events..." />
+    <div className="calendar">
+      <div className="calendar__header">
+        <div className="calendar__search-container">
+          <FontAwesomeIcon icon={faSearch} className="calendar__search-icon" />
+          <input className="calendar__search-bar" type="text" placeholder="Search events..." />
         </div>
         {isAuthenticated && (
-          <button className="toggle-sidebar-btn" onClick={() => setMiniCalendarVisible(!miniCalendarVisible)}>
+          <button className="calendar__toggle-sidebar-btn" onClick={() => setMiniCalendarVisible(!miniCalendarVisible)}>
             {miniCalendarVisible ? 'Hide Mini Calendar' : 'Show Mini Calendar'}
           </button>
         )}
       </div>
-      <div className="calendar-content">
+      <div className="calendar__content">
         {miniCalendarVisible && renderMiniCalendar()}
-        {miniCalendarVisible && <div className="overlay" />}
-        <div className="main-calendar">
+        {miniCalendarVisible && <div className="calendar__overlay" />}
+        <div className="calendar__main">
           <FullCalendar
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
             initialView={calendarView}
