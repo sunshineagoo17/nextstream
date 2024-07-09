@@ -4,14 +4,18 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFilm } from '@fortawesome/free-solid-svg-icons';
+import { faFilm, faSearch } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
-import { AuthContext } from '../../../context/AuthContext/AuthContext'; 
+import { AuthContext } from '../../../context/AuthContext/AuthContext';
 import './Calendar.scss';
 
 const Calendar = () => {
   const { userId } = useContext(AuthContext);
   const [events, setEvents] = useState([]);
+  const [miniCalendarVisible, setMiniCalendarVisible] = useState(true);
+  const [currentMonth, setCurrentMonth] = useState(new Date());
+  const [calendarView, setCalendarView] = useState('dayGridMonth');
+  const [selectedDate, setSelectedDate] = useState(null);
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -69,20 +73,88 @@ const Calendar = () => {
     );
   };
 
+  const handlePrevMonth = () => {
+    const newMonth = new Date(currentMonth.setMonth(currentMonth.getMonth() - 1));
+    setCurrentMonth(newMonth);
+  };
+
+  const handleNextMonth = () => {
+    const newMonth = new Date(currentMonth.setMonth(currentMonth.getMonth() + 1));
+    setCurrentMonth(newMonth);
+  };
+
+  const handleDateSelect = (day) => {
+    const selectedDate = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day);
+    setSelectedDate(selectedDate);
+    setCalendarView('timeGridDay');
+  };
+
+  const renderMiniCalendar = () => {
+    const daysInMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0).getDate();
+    const firstDayOfMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1).getDay();
+    const daysArray = [...Array(firstDayOfMonth).fill(null), ...Array(daysInMonth).keys()].map(day => day + 1);
+
+    return (
+      <div className="mini-calendar">
+        <div className="mini-calendar-header">
+          <button className="nav-btn" onClick={handlePrevMonth}>{'<'}</button>
+          <span className="mini-calendar-title">
+            {currentMonth.toLocaleString('default', { month: 'long' })} {currentMonth.getFullYear()}
+          </span>
+          <button className="nav-btn" onClick={handleNextMonth}>{'>'}</button>
+        </div>
+        <div className="mini-calendar-body">
+          <div className="mini-calendar-day-names">
+            {['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'].map(day => (
+              <div key={day} className="mini-calendar-day-name">{day}</div>
+            ))}
+          </div>
+          <div className="mini-calendar-days">
+            {daysArray.map((day, index) => (
+              <div
+                key={index}
+                className={`mini-calendar-day${day ? '' : ' empty'}`}
+                onClick={() => day && handleDateSelect(day)}
+              >
+                {day}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   return (
-    <FullCalendar
-      plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-      initialView="dayGridMonth"
-      headerToolbar={{
-        left: 'prev,next today',
-        center: 'title',
-        right: 'dayGridMonth,timeGridWeek,timeGridDay',
-      }}
-      events={events}
-      dateClick={handleDateClick}
-      eventClick={handleEventClick}
-      eventContent={renderEventContent} 
-    />
+    <div className="calendar-container">
+      <div className="calendar-header">
+        <div className="search-container">
+          <FontAwesomeIcon icon={faSearch} className="search-icon" />
+          <input className="search-bar" type="text" placeholder="Search events..." />
+        </div>
+        <button className="toggle-sidebar-btn" onClick={() => setMiniCalendarVisible(!miniCalendarVisible)}>
+          {miniCalendarVisible ? 'Hide Mini Calendar' : 'Show Mini Calendar'}
+        </button>
+      </div>
+      <div className="calendar-content">
+        {miniCalendarVisible && renderMiniCalendar()}
+        <div className="main-calendar">
+          <FullCalendar
+            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+            initialView={calendarView}
+            headerToolbar={{
+              left: 'prev,next today',
+              center: 'title',
+              right: 'dayGridMonth,timeGridWeek,timeGridDay',
+            }}
+            events={events}
+            dateClick={handleDateClick}
+            eventClick={handleEventClick}
+            eventContent={renderEventContent}
+          />
+        </div>
+      </div>
+    </div>
   );
 };
 

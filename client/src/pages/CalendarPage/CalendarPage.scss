@@ -3,3 +3,37 @@
 @use "../../styles/partials/fonts" as *;
 @use "../../styles/partials/mixins" as *;
 @use "../../styles/global.scss" as *;
+
+.calendar-page {
+  padding: 20px;
+  background-color: $primary-pale-blue;
+}
+
+.calendar-page__hero {
+  background-image: url(../../assets/images/nextstream-bg.jpg);
+  background-size: cover;
+  padding: 40px 20px;
+  text-align: center;
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 8px;
+}
+
+.calendar-page__hero-text {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.calendar-page__subtitle {
+  font-size: 1.5rem;
+  color: $primary-darker-blue;
+  margin: 0;
+}
+
+.calendar-page__title {
+  font-size: 2.5rem;
+  color: $primary-darker-blue;
+  margin: 10px 0 0;
+}

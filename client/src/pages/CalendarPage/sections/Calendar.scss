@@ -1,2 +1,199 @@
+// Import partials
+@use "../../../styles/partials/colors" as *;
+@use "../../../styles/partials/fonts" as *;
+@use "../../../styles/partials/mixins" as *;
+@use "../../../styles/global.scss" as *;
+
 @import url('https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.10.1/main.min.css');
 
+.calendar-container {
+  background: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 1200px;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  background: $primary-very-light-blue;
+  padding: 10px 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.search-container {
+  position: relative;
+  flex: 1;
+  margin-right: 20px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: $primary-dark-blue;
+}
+
+.search-bar {
+  width: 100%;
+  padding: 10px 10px 10px 30px;
+  border-radius: 12px;
+  border: 1px solid $primary-medium-blue;
+  background: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+  color: $primary-dark-blue;
+}
+
+.toggle-sidebar-btn {
+  padding: 10px 20px;
+  border-radius: 12px;
+  border: none;
+  background: $primary-light-blue;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.calendar-content {
+  display: flex;
+}
+
+.mini-calendar {
+  flex: 1;
+  margin-right: 20px;
+  background: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 10px;
+  max-height: 60%;
+}
+
+.mini-calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.mini-calendar-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: $primary-dark-blue;
+}
+
+.nav-btn {
+  background: $primary-light-blue;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 5px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.mini-calendar-body {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 5px;
+}
+
+.mini-calendar-day-names {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.mini-calendar-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.mini-calendar-day {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.main-calendar {
+  flex: 3;
+}
+
+.fc {
+  --fc-today-bg-color: $primary-pale-blue;
+  --fc-page-bg-color: transparent;
+}
+
+.fc-toolbar {
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 12px;
+  padding: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.fc-toolbar-title {
+  font-size: 1.5rem;
+  color: $primary-dark-blue;
+}
+
+.fc-button-group .fc-button {
+  background-color: $primary-light-blue;
+  color: #fff;
+  border: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  margin-right: 10px;
+}
+
+.fc-button-group .fc-button.fc-button-active {
+  background-color: $primary-medium-blue;
+  color: #fff;
+}
+
+.fc-daygrid-day {
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid $primary-medium-blue;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  margin-bottom: 5px;
+  padding: 10px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.fc-daygrid-day-number {
+  font-size: 1rem;
+  color: $primary-dark-blue;
+}
+
+.fc-day-today {
+  background-color: rgba(0, 69, 182, 0.3) !important;
+  border-color: $primary-medium-blue !important;
+}
