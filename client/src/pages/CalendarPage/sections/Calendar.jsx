@@ -124,6 +124,7 @@ const Calendar = () => {
             ))}
           </div>
         </div>
+        <button className="close-btn" onClick={() => setMiniCalendarVisible(false)}>Close</button>
       </div>
     );
   };
@@ -147,6 +148,7 @@ const Calendar = () => {
       </div>
       <div className="calendar-content">
         {miniCalendarVisible && renderMiniCalendar()}
+        {miniCalendarVisible && <div className="overlay" />}
         <div className="main-calendar">
           <FullCalendar
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
