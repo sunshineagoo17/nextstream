@@ -14,26 +14,34 @@
   background-size: cover;
   padding: 40px 20px;
   text-align: center;
-  backdrop-filter: blur(10px);
-  background: rgba(255, 255, 255, 0.4);
+  background: $frosted-glass;
   border-radius: 8px;
+  box-shadow: $shadow-secondary;
 }
 
 .calendar-page__hero-text {
-  display: inline-block;
-  background: rgba(255, 255, 255, 0.8);
+  background: $primary-light-blue;
   padding: 20px;
-  border-radius: 8px;
+  border-radius: 1rem;
+  box-shadow: $shadow-senary;
+  border: 1px solid $neutral-light-bg;
 }
 
 .calendar-page__subtitle {
   font-size: 1.5rem;
-  color: $primary-darker-blue;
+  font-family: $primary-font;
+  color: $neutral-light-grey;
   margin: 0;
 }
 
 .calendar-page__title {
   font-size: 2.5rem;
-  color: $primary-darker-blue;
+  color: $neutral-white;
   margin: 10px 0 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: $shadow-primary;
+  border-radius: 1rem;
+  border: 1px solid $neutral-light-bg;
 }

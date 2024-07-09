@@ -7,9 +7,8 @@
 @import url('https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.10.1/main.min.css');
 
 .calendar-container {
-  background: rgba(255, 255, 255, 0.4);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(10px);
+  background: $frosted-glass;
+  box-shadow: $shadow-senary;
   border-radius: 16px;
   padding: 20px;
   margin: 20px auto;
@@ -30,7 +29,9 @@
 .search-container {
   position: relative;
   flex: 1;
-  margin-right: 20px;
+  margin-right: 1.25rem;
+  border-radius: 1rem;
+  box-shadow: $shadow-tertiary;
 }
 
 .search-icon {
@@ -45,7 +46,7 @@
   width: 100%;
   padding: 10px 10px 10px 30px;
   border-radius: 12px;
-  border: 1px solid $primary-medium-blue;
+  border: 2px solid $primary-medium-blue;
   background: rgba(255, 255, 255, 0.6);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   font-size: 16px;
@@ -87,14 +88,18 @@
 .mini-calendar-title {
   font-size: 1.2rem;
   font-weight: bold;
-  color: $primary-dark-blue;
+  color: $primary-medium-blue;
+  background-color: $primary-very-light-blue;
+  padding: .15rem .5rem;
+  border-radius: .5rem;
+  box-shadow: $shadow-primary;
 }
 
 .nav-btn {
   background: $primary-light-blue;
   color: white;
   border: none;
-  border-radius: 50%;
+  border-radius: .35rem;
   padding: 5px;
   cursor: pointer;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -112,6 +117,7 @@
   text-align: center;
   font-weight: bold;
   margin-bottom: 5px;
+  color: $primary-dark-blue;
 }
 
 .mini-calendar-days {
@@ -119,11 +125,16 @@
   grid-template-columns: repeat(7, 1fr);
 }
 
+.fc-col-header-cell-cushion {
+    color: $primary-dark-blue;
+}
+
 .mini-calendar-day {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 10px;
+  color: $primary-dark-blue;
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.6);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -153,18 +164,27 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+
 .fc-toolbar-title {
   font-size: 1.5rem;
   color: $primary-dark-blue;
+  background-color: $primary-very-light-blue;
+  padding: .5rem 1rem;
+  border-radius: 1rem;
+  border: 2px solid $neutral-white;
+  box-shadow: $shadow-primary;
 }
 
 .fc-button-group .fc-button {
+@include block-item (2.5rem, 2.5rem);
   background-color: $primary-light-blue;
-  color: #fff;
-  border: none;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 12px;
+  color: $neutral-white;
+  display: flex;
+  justify-content: center;
+  box-shadow: $shadow-primary;
+  border-radius: .75rem;
   margin-right: 10px;
+  border: 2px solid $neutral-white;
 }
 
 .fc-button-group .fc-button.fc-button-active {
@@ -194,6 +214,27 @@
 }
 
 .fc-day-today {
-  background-color: rgba(0, 69, 182, 0.3) !important;
+  background-color: $primary-very-light-blue !important;
   border-color: $primary-medium-blue !important;
+}
+
+.fc .fc-button-primary:disabled {
+    background-color: $primary-dark-blue;
+    opacity: 1;
+    border-radius: .75rem;
+    border: 2px solid $neutral-white;
+    box-shadow: $shadow-primary;
+}
+
+.fc .fc-button-primary:not(:disabled).fc-button-active, .fc .fc-button-primary:not(:disabled):active {
+    width: 4rem;
+    color: $primary-dark-blue;
+    background-color: $primary-very-light-blue;
+    border-radius: .75rem;
+    border: 2px solid $neutral-white;
+}
+
+.fc-timeGridWeek-button.fc-button.fc-button-primary {
+    width: 4rem;
+    border-radius: 2rem;
 }
