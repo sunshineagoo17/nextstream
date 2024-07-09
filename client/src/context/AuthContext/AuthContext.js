@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }) => {
     console.log('Initial userId:', storedUserId);
     if (token && storedUserId) {
       setIsAuthenticated(true);
-      setUserId(parseInt(storedUserId)); 
+      setUserId(parseInt(storedUserId, 10)); 
     }
   }, []);
 

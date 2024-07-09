@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import './SubscriptionStatus.scss';
 import checkmarkIcon from '../../../../assets/images/checkmark-icon.svg'; 
+import { AuthContext } from '../../../../context/AuthContext/AuthContext';
 
 const SubscriptionStatus = ({ isSubscribed, onSubscriptionChange, onDeleteAccount }) => {
+  const { isAuthenticated } = useContext(AuthContext);
   const [isActive, setIsActive] = useState(isSubscribed);
   const [deleteAccount, setDeleteAccount] = useState(false);
 
@@ -38,12 +40,14 @@ const SubscriptionStatus = ({ isSubscribed, onSubscriptionChange, onDeleteAccoun
           </div>
         </div>
       </div>
-      <div
-        className={`subscription-status__delete-account ${deleteAccount ? 'subscription-status__delete-account--delete' : ''}`}
-        onClick={handleDeleteAccount}
-      >
-        <div className="subscription-status__delete-txt">Delete Account</div>
-      </div>
+      {isAuthenticated && (
+        <div
+          className={`subscription-status__delete-account ${deleteAccount ? 'subscription-status__delete-account--delete' : ''}`}
+          onClick={handleDeleteAccount}
+        >
+          <div className="subscription-status__delete-txt">Delete Account</div>
+        </div>
+      )}
     </div>
   );
 };
