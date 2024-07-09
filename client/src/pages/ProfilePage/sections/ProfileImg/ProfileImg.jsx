@@ -4,11 +4,13 @@ import axios from "axios";
 import ProfileUploadBtn from "../../../../assets/images/profile-upload.svg";
 import DeleteIcon from "../../../../assets/images/delete-icon.svg";
 import DefaultAvatar from "../../../../assets/images/default-avatar.svg";
+import Loader from "../../../../components/Loader/Loader"; 
 import "./ProfileImg.scss";
 
 const ProfileImg = ({ userId, username, isActive, onStatusToggle }) => {
   const { isAuthenticated } = useContext(AuthContext);
   const [imagePreview, setImagePreview] = useState(DefaultAvatar);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -39,6 +41,7 @@ const ProfileImg = ({ userId, username, isActive, onStatusToggle }) => {
     const formData = new FormData();
     formData.append("avatar", file);
 
+    setLoading(true);
     try {
       const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/profile/${userId}/avatar`, formData, {
         headers: {
@@ -50,10 +53,13 @@ const ProfileImg = ({ userId, username, isActive, onStatusToggle }) => {
       setImagePreview(`${process.env.REACT_APP_BASE_URL}/${response.data.avatar}`);
     } catch (error) {
       console.error("Error uploading image:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleImageDelete = async () => {
+    setLoading(true);
     try {
       const response = await axios.delete(`${process.env.REACT_APP_BASE_URL}/api/profile/${userId}/avatar`, {
         withCredentials: true
@@ -62,6 +68,8 @@ const ProfileImg = ({ userId, username, isActive, onStatusToggle }) => {
       setImagePreview(DefaultAvatar); // Reset to default avatar
     } catch (error) {
       console.error("Error deleting avatar:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -80,43 +88,44 @@ const ProfileImg = ({ userId, username, isActive, onStatusToggle }) => {
 
   return (
     <div className="profile-img">
+      {loading && <Loader />}
       <div className="profile-img__container">
         <div className="profile-img__wrapper">
-            <div className="profile-img__card">
+          <div className="profile-img__card">
             <img
-                src={imagePreview}
-                alt="avatar"
-                className="profile-img__avatar"
+              src={imagePreview}
+              alt="avatar"
+              className="profile-img__avatar"
             />
             <div className="profile-img__ellipse-wrapper" onClick={toggleStatus}>
-                <div className={`profile-img__ellipse ${isActive ? 'profile-img__ellipse--active' : 'profile-img__ellipse--inactive'}`} />
+              <div className={`profile-img__ellipse ${isActive ? 'profile-img__ellipse--active' : 'profile-img__ellipse--inactive'}`} />
             </div>
-            </div>
-            <div className="profile-img__content">
+          </div>
+          <div className="profile-img__content">
             <div className="profile-img__username">{username}</div>
             <div className="profile-img__status">{isActive ? 'Online' : 'Offline'}</div>
-            </div>
+          </div>
         </div>
         <div className="profile-img__button-wrapper">
-            <input
+          <input
             className="profile-img__input"
             type="file"
             accept="image/*"
             onChange={handleImageUpload}
             style={{ display: "none" }}
             id="file-input"
-            />
-            <div className="profile-img__button-container">
-                <button
-                className="profile-img__button"
-                onClick={() => document.getElementById("file-input").click()}
-                >
-                    <img src={ProfileUploadBtn} alt="Upload" className="profile-img__upload-icon" />
-                </button>
-                <button className="profile-img__button profile-img__button--delete" onClick={handleImageDelete}>
-                    <img src={DeleteIcon} alt="Delete" className="profile-img__delete-icon" />
-                </button>
-            </div>
+          />
+          <div className="profile-img__button-container">
+            <button
+              className="profile-img__button"
+              onClick={() => document.getElementById("file-input").click()}
+            >
+              <img src={ProfileUploadBtn} alt="Upload" className="profile-img__upload-icon" />
+            </button>
+            <button className="profile-img__button profile-img__button--delete" onClick={handleImageDelete}>
+              <img src={DeleteIcon} alt="Delete" className="profile-img__delete-icon" />
+            </button>
+          </div>
         </div>
       </div>
     </div>
