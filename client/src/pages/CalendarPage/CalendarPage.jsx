@@ -1,10 +1,22 @@
-import React, { useContext } from 'react';
-import { AuthContext } from '../../context/AuthContext/AuthContext'; 
+import React, { useContext, useState, useEffect } from 'react';
+import { AuthContext } from '../../context/AuthContext/AuthContext';
 import Calendar from './sections/Calendar';
+import Loader from '../../components/Loader/Loader';
 import './CalendarPage.scss';
 
 const CalendarPage = () => {
   const { isAuthenticated, userId } = useContext(AuthContext);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (isAuthenticated !== null) {
+      setLoading(false);
+    }
+  }, [isAuthenticated]);
+
+  if (loading) {
+    return <Loader />;
+  }
 
   if (!isAuthenticated) {
     return <p>Please log in to view your calendar.</p>;

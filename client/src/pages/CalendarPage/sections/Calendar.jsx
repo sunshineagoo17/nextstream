@@ -7,14 +7,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilm, faSearch } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import { AuthContext } from '../../../context/AuthContext/AuthContext';
+import Loader from '../../../components/Loader/Loader';
 import './Calendar.scss';
 
 const Calendar = () => {
-  const { userId, isAuthenticated } = useContext(AuthContext); 
+  const { userId, isAuthenticated } = useContext(AuthContext);
   const [events, setEvents] = useState([]);
   const [miniCalendarVisible, setMiniCalendarVisible] = useState(true);
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [calendarView, setCalendarView] = useState('dayGridMonth');
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -27,10 +29,14 @@ const Calendar = () => {
         setEvents(eventsWithIcons);
       } catch (error) {
         console.error('Error fetching events:', error);
+      } finally {
+        setLoading(false);
       }
     };
 
-    fetchEvents();
+    if (userId) {
+      fetchEvents();
+    }
   }, [userId]);
 
   const handleDateClick = async (arg) => {
@@ -121,6 +127,10 @@ const Calendar = () => {
       </div>
     );
   };
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <div className="calendar-container">
