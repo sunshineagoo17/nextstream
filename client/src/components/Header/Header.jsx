@@ -83,7 +83,7 @@ const Header = () => {
           </div>
         </div>
         <div className="header__search-content--mobile">
-          <form onSubmit={handleSearch}>
+          <form className="header__form-mobile" onSubmit={handleSearch}>
             <input 
               className="header__search-input--mobile" 
               type="text" 

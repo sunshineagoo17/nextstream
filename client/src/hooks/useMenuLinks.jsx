@@ -57,6 +57,7 @@ const useMenuLinks = () => {
       switch (path) {
         case "/privacy-policy":
         case "/terms":
+        case "/search":
           return [
             ...unauthenticatedHomeLink,
             ...authenticatedLinksSet1,

@@ -254,10 +254,6 @@
     }
   }
 
-  &__search-input--mobile {
-    width: 11.5rem;
-  }
-
   &__nav-container {
     display: flex;
     flex-direction: row;
@@ -424,6 +420,14 @@
       border-radius: .35rem;
       box-shadow: $shadow-senary; 
     }
+  }
+
+  &__search-input--mobile {
+    width: 100%;
+  }
+
+  &__form-mobile {
+    width: 100%;
   }
 
   a,
