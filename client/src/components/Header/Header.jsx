@@ -2,7 +2,7 @@ import { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import nextStreamLogo from "../../assets/images/nextstream-wordmark.png";
-import searchVector from "../../assets/images/searh-vector-handle.svg";
+import searchVector from "../../assets/images/search-vector-handle.svg";
 import UserIcon from "../../assets/images/user-icon.svg";
 import LogoutIcon from "../../assets/images/logout-icon.svg";
 import "./Header.scss";

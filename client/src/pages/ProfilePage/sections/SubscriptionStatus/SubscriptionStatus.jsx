@@ -32,7 +32,11 @@ const SubscriptionStatus = ({ isSubscribed, onSubscriptionChange, onDeleteAccoun
         <div className="subscription-status__active">
           <div className="subscription-status__select" onClick={toggleActiveStatus}>
             <div className={`subscription-status__checkbox ${isActive ? 'subscription-status__checkbox--active' : 'subscription-status__checkbox--inactive'}`}>
-              {isActive && <img src={checkmarkIcon} alt="Checkmark" className="subscription-status__check" />}
+              {isActive ? (
+                <img src={checkmarkIcon} alt="Checkmark" className="subscription-status__check" />
+              ) : (
+                <span className="subscription-status__x">x</span>
+              )}
             </div>
           </div>
           <div className={`subscription-status__box ${isActive ? '' : 'subscription-status__box--inactive'}`}>
