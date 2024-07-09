@@ -1,38 +1,78 @@
-import React from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFilm } from '@fortawesome/free-solid-svg-icons';
-import './Calendar.scss';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faFilm } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
+import {AuthContext} from "../../../context/AuthContext/AuthContext"; 
+import './Calendar.scss'; 
 
 const Calendar = () => {
-  const events = [
-    {
-      title: 'Inception',
-      start: '2024-07-01T09:30:00',
-      end: '2024-07-01T12:30:00',
-      extendedProps: {
-        genre: 'Sci-Fi',
-        type: 'movie'
-      }
-    },
-    // Add more events here
-  ];
+  const { userId } = useContext(AuthContext);
+  const [events, setEvents] = useState([]);
 
-  const renderEventContent = (eventInfo) => (
-    <div>
-      <FontAwesomeIcon icon={faFilm} /> {eventInfo.event.title}
-    </div>
-  );
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const response = await axios.get(`/api/calendar/${userId}/events`);
+        const eventsWithIcons = response.data.map(event => ({
+          ...event,
+          title: `<span><FontAwesomeIcon icon={faFilm} /> ${event.title}</span>`
+        }));
+        setEvents(eventsWithIcons);
+      } catch (error) {
+        console.error('Error fetching events:', error);
+      }
+    };
+
+    fetchEvents();
+  }, [userId]);
+
+  const handleDateClick = async (arg) => {
+    const title = prompt('Enter event title:');
+    if (title) {
+      try {
+        const response = await axios.post(`/api/calendar/${userId}/events`, {
+          title,
+          start: arg.date,
+          end: arg.date
+        });
+        const newEvent = {
+          ...response.data,
+          title: `<span><FontAwesomeIcon icon={faFilm} /> ${response.data.title}</span>`
+        };
+        setEvents([...events, newEvent]);
+      } catch (error) {
+        console.error('Error adding event:', error);
+      }
+    }
+  };
+
+  const handleEventClick = async (clickInfo) => {
+    if (window.confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
+      try {
+        await axios.delete(`/api/calendar/${userId}/events/${clickInfo.event.id}`);
+        setEvents(events.filter(event => event.id !== clickInfo.event.id));
+      } catch (error) {
+        console.error('Error deleting event:', error);
+      }
+    }
+  };
 
   return (
     <FullCalendar
       plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
       initialView="dayGridMonth"
+      headerToolbar={{
+        left: 'prev,next today',
+        center: 'title',
+        right: 'dayGridMonth,timeGridWeek,timeGridDay'
+      }}
       events={events}
-      eventContent={renderEventContent} // Custom event rendering
+      dateClick={handleDateClick}
+      eventClick={handleEventClick}
     />
   );
 };
