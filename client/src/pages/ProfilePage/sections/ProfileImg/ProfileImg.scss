@@ -119,6 +119,7 @@
   
     &__button {
       @include block-item(1.5rem, 1.5rem);
+      position: relative;
       background-color: $primary-light-blue;
       border: 1.5px solid $neutral-white;
       box-shadow: $shadow-primary;
@@ -139,6 +140,34 @@
       &:active {
         background-color: $primary-dark-blue;
         transform: scale(0.95);
+      }
+
+      &::after {
+        content: attr(data-tooltip);
+        position: absolute;
+        bottom: 105%; 
+        left: 50%;
+        transform: translateX(-50%);
+        background: $neutral-white;
+        color: $primary-dark-blue;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        box-shadow: $shadow-tertiary;
+        white-space: nowrap; 
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+        font-size: 0.65rem;
+        z-index: 10;
+      
+        @include tablet {
+          font-size: 1rem;
+        }
+      }
+  
+      &:hover::after {
+        opacity: 1;
+        visibility: visible;
       }
 
       &--delete {

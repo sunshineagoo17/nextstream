@@ -5,7 +5,9 @@ import ProfileUploadBtn from "../../../../assets/images/profile-upload.svg";
 import DeleteIcon from "../../../../assets/images/delete-icon.svg";
 import DefaultAvatar from "../../../../assets/images/default-avatar.svg";
 import Loader from "../../../../components/Loader/Loader"; 
-import "./ProfileImg.scss";
+import { ToastContainer, toast, Slide } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import './ProfileImg.scss';
 
 const ProfileImg = ({ userId, username, isActive, onStatusToggle }) => {
   const { isAuthenticated } = useContext(AuthContext);
@@ -35,6 +37,12 @@ const ProfileImg = ({ userId, username, isActive, onStatusToggle }) => {
     const file = e.target.files[0];
     if (!file) {
       console.error("No image selected");
+      return;
+    }
+
+    // Check file type
+    if (!file.type.match("image/jpeg") && !file.type.match("image/png") && !file.type.match("image/jpg")) {
+      toast.error("Please upload a valid image (jpg, jpeg, png).");
       return;
     }
 
@@ -119,15 +127,24 @@ const ProfileImg = ({ userId, username, isActive, onStatusToggle }) => {
             <button
               className="profile-img__button"
               onClick={() => document.getElementById("file-input").click()}
+              data-tooltip="Upload new Avatar"
             >
               <img src={ProfileUploadBtn} alt="Upload" className="profile-img__upload-icon" />
             </button>
-            <button className="profile-img__button profile-img__button--delete" onClick={handleImageDelete}>
+            <button className="profile-img__button profile-img__button--delete" onClick={handleImageDelete} data-tooltip="Delete Avatar">
               <img src={DeleteIcon} alt="Delete" className="profile-img__delete-icon" />
             </button>
           </div>
         </div>
       </div>
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={true}
+        transition={Slide}
+        closeOnClick
+        pauseOnHover
+      />
     </div>
   );
 };
