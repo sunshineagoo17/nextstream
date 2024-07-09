@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const knex = require('../config/db');
 const router = express.Router();
-const cookieParser = require('cookie-parser'); 
+const cookieParser = require('cookie-parser');
 
 // Middleware to use cookie-parser
 router.use(cookieParser());
