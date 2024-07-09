@@ -11,15 +11,15 @@ import SignUpIcon from '../../assets/images/register-sign-up-icon.svg';
 import SignInCouple from '../../assets/images/login-hero-couple-watching.svg';
 import ForgotPasswordModal from '../../components/ForgotPasswordModal/ForgotPasswordModal';
 import Loader from '../../components/Loader/Loader';
-import './LoginPage.scss';
 import Cookies from 'js-cookie';
+import './LoginPage.scss';
 
 export const LoginPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [rememberMe, setRememberMe] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false); 
   const [errors, setErrors] = useState({});
   const [isForgotPasswordModalOpen, setIsForgotPasswordModalOpen] = useState(false);
   const navigate = useNavigate();
@@ -34,8 +34,7 @@ export const LoginPage = () => {
       setRememberMe(true);
     }
 
-    // Set isLoading to false after component mounts
-    setIsLoading(false);
+    setIsLoading(false); 
   }, []);
 
   const togglePasswordVisibility = () => {
@@ -65,15 +64,17 @@ export const LoginPage = () => {
       if (response.data.token) {
         login(response.data.token, response.data.userId, rememberMe);
 
+        // Store email and password in cookies if rememberMe is checked
         if (rememberMe) {
-          Cookies.set('token', response.data.token, { expires: 7, secure: true, sameSite: 'strict' });
-          Cookies.set('userId', response.data.userId, { expires: 7, secure: true, sameSite: 'strict' });
+          Cookies.set('rememberedEmail', email, { expires: 7, secure: true, sameSite: 'strict' });
+          Cookies.set('rememberedPassword', password, { expires: 7, secure: true, sameSite: 'strict' });
         } else {
-          Cookies.set('token', response.data.token);
-          Cookies.set('userId', response.data.userId);
+          // Clear cookies if rememberMe is unchecked
+          Cookies.remove('rememberedEmail');
+          Cookies.remove('rememberedPassword');
         }
 
-        console.log('Navigating to profile page'); // Add this log to track navigation
+        console.log('Navigating to profile page'); 
         navigate(`/profile/${response.data.userId}`);
       } else {
         console.log('Login failed: Token missing in response');
@@ -92,7 +93,7 @@ export const LoginPage = () => {
   };
 
   const handleCheckboxChange = (event) => {
-    setRememberMe(event.target.checked);
+    setRememberMe(event.target.checked); 
   };
 
   const openForgotPasswordModal = () => {
@@ -157,7 +158,7 @@ export const LoginPage = () => {
                   type="checkbox"
                   className="login__checkbox-box"
                   checked={rememberMe}
-                  onChange={handleCheckboxChange}
+                  onChange={handleCheckboxChange} 
                 />
                 <p className="login__remember-txt">Remember Me</p>
               </label>

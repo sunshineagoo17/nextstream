@@ -9,7 +9,7 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const token = Cookies.get('token');
-    const storedUserId = Cookies.get('userId');
+    const storedUserId = sessionStorage.getItem('userId'); 
     console.log('Initial token:', token);
     console.log('Initial userId:', storedUserId);
     if (token && storedUserId) {
@@ -22,14 +22,16 @@ export const AuthProvider = ({ children }) => {
     console.log('Login token:', token);
     console.log('Login userId:', userId);
     Cookies.set('token', token, { expires: rememberMe ? 7 : 1 });
-    Cookies.set('userId', userId.toString(), { expires: rememberMe ? 7 : 1 });
+    sessionStorage.setItem('userId', userId.toString()); 
+    sessionStorage.setItem('token', token);
     setIsAuthenticated(true);
     setUserId(userId);
   };
 
   const logout = () => {
     Cookies.remove('token');
-    Cookies.remove('userId');
+    sessionStorage.removeItem('userId'); 
+    sessionStorage.removeItem('token');
     setIsAuthenticated(false);
     setUserId(null);
   };
