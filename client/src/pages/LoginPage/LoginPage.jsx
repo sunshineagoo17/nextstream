@@ -36,7 +36,7 @@ export const LoginPage = () => {
 
     // Set isLoading to false after component mounts
     setIsLoading(false);
-}, []);
+  }, []);
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -59,36 +59,35 @@ export const LoginPage = () => {
 
     const userData = { email, password };
     try {
-        setIsLoading(true);
-        const response = await api.post('/api/auth/login', userData);
-        console.log('Login response:', response); // Log the entire response object
-        if (response.data.token) {
-            // Assuming login function handles setting up user session
-            login(response.data.token, response.data.userId, rememberMe);
+      setIsLoading(true);
+      const response = await api.post('/api/auth/login', userData);
+      console.log('Login response:', response); // Log the entire response object
+      if (response.data.token) {
+        login(response.data.token, response.data.userId, rememberMe);
 
-            if (rememberMe) {
-                Cookies.set('token', response.data.token, { expires: 7, secure: true, sameSite: 'strict' });
-                Cookies.set('userId', response.data.userId, { expires: 7, secure: true, sameSite: 'strict' });
-            } else {
-                Cookies.remove('token');
-                Cookies.remove('userId');
-            }
-
-            console.log('Navigating to profile page'); // Add this log to track navigation
-            navigate(`/profile/${response.data.userId}`);
+        if (rememberMe) {
+          Cookies.set('token', response.data.token, { expires: 7, secure: true, sameSite: 'strict' });
+          Cookies.set('userId', response.data.userId, { expires: 7, secure: true, sameSite: 'strict' });
         } else {
-            console.log('Login failed: Token missing in response');
-            setErrors({ general: 'Login failed. Please try again.' });
+          Cookies.set('token', response.data.token);
+          Cookies.set('userId', response.data.userId);
         }
+
+        console.log('Navigating to profile page'); // Add this log to track navigation
+        navigate(`/profile/${response.data.userId}`);
+      } else {
+        console.log('Login failed: Token missing in response');
+        setErrors({ general: 'Login failed. Please try again.' });
+      }
     } catch (error) {
-        console.error('Login error:', error);
-        if (error.response && error.response.data && error.response.data.message) {
-            setErrors({ general: error.response.data.message });
-        } else {
-            setErrors({ general: 'An error occurred. Please try again.' });
-        }
+      console.error('Login error:', error);
+      if (error.response && error.response.data && error.response.data.message) {
+        setErrors({ general: error.response.data.message });
+      } else {
+        setErrors({ general: 'An error occurred. Please try again.' });
+      }
     } finally {
-        setIsLoading(false);
+      setIsLoading(false);
     }
   };
 

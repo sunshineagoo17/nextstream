@@ -3,11 +3,11 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faFilm } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFilm } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
-import {AuthContext} from "../../../context/AuthContext/AuthContext"; 
-import './Calendar.scss'; 
+import { AuthContext } from '../../../context/AuthContext/AuthContext'; 
+import './Calendar.scss';
 
 const Calendar = () => {
   const { userId } = useContext(AuthContext);
@@ -19,7 +19,7 @@ const Calendar = () => {
         const response = await axios.get(`/api/calendar/${userId}/events`);
         const eventsWithIcons = response.data.map(event => ({
           ...event,
-          title: `<span><FontAwesomeIcon icon={faFilm} /> ${event.title}</span>`
+          title: `<i class="fas fa-film"></i> ${event.title}`,
         }));
         setEvents(eventsWithIcons);
       } catch (error) {
@@ -37,11 +37,11 @@ const Calendar = () => {
         const response = await axios.post(`/api/calendar/${userId}/events`, {
           title,
           start: arg.date,
-          end: arg.date
+          end: arg.date,
         });
         const newEvent = {
           ...response.data,
-          title: `<span><FontAwesomeIcon icon={faFilm} /> ${response.data.title}</span>`
+          title: `<i class="fas fa-film"></i> ${response.data.title}`,
         };
         setEvents([...events, newEvent]);
       } catch (error) {
@@ -61,6 +61,14 @@ const Calendar = () => {
     }
   };
 
+  const renderEventContent = (eventInfo) => {
+    return (
+      <div>
+        <FontAwesomeIcon icon={faFilm} /> <b>{eventInfo.timeText}</b> <i>{eventInfo.event.title}</i>
+      </div>
+    );
+  };
+
   return (
     <FullCalendar
       plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
@@ -68,11 +76,12 @@ const Calendar = () => {
       headerToolbar={{
         left: 'prev,next today',
         center: 'title',
-        right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        right: 'dayGridMonth,timeGridWeek,timeGridDay',
       }}
       events={events}
       dateClick={handleDateClick}
       eventClick={handleEventClick}
+      eventContent={renderEventContent} 
     />
   );
 };

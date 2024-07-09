@@ -9,14 +9,14 @@ const useMenuLinks = () => {
   const authenticatedLinksSet1 = [
     { name: "Stream Locator", path: "/stream-locator" },
     { name: "Top Picks", path: "/top-picks" },
-    { name: "Calendar", path: "/calendar" },
+    { name: "Calendar", path: `/calendar/${authUserId}` },
     { name: "Profile", path: `/profile/${authUserId}` }
   ];
 
   const authenticatedLinksSet2 = [
     { name: "Stream Locator", path: "/stream-locator" },
     { name: "Top Picks", path: "/top-picks" },
-    { name: "Calendar", path: "/calendar" },
+    { name: "Calendar", path: `/calendar/${authUserId}` },
   ];
 
   const unauthenticatedLinks = [

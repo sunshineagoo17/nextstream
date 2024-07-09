@@ -1,15 +1,18 @@
-import "./CalendarPage.scss";
+import React, { useContext } from 'react';
+import { AuthContext } from '../../context/AuthContext/AuthContext'; 
 import Calendar from './sections/Calendar';
 
 const CalendarPage = () => {
+  const { isAuthenticated, userId } = useContext(AuthContext);
+  
+  if (!isAuthenticated) {
+    return <p>Please log in to view your calendar.</p>;
+  }
+
   return (
-    <div className="calendar-page">
-      <header className="header">
-        <h1>Your Schedule</h1>
-      </header>
-      <main>
-        <Calendar />
-      </main>
+    <div>
+      <h1>Your Schedule</h1>
+      <Calendar userId={userId} />
     </div>
   );
 };

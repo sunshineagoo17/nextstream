@@ -149,7 +149,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/password-reset', passwordResetRoutes);
 app.use('/api/profile', profileRoutes);
 app.use('/api/tmdb', tmdbRoutes);
-app.use('/api/calendar', calendarRoutes); 
+app.use('/api/calendar', calendarRoutes);
 
 // Serve static files from the React app if needed
 app.use(express.static(path.join(__dirname, 'client/build')));

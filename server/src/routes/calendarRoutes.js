@@ -1,14 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const authenticate = require('../middleware/authenticate'); 
 const knex = require('../config/db');
+const authenticate = require('../middleware/authenticate');
 
 // Get all events for a user
-router.get('/:userId/events', authenticate, async (req, res) => {
+router.get('/:userId', authenticate, async (req, res) => {
+  const { userId } = req.params;
+  
   try {
-    const { userId } = req.params;
     const events = await knex('events').where({ user_id: userId });
-    res.json(events);
+    res.json({ events });
   } catch (error) {
     console.error('Error fetching events:', error);
     res.status(500).json({ message: 'Error fetching events' });
