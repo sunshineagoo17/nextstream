@@ -63,6 +63,7 @@ router.post('/login', async (req, res) => {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'strict',
+      path: '/',
       expires: new Date(Date.now() + 3600000) // 1 hour expiry
     });
 

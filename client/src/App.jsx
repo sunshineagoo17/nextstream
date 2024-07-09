@@ -26,6 +26,7 @@ const App = () => {
   const { isAuthenticated, userId } = useContext(AuthContext);
 
   useEffect(() => {
+    console.log('App component useEffect');
     console.log('isAuthenticated:', isAuthenticated);
     console.log('userId:', userId);
   }, [isAuthenticated, userId]);
