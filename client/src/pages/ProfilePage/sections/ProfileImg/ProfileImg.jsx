@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
 import { AuthContext } from '../../../../context/AuthContext/AuthContext';
 import axios from "axios";
-import AvatarImg from "../../../../assets/images/xander.png";
 import ProfileUploadBtn from "../../../../assets/images/profile-upload.svg";
+import DeleteIcon from "../../../../assets/images/delete-icon.svg";
+import DefaultAvatar from "../../../../assets/images/default-avatar.svg";
 import "./ProfileImg.scss";
 
 const ProfileImg = ({ userId, username, isActive, onStatusToggle }) => {
   const { isAuthenticated } = useContext(AuthContext);
-  const [imagePreview, setImagePreview] = useState(AvatarImg);
+  const [imagePreview, setImagePreview] = useState(DefaultAvatar);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -58,7 +59,7 @@ const ProfileImg = ({ userId, username, isActive, onStatusToggle }) => {
         withCredentials: true
       });
       console.log(response.data);
-      setImagePreview(AvatarImg); // Reset to default avatar
+      setImagePreview(DefaultAvatar); // Reset to default avatar
     } catch (error) {
       console.error("Error deleting avatar:", error);
     }
@@ -80,37 +81,43 @@ const ProfileImg = ({ userId, username, isActive, onStatusToggle }) => {
   return (
     <div className="profile-img">
       <div className="profile-img__container">
-        <div className="profile-img__card">
-          <img
-            src={imagePreview}
-            alt="avatar"
-            className="profile-img__avatar"
-          />
-          <div className="profile-img__ellipse-wrapper" onClick={toggleStatus}>
-            <div className={`profile-img__ellipse ${isActive ? 'profile-img__ellipse--active' : 'profile-img__ellipse--inactive'}`} />
-          </div>
+        <div className="profile-img__wrapper">
+            <div className="profile-img__card">
+            <img
+                src={imagePreview}
+                alt="avatar"
+                className="profile-img__avatar"
+            />
+            <div className="profile-img__ellipse-wrapper" onClick={toggleStatus}>
+                <div className={`profile-img__ellipse ${isActive ? 'profile-img__ellipse--active' : 'profile-img__ellipse--inactive'}`} />
+            </div>
+            </div>
+            <div className="profile-img__content">
+            <div className="profile-img__username">{username}</div>
+            <div className="profile-img__status">{isActive ? 'Online' : 'Offline'}</div>
+            </div>
         </div>
-        <div className="profile-img__content">
-          <div className="profile-img__username">{username}</div>
-          <div className="profile-img__status">{isActive ? 'Online' : 'Offline'}</div>
+        <div className="profile-img__button-wrapper">
+            <input
+            className="profile-img__input"
+            type="file"
+            accept="image/*"
+            onChange={handleImageUpload}
+            style={{ display: "none" }}
+            id="file-input"
+            />
+            <div className="profile-img__button-container">
+                <button
+                className="profile-img__button"
+                onClick={() => document.getElementById("file-input").click()}
+                >
+                    <img src={ProfileUploadBtn} alt="Upload" className="profile-img__upload-icon" />
+                </button>
+                <button className="profile-img__button profile-img__button--delete" onClick={handleImageDelete}>
+                    <img src={DeleteIcon} alt="Delete" className="profile-img__delete-icon" />
+                </button>
+            </div>
         </div>
-        <input
-          className="profile-img__input"
-          type="file"
-          accept="image/*"
-          onChange={handleImageUpload}
-          style={{ display: "none" }}
-          id="file-input"
-        />
-        <button
-          className="profile-img__button"
-          onClick={() => document.getElementById("file-input").click()}
-        >
-          <img src={ProfileUploadBtn} alt="Upload" className="profile-img__button-icon" />
-        </button>
-        <button className="profile-img__button profile-img__button--delete" onClick={handleImageDelete}>
-          Delete Avatar
-        </button>
       </div>
     </div>
   );
