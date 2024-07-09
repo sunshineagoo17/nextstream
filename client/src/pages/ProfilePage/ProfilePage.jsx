@@ -174,7 +174,7 @@ export const ProfilePage = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     }
-  };  
+  };
 
   const handleSubscriptionChange = (newStatus) => {
     setIsSubscribed(newStatus);
