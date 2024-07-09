@@ -15,7 +15,6 @@ const Calendar = () => {
   const [miniCalendarVisible, setMiniCalendarVisible] = useState(true);
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [calendarView, setCalendarView] = useState('dayGridMonth');
-  const [selectedDate, setSelectedDate] = useState(null);
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -84,8 +83,6 @@ const Calendar = () => {
   };
 
   const handleDateSelect = (day) => {
-    const selectedDate = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day);
-    setSelectedDate(selectedDate);
     setCalendarView('timeGridDay');
   };
 
