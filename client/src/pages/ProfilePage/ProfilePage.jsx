@@ -82,7 +82,7 @@ export const ProfilePage = () => {
 
   const handleSave = async () => {
     const newErrors = {};
-
+  
     // Validate fields
     if (!user.name) newErrors.name = 'Name is required';
     if (!user.username) newErrors.username = 'Username is required';
@@ -93,9 +93,21 @@ export const ProfilePage = () => {
     }
     if (newPassword && newPassword.length < 8) newErrors.newPassword = 'Password must be at least 8 characters';
     if (newPassword !== confirmPassword) newErrors.confirmPassword = 'Passwords do not match';
-
+  
+    // Validate current password if provided
+    if (currentPassword) {
+      try {
+        const passwordCheck = await api.post(`/api/profile/check-password`, { userId, currentPassword });
+        if (!passwordCheck.data.valid) {
+          newErrors.currentPassword = 'Current password is incorrect';
+        }
+      } catch (error) {
+        newErrors.currentPassword = 'Error validating current password';
+      }
+    }
+  
     setErrors(newErrors);
-
+  
     if (Object.keys(newErrors).length > 0) {
       // Scroll to the first error field
       const errorFields = [
@@ -113,7 +125,7 @@ export const ProfilePage = () => {
       }
       return;
     }
-
+  
     const updatedUser = {
       name: user.name,
       username: user.username,
@@ -124,24 +136,17 @@ export const ProfilePage = () => {
       isSubscribed,
       isActive
     };
-
+  
     try {
       if (currentPassword && newPassword) {
-        // Check current password validity
-        const passwordCheck = await api.post(`/api/profile/check-password`, { userId, currentPassword });
-        if (!passwordCheck.data.valid) {
-          setErrors({ currentPassword: 'Current password is incorrect' });
-          console.log('Current password is incorrect');
-          currentPasswordRef.current.scrollIntoView({ behavior: 'smooth' });
-          return;
-        }
         // Update user with new password
         updatedUser.password = newPassword;
       }
-
+  
+      // Update user profile only if there are no validation errors
       await api.put(`/api/profile/${userId}`, updatedUser);
       setSaveMessage({ text: 'Profile updated successfully!', className: 'success' });
-
+  
       // Clear password fields
       if (newPassword) {
         setCurrentPassword('');
@@ -150,7 +155,7 @@ export const ProfilePage = () => {
       }
     } catch (error) {
       if (error.response) {
-        console.log('Error response:', error.response); 
+        console.log('Error response:', error.response);
         if (error.response.status === 409 && error.response.data.message === 'Email is already taken') {
           setErrors({ email: 'Email is already taken' });
           console.log('Email is already taken error set');
@@ -169,7 +174,7 @@ export const ProfilePage = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     }
-  };
+  };  
 
   const handleSubscriptionChange = (newStatus) => {
     setIsSubscribed(newStatus);
@@ -295,28 +300,10 @@ export const ProfilePage = () => {
                       type={passwordVisible ? 'text' : 'password'}
                       value={currentPassword}
                       ref={currentPasswordRef}
-                      onChange={async (e) => {
+                      onChange={(e) => {
                         setCurrentPassword(e.target.value);
                         clearSaveMessage();
                         clearErrors();
-                        if (e.target.value) {
-                          try {
-                            const passwordCheck = await api.post('/api/profile/check-password', { userId, currentPassword: e.target.value });
-                            if (!passwordCheck.data.valid) {
-                              setErrors({ currentPassword: <p className="profile__error">Current password is incorrect</p> });
-                              currentPasswordRef.current.scrollIntoView({ behavior: 'smooth' });
-                            } else {
-                              setErrors({});
-                            }
-                          } catch (error) {
-                            if (error.response && error.response.status === 401) {
-                              setErrors({ currentPassword: <p className="profile__error">Current password is incorrect</p> });
-                              currentPasswordRef.current.scrollIntoView({ behavior: 'smooth' });
-                            } else {
-                              console.error('Error checking password:', error);
-                            }
-                          }                          
-                        }
                       }}
                     />
                     <label className="profile__label" htmlFor="input-current-password">
