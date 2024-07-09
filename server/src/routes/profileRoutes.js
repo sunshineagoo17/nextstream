@@ -20,8 +20,7 @@ const ensureUploadsDirectoryExists = (req, res, next) => {
 // Set up multer for file uploads
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    const dir = path.join(__dirname, '../uploads/avatars');
-    cb(null, dir); // Directory to store uploaded files
+    cb(null, 'uploads/avatars'); // Directory to store uploaded files
   },
   filename: (req, file, cb) => {
     cb(null, `${req.params.userId}-${Date.now()}${path.extname(file.originalname)}`);
@@ -59,7 +58,7 @@ router.get('/:userId', authenticate, async (req, res) => {
       region: user.region,
       isSubscribed: user.isSubscribed,
       isActive: user.isActive,
-      avatar: user.avatar // Add avatar to response
+      avatar: user.avatar 
     });
   } catch (error) {
     console.error('Error fetching profile:', error);
@@ -133,7 +132,7 @@ router.put('/:userId', async (req, res) => {
 // Upload user avatar
 router.post('/:userId/avatar', authenticate, ensureUploadsDirectoryExists, upload.single('avatar'), async (req, res) => {
   try {
-    const avatarPath = `/uploads/avatars/${req.file.filename}`;
+    const avatarPath = req.file.path;
     await knex('users').where({ id: req.params.userId }).update({ avatar: avatarPath });
     res.json({ message: 'Avatar uploaded successfully', avatar: avatarPath });
   } catch (error) {

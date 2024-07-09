@@ -21,7 +21,7 @@ const ProfileImg = ({ userId, username, isActive, onStatusToggle }) => {
           withCredentials: true
         });
         if (response.data.avatar) {
-          setImagePreview(`${process.env.REACT_APP_BASE_URL}${response.data.avatar}`);
+          setImagePreview(`${process.env.REACT_APP_BASE_URL}/${response.data.avatar}`);
         }
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -57,7 +57,7 @@ const ProfileImg = ({ userId, username, isActive, onStatusToggle }) => {
         },
         withCredentials: true
       });
-      setImagePreview(`${process.env.REACT_APP_BASE_URL}${response.data.avatar}`);
+      setImagePreview(`${process.env.REACT_APP_BASE_URL}/${response.data.avatar}`);
     } catch (error) {
       console.error("Error uploading image:", error);
     } finally {

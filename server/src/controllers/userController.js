@@ -10,10 +10,10 @@ if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
 }
 
-// Multer setup for image upload with file size limit and security checks
+// Multer setup for image upload
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, uploadDir); 
+    cb(null, 'uploads/'); // Directory to save the uploaded files
   },
   filename: function (req, file, cb) {
     cb(null, `${Date.now()}-${file.originalname}`);
