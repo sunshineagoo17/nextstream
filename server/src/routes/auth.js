@@ -3,6 +3,10 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const knex = require('../config/db');
 const router = express.Router();
+const cookieParser = require('cookie-parser'); 
+
+// Middleware to use cookie-parser
+router.use(cookieParser());
 
 // Register Route
 router.post('/register', async (req, res) => {
@@ -26,8 +30,9 @@ router.post('/register', async (req, res) => {
 
     res.cookie('token', token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production', 
-      sameSite: 'strict'
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      expires: new Date(Date.now() + 3600000) // 1 hour expiry
     });
 
     res.status(201).json({ success: true, message: 'User registered successfully', userId, token });
@@ -56,8 +61,9 @@ router.post('/login', async (req, res) => {
     // Set the JWT as a cookie
     res.cookie('token', token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production', 
-      sameSite: 'strict'
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      expires: new Date(Date.now() + 3600000) // 1 hour expiry
     });
 
     res.json({ success: true, message: 'Logged in successfully', userId: user.id, token });

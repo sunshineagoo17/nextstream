@@ -2,25 +2,26 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path');
-const cookieParser = require('cookie-parser');
+const cookieParser = require('cookie-parser'); 
 const rateLimit = require('express-rate-limit');
 const NodeCache = require('node-cache');
 const cron = require('node-cron');
 const axios = require('axios');
+require('dotenv').config();
+
 const emailRoutes = require('./src/routes/emailRoutes');
 const passwordResetRoutes = require('./src/routes/passwordResetRoutes');
 const authRoutes = require('./src/routes/auth');
 const profileRoutes = require('./src/routes/profileRoutes');
 const tmdbRoutes = require('./src/routes/tmdbRoutes');
 const calendarRoutes = require('./src/routes/calendarRoutes'); 
-require('dotenv').config();
 
 const app = express();
 
 // Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cookieParser());
+app.use(cookieParser()); // Use cookie-parser middleware
 
 // Configure CORS
 const corsOptions = {
