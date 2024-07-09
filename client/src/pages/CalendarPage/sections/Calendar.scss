@@ -9,34 +9,50 @@
 .calendar-container {
   background: $frosted-glass;
   box-shadow: $shadow-senary;
-  border-radius: 16px;
-  padding: 20px;
-  margin: 20px auto;
-  max-width: 1200px;
+  border-radius: 1rem;
+  padding: 1.25rem;
+  margin: 1.25rem auto;
+  max-width: 75rem;
+
+  @media (max-width: 768px) {
+    padding: 0.625rem;
+    margin: 0.625rem;
+  }
 }
 
 .calendar-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
   background: $primary-very-light-blue;
-  padding: 10px 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 0.625rem 1.25rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.1);
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 
 .search-container {
   position: relative;
   flex: 1;
-  margin-right: 1.25rem;
-  border-radius: 1rem;
+  margin-right: 0.75rem;
+  border-radius: 0.75rem;
   box-shadow: $shadow-tertiary;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    margin-bottom: 0.625rem;
+    margin-right: 0;
+  }
 }
 
 .search-icon {
   position: absolute;
-  left: 10px;
+  left: 0.625rem;
   top: 50%;
   transform: translateY(-50%);
   color: $primary-dark-blue;
@@ -44,45 +60,59 @@
 
 .search-bar {
   width: 100%;
-  padding: 10px 10px 10px 30px;
-  border-radius: 12px;
-  border: 2px solid $primary-medium-blue;
+  padding: 0.625rem 0.625rem 0.625rem 1.875rem;
+  border-radius: 0.75rem;
+  border: 0.125rem solid $primary-medium-blue;
   background: rgba(255, 255, 255, 0.6);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  font-size: 16px;
+  box-shadow: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.1);
+  font-size: 1rem;
   color: $primary-dark-blue;
 }
 
 .toggle-sidebar-btn {
-  padding: 10px 20px;
-  border-radius: 12px;
+  padding: 0.625rem 1.25rem;
+  border-radius: 0.75rem;
   border: none;
   background: $primary-light-blue;
   color: white;
   cursor: pointer;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.1);
 }
 
 .calendar-content {
   display: flex;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 }
 
 .mini-calendar {
   flex: 1;
-  margin-right: 20px;
+  margin-right: 1.25rem;
   background: rgba(255, 255, 255, 0.4);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(10px);
-  border-radius: 12px;
-  padding: 10px;
+  box-shadow: 0 0.25rem 1.875rem rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(0.625rem);
+  border-radius: 0.75rem;
+  padding: 0.625rem;
   max-height: 60%;
+
+  @media (max-width: 768px) {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    margin-right: 0;
+    border-radius: 0.75rem;
+  }
 }
 
 .mini-calendar-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 0.625rem;
 }
 
 .mini-calendar-title {
@@ -90,8 +120,8 @@
   font-weight: bold;
   color: $primary-medium-blue;
   background-color: $primary-very-light-blue;
-  padding: .15rem .5rem;
-  border-radius: .5rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 0.5rem;
   box-shadow: $shadow-primary;
 }
 
@@ -99,16 +129,16 @@
   background: $primary-light-blue;
   color: white;
   border: none;
-  border-radius: .35rem;
-  padding: 5px;
+  border-radius: 0.35rem;
+  padding: 0.3125rem;
   cursor: pointer;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.1);
 }
 
 .mini-calendar-body {
   display: grid;
   grid-template-rows: auto 1fr;
-  gap: 5px;
+  gap: 0.3125rem;
 }
 
 .mini-calendar-day-names {
@@ -116,7 +146,7 @@
   grid-template-columns: repeat(7, 1fr);
   text-align: center;
   font-weight: bold;
-  margin-bottom: 5px;
+  margin-bottom: 0.3125rem;
   color: $primary-dark-blue;
 }
 
@@ -126,25 +156,38 @@
 }
 
 .fc-col-header-cell-cushion {
-    color: $primary-dark-blue;
+  color: $primary-dark-blue;
 }
 
 .mini-calendar-day {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px;
+  padding: 0.625rem;
   color: $primary-dark-blue;
-  border-radius: 8px;
+  border-radius: 0.5rem;
   background: rgba(255, 255, 255, 0.6);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.1);
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
 
   &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+    transform: translateY(-0.3125rem);
+    box-shadow: 0 0.5rem 0.75rem rgba(0, 0, 0, 0.2);
   }
+}
+
+.close-btn {
+  position: absolute;
+  bottom: 0.625rem;
+  right: 0.625rem;
+  background: $primary-light-blue;
+  color: white;
+  border: none;
+  border-radius: 0.35rem;
+  padding: 0.3125rem;
+  cursor: pointer;
+  box-shadow: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.1);
 }
 
 .main-calendar {
@@ -158,33 +201,32 @@
 
 .fc-toolbar {
   background: rgba(255, 255, 255, 0.6);
-  border-radius: 12px;
-  padding: 10px;
-  margin-bottom: 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 0.75rem;
+  padding: 0.625rem;
+  margin-bottom: 1.25rem;
+  box-shadow: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.1);
 }
-
 
 .fc-toolbar-title {
   font-size: 1.5rem;
   color: $primary-dark-blue;
   background-color: $primary-very-light-blue;
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
   border-radius: 1rem;
-  border: 2px solid $neutral-white;
+  border: 0.125rem solid $neutral-white;
   box-shadow: $shadow-primary;
 }
 
 .fc-button-group .fc-button {
-@include block-item (2.5rem, 2.5rem);
+  @include block-item (2.5rem, 2.5rem);
   background-color: $primary-light-blue;
   color: $neutral-white;
   display: flex;
   justify-content: center;
   box-shadow: $shadow-primary;
-  border-radius: .75rem;
-  margin-right: 10px;
-  border: 2px solid $neutral-white;
+  border-radius: 0.75rem;
+  margin-right: 0.625rem;
+  border: 0.125rem solid $neutral-white;
 }
 
 .fc-button-group .fc-button.fc-button-active {
@@ -194,17 +236,17 @@
 
 .fc-daygrid-day {
   background: rgba(255, 255, 255, 0.6);
-  border: 1px solid $primary-medium-blue;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 12px;
-  margin-bottom: 5px;
-  padding: 10px;
+  border: 0.0625rem solid $primary-medium-blue;
+  box-shadow: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.1);
+  border-radius: 0.75rem;
+  margin-bottom: 0.3125rem;
+  padding: 0.625rem;
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
 
   &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+    transform: translateY(-0.3125rem);
+    box-shadow: 0 0.5rem 0.75rem rgba(0, 0, 0, 0.2);
   }
 }
 
@@ -219,22 +261,23 @@
 }
 
 .fc .fc-button-primary:disabled {
-    background-color: $primary-dark-blue;
-    opacity: 1;
-    border-radius: .75rem;
-    border: 2px solid $neutral-white;
-    box-shadow: $shadow-primary;
+  background-color: $primary-dark-blue;
+  opacity: 1;
+  border-radius: 0.75rem;
+  border: 0.125rem solid $neutral-white;
+  box-shadow: $shadow-primary;
 }
 
-.fc .fc-button-primary:not(:disabled).fc-button-active, .fc .fc-button-primary:not(:disabled):active {
-    width: 4rem;
-    color: $primary-dark-blue;
-    background-color: $primary-very-light-blue;
-    border-radius: .75rem;
-    border: 2px solid $neutral-white;
+.fc .fc-button-primary:not(:disabled).fc-button-active,
+.fc .fc-button-primary:not(:disabled):active {
+  width: 4rem;
+  color: $primary-dark-blue;
+  background-color: $primary-very-light-blue;
+  border-radius: 0.75rem;
+  border: 0.125rem solid $neutral-white;
 }
 
 .fc-timeGridWeek-button.fc-button.fc-button-primary {
-    width: 4rem;
-    border-radius: 2rem;
+  width: 4rem;
+  border-radius: 2rem;
 }
