@@ -3,7 +3,7 @@ import { AuthContext } from '../../../../context/AuthContext/AuthContext';
 import axios from "axios";
 import ProfileUploadBtn from "../../../../assets/images/profile-upload.svg";
 import DeleteIcon from "../../../../assets/images/delete-icon.svg";
-import DefaultAvatar from "../../../../assets/images/default-avatar.svg";
+import DefaultPic from "../../../../assets/images/defaultimg.png";
 import Loader from "../../../../components/Loader/Loader"; 
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -11,7 +11,7 @@ import './ProfileImg.scss';
 
 const ProfileImg = ({ userId, username, isActive, onStatusToggle }) => {
   const { isAuthenticated } = useContext(AuthContext);
-  const [imagePreview, setImagePreview] = useState(DefaultAvatar);
+  const [imagePreview, setImagePreview] = useState(DefaultPic);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -21,7 +21,7 @@ const ProfileImg = ({ userId, username, isActive, onStatusToggle }) => {
           withCredentials: true
         });
         if (response.data.avatar) {
-          setImagePreview(`${process.env.REACT_APP_BASE_URL}/${response.data.avatar}`);
+          setImagePreview(`${process.env.REACT_APP_BASE_URL}${response.data.avatar}`);
         }
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -41,8 +41,8 @@ const ProfileImg = ({ userId, username, isActive, onStatusToggle }) => {
     }
 
     // Check file type
-    if (!file.type.match("image/jpeg") && !file.type.match("image/png") && !file.type.match("image/jpg")) {
-      toast.error("Please upload a valid image (jpg, jpeg, png).");
+    if (!file.type.match("image/jpeg") && !file.type.match("image/png") && !file.type.match("image/jpg") && !file.type.match("image/gif") && !file.type.match("image/svg+xml") && !file.type.match("image/webp") && !file.type.match("image/bmp") && !file.type.match("image/tiff")) {
+      toast.error("Please upload a valid image (jpg, jpeg, png, gif, svg, webp, bmp, tiff).");
       return;
     }
 
@@ -57,8 +57,7 @@ const ProfileImg = ({ userId, username, isActive, onStatusToggle }) => {
         },
         withCredentials: true
       });
-      console.log(response.data);
-      setImagePreview(`${process.env.REACT_APP_BASE_URL}/${response.data.avatar}`);
+      setImagePreview(`${process.env.REACT_APP_BASE_URL}${response.data.avatar}`);
     } catch (error) {
       console.error("Error uploading image:", error);
     } finally {
@@ -69,11 +68,10 @@ const ProfileImg = ({ userId, username, isActive, onStatusToggle }) => {
   const handleImageDelete = async () => {
     setLoading(true);
     try {
-      const response = await axios.delete(`${process.env.REACT_APP_BASE_URL}/api/profile/${userId}/avatar`, {
+      await axios.delete(`${process.env.REACT_APP_BASE_URL}/api/profile/${userId}/avatar`, {
         withCredentials: true
       });
-      console.log(response.data);
-      setImagePreview(DefaultAvatar); // Reset to default avatar
+      setImagePreview(DefaultPic); // Reset to default avatar
     } catch (error) {
       console.error("Error deleting avatar:", error);
     } finally {
@@ -83,7 +81,6 @@ const ProfileImg = ({ userId, username, isActive, onStatusToggle }) => {
 
   const toggleStatus = async () => {
     const newStatus = !isActive;
-    console.log(`Toggling status: ${newStatus}`);
     try {
       await axios.post(`${process.env.REACT_APP_BASE_URL}/api/profile/${userId}/update-status`, { isActive: newStatus }, {
         withCredentials: true

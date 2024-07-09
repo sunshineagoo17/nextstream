@@ -20,7 +20,8 @@ const ensureUploadsDirectoryExists = (req, res, next) => {
 // Set up multer for file uploads
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'uploads/avatars'); // Directory to store uploaded files
+    const dir = path.join(__dirname, '../uploads/avatars');
+    cb(null, dir); // Directory to store uploaded files
   },
   filename: (req, file, cb) => {
     cb(null, `${req.params.userId}-${Date.now()}${path.extname(file.originalname)}`);
@@ -30,7 +31,7 @@ const storage = multer.diskStorage({
 const upload = multer({
   storage: storage,
   fileFilter: (req, file, cb) => {
-    const filetypes = /jpeg|jpg|png/;
+    const filetypes = /jpeg|jpg|png|gif|svg|webp|bmp|tiff/;
     const mimetype = filetypes.test(file.mimetype);
     const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
 
@@ -132,7 +133,7 @@ router.put('/:userId', async (req, res) => {
 // Upload user avatar
 router.post('/:userId/avatar', authenticate, ensureUploadsDirectoryExists, upload.single('avatar'), async (req, res) => {
   try {
-    const avatarPath = req.file.path;
+    const avatarPath = `/uploads/avatars/${req.file.filename}`;
     await knex('users').where({ id: req.params.userId }).update({ avatar: avatarPath });
     res.json({ message: 'Avatar uploaded successfully', avatar: avatarPath });
   } catch (error) {
