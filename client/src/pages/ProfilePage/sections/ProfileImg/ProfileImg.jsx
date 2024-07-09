@@ -3,7 +3,7 @@ import { AuthContext } from '../../../../context/AuthContext/AuthContext';
 import axios from "axios";
 import ProfileUploadBtn from "../../../../assets/images/profile-upload.svg";
 import DeleteIcon from "../../../../assets/images/delete-icon.svg";
-import DefaultPic from "../../../../assets/images/defaultimg.png";
+import DefaultAvatar from "../../../../assets/images/default-avatar.svg";
 import Loader from "../../../../components/Loader/Loader"; 
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -11,7 +11,7 @@ import './ProfileImg.scss';
 
 const ProfileImg = ({ userId, username, isActive, onStatusToggle }) => {
   const { isAuthenticated } = useContext(AuthContext);
-  const [imagePreview, setImagePreview] = useState(DefaultPic);
+  const [imagePreview, setImagePreview] = useState(DefaultAvatar);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -58,8 +58,10 @@ const ProfileImg = ({ userId, username, isActive, onStatusToggle }) => {
         withCredentials: true
       });
       setImagePreview(`${process.env.REACT_APP_BASE_URL}/${response.data.avatar}`);
+      toast.success("Image uploaded successfully.");
     } catch (error) {
       console.error("Error uploading image:", error);
+      toast.error("Error uploading image.");
     } finally {
       setLoading(false);
     }
@@ -71,9 +73,11 @@ const ProfileImg = ({ userId, username, isActive, onStatusToggle }) => {
       await axios.delete(`${process.env.REACT_APP_BASE_URL}/api/profile/${userId}/avatar`, {
         withCredentials: true
       });
-      setImagePreview(DefaultPic); // Reset to default avatar
+      setImagePreview(DefaultAvatar); // Reset to default avatar
+      toast.success("Image deleted successfully. For now, you can use our default avatar.");
     } catch (error) {
       console.error("Error deleting avatar:", error);
+      toast.error("Error deleting avatar.");
     } finally {
       setLoading(false);
     }
