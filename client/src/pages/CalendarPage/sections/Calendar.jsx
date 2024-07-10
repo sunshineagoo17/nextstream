@@ -230,9 +230,6 @@ const Calendar = () => {
             eventDrop={handleEventDrop}
             editable={true}
             eventContent={renderEventContent}
-            editable={true}
-            droppable={true}
-            eventDrop={handleEventDrop}
           />
         </div>
       </div>
