@@ -60,15 +60,16 @@ const Calendar = () => {
   };
 
   const handleEventClick = async (clickInfo) => {
-    if (window.confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
+    const eventId = clickInfo.event.id; 
+    if (window.confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'?`)) {
       try {
-        await api.delete(`/api/calendar/${userId}/events/${clickInfo.event.id}`);
-        setEvents(events.filter(event => event.id !== clickInfo.event.id));
+        await api.delete(`/api/calendar/${userId}/events/${eventId}`);
+        setEvents(events.filter(event => event.id !== eventId));
       } catch (error) {
         console.error('Error deleting event:', error.response ? error.response.data : error.message);
       }
     }
-  };
+  };  
 
   const renderEventContent = (eventInfo) => {
     return (
