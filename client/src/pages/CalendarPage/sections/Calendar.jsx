@@ -5,14 +5,14 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faFilm } from '@fortawesome/free-solid-svg-icons';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import moment from 'moment-timezone';
 import api from '../../../services/api';
 import { AuthContext } from '../../../context/AuthContext/AuthContext';
 import Loader from '../../../components/Loader/Loader';
 import './Calendar.scss';
 
-const Calendar = ({ userId, calendarRef }) => {
+const Calendar = ({ userId, calendarRef, onAddEvent }) => {
   const { isAuthenticated } = useContext(AuthContext);
   const [events, setEvents] = useState([]);
   const [miniCalendarVisible, setMiniCalendarVisible] = useState(false);
@@ -39,6 +39,13 @@ const Calendar = ({ userId, calendarRef }) => {
   useEffect(() => {
     fetchEvents();
   }, [fetchEvents]);
+
+  useEffect(() => {
+    // Effect for loading events
+    if (isAuthenticated !== null) {
+      fetchEvents(); 
+    }
+  }, [isAuthenticated, fetchEvents]); 
 
   const handleDateClick = (arg) => {
     const localDate = moment(arg.date).format('YYYY-MM-DDTHH:mm:ss');
@@ -79,6 +86,9 @@ const Calendar = ({ userId, calendarRef }) => {
       await api.post(`/api/calendar/${userId}/events`, newEvent);
       await fetchEvents();
       toast.success('Event added successfully!');
+      if (onAddEvent) {
+        onAddEvent(newEvent); 
+      }
     } catch (error) {
       console.error('Error adding event:', error.response ? error.response.data : error.message);
       toast.error('Failed to add event.');
@@ -178,27 +188,27 @@ const Calendar = ({ userId, calendarRef }) => {
   const handleDateSelect = (day) => {
     const newDate = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day);
     calendarRef.current.getApi().changeView('timeGridDay', newDate);
-    setMiniCalendarVisible(false); 
+    setMiniCalendarVisible(false);
     toast.info(`Navigated to ${newDate.toDateString()}`);
   };
 
   const renderMiniCalendar = () => {
     const daysInMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0).getDate();
     const firstDayOfMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1).getDay();
-    
+
     // Create an array to hold all days of the month
     let daysArray = [];
-  
+
     // Fill days before the first day of the month with null
     for (let i = 0; i < firstDayOfMonth; i++) {
       daysArray.push(null);
     }
-  
+
     // Fill days of the month
     for (let day = 1; day <= daysInMonth; day++) {
       daysArray.push(day);
     }
-  
+
     return (
       <div className="mini-calendar">
         <div className="mini-calendar__header">
@@ -229,7 +239,7 @@ const Calendar = ({ userId, calendarRef }) => {
         <button className="mini-calendar__close-btn" onClick={() => setMiniCalendarVisible(false)}>Close</button>
       </div>
     );
-  };  
+  };
 
   return (
     <div className="calendar">
@@ -266,7 +276,6 @@ const Calendar = ({ userId, calendarRef }) => {
           />
         </div>
       </div>
-      <ToastContainer position="top-center" autoClose={3000} />
       {loading && <Loader />}
       {modalVisible && (
         <div className="modal">

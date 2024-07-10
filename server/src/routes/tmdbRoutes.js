@@ -150,4 +150,16 @@ router.get('/image/:posterPath', async (req, res) => {
   }
 });
 
+// Endpoint to get watch providers for a movie or TV show
+router.get('/:mediaType/:mediaId/watch/providers', async (req, res) => {
+  const { mediaType, mediaId } = req.params;
+  try {
+    const providers = await getWatchProviders(mediaType, mediaId);
+    res.json(providers);
+  } catch (error) {
+    console.error(`Error handling watch providers request for ${mediaType} ${mediaId}:`, error);
+    res.status(500).json({ message: 'Error fetching watch providers' });
+  }
+});
+
 module.exports = router;

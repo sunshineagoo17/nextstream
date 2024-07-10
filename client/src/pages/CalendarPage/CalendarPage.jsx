@@ -12,7 +12,7 @@ const CalendarPage = () => {
   const calendarRef = useRef(null);
 
   useEffect(() => {
-    if (isAuthenticated !== null) {
+    if (isAuthenticated === true) {
       setLoading(false);
     }
   }, [isAuthenticated]);

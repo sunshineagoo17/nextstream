@@ -2,6 +2,8 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
 import AnimatedBg from '../../components/AnimatedBg/AnimatedBg';
 import 'react-toastify/dist/ReactToastify.css';
 import './AuthSearchResultsPage.scss';
@@ -36,9 +38,23 @@ const AuthSearchResultsPage = () => {
         });
 
         const limitedResults = response.data.results.slice(0, 3);
-        setResults(limitedResults);
 
-        if (limitedResults.length === 0) {
+        const updatedResults = await Promise.all(
+          limitedResults.map(async (result) => {
+            try {
+              const providersResponse = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/tmdb/${result.media_type}/${result.id}/watch/providers`);
+              const providers = providersResponse.data || [];
+              return { ...result, providers };
+            } catch (error) {
+              console.error(`Error fetching watch providers for ${result.media_type} ${result.id}:`, error);
+              return { ...result, providers: [] };
+            }
+          })
+        );
+
+        setResults(updatedResults);
+
+        if (updatedResults.length === 0) {
           toast.info('No results found for your search. Try a different title!', {
             position: 'top-center',
             autoClose: 4000,
@@ -103,6 +119,9 @@ const AuthSearchResultsPage = () => {
                         className="auth-search-results__media-icon" 
                         alt={result.media_type === 'movie' ? 'Movie Icon' : 'TV Show Icon'} 
                       />
+                      <button className="auth-search-results__calendar-button">
+                        <FontAwesomeIcon className="auth-search-results__calendar-icon" icon={faCalendarAlt} />
+                      </button>
                     </div>
                   ) : (
                     <div className="auth-search-results__no-image">
@@ -116,6 +135,17 @@ const AuthSearchResultsPage = () => {
                     </div>
                   )}
                 </a>
+                <div className="auth-search-results__streaming-providers">
+                  {result.providers && result.providers.map(provider => (
+                    <div key={provider.provider_id} className="auth-search-results__streaming-provider">
+                      <img 
+                        src={`https://image.tmdb.org/t/p/original${provider.logo_path}`} 
+                        alt={provider.provider_name} 
+                        className="auth-search-results__streaming-provider-logo"
+                      />
+                    </div>
+                  ))}
+                </div>
               </div>
             ))}
           </div>
