@@ -28,20 +28,21 @@ const Calendar = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        setLoading(true); 
+        setLoading(true);
         const response = await api.get(`/api/calendar/${userId}/events`);
         setEvents(response.data);
       } catch (error) {
         console.error('Error fetching events:', error.response ? error.response.data : error.message);
+        toast.error('Failed to fetch events.');
       } finally {
-        setLoading(false); 
+        setLoading(false);
       }
     };
-  
+
     if (userId) {
       fetchEvents();
     }
-  }, [userId]);  
+  }, [userId]);
 
   const handleDateClick = (arg) => {
     const localDate = moment(arg.date).format('YYYY-MM-DDTHH:mm:ss');
@@ -50,15 +51,27 @@ const Calendar = () => {
     setModalVisible(true);
   };
 
-  const handleEventClick = (clickInfo) => {
+  const handleEventClick = async (clickInfo) => {
+    const { event } = clickInfo;
+    if (!event) {
+      console.error('Event data not found.');
+      return;
+    }
+  
+    const id = event.id;
+    const title = event.title || ''; 
+    const start = moment.utc(event.start).toISOString() || '';
+    const end = event.end ? moment.utc(event.end).toISOString() : null;
+  
     setSelectedEvent({
-      id: clickInfo.event.id,
-      title: clickInfo.event.title,
-      start: moment.utc(clickInfo.event.start).toISOString(),
-      end: clickInfo.event.end ? moment.utc(clickInfo.event.end).toISOString() : null,
+      id,
+      title,
+      start,
+      end,
     });
     setModalVisible(true);
   };
+  
 
   const handleAddEvent = async () => {
     setLoading(true);
@@ -79,7 +92,6 @@ const Calendar = () => {
       setModalVisible(false);
     }
   };
-  
 
   const handleEditEvent = async () => {
     if (!selectedEvent) return;
@@ -91,15 +103,15 @@ const Calendar = () => {
         start: moment(selectedEvent.start).toISOString(),
         end: selectedEvent.end ? moment(selectedEvent.end).toISOString() : null,
       };
-  
+
       // Remove 'end' if it's null to avoid sending 'Invalid date'
       if (updatedEvent.end === null) {
         delete updatedEvent.end;
       }
-  
+
       // Make the API call to update the event
       await api.put(`/api/calendar/${userId}/events/${selectedEvent.id}`, updatedEvent);
-  
+
       // Update the events state
       const updatedEvents = events.map(event =>
         event.id === selectedEvent.id ? { ...event, ...selectedEvent } : event
@@ -123,6 +135,7 @@ const Calendar = () => {
       end: info.event.end ? moment(info.event.end).toISOString() : moment(info.event.start).toISOString(),
     };
     try {
+      setLoading(true);
       await api.put(`/api/calendar/${userId}/events/${id}`, updatedEvent);
       const updatedEvents = events.map(event =>
         event.id === id ? { ...event, ...updatedEvent } : event
@@ -132,6 +145,8 @@ const Calendar = () => {
     } catch (error) {
       console.error('Error moving event:', error.response ? error.response.data : error.message);
       toast.error('Failed to move event.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -149,7 +164,7 @@ const Calendar = () => {
       setLoading(false);
       setModalVisible(false);
     }
-  };  
+  };
 
   const renderEventContent = (eventInfo) => {
     const handleEventClickWithLoader = async (event) => {
@@ -160,16 +175,15 @@ const Calendar = () => {
         setLoading(false);
       }
     };
-  
+
     return (
       <div onClick={() => handleEventClickWithLoader(eventInfo.event)}>
-        <FontAwesomeIcon icon={faFilm} style={{ color: 'mediumblue' }} /> 
-        <b>{moment(eventInfo.event.start).format('h:mm A')}</b> 
+        <FontAwesomeIcon icon={faFilm} style={{ color: 'mediumblue' }} />
+        <b>{moment(eventInfo.event.start).format('h:mm A')}</b>
         <i>{eventInfo.event.title}</i>
       </div>
     );
   };
-  
 
   const handlePrevMonth = () => {
     const newMonth = new Date(currentMonth.setMonth(currentMonth.getMonth() - 1));
@@ -221,10 +235,6 @@ const Calendar = () => {
       </div>
     );
   };
-
-  if (loading) {
-    return <Loader />;
-  }
 
   return (
     <div className="calendar">
@@ -285,6 +295,7 @@ const Calendar = () => {
           </div>
         </div>
       )}
+      {loading && <Loader />}
     </div>
   );
 };
