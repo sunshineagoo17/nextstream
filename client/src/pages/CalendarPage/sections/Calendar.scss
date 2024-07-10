@@ -427,7 +427,7 @@
   }
 
   .fc-day-today {
-    background-color: $primary-very-light-blue !important;
+    background-color: $primary-light-blue !important;
     border-color: $primary-medium-blue !important;
     color: $primary-dark-blue;
   }
@@ -486,6 +486,8 @@
 
 .fc .fc-col-header-cell-cushion {
   padding: 0;
+  color: $neutral-white;
+  font-weight: bold;
 
   @include tablet {
     padding: 2px 4px;
@@ -493,7 +495,6 @@
 }
 
 .fc .fc-daygrid-day {
-  @include block-item(.25rem, auto);
   padding: 0;
 }
 
@@ -507,4 +508,11 @@
   @include desktop {
     height: 48rem;
   }
+}
+
+.fc .fc-timegrid-axis-frame {
+  display: flex;
+  justify-content: center;
+  width: 4.5rem;
+  align-items: center;
 }
