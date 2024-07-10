@@ -113,12 +113,15 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    border: 6px solid $primary-very-light-blue;
+    background-color: $primary-dark-blue;
+    box-shadow: $shadow-quaternary;
   }
 
   &__intro {
     font-size: 1.25rem;
     margin-bottom: 1rem;
-    color: $primary-medium-blue;
+    color: $primary-very-light-blue;
     text-align: center;
   }
 
@@ -245,7 +248,7 @@
     line-height: 2.75rem;
     font-size: 2.5rem;
     margin-bottom: 2rem;
-    color: $primary-dark-blue;
+    color: $neutral-white;
     text-align: center;
   }
 
@@ -256,6 +259,7 @@
     border-radius: 1rem;
     box-shadow: $shadow-tertiary;
     display: flex;
+    border: 1px solid $primary-light-blue;
     justify-content: center;
     align-items: center;
     transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
