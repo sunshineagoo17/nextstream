@@ -7,7 +7,7 @@ const useMenuLinks = () => {
   const { isAuthenticated, userId: authUserId } = useContext(AuthContext);
 
   const authenticatedLinks = [
-    { name: "Stream Locator", path: `/stream-locator/${authUserId}` },
+    // { name: "Stream Locator", path: `/stream-locator/${authUserId}` },
     { name: "Top Picks", path: `/top-picks/${authUserId}` },
     { name: "Calendar", path: `/calendar/${authUserId}` },
     { name: "Profile", path: `/profile/${authUserId}` }

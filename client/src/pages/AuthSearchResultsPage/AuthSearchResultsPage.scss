@@ -17,6 +17,23 @@
     width: 100%;
   }
 
+  &__poster-wrapper {
+    position: relative;
+    display: inline-block;
+
+    .auth-search-results__media-icon {
+      position: absolute;
+      bottom: 15px;
+      right: 10px;
+      width: 30px;
+      height: 30px;
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 15%;
+      box-shadow: $shadow-tertiary;
+      padding: 4px;
+    }
+  }
+
   &__content-items {
     display: flex;
     justify-content: center;
