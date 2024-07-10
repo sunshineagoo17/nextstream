@@ -60,8 +60,8 @@ const Calendar = () => {
   
     const id = event.id;
     const title = event.title || ''; 
-    const start = moment.utc(event.start).toISOString() || '';
-    const end = event.end ? moment.utc(event.end).toISOString() : null;
+    const start = moment(event.start).format('YYYY-MM-DDTHH:mm:ss') || '';
+    const end = event.end ? moment(event.end).format('YYYY-MM-DDTHH:mm:ss') : moment(event.start).format('YYYY-MM-DDTHH:mm:ss');
   
     setSelectedEvent({
       id,
@@ -71,15 +71,14 @@ const Calendar = () => {
     });
     setModalVisible(true);
   };
-  
 
   const handleAddEvent = async () => {
     setLoading(true);
     try {
       const newEvent = {
         title: newEventTitle,
-        start: moment.utc(newEventDate).toISOString(),
-        end: moment.utc(newEventDate).toISOString(),
+        start: moment(newEventDate).format('YYYY-MM-DDTHH:mm:ss'),
+        end: moment(newEventDate).format('YYYY-MM-DDTHH:mm:ss'),
       };
       const response = await api.post(`/api/calendar/${userId}/events`, newEvent);
       setEvents([...events, response.data]);
@@ -97,24 +96,16 @@ const Calendar = () => {
     if (!selectedEvent) return;
     setLoading(true);
     try {
-      // Format the event start and end times
       const updatedEvent = {
         title: selectedEvent.title,
-        start: moment(selectedEvent.start).toISOString(),
-        end: selectedEvent.end ? moment(selectedEvent.end).toISOString() : null,
+        start: moment(selectedEvent.start).format('YYYY-MM-DDTHH:mm:ss'),
+        end: moment(selectedEvent.end).format('YYYY-MM-DDTHH:mm:ss'),
       };
-
-      // Remove 'end' if it's null to avoid sending 'Invalid date'
-      if (updatedEvent.end === null) {
-        delete updatedEvent.end;
-      }
-
-      // Make the API call to update the event
+  
       await api.put(`/api/calendar/${userId}/events/${selectedEvent.id}`, updatedEvent);
-
-      // Update the events state
+  
       const updatedEvents = events.map(event =>
-        event.id === selectedEvent.id ? { ...event, ...selectedEvent } : event
+        event.id === selectedEvent.id ? { ...event, ...updatedEvent } : event
       );
       setEvents(updatedEvents);
       toast.success('Event updated successfully!');
@@ -131,8 +122,8 @@ const Calendar = () => {
     const { id } = info.event;
     const updatedEvent = {
       title: info.event.title,
-      start: moment(info.event.start).toISOString(),
-      end: info.event.end ? moment(info.event.end).toISOString() : moment(info.event.start).toISOString(),
+      start: moment(info.event.start).format('YYYY-MM-DDTHH:mm:ss'),
+      end: info.event.end ? moment(info.event.end).format('YYYY-MM-DDTHH:mm:ss') : moment(info.event.start).format('YYYY-MM-DDTHH:mm:ss'),
     };
     try {
       setLoading(true);
@@ -284,7 +275,7 @@ const Calendar = () => {
             <input
               type="datetime-local"
               className="modal-input"
-              value={selectedEvent ? moment(selectedEvent.start).format('YYYY-MM-DDTHH:mm:ss') : newEventDate}
+              value={selectedEvent ? selectedEvent.start : newEventDate}
               onChange={(e) => selectedEvent ? setSelectedEvent({ ...selectedEvent, start: e.target.value }) : setNewEventDate(e.target.value)}
             />
             <button onClick={selectedEvent ? handleEditEvent : handleAddEvent}>
