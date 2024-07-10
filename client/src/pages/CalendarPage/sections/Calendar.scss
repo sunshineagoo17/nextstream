@@ -321,8 +321,6 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      margin-bottom: 1rem;
-      margin-left: .5rem;
 
       .fc-button {
         @include block-item(4rem, 2.5rem);
@@ -389,11 +387,15 @@
   }
 
   .fc-timeGridDay-button.fc-button.fc-button-primary,
-  .fc-timeGridWeek-button.fc-button.fc-button-primary,
-  .fc-timeGridMonth-button.fc-button.fc-button-primary.fc-button-active {
+  .fc-timeGridWeek-button.fc-button.fc-button-primary {
     width: 4rem;
     border-radius: .75rem;
-    margin-right: 0;
+    margin-right: .5rem;
+  }
+
+  .fc-prev-button.fc-button.fc-button-primary,
+  .fc-next-button.fc-button.fc-button-primary {
+    margin-top: 0;
   }
 
   .fc-daygrid-day {
@@ -457,5 +459,16 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
+  }
+
+  .fc {
+    .fc-toolbar {
+      .fc-button-group {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 0rem;
+      }
+    }
   }
 }
