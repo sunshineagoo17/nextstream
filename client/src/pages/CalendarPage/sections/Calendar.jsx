@@ -79,12 +79,22 @@ const Calendar = () => {
     if (!selectedEvent) return;
     setLoading(true);
     try {
+      // Format the event start and end times
       const updatedEvent = {
         title: selectedEvent.title,
         start: moment(selectedEvent.start).toISOString(),
         end: selectedEvent.end ? moment(selectedEvent.end).toISOString() : null,
       };
+  
+      // Remove 'end' if it's null to avoid sending 'Invalid date'
+      if (updatedEvent.end === null) {
+        delete updatedEvent.end;
+      }
+  
+      // Make the API call to update the event
       await api.put(`/api/calendar/${userId}/events/${selectedEvent.id}`, updatedEvent);
+  
+      // Update the events state
       const updatedEvents = events.map(event =>
         event.id === selectedEvent.id ? { ...event, ...selectedEvent } : event
       );
@@ -97,7 +107,7 @@ const Calendar = () => {
       setLoading(false);
       setModalVisible(false);
     }
-  };
+  };  
 
   const handleAddEvent = async () => {
     setLoading(true);
