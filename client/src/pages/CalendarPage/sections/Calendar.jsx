@@ -27,8 +27,8 @@ const Calendar = () => {
 
   useEffect(() => {
     const fetchEvents = async () => {
+      setLoading(true);
       try {
-        setLoading(true);
         const response = await api.get(`/api/calendar/${userId}/events`);
         setEvents(response.data);
       } catch (error) {
@@ -61,7 +61,7 @@ const Calendar = () => {
     const id = event.id;
     const title = event.title || ''; 
     const start = moment(event.start).format('YYYY-MM-DDTHH:mm:ss') || '';
-    const end = event.end ? moment(event.end).format('YYYY-MM-DDTHH:mm:ss') : moment(event.start).format('YYYY-MM-DDTHH:mm:ss');
+    const end = event.end ? moment(event.end).format('YYYY-MM-DDTHH:mm:ss') : start;
   
     setSelectedEvent({
       id,
@@ -125,8 +125,8 @@ const Calendar = () => {
       start: moment(info.event.start).format('YYYY-MM-DDTHH:mm:ss'),
       end: info.event.end ? moment(info.event.end).format('YYYY-MM-DDTHH:mm:ss') : moment(info.event.start).format('YYYY-MM-DDTHH:mm:ss'),
     };
+    setLoading(true);
     try {
-      setLoading(true);
       await api.put(`/api/calendar/${userId}/events/${id}`, updatedEvent);
       const updatedEvents = events.map(event =>
         event.id === id ? { ...event, ...updatedEvent } : event
