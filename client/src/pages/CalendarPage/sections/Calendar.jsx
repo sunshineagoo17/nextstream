@@ -4,7 +4,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faFilm } from '@fortawesome/free-solid-svg-icons';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import api from '../../../services/api';
@@ -42,7 +42,9 @@ const Calendar = () => {
   }, [userId]);
 
   const handleDateClick = (arg) => {
+    if (!arg.allDay) return;
     setNewEventDate(arg.dateStr);
+    setSelectedEvent(null);
     setModalVisible(true);
   };
 
@@ -79,7 +81,7 @@ const Calendar = () => {
       await api.put(`/api/calendar/${userId}/events/${selectedEvent.id}`, {
         title: selectedEvent.title,
         start: new Date(selectedEvent.start).toISOString(),
-        end: new Date(selectedEvent.end).toISOString(),
+        end: selectedEvent.end ? new Date(selectedEvent.end).toISOString() : null,
       });
       const updatedEvents = events.map(event =>
         event.id === selectedEvent.id ? { ...event, ...selectedEvent } : event
@@ -115,11 +117,11 @@ const Calendar = () => {
   };
 
   const handleEventDrop = async (info) => {
-    const { id, title, start, end } = info.event;
+    const { id } = info.event;
     const updatedEvent = {
-      title,
-      start: start.toISOString(),
-      end: end ? end.toISOString() : null,
+      title: info.event.title,
+      start: info.event.start.toISOString(),
+      end: info.event.end ? info.event.end.toISOString() : info.event.start.toISOString(),
     };
     try {
       await api.put(`/api/calendar/${userId}/events/${id}`, updatedEvent);
@@ -137,7 +139,7 @@ const Calendar = () => {
   const renderEventContent = (eventInfo) => {
     return (
       <div onClick={() => handleEventClick(eventInfo.event)}>
-        <b>{eventInfo.timeText}</b> <i>{eventInfo.event.title}</i>
+        <FontAwesomeIcon icon={faFilm} style={{ color: 'mediumblue' }} /> <b>{eventInfo.timeText}</b> <i>{eventInfo.event.title}</i>
       </div>
     );
   };
@@ -225,6 +227,8 @@ const Calendar = () => {
             events={events}
             dateClick={handleDateClick}
             eventClick={handleEventClick}
+            eventDrop={handleEventDrop}
+            editable={true}
             eventContent={renderEventContent}
             editable={true}
             droppable={true}
@@ -232,7 +236,7 @@ const Calendar = () => {
           />
         </div>
       </div>
-      <ToastContainer position="top-center" autoClose={2000} hideProgressBar={true} closeOnClick pauseOnHover />
+      <ToastContainer position="top-center" autoClose={3000} hideProgressBar />
       {modalVisible && (
         <div className="modal">
           <div className="modal-content">
