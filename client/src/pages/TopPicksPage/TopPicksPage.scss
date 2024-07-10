@@ -46,9 +46,9 @@
 
   &__recommendations-button {
     @include block-item(15rem, 5rem);
-    background-color: $primary-medium-blue;
+    background-color: $frosted-glass;
     color: $neutral-white;
-    border: 1px solid $neutral-white;
+    border: 3px solid $neutral-white;
     padding: 0.5rem 1rem;
     box-shadow: $shadow-primary;
     border-radius: 1rem;
@@ -115,11 +115,21 @@
   &__no-more-media {
     text-align: center;
     padding: 2rem;
+    background-color: $primary-medium-blue;
+    color: $neutral-white;
+    border-radius: 0.5rem;
+    box-shadow: $shadow-primary;
+    max-width: 500px;
+    margin-top: 2rem;
 
     p {
       font-size: 1.25rem;
       color: $neutral-white;
       margin-bottom: 1rem;
+    }
+
+    .top-picks-page__recommendations-button {
+      margin-top: 1rem;
     }
   }
 
