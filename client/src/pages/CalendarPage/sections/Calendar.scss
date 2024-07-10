@@ -120,9 +120,15 @@
   &__content {
     display: flex;
     position: relative;
+    height: 37rem;
 
-    @media (max-width: 768px) {
+    @include tablet {
       flex-direction: column;
+      height: 40.5rem;
+    }
+
+    @include desktop {
+      height: 48.05rem;
     }
   }
 
@@ -409,6 +415,7 @@
     transition: transform 0.2s, box-shadow 0.2s;
 
     &:hover {
+      border: 2px solid $primary-light-blue;
       transform: translateY(-0.3125rem);
       box-shadow: 0 0.5rem 0.75rem rgba(0, 0, 0, 0.2);
     }
@@ -422,6 +429,7 @@
   .fc-day-today {
     background-color: $primary-very-light-blue !important;
     border-color: $primary-medium-blue !important;
+    color: $primary-dark-blue;
   }
 
   .fc-col-header-cell {
@@ -460,15 +468,43 @@
     align-items: center;
     justify-content: center;
   }
+}
 
-  .fc {
-    .fc-toolbar {
-      .fc-button-group {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-left: 0rem;
-      }
-    }
+.fc-col-header-cell {
+  font-weight: normal;
+  font-size: .6rem;
+  padding: 0;
+
+  @include tablet {
+    font-size: 1rem;
+  }
+
+  @include desktop {
+    font-size: 1.25rem;
+  }
+}
+
+.fc .fc-col-header-cell-cushion {
+  padding: 0;
+
+  @include tablet {
+    padding: 2px 4px;
+  }
+}
+
+.fc .fc-daygrid-day {
+  @include block-item(.25rem, auto);
+  padding: 0;
+}
+
+.fc.fc-media-screen.fc-direction-ltr.fc-theme-standard {
+  height: 37rem;
+
+  @include tablet {
+    height: 40rem;
+  }
+
+  @include desktop {
+    height: 48rem;
   }
 }
