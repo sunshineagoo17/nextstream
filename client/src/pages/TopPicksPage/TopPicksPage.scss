@@ -11,6 +11,22 @@
   align-items: center;
   padding: 5rem 3rem 3rem 3rem;
   background-color: $primary-darker-blue;
+  min-height: 100vh;
+
+  &__title {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: $neutral-white;
+    text-align: center;
+  }
+
+  &__intro {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+    color: $neutral-white;
+    text-align: center;
+    max-width: 600px;
+  }
 
   &__media-card {
     @include bg-white;
@@ -19,12 +35,12 @@
     box-shadow: $shadow-primary;
     border-radius: 0.5rem;
     width: 100%;
-    max-width: 500px; // Limit the width of the media card
+    max-width: 500px;
 
     img {
       width: 100%;
       height: auto;
-      border-radius: 0.5rem; // Optional: If you want the image to have rounded corners
+      border-radius: 0.5rem;
     }
   }
 
@@ -55,7 +71,6 @@
       color: $neutral-white;
       border-radius: 1rem;
       border: 1px solid $primary-cyan;
-      border-radius: .25rem;
       transform: translateY(1px);
       text-decoration: none;
       font-weight: bold;
@@ -103,16 +118,37 @@
 
     p {
       font-size: 1.25rem;
-      color: $primary-dark-blue;
+      color: $neutral-white;
+      margin-bottom: 1rem;
+    }
+  }
+
+  &__recommendations {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2rem;
+    width: 100%;
+
+    .top-picks-page__media-card {
       margin-bottom: 1rem;
     }
   }
 }
 
-/* Media Queries */
+// Media Queries
 @include small-mobile {
   .top-picks-page {
     padding: 2rem 1rem 1rem 1rem;
+
+    &__title {
+      font-size: 2rem;
+    }
+
+    &__intro {
+      font-size: 1rem;
+      max-width: 100%;
+    }
 
     &__recommendations-button {
       @include block-item(12rem, 4rem);
@@ -130,6 +166,15 @@
   .top-picks-page {
     padding: 3rem 2rem 2rem 2rem;
 
+    &__title {
+      font-size: 2.2rem;
+    }
+
+    &__intro {
+      font-size: 1.1rem;
+      max-width: 100%;
+    }
+
     &__recommendations-button {
       @include block-item(14rem, 4.5rem);
     }
@@ -145,6 +190,15 @@
 @include tablet {
   .top-picks-page {
     padding: 4rem 3rem 3rem 3rem;
+
+    &__title {
+      font-size: 2.5rem;
+    }
+
+    &__intro {
+      font-size: 1.25rem;
+      max-width: 600px;
+    }
 
     &__recommendations-button {
       @include block-item(15rem, 5rem);
@@ -162,6 +216,15 @@
   .top-picks-page {
     padding: 5rem 4rem 4rem 4rem;
 
+    &__title {
+      font-size: 2.5rem;
+    }
+
+    &__intro {
+      font-size: 1.25rem;
+      max-width: 600px;
+    }
+
     &__recommendations-button {
       @include block-item(16rem, 5.5rem);
     }
@@ -177,6 +240,15 @@
 @include large-desktop {
   .top-picks-page {
     padding: 6rem 5rem 5rem 5rem;
+
+    &__title {
+      font-size: 2.7rem;
+    }
+
+    &__intro {
+      font-size: 1.3rem;
+      max-width: 600px;
+    }
 
     &__recommendations-button {
       @include block-item(17rem, 6rem);
