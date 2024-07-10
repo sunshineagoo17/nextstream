@@ -12,9 +12,9 @@ import DefaultVideoImg from '../../assets/images/video-img-default.png';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import VideoCamera from "../../assets/images/videocamera-1.png";
 import TvIcon from "../../assets/images/tv-icon.png";
-import CalendarModal from '../CalendarPage/sections/Calendar';
+import Calendar from '../CalendarPage/sections/Calendar';
 
-const AuthSearchResultsPage = ({ openModal }) => {
+const AuthSearchResultsPage = () => {
   const { isAuthenticated, userId } = useContext(AuthContext);
   const [results, setResults] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -122,13 +122,13 @@ const AuthSearchResultsPage = ({ openModal }) => {
                         src={`https://image.tmdb.org/t/p/w500${result.poster_path}`}
                         onError={(e) => { e.target.src = DefaultVideoImg; }}
                       />
-                    {/* <a href={`https://www.themoviedb.org/${result.media_type}/${result.id}`} className="auth-search-results__link" target="_blank" rel="noopener noreferrer"> */}
+                    <a href={`https://www.themoviedb.org/${result.media_type}/${result.id}`} className="auth-search-results__link" target="_blank" rel="noopener noreferrer">
                       <img 
                         src={result.media_type === 'movie' ? VideoCamera : TvIcon} 
                         className="auth-search-results__media-icon" 
                         alt={result.media_type === 'movie' ? 'Movie Icon' : 'TV Show Icon'} 
                       />
-                    {/* </a> */}
+                    </a>
                       <button 
                         className="auth-search-results__calendar-button"
                         onClick={() => handleAddToCalendar(result.title || result.name)}
@@ -167,11 +167,11 @@ const AuthSearchResultsPage = ({ openModal }) => {
         </div>
       </div>
       {showCalendar && (
-        <CalendarModal 
+        <Calendar 
           userId={userId}
           eventTitle={eventTitle}
           onClose={() => setShowCalendar(false)}
-          calendarRef={calendarRef}
+          ref={calendarRef}
         />
       )}
     </>

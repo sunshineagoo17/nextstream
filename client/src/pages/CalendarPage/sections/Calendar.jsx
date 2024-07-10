@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useCallback, forwardRef, useImperativeHandle } from 'react';
+import React, { useState, useEffect, useContext, useCallback, forwardRef, useImperativeHandle, useRef } from 'react';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
@@ -12,7 +12,7 @@ import { AuthContext } from '../../../context/AuthContext/AuthContext';
 import Loader from '../../../components/Loader/Loader';
 import './Calendar.scss';
 
-const Calendar = forwardRef(({ userId }, ref) => {
+const Calendar = forwardRef(({ userId, eventTitle, onClose }, ref) => {
   const { isAuthenticated } = useContext(AuthContext);
   const [events, setEvents] = useState([]);
   const [miniCalendarVisible, setMiniCalendarVisible] = useState(false);
@@ -20,8 +20,9 @@ const Calendar = forwardRef(({ userId }, ref) => {
   const [loading, setLoading] = useState(true);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
-  const [newEventTitle, setNewEventTitle] = useState('');
+  const [newEventTitle, setNewEventTitle] = useState(eventTitle || ''); // Use eventTitle as initial value
   const [newEventDate, setNewEventDate] = useState('');
+  const calendarRef = useRef(null);
 
   const fetchEvents = useCallback(async () => {
     try {
@@ -183,6 +184,7 @@ const Calendar = forwardRef(({ userId }, ref) => {
 
   const handleDateSelect = (day) => {
     const newDate = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day);
+    calendarRef.current.getApi().changeView('timeGridDay', newDate); // Use calendarRef to change view
     setMiniCalendarVisible(false);
     toast.info(`Navigated to ${newDate.toDateString()}`);
   };
@@ -262,6 +264,7 @@ const Calendar = forwardRef(({ userId }, ref) => {
         {miniCalendarVisible && <div className="calendar__overlay" />}
         <div className="calendar__main">
           <FullCalendar
+            ref={calendarRef} // Add this line
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
             initialView="dayGridMonth"
             headerToolbar={{

@@ -3,6 +3,7 @@ import { useSwipeable } from 'react-swipeable';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import MediaCard from './sections/MediaCard/MediaCard';
 import api from '../../services/api';
+import './TopPicksPage.scss';
 
 const TopPicksPage = () => {
   const { userId } = useContext(AuthContext);
@@ -58,14 +59,16 @@ const TopPicksPage = () => {
   return (
     <div className="top-picks-page" {...handlers}>
       {media.length > 0 && currentIndex < media.length && (
-        <div>
+        <div className="top-picks-page__media-card">
           <MediaCard media={media[currentIndex]} />
         </div>
       )}
       {currentIndex >= media.length && (
-        <div>
+        <div className="top-picks-page__no-more-media">
           <p>No more media</p>
-          <button onClick={fetchRecommendations}>Get Recommendations</button>
+          <button className="top-picks-page__recommendations-button" onClick={fetchRecommendations}>
+            Get Recommendations
+          </button>
         </div>
       )}
     </div>

@@ -5,7 +5,7 @@
 exports.up = function(knex) {
     return knex.schema.createTable('interactions', function(table) {
       table.increments('id').primary();
-      table.string('user_id').notNullable();
+      table.string('userId').notNullable(); 
       table.integer('media_id').notNullable();
       table.boolean('interaction').notNullable(); // 1 for like, 0 for dislike
       table.string('media_type').notNullable();

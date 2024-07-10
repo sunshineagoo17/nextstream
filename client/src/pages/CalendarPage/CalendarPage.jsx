@@ -3,9 +3,8 @@ import { AuthContext } from '../../context/AuthContext/AuthContext';
 import Calendar from './sections/Calendar';
 import { ToastContainer } from 'react-toastify';
 import Loader from '../../components/Loader/Loader';
-import CalendarModal from './sections/Calendar';
 import './CalendarPage.scss';
-import 'react-toastify/dist/ReactToastify.css'; 
+import 'react-toastify/dist/ReactToastify.css';
 
 const CalendarPage = () => {
   const { isAuthenticated, userId } = useContext(AuthContext);
@@ -39,15 +38,22 @@ const CalendarPage = () => {
 
   return (
     <div className="calendar-page">
-      <ToastContainer /> 
+      <ToastContainer />
       <div className="calendar-page__hero">
         <div className="calendar-page__hero-text">
           <h1 className="calendar-page__title">Your Schedule</h1>
           <h2 className="calendar-page__subtitle">Upcoming Movies/Shows</h2>
         </div>
       </div>
-      <Calendar userId={userId} calendarRef={calendarRef} openModal={openCalendarModal} />
-      {isCalendarModalOpen && <CalendarModal onClose={closeCalendarModal} eventTitle={eventTitle} />}
+      <Calendar userId={userId} ref={calendarRef} openModal={openCalendarModal} />
+      {isCalendarModalOpen && (
+        <Calendar
+          onClose={closeCalendarModal}
+          eventTitle={eventTitle}
+          userId={userId}
+          ref={calendarRef}
+        />
+      )}
     </div>
   );
 };

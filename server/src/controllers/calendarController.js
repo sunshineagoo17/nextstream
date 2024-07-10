@@ -33,6 +33,7 @@ exports.addEvent = async (req, res) => {
     res.status(500).json({ message: 'Error adding event' });
   }
 };
+
 // Update an existing event
 exports.updateEvent = async (req, res) => {
     const { userId, eventId } = req.params;

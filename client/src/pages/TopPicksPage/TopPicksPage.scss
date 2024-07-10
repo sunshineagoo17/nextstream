@@ -3,3 +3,61 @@
 @use "../../styles/partials/fonts" as *;
 @use "../../styles/partials/mixins" as *;
 @use "../../styles/global.scss" as *;
+
+.top-picks-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  background-color: $primary-darker-blue;
+
+  &__media-card {
+    @include bg-white;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: $shadow-primary;
+    border-radius: 0.5rem;
+  }
+
+  &__no-more-media {
+    text-align: center;
+    padding: 2rem;
+
+    p {
+      font-size: 1.25rem;
+      color: $primary-dark-blue;
+      margin-bottom: 1rem;
+    }
+
+    &__recommendations-button {
+      background-color: $primary-medium-blue;
+      color: $neutral-white;
+      border: 1px solid $primary-dark-blue;
+      padding: 0.5rem 1rem;
+      border-radius: 0.25rem;
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+
+      &:hover,
+      &:focus,
+      &:visited {
+        background-color: $primary-dark-blue;
+        color: $neutral-white;
+        border-color: $primary-cyan;
+        text-decoration: none;
+        box-shadow: $shadow-primary;
+      }
+
+      &:active {
+        background-color: $primary-medium-blue;
+        color: $neutral-white;
+        border: 1px solid $primary-cyan;
+        border-radius: .25rem;
+        transform: translateY(1px);
+        text-decoration: none;
+        font-weight: bold;
+      }
+    }
+  }
+}
