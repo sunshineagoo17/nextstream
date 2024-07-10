@@ -5,7 +5,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilm, faSearch } from '@fortawesome/free-solid-svg-icons';
-import axios from 'axios';
+import api from '../../../services/api';
 import { AuthContext } from '../../../context/AuthContext/AuthContext';
 import Loader from '../../../components/Loader/Loader';
 import './Calendar.scss';
@@ -13,7 +13,7 @@ import './Calendar.scss';
 const Calendar = () => {
   const { userId, isAuthenticated } = useContext(AuthContext);
   const [events, setEvents] = useState([]);
-  const [miniCalendarVisible, setMiniCalendarVisible] = useState(true);
+  const [miniCalendarVisible, setMiniCalendarVisible] = useState(false); 
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [calendarView, setCalendarView] = useState('dayGridMonth');
   const [loading, setLoading] = useState(true);
@@ -21,14 +21,14 @@ const Calendar = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await axios.get(`/api/calendar/${userId}/events`);
+        const response = await api.get(`/api/calendar/${userId}/events`);
         const eventsWithIcons = response.data.map(event => ({
           ...event,
           title: `<i class="fas fa-film"></i> ${event.title}`,
         }));
         setEvents(eventsWithIcons);
       } catch (error) {
-        console.error('Error fetching events:', error);
+        console.error('Error fetching events:', error.response ? error.response.data : error.message);
       } finally {
         setLoading(false);
       }
@@ -43,7 +43,7 @@ const Calendar = () => {
     const title = prompt('Enter event title:');
     if (title) {
       try {
-        const response = await axios.post(`/api/calendar/${userId}/events`, {
+        const response = await api.post(`/api/calendar/${userId}/events`, {
           title,
           start: arg.date,
           end: arg.date,
@@ -54,7 +54,7 @@ const Calendar = () => {
         };
         setEvents([...events, newEvent]);
       } catch (error) {
-        console.error('Error adding event:', error);
+        console.error('Error adding event:', error.response ? error.response.data : error.message);
       }
     }
   };
@@ -62,10 +62,10 @@ const Calendar = () => {
   const handleEventClick = async (clickInfo) => {
     if (window.confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
       try {
-        await axios.delete(`/api/calendar/${userId}/events/${clickInfo.event.id}`);
+        await api.delete(`/api/calendar/${userId}/events/${clickInfo.event.id}`);
         setEvents(events.filter(event => event.id !== clickInfo.event.id));
       } catch (error) {
-        console.error('Error deleting event:', error);
+        console.error('Error deleting event:', error.response ? error.response.data : error.message);
       }
     }
   };
