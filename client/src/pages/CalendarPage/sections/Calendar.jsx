@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext, useCallback } from 'react';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
@@ -25,24 +25,22 @@ const Calendar = () => {
   const [newEventTitle, setNewEventTitle] = useState('');
   const [newEventDate, setNewEventDate] = useState('');
 
-  useEffect(() => {
-    const fetchEvents = async () => {
+  const fetchEvents = useCallback(async () => {
+    try {
       setLoading(true);
-      try {
-        const response = await api.get(`/api/calendar/${userId}/events`);
-        setEvents(response.data);
-      } catch (error) {
-        console.error('Error fetching events:', error.response ? error.response.data : error.message);
-        toast.error('Failed to fetch events.');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    if (userId) {
-      fetchEvents();
+      const response = await api.get(`/api/calendar/${userId}/events`);
+      setEvents(response.data);
+    } catch (error) {
+      console.error('Error fetching events:', error.response ? error.response.data : error.message);
+      toast.error('Failed to fetch events.');
+    } finally {
+      setLoading(false);
     }
   }, [userId]);
+
+  useEffect(() => {
+    fetchEvents();
+  }, [fetchEvents]);
 
   const handleDateClick = (arg) => {
     const localDate = moment(arg.date).format('YYYY-MM-DDTHH:mm:ss');
@@ -57,12 +55,12 @@ const Calendar = () => {
       console.error('Event data not found.');
       return;
     }
-  
+
     const id = event.id;
     const title = event.title || ''; 
     const start = moment(event.start).format('YYYY-MM-DDTHH:mm:ss') || '';
     const end = event.end ? moment(event.end).format('YYYY-MM-DDTHH:mm:ss') : start;
-  
+
     setSelectedEvent({
       id,
       title,
@@ -80,8 +78,8 @@ const Calendar = () => {
         start: moment(newEventDate).format('YYYY-MM-DDTHH:mm:ss'),
         end: moment(newEventDate).format('YYYY-MM-DDTHH:mm:ss'),
       };
-      const response = await api.post(`/api/calendar/${userId}/events`, newEvent);
-      setEvents([...events, response.data]);
+      await api.post(`/api/calendar/${userId}/events`, newEvent);
+      await fetchEvents();
       toast.success('Event added successfully!');
     } catch (error) {
       console.error('Error adding event:', error.response ? error.response.data : error.message);
@@ -101,13 +99,9 @@ const Calendar = () => {
         start: moment(selectedEvent.start).format('YYYY-MM-DDTHH:mm:ss'),
         end: moment(selectedEvent.end).format('YYYY-MM-DDTHH:mm:ss'),
       };
-  
+
       await api.put(`/api/calendar/${userId}/events/${selectedEvent.id}`, updatedEvent);
-  
-      const updatedEvents = events.map(event =>
-        event.id === selectedEvent.id ? { ...event, ...updatedEvent } : event
-      );
-      setEvents(updatedEvents);
+      await fetchEvents();
       toast.success('Event updated successfully!');
     } catch (error) {
       console.error('Error updating event:', error.response ? error.response.data : error.message);
@@ -128,10 +122,7 @@ const Calendar = () => {
     setLoading(true);
     try {
       await api.put(`/api/calendar/${userId}/events/${id}`, updatedEvent);
-      const updatedEvents = events.map(event =>
-        event.id === id ? { ...event, ...updatedEvent } : event
-      );
-      setEvents(updatedEvents);
+      await fetchEvents();
       toast.success('Event moved successfully!');
     } catch (error) {
       console.error('Error moving event:', error.response ? error.response.data : error.message);
@@ -146,7 +137,7 @@ const Calendar = () => {
     setLoading(true);
     try {
       await api.delete(`/api/calendar/${userId}/events/${selectedEvent.id}`);
-      setEvents(events.filter(event => event.id !== selectedEvent.id));
+      await fetchEvents();
       toast.success('Event deleted successfully!');
     } catch (error) {
       console.error('Error deleting event:', error.response ? error.response.data : error.message);
