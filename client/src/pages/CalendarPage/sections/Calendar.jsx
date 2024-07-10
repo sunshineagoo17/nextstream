@@ -5,13 +5,19 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faFilm } from '@fortawesome/free-solid-svg-icons';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast, cssTransition } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import moment from 'moment-timezone';
 import api from '../../../services/api';
 import { AuthContext } from '../../../context/AuthContext/AuthContext';
 import Loader from '../../../components/Loader/Loader';
 import './Calendar.scss';
+
+const Slide = cssTransition({
+  enter: 'slideInDown',
+  exit: 'slideOutUp',
+  duration: [300, 200],
+});
 
 const Calendar = () => {
   const { userId, isAuthenticated } = useContext(AuthContext);
@@ -157,15 +163,15 @@ const Calendar = () => {
         setLoading(false);
       }
     };
-
+  
     return (
-      <div onClick={() => handleEventClickWithLoader(eventInfo.event)}>
-        <FontAwesomeIcon icon={faFilm} style={{ color: 'mediumblue' }} />
-        <b>{moment(eventInfo.event.start).format('h:mm A')}</b>
-        <i>{eventInfo.event.title}</i>
+      <div className="calendar__event-content" onClick={() => handleEventClickWithLoader(eventInfo.event)}>
+        <FontAwesomeIcon icon={faFilm} style={{ color: 'mediumblue' }} className="calendar__event-icon" />
+        <b className="calendar__event-time">{moment(eventInfo.event.start).format('h:mm A')}</b>
+        <i className="calendar__event-title">{eventInfo.event.title}</i>
       </div>
     );
-  };
+  };  
 
   const handlePrevMonth = () => {
     const newMonth = new Date(currentMonth.setMonth(currentMonth.getMonth() - 1));
@@ -178,6 +184,8 @@ const Calendar = () => {
   };
 
   const handleDateSelect = (day) => {
+    const newDate = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day);
+    setCurrentMonth(newDate);
     setCalendarView('timeGridDay');
   };
 
@@ -208,7 +216,7 @@ const Calendar = () => {
                 className={`mini-calendar__day${day ? '' : ' mini-calendar__day--empty'}`}
                 onClick={() => day && handleDateSelect(day)}
               >
-                {day}
+                {day > 0 ? day : ''}
               </div>
             ))}
           </div>
@@ -252,7 +260,7 @@ const Calendar = () => {
           />
         </div>
       </div>
-      <ToastContainer position="top-center" autoClose={3000} hideProgressBar />
+      <ToastContainer position="top-center" autoClose={3000} hideProgressBar transition={Slide} />
       {modalVisible && (
         <div className="modal">
           <div className="modal-content">

@@ -148,7 +148,7 @@
     background: rgba($primary-pale-blue, 0.8);
     z-index: 500;
 
-    @media (max-width: 1921px) {
+    @media (max-width: 320rem) {
       display: block;
     }
   }
@@ -164,7 +164,7 @@
   box-shadow: $shadow-primary;
   border: 5px solid $neutral-white;
 
-  @media (max-width: 1920px) {
+  @media (max-width: 320rem) {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -621,3 +621,27 @@
   margin: 10px;
 }
 
+.calendar__event-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .calendar__event-icon {
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+
+  .calendar__event-time,
+  .calendar__event-title {
+    @media (max-width: 768px) {
+      font-size: 0.9rem;
+    }
+  }
+}
