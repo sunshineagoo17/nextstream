@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarPlus } from '@fortawesome/free-solid-svg-icons';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import MediaCard from './sections/MediaCard/MediaCard';
-import CalendarModal from '../CalendarPage/sections/Calendar'; 
+import CalendarModal from '../CalendarPage/sections/Calendar';
 import AnimatedBg from '../../components/AnimatedBg/AnimatedBg';
 import api from '../../services/api';
 import './TopPicksPage.scss';
@@ -30,10 +30,12 @@ const TopPicksPage = () => {
 
   const handlers = useSwipeable({
     onSwipedLeft: () => handleSwipe('Left'),
-    onSwipedRight: () => handleSwipe('Right')
+    onSwipedRight: () => handleSwipe('Right'),
+    trackMouse: true, // Enable mouse swiping
   });
 
   const handleSwipe = (direction) => {
+    console.log(`Swiped ${direction}`);
     if (currentIndex < media.length) {
       const interaction = direction === 'Right' ? 1 : 0;
       const currentMedia = media[currentIndex];
