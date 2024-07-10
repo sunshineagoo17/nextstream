@@ -13,6 +13,7 @@ import StreamLocatorPage from './pages/StreamLocatorPage/StreamLocatorPage';
 import TopPicksPage from './pages/TopPicksPage/TopPicksPage';
 import CalendarPage from './pages/CalendarPage/CalendarPage';
 import SearchResultsPage from './pages/SearchResultsPage/SearchResultsPage';
+import AuthSearchResultsPage from './pages/AuthSearchResultsPage/AuthSearchResultsPage';
 import ContactModal from './components/ContactModal/ContactModal';
 import Header from './components/Header/Header';
 import HoverMenu from './components/Header/sections/HoverMenu/HoverMenu';
@@ -53,7 +54,8 @@ const App = () => {
         <Route path="/stream-locator/:userId" element={isAuthenticated ? <StreamLocatorPage /> : <Navigate to="/login-required" />} />
         <Route path="/top-picks/:userId" element={isAuthenticated ? <TopPicksPage /> : <Navigate to="/login-required" />} />
         <Route path="/calendar/:userId" element={isAuthenticated ? <CalendarPage /> : <Navigate to="/login-required" />} />
-        <Route path="/search" element={<SearchResultsPage />} />
+        {/* Use conditional rendering for search results page */}
+        <Route path="/search" element={isAuthenticated ? <AuthSearchResultsPage /> : <SearchResultsPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route path="/login-required" element={<LoginRequired />} />
         <Route path="*" element={<NotFound />} />
