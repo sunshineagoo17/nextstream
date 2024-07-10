@@ -609,18 +609,6 @@
   }
 }
 
-.toast-custom {
-  font-family: $primary-font;
-  color: $primary-dark-blue;
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(10px);
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  padding: 10px;
-  margin: 10px;
-}
-
 .calendar__event-content {
   display: flex;
   align-items: center;

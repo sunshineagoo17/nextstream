@@ -1,30 +1,22 @@
-import { useState, useEffect, useContext, useCallback } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faFilm } from '@fortawesome/free-solid-svg-icons';
-import { ToastContainer, toast, cssTransition } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast, ToastContainer } from 'react-toastify';
 import moment from 'moment-timezone';
 import api from '../../../services/api';
 import { AuthContext } from '../../../context/AuthContext/AuthContext';
 import Loader from '../../../components/Loader/Loader';
 import './Calendar.scss';
 
-const Slide = cssTransition({
-  enter: 'slideInDown',
-  exit: 'slideOutUp',
-  duration: [300, 200],
-});
-
-const Calendar = () => {
-  const { userId, isAuthenticated } = useContext(AuthContext);
+const Calendar = ({ userId, calendarRef }) => {
+  const { isAuthenticated } = useContext(AuthContext);
   const [events, setEvents] = useState([]);
   const [miniCalendarVisible, setMiniCalendarVisible] = useState(false);
   const [currentMonth, setCurrentMonth] = useState(new Date());
-  const [calendarView, setCalendarView] = useState('dayGridMonth');
   const [loading, setLoading] = useState(true);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
@@ -63,7 +55,7 @@ const Calendar = () => {
     }
 
     const id = event.id;
-    const title = event.title || ''; 
+    const title = event.title || '';
     const start = moment(event.start).format('YYYY-MM-DDTHH:mm:ss') || '';
     const end = event.end ? moment(event.end).format('YYYY-MM-DDTHH:mm:ss') : start;
 
@@ -163,7 +155,7 @@ const Calendar = () => {
         setLoading(false);
       }
     };
-  
+
     return (
       <div className="calendar__event-content" onClick={() => handleEventClickWithLoader(eventInfo.event)}>
         <FontAwesomeIcon icon={faFilm} style={{ color: 'mediumblue' }} className="calendar__event-icon" />
@@ -171,7 +163,7 @@ const Calendar = () => {
         <i className="calendar__event-title">{eventInfo.event.title}</i>
       </div>
     );
-  };  
+  };
 
   const handlePrevMonth = () => {
     const newMonth = new Date(currentMonth.setMonth(currentMonth.getMonth() - 1));
@@ -185,8 +177,9 @@ const Calendar = () => {
 
   const handleDateSelect = (day) => {
     const newDate = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day);
-    setCurrentMonth(newDate);
-    setCalendarView('timeGridDay');
+    calendarRef.current.getApi().changeView('timeGridDay', newDate);
+    setMiniCalendarVisible(false); 
+    toast.info(`Navigated to ${newDate.toDateString()}`);
   };
 
   const renderMiniCalendar = () => {
@@ -244,8 +237,9 @@ const Calendar = () => {
         {miniCalendarVisible && <div className="calendar__overlay" />}
         <div className="calendar__main">
           <FullCalendar
+            ref={calendarRef}
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-            initialView={calendarView}
+            initialView="dayGridMonth"
             headerToolbar={{
               left: 'prev,next today',
               center: 'title',
@@ -260,7 +254,8 @@ const Calendar = () => {
           />
         </div>
       </div>
-      <ToastContainer position="top-center" autoClose={3000} hideProgressBar transition={Slide} />
+      <ToastContainer position="top-center" autoClose={3000} />
+      {loading && <Loader />}
       {modalVisible && (
         <div className="modal">
           <div className="modal-content">
@@ -285,7 +280,6 @@ const Calendar = () => {
           </div>
         </div>
       )}
-      {loading && <Loader />}
     </div>
   );
 };
