@@ -138,4 +138,16 @@ router.get('/search', async (req, res) => {
   }
 });
 
+// Endpoint to fetch image based on poster_path
+router.get('/image/:posterPath', async (req, res) => {
+  const { posterPath } = req.params;
+  try {
+    const imageUrl = `https://image.tmdb.org/t/p/w500${posterPath}`;
+    res.json({ url: imageUrl });
+  } catch (error) {
+    console.error('Error fetching image URL:', error);
+    res.status(500).json({ message: 'Error fetching image URL' });
+  }
+});
+
 module.exports = router;

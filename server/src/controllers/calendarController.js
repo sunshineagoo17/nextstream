@@ -1,5 +1,5 @@
 const knex = require('../config/db');
-const moment = require('moment');
+const moment = require('moment-timezone');
 
 // Get all events for a user
 exports.getEvents = async (req, res) => {
@@ -16,10 +16,10 @@ exports.getEvents = async (req, res) => {
 // Add a new event
 exports.addEvent = async (req, res) => {
   const { userId } = req.params;
-  const { title, start, end } = req.body;
+  const { title, start, end, timezone } = req.body; 
   try {
-    const formattedStart = moment(start).format('YYYY-MM-DD HH:mm:ss');
-    const formattedEnd = moment(end).format('YYYY-MM-DD HH:mm:ss');
+    const formattedStart = moment.tz(start, timezone).format('YYYY-MM-DD HH:mm:ss');
+    const formattedEnd = moment.tz(end, timezone).format('YYYY-MM-DD HH:mm:ss');
 
     const [eventId] = await knex('events').insert({
       user_id: userId,
@@ -37,10 +37,10 @@ exports.addEvent = async (req, res) => {
 // Update an existing event
 exports.updateEvent = async (req, res) => {
   const { userId, eventId } = req.params;
-  const { title, start, end } = req.body;
+  const { title, start, end, timezone } = req.body; 
   try {
-    const formattedStart = moment(start).format('YYYY-MM-DD HH:mm:ss');
-    const formattedEnd = moment(end).format('YYYY-MM-DD HH:mm:ss');
+    const formattedStart = moment.tz(start, timezone).format('YYYY-MM-DD HH:mm:ss');
+    const formattedEnd = moment.tz(end, timezone).format('YYYY-MM-DD HH:mm:ss');
 
     await knex('events')
       .where({ id: eventId, user_id: userId })

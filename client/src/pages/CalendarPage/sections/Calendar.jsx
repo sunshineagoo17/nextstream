@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faFilm } from '@fortawesome/free-solid-svg-icons';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import moment from 'moment-timezone';
 import api from '../../../services/api';
 import { AuthContext } from '../../../context/AuthContext/AuthContext';
 import Loader from '../../../components/Loader/Loader';
@@ -42,8 +43,8 @@ const Calendar = () => {
   }, [userId]);
 
   const handleDateClick = (arg) => {
-    if (!arg.allDay) return;
-    setNewEventDate(arg.dateStr);
+    const localDate = moment(arg.date).format('YYYY-MM-DDTHH:mm:ss');
+    setNewEventDate(localDate);
     setSelectedEvent(null);
     setModalVisible(true);
   };
@@ -52,8 +53,8 @@ const Calendar = () => {
     setSelectedEvent({
       id: clickInfo.event.id,
       title: clickInfo.event.title,
-      start: clickInfo.event.start.toISOString().substring(0, 16),
-      end: clickInfo.event.end ? clickInfo.event.end.toISOString().substring(0, 16) : null,
+      start: moment(clickInfo.event.start).format('YYYY-MM-DDTHH:mm:ss'),
+      end: clickInfo.event.end ? moment(clickInfo.event.end).format('YYYY-MM-DDTHH:mm:ss') : null,
     });
     setModalVisible(true);
   };
@@ -78,11 +79,12 @@ const Calendar = () => {
     if (!selectedEvent) return;
     setLoading(true);
     try {
-      await api.put(`/api/calendar/${userId}/events/${selectedEvent.id}`, {
+      const updatedEvent = {
         title: selectedEvent.title,
-        start: new Date(selectedEvent.start).toISOString(),
-        end: selectedEvent.end ? new Date(selectedEvent.end).toISOString() : null,
-      });
+        start: moment(selectedEvent.start).toISOString(),
+        end: selectedEvent.end ? moment(selectedEvent.end).toISOString() : null,
+      };
+      await api.put(`/api/calendar/${userId}/events/${selectedEvent.id}`, updatedEvent);
       const updatedEvents = events.map(event =>
         event.id === selectedEvent.id ? { ...event, ...selectedEvent } : event
       );
@@ -100,11 +102,12 @@ const Calendar = () => {
   const handleAddEvent = async () => {
     setLoading(true);
     try {
-      const response = await api.post(`/api/calendar/${userId}/events`, {
+      const newEvent = {
         title: newEventTitle,
-        start: new Date(newEventDate).toISOString(),
-        end: new Date(newEventDate).toISOString(),
-      });
+        start: moment(newEventDate).toISOString(),
+        end: moment(newEventDate).toISOString(),
+      };
+      const response = await api.post(`/api/calendar/${userId}/events`, newEvent);
       setEvents([...events, response.data]);
       toast.success('Event added successfully!');
     } catch (error) {
@@ -120,8 +123,8 @@ const Calendar = () => {
     const { id } = info.event;
     const updatedEvent = {
       title: info.event.title,
-      start: info.event.start.toISOString(),
-      end: info.event.end ? info.event.end.toISOString() : info.event.start.toISOString(),
+      start: moment(info.event.start).toISOString(),
+      end: info.event.end ? moment(info.event.end).toISOString() : moment(info.event.start).toISOString(),
     };
     try {
       await api.put(`/api/calendar/${userId}/events/${id}`, updatedEvent);
@@ -139,7 +142,9 @@ const Calendar = () => {
   const renderEventContent = (eventInfo) => {
     return (
       <div onClick={() => handleEventClick(eventInfo.event)}>
-        <FontAwesomeIcon icon={faFilm} style={{ color: 'mediumblue' }} /> <b>{eventInfo.timeText}</b> <i>{eventInfo.event.title}</i>
+        <FontAwesomeIcon icon={faFilm} style={{ color: 'mediumblue' }} /> 
+        <b>{moment(eventInfo.event.start).format('h:mm A')}</b> 
+        <i>{eventInfo.event.title}</i>
       </div>
     );
   };
@@ -247,7 +252,7 @@ const Calendar = () => {
             <input
               type="datetime-local"
               className="modal-input"
-              value={selectedEvent ? selectedEvent.start : newEventDate}
+              value={selectedEvent ? moment(selectedEvent.start).format('YYYY-MM-DDTHH:mm:ss') : newEventDate}
               onChange={(e) => selectedEvent ? setSelectedEvent({ ...selectedEvent, start: e.target.value }) : setNewEventDate(e.target.value)}
             />
             <button onClick={selectedEvent ? handleEditEvent : handleAddEvent}>
