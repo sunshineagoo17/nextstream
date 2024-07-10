@@ -185,8 +185,20 @@ const Calendar = ({ userId, calendarRef }) => {
   const renderMiniCalendar = () => {
     const daysInMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0).getDate();
     const firstDayOfMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1).getDay();
-    const daysArray = [...Array(firstDayOfMonth).fill(null), ...Array(daysInMonth).keys()].map(day => day + 1);
-
+    
+    // Create an array to hold all days of the month
+    let daysArray = [];
+  
+    // Fill days before the first day of the month with null
+    for (let i = 0; i < firstDayOfMonth; i++) {
+      daysArray.push(null);
+    }
+  
+    // Fill days of the month
+    for (let day = 1; day <= daysInMonth; day++) {
+      daysArray.push(day);
+    }
+  
     return (
       <div className="mini-calendar">
         <div className="mini-calendar__header">
@@ -209,7 +221,7 @@ const Calendar = ({ userId, calendarRef }) => {
                 className={`mini-calendar__day${day ? '' : ' mini-calendar__day--empty'}`}
                 onClick={() => day && handleDateSelect(day)}
               >
-                {day > 0 ? day : ''}
+                {day || ''}
               </div>
             ))}
           </div>
@@ -217,7 +229,7 @@ const Calendar = ({ userId, calendarRef }) => {
         <button className="mini-calendar__close-btn" onClick={() => setMiniCalendarVisible(false)}>Close</button>
       </div>
     );
-  };
+  };  
 
   return (
     <div className="calendar">
