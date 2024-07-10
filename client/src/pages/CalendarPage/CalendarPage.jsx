@@ -3,12 +3,15 @@ import { AuthContext } from '../../context/AuthContext/AuthContext';
 import Calendar from './sections/Calendar';
 import { ToastContainer } from 'react-toastify';
 import Loader from '../../components/Loader/Loader';
+import CalendarModal from './sections/Calendar';
 import './CalendarPage.scss';
 import 'react-toastify/dist/ReactToastify.css'; 
 
 const CalendarPage = () => {
   const { isAuthenticated, userId } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
+  const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false);
+  const [eventTitle, setEventTitle] = useState('');
   const calendarRef = useRef(null);
 
   useEffect(() => {
@@ -16,6 +19,15 @@ const CalendarPage = () => {
       setLoading(false);
     }
   }, [isAuthenticated]);
+
+  const openCalendarModal = (title) => {
+    setEventTitle(title);
+    setIsCalendarModalOpen(true);
+  };
+
+  const closeCalendarModal = () => {
+    setIsCalendarModalOpen(false);
+  };
 
   if (loading) {
     return <Loader />;
@@ -34,7 +46,8 @@ const CalendarPage = () => {
           <h2 className="calendar-page__subtitle">Upcoming Movies/Shows</h2>
         </div>
       </div>
-      <Calendar userId={userId} calendarRef={calendarRef} />
+      <Calendar userId={userId} calendarRef={calendarRef} openModal={openCalendarModal} />
+      {isCalendarModalOpen && <CalendarModal onClose={closeCalendarModal} eventTitle={eventTitle} />}
     </div>
   );
 };

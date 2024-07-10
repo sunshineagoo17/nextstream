@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
@@ -9,16 +9,20 @@ import 'react-toastify/dist/ReactToastify.css';
 import './AuthSearchResultsPage.scss';
 import Loader from '../../components/Loader/Loader';
 import DefaultVideoImg from '../../assets/images/video-img-default.png';
-import { AuthContext } from '../../context/AuthContext/AuthContext'; 
+import { AuthContext } from '../../context/AuthContext/AuthContext';
 import VideoCamera from "../../assets/images/videocamera-1.png";
 import TvIcon from "../../assets/images/tv-icon.png";
+import CalendarModal from '../CalendarPage/sections/Calendar';
 
-const AuthSearchResultsPage = () => {
-  const { isAuthenticated } = useContext(AuthContext); 
+const AuthSearchResultsPage = ({ openModal }) => {
+  const { isAuthenticated, userId } = useContext(AuthContext);
   const [results, setResults] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [showCalendar, setShowCalendar] = useState(false);
+  const [eventTitle, setEventTitle] = useState('');
   const location = useLocation();
   const navigate = useNavigate();
+  const calendarRef = useRef(null);
 
   const query = new URLSearchParams(location.search).get('q');
 
@@ -77,6 +81,11 @@ const AuthSearchResultsPage = () => {
     }
   }, [query]);
 
+  const handleAddToCalendar = (title) => {
+    setEventTitle(title);
+    setShowCalendar(true);
+  };
+
   return (
     <>
       <ToastContainer />
@@ -105,7 +114,6 @@ const AuthSearchResultsPage = () => {
           <div className="auth-search-results__card-media-container">
             {results.map(result => (
               <div key={result.id} className="auth-search-results__card">
-                <a href={`https://www.themoviedb.org/${result.media_type}/${result.id}`} className="auth-search-results__link" target="_blank" rel="noopener noreferrer">
                   {result.poster_path ? (
                     <div className="auth-search-results__poster-wrapper">
                       <img
@@ -114,13 +122,18 @@ const AuthSearchResultsPage = () => {
                         src={`https://image.tmdb.org/t/p/w500${result.poster_path}`}
                         onError={(e) => { e.target.src = DefaultVideoImg; }}
                       />
+                    {/* <a href={`https://www.themoviedb.org/${result.media_type}/${result.id}`} className="auth-search-results__link" target="_blank" rel="noopener noreferrer"> */}
                       <img 
                         src={result.media_type === 'movie' ? VideoCamera : TvIcon} 
                         className="auth-search-results__media-icon" 
                         alt={result.media_type === 'movie' ? 'Movie Icon' : 'TV Show Icon'} 
                       />
-                      <button className="auth-search-results__calendar-button">
-                        <FontAwesomeIcon className="auth-search-results__calendar-icon" icon={faCalendarAlt} />
+                    {/* </a> */}
+                      <button 
+                        className="auth-search-results__calendar-button"
+                        onClick={() => handleAddToCalendar(result.title || result.name)}
+                      >
+                        <FontAwesomeIcon icon={faCalendarAlt} />
                       </button>
                     </div>
                   ) : (
@@ -134,10 +147,9 @@ const AuthSearchResultsPage = () => {
                       <span className="auth-search-results__error-no-img-title">{result.title || result.name}</span>
                     </div>
                   )}
-                </a>
-                <div className="auth-search-results__streaming-providers">
+                <div className="auth-search-results__streaming-services">
                   {result.providers && result.providers.map(provider => (
-                    <div key={provider.provider_id} className="auth-search-results__streaming-provider">
+                    <div key={provider.provider_id} className="auth-search-results__streaming-service">
                       <img 
                         src={`https://image.tmdb.org/t/p/original${provider.logo_path}`} 
                         alt={provider.provider_name} 
@@ -154,6 +166,14 @@ const AuthSearchResultsPage = () => {
           <AnimatedBg />
         </div>
       </div>
+      {showCalendar && (
+        <CalendarModal 
+          userId={userId}
+          eventTitle={eventTitle}
+          onClose={() => setShowCalendar(false)}
+          calendarRef={calendarRef}
+        />
+      )}
     </>
   );
 };

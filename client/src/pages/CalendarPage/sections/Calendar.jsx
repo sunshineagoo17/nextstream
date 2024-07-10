@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useCallback } from 'react';
+import React, { useState, useEffect, useContext, useCallback, forwardRef, useImperativeHandle } from 'react';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
@@ -12,7 +12,7 @@ import { AuthContext } from '../../../context/AuthContext/AuthContext';
 import Loader from '../../../components/Loader/Loader';
 import './Calendar.scss';
 
-const Calendar = ({ userId, calendarRef, onAddEvent }) => {
+const Calendar = forwardRef(({ userId }, ref) => {
   const { isAuthenticated } = useContext(AuthContext);
   const [events, setEvents] = useState([]);
   const [miniCalendarVisible, setMiniCalendarVisible] = useState(false);
@@ -41,7 +41,6 @@ const Calendar = ({ userId, calendarRef, onAddEvent }) => {
   }, [fetchEvents]);
 
   useEffect(() => {
-    // Effect for loading events
     if (isAuthenticated !== null) {
       fetchEvents(); 
     }
@@ -86,9 +85,6 @@ const Calendar = ({ userId, calendarRef, onAddEvent }) => {
       await api.post(`/api/calendar/${userId}/events`, newEvent);
       await fetchEvents();
       toast.success('Event added successfully!');
-      if (onAddEvent) {
-        onAddEvent(newEvent); 
-      }
     } catch (error) {
       console.error('Error adding event:', error.response ? error.response.data : error.message);
       toast.error('Failed to add event.');
@@ -187,7 +183,6 @@ const Calendar = ({ userId, calendarRef, onAddEvent }) => {
 
   const handleDateSelect = (day) => {
     const newDate = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day);
-    calendarRef.current.getApi().changeView('timeGridDay', newDate);
     setMiniCalendarVisible(false);
     toast.info(`Navigated to ${newDate.toDateString()}`);
   };
@@ -241,6 +236,14 @@ const Calendar = ({ userId, calendarRef, onAddEvent }) => {
     );
   };
 
+  // Expose functions to parent component through ref
+  useImperativeHandle(ref, () => ({
+    openModalWithTitle: (title) => {
+      setNewEventTitle(title);
+      setModalVisible(true);
+    },
+  }));
+
   return (
     <div className="calendar">
       <div className="calendar__header">
@@ -259,7 +262,6 @@ const Calendar = ({ userId, calendarRef, onAddEvent }) => {
         {miniCalendarVisible && <div className="calendar__overlay" />}
         <div className="calendar__main">
           <FullCalendar
-            ref={calendarRef}
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
             initialView="dayGridMonth"
             headerToolbar={{
@@ -303,6 +305,6 @@ const Calendar = ({ userId, calendarRef, onAddEvent }) => {
       )}
     </div>
   );
-};
+});
 
 export default Calendar;

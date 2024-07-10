@@ -31,12 +31,12 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
-// Apply rate limiting to all requests
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100 // limit each IP to 100 requests per windowMs
-});
-app.use(limiter);
+// // Apply rate limiting to all requests
+// const limiter = rateLimit({
+//   windowMs: 15 * 60 * 1000, // 15 minutes
+//   max: 100 // limit each IP to 100 requests per windowMs
+// });
+// app.use(limiter);
 
 // Initialize NodeCache with TTL of 1 hour
 const cache = new NodeCache({ stdTTL: 3600 });

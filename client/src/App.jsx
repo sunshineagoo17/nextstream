@@ -15,6 +15,7 @@ import CalendarPage from './pages/CalendarPage/CalendarPage';
 import SearchResultsPage from './pages/SearchResultsPage/SearchResultsPage';
 import AuthSearchResultsPage from './pages/AuthSearchResultsPage/AuthSearchResultsPage';
 import ContactModal from './components/ContactModal/ContactModal';
+import CalendarModal from './pages/CalendarPage/sections/Calendar';
 import Header from './components/Header/Header';
 import HoverMenu from './components/Header/sections/HoverMenu/HoverMenu';
 import { AuthProvider, AuthContext } from './context/AuthContext/AuthContext';
@@ -23,6 +24,8 @@ import './styles/global.scss';
 
 const App = () => {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+  const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false);
+  const [eventTitle, setEventTitle] = useState('');
   const location = useLocation();
   const { isAuthenticated, userId } = useContext(AuthContext);
 
@@ -36,8 +39,17 @@ const App = () => {
     setIsContactModalOpen(true);
   };
 
-  const handleCloseModal = () => {
+  const handleCloseContactModal = () => {
     setIsContactModalOpen(false);
+  };
+
+  const openCalendarModal = (title) => {
+    setEventTitle(title);
+    setIsCalendarModalOpen(true);
+  };
+
+  const closeCalendarModal = () => {
+    setIsCalendarModalOpen(false);
   };
 
   return (
@@ -53,15 +65,15 @@ const App = () => {
         <Route path="/profile/:userId" element={isAuthenticated ? <ProfilePage /> : <Navigate to="/login-required" />} />
         <Route path="/stream-locator/:userId" element={isAuthenticated ? <StreamLocatorPage /> : <Navigate to="/login-required" />} />
         <Route path="/top-picks/:userId" element={isAuthenticated ? <TopPicksPage /> : <Navigate to="/login-required" />} />
-        <Route path="/calendar/:userId" element={isAuthenticated ? <CalendarPage /> : <Navigate to="/login-required" />} />
-        {/* Use conditional rendering for search results page */}
-        <Route path="/search" element={isAuthenticated ? <AuthSearchResultsPage /> : <SearchResultsPage />} />
+        <Route path="/calendar/:userId" element={isAuthenticated ? <CalendarPage openModal={openCalendarModal} /> : <Navigate to="/login-required" />} />
+        <Route path="/search" element={isAuthenticated ? <AuthSearchResultsPage openModal={openCalendarModal} /> : <SearchResultsPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route path="/login-required" element={<LoginRequired />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer onContactClick={handleContactClick} />
-      {isContactModalOpen && <ContactModal onClose={handleCloseModal} />}
+      {isContactModalOpen && <ContactModal onClose={handleCloseContactModal} />}
+      {isCalendarModalOpen && <CalendarModal onClose={closeCalendarModal} eventTitle={eventTitle} />}
     </div>
   );
 };
