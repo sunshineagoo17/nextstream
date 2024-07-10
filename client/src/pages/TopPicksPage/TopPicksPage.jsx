@@ -35,7 +35,7 @@ const TopPicksPage = () => {
       const currentMedia = media[currentIndex];
 
       api.post('/api/interactions', {
-        user_id: userId,
+        userId: userId,
         media_id: currentMedia.id,
         interaction: interaction,
         media_type: currentMedia.media_type
@@ -51,7 +51,8 @@ const TopPicksPage = () => {
     api.get(`/api/interactions/recommendations/${userId}`)
       .then(response => {
         console.log('Recommendations:', response.data);
-        // Handle recommendations (e.g., set to state and display)
+        setMedia(response.data); // Set recommendations as the media list to swipe through
+        setCurrentIndex(0); // Reset current index to start swiping through recommendations
       })
       .catch(error => console.error('Error fetching recommendations', error));
   };

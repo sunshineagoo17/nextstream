@@ -9,7 +9,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 2rem;
+  padding: 5rem 3rem 3rem 3rem;
   background-color: $primary-darker-blue;
 
   &__media-card {
@@ -18,6 +18,83 @@
     margin-bottom: 2rem;
     box-shadow: $shadow-primary;
     border-radius: 0.5rem;
+    width: 100%;
+    max-width: 500px; // Limit the width of the media card
+
+    img {
+      width: 100%;
+      height: auto;
+      border-radius: 0.5rem; // Optional: If you want the image to have rounded corners
+    }
+  }
+
+  &__recommendations-button {
+    @include block-item(15rem, 5rem);
+    background-color: $primary-medium-blue;
+    color: $neutral-white;
+    border: 1px solid $neutral-white;
+    padding: 0.5rem 1rem;
+    box-shadow: $shadow-primary;
+    border-radius: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+
+    &:hover,
+    &:focus,
+    &:visited {
+      background-color: $primary-dark-blue;
+      color: $neutral-white;
+      border-color: $primary-cyan;
+      text-decoration: none;
+      border-radius: 1rem;
+      box-shadow: $shadow-primary;
+    }
+
+    &:active {
+      background-color: $primary-medium-blue;
+      color: $neutral-white;
+      border-radius: 1rem;
+      border: 1px solid $primary-cyan;
+      border-radius: .25rem;
+      transform: translateY(1px);
+      text-decoration: none;
+      font-weight: bold;
+    }
+  }
+
+  &__background {
+    position: absolute;
+    bottom: -2.1875rem;
+    left: 0;
+    width: 100%;
+    height: 8.4375rem;
+    overflow: hidden;
+    z-index: -9999;
+
+    @include small-mobile {
+      bottom: -.3125rem;
+      height: 8.4375rem;
+    }
+
+    @include large-mobile {
+      bottom: 0rem;
+      height: 9.375rem;
+    }
+
+    @include tablet {
+      bottom: 0rem;
+      height: 12.5rem;
+    }
+
+    @include desktop {
+      bottom: 0rem;
+      height: 15.625rem;
+    }
+
+    @include large-desktop {
+      bottom: 0rem;
+      height: 17.5rem;
+    }
   }
 
   &__no-more-media {
@@ -29,34 +106,85 @@
       color: $primary-dark-blue;
       margin-bottom: 1rem;
     }
+  }
+}
+
+/* Media Queries */
+@include small-mobile {
+  .top-picks-page {
+    padding: 2rem 1rem 1rem 1rem;
 
     &__recommendations-button {
-      background-color: $primary-medium-blue;
-      color: $neutral-white;
-      border: 1px solid $primary-dark-blue;
-      padding: 0.5rem 1rem;
-      border-radius: 0.25rem;
-      cursor: pointer;
-      transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+      @include block-item(12rem, 4rem);
+    }
 
-      &:hover,
-      &:focus,
-      &:visited {
-        background-color: $primary-dark-blue;
-        color: $neutral-white;
-        border-color: $primary-cyan;
-        text-decoration: none;
-        box-shadow: $shadow-primary;
+    &__no-more-media {
+      p {
+        font-size: 1rem;
       }
+    }
+  }
+}
 
-      &:active {
-        background-color: $primary-medium-blue;
-        color: $neutral-white;
-        border: 1px solid $primary-cyan;
-        border-radius: .25rem;
-        transform: translateY(1px);
-        text-decoration: none;
-        font-weight: bold;
+@include large-mobile {
+  .top-picks-page {
+    padding: 3rem 2rem 2rem 2rem;
+
+    &__recommendations-button {
+      @include block-item(14rem, 4.5rem);
+    }
+
+    &__no-more-media {
+      p {
+        font-size: 1.1rem;
+      }
+    }
+  }
+}
+
+@include tablet {
+  .top-picks-page {
+    padding: 4rem 3rem 3rem 3rem;
+
+    &__recommendations-button {
+      @include block-item(15rem, 5rem);
+    }
+
+    &__no-more-media {
+      p {
+        font-size: 1.25rem;
+      }
+    }
+  }
+}
+
+@include desktop {
+  .top-picks-page {
+    padding: 5rem 4rem 4rem 4rem;
+
+    &__recommendations-button {
+      @include block-item(16rem, 5.5rem);
+    }
+
+    &__no-more-media {
+      p {
+        font-size: 1.3rem;
+      }
+    }
+  }
+}
+
+@include large-desktop {
+  .top-picks-page {
+    padding: 6rem 5rem 5rem 5rem;
+
+    &__recommendations-button {
+      @include block-item(17rem, 6rem);
+    }
+
+    &__no-more-media {
+      p {
+        font-size: 1.4rem;
       }
     }
   }
