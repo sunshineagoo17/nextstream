@@ -1,4 +1,3 @@
-// Import partials
 @use "../../styles/partials/colors" as *;
 @use "../../styles/partials/fonts" as *;
 @use "../../styles/partials/mixins" as *;
@@ -11,7 +10,6 @@
   align-items: center;
   padding: 5rem 3rem 3rem 3rem;
   background-color: $primary-darker-blue;
-  min-height: 100vh;
 
   &__title {
     font-size: 2.5rem;
@@ -22,10 +20,9 @@
 
   &__intro {
     font-size: 1.25rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     color: $neutral-white;
     text-align: center;
-    max-width: 600px;
   }
 
   &__media-card {
@@ -34,21 +31,52 @@
     margin-bottom: 2rem;
     box-shadow: $shadow-primary;
     border-radius: 0.5rem;
-    width: 100%;
-    max-width: 500px;
+  }
 
-    img {
-      width: 100%;
-      height: auto;
-      border-radius: 0.5rem;
+  &__calendar-button {
+    display: inline-flex;
+    align-items: center;
+    background-color: $primary-medium-blue;
+    color: $neutral-white;
+    border: 1px solid $neutral-white;
+    padding: 0.5rem 1rem;
+    margin-top: 1rem;
+    box-shadow: $shadow-primary;
+    border-radius: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+
+    &:hover,
+    &:focus,
+    &:visited {
+      background-color: $primary-dark-blue;
+      color: $neutral-white;
+      border-color: $primary-cyan;
+      text-decoration: none;
+      box-shadow: $shadow-primary;
+    }
+
+    &:active {
+      background-color: $primary-medium-blue;
+      color: $neutral-white;
+      border-radius: 1rem;
+      border: 1px solid $primary-cyan;
+      border-radius: .25rem;
+      transform: translateY(1px);
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    svg {
+      margin-right: 0.5rem;
     }
   }
 
   &__recommendations-button {
     @include block-item(15rem, 5rem);
-    background-color: $frosted-glass;
+    background-color: $primary-medium-blue;
     color: $neutral-white;
-    border: 3px solid $neutral-white;
+    border: 1px solid $neutral-white;
     padding: 0.5rem 1rem;
     box-shadow: $shadow-primary;
     border-radius: 1rem;
@@ -71,6 +99,7 @@
       color: $neutral-white;
       border-radius: 1rem;
       border: 1px solid $primary-cyan;
+      border-radius: .25rem;
       transform: translateY(1px);
       text-decoration: none;
       font-weight: bold;
@@ -115,159 +144,11 @@
   &__no-more-media {
     text-align: center;
     padding: 2rem;
-    background-color: $primary-medium-blue;
-    color: $neutral-white;
-    border-radius: 0.5rem;
-    box-shadow: $shadow-primary;
-    max-width: 500px;
-    margin-top: 2rem;
 
     p {
       font-size: 1.25rem;
-      color: $neutral-white;
+      color: $primary-dark-blue;
       margin-bottom: 1rem;
-    }
-
-    .top-picks-page__recommendations-button {
-      margin-top: 1rem;
-    }
-  }
-
-  &__recommendations {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 2rem;
-    width: 100%;
-
-    .top-picks-page__media-card {
-      margin-bottom: 1rem;
-    }
-  }
-}
-
-// Media Queries
-@include small-mobile {
-  .top-picks-page {
-    padding: 2rem 1rem 1rem 1rem;
-
-    &__title {
-      font-size: 2rem;
-    }
-
-    &__intro {
-      font-size: 1rem;
-      max-width: 100%;
-    }
-
-    &__recommendations-button {
-      @include block-item(12rem, 4rem);
-    }
-
-    &__no-more-media {
-      p {
-        font-size: 1rem;
-      }
-    }
-  }
-}
-
-@include large-mobile {
-  .top-picks-page {
-    padding: 3rem 2rem 2rem 2rem;
-
-    &__title {
-      font-size: 2.2rem;
-    }
-
-    &__intro {
-      font-size: 1.1rem;
-      max-width: 100%;
-    }
-
-    &__recommendations-button {
-      @include block-item(14rem, 4.5rem);
-    }
-
-    &__no-more-media {
-      p {
-        font-size: 1.1rem;
-      }
-    }
-  }
-}
-
-@include tablet {
-  .top-picks-page {
-    padding: 4rem 3rem 3rem 3rem;
-
-    &__title {
-      font-size: 2.5rem;
-    }
-
-    &__intro {
-      font-size: 1.25rem;
-      max-width: 600px;
-    }
-
-    &__recommendations-button {
-      @include block-item(15rem, 5rem);
-    }
-
-    &__no-more-media {
-      p {
-        font-size: 1.25rem;
-      }
-    }
-  }
-}
-
-@include desktop {
-  .top-picks-page {
-    padding: 5rem 4rem 4rem 4rem;
-
-    &__title {
-      font-size: 2.5rem;
-    }
-
-    &__intro {
-      font-size: 1.25rem;
-      max-width: 600px;
-    }
-
-    &__recommendations-button {
-      @include block-item(16rem, 5.5rem);
-    }
-
-    &__no-more-media {
-      p {
-        font-size: 1.3rem;
-      }
-    }
-  }
-}
-
-@include large-desktop {
-  .top-picks-page {
-    padding: 6rem 5rem 5rem 5rem;
-
-    &__title {
-      font-size: 2.7rem;
-    }
-
-    &__intro {
-      font-size: 1.3rem;
-      max-width: 600px;
-    }
-
-    &__recommendations-button {
-      @include block-item(17rem, 6rem);
-    }
-
-    &__no-more-media {
-      p {
-        font-size: 1.4rem;
-      }
     }
   }
 }
