@@ -400,7 +400,7 @@
   }
 
   .fc-prev-button.fc-button.fc-button-primary,
-  .fc-next-button.fc-button.fc-button-primary {
+  .fc-next-button.fc-button-primary {
     margin-top: 0;
   }
 
@@ -516,3 +516,108 @@
   width: 4.5rem;
   align-items: center;
 }
+
+.event-icons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+}
+
+.edit-icon,
+.delete-icon {
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.delete-icon {
+  color: red;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+
+  .modal-content {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border-radius: 8px;
+    padding: 20px;
+    width: 80%;
+    max-width: 500px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    .modal-input {
+      width: calc(100% - 20px);
+      padding: 10px;
+      margin-bottom: 20px;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      font-family: $primary-font;
+    }
+
+    button {
+      margin: 5px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      background-color: #007bff;
+      color: #fff;
+
+      &:hover {
+        background-color: #0056b3;
+      }
+
+      &:nth-child(2) {
+        background-color: #dc3545;
+
+        &:hover {
+          background-color: #c82333;
+        }
+      }
+
+      &:nth-child(3) {
+        background-color: #6c757d;
+
+        &:hover {
+          background-color: #5a6268;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .modal .modal-content {
+    width: 90%;
+    max-width: 300px;
+  }
+}
+
+.toast-custom {
+  font-family: $primary-font;
+  color: $primary-dark-blue;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  padding: 10px;
+  margin: 10px;
+}
+

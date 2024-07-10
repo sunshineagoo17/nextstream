@@ -4,7 +4,9 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFilm, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import api from '../../../services/api';
 import { AuthContext } from '../../../context/AuthContext/AuthContext';
 import Loader from '../../../components/Loader/Loader';
@@ -13,20 +15,20 @@ import './Calendar.scss';
 const Calendar = () => {
   const { userId, isAuthenticated } = useContext(AuthContext);
   const [events, setEvents] = useState([]);
-  const [miniCalendarVisible, setMiniCalendarVisible] = useState(false); 
+  const [miniCalendarVisible, setMiniCalendarVisible] = useState(false);
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [calendarView, setCalendarView] = useState('dayGridMonth');
   const [loading, setLoading] = useState(true);
+  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [newEventTitle, setNewEventTitle] = useState('');
+  const [newEventDate, setNewEventDate] = useState('');
 
   useEffect(() => {
     const fetchEvents = async () => {
       try {
         const response = await api.get(`/api/calendar/${userId}/events`);
-        const eventsWithIcons = response.data.map(event => ({
-          ...event,
-          title: `<i class="fas fa-film"></i> ${event.title}`,
-        }));
-        setEvents(eventsWithIcons);
+        setEvents(response.data);
       } catch (error) {
         console.error('Error fetching events:', error.response ? error.response.data : error.message);
       } finally {
@@ -39,42 +41,83 @@ const Calendar = () => {
     }
   }, [userId]);
 
-  const handleDateClick = async (arg) => {
-    const title = prompt('Enter event title:');
-    if (title) {
-      try {
-        const response = await api.post(`/api/calendar/${userId}/events`, {
-          title,
-          start: arg.date,
-          end: arg.date,
-        });
-        const newEvent = {
-          ...response.data,
-          title: `<i class="fas fa-film"></i> ${response.data.title}`,
-        };
-        setEvents([...events, newEvent]);
-      } catch (error) {
-        console.error('Error adding event:', error.response ? error.response.data : error.message);
-      }
+  const handleDateClick = (arg) => {
+    setNewEventDate(arg.dateStr);
+    setModalVisible(true);
+  };
+
+  const handleEventClick = (clickInfo) => {
+    setSelectedEvent({
+      id: clickInfo.event.id,
+      title: clickInfo.event.title,
+      start: clickInfo.event.start.toISOString().substring(0, 16),
+      end: clickInfo.event.end ? clickInfo.event.end.toISOString().substring(0, 16) : null,
+    });
+    setModalVisible(true);
+  };
+
+  const handleDeleteEvent = async () => {
+    if (!selectedEvent) return;
+    setLoading(true);
+    try {
+      await api.delete(`/api/calendar/${userId}/events/${selectedEvent.id}`);
+      setEvents(events.filter(event => event.id !== selectedEvent.id));
+      toast.success('Event deleted successfully!');
+    } catch (error) {
+      console.error('Error deleting event:', error.response ? error.response.data : error.message);
+      toast.error('Failed to delete event.');
+    } finally {
+      setLoading(false);
+      setModalVisible(false);
     }
   };
 
-  const handleEventClick = async (clickInfo) => {
-    const eventId = clickInfo.event.id; 
-    if (window.confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'?`)) {
-      try {
-        await api.delete(`/api/calendar/${userId}/events/${eventId}`);
-        setEvents(events.filter(event => event.id !== eventId));
-      } catch (error) {
-        console.error('Error deleting event:', error.response ? error.response.data : error.message);
-      }
+  const handleEditEvent = async () => {
+    if (!selectedEvent) return;
+    setLoading(true);
+    try {
+      await api.put(`/api/calendar/${userId}/events/${selectedEvent.id}`, {
+        title: selectedEvent.title,
+        start: new Date(selectedEvent.start).toISOString(),
+        end: new Date(selectedEvent.end).toISOString(),
+      });
+      const updatedEvents = events.map(event =>
+        event.id === selectedEvent.id ? selectedEvent : event
+      );
+      setEvents(updatedEvents);
+      toast.success('Event updated successfully!');
+    } catch (error) {
+      console.error('Error updating event:', error.response ? error.response.data : error.message);
+      toast.error('Failed to update event.');
+    } finally {
+      setLoading(false);
+      setModalVisible(false);
     }
-  };  
+  };
+
+  const handleAddEvent = async () => {
+    setLoading(true);
+    try {
+      const response = await api.post(`/api/calendar/${userId}/events`, {
+        title: newEventTitle,
+        start: new Date(newEventDate).toISOString(),
+        end: new Date(newEventDate).toISOString(),
+      });
+      setEvents([...events, response.data]);
+      toast.success('Event added successfully!');
+    } catch (error) {
+      console.error('Error adding event:', error.response ? error.response.data : error.message);
+      toast.error('Failed to add event.');
+    } finally {
+      setLoading(false);
+      setModalVisible(false);
+    }
+  };
 
   const renderEventContent = (eventInfo) => {
     return (
-      <div>
-        <FontAwesomeIcon icon={faFilm} /> <b>{eventInfo.timeText}</b> <i>{eventInfo.event.title}</i>
+      <div onClick={() => handleEventClick(eventInfo.event)}>
+        <b>{eventInfo.timeText}</b> <i>{eventInfo.event.title}</i>
       </div>
     );
   };
@@ -166,6 +209,39 @@ const Calendar = () => {
           />
         </div>
       </div>
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={true}
+        closeOnClick
+        pauseOnHover
+        draggable
+        toastClassName="toast-custom"
+      />
+      {modalVisible && (
+        <div className="modal">
+          <div className="modal-content">
+            <h2>{selectedEvent ? 'Edit Event' : 'Add Event'}</h2>
+            <input
+              type="text"
+              className="modal-input"
+              value={selectedEvent ? selectedEvent.title : newEventTitle}
+              onChange={(e) => selectedEvent ? setSelectedEvent({ ...selectedEvent, title: e.target.value }) : setNewEventTitle(e.target.value)}
+            />
+            <input
+              type="datetime-local"
+              className="modal-input"
+              value={selectedEvent ? selectedEvent.start : newEventDate}
+              onChange={(e) => selectedEvent ? setSelectedEvent({ ...selectedEvent, start: e.target.value }) : setNewEventDate(e.target.value)}
+            />
+            <button onClick={selectedEvent ? handleEditEvent : handleAddEvent}>
+              {selectedEvent ? 'Save' : 'Add'}
+            </button>
+            {selectedEvent && <button onClick={handleDeleteEvent}>Delete</button>}
+            <button onClick={() => setModalVisible(false)}>Cancel</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
