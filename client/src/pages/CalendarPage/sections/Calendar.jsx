@@ -82,7 +82,7 @@ const Calendar = () => {
         end: new Date(selectedEvent.end).toISOString(),
       });
       const updatedEvents = events.map(event =>
-        event.id === selectedEvent.id ? selectedEvent : event
+        event.id === selectedEvent.id ? { ...event, ...selectedEvent } : event
       );
       setEvents(updatedEvents);
       toast.success('Event updated successfully!');
@@ -111,6 +111,26 @@ const Calendar = () => {
     } finally {
       setLoading(false);
       setModalVisible(false);
+    }
+  };
+
+  const handleEventDrop = async (info) => {
+    const { id, title, start, end } = info.event;
+    const updatedEvent = {
+      title,
+      start: start.toISOString(),
+      end: end ? end.toISOString() : null,
+    };
+    try {
+      await api.put(`/api/calendar/${userId}/events/${id}`, updatedEvent);
+      const updatedEvents = events.map(event =>
+        event.id === id ? { ...event, ...updatedEvent } : event
+      );
+      setEvents(updatedEvents);
+      toast.success('Event moved successfully!');
+    } catch (error) {
+      console.error('Error moving event:', error.response ? error.response.data : error.message);
+      toast.error('Failed to move event.');
     }
   };
 
@@ -206,18 +226,13 @@ const Calendar = () => {
             dateClick={handleDateClick}
             eventClick={handleEventClick}
             eventContent={renderEventContent}
+            editable={true}
+            droppable={true}
+            eventDrop={handleEventDrop}
           />
         </div>
       </div>
-      <ToastContainer
-        position="top-center"
-        autoClose={3000}
-        hideProgressBar={true}
-        closeOnClick
-        pauseOnHover
-        draggable
-        toastClassName="toast-custom"
-      />
+      <ToastContainer position="top-center" autoClose={2000} hideProgressBar={true} closeOnClick pauseOnHover />
       {modalVisible && (
         <div className="modal">
           <div className="modal-content">
