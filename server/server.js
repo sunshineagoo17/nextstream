@@ -26,7 +26,7 @@ app.use(cookieParser());
 
 // Configure CORS
 const corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: 'http://localhost:3000', 
   credentials: true
 };
 app.use(cors(corsOptions));
@@ -158,7 +158,7 @@ app.use('/api/interactions', interactionRoutes);
 app.use(express.static(path.join(__dirname, 'client/build')));
 
 // Serve React app for specific routes
-const allowedRoutes = ['/','/terms'];
+const allowedRoutes = ['/','/terms']; 
 app.get(allowedRoutes, (req, res) => {
   res.sendFile(path.join(__dirname, 'client/build/index.html'));
 });

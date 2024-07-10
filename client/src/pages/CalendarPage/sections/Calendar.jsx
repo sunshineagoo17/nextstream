@@ -28,19 +28,20 @@ const Calendar = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
+        setLoading(true); 
         const response = await api.get(`/api/calendar/${userId}/events`);
         setEvents(response.data);
       } catch (error) {
         console.error('Error fetching events:', error.response ? error.response.data : error.message);
       } finally {
-        setLoading(false);
+        setLoading(false); 
       }
     };
-
+  
     if (userId) {
       fetchEvents();
     }
-  }, [userId]);
+  }, [userId]);  
 
   const handleDateClick = (arg) => {
     const localDate = moment(arg.date).format('YYYY-MM-DDTHH:mm:ss');
@@ -59,21 +60,26 @@ const Calendar = () => {
     setModalVisible(true);
   };
 
-  const handleDeleteEvent = async () => {
-    if (!selectedEvent) return;
+  const handleAddEvent = async () => {
     setLoading(true);
     try {
-      await api.delete(`/api/calendar/${userId}/events/${selectedEvent.id}`);
-      setEvents(events.filter(event => event.id !== selectedEvent.id));
-      toast.success('Event deleted successfully!');
+      const newEvent = {
+        title: newEventTitle,
+        start: moment.utc(newEventDate).toISOString(),
+        end: moment.utc(newEventDate).toISOString(),
+      };
+      const response = await api.post(`/api/calendar/${userId}/events`, newEvent);
+      setEvents([...events, response.data]);
+      toast.success('Event added successfully!');
     } catch (error) {
-      console.error('Error deleting event:', error.response ? error.response.data : error.message);
-      toast.error('Failed to delete event.');
+      console.error('Error adding event:', error.response ? error.response.data : error.message);
+      toast.error('Failed to add event.');
     } finally {
       setLoading(false);
       setModalVisible(false);
     }
   };
+  
 
   const handleEditEvent = async () => {
     if (!selectedEvent) return;
@@ -107,26 +113,6 @@ const Calendar = () => {
       setLoading(false);
       setModalVisible(false);
     }
-  };  
-
-  const handleAddEvent = async () => {
-    setLoading(true);
-    try {
-      const newEvent = {
-        title: newEventTitle,
-        start: moment.utc(newEventDate).toISOString(),
-        end: moment.utc(newEventDate).toISOString(),
-      };
-      const response = await api.post(`/api/calendar/${userId}/events`, newEvent);
-      setEvents([...events, response.data]);
-      toast.success('Event added successfully!');
-    } catch (error) {
-      console.error('Error adding event:', error.response ? error.response.data : error.message);
-      toast.error('Failed to add event.');
-    } finally {
-      setLoading(false);
-      setModalVisible(false);
-    }
   };
 
   const handleEventDrop = async (info) => {
@@ -149,15 +135,41 @@ const Calendar = () => {
     }
   };
 
+  const handleDeleteEvent = async () => {
+    if (!selectedEvent) return;
+    setLoading(true);
+    try {
+      await api.delete(`/api/calendar/${userId}/events/${selectedEvent.id}`);
+      setEvents(events.filter(event => event.id !== selectedEvent.id));
+      toast.success('Event deleted successfully!');
+    } catch (error) {
+      console.error('Error deleting event:', error.response ? error.response.data : error.message);
+      toast.error('Failed to delete event.');
+    } finally {
+      setLoading(false);
+      setModalVisible(false);
+    }
+  };  
+
   const renderEventContent = (eventInfo) => {
+    const handleEventClickWithLoader = async (event) => {
+      setLoading(true);
+      try {
+        await handleEventClick(event);
+      } finally {
+        setLoading(false);
+      }
+    };
+  
     return (
-      <div onClick={() => handleEventClick(eventInfo.event)}>
+      <div onClick={() => handleEventClickWithLoader(eventInfo.event)}>
         <FontAwesomeIcon icon={faFilm} style={{ color: 'mediumblue' }} /> 
         <b>{moment(eventInfo.event.start).format('h:mm A')}</b> 
         <i>{eventInfo.event.title}</i>
       </div>
     );
   };
+  
 
   const handlePrevMonth = () => {
     const newMonth = new Date(currentMonth.setMonth(currentMonth.getMonth() - 1));
