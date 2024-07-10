@@ -7,10 +7,10 @@ const db = require('knex')(knexConfig.development);
 
 // Record interaction
 router.post('/', async (req, res) => {
-  const { user_id, media_id, interaction, media_type } = req.body;
+  const { userId, media_id, interaction, media_type } = req.body;
   try {
     await db('interactions').insert({
-      user_id,
+      userId,
       media_id,
       interaction,
       media_type
@@ -23,17 +23,18 @@ router.post('/', async (req, res) => {
 });
 
 // Fetch recommendations (simple example)
-router.get('/recommendations/:user_id', async (req, res) => {
-  const { user_id } = req.params;
+router.get('/recommendations/:userId', async (req, res) => {
+  const { userId } = req.params; 
   try {
     const results = await db('interactions')
       .select('media_id')
       .count('media_id as likes')
-      .where('interaction', 1)
-      .andWhereNot('user_id', user_id)
+      .where('interaction', 1) 
+      .andWhereNot('userId', userId) 
       .groupBy('media_id')
-      .orderBy('likes', 'desc')
-      .limit(5);
+      .orderBy('likes', 'desc') 
+      .limit(5); 
+
     res.status(200).json(results);
   } catch (error) {
     console.error('Error fetching recommendations:', error);

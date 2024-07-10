@@ -53,8 +53,8 @@ const Calendar = () => {
     setSelectedEvent({
       id: clickInfo.event.id,
       title: clickInfo.event.title,
-      start: moment(clickInfo.event.start).format('YYYY-MM-DDTHH:mm:ss'),
-      end: clickInfo.event.end ? moment(clickInfo.event.end).format('YYYY-MM-DDTHH:mm:ss') : null,
+      start: moment.utc(clickInfo.event.start).toISOString(),
+      end: clickInfo.event.end ? moment.utc(clickInfo.event.end).toISOString() : null,
     });
     setModalVisible(true);
   };
@@ -114,8 +114,8 @@ const Calendar = () => {
     try {
       const newEvent = {
         title: newEventTitle,
-        start: moment(newEventDate).toISOString(),
-        end: moment(newEventDate).toISOString(),
+        start: moment.utc(newEventDate).toISOString(),
+        end: moment.utc(newEventDate).toISOString(),
       };
       const response = await api.post(`/api/calendar/${userId}/events`, newEvent);
       setEvents([...events, response.data]);
