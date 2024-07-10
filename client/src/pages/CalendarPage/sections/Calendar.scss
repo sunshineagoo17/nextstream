@@ -310,12 +310,19 @@
       border: .3rem solid $primary-very-light-blue;
       box-shadow: $shadow-tertiary;
       text-align: center;
+      margin-bottom: .75rem;
+
+      @include tablet {
+        margin-bottom: 0;
+      }
     }
 
     .fc-button-group {
       display: flex;
       justify-content: center;
+      align-items: center;
       margin-bottom: 1rem;
+      margin-left: .5rem;
 
       .fc-button {
         @include block-item(4rem, 2.5rem);
@@ -381,9 +388,12 @@
     }
   }
 
-  .fc-timeGridWeek-button.fc-button.fc-button-primary {
+  .fc-timeGridDay-button.fc-button.fc-button-primary,
+  .fc-timeGridWeek-button.fc-button.fc-button-primary,
+  .fc-timeGridMonth-button.fc-button.fc-button-primary.fc-button-active {
     width: 4rem;
     border-radius: .75rem;
+    margin-right: 0;
   }
 
   .fc-daygrid-day {
@@ -426,5 +436,26 @@
     color: $primary-medium-blue;
     border: .0625rem solid $neutral-white;
     opacity: 1;
+    margin-left: -.05rem;
+  }
+
+  .fc-header-toolbar.fc-toolbar.fc-toolbar-ltr {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: .5rem;
+
+    @include tablet {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+
+  .fc-toolbar-chunk {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
   }
 }
