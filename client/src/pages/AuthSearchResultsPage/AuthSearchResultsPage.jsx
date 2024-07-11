@@ -50,7 +50,7 @@ const AuthSearchResultsPage = () => {
             const providersResponse = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/tmdb/${result.media_type}/${result.id}/watch/providers`);
             const providers = providersResponse.data || [];
             if (providers.length === 0) {
-              toast.info(`No providers found for ${result.title || result.name}.`, {
+              console.log(`No providers found for ${result.title || result.name}.`, {
               });
             }
       
@@ -169,15 +169,21 @@ const AuthSearchResultsPage = () => {
                     </a>
                   )}
                   <div className="auth-search-results__streaming-services">
-                    {result.providers && result.providers.map(provider => (
-                      <div key={provider.provider_id} className="auth-search-results__streaming-service">
-                        <img 
-                          src={`https://image.tmdb.org/t/p/original${provider.logo_path}`} 
-                          alt={provider.provider_name} 
-                          className="auth-search-results__streaming-provider-logo"
-                        />
-                      </div>
-                    ))}
+                    {result.providers && result.providers.length > 0 ? (
+                      result.providers.map(provider => (
+                        <div key={provider.provider_id} className="auth-search-results__streaming-service">
+                          <img 
+                            src={`https://image.tmdb.org/t/p/original${provider.logo_path}`} 
+                            alt={provider.provider_name} 
+                            className="auth-search-results__streaming-provider-logo"
+                          />
+                        </div>
+                      ))
+                    ) : (
+                      <p className="auth-search-results__no-providers">
+                        No streaming services available for {result.title || result.name}.
+                      </p>
+                    )}
                   </div>
                 </div>
               ))
