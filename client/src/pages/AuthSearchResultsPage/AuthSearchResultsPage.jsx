@@ -49,36 +49,26 @@ const AuthSearchResultsPage = () => {
           try {
             const providersResponse = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/tmdb/${result.media_type}/${result.id}/watch/providers`);
             const providers = providersResponse.data || [];
+            if (providers.length === 0) {
+              toast.info(`No providers found for ${result.title || result.name}.`, {
+              });
+            }
+      
             return { ...result, providers };
           } catch (error) {
             console.error(`Error fetching watch providers for ${result.media_type} ${result.id}:`, error);
             toast.error('Error fetching watch providers. Please try again later.', {
-              position: 'top-center',
-              autoClose: 3000,
-              hideProgressBar: true,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              transition: Slide,
             });
             return { ...result, providers: [] };
           }
         })
       );
-
+      
       setResults(updatedResults);
 
     } catch (error) {
       console.error('Error fetching search results:', error);
       toast.error('Error fetching search results. Please try again later.', {
-        className: 'search__custom-toast-error',
-        position: 'top-center',
-        autoClose: 3000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        transition: Slide,
       });
     } finally {
       setIsLoading(false);
