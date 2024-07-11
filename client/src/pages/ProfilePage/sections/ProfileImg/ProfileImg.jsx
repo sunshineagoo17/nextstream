@@ -73,7 +73,7 @@ const ProfileImg = ({ userId, username, isActive, onStatusToggle }) => {
       await axios.delete(`${process.env.REACT_APP_BASE_URL}/api/profile/${userId}/avatar`, {
         withCredentials: true
       });
-      setImagePreview(DefaultAvatar); // Reset to default avatar
+      setImagePreview(DefaultAvatar); 
       toast.success("Image deleted successfully. For now, you can use our default avatar.");
     } catch (error) {
       console.error("Error deleting avatar:", error);
@@ -141,7 +141,7 @@ const ProfileImg = ({ userId, username, isActive, onStatusToggle }) => {
       <ToastContainer
         position="top-center"
         autoClose={3000}
-        hideProgressBar={true}
+        hideProgressBar={false}
         transition={Slide}
         closeOnClick
         pauseOnHover

@@ -20,7 +20,7 @@ const Calendar = forwardRef(({ userId, eventTitle, onClose }, ref) => {
   const [loading, setLoading] = useState(true);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
-  const [newEventTitle, setNewEventTitle] = useState(eventTitle || ''); // Use eventTitle as initial value
+  const [newEventTitle, setNewEventTitle] = useState(eventTitle || ''); 
   const [newEventDate, setNewEventDate] = useState('');
   const calendarRef = useRef(null);
 
@@ -264,7 +264,7 @@ const Calendar = forwardRef(({ userId, eventTitle, onClose }, ref) => {
         {miniCalendarVisible && <div className="calendar__overlay" />}
         <div className="calendar__main">
           <FullCalendar
-            ref={calendarRef} // Add this line
+            ref={calendarRef} 
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
             initialView="dayGridMonth"
             headerToolbar={{

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { ToastContainer, toast, Slide } from 'react-toastify';
 import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
 import AnimatedBg from '../../components/AnimatedBg/AnimatedBg';
 import 'react-toastify/dist/ReactToastify.css';
 import './SearchResultsPage.scss';
@@ -45,17 +45,12 @@ const SearchResultsPage = () => {
 
         if (limitedResults.length === 0) {
           toast.info('No results found for your search. Try a different title!', {
-            position: 'top-center',
-            autoClose: 4000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
           });
         }
       } catch (error) {
         console.error('Error fetching search results:', error);
+        toast.error('Error fetching search results. Please try again later.', {
+        });
       } finally {
         setIsLoading(false);
       }
@@ -68,7 +63,14 @@ const SearchResultsPage = () => {
 
   return (
     <>
-      <ToastContainer />
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={false}
+        transition={Slide}
+        closeOnClick
+        pauseOnHover
+      />
       {isLoading && <Loader />}
       <div className="search-results">
         <div className="search-results__content-card">

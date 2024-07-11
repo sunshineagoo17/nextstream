@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import './TermsAndConditions.scss';
 import AnimatedBg from '../../components/AnimatedBg/AnimatedBg';
 import ContactModal from '../../components/ContactModal/ContactModal';
 import Loader from '../../components/Loader/Loader';
+import './TermsAndConditions.scss';
 
 export const TermsAndConditions = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);

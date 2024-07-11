@@ -4,8 +4,6 @@
 @use "../../styles/partials/mixins" as *;
 @use "../../styles/global.scss" as *;
 
-@import 'react-toastify/dist/ReactToastify.css';
-
 .register {
   position: relative;
   min-height: 100vh;
@@ -484,70 +482,4 @@ a:hover,
 a:visited,
 a:active {
   text-decoration: none;
-}
-
-.custom-toast-container { 
-  .Toastify__toast--success {
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(10px);
-    border-radius: 12px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    color: $toast-success; 
-    text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    animation: fadeIn 0.5s ease-in-out, fadeOut 0.5s ease-in-out 4.5s;
-
-    .Toastify__close-button {
-      color: $toast-success;
-    }
-  }
-}
-
-.custom-toast {
-  text-align: center;
-  @include block-item(15rem, 5rem);
-  margin: 0 auto;
-}
-
-.custom-toast-body {
-  font-size: .75rem;
-  color: $toast-success;
-
-  @include tablet {
-    font-size: 1rem;
-  }
-}
-
-  .custom-toast {
-    width: 15rem;
-
-    @include tablet {
-    width: 20rem;
-  }
-
-  @include desktop {
-    width: 30rem;
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fadeOut {
-  from {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  to {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
 }

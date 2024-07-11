@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import './PrivacyPolicy.scss';
 import AnimatedBg from '../../components/AnimatedBg/AnimatedBg';
 import ContactModal from '../../components/ContactModal/ContactModal';
 import Loader from '../../components/Loader/Loader';
+import './PrivacyPolicy.scss';
 
 export const PrivacyPolicy = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);

@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AnimatedBg from '../../components/AnimatedBg/AnimatedBg';
-import './NotFound.scss';
 import Loader from '../../components/Loader/Loader';
 import AlienAbductionImage from "../../assets/images/404-alien-abduction.jpg";
 import DeveloperImage from "../../assets/images/404-developer-sleeping.jpg";
 import MatrixImage from "../../assets/images/404-matrix.jpg";
 import TimeTravelImage from "../../assets/images/404-time-travel.jpg";
+import './NotFound.scss';
 
 const imageArr = [
     {

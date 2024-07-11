@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect, useRef } from 'react';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import Calendar from './sections/Calendar';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, Slide } from 'react-toastify';
 import Loader from '../../components/Loader/Loader';
 import './CalendarPage.scss';
 import 'react-toastify/dist/ReactToastify.css';
@@ -38,7 +38,14 @@ const CalendarPage = () => {
 
   return (
     <div className="calendar-page">
-      <ToastContainer />
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={false}
+        transition={Slide}
+        closeOnClick
+        pauseOnHover
+      />
       <div className="calendar-page__hero">
         <div className="calendar-page__hero-text">
           <h1 className="calendar-page__title">Your Schedule</h1>

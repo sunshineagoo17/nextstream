@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import api from '../../services/api'; 
 import { AuthContext } from '../../context/AuthContext/AuthContext';
@@ -112,28 +112,11 @@ export const RegisterPage = () => {
         Cookies.set('password', password, { expires: 7 });
     
         toast.success('Registration successful! Redirecting to profile page...', {
-          position: "top-center",
-          className: "custom-toast",
-          bodyClassName: "custom-toast-body",
-          autoClose: 4000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          style: {
-            borderRadius: '12px',
-            background: 'rgba(255, 255, 255, 0.7)',
-            backdropFilter: 'blur(10px)',
-            color: '#006400',
-            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-            border: '1px solid rgba(0, 0, 0, 0.1)',
-          }
         });
     
         setTimeout(() => {
           navigate(`/profile/${userId}`);
-        }, 4000);
+        }, 3000);
       }
     } catch (error) {
       console.error('Registration error:', error);
@@ -155,7 +138,14 @@ export const RegisterPage = () => {
     <>
       {isLoading && <Loader />}
       <div className="register">
-        <ToastContainer />
+        <ToastContainer
+          position="top-center"
+          autoClose={3000}
+          hideProgressBar={false}
+          transition={Slide}
+          closeOnClick
+          pauseOnHover
+        />
         <div className="register__hero">
           <h1 className="register__title">Register</h1>
         </div>

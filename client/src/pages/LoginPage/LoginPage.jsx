@@ -13,7 +13,6 @@ import ForgotPasswordModal from '../../components/ForgotPasswordModal/ForgotPass
 import Loader from '../../components/Loader/Loader';
 import Cookies from 'js-cookie';
 import './LoginPage.scss';
-// import NoDataImg from "../../assets/images/no-data.svg";
 
 export const LoginPage = () => {
   const [isLoading, setIsLoading] = useState(true);

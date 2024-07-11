@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast, Slide } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
@@ -61,13 +61,6 @@ const AuthSearchResultsPage = () => {
 
         if (updatedResults.length === 0) {
           toast.info('No results found for your search. Try a different title!', {
-            position: 'top-center',
-            autoClose: 4000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
           });
         }
       } catch (error) {
@@ -94,7 +87,14 @@ const AuthSearchResultsPage = () => {
 
   return (
     <>
-      <ToastContainer />
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={false}
+        transition={Slide}
+        closeOnClick
+        pauseOnHover
+      />
       {isLoading && <Loader />}
       <div className="auth-search-results">
         <div className="auth-search-results__content-card">

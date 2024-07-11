@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast, ToastContainer, Slide } from 'react-toastify';
 import api from '../../services/api';
 import LocationIcon from '../../assets/images/profile-location.svg';
 import ShowIcon from '../../assets/images/register-visible-icon.svg';
@@ -11,6 +10,7 @@ import ToggleButton from '../../components/ToggleButton/ToggleButton';
 import SubscriptionStatus from './sections/SubscriptionStatus/SubscriptionStatus';
 import Loader from '../../components/Loader/Loader';
 import ProfileImg from './sections/ProfileImg/ProfileImg';
+import 'react-toastify/dist/ReactToastify.css';
 import './ProfilePage.scss';
 
 const validateEmail = (email) => {
@@ -190,20 +190,11 @@ export const ProfilePage = () => {
     try {
       await api.delete(`/api/profile/${userId}`);
       toast.success("Your account's been deleted successfully. Redirecting to home page...", {
-        position: "top-center",
-        className: "custom-toast-profile",
-        bodyClassName: "custom-toast-profile-body",
-        autoClose: 4000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
       });
       setTimeout(() => {
         logout();
         navigate('/');
-      }, 4000);
+      }, 3000);
     } catch (error) {
       console.error('Error deleting account:', error);
       setSaveMessage({ text: 'Error deleting account. Please try again.', className: 'error' });
@@ -215,7 +206,14 @@ export const ProfilePage = () => {
 
   return (
     <>
-      <ToastContainer />
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={false}
+        transition={Slide}
+        closeOnClick
+        pauseOnHover
+      />
       {isLoading && <Loader />}
       <div className="profile">
         <div className="profile__background">
