@@ -74,7 +74,7 @@ const AuthSearchResultsPage = () => {
         console.error('Error fetching search results:', error);
       } finally {
         setIsLoading(false);
-        setShowCalendar(false); // Close calendar on new search
+        setShowCalendar(false); 
       }
     };
 
