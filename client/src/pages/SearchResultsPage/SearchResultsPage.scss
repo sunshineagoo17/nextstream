@@ -10,6 +10,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+    &__no-results-copy {
+      font-family: $primary-font;
+      color: $primary-dark-blue;
+    }
   
     &__container {
       position: relative;

@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import './SearchResultsPage.scss';
 import Loader from '../../components/Loader/Loader';
 import DefaultVideoImg from '../../assets/images/video-img-default.png';
+import NoDataImg from '../../assets/images/no-data.svg';
 
 const SearchResultsPage = () => {
   const [results, setResults] = useState([]);
@@ -39,12 +40,10 @@ const SearchResultsPage = () => {
           }
         });
 
-        // Limiting to three results
         const limitedResults = response.data.results.slice(0, 3);
         setResults(limitedResults);
 
         if (limitedResults.length === 0) {
-          // Display toast message if no results found
           toast.info('No results found for your search. Try a different title!', {
             position: 'top-center',
             autoClose: 4000,
@@ -91,30 +90,37 @@ const SearchResultsPage = () => {
             </p>
           </div>
           <div className="search-results__card-media-container">
-            {results.map(result => (
-              <div key={result.id} className="search-results__card">
-                <a href={`https://www.themoviedb.org/${result.media_type}/${result.id}`} className="search-results__link" target="_blank" rel="noopener noreferrer">
-                  {result.poster_path ? (
-                    <img
-                      className="search-results__poster"
-                      alt={result.title || result.name}
-                      src={`https://image.tmdb.org/t/p/w500${result.poster_path}`}
-                      onError={(e) => { e.target.src = DefaultVideoImg; }}
-                    />
-                  ) : (
-                    <div className="search-results__no-image">
+            {results.length > 0 ? (
+              results.map(result => (
+                <div key={result.id} className="search-results__card">
+                  <a href={`https://www.themoviedb.org/${result.media_type}/${result.id}`} className="search-results__link" target="_blank" rel="noopener noreferrer">
+                    {result.poster_path ? (
                       <img
-                        className="search-results__poster search-results__poster--default"
+                        className="search-results__poster"
                         alt={result.title || result.name}
-                        src={DefaultVideoImg}
+                        src={`https://image.tmdb.org/t/p/w500${result.poster_path}`}
+                        onError={(e) => { e.target.src = DefaultVideoImg; }}
                       />
-                      <span className="search-results__error-no-img-txt">No Image Available for:</span>
-                      <span className="search-results__error-no-img-title">{result.title || result.name}</span>
-                    </div>
-                  )}
-                </a>
+                    ) : (
+                      <div className="search-results__no-image">
+                        <img
+                          className="search-results__poster search-results__poster--default"
+                          alt={result.title || result.name}
+                          src={DefaultVideoImg}
+                        />
+                        <span className="search-results__error-no-img-txt">No Image Available for:</span>
+                        <span className="search-results__error-no-img-title">{result.title || result.name}</span>
+                      </div>
+                    )}
+                  </a>
+                </div>
+              ))
+            ) : (
+              <div className="search-results__no-results">
+                <img src={NoDataImg} alt="No results found" />
+                <p className="search-results__no-results-copy">No results found for your search. Try a different title!</p>
               </div>
-            ))}
+            )}
           </div>
         </div>
         <div className="search-results__background">
