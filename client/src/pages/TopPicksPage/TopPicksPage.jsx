@@ -86,8 +86,10 @@ const TopPicksPage = () => {
 
   return (
     <div className="top-picks-page" {...handlers}>
-      <h1 className="top-picks-page__title">Top Picks</h1>
-      <p className="top-picks-page__intro">Swipe to discover new movies and shows. Add them to your calendar for a perfect viewing schedule.</p>
+      <div className="top-picks-page__title-container">
+        <h1 className="top-picks-page__title">Top Picks</h1>
+        <p className="top-picks-page__intro">Swipe to discover new movies and shows. Add them to your calendar for a perfect viewing schedule.</p>
+      </div>
       {media.length > 0 && currentIndex < media.length && (
         <div className="top-picks-page__media-card">
           <MediaCard media={media[currentIndex]} />
