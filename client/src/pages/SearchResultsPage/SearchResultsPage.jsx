@@ -39,14 +39,10 @@ const SearchResultsPage = () => {
             sort_by: 'popularity.desc'
           }
         });
-
+  
         const limitedResults = response.data.results.slice(0, 3);
         setResults(limitedResults);
-
-        if (limitedResults.length === 0) {
-          toast.info('No results found for your search. Try a different title!', {
-          });
-        }
+  
       } catch (error) {
         console.error('Error fetching search results:', error);
         toast.error('Error fetching search results. Please try again later.', {
@@ -55,11 +51,12 @@ const SearchResultsPage = () => {
         setIsLoading(false);
       }
     };
-
+  
     if (query) {
       fetchResults();
     }
   }, [query]);
+  
 
   return (
     <>
@@ -76,7 +73,7 @@ const SearchResultsPage = () => {
         <div className="search-results__content-card">
           <h1 className="search-results__title">Search Results</h1>
           <div className="search-results__copy-container">
-            <p className="search-results__intro">Here's where you'll find your top 3 results.</p>
+            <p className="search-results__intro">Here's where you'll find your top results.</p>
             <p className="search-results__text--top">
               To view where these titles are streaming and add them to your calendar, please{' '}
               <button className="search-results__login-link" onClick={handleLoginClick} aria-label="Go to Login Page">

@@ -39,7 +39,8 @@ const HoverMenu = () => {
       `/login`,
       `/top-picks/${userId}`, 
       `/calendar/${userId}`, 
-      `/auth-search-results/${userId}`
+      `/auth-search-results/${userId}`,
+      `/search`
     ];
     return darkBackgroundPages.includes(location.pathname) ? 'dark-background' : '';
   };

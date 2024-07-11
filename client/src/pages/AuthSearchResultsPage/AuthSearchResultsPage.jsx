@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useRef } from 'react';
+import React, { useState, useEffect, useContext, useRef, useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -24,57 +24,79 @@ const AuthSearchResultsPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const calendarRef = useRef(null);
+  const initialRender = useRef(true); 
 
   const query = new URLSearchParams(location.search).get('q');
 
-  useEffect(() => {
-    const fetchResults = async () => {
-      try {
-        const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/tmdb/search`, {
-          params: {
-            query,
-            language: 'en-US',
-            region: 'CA',
-            include_adult: false,
-            page: 1,
-            include_image_language: 'en,null',
-            sort_by: 'popularity.desc'
-          }
-        });
-
-        const limitedResults = response.data.results.slice(0, 3);
-
-        const updatedResults = await Promise.all(
-          limitedResults.map(async (result) => {
-            try {
-              const providersResponse = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/tmdb/${result.media_type}/${result.id}/watch/providers`);
-              const providers = providersResponse.data || [];
-              return { ...result, providers };
-            } catch (error) {
-              console.error(`Error fetching watch providers for ${result.media_type} ${result.id}:`, error);
-              return { ...result, providers: [] };
-            }
-          })
-        );
-
-        setResults(updatedResults);
-
-        if (updatedResults.length === 0) {
-          toast.info('No results found for your search. Try a different title!', {
-          });
+  const fetchResults = useCallback(async () => {
+    try {
+      const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/tmdb/search`, {
+        params: {
+          query,
+          language: 'en-US',
+          region: 'CA',
+          include_adult: false,
+          page: 1,
+          include_image_language: 'en,null',
+          sort_by: 'popularity.desc'
         }
-      } catch (error) {
-        console.error('Error fetching search results:', error);
-      } finally {
-        setIsLoading(false);
-        setShowCalendar(false); 
-      }
-    };
+      });
 
-    if (query) {
-      fetchResults();
+      const limitedResults = response.data.results.slice(0, 3);
+
+      const updatedResults = await Promise.all(
+        limitedResults.map(async (result) => {
+          try {
+            const providersResponse = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/tmdb/${result.media_type}/${result.id}/watch/providers`);
+            const providers = providersResponse.data || [];
+            return { ...result, providers };
+          } catch (error) {
+            console.error(`Error fetching watch providers for ${result.media_type} ${result.id}:`, error);
+            toast.error('Error fetching watch providers. Please try again later.', {
+              position: 'top-center',
+              autoClose: 3000,
+              hideProgressBar: true,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              transition: Slide,
+            });
+            return { ...result, providers: [] };
+          }
+        })
+      );
+
+      setResults(updatedResults);
+
+    } catch (error) {
+      console.error('Error fetching search results:', error);
+      toast.error('Error fetching search results. Please try again later.', {
+        className: 'search__custom-toast-error',
+        position: 'top-center',
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        transition: Slide,
+      });
+    } finally {
+      setIsLoading(false);
+      setShowCalendar(false); 
     }
   }, [query]);
+
+  useEffect(() => {
+    if (query && initialRender.current) {
+      initialRender.current = false; 
+      fetchResults();
+    } else if (query) {
+      const timer = setTimeout(() => {
+        fetchResults();
+      }, 300); 
+      return () => clearTimeout(timer); // Cleanup function to clear timeout
+    }
+  }, [query, fetchResults]);
 
   const handleAddToCalendar = (title) => {
     setEventTitle(title);
@@ -99,7 +121,7 @@ const AuthSearchResultsPage = () => {
       <div className="auth-search-results">
         <div className="auth-search-results__content-card">
           <h1 className="auth-search-results__title">Search Results</h1>
-          <p className="auth-search-results__intro">Here's where you'll find your top 3 results.</p>
+          <p className="auth-search-results__intro">Here's where you'll find your top results.</p>
           {!isAuthenticated && (
             <div>
               <p className="auth-search-results__text--top">
@@ -183,7 +205,7 @@ const AuthSearchResultsPage = () => {
       </div>
       {showCalendar && (
         <div className="calendar-modal">
-          <button className="calendar-close-btn" onClick={handleCloseCalendar}><p classname="calendar-close-btn__txt">x</p></button>
+          <button className="calendar-close-btn" onClick={handleCloseCalendar}><p className="calendar-close-btn__txt">x</p></button>
           <Calendar 
             userId={userId}
             eventTitle={eventTitle}
