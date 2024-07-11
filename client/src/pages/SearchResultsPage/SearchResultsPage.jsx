@@ -74,20 +74,22 @@ const SearchResultsPage = () => {
       <div className="search-results">
         <div className="search-results__content-card">
           <h1 className="search-results__title">Search Results</h1>
-          <p className="search-results__intro">Here's where you'll find your top 3 results.</p>
-          <p className="search-results__text--top">
-            To view where these titles are streaming and add them to your calendar, please{' '}
-            <button className="search-results__login-link" onClick={handleLoginClick} aria-label="Go to Login Page">
-              sign in.
-            </button>
-          </p>
-          <p className="search-results__text--bottom">
-            Don't have an account?{' '}
-            <button className="search-results__register-link" onClick={handleRegisterClick} aria-label="Go to Register Page">
-              Register
-            </button>{' '}
-            now!
-          </p>
+          <div className="search-results__copy-container">
+            <p className="search-results__intro">Here's where you'll find your top 3 results.</p>
+            <p className="search-results__text--top">
+              To view where these titles are streaming and add them to your calendar, please{' '}
+              <button className="search-results__login-link" onClick={handleLoginClick} aria-label="Go to Login Page">
+                sign in.
+              </button>
+            </p>
+            <p className="search-results__text--bottom">
+              Don't have an account?{' '}
+              <button className="search-results__register-link" onClick={handleRegisterClick} aria-label="Go to Register Page">
+                Register
+              </button>{' '}
+              now!
+            </p>
+          </div>
           <div className="search-results__card-media-container">
             {results.map(result => (
               <div key={result.id} className="search-results__card">
