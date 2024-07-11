@@ -116,27 +116,28 @@ const AuthSearchResultsPage = () => {
               <div key={result.id} className="auth-search-results__card">
                   {result.poster_path ? (
                     <div className="auth-search-results__poster-wrapper">
-                      <img
-                        className="auth-search-results__poster"
-                        alt={result.title || result.name}
-                        src={`https://image.tmdb.org/t/p/w500${result.poster_path}`}
-                        onError={(e) => { e.target.src = DefaultVideoImg; }}
-                      />
-                    <a href={`https://www.themoviedb.org/${result.media_type}/${result.id}`} className="auth-search-results__link" target="_blank" rel="noopener noreferrer">
-                      <img 
-                        src={result.media_type === 'movie' ? VideoCamera : TvIcon} 
-                        className="auth-search-results__media-icon" 
-                        alt={result.media_type === 'movie' ? 'Movie Icon' : 'TV Show Icon'} 
-                      />
-                    </a>
+                      <a href={`https://www.themoviedb.org/${result.media_type}/${result.id}`} className="auth-search-results__link" target="_blank" rel="noopener noreferrer">
+                        <img
+                          className="auth-search-results__poster"
+                          alt={result.title || result.name}
+                          src={`https://image.tmdb.org/t/p/w500${result.poster_path}`}
+                          onError={(e) => { e.target.src = DefaultVideoImg; }}
+                        />
+                      </a>
+                        <img 
+                          src={result.media_type === 'movie' ? VideoCamera : TvIcon} 
+                          className="auth-search-results__media-icon" 
+                          alt={result.media_type === 'movie' ? 'Movie Icon' : 'TV Show Icon'} 
+                        />
                       <button 
                         className="auth-search-results__calendar-button"
                         onClick={() => handleAddToCalendar(result.title || result.name)}
                       >
-                        <FontAwesomeIcon icon={faCalendarAlt} />
+                        <FontAwesomeIcon icon={faCalendarAlt} className='auth-search-results__calendar-icon' />
                       </button>
                     </div>
                   ) : (
+                    <a href={`https://www.themoviedb.org/${result.media_type}/${result.id}`} className="auth-search-results__link" target="_blank" rel="noopener noreferrer">
                     <div className="auth-search-results__no-image">
                       <img
                         className="auth-search-results__poster auth-search-results__poster--default"
@@ -146,6 +147,7 @@ const AuthSearchResultsPage = () => {
                       <span className="auth-search-results__error-no-img-txt">No Image Available for:</span>
                       <span className="auth-search-results__error-no-img-title">{result.title || result.name}</span>
                     </div>
+                    </a>
                   )}
                 <div className="auth-search-results__streaming-services">
                   {result.providers && result.providers.map(provider => (

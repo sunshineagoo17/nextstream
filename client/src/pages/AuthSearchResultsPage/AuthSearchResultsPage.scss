@@ -76,10 +76,14 @@
         right: 5px;
         color: $primary-medium-blue;
 
+        &:hover {
+          color: $neutral-white;
+        }
+
         @include tablet {
-            @include block-item(1.5rem, 1.5rem);
-                top: -8px;
-                right: 6px;
+            @include block-item(1.25rem, 1.25rem);
+                top: -5px;
+                right: 4px;
             }
         }
     }
