@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import api from '../../services/api';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
+import api from '../../services/api';
 import ErrorIcon from '../../assets/images/error-icon.svg';
 import ShowIcon from '../../assets/images/register-visible-icon.svg';
 import HideIcon from '../../assets/images/register-invisible-icon.svg';
@@ -13,6 +13,7 @@ import ForgotPasswordModal from '../../components/ForgotPasswordModal/ForgotPass
 import Loader from '../../components/Loader/Loader';
 import Cookies from 'js-cookie';
 import './LoginPage.scss';
+// import NoDataImg from "../../assets/images/no-data.svg";
 
 export const LoginPage = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -194,6 +195,7 @@ export const LoginPage = () => {
           </div>
           <div className="login__image-card">
             <img src={SignInCouple} alt="Logging in Couple" />
+            {/* <img src={NoDataImg} alt="Logging in Couple" /> */}
           </div>
         </div>
         {isForgotPasswordModalOpen && <ForgotPasswordModal onClose={closeForgotPasswordModal} />}

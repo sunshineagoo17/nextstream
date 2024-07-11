@@ -11,7 +11,7 @@ import TimeTravelImage from "../../assets/images/404-time-travel.jpg";
 const imageArr = [
     {
         id: 0,
-        copy: "The page you are looking for does not exist. Shhh!!! Our hardworking devs will be right on it once they wake up.",
+        copy: "The page you are looking for does not exist. Our hardworking devs will be right on it once they sort things out.",
         image: DeveloperImage,
     },
     {
@@ -21,12 +21,12 @@ const imageArr = [
     },
     {
         id: 2,
-        copy: "Whoa, Neo, wrong turn! You should've followed the white rabbit.",
+        copy: "Whoa, you took a wrong turn! Stay away from the 404 monster.",
         image: MatrixImage,
     },       
     {
         id: 3,
-        copy: "Great Scott! Looks like you've ventured into the time vortex. Hang tight while we dial back the clock and find that missing page!",
+        copy: "Great Scott! Looks like this page is broken. Hang tight while we get the gears running to find that missing page!",
         image: TimeTravelImage,
     },
 ];
