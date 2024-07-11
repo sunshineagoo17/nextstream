@@ -1,17 +1,18 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
+import { AuthContext } from '../../context/AuthContext/AuthContext';
+import axios from 'axios';
 import AnimatedBg from '../../components/AnimatedBg/AnimatedBg';
 import 'react-toastify/dist/ReactToastify.css';
 import './AuthSearchResultsPage.scss';
 import Loader from '../../components/Loader/Loader';
 import DefaultVideoImg from '../../assets/images/video-img-default.png';
-import { AuthContext } from '../../context/AuthContext/AuthContext';
 import VideoCamera from "../../assets/images/videocamera-1.png";
 import TvIcon from "../../assets/images/tv-icon.png";
+import NoDataImg from "../../assets/images/no-data.svg";
 import Calendar from '../CalendarPage/sections/Calendar';
 
 const AuthSearchResultsPage = () => {
@@ -73,6 +74,7 @@ const AuthSearchResultsPage = () => {
         console.error('Error fetching search results:', error);
       } finally {
         setIsLoading(false);
+        setShowCalendar(false); // Close calendar on new search
       }
     };
 
@@ -84,6 +86,10 @@ const AuthSearchResultsPage = () => {
   const handleAddToCalendar = (title) => {
     setEventTitle(title);
     setShowCalendar(true);
+  };
+
+  const handleCloseCalendar = () => {
+    setShowCalendar(false);
   };
 
   return (
@@ -112,8 +118,9 @@ const AuthSearchResultsPage = () => {
             </div>
           )}
           <div className="auth-search-results__card-media-container">
-            {results.map(result => (
-              <div key={result.id} className="auth-search-results__card">
+            {results.length > 0 ? (
+              results.map(result => (
+                <div key={result.id} className="auth-search-results__card">
                   {result.poster_path ? (
                     <div className="auth-search-results__poster-wrapper">
                       <a href={`https://www.themoviedb.org/${result.media_type}/${result.id}`} className="auth-search-results__link" target="_blank" rel="noopener noreferrer">
@@ -149,19 +156,25 @@ const AuthSearchResultsPage = () => {
                     </div>
                     </a>
                   )}
-                <div className="auth-search-results__streaming-services">
-                  {result.providers && result.providers.map(provider => (
-                    <div key={provider.provider_id} className="auth-search-results__streaming-service">
-                      <img 
-                        src={`https://image.tmdb.org/t/p/original${provider.logo_path}`} 
-                        alt={provider.provider_name} 
-                        className="auth-search-results__streaming-provider-logo"
-                      />
-                    </div>
-                  ))}
+                  <div className="auth-search-results__streaming-services">
+                    {result.providers && result.providers.map(provider => (
+                      <div key={provider.provider_id} className="auth-search-results__streaming-service">
+                        <img 
+                          src={`https://image.tmdb.org/t/p/original${provider.logo_path}`} 
+                          alt={provider.provider_name} 
+                          className="auth-search-results__streaming-provider-logo"
+                        />
+                      </div>
+                    ))}
+                  </div>
                 </div>
+              ))
+            ) : (
+              <div className="auth-search-results__no-results">
+                <img src={NoDataImg} alt="No results found" />
+                <p className="auth-search-results__no-results-copy">No results found for your search. Try a different title!</p>
               </div>
-            ))}
+            )}
           </div>
         </div>
         <div className="auth-search-results__background">
@@ -169,12 +182,15 @@ const AuthSearchResultsPage = () => {
         </div>
       </div>
       {showCalendar && (
-        <Calendar 
-          userId={userId}
-          eventTitle={eventTitle}
-          onClose={() => setShowCalendar(false)}
-          ref={calendarRef}
-        />
+        <div className="calendar-modal">
+          <button className="calendar-close-btn" onClick={handleCloseCalendar}><p classname="calendar-close-btn__txt">x</p></button>
+          <Calendar 
+            userId={userId}
+            eventTitle={eventTitle}
+            onClose={handleCloseCalendar}
+            ref={calendarRef}
+          />
+        </div>
       )}
     </>
   );

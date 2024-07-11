@@ -18,6 +18,15 @@
     width: 100%;
   }
 
+  &__no-results-copy {
+    color: $primary-pale-blue;
+    background-color: $primary-dark-blue;
+    padding-left: .45rem;
+    padding-right: .45rem;
+    border-radius: .25rem;
+    box-shadow: $shadow-primary;
+  }
+
   &__poster-wrapper {
     position: relative;
     display: inline-block;
@@ -423,4 +432,57 @@
   @include desktop {
     @include block-item(6rem, 6rem);
   }
+}
+
+.calendar-close-btn {
+  @include block-item(2rem, 2rem);
+  top: -1rem;
+  display: flex;
+  position: absolute;
+  margin-left: 1rem;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.95);
+  border: none;
+  border-radius: .25rem;
+  padding: 10px;
+  cursor: pointer;
+  box-shadow: $shadow-tertiary;
+  font: $primary-font;
+  color: $primary-medium-blue;
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    background: $primary-light-blue;
+    color: $neutral-white;
+    border: 1px solid $neutral-white;
+  }
+
+  &:active {
+    background-color: $primary-medium-blue;
+    color: $neutral-white;
+     transform: scale(0.9);
+    box-shadow: $shadow-primary;
+  }
+
+  @include tablet {
+    top: -1rem;
+    left: 1rem;
+  }
+
+  @include desktop {
+    left: 1.5rem;
+  }
+
+  @include large-desktop {
+    left: 1rem;
+  }
+
+  &__txt {
+    $font-family: $primary-font;
+  }
+}
+
+.calendar-modal {
+  position: relative;
 }

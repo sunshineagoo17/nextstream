@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import AnimatedBg from '../../components/AnimatedBg/AnimatedBg';
 import './LoginRequired.scss';
 import Loader from '../../components/Loader/Loader';
-import LoginImage from "../../assets/images/login-required.webp";
+import LoginImg from "../../assets/images/login-required.svg";
 
 export const LoginRequired = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -34,7 +34,7 @@ export const LoginRequired = () => {
                             log</button> in to access the content. Don't have an account? <button className="login-required__register-link" onClick={handleRegisterClick} aria-label="Go to Register Page">Register</button> now!
                         </p>
                         <div className="login-required__graphic-container">
-                            <img src={LoginImage} alt="Login required graphic" className="login-required__graphic" />
+                            <img src={LoginImg} alt="Login required graphic" className="login-required__graphic" />
                         </div>
                     </div>
                 </div>
