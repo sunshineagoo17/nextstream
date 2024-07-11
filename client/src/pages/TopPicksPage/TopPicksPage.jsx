@@ -100,7 +100,7 @@ const TopPicksPage = () => {
     <div className="top-picks-page" {...handlers}>
       <div className="top-picks-page__title-container">
         <h1 className="top-picks-page__title">Top Picks</h1>
-        <p className="top-picks-page__intro">Swipe to discover new movies and shows. Add them to your calendar for a perfect viewing schedule.</p>
+        <p className="top-picks-page__intro">SwipeStream your way through new movies and shows. Swipe right to like and left to dislike, helping us enhance your perfect viewing schedule. Add your favourites to your calendar today.</p>
       </div>
       {isLoading && <Loader />}
       {!isLoading && media.length > 0 && currentIndex < media.length && (
