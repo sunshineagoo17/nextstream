@@ -1,14 +1,15 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useContext } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './HoverMenu.scss';
 import useMenuLinks from '../../../../hooks/useMenuLinks';
+import { AuthContext } from '../../../../context/AuthContext/AuthContext';
 
 const HoverMenu = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
   const links = useMenuLinks();
   const location = useLocation();
-  const isLoginPage = location.pathname === '/login';
+  const { userId } = useContext(AuthContext);
 
   const handleMenuClick = () => {
     setMenuOpen(!menuOpen);
@@ -32,8 +33,19 @@ const HoverMenu = () => {
     };
   }, [menuOpen]);
 
+  // This determines the background class based on the current page
+  const getBackgroundClass = () => {
+    const darkBackgroundPages = [
+      `/login`,
+      `/top-picks/${userId}`, 
+      `/calendar/${userId}`, 
+      `/auth-search-results/${userId}`
+    ];
+    return darkBackgroundPages.includes(location.pathname) ? 'dark-background' : '';
+  };
+
   return (
-    <div ref={menuRef} className={`hover-menu__container ${isLoginPage ? 'login-page' : ''}`}>
+    <div ref={menuRef} className={`hover-menu__container ${getBackgroundClass()}`}>
       <div className="hover-menu__button" onClick={handleMenuClick}>
         <div className={`hover-menu__lines ${menuOpen ? 'open' : ''}`}>
           <span></span>
