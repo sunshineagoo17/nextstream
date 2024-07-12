@@ -38,12 +38,6 @@ const TopPicksPage = () => {
     fetchPopularMedia();
   }, []);
 
-  const handlers = useSwipeable({
-    onSwipedLeft: () => showCalendar || handleSwipe('Left'),
-    onSwipedRight: () => showCalendar || handleSwipe('Right'),
-    trackMouse: true,
-  });
-
   const handleSwipe = async (direction) => {
     console.log(`Swiped ${direction}`);
     if (currentIndex < media.length) {
@@ -65,6 +59,12 @@ const TopPicksPage = () => {
       setCurrentIndex((prevIndex) => prevIndex + 1);
     }
   };
+
+  const handlers = useSwipeable({
+    onSwipedLeft: () => !showCalendar && handleSwipe('Left'),
+    onSwipedRight: () => !showCalendar && handleSwipe('Right'),
+    trackMouse: true,
+  });
 
   const fetchRecommendations = async () => {
     try {
@@ -111,7 +111,7 @@ const TopPicksPage = () => {
   };
 
   return (
-    <div className="top-picks-page" {...handlers}>
+    <div className="top-picks-page">
       <ToastContainer
         position="top-center"
         autoClose={3000}
@@ -123,15 +123,13 @@ const TopPicksPage = () => {
       <div className="top-picks-page__title-container">
         <h1 className="top-picks-page__title">Top Picks</h1>
         <p className="top-picks-page__intro">
-          Use NextSwipe and navigate your way through new movies and shows. Swipe right to like
-          and left to dislike, helping us enhance your perfect viewing schedule.
-          Add your favourites to your calendar today.
+        Use NextSwipe to explore new movies and shows. Swipe right to like and left to dislike each card, helping us tailor your perfect viewing schedule. For desktop users, click and drag left or right. Add your favorites to your calendar today.
         </p>
       </div>
       {isLoading && <Loader />}
       {!isLoading && media.length > 0 && currentIndex < media.length && (
         <div className="top-picks-page__media-card">
-          <MediaCard media={media[currentIndex]} />
+          <MediaCard media={media[currentIndex]} handlers={handlers} />
           <button
             className="top-picks-page__calendar-button"
             onClick={() => handleAddToCalendar(media[currentIndex])}
