@@ -664,3 +664,20 @@
   justify-content: center;
   align-items: center;
 }
+
+  
+.mini-calendar__day--selected {
+  background-color: $primary-dark-blue;
+  color: $neutral-white;
+
+  &:hover {
+   background-color: $primary-medium-blue;
+  }
+
+  &:active {
+    background-color: $primary-pale-blue;
+    color: $primary-dark-blue;
+    border: 3px solid $primary-medium-blue;
+    transform: scale(0.95);
+  }
+}

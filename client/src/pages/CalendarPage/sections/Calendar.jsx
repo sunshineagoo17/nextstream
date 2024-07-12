@@ -19,6 +19,7 @@ const Calendar = forwardRef(({ userId, eventTitle, onClose }, ref) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [miniCalendarVisible, setMiniCalendarVisible] = useState(false);
   const [currentMonth, setCurrentMonth] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState(new Date());
   const [loading, setLoading] = useState(true);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
@@ -199,6 +200,7 @@ const Calendar = forwardRef(({ userId, eventTitle, onClose }, ref) => {
 
   const handleDateSelect = (day) => {
     const newDate = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day);
+    setSelectedDate(newDate);
     calendarRef.current.getApi().gotoDate(newDate); 
     calendarRef.current.getApi().changeView('timeGridDay', newDate);
     setMiniCalendarVisible(false);
@@ -242,7 +244,7 @@ const Calendar = forwardRef(({ userId, eventTitle, onClose }, ref) => {
             {daysArray.map((day, index) => (
               <div
                 key={index}
-                className={`mini-calendar__day${day ? '' : ' mini-calendar__day--empty'}${today.getDate() === day && today.getMonth() === currentMonth.getMonth() && today.getFullYear() === currentMonth.getFullYear() ? ' mini-calendar__day--today' : ''}`}
+                className={`mini-calendar__day${day ? '' : ' mini-calendar__day--empty'}${today.getDate() === day && today.getMonth() === currentMonth.getMonth() && today.getFullYear() === currentMonth.getFullYear() ? ' mini-calendar__day--today' : ''}${selectedDate.getDate() === day && selectedDate.getMonth() === currentMonth.getMonth() && selectedDate.getFullYear() === currentMonth.getFullYear() ? ' mini-calendar__day--selected' : ''}`}
                 onClick={() => day && handleDateSelect(day)}
               >
                 {day || ''}
