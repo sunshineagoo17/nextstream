@@ -81,7 +81,7 @@
   }
 
   &__label-container {
-    margin-bottom: 1.5rem;
+    margin-bottom: .5rem;
   };
 
   &__label-input {
@@ -173,10 +173,11 @@
     flex-direction: column;
     align-items: center;
     gap: .5rem;
+    margin-top: 1rem;
 
     label {
       width: 100%; 
-      margin-top: .75rem;
+      margin-top: -.2rem;
       margin-bottom: 0;
     }
 
