@@ -25,7 +25,7 @@ export const Hero = () => {
         </p>
         <Link to="/register" aria-label="Register">
           <button className="hero__btn-container">
-            <div className="hero__btn">Start Watching</div>
+            <div className="hero__btn">Register Now</div>
           </button>
         </Link>
       </div>
