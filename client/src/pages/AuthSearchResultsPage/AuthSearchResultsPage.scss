@@ -68,12 +68,6 @@
             border-radius: 15%;
             box-shadow: $shadow-tertiary;
             padding: 4px;
-
-            // &:hover {
-            //     background: $primary-dark-blue;
-            //     color: $neutral-white;
-            //     border: 1px solid $neutral-white;
-            //   }
         }
     }
 
@@ -88,16 +82,24 @@
         padding: 10px;
         cursor: pointer;
         box-shadow: $shadow-tertiary;
+        overflow: hidden;
+        transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+
+        &:hover {
+          transform: scale(1.05);
+          background: $primary-dark-blue;
+          color: $neutral-white;
+        }
+
+        &:active {
+          transform: scale(0.9);
+          background: $primary-medium-blue;
+        }
 
       @include tablet {
         @include block-item(2rem, 2rem);
         top: 7px;
         right: 10px;
-      }
-
-      &:hover {
-        background: $primary-light-blue;
-        color: $neutral-white;
       }
     }
 
@@ -241,6 +243,16 @@
 
   &__poster {
     @include block-item(100%, 6rem);
+    overflow: hidden;
+    transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
 
     @include tablet {
       @include block-item(100%, 14rem);
@@ -410,12 +422,8 @@
     border: 1px solid $primary-light-blue;
     justify-content: center;
     align-items: center;
-    transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
     overflow: hidden;
-
-    &:active {
-      transform: scale(0.8); 
-    }
+    cursor: normal;
 
     @include tablet {
       @include block-item(12rem, 18.5rem);
@@ -423,14 +431,6 @@
 
       @include desktop {
         @include block-item(20.1875rem, 29.125rem);
-      }
-
-      &:hover {
-        transform: scale(1.05);
-      }
-
-      &:active {
-        transform: scale(0.9);
       }
     }
 
