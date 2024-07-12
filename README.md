@@ -502,7 +502,7 @@ With the proliferation of streaming services, users often face the challenge of 
 - Integrating multiple APIs to provide a cohesive user experience.
 
 
-## Installation Instructions - will probably have to update this later:
+## Installation Instructions:
 - **Follow these steps to set up the NextStream application on your local development environment**:
 
 ### Prerequisites
