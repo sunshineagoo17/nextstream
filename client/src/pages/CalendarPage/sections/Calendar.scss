@@ -35,7 +35,11 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 70%;
+    max-width: 85%;
+
+    @include tablet{
+      max-width: 90%;
+    }
   }
 
   &__event-time {
@@ -144,6 +148,7 @@
     display: flex;
     position: relative;
     height: 37rem;
+    font-size: .5rem;
 
     @include tablet {
       flex-direction: column;
@@ -652,7 +657,9 @@
 
   .calendar__event-time,
   .calendar__event-title {
-    @media (max-width: 768px) {
+    font-size: .45rem;
+
+    @include tablet {
       font-size: 0.9rem;
     }
   }
