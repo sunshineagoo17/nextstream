@@ -5,6 +5,10 @@
 @use "../../styles/partials/mixins" as *;
 @use "../../styles/global.scss" as *;
 
+.login-page {
+  background: url('../../assets/images/nextstream-bg.jpg') center center / cover no-repeat;
+}
+
 .login {
   min-height: 100vh;
 
@@ -15,8 +19,6 @@
     justify-content: center;
     align-items: center;
     position: relative;
-    z-index: -1;
-    background: url('../../assets/images/nextstream-bg.jpg') center center / cover no-repeat;
     @include tablet {
         height: 50vh;
     }

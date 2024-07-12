@@ -123,7 +123,7 @@ const TopPicksPage = () => {
       <div className="top-picks-page__title-container">
         <h1 className="top-picks-page__title">Top Picks</h1>
         <p className="top-picks-page__intro">
-          SwipeStream your way through new movies and shows. Swipe right to like
+          Use NextSwipe and navigate your way through new movies and shows. Swipe right to like
           and left to dislike, helping us enhance your perfect viewing schedule.
           Add your favourites to your calendar today.
         </p>
@@ -144,7 +144,7 @@ const TopPicksPage = () => {
         <div className="top-picks-page__no-more-media-container">
           <img src={NoMoreMedia} alt="No more media" className="top-picks-page__no-more-media-image" />
           <div className="top-picks-page__no-more-media">
-            <p>All five swipes have been recorded!</p>
+            <p>All swipes have been recorded!</p>
             <button
               className="top-picks-page__recommendations-button"
               onClick={fetchRecommendations}
