@@ -38,7 +38,8 @@
     max-width: 85%;
 
     @include tablet{
-      max-width: 90%;
+      text-overflow: clip;
+      overflow: visible;
     }
   }
 
@@ -47,7 +48,11 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 55%;
+    max-width: 97%;
+
+    @include tablet {
+      max-width: 97%;
+    }
   }
 
   &__event-icon {
