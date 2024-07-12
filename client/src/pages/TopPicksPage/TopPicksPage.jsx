@@ -8,6 +8,7 @@ import MediaCard from './sections/MediaCard/MediaCard';
 import CalendarModal from '../CalendarPage/sections/Calendar';
 import AnimatedBg from '../../components/AnimatedBg/AnimatedBg';
 import Loader from '../../components/Loader/Loader';
+import NoMoreMedia from "../../assets/images/no-more-media.svg";
 import api from '../../services/api';
 import 'react-toastify/dist/ReactToastify.css';
 import './TopPicksPage.scss';
@@ -140,14 +141,17 @@ const TopPicksPage = () => {
         </div>
       )}
       {!isLoading && currentIndex >= media.length && (
-        <div className="top-picks-page__no-more-media">
-          <p>No more media</p>
-          <button
-            className="top-picks-page__recommendations-button"
-            onClick={fetchRecommendations}
-          >
-            Get Recommendations
-          </button>
+        <div className="top-picks-page__no-more-media-container">
+          <img src={NoMoreMedia} alt="No more media" className="top-picks-page__no-more-media-image" />
+          <div className="top-picks-page__no-more-media">
+            <p>No more media</p>
+            <button
+              className="top-picks-page__recommendations-button"
+              onClick={fetchRecommendations}
+            >
+              Get Recommendations
+            </button>
+          </div>
         </div>
       )}
       {showCalendar && (

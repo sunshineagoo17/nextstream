@@ -61,7 +61,7 @@ export const Content = ({ userId }) => {
           <div
             className="content__card-features__feature content__card-features__feature--1"
             data-tooltip="Find where your fave shows/movies are being streamed."
-            onClick={() => navigateTo(`/top-picks/${userId}`)}
+            onClick={() => navigateTo(`/search`)}
           >
             <div className="content__card-features__feature__icon-bg">
               <img className="content__card-features__feature__search-icon" src={SearchIcon} alt="Search icon" />
@@ -73,7 +73,7 @@ export const Content = ({ userId }) => {
           <div
             className="content__card-features__feature content__card-features__feature--2"
             data-tooltip="Personalized recommendations based on your history."
-            onClick={() => navigateTo(`/stream-locator/${userId}`)}
+            onClick={() => navigateTo(`/top-picks/${userId}`)}
           >
             <div className="content__card-features__feature__icon-bg">
               <img className="content__card-features__feature__favourites-icon" src={Favourites} alt="Favourites icon" />
