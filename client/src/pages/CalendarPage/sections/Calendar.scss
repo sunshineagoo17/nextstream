@@ -27,6 +27,21 @@
     max-width: 120rem;
   }
 
+  &__event-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 70%;
+  }
+
+  &__event-time {
+    margin-left: .25rem;
+  }
+
+  &__event-icon {
+    margin-left: .25rem;
+  }
+
   &__header {
     align-items: center;
     margin-bottom: 1.25rem;
@@ -612,7 +627,8 @@
 .calendar__event-content {
   display: flex;
   align-items: center;
-  gap: 8px;
+  justify-content: space-between;
+  overflow: hidden;
 
   @media (max-width: 768px) {
     flex-direction: column;

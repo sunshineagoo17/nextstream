@@ -168,8 +168,8 @@ const Calendar = forwardRef(({ userId, eventTitle, onClose }, ref) => {
 
     return (
       <div className="calendar__event-content" onClick={() => handleEventClickWithLoader(eventInfo.event)}>
-        <i className="calendar__event-title">{eventInfo.event.title}</i>
-        <b className="calendar__event-time">{moment(eventInfo.event.start).format('h:mm A')}</b>
+        <b className="calendar__event-title">{eventInfo.event.title}</b>
+        <i className="calendar__event-time">{moment(eventInfo.event.start).format('h:mm A')}</i>
         <FontAwesomeIcon icon={faFilm} style={{ color: 'mediumblue' }} className="calendar__event-icon" />
       </div>
     );
