@@ -18,6 +18,7 @@ import CalendarModal from './pages/CalendarPage/sections/Calendar';
 import Header from './components/Header/Header';
 import HoverMenu from './components/Header/sections/HoverMenu/HoverMenu';
 import { AuthProvider, AuthContext } from './context/AuthContext/AuthContext';
+import { SearchBarProvider } from './context/SearchBarContext/SearchBarContext'; 
 import LoginRequired from './pages/LoginRequired/LoginRequired';
 import './styles/global.scss';
 
@@ -79,7 +80,9 @@ const App = () => {
 const RootApp = () => (
   <Router>
     <AuthProvider>
-      <App />
+      <SearchBarProvider> 
+        <App />
+      </SearchBarProvider>
     </AuthProvider>
   </Router>
 );

@@ -1,6 +1,7 @@
 import { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
+import { useSearchBar } from '../../context/SearchBarContext/SearchBarContext'; 
 import nextStreamLogo from "../../assets/images/nextstream-wordmark.png";
 import searchVector from "../../assets/images/search-vector-handle.svg";
 import UserIcon from "../../assets/images/user-icon.svg";
@@ -11,6 +12,7 @@ const Header = () => {
   const { isAuthenticated, logout } = useContext(AuthContext);
   const navigate = useNavigate();
   const [query, setQuery] = useState('');
+  const { searchBarDesktopRef, searchBarMobileRef } = useSearchBar();
 
   const handleLogout = () => {
     logout();
@@ -28,7 +30,7 @@ const Header = () => {
     <div className="header">
       <div className="header__main-container">
         <div className="header__nav-container">
-          <div className="header__search-bar">
+          <div className="header__search-bar" ref={searchBarDesktopRef}>
             <div className="header__search-icon">
               <div className="header__magnifying-glass">
                 <div className="header__icon-container">
@@ -73,7 +75,7 @@ const Header = () => {
           </Link>
         )}
       </div>
-      <div className="header__search-bar--mobile">
+      <div className="header__search-bar--mobile" ref={searchBarMobileRef}>
         <div className="header__search-icon--mobile">
           <div className="header__magnifying-glass--mobile">
             <div className="header__icon-container--mobile">
