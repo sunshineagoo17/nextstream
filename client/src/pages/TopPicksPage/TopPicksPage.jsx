@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import { useSwipeable } from 'react-swipeable';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarPlus } from '@fortawesome/free-solid-svg-icons';
@@ -10,13 +10,15 @@ import Loader from '../../components/Loader/Loader';
 import api from '../../services/api';
 import './TopPicksPage.scss';
 
-const TopPicksPage = () => {
+const TopPicksPage = ({ openModal }) => {
   const { userId } = useContext(AuthContext);
   const [media, setMedia] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [showModal, setShowModal] = useState(false);
+  const [showCalendar, setShowCalendar] = useState(false);
   const [selectedMedia, setSelectedMedia] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [eventTitle, setEventTitle] = useState('');
+  const calendarRef = useRef(null);
 
   useEffect(() => {
     const fetchPopularMedia = async () => {
@@ -77,7 +79,12 @@ const TopPicksPage = () => {
 
   const handleAddToCalendar = (media) => {
     setSelectedMedia(media);
-    setShowModal(true);
+    setEventTitle(media.title || media.name);
+    setShowCalendar(true);
+  };
+
+  const handleCloseCalendar = () => {
+    setShowCalendar(false);
   };
 
   const handleSaveEvent = async (eventTitle, eventDate) => {
@@ -90,7 +97,7 @@ const TopPicksPage = () => {
         userId
       };
       await api.post(`/api/calendar/${userId}/events`, newEvent);
-      setShowModal(false);
+      setShowCalendar(false);
     } catch (error) {
       console.error('Error saving event:', error);
     }
@@ -119,13 +126,17 @@ const TopPicksPage = () => {
           </button>
         </div>
       )}
-      {showModal && (
-        <CalendarModal
-          show={showModal}
-          handleClose={() => setShowModal(false)}
-          handleSave={handleSaveEvent}
-          initialTitle={selectedMedia.title || selectedMedia.name}
-        />
+      {showCalendar && (
+        <div className="calendar-modal">
+          <button className="calendar-close-btn" onClick={handleCloseCalendar}><p className="calendar-close-btn__txt">x</p></button>
+          <CalendarModal 
+            userId={userId}
+            eventTitle={eventTitle}
+            onClose={handleCloseCalendar}
+            handleSave={handleSaveEvent}
+            ref={calendarRef}
+          />
+        </div>
       )}
       <div className="top-picks-page__background">
         <AnimatedBg />

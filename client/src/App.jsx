@@ -64,7 +64,7 @@ const App = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/profile/:userId" element={isAuthenticated ? <ProfilePage /> : <Navigate to="/login-required" />} />
         <Route path="/stream-locator/:userId" element={isAuthenticated ? <StreamLocatorPage /> : <Navigate to="/login-required" />} />
-        <Route path="/top-picks/:userId" element={isAuthenticated ? <TopPicksPage /> : <Navigate to="/login-required" />} />
+        <Route path="/top-picks/:userId" element={isAuthenticated ? <TopPicksPage openModal={openCalendarModal} /> : <Navigate to="/login-required" />} />
         <Route path="/calendar/:userId" element={isAuthenticated ? <CalendarPage openModal={openCalendarModal} /> : <Navigate to="/login-required" />} />
         <Route path="/search" element={isAuthenticated ? <AuthSearchResultsPage openModal={openCalendarModal} /> : <SearchResultsPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
