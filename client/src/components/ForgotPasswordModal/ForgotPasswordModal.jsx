@@ -22,17 +22,17 @@ const ForgotPasswordModal = ({ onClose }) => {
   };
 
   return (
-    <div className="modal-contact">
-      <div className="modal-contact__container">
-        <button className="modal-contact__close" onClick={onClose}>×</button>
-        <div className="modal-contact__label-container">
-          <h2 className="modal-contact__label">Forgot Password</h2>
+    <div className="modal-forgot-password">
+      <div className="modal-forgot-password__container">
+        <button className="modal-forgot-password__close" onClick={onClose}>×</button>
+        <div className="modal-forgot-password__label-container">
+          <h2 className="modal-forgot-password__label">Forgot Password</h2>
         </div>
-        <form className="modal-contact__form" onSubmit={handleSubmit}>
-          <div className="modal-contact__label-input">
-            <label className="modal-contact__label-txt" htmlFor="email">Email Address</label>
+        <form className="modal-forgot-password__form" onSubmit={handleSubmit}>
+          <div className="modal-forgot-password__label-input">
+            <label className="modal-forgot-password__label-txt" htmlFor="email">Email Address</label>
             <input
-              className="modal-contact__input"
+              className="modal-forgot-password__input"
               type="email"
               id="email"
               value={email}
@@ -42,7 +42,7 @@ const ForgotPasswordModal = ({ onClose }) => {
           </div>
           <button type="submit">Send Reset Link</button>
         </form>
-        {message && <p className={`modal-contact__message ${isError ? 'error' : 'success'}`}>{message}</p>}
+        {message && <p className={`modal-forgot-password__message ${isError ? 'error' : 'success'}`}>{message}</p>}
       </div>
     </div>
   );
