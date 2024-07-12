@@ -41,14 +41,14 @@ const ProfileImg = ({ userId, username, isActive, onStatusToggle }) => {
     }
 
     // Check file type
-    if (!file.type.match("image/jpeg") && !file.type.match("image/png") && !file.type.match("image/jpg") && !file.type.match("image/gif") && !file.type.match("image/svg+xml") && !file.type.match("image/webp") && !file.type.match("image/bmp") && !file.type.match("image/tiff")) {
+    if (!file.type.match("image/jpeg") && !file.type.match("image/png") && !file.type.match("image/jpg") && !file.type.match("image/gif") && !file.type.match("image/svg") && !file.type.match("image/webp") && !file.type.match("image/bmp") && !file.type.match("image/tiff")) {
       toast.error("Please upload a valid image (jpg, jpeg, png, gif, svg, webp, bmp, tiff).");
       return;
     }
 
     const formData = new FormData();
     formData.append("avatar", file);
-
+ 
     setLoading(true);
     try {
       const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/profile/${userId}/avatar`, formData, {
