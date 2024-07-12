@@ -9,7 +9,6 @@ import RegisterPage from './pages/RegisterPage/RegisterPage';
 import ResetPasswordPage from './pages/ResetPasswordPage/ResetPasswordPage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import ProfilePage from './pages/ProfilePage/ProfilePage';
-import StreamLocatorPage from './pages/StreamLocatorPage/StreamLocatorPage';
 import TopPicksPage from './pages/TopPicksPage/TopPicksPage';
 import CalendarPage from './pages/CalendarPage/CalendarPage';
 import SearchResultsPage from './pages/SearchResultsPage/SearchResultsPage';
@@ -63,7 +62,6 @@ const App = () => {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/profile/:userId" element={isAuthenticated ? <ProfilePage /> : <Navigate to="/login-required" />} />
-        <Route path="/stream-locator/:userId" element={isAuthenticated ? <StreamLocatorPage /> : <Navigate to="/login-required" />} />
         <Route path="/top-picks/:userId" element={isAuthenticated ? <TopPicksPage openModal={openCalendarModal} /> : <Navigate to="/login-required" />} />
         <Route path="/calendar/:userId" element={isAuthenticated ? <CalendarPage openModal={openCalendarModal} /> : <Navigate to="/login-required" />} />
         <Route path="/search" element={isAuthenticated ? <AuthSearchResultsPage openModal={openCalendarModal} userId={userId} /> : <SearchResultsPage />} />
