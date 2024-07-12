@@ -522,7 +522,12 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      position: relative; // Ensure positioning context for the tooltip
+      position: relative; 
+
+      &:active {
+        transform: scale(0.95);
+        transition: transform 0.1s ease;
+      }
     
       @include tablet {
         @include block-item(16.875rem, 12.4375rem);
