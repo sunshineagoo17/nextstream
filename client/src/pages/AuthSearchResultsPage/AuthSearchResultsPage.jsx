@@ -15,8 +15,8 @@ import TvIcon from "../../assets/images/tv-icon.png";
 import NoDataImg from "../../assets/images/no-data.svg";
 import Calendar from '../CalendarPage/sections/Calendar';
 
-const AuthSearchResultsPage = () => {
-  const { isAuthenticated, userId } = useContext(AuthContext);
+const AuthSearchResultsPage = ({ userId }) => {
+  const { isAuthenticated } = useContext(AuthContext);
   const [results, setResults] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [showCalendar, setShowCalendar] = useState(false);
