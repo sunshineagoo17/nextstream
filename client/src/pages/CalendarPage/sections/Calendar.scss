@@ -27,6 +27,10 @@
     max-width: 120rem;
   }
 
+  &__radio {
+    margin-right: .5rem;
+  }
+
   &__event-title {
     white-space: nowrap;
     overflow: hidden;
@@ -652,4 +656,11 @@
       font-size: 0.9rem;
     }
   }
+}
+
+.event-type-options {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
 }

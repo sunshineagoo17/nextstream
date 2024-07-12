@@ -4,7 +4,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faFilm } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faFilm, faTv } from '@fortawesome/free-solid-svg-icons';
 import { toast } from 'react-toastify';
 import moment from 'moment-timezone';
 import api from '../../../services/api';
@@ -24,6 +24,7 @@ const Calendar = forwardRef(({ userId, eventTitle, onClose }, ref) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [newEventTitle, setNewEventTitle] = useState(eventTitle || ''); 
   const [newEventDate, setNewEventDate] = useState('');
+  const [newEventType, setNewEventType] = useState('movie'); // Default to movie
   const calendarRef = useRef(null);
 
   const fetchEvents = useCallback(async () => {
@@ -54,6 +55,7 @@ const Calendar = forwardRef(({ userId, eventTitle, onClose }, ref) => {
     const localDate = moment(arg.date).format('YYYY-MM-DDTHH:mm:ss');
     setNewEventDate(localDate);
     setSelectedEvent(null);
+    setNewEventType('movie'); // Default to movie when adding a new event
     setModalVisible(true);
   };
 
@@ -68,13 +70,16 @@ const Calendar = forwardRef(({ userId, eventTitle, onClose }, ref) => {
     const title = event.title || '';
     const start = moment(event.start).format('YYYY-MM-DDTHH:mm:ss') || '';
     const end = event.end ? moment(event.end).format('YYYY-MM-DDTHH:mm:ss') : start;
+    const eventType = event.extendedProps.eventType || 'movie';
 
     setSelectedEvent({
       id,
       title,
       start,
       end,
+      eventType
     });
+    setNewEventType(eventType); // Set the event type when editing an event
     setModalVisible(true);
   };
 
@@ -85,6 +90,7 @@ const Calendar = forwardRef(({ userId, eventTitle, onClose }, ref) => {
         title: newEventTitle,
         start: moment(newEventDate).format('YYYY-MM-DDTHH:mm:ss'),
         end: moment(newEventDate).format('YYYY-MM-DDTHH:mm:ss'),
+        eventType: newEventType
       };
       await api.post(`/api/calendar/${userId}/events`, newEvent);
       await fetchEvents();
@@ -106,6 +112,7 @@ const Calendar = forwardRef(({ userId, eventTitle, onClose }, ref) => {
         title: selectedEvent.title,
         start: moment(selectedEvent.start).format('YYYY-MM-DDTHH:mm:ss'),
         end: moment(selectedEvent.end).format('YYYY-MM-DDTHH:mm:ss'),
+        eventType: selectedEvent.eventType
       };
 
       await api.put(`/api/calendar/${userId}/events/${selectedEvent.id}`, updatedEvent);
@@ -126,6 +133,7 @@ const Calendar = forwardRef(({ userId, eventTitle, onClose }, ref) => {
       title: info.event.title,
       start: moment(info.event.start).format('YYYY-MM-DDTHH:mm:ss'),
       end: info.event.end ? moment(info.event.end).format('YYYY-MM-DDTHH:mm:ss') : moment(info.event.start).format('YYYY-MM-DDTHH:mm:ss'),
+      eventType: info.event.extendedProps.eventType
     };
     setLoading(true);
     try {
@@ -168,9 +176,13 @@ const Calendar = forwardRef(({ userId, eventTitle, onClose }, ref) => {
 
     return (
       <div className="calendar__event-content" onClick={() => handleEventClickWithLoader(eventInfo.event)}>
-        <b className="calendar__event-title">{eventInfo.event.title}</b>
+        <b className="calendar__event-title">{eventInfo.event.title.length > 10 ? `${eventInfo.event.title.substring(0, 10)}...` : eventInfo.event.title}</b>
         <i className="calendar__event-time">{moment(eventInfo.event.start).format('h:mm A')}</i>
-        <FontAwesomeIcon icon={faFilm} style={{ color: 'mediumblue' }} className="calendar__event-icon" />
+        <FontAwesomeIcon 
+          icon={eventInfo.event.extendedProps.eventType === 'tv' ? faTv : faFilm} 
+          style={{ color: 'mediumblue' }} 
+          className="calendar__event-icon" 
+        />
       </div>
     );
   };
@@ -342,6 +354,30 @@ const Calendar = forwardRef(({ userId, eventTitle, onClose }, ref) => {
               value={selectedEvent ? selectedEvent.start : newEventDate}
               onChange={(e) => selectedEvent ? setSelectedEvent({ ...selectedEvent, start: e.target.value }) : setNewEventDate(e.target.value)}
             />
+            <div className="modal-input event-type-options">
+              <label>
+                <input
+                  type="radio"
+                  name="eventType"
+                  value="movie"
+                  className="calendar__radio"
+                  checked={selectedEvent ? selectedEvent.eventType === 'movie' : newEventType === 'movie'}
+                  onChange={(e) => selectedEvent ? setSelectedEvent({ ...selectedEvent, eventType: e.target.value }) : setNewEventType(e.target.value)}
+                />
+                Movie
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name="eventType"
+                  value="tv"
+                  className="calendar__radio"
+                  checked={selectedEvent ? selectedEvent.eventType === 'tv' : newEventType === 'tv'}
+                  onChange={(e) => selectedEvent ? setSelectedEvent({ ...selectedEvent, eventType: e.target.value }) : setNewEventType(e.target.value)}
+                />
+                TV Show
+              </label>
+            </div>
             <button onClick={selectedEvent ? handleEditEvent : handleAddEvent}>
               {selectedEvent ? 'Save' : 'Add'}
             </button>

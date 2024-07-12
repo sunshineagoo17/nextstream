@@ -31,7 +31,7 @@ exports.searchEvents = async (req, res) => {
 // Add a new event
 exports.addEvent = async (req, res) => {
   const { userId } = req.params;
-  const { title, start, end, timezone } = req.body; 
+  const { title, start, end, eventType, timezone } = req.body; 
   try {
     const formattedStart = moment.tz(start, timezone).format('YYYY-MM-DD HH:mm:ss');
     const formattedEnd = moment.tz(end, timezone).format('YYYY-MM-DD HH:mm:ss');
@@ -41,8 +41,9 @@ exports.addEvent = async (req, res) => {
       title,
       start: formattedStart,
       end: formattedEnd,
+      eventType // Add eventType
     });
-    res.status(201).json({ eventId, title, start: formattedStart, end: formattedEnd });
+    res.status(201).json({ eventId, title, start: formattedStart, end: formattedEnd, eventType });
   } catch (error) {
     console.error('Error adding event:', error);
     res.status(500).json({ message: 'Error adding event' });
@@ -52,14 +53,14 @@ exports.addEvent = async (req, res) => {
 // Update an existing event
 exports.updateEvent = async (req, res) => {
   const { userId, eventId } = req.params;
-  const { title, start, end, timezone } = req.body; 
+  const { title, start, end, eventType, timezone } = req.body; 
   try {
     const formattedStart = moment.tz(start, timezone).format('YYYY-MM-DD HH:mm:ss');
     const formattedEnd = end ? moment.tz(end, timezone).format('YYYY-MM-DD HH:mm:ss') : null;
 
     await knex('events')
       .where({ id: eventId, user_id: userId })
-      .update({ title, start: formattedStart, end: formattedEnd });
+      .update({ title, start: formattedStart, end: formattedEnd, eventType });
     res.status(200).json({ message: 'Event updated successfully' });
   } catch (error) {
     console.error('Error updating event:', error);
