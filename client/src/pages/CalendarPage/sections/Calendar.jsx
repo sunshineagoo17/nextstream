@@ -24,7 +24,7 @@ const Calendar = forwardRef(({ userId, eventTitle, onClose }, ref) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [newEventTitle, setNewEventTitle] = useState(eventTitle || ''); 
   const [newEventDate, setNewEventDate] = useState('');
-  const [newEventType, setNewEventType] = useState('movie'); // Default to movie
+  const [newEventType, setNewEventType] = useState('movie'); 
   const calendarRef = useRef(null);
 
   const fetchEvents = useCallback(async () => {
@@ -32,7 +32,7 @@ const Calendar = forwardRef(({ userId, eventTitle, onClose }, ref) => {
       setLoading(true);
       const response = await api.get(`/api/calendar/${userId}/events`);
       setEvents(response.data);
-      setFilteredEvents(response.data); // Initialize filtered events with all events
+      setFilteredEvents(response.data); 
     } catch (error) {
       console.error('Error fetching events:', error.response ? error.response.data : error.message);
       toast.error('Failed to fetch events.');
@@ -55,7 +55,7 @@ const Calendar = forwardRef(({ userId, eventTitle, onClose }, ref) => {
     const localDate = moment(arg.date).format('YYYY-MM-DDTHH:mm:ss');
     setNewEventDate(localDate);
     setSelectedEvent(null);
-    setNewEventType('movie'); // Default to movie when adding a new event
+    setNewEventType('movie'); 
     setModalVisible(true);
   };
 
@@ -79,7 +79,7 @@ const Calendar = forwardRef(({ userId, eventTitle, onClose }, ref) => {
       end,
       eventType
     });
-    setNewEventType(eventType); // Set the event type when editing an event
+    setNewEventType(eventType); 
     setModalVisible(true);
   };
 
@@ -199,7 +199,8 @@ const Calendar = forwardRef(({ userId, eventTitle, onClose }, ref) => {
 
   const handleDateSelect = (day) => {
     const newDate = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day);
-    calendarRef.current.getApi().changeView('timeGridDay', newDate); // Use calendarRef to change view
+    calendarRef.current.getApi().gotoDate(newDate); 
+    calendarRef.current.getApi().changeView('timeGridDay', newDate);
     setMiniCalendarVisible(false);
     toast.info(`Navigated to ${newDate.toDateString()}`);
   };
@@ -207,6 +208,7 @@ const Calendar = forwardRef(({ userId, eventTitle, onClose }, ref) => {
   const renderMiniCalendar = () => {
     const daysInMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0).getDate();
     const firstDayOfMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1).getDay();
+    const today = new Date();
 
     // Create an array to hold all days of the month
     let daysArray = [];
@@ -240,7 +242,7 @@ const Calendar = forwardRef(({ userId, eventTitle, onClose }, ref) => {
             {daysArray.map((day, index) => (
               <div
                 key={index}
-                className={`mini-calendar__day${day ? '' : ' mini-calendar__day--empty'}`}
+                className={`mini-calendar__day${day ? '' : ' mini-calendar__day--empty'}${today.getDate() === day && today.getMonth() === currentMonth.getMonth() && today.getFullYear() === currentMonth.getFullYear() ? ' mini-calendar__day--today' : ''}`}
                 onClick={() => day && handleDateSelect(day)}
               >
                 {day || ''}
