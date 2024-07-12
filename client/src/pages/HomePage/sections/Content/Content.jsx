@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from "../../../../context/AuthContext/AuthContext";
 import axios from 'axios';
 import VideoCamera from "../../../../assets/images/videocamera-1.png";
 import TvIcon from "../../../../assets/images/tv-icon.png";
@@ -10,13 +11,16 @@ import PreviousIcon from "../../../../assets/images/previous-icon.svg";
 import NextIcon from "../../../../assets/images/next-icon.svg";
 import "./Content.scss";
 
-export const Content = ({ userId }) => {
+export const Content = () => {
   const [newReleases, setNewReleases] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [animationClass, setAnimationClass] = useState('');
   const navigate = useNavigate();
+  const { userId } = useContext(AuthContext);
 
   useEffect(() => {
+    console.log('User ID:', userId);
+
     // Fetch the newest releases from the backend
     const fetchNewReleases = async () => {
       try {
@@ -28,7 +32,7 @@ export const Content = ({ userId }) => {
     };
 
     fetchNewReleases();
-  }, []);
+  }, [userId]);
 
   const handlePrevious = () => {
     setAnimationClass('slide-out-left');
@@ -47,6 +51,7 @@ export const Content = ({ userId }) => {
   };
 
   const navigateTo = (path) => {
+    window.scrollTo({ top: 0, behavior: 'smooth' }); 
     navigate(path);
   };
 
@@ -61,7 +66,9 @@ export const Content = ({ userId }) => {
           <div
             className="content__card-features__feature content__card-features__feature--1"
             data-tooltip="Find where your fave shows/movies are being streamed."
-            onClick={() => navigateTo(`/search`)}
+            onClick={() => {
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
           >
             <div className="content__card-features__feature__icon-bg">
               <img className="content__card-features__feature__search-icon" src={SearchIcon} alt="Search icon" />
