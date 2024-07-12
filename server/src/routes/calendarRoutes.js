@@ -6,6 +6,9 @@ const calendarController = require('../controllers/calendarController');
 // Get all events for a user
 router.get('/:userId/events', authenticate, calendarController.getEvents);
 
+// Search events for a user
+router.get('/:userId/events/search', authenticate, calendarController.searchEvents); 
+
 // Add a new event
 router.post('/:userId/events', authenticate, calendarController.addEvent);
 

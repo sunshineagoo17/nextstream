@@ -15,6 +15,8 @@ import './Calendar.scss';
 const Calendar = forwardRef(({ userId, eventTitle, onClose }, ref) => {
   const { isAuthenticated } = useContext(AuthContext);
   const [events, setEvents] = useState([]);
+  const [filteredEvents, setFilteredEvents] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
   const [miniCalendarVisible, setMiniCalendarVisible] = useState(false);
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [loading, setLoading] = useState(true);
@@ -29,6 +31,7 @@ const Calendar = forwardRef(({ userId, eventTitle, onClose }, ref) => {
       setLoading(true);
       const response = await api.get(`/api/calendar/${userId}/events`);
       setEvents(response.data);
+      setFilteredEvents(response.data); // Initialize filtered events with all events
     } catch (error) {
       console.error('Error fetching events:', error.response ? error.response.data : error.message);
       toast.error('Failed to fetch events.');
@@ -238,7 +241,6 @@ const Calendar = forwardRef(({ userId, eventTitle, onClose }, ref) => {
     );
   };
 
-  // Expose functions to parent component through ref
   useImperativeHandle(ref, () => ({
     openModalWithTitle: (title) => {
       setNewEventTitle(title);
@@ -246,12 +248,54 @@ const Calendar = forwardRef(({ userId, eventTitle, onClose }, ref) => {
     },
   }));
 
+  const handleSearchChange = (e) => {
+    const query = e.target.value;
+    setSearchQuery(query);
+  };
+
+  const handleSearch = () => {
+    if (searchQuery.trim() === '') {
+      setFilteredEvents(events);
+      return;
+    }
+
+    const filtered = events.filter(event =>
+      event.title.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    setFilteredEvents(filtered);
+
+    if (filtered.length === 1) {
+      calendarRef.current.getApi().gotoDate(filtered[0].start);
+      calendarRef.current.getApi().changeView('timeGridDay');
+      toast.success(`Navigated to ${filtered[0].title} on ${moment(filtered[0].start).format('MMMM Do YYYY')}`);
+    } else if (filtered.length > 1) {
+      calendarRef.current.getApi().gotoDate(filtered[0].start);
+      calendarRef.current.getApi().changeView('dayGridMonth');
+      toast.success(`Found multiple events for ${searchQuery}. Showing month view.`);
+    } else {
+      toast.error(`No events found for ${searchQuery}.`);
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  };
+
   return (
     <div className="calendar">
       <div className="calendar__header">
         <div className="calendar__search-container">
-          <FontAwesomeIcon icon={faSearch} className="calendar__search-icon" />
-          <input className="calendar__search-bar" type="text" placeholder="Search events..." />
+          <FontAwesomeIcon icon={faSearch} className="calendar__search-icon" onClick={handleSearch} />
+          <input
+            className="calendar__search-bar"
+            type="text"
+            placeholder="Search events..."
+            value={searchQuery}
+            onChange={handleSearchChange}
+            onKeyDown={handleKeyDown}
+          />
         </div>
         {isAuthenticated && (
           <button className="calendar__toggle-sidebar-btn" onClick={() => setMiniCalendarVisible(!miniCalendarVisible)}>
@@ -264,7 +308,7 @@ const Calendar = forwardRef(({ userId, eventTitle, onClose }, ref) => {
         {miniCalendarVisible && <div className="calendar__overlay" />}
         <div className="calendar__main">
           <FullCalendar
-            ref={calendarRef} 
+            ref={calendarRef}
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
             initialView="dayGridMonth"
             headerToolbar={{
@@ -272,7 +316,7 @@ const Calendar = forwardRef(({ userId, eventTitle, onClose }, ref) => {
               center: 'title',
               right: 'dayGridMonth,timeGridWeek,timeGridDay',
             }}
-            events={events}
+            events={filteredEvents}
             dateClick={handleDateClick}
             eventClick={handleEventClick}
             eventDrop={handleEventDrop}

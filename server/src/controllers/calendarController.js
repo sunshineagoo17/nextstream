@@ -13,6 +13,21 @@ exports.getEvents = async (req, res) => {
   }
 };
 
+// Search events for a user
+exports.searchEvents = async (req, res) => {
+  const { userId } = req.params;
+  const { query } = req.query; 
+  try {
+    const events = await knex('events')
+      .where({ user_id: userId })
+      .andWhere('title', 'like', `%${query}%`); // Filter events by title
+    res.status(200).json(events);
+  } catch (error) {
+    console.error('Error searching events:', error);
+    res.status(500).json({ message: 'Error searching events' });
+  }
+};
+
 // Add a new event
 exports.addEvent = async (req, res) => {
   const { userId } = req.params;
@@ -36,22 +51,22 @@ exports.addEvent = async (req, res) => {
 
 // Update an existing event
 exports.updateEvent = async (req, res) => {
-    const { userId, eventId } = req.params;
-    const { title, start, end, timezone } = req.body; 
-    try {
-      const formattedStart = moment.tz(start, timezone).format('YYYY-MM-DD HH:mm:ss');
-      const formattedEnd = end ? moment.tz(end, timezone).format('YYYY-MM-DD HH:mm:ss') : null;
-  
-      await knex('events')
-        .where({ id: eventId, user_id: userId })
-        .update({ title, start: formattedStart, end: formattedEnd });
-      res.status(200).json({ message: 'Event updated successfully' });
-    } catch (error) {
-      console.error('Error updating event:', error);
-      res.status(500).json({ message: 'Error updating event' });
-    }
-  };
-  
+  const { userId, eventId } = req.params;
+  const { title, start, end, timezone } = req.body; 
+  try {
+    const formattedStart = moment.tz(start, timezone).format('YYYY-MM-DD HH:mm:ss');
+    const formattedEnd = end ? moment.tz(end, timezone).format('YYYY-MM-DD HH:mm:ss') : null;
+
+    await knex('events')
+      .where({ id: eventId, user_id: userId })
+      .update({ title, start: formattedStart, end: formattedEnd });
+    res.status(200).json({ message: 'Event updated successfully' });
+  } catch (error) {
+    console.error('Error updating event:', error);
+    res.status(500).json({ message: 'Error updating event' });
+  }
+};
+
 // Delete an event
 exports.deleteEvent = async (req, res) => {
   const { userId, eventId } = req.params;
