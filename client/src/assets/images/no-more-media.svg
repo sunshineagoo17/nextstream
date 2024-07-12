@@ -26,7 +26,7 @@
         fill: #e0e0e0;
       }
       .cls-8 {
-        fill: #ff8b7b;
+        fill: #FFFFFF;
       }
       .cls-9 {
         opacity: .8;
@@ -60,7 +60,7 @@
         isolation: isolate;
       }
       .cls-17 {
-        fill: #a02724;
+        fill: #EEF4FC;
       }
       .cls-18 {
         fill: #e6e6e6;
