@@ -30,8 +30,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = (token, userId, rememberMe) => {
     console.log('Login function called');
-    console.log('Login token:', token);
-    console.log('Login userId:', userId);
+    // console.log('Login userId:', userId); for testing purposes
     Cookies.set('token', token, { expires: rememberMe ? 7 : 1, secure: true, sameSite: 'strict', path: '/' });
     Cookies.set('userId', userId.toString(), { expires: rememberMe ? 7 : 1, secure: true, sameSite: 'strict', path: '/' });
     sessionStorage.setItem('token', token);
