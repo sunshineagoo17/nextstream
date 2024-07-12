@@ -9,11 +9,12 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 25rem;
   background: rgba(0, 0, 0, 0.65);
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-grow: 1;
   z-index: 1000;
   padding-right: 1rem;
   padding-left: 1rem;
@@ -110,6 +111,8 @@
     border-radius: 1rem;
     max-width: 400px;
     width: 100%;
+    height: 50rem;
+    flex-grow: 1;
     box-shadow: $shadow-primary;
     display: flex;
     flex-direction: column;

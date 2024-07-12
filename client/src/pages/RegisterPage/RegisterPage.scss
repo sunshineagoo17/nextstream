@@ -7,30 +7,28 @@
 .register {
   position: relative;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 
   &__hero {
-    background: linear-gradient(180deg, rgb(64, 146, 255) 0%, rgb(64, 146, 255) 100%);
+    background: url('../../assets/images/nextstream-bg.jpg') center center / cover no-repeat;
     height: 50vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    position: relative;
-    z-index: -1;
   }
 
   &__title {
     font-size: 2.5rem;
-    color: $neutral-white;
+    color: $primary-medium-blue;
     text-align: center;
-    margin-top: -25rem; 
     font-family: $primary-font;
     font-weight: 400;
     text-shadow: $shadow-primary;
     line-height: 1.5rem;
 
     @include large-mobile {
-      margin-top: -15rem; 
       font-size: 2.75rem;
       line-height: 1.85rem;
     }
@@ -47,80 +45,25 @@
     }
   }
 
-  &__terms-link {
-    font: $primary-font;
-    cursor: help;
-    text-decoration: none;
-    padding: 0.25rem 0.1rem;
-    border-radius: 0.25rem;
-    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-
-    &:hover,
-    &:focus,
-    &:visited {
-      background-color: $primary-medium-blue;
-      border-color: $primary-dark-blue;
-      text-decoration: none;
-      box-shadow: $shadow-primary;
-    }
-
-    &:focus,
-    &:visited {
-    color: $primary-dark-blue;
-    }
-
-    &:hover {
-      color: $neutral-white;
-    }
-
-    &:active {
-      background-color: $primary-medium-blue;
-      color: $neutral-white;
-      border: 1px solid $primary-cyan;
-      border-radius: .25rem;
-      transform: translateY(1.5px);
-      text-decoration: none;
-    }
-  }
-
-  &__bg {
-    background: url('../../assets/images/nextstream-bg.jpg') center center / cover no-repeat;
-    height: 50vh;
-    width: 100%;
-    position: absolute;
-    top: 50vh;
-    z-index: 0;
-  }
-
-  &__terms-txt {
-    font-size: .65rem;
-
-    @include tablet {
-      font-size: .85rem;
-    }
-  }
-
   &__container {
     display: flex;
     justify-content: center;
     align-items: center;
-    position: absolute;
-    top: 25vh; 
     width: 100%;
     z-index: 2;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    flex-direction: column; 
-    margin-top: -5rem;
+    background: linear-gradient(180deg, rgb(64, 146, 255) 0%, rgb(64, 146, 255) 100%);
+    padding: 1.5rem;
+    flex-direction: column;
 
     @include tablet {
       margin-top: 0;
-      flex-direction: column;
+      flex-direction: row;
+      gap: .5rem;
     }
 
     @include desktop {
       flex-direction: row;
-      gap: 3rem; 
+      gap: 3rem;
     }
   }
 
@@ -131,7 +74,7 @@
     width: 100%;
     border-radius: 1rem;
     box-shadow: $shadow-primary;
-    margin-bottom: 2rem; 
+    margin-bottom: 2rem;
     border: .85rem solid;
     @include animateBorder;
     @include borderAnimation;
@@ -148,14 +91,14 @@
       display: block;
       max-width: 400px;
       width: 100%;
-      margin-bottom: 2rem; 
+      margin-bottom: 2rem;
     }
 
     @include desktop {
       display: block;
       max-width: 400px;
       width: 100%;
-      align-self: center; 
+      align-self: center;
     }
 
     img {
@@ -306,7 +249,7 @@
     &-link {
       font-weight: bold;
       cursor: pointer;
-      color: $primary-medium-blue; 
+      color: $primary-medium-blue;
       transition: background-color 0.3s ease, color 0.3s ease;
 
       &:hover {
@@ -425,10 +368,10 @@
       .register__button-icon {
         @include block-item(.75rem, .75rem);
 
-          @include tablet {
-            @include block-item(1rem, 1rem);
-          }
+        @include tablet {
+          @include block-item(1rem, 1rem);
         }
+      }
     }
 
     &--signup {
@@ -439,7 +382,7 @@
       position: relative;
       overflow: hidden;
       font-size: .85rem;
-      
+
       @include tablet {
         @include block-item (9rem, 4.5rem);
         font-size: 1rem;
