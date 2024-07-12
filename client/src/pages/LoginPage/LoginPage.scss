@@ -6,11 +6,9 @@
 @use "../../styles/global.scss" as *;
 
 .login {
-  position: relative;
   min-height: 100vh;
 
   &__hero {
-    background: $primary-darker-blue-gradient;
     height: 45vh;
     display: flex;
     flex-direction: column;
@@ -18,7 +16,7 @@
     align-items: center;
     position: relative;
     z-index: -1;
-
+    background: url('../../assets/images/nextstream-bg.jpg') center center / cover no-repeat;
     @include tablet {
         height: 50vh;
     }
@@ -26,16 +24,14 @@
 
   &__title {
     font-size: 2.5rem;
-    color: $neutral-white;
+    color: $primary-medium-blue;
     text-align: center;
-    margin-top: -7rem; 
     font-family: $primary-font;
     font-weight: 400;
     text-shadow: $shadow-primary;
     line-height: 1.5rem;
 
     @include large-mobile {
-      margin-top: -10rem; 
       font-size: 2.75rem;
       line-height: 1.85rem;
     }
@@ -50,15 +46,6 @@
       width: 28rem;
       line-height: 4.2062rem;
     }
-  }
-
-  &__bg {
-    background: url('../../assets/images/nextstream-bg.jpg') center center / cover no-repeat;
-    height: 50vh;
-    width: 100%;
-    position: absolute;
-    top: 50vh;
-    z-index: 0;
   }
 
   &__remember-txt {
@@ -93,16 +80,14 @@
 
   &__container {
     display: flex;
+    background-color: $primary-dark-blue;
     justify-content: center;
     align-items: center;
-    position: absolute;
     top: 25vh; 
     width: 100%;
     z-index: 2;
-    padding-left: 1rem;
-    padding-right: 1rem;
     flex-direction: column;
-    margin-top: 4rem;
+    padding: 1rem;
 
     @include tablet {
       margin-top: 0;
@@ -135,18 +120,8 @@
   
   &__btn-create-account-wrapper {
     @include block-item(9.625rem, 3.375rem);
-    position: absolute;
-    bottom: .5rem; 
     transform: translateX(1%);
-    z-index: 1;
-
-    @include tablet {
-        bottom: 21.5rem;
-    }
-
-    @include desktop {
-        bottom: -1.5rem; 
-    }
+    margin-top: 1rem;
   
     &:hover .login__btn-create-account {
       background: linear-gradient(180deg, rgb(238, 244, 252) 0%, rgb(64, 146, 255) 100%);
@@ -158,27 +133,16 @@
     }
   }
   
-  &__btn-create-account-bg {
-    @include block-item(9.625rem, 3.1875rem);
-    background: linear-gradient(180deg, rgb(238, 244, 252) 0%, rgb(64, 146, 255) 100%);
-    border-radius: .75rem;
-    box-shadow: $shadow-quinary;
-    position: absolute;
-    top: .1875rem;
-  }
-  
   &__btn-create-account {
     @include block-item(9.25rem, 2.875rem);
     align-items: center;
-    background-color: $neutral-white;
-    border: 2px solid;
-    border-color: $primary-very-light-blue;
+    background: linear-gradient(180deg, rgb(238, 244, 252) 0%, rgb(64, 146, 255) 100%);
+    border: 2px solid $primary-very-light-blue;
     border-radius: .75rem;
     box-shadow: $shadow-quinary;
     display: flex;
     justify-content: center;
     padding: .75rem 2rem;
-    position: absolute;
     transition: background 0.3s ease;
     cursor: pointer;
 
