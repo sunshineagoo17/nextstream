@@ -13,7 +13,6 @@ export const AuthProvider = ({ children }) => {
     console.log('AuthContext useEffect');
     const token = Cookies.get('token') || sessionStorage.getItem('token');
     const storedUserId = sessionStorage.getItem('userId') || Cookies.get('userId');
-    console.log('Initial token from Cookies:', token);
     console.log('Initial userId from sessionStorage:', storedUserId);
 
     // Check if token and userId exist in cookies or session storage
