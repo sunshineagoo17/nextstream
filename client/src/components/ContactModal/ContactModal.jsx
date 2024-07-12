@@ -107,7 +107,7 @@ const ContactModal = ({ onClose }) => {
               data-required-msg="Please enter your name."
             />
           </label>
-          <label className="modal-contact__label-input">
+          <label className="modal-contact__label-input modal-contact__label-input-email">
             <div className="modal-contact__label-txt">Email:</div>
             <input
               className="modal-contact__input"

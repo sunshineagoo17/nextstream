@@ -106,7 +106,8 @@
 
     @include tablet {
       margin-top: 0;
-      flex-direction: column;
+      gap: .5rem;
+      flex-direction: row;
     }
 
     @include desktop {
