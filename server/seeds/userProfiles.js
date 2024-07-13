@@ -5,7 +5,10 @@ const { hashPassword } = require('../src/utils/hashPasswords');
  * @returns { Promise<void> }
  */
 exports.seed = async function(knex) {
-  // Deletes ALL existing entries
+  // Deletes ALL existing entries in viewed_media related to users
+  await knex('viewed_media').del();
+
+  // Deletes ALL existing entries in users
   await knex('users').del();
 
   // Hash the passwords before inserting them

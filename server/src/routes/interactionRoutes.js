@@ -21,6 +21,12 @@ const getMediaDetails = async (mediaId, mediaType) => {
 // Record interaction
 router.post('/', async (req, res) => {
   const { userId, media_id, interaction, media_type } = req.body;
+
+  if (!media_type) {
+    console.error('Media type is missing');
+    return res.status(400).json({ error: 'Media type is required' });
+  }
+
   try {
     console.log('Inserting interaction:', { userId, media_id, interaction, media_type });
     await db('interactions').insert({
@@ -29,6 +35,15 @@ router.post('/', async (req, res) => {
       interaction,
       media_type
     });
+
+    // Record viewed media
+    await db('viewed_media').insert({
+      userId,
+      media_id,
+      media_type,
+      viewed_at: db.fn.now()
+    });
+
     res.status(200).json({ message: 'Interaction recorded' });
   } catch (error) {
     console.error('Error recording interaction:', error);
@@ -36,7 +51,7 @@ router.post('/', async (req, res) => {
   }
 });
 
-// Fetch recommendations for a user
+// Fetch initial top picks and recommendations for a user
 router.get('/recommendations/:userId', async (req, res) => {
   const { userId } = req.params;
 
@@ -47,25 +62,43 @@ router.get('/recommendations/:userId', async (req, res) => {
       .where('userId', userId)
       .andWhere('interaction', 1);
 
-    // Fetch user's disliked media
-    const dislikedMedia = await db('interactions')
+    // Fetch user's viewed media
+    const viewedMedia = await db('viewed_media')
       .select('media_id')
-      .where('userId', userId)
-      .andWhere('interaction', 0);
+      .where('userId', userId);
 
-    // Merge liked and disliked media to avoid recommending them again
-    const interactedMediaIds = likedMedia.map(media => media.media_id).concat(dislikedMedia.map(media => media.media_id));
+    // Merge liked and viewed media to avoid recommending them again
+    const interactedMediaIds = likedMedia.map(media => media.media_id).concat(viewedMedia.map(media => media.media_id));
 
+    let initialTopPicks = [];
     let recommendations = [];
 
-    // Content-based filtering
+    // Fetch initial top picks
+    const fetchTopPicks = async () => {
+      const popularMoviesResponse = await axios.get(`${TMDB_BASE_URL}/movie/popular`, {
+        params: { api_key: TMDB_API_KEY, language: 'en-US', page: 1 }
+      });
+      const popularShowsResponse = await axios.get(`${TMDB_BASE_URL}/tv/popular`, {
+        params: { api_key: TMDB_API_KEY, language: 'en-US', page: 1 }
+      });
+
+      const popularMedia = [...popularMoviesResponse.data.results, ...popularShowsResponse.data.results];
+      initialTopPicks = popularMedia.filter(media => !interactedMediaIds.includes(media.id)).slice(0, 5).map(item => ({
+        ...item,
+        media_type: item.title ? 'movie' : 'tv'
+      }));
+    };
+
+    await fetchTopPicks();
+
+    // Content-based filtering for recommendations
     for (let media of likedMedia) {
       const details = await getMediaDetails(media.media_id, media.media_type);
       if (details) {
         const similarMedia = await axios.get(`${TMDB_BASE_URL}/${media.media_type}/${media.media_id}/similar`, {
           params: { api_key: TMDB_API_KEY }
         });
-        recommendations.push(...similarMedia.data.results.map(item => ({ ...item, media_type: media.media_type }))); 
+        recommendations.push(...similarMedia.data.results.map(item => ({ ...item, media_type: media.media_type })));
       }
     }
 
@@ -79,27 +112,26 @@ router.get('/recommendations/:userId', async (req, res) => {
     // Sort recommendations by popularity or other criteria
     const sortedRecommendations = uniqueRecommendations.sort((a, b) => b.popularity - a.popularity);
 
-    // Fallback to popular media if recommendations are insufficient
-    if (sortedRecommendations.length < 3) {
-      const popularMovies = await axios.get(`${TMDB_BASE_URL}/movie/popular`, {
+    // Ensure at least 3 recommendations are returned
+    while (sortedRecommendations.length < 3) {
+      const popularMediaResponse = await axios.get(`${TMDB_BASE_URL}/movie/popular`, {
         params: { api_key: TMDB_API_KEY, language: 'en-US', page: 1 }
       });
-      const popularShows = await axios.get(`${TMDB_BASE_URL}/tv/popular`, {
+      const popularShowsResponse = await axios.get(`${TMDB_BASE_URL}/tv/popular`, {
         params: { api_key: TMDB_API_KEY, language: 'en-US', page: 1 }
       });
-
-      const popularMedia = [...popularMovies.data.results, ...popularShows.data.results];
-      const popularMediaFiltered = popularMedia.filter(media => !interactedMediaIds.includes(media.id));
-      sortedRecommendations.push(...popularMediaFiltered.slice(0, 3 - sortedRecommendations.length).map(item => ({
+      const popularMediaCombined = [...popularMediaResponse.data.results, ...popularShowsResponse.data.results];
+      const additionalMedia = popularMediaCombined.filter(media => !interactedMediaIds.includes(media.id));
+      sortedRecommendations.push(...additionalMedia.slice(0, 3 - sortedRecommendations.length).map(item => ({
         ...item,
         media_type: item.title ? 'movie' : 'tv'
-      }))); // Set media_type based on presence of title
+      })));
     }
 
-    // Return the top 3 recommendations
-    const top3Recommendations = sortedRecommendations.slice(0, 3);
-
-    res.status(200).json(top3Recommendations);
+    res.status(200).json({
+      topPicks: initialTopPicks,
+      recommendations: sortedRecommendations.slice(0, 3)
+    });
   } catch (error) {
     console.error('Error fetching recommendations:', error);
     res.status(500).json({ error: 'Internal server error' });

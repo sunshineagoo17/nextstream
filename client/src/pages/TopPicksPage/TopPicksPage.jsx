@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useContext, useRef } from 'react';
+import { useState, useEffect, useContext, useRef } from 'react';
 import { useSwipeable } from 'react-swipeable';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCalendarPlus } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarPlus, faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import MediaCard from './sections/MediaCard/MediaCard';
@@ -21,22 +21,30 @@ const TopPicksPage = () => {
   const [selectedMedia, setSelectedMedia] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [eventTitle, setEventTitle] = useState('');
+  const [swipedMediaIds, setSwipedMediaIds] = useState([]);
   const calendarRef = useRef(null);
 
+  // Fetch initial media
   useEffect(() => {
-    const fetchPopularMedia = async () => {
+    const fetchInitialMedia = async () => {
       try {
         setIsLoading(true);
-        const response = await api.get('/api/tmdb/popular');
-        setMedia(response.data.results);
+        const response = await api.get(`/api/interactions/recommendations/${userId}`);
+        const { topPicks } = response.data;
+        // Ensure media_type is included in each media item
+        const initialMedia = topPicks.map(item => ({
+          ...item,
+          media_type: item.title ? 'movie' : 'tv'
+        }));
+        setMedia(initialMedia);
+        setIsLoading(false);
       } catch (error) {
         console.error('Error fetching data', error);
-      } finally {
         setIsLoading(false);
       }
     };
-    fetchPopularMedia();
-  }, []);
+    fetchInitialMedia();
+  }, [userId]);
 
   const handleSwipe = async (direction) => {
     console.log(`Swiped ${direction}`);
@@ -49,14 +57,20 @@ const TopPicksPage = () => {
           userId: userId,
           media_id: currentMedia.id,
           interaction: interaction,
-          media_type: currentMedia.media_type,
+          media_type: currentMedia.media_type, // Ensure media_type is sent
         });
         console.log('Interaction recorded');
+        setSwipedMediaIds(prev => [...prev, currentMedia.id]);
       } catch (error) {
         console.error('Error recording interaction', error);
       }
 
       setCurrentIndex((prevIndex) => prevIndex + 1);
+
+      // Fetch more recommendations if we are at the last item
+      if (currentIndex + 1 >= media.length) {
+        fetchRecommendations();
+      }
     }
   };
 
@@ -70,12 +84,17 @@ const TopPicksPage = () => {
     try {
       setIsLoading(true);
       const response = await api.get(`/api/interactions/recommendations/${userId}`);
+      const { recommendations } = response.data;
+      const recommendedMedia = recommendations.filter(mediaItem => !swipedMediaIds.includes(mediaItem.id)).slice(0, 3).map(item => ({
+        ...item,
+        media_type: item.title ? 'movie' : 'tv'
+      }));
       console.log('Recommendations:', response.data);
-      setMedia(response.data);
-      setCurrentIndex(0);
+      setMedia((prevMedia) => [...prevMedia, ...recommendedMedia]);
+      setCurrentIndex(media.length);
+      setIsLoading(false);
     } catch (error) {
       console.error('Error fetching recommendations', error);
-    } finally {
       setIsLoading(false);
     }
   };
@@ -123,18 +142,24 @@ const TopPicksPage = () => {
       <div className="top-picks-page__title-container">
         <h1 className="top-picks-page__title">Top Picks</h1>
         <p className="top-picks-page__intro">
-        Use NextSwipe to explore new movies and shows. Swipe right to like and left to dislike each card, helping us tailor your perfect viewing schedule. For desktop users, click and drag left or right. Add your favorites to your calendar today.
+          Use NextSwipe to explore new movies and shows. Swipe right to like and left to dislike each card, helping us tailor your perfect viewing schedule. For desktop users, click and drag left or right. Add your favorites to your calendar today.
         </p>
       </div>
       {isLoading && <Loader />}
       {!isLoading && media.length > 0 && currentIndex < media.length && (
         <div className="top-picks-page__media-card">
+          <button className="top-picks-page__nav-button top-picks-page__nav-button--left" onClick={() => handleSwipe('Left')}>
+            <FontAwesomeIcon icon={faArrowLeft} />
+          </button>
           <MediaCard media={media[currentIndex]} handlers={handlers} />
           <button
             className="top-picks-page__calendar-button"
             onClick={() => handleAddToCalendar(media[currentIndex])}
           >
             <FontAwesomeIcon icon={faCalendarPlus} /> Add to Calendar
+          </button>
+          <button className="top-picks-page__nav-button top-picks-page__nav-button--right" onClick={() => handleSwipe('Right')}>
+            <FontAwesomeIcon icon={faArrowRight} />
           </button>
         </div>
       )}
