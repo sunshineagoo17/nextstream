@@ -254,6 +254,7 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, onClose }, ref) =>
     );
   };
 
+  // Expose a method to open the modal with a specific title
   useImperativeHandle(ref, () => ({
     openModalWithTitle: (title) => {
       setNewEventTitle(title);
@@ -272,8 +273,10 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, onClose }, ref) =>
       return;
     }
 
-    const filtered = events.filter(event =>
-      event.title.toLowerCase().includes(searchQuery.toLowerCase())
+    const searchWords = searchQuery.trim().toLowerCase().split(/\s+/);
+    // Filter events where every word in the search query is found in the event title
+    const filtered = events.filter(event => 
+      searchWords.every(word => event.title.toLowerCase().includes(word))
     );
     setFilteredEvents(filtered);
 
