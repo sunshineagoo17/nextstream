@@ -1,13 +1,10 @@
 # Project: NextStream
 
-
 ## Overview
 NextStream is a CRUD web application designed to help users easily find where their favourite movies and shows are being streamed based on their global location. It also offers personalized recommendations and advanced scheduling features, enabling users to effortlessly plan their perfect viewing experience, whether they're lounging or planning ahead. Users can create accounts, search for movies and shows, and delete schedules they no longer need. Say goodbye to the hassle of deciding what to watch at the last minute!
 
-
 ### Problem
 With the proliferation of streaming services, users often face the challenge of finding where a particular movie or show is available to stream. Additionally, deciding what to watch next and keeping track of scheduled viewing can be time-consuming and overwhelming. Endless scrolling and searching through various platforms add to the frustration. NextStream addresses these issues by informing users where content is available to stream and helping them plan their viewing schedule in advance.
-
 
 ### User Profile
 
@@ -28,7 +25,6 @@ With the proliferation of streaming services, users often face the challenge of 
     - Seeking to unwind and relax with their favourite shows after a long day.
     - Prefer a hassle-free way to find and schedule their entertainment.
 
-
 ### Features
 
 - **Global Location Streaming Information**:
@@ -43,13 +39,9 @@ With the proliferation of streaming services, users often face the challenge of 
 - **Scheduling**:
     - As a user, I want to be able to schedule what shows or movies to watch and get reminders.
 
-- **Notifications**:
-    - As a user, I want to receive notifications for my scheduled movies or shows, reminding me on the day of or when the movie or show is coming up.
-
 - **User Account Management**:
     - As a user, I want to be able to create an account to manage my scheduled shows and movies.
     - As a user, I want to be able to log in to my account to easily organize and enhance my viewing experience.
-
 
 ## Implementation
 
@@ -57,8 +49,7 @@ With the proliferation of streaming services, users often face the challenge of 
 
 - **Frontend**:
     - React: For building reusable UI components and a dynamic user interface.
-    - Redux: For efficient state management across the application.
-    - SASS: For flexible and maintanable styling.
+    - SASS: For flexible and maintainable styling.
 
 - **Backend**:
     - Node.js: For scalable server-side scripting.
@@ -81,22 +72,13 @@ With the proliferation of streaming services, users often face the challenge of 
     - Confluence: For personal documentation and whiteboarding.
     - Figma: For designing and prototyping user interfaces.
 
-
 ### Environmental Variables
 - This project will use a `.env` file to manage environmental variables securely. A `.env.sample` file will be provided to illustrate the required variables and their formats, without exposing sensitive data. This file will be part of the final project submission.
-
 
 ### APIs and Integrations
 
 - **TMDB API**:
     - Provides detailed information on movies and TV shows, including streaming provider data.
-
-- **Google Cloud AI**:
-    - Used for implementing machine learning and NLP to generate personalized recommendations.
-
-- **Firebase Cloud Messaging (FCM)**:
-    - Used for sending push notifications to users about their scheduled movies or shows.
-
 
 ### Sitemap
 - Home Page: Intro to the app and quick access to features.
@@ -106,7 +88,6 @@ With the proliferation of streaming services, users often face the challenge of 
 - Register Page - For user registration.
 - Login Page - For user login.
 - Profile Page - User profile information.
-
 
 ### Mockups
 
@@ -131,10 +112,8 @@ With the proliferation of streaming services, users often face the challenge of 
 #### Profile Page
 ![Profile Page](/docs/images/profile-page.png)
 
-
 ### Data
 ![NextStream MySQL EER Diagram](./docs/images/nextstream-eer-diagram.png)
-
 
 ### Endpoints
 
@@ -194,30 +173,6 @@ With the proliferation of streaming services, users often face the challenge of 
     }
     ```
 
-- **GET /users/profile**
-    - Get the profile information of the logged-in user.
-
-    - Parameters:
-        - `userId`: ID of the logged-in user.
-        - `token`: JWT token for authenticated requests.
-        - `includeSchedules` (optional): Boolean to include schedules in the response.
-
-    - Response:
-    ```json
-    {
-         "userId": "1",
-        "username": "user1_username",
-        "email": "user_email",
-        "schedules": [
-            {
-                "id": 1,
-                "title": "Inception",
-                "scheduledTime": "2024-06-01"
-            }
-        ]
-    }
-    ```
-
 **Movie and Show Information**
 
 - **GET /search**
@@ -273,7 +228,7 @@ With the proliferation of streaming services, users often face the challenge of 
         "title": "Inception",
         "rating": 9.0,
         "streamingPlatforms": ["Netflix", "Amazon Prime"],
-        "image": "inception.jpg",
+        "image": "inception.jpg"
     }
     ```
 
@@ -343,21 +298,6 @@ With the proliferation of streaming services, users often face the challenge of 
     }
     ```
 
-- **POST /notifications**
-    - Send notifications for scheduled movies or shows.
-
-    - Parameters:
-        - `userId`: ID of the logged-in user.
-        - `message`: Notification message content.
-        - `scheduledTime`: Time when the notification should be sent.
-
-    - Response:
-    ```json
-    {
-        "message": "Notification scheduled successfully"
-    }
-    ```
-
 **User Interaction**
 
 - **GET /history**
@@ -395,23 +335,21 @@ With the proliferation of streaming services, users often face the challenge of 
     }
     ```
 
-
 ### Auth
 
 - **JWT Auth**:
     - Initially, all API requests will use a fake user with ID 1. 
     - JWT authentication will be added after the core features are implemented.
-    - Store JWT in cookies and remove it on logout.
+    - Store JWT in cookies and session storage and remove it on logout.
     - Use JWT for user-specific actions like scheduling and recommendations.
     - Add states for logged-in users to show different UI elements as specified in the mockups.
-
 
 ## Roadmap
 
 ### Milestones
 - [x] Create project proposal
 - [x] Set up project repository
-- [ ] Implement initial features
+- [x] Implement initial features
 
 - **Initialize Client**:
     - Set up the React project with necessary routes and initial structure.
@@ -432,17 +370,11 @@ With the proliferation of streaming services, users often face the challenge of 
 
 - **Feature: Recommendations**
     - Implement the recommendations page to show personalized suggestions.
-    - Use Google Cloud AI to generate recommendations based on user preferences.
     - Create the `GET /recommendations` endpoint.
 
 - **Feature: Scheduling**
     - Develop the schedule page where users can plan their viewing times.
     - Implement the `POST /schedule` endpoint to save user schedules.
-
-- **Feature: Notifications**
-    - Integrate Firebase Cloud Messaging for push notifications.
-    - Create the `POST /notifications` endpoint.
-    - Implement server-side logic to trigger notifications at the appropriate times.
 
 - **Feature: User Authentication**
     - Develop the registration and login pages to manage user accounts:
@@ -451,7 +383,7 @@ With the proliferation of streaming services, users often face the challenge of 
         - Utilize JWT for secure authentication.
         - Update expected requests/responses on protected endpoints.
     - Client:
-        - Store JWT in `localStorage`.
+        - Store JWT in `cookies`.
         - Include JWT in `axios` calls to secure endpoints.
         - Ensure secure access to protected endpoints.
     
@@ -464,13 +396,12 @@ With the proliferation of streaming services, users often face the challenge of 
     - Ensure continuous deployment and integration to promptly reflect changes in the production environment.
 
 - **Bug Fixes**:
-    - Address any issues indentified during testing or reported by users.
+    - Address any issues identified during testing or reported by users.
     - Continuously improve the application to ensure a smooth user experience.
 
 - **Demo Day**:
     - Prepare a comprehensive presentation for the final demonstration.
     - Highlight key features and provide a live demo to showcase the application's capabilities.
-
 
 ## Nice-to-haves
 
@@ -486,7 +417,6 @@ With the proliferation of streaming services, users often face the challenge of 
 - **Voice Recognition Integration**:
     - Integrate voice recognition software like Google Assistant, Siri, or Alexa to allow users to search and schedule movies or shows using voice commands.
 
-
 ## Next Steps
 
 - Continue refining the recommendation algorithm to improve accuracy.
@@ -494,13 +424,10 @@ With the proliferation of streaming services, users often face the challenge of 
 - Implement social features to enhance user interaction.
 - Optimize performance and scalability for handling a larger user base.
 
-
-## Lessons Learned: - will probably have to update this later:
+## Lessons Learned:
 - Importance of clear API documentation for seamless integration.
-- Effective state management using Redux.
-- Challenges of implementing JWT authentication and handling user sessions.
+- Challenges of implementing cookies and session storage authentication and handling user sessions.
 - Integrating multiple APIs to provide a cohesive user experience.
-
 
 ## Installation Instructions:
 - **Follow these steps to set up the NextStream application on your local development environment**:
@@ -512,8 +439,8 @@ With the proliferation of streaming services, users often face the challenge of 
     - MySQL (v8 or later)
 
 ### Installing Node.js and npm
-- **You can download and install Node.js and npm from the offical website**: 
-    - [Visit Node.js Website"](https://nodejs.org/en)
+- **You can download and install Node.js and npm from the official website**: 
+    - [Visit Node.js Website](https://nodejs.org/en)
 
 - **Alternatively, use a package manager**:
 
@@ -550,13 +477,13 @@ With the proliferation of streaming services, users often face the challenge of 
     - Install the server-side dependencies:
         - cd server
         - npm install
-        # or
+        or
         - yarn install
 
-    - Install the client-side dependencies**:
+    - Install the client-side dependencies:
         - cd ../client
         - npm install
-        # or
+        or
         - yarn install
 
 - **Set Up the Environment Variables**:
@@ -567,7 +494,7 @@ With the proliferation of streaming services, users often face the challenge of 
         DB_USER=root
         DB_PASSWORD=yourpassword
         DB_NAME=nextstream
-        JWT_SECRET=yourjwtsecret
+        JWT_SECRET=your_jwt_secret
     
     - For the client (`client/.env`):
         - REACT_APP_API_URL=http://localhost:8080
@@ -579,18 +506,19 @@ With the proliferation of streaming services, users often face the challenge of 
     - Run the database migrations to set up the necessary tables:
         - cd server
         - npx knex migrate:latest
+        - npx knex seed:run
 
 - **Start the Development Servers**:
     - Start the server:
         - cd server
         npm start
-        # or
+        or
         yarn start
 
     - Start the client:
         - cd ../client
         npm start
-        # or 
+        or 
         yarn start
 
 - **Access the Application**:
