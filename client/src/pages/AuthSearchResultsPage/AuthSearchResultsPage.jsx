@@ -21,6 +21,7 @@ const AuthSearchResultsPage = ({ userId }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [showCalendar, setShowCalendar] = useState(false);
   const [eventTitle, setEventTitle] = useState('');
+  const [eventMediaType, setEventMediaType] = useState('');
   const location = useLocation();
   const navigate = useNavigate();
   const calendarRef = useRef(null);
@@ -88,8 +89,9 @@ const AuthSearchResultsPage = ({ userId }) => {
     }
   }, [query, fetchResults]);
 
-  const handleAddToCalendar = (title) => {
+  const handleAddToCalendar = (title, mediaType) => {
     setEventTitle(title);
+    setEventMediaType(mediaType);
     setShowCalendar(true);
   };
 
@@ -152,7 +154,7 @@ const AuthSearchResultsPage = ({ userId }) => {
                       <button 
                         aria-label="Add to Calendar"
                         className="auth-search-results__calendar-button"
-                        onClick={() => handleAddToCalendar(result.title || result.name)}
+                        onClick={() => handleAddToCalendar(result.title || result.name, result.media_type)}
                       >
                         <FontAwesomeIcon icon={faCalendarAlt} className='auth-search-results__calendar-icon' />
                       </button>
@@ -207,6 +209,7 @@ const AuthSearchResultsPage = ({ userId }) => {
           <Calendar 
             userId={userId}
             eventTitle={eventTitle}
+            mediaType={eventMediaType}
             onClose={handleCloseCalendar}
             ref={calendarRef}
           />
