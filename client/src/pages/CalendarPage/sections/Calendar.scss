@@ -666,6 +666,7 @@
 
   .calendar__event-time,
   .calendar__event-title {
+    color: $primary-dark-blue;
     font-size: .45rem;
 
     @include tablet {
