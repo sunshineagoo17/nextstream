@@ -102,16 +102,16 @@
     transition: transform 0.1s ease-in-out, color 0.3s;
 
     &--left {
-      left: -3rem;
+      left: -2.25rem;
       @include small-mobile {
-        left: -2rem;
+        left: -2.25rem;
       }
     }
 
     &--right {
-      right: -3rem;
+      right: -2.25rem;
       @include small-mobile {
-        right: -2rem;
+        right: -2.25rem;
       }
     }
 
