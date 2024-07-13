@@ -39,7 +39,6 @@
   &__sign-in-icon {
     @include block-item(1.5rem, 1.5rem);
     display: block;
-    box-shadow: $shadow-primary;
 
     @include tablet {
       display: none;
