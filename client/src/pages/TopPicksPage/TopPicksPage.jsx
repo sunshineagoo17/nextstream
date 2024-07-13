@@ -14,7 +14,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import './TopPicksPage.scss';
 
 const TopPicksPage = () => {
-  const { userId } = useContext(AuthContext);
+  const { userId, name } = useContext(AuthContext); 
   const [media, setMedia] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showCalendar, setShowCalendar] = useState(false);
@@ -137,7 +137,7 @@ const TopPicksPage = () => {
         pauseOnHover
       />
       <div className="top-picks-page__title-container">
-        <h1 className="top-picks-page__title">Top Picks</h1>
+        <h1 className="top-picks-page__title">{name}'s Top Picks</h1> 
         <p className="top-picks-page__intro">
           Use NextSwipe to discover new movies and shows. Swipe right to like and left to dislike each card, tailoring your perfect viewing schedule. For desktop users, you can click and drag left or right, or simply click on the arrows. Add your favorites to your calendar today!
         </p>
