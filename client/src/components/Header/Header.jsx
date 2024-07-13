@@ -22,7 +22,9 @@ const Header = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     if (query.trim()) {
-      navigate(`/search?q=${query}`);
+      // Replaces spaces with '+' to ensure proper encoding in the URL
+      const encodedQuery = query.trim().replace(/\s+/g, '+');
+      navigate(`/search?q=${encodedQuery}`);
     }
   };
 
