@@ -182,7 +182,7 @@ const TopPicksPage = () => {
           <CalendarModal
             userId={userId}
             eventTitle={eventTitle}
-            mediaType={selectedMedia?.media_type} 
+            media_type={selectedMedia?.media_type} 
             onClose={handleCloseCalendar}
             handleSave={handleSaveEvent}
             ref={calendarRef}

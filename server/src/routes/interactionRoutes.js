@@ -7,13 +7,18 @@ const TMDB_API_KEY = process.env.TMDB_API_KEY;
 const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
 
 // Function to get media details from TMDB
-const getMediaDetails = async (mediaId, mediaType) => {
+const getMediaDetails = async (media_id, media_type) => {
+  if (!media_type) {
+    console.error(`Media type is missing for media ID: ${media_id}`);
+    return null;
+  }
+
   try {
-    const url = `${TMDB_BASE_URL}/${mediaType}/${mediaId}?api_key=${TMDB_API_KEY}`;
+    const url = `${TMDB_BASE_URL}/${media_type}/${media_id}?api_key=${TMDB_API_KEY}`;
     const response = await axios.get(url);
     return response.data;
   } catch (error) {
-    console.error(`Error fetching details for ${mediaType} ${mediaId}:`, error);
+    console.error(`Error fetching details for ${media_type} ${media_id}:`, error);
     return null;
   }
 };
@@ -75,24 +80,36 @@ router.get('/recommendations/:userId', async (req, res) => {
 
     // Fetch initial top picks
     const fetchTopPicks = async () => {
-      const popularMoviesResponse = await axios.get(`${TMDB_BASE_URL}/movie/popular`, {
-        params: { api_key: TMDB_API_KEY, language: 'en-US', page: 1 }
-      });
-      const popularShowsResponse = await axios.get(`${TMDB_BASE_URL}/tv/popular`, {
-        params: { api_key: TMDB_API_KEY, language: 'en-US', page: 1 }
-      });
+      try {
+        const popularMoviesResponse = await axios.get(`${TMDB_BASE_URL}/movie/popular`, {
+          params: { api_key: TMDB_API_KEY, language: 'en-US', page: 1 }
+        });
+        const popularShowsResponse = await axios.get(`${TMDB_BASE_URL}/tv/popular`, {
+          params: { api_key: TMDB_API_KEY, language: 'en-US', page: 1 }
+        });
 
-      const popularMedia = [...popularMoviesResponse.data.results, ...popularShowsResponse.data.results];
-      initialTopPicks = popularMedia.filter(media => !interactedMediaIds.includes(media.id)).slice(0, 5).map(item => ({
-        ...item,
-        media_type: item.title ? 'movie' : 'tv'
-      }));
+        const popularMedia = [...popularMoviesResponse.data.results, ...popularShowsResponse.data.results];
+        initialTopPicks = popularMedia
+          .filter(media => !interactedMediaIds.includes(media.id))
+          .slice(0, 5)
+          .map(item => ({
+            ...item,
+            media_type: item.title ? 'movie' : 'tv'
+          }));
+        console.log('Initial Top Picks:', initialTopPicks); // Added logging
+      } catch (error) {
+        console.error('Error fetching top picks:', error);
+      }
     };
 
     await fetchTopPicks();
 
     // Content-based filtering for recommendations
     for (let media of likedMedia) {
+      if (!media.media_type) {
+        console.error(`Skipping media with null media type for media ID: ${media.media_id}`);
+        continue;
+      }
       const details = await getMediaDetails(media.media_id, media.media_type);
       if (details) {
         const similarMedia = await axios.get(`${TMDB_BASE_URL}/${media.media_type}/${media.media_id}/similar`, {
@@ -127,6 +144,8 @@ router.get('/recommendations/:userId', async (req, res) => {
         media_type: item.title ? 'movie' : 'tv'
       })));
     }
+
+    console.log('Final Recommendations:', sortedRecommendations); // Added logging
 
     res.status(200).json({
       topPicks: initialTopPicks,
