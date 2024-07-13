@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useCallback, forwardRef, useImperativeHandle, useRef } from 'react';
+import { useState, useEffect, useContext, useCallback, forwardRef, useImperativeHandle, useRef } from 'react';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
@@ -27,6 +27,7 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, onClose }, ref) =>
   const [newEventDate, setNewEventDate] = useState('');
   const [newEventType, setNewEventType] = useState(mediaType || 'movie');
   const calendarRef = useRef(null);
+  const miniCalendarRef = useRef(null); 
 
   const fetchEvents = useCallback(async () => {
     try {
@@ -51,6 +52,24 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, onClose }, ref) =>
       fetchEvents();
     }
   }, [isAuthenticated, fetchEvents]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (miniCalendarRef.current && !miniCalendarRef.current.contains(event.target)) {
+        setMiniCalendarVisible(false);
+      }
+    };
+
+    if (miniCalendarVisible) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [miniCalendarVisible]);
 
   const handleDateClick = (arg) => {
     const localDate = moment(arg.date).format('YYYY-MM-DDTHH:mm:ss');
@@ -223,7 +242,7 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, onClose }, ref) =>
     }
 
     return (
-      <div className="mini-calendar">
+      <div className="mini-calendar" ref={miniCalendarRef}> 
         <div className="mini-calendar__header">
           <button className="mini-calendar__nav-btn" onClick={handlePrevMonth}>{'<'}</button>
           <span className="mini-calendar__title">
