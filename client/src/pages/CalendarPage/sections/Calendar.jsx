@@ -12,7 +12,7 @@ import { AuthContext } from '../../../context/AuthContext/AuthContext';
 import Loader from '../../../components/Loader/Loader';
 import './Calendar.scss';
 
-const Calendar = forwardRef(({ userId, eventTitle, onClose }, ref) => {
+const Calendar = forwardRef(({ userId, eventTitle, mediaType, onClose }, ref) => {
   const { isAuthenticated } = useContext(AuthContext);
   const [events, setEvents] = useState([]);
   const [filteredEvents, setFilteredEvents] = useState([]);
@@ -23,9 +23,9 @@ const Calendar = forwardRef(({ userId, eventTitle, onClose }, ref) => {
   const [loading, setLoading] = useState(true);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
-  const [newEventTitle, setNewEventTitle] = useState(eventTitle || ''); 
+  const [newEventTitle, setNewEventTitle] = useState(eventTitle || '');
   const [newEventDate, setNewEventDate] = useState('');
-  const [newEventType, setNewEventType] = useState('movie'); 
+  const [newEventType, setNewEventType] = useState(mediaType || 'movie');
   const calendarRef = useRef(null);
 
   const fetchEvents = useCallback(async () => {
@@ -33,7 +33,7 @@ const Calendar = forwardRef(({ userId, eventTitle, onClose }, ref) => {
       setLoading(true);
       const response = await api.get(`/api/calendar/${userId}/events`);
       setEvents(response.data);
-      setFilteredEvents(response.data); 
+      setFilteredEvents(response.data);
     } catch (error) {
       console.error('Error fetching events:', error.response ? error.response.data : error.message);
       toast.error('Failed to fetch events.');
@@ -48,15 +48,15 @@ const Calendar = forwardRef(({ userId, eventTitle, onClose }, ref) => {
 
   useEffect(() => {
     if (isAuthenticated !== null) {
-      fetchEvents(); 
+      fetchEvents();
     }
-  }, [isAuthenticated, fetchEvents]); 
+  }, [isAuthenticated, fetchEvents]);
 
   const handleDateClick = (arg) => {
     const localDate = moment(arg.date).format('YYYY-MM-DDTHH:mm:ss');
     setNewEventDate(localDate);
     setSelectedEvent(null);
-    setNewEventType('movie'); 
+    setNewEventType(mediaType || 'movie');
     setModalVisible(true);
   };
 
@@ -80,7 +80,7 @@ const Calendar = forwardRef(({ userId, eventTitle, onClose }, ref) => {
       end,
       eventType
     });
-    setNewEventType(eventType); 
+    setNewEventType(eventType);
     setModalVisible(true);
   };
 
@@ -212,15 +212,12 @@ const Calendar = forwardRef(({ userId, eventTitle, onClose }, ref) => {
     const firstDayOfMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1).getDay();
     const today = new Date();
 
-    // Create an array to hold all days of the month
     let daysArray = [];
 
-    // Fill days before the first day of the month with null
     for (let i = 0; i < firstDayOfMonth; i++) {
       daysArray.push(null);
     }
 
-    // Fill days of the month
     for (let day = 1; day <= daysInMonth; day++) {
       daysArray.push(day);
     }

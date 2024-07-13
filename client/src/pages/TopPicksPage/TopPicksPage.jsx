@@ -24,14 +24,12 @@ const TopPicksPage = () => {
   const [swipedMediaIds, setSwipedMediaIds] = useState([]);
   const calendarRef = useRef(null);
 
-  // Fetch initial media
   useEffect(() => {
     const fetchInitialMedia = async () => {
       try {
         setIsLoading(true);
         const response = await api.get(`/api/interactions/recommendations/${userId}`);
         const { topPicks } = response.data;
-        // Ensure media_type is included in each media item
         const initialMedia = topPicks.map(item => ({
           ...item,
           media_type: item.title ? 'movie' : 'tv'
@@ -57,7 +55,7 @@ const TopPicksPage = () => {
           userId: userId,
           media_id: currentMedia.id,
           interaction: interaction,
-          media_type: currentMedia.media_type, // Ensure media_type is sent
+          media_type: currentMedia.media_type,
         });
         console.log('Interaction recorded');
         setSwipedMediaIds(prev => [...prev, currentMedia.id]);
@@ -67,7 +65,6 @@ const TopPicksPage = () => {
 
       setCurrentIndex((prevIndex) => prevIndex + 1);
 
-      // Fetch more recommendations if we are at the last item
       if (currentIndex + 1 >= media.length) {
         fetchRecommendations();
       }
@@ -142,7 +139,7 @@ const TopPicksPage = () => {
       <div className="top-picks-page__title-container">
         <h1 className="top-picks-page__title">Top Picks</h1>
         <p className="top-picks-page__intro">
-        Use NextSwipe to discover new movies and shows. Swipe right to like and left to dislike each card, tailoring your perfect viewing schedule. For desktop users, you can click and drag left or right, or simply click on the arrows. Add your favorites to your calendar today!
+          Use NextSwipe to discover new movies and shows. Swipe right to like and left to dislike each card, tailoring your perfect viewing schedule. For desktop users, you can click and drag left or right, or simply click on the arrows. Add your favorites to your calendar today!
         </p>
       </div>
       {isLoading && <Loader />}
@@ -185,6 +182,7 @@ const TopPicksPage = () => {
           <CalendarModal
             userId={userId}
             eventTitle={eventTitle}
+            mediaType={selectedMedia?.media_type} 
             onClose={handleCloseCalendar}
             handleSave={handleSaveEvent}
             ref={calendarRef}
