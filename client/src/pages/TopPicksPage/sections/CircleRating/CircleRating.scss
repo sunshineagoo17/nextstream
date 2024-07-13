@@ -15,17 +15,17 @@
 
   .tooltip-text {
     visibility: hidden;
-    width: 120px;
-    background-color: #012E71;
-    color: #fff;
+    width: 7.5rem;
+    background-color: $primary-dark-blue;
+    color: $neutral-white;
     text-align: center;
-    border-radius: 6px;
-    padding: 5px;
+    border-radius: .375rem;
+    padding: .3125rem;
     position: absolute;
     z-index: 1;
     bottom: 100%; 
     left: 50%;
-    margin-left: -60px;
+    margin-left: -3.75rem;
     opacity: 0;
     transition: opacity 0.3s;
 
@@ -34,10 +34,10 @@
       position: absolute;
       top: 100%;
       left: 50%;
-      margin-left: -5px;
-      border-width: 5px;
+      margin-left: -.3125rem;
+      border-width: .3125rem;
       border-style: solid;
-      border-color: #012E71 transparent transparent transparent;
+      border-color: $primary-dark-blue transparent transparent transparent;
     }
   }
 
