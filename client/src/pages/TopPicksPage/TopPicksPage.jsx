@@ -14,7 +14,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import './TopPicksPage.scss';
 
 const TopPicksPage = () => {
-  const { userId, name, isLoading: authLoading } = useContext(AuthContext);
+  const { userId, name } = useContext(AuthContext); 
   const [media, setMedia] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showCalendar, setShowCalendar] = useState(false);
@@ -25,26 +25,24 @@ const TopPicksPage = () => {
   const calendarRef = useRef(null);
 
   useEffect(() => {
-    if (!authLoading && userId) {
-      const fetchInitialMedia = async () => {
-        try {
-          setIsLoading(true);
-          const response = await api.get(`/api/interactions/recommendations/${userId}`);
-          const { topPicks } = response.data;
-          const initialMedia = topPicks.map(item => ({
-            ...item,
-            media_type: item.title ? 'movie' : 'tv'
-          }));
-          setMedia(initialMedia);
-          setIsLoading(false);
-        } catch (error) {
-          console.error('Error fetching data', error);
-          setIsLoading(false);
-        }
-      };
-      fetchInitialMedia();
-    }
-  }, [userId, authLoading]);
+    const fetchInitialMedia = async () => {
+      try {
+        setIsLoading(true);
+        const response = await api.get(`/api/interactions/recommendations/${userId}`);
+        const { topPicks } = response.data;
+        const initialMedia = topPicks.map(item => ({
+          ...item,
+          media_type: item.title ? 'movie' : 'tv'
+        }));
+        setMedia(initialMedia);
+        setIsLoading(false);
+      } catch (error) {
+        console.error('Error fetching data', error);
+        setIsLoading(false);
+      }
+    };
+    fetchInitialMedia();
+  }, [userId]);
 
   const handleSwipe = async (direction) => {
     console.log(`Swiped ${direction}`);
@@ -128,10 +126,6 @@ const TopPicksPage = () => {
     }
   };
 
-  if (authLoading || isLoading) {
-    return <Loader />;
-  }
-
   return (
     <div className="top-picks-page">
       <ToastContainer
@@ -143,12 +137,13 @@ const TopPicksPage = () => {
         pauseOnHover
       />
       <div className="top-picks-page__title-container">
-        <h1 className="top-picks-page__title">{name}'s Top Picks</h1>
+        <h1 className="top-picks-page__title">{name}'s Top Picks</h1> 
         <p className="top-picks-page__intro">
           Use NextSwipe to discover new movies and shows. Swipe right to like and left to dislike each card, tailoring your perfect viewing schedule. For desktop users, you can click and drag left or right, or simply click on the arrows. Add your favorites to your calendar today!
         </p>
       </div>
-      {media.length > 0 && currentIndex < media.length && (
+      {isLoading && <Loader />}
+      {!isLoading && media.length > 0 && currentIndex < media.length && (
         <div className="top-picks-page__media-card">
           <button className="top-picks-page__nav-button top-picks-page__nav-button--left" onClick={() => handleSwipe('Left')}>
             <FontAwesomeIcon icon={faArrowLeft} />
@@ -165,7 +160,7 @@ const TopPicksPage = () => {
           </button>
         </div>
       )}
-      {currentIndex >= media.length && (
+      {!isLoading && currentIndex >= media.length && (
         <div className="top-picks-page__no-more-media-container">
           <img src={NoMoreMedia} alt="No more media" className="top-picks-page__no-more-media-image" />
           <div className="top-picks-page__no-more-media">
@@ -187,7 +182,7 @@ const TopPicksPage = () => {
           <CalendarModal
             userId={userId}
             eventTitle={eventTitle}
-            mediaType={selectedMedia?.media_type}
+            mediaType={selectedMedia?.media_type} 
             onClose={handleCloseCalendar}
             handleSave={handleSaveEvent}
             ref={calendarRef}
