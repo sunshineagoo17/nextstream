@@ -68,6 +68,17 @@
             border-radius: 15%;
             box-shadow: $shadow-tertiary;
             padding: 4px;
+            transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+
+            &:hover {
+              transform: scale(1.05);
+              background: $primary-medium-blue;
+            }
+    
+            &:active {
+              transform: scale(0.9);
+              background: $primary-dark-blue;
+            }
         }
     }
 
@@ -244,15 +255,6 @@
   &__poster {
     @include block-item(100%, 6rem);
     overflow: hidden;
-    transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
-
-    &:hover {
-      transform: scale(1.05);
-    }
-
-    &:active {
-      transform: scale(0.98);
-    }
 
     @include tablet {
       @include block-item(100%, 14rem);
@@ -423,7 +425,6 @@
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    cursor: normal;
 
     @include tablet {
       @include block-item(12rem, 18.5rem);
