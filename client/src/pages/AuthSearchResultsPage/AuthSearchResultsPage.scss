@@ -11,6 +11,30 @@
   justify-content: center;
   align-items: center;
 
+  &__show-more-btn {
+    background: none;
+    border: none;
+  }
+  
+  &__chevron-icon {
+    cursor: pointer;
+    color: $neutral-white;
+    font-size: .5rem;
+    transition: transform 0.3s ease;
+  
+    &:hover {
+      color: $primary-very-light-blue;
+    }
+  
+    &:active {
+      color: $primary-dark-blue;
+    }
+  
+    @include tablet {
+      font-size: 1.2rem;
+    }
+  }
+
   &__container {
     position: relative;
     z-index: 1;
@@ -136,9 +160,14 @@
   &__streaming-services {
     display: flex;
     justify-content: center;
-    gap: 10px;
     margin-top: 10px;
     flex-wrap: wrap;
+    align-items: center;
+    gap: .15rem;
+
+    @include tablet {
+      gap: .5rem;
+    }
 
     &__streaming-service {
       width: 40px;

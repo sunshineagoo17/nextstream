@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext, useRef, useCallback } from 'rea
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarAlt, faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import axios from 'axios';
 import AnimatedBg from '../../components/AnimatedBg/AnimatedBg';
@@ -22,6 +22,7 @@ const AuthSearchResultsPage = ({ userId }) => {
   const [showCalendar, setShowCalendar] = useState(false);
   const [eventTitle, setEventTitle] = useState('');
   const [eventMediaType, setEventMediaType] = useState('');
+  const [showMoreProviders, setShowMoreProviders] = useState({});
   const location = useLocation();
   const navigate = useNavigate();
   const calendarRef = useRef(null);
@@ -99,6 +100,13 @@ const AuthSearchResultsPage = ({ userId }) => {
     setShowCalendar(false);
   };
 
+  const toggleShowMoreProviders = (id) => {
+    setShowMoreProviders(prevState => ({
+      ...prevState,
+      [id]: !prevState[id]
+    }));
+  };
+
   return (
     <>
       <ToastContainer
@@ -174,15 +182,29 @@ const AuthSearchResultsPage = ({ userId }) => {
                   )}
                   <div className="auth-search-results__streaming-services">
                     {result.providers && result.providers.length > 0 ? (
-                      result.providers.map(provider => (
-                        <div key={provider.provider_id} className="auth-search-results__streaming-service">
-                          <img 
-                            src={`https://image.tmdb.org/t/p/original${provider.logo_path}`} 
-                            alt={provider.provider_name} 
-                            className="auth-search-results__streaming-provider-logo"
-                          />
-                        </div>
-                      ))
+                      <>
+                        {result.providers.slice(showMoreProviders[result.id] ? 3 : 0, showMoreProviders[result.id] ? result.providers.length : 3).map(provider => (
+                          <div key={provider.provider_id} className="auth-search-results__streaming-service">
+                            <img 
+                              src={`https://image.tmdb.org/t/p/original${provider.logo_path}`} 
+                              alt={provider.provider_name} 
+                              className="auth-search-results__streaming-provider-logo"
+                            />
+                          </div>
+                        ))}
+                        {result.providers.length > 3 && (
+                          <button
+                            className="auth-search-results__show-more-btn"
+                            onClick={() => toggleShowMoreProviders(result.id)}
+                            aria-label="Show more providers"
+                          >
+                            <FontAwesomeIcon 
+                              icon={showMoreProviders[result.id] ? faChevronLeft : faChevronRight} 
+                              className="auth-search-results__chevron-icon"
+                            />
+                          </button>
+                        )}
+                      </>
                     ) : (
                       <p className="auth-search-results__no-providers">
                         No streaming services available for {result.title || result.name}.
