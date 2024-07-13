@@ -198,7 +198,7 @@
   box-shadow: $shadow-primary;
   border: 5px solid $neutral-white;
 
-  @media (max-width: 320rem) {
+  @include mobile {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -209,7 +209,7 @@
   }
 
   @include desktop {
-    height: 33%;
+    height: 20.5rem;
   }
 
   &__header {
