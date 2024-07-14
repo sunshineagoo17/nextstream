@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { AuthContext } from "../../../../context/AuthContext/AuthContext";
 import { useSearchBar } from '../../../../context/SearchBarContext/SearchBarContext';
 import { ToastContainer, Slide, toast } from 'react-toastify'; 
@@ -129,7 +129,7 @@ export const Content = () => {
             <div className="content__new-releases-header">
               <div className="content__new-releases-subtitle-container">
                 <p className="content__new-releases-subtitle">
-                Discover the top trending movies and TV shows available for streaming. Register now to find out where to watch these titles.
+                  Discover the top trending movies and TV shows available for streaming. <Link to="/register" aria-label="Register Now" className="content-new-releases__register-btn">Register now</Link> to find out where to watch these titles.
                 </p>
                 <div className="content__label-header-new-container">
                   <div className="content__label-header-new-releases">POPULAR</div>

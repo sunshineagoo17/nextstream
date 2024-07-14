@@ -626,3 +626,43 @@
     }
   }
 }
+
+.content-new-releases__register-btn {
+  background: none;
+  border: none;
+  font: $primary-font;
+  color: $primary-dark-blue;
+  cursor: pointer;
+  text-decoration: none;
+  padding: 0;
+  border-radius: 0.25rem;
+  transition: background-color 0.3s, transform 0.3s;
+
+  &:visited {
+    color: $primary-dark-blue;
+  }
+
+  &:hover,
+  &:focus {
+    padding-left: .25rem;
+    padding-right: .25rem;
+    background-color: $primary-medium-blue;
+    border: 1px solid $primary-medium-blue;
+    color: $neutral-white;
+    border-color: $primary-dark-blue;
+    text-decoration: none;
+    box-shadow: $shadow-primary;
+  }
+
+  &:active {
+    padding-left: .25rem;
+    padding-right: .25rem;
+    background-color: $neutral-white;
+    color: $primary-dark-blue;
+    border: 2px solid $primary-very-light-blue;
+    border-radius: 0.25rem;
+    transform: scale(0.5);
+    text-decoration: none;
+    font-weight: bold;
+  }
+}
