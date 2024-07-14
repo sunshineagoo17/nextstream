@@ -494,10 +494,17 @@ With the proliferation of streaming services, users often face the challenge of 
         DB_USER=root
         DB_PASSWORD=yourpassword
         DB_NAME=nextstream
-        JWT_SECRET=your_jwt_secret
+        
+        - JWT_SECRET=your_jwt_secret
+        - SENDGRID_API_KEY=your_sendgrid_api_key
+        - TMDB_API_KEY=your_tmdb_api_key
     
     - For the client (`client/.env`):
         - REACT_APP_API_URL=http://localhost:8080
+
+    - Note: You will need to sign up for SendGrid and TMDB to obtain your API keys. Visit the following links to sign up:
+        - [SendGrid](https://sendgrid.com/)
+        - [TMDB](https://www.themoviedb.org/)
 
 - **Set Up the Database**:
     - Start MySQL and create a database named `nextstream`:
