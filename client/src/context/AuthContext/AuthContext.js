@@ -12,8 +12,8 @@ export const AuthProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const token = Cookies.get('token') || sessionStorage.getItem('token');
-    const storedUserId = sessionStorage.getItem('userId') || Cookies.get('userId');
+    const token = Cookies.get('token') || localStorage.getItem('token');
+    const storedUserId = localStorage.getItem('userId') || Cookies.get('userId');
 
     if (token && storedUserId) {
       setIsAuthenticated(true);
@@ -38,8 +38,8 @@ export const AuthProvider = ({ children }) => {
   const login = (token, userId, rememberMe) => {
     Cookies.set('token', token, { expires: rememberMe ? 7 : 1, secure: true, sameSite: 'strict', path: '/' });
     Cookies.set('userId', userId.toString(), { expires: rememberMe ? 7 : 1, secure: true, sameSite: 'strict', path: '/' });
-    sessionStorage.setItem('token', token);
-    sessionStorage.setItem('userId', userId.toString());
+    localStorage.setItem('token', token);
+    localStorage.setItem('userId', userId.toString());
     setIsAuthenticated(true);
     setUserId(userId);
 
@@ -58,8 +58,8 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     Cookies.remove('token', { path: '/' });
     Cookies.remove('userId', { path: '/' });
-    sessionStorage.removeItem('token');
-    sessionStorage.removeItem('userId');
+    localStorage.removeItem('token');
+    localStorage.removeItem('userId');
     setIsAuthenticated(false);
     setUserId(null);
     setName(''); 
