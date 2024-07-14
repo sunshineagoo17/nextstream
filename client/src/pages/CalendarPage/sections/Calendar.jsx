@@ -321,6 +321,12 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, onClose }, ref) =>
     }
   };
 
+  const handleEventTitleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      selectedEvent ? handleEditEvent() : handleAddEvent();
+    }
+  };
+
   return (
     <div className="calendar">
       <div className="calendar__header">
@@ -373,6 +379,7 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, onClose }, ref) =>
               className="modal-input"
               value={selectedEvent ? selectedEvent.title : newEventTitle}
               onChange={(e) => selectedEvent ? setSelectedEvent({ ...selectedEvent, title: e.target.value }) : setNewEventTitle(e.target.value)}
+              onKeyDown={handleEventTitleKeyDown}
             />
             <input
               type="datetime-local"
