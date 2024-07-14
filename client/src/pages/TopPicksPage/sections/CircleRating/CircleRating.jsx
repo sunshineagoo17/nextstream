@@ -3,7 +3,7 @@ import 'react-circular-progressbar/dist/styles.css';
 import './CircleRating.scss';
 
 const CircleRating = ({ rating }) => {
-  const percentage = Math.min(Math.max(rating, 0), 100);
+  const percentage = Math.min(Math.max(Math.round(rating * 100) / 100, 0), 100);
 
   const getColor = (percent) => {
     if (percent >= 75) {
@@ -30,7 +30,7 @@ const CircleRating = ({ rating }) => {
           })}
         />
       </div>
-      <span className="tooltip-text">User Score:</span>
+      <span className="tooltip-text">User Score</span>
     </div>
   );
 };

@@ -6,14 +6,14 @@ import { faCalendarAlt, faChevronRight, faChevronLeft } from '@fortawesome/free-
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import axios from 'axios';
 import AnimatedBg from '../../components/AnimatedBg/AnimatedBg';
-import 'react-toastify/dist/ReactToastify.css';
-import './AuthSearchResultsPage.scss';
 import Loader from '../../components/Loader/Loader';
 import DefaultVideoImg from '../../assets/images/video-img-default.png';
 import VideoCamera from "../../assets/images/videocamera-1.png";
 import TvIcon from "../../assets/images/tv-icon.png";
 import NoDataImg from "../../assets/images/no-data.svg";
 import Calendar from '../CalendarPage/sections/Calendar';
+import 'react-toastify/dist/ReactToastify.css';
+import './AuthSearchResultsPage.scss';
 
 const AuthSearchResultsPage = ({ userId }) => {
   const { isAuthenticated } = useContext(AuthContext);
