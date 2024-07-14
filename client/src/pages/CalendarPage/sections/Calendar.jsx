@@ -27,7 +27,7 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, onClose }, ref) =>
   const [newEventDate, setNewEventDate] = useState('');
   const [newEventType, setNewEventType] = useState(mediaType || 'movie');
   const calendarRef = useRef(null);
-  const miniCalendarRef = useRef(null); 
+  const miniCalendarRef = useRef(null);
 
   const fetchEvents = useCallback(async () => {
     try {
@@ -194,12 +194,15 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, onClose }, ref) =>
       }
     };
 
+    const eventType = eventInfo.event.extendedProps.eventType;
+    const eventClass = eventType === 'tv' ? 'calendar__event-tv' : 'calendar__event-movie';
+
     return (
-      <div className="calendar__event-content" onClick={() => handleEventClickWithLoader(eventInfo.event)}>
+      <div className={`calendar__event-content ${eventClass}`} onClick={() => handleEventClickWithLoader(eventInfo.event)}>
         <b className="calendar__event-title">{eventInfo.event.title.length > 10 ? `${eventInfo.event.title.substring(0, 10)}...` : eventInfo.event.title}</b>
         <i className="calendar__event-time">{moment(eventInfo.event.start).format('h:mm A')}</i>
         <FontAwesomeIcon 
-          icon={eventInfo.event.extendedProps.eventType === 'tv' ? faTv : faFilm} 
+          icon={eventType === 'tv' ? faTv : faFilm} 
           style={{ color: 'mediumblue' }} 
           className="calendar__event-icon" 
         />
@@ -220,7 +223,7 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, onClose }, ref) =>
   const handleDateSelect = (day) => {
     const newDate = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day);
     setSelectedDate(newDate);
-    calendarRef.current.getApi().gotoDate(newDate); 
+    calendarRef.current.getApi().gotoDate(newDate);
     calendarRef.current.getApi().changeView('timeGridDay', newDate);
     setMiniCalendarVisible(false);
     toast.info(`Navigated to ${newDate.toDateString()}`);
@@ -242,7 +245,7 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, onClose }, ref) =>
     }
 
     return (
-      <div className="mini-calendar" ref={miniCalendarRef}> 
+      <div className="mini-calendar" ref={miniCalendarRef}>
         <div className="mini-calendar__header">
           <button className="mini-calendar__nav-btn" onClick={handlePrevMonth}>{'<'}</button>
           <span className="mini-calendar__title">
@@ -294,7 +297,7 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, onClose }, ref) =>
 
     const searchWords = searchQuery.trim().toLowerCase().split(/\s+/);
     // Filter events where every word in the search query is found in the event title
-    const filtered = events.filter(event => 
+    const filtered = events.filter(event =>
       searchWords.every(word => event.title.toLowerCase().includes(word))
     );
     setFilteredEvents(filtered);

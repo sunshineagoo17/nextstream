@@ -30,6 +30,23 @@
     margin-right: .5rem;
   }
 
+  &__event-movie {
+    background-color: $primary-very-light-blue;
+    color: $primary-dark-blue;
+    border: 1px solid $primary-medium-blue;
+    border-radius: 1rem;
+    box-shadow: $shadow-primary;
+    padding: .15rem;
+  }
+
+  &__event-tv {
+    background-color: $primary-pale-cyan;
+    border: 1px solid $primary-very-light-blue;
+    border-radius: 1rem;
+    padding: .15rem;
+    box-shadow: $shadow-primary;
+  }
+
   &__event-title {
     white-space: nowrap;
     overflow: hidden;
