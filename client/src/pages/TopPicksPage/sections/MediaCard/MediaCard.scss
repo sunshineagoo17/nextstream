@@ -11,39 +11,59 @@
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   
-  &__type-icon {
+  &__type-icon, &__search-icon {
     font-size: .5rem;
     color: $primary-light-blue; 
     background: rgba(255, 255, 255, 0.7);
     border-radius: 50%;
     padding: .25rem; 
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s, border 0.3s;
+    border: 1px solid transparent; /* Default border */
 
     @include tablet {
-        font-size: 1rem;
-        margin-left: .75rem;
+      font-size: 1rem;
+      margin-left: .75rem;
+    }
+
+    &:hover {
+      transform: scale(1.1);
+      background-color: $primary-light-blue;
+      color: $neutral-white;
+      border: 1px solid $neutral-white;
+    }
+
+    &:active {
+      transform: scale(0.95);
+      background-color: $primary-dark-blue;
+      color: $neutral-white;
+      border: 1px solid $primary-very-light-blue;
     }
   }
 
-    &__image {
+  &__image {
     width: 100%;
     height: auto;
-    }
+  }
 
-    &__details {
+  &__details {
     padding: 16px;
-    }
+  }
 
-    &__title {
+  &__title {
     font-size: 1.25rem;
     margin: 0;
     line-height: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* Adjust as needed for spacing */
 
-        @include tablet {
-            font-size: 1.25rem;
-        }
+    @include tablet {
+      font-size: 1.25rem;
     }
-    
-    &__tmdb-link {
+  }
+  
+  &__tmdb-link {
     font: $primary-font;
     color: $primary-dark-blue;
     cursor: pointer;
@@ -52,39 +72,39 @@
     transition: background-color 0.3s, transform 0.3s;
 
     &:visited {
-        color: $primary-dark-blue;
+      color: $primary-dark-blue;
     }
 
     &:hover,
     &:focus {
-        padding-left: .25rem;
-        padding-right: .25rem;
-        background-color: $primary-medium-blue;
-        border: 1px solid $primary-dark-blue;
-        color: $neutral-white;
-        text-decoration: none;
-        box-shadow: $shadow-primary;
+      padding-left: .25rem;
+      padding-right: .25rem;
+      background-color: $primary-medium-blue;
+      border: 1px solid $neutral-white;
+      color: $neutral-white;
+      text-decoration: none;
+      box-shadow: $shadow-primary;
     }
 
-        &:active {
-            padding-left: .25rem;
-            padding-right: .25rem;
-            background-color: $neutral-white;
-            color: $primary-dark-blue;
-            border: 1px solid $primary-very-light-blue;
-            border-radius: 0.25rem;
-            transform: scale(0.5);
-            text-decoration: none;
-        }
+    &:active {
+      padding-left: .25rem;
+      padding-right: .25rem;
+      background-color: $neutral-white;
+      color: $primary-dark-blue;
+      border: 1px solid $primary-very-light-blue;
+      border-radius: 0.25rem;
+      transform: scale(0.5);
+      text-decoration: none;
     }
+  }
 
-    &__overview {
-        margin-top: 8px;
-        font-size: 0.65rem;
-        color: $primary-dark-blue;
+  &__overview {
+    margin-top: 8px;
+    font-size: 0.65rem;
+    color: $primary-dark-blue;
 
-        @include tablet {
-            font-size: .875rem;
-        }
+    @include tablet {
+      font-size: .875rem;
     }
+  }
 }

@@ -26,7 +26,7 @@ const AuthSearchResultsPage = ({ userId }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const calendarRef = useRef(null);
-  const initialRender = useRef(true); 
+  const initialRender = useRef(true);
 
   const query = new URLSearchParams(location.search).get('q');
 
@@ -51,41 +51,33 @@ const AuthSearchResultsPage = ({ userId }) => {
           try {
             const providersResponse = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/tmdb/${result.media_type}/${result.id}/watch/providers`);
             const providers = providersResponse.data || [];
-            if (providers.length === 0) {
-              console.log(`No providers found for ${result.title || result.name}.`, {
-              });
-            }
-      
             return { ...result, providers };
           } catch (error) {
             console.error(`Error fetching watch providers for ${result.media_type} ${result.id}:`, error);
-            toast.error('Error fetching watch providers. Please try again later.', {
-            });
+            toast.error('Error fetching watch providers. Please try again later.');
             return { ...result, providers: [] };
           }
         })
       );
-      
-      setResults(updatedResults);
 
+      setResults(updatedResults);
     } catch (error) {
       console.error('Error fetching search results:', error);
-      toast.error('Error fetching search results. Please try again later.', {
-      });
+      toast.error('Error fetching search results. Please try again later.');
     } finally {
       setIsLoading(false);
-      setShowCalendar(false); 
+      setShowCalendar(false);
     }
   }, [query]);
 
   useEffect(() => {
     if (query && initialRender.current) {
-      initialRender.current = false; 
+      initialRender.current = false;
       fetchResults();
     } else if (query) {
       const timer = setTimeout(() => {
         fetchResults();
-      }, 300); 
+      }, 300);
       return () => clearTimeout(timer); // Cleanup function to clear timeout
     }
   }, [query, fetchResults]);
@@ -152,14 +144,14 @@ const AuthSearchResultsPage = ({ userId }) => {
                         onError={(e) => { e.target.src = DefaultVideoImg; }}
                       />
                       <a href={`https://www.themoviedb.org/${result.media_type}/${result.id}`} className="auth-search-results__link" target="_blank" rel="noopener noreferrer">
-                        <img 
-                          src={result.media_type === 'movie' ? VideoCamera : TvIcon} 
-                          className="auth-search-results__media-icon" 
+                        <img
+                          src={result.media_type === 'movie' ? VideoCamera : TvIcon}
+                          className="auth-search-results__media-icon"
                           aria-label="Find out more"
-                          alt={result.media_type === 'movie' ? 'Movie Icon' : 'TV Show Icon'} 
+                          alt={result.media_type === 'movie' ? 'Movie Icon' : 'TV Show Icon'}
                         />
                       </a>
-                      <button 
+                      <button
                         aria-label="Add to Calendar"
                         className="auth-search-results__calendar-button"
                         onClick={() => handleAddToCalendar(result.title || result.name, result.media_type)}
@@ -185,9 +177,9 @@ const AuthSearchResultsPage = ({ userId }) => {
                       <>
                         {result.providers.slice(showMoreProviders[result.id] ? 3 : 0, showMoreProviders[result.id] ? result.providers.length : 3).map(provider => (
                           <div key={provider.provider_id} className="auth-search-results__streaming-service">
-                            <img 
-                              src={`https://image.tmdb.org/t/p/original${provider.logo_path}`} 
-                              alt={provider.provider_name} 
+                            <img
+                              src={`https://image.tmdb.org/t/p/original${provider.logo_path}`}
+                              alt={provider.provider_name}
                               className="auth-search-results__streaming-provider-logo"
                             />
                           </div>
@@ -198,8 +190,8 @@ const AuthSearchResultsPage = ({ userId }) => {
                             onClick={() => toggleShowMoreProviders(result.id)}
                             aria-label="Show more providers"
                           >
-                            <FontAwesomeIcon 
-                              icon={showMoreProviders[result.id] ? faChevronLeft : faChevronRight} 
+                            <FontAwesomeIcon
+                              icon={showMoreProviders[result.id] ? faChevronLeft : faChevronRight}
                               className="auth-search-results__chevron-icon"
                             />
                           </button>
@@ -228,7 +220,7 @@ const AuthSearchResultsPage = ({ userId }) => {
       {showCalendar && (
         <div className="calendar-modal">
           <button className="calendar-close-btn" onClick={handleCloseCalendar}><FontAwesomeIcon icon={faClose} className='auth-search-results__close-icon' /></button>
-          <Calendar 
+          <Calendar
             userId={userId}
             eventTitle={eventTitle}
             mediaType={eventMediaType}
