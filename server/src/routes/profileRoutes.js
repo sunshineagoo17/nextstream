@@ -20,7 +20,8 @@ const ensureUploadsDirectoryExists = (req, res, next) => {
 // Set up multer for file uploads
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'uploads/avatars'); // Directory to store uploaded files
+    const dir = path.join(__dirname, '../uploads/avatars');
+    cb(null, dir); // Use the absolute path for the directory
   },
   filename: (req, file, cb) => {
     cb(null, `${req.params.userId}-${Date.now()}${path.extname(file.originalname)}`);
@@ -102,9 +103,7 @@ router.put('/:userId', async (req, res) => {
   };
 
   if (password) {
-    console.log('Hashing password:', password); // Log the plain password (for debugging only)
     const hashedPassword = await bcrypt.hash(password, 10);
-    console.log('Hashed password:', hashedPassword); // Log the hashed password (for debugging only)
     updatedUser.password = hashedPassword;
   }
 
@@ -121,7 +120,6 @@ router.put('/:userId', async (req, res) => {
     }
 
     await knex('users').where({ id: req.params.userId }).update(updatedUser);
-    console.log('Updated user:', updatedUser); // Log the updated user object (for debugging only)
     res.json({ message: 'User profile updated successfully' });
   } catch (error) {
     console.error('Error updating profile:', error);
@@ -132,7 +130,7 @@ router.put('/:userId', async (req, res) => {
 // Upload user avatar
 router.post('/:userId/avatar', authenticate, ensureUploadsDirectoryExists, upload.single('avatar'), async (req, res) => {
   try {
-    const avatarPath = req.file.path;
+    const avatarPath = `uploads/avatars/${req.file.filename}`;
     await knex('users').where({ id: req.params.userId }).update({ avatar: avatarPath });
     res.json({ message: 'Avatar uploaded successfully', avatar: avatarPath });
   } catch (error) {

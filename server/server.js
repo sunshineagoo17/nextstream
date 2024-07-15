@@ -22,7 +22,7 @@ const app = express();
 // Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cookieParser()); 
+app.use(cookieParser());
 
 // Configure CORS
 const corsOptions = {
@@ -35,7 +35,7 @@ app.use(cors(corsOptions));
 const cache = new NodeCache({ stdTTL: 3600 });
 
 // Serve uploaded avatars
-app.use('/uploads/avatars', express.static(path.join(__dirname, 'uploads/avatars')));
+app.use('/uploads', express.static(path.join(__dirname, 'src/uploads')));
 
 // TMDB API configuration
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
@@ -145,7 +145,7 @@ app.use('/api/password-reset', passwordResetRoutes);
 app.use('/api/profile', profileRoutes);
 app.use('/api/tmdb', tmdbRoutes);
 app.use('/api/calendar', calendarRoutes);
-app.use('/api/interactions', interactionRoutes); 
+app.use('/api/interactions', interactionRoutes);
 
 // Serve static files from the React app if needed
 app.use(express.static(path.join(__dirname, 'client/build')));
