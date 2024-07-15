@@ -93,37 +93,40 @@
   }
 
   &__nav-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 2rem;
-    color: $neutral-white;
     position: absolute;
-    transition: transform 0.1s ease-in-out, color 0.3s;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba($neutral-black, 0.6);
+    border: none;
+    color: $primary-light-blue;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 1rem;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    z-index: 1001;
 
-    &--left {
-      left: -2.25rem;
-      @include small-mobile {
-        left: -2.25rem;
+      &:hover {
+        background-color: rgba($neutral-black, 0.8);
+        color: $neutral-white;
+        transform: translateY(-50%) scale(1.1);
+      }
+
+      &:active {
+        transform: translateY(-50%) scale(1.05);
+        box-shadow: 0 0 .625rem rgba($neutral-black, 0.5);
+        background-color: $primary-dark-blue;
+        color: $primary-very-light-blue;
+      }
+
+      &.top-picks-page__nav-button--left {
+        left: 1rem;
+      }
+
+      &.top-picks-page__nav-button--right {
+        right: 1rem;
       }
     }
-
-    &--right {
-      right: -2.25rem;
-      @include small-mobile {
-        right: -2.25rem;
-      }
-    }
-
-    &:hover {
-      color: $primary-light-blue;
-    }
-
-    &:active {
-      transform: scale(0.85);
-      color: $primary-dark-blue;
-    }
-  }
 
   &__calendar-button {
     display: inline-flex;
