@@ -65,7 +65,34 @@
       .cls-11 {
         opacity: .2;
       }
-    
+
+      #crack1, #crack2, #crack3, #crack4 {
+        animation: growCracks 1s infinite alternate;
+        transform-origin: center;
+      }
+
+      #bat1, #bat2, #bat3, #bat4 {
+        animation: moveBats 1s infinite alternate;
+      }
+
+      @keyframes growCracks {
+        0% {
+          transform: scale(0.985);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      @keyframes moveBats {
+        0% {
+          transform: translateY(0);
+        }
+        100% {
+          transform: translateY(-35px);
+        }
+      }
+   
     <mask id="mask" x="649.7" y="560.6" width="423.5" height="203.2" maskUnits="userSpaceOnUse">
       <g id="mask0_9_6516" data-name="mask0 9 6516">
         <path class="cls-8" d="M667.3,560.6c42.9,57.9,131.8,67.7,219.2,76.3,87.5,8.6,174.7,0,186.7-29.7-6.7,63-27.2,156.7-222.7,124.9-215.7-35.2-183.2-171.4-183.2-171.4Z"/>
