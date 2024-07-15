@@ -12,6 +12,56 @@
   background-color: $primary-darker-blue;
   min-height: 100vh;
 
+  &__calendar-close-btn {
+    @include block-item(1.75rem, 1.75rem);
+    position: absolute;
+    top: 11.5rem; 
+    transform: translateX(-50%);
+    background-color: transparent;
+    color: $neutral-white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid $neutral-white;
+    padding: .25rem;
+    font-size: 1rem;
+    box-shadow: $shadow-senary;
+    cursor: pointer;
+    z-index: 1001;
+    border-radius: .2rem;
+    transition: all 0.3s ease; 
+
+    &:hover {
+      background-color: $primary-dark-blue;
+      color: $neutral-white;
+      padding: 1rem; 
+      border-radius: .5rem; 
+      transform: translateX(-50%) scale(1.25); 
+    }
+
+    &:active {
+      transform: translateX(-50%) scale(1);
+      box-shadow: $shadow-senary;
+    }
+
+    @include tablet {
+      top: 17rem;
+      font-size: 1.5rem;
+    }
+
+    @include desktop {
+      top: 12.5rem;
+    }
+
+    @include large-desktop {
+      top: 11.5rem;
+    }
+
+    @include extra-large-desktop {
+      top: 12.75rem;
+    }
+  }
+
   &__title {
     font-size: 1.5rem;
     line-height: 1.75rem;

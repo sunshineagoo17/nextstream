@@ -177,7 +177,7 @@ const TopPicksPage = () => {
         )}
         {showCalendar && (
           <div className="calendar-modal">
-            <button className="calendar-close-btn" onClick={handleCloseCalendar}>
+            <button className="top-picks-page__calendar-close-btn" onClick={handleCloseCalendar}>
               <p className="calendar-close-btn__txt">x</p>
             </button>
             <CalendarModal
