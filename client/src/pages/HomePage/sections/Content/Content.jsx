@@ -19,7 +19,7 @@ export const Content = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [animationClass, setAnimationClass] = useState('');
   const navigate = useNavigate();
-  const { userId } = useContext(AuthContext);
+  const { userId, isAuthenticated } = useContext(AuthContext);
   const { searchBarDesktopRef, searchBarMobileRef } = useSearchBar();
 
   useEffect(() => {
@@ -67,6 +67,15 @@ export const Content = () => {
 
   const navigateTo = (path) => {
     navigate(path);
+  };
+
+  const handleCardClick = (title) => {
+    if (isAuthenticated) {
+      const encodedQuery = encodeURIComponent(title);
+      navigate(`/search?q=${encodedQuery}`);
+    } else {
+      navigate('/login-required');
+    }
   };
 
   return (
@@ -141,15 +150,16 @@ export const Content = () => {
               <div className="content__card-media">
                 {newReleases.slice(currentIndex, currentIndex + 3).map((release, index) => (
                   <div key={index} className={`content__card${index + 1}-container ${animationClass}`}>
-                    <a href={release.url} target="_blank" rel="noopener noreferrer">
-                      <div className={`content__card${index + 1}`}>
-                        <img
-                          className={`content__poster${index + 1}`}
-                          alt={release.title || release.name}
-                          src={`https://image.tmdb.org/t/p/w500${release.poster_path}`}
-                        />
-                      </div>
-                    </a>
+                    <div 
+                      className={`content__card${index + 1}`}
+                      onClick={() => handleCardClick(release.title || release.name)}
+                    >
+                      <img
+                        className={`content__poster${index + 1}`}
+                        alt={release.title || release.name}
+                        src={`https://image.tmdb.org/t/p/w500${release.poster_path}`}
+                      />
+                    </div>
                     <div className={`content__icon-bg-${release.media_type === 'tv' ? 'tv' : 'video'}`}>
                       <img className={`content__${release.media_type === 'tv' ? 'tv' : 'video'}-icon`} alt="Media icon" src={release.media_type === 'tv' ? TvIcon : VideoCamera} />
                     </div>
