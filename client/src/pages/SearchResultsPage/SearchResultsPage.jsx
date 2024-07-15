@@ -8,6 +8,8 @@ import './SearchResultsPage.scss';
 import Loader from '../../components/Loader/Loader';
 import DefaultVideoImg from '../../assets/images/video-img-default.png';
 import NoDataImg from '../../assets/images/no-data.svg';
+import MovieIcon from '../../assets/images/videocamera-1.png';
+import TvIcon from '../../assets/images/tv-icon.png'; 
 
 const SearchResultsPage = () => {
   const [results, setResults] = useState([]);
@@ -25,6 +27,15 @@ const SearchResultsPage = () => {
     navigate('/register');
   };
 
+  const getMediaTypeIcon = (mediaType) => {
+    if (mediaType === 'movie') {
+      return MovieIcon;
+    } else if (mediaType === 'tv') {
+      return TvIcon;
+    }
+    return null;
+  };
+
   useEffect(() => {
     const fetchResults = async () => {
       try {
@@ -39,10 +50,10 @@ const SearchResultsPage = () => {
             sort_by: 'popularity.desc'
           }
         });
-  
+
         const limitedResults = response.data.results.slice(0, 3);
         setResults(limitedResults);
-  
+
       } catch (error) {
         console.error('Error fetching search results:', error);
         toast.error('Error fetching search results. Please try again later.', {
@@ -51,12 +62,11 @@ const SearchResultsPage = () => {
         setIsLoading(false);
       }
     };
-  
+
     if (query) {
       fetchResults();
     }
   }, [query]);
-  
 
   return (
     <>
@@ -111,6 +121,11 @@ const SearchResultsPage = () => {
                         <span className="search-results__error-no-img-title">{result.title || result.name}</span>
                       </div>
                     )}
+                    <img
+                      className="search-results__media-icon"
+                      src={getMediaTypeIcon(result.media_type)}
+                      alt={result.media_type}
+                    />
                   </a>
                 </div>
               ))
