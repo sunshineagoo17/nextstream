@@ -46,6 +46,32 @@
         fill: #000;
         opacity: .2;
       }
+
+      #gear1, #gear2, #gear3, #gear4, #gear5, #gear6, #gear7, #gear8, #gear9 {
+        animation: spin 10s linear infinite;
+      }
+
+      #error {
+        animation: glow 1s ease-in-out infinite alternatE;
+      }
+
+      @keyframes spin {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      @keyframes glow {
+        from {
+          filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.5));
+        }
+        to {
+          filter: drop-shadow(0 0 20px rgba(255, 0, 0, 1));
+        }
+      }
     </style>
   </defs>
   <path class="cls-3" d="M2363.4,1547.5H0v1.2h2363.4v-1.2Z"/>
