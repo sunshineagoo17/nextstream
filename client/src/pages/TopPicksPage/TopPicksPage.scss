@@ -19,13 +19,23 @@
     text-align: center;
   }
 
+  &__container {
+    border-radius: 1.25rem;
+    box-shadow: $shadow-quaternary;
+    padding: 1rem;
+    border: 5px solid $neutral-white;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
   &__no-more-media-container {
     @include block-item(18rem, 26.2rem);
     display: flex;
     margin-top: 1rem;
     flex-direction: column;
     background-color: $frosted-glass;
-    box-shadow: $shadow-senary;
+    box-shadow: $shadow-primary;
     border-radius: 1.5rem;
     border: 5px solid $primary-dark-blue;
     justify-content: center;
@@ -40,6 +50,7 @@
     background-color: $primary-medium-blue;
     padding: 1rem;
     border-radius: 1rem;
+    border: 2px solid $primary-light-cyan;
     margin-top: 0;
     margin-bottom: 1rem;
     box-shadow: $shadow-senary;
@@ -175,21 +186,22 @@
     font-size: 1rem;
     font-weight: bold;
     font-family: $primary-font;
-    box-shadow: $shadow-tertiary;
+    box-shadow: $shadow-senary;
     border-radius: 1rem;
     cursor: pointer;
-    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
+    
     &:hover,
     &:focus,
     &:visited {
-      background-color: $primary-dark-blue;
+      background-color: $primary-light-blue;
       color: $neutral-white;
-      border-color: $neutral-white;
+      border: 1px solid $primary-medium-blue;
       text-decoration: none;
-      box-shadow: $shadow-primary;
+      animation: pulse 1.5s infinite;
+      box-shadow: 0 0 20px $primary-dark-blue, 0 0 30px $primary-dark-blue, 0 0 40px $primary-dark-blue;
     }
-
+    
     &:active {
       background-color: $primary-medium-blue;
       color: $neutral-white;
@@ -198,6 +210,19 @@
       transform: translateY(4px);
       text-decoration: none;
       font-weight: bold;
+      box-shadow: 0 0 10px $primary-medium-blue, 0 0 20px $primary-medium-blue;
+    }
+    
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 20px $primary-dark-blue, 0 0 30px $primary-dark-blue, 0 0 40px $primary-dark-blue;
+      }
+      50% {
+        box-shadow: 0 0 30px $primary-dark-blue, 0 0 40px $primary-dark-blue, 0 0 50px $primary-dark-blue;
+      }
+      100% {
+        box-shadow: 0 0 20px $primary-dark-blue, 0 0 30px $primary-dark-blue, 0 0 40px $primary-dark-blue;
+      }
     }
   }
 
@@ -245,15 +270,16 @@
     justify-content: center;
     align-items: center;
     padding: 1rem;
-    background-color: $primary-very-light-blue;
-    border: 3px solid $neutral-white;
+    background-color: $primary-dark-blue;
+    border:  2px solid $neutral-white;
     margin: .5rem;
+    box-shadow: $shadow-primary;
     border-radius: 1rem;
     opacity: 1;
 
     p {
       font-size: 1.25rem;
-      color: $primary-dark-blue;
+      color: $neutral-white;
       margin-bottom: 1rem;
     }
   }

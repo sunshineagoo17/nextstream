@@ -136,61 +136,63 @@ const TopPicksPage = () => {
         closeOnClick
         pauseOnHover
       />
-      <div className="top-picks-page__title-container">
-        <h1 className="top-picks-page__title">{name}'s Top Picks</h1> 
-        <p className="top-picks-page__intro">
-          Use NextSwipe to discover new movies and shows. Swipe right to like and left to dislike each card, tailoring your perfect viewing schedule. For desktop users, you can click and drag left or right, or simply click on the arrows. Add your favorites to your calendar today!
-        </p>
-      </div>
-      {isLoading && <Loader />}
-      {!isLoading && media.length > 0 && currentIndex < media.length && (
-        <div className="top-picks-page__media-card">
-          <button className="top-picks-page__nav-button top-picks-page__nav-button--left" onClick={() => handleSwipe('Left')}>
-            <FontAwesomeIcon icon={faArrowLeft} />
-          </button>
-          <MediaCard media={media[currentIndex]} handlers={handlers} />
-          <button
-            className="top-picks-page__calendar-button"
-            onClick={() => handleAddToCalendar(media[currentIndex])}
-          >
-            <FontAwesomeIcon icon={faCalendarPlus} /> Add to Calendar
-          </button>
-          <button className="top-picks-page__nav-button top-picks-page__nav-button--right" onClick={() => handleSwipe('Right')}>
-            <FontAwesomeIcon icon={faArrowRight} />
-          </button>
+      <div className="top-picks-page__container">
+        <div className="top-picks-page__title-container">
+          <h1 className="top-picks-page__title">{name}'s Top Picks</h1> 
+          <p className="top-picks-page__intro">
+            Use NextSwipe to discover new movies and shows. Swipe right to like and left to dislike each card, tailoring your perfect viewing schedule. For desktop users, you can click and drag left or right, or simply click on the arrows. Add your favorites to your calendar today!
+          </p>
         </div>
-      )}
-      {!isLoading && currentIndex >= media.length && (
-        <div className="top-picks-page__no-more-media-container">
-          <img src={NoMoreMedia} alt="No more media" className="top-picks-page__no-more-media-image" />
-          <div className="top-picks-page__no-more-media">
-            <p>All swipes have been recorded!</p>
+        {isLoading && <Loader />}
+        {!isLoading && media.length > 0 && currentIndex < media.length && (
+          <div className="top-picks-page__media-card">
+            <button className="top-picks-page__nav-button top-picks-page__nav-button--left" onClick={() => handleSwipe('Left')}>
+              <FontAwesomeIcon icon={faArrowLeft} />
+            </button>
+            <MediaCard media={media[currentIndex]} handlers={handlers} />
             <button
-              className="top-picks-page__recommendations-button"
-              onClick={fetchRecommendations}
+              className="top-picks-page__calendar-button"
+              onClick={() => handleAddToCalendar(media[currentIndex])}
             >
-              Get Recommendations
+              <FontAwesomeIcon icon={faCalendarPlus} /> Add to Calendar
+            </button>
+            <button className="top-picks-page__nav-button top-picks-page__nav-button--right" onClick={() => handleSwipe('Right')}>
+              <FontAwesomeIcon icon={faArrowRight} />
             </button>
           </div>
+        )}
+        {!isLoading && currentIndex >= media.length && (
+          <div className="top-picks-page__no-more-media-container">
+            <img src={NoMoreMedia} alt="No more media" className="top-picks-page__no-more-media-image" />
+            <div className="top-picks-page__no-more-media">
+              <p>All swipes have been recorded!</p>
+              <button
+                className="top-picks-page__recommendations-button"
+                onClick={fetchRecommendations}
+              >
+                Get Recommendations
+              </button>
+            </div>
+          </div>
+        )}
+        {showCalendar && (
+          <div className="calendar-modal">
+            <button className="calendar-close-btn" onClick={handleCloseCalendar}>
+              <p className="calendar-close-btn__txt">x</p>
+            </button>
+            <CalendarModal
+              userId={userId}
+              eventTitle={eventTitle}
+              media_type={selectedMedia?.media_type} 
+              onClose={handleCloseCalendar}
+              handleSave={handleSaveEvent}
+              ref={calendarRef}
+            />
+          </div>
+        )}
+        <div className="top-picks-page__background">
+          <AnimatedBg />
         </div>
-      )}
-      {showCalendar && (
-        <div className="calendar-modal">
-          <button className="calendar-close-btn" onClick={handleCloseCalendar}>
-            <p className="calendar-close-btn__txt">x</p>
-          </button>
-          <CalendarModal
-            userId={userId}
-            eventTitle={eventTitle}
-            media_type={selectedMedia?.media_type} 
-            onClose={handleCloseCalendar}
-            handleSave={handleSaveEvent}
-            ref={calendarRef}
-          />
-        </div>
-      )}
-      <div className="top-picks-page__background">
-        <AnimatedBg />
       </div>
     </div>
   );
