@@ -154,7 +154,7 @@ const TopPicksPage = () => {
               className="top-picks-page__calendar-button"
               onClick={() => handleAddToCalendar(media[currentIndex])}
             >
-              <FontAwesomeIcon icon={faCalendarPlus} /> Add to Calendar
+              <FontAwesomeIcon icon={faCalendarPlus} /> <p className="top-picks-page__calendar-copy">Add to Calendar</p>
             </button>
             <button className="top-picks-page__nav-button top-picks-page__nav-button--right" onClick={() => handleSwipe('Right')}>
               <FontAwesomeIcon icon={faArrowRight} />
