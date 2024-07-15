@@ -1,0 +1,39 @@
+@use "../../../../styles/partials/colors" as *;
+@use "../../../../styles/partials/fonts" as *;
+@use "../../../../styles/partials/mixins" as *;
+@use "../../../../styles/global.scss" as *;
+
+.media-card__tmdb-link {
+    font: $primary-font;
+    color: $primary-dark-blue;
+    cursor: pointer;
+    text-decoration: none;
+    border-radius: 0.25rem;
+    transition: background-color 0.3s, transform 0.3s;
+
+    &:visited {
+      color: $primary-dark-blue;
+    }
+
+    &:hover,
+    &:focus {
+      padding-left: .25rem;
+      padding-right: .25rem;
+      background-color: $primary-medium-blue;
+      border: 1px solid $primary-dark-blue;
+      color: $neutral-white;
+      text-decoration: none;
+      box-shadow: $shadow-primary;
+    }
+
+    &:active {
+      padding-left: .25rem;
+      padding-right: .25rem;
+      background-color: $neutral-white;
+      color: $primary-dark-blue;
+      border: 1px solid $primary-very-light-blue;
+      border-radius: 0.25rem;
+      transform: scale(0.5);
+      text-decoration: none;
+    }
+}
