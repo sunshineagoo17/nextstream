@@ -26,6 +26,12 @@
     color: $primary-dark-blue;
   }
 
+  &__buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
   &__close-btn {
     background: none;
     border: none;
