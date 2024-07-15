@@ -8,7 +8,7 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userId, setUserId] = useState(null);
-  const [name, setName] = useState(''); 
+  const [name, setName] = useState('');
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -62,7 +62,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('userId');
     setIsAuthenticated(false);
     setUserId(null);
-    setName(''); 
+    setName('');
   };
 
   if (isLoading) {

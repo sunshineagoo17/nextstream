@@ -14,7 +14,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import './TopPicksPage.scss';
 
 const TopPicksPage = () => {
-  const { userId, name } = useContext(AuthContext);
+  const { userId, name, isAuthenticated } = useContext(AuthContext);
   const [media, setMedia] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showCalendar, setShowCalendar] = useState(false);
@@ -29,24 +29,94 @@ const TopPicksPage = () => {
     const fetchInitialMedia = async () => {
       try {
         setIsLoading(true);
+        
+        // Make the API call
         const response = await api.get(`/api/interactions/recommendations/${userId}`);
+        
+        // Log the raw API response
+        console.log('Initial API Response:', response.data);
+
         const { topPicks } = response.data;
+        
+        // Process the top picks
         const initialMedia = topPicks.map(item => ({
           ...item,
           media_type: item.title ? 'movie' : 'tv'
         }));
+
+        // Log the processed initial media
+        console.log('Processed Initial Media:', initialMedia);
+        
+        // Update the media state
         setMedia(initialMedia);
-        setIsLoading(false);
       } catch (error) {
         console.error('Error fetching data', error);
+      } finally {
+        // Set loading to false after process is complete
         setIsLoading(false);
       }
     };
-    fetchInitialMedia();
+
+    if (userId) {
+      fetchInitialMedia();
+    }
+
+    // Cleanup function
+    return () => {
+      setMedia([]);
+      setCurrentIndex(0);
+      setSwipedMediaIds([]);
+      setNoMoreMedia(false);
+      setIsLoading(false);
+    };
   }, [userId]);
 
+  const fetchRecommendations = async () => {
+    try {
+      setIsLoading(true);
+
+      // Make the API call
+      const response = await api.get(`/api/interactions/recommendations/${userId}`);
+      
+      // Log the raw API response
+      console.log('API Response:', response.data);
+      
+      const { recommendations } = response.data;
+      
+      // Log the recommendations before filtering
+      console.log('Raw Recommendations:', recommendations);
+      
+      // Filter out already swiped media
+      const recommendedMedia = recommendations.filter(mediaItem => !swipedMediaIds.includes(mediaItem.id))
+        .slice(0, 3)
+        .map(item => ({
+          ...item,
+          media_type: item.title ? 'movie' : 'tv'
+        }));
+      
+      // Log the filtered recommendations
+      console.log('Filtered Recommendations:', recommendedMedia);
+      
+      // Update state with new media
+      setMedia((prevMedia) => [...prevMedia, ...recommendedMedia]);
+      
+      // Log updated media state
+      console.log('Updated Media State:', [...media, ...recommendedMedia]);
+      
+      // Update the current index
+      setCurrentIndex(media.length);
+      
+      // Ensure noMoreMedia is false after fetching new recommendations
+      setNoMoreMedia(false);
+    } catch (error) {
+      console.error('Error fetching recommendations', error);
+    } finally {
+      // Set loading to false after process is complete
+      setIsLoading(false);
+    }
+  };
+
   const handleSwipe = async (direction) => {
-    console.log(`Swiped ${direction}`);
     if (currentIndex < media.length) {
       const interaction = direction === 'Right' ? 1 : 0;
       const currentMedia = media[currentIndex];
@@ -58,7 +128,6 @@ const TopPicksPage = () => {
           interaction: interaction,
           media_type: currentMedia.media_type,
         });
-        console.log('Interaction recorded');
         setSwipedMediaIds(prev => [...prev, currentMedia.id]);
       } catch (error) {
         console.error('Error recording interaction', error);
@@ -77,26 +146,6 @@ const TopPicksPage = () => {
     onSwipedRight: () => !showCalendar && handleSwipe('Right'),
     trackMouse: true,
   });
-
-  const fetchRecommendations = async () => {
-    try {
-      setIsLoading(true);
-      const response = await api.get(`/api/interactions/recommendations/${userId}`);
-      const { recommendations } = response.data;
-      const recommendedMedia = recommendations.filter(mediaItem => !swipedMediaIds.includes(mediaItem.id)).slice(0, 3).map(item => ({
-        ...item,
-        media_type: item.title ? 'movie' : 'tv'
-      }));
-      console.log('Recommendations:', response.data);
-      setMedia((prevMedia) => [...prevMedia, ...recommendedMedia]);
-      setCurrentIndex(media.length);
-      setNoMoreMedia(false);
-      setIsLoading(false);
-    } catch (error) {
-      console.error('Error fetching recommendations', error);
-      setIsLoading(false);
-    }
-  };
 
   const handleAddToCalendar = (title, mediaType) => {
     setEventTitle(title);
@@ -127,6 +176,10 @@ const TopPicksPage = () => {
       toast.error('Error saving event.');
     }
   };
+
+  if (!isAuthenticated) {
+    return null; 
+  }
 
   return (
     <div className="top-picks-page">
