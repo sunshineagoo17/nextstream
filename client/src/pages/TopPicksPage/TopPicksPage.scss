@@ -20,6 +20,7 @@
   }
 
   &__container {
+    @include frosted-glass2;
     border-radius: 1.25rem;
     box-shadow: $shadow-quaternary;
     padding: 1rem;
@@ -29,12 +30,13 @@
     flex-direction: column;
     align-items: center;
   }
+  
   &__no-more-media-container {
     @include block-item(18rem, 26.2rem);
+    @include frosted-glass2;
     display: flex;
     margin-top: 1rem;
     flex-direction: column;
-    background-color: $frosted-glass;
     box-shadow: $shadow-primary;
     border-radius: 1.5rem;
     border: 5px solid $primary-dark-blue;
@@ -50,7 +52,7 @@
     background-color: $primary-medium-blue;
     padding: 1rem;
     border-radius: 1rem;
-    border: 2px solid $primary-light-cyan;
+    border: 2px solid $primary-pale-blue;
     margin-top: 0;
     margin-bottom: 1rem;
     box-shadow: $shadow-senary;
@@ -251,7 +253,7 @@
     }
 
     @include desktop {
-      bottom: 0rem;
+      bottom: -3.25rem;
       height: 15.625rem;
     }
 

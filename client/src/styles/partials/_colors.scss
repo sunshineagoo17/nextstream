@@ -75,3 +75,9 @@ $shadow-septenary: 0 0 0 .1875rem rgba(64, 146, 255, 0.5);
 
 // Frosted Glass
 $frosted-glass: rgba(255, 255, 255, 0.1);
+@mixin frosted-glass2 {
+    background-color: rgba($primary-pale-blue, 0.5);
+    backdrop-filter: blur(.625rem); 
+    -webkit-backdrop-filter: blur(.625rem);
+    overflow:hidden;
+}

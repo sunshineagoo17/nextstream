@@ -35,6 +35,10 @@
     }
   }
 
+  &__close-icon {
+    @include block-item(.75rem, .75rem);
+  }
+
   &__container {
     position: relative;
     z-index: 1;
@@ -502,17 +506,21 @@
 
   .calendar-close-btn {
     position: absolute;
-    top: 11rem; 
+    top: 14.75rem; 
     left: 50%;
     transform: translateX(-50%);
     background-color: transparent;
     color: $neutral-white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border: 1px solid $neutral-white;
-    padding: .25rem;
+    padding: .05rem;
     font-size: 1.5rem;
+    box-shadow: $shadow-senary;
     cursor: pointer;
     z-index: 1001;
-    border-radius: .5rem;
+    border-radius: .2rem;
     transition: all 0.3s ease; 
 
     &:hover {
@@ -527,5 +535,37 @@
       transform: translateX(-50%) scale(1);
       box-shadow: $shadow-senary;
     }
+
+    @include tablet {
+      top: 6.5rem;
+    }
+
+    @include desktop {
+      top: 5rem;
+    }
+
+    @include large-desktop {
+      top: 11.5rem;
+    }
+
+    @include extra-large-desktop {
+      top: 12.75rem;
+    
+
+      &:hover {
+        background-color: $primary-dark-blue;
+        color: $neutral-white;
+        padding: 1rem; 
+        border-radius: .5rem; 
+        transform: translateX(-50%) scale(1.001); 
+      }
+
+      &:active {
+        transform: translateX(-50%) scale(.9);
+        box-shadow: $shadow-senary;
+      }
+    }
+
+    
   }
 }
