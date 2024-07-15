@@ -47,8 +47,10 @@
   }
 
   &__no-providers {
+    margin-top: -1rem;
     color: $primary-pale-blue;
     font-size: .4rem;
+    background-color: $primary-medium-blue;
     background-color: $primary-medium-blue;
     box-shadow: $shadow-primary;
     border-radius: .25rem;
@@ -237,8 +239,8 @@
 
   &__error-no-img-title,
   &__error-no-img-txt {
-    font-size: 0.75rem;
-    line-height: 0.8rem;
+    font-size: 0.5rem;
+    line-height: 0.5rem;
     text-align: center;
 
     @include tablet {
