@@ -46,6 +46,12 @@
     }
 }
 
+@mixin extra-large-desktop {
+    @media screen and (min-width: #{$extra-large-desktop-breakpoint}) {
+        @content;
+    }
+}
+
 // Block item mixin
 @mixin block-item($width, $height) {
     width: $width;

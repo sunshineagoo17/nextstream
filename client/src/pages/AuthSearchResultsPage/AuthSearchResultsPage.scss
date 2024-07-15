@@ -487,55 +487,39 @@
   }
 }
 
-.calendar-close-btn {
-  @include block-item(2rem, 2rem);
-  top: -1rem;
+.calendar-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
   display: flex;
-  position: absolute;
-  margin-left: 1rem;
   justify-content: center;
   align-items: center;
-  background: rgba(255, 255, 255, 0.95);
-  border: none;
-  border-radius: .25rem;
-  padding: 10px;
-  cursor: pointer;
-  box-shadow: $shadow-tertiary;
-  font: $primary-font;
-  color: $primary-medium-blue;
-  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  z-index: 1000;
+  margin-top: 0;
 
-  &:hover {
-    background: $primary-light-blue;
-    color: $neutral-white;
-    border: 1px solid $neutral-white;
+  .calendar-close-btn {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 1001;
+
+    &:hover {
+      @include block-item(1rem, 1rem);
+      background-color: $primary-dark-blue;
+      color: $neutral-white;
+    }
+
+    .calendar-close-btn__txt {
+      margin: 0;
+    }
   }
-
-  &:active {
-    background-color: $primary-medium-blue;
-    color: $neutral-white;
-     transform: scale(0.9);
-    box-shadow: $shadow-primary;
-  }
-
-  @include tablet {
-    top: -1rem;
-    left: 1rem;
-  }
-
-  @include desktop {
-    left: 1.5rem;
-  }
-
-  @include large-desktop {
-    left: 1rem;
-  }
-
-  &__txt {
-    $font-family: $primary-font;
-  }
-}
-
-.calendar-modal {
-  position: relative;
 }

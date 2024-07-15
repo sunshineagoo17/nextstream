@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext, useRef, useCallback } from 'rea
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCalendarAlt, faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarPlus, faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import axios from 'axios';
 import AnimatedBg from '../../components/AnimatedBg/AnimatedBg';
@@ -164,7 +164,7 @@ const AuthSearchResultsPage = ({ userId }) => {
                         className="auth-search-results__calendar-button"
                         onClick={() => handleAddToCalendar(result.title || result.name, result.media_type)}
                       >
-                        <FontAwesomeIcon icon={faCalendarAlt} className='auth-search-results__calendar-icon' />
+                        <FontAwesomeIcon icon={faCalendarPlus} className='auth-search-results__calendar-icon' />
                       </button>
                     </div>
                   ) : (
