@@ -19,6 +19,46 @@
     align-items: center;
   }
 
+  &__terms-link {
+    background: none;
+    border: none;
+    font: $primary-font;
+    color: $primary-light-blue;
+    cursor: pointer;
+    text-decoration: none;
+    padding: 0;
+    border-radius: 0.25rem;
+    transition: background-color 0.3s, transform 0.3s;
+
+    &:visited {
+      color: $primary-dark-blue;
+    }
+
+    &:hover,
+    &:focus {
+      padding-left: .25rem;
+      padding-right: .25rem;
+      background-color: $primary-medium-blue;
+      border: 1px solid $primary-medium-blue;
+      color: $neutral-white;
+      border-color: $primary-dark-blue;
+      text-decoration: none;
+      box-shadow: $shadow-primary;
+    }
+
+    &:active {
+      padding-left: .25rem;
+      padding-right: .25rem;
+      background-color: $neutral-white;
+      color: $primary-dark-blue;
+      border: 1px solid $primary-very-light-blue;
+      border-radius: 0.25rem;
+      transform: scale(0.5);
+      text-decoration: none;
+      font-weight: bold;
+    }
+  }
+
   &__title {
     font-size: 2.5rem;
     color: $primary-medium-blue;
@@ -242,7 +282,6 @@
   }
 
   &__already-account {
-    margin: 1rem 0;
     font-size: 1rem;
     color: $primary-medium-blue;
 
@@ -253,8 +292,9 @@
       transition: background-color 0.3s ease, color 0.3s ease;
 
       &:hover {
-        background-color: $primary-dark-blue;
+        background-color: $primary-medium-blue;
         color: $neutral-white;
+        text-decoration: normal;
         padding: 0.1rem 0.5rem;
         border-radius: 0.25rem;
       }
@@ -273,7 +313,7 @@
     transition: transform 0.1s ease, background-color 0.1s ease, color 0.1s ease;
 
     &:hover {
-      background-color: $primary-dark-blue;
+      background-color: $primary-medium-blue;
       color: $neutral-white;
       padding: 0.1rem 0.5rem;
       border-radius: 0.25rem;
@@ -286,8 +326,9 @@
 
     &:active {
       transform: scale(0.85);
-      background-color: $primary-light-blue;
-      color: $neutral-black;
+      background-color: $neutral-white;
+      color: $primary-dark-blue;
+      border: 1px solid $primary-very-light-blue;
       padding: 0.1rem 0.5rem;
       border-radius: 0.25rem;
       text-decoration: none;

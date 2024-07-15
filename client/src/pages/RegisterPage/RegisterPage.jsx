@@ -248,7 +248,7 @@ export const RegisterPage = () => {
               </label>
               {termsError && <p className="error">Please agree to the terms and conditions</p>}
               <p className="register__already-account">
-                Already have an account? <Link to="/login" aria-label="Log In"><span className="register__signin-link">Sign In</span></Link>
+                Already have an account? <Link to="/login" aria-label="Log In"><span className="register__signin-link">Sign In.</span></Link>
               </p>
               <div className="register__button-group">
                 <button className="register__button register__button--previous" onClick={goToPreviousPage}>
