@@ -151,6 +151,7 @@
     cursor: pointer;
     font-family: $primary-font;
     box-shadow: $shadow-primary;
+    margin-top: .5rem;
     transition: background-color 0.3s, transform 0.2s;
 
     &:hover {
@@ -163,7 +164,7 @@
     }
 
     @include tablet {
-      margin-top: .5rem;
+      margin-top: -1rem;
     }
   }
 

@@ -24,7 +24,8 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, onClose }, ref) =>
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [newEventTitle, setNewEventTitle] = useState(eventTitle || '');
-  const [newEventDate, setNewEventDate] = useState('');
+  const [newEventStartDate, setNewEventStartDate] = useState('');
+  const [newEventEndDate, setNewEventEndDate] = useState('');
   const [newEventType, setNewEventType] = useState(mediaType || 'movie');
   const calendarRef = useRef(null);
   const miniCalendarRef = useRef(null);
@@ -73,7 +74,8 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, onClose }, ref) =>
 
   const handleDateClick = (arg) => {
     const localDate = moment(arg.date).format('YYYY-MM-DDTHH:mm:ss');
-    setNewEventDate(localDate);
+    setNewEventStartDate(localDate);
+    setNewEventEndDate(localDate);
     setSelectedEvent(null);
     setNewEventType(mediaType || 'movie');
     setModalVisible(true);
@@ -108,8 +110,8 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, onClose }, ref) =>
     try {
       const newEvent = {
         title: newEventTitle,
-        start: moment(newEventDate).format('YYYY-MM-DDTHH:mm:ss'),
-        end: moment(newEventDate).format('YYYY-MM-DDTHH:mm:ss'),
+        start: moment(newEventStartDate).format('YYYY-MM-DDTHH:mm:ss'),
+        end: moment(newEventEndDate).format('YYYY-MM-DDTHH:mm:ss'),
         eventType: newEventType
       };
       await api.post(`/api/calendar/${userId}/events`, newEvent);
@@ -384,8 +386,14 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, onClose }, ref) =>
             <input
               type="datetime-local"
               className="modal-input"
-              value={selectedEvent ? selectedEvent.start : newEventDate}
-              onChange={(e) => selectedEvent ? setSelectedEvent({ ...selectedEvent, start: e.target.value }) : setNewEventDate(e.target.value)}
+              value={selectedEvent ? selectedEvent.start : newEventStartDate}
+              onChange={(e) => selectedEvent ? setSelectedEvent({ ...selectedEvent, start: e.target.value }) : setNewEventStartDate(e.target.value)}
+            />
+            <input
+              type="datetime-local"
+              className="modal-input"
+              value={selectedEvent ? selectedEvent.end : newEventEndDate}
+              onChange={(e) => selectedEvent ? setSelectedEvent({ ...selectedEvent, end: e.target.value }) : setNewEventEndDate(e.target.value)}
             />
             <div className="modal-input event-type-options">
               <label>
