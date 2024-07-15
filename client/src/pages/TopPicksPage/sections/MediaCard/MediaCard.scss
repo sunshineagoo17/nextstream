@@ -4,74 +4,87 @@
 @use "../../../../styles/global.scss" as *;
 
 .media-card {
-  position: relative; /* Ensure relative positioning for the container */
+  position: relative;
   display: flex;
   flex-direction: column;
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
+  
+  &__type-icon {
+    font-size: .5rem;
+    color: $primary-light-blue; 
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 50%;
+    padding: .25rem; 
 
-.media-card__image {
-  width: 100%;
-  height: auto;
-}
-
-.media-card__details {
-  padding: 16px;
-}
-
-.media-card__title {
-  font-size: 1.25rem;
-  margin: 0;
-}
-
-.media-card__tmdb-link {
-  font: $primary-font;
-  color: $primary-dark-blue;
-  cursor: pointer;
-  text-decoration: none;
-  border-radius: 0.25rem;
-  transition: background-color 0.3s, transform 0.3s;
-
-  &:visited {
-    color: $primary-dark-blue;
+    @include tablet {
+        font-size: 1rem;
+        margin-left: .75rem;
+    }
   }
 
-  &:hover,
-  &:focus {
-    padding-left: .25rem;
-    padding-right: .25rem;
-    background-color: $primary-medium-blue;
-    border: 1px solid $primary-dark-blue;
-    color: $neutral-white;
+    &__image {
+    width: 100%;
+    height: auto;
+    }
+
+    &__details {
+    padding: 16px;
+    }
+
+    &__title {
+    font-size: 1.25rem;
+    margin: 0;
+    line-height: 1.5rem;
+
+        @include tablet {
+            font-size: 1.25rem;
+        }
+    }
+    
+    &__tmdb-link {
+    font: $primary-font;
+    color: $primary-dark-blue;
+    cursor: pointer;
     text-decoration: none;
-    box-shadow: $shadow-primary;
-  }
-
-  &:active {
-    padding-left: .25rem;
-    padding-right: .25rem;
-    background-color: $neutral-white;
-    color: $primary-dark-blue;
-    border: 1px solid $primary-very-light-blue;
     border-radius: 0.25rem;
-    transform: scale(0.5);
-    text-decoration: none;
-  }
-}
+    transition: background-color 0.3s, transform 0.3s;
 
-.media-card__overview {
-  margin-top: 8px;
-  font-size: 0.875rem;
-  color: $primary-dark-blue;
-}
+    &:visited {
+        color: $primary-dark-blue;
+    }
 
-.media-card__type-icon {
-  font-size: 1rem;
-  color: $primary-light-blue; 
-  margin-left: .25rem;
-  background: rgba(255, 255, 255, 0.7);
-  border-radius: 50%;
-  padding: .25rem; 
+    &:hover,
+    &:focus {
+        padding-left: .25rem;
+        padding-right: .25rem;
+        background-color: $primary-medium-blue;
+        border: 1px solid $primary-dark-blue;
+        color: $neutral-white;
+        text-decoration: none;
+        box-shadow: $shadow-primary;
+    }
+
+        &:active {
+            padding-left: .25rem;
+            padding-right: .25rem;
+            background-color: $neutral-white;
+            color: $primary-dark-blue;
+            border: 1px solid $primary-very-light-blue;
+            border-radius: 0.25rem;
+            transform: scale(0.5);
+            text-decoration: none;
+        }
+    }
+
+    &__overview {
+        margin-top: 8px;
+        font-size: 0.65rem;
+        color: $primary-dark-blue;
+
+        @include tablet {
+            font-size: .875rem;
+        }
+    }
 }

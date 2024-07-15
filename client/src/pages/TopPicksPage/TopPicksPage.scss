@@ -122,9 +122,9 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background-color: rgba($neutral-black, 0.6);
+    background-color: rgba($neutral-black, 0.1);
     border: none;
-    color: $primary-light-blue;
+    color: $primary-medium-blue;
     font-size: 1.5rem;
     cursor: pointer;
     padding: 1rem;
@@ -133,7 +133,7 @@
     z-index: 1001;
 
       &:hover {
-        background-color: rgba($neutral-black, 0.8);
+        background-color: rgba($neutral-black, 0.3);
         color: $neutral-white;
         transform: translateY(-50%) scale(1.1);
       }
