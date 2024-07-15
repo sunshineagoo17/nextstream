@@ -13,10 +13,16 @@
   min-height: 100vh;
 
   &__title {
-    font-size: 2.5rem;
+    font-size: 1.5rem;
+    line-height: 1.75rem;
     margin-bottom: 1rem;
     color: $neutral-white;
     text-align: center;
+
+    @include tablet {
+      font-size: 2.5rem;
+      line-height: 2.5rem;
+    }
   }
 
   &__container {
@@ -59,10 +65,17 @@
   }
 
   &__intro {
-    font-size: 1.25rem;
-    margin-bottom: 1rem;
+    font-size: 1rem;
+    margin-bottom: .5rem;
     color: $neutral-white;
     text-align: center;
+    line-height: 1.35rem;
+
+    @include tablet {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+      line-height: 1.65rem;
+    }
   }
 
   &__media-card-container {
