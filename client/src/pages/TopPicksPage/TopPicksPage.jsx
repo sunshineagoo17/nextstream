@@ -14,11 +14,11 @@ import 'react-toastify/dist/ReactToastify.css';
 import './TopPicksPage.scss';
 
 const TopPicksPage = () => {
-  const { userId, name } = useContext(AuthContext); 
+  const { userId, name } = useContext(AuthContext);
   const [media, setMedia] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showCalendar, setShowCalendar] = useState(false);
-  const [selectedMedia, setSelectedMedia] = useState(null);
+  const [selectedMediaType, setSelectedMediaType] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [eventTitle, setEventTitle] = useState('');
   const [swipedMediaIds, setSwipedMediaIds] = useState([]);
@@ -98,9 +98,9 @@ const TopPicksPage = () => {
     }
   };
 
-  const handleAddToCalendar = (media) => {
-    setSelectedMedia(media);
-    setEventTitle(media.title || media.name);
+  const handleAddToCalendar = (title, mediaType) => {
+    setEventTitle(title);
+    setSelectedMediaType(mediaType);
     setShowCalendar(true);
     toast.info('Sort your calendar. Resume swiping once done.');
   };
@@ -116,7 +116,7 @@ const TopPicksPage = () => {
         title: eventTitle,
         start: eventDate,
         end: eventDate,
-        media_id: selectedMedia.id,
+        media_id: media[currentIndex].id,
         userId,
       };
       await api.post(`/api/calendar/${userId}/events`, newEvent);
@@ -140,7 +140,7 @@ const TopPicksPage = () => {
       />
       <div className="top-picks-page__container">
         <div className="top-picks-page__title-container">
-          <h1 className="top-picks-page__title">{name}'s Top Picks</h1> 
+          <h1 className="top-picks-page__title">{name}'s Top Picks</h1>
           <p className="top-picks-page__intro">
             Use NextSwipe to discover new movies and shows. Swipe right to like and left to dislike each media card, tailoring your perfect viewing schedule. For desktop users, you can click and drag left or right, or simply click on the arrows. Add your favourites to your calendar today!
           </p>
@@ -151,10 +151,10 @@ const TopPicksPage = () => {
             <button className="top-picks-page__nav-button top-picks-page__nav-button--left" onClick={() => handleSwipe('Left')}>
               <FontAwesomeIcon icon={faArrowLeft} />
             </button>
-            <MediaCard media={media[currentIndex]} handlers={handlers} />
+            <MediaCard media={media[currentIndex]} handlers={handlers} onAddToCalendar={handleAddToCalendar} />
             <button
               className="top-picks-page__calendar-button"
-              onClick={() => handleAddToCalendar(media[currentIndex])}
+              onClick={() => handleAddToCalendar(media[currentIndex].title || media[currentIndex].name, media[currentIndex].media_type)}
             >
               <FontAwesomeIcon icon={faCalendarPlus} /> <p className="top-picks-page__calendar-copy">Add to Calendar</p>
             </button>
@@ -185,7 +185,7 @@ const TopPicksPage = () => {
             <CalendarModal
               userId={userId}
               eventTitle={eventTitle}
-              media_type={selectedMedia?.media_type} 
+              mediaType={selectedMediaType}
               onClose={handleCloseCalendar}
               handleSave={handleSaveEvent}
               ref={calendarRef}
