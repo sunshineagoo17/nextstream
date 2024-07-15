@@ -502,24 +502,30 @@
 
   .calendar-close-btn {
     position: absolute;
-    top: 10px;
+    top: 11rem; 
     left: 50%;
     transform: translateX(-50%);
     background-color: transparent;
-    border: none;
-    color: white;
-    font-size: 24px;
+    color: $neutral-white;
+    border: 1px solid $neutral-white;
+    padding: .25rem;
+    font-size: 1.5rem;
     cursor: pointer;
     z-index: 1001;
+    border-radius: .5rem;
+    transition: all 0.3s ease; 
 
     &:hover {
-      @include block-item(1rem, 1rem);
       background-color: $primary-dark-blue;
       color: $neutral-white;
+      padding: 1rem; 
+      border-radius: .5rem; 
+      transform: translateX(-50%) scale(1.1); 
     }
 
-    .calendar-close-btn__txt {
-      margin: 0;
+    &:active {
+      transform: translateX(-50%) scale(1);
+      box-shadow: $shadow-senary;
     }
   }
 }

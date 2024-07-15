@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext, useRef, useCallback } from 'rea
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCalendarPlus, faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarPlus, faClose, faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import axios from 'axios';
 import AnimatedBg from '../../components/AnimatedBg/AnimatedBg';
@@ -227,7 +227,8 @@ const AuthSearchResultsPage = ({ userId }) => {
       </div>
       {showCalendar && (
         <div className="calendar-modal">
-          <button className="calendar-close-btn" onClick={handleCloseCalendar}><p className="calendar-close-btn__txt">x</p></button>
+          
+          <button className="calendar-close-btn" onClick={handleCloseCalendar}><FontAwesomeIcon icon={faClose} className='auth-search-results__calendar-icon' /></button>
           <Calendar 
             userId={userId}
             eventTitle={eventTitle}
