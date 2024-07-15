@@ -53,6 +53,10 @@ export const LoginPage = () => {
     return true;
   };
 
+  const clearErrors = () => {
+    setErrors({});
+  };
+
   const handleSignIn = async () => {
     if (!validateFields()) return;
 
@@ -123,7 +127,10 @@ export const LoginPage = () => {
                     placeholder="Enter your email"
                     type="text"
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                      clearErrors();
+                    }}
                   />
                   <label className="login__label" htmlFor="input-email">
                     Email
@@ -137,7 +144,10 @@ export const LoginPage = () => {
                     placeholder="Enter your password"
                     type={passwordVisible ? 'text' : 'password'}
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                      clearErrors();
+                    }}
                   />
                   <label className="login__label" htmlFor="input-password">
                     Password
