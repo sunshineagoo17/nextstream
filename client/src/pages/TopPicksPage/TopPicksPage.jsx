@@ -22,6 +22,7 @@ const TopPicksPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [eventTitle, setEventTitle] = useState('');
   const [swipedMediaIds, setSwipedMediaIds] = useState([]);
+  const [noMoreMedia, setNoMoreMedia] = useState(false);
   const calendarRef = useRef(null);
 
   useEffect(() => {
@@ -66,7 +67,7 @@ const TopPicksPage = () => {
       setCurrentIndex((prevIndex) => prevIndex + 1);
 
       if (currentIndex + 1 >= media.length) {
-        fetchRecommendations();
+        setNoMoreMedia(true);
       }
     }
   };
@@ -89,6 +90,7 @@ const TopPicksPage = () => {
       console.log('Recommendations:', response.data);
       setMedia((prevMedia) => [...prevMedia, ...recommendedMedia]);
       setCurrentIndex(media.length);
+      setNoMoreMedia(false);
       setIsLoading(false);
     } catch (error) {
       console.error('Error fetching recommendations', error);
@@ -161,7 +163,7 @@ const TopPicksPage = () => {
             </button>
           </div>
         )}
-        {!isLoading && currentIndex >= media.length && (
+        {!isLoading && noMoreMedia && (
           <div className="top-picks-page__no-more-media-container">
             <img src={NoMoreMedia} alt="No more media" className="top-picks-page__no-more-media-image" />
             <div className="top-picks-page__no-more-media">
