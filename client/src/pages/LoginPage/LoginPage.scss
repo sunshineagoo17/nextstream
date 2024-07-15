@@ -114,86 +114,42 @@
     width: 100%;
     border-radius: 1rem;
     box-shadow: $shadow-primary;
-    margin-bottom: 2rem; 
     border: .85rem solid;
     @include animateBorder;
     @include borderAnimation;
-
-    @include desktop {
-      margin-bottom: 0;
-    }
   }
-  
-  &__btn-create-account-wrapper {
-    @include block-item(9.625rem, 3.375rem);
-    transform: translateX(1%);
-    margin-top: 1rem;
-  
-    &:hover .login__btn-create-account {
-      background: linear-gradient(180deg, rgb(238, 244, 252) 0%, rgb(64, 146, 255) 100%);
-      animation: shimmer 0.5s linear infinite;
-    }
 
-    &:active {
-        transform: scale(0.95);
-    }
-  }
-  
   &__btn-create-account {
-    @include block-item(9.25rem, 2.875rem);
-    align-items: center;
-    background: linear-gradient(180deg, rgb(238, 244, 252) 0%, rgb(64, 146, 255) 100%);
-    border: 2px solid $primary-very-light-blue;
-    border-radius: .75rem;
-    box-shadow: $shadow-quinary;
-    display: flex;
-    justify-content: center;
-    padding: .75rem 2rem;
-    transition: background 0.3s ease;
-    cursor: pointer;
-
-    &:hover .login__btn-create-account-txt {
-        color: $primary-darker-blue;
-      }
-    
-    &:active {
-        transform: scale(0.95);
-    }
-  }
-  
-  &__btn-create-account-txt {
+    background: linear-gradient(45deg, $primary-light-blue, $primary-pale-blue); 
+    border: none;
+    border-radius: .3125rem;
+    color: $primary-dark-blue;
+    padding: .625rem 1.25rem;
+    font-size: .85rem;
     font-family: $primary-font;
-    font-size: 1rem;
-    letter-spacing: -0.05rem;
-    position: relative;
-    white-space: nowrap;
+    margin-left: .5rem;
     cursor: pointer;
+    margin-top: 1rem;
+    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 .25rem .375rem rgba($neutral-black, 0.1);
 
     &:hover {
-        color: $primary-darker-blue;
+      background: linear-gradient(45deg, $primary-medium-blue, $primary-cyan); 
+      transform: scale(1.05);
+      color: $neutral-white;
+      box-shadow: 0 .375rem .5rem rgba($neutral-black, 0.15);
     }
 
-    &:focus,
     &:active {
-        color: $primary-darker-blue;
+      background: linear-gradient(45deg, $primary-light-blue, $base-darker-blue); 
+      transform: scale(0.95);
+      color: $primary-pale-blue;
+      box-shadow: 0 .125rem .25rem rgba($neutral-black, 0.2);
     }
 
-    &:visited {
-        color: $primary-darker-blue; 
-    }
-  }
-
-
- &__btn-create-account-container:visited {
-    color: $primary-darker-blue; 
-  }
-  
-  @keyframes shimmer {
-    0% {
-      background-position: -200% 0;
-    }
-    100% {
-      background-position: 200% 0;
+    &:focus { 
+      outline: none;
+      box-shadow: $shadow-septenary; 
     }
   }
   
@@ -204,7 +160,6 @@
       display: block;
       max-width: 400px;
       width: 100%;
-      margin-bottom: 2rem; 
     }
 
     @include desktop {
@@ -353,7 +308,7 @@
       transform: scale(0.9);
     }
   }
-
+  
   &__button-group {
     display: flex;
     gap: 1rem;

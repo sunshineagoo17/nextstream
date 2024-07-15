@@ -176,10 +176,9 @@ export const LoginPage = () => {
 
               <div className="login__btn-create-account-wrapper">
                 <Link to="/register" aria-label="Create a NextStream Account" className="login__btn-create-account-container">
-                  <div className="login__btn-create-account-bg"></div>
-                  <div className="login__btn-create-account">
-                    <span className="login__btn-create-account-txt">Create an Account</span>
-                  </div>
+                  <button className="login__btn-create-account">
+                    Create an account
+                  </button>
                 </Link>
               </div>
 
