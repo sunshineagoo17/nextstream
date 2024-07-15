@@ -17,6 +17,14 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    @include tablet {
+      height: 45vh;
+
+      @include desktop {
+        height: 30vh;
+      }
+    }
   }
 
   &__terms-link {

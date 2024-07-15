@@ -18,9 +18,13 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    position: relative;
+    
     @include tablet {
         height: 50vh;
+    
+      @include desktop {
+        height: 30vh;
+      }
     }
   }
 
