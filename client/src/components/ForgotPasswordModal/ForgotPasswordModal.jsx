@@ -16,7 +16,12 @@ const ForgotPasswordModal = ({ onClose }) => {
       setIsError(false);
       Cookies.set('forgotPasswordEmail', email, { expires: 1 });
     } catch (error) {
-      setMessage('Error sending password reset email. Try again.');
+      console.error('Error:', error); 
+      if (error.response && error.response.status === 404) {
+        setMessage("This account doesn't exist. Try again.");
+      } else {
+        setMessage('Error sending password reset link. Please try again.');
+      }
       setIsError(true);
     }
   };

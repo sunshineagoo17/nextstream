@@ -194,7 +194,6 @@ export const LoginPage = () => {
           </div>
           <div className="login__image-card">
             <img src={SignInCouple} alt="Logging in Couple" />
-            {/* <img src={NoDataImg} alt="Logging in Couple" /> */}
           </div>
         </div>
         {isForgotPasswordModalOpen && <ForgotPasswordModal onClose={closeForgotPasswordModal} />}
