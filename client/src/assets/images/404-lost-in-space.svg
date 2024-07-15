@@ -85,6 +85,35 @@
       .cls-23 {
         opacity: .4;
       }
+
+      @keyframes glow {
+        0% { filter: drop-shadow(0 0 5px #407bff); }
+        50% { filter: drop-shadow(0 0 20px #407bff); }
+        100% { filter: drop-shadow(0 0 5px #407bff); }
+      }
+
+      @keyframes moveUpDown {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-20px); }
+      }
+
+      @keyframes moveLeftRight {
+        0%, 100% { transform: translateX(0); }
+        50% { transform: translateX(100px); }
+      }
+
+      #error404 {
+        animation: glow 1.5s infinite;
+      }
+
+      #planet1, #planet2, #planet3, #planet4, #planet5 {
+        animation: moveUpDown 2s infinite;
+      }
+
+      #space-shuttle {
+        animation: moveLeftRight 4s infinite linear;
+      }
+
     </style>
   </defs>
   <path class="cls-4" d="M1894.8,1240.7H0v1h1894.8v-1Z"/>
