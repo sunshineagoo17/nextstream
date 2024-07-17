@@ -25,34 +25,43 @@ const TopPicksPage = () => {
   const [noMoreMedia, setNoMoreMedia] = useState(false);
   const calendarRef = useRef(null);
 
+  const saveStateToLocalStorage = (state, key) => {
+    localStorage.setItem(key, JSON.stringify(state));
+  };
+
+  const loadStateFromLocalStorage = (key, defaultValue) => {
+    const savedState = localStorage.getItem(key);
+    return savedState ? JSON.parse(savedState) : defaultValue;
+  };
+
+  useEffect(() => {
+    setMedia(loadStateFromLocalStorage('media', []));
+    setCurrentIndex(loadStateFromLocalStorage('currentIndex', 0));
+    setSwipedMediaIds(loadStateFromLocalStorage('swipedMediaIds', []));
+  }, []);
+
   useEffect(() => {
     const fetchInitialMedia = async () => {
       try {
         setIsLoading(true);
-        
-        // Make the API call
+
         const response = await api.get(`/api/interactions/recommendations/${userId}`);
-        
-        // Log the raw API response
         console.log('Initial API Response:', response.data);
 
         const { topPicks } = response.data;
-        
-        // Process the top picks
+
         const initialMedia = topPicks.map(item => ({
           ...item,
           media_type: item.title ? 'movie' : 'tv'
         }));
 
-        // Log the processed initial media
         console.log('Processed Initial Media:', initialMedia);
-        
-        // Update the media state
+
         setMedia(initialMedia);
+        saveStateToLocalStorage(initialMedia, 'media');
       } catch (error) {
         console.error('Error fetching data', error);
       } finally {
-        // Set loading to false after process is complete
         setIsLoading(false);
       }
     };
@@ -61,7 +70,6 @@ const TopPicksPage = () => {
       fetchInitialMedia();
     }
 
-    // Cleanup function
     return () => {
       setMedia([]);
       setCurrentIndex(0);
@@ -71,47 +79,49 @@ const TopPicksPage = () => {
     };
   }, [userId]);
 
+  useEffect(() => {
+    saveStateToLocalStorage(media, 'media');
+  }, [media]);
+
+  useEffect(() => {
+    saveStateToLocalStorage(currentIndex, 'currentIndex');
+  }, [currentIndex]);
+
+  useEffect(() => {
+    saveStateToLocalStorage(swipedMediaIds, 'swipedMediaIds');
+  }, [swipedMediaIds]);
+
   const fetchRecommendations = async () => {
     try {
       setIsLoading(true);
 
-      // Make the API call
       const response = await api.get(`/api/interactions/recommendations/${userId}`);
-      
-      // Log the raw API response
       console.log('API Response:', response.data);
-      
+
       const { recommendations } = response.data;
-      
-      // Log the recommendations before filtering
       console.log('Raw Recommendations:', recommendations);
-      
-      // Filter out already swiped media
+
       const recommendedMedia = recommendations.filter(mediaItem => !swipedMediaIds.includes(mediaItem.id))
         .slice(0, 3)
         .map(item => ({
           ...item,
           media_type: item.title ? 'movie' : 'tv'
         }));
-      
-      // Log the filtered recommendations
+
       console.log('Filtered Recommendations:', recommendedMedia);
-      
-      // Update state with new media
-      setMedia((prevMedia) => [...prevMedia, ...recommendedMedia]);
-      
-      // Log updated media state
-      console.log('Updated Media State:', [...media, ...recommendedMedia]);
-      
-      // Update the current index
+
+      setMedia((prevMedia) => {
+        const updatedMedia = [...prevMedia, ...recommendedMedia];
+        saveStateToLocalStorage(updatedMedia, 'media');
+        return updatedMedia;
+      });
+
       setCurrentIndex(media.length);
-      
-      // Ensure noMoreMedia is false after fetching new recommendations
+      saveStateToLocalStorage(media.length, 'currentIndex');
       setNoMoreMedia(false);
     } catch (error) {
       console.error('Error fetching recommendations', error);
     } finally {
-      // Set loading to false after process is complete
       setIsLoading(false);
     }
   };
@@ -128,12 +138,20 @@ const TopPicksPage = () => {
           interaction: interaction,
           media_type: currentMedia.media_type,
         });
-        setSwipedMediaIds(prev => [...prev, currentMedia.id]);
+        setSwipedMediaIds(prev => {
+          const updatedSwipedMediaIds = [...prev, currentMedia.id];
+          saveStateToLocalStorage(updatedSwipedMediaIds, 'swipedMediaIds');
+          return updatedSwipedMediaIds;
+        });
       } catch (error) {
         console.error('Error recording interaction', error);
       }
 
-      setCurrentIndex((prevIndex) => prevIndex + 1);
+      setCurrentIndex((prevIndex) => {
+        const updatedIndex = prevIndex + 1;
+        saveStateToLocalStorage(updatedIndex, 'currentIndex');
+        return updatedIndex;
+      });
 
       if (currentIndex + 1 >= media.length) {
         setNoMoreMedia(true);
@@ -176,6 +194,12 @@ const TopPicksPage = () => {
       toast.error('Error saving event.');
     }
   };
+
+  useEffect(() => {
+    if (media[currentIndex] && media[currentIndex].seen_before && !swipedMediaIds.includes(media[currentIndex].id)) {
+      toast.info('You have already viewed this media. Please like or dislike it to avoid seeing it again.');
+    }
+  }, [currentIndex, media, swipedMediaIds]);
 
   if (!isAuthenticated) {
     return null; 
