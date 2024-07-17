@@ -69,7 +69,7 @@ router.get('/recommendations/:userId', async (req, res) => {
 
     // Fetch user's viewed media
     const viewedMedia = await db('viewed_media')
-      .select('media_id')
+      .select('media_id', 'media_type')
       .where('userId', userId);
 
     // Merge liked and viewed media to avoid recommending them again
@@ -79,23 +79,29 @@ router.get('/recommendations/:userId', async (req, res) => {
     let recommendations = [];
 
     // Fetch initial top picks
-    const fetchTopPicks = async () => {
+    const fetchTopPicks = async (page = 1) => {
       try {
         const popularMoviesResponse = await axios.get(`${TMDB_BASE_URL}/movie/popular`, {
-          params: { api_key: TMDB_API_KEY, language: 'en-US', page: 1 }
+          params: { api_key: TMDB_API_KEY, language: 'en-US', page }
         });
         const popularShowsResponse = await axios.get(`${TMDB_BASE_URL}/tv/popular`, {
-          params: { api_key: TMDB_API_KEY, language: 'en-US', page: 1 }
+          params: { api_key: TMDB_API_KEY, language: 'en-US', page }
         });
 
         const popularMedia = [...popularMoviesResponse.data.results, ...popularShowsResponse.data.results];
-        initialTopPicks = popularMedia
+        const newTopPicks = popularMedia
           .filter(media => !interactedMediaIds.includes(media.id))
-          .slice(0, 5)
           .map(item => ({
             ...item,
             media_type: item.title ? 'movie' : 'tv'
           }));
+
+        initialTopPicks = [...initialTopPicks, ...newTopPicks].slice(0, 5);
+
+        if (initialTopPicks.length < 5) {
+          await fetchTopPicks(page + 1);
+        }
+        
         console.log('Initial Top Picks:', initialTopPicks); // Added logging
       } catch (error) {
         console.error('Error fetching top picks:', error);
@@ -105,51 +111,62 @@ router.get('/recommendations/:userId', async (req, res) => {
     await fetchTopPicks();
 
     // Content-based filtering for recommendations
-    for (let media of likedMedia) {
-      if (!media.media_type) {
-        console.error(`Skipping media with null media type for media ID: ${media.media_id}`);
-        continue;
+    const fetchRecommendations = async (page = 1) => {
+      for (let media of likedMedia) {
+        if (!media.media_type) {
+          console.error(`Skipping media with null media type for media ID: ${media.media_id}`);
+          continue;
+        }
+        const details = await getMediaDetails(media.media_id, media.media_type);
+        if (details) {
+          const similarMedia = await axios.get(`${TMDB_BASE_URL}/${media.media_type}/${media.media_id}/similar`, {
+            params: { api_key: TMDB_API_KEY }
+          });
+          recommendations.push(...similarMedia.data.results.map(item => ({
+            ...item,
+            media_type: media.media_type
+          })));
+        }
       }
-      const details = await getMediaDetails(media.media_id, media.media_type);
-      if (details) {
-        const similarMedia = await axios.get(`${TMDB_BASE_URL}/${media.media_type}/${media.media_id}/similar`, {
-          params: { api_key: TMDB_API_KEY }
+
+      // Ensure recommendations are unique and exclude media already interacted by the user
+      const uniqueRecommendations = recommendations.filter((item, index, self) =>
+        index === self.findIndex((t) => (
+          t.id === item.id
+        )) && !interactedMediaIds.includes(item.id)
+      );
+
+      // Sort recommendations by popularity or other criteria
+      const sortedRecommendations = uniqueRecommendations.sort((a, b) => b.popularity - a.popularity);
+
+      // Ensure at least 3 recommendations are returned
+      if (sortedRecommendations.length < 3) {
+        const popularMediaResponse = await axios.get(`${TMDB_BASE_URL}/movie/popular`, {
+          params: { api_key: TMDB_API_KEY, language: 'en-US', page }
         });
-        recommendations.push(...similarMedia.data.results.map(item => ({ ...item, media_type: media.media_type })));
+        const popularShowsResponse = await axios.get(`${TMDB_BASE_URL}/tv/popular`, {
+          params: { api_key: TMDB_API_KEY, language: 'en-US', page }
+        });
+        const popularMediaCombined = [...popularMediaResponse.data.results, ...popularShowsResponse.data.results];
+        const additionalMedia = popularMediaCombined.filter(media => !interactedMediaIds.includes(media.id));
+        sortedRecommendations.push(...additionalMedia.slice(0, 3 - sortedRecommendations.length).map(item => ({
+          ...item,
+          media_type: item.title ? 'movie' : 'tv'
+        })));
+
+        await fetchRecommendations(page + 1);
       }
-    }
 
-    // Ensure recommendations are unique and exclude media already interacted by the user
-    const uniqueRecommendations = recommendations.filter((item, index, self) =>
-      index === self.findIndex((t) => (
-        t.id === item.id
-      )) && !interactedMediaIds.includes(item.id)
-    );
+      return sortedRecommendations.slice(0, 3);
+    };
 
-    // Sort recommendations by popularity or other criteria
-    const sortedRecommendations = uniqueRecommendations.sort((a, b) => b.popularity - a.popularity);
+    const finalRecommendations = await fetchRecommendations();
 
-    // Ensure at least 3 recommendations are returned
-    while (sortedRecommendations.length < 3) {
-      const popularMediaResponse = await axios.get(`${TMDB_BASE_URL}/movie/popular`, {
-        params: { api_key: TMDB_API_KEY, language: 'en-US', page: 1 }
-      });
-      const popularShowsResponse = await axios.get(`${TMDB_BASE_URL}/tv/popular`, {
-        params: { api_key: TMDB_API_KEY, language: 'en-US', page: 1 }
-      });
-      const popularMediaCombined = [...popularMediaResponse.data.results, ...popularShowsResponse.data.results];
-      const additionalMedia = popularMediaCombined.filter(media => !interactedMediaIds.includes(media.id));
-      sortedRecommendations.push(...additionalMedia.slice(0, 3 - sortedRecommendations.length).map(item => ({
-        ...item,
-        media_type: item.title ? 'movie' : 'tv'
-      })));
-    }
-
-    console.log('Final Recommendations:', sortedRecommendations); // Added logging
+    console.log('Final Recommendations:', finalRecommendations); // Added logging
 
     res.status(200).json({
       topPicks: initialTopPicks,
-      recommendations: sortedRecommendations.slice(0, 3)
+      recommendations: finalRecommendations
     });
   } catch (error) {
     console.error('Error fetching recommendations:', error);
