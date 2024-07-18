@@ -55,7 +55,7 @@ const TopPicksPage = () => {
   useEffect(() => {
     const fetchInitialMedia = async () => {
       try {
-        setIsLoading(true);  // Set loading to true at the start
+        setIsLoading(true);  
 
         const response = await api.get(`/api/interactions/recommendations/${userId}`);
         console.log('Initial API Response:', response.data);
@@ -74,7 +74,7 @@ const TopPicksPage = () => {
       } catch (error) {
         console.error('Error fetching data', error);
       } finally {
-        setIsLoading(false);  // Set loading to false only after the media is set
+        setIsLoading(false);  
       }
     };
 
@@ -117,7 +117,7 @@ const TopPicksPage = () => {
 
   const fetchRecommendations = async () => {
     try {
-      setIsLoading(true);  // Set loading to true at the start
+      setIsLoading(true);  
       setNoMoreMedia(false);
 
       const response = await api.get(`/api/interactions/recommendations/${userId}`);
@@ -147,7 +147,7 @@ const TopPicksPage = () => {
     } catch (error) {
       console.error('Error fetching recommendations', error);
     } finally {
-      setIsLoading(false);  // Set loading to false only after the media is set
+      setIsLoading(false); 
     }
   };
 
