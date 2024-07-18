@@ -34,35 +34,47 @@ const TopPicksPage = () => {
     return savedState ? JSON.parse(savedState) : defaultValue;
   };
 
+  const uniqueMedia = (mediaArray) => {
+    const seen = new Set();
+    return mediaArray.filter(item => {
+      const duplicate = seen.has(item.id);
+      seen.add(item.id);
+      return !duplicate;
+    });
+  };
+
   useEffect(() => {
-    setMedia(loadStateFromLocalStorage('media', []));
-    setCurrentIndex(loadStateFromLocalStorage('currentIndex', 0));
-    setSwipedMediaIds(loadStateFromLocalStorage('swipedMediaIds', []));
-  }, []);
+    const storedMedia = loadStateFromLocalStorage(`media_${userId}`, []);
+    const storedCurrentIndex = loadStateFromLocalStorage(`currentIndex_${userId}`, 0);
+    const storedSwipedMediaIds = loadStateFromLocalStorage(`swipedMediaIds_${userId}`, []);
+    setMedia(storedMedia);
+    setCurrentIndex(storedCurrentIndex);
+    setSwipedMediaIds(storedSwipedMediaIds);
+  }, [userId]);
 
   useEffect(() => {
     const fetchInitialMedia = async () => {
       try {
-        setIsLoading(true);
+        setIsLoading(true);  // Set loading to true at the start
 
         const response = await api.get(`/api/interactions/recommendations/${userId}`);
         console.log('Initial API Response:', response.data);
 
         const { topPicks } = response.data;
 
-        const initialMedia = topPicks.map(item => ({
+        const initialMedia = uniqueMedia(topPicks.map(item => ({
           ...item,
           media_type: item.title ? 'movie' : 'tv'
-        }));
+        })));
 
         console.log('Processed Initial Media:', initialMedia);
 
         setMedia(initialMedia);
-        saveStateToLocalStorage(initialMedia, 'media');
+        saveStateToLocalStorage(initialMedia, `media_${userId}`);
       } catch (error) {
         console.error('Error fetching data', error);
       } finally {
-        setIsLoading(false);
+        setIsLoading(false);  // Set loading to false only after the media is set
       }
     };
 
@@ -80,20 +92,33 @@ const TopPicksPage = () => {
   }, [userId]);
 
   useEffect(() => {
-    saveStateToLocalStorage(media, 'media');
-  }, [media]);
+    saveStateToLocalStorage(media, `media_${userId}`);
+  }, [media, userId]);
 
   useEffect(() => {
-    saveStateToLocalStorage(currentIndex, 'currentIndex');
-  }, [currentIndex]);
+    saveStateToLocalStorage(currentIndex, `currentIndex_${userId}`);
+  }, [currentIndex, userId]);
 
   useEffect(() => {
-    saveStateToLocalStorage(swipedMediaIds, 'swipedMediaIds');
-  }, [swipedMediaIds]);
+    saveStateToLocalStorage(swipedMediaIds, `swipedMediaIds_${userId}`);
+  }, [swipedMediaIds, userId]);
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      setMedia([]);
+      setCurrentIndex(0);
+      setSwipedMediaIds([]);
+      setNoMoreMedia(false);
+      localStorage.removeItem(`media_${userId}`);
+      localStorage.removeItem(`currentIndex_${userId}`);
+      localStorage.removeItem(`swipedMediaIds_${userId}`);
+    }
+  }, [isAuthenticated, userId]);
 
   const fetchRecommendations = async () => {
     try {
-      setIsLoading(true);
+      setIsLoading(true);  // Set loading to true at the start
+      setNoMoreMedia(false);
 
       const response = await api.get(`/api/interactions/recommendations/${userId}`);
       console.log('API Response:', response.data);
@@ -101,28 +126,28 @@ const TopPicksPage = () => {
       const { recommendations } = response.data;
       console.log('Raw Recommendations:', recommendations);
 
-      const recommendedMedia = recommendations.filter(mediaItem => !swipedMediaIds.includes(mediaItem.id))
-        .slice(0, 3)
-        .map(item => ({
-          ...item,
-          media_type: item.title ? 'movie' : 'tv'
-        }));
+      const recommendedMedia = uniqueMedia(recommendations.filter(mediaItem => !swipedMediaIds.includes(mediaItem.id)).map(item => ({
+        ...item,
+        media_type: item.title ? 'movie' : 'tv'
+      })));
 
       console.log('Filtered Recommendations:', recommendedMedia);
 
-      setMedia((prevMedia) => {
-        const updatedMedia = [...prevMedia, ...recommendedMedia];
-        saveStateToLocalStorage(updatedMedia, 'media');
-        return updatedMedia;
-      });
-
-      setCurrentIndex(media.length);
-      saveStateToLocalStorage(media.length, 'currentIndex');
-      setNoMoreMedia(false);
+      if (recommendedMedia.length > 0) {
+        setMedia((prevMedia) => {
+          const updatedMedia = uniqueMedia([...prevMedia, ...recommendedMedia]);
+          saveStateToLocalStorage(updatedMedia, `media_${userId}`);
+          return updatedMedia;
+        });
+        setCurrentIndex(media.length);
+        saveStateToLocalStorage(media.length, `currentIndex_${userId}`);
+      } else {
+        setNoMoreMedia(true);
+      }
     } catch (error) {
       console.error('Error fetching recommendations', error);
     } finally {
-      setIsLoading(false);
+      setIsLoading(false);  // Set loading to false only after the media is set
     }
   };
 
@@ -138,23 +163,24 @@ const TopPicksPage = () => {
           interaction: interaction,
           media_type: currentMedia.media_type,
         });
+
         setSwipedMediaIds(prev => {
           const updatedSwipedMediaIds = [...prev, currentMedia.id];
-          saveStateToLocalStorage(updatedSwipedMediaIds, 'swipedMediaIds');
+          saveStateToLocalStorage(updatedSwipedMediaIds, `swipedMediaIds_${userId}`);
           return updatedSwipedMediaIds;
         });
+
+        setCurrentIndex((prevIndex) => {
+          const updatedIndex = prevIndex + 1;
+          saveStateToLocalStorage(updatedIndex, `currentIndex_${userId}`);
+          if (updatedIndex >= media.length) {
+            setNoMoreMedia(true);
+          }
+          return updatedIndex;
+        });
+
       } catch (error) {
         console.error('Error recording interaction', error);
-      }
-
-      setCurrentIndex((prevIndex) => {
-        const updatedIndex = prevIndex + 1;
-        saveStateToLocalStorage(updatedIndex, 'currentIndex');
-        return updatedIndex;
-      });
-
-      if (currentIndex + 1 >= media.length) {
-        setNoMoreMedia(true);
       }
     }
   };
