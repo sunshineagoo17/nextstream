@@ -19,7 +19,7 @@
     padding: .25rem; 
     cursor: pointer;
     transition: transform 0.3s ease, background-color 0.3s, border 0.3s;
-    border: 1px solid transparent; /* Default border */
+    border: 1px solid transparent; 
 
     @include tablet {
       font-size: 1rem;
@@ -44,6 +44,7 @@
   &__image {
     width: 100%;
     height: auto;
+    box-shadow: $shadow-primary;
   }
 
   &__details {
@@ -56,7 +57,7 @@
     line-height: 1.5rem;
     display: flex;
     align-items: center;
-    gap: 0.5rem; /* Adjust as needed for spacing */
+    gap: 0.5rem; 
 
     @include tablet {
       font-size: 1.25rem;

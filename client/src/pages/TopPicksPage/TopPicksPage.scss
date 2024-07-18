@@ -8,7 +8,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 2rem;
+  padding: 3.5rem;
   background-color: $primary-darker-blue;
   min-height: 100vh;
 
@@ -63,11 +63,18 @@
   }
 
   &__title {
-    font-size: 1.5rem;
-    line-height: 1.75rem;
-    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: $neutral-white;
+    font-family: $primary-font;
+    font-size: 1.5rem;
+    font-weight: 400;
+    text-shadow: $shadow-primary;
     text-align: center;
+    line-height: 1.75rem;
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
 
     @include tablet {
       font-size: 2.5rem;
@@ -111,7 +118,7 @@
     border: 2px solid $primary-pale-blue;
     margin-top: 0;
     margin-bottom: 1rem;
-    box-shadow: $shadow-senary;
+    box-shadow: $shadow-quaternary;
   }
 
   &__intro {
