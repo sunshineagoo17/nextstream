@@ -155,14 +155,19 @@
     display: none;
 
     @include tablet {
+      @include hover-raise-effect;
+      cursor: crosshair;
+      height: auto;
+      border-radius: 0.5rem;
+      box-shadow: $shadow-tertiary;
       display: block;
-      max-width: 400px;
+      max-width: 25rem;
       width: 100%;
     }
 
     @include desktop {
       display: block;
-      max-width: 400px;
+      max-width: 25rem;
       width: 100%;
       align-self: center; 
     }
