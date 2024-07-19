@@ -38,7 +38,7 @@
     transition: background-color 0.3s, transform 0.3s;
 
     &:visited {
-      color: $primary-dark-blue;
+      text-decoration: none;
     }
 
     &:hover,
@@ -46,9 +46,8 @@
       padding-left: .25rem;
       padding-right: .25rem;
       background-color: $primary-medium-blue;
-      border: 1px solid $primary-medium-blue;
+      border: 1px solid $primary-dark-blue;
       color: $neutral-white;
-      border-color: $primary-dark-blue;
       text-decoration: none;
       box-shadow: $shadow-primary;
     }
@@ -56,11 +55,11 @@
     &:active {
       padding-left: .25rem;
       padding-right: .25rem;
-      background-color: $neutral-white;
-      color: $primary-dark-blue;
-      border: 1px solid $primary-very-light-blue;
+      background-color: $primary-light-blue;
+      color: $neutral-white;
+      border: 2px solid $neutral-light-grey;
       border-radius: 0.25rem;
-      transform: scale(0.5);
+      transform: scale(0.9);
       text-decoration: none;
       font-weight: bold;
     }
@@ -320,28 +319,34 @@
     color: $primary-light-blue;
     font-weight: bold;
     text-decoration: none;
+    border-radius: .25rem;
     transition: transform 0.1s ease, background-color 0.1s ease, color 0.1s ease;
-
-    &:hover {
-      background-color: $primary-medium-blue;
-      color: $neutral-white;
-      padding: 0.1rem 0.5rem;
-      border-radius: 0.25rem;
-      text-decoration: none;
-    }
 
     &:visited {
       text-decoration: none;
     }
 
-    &:active {
-      transform: scale(0.85);
-      background-color: $neutral-white;
-      color: $primary-dark-blue;
-      border: 1px solid $primary-very-light-blue;
-      padding: 0.1rem 0.5rem;
-      border-radius: 0.25rem;
+    &:hover,
+    &:focus {
+      padding-left: .25rem;
+      padding-right: .25rem;
+      background-color: $primary-medium-blue;
+      border: 1px solid $primary-dark-blue;
+      color: $neutral-white;
       text-decoration: none;
+      box-shadow: $shadow-primary;
+    }
+
+    &:active {
+      padding-left: .25rem;
+      padding-right: .25rem;
+      background-color: $primary-light-blue;
+      color: $neutral-white;
+      border: 2px solid $neutral-light-grey;
+      border-radius: 0.25rem;
+      transform: scale(0.9);
+      text-decoration: none;
+      font-weight: bold;
     }
   }
 

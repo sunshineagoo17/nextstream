@@ -87,9 +87,12 @@
     border-radius: 0.25rem;
     transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 
-    &:hover,
-    &:focus,
     &:visited {
+      text-decoration: none;
+    }
+
+    &:hover,
+    &:focus {
       padding-left: .25rem;
       padding-right: .25rem;
       background-color: $primary-medium-blue;

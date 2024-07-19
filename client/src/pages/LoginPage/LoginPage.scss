@@ -64,21 +64,34 @@
   &__forgot-password-link {
     cursor: pointer;
     color: $primary-very-light-blue;
+    border-radius: .25rem;
     transition: transform 0.1s ease, background-color 0.1s ease, color 0.1s ease;
 
-    &:hover {
-      background-color: $primary-dark-blue;
+    &:visited {
+      text-decoration: none;
+    }
+
+    &:hover,
+    &:focus {
+      padding-left: .25rem;
+      padding-right: .25rem;
+      background-color: $primary-medium-blue;
+      border: 1.5px solid $primary-pale-blue;
       color: $neutral-white;
-      padding: 0.1rem 0.5rem;
-      border-radius: 0.25rem;
+      text-decoration: none;
+      box-shadow: $shadow-primary;
     }
 
     &:active {
-      transform: scale(0.85);
+      padding-left: .25rem;
+      padding-right: .25rem;
       background-color: $primary-light-blue;
-      color: $neutral-black;
-      padding: 0.1rem 0.5rem;
+      color: $neutral-white;
+      border: 2px solid $neutral-light-grey;
       border-radius: 0.25rem;
+      transform: scale(0.9);
+      text-decoration: none;
+      font-weight: bold;
     }
   }
 
