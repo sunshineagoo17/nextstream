@@ -189,6 +189,11 @@
     @include block-item(1.5rem, 1.875rem);
     left: -.4375rem;
     position: relative;
+    transition: transform 1s ease;
+
+    &:hover {
+      transform: rotate(360deg);
+    }
   }
 
   &__search-vector {
@@ -347,9 +352,14 @@
     @include block-item(1.5rem, 1.875rem);
     left: -.4375rem;
     position: relative;
+    transition: transform 1s ease;
 
     @include tablet {
       display: none;
+    }
+
+    &:hover {
+      transform: rotate(360deg);
     }
   }
 

@@ -107,15 +107,19 @@
 
   &__search-icon {
     position: absolute;
-    left: 0.625rem;
-    top: 50%;
-    transform: translateY(-50%);
+    left: 0.85rem;
+    top: 35%;
+    transition: transform 1s ease;
     color: $primary-light-blue;
+
+    &:hover {
+      transform: rotate(360deg);
+    }
   }
 
   &__search-bar {
     width: 100%;
-    padding: 0.625rem 0.625rem 0.625rem 1.875rem;
+    padding: 0.625rem 0.625rem 0.625rem 2.25rem;
     border-radius: 0.75rem;
     border: 0.125rem solid $primary-medium-blue;
     background: rgba(255, 255, 255, 0.6);
@@ -127,18 +131,15 @@
     &::placeholder {
       font-family: $primary-font;
       color: $primary-light-blue;
-      padding: .5rem;
       opacity: 1;
     }
 
     &:-ms-input-placeholder {
       color: $primary-light-blue;
-      padding: .5rem;
     }
 
     &::-ms-input-placeholder {
       color: $primary-light-blue;
-      padding: .5rem;
     }
   }
 
