@@ -65,7 +65,7 @@ export const TermsAndConditions = () => {
 
             <h2 className="terms__subtitle">Contact Us</h2>
             <p className="terms__text">If you have any questions about these Terms and Conditions, please contact us at:</p>
-            <p className="terms__text"><button className="terms__link" onClick={handleLinkClick} aria-label="Contact NextStream Support">contact@nextstream.ca</button></p>
+            <p className="terms__text"><button className="terms__link" onClick={handleLinkClick} aria-label="Contact NextStream Support">contact@nextstream.ca.</button></p>
           </div>
         </div>
         <div className="terms__background">
