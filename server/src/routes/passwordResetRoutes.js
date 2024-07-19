@@ -27,18 +27,27 @@ router.post('/forgot-password', async (req, res) => {
 
     const msg = {
       to: email,
-      from: 'contact@nextstream.ca', 
+      from: 'contact@nextstream.ca',
       subject: 'Password Reset Request',
-      text: `You requested a password reset. Please use the following link to reset your password: ${resetURL}`,
+      text: `You requested a password reset from NextStream. Please use the following link to create a new password: ${resetURL}`,
       html: `
-        <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
-          <p>Hi there,</p>
-          <p>You requested a password reset. Please use the following link to reset your password:</p>
-          <p><a href="${resetURL}" style="color: #007BFF; text-decoration: none;">Reset Password</a></p>
-          <p>If you did not request this, please ignore this email.</p>
-          <p>Thanks,<br/>The NextStream Team</p>
+        <div style="font-family: Helvetica, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: auto; padding: 20px; background-color: #001f3f;">
+          <div style="box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); border-radius: 10px; overflow: hidden;">
+            <div style="padding: 20px; background-color: #007BFF; color: #fff;">
+              <h2 style="margin: 0;">Password Reset Request</h2>
+            </div>
+            <div style="padding: 20px; background-color: #fff;">
+              <p>Hi there,</p>
+              <p>You requested a password reset from NextStream. Please use the following link to create a new password:</p>
+              <p style="text-align: center;">
+                <a href="${resetURL}" style="display: inline-block; padding: 10px 20px; color: #fff; background-color: #007BFF; text-decoration: none; border-radius: 5px; font-weight: bold; transition: transform 0.2s;">Reset Password</a>
+              </p>
+              <p>If you did not request this, please ignore this email.</p>
+              <p>Thanks and happy streaming,<br/>The NextStream Team</p>
+            </div>
+          </div>
         </div>`,
-    };
+    };     
 
     await sgMail.send(msg);
     res.status(200).json({ message: 'Password reset email sent.' });
