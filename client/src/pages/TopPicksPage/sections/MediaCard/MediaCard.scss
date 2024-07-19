@@ -80,8 +80,11 @@
     &:focus {
       padding-left: .25rem;
       padding-right: .25rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       background-color: $primary-medium-blue;
-      border: 1px solid $neutral-white;
+      border: 1.5px solid $primary-pale-blue;
       color: $neutral-white;
       text-decoration: none;
       box-shadow: $shadow-primary;
@@ -90,12 +93,16 @@
     &:active {
       padding-left: .25rem;
       padding-right: .25rem;
-      background-color: $neutral-white;
-      color: $primary-dark-blue;
-      border: 1px solid $primary-very-light-blue;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: $primary-light-blue;
+      color: $neutral-white;
+      border: 2px solid $neutral-light-grey;
       border-radius: 0.25rem;
-      transform: scale(0.9);
+      transform: scale(0.95);
       text-decoration: none;
+      font-weight: bold;
     }
   }
 
