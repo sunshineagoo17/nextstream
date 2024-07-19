@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useRef, useCallback } from 'react';
+import { useState, useEffect, useContext, useRef, useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -54,7 +54,7 @@ const AuthSearchResultsPage = ({ userId }) => {
             return { ...result, providers };
           } catch (error) {
             console.error(`Error fetching watch providers for ${result.media_type} ${result.id}:`, error);
-            toast.error('Error fetching watch providers. Please try again later.');
+            toast.error('Error fetching watch providers. Please try again later.', { className: 'frosted-toast-auth' });
             return { ...result, providers: [] };
           }
         })
@@ -63,7 +63,7 @@ const AuthSearchResultsPage = ({ userId }) => {
       setResults(updatedResults);
     } catch (error) {
       console.error('Error fetching search results:', error);
-      toast.error('Error fetching search results. Please try again later.');
+      toast.error('Error fetching search results. Please try again later.', { className: 'frosted-toast-auth' });
     } finally {
       setIsLoading(false);
       setShowCalendar(false);
@@ -104,7 +104,7 @@ const AuthSearchResultsPage = ({ userId }) => {
       <ToastContainer
         position="top-center"
         autoClose={3000}
-        hideProgressBar={false}
+        hideProgressBar={true}
         transition={Slide}
         closeOnClick
         pauseOnHover
