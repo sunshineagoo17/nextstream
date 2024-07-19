@@ -1,9 +1,9 @@
 import { useState, useEffect, useContext, useRef } from 'react';
+import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { useSwipeable } from 'react-swipeable';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarPlus, faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { toast } from 'react-toastify';
-import { AuthContext } from '../../context/AuthContext/AuthContext';
 import MediaCard from './sections/MediaCard/MediaCard';
 import CalendarModal from '../CalendarPage/sections/Calendar';
 import AnimatedBg from '../../components/AnimatedBg/AnimatedBg';
@@ -218,12 +218,6 @@ const TopPicksPage = () => {
       toast.error('Error saving event.');
     }
   };
-
-  useEffect(() => {
-    if (media[currentIndex] && media[currentIndex].seen_before && !swipedMediaIds.includes(media[currentIndex].id)) {
-      toast.info('You have already viewed this media. Please like or dislike it to avoid seeing it again.');
-    }
-  }, [currentIndex, media, swipedMediaIds]);
 
   if (!isAuthenticated) {
     return null;
