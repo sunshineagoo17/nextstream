@@ -589,6 +589,7 @@
         @include block-item(2.75rem, 2.75rem);
         border-top-left-radius: 0.5rem;
         border-top-right-radius: 0.5rem;
+        transition: transform 1.75s ease-in;
 
         @include tablet {
           @include block-item(3.5rem, 3.5rem);
@@ -596,6 +597,10 @@
 
         @include desktop {
           @include block-item(5.4375rem, auto);
+        }
+
+        &:hover {
+          transform: rotate(360deg);
         }
       }
 
