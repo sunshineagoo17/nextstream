@@ -61,7 +61,7 @@ export const PrivacyPolicy = () => {
 
             <h2 className="privacy__subtitle">Contact Us</h2>
             <p className="privacy__text">If you have any questions about this policy, please contact us at:</p>
-            <p className="privacy__text"><button className="privacy__link" onClick={handleLinkClick} aria-label="Contact NextStream Support">contact@nextstream.ca</button></p>
+            <p className="privacy__text"><button className="privacy__link" onClick={handleLinkClick} aria-label="Contact NextStream Support">contact@nextstream.ca.</button></p>
           </div>
         </div>
         <div className="privacy__background">
