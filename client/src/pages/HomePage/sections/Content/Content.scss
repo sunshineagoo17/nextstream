@@ -671,3 +671,14 @@
     font-weight: bold;
   }
 }
+
+.frosted-toast-content {
+  backdrop-filter: blur(.25rem);
+  background: rgba($primary-dark-blue, 0.75);
+  border: 3px solid rgba($primary-light-blue, 0.75);
+  border-radius: .625rem;
+  box-shadow: $shadow-primary;
+  color: $primary-pale-blue;
+  font-family: $primary-font;
+  padding: 1rem;
+}

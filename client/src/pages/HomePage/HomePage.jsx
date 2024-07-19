@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Content } from "./sections/Content/Content";
 import { Hero } from "./sections/Hero/Hero";
 import CookieNotification from "./sections/CookieNotification/CookieNotification";

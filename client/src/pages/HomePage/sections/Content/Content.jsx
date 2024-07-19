@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState } from "react";
+import { useEffect, useContext, useState } from "react";
 import { useNavigate, Link } from 'react-router-dom';
 import { AuthContext } from "../../../../context/AuthContext/AuthContext";
 import { useSearchBar } from '../../../../context/SearchBarContext/SearchBarContext';
@@ -61,6 +61,7 @@ export const Content = () => {
     if (ref.current) {
       ref.current.scrollIntoView({ behavior: 'smooth' });
       toast.info("Start by typing the name of the show or movie you're looking for to find out where it's streaming.", {
+        className: 'frosted-toast-content',
       });
     }
   };
