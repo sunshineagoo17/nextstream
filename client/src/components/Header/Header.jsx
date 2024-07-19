@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { useSearchBar } from '../../context/SearchBarContext/SearchBarContext'; 
@@ -13,6 +13,38 @@ const Header = () => {
   const navigate = useNavigate();
   const [query, setQuery] = useState('');
   const { searchBarDesktopRef, searchBarMobileRef } = useSearchBar();
+  
+  const placeholders = useMemo(() => ["events...", "movies...", "shows...", "streams..."], []);
+  const [placeholderIndex, setPlaceholderIndex] = useState(0);
+  const [displayedPlaceholder, setDisplayedPlaceholder] = useState("Search ");
+  const [typing, setTyping] = useState(true);
+
+  useEffect(() => {
+    let timeout;
+
+    if (typing) {
+      if (displayedPlaceholder.length < `Search ${placeholders[placeholderIndex]}`.length) {
+        timeout = setTimeout(() => {
+          setDisplayedPlaceholder((prev) => prev + placeholders[placeholderIndex][displayedPlaceholder.length - 7]);
+        }, 150); 
+      } else {
+        timeout = setTimeout(() => {
+          setTyping(false);
+        }, 2000); 
+      }
+    } else {
+      if (displayedPlaceholder.length > 7) {
+        timeout = setTimeout(() => {
+          setDisplayedPlaceholder((prev) => prev.slice(0, -1));
+        }, 100);
+      } else {
+        setTyping(true);
+        setPlaceholderIndex((prev) => (prev + 1) % placeholders.length);
+      }
+    }
+
+    return () => clearTimeout(timeout);
+  }, [displayedPlaceholder, typing, placeholderIndex, placeholders]);
 
   const handleLogout = () => {
     logout();
@@ -22,7 +54,6 @@ const Header = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     if (query.trim()) {
-      // Replaces spaces with '+' to ensure proper encoding in the URL
       const encodedQuery = query.trim().replace(/\s+/g, '+');
       navigate(`/search?q=${encodedQuery}`);
     }
@@ -46,7 +77,7 @@ const Header = () => {
                 <input 
                   className="header__search-input" 
                   type="text" 
-                  placeholder="Search..." 
+                  placeholder={displayedPlaceholder} 
                   value={query} 
                   onChange={(e) => setQuery(e.target.value)} 
                 />
@@ -91,7 +122,7 @@ const Header = () => {
             <input 
               className="header__search-input--mobile" 
               type="text" 
-              placeholder="Search..." 
+              placeholder={displayedPlaceholder} 
               value={query} 
               onChange={(e) => setQuery(e.target.value)} 
             />
