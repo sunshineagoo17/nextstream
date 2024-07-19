@@ -2,7 +2,7 @@ import { useState, useEffect, useContext, useRef } from 'react';
 import { useSwipeable } from 'react-swipeable';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarPlus, faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import { ToastContainer, toast, Slide } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import MediaCard from './sections/MediaCard/MediaCard';
 import CalendarModal from '../CalendarPage/sections/Calendar';
@@ -195,12 +195,10 @@ const TopPicksPage = () => {
     setEventTitle(title);
     setSelectedMediaType(mediaType);
     setShowCalendar(true);
-    toast.info('Sort your calendar. Resume swiping once done.');
   };
 
   const handleCloseCalendar = () => {
     setShowCalendar(false);
-    toast.info('You can now start swiping again.');
   };
 
   const handleSaveEvent = async (eventTitle, eventDate) => {
@@ -233,14 +231,6 @@ const TopPicksPage = () => {
 
   return (
     <div className="top-picks-page">
-      <ToastContainer
-        position="top-center"
-        autoClose={3000}
-        hideProgressBar={false}
-        transition={Slide}
-        closeOnClick
-        pauseOnHover
-      />
       <div className="top-picks-page__container">
         <div className="top-picks-page__title-container">
           <h1 className="top-picks-page__title">{name}'s Top Picks</h1>
