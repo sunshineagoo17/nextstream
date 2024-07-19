@@ -12,6 +12,28 @@
   background-color: $primary-darker-blue;
   min-height: 100vh;
 
+  &__gradient-subtitle {
+    font-weight: bold;
+    background: linear-gradient(270deg, $neutral-white, $primary-gradient-blue, $neutral-white);
+    background-size: 600% 600%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: GradientAnimation 10s ease infinite;
+  }
+  
+  @keyframes GradientAnimation {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
   &__calendar-close-btn {
     @include block-item(1.75rem, 1.75rem);
     position: absolute;

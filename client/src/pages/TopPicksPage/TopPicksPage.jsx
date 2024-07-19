@@ -235,7 +235,7 @@ const TopPicksPage = () => {
         <div className="top-picks-page__title-container">
           <h1 className="top-picks-page__title">{name}'s Top Picks</h1>
           <p className="top-picks-page__intro">
-            Use NextSwipe to discover new movies and shows. Swipe right to like and left to dislike each media card, tailoring your perfect viewing schedule. For desktop users, you can click and drag left or right, or simply click on the arrows. Add your favourites to your calendar today!
+            Use <span className="top-picks-page__gradient-subtitle">NextSwipe</span> to discover new movies and shows. Swipe right to like and left to dislike each media card, tailoring your perfect viewing schedule. For desktop users, you can click and drag left or right, or simply click on the arrows. Add your favourites to your calendar today!
           </p>
         </div>
         {isLoading && <Loader />}
