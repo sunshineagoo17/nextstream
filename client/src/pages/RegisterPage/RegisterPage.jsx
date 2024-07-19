@@ -246,7 +246,7 @@ export const RegisterPage = () => {
                   onChange={handleCheckboxChange}
                   required
                 />
-                <p className="register__terms-txt">I agree to the <Link to="/terms" aria-label="Terms and Conditions" className="register__terms-link">terms and conditions</Link>.</p>
+                <p className="register__terms-txt">I agree to the <Link to="/terms" aria-label="Terms and Conditions" className="register__terms-link">terms and conditions.</Link></p>
               </label>
               {termsError && <p className="error">Please agree to the terms and conditions</p>}
               <p className="register__already-account">
