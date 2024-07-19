@@ -65,6 +65,12 @@
     @include block-item(5rem, 5rem);
     border-radius: 1.5rem;
     box-shadow: $shadow-tertiary;
+    transition: transform 0.5s ease, filter 0.5s ease;
+
+    &:hover {
+      transform: scale(1.05) rotate(5deg);
+      filter: brightness(1.1);
+    }
 
     @include tablet {
       display: none;
@@ -98,6 +104,7 @@
   
   &__logo {
     display: none;
+    transition: transform 2s ease, filter 2s ease;
 
     @include tablet {
       @include block-item(15rem, 15rem);
@@ -106,9 +113,19 @@
       box-shadow: $shadow-tertiary;
     }
 
+    &:hover {
+      transform: scale(1.1) rotate(180deg);
+      filter: brightness(1.2);
+    }
+
     @include desktop {
       @include block-item(22rem, 22rem);
       border-radius: 4.6rem;
+    }
+
+    &:hover {
+      transform: scale(1.1) rotate(180deg);
+      filter: brightness(1.2);
     }
   }
   
@@ -126,11 +143,22 @@
       align-items: center;
       border: .875rem solid;
       background: $primary-darker-blue-gradient;
+      transition: transform 0.5s ease, filter 0.5s ease;
+
+      &:hover {
+        transform: scale(1.05) rotate(11.5deg);
+        filter: brightness(1.025);
+      }
     }
 
     @include desktop {
       @include block-item(30rem, 30rem);
       border-radius: 6.25rem;
+
+      &:hover {
+        transform: scale(1.05) rotate(8.5deg);
+        filter: brightness(1.025);
+      }
     }
   }  
   
