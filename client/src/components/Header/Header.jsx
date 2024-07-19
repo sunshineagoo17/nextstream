@@ -14,7 +14,7 @@ const Header = () => {
   const [query, setQuery] = useState('');
   const { searchBarDesktopRef, searchBarMobileRef } = useSearchBar();
   
-  const placeholders = useMemo(() => ["events...", "movies...", "shows...", "streams..."], []);
+  const placeholders = useMemo(() => ["titles...", "movies...", "shows...", "streams...", "episodes...", "series...", "features...", "docs...", "classics..."], []);
   const [placeholderIndex, setPlaceholderIndex] = useState(0);
   const [displayedPlaceholder, setDisplayedPlaceholder] = useState("Search ");
   const [typing, setTyping] = useState(true);
