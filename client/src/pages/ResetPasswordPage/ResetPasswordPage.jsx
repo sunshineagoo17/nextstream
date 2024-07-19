@@ -1,11 +1,13 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { toast, ToastContainer, Slide } from 'react-toastify';
 import axios from 'axios';
 import Cookies from 'js-cookie'; 
 import AnimatedBg from '../../components/AnimatedBg/AnimatedBg';
 import ShowIcon from "../../assets/images/register-visible-icon.svg";
 import HideIcon from "../../assets/images/register-invisible-icon.svg";
 import Loader from '../../components/Loader/Loader';
+import 'react-toastify/dist/ReactToastify.css'; 
 import './ResetPasswordPage.scss';
 
 export const ResetPasswordPage = () => {
@@ -65,11 +67,16 @@ export const ResetPasswordPage = () => {
       setMessageType(response.data.success ? 'success' : 'error');
       if (response.data.success) {
         Cookies.set('resetPasswordMessage', response.data.message, { expires: 1 }); 
+        toast.success(response.data.message, {
+          className: 'frosted-toast-reset',
+        });
         navigate('/login');
+      } else {
       }
     } catch (error) {
-      setMessage('Error resetting password. Please try again.');
-      setMessageType('error');
+      toast.error('Error resetting password. Please try again.', {
+        className: 'frosted-toast-reset',
+      }); 
     } finally {
       setIsLoading(false); 
     }
@@ -77,7 +84,15 @@ export const ResetPasswordPage = () => {
 
   return (
     <>
-       {isLoading ? <Loader /> : (
+      <ToastContainer
+          position="top-center"
+          autoClose={3000}
+          hideProgressBar={true}
+          transition={Slide}
+          closeOnClick
+          pauseOnHover
+        />
+      {isLoading ? <Loader /> : (
         <div className="reset-password">
           <div className="reset-password__container">
             <div className="reset-password__content-card">
