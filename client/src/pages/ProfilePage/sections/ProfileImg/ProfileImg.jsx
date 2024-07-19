@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { AuthContext } from '../../../../context/AuthContext/AuthContext';
+import { ToastContainer, toast, Slide } from 'react-toastify';
 import axios from "axios";
 import ProfileUploadBtn from "../../../../assets/images/profile-upload.svg";
 import DeleteIcon from "../../../../assets/images/delete-icon.svg";
 import DefaultAvatar from "../../../../assets/images/default-avatar.svg";
 import Loader from "../../../../components/Loader/Loader"; 
-import { ToastContainer, toast, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './ProfileImg.scss';
 
@@ -42,7 +42,9 @@ const ProfileImg = ({ userId, username, isActive, onStatusToggle }) => {
 
     // Check file type
     if (!file.type.match("image/jpeg") && !file.type.match("image/png") && !file.type.match("image/jpg") && !file.type.match("image/gif") && !file.type.match("image/svg") && !file.type.match("image/webp") && !file.type.match("image/bmp") && !file.type.match("image/tiff")) {
-      toast.error("Please upload a valid image (jpg, jpeg, png, gif, svg, webp, bmp, tiff).");
+      toast.error("Please upload a valid image (jpg, jpeg, png, gif, svg, webp, bmp, tiff).", {
+        className: 'frosted-toast-profile-img',
+      });
       return;
     }
 
@@ -58,10 +60,14 @@ const ProfileImg = ({ userId, username, isActive, onStatusToggle }) => {
         withCredentials: true
       });
       setImagePreview(`${process.env.REACT_APP_BASE_URL}/${response.data.avatar}`);
-      toast.success("Image uploaded successfully.");
+      toast.success("Image uploaded successfully.", {
+        className: 'frosted-toast-profile-img',
+      });
     } catch (error) {
       console.error("Error uploading image:", error);
-      toast.error("Error uploading image.");
+      toast.error("Error uploading image.", {
+        className: 'frosted-toast-profile-img',
+      });
     } finally {
       setLoading(false);
     }
@@ -74,10 +80,14 @@ const ProfileImg = ({ userId, username, isActive, onStatusToggle }) => {
         withCredentials: true
       });
       setImagePreview(DefaultAvatar); 
-      toast.success("Image deleted successfully. For now, you can use our default avatar.");
+      toast.success("Image deleted successfully. For now, you can use our default avatar.", {
+        className: 'frosted-toast-profile-img',
+      });
     } catch (error) {
       console.error("Error deleting avatar:", error);
-      toast.error("Error deleting avatar.");
+      toast.error("Error deleting avatar.", {
+        className: 'frosted-toast-profile-img',
+      });
     } finally {
       setLoading(false);
     }

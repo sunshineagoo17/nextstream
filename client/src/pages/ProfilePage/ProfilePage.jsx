@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useContext, useRef } from 'react';
-import { AuthContext } from '../../context/AuthContext/AuthContext';
+import { useState, useEffect, useContext, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { toast, ToastContainer, Slide } from 'react-toastify';
 import api from '../../services/api';
 import LocationIcon from '../../assets/images/profile-location.svg';

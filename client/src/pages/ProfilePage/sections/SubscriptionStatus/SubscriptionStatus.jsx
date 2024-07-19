@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
-import checkmarkIcon from '../../../../assets/images/checkmark-icon.svg'; 
 import { AuthContext } from '../../../../context/AuthContext/AuthContext';
+import checkmarkIcon from '../../../../assets/images/checkmark-icon.svg'; 
 import './SubscriptionStatus.scss';
 
 const SubscriptionStatus = ({ isSubscribed, onSubscriptionChange, onDeleteAccount }) => {
