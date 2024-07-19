@@ -1,4 +1,3 @@
-// Import partials
 @use "../../styles/partials/colors" as *;
 @use "../../styles/partials/fonts" as *;
 @use "../../styles/partials/mixins" as *;
@@ -474,4 +473,15 @@ a:hover,
 a:visited,
 a:active {
   text-decoration: none;
+}
+
+.frosted-toast {
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  color: $primary-dark-blue;
+  font-family: $primary-font;
+  padding: 16px;
 }

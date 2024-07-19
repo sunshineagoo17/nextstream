@@ -112,6 +112,7 @@ export const RegisterPage = () => {
         Cookies.set('password', password, { expires: 7 });
     
         toast.success('Registration successful! Redirecting to profile page...', {
+          className: 'frosted-toast',
         });
     
         setTimeout(() => {
@@ -140,8 +141,8 @@ export const RegisterPage = () => {
       <div className="register">
         <ToastContainer
           position="top-center"
-          autoClose={3000}
-          hideProgressBar={false}
+          autoClose={4000}
+          hideProgressBar={true}
           transition={Slide}
           closeOnClick
           pauseOnHover

@@ -55,7 +55,7 @@ const TopPicksPage = () => {
   useEffect(() => {
     const fetchInitialMedia = async () => {
       try {
-        setIsLoading(true);  
+        setIsLoading(true);
 
         const response = await api.get(`/api/interactions/recommendations/${userId}`);
         console.log('Initial API Response:', response.data);
@@ -74,7 +74,7 @@ const TopPicksPage = () => {
       } catch (error) {
         console.error('Error fetching data', error);
       } finally {
-        setIsLoading(false);  
+        setIsLoading(false);
       }
     };
 
@@ -117,7 +117,7 @@ const TopPicksPage = () => {
 
   const fetchRecommendations = async () => {
     try {
-      setIsLoading(true);  
+      setIsLoading(true);
       setNoMoreMedia(false);
 
       const response = await api.get(`/api/interactions/recommendations/${userId}`);
@@ -147,7 +147,7 @@ const TopPicksPage = () => {
     } catch (error) {
       console.error('Error fetching recommendations', error);
     } finally {
-      setIsLoading(false); 
+      setIsLoading(false);
     }
   };
 
@@ -170,7 +170,7 @@ const TopPicksPage = () => {
           return updatedSwipedMediaIds;
         });
 
-        setCurrentIndex((prevIndex) => {
+        setCurrentIndex(prevIndex => {
           const updatedIndex = prevIndex + 1;
           saveStateToLocalStorage(updatedIndex, `currentIndex_${userId}`);
           if (updatedIndex >= media.length) {
@@ -228,7 +228,7 @@ const TopPicksPage = () => {
   }, [currentIndex, media, swipedMediaIds]);
 
   if (!isAuthenticated) {
-    return null; 
+    return null;
   }
 
   return (
