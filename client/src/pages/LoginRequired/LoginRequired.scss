@@ -60,19 +60,23 @@
     &:hover,
     &:focus,
     &:visited {
+      padding-left: .25rem;
+      padding-right: .25rem;
       background-color: $primary-medium-blue;
+      border: 1px solid $primary-dark-blue;
       color: $neutral-white;
-      border-color: $primary-dark-blue;
       text-decoration: none;
       box-shadow: $shadow-primary;
     }
 
     &:active {
-      background-color: $primary-medium-blue;
+      padding-left: .25rem;
+      padding-right: .25rem;
+      background-color: $primary-light-blue;
       color: $neutral-white;
-      border: 1px solid $primary-cyan;
-      border-radius: .25rem;
-      transform: translateY(1px);
+      border: 2px solid $neutral-light-grey;
+      border-radius: 0.25rem;
+      transform: scale(0.9);
       text-decoration: none;
       font-weight: bold;
     }
