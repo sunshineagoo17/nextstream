@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import axios from 'axios';
 import AnimatedBg from '../../components/AnimatedBg/AnimatedBg';
-import 'react-toastify/dist/ReactToastify.css';
-import './SearchResultsPage.scss';
 import Loader from '../../components/Loader/Loader';
 import DefaultVideoImg from '../../assets/images/video-img-default.png';
 import NoDataImg from '../../assets/images/no-data.svg';
 import MovieIcon from '../../assets/images/videocamera-1.png';
 import TvIcon from '../../assets/images/tv-icon.png'; 
+import 'react-toastify/dist/ReactToastify.css';
+import './SearchResultsPage.scss';
 
 const SearchResultsPage = () => {
   const [results, setResults] = useState([]);
@@ -57,6 +57,7 @@ const SearchResultsPage = () => {
       } catch (error) {
         console.error('Error fetching search results:', error);
         toast.error('Error fetching search results. Please try again later.', {
+          className: 'frosted-toast-search',
         });
       } finally {
         setIsLoading(false);
@@ -73,7 +74,7 @@ const SearchResultsPage = () => {
       <ToastContainer
         position="top-center"
         autoClose={3000}
-        hideProgressBar={false}
+        hideProgressBar={true}
         transition={Slide}
         closeOnClick
         pauseOnHover
