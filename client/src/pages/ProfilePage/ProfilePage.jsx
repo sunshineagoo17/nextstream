@@ -189,7 +189,8 @@ export const ProfilePage = () => {
   const handleDeleteAccount = async () => {
     try {
       await api.delete(`/api/profile/${userId}`);
-      toast.success("Your account's been deleted successfully. Redirecting to home page...", {
+      toast.success("Your account's been deleted successfully. Redirecting to homepage...", {
+        className: 'frosted-toast-profile',
       });
       setTimeout(() => {
         logout();

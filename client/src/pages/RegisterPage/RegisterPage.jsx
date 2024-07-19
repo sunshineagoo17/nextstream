@@ -1,9 +1,8 @@
-import React, { useState, useContext, useEffect } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { ToastContainer, toast, Slide } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import api from '../../services/api'; 
 import { AuthContext } from '../../context/AuthContext/AuthContext';
+import { ToastContainer, toast, Slide } from 'react-toastify';
+import api from '../../services/api'; 
 import SignUpIcon from '../../assets/images/register-sign-up-icon.svg';
 import ArrowIcon from '../../assets/images/register-arrow-icon.svg';
 import ShowIcon from '../../assets/images/register-visible-icon.svg';
@@ -11,8 +10,10 @@ import HideIcon from '../../assets/images/register-invisible-icon.svg';
 import NextStreamBg from '../../assets/images/nextstream-bg.jpg';
 import RegisterCouple from '../../assets/images/register-couple-logging-in.svg';
 import Loader from '../../components/Loader/Loader';
-import './RegisterPage.scss';
 import Cookies from 'js-cookie';
+import './RegisterPage.scss';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 export const RegisterPage = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
