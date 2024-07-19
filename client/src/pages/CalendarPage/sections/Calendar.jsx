@@ -337,7 +337,7 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, onClose }, ref) =>
           <input
             className="calendar__search-bar"
             type="text"
-            placeholder="Search events..."
+            placeholder="Search titles..."
             value={searchQuery}
             onChange={handleSearchChange}
             onKeyDown={handleKeyDown}
