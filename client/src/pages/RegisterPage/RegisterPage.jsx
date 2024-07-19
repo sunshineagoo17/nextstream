@@ -112,7 +112,7 @@ export const RegisterPage = () => {
         Cookies.set('password', password, { expires: 7 });
     
         toast.success('Registration successful! Redirecting to profile page...', {
-          className: 'frosted-toast',
+          className: 'frosted-toast-register',
         });
     
         setTimeout(() => {

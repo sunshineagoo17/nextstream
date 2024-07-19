@@ -572,12 +572,12 @@
 }
 
 .frosted-toast-auth {
-  backdrop-filter: blur(.625rem);
-  background: rgba(255, 255, 255, 0.5);
-  border: .0625rem solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(.25rem);
+  background: rgba($primary-dark-blue, 0.75);
+  border: 3px solid rgba($primary-light-blue, 0.75);
   border-radius: .625rem;
-  box-shadow: 0 .25rem .375rem rgba(0, 0, 0, 0.1);
-  color: $primary-dark-blue;
+  box-shadow: $shadow-primary;
+  color: $primary-pale-blue;
   font-family: $primary-font;
   padding: 1rem;
 }

@@ -475,13 +475,13 @@ a:active {
   text-decoration: none;
 }
 
-.frosted-toast {
-  backdrop-filter: blur(10px);
-  background: rgba(255, 255, 255, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  color: $primary-dark-blue;
+.frosted-toast-register {
+  backdrop-filter: blur(.25rem);
+  background: rgba($primary-dark-blue, 0.75);
+  border: 3px solid rgba($primary-light-blue, 0.75);
+  border-radius: .625rem;
+  box-shadow: $shadow-primary;
+  color: $primary-pale-blue;
   font-family: $primary-font;
-  padding: 16px;
+  padding: 1rem;
 }

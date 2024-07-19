@@ -1,14 +1,14 @@
 import { useState, useEffect, useContext, useCallback, forwardRef, useImperativeHandle, useRef } from 'react';
+import { AuthContext } from '../../../context/AuthContext/AuthContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch, faFilm, faTv } from '@fortawesome/free-solid-svg-icons';
+import { ToastContainer, toast, Slide } from 'react-toastify';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faFilm, faTv } from '@fortawesome/free-solid-svg-icons';
-import { toast } from 'react-toastify';
 import moment from 'moment-timezone';
 import api from '../../../services/api';
-import { AuthContext } from '../../../context/AuthContext/AuthContext';
 import Loader from '../../../components/Loader/Loader';
 import './Calendar.scss';
 
@@ -38,7 +38,7 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, onClose }, ref) =>
       setFilteredEvents(response.data);
     } catch (error) {
       console.error('Error fetching events:', error.response ? error.response.data : error.message);
-      toast.error('Failed to fetch events.');
+      toast.error('Failed to fetch events.', { className: 'frosted-toast-cal' });
     } finally {
       setLoading(false);
     }
@@ -116,10 +116,10 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, onClose }, ref) =>
       };
       await api.post(`/api/calendar/${userId}/events`, newEvent);
       await fetchEvents();
-      toast.success('Event added successfully!');
+      toast.success('Event added successfully!', { className: 'frosted-toast-cal' });
     } catch (error) {
       console.error('Error adding event:', error.response ? error.response.data : error.message);
-      toast.error('Failed to add event.');
+      toast.error('Failed to add event.', { className: 'frosted-toast-cal' });
     } finally {
       setLoading(false);
       setModalVisible(false);
@@ -139,10 +139,10 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, onClose }, ref) =>
 
       await api.put(`/api/calendar/${userId}/events/${selectedEvent.id}`, updatedEvent);
       await fetchEvents();
-      toast.success('Event updated successfully!');
+      toast.success('Event updated successfully!', { className: 'frosted-toast-cal' });
     } catch (error) {
       console.error('Error updating event:', error.response ? error.response.data : error.message);
-      toast.error('Failed to update event.');
+      toast.error('Failed to update event.', { className: 'frosted-toast-cal' });
     } finally {
       setLoading(false);
       setModalVisible(false);
@@ -161,10 +161,10 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, onClose }, ref) =>
     try {
       await api.put(`/api/calendar/${userId}/events/${id}`, updatedEvent);
       await fetchEvents();
-      toast.success('Event moved successfully!');
+      toast.success('Event moved successfully!', { className: 'frosted-toast-cal' });
     } catch (error) {
       console.error('Error moving event:', error.response ? error.response.data : error.message);
-      toast.error('Failed to move event.');
+      toast.error('Failed to move event.', { className: 'frosted-toast-cal' });
     } finally {
       setLoading(false);
     }
@@ -176,10 +176,10 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, onClose }, ref) =>
     try {
       await api.delete(`/api/calendar/${userId}/events/${selectedEvent.id}`);
       await fetchEvents();
-      toast.success('Event deleted successfully!');
+      toast.success('Event deleted successfully!', { className: 'frosted-toast-cal' });
     } catch (error) {
       console.error('Error deleting event:', error.response ? error.response.data : error.message);
-      toast.error('Failed to delete event.');
+      toast.error('Failed to delete event.', { className: 'frosted-toast-cal' });
     } finally {
       setLoading(false);
       setModalVisible(false);
@@ -228,7 +228,7 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, onClose }, ref) =>
     calendarRef.current.getApi().gotoDate(newDate);
     calendarRef.current.getApi().changeView('timeGridDay', newDate);
     setMiniCalendarVisible(false);
-    toast.info(`Navigated to ${newDate.toDateString()}`);
+    toast.info(`Navigated to ${newDate.toDateString()}`, { className: 'frosted-toast-cal' });
   };
 
   const renderMiniCalendar = () => {
@@ -307,11 +307,11 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, onClose }, ref) =>
     if (filtered.length === 1) {
       calendarRef.current.getApi().gotoDate(filtered[0].start);
       calendarRef.current.getApi().changeView('timeGridDay');
-      toast.success(`Navigated to ${filtered[0].title} on ${moment(filtered[0].start).format('MMMM Do YYYY')}`);
+      toast.success(`Navigated to ${filtered[0].title} on ${moment(filtered[0].start).format('MMMM Do YYYY')}`, { className: 'frosted-toast-cal' });
     } else if (filtered.length > 1) {
       calendarRef.current.getApi().gotoDate(filtered[0].start);
       calendarRef.current.getApi().changeView('dayGridMonth');
-      toast.success(`Found multiple events for ${searchQuery}. Showing month view.`);
+      toast.success(`Found multiple events for ${searchQuery}. Showing month view.`, { className: 'frosted-toast-cal' });
     } else {
       toast.error(`No events found for ${searchQuery}.`);
     }
@@ -427,6 +427,14 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, onClose }, ref) =>
           </div>
         </div>
       )}
+      <ToastContainer
+          position="top-center"
+          autoClose={3000}
+          hideProgressBar={true}
+          transition={Slide}
+          closeOnClick
+          pauseOnHover
+        />
     </div>
   );
 });
