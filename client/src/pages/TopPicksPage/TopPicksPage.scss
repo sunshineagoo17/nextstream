@@ -439,3 +439,96 @@
     top: 19rem;
   }
 }
+
+.modal-input {
+  background-color: none;
+  color: $primary-dark-blue;
+  font-family: $primary-font;
+  transition: background-color .3s ease-in-out, transform .3s ease-in-out;
+
+  &:hover {
+    background-color: $primary-very-light-blue;
+    box-shadow: $shadow-primary;
+  }
+
+  &:active {
+    background-color: $primary-very-light-blue;
+  }
+
+  &:focus {
+    border: .125rem solid $primary-dark-blue;
+    box-shadow: $shadow-senary;
+    scale: (1.025);
+  }
+
+  &::-webkit-datetime-edit, 
+  &::-webkit-inner-spin-button, 
+  &::-webkit-clear-button {
+    color: $primary-dark-blue;
+  }
+
+  &::-webkit-datetime-edit-year-field:focus,
+  &::-webkit-datetime-edit-month-field:focus,
+  &::-webkit-datetime-edit-day-field:focus,
+  &::-webkit-datetime-edit-hour-field:focus,
+  &::-webkit-datetime-edit-minute-field:focus,
+  &::-webkit-datetime-edit-ampm-field:focus {
+    color: $neutral-white;
+    background-color: $primary-medium-blue;
+    border-radius: .2rem;
+  }
+
+  &::-moz-datetime-edit, 
+  &::-moz-inner-spin-button, 
+  &::-moz-clear-button {
+    color: $primary-dark-blue;
+    background-color: $neutral-white;
+  }
+
+  &::-moz-datetime-edit-year-field:focus,
+  &::-moz-datetime-edit-month-field:focus,
+  &::-moz-datetime-edit-day-field:focus,
+  &::-moz-datetime-edit-hour-field:focus,
+  &::-moz-datetime-edit-minute-field:focus,
+  &::-moz-datetime-edit-ampm-field:focus {
+    background-color: $neutral-white;
+    color: $primary-dark-blue;
+  }
+
+  &::-ms-datetime-edit, 
+  &::-ms-inner-spin-button, 
+  &::-ms-clear-button {
+    color: $primary-dark-blue;
+    background-color: $primary-medium-blue;
+  }
+
+  &::-ms-datetime-edit-year-field:focus,
+  &::-ms-datetime-edit-month-field:focus,
+  &::-ms-datetime-edit-day-field:focus,
+  &::-ms-datetime-edit-hour-field:focus,
+  &::-ms-datetime-edit-minute-field:focus,
+  &::-ms-datetime-edit-ampm-field:focus {
+    background-color: $neutral-white;
+    color: $primary-dark-blue;
+  }
+}
+
+.datetime-local {
+  &:hover {
+    background-color: $neutral-white;
+  }
+
+  &:active {
+    background-color: $neutral-white;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: $primary-dark-blue;
+    box-shadow: 0 0 .3125rem $primary-dark-blue;
+  }
+}
+
+.event-type-options {
+  margin-left: .75rem;
+}
