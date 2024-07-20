@@ -358,7 +358,7 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, onClose }, ref) =>
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
             initialView="dayGridMonth"
             headerToolbar={{
-              left: 'prev,next today',
+              left: 'prev,next,today',
               center: 'title',
               right: 'dayGridMonth,timeGridWeek,timeGridDay',
             }}

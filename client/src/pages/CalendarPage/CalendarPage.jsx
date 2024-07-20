@@ -1,7 +1,7 @@
-import React, { useContext, useState, useEffect, useRef } from 'react';
+import { useContext, useState, useEffect, useRef } from 'react';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
-import Calendar from './sections/Calendar';
 import { ToastContainer, Slide } from 'react-toastify';
+import Calendar from './sections/Calendar';
 import Loader from '../../components/Loader/Loader';
 import api from '../../services/api';
 import './CalendarPage.scss';
