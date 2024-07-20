@@ -34,6 +34,17 @@
     }
   }
 
+  &__swipes {
+    font-size: 1rem;
+    padding-left: .15rem;
+    padding-right: .15rem;
+
+    @include tablet {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
   &__calendar-close-btn {
     @include block-item(1.75rem, 1.75rem);
     position: absolute;

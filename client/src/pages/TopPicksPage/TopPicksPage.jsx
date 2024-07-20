@@ -254,7 +254,7 @@ const TopPicksPage = () => {
           <div className="top-picks-page__no-more-media-container">
             <img src={NoMoreMedia} alt="No more media" className="top-picks-page__no-more-media-image" />
             <div className="top-picks-page__no-more-media">
-              <p>All swipes have been recorded!</p>
+              <p className="top-picks-page__swipes">All swipes have been recorded!</p>
               <button
                 className="top-picks-page__recommendations-button"
                 onClick={fetchRecommendations}
