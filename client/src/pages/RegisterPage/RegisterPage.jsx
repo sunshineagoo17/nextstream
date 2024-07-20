@@ -14,7 +14,6 @@ import Cookies from 'js-cookie';
 import './RegisterPage.scss';
 import 'react-toastify/dist/ReactToastify.css';
 
-
 export const RegisterPage = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [name, setName] = useState('');
@@ -28,7 +27,7 @@ export const RegisterPage = () => {
   const [isValidPassword, setIsValidPassword] = useState(true);
   const [isCheckedTerms, setIsCheckedTerms] = useState(false);
   const [termsError, setTermsError] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false); // Change this to false initially
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
 
@@ -257,9 +256,15 @@ export const RegisterPage = () => {
                   <img src={ArrowIcon} className="register__button-icon" alt="Arrow Icon" />
                   <span>Previous</span>
                 </button>
-                <button className="register__button register__button--signup" onClick={handleSignUp}>
-                  <img src={SignUpIcon} className="register__button-icon" alt="Sign Up Icon" />
-                  <span>Sign Up</span>
+                <button className="register__button register__button--signup" onClick={handleSignUp} disabled={isLoading}>
+                  {isLoading ? (
+                    <div className="register__loader-circle"></div>
+                  ) : (
+                    <div className="register__btn-wrapper">
+                      <img src={SignUpIcon} className="register__button-icon" alt="Sign Up Icon" />
+                      <span>Sign Up</span>
+                    </div>
+                  )}
                 </button>
               </div>
               {errors.general && <p className="error">{errors.general}</p>}

@@ -15,11 +15,11 @@ import Cookies from 'js-cookie';
 import './LoginPage.scss';
 
 export const LoginPage = () => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false); // Change this to false initially
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [rememberMe, setRememberMe] = useState(false); 
+  const [rememberMe, setRememberMe] = useState(false);
   const [errors, setErrors] = useState({});
   const [isForgotPasswordModalOpen, setIsForgotPasswordModalOpen] = useState(false);
   const navigate = useNavigate();
@@ -34,7 +34,7 @@ export const LoginPage = () => {
       setRememberMe(true);
     }
 
-    setIsLoading(false); 
+    setIsLoading(false);
   }, []);
 
   const togglePasswordVisibility = () => {
@@ -64,7 +64,7 @@ export const LoginPage = () => {
     try {
       setIsLoading(true);
       const response = await api.post('/api/auth/login', userData);
-      console.log('Login response:', response); // Log the entire response object
+      console.log('Login response:', response);
       if (response.data.token) {
         login(response.data.token, response.data.userId, rememberMe);
 
@@ -78,7 +78,7 @@ export const LoginPage = () => {
           Cookies.remove('rememberedPassword');
         }
 
-        console.log('Navigating to profile page'); 
+        console.log('Navigating to profile page');
         navigate(`/profile/${response.data.userId}`);
       } else {
         console.log('Login failed: Token missing in response');
@@ -97,7 +97,7 @@ export const LoginPage = () => {
   };
 
   const handleCheckboxChange = (event) => {
-    setRememberMe(event.target.checked); 
+    setRememberMe(event.target.checked);
   };
 
   const openForgotPasswordModal = () => {
@@ -168,7 +168,7 @@ export const LoginPage = () => {
                   type="checkbox"
                   className="login__checkbox-box"
                   checked={rememberMe}
-                  onChange={handleCheckboxChange} 
+                  onChange={handleCheckboxChange}
                 />
                 <p className="login__remember-txt">Remember Me</p>
               </label>
@@ -178,9 +178,15 @@ export const LoginPage = () => {
                   <img src={ArrowIcon} className="previous__button-icon" alt="Arrow Icon" />
                   <span>Previous</span>
                 </button>
-                <button className="login__button login__button--signin" onClick={handleSignIn}>
-                  <img src={SignUpIcon} className="login__button-icon" alt="Sign In Icon" />
-                  <span>Sign In</span>
+                <button className="login__button login__button--signin" onClick={handleSignIn} disabled={isLoading}>
+                  {isLoading ? (
+                    <div className="login__loader-circle"></div>
+                  ) : (
+                    <div className="login__btn-wrapper">
+                      <img src={SignUpIcon} className="login__button-icon" alt="Sign In Icon" />
+                      <span>Sign In</span>
+                    </div>
+                  )}
                 </button>
               </div>
 
