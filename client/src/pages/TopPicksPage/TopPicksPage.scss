@@ -8,9 +8,24 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: relative;
   padding: 3.5rem;
   background-color: $primary-darker-blue;
   min-height: 100vh;
+
+  &__calendar-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba($neutral-black, .8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: -1rem;
+    z-index: 1000;
+  }
 
   &__gradient-subtitle {
     font-weight: bold;
@@ -42,56 +57,6 @@
     @include tablet {
       padding-left: 0;
       padding-right: 0;
-    }
-  }
-
-  &__calendar-close-btn {
-    @include block-item(1.75rem, 1.75rem);
-    position: absolute;
-    top: 11.5rem; 
-    transform: translateX(-50%);
-    background-color: transparent;
-    color: $neutral-white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid $neutral-white;
-    padding: .25rem;
-    font-size: 1rem;
-    box-shadow: $shadow-senary;
-    cursor: pointer;
-    z-index: 1001;
-    border-radius: .2rem;
-    transition: all 0.3s ease; 
-
-    &:hover {
-      background-color: $primary-dark-blue;
-      color: $neutral-white;
-      padding: 1rem; 
-      border-radius: .5rem; 
-      transform: translateX(-50%) scale(1.25); 
-    }
-
-    &:active {
-      transform: translateX(-50%) scale(1);
-      box-shadow: $shadow-senary;
-    }
-
-    @include tablet {
-      top: 17rem;
-      font-size: 1.5rem;
-    }
-
-    @include desktop {
-      top: 12.5rem;
-    }
-
-    @include large-desktop {
-      top: 11.5rem;
-    }
-
-    @include extra-large-desktop {
-      top: 12.75rem;
     }
   }
 
@@ -396,7 +361,6 @@
   &__no-more-media {
     @include block-item(20rem, 10rem);
     text-align: center;
-    padding: 2rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -409,14 +373,69 @@
     border-radius: 1rem;
     opacity: 1;
 
-    p {
-      font-size: 1.25rem;
-      color: $neutral-white;
-      margin-bottom: 1rem;
+      p {
+        font-size: 1.25rem;
+        color: $neutral-white;
+        margin-bottom: 1rem;
+      }
     }
   }
-}
 
-.calendar-modal {
-  margin-top: 1.5rem;
+
+.top-picks-page__calendar-close-btn {
+  @include block-item(1.75rem, 1.75rem);
+  position: absolute;
+  top: 24rem; 
+  transform: translateX(-50%);
+  background-color: transparent;
+  color: $neutral-white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid $neutral-white;
+  padding: .25rem;
+  font-size: 1rem;
+  box-shadow: $shadow-senary;
+  cursor: pointer;
+  z-index: 1001;
+  border-radius: .2rem;
+  transition: all 0.3s ease; 
+
+  &:hover {
+    background-color: $primary-dark-blue;
+    color: $neutral-white;
+    padding: 1rem; 
+    border-radius: .5rem; 
+    transform: translateX(-50%) scale(1.25); 
+  }
+
+  &:active {
+    transform: translateX(-50%) scale(1);
+    box-shadow: $shadow-senary;
+  }
+
+  @include small-mobile {
+    top: 25.5rem;
+  }
+
+  @include large-mobile {
+    top: 18rem;
+  }
+
+  @include tablet {
+    top: 25.5rem;
+    font-size: 1.5rem;
+  }
+
+  @include desktop {
+    top: 20rem;
+  }
+
+  @include large-desktop {
+    top: 9rem;
+  }
+
+  @include extra-large-desktop {
+    top: 19rem;
+  }
 }

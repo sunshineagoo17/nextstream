@@ -2,10 +2,10 @@ import { useState, useEffect, useContext, useRef } from 'react';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { useSwipeable } from 'react-swipeable';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCalendarPlus, faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarPlus, faClose, faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { toast } from 'react-toastify';
 import MediaCard from './sections/MediaCard/MediaCard';
-import CalendarModal from '../CalendarPage/sections/Calendar';
+import Calendar from '../CalendarPage/sections/Calendar';
 import AnimatedBg from '../../components/AnimatedBg/AnimatedBg';
 import Loader from '../../components/Loader/Loader';
 import NoMoreMedia from "../../assets/images/no-more-media.svg";
@@ -264,21 +264,19 @@ const TopPicksPage = () => {
             </div>
           </div>
         )}
-        {showCalendar && (
-          <div className="calendar-modal">
-            <button className="top-picks-page__calendar-close-btn" onClick={handleCloseCalendar}>
-              <p className="calendar-close-btn__txt">x</p>
-            </button>
-            <CalendarModal
-              userId={userId}
-              eventTitle={eventTitle}
-              mediaType={selectedMediaType}
-              onClose={handleCloseCalendar}
-              handleSave={handleSaveEvent}
-              ref={calendarRef}
-            />
-          </div>
-        )}
+      {showCalendar && (
+        <div className="top-picks-page__calendar-modal">
+          <button className="top-picks-page__calendar-close-btn" onClick={handleCloseCalendar}><FontAwesomeIcon icon={faClose} className='auth-search-results__close-icon' /></button>
+          <Calendar
+            userId={userId}
+            eventTitle={eventTitle}
+            mediaType={selectedMediaType}
+            handleSave={handleSaveEvent}
+            onClose={handleCloseCalendar}
+            ref={calendarRef}
+          />
+        </div>
+      )}
         <div className="top-picks-page__background">
           <AnimatedBg />
         </div>
