@@ -7,6 +7,7 @@ import AnimatedBg from '../../components/AnimatedBg/AnimatedBg';
 import ShowIcon from "../../assets/images/register-visible-icon.svg";
 import HideIcon from "../../assets/images/register-invisible-icon.svg";
 import Loader from '../../components/Loader/Loader';
+import ResetPasswordImg from "../../assets/images/reset-password.svg";
 import 'react-toastify/dist/ReactToastify.css'; 
 import './ResetPasswordPage.scss';
 
@@ -97,6 +98,10 @@ export const ResetPasswordPage = () => {
           <div className="reset-password__container">
             <div className="reset-password__content-card">
               <h1 className="reset-password__title">Reset Password</h1>
+              <p className="reset-password__intro">Keep your account secure.</p>
+              <p className="reset-password__text">
+                Please enter a new password below. This will replace your current password and ensure your account remains secure.   
+              </p>
               <form className="reset-password__form" onSubmit={handleSubmit}>
                 <div className="reset-password__input-group reset-password__input-group--password">
                   <input
@@ -146,6 +151,9 @@ export const ResetPasswordPage = () => {
                 )}
                 <button type="submit" className="reset-password__button">Reset Password</button>
               </form>
+              <div className="reset-password__graphic-container">
+                <img src={ResetPasswordImg} alt="Login required graphic" className="reset-password__graphic" />
+              </div>
               {message && (
                 <div className={`reset-password__message ${messageType === 'error' ? 'reset-password__message--error' : 'reset-password__message--success'}`}>
                   {message}
