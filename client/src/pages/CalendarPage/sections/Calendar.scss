@@ -52,8 +52,6 @@
   }
 
   &__event-icon {
-    margin-left: .25rem;
-
     @include tablet {
       @include block-item(.6rem, .6rem);
     }
@@ -654,13 +652,14 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: .0625rem;
 
   @include tablet {
     padding-left: .25rem;
     padding-right: .25rem;
     flex-direction: row;
     align-items: center;
-    gap: .0625rem;
+    gap: .15rem;
   }
 
   @include desktop {
@@ -668,7 +667,7 @@
     padding-right: 1rem;
     flex-direction: row;
     align-items: center;
-    gap: .0625rem;
+    gap: .25rem;
   }
 
   .calendar__event-icon {
