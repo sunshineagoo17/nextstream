@@ -184,6 +184,15 @@
     @include btn-mobile;
     margin-top: .5rem;
     margin-bottom: 1rem;
+    transition: transform 0.3s ease-in-out;
+
+    &:hover {
+      transform: scale(1.04);
+    }
+
+    &:active {
+      transform: scale(.95);
+    }
 
     @include tablet {
       @include btn-main-container;

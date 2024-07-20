@@ -65,7 +65,16 @@
     text-decoration: none;
     @include btn-small;
     @include block-item(1.5rem, 2.75rem);
+    transition: transform 0.3s ease-in-out;
     display: flex;
+
+    &:hover {
+      transform: scale(1.03);
+    }
+
+    &:active {
+      transform: scale(.95);
+    }
 
     @include tablet {
       width: 10rem;

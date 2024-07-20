@@ -88,6 +88,15 @@
   &__btn-register {
     @include btn-main-container;
     margin-right: .8125rem;
+    transition: transform 0.3s ease-in-out;
+
+    &:hover {
+      transform: scale(1.04);
+    }
+
+    &:active {
+      transform: scale(.95);
+    }
 
     @include tablet {
       @include btn-main-container;
@@ -115,6 +124,15 @@
     width: 7.3338rem;
     font-size: .875rem;
     height: 2.9375rem;
+    transition: transform 0.3s ease-in-out;
+
+    &:hover {
+      transform: scale(1.04);
+    }
+
+    &:active {
+      transform: scale(.95);
+    }
 
     @include tablet {
       @include btn-secondary-container;
