@@ -9,6 +9,7 @@ import Calendar from '../CalendarPage/sections/Calendar';
 import AnimatedBg from '../../components/AnimatedBg/AnimatedBg';
 import Loader from '../../components/Loader/Loader';
 import NoMoreMedia from "../../assets/images/no-more-media.svg";
+import ShowMedia from "../../assets/images/show-media.svg";
 import api from '../../services/api';
 import 'react-toastify/dist/ReactToastify.css';
 import './TopPicksPage.scss';
@@ -232,6 +233,11 @@ const TopPicksPage = () => {
             Use <span className="top-picks-page__gradient-subtitle">NextSwipe</span> to discover new movies and shows. Swipe right to like and left to dislike each media card, tailoring your perfect viewing schedule. For desktop users, you can click and drag left or right, or simply click on the arrows. Add your favourites to your calendar today!
           </p>
         </div>
+        {isLoading && (
+          <div className="top-picks-page__graphic-container">
+            <img src={ShowMedia} alt="Woman waiting for media" className="top-picks-page__graphic" />
+          </div>
+        )}
         {isLoading && <Loader />}
         {!isLoading && media.length > 0 && currentIndex < media.length && (
           <div className="top-picks-page__media-card">

@@ -27,6 +27,24 @@
     z-index: 1000;
   }
 
+  &__graphic-container {
+    margin-top: 2rem;
+    width: 20rem;
+
+    @include tablet {
+      width: 30%;
+    }
+  }
+
+  &__graphic {
+    @include hover-raise-effect;
+    cursor: crosshair;
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
+    box-shadow: $shadow-primary;
+  }
+
   &__gradient-subtitle {
     font-weight: bold;
     background: linear-gradient(270deg, $neutral-white, $primary-gradient-blue, $neutral-white);
