@@ -170,10 +170,21 @@ export const Content = () => {
             </div>
 
             <div className="content__pagination-container">
-              <div className="content__page-nav-wrapper-next" onClick={handlePrevious}>
+              <div className="content__page-nav-wrapper-previous" onClick={handlePrevious}>
                 <img src={PreviousIcon} className="content__previous-icon" alt="Previous" />
               </div>
-              <div className="content__page-nav-wrapper-previous" onClick={handleNext}>
+              <div className="content__nav-circles">
+                {newReleases.slice(0, Math.ceil(newReleases.length / 3)).map((_, index) => (
+                  <div
+                    key={index}
+                    className={`content__nav-circle ${
+                      currentIndex / 3 === index ? 'content__nav-circle--active' : ''
+                    }`}
+                    onClick={() => setCurrentIndex(index * 3)}
+                  ></div>
+                ))}
+              </div>
+              <div className="content__page-nav-wrapper-next" onClick={handleNext}>
                 <img src={NextIcon} className="content__next-icon" alt="Next" />
               </div>
             </div>
