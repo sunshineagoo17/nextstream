@@ -8,12 +8,15 @@ import DefaultVideoImg from '../../assets/images/video-img-default.png';
 import NoDataImg from '../../assets/images/no-data.svg';
 import MovieIcon from '../../assets/images/videocamera-1.png';
 import TvIcon from '../../assets/images/tv-icon.png'; 
+import PreviousIcon from '../../assets/images/previous-icon.svg';
+import NextIcon from '../../assets/images/next-icon.svg';
 import 'react-toastify/dist/ReactToastify.css';
 import './SearchResultsPage.scss';
 
 const SearchResultsPage = () => {
   const [results, setResults] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -51,8 +54,7 @@ const SearchResultsPage = () => {
           }
         });
 
-        const limitedResults = response.data.results.slice(0, 3);
-        setResults(limitedResults);
+        setResults(response.data.results);
 
       } catch (error) {
         console.error('Error fetching search results:', error);
@@ -68,6 +70,31 @@ const SearchResultsPage = () => {
       fetchResults();
     }
   }, [query]);
+
+  const handlePrevious = () => {
+    setCurrentIndex((prevIndex) => (prevIndex === 0 ? results.length - 3 : prevIndex - 3));
+  };
+
+  const handleNext = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 3 >= results.length ? 0 : prevIndex + 3));
+  };
+
+  const renderPaginationCircles = () => {
+    const totalPages = Math.ceil(results.length / 3);
+    const currentPage = Math.floor(currentIndex / 3);
+
+    return (
+      <div className="search-results__pagination-circles">
+        {Array.from({ length: totalPages }).map((_, index) => (
+          <div
+            key={index}
+            className={`search-results__pagination-circle ${index === currentPage ? 'active' : ''}`}
+            onClick={() => setCurrentIndex(index * 3)}
+          ></div>
+        ))}
+      </div>
+    );
+  };
 
   return (
     <>
@@ -101,7 +128,7 @@ const SearchResultsPage = () => {
           </div>
           <div className="search-results__card-media-container">
             {results.length > 0 ? (
-              results.map(result => (
+              results.slice(currentIndex, currentIndex + 3).map(result => (
                 <div key={result.id} className="search-results__card">
                   <a href={`https://www.themoviedb.org/${result.media_type}/${result.id}`} className="search-results__link" target="_blank" rel="noopener noreferrer">
                     {result.poster_path ? (
@@ -136,6 +163,15 @@ const SearchResultsPage = () => {
                 <p className="search-results__no-results-copy">No results found for your search. Try a different title!</p>
               </div>
             )}
+          </div>
+          <div className="search-results__pagination-container">
+            <div className="search-results__page-nav-wrapper" onClick={handlePrevious}>
+              <img src={PreviousIcon} className="search-results__previous-icon" alt="Previous" />
+            </div>
+            {renderPaginationCircles()}
+            <div className="search-results__page-nav-wrapper" onClick={handleNext}>
+              <img src={NextIcon} className="search-results__next-icon" alt="Next" />
+            </div>
           </div>
         </div>
         <div className="search-results__background">
