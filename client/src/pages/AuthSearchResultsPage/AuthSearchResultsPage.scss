@@ -15,7 +15,7 @@
     background: none;
     border: none;
   }
-  
+
   &__chevron-icon {
     cursor: pointer;
     color: $neutral-white;
@@ -47,7 +47,7 @@
   }
 
   &__no-providers {
-    margin-top: -1rem;
+    margin-top: -.35rem;
     color: $primary-pale-blue;
     font-size: .4rem;
     background-color: $primary-medium-blue;
@@ -59,15 +59,15 @@
 
     @include tablet {
       font-size: .75rem;
-      padding: .25rem;
-      line-height: 1rem;
+      margin-top: .25rem;
+      line-height: .8rem;
     }
 
     @include desktop {
       font-size: 1rem;
-      padding: .25rem;
-      line-height: 1.5rem;
-      margin-top: 1.75rem;
+      padding: .5rem;
+      line-height: 1.25rem;
+      margin-top: .1rem;
     }
   }
 
@@ -166,13 +166,14 @@
   &__streaming-services {
     display: flex;
     justify-content: center;
-    margin-top: 10px;
+    margin-top: .5rem;
     flex-wrap: wrap;
     align-items: center;
     gap: .15rem;
 
     @include tablet {
       gap: .5rem;
+      margin-top: .2rem;
     }
 
     &__streaming-service {
@@ -225,15 +226,23 @@
     align-items: center;
     justify-content: center;
     border-radius: 1rem;
-    padding: 1rem;
+    padding: 1rem .35rem .35rem .35rem;
     box-shadow: $shadow-senary;
 
     @include tablet {
-      @include block-item(10rem, 10rem);
+      @include block-item(10rem, 12.5rem);
     }
 
     @include desktop {
-      @include block-item(15rem, 15rem);
+      @include block-item(15rem, 20rem);
+      margin-bottom: .5rem;
+      padding: .75rem;
+    }
+
+    @include large-desktop {
+      padding: .95rem;
+      @include block-item(15rem, 20rem);
+      margin-bottom: .5rem;
     }
   }
 
@@ -259,10 +268,9 @@
   }
 
   &__error-no-img-title {
-    font-weight: bold;
-    border: 1px solid $primary-very-light-blue;
-    padding: 0.6rem;
-    margin-top: 0.75rem;
+    border: .25px solid $primary-very-light-blue;
+    padding: 0.25rem;
+    margin-top: 0.25rem;
     border-radius: 0.5rem;
     color: $primary-very-light-blue;
     box-shadow: $shadow-tertiary;
@@ -279,6 +287,13 @@
       background-color: $primary-medium-blue;
       color: $primary-pale-blue;
     }
+
+    @include tablet {
+      font-weight: bold;
+      border: 1px solid $primary-very-light-blue;
+      padding: .6rem;
+      margin-top: .75rem;
+    }
   }
 
   &__link {
@@ -288,8 +303,9 @@
   }
 
   &__poster {
+    border-radius: .5rem;
     @include block-item(100%, 6rem);
-    overflow: hidden;
+    margin-bottom: .05rem;
 
     @include tablet {
       @include block-item(100%, 14rem);
@@ -423,11 +439,12 @@
     backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.4);
     border-radius: 1rem;
-    padding: 1rem;
+    padding: .45rem;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 
     @include tablet {
       gap: 1rem;
+      padding: 1rem;
       @include block-item(40.3244rem, 23.625rem);
 
       @include desktop {
