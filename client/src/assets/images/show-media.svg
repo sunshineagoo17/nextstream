@@ -26,6 +26,10 @@
         opacity: .6;
       }
 
+      .cls-22 {
+         opacity: 0;
+      }
+
       .cls-4, .cls-12, .cls-13, .cls-16, .cls-20 {
         fill: #000;
       }
@@ -81,6 +85,48 @@
       .cls-21 {
         opacity: .4;
       }
+
+      @keyframes moveUpDown {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-20px); }
+      }
+
+      @keyframes moveLeftRight {
+        0%, 100% { transform: translateX(0); }
+        50% { transform: translateX(20px); }
+      }
+
+      @keyframes moveLeftRight2 {
+        0%, 100% { transform: translateX(0); }
+        50% { transform: translateX(20px); }
+        100%  { transform: translateX(555px); }
+      }
+
+      @keyframes fadeInOut {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0; }
+      }
+
+      #arrowdown, #arrowup, #movie {
+        animation: moveUpDown 3s infinite;
+      }
+
+      #movie2, #movie3 {
+        animation: moveUpDown 5s infinite;
+      }
+
+      #path {
+        animation: moveLeftRight 2.5s infinite;
+      }
+
+      #duration {
+        animation: moveLeftRight2 15s infinite;
+      }
+
+      #status, #percentage {
+        animation: fadeInOut 15s infinite;
+      }
+
     </style>
   </defs>
   <path class="cls-3" d="M2293,1501.5H0v1.1h2293v-1.1Z"/>
@@ -158,7 +204,7 @@
   <path class="cls-4" d="M1070.3,547.7H472.6v357.7h597.7v-357.7Z"/>
   <path class="cls-13" d="M1070.3,895.8H472.6v9.6h597.7v-9.6Z"/>
   <g id="duration">
-    <path id="durationpath" class="cls-10" d="M494.3,895.8h-21.8v9.6h21.8v-9.6Z"/>
+    <path id="durationpath" class="cls-22" d="M494.3,895.8h-21.8v9.6h21.8v-9.6Z"/>
     <path id="durationcircle" class="cls-17" d="M505.6,900.9c0,2.2-.7,4.4-1.9,6.3-1.2,1.9-3,3.3-5.1,4.2-2.1.9-4.4,1.1-6.6.6-2.2-.4-4.2-1.5-5.8-3.1-1.6-1.6-2.7-3.6-3.1-5.8-.4-2.2-.2-4.5.6-6.6s2.3-3.9,4.2-5.1c1.9-1.2,4.1-1.9,6.3-1.9s5.9,1.2,8,3.3,3.3,5,3.3,8Z"/>
   </g>
   <path class="cls-16" d="M934,572.9h-21.2c-2.1,0-3.9,1.7-3.9,3.9v21.2c0,2.1,1.7,3.9,3.9,3.9h21.2c2.1,0,3.9-1.7,3.9-3.9v-21.2c0-2.1-1.7-3.9-3.9-3.9Z"/>
