@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilm, faTv, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import CircleRating from '../CircleRating/CircleRating';
+import DefaultPoster from "../../../../assets/images/posternoimg-icon.png";
 import './MediaCard.scss';
 
 const MediaCard = ({ media, handlers }) => {
@@ -16,9 +17,14 @@ const MediaCard = ({ media, handlers }) => {
     navigate(`/search?q=${encodedQuery}`);
   };
 
+  // Default poster's used if poster path isn't available
+  const posterUrl = media.poster_path
+    ? `https://image.tmdb.org/t/p/w500${media.poster_path}`
+    : DefaultPoster;
+
   return (
     <div className="media-card" {...handlers}>
-      <img src={`https://image.tmdb.org/t/p/w500${media.poster_path}`} alt={media.title || media.name} className="media-card__image" />
+      <img src={posterUrl} alt={media.title || media.name} className="media-card__image" />
       <div className="media-card__details">
         <h2 className="media-card__title">
           <a href={tmdbUrl} target="_blank" rel="noopener noreferrer" className="media-card__tmdb-link">
