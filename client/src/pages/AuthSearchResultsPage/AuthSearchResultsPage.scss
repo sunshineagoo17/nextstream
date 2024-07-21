@@ -3,6 +3,93 @@
 @use "../../styles/partials/mixins" as *;
 @use "../../styles/global.scss" as *;
 
+.calendar-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  margin-top: 0;
+}
+
+.calendar-close-btn {
+  position: absolute;
+  top: 14.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: transparent;
+  color: $neutral-white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid $neutral-white;
+  padding: .05rem;
+  font-size: 1.5rem;
+  box-shadow: $shadow-senary;
+  cursor: pointer;
+  z-index: 1001;
+  border-radius: .2rem;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: $primary-dark-blue;
+    color: $neutral-white;
+    padding: 1rem;
+    border-radius: .5rem;
+    transform: translateX(-50%) scale(1.1);
+  }
+
+  &:active {
+    transform: translateX(-50%) scale(1);
+    box-shadow: $shadow-senary;
+  }
+
+  @include tablet {
+    top: 6.5rem;
+  }
+
+  @include desktop {
+    top: 5rem;
+  }
+
+  @include large-desktop {
+    top: 11.5rem;
+  }
+
+  @include extra-large-desktop {
+    top: 12.75rem;
+
+    &:hover {
+      background-color: $primary-dark-blue;
+      color: $neutral-white;
+      padding: 1rem;
+      border-radius: .5rem;
+      transform: translateX(-50%) scale(1.001);
+    }
+
+    &:active {
+      transform: translateX(-50%) scale(.9);
+      box-shadow: $shadow-senary;
+    }
+  }
+}
+
+.frosted-toast-auth {
+  backdrop-filter: blur(.25rem);
+  background: rgba($primary-dark-blue, 0.75);
+  border: .1875rem solid rgba($primary-light-blue, 0.75);
+  border-radius: .625rem;
+  box-shadow: $shadow-primary;
+  color: $primary-pale-blue;
+  font-family: $primary-font;
+  padding: 1rem;
+}
+
 .auth-search-results {
   position: relative;
   padding: 2rem;
@@ -16,20 +103,98 @@
     border: none;
   }
 
+  &__pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+    gap: 1rem;
+  }
+  
+  &__page-nav-wrapper {
+    @include block-item(2.6rem, 2.6rem);
+    @include hover-raise-effect-nav;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $base-darker-blue;
+    border: .15rem solid $primary-light-blue;
+    border-radius: .85rem;
+    box-shadow: $shadow-quaternary;
+    cursor: pointer;
+    transition: transform .2s ease, background-color .2s ease, border-color .2s ease;
+    
+    &:active {
+      transform: scale(.95);
+    }
+  }
+  
+  &__previous-icon,
+  &__next-icon {
+    @include block-item(1.1rem, 1.1rem);
+    font-size: 1.5rem;
+    color: $primary-very-light-blue;
+    transition: transform 0.2s ease, color 0.2s ease;
+  
+    &:hover {
+      transform: scale(1.1);
+      color: $primary-light-blue;
+    }
+  
+    &:active {
+      transform: scale(0.9);
+      color: $primary-dark-blue;
+    }
+  }
+  
+  &__pagination-circles {
+    display: flex;
+    gap: .5rem;
+    padding-left: .5rem;
+    padding-right: .5rem;
+  }
+
+  &__pagination-circle {
+    @include block-item(.75rem, .75rem);
+    background: rgba($neutral-white, .7);
+    border: .0938rem solid $primary-very-light-blue;
+    backdrop-filter: blur(0.5rem);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform .3s ease, background-color .3s, box-shadow .3s;
+    box-shadow: $shadow-quaternary;
+
+    &:hover {
+      transform: scale(1.1);
+      background-color: rgba($primary-light-blue, .8);
+      box-shadow: $shadow-tertiary;
+    }
+
+    &.active {
+      background-color: $primary-medium-blue;
+      border: 1.5px solid $primary-light-blue;
+      box-shadow: 0 0 .25rem $primary-dark-blue;
+    }
+
+    @include tablet {
+      @include block-item(.85rem, .85rem);
+    }
+  }
+
   &__chevron-icon {
     cursor: pointer;
     color: $neutral-white;
     font-size: .5rem;
     transition: transform 0.3s ease;
-  
+
     &:hover {
       color: $primary-very-light-blue;
     }
-  
+
     &:active {
       color: $primary-dark-blue;
     }
-  
+
     @include tablet {
       font-size: 1.2rem;
     }
@@ -50,7 +215,6 @@
     margin-top: -.35rem;
     color: $primary-pale-blue;
     font-size: .4rem;
-    background-color: $primary-medium-blue;
     background-color: $primary-medium-blue;
     box-shadow: $shadow-primary;
     border-radius: .25rem;
@@ -83,84 +247,96 @@
   &__poster-wrapper {
     position: relative;
     display: inline-block;
+  }
+  
+  &__media-icon {
+    display: none;
 
-    .auth-search-results__media-icon {
-        display: none;
+    @include tablet {
+      display: block;
+      position: absolute;
+      bottom: 15px;
+      right: 10px;
+      width: 30px;
+      height: 30px;
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 15%;
+      box-shadow: $shadow-tertiary;
+      padding: 4px;
+      transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
 
-        @include tablet {
-            display: block;
-            position: absolute;
-            bottom: 15px;
-            right: 10px;
-            width: 30px;
-            height: 30px;
-            background-color: rgba(255, 255, 255, 0.8);
-            border-radius: 15%;
-            box-shadow: $shadow-tertiary;
-            padding: 4px;
-            transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+      &:hover {
+        transform: scale(1.05);
+        background: $primary-medium-blue;
+      }
 
-            &:hover {
-              transform: scale(1.05);
-              background: $primary-medium-blue;
-            }
-    
-            &:active {
-              transform: scale(0.9);
-              background: $primary-dark-blue;
-            }
-        }
-    }
-
-    .auth-search-results__calendar-button {
-        @include block-item(.75rem, .75rem);
-        position: absolute;
-        top: 2px;
-        right: 2px;
-        background: rgba(255, 255, 255, 0.8);
-        border: none;
-        border-radius: 50%;
-        padding: 10px;
-        cursor: pointer;
-        box-shadow: $shadow-tertiary;
-        overflow: hidden;
-        transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
-
-        &:hover {
-          transform: scale(1.05);
-          background: $primary-dark-blue;
-          color: $neutral-white;
-        }
-
-        &:active {
-          transform: scale(0.9);
-          background: $primary-medium-blue;
-        }
-
-      @include tablet {
-        @include block-item(2rem, 2rem);
-        top: 7px;
-        right: 10px;
+      &:active {
+        transform: scale(0.9);
+        background: $primary-dark-blue;
       }
     }
+  }
 
-    .auth-search-results__calendar-icon {
-        @include block-item(.65rem, .65rem);
-        position: relative;
-        top: -9px;
-        right: 5px;
-        color: $primary-medium-blue;
+  &__media-none-icon {
+    @include block-item(1.3rem, 1.3rem);
+    color: $primary-light-blue;
+    padding: .25rem;
+    bottom: -.05rem;
+  
+    @include desktop {
+      bottom: 15px;
+    }
+  
+  }
 
-        &:hover {
-          color: $neutral-white;
-        }
+  &__calendar-button {
+    @include block-item(.75rem, .75rem);
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    border-radius: 50%;
+    padding: 10px;
+    cursor: pointer;
+    box-shadow: $shadow-tertiary;
+    overflow: hidden;
+    transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
 
-        @include tablet {
-            @include block-item(1.25rem, 1.25rem);
-                top: -5px;
-                right: 4px;
-            }
-        }
+    &:hover {
+      transform: scale(1.05);
+      background: $primary-dark-blue;
+      color: $neutral-white;
+    }
+
+    &:active {
+      transform: scale(0.9);
+      background: $primary-medium-blue;
+    }
+
+    @include tablet {
+      @include block-item(2rem, 2rem);
+      top: 7px;
+      right: 10px;
+    }
+  }
+
+  &__calendar-icon {
+    @include block-item(.65rem, .65rem);
+    position: relative;
+    top: -9px;
+    right: 5px;
+    color: $primary-medium-blue;
+
+      &:hover {
+        color: $neutral-white;
+      }
+
+      @include tablet {
+        @include block-item(1.25rem, 1.25rem);
+        top: -5px;
+        right: 4px;
+      }
     }
 
   &__streaming-services {
@@ -190,14 +366,14 @@
     border-radius: .15rem;
 
     @include tablet {
-        @include block-item(2rem, 2rem);
+      @include block-item(2rem, 2rem);
     }
 
     @include desktop {
-        @include block-item(5rem, 5rem);
-        border-radius: .5rem;
+      @include block-item(5rem, 5rem);
+      border-radius: .5rem;
     }
-}
+  }
 
   &__streaming-providers {
     display: flex;
@@ -417,7 +593,7 @@
     }
 
     @include desktop {
-      bottom: 0rem;
+      bottom: -3.15rem;
       height: 15.625rem;
     }
 
@@ -487,114 +663,26 @@
         @include block-item(20.1875rem, 29.125rem);
       }
     }
-
-    &__info {
-      padding: 1rem;
-
-      &__name {
-        font-size: 1.25rem;
-        color: $primary-dark-blue;
-      }
-    }
-  }
-}
-
-.auth-search-results__poster--default {
-  @include block-item(2rem, 2rem);
-
-  @include tablet {
-    @include block-item(4rem, 4rem);
   }
 
-  @include desktop {
-    @include block-item(6rem, 6rem);
+  &__info {
+    padding: 1rem;
+
+    &__name {
+      font-size: 1.25rem;
+      color: $primary-dark-blue;
+    }
   }
-}
 
-.calendar-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-  margin-top: 0;
-
-  .calendar-close-btn {
-    position: absolute;
-    top: 14.75rem; 
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: transparent;
-    color: $neutral-white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid $neutral-white;
-    padding: .05rem;
-    font-size: 1.5rem;
-    box-shadow: $shadow-senary;
-    cursor: pointer;
-    z-index: 1001;
-    border-radius: .2rem;
-    transition: all 0.3s ease; 
-
-    &:hover {
-      background-color: $primary-dark-blue;
-      color: $neutral-white;
-      padding: 1rem; 
-      border-radius: .5rem; 
-      transform: translateX(-50%) scale(1.1); 
-    }
-
-    &:active {
-      transform: translateX(-50%) scale(1);
-      box-shadow: $shadow-senary;
-    }
+  &__poster--default {
+    @include block-item(2rem, 2rem);
 
     @include tablet {
-      top: 6.5rem;
+      @include block-item(4rem, 4rem);
     }
 
     @include desktop {
-      top: 5rem;
-    }
-
-    @include large-desktop {
-      top: 11.5rem;
-    }
-
-    @include extra-large-desktop {
-      top: 12.75rem;
-    
-
-      &:hover {
-        background-color: $primary-dark-blue;
-        color: $neutral-white;
-        padding: 1rem; 
-        border-radius: .5rem; 
-        transform: translateX(-50%) scale(1.001); 
-      }
-
-      &:active {
-        transform: translateX(-50%) scale(.9);
-        box-shadow: $shadow-senary;
-      }
+      @include block-item(6rem, 6rem);
     }
   }
-}
-
-.frosted-toast-auth {
-  backdrop-filter: blur(.25rem);
-  background: rgba($primary-dark-blue, 0.75);
-  border: .1875rem solid rgba($primary-light-blue, 0.75);
-  border-radius: .625rem;
-  box-shadow: $shadow-primary;
-  color: $primary-pale-blue;
-  font-family: $primary-font;
-  padding: 1rem;
 }

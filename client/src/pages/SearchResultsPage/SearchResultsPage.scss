@@ -356,6 +356,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: $base-darker-blue;
+    border: .15rem solid $primary-light-blue;
     border-radius: .85rem;
     box-shadow: $shadow-quaternary;
     cursor: pointer;
@@ -364,11 +366,6 @@
     &:active {
       transform: scale(.95);
     }
-  }
-
-  &__page-nav-wrapper {
-    background-color: $base-darker-blue;
-    border: .15rem solid $primary-light-blue;
   }
 
   &__previous-icon,

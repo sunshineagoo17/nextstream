@@ -2,7 +2,7 @@ import { useState, useEffect, useContext, useRef, useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCalendarPlus, faClose, faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarPlus, faClose, faChevronRight, faChevronLeft, faImage } from '@fortawesome/free-solid-svg-icons';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import axios from 'axios';
 import AnimatedBg from '../../components/AnimatedBg/AnimatedBg';
@@ -11,6 +11,8 @@ import DefaultVideoImg from '../../assets/images/video-img-default.png';
 import VideoCamera from "../../assets/images/videocamera-1.png";
 import TvIcon from "../../assets/images/tv-icon.png";
 import NoDataImg from "../../assets/images/no-data.svg";
+import PreviousIcon from '../../assets/images/previous-icon.svg';
+import NextIcon from '../../assets/images/next-icon.svg';
 import Calendar from '../CalendarPage/sections/Calendar';
 import 'react-toastify/dist/ReactToastify.css';
 import './AuthSearchResultsPage.scss';
@@ -23,6 +25,7 @@ const AuthSearchResultsPage = ({ userId }) => {
   const [eventTitle, setEventTitle] = useState('');
   const [eventMediaType, setEventMediaType] = useState('');
   const [showMoreProviders, setShowMoreProviders] = useState({});
+  const [currentIndex, setCurrentIndex] = useState(0);
   const location = useLocation();
   const navigate = useNavigate();
   const calendarRef = useRef(null);
@@ -44,10 +47,8 @@ const AuthSearchResultsPage = ({ userId }) => {
         }
       });
 
-      const limitedResults = response.data.results.slice(0, 3);
-
       const updatedResults = await Promise.all(
-        limitedResults.map(async (result) => {
+        response.data.results.map(async (result) => {
           try {
             const providersResponse = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/tmdb/${result.media_type}/${result.id}/watch/providers`);
             const providers = providersResponse.data || [];
@@ -99,6 +100,40 @@ const AuthSearchResultsPage = ({ userId }) => {
     }));
   };
 
+  const handlePrevious = () => {
+    setCurrentIndex((prevIndex) => (prevIndex === 0 ? results.length - 3 : prevIndex - 3));
+  };
+
+  const handleNext = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 3 >= results.length ? 0 : prevIndex + 3));
+  };
+
+  const renderPaginationCircles = () => {
+    const totalPages = Math.ceil(results.length / 3);
+    const currentPage = Math.floor(currentIndex / 3);
+
+    return (
+      <div className="auth-search-results__pagination-circles">
+        {Array.from({ length: totalPages }).map((_, index) => (
+          <div
+            key={index}
+            className={`auth-search-results__pagination-circle ${index === currentPage ? 'active' : ''}`}
+            onClick={() => setCurrentIndex(index * 3)}
+          ></div>
+        ))}
+      </div>
+    );
+  };
+
+  const getMediaTypeIcon = (mediaType) => {
+    if (mediaType === 'movie') {
+      return <img src={VideoCamera} alt="Movie" className="auth-search-results__media-icon" />;
+    } else if (mediaType === 'tv') {
+      return <img src={TvIcon} alt="TV Show" className="auth-search-results__media-icon" />;
+    }
+    return <FontAwesomeIcon icon={faImage} className="auth-search-results__media-icon auth-search-results__media-none-icon" alt="No Media Type Available" />;
+  };
+
   return (
     <>
       <ToastContainer
@@ -133,45 +168,38 @@ const AuthSearchResultsPage = ({ userId }) => {
           )}
           <div className="auth-search-results__card-media-container">
             {results.length > 0 ? (
-              results.map(result => (
+              results.slice(currentIndex, currentIndex + 3).map(result => (
                 <div key={result.id} className="auth-search-results__card">
-                  {result.poster_path ? (
-                    <div className="auth-search-results__poster-wrapper">
-                      <img
-                        className="auth-search-results__poster"
-                        alt={result.title || result.name}
-                        src={`https://image.tmdb.org/t/p/w500${result.poster_path}`}
-                        onError={(e) => { e.target.src = DefaultVideoImg; }}
-                      />
-                      <a href={`https://www.themoviedb.org/${result.media_type}/${result.id}`} className="auth-search-results__link" target="_blank" rel="noopener noreferrer">
-                        <img
-                          src={result.media_type === 'movie' ? VideoCamera : TvIcon}
-                          className="auth-search-results__media-icon"
-                          aria-label="Find out more"
-                          alt={result.media_type === 'movie' ? 'Movie Icon' : 'TV Show Icon'}
-                        />
-                      </a>
-                      <button
-                        aria-label="Add to Calendar"
-                        className="auth-search-results__calendar-button"
-                        onClick={() => handleAddToCalendar(result.title || result.name, result.media_type)}
-                      >
-                        <FontAwesomeIcon icon={faCalendarPlus} className='auth-search-results__calendar-icon' />
-                      </button>
-                    </div>
-                  ) : (
+                  <div className="auth-search-results__poster-wrapper">
                     <a href={`https://www.themoviedb.org/${result.media_type}/${result.id}`} className="auth-search-results__link" target="_blank" rel="noopener noreferrer">
-                      <div className="auth-search-results__no-image">
+                      {result.poster_path ? (
                         <img
-                          className="auth-search-results__poster auth-search-results__poster--default"
+                          className="auth-search-results__poster"
                           alt={result.title || result.name}
-                          src={DefaultVideoImg}
+                          src={`https://image.tmdb.org/t/p/w500${result.poster_path}`}
+                          onError={(e) => { e.target.src = DefaultVideoImg; }}
                         />
-                        <span className="auth-search-results__error-no-img-txt">No Image Available for:</span>
-                        <span className="auth-search-results__error-no-img-title">{result.title || result.name}</span>
-                      </div>
+                      ) : (
+                        <div className="auth-search-results__no-image">
+                          <img
+                            className="auth-search-results__poster auth-search-results__poster--default"
+                            alt={result.title || result.name}
+                            src={DefaultVideoImg}
+                          />
+                          <span className="auth-search-results__error-no-img-txt">No Image Available for:</span>
+                          <span className="auth-search-results__error-no-img-title">{result.title || result.name}</span>
+                        </div>
+                      )}
+                      {getMediaTypeIcon(result.media_type)}
                     </a>
-                  )}
+                    <button
+                      aria-label="Add to Calendar"
+                      className="auth-search-results__calendar-button"
+                      onClick={() => handleAddToCalendar(result.title || result.name, result.media_type)}
+                    >
+                      <FontAwesomeIcon icon={faCalendarPlus} className='auth-search-results__calendar-icon' />
+                    </button>
+                  </div>
                   <div className="auth-search-results__streaming-services">
                     {result.providers && result.providers.length > 0 ? (
                       <>
@@ -212,6 +240,15 @@ const AuthSearchResultsPage = ({ userId }) => {
               </div>
             )}
           </div>
+          <div className="auth-search-results__pagination-container">
+            <div className="auth-search-results__page-nav-wrapper" onClick={handlePrevious}>
+              <img src={PreviousIcon} className="auth-search-results__previous-icon" alt="Previous" />
+            </div>
+            {renderPaginationCircles()}
+            <div className="auth-search-results__page-nav-wrapper" onClick={handleNext}>
+              <img src={NextIcon} className="auth-search-results__next-icon" alt="Next" />
+            </div>
+          </div>
         </div>
         <div className="auth-search-results__background">
           <AnimatedBg />
@@ -219,7 +256,9 @@ const AuthSearchResultsPage = ({ userId }) => {
       </div>
       {showCalendar && (
         <div className="calendar-modal">
-          <button className="calendar-close-btn" onClick={handleCloseCalendar}><FontAwesomeIcon icon={faClose} className='auth-search-results__close-icon' /></button>
+          <button className="calendar-close-btn" onClick={handleCloseCalendar}>
+            <FontAwesomeIcon icon={faClose} className='auth-search-results__close-icon' />
+          </button>
           <Calendar
             userId={userId}
             eventTitle={eventTitle}
@@ -231,6 +270,6 @@ const AuthSearchResultsPage = ({ userId }) => {
       )}
     </>
   );
-};
-
-export default AuthSearchResultsPage;
+  };
+  
+  export default AuthSearchResultsPage;
