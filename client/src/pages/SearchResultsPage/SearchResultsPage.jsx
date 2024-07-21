@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast, Slide } from 'react-toastify';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faImage } from '@fortawesome/free-solid-svg-icons'; 
 import axios from 'axios';
 import AnimatedBg from '../../components/AnimatedBg/AnimatedBg';
 import Loader from '../../components/Loader/Loader';
@@ -10,8 +12,6 @@ import MovieIcon from '../../assets/images/videocamera-1.png';
 import TvIcon from '../../assets/images/tv-icon.png'; 
 import PreviousIcon from '../../assets/images/previous-icon.svg';
 import NextIcon from '../../assets/images/next-icon.svg';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faImage } from '@fortawesome/free-solid-svg-icons'; 
 import 'react-toastify/dist/ReactToastify.css';
 import './SearchResultsPage.scss';
 
@@ -38,7 +38,7 @@ const SearchResultsPage = () => {
     } else if (mediaType === 'tv') {
       return <img src={TvIcon} alt="TV Show" className="search-results__media-icon" />;
     }
-    return <FontAwesomeIcon icon={faImage} className="search-results__media-icon search-results__media-none-icon" />;
+    return <FontAwesomeIcon icon={faImage} className="search-results__media-icon search-results__media-none-icon" alt="No Media Type Available" />;
   };
 
   useEffect(() => {
