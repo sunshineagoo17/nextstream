@@ -48,6 +48,12 @@
     box-shadow: $shadow-primary;
     bottom: 2rem;
     right: 1.5rem;
+    color: $primary-light-blue;
+  }
+
+  &__media-none-icon {
+    @include block-item(1.1rem, 1.1rem);
+    padding: .5rem;
   }
   
   &__content-items {

@@ -10,6 +10,8 @@ import MovieIcon from '../../assets/images/videocamera-1.png';
 import TvIcon from '../../assets/images/tv-icon.png'; 
 import PreviousIcon from '../../assets/images/previous-icon.svg';
 import NextIcon from '../../assets/images/next-icon.svg';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faImage } from '@fortawesome/free-solid-svg-icons'; 
 import 'react-toastify/dist/ReactToastify.css';
 import './SearchResultsPage.scss';
 
@@ -32,11 +34,11 @@ const SearchResultsPage = () => {
 
   const getMediaTypeIcon = (mediaType) => {
     if (mediaType === 'movie') {
-      return MovieIcon;
+      return <img src={MovieIcon} alt="Movie" className="search-results__media-icon" />;
     } else if (mediaType === 'tv') {
-      return TvIcon;
+      return <img src={TvIcon} alt="TV Show" className="search-results__media-icon" />;
     }
-    return null;
+    return <FontAwesomeIcon icon={faImage} className="search-results__media-icon search-results__media-none-icon" />;
   };
 
   useEffect(() => {
@@ -149,11 +151,7 @@ const SearchResultsPage = () => {
                         <span className="search-results__error-no-img-title">{result.title || result.name}</span>
                       </div>
                     )}
-                    <img
-                      className="search-results__media-icon"
-                      src={getMediaTypeIcon(result.media_type)}
-                      alt={result.media_type}
-                    />
+                    {getMediaTypeIcon(result.media_type)}
                   </a>
                 </div>
               ))
