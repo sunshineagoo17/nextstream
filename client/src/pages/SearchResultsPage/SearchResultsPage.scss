@@ -26,34 +26,35 @@
   &__card {
     position: relative;
   }
-
-  &__poster--default {
-    @include block-item(2rem, 2rem);
-
-    @include tablet {
-        @include block-item(4rem, 4rem);
-    }
-
-    @include desktop {
-        @include block-item(6rem, 6rem);
-    }
-  }
   
   &__media-icon {
-    @include block-item(2rem, 2rem);
+    @include block-item(1rem, 1rem);
     position: absolute;
     background-color: $base-darker-blue;
-    padding: .25rem;
-    border-radius: .5rem;
+    padding: .15rem;
+    border-radius: .25rem;
     box-shadow: $shadow-primary;
-    bottom: 2rem;
-    right: 1.5rem;
+    bottom: 1.85rem;
+    right: .175rem;
     color: $primary-light-blue;
+
+    @include tablet {
+      @include block-item(2rem, 2rem);
+      padding: .25rem;
+      border-radius: .5rem;
+      bottom: 2rem;
+      right: 1.5rem;
+    }
   }
 
   &__media-none-icon {
-    @include block-item(1.1rem, 1.1rem);
-    padding: .5rem;
+    @include block-item(.65rem, .65rem);
+    padding: .15rem;
+
+    @include tablet {
+      @include block-item(1.1rem, 1.1rem);
+      padding: .5rem;
+    }
   }
   
   &__content-items {
@@ -68,12 +69,14 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      border-radius: 1rem;
-      padding: 1rem;
+      padding-top: 1rem;
+      padding-bottom: 1rem;
       box-shadow: $shadow-senary;
 
       @include tablet {
           @include block-item(10rem, 10rem);
+          border-radius: 1rem;
+          padding: 1rem;
       }
 
       @include desktop {
@@ -83,8 +86,8 @@
 
   &__error-no-img-title,
   &__error-no-img-txt {
-      font-size: .75rem;
-      line-height: .8rem;
+      font-size: .65rem;
+      line-height: .7rem;
       text-align: center;
 
       @include tablet {
@@ -105,15 +108,15 @@
   &__error-no-img-title {
       font-weight: bold;
       border: .0625rem solid $primary-very-light-blue;
-      padding: .6rem;
-      margin-top: .75rem;
+      padding: .15rem;
+      margin: .75rem .35rem 0 .35rem; 
       border-radius: .5rem;
       color: $primary-very-light-blue;
       box-shadow: $shadow-tertiary;
 
       &:hover {
-          background-color: white;
-          color: $primary-dark-blue
+          background-color: $neutral-white;
+          color: $primary-dark-blue;
       }
 
       &:active {
@@ -122,6 +125,14 @@
           font-weight: normal;
           background-color: $primary-medium-blue;
           color: $primary-pale-blue;
+      }
+
+      @include tablet {
+        padding: .6rem;
+      }
+
+      @include desktop {
+        margin-bottom: 1rem;
       }
   }
 
@@ -240,7 +251,7 @@
     }
 
     @include desktop {
-      bottom: 0;
+      bottom: -3.2rem;
       height: 15.625rem;
     }
 
@@ -378,6 +389,18 @@
     gap: .5rem;
     padding-left: .5rem;
     padding-right: .5rem;
+  }
+
+  &__poster--default {
+    @include block-item(2rem, 2rem);
+
+    @include tablet {
+        @include block-item(3rem, 3rem);
+    }
+
+    @include desktop {
+        @include block-item(5rem, 5rem);
+    }
   }
 
   &__pagination-circle {
