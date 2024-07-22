@@ -2,12 +2,12 @@ import { useContext, useState, useEffect, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { useSearchBar } from '../../context/SearchBarContext/SearchBarContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import nextStreamLogo from "../../assets/images/nextstream-wordmark.png";
 import searchVector from "../../assets/images/search-vector-handle.svg";
 import UserIcon from "../../assets/images/user-icon.svg";
 import LogoutIcon from "../../assets/images/logout-icon.svg";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import "./Header.scss";
 
 const Header = () => {

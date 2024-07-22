@@ -78,7 +78,7 @@
     text-decoration: none;
     @include btn-small;
     @include block-item(1.5rem, 2.75rem);
-    transition: transform 0.3s ease-in-out;
+    transition: transform .3s ease-in-out;
     display: flex;
 
     &:hover {
@@ -123,8 +123,8 @@
     justify-content: center;
     align-items: center;
     padding: 0;
-    border: 0.125rem solid transparent;
-    transition: border 0.3s ease, padding 0.3s ease, border-radius 0.3s ease;
+    border: .125rem solid transparent;
+    transition: border .3s ease, padding .3s ease, border-radius .3s ease;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
@@ -137,7 +137,7 @@
 
     &:active {
       .header__logo {
-        transform: scale(0.95);
+        transform: scale(.95);
       }
     }
 
@@ -150,7 +150,7 @@
 
   &__logo {
     @include block-item(8.375rem, 1.063rem);
-    transition: transform 0.2s ease;
+    transition: transform .2s ease;
     cursor: pointer;
   }
 
@@ -161,7 +161,7 @@
       display: flex;
       align-items: center;
       background-color: $neutral-white;
-      border: 2px solid $primary-light-blue;
+      border: .125rem solid $primary-light-blue;
       border-radius: .5rem;
       box-shadow: $shadow-primary;
       padding-right: .5rem;
@@ -304,22 +304,22 @@
     display: flex;
     align-items: center;
     padding: .5rem;
-    border: 2px solid $neutral-white;
+    border: .125rem solid $neutral-white;
     height: 2.9375rem;
     cursor: pointer;
-    transition: box-shadow 0.3s ease, transform 0.2s ease;
+    transition: box-shadow .3s ease, transform .3s ease;
 
     @include tablet {
       margin-right: 1rem;
     }
 
     &:hover {
-      box-shadow: 0 0 10px rgba($primary-medium-blue, 0.4), 0 0 10px rgba($primary-medium-blue, 0.3);
-      border: 1px solid $neutral-white;
+      box-shadow: 0 0 .625rem rgba($primary-medium-blue, .4), 0 0 .625rem rgba($primary-medium-blue, .3);
+      border: .0625rem solid $neutral-white;
     }
 
     &:active {
-      transform: scale(0.95);
+      transform: scale(.95);
     }
 
     @include desktop {
