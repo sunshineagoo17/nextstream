@@ -1,11 +1,13 @@
 import { useContext, useState, useEffect, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
-import { useSearchBar } from '../../context/SearchBarContext/SearchBarContext'; 
+import { useSearchBar } from '../../context/SearchBarContext/SearchBarContext';
 import nextStreamLogo from "../../assets/images/nextstream-wordmark.png";
 import searchVector from "../../assets/images/search-vector-handle.svg";
 import UserIcon from "../../assets/images/user-icon.svg";
 import LogoutIcon from "../../assets/images/logout-icon.svg";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import "./Header.scss";
 
 const Header = () => {
@@ -13,7 +15,7 @@ const Header = () => {
   const navigate = useNavigate();
   const [query, setQuery] = useState('');
   const { searchBarDesktopRef, searchBarMobileRef } = useSearchBar();
-  
+
   const placeholders = useMemo(() => ["titles...", "movies...", "shows...", "streams...", "episodes...", "series...", "features...", "docs...", "classics..."], []);
   const [placeholderIndex, setPlaceholderIndex] = useState(0);
   const [displayedPlaceholder, setDisplayedPlaceholder] = useState("Search ");
@@ -26,11 +28,11 @@ const Header = () => {
       if (displayedPlaceholder.length < `Search ${placeholders[placeholderIndex]}`.length) {
         timeout = setTimeout(() => {
           setDisplayedPlaceholder((prev) => prev + placeholders[placeholderIndex][displayedPlaceholder.length - 7]);
-        }, 150); 
+        }, 150);
       } else {
         timeout = setTimeout(() => {
           setTyping(false);
-        }, 2000); 
+        }, 2000);
       }
     } else {
       if (displayedPlaceholder.length > 7) {
@@ -59,6 +61,10 @@ const Header = () => {
     }
   };
 
+  const handleClearInput = () => {
+    setQuery('');
+  };
+
   return (
     <div className="header">
       <div className="header__main-container">
@@ -81,6 +87,15 @@ const Header = () => {
                   value={query} 
                   onChange={(e) => setQuery(e.target.value)} 
                 />
+                {query && (
+                  <button 
+                    type="button" 
+                    className="header__clear-btn" 
+                    onClick={handleClearInput}
+                  >
+                    <FontAwesomeIcon icon={faTimes} />
+                  </button>
+                )}
               </form>
             </div>
           </div>
@@ -126,6 +141,15 @@ const Header = () => {
               value={query} 
               onChange={(e) => setQuery(e.target.value)} 
             />
+            {query && (
+              <button 
+                type="button" 
+                className="header__clear-btn--mobile" 
+                onClick={handleClearInput}
+              >
+                <FontAwesomeIcon icon={faTimes} />
+              </button>
+            )}
           </form>
         </div>
       </div>
