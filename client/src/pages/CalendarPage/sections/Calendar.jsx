@@ -29,6 +29,7 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, duration, onClose 
   const [newEventType, setNewEventType] = useState(mediaType || 'movie');
   const calendarRef = useRef(null);
   const miniCalendarRef = useRef(null);
+  const isDeletingEvent = useRef(false);
 
   const fetchEvents = useCallback(async () => {
     try {
@@ -174,8 +175,9 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, duration, onClose 
     }
   };
 
-  const handleDeleteEvent = async () => {
-    if (!selectedEvent) return;
+  const handleDeleteEvent = useCallback(async () => {
+    if (isDeletingEvent.current || !selectedEvent) return;
+    isDeletingEvent.current = true;
     setLoading(true);
     try {
       await api.delete(`/api/calendar/${userId}/events/${selectedEvent.id}`);
@@ -187,8 +189,23 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, duration, onClose 
     } finally {
       setLoading(false);
       setModalVisible(false);
+      isDeletingEvent.current = false;
     }
-  };
+  }, [selectedEvent, fetchEvents, userId]);
+
+  useEffect(() => {
+    if (modalVisible) {
+      const handleGlobalDelete = (e) => {
+        if (e.key === 'Delete') {
+          handleDeleteEvent();
+        }
+      };
+      window.addEventListener('keydown', handleGlobalDelete);
+      return () => {
+        window.removeEventListener('keydown', handleGlobalDelete);
+      };
+    }
+  }, [modalVisible, handleDeleteEvent]);
 
   const renderEventContent = (eventInfo) => {
     const handleEventClickWithLoader = async (event) => {
@@ -340,6 +357,9 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, duration, onClose 
 
   const clearEventTitleInput = () => {
     setNewEventTitle('');
+    if (selectedEvent) {
+      setSelectedEvent((prevEvent) => ({ ...prevEvent, title: '' }));
+    }
   };
 
   return (
