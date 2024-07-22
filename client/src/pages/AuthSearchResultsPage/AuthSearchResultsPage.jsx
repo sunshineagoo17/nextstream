@@ -24,6 +24,7 @@ const AuthSearchResultsPage = ({ userId }) => {
   const [showCalendar, setShowCalendar] = useState(false);
   const [eventTitle, setEventTitle] = useState('');
   const [eventMediaType, setEventMediaType] = useState('');
+  const [eventDuration, setEventDuration] = useState(0);  
   const [showMoreProviders, setShowMoreProviders] = useState({});
   const [currentIndex, setCurrentIndex] = useState(0);
   const location = useLocation();
@@ -52,11 +53,22 @@ const AuthSearchResultsPage = ({ userId }) => {
           try {
             const providersResponse = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/tmdb/${result.media_type}/${result.id}/watch/providers`);
             const providers = providersResponse.data || [];
-            return { ...result, providers };
+
+            // Fetch runtime for movies and episode runtime for TV shows
+            let duration = 0;
+            if (result.media_type === 'movie') {
+              const movieDetails = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/tmdb/movie/${result.id}`);
+              duration = movieDetails.data.runtime || 0;
+            } else if (result.media_type === 'tv') {
+              const tvDetails = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/tmdb/tv/${result.id}`);
+              duration = tvDetails.data.episode_run_time[0] || 0;  
+            }
+
+            return { ...result, providers, duration };
           } catch (error) {
             console.error(`Error fetching watch providers for ${result.media_type} ${result.id}:`, error);
             toast.error('Error fetching watch providers. Please try again later.', { className: 'frosted-toast-auth' });
-            return { ...result, providers: [] };
+            return { ...result, providers: [], duration: 0 };
           }
         })
       );
@@ -83,9 +95,10 @@ const AuthSearchResultsPage = ({ userId }) => {
     }
   }, [query, fetchResults]);
 
-  const handleAddToCalendar = (title, mediaType) => {
+  const handleAddToCalendar = (title, mediaType, duration) => {
     setEventTitle(title);
     setEventMediaType(mediaType);
+    setEventDuration(duration); 
     setShowCalendar(true);
   };
 
@@ -195,7 +208,7 @@ const AuthSearchResultsPage = ({ userId }) => {
                     <button
                       aria-label="Add to Calendar"
                       className="auth-search-results__calendar-button"
-                      onClick={() => handleAddToCalendar(result.title || result.name, result.media_type)}
+                      onClick={() => handleAddToCalendar(result.title || result.name, result.media_type, result.duration)}  // Pass the duration
                     >
                       <FontAwesomeIcon icon={faCalendarPlus} className='auth-search-results__calendar-icon' />
                     </button>
@@ -263,6 +276,7 @@ const AuthSearchResultsPage = ({ userId }) => {
             userId={userId}
             eventTitle={eventTitle}
             mediaType={eventMediaType}
+            duration={eventDuration}  
             onClose={handleCloseCalendar}
             ref={calendarRef}
           />
@@ -270,6 +284,6 @@ const AuthSearchResultsPage = ({ userId }) => {
       )}
     </>
   );
-  };
-  
-  export default AuthSearchResultsPage;
+};
+
+export default AuthSearchResultsPage;

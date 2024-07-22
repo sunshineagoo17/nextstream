@@ -12,7 +12,7 @@ import api from '../../../services/api';
 import Loader from '../../../components/Loader/Loader';
 import './Calendar.scss';
 
-const Calendar = forwardRef(({ userId, eventTitle, mediaType, onClose }, ref) => {
+const Calendar = forwardRef(({ userId, eventTitle, mediaType, duration, onClose }, ref) => {
   const { isAuthenticated } = useContext(AuthContext);
   const [events, setEvents] = useState([]);
   const [filteredEvents, setFilteredEvents] = useState([]);
@@ -75,7 +75,11 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, onClose }, ref) =>
   const handleDateClick = (arg) => {
     const localDate = moment(arg.date).format('YYYY-MM-DDTHH:mm:ss');
     setNewEventStartDate(localDate);
-    setNewEventEndDate(localDate);
+
+    // Calculate when the event ends based on the duration
+    const endDate = moment(localDate).add(duration, 'minutes').format('YYYY-MM-DDTHH:mm:ss');
+    setNewEventEndDate(endDate);
+
     setSelectedEvent(null);
     setNewEventType(mediaType || 'movie');
     setModalVisible(true);

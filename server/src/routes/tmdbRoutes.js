@@ -5,13 +5,33 @@ const NodeCache = require('node-cache');
 const cron = require('node-cron');
 require('dotenv').config();
 
-const cache = new NodeCache({ stdTTL: 3600 }); 
+const cache = new NodeCache({ stdTTL: 3600 });
 
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
 const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
 
 // Streaming providers to filter by
-const STREAMING_PROVIDERS = ['Amazon Prime Video', 'Apple TV Plus', 'Netflix', 'Crave', 'Disney Plus'];
+const STREAMING_PROVIDERS = [
+  'Amazon Prime Video',
+  'Apple TV Plus',
+  'Netflix',
+  'Crave',
+  'Disney Plus',
+  'Hulu',
+  'HBO Max',
+  'Paramount Plus',
+  'Peacock',
+  'CBC Gem',
+  'CTV',
+  'Global TV',
+  'Sundance Now',
+  'Acorn TV',
+  'BritBox',
+  'Crackle',
+  'Starz',
+  'Showtime',
+  'Tubi'
+];
 
 // Function to get the watch providers
 const getWatchProviders = async (mediaType, mediaId) => {
@@ -159,6 +179,70 @@ router.get('/:mediaType/:mediaId/watch/providers', async (req, res) => {
   } catch (error) {
     console.error(`Error handling watch providers request for ${mediaType} ${mediaId}:`, error);
     res.status(500).json({ message: 'Error fetching watch providers' });
+  }
+});
+
+// Endpoint to get details for a movie
+router.get('/movie/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const response = await axios.get(`${TMDB_BASE_URL}/movie/${id}`, {
+      params: {
+        api_key: TMDB_API_KEY
+      }
+    });
+    res.json(response.data);
+  } catch (error) {
+    console.error(`Error fetching movie details for ${id}:`, error);
+    res.status(500).json({ message: 'Error fetching movie details' });
+  }
+});
+
+// Endpoint to get details for a TV show
+router.get('/tv/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const response = await axios.get(`${TMDB_BASE_URL}/tv/${id}`, {
+      params: {
+        api_key: TMDB_API_KEY
+      }
+    });
+    res.json(response.data);
+  } catch (error) {
+    console.error(`Error fetching TV show details for ${id}:`, error);
+    res.status(500).json({ message: 'Error fetching TV show details' });
+  }
+});
+
+// Endpoint to get details for a collection
+router.get('/collection/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const response = await axios.get(`${TMDB_BASE_URL}/collection/${id}`, {
+      params: {
+        api_key: TMDB_API_KEY
+      }
+    });
+    res.json(response.data);
+  } catch (error) {
+    console.error(`Error fetching collection details for ${id}:`, error);
+    res.status(500).json({ message: 'Error fetching collection details' });
+  }
+});
+
+// Endpoint to get details for a person
+router.get('/person/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const response = await axios.get(`${TMDB_BASE_URL}/person/${id}`, {
+      params: {
+        api_key: TMDB_API_KEY
+      }
+    });
+    res.json(response.data);
+  } catch (error) {
+    console.error(`Error fetching person details for ${id}:`, error);
+    res.status(500).json({ message: 'Error fetching person details' });
   }
 });
 
