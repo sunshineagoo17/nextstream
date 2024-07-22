@@ -760,15 +760,49 @@
 
 .fc-today-button.fc-button.fc-button-primary {
   font-size: .75rem;
-  font-weight: bold;
+  font-weight: normal;
   color: $neutral-white;
+  background: $button-dark-gradient;
+  box-shadow: $shadow-primary;
+  position: relative;
+  overflow: hidden;
+
+  &:hover {
+    background: $primary-dark-blue;
+    color: $neutral-white;
+    border: .125rem solid $primary-medium-blue;
+    box-shadow: $shadow-primary;
+  }
+
+  &::before {
+    @include block-item(200%, 100%);
+    content: "";
+    position: absolute;
+    top: 0;
+    right: -100%;
+    background: linear-gradient(to left, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: right 0.5s;
+  }
+
+  &:hover::before {
+    right: 100%;
+  }
 }
 
 .fc-today-button.fc-button.fc-button-primary:disabled {
-  font-size: .75rem;
-  font-weight: normal;
-  background-color: $primary-dark-blue;
-  color: $neutral-white;
+  font-size: 1rem;
+  font-weight: bold;
+  background: $neutral-light-grey;
+  color: $primary-very-light-blue;
+  border: .0938rem solid $neutral-white;
+  box-shadow: $shadow-primary;
+  position: relative;
+  overflow: hidden;
+
+  &:hover {
+    background: $neutral-white;
+    color: $primary-medium-blue;
+  }
 }
 
 .fc-timegrid-axis-cushion.fc-scrollgrid-shrink-cushion.fc-scrollgrid-sync-inner {
