@@ -101,9 +101,21 @@
     }
   }
 
+  &__clear-icon {
+    position: absolute;
+    right: .85rem;
+    top: 35%;
+    color: $primary-light-blue;
+    cursor: pointer;
+
+    &:hover {
+      color: $primary-medium-blue;
+    }
+  }
+
   &__search-bar {
     width: 100%;
-    padding: .625rem .625rem .625rem 2.25rem;
+    padding: .625rem 1.75rem .625rem 2.25rem;
     border-radius: .75rem;
     border: .125rem solid $primary-medium-blue;
     background: rgba(255, 255, 255, .6);
@@ -124,6 +136,14 @@
 
     &::-ms-input-placeholder {
       color: $primary-light-blue;
+    }
+
+    @include tablet {
+      padding-right: .625rem;
+    }
+
+    @include desktop {
+      padding-right: 1.75rem;
     }
   }
 
@@ -613,6 +633,10 @@
       margin-bottom: 1.25rem;
     }
 
+    .modal-input-container {
+      position: relative;
+    }
+
     .modal-input {
       width: calc(100% - 1.25rem);
       padding: .625rem;
@@ -621,6 +645,18 @@
       border-radius: .25rem;
       font-size: 1rem;
       font-family: $primary-font;
+    }
+
+    .modal-clear-icon {
+      position: absolute;
+      right: .75rem;
+      top: 25%;
+      color: $primary-light-blue;
+      cursor: pointer;
+
+      &:hover {
+        color: $primary-medium-blue;
+      }
     }
 
     button {

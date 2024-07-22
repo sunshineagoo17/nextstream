@@ -47,6 +47,10 @@
     right: .2rem;
     top: 50%;
     transform: translateY(-50%);
+
+    &:hover {
+      color: $primary-dark-blue;
+    }
   }
 
   &__sign-in-icon {

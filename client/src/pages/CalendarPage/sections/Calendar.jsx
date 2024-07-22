@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext, useCallback, forwardRef, useImperativeHandle, useRef } from 'react';
 import { AuthContext } from '../../../context/AuthContext/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faFilm, faTv } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faFilm, faTv, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -317,7 +317,7 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, duration, onClose 
       calendarRef.current.getApi().changeView('dayGridMonth');
       toast.success(`Found multiple events for ${searchQuery}. Showing month view.`, { className: 'frosted-toast-cal' });
     } else {
-      toast.error(`No events found for ${searchQuery}.`);
+      toast.error(`No events found for ${searchQuery}.`, { className: 'frosted-toast-cal' });
     }
   };
 
@@ -333,6 +333,15 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, duration, onClose 
     }
   };
 
+  const clearSearchInput = () => {
+    setSearchQuery('');
+    setFilteredEvents(events);
+  };
+
+  const clearEventTitleInput = () => {
+    setNewEventTitle('');
+  };
+
   return (
     <div className="calendar">
       <div className="calendar__header">
@@ -346,6 +355,13 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, duration, onClose 
             onChange={handleSearchChange}
             onKeyDown={handleKeyDown}
           />
+          {searchQuery && (
+            <FontAwesomeIcon
+              icon={faTimes}
+              className="calendar__clear-icon"
+              onClick={clearSearchInput}
+            />
+          )}
         </div>
         {isAuthenticated && (
           <button className="calendar__toggle-sidebar-btn" onClick={() => setMiniCalendarVisible(!miniCalendarVisible)}>
@@ -380,13 +396,22 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, duration, onClose 
         <div className="modal">
           <div className="modal-content">
             <h2>{selectedEvent ? 'Edit Event' : 'Add Event'}</h2>
-            <input
-              type="text"
-              className="modal-input"
-              value={selectedEvent ? selectedEvent.title : newEventTitle}
-              onChange={(e) => selectedEvent ? setSelectedEvent({ ...selectedEvent, title: e.target.value }) : setNewEventTitle(e.target.value)}
-              onKeyDown={handleEventTitleKeyDown}
-            />
+            <div className="modal-input-container">
+              <input
+                type="text"
+                className="modal-input"
+                value={selectedEvent ? selectedEvent.title : newEventTitle}
+                onChange={(e) => selectedEvent ? setSelectedEvent({ ...selectedEvent, title: e.target.value }) : setNewEventTitle(e.target.value)}
+                onKeyDown={handleEventTitleKeyDown}
+              />
+              {(selectedEvent ? selectedEvent.title : newEventTitle) && (
+                <FontAwesomeIcon
+                  icon={faTimes}
+                  className="modal-clear-icon"
+                  onClick={clearEventTitleInput}
+                />
+              )}
+            </div>
             <input
               type="datetime-local"
               className="modal-input"
@@ -432,13 +457,13 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, duration, onClose 
         </div>
       )}
       <ToastContainer
-          position="top-center"
-          autoClose={3000}
-          hideProgressBar={true}
-          transition={Slide}
-          closeOnClick
-          pauseOnHover
-        />
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={true}
+        transition={Slide}
+        closeOnClick
+        pauseOnHover
+      />
     </div>
   );
 });
