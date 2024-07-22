@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFilm, faTv, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faFilm, faTv, faSearch, faImage, faUser } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import CircleRating from '../CircleRating/CircleRating';
 import DefaultPoster from "../../../../assets/images/posternoimg-icon.png";
@@ -7,8 +7,6 @@ import './MediaCard.scss';
 
 const MediaCard = ({ media, handlers }) => {
   const validRating = Math.min(Math.max(Math.round(media.vote_average * 10 * 100) / 100, 0), 100);
-  const tmdbUrl = `https://www.themoviedb.org/${media.media_type === 'tv' ? 'tv' : 'movie'}/${media.id}`;
-  const icon = media.media_type === 'tv' ? faTv : faFilm;
   const navigate = useNavigate();
 
   const handleSearchClick = () => {
@@ -16,6 +14,23 @@ const MediaCard = ({ media, handlers }) => {
     const encodedQuery = encodeURIComponent(query);
     navigate(`/search?q=${encodedQuery}`);
   };
+
+  // Determine the correct URL and icon based on media type
+  const tmdbUrl = media.media_type === 'tv' 
+    ? `https://www.themoviedb.org/tv/${media.id}` 
+    : media.media_type === 'movie' 
+    ? `https://www.themoviedb.org/movie/${media.id}` 
+    : media.media_type === 'person'
+    ? `https://www.themoviedb.org/person/${media.id}`
+    : `https://www.themoviedb.org/collection/${media.id}`;
+    
+  const icon = media.media_type === 'tv' 
+    ? faTv 
+    : media.media_type === 'movie' 
+    ? faFilm 
+    : media.media_type === 'person' 
+    ? faUser 
+    : faImage;
 
   // Default poster's used if poster path isn't available
   const posterUrl = media.poster_path

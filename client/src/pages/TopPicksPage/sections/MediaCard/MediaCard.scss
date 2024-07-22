@@ -12,7 +12,7 @@
   box-shadow: 0 .25rem .5rem rgba($neutral-black, .1);
 
   &__type-icon, &__search-icon {
-    font-size: .5rem;
+    font-size: .75rem;
     color: $primary-light-blue;
     background: rgba(255, 255, 255, .7);
     border-radius: 50%;
@@ -61,6 +61,7 @@
 
     @include tablet {
       font-size: 1.25rem;
+      gap: 0;
     }
   }
 

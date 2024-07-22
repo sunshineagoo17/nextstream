@@ -130,7 +130,7 @@ router.get('/search', async (req, res) => {
         query: query,
       },
     });
-
+    console.log(response.data); 
     res.json(response.data);
   } catch (error) {
     console.error('Error fetching search results:', error);
