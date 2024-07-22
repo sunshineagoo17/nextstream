@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import './CookieNotification.scss';
 
 const CookieNotification = () => {
   const [visible, setVisible] = useState(false);
   const [cookiesEnabled, setCookiesEnabled] = useState(false);
+  const [animationClass, setAnimationClass] = useState('');
 
   useEffect(() => {
     const cookieConsent = localStorage.getItem('cookieConsent');
@@ -15,24 +16,35 @@ const CookieNotification = () => {
   }, []);
 
   const handleClose = () => {
-    setVisible(false);
-    localStorage.setItem('cookieNotificationSeen', 'true');
+    setAnimationClass('slide-out');
+    setTimeout(() => {
+      setVisible(false);
+      localStorage.setItem('cookieNotificationSeen', 'true');
+    }, 500); 
   };
 
   const handleEnableCookies = () => {
     setCookiesEnabled(true);
+    setAnimationClass('slide-out');
     localStorage.setItem('cookieConsent', 'enabled');
     // Logic to enable cookies/related features
     // For example (in version 2.0), initialize analytics tracking
     // initAnalytics();
+    setTimeout(() => {
+      setVisible(false);
+    }, 500); 
   };
 
   const handleDisableCookies = () => {
     setCookiesEnabled(false);
+    setAnimationClass('slide-out');
     localStorage.setItem('cookieConsent', 'disabled');
     // Logic to disable cookies/related features
     // For example (in version 2.0), disable analytics tracking
     // disableAnalytics();
+    setTimeout(() => {
+      setVisible(false);
+    }, 500); 
   };
 
   if (!visible) {
@@ -40,7 +52,7 @@ const CookieNotification = () => {
   }
 
   return (
-    <div className="cookie-notification">
+    <div className={`cookie-notification ${animationClass}`}>
       <p className="cookie-notification__message">
         {cookiesEnabled
           ? "Cookies are enabled. Enjoy a personalized experience!"
