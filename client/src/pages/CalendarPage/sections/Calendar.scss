@@ -175,29 +175,66 @@
     cursor: pointer;
     font-family: $primary-font;
     box-shadow: $shadow-primary;
-    transition: background-color .3s, transform .3s ease;
-
-    &:hover {
-      background-color: $frosted-glass;
-      transform: scale(1.05);
-      color: $primary-dark-blue;
-      border: 2px solid $neutral-white;
+    transition: transform .3s ease;
+    overflow: hidden;
+  
+    // Ensuring text is always visible
+    span {
+      white-space: nowrap;
+    }
+  
+    // Initial state of the calendar icon
+    .calendar__calendar-icon {
+      margin-left: .5rem;
+      transition: transform 1s ease-in-out, opacity 1s ease-in-out;
     }
 
+    &:hover {
+      background-color: $primary-very-light-blue;
+      border: 2px solid $neutral-white;
+      color: $primary-dark-blue;
+    }
+  
+    // Icon moves out and fades out on hover
+    &:hover .calendar__calendar-icon {
+      animation: move-in-out 1s ease-in-out;
+    }
+  
     &:active {
       background-color: $primary-medium-blue;
       transform: scale(.95);
       color: $neutral-white;
       border: none;
+      font-weight: bold;
     }
-
+  
     @include tablet {
       margin-top: -1rem;
       padding: .625rem 1.25rem;
       font-size: 1rem;
     }
   }
-
+  
+  // Keyframes for the reappear animation
+  @keyframes move-in-out {
+    0% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    50% {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    51% {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }   
+  
   &__trash-icon {
     margin-left: .25rem;
 
@@ -223,12 +260,6 @@
     box-shadow: $shadow-primary;
     transition: background-color .3s, transform .5s;
 
-    &:hover {
-      background-color: $feedback-error-peach;
-      color: $base-darker-blue;
-      animation: wiggle .5s ease-in-out;
-    }
-
     @keyframes wiggle {
       0%, 100% {
         transform: rotate(0deg);
@@ -241,6 +272,36 @@
       }
       75% {
         transform: rotate(-5deg);
+      }
+    }
+  
+    @keyframes backgroundSlide {
+      100% {
+        background-position: -100%;
+      }
+      0% {
+        background-position: 0%;
+      }
+    }
+  
+    @keyframes contentSlide {
+      100% {
+        transform: translateX(-100%);
+        opacity: 0;
+      }
+      0% {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+  
+    &:hover {
+      animation: wiggle .9s ease-in-out, backgroundSlide .9s forwards;
+      background: $feedback-error-peach;
+      color: $base-darker-blue;
+  
+      & > * {
+        animation: contentSlide .9s forwards;
       }
     }
 
