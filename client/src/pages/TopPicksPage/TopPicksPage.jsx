@@ -24,6 +24,7 @@ const TopPicksPage = () => {
   const [eventTitle, setEventTitle] = useState('');
   const [swipedMediaIds, setSwipedMediaIds] = useState([]);
   const [noMoreMedia, setNoMoreMedia] = useState(false);
+  const [duration, setDuration] = useState(0); 
   const calendarRef = useRef(null);
 
   const saveStateToLocalStorage = (state, key) => {
@@ -71,6 +72,11 @@ const TopPicksPage = () => {
         saveStateToLocalStorage(initialMedia, `media_${userId}`);
       } catch (error) {
         console.error('Error fetching data', error);
+        if (error.response && error.response.status === 401) {
+          toast.error('You are not authorized. Please log in again.', { className: 'frosted-toast-cal' });
+        } else {
+          toast.error('Error fetching data. Please try again later.', { className: 'frosted-toast-cal' });
+        }
       } finally {
         setIsLoading(false);
       }
@@ -124,9 +130,24 @@ const TopPicksPage = () => {
       const { recommendations } = response.data;
       console.log('Raw Recommendations:', recommendations);
 
-      const recommendedMedia = uniqueMedia(recommendations.filter(mediaItem => !swipedMediaIds.includes(mediaItem.id)));
-
-      console.log('Filtered Recommendations:', recommendedMedia);
+      const recommendedMedia = await Promise.all(
+        uniqueMedia(recommendations.filter(mediaItem => !swipedMediaIds.includes(mediaItem.id))).map(async (mediaItem) => {
+          let duration = 0;
+          try {
+            if (mediaItem.media_type === 'movie') {
+              const movieDetails = await api.get(`/api/tmdb/movie/${mediaItem.id}`);
+              duration = movieDetails.data.runtime || 0;
+            } else if (mediaItem.media_type === 'tv') {
+              const tvDetails = await api.get(`/api/tmdb/tv/${mediaItem.id}`);
+              duration = tvDetails.data.episode_run_time[0] || 0;
+            }
+          } catch (error) {
+            console.error('Error fetching duration data:', error);
+            toast.error('Failed to fetch media duration.', { className: 'frosted-toast-cal' });
+          }
+          return { ...mediaItem, duration };
+        })
+      );
 
       if (recommendedMedia.length > 0) {
         setMedia((prevMedia) => {
@@ -141,6 +162,11 @@ const TopPicksPage = () => {
       }
     } catch (error) {
       console.error('Error fetching recommendations', error);
+      if (error.response && error.response.status === 401) {
+        toast.error('You are not authorized. Please log in again.', { className: 'frosted-toast-cal' });
+      } else {
+        toast.error('Error fetching recommendations. Please try again later.', { className: 'frosted-toast-cal' });
+      }
     } finally {
       setIsLoading(false);
     }
@@ -176,6 +202,11 @@ const TopPicksPage = () => {
 
       } catch (error) {
         console.error('Error recording interaction', error);
+        if (error.response && error.response.status === 401) {
+          toast.error('You are not authorized. Please log in again.', { className: 'frosted-toast-cal' });
+        } else {
+          toast.error('Error recording interaction. Please try again later.', { className: 'frosted-toast-cal' });
+        }
       }
     }
   };
@@ -186,9 +217,25 @@ const TopPicksPage = () => {
     trackMouse: true,
   });
 
-  const handleAddToCalendar = (title, mediaType) => {
+  const handleAddToCalendar = async (title, mediaType, mediaId) => {
+    let duration = 0;
+    try {
+      if (mediaType === 'movie') {
+        const movieDetails = await api.get(`/api/tmdb/movie/${mediaId}`);
+        duration = movieDetails.data.runtime || 0;
+      } else if (mediaType === 'tv') {
+        const tvDetails = await api.get(`/api/tmdb/tv/${mediaId}`);
+        duration = tvDetails.data.episode_run_time[0] || 0;
+      }
+    } catch (error) {
+      console.error('Error fetching duration data:', error);
+      toast.error('Failed to fetch media duration.', { className: 'frosted-toast-cal' });
+      return;
+    }
+
     setEventTitle(title);
     setSelectedMediaType(mediaType);
+    setDuration(duration);
     setShowCalendar(true);
   };
 
@@ -207,10 +254,14 @@ const TopPicksPage = () => {
       };
       await api.post(`/api/calendar/${userId}/events`, newEvent);
       setShowCalendar(false);
-      toast.success('Event added successfully!');
+      toast.success('Event added successfully!', { className: 'frosted-toast-cal' });
     } catch (error) {
       console.error('Error saving event:', error);
-      toast.error('Error saving event.');
+      if (error.response && error.response.status === 401) {
+        toast.error('You are not authorized. Please log in again.', { className: 'frosted-toast-cal' });
+      } else {
+        toast.error('Error saving event. Please try again later.', { className: 'frosted-toast-cal' });
+      }
     }
   };
 
@@ -241,7 +292,7 @@ const TopPicksPage = () => {
             <MediaCard media={media[currentIndex]} handlers={handlers} onAddToCalendar={handleAddToCalendar} />
             <button
               className="top-picks-page__calendar-button"
-              onClick={() => handleAddToCalendar(media[currentIndex].title || media[currentIndex].name, media[currentIndex].media_type)}
+              onClick={() => handleAddToCalendar(media[currentIndex].title || media[currentIndex].name, media[currentIndex].media_type, media[currentIndex].id)}
             >
               <FontAwesomeIcon icon={faCalendarPlus} /> <p className="top-picks-page__calendar-copy">Add to Calendar</p>
             </button>
@@ -264,19 +315,22 @@ const TopPicksPage = () => {
             </div>
           </div>
         )}
-      {showCalendar && (
-        <div className="top-picks-page__calendar-modal">
-          <button className="top-picks-page__calendar-close-btn" onClick={handleCloseCalendar}><FontAwesomeIcon icon={faClose} className='auth-search-results__close-icon' /></button>
-          <Calendar
-            userId={userId}
-            eventTitle={eventTitle}
-            mediaType={selectedMediaType}
-            handleSave={handleSaveEvent}
-            onClose={handleCloseCalendar}
-            ref={calendarRef}
-          />
-        </div>
-      )}
+        {showCalendar && (
+          <div className="top-picks-page__calendar-modal">
+            <button className="top-picks-page__calendar-close-btn" onClick={handleCloseCalendar}>
+              <FontAwesomeIcon icon={faClose} className='auth-search-results__close-icon' />
+            </button>
+            <Calendar
+              userId={userId}
+              eventTitle={eventTitle}
+              mediaType={selectedMediaType}
+              duration={duration}
+              handleSave={handleSaveEvent}
+              onClose={handleCloseCalendar}
+              ref={calendarRef}
+            />
+          </div>
+        )}
         <div className="top-picks-page__background">
           <AnimatedBg />
         </div>
