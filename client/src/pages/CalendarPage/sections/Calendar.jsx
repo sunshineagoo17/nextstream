@@ -12,6 +12,12 @@ import api from '../../../services/api';
 import Loader from '../../../components/Loader/Loader';
 import './Calendar.scss';
 
+const viewNames = {
+  dayGridMonth: 'Month',
+  timeGridWeek: 'Week',
+  timeGridDay: 'Day'
+};
+
 const Calendar = forwardRef(({ userId, eventTitle, mediaType, duration, onClose }, ref) => {
   const { isAuthenticated } = useContext(AuthContext);
   const [events, setEvents] = useState([]);
@@ -223,7 +229,7 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, duration, onClose 
         await api.delete(`/api/calendar/${userId}/events/${event.id}`);
       }
       await fetchEvents();
-      toast.success(`Deleted all events in the current ${currentView} view!`, { className: 'frosted-toast-cal' });
+      toast.success(`Deleted all events in the current ${viewNames[currentView]} view!`, { className: 'frosted-toast-cal' });
     } catch (error) {
       console.error('Error deleting events:', error.response ? error.response.data : error.message);
       toast.error('Failed to delete events.', { className: 'frosted-toast-cal' });
@@ -433,6 +439,11 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, duration, onClose 
               left: 'prev,next,today',
               center: 'title',
               right: 'dayGridMonth,timeGridWeek,timeGridDay',
+            }}
+            views={{
+              dayGridMonth: { buttonText: 'Month' },
+              timeGridWeek: { buttonText: 'Week' },
+              timeGridDay: { buttonText: 'Day' },
             }}
             events={filteredEvents}
             dateClick={handleDateClick}

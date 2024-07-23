@@ -178,12 +178,10 @@
     transition: transform .3s ease;
     overflow: hidden;
   
-    // Ensuring text is always visible
     span {
       white-space: nowrap;
     }
   
-    // Initial state of the calendar icon
     .calendar__calendar-icon {
       margin-left: .5rem;
       transition: transform 1s ease-in-out, opacity 1s ease-in-out;
@@ -195,7 +193,6 @@
       color: $primary-dark-blue;
     }
   
-    // Icon moves out and fades out on hover
     &:hover .calendar__calendar-icon {
       animation: move-in-out 1s ease-in-out;
     }
@@ -215,7 +212,6 @@
     }
   }
   
-  // Keyframes for the reappear animation
   @keyframes move-in-out {
     0% {
       transform: translateX(0);
@@ -804,12 +800,12 @@
       border-radius: .25rem;
       cursor: pointer;
       font-size: 1rem;
-      background-color: #007bff;
+      background-color: $primary-button-blue;
       color: $neutral-white;
       transition: transform .3s ease;
 
       &:hover {
-        background-color: #0056b3;
+        background-color: $primary-button-dark-blue;
         transform: scale(1.1);
       }
 
@@ -935,6 +931,7 @@
 .fc-today-button.fc-button.fc-button-primary {
   font-size: .75rem;
   font-weight: normal;
+  text-transform: uppercase;
   color: $neutral-white;
   background: $button-dark-gradient;
   box-shadow: $shadow-primary;
@@ -964,7 +961,7 @@
 }
 
 .fc-today-button.fc-button.fc-button-primary:disabled {
-  font-size: 1rem;
+  font-size: .925rem;
   font-weight: bold;
   background: $neutral-light-grey;
   color: $primary-very-light-blue;
