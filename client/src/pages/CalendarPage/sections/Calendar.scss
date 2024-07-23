@@ -5,7 +5,7 @@
 
 @import url('https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.10.1/main.min.css');
 
-/* Override FullCalendar event styles */
+// Override FullCalendar event styles 
 :root {
   --fc-event-bg-color: transparent;
   --fc-event-border-color: transparent;
@@ -39,18 +39,26 @@
   &__event-movie {
     background-color: $primary-very-light-blue;
     color: $primary-dark-blue;
-    border: .2rem solid $primary-pale-blue;
+    border: .095rem solid $primary-pale-blue;
     border-radius: 1rem;
     box-shadow: $shadow-tertiary;
     padding: .15rem;
+
+    @include tablet {
+      border: .2rem;
+    }
   }
 
   &__event-tv {
     background-color: $primary-pale-cyan;
-    border: .2rem solid $primary-very-light-blue;
+    border: .095rem solid $primary-very-light-blue;
     border-radius: 1rem;
     padding: .15rem;
     box-shadow: $shadow-tertiary;
+
+    @include tablet {
+      border: .2rem;
+    }
   }
 
   &__event-time {
