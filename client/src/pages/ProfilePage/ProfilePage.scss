@@ -305,6 +305,16 @@
   &__location-icon {
     @include block-item(1.5rem, 1.5rem);
     margin-right: 0.25rem;
+    padding: .1rem;
+    border-radius: .5rem;
+    border: 2px solid $primary-pale-blue;
+    transition: box-shadow .3s ease transform .3s ease-in-out;
+
+    &:hover {
+      background-color: $neutral-white;
+      box-shadow: $shadow-secondary;
+      transform: scale(1.15);
+    }
   }
 
   &__input-group {
