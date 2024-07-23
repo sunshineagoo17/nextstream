@@ -554,3 +554,10 @@
 .calendar {
   background-color: rgba($neutral-white, .75);
 }
+
+.fc-event-main {
+  background-color: $primary-light-blue;
+  box-shadow: $shadow-quaternary;
+  border-radius: 1rem;
+  border: 3px solid $neutral-white;
+}
