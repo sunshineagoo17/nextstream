@@ -61,6 +61,13 @@ const CalendarPage = () => {
         pauseOnHover
       />
       <div className="calendar-page__hero">
+        <div className="bubble bubble1"></div>
+        <div className="bubble bubble2"></div>
+        <div className="bubble bubble3"></div>
+        <div className="bubble bubble4"></div>
+        <div className="bubble bubble5"></div>
+        <div className="bubble bubble6"></div>
+        <div className="bubble bubble7"></div>
         <div className="calendar-page__hero-text">
           <h1 className="calendar-page__title">{name}'s Schedule</h1>
           <h2 className="calendar-page__subtitle">Upcoming Movies/Shows</h2>

@@ -9,21 +9,209 @@
   background-color: $primary-pale-blue;
 
   &__hero {
-    background-image: url(../../assets/images/nextstream-bg.jpg);
-    background-size: cover;
-    padding: 40px 20px;
+    position: relative;
+    padding: 2.5rem 1.25rem;
     text-align: center;
     background: $frosted-glass;
-    border-radius: 8px;
+    border-radius: .5rem;
     box-shadow: $shadow-secondary;
+    overflow: visible;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, .2);
+      backdrop-filter: blur(.625rem);
+      border-radius: .5rem;
+      z-index: 1;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, .6), transparent),
+                  radial-gradient(circle at 70% 70%, rgba(255, 255, 255, .3), transparent);
+      border-radius: .5rem;
+    }
+
+    .bubble {
+      position: absolute;
+      border-radius: 20%;
+      background: rgba($frosted-glass, 1);
+      box-shadow: $shadow-quinary;
+      animation: float 6s ease-in-out infinite;
+      z-index: 10;
+
+      &.bubble1 {
+        @include block-item(1.875rem, 1.875rem);
+        top: 20%;
+        left: 25%;
+        animation-delay: 4s;
+        
+        @include tablet {
+          @include block-item(2.5rem, 2.5rem);
+        }
+
+        @include large-desktop {
+          @include block-item(3.75rem, 3.75rem);
+        }
+      }
+
+      &.bubble2 {
+        @include block-item(2.5rem, 2.5rem);
+        top: 60%;
+        left: 85%;
+        animation-delay: 8s;
+
+        @include tablet {
+          @include block-item(3.75rem, 3.75rem);
+          top: 65%;
+          left: 80%;
+        }
+
+        @include large-desktop {
+          @include block-item(5rem, 5rem);
+        }
+      }
+
+      &.bubble3 {
+        @include block-item(3.125rem, 3.125rem);
+        top: 5%;
+        left: 87%;
+        animation-delay: 10s;
+
+        @include tablet {
+          @include block-item(5rem, 5rem);
+          top: 10%;
+        }
+
+        @include large-desktop {
+          @include block-item(6.25rem, 6.25rem);
+        }
+      }
+
+      &.bubble4 {
+        @include block-item(.625rem, .625rem);
+        top: 30%;
+        left: 10%;
+        animation-delay: 12s;
+
+        @include tablet {
+          @include block-item(1.25rem, 1.25rem);
+          top: 50%;
+          left: 15%;
+        }
+
+        @include large-desktop {
+          @include block-item(1.875rem, 1.875rem);
+        }
+      }
+
+      &.bubble5 {
+        @include block-item(1.25rem, 1.25rem);
+        top: 25%;
+        left: 70%;
+        animation-delay: 2s;
+
+        @include tablet {
+          @include block-item(1.875rem, 1.875rem);
+          top: 20%;
+        }
+
+        @include large-desktop {
+          @include block-item(3.125rem, 3.125rem);
+        }
+      }
+
+      &.bubble6 {
+        @include block-item(3.125rem, 3.125rem);
+        top: 82%;
+        left: 2%;
+        animation-delay: 3s;
+
+        @include tablet {
+          @include block-item(5rem, 5rem);
+          top: 56%;
+          left: 2%;
+        }
+
+        @include large-desktop {
+          @include block-item(6.25rem, 6.25rem);
+        }
+      }
+
+      &.bubble7 {
+        @include block-item(.5rem, .5rem);
+        top: 90%;
+        left: 25%;
+        animation-delay: 2s;
+
+        @include tablet {
+          @include block-item(.625rem, .625rem);
+          top: 85%;
+          left: 35%;
+        }
+
+        @include desktop {
+          left: 32%;
+        }
+
+        @include large-desktop {
+          @include block-item(1.25rem, 1.25rem);
+        }
+      }
+    }
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-1.25rem);
+    }
   }
 
   &__hero-text {
+    position: relative;
+    z-index: 3;
     background: $primary-dark-blue-gradient;
-    padding: 20px;
+    padding: 1.25rem;
     border-radius: 1rem;
     box-shadow: $shadow-senary;
-    border: 1px solid $neutral-light-bg;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    border: .125rem solid $neutral-light-bg;
+    overflow: hidden; 
+    transition: background .75s ease-in-out;
+  
+    &::before {
+      content: '';
+      @include block-item(100%, 100%);
+      position: absolute;
+      top: 0;
+      left: -100%;
+      background: linear-gradient(120deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, .4) 50%, rgba(255, 255, 255, 0) 100%);
+      transition: left .75s ease-in-out;
+      opacity: .8;
+      z-index: 1;
+    }
+  
+    &:hover::before {
+      left: 100%;
+      transition: left .75s ease-in-out;
+    }
   }
 
   &__subtitle {
@@ -38,18 +226,21 @@
   }
 
   &__title {
-    font-size: 1.75rem;
+    font-size: 1.25rem;
     color: $neutral-white;
-    margin: 10px 0 0;
+    margin: .625rem 0 0;
+    width: 13rem;
     display: flex;
+    text-shadow: $shadow-primary;
     justify-content: center;
     align-items: center;
-    box-shadow: $shadow-primary;
-    border-radius: 1rem;
-    border: 1px solid $neutral-light-bg;
+    box-shadow: $shadow-quaternary;
+    border-radius: .5rem;
 
     @include tablet {
       font-size: 2.5rem;
+      width: 25rem;
+      border-radius: 1rem;
     }
   }
 }
