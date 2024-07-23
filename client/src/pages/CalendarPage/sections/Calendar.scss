@@ -45,7 +45,7 @@
     padding: .15rem;
 
     @include tablet {
-      border: .2rem;
+      border: .2rem solid $primary-pale-blue;
     }
   }
 
@@ -57,7 +57,7 @@
     box-shadow: $shadow-tertiary;
 
     @include tablet {
-      border: .2rem;
+      border: .2rem solid $primary-very-light-blue;
     }
   }
 
