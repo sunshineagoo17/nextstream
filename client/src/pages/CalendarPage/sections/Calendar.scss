@@ -78,7 +78,6 @@
   &__search-container {
     position: relative;
     flex: 1;
-    margin-right: .75rem;
     border-radius: .75rem;
     box-shadow: $shadow-tertiary;
 
@@ -147,30 +146,114 @@
     }
   }
 
+  &__actions {
+    padding-top: .5rem;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__calendar-icon {
+    margin-left: .25rem;
+
+    @include tablet {
+      margin-left: .5rem;
+    }
+  }
+
   &__toggle-sidebar-btn {
-    padding: .625rem 1.25rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+    padding: .35rem;
     border-radius: .75rem;
+    font-size: .7rem;
     border: none;
     background: $primary-light-blue;
     color: $neutral-white;
+    line-height: .95rem;
     cursor: pointer;
     font-family: $primary-font;
     box-shadow: $shadow-primary;
-    margin-top: .5rem;
-    transition: background-color .3s, transform .3s;
+    transition: background-color .3s, transform .3s ease;
 
     &:hover {
-      background-color: darken($primary-light-blue, 10%);
-      transform: scale(1.1);
+      background-color: $frosted-glass;
+      transform: scale(1.05);
+      color: $primary-dark-blue;
+      border: 2px solid $neutral-white;
     }
 
     &:active {
-      background-color: darken($primary-light-blue, 20%);
+      background-color: $primary-medium-blue;
+      transform: scale(.95);
+      color: $neutral-white;
+      border: none;
+    }
+
+    @include tablet {
+      margin-top: -1rem;
+      padding: .625rem 1.25rem;
+      font-size: 1rem;
+    }
+  }
+
+  &__trash-icon {
+    margin-left: .25rem;
+
+    @include tablet {
+      margin-left: .5rem;
+    }
+  }
+
+  &__delete-events-btn {
+    padding: .35rem;
+    border-radius: .75rem;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    background: $primary-medium-blue;
+    color: $neutral-white;
+    cursor: pointer;
+    line-height: .95rem;
+    font-size: .7rem;
+    font-family: $primary-font;
+    box-shadow: $shadow-primary;
+    transition: background-color .3s, transform .5s;
+
+    &:hover {
+      background-color: $feedback-error-peach;
+      color: $base-darker-blue;
+      animation: wiggle .5s ease-in-out;
+    }
+
+    @keyframes wiggle {
+      0%, 100% {
+        transform: rotate(0deg);
+      }
+      25% {
+        transform: rotate(-5deg);
+      }
+      50% {
+        transform: rotate(5deg);
+      }
+      75% {
+        transform: rotate(-5deg);
+      }
+    }
+
+    &:active {
+      background-color: $feedback-error-light-peach;
+      font-weight: bold;
       transform: scale(.95);
     }
 
     @include tablet {
       margin-top: -1rem;
+      font-size: 1rem;
+      padding: .625rem 1.25rem;
     }
   }
 
@@ -392,6 +475,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      gap: .5rem;
 
       .fc-button {
         @include block-item(4rem, 2.5rem);
@@ -403,7 +487,6 @@
         box-shadow: $shadow-primary;
         border-radius: .75rem;
         font-size: 1rem;
-        margin-right: .625rem;
         border: .125rem solid $neutral-white;
         transition: background-color .3s, transform .3s;
 
@@ -466,7 +549,6 @@
   .fc-timeGridWeek-button.fc-button.fc-button-primary {
     width: 4rem;
     border-radius: .75rem;
-    margin-right: .5rem;
   }
 
   .fc-prev-button.fc-button.fc-button-primary,
@@ -520,7 +602,6 @@
     color: $primary-medium-blue;
     border: .0625rem solid $neutral-white;
     opacity: 1;
-    margin-left: -.05rem;
   }
 
   .fc-header-toolbar.fc-toolbar.fc-toolbar-ltr {
@@ -601,10 +682,6 @@
 .delete-icon {
   cursor: pointer;
   margin-left: .3125rem;
-}
-
-.delete-icon {
-  color: red;
 }
 
 .modal {

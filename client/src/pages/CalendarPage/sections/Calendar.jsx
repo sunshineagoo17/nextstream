@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext, useCallback, forwardRef, useImperativeHandle, useRef } from 'react';
 import { AuthContext } from '../../../context/AuthContext/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faFilm, faTv, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faFilm, faTv, faTimes, faTrash, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -207,6 +207,31 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, duration, onClose 
     }
   }, [modalVisible, handleDeleteEvent]);
 
+  const handleDeleteAllEvents = async () => {
+    const currentView = calendarRef.current.getApi().view.type;
+    const start = calendarRef.current.getApi().view.activeStart;
+    const end = calendarRef.current.getApi().view.activeEnd;
+
+    const eventsToDelete = events.filter(event => {
+      const eventStart = new Date(event.start);
+      return eventStart >= start && eventStart < end;
+    });
+
+    try {
+      setLoading(true);
+      for (const event of eventsToDelete) {
+        await api.delete(`/api/calendar/${userId}/events/${event.id}`);
+      }
+      await fetchEvents();
+      toast.success(`Deleted all events in the current ${currentView} view!`, { className: 'frosted-toast-cal' });
+    } catch (error) {
+      console.error('Error deleting events:', error.response ? error.response.data : error.message);
+      toast.error('Failed to delete events.', { className: 'frosted-toast-cal' });
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const renderEventContent = (eventInfo) => {
     const handleEventClickWithLoader = async (event) => {
       setLoading(true);
@@ -384,9 +409,16 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, duration, onClose 
           )}
         </div>
         {isAuthenticated && (
-          <button className="calendar__toggle-sidebar-btn" onClick={() => setMiniCalendarVisible(!miniCalendarVisible)}>
-            {miniCalendarVisible ? 'Hide Mini Calendar' : 'Show Mini Calendar'}
-          </button>
+          <div className="calendar__actions">
+            <button className="calendar__toggle-sidebar-btn" onClick={() => setMiniCalendarVisible(!miniCalendarVisible)}>
+              {miniCalendarVisible ? 'Hide Mini Cal' : 'Show Mini Cal'}
+              <FontAwesomeIcon icon={faCalendarAlt} className="calendar__calendar-icon" />
+            </button>
+            <button className="calendar__delete-events-btn" onClick={handleDeleteAllEvents}>
+              Delete Events
+              <FontAwesomeIcon icon={faTrash} className="calendar__trash-icon" />
+            </button>
+          </div>
         )}
       </div>
       <div className="calendar__content">
