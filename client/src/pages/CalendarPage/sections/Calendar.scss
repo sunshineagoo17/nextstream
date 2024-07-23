@@ -5,6 +5,12 @@
 
 @import url('https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.10.1/main.min.css');
 
+/* Override FullCalendar event styles */
+:root {
+  --fc-event-bg-color: transparent;
+  --fc-event-border-color: transparent;
+}
+
 .calendar {
   background: $frosted-glass;
   border-radius: 1rem;
@@ -33,18 +39,18 @@
   &__event-movie {
     background-color: $primary-very-light-blue;
     color: $primary-dark-blue;
-    border: .0625rem solid $primary-medium-blue;
+    border: .2rem solid $primary-pale-blue;
     border-radius: 1rem;
-    box-shadow: $shadow-primary;
+    box-shadow: $shadow-tertiary;
     padding: .15rem;
   }
 
   &__event-tv {
     background-color: $primary-pale-cyan;
-    border: .0625rem solid $primary-very-light-blue;
+    border: .2rem solid $primary-very-light-blue;
     border-radius: 1rem;
     padding: .15rem;
-    box-shadow: $shadow-primary;
+    box-shadow: $shadow-tertiary;
   }
 
   &__event-time {
@@ -627,7 +633,7 @@
     &:hover {
       border: .15rem solid $primary-light-blue;
       transform: scale(1.05);
-      box-shadow: 0 .5rem .75rem rgba($neutral-black, .5);
+      box-shadow: $shadow-quinary;
     }
 
     &:active {
@@ -641,8 +647,8 @@
   }
 
   .fc-day-today {
-    background-color: $primary-light-blue !important;
-    border-color: $primary-medium-blue !important;
+    background-color: $primary-medium-blue !important;
+    border-color: $primary-pale-blue !important;
     color: $primary-dark-blue;
   }
 
