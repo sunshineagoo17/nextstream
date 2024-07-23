@@ -19,7 +19,11 @@
     flex-direction: row;
     @include block-item(100%, 4.375rem);
     justify-content: space-between;
-    padding: 0 3.375rem;
+    padding: 0 2rem;
+
+    @include desktop {
+      padding: 0 3.375rem;
+    }
   }
 
   &__search-input {
