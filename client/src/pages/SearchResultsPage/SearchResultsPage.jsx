@@ -56,7 +56,9 @@ const SearchResultsPage = () => {
           }
         });
 
-        setResults(response.data.results);
+        // Filter results to include only movies and TV shows
+        const filteredResults = response.data.results.filter(result => result.media_type === 'movie' || result.media_type === 'tv');
+        setResults(filteredResults);
 
       } catch (error) {
         console.error('Error fetching search results:', error);

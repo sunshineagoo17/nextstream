@@ -150,8 +150,11 @@ router.get('/search', async (req, res) => {
         query: query,
       },
     });
-    console.log(response.data); 
-    res.json(response.data);
+    
+    // Filter results to include only movies and TV shows
+    const filteredResults = response.data.results.filter(result => result.media_type === 'movie' || result.media_type === 'tv');
+
+    res.json({ results: filteredResults });
   } catch (error) {
     console.error('Error fetching search results:', error);
     res.status(500).json({ message: 'Error fetching search results' });
@@ -211,38 +214,6 @@ router.get('/tv/:id', async (req, res) => {
   } catch (error) {
     console.error(`Error fetching TV show details for ${id}:`, error);
     res.status(500).json({ message: 'Error fetching TV show details' });
-  }
-});
-
-// Endpoint to get details for a collection
-router.get('/collection/:id', async (req, res) => {
-  const { id } = req.params;
-  try {
-    const response = await axios.get(`${TMDB_BASE_URL}/collection/${id}`, {
-      params: {
-        api_key: TMDB_API_KEY
-      }
-    });
-    res.json(response.data);
-  } catch (error) {
-    console.error(`Error fetching collection details for ${id}:`, error);
-    res.status(500).json({ message: 'Error fetching collection details' });
-  }
-});
-
-// Endpoint to get details for a person
-router.get('/person/:id', async (req, res) => {
-  const { id } = req.params;
-  try {
-    const response = await axios.get(`${TMDB_BASE_URL}/person/${id}`, {
-      params: {
-        api_key: TMDB_API_KEY
-      }
-    });
-    res.json(response.data);
-  } catch (error) {
-    console.error(`Error fetching person details for ${id}:`, error);
-    res.status(500).json({ message: 'Error fetching person details' });
   }
 });
 

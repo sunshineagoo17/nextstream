@@ -88,12 +88,15 @@ router.get('/recommendations/:userId', async (req, res) => {
           params: { api_key: TMDB_API_KEY, language: 'en-US', page }
         });
 
-        const popularMedia = [...popularMoviesResponse.data.results, ...popularShowsResponse.data.results];
+        const popularMedia = [
+          ...popularMoviesResponse.data.results,
+          ...popularShowsResponse.data.results,
+        ];
         const newTopPicks = popularMedia
           .filter(media => !interactedMediaIds.includes(media.id))
           .map(item => ({
             ...item,
-            media_type: item.title ? 'movie' : 'tv'
+            media_type: item.media_type || (item.title ? 'movie' : 'tv')
           }));
 
         initialTopPicks = [...initialTopPicks, ...newTopPicks].slice(0, 5);
@@ -141,17 +144,20 @@ router.get('/recommendations/:userId', async (req, res) => {
 
       // Ensure at least 3 recommendations are returned
       if (sortedRecommendations.length < 3) {
-        const popularMediaResponse = await axios.get(`${TMDB_BASE_URL}/movie/popular`, {
+        const popularMoviesResponse = await axios.get(`${TMDB_BASE_URL}/movie/popular`, {
           params: { api_key: TMDB_API_KEY, language: 'en-US', page }
         });
         const popularShowsResponse = await axios.get(`${TMDB_BASE_URL}/tv/popular`, {
           params: { api_key: TMDB_API_KEY, language: 'en-US', page }
         });
-        const popularMediaCombined = [...popularMediaResponse.data.results, ...popularShowsResponse.data.results];
+        const popularMediaCombined = [
+          ...popularMoviesResponse.data.results,
+          ...popularShowsResponse.data.results,
+        ];
         const additionalMedia = popularMediaCombined.filter(media => !interactedMediaIds.includes(media.id));
         sortedRecommendations.push(...additionalMedia.slice(0, 3 - sortedRecommendations.length).map(item => ({
           ...item,
-          media_type: item.title ? 'movie' : 'tv'
+          media_type: item.media_type
         })));
 
         await fetchRecommendations(page + 1);

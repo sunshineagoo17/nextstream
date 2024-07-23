@@ -40,7 +40,7 @@ const TopPicksPage = () => {
     return mediaArray.filter(item => {
       const duplicate = seen.has(item.id);
       seen.add(item.id);
-      return !duplicate;
+      return !duplicate && (item.media_type === 'movie' || item.media_type === 'tv');
     });
   };
 
@@ -63,10 +63,7 @@ const TopPicksPage = () => {
 
         const { topPicks } = response.data;
 
-        const initialMedia = uniqueMedia(topPicks.map(item => ({
-          ...item,
-          media_type: item.title ? 'movie' : 'tv'
-        })));
+        const initialMedia = uniqueMedia(topPicks);
 
         console.log('Processed Initial Media:', initialMedia);
 
@@ -127,10 +124,7 @@ const TopPicksPage = () => {
       const { recommendations } = response.data;
       console.log('Raw Recommendations:', recommendations);
 
-      const recommendedMedia = uniqueMedia(recommendations.filter(mediaItem => !swipedMediaIds.includes(mediaItem.id)).map(item => ({
-        ...item,
-        media_type: item.title ? 'movie' : 'tv'
-      })));
+      const recommendedMedia = uniqueMedia(recommendations.filter(mediaItem => !swipedMediaIds.includes(mediaItem.id)));
 
       console.log('Filtered Recommendations:', recommendedMedia);
 

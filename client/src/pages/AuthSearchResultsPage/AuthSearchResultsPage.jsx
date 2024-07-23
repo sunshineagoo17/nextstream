@@ -48,8 +48,11 @@ const AuthSearchResultsPage = ({ userId }) => {
         }
       });
 
+      // Filter results to include only movies and TV shows
+      const filteredResults = response.data.results.filter(result => result.media_type === 'movie' || result.media_type === 'tv');
+
       const updatedResults = await Promise.all(
-        response.data.results.map(async (result) => {
+        filteredResults.map(async (result) => {
           try {
             const providersResponse = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/tmdb/${result.media_type}/${result.id}/watch/providers`);
             const providers = providersResponse.data || [];
