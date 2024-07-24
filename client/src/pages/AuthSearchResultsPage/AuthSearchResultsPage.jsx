@@ -267,15 +267,17 @@ const AuthSearchResultsPage = ({ userId }) => {
               </div>
             )}
           </div>
-          <div className="auth-search-results__pagination-container">
-            <div className="auth-search-results__page-nav-wrapper" onClick={handlePrevious}>
-              <img src={PreviousIcon} className="auth-search-results__previous-icon" alt="Previous" />
+          {results.length > 3 && (
+            <div className="auth-search-results__pagination-container">
+              <div className="auth-search-results__page-nav-wrapper" onClick={handlePrevious}>
+                <img src={PreviousIcon} className="auth-search-results__previous-icon" alt="Previous" />
+              </div>
+              {renderPaginationCircles()}
+              <div className="auth-search-results__page-nav-wrapper" onClick={handleNext}>
+                <img src={NextIcon} className="auth-search-results__next-icon" alt="Next" />
+              </div>
             </div>
-            {renderPaginationCircles()}
-            <div className="auth-search-results__page-nav-wrapper" onClick={handleNext}>
-              <img src={NextIcon} className="auth-search-results__next-icon" alt="Next" />
-            </div>
-          </div>
+          )}
         </div>
         <div className="auth-search-results__background">
           <AnimatedBg />
