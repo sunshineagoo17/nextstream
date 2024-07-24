@@ -1,6 +1,5 @@
 import { useState, useEffect, useContext, useRef, useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { ToastContainer, toast, Slide } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarPlus, faClose, faChevronRight, faChevronLeft, faImage } from '@fortawesome/free-solid-svg-icons';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
@@ -14,7 +13,7 @@ import NoDataImg from "../../assets/images/no-data.svg";
 import PreviousIcon from '../../assets/images/previous-icon.svg';
 import NextIcon from '../../assets/images/next-icon.svg';
 import Calendar from '../CalendarPage/sections/Calendar';
-import 'react-toastify/dist/ReactToastify.css';
+import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
 import './AuthSearchResultsPage.scss';
 
 const AuthSearchResultsPage = ({ userId }) => {
@@ -27,12 +26,21 @@ const AuthSearchResultsPage = ({ userId }) => {
   const [eventDuration, setEventDuration] = useState(0);  
   const [showMoreProviders, setShowMoreProviders] = useState({});
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [alert, setAlert] = useState({ show: false, message: '', type: '' });
   const location = useLocation();
   const navigate = useNavigate();
   const calendarRef = useRef(null);
   const initialRender = useRef(true);
 
   const query = new URLSearchParams(location.search).get('q');
+
+  const showAlert = (message, type) => {
+    setAlert({ show: true, message, type });
+  };
+
+  const closeAlert = () => {
+    setAlert({ show: false, message: '', type: '' });
+  };
 
   const fetchResults = useCallback(async () => {
     try {
@@ -64,13 +72,12 @@ const AuthSearchResultsPage = ({ userId }) => {
               duration = movieDetails.data.runtime || 0;
             } else if (result.media_type === 'tv') {
               const tvDetails = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/tmdb/tv/${result.id}`);
-              duration = tvDetails.data.episode_run_time[0] || 0;  
+              duration = tvDetails.data.episode_run_time[0] || 0;
             }
 
             return { ...result, providers, duration };
           } catch (error) {
             console.error(`Error fetching watch providers for ${result.media_type} ${result.id}:`, error);
-            toast.error('Error fetching watch providers. Please try again later.', { className: 'frosted-toast-auth' });
             return { ...result, providers: [], duration: 0 };
           }
         })
@@ -79,7 +86,7 @@ const AuthSearchResultsPage = ({ userId }) => {
       setResults(updatedResults);
     } catch (error) {
       console.error('Error fetching search results:', error);
-      toast.error('Error fetching search results. Please try again later.', { className: 'frosted-toast-auth' });
+      showAlert('Error fetching search results. Please try again later.', 'error');
     } finally {
       setIsLoading(false);
       setShowCalendar(false);
@@ -99,6 +106,11 @@ const AuthSearchResultsPage = ({ userId }) => {
   }, [query, fetchResults]);
 
   const handleAddToCalendar = (title, mediaType, duration) => {
+    if (duration === 0) {
+      showAlert("Duration's not available for this media.", 'info');
+    } else if (mediaType === 'tv' && duration > 0) {
+      showAlert('Duration is based on the very first episode.', 'info');
+    }
     setEventTitle(title);
     setEventMediaType(mediaType);
     setEventDuration(duration); 
@@ -152,14 +164,13 @@ const AuthSearchResultsPage = ({ userId }) => {
 
   return (
     <>
-      <ToastContainer
-        position="top-center"
-        autoClose={3000}
-        hideProgressBar={true}
-        transition={Slide}
-        closeOnClick
-        pauseOnHover
-      />
+      {alert.show && (
+        <CustomAlerts
+          message={alert.message}
+          type={alert.type}
+          onClose={closeAlert}
+        />
+      )}
       {isLoading && <Loader />}
       <div className="auth-search-results">
         <div className="auth-search-results__content-card">
