@@ -3,7 +3,6 @@ import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { useSwipeable } from 'react-swipeable';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarPlus, faClose, faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import { toast } from 'react-toastify';
 import MediaCard from './sections/MediaCard/MediaCard';
 import Calendar from '../CalendarPage/sections/Calendar';
 import AnimatedBg from '../../components/AnimatedBg/AnimatedBg';
@@ -11,7 +10,7 @@ import Loader from '../../components/Loader/Loader';
 import NoMoreMedia from "../../assets/images/no-more-media.svg";
 import ShowMedia from "../../assets/images/show-media.svg";
 import api from '../../services/api';
-import 'react-toastify/dist/ReactToastify.css';
+import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
 import './TopPicksPage.scss';
 
 const TopPicksPage = () => {
@@ -24,7 +23,8 @@ const TopPicksPage = () => {
   const [eventTitle, setEventTitle] = useState('');
   const [swipedMediaIds, setSwipedMediaIds] = useState([]);
   const [noMoreMedia, setNoMoreMedia] = useState(false);
-  const [duration, setDuration] = useState(0); 
+  const [duration, setDuration] = useState(0);
+  const [alert, setAlert] = useState({ show: false, message: '', type: '' });
   const calendarRef = useRef(null);
 
   const saveStateToLocalStorage = (state, key) => {
@@ -73,9 +73,9 @@ const TopPicksPage = () => {
       } catch (error) {
         console.error('Error fetching data', error);
         if (error.response && error.response.status === 401) {
-          toast.error('You are not authorized. Please log in again.', { className: 'frosted-toast-picks' });
+          showAlert('You are not authorized. Please log in again.', 'error');
         } else {
-          toast.error('Error fetching data. Please try again later.', { className: 'frosted-toast-picks' });
+          showAlert('Error fetching data. Please try again later.', 'error');
         }
       } finally {
         setIsLoading(false);
@@ -143,7 +143,7 @@ const TopPicksPage = () => {
             }
           } catch (error) {
             console.error('Error fetching duration data:', error);
-            toast.error('Failed to fetch media duration.', { className: 'frosted-toast-picks' });
+            showAlert('Failed to fetch media duration.', 'error');
           }
           return { ...mediaItem, duration };
         })
@@ -163,9 +163,9 @@ const TopPicksPage = () => {
     } catch (error) {
       console.error('Error fetching recommendations', error);
       if (error.response && error.response.status === 401) {
-        toast.error('You are not authorized. Please log in again.', { className: 'frosted-toast-picks' });
+        showAlert('You are not authorized. Please log in again.', 'error');
       } else {
-        toast.error('Error fetching recommendations. Please try again later.', { className: 'frosted-toast-picks' });
+        showAlert('Error fetching recommendations. Please try again later.', 'error');
       }
     } finally {
       setIsLoading(false);
@@ -203,9 +203,9 @@ const TopPicksPage = () => {
       } catch (error) {
         console.error('Error recording interaction', error);
         if (error.response && error.response.status === 401) {
-          toast.error('You are not authorized. Please log in again.', { className: 'frosted-toast-picks' });
+          showAlert('You are not authorized. Please log in again.', 'error');
         } else {
-          toast.error('Error recording interaction. Please try again later.', { className: 'frosted-toast-picks' });
+          showAlert('Error recording interaction. Please try again later.', 'error');
         }
       }
     }
@@ -223,21 +223,30 @@ const TopPicksPage = () => {
       if (mediaType === 'movie') {
         const movieDetails = await api.get(`/api/tmdb/movie/${mediaId}`);
         duration = movieDetails.data.runtime || 0;
+        if (duration === 0) {
+          showAlert("Duration's not available for this media.", 'info');
+        }
       } else if (mediaType === 'tv') {
         const tvDetails = await api.get(`/api/tmdb/tv/${mediaId}`);
         duration = tvDetails.data.episode_run_time[0] || 0;
+        if (duration > 0) {
+          showAlert('Duration is based on the very first episode.', 'info');
+        }
+      }
+      if (duration === 0) {
+        showAlert("Duration's not available for this media.", 'info');
       }
     } catch (error) {
       console.error('Error fetching duration data:', error);
-      toast.error('Failed to fetch media duration.', { className: 'frosted-toast-picks' });
+      showAlert('Failed to fetch media duration.', 'error');
       return;
     }
-
+  
     setEventTitle(title);
     setSelectedMediaType(mediaType);
     setDuration(duration);
     setShowCalendar(true);
-  };
+  };  
 
   const handleCloseCalendar = () => {
     setShowCalendar(false);
@@ -254,15 +263,22 @@ const TopPicksPage = () => {
       };
       await api.post(`/api/calendar/${userId}/events`, newEvent);
       setShowCalendar(false);
-      toast.success('Event added successfully!', { className: 'frosted-toast-picks' });
     } catch (error) {
       console.error('Error saving event:', error);
       if (error.response && error.response.status === 401) {
-        toast.error('You are not authorized. Please log in again.', { className: 'frosted-toast-picks' });
+        showAlert('You are not authorized. Please log in again.', 'error');
       } else {
-        toast.error('Error saving event. Please try again later.', { className: 'frosted-toast-picks' });
+        showAlert('Error saving event. Please try again later.', 'error');
       }
     }
+  };
+
+  const showAlert = (message, type) => {
+    setAlert({ show: true, message, type });
+  };
+
+  const closeAlert = () => {
+    setAlert({ show: false, message: '', type: '' });
   };
 
   if (!isAuthenticated) {
@@ -270,72 +286,81 @@ const TopPicksPage = () => {
   }
 
   return (
-    <div className="top-picks-page">
-      <div className="top-picks-page__container">
-        <div className="top-picks-page__title-container">
-          <h1 className="top-picks-page__title">{name}'s Top Picks</h1>
-          <p className="top-picks-page__intro">
-            Use <span className="top-picks-page__gradient-subtitle">NextSwipe</span> to discover new movies and shows. Swipe right to like and left to dislike each media card, tailoring your perfect viewing schedule. For desktop users, you can click and drag left or right, or simply click on the arrows. Add your favourites to your calendar today!
-          </p>
-        </div>
-        {isLoading && (
-          <div className="top-picks-page__graphic-container">
-            <img src={ShowMedia} alt="Woman waiting for media" className="top-picks-page__graphic" />
+    <>
+      {alert.show && (
+        <CustomAlerts
+          message={alert.message}
+          type={alert.type}
+          onClose={closeAlert}
+        />
+      )}
+      <div className="top-picks-page">
+        <div className="top-picks-page__container">
+          <div className="top-picks-page__title-container">
+            <h1 className="top-picks-page__title">{name}'s Top Picks</h1>
+            <p className="top-picks-page__intro">
+              Use <span className="top-picks-page__gradient-subtitle">NextSwipe</span> to discover new movies and shows. Swipe right to like and left to dislike each media card, tailoring your perfect viewing schedule. For desktop users, you can click and drag left or right, or simply click on the arrows. Add your favourites to your calendar today!
+            </p>
           </div>
-        )}
-        {isLoading && <Loader />}
-        {!isLoading && media.length > 0 && currentIndex < media.length && (
-          <div className="top-picks-page__media-card">
-            <button className="top-picks-page__nav-button top-picks-page__nav-button--left" onClick={() => handleSwipe('Left')}>
-              <FontAwesomeIcon icon={faArrowLeft} />
-            </button>
-            <MediaCard media={media[currentIndex]} handlers={handlers} onAddToCalendar={handleAddToCalendar} />
-            <button
-              className="top-picks-page__calendar-button"
-              onClick={() => handleAddToCalendar(media[currentIndex].title || media[currentIndex].name, media[currentIndex].media_type, media[currentIndex].id)}
-            >
-              <FontAwesomeIcon icon={faCalendarPlus} /> <p className="top-picks-page__calendar-copy">Add to Calendar</p>
-            </button>
-            <button className="top-picks-page__nav-button top-picks-page__nav-button--right" onClick={() => handleSwipe('Right')}>
-              <FontAwesomeIcon icon={faArrowRight} />
-            </button>
-          </div>
-        )}
-        {!isLoading && noMoreMedia && (
-          <div className="top-picks-page__no-more-media-container">
-            <img src={NoMoreMedia} alt="No more media" className="top-picks-page__no-more-media-image" />
-            <div className="top-picks-page__no-more-media">
-              <p className="top-picks-page__swipes">All swipes have been recorded!</p>
+          {isLoading && (
+            <div className="top-picks-page__graphic-container">
+              <img src={ShowMedia} alt="Woman waiting for media" className="top-picks-page__graphic" />
+            </div>
+          )}
+          {isLoading && <Loader />}
+          {!isLoading && media.length > 0 && currentIndex < media.length && (
+            <div className="top-picks-page__media-card">
+              <button className="top-picks-page__nav-button top-picks-page__nav-button--left" onClick={() => handleSwipe('Left')}>
+                <FontAwesomeIcon icon={faArrowLeft} />
+              </button>
+              <MediaCard media={media[currentIndex]} handlers={handlers} onAddToCalendar={handleAddToCalendar} />
               <button
-                className="top-picks-page__recommendations-button"
-                onClick={fetchRecommendations}
+                className="top-picks-page__calendar-button"
+                onClick={() => handleAddToCalendar(media[currentIndex].title || media[currentIndex].name, media[currentIndex].media_type, media[currentIndex].id)}
               >
-                Get Recommendations
+                <FontAwesomeIcon icon={faCalendarPlus} /> <p className="top-picks-page__calendar-copy">Add to Calendar</p>
+              </button>
+              <button className="top-picks-page__nav-button top-picks-page__nav-button--right" onClick={() => handleSwipe('Right')}>
+                <FontAwesomeIcon icon={faArrowRight} />
               </button>
             </div>
+          )}
+          {!isLoading && noMoreMedia && (
+            <div className="top-picks-page__no-more-media-container">
+              <img src={NoMoreMedia} alt="No more media" className="top-picks-page__no-more-media-image" />
+              <div className="top-picks-page__no-more-media">
+                <p className="top-picks-page__swipes">All swipes have been recorded!</p>
+                <button
+                  className="top-picks-page__recommendations-button"
+                  onClick={fetchRecommendations}
+                >
+                  Get Recommendations
+                </button>
+              </div>
+            </div>
+          )}
+          {showCalendar && (
+            <div className="top-picks-page__calendar-modal">
+              <button className="top-picks-page__calendar-close-btn" onClick={handleCloseCalendar}>
+                <FontAwesomeIcon icon={faClose} className='auth-search-results__close-icon' />
+              </button>
+              <Calendar
+                userId={userId}
+                eventTitle={eventTitle}
+                mediaType={selectedMediaType}
+                duration={duration}
+                handleSave={handleSaveEvent}
+                onClose={handleCloseCalendar}
+                ref={calendarRef}
+              />
+            </div>
+          )}
+          <div className="top-picks-page__background">
+            <AnimatedBg />
           </div>
-        )}
-        {showCalendar && (
-          <div className="top-picks-page__calendar-modal">
-            <button className="top-picks-page__calendar-close-btn" onClick={handleCloseCalendar}>
-              <FontAwesomeIcon icon={faClose} className='auth-search-results__close-icon' />
-            </button>
-            <Calendar
-              userId={userId}
-              eventTitle={eventTitle}
-              mediaType={selectedMediaType}
-              duration={duration}
-              handleSave={handleSaveEvent}
-              onClose={handleCloseCalendar}
-              ref={calendarRef}
-            />
-          </div>
-        )}
-        <div className="top-picks-page__background">
-          <AnimatedBg />
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

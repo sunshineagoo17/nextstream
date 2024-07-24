@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import AnimatedBg from '../../components/AnimatedBg/AnimatedBg';
 import ContactModal from '../../components/ContactModal/ContactModal';
 import Loader from '../../components/Loader/Loader';

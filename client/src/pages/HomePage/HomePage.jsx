@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Content } from "./sections/Content/Content";
 import { Hero } from "./sections/Hero/Hero";
+import Cookies from "js-cookie";
 import CookieNotification from "./sections/CookieNotification/CookieNotification";
 import Loader from '../../components/Loader/Loader';
 import "./HomePage.scss";
@@ -10,13 +11,9 @@ export const HomePage = () => {
   const [showCookieNotification, setShowCookieNotification] = useState(false);
 
   useEffect(() => {
-    const cookies = document.cookie.split('; ').reduce((acc, cookie) => {
-      const [name, value] = cookie.split('=');
-      acc[name] = value;
-      return acc;
-    }, {});
+    const cookieConsent = Cookies.get('cookieConsent');
 
-    if (!cookies.cookieConsent) {
+    if (!cookieConsent) {
       setShowCookieNotification(true);
     }
 
@@ -26,7 +23,7 @@ export const HomePage = () => {
 
   return (
     <>
-       {isLoading ? <Loader /> : (
+      {isLoading ? <Loader /> : (
         <div className="homepage">
           {showCookieNotification && <CookieNotification />}
           <div className="homepage__content">

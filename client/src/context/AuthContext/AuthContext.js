@@ -15,6 +15,9 @@ export const AuthProvider = ({ children }) => {
     const token = Cookies.get('token') || localStorage.getItem('token');
     const storedUserId = localStorage.getItem('userId') || Cookies.get('userId');
 
+    console.log('Token:', token);
+    console.log('Stored User ID:', storedUserId);
+
     if (token && storedUserId) {
       setIsAuthenticated(true);
       setUserId(parseInt(storedUserId, 10));
@@ -36,6 +39,11 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = (token, userId, rememberMe) => {
+    if (!token || !userId) {
+      console.error('Invalid token or userId');
+      return;
+    }
+
     Cookies.set('token', token, { expires: rememberMe ? 7 : 1, secure: true, sameSite: 'strict', path: '/' });
     Cookies.set('userId', userId.toString(), { expires: rememberMe ? 7 : 1, secure: true, sameSite: 'strict', path: '/' });
     localStorage.setItem('token', token);

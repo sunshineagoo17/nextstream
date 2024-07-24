@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import api from '../../services/api';
@@ -15,7 +15,7 @@ import Cookies from 'js-cookie';
 import './LoginPage.scss';
 
 export const LoginPage = () => {
-  const [isLoading, setIsLoading] = useState(false); // Change this to false initially
+  const [isLoading, setIsLoading] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

@@ -27,7 +27,7 @@ export const RegisterPage = () => {
   const [isValidPassword, setIsValidPassword] = useState(true);
   const [isCheckedTerms, setIsCheckedTerms] = useState(false);
   const [termsError, setTermsError] = useState(false);
-  const [isLoading, setIsLoading] = useState(false); // Change this to false initially
+  const [isLoading, setIsLoading] = useState(false); 
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
 
