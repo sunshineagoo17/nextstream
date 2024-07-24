@@ -7,6 +7,7 @@ const rateLimit = require('express-rate-limit');
 const NodeCache = require('node-cache');
 const cron = require('node-cron');
 const axios = require('axios');
+const moment = require('moment-timezone');
 require('dotenv').config();
 
 const emailRoutes = require('./src/routes/emailRoutes');
@@ -16,6 +17,9 @@ const profileRoutes = require('./src/routes/profileRoutes');
 const tmdbRoutes = require('./src/routes/tmdbRoutes');
 const calendarRoutes = require('./src/routes/calendarRoutes');
 const interactionRoutes = require('./src/routes/interactionRoutes');
+const { generateAndNotifyRecommendations } = require('./src/services/recommendationService');
+const knexConfig = require('./knexfile');
+const knex = require('knex')(knexConfig.development);
 
 const app = express();
 
@@ -132,11 +136,25 @@ const fetchPopularReleases = async () => {
   }
 };
 
+// Fetch popular releases initially on server start
+fetchPopularReleases();
+
 // Schedule the fetching task every hour
 cron.schedule('0 * * * *', fetchPopularReleases);
 
-// Fetch popular releases initially on server start
-fetchPopularReleases();
+// Schedule the recommendation notifications to run daily at 10 AM Eastern Time (EDT)
+cron.schedule('0 10 * * *', async () => {
+  console.log('Running daily recommendation notifications at', moment().tz('America/Toronto').format());
+  try {
+    const users = await knex('users').where({ receiveNotifications: 1 }).select('id');
+    for (const user of users) {
+      await generateAndNotifyRecommendations(user.id);
+    }
+    console.log('Daily recommendation notifications sent successfully at', moment().tz('America/Toronto').format());
+  } catch (error) {
+    console.error('Error sending daily recommendation notifications at', moment().tz('America/Toronto').format(), error);
+  }
+});
 
 // API Routes
 app.use('/api/email', emailRoutes);

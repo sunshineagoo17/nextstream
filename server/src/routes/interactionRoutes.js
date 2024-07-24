@@ -72,8 +72,15 @@ router.get('/recommendations/:userId', async (req, res) => {
       .select('media_id', 'media_type')
       .where('userId', userId);
 
-    // Merge liked and viewed media to avoid recommending them again
-    const interactedMediaIds = likedMedia.map(media => media.media_id).concat(viewedMedia.map(media => media.media_id));
+    // Fetch media sent via email
+    const sentRecommendations = await db('sent_recommendations')
+      .select('recommendationId')
+      .where('userId', userId);
+
+    // Merge liked, viewed, and sent media to avoid recommending them again
+    const interactedMediaIds = likedMedia.map(media => media.media_id)
+      .concat(viewedMedia.map(media => media.media_id))
+      .concat(sentRecommendations.map(rec => rec.recommendationId));
 
     let initialTopPicks = [];
     let recommendations = [];
@@ -104,7 +111,7 @@ router.get('/recommendations/:userId', async (req, res) => {
         if (initialTopPicks.length < 5) {
           await fetchTopPicks(page + 1);
         }
-        
+
         console.log('Initial Top Picks:', initialTopPicks); // Added logging
       } catch (error) {
         console.error('Error fetching top picks:', error);

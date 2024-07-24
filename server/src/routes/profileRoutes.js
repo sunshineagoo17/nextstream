@@ -4,10 +4,11 @@ const authenticate = require('../middleware/authenticate');
 const knex = require('../config/db');
 const axios = require('axios');
 const router = express.Router();
-const { comparePassword } = require('../utils/hashPasswords'); 
+const { comparePassword } = require('../utils/hashPasswords');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
+const { generateAndNotifyRecommendations } = require('../services/recommendationService');
 
 // Middleware to ensure the uploads/avatars directory exists
 const ensureUploadsDirectoryExists = (req, res, next) => {
@@ -121,6 +122,11 @@ router.put('/:userId', async (req, res) => {
     }
 
     await knex('users').where({ id: req.params.userId }).update(updatedUser);
+
+    if (receiveNotifications) {
+      await generateAndNotifyRecommendations(user.id);
+    }
+
     res.json({ message: 'User profile updated successfully' });
   } catch (error) {
     console.error('Error updating profile:', error);
@@ -197,6 +203,18 @@ router.get('/:userId/location', authenticate, async (req, res) => {
   } catch (error) {
     console.error('Error fetching location:', error);
     res.status(500).json({ error: 'Failed to fetch location' });
+  }
+});
+
+// Update user geolocation
+router.put('/:userId/location', authenticate, async (req, res) => {
+  const { region } = req.body;
+  try {
+    await knex('users').where({ id: req.params.userId }).update({ region });
+    res.json({ message: 'Location updated successfully' });
+  } catch (error) {
+    console.error('Error updating location:', error);
+    res.status(500).json({ error: 'Failed to update location' });
   }
 });
 
