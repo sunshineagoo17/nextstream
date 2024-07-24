@@ -2,12 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path');
-const cookieParser = require('cookie-parser'); 
+const cookieParser = require('cookie-parser');
 const rateLimit = require('express-rate-limit');
-const NodeCache = require('node-cache');
-const cron = require('node-cron');
-const axios = require('axios');
-const moment = require('moment-timezone');
 require('dotenv').config();
 
 const emailRoutes = require('./src/routes/emailRoutes');
@@ -17,9 +13,7 @@ const profileRoutes = require('./src/routes/profileRoutes');
 const tmdbRoutes = require('./src/routes/tmdbRoutes');
 const calendarRoutes = require('./src/routes/calendarRoutes');
 const interactionRoutes = require('./src/routes/interactionRoutes');
-const { generateAndNotifyRecommendations } = require('./src/services/recommendationService');
-const knexConfig = require('./knexfile');
-const knex = require('knex')(knexConfig.development);
+const cronJobs = require('./src/services/cronJobs');
 
 const app = express();
 
@@ -30,131 +24,20 @@ app.use(cookieParser());
 
 // Configure CORS
 const corsOptions = {
-  origin: 'http://localhost:3000', 
+  origin: 'http://localhost:3000',
   credentials: true
 };
 app.use(cors(corsOptions));
 
 // Initialize NodeCache with TTL of 1 hour
+const NodeCache = require('node-cache');
 const cache = new NodeCache({ stdTTL: 3600 });
 
 // Serve uploaded avatars
 app.use('/uploads', express.static(path.join(__dirname, 'src/uploads')));
 
-// TMDB API configuration
-const TMDB_API_KEY = process.env.TMDB_API_KEY;
-const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
-const STREAMING_PROVIDERS = ['Amazon Prime Video', 'Apple TV Plus', 'Netflix', 'Crave', 'Disney Plus'];
-
-// Function to get the watch providers
-const getWatchProviders = async (mediaType, mediaId) => {
-  try {
-    const url = `${TMDB_BASE_URL}/${mediaType}/${mediaId}/watch/providers?api_key=${TMDB_API_KEY}`;
-    const response = await axios.get(url);
-    return response.data.results?.CA?.flatrate || [];
-  } catch (error) {
-    console.error(`Error fetching watch providers for ${mediaType} ${mediaId}:`, error);
-    return [];
-  }
-};
-
-// Function to fetch and cache popular movies and shows
-const fetchPopularReleases = async () => {
-  try {
-    const moviesResponse = await axios.get(`${TMDB_BASE_URL}/movie/popular`, {
-      params: {
-        api_key: TMDB_API_KEY,
-        language: 'en-US',
-        region: 'CA',
-        page: 1
-      }
-    });
-
-    const showsResponse = await axios.get(`${TMDB_BASE_URL}/tv/popular`, {
-      params: {
-        api_key: TMDB_API_KEY,
-        language: 'en-US',
-        region: 'CA',
-        page: 1
-      }
-    });
-
-    const movies = moviesResponse.data.results;
-    const shows = showsResponse.data.results;
-
-    const streamingMovies = [];
-    const streamingShows = [];
-
-    // Filter movies
-    for (const movie of movies) {
-      const providers = await getWatchProviders('movie', movie.id);
-      if (providers.some(provider => STREAMING_PROVIDERS.includes(provider.provider_name))) {
-        streamingMovies.push({ ...movie, media_type: 'movie', providers });
-      }
-      if (streamingMovies.length === 3) break; // Stop once we have 3 movies
-    }
-
-    // Filter shows
-    for (const show of shows) {
-      const providers = await getWatchProviders('tv', show.id);
-      if (providers.some(provider => STREAMING_PROVIDERS.includes(provider.provider_name))) {
-        streamingShows.push({ ...show, media_type: 'tv', providers });
-      }
-      if (streamingShows.length === 3) break; // Stop once we have 3 shows
-    }
-
-    // Ensure we have 3 movies and 3 shows
-    while (streamingMovies.length < 3 && movies.length > streamingMovies.length) {
-      const movie = movies[streamingMovies.length];
-      const providers = await getWatchProviders('movie', movie.id);
-      if (providers.some(provider => STREAMING_PROVIDERS.includes(provider.provider_name))) {
-        streamingMovies.push({ ...movie, media_type: 'movie', providers });
-      }
-    }
-
-    while (streamingShows.length < 3 && shows.length > streamingShows.length) {
-      const show = shows[streamingShows.length];
-      const providers = await getWatchProviders('tv', show.id);
-      if (providers.some(provider => STREAMING_PROVIDERS.includes(provider.provider_name))) {
-        streamingShows.push({ ...show, media_type: 'tv', providers });
-      }
-    }
-
-    const popularReleases = [...streamingMovies, ...streamingShows].map(item => ({
-      id: item.id,
-      title: item.title || item.name,
-      poster_path: item.poster_path,
-      media_type: item.media_type,
-      url: `https://www.themoviedb.org/${item.media_type}/${item.id}`,
-      providers: item.providers.map(provider => provider.provider_name)
-    }));
-
-    // Cache the results
-    cache.set('popularReleases', popularReleases);
-  } catch (error) {
-    console.error('Error fetching popular releases:', error);
-  }
-};
-
-// Fetch popular releases initially on server start
-fetchPopularReleases();
-
-// Schedule the fetching task every hour
-cron.schedule('0 * * * *', fetchPopularReleases);
-
-// Schedule the recommendation notifications to run daily at 10 AM Eastern Time (EDT)
-cron.schedule('0 10 * * *', async () => {
-  console.log('Running daily recommendation notifications at', moment().tz('America/Toronto').format());
-  try {
-    const users = await knex('users').where({ receiveNotifications: 1 }).select('id');
-    for (const user of users) {
-      await generateAndNotifyRecommendations(user.id);
-    }
-    console.log('Daily recommendation notifications sent successfully at', moment().tz('America/Toronto').format());
-  } catch (error) {
-    console.error('Error sending daily recommendation notifications at', moment().tz('America/Toronto').format(), error);
-  }
-});
+// Start scheduled jobs
+cronJobs.scheduleJobs();
 
 // API Routes
 app.use('/api/email', emailRoutes);

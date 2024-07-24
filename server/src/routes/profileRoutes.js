@@ -4,11 +4,13 @@ const authenticate = require('../middleware/authenticate');
 const knex = require('../config/db');
 const axios = require('axios');
 const router = express.Router();
+const moment = require('moment-timezone');
 const { comparePassword } = require('../utils/hashPasswords');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 const { generateAndNotifyRecommendations } = require('../services/recommendationService');
+const { sendScheduledEventReminders } = require('../utils/scheduledEventReminders');
 
 // Region mappings
 const regionMapping = {
@@ -155,6 +157,18 @@ router.put('/:userId', async (req, res) => {
       await generateAndNotifyRecommendations(user.id);
     }
 
+    if (receiveReminders) {
+      const events = await knex('events')
+        .where({ user_id: user.id })
+        .andWhere('start', '>=', moment().startOf('day').toISOString())
+        .andWhere('start', '<', moment().add(1, 'day').startOf('day').toISOString())
+        .select('title', 'start');
+
+      if (events.length > 0) {
+        await sendScheduledEventReminders(user.email, events);
+      }
+    }
+
     res.json({ message: 'User profile updated successfully' });
   } catch (error) {
     console.error('Error updating profile:', error);
@@ -228,7 +242,7 @@ router.get('/:userId/location', authenticate, async (req, res) => {
   try {
     const response = await axios.get(`https://ipinfo.io/json?token=${process.env.IPINFO_TOKEN}`);
     console.log('IP Info Response:', response.data); 
-    const region = response.data.region; // Use region instead of country
+    const region = response.data.region; 
 
     const regionId = regionMapping[region] || null;
     if (regionId) {

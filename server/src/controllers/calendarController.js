@@ -16,11 +16,11 @@ exports.getEvents = async (req, res) => {
 // Search events for a user
 exports.searchEvents = async (req, res) => {
   const { userId } = req.params;
-  const { query } = req.query; 
+  const { query } = req.query;
   try {
     const events = await knex('events')
       .where({ user_id: userId })
-      .andWhere('title', 'like', `%${query}%`); // Filter events by title
+      .andWhere('title', 'like', `%${query}%`);
     res.status(200).json(events);
   } catch (error) {
     console.error('Error searching events:', error);
@@ -31,17 +31,23 @@ exports.searchEvents = async (req, res) => {
 // Add a new event
 exports.addEvent = async (req, res) => {
   const { userId } = req.params;
-  const { title, start, end, eventType, timezone } = req.body; 
+  const { title, start, end, eventType, timezone } = req.body;
+
+  // Validate eventType
+  if (!['movie', 'tv', 'unknown'].includes(eventType)) {
+    return res.status(400).json({ message: 'Invalid eventType' });
+  }
+
   try {
     const formattedStart = moment.tz(start, timezone).format('YYYY-MM-DD HH:mm:ss');
-    const formattedEnd = moment.tz(end, timezone).format('YYYY-MM-DD HH:mm:ss');
+    const formattedEnd = end ? moment.tz(end, timezone).format('YYYY-MM-DD HH:mm:ss') : null;
 
     const [eventId] = await knex('events').insert({
       user_id: userId,
       title,
       start: formattedStart,
       end: formattedEnd,
-      eventType // Add eventType
+      eventType
     });
     res.status(201).json({ eventId, title, start: formattedStart, end: formattedEnd, eventType });
   } catch (error) {
@@ -53,7 +59,13 @@ exports.addEvent = async (req, res) => {
 // Update an existing event
 exports.updateEvent = async (req, res) => {
   const { userId, eventId } = req.params;
-  const { title, start, end, eventType, timezone } = req.body; 
+  const { title, start, end, eventType, timezone } = req.body;
+
+  // Validate eventType
+  if (eventType && !['movie', 'tv', 'unknown'].includes(eventType)) {
+    return res.status(400).json({ message: 'Invalid eventType' });
+  }
+
   try {
     const formattedStart = moment.tz(start, timezone).format('YYYY-MM-DD HH:mm:ss');
     const formattedEnd = end ? moment.tz(end, timezone).format('YYYY-MM-DD HH:mm:ss') : null;
@@ -79,5 +91,20 @@ exports.deleteEvent = async (req, res) => {
   } catch (error) {
     console.error('Error deleting event:', error);
     res.status(500).json({ message: 'Error deleting event' });
+  }
+};
+
+// Get today's events
+exports.getTodaysEvents = async (req, res) => {
+  try {
+    const today = new Date().toISOString().split('T')[0];
+    const events = await knex('events')
+      .whereRaw('DATE(start) = ?', [today])
+      .select('title', 'start', 'end', 'eventType');
+
+    res.json(events);
+  } catch (error) {
+    console.error('Error fetching today\'s events:', error);
+    res.status(500).json({ message: 'Error fetching today\'s events' });
   }
 };
