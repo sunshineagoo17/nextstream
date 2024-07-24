@@ -203,8 +203,25 @@ export const ProfilePage = () => {
     }
   };
 
+  const fetchLocation = async () => {
+    try {
+      const response = await api.get(`/api/profile/${userId}/location`);
+      const region = response.data.country;
+      setSelectedRegion(region);
+      setUser(prevUser => ({ ...prevUser, region }));
+      toast.success('Location updated based on your current location.', {
+        className: 'frosted-toast-profile',
+      });
+    } catch (error) {
+      console.error('Error fetching location:', error);
+      toast.error('Error fetching location. Please try again.', {
+        className: 'frosted-toast-profile',
+      });
+    }
+  };
+  
   const regions = ['Canada', 'United States', 'United Kingdom'];
-
+  
   return (
     <>
       <ToastContainer
@@ -396,7 +413,7 @@ export const ProfilePage = () => {
               <div className="profile__region-content">
                 <div className="profile__select-your-region">
                   <div className="profile__region-heading">
-                    <img src={LocationIcon} className="profile__location-icon" alt="Location Icon" />
+                    <img src={LocationIcon} className="profile__location-icon" alt="Location Icon" onClick={fetchLocation} />
                     <div className="profile__region-title">Select Your Region</div>
                   </div>
                   <div className="profile__region-input">

@@ -2,6 +2,7 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const authenticate = require('../middleware/authenticate');
 const knex = require('../config/db');
+const axios = require('axios');
 const router = express.Router();
 const { comparePassword } = require('../utils/hashPasswords'); 
 const multer = require('multer');
@@ -185,6 +186,17 @@ router.delete('/:userId', authenticate, async (req, res) => {
   } catch (error) {
     console.error('Error deleting account:', error);
     res.status(500).json({ message: 'Error deleting account' });
+  }
+});
+
+// Fetch geolocation
+router.get('/:userId/location', authenticate, async (req, res) => {
+  try {
+    const response = await axios.get(`https://ipinfo.io/json?token=${process.env.IPINFO_TOKEN}`);
+    res.json(response.data);
+  } catch (error) {
+    console.error('Error fetching location:', error);
+    res.status(500).json({ error: 'Failed to fetch location' });
   }
 });
 

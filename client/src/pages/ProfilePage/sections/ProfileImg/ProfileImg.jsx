@@ -1,18 +1,18 @@
 import { useState, useEffect, useContext } from "react";
 import { AuthContext } from '../../../../context/AuthContext/AuthContext';
-import { ToastContainer, toast, Slide } from 'react-toastify';
 import axios from "axios";
 import ProfileUploadBtn from "../../../../assets/images/profile-upload.svg";
 import DeleteIcon from "../../../../assets/images/delete-icon.svg";
 import DefaultAvatar from "../../../../assets/images/default-avatar.svg";
-import Loader from "../../../../components/Loader/Loader"; 
-import 'react-toastify/dist/ReactToastify.css';
+import Loader from "../../../../components/Loader/Loader";
+import CustomAlerts from "../../../../components/CustomAlerts/CustomAlerts";
 import './ProfileImg.scss';
 
 const ProfileImg = ({ userId, username, isActive, onStatusToggle }) => {
   const { isAuthenticated } = useContext(AuthContext);
   const [imagePreview, setImagePreview] = useState(DefaultAvatar);
   const [loading, setLoading] = useState(false);
+  const [alert, setAlert] = useState({ show: false, message: '', type: '' });
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -42,9 +42,7 @@ const ProfileImg = ({ userId, username, isActive, onStatusToggle }) => {
 
     // Check file type
     if (!file.type.match("image/jpeg") && !file.type.match("image/png") && !file.type.match("image/jpg") && !file.type.match("image/gif") && !file.type.match("image/svg") && !file.type.match("image/webp") && !file.type.match("image/bmp") && !file.type.match("image/tiff")) {
-      toast.error("Please upload a valid image (jpg, jpeg, png, gif, svg, webp, bmp, tiff).", {
-        className: 'frosted-toast-profile-img',
-      });
+      setAlert({ show: true, message: "Please upload a valid image (jpg, jpeg, png, gif, svg, webp, bmp, tiff).", type: 'error' });
       return;
     }
 
@@ -60,14 +58,10 @@ const ProfileImg = ({ userId, username, isActive, onStatusToggle }) => {
         withCredentials: true
       });
       setImagePreview(`${process.env.REACT_APP_BASE_URL}/${response.data.avatar}`);
-      toast.success("Image uploaded successfully.", {
-        className: 'frosted-toast-profile-img',
-      });
+      setAlert({ show: true, message: "Image uploaded successfully.", type: 'success' });
     } catch (error) {
       console.error("Error uploading image:", error);
-      toast.error("Error uploading image.", {
-        className: 'frosted-toast-profile-img',
-      });
+      setAlert({ show: true, message: "Error uploading image.", type: 'error' });
     } finally {
       setLoading(false);
     }
@@ -79,15 +73,11 @@ const ProfileImg = ({ userId, username, isActive, onStatusToggle }) => {
       await axios.delete(`${process.env.REACT_APP_BASE_URL}/api/profile/${userId}/avatar`, {
         withCredentials: true
       });
-      setImagePreview(DefaultAvatar); 
-      toast.success("Image deleted successfully. For now, you can use our default avatar.", {
-        className: 'frosted-toast-profile-img',
-      });
+      setImagePreview(DefaultAvatar);
+      setAlert({ show: true, message: "Image deleted successfully. For now, you can use our default avatar.", type: 'success' });
     } catch (error) {
       console.error("Error deleting avatar:", error);
-      toast.error("Error deleting avatar.", {
-        className: 'frosted-toast-profile-img',
-      });
+      setAlert({ show: true, message: "Error deleting avatar.", type: 'error' });
     } finally {
       setLoading(false);
     }
@@ -105,9 +95,14 @@ const ProfileImg = ({ userId, username, isActive, onStatusToggle }) => {
     }
   };
 
+  const closeAlert = () => {
+    setAlert({ show: false, message: '', type: '' });
+  };
+
   return (
     <div className="profile-img">
       {loading && <Loader />}
+      {alert.show && <CustomAlerts message={alert.message} type={alert.type} onClose={closeAlert} />}
       <div className="profile-img__container">
         <div className="profile-img__wrapper">
           <div className="profile-img__card">
@@ -148,14 +143,6 @@ const ProfileImg = ({ userId, username, isActive, onStatusToggle }) => {
           </div>
         </div>
       </div>
-      <ToastContainer
-        position="top-center"
-        autoClose={3000}
-        hideProgressBar={false}
-        transition={Slide}
-        closeOnClick
-        pauseOnHover
-      />
     </div>
   );
 };
