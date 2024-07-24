@@ -164,15 +164,17 @@ const SearchResultsPage = () => {
               </div>
             )}
           </div>
-          <div className="search-results__pagination-container">
-            <div className="search-results__page-nav-wrapper" onClick={handlePrevious}>
-              <img src={PreviousIcon} className="search-results__previous-icon" alt="Previous" />
+          {results.length > 3 && (
+            <div className="search-results__pagination-container">
+              <div className="search-results__page-nav-wrapper" onClick={handlePrevious}>
+                <img src={PreviousIcon} className="search-results__previous-icon" alt="Previous" />
+              </div>
+              {renderPaginationCircles()}
+              <div className="search-results__page-nav-wrapper" onClick={handleNext}>
+                <img src={NextIcon} className="search-results__next-icon" alt="Next" />
+              </div>
             </div>
-            {renderPaginationCircles()}
-            <div className="search-results__page-nav-wrapper" onClick={handleNext}>
-              <img src={NextIcon} className="search-results__next-icon" alt="Next" />
-            </div>
-          </div>
+          )}
         </div>
         <div className="search-results__background">
           <AnimatedBg />
