@@ -10,6 +10,34 @@ const path = require('path');
 const fs = require('fs');
 const { generateAndNotifyRecommendations } = require('../services/recommendationService');
 
+// Region mappings
+const regionMapping = {
+  // Canada
+  'Ontario': 1, // Eastern Time Zone
+  'Manitoba': 1, // Central Time Zone
+  'Alberta': 1, // Mountain Time Zone
+  'British Columbia': 1, // Pacific Time Zone
+  'Nova Scotia': 1, // Atlantic Time Zone
+  // United States
+  'New York': 2, // Eastern Time Zone
+  'Illinois': 2, // Central Time Zone
+  'Colorado': 2, // Mountain Time Zone
+  'California': 2, // Pacific Time Zone
+  'Alaska': 2, // Alaska Time Zone
+  // United Kingdom
+  'London': 3, // GMT/BST
+  'Scotland': 3, // WET
+  'Northern Ireland': 3, // IST
+  'Wales': 3, // BST
+  'England': 3 // BST
+};
+
+const regionReverseMapping = {
+  1: 'Canada',
+  2: 'United States',
+  3: 'United Kingdom'
+};
+
 // Middleware to ensure the uploads/avatars directory exists
 const ensureUploadsDirectoryExists = (req, res, next) => {
   const dir = path.join(__dirname, '../uploads/avatars');
@@ -58,7 +86,7 @@ router.get('/:userId', authenticate, async (req, res) => {
       email: user.email,
       receiveReminders: user.receiveReminders,
       receiveNotifications: user.receiveNotifications,
-      region: user.region,
+      region: regionReverseMapping[user.region] || '',
       isSubscribed: user.isSubscribed,
       isActive: user.isActive,
       avatar: user.avatar 
@@ -99,7 +127,7 @@ router.put('/:userId', async (req, res) => {
     email,
     receiveReminders,
     receiveNotifications,
-    region,
+    region: regionMapping[region] || null,
     isSubscribed,
     isActive 
   };
@@ -195,26 +223,23 @@ router.delete('/:userId', authenticate, async (req, res) => {
   }
 });
 
-// Fetch geolocation
+// Fetch geolocation and update region
 router.get('/:userId/location', authenticate, async (req, res) => {
   try {
     const response = await axios.get(`https://ipinfo.io/json?token=${process.env.IPINFO_TOKEN}`);
-    res.json(response.data);
+    console.log('IP Info Response:', response.data); 
+    const region = response.data.region; // Use region instead of country
+
+    const regionId = regionMapping[region] || null;
+    if (regionId) {
+      await knex('users').where({ id: req.params.userId }).update({ region: regionId });
+      res.json({ message: 'Location updated successfully', region });
+    } else {
+      res.status(400).json({ error: 'Region not recognized' });
+    }
   } catch (error) {
     console.error('Error fetching location:', error);
     res.status(500).json({ error: 'Failed to fetch location' });
-  }
-});
-
-// Update user geolocation
-router.put('/:userId/location', authenticate, async (req, res) => {
-  const { region } = req.body;
-  try {
-    await knex('users').where({ id: req.params.userId }).update({ region });
-    res.json({ message: 'Location updated successfully' });
-  } catch (error) {
-    console.error('Error updating location:', error);
-    res.status(500).json({ error: 'Failed to update location' });
   }
 });
 

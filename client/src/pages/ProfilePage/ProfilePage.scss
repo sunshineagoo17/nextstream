@@ -315,6 +315,11 @@
       box-shadow: $shadow-secondary;
       transform: scale(1.15);
     }
+
+    &:active {
+      background-color: $primary-light-blue;
+      transform: scale(.95);
+    }
   }
 
   &__input-group {
@@ -541,8 +546,9 @@
   border-radius: 0.5rem;
   text-align: center;
   box-shadow: $shadow-primary;
+  position: relative; 
 
-  &.success {
+  &.success{
     background-color: rgba($feedback-mint-light-green, 0.8); 
     color: $toast-success;
     border: 3px solid $feedback-mint-green;
@@ -554,6 +560,28 @@
     border: 1px solid $feedback-error-peach;
     margin-left: .75rem;
     margin-right: .75rem;
+  }
+
+  .save-message__close {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: none;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    color: inherit;
+    transition: transform .2s ease, color .2s ease;
+
+    &:hover {
+      color: $neutral-light-grey;
+      transform: scale(1.2);
+    }
+
+    &:active {
+      color: $primary-dark-blue;
+      transform: scale(.9);
+    }
   }
 }
 

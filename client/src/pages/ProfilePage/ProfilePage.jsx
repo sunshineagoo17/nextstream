@@ -30,7 +30,7 @@ export const ProfilePage = () => {
   const [receiveNotifications, setReceiveNotifications] = useState(false);
   const [selectedRegion, setSelectedRegion] = useState('Choose your area...');
   const [isSubscribed, setIsSubscribed] = useState(true);
-  const [isActive, setIsActive] = useState(true); 
+  const [isActive, setIsActive] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
   const [saveMessage, setSaveMessage] = useState({ text: '', className: '' });
   const [errors, setErrors] = useState({});
@@ -53,7 +53,7 @@ export const ProfilePage = () => {
           setReceiveNotifications(response.data.receiveNotifications);
           setSelectedRegion(response.data.region);
           setIsSubscribed(response.data.isSubscribed);
-          setIsActive(response.data.isActive); 
+          setIsActive(response.data.isActive);
         } catch (error) {
           console.error('Error fetching profile:', error);
           setSaveMessage({ text: 'Error fetching profile. Please try again.', className: 'error' });
@@ -82,7 +82,7 @@ export const ProfilePage = () => {
 
   const handleSave = async () => {
     const newErrors = {};
-  
+
     // Validate fields
     if (!user.name) newErrors.name = 'Name is required';
     if (!user.username) newErrors.username = 'Username is required';
@@ -93,7 +93,7 @@ export const ProfilePage = () => {
     }
     if (newPassword && newPassword.length < 8) newErrors.newPassword = 'Password must be at least 8 characters';
     if (newPassword !== confirmPassword) newErrors.confirmPassword = 'Passwords do not match';
-  
+
     // Validate current password if provided
     if (currentPassword) {
       try {
@@ -105,9 +105,9 @@ export const ProfilePage = () => {
         newErrors.currentPassword = 'Error validating current password';
       }
     }
-  
+
     setErrors(newErrors);
-  
+
     if (Object.keys(newErrors).length > 0) {
       // Scroll to the first error field
       const errorFields = [
@@ -125,7 +125,7 @@ export const ProfilePage = () => {
       }
       return;
     }
-  
+
     const updatedUser = {
       name: user.name,
       username: user.username,
@@ -136,17 +136,17 @@ export const ProfilePage = () => {
       isSubscribed,
       isActive
     };
-  
+
     try {
       if (currentPassword && newPassword) {
         // Update user with new password
         updatedUser.password = newPassword;
       }
-  
+
       // Update user profile only if there are no validation errors
       await api.put(`/api/profile/${userId}`, updatedUser);
       setSaveMessage({ text: 'Profile updated successfully!', className: 'success' });
-  
+
       // Clear password fields
       if (newPassword) {
         setCurrentPassword('');
@@ -178,7 +178,7 @@ export const ProfilePage = () => {
 
   const handleSubscriptionChange = (newStatus) => {
     setIsSubscribed(newStatus);
-    setIsActive(newStatus); 
+    setIsActive(newStatus);
     if (!newStatus) {
       setReceiveReminders(false);
       setReceiveNotifications(false);
@@ -206,7 +206,7 @@ export const ProfilePage = () => {
   const fetchLocation = async () => {
     try {
       const response = await api.get(`/api/profile/${userId}/location`);
-      const region = response.data.country;
+      const region = response.data.region;
       setSelectedRegion(region);
       setUser(prevUser => ({ ...prevUser, region }));
       toast.success('Location updated based on your current location.', {
@@ -219,9 +219,9 @@ export const ProfilePage = () => {
       });
     }
   };
-  
+
   const regions = ['Canada', 'United States', 'United Kingdom'];
-  
+
   return (
     <>
       <ToastContainer
@@ -441,6 +441,7 @@ export const ProfilePage = () => {
             {saveMessage.text && (
               <div className={`save-message ${saveMessage.className}`}>
                 <p className="save-message__text">{saveMessage.text}</p>
+                <button className="save-message__close" onClick={clearSaveMessage}>&times;</button>
               </div>
             )}
           </div>
