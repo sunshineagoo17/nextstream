@@ -73,9 +73,9 @@ const TopPicksPage = () => {
       } catch (error) {
         console.error('Error fetching data', error);
         if (error.response && error.response.status === 401) {
-          toast.error('You are not authorized. Please log in again.', { className: 'frosted-toast-cal' });
+          toast.error('You are not authorized. Please log in again.', { className: 'frosted-toast-picks' });
         } else {
-          toast.error('Error fetching data. Please try again later.', { className: 'frosted-toast-cal' });
+          toast.error('Error fetching data. Please try again later.', { className: 'frosted-toast-picks' });
         }
       } finally {
         setIsLoading(false);
@@ -143,7 +143,7 @@ const TopPicksPage = () => {
             }
           } catch (error) {
             console.error('Error fetching duration data:', error);
-            toast.error('Failed to fetch media duration.', { className: 'frosted-toast-cal' });
+            toast.error('Failed to fetch media duration.', { className: 'frosted-toast-picks' });
           }
           return { ...mediaItem, duration };
         })
@@ -163,9 +163,9 @@ const TopPicksPage = () => {
     } catch (error) {
       console.error('Error fetching recommendations', error);
       if (error.response && error.response.status === 401) {
-        toast.error('You are not authorized. Please log in again.', { className: 'frosted-toast-cal' });
+        toast.error('You are not authorized. Please log in again.', { className: 'frosted-toast-picks' });
       } else {
-        toast.error('Error fetching recommendations. Please try again later.', { className: 'frosted-toast-cal' });
+        toast.error('Error fetching recommendations. Please try again later.', { className: 'frosted-toast-picks' });
       }
     } finally {
       setIsLoading(false);
@@ -203,9 +203,9 @@ const TopPicksPage = () => {
       } catch (error) {
         console.error('Error recording interaction', error);
         if (error.response && error.response.status === 401) {
-          toast.error('You are not authorized. Please log in again.', { className: 'frosted-toast-cal' });
+          toast.error('You are not authorized. Please log in again.', { className: 'frosted-toast-picks' });
         } else {
-          toast.error('Error recording interaction. Please try again later.', { className: 'frosted-toast-cal' });
+          toast.error('Error recording interaction. Please try again later.', { className: 'frosted-toast-picks' });
         }
       }
     }
@@ -229,7 +229,7 @@ const TopPicksPage = () => {
       }
     } catch (error) {
       console.error('Error fetching duration data:', error);
-      toast.error('Failed to fetch media duration.', { className: 'frosted-toast-cal' });
+      toast.error('Failed to fetch media duration.', { className: 'frosted-toast-picks' });
       return;
     }
 
@@ -254,13 +254,13 @@ const TopPicksPage = () => {
       };
       await api.post(`/api/calendar/${userId}/events`, newEvent);
       setShowCalendar(false);
-      toast.success('Event added successfully!', { className: 'frosted-toast-cal' });
+      toast.success('Event added successfully!', { className: 'frosted-toast-picks' });
     } catch (error) {
       console.error('Error saving event:', error);
       if (error.response && error.response.status === 401) {
-        toast.error('You are not authorized. Please log in again.', { className: 'frosted-toast-cal' });
+        toast.error('You are not authorized. Please log in again.', { className: 'frosted-toast-picks' });
       } else {
-        toast.error('Error saving event. Please try again later.', { className: 'frosted-toast-cal' });
+        toast.error('Error saving event. Please try again later.', { className: 'frosted-toast-picks' });
       }
     }
   };
