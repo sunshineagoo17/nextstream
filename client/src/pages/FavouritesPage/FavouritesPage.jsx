@@ -215,7 +215,7 @@ const FavouritesPage = () => {
     <div className="faves-page">
       <BlobBg />
       <h1 className="faves-page__title">
-        Your Favourites <FontAwesomeIcon icon={faHeart} />
+        Your Favourites <FontAwesomeIcon icon={faHeart} className='faves-page__heart-icon' />
       </h1>
       <div className="faves-page__content">
         <div className="faves-page__search-bar-container">
