@@ -13,6 +13,91 @@
   margin-left: 2.15rem;
   margin-right: 2.15rem;
 
+  &__calendar-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba($neutral-black, .8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: -1rem;
+    z-index: 1000;
+  }
+
+  &__graphic-container {
+    margin-top: 2rem;
+    width: 20rem;
+
+    @include tablet {
+      width: 30%;
+    }
+  }
+
+  &__calendar-close-btn {
+    @include block-item(1.75rem, 1.75rem);
+    position: absolute;
+    top: 1rem; 
+    transform: translateX(-50%);
+    background-color: transparent;
+    color: $neutral-white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid $neutral-white;
+    padding: .25rem;
+    font-size: 1rem;
+    box-shadow: $shadow-senary;
+    cursor: pointer;
+    z-index: 1001;
+    border-radius: .2rem;
+    transition: all 0.3s ease; 
+
+    &:hover {
+        background-color: $primary-dark-blue;
+        color: $neutral-white;
+        padding: 1rem; 
+        border-radius: .5rem; 
+        transform: translateX(-50%) scale(1.25); 
+    }
+
+    &:active {
+        transform: translateX(-50%) scale(1);
+        box-shadow: $shadow-senary;
+    }
+
+    @include small-mobile {
+        top: 1rem;
+    }
+
+    @include large-mobile {
+        top: 1rem;
+    }
+
+    @include tablet {
+        top: .25rem;
+        font-size: 1.5rem;
+    }
+
+    @include desktop {
+        top: 4.5rem;
+    }
+
+    @include large-desktop {
+        top: 9rem;
+    }
+
+    @include extra-large-desktop {
+        top: 11.5rem;
+    }
+  }
+
+  &__close-icon {
+    @include block-item(.75rem, .75rem);
+  }
+
   &__title {
     text-align: center;
     margin-bottom: 1.25rem;
@@ -160,19 +245,50 @@
     color: $primary-button-blue;
     font-size: 1rem;
     margin-bottom: .625rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: .5rem;
+  }
+
+  &__cal-icon {
+    width: 1.01rem;
+    height: auto;
+  }
+
+  &__search-icon {
+    width: .95rem;
+    height: auto;
   }
 
   &__media-icon-link {
+    width: 1.175rem;
+    height: auto;
+    display: flex;
+    justify-content: center;
+  }
+
+  &__media-icon-link,
+  &__search-icon,
+  &__cal-icon {
     color: $primary-button-blue;
+    transition: transform .3s ease-in-out;
 
     &:hover{
         color: $primary-button-dark-blue;
         box-shadow: $shadow-primary;
+        background-color: $neutral-white;
+        border-radius: .25rem;
+        border: 1px solid $primary-medium-blue;
+        padding: .1rem;
+        transform: scale(1.125);
     }
 
     &:active {
         color: $primary-pale-blue;
         box-shadow: none;
+        background-color: $primary-dark-blue;
+        transform: scale(.9);
     }
   }
 

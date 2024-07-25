@@ -39,6 +39,7 @@ const HoverMenu = () => {
       `/login`,
       `/top-picks/${userId}`, 
       `/calendar/${userId}`, 
+      `/faves/${userId}`, 
       `/auth-search-results/${userId}`,
       `/search`
     ];

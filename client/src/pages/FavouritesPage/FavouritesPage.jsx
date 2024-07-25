@@ -1,16 +1,18 @@
-import { useState, useContext, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useState, useContext, useEffect, useRef } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFilm, faTv, faPlus, faChevronDown, faChevronUp, faHeart, faMinus, faPlay, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faClose, faFilm, faTv, faPlus, faChevronDown, faChevronUp, faHeart, faMinus, faPlay, faTimes, faCalendarPlus, faSearch } from '@fortawesome/free-solid-svg-icons';
 import api from '../../services/api';
 import BlobBg from '../../components/BlobBg/BlobBg';
 import Loader from '../../components/Loader/Loader';
 import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
+import Calendar from '../CalendarPage/sections/Calendar';
 import './FavouritesPage.scss';
 
 const FavouritesPage = () => {
   const { userId } = useParams();
+  const navigate = useNavigate();
   const [faves, setFaves] = useState([]);
   const [showFullDescription, setShowFullDescription] = useState({});
   const [displayedFaves, setDisplayedFaves] = useState([]);
@@ -19,7 +21,13 @@ const FavouritesPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [alert, setAlert] = useState(null);
+  const [showCalendar, setShowCalendar] = useState(false);
+  const [selectedMediaType, setSelectedMediaType] = useState('');
+  const [eventTitle, setEventTitle] = useState('');
+  const [duration, setDuration] = useState(0);
+  const [selectedMediaId, setSelectedMediaId] = useState(null);
   const { isAuthenticated } = useContext(AuthContext);
+  const calendarRef = useRef(null);
 
   useEffect(() => {
     const fetchFaves = async () => {
@@ -72,9 +80,76 @@ const FavouritesPage = () => {
     }
   };
 
+  const handleAddToCalendar = async (title, mediaType, mediaId) => {
+    let duration = 0;
+    try {
+      if (mediaType === 'movie') {
+        const movieDetails = await api.get(`/api/tmdb/movie/${mediaId}`);
+        duration = movieDetails.data.runtime || 0;
+        if (duration === 0) {
+          showAlert("Duration's not available for this media.", 'info');
+        }
+      } else if (mediaType === 'tv') {
+        const tvDetails = await api.get(`/api/tmdb/tv/${mediaId}`);
+        duration = tvDetails.data.episode_run_time[0] || 0;
+        if (duration > 0) {
+          showAlert('Duration is based on the very first episode.', 'info');
+        }
+      }
+      if (duration === 0) {
+        showAlert("Duration's not available for this media.", 'info');
+      }
+    } catch (error) {
+      console.error('Error fetching duration data:', error);
+      showAlert('Failed to fetch media duration.', 'error');
+      return;
+    }
+  
+    setEventTitle(title);
+    setSelectedMediaType(mediaType);
+    setSelectedMediaId(mediaId);
+    setDuration(duration);
+    setShowCalendar(true);
+  };  
+
+  const handleCloseCalendar = () => {
+    setShowCalendar(false);
+  };
+
+  const handleSaveEvent = async (eventTitle, eventDate) => {
+    try {
+      const newEvent = {
+        title: eventTitle,
+        start: eventDate,
+        end: eventDate,
+        media_id: selectedMediaId,
+        userId,
+      };
+      await api.post(`/api/calendar/${userId}/events`, newEvent);
+      setShowCalendar(false);
+    } catch (error) {
+      console.error('Error saving event:', error);
+      if (error.response && error.response.status === 401) {
+        showAlert('You are not authorized. Please log in again.', 'error');
+      } else {
+        showAlert('Error saving event. Please try again later.', 'error');
+      }
+    }
+  };
+
   const closeModal = () => {
     setIsModalOpen(false);
     setTrailerUrl('');
+  };
+
+  const handleSearchClick = (title, name) => {
+    const query = title || name;
+    const encodedQuery = encodeURIComponent(query);
+    navigate(`/search?q=${encodedQuery}`);
+  };
+
+  const showAlert = (message, type) => {
+    setAlert({ message, type });
   };
 
   return (
@@ -101,8 +176,10 @@ const FavouritesPage = () => {
               <h2 className="faves-page__subtitle">{fave.title}</h2>
               <p className="faves-page__media-icon">
                 <a href={`https://www.themoviedb.org/${fave.media_type}/${fave.media_id}`} target="_blank" rel="noopener noreferrer">
-                  <FontAwesomeIcon icon={fave.media_type === 'tv' ? faTv : faFilm} className="faves-page__media-icon-link"/>
+                  <FontAwesomeIcon icon={fave.media_type === 'tv' ? faTv : faFilm} className="faves-page__media-icon-link" />
                 </a>
+                <FontAwesomeIcon icon={faCalendarPlus} onClick={() => handleAddToCalendar(fave.title, fave.media_type, fave.media_id)} className="faves-page__cal-icon" />
+                <FontAwesomeIcon icon={faSearch} onClick={() => handleSearchClick(fave.title, fave.name)} className="faves-page__search-icon" />
               </p>
               <p className="faves-page__text">Genre: {fave.genres.join(', ')}</p>
               <p className={`faves-page__description ${showFullDescription[fave.media_id] ? 'faves-page__description--expanded' : ''}`}>
@@ -141,6 +218,22 @@ const FavouritesPage = () => {
               ></iframe>
             )}
           </div>
+        </div>
+      )}
+      {showCalendar && (
+        <div className="faves-page__calendar-modal">
+            <button className="faves-page__calendar-close-btn" onClick={handleCloseCalendar}>
+                <FontAwesomeIcon icon={faClose} className='faves-page__close-icon' />
+            </button>
+            <Calendar
+                userId={userId}
+                eventTitle={eventTitle}
+                mediaType={selectedMediaType}
+                duration={duration}
+                handleSave={handleSaveEvent}
+                onClose={handleCloseCalendar}
+                ref={calendarRef}
+            />
         </div>
       )}
     </div>
