@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from 'react';
+import { createContext, useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import Loader from '../../components/Loader/Loader';
 import api from '../../services/api';

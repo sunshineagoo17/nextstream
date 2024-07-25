@@ -187,4 +187,24 @@ router.get('/recommendations/:userId', async (req, res) => {
   }
 });
 
+// Fetch all interactions for a specific user
+router.get('/:userId', async (req, res) => {
+  const { userId } = req.params;
+  const { interactionType } = req.query;
+
+  try {
+    let query = db('interactions').where('userId', userId);
+
+    if (interactionType !== undefined) {
+      query = query.andWhere('interaction', interactionType);
+    }
+
+    const interactions = await query;
+    res.json(interactions);
+  } catch (error) {
+    console.error('Error fetching interactions:', error);
+    res.status(500).json({ error: 'Error fetching interactions' });
+  }
+});
+
 module.exports = router;

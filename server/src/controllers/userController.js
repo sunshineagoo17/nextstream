@@ -135,6 +135,6 @@ const deleteUser = async (req, res) => {
 
 module.exports = {
   getProfile,
-  updateProfile: [upload.single('avatar'), updateProfile], // Use multer middleware to handle file uploads
+  updateProfile: [upload.single('avatar'), updateProfile], 
   deleteUser
 };

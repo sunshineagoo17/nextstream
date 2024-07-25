@@ -14,6 +14,7 @@ const tmdbRoutes = require('./src/routes/tmdbRoutes');
 const calendarRoutes = require('./src/routes/calendarRoutes');
 const interactionRoutes = require('./src/routes/interactionRoutes');
 const cronJobs = require('./src/services/cronJobs');
+const favesRoutes = require('./src/routes/favesRoutes');
 
 const app = express();
 
@@ -47,6 +48,7 @@ app.use('/api/profile', profileRoutes);
 app.use('/api/tmdb', tmdbRoutes);
 app.use('/api/calendar', calendarRoutes);
 app.use('/api/interactions', interactionRoutes);
+app.use('/api/faves', favesRoutes);
 
 // Serve static files from the React app if needed
 app.use(express.static(path.join(__dirname, 'client/build')));

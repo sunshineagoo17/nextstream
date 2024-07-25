@@ -20,6 +20,7 @@ import HoverMenu from './components/Header/sections/HoverMenu/HoverMenu';
 import { AuthProvider, AuthContext } from './context/AuthContext/AuthContext';
 import { SearchBarProvider } from './context/SearchBarContext/SearchBarContext'; 
 import LoginRequired from './pages/LoginRequired/LoginRequired';
+import FavouritesPage from './pages/FavouritesPage/FavouritesPage';
 import './styles/global.scss';
 
 const App = () => {
@@ -65,6 +66,7 @@ const App = () => {
         <Route path="/profile/:userId" element={isAuthenticated ? <ProfilePage /> : <Navigate to="/login-required" />} />
         <Route path="/top-picks/:userId" element={isAuthenticated ? <TopPicksPage openModal={openCalendarModal} /> : <Navigate to="/login-required" />} />
         <Route path="/calendar/:userId" element={isAuthenticated ? <CalendarPage openModal={openCalendarModal} /> : <Navigate to="/login-required" />} />
+        <Route path="/faves/:userId" element={isAuthenticated ? <FavouritesPage /> : <Navigate to="/login-required" />} /> 
         <Route path="/search" element={isAuthenticated ? <AuthSearchResultsPage openModal={openCalendarModal} userId={userId} /> : <SearchResultsPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route path="/login-required" element={<LoginRequired />} />
