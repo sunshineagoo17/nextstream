@@ -14,6 +14,7 @@ const FavouritesPage = () => {
   const { userId } = useParams();
   const navigate = useNavigate();
   const [faves, setFaves] = useState([]);
+  const [filteredFaves, setFilteredFaves] = useState([]);
   const [showFullDescription, setShowFullDescription] = useState({});
   const [displayedFaves, setDisplayedFaves] = useState([]);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -26,6 +27,7 @@ const FavouritesPage = () => {
   const [eventTitle, setEventTitle] = useState('');
   const [duration, setDuration] = useState(0);
   const [selectedMediaId, setSelectedMediaId] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
   const { isAuthenticated } = useContext(AuthContext);
   const calendarRef = useRef(null);
 
@@ -36,6 +38,7 @@ const FavouritesPage = () => {
       try {
         const response = await api.get(`/api/faves/${userId}/faves`);
         setFaves(response.data);
+        setFilteredFaves(response.data);
         setDisplayedFaves(response.data.slice(0, 5));
       } catch (error) {
         console.error('Error fetching faves:', error);
@@ -54,9 +57,9 @@ const FavouritesPage = () => {
 
   const toggleFaves = () => {
     if (isExpanded) {
-      setDisplayedFaves(faves.slice(0, 5));
+      setDisplayedFaves(filteredFaves.slice(0, 5));
     } else {
-      setDisplayedFaves(faves);
+      setDisplayedFaves(filteredFaves);
     }
     setIsExpanded(!isExpanded);
   };
@@ -148,8 +151,31 @@ const FavouritesPage = () => {
     navigate(`/search?q=${encodedQuery}`);
   };
 
+  const handleSearchQuery = () => {
+    const lowerCaseQuery = searchQuery.toLowerCase();
+    const filtered = faves.filter(fave =>
+      fave.title.toLowerCase().includes(lowerCaseQuery) ||
+      fave.genres.some(genre => genre.toLowerCase().includes(lowerCaseQuery)) ||
+      fave.media_type.toLowerCase().includes(lowerCaseQuery)
+    );
+    setFilteredFaves(filtered);
+    setDisplayedFaves(filtered.slice(0, 5));
+  };
+
+  const handleSearchEnter = (e) => {
+    if (e.key === 'Enter') {
+      handleSearchQuery();
+    }
+  };
+
   const showAlert = (message, type) => {
     setAlert({ message, type });
+  };
+
+  const clearSearchQuery = () => {
+    setSearchQuery('');
+    setFilteredFaves(faves);
+    setDisplayedFaves(faves.slice(0, 5));
   };
 
   return (
@@ -158,84 +184,102 @@ const FavouritesPage = () => {
       <h1 className="faves-page__title">
         Your Favourites <FontAwesomeIcon icon={faHeart} />
       </h1>
-      {alert && <CustomAlerts message={alert.message} type={alert.type} onClose={() => setAlert(null)} />}
-      <div className="faves-page__grid">
-        {displayedFaves.length > 0 ? (
-          displayedFaves.map(fave => (
-            <div key={fave.id || `${fave.media_id}-${fave.media_type}`} className="faves-page__card">
-              <div className="faves-page__poster-container">
-                <img
-                  src={fave.poster_path ? `https://image.tmdb.org/t/p/w500${fave.poster_path}` : 'default-poster-url'}
-                  alt={fave.title}
-                  className="faves-page__poster"
-                />
-                <div className="faves-page__play-overlay" onClick={() => handlePlayTrailer(fave.media_id, fave.media_type)}>
-                  <FontAwesomeIcon icon={faPlay} className="faves-page__play-icon" />
-                </div>
-              </div>
-              <h2 className="faves-page__subtitle">{fave.title}</h2>
-              <p className="faves-page__media-icon">
-                <a href={`https://www.themoviedb.org/${fave.media_type}/${fave.media_id}`} target="_blank" rel="noopener noreferrer">
-                  <FontAwesomeIcon icon={fave.media_type === 'tv' ? faTv : faFilm} className="faves-page__media-icon-link" />
-                </a>
-                <FontAwesomeIcon icon={faCalendarPlus} onClick={() => handleAddToCalendar(fave.title, fave.media_type, fave.media_id)} className="faves-page__cal-icon" />
-                <FontAwesomeIcon icon={faSearch} onClick={() => handleSearchClick(fave.title, fave.name)} className="faves-page__search-icon" />
-              </p>
-              <p className="faves-page__text">Genre: {fave.genres.join(', ')}</p>
-              <p className={`faves-page__description ${showFullDescription[fave.media_id] ? 'faves-page__description--expanded' : ''}`}>
-                Description: {fave.overview}
-              </p>
-              <button className="faves-page__more-button" onClick={() => handleShowMore(fave.media_id)}>
-                <FontAwesomeIcon icon={showFullDescription[fave.media_id] ? faChevronUp : faChevronDown} />
-              </button>
-            </div>
-          ))
-        ) : (
-          <p className="faves-page__text">No favourites found.</p>
-        )}
-      </div>
-      {faves.length > 5 && (
-        <button className="faves-page__load-more" onClick={toggleFaves}>
-          <FontAwesomeIcon icon={isExpanded ? faMinus : faPlus} /> {isExpanded ? 'Hide Cards' : 'Load More'}
-        </button>
-      )}
-      {isModalOpen && (
-        <div className="faves-page__modal">
-          <div className="faves-page__modal-content">
-            <button className="faves-page__modal-content-close" onClick={closeModal}>
-              <FontAwesomeIcon icon={faTimes} />
-            </button>
-            {isLoading ? (
-              <Loader />
-            ) : (
-              <iframe
-                width="560"
-                height="315"
-                src={trailerUrl}
-                title="YouTube video player"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              ></iframe>
-            )}
-          </div>
-        </div>
-      )}
-      {showCalendar && (
-        <div className="faves-page__calendar-modal">
-            <button className="faves-page__calendar-close-btn" onClick={handleCloseCalendar}>
-                <FontAwesomeIcon icon={faClose} className='faves-page__close-icon' />
-            </button>
-            <Calendar
-                userId={userId}
-                eventTitle={eventTitle}
-                mediaType={selectedMediaType}
-                duration={duration}
-                handleSave={handleSaveEvent}
-                onClose={handleCloseCalendar}
-                ref={calendarRef}
+      <div className="faves-page__content">
+        <div className="faves-page__search-bar-container">
+            <div className="faves-page__search-bar">
+            <input 
+                type="text" 
+                value={searchQuery} 
+                onChange={(e) => setSearchQuery(e.target.value)} 
+                onKeyPress={handleSearchEnter}
+                className="faves-page__search-input" 
+                placeholder="Search for movies, shows, or genres..." 
             />
+            <FontAwesomeIcon icon={faSearch} onClick={handleSearchQuery} className="faves-page__magnifying-glass-icon" />
+            {searchQuery && (
+                <FontAwesomeIcon icon={faTimes} onClick={clearSearchQuery} className="faves-page__clear-icon" />
+            )}
+            </div>
         </div>
-      )}
+        {alert && <CustomAlerts message={alert.message} type={alert.type} onClose={() => setAlert(null)} />}
+        <div className="faves-page__grid">
+            {displayedFaves.length > 0 ? (
+            displayedFaves.map(fave => (
+                <div key={fave.id || `${fave.media_id}-${fave.media_type}`} className="faves-page__card">
+                <div className="faves-page__poster-container">
+                    <img
+                    src={fave.poster_path ? `https://image.tmdb.org/t/p/w500${fave.poster_path}` : 'default-poster-url'}
+                    alt={fave.title}
+                    className="faves-page__poster"
+                    />
+                    <div className="faves-page__play-overlay" onClick={() => handlePlayTrailer(fave.media_id, fave.media_type)}>
+                    <FontAwesomeIcon icon={faPlay} className="faves-page__play-icon" />
+                    </div>
+                </div>
+                <h2 className="faves-page__subtitle">{fave.title}</h2>
+                <p className="faves-page__media-icon">
+                    <a href={`https://www.themoviedb.org/${fave.media_type}/${fave.media_id}`} target="_blank" rel="noopener noreferrer">
+                    <FontAwesomeIcon icon={fave.media_type === 'tv' ? faTv : faFilm} className="faves-page__media-icon-link" />
+                    </a>
+                    <FontAwesomeIcon icon={faCalendarPlus} onClick={() => handleAddToCalendar(fave.title, fave.media_type, fave.media_id)} className="faves-page__cal-icon" />
+                    <FontAwesomeIcon icon={faSearch} onClick={() => handleSearchClick(fave.title, fave.name)} className="faves-page__search-icon" />
+                </p>
+                <p className="faves-page__text">Genre: {fave.genres.join(', ')}</p>
+                <p className={`faves-page__description ${showFullDescription[fave.media_id] ? 'faves-page__description--expanded' : ''}`}>
+                    Description: {fave.overview}
+                </p>
+                <button className="faves-page__more-button" onClick={() => handleShowMore(fave.media_id)}>
+                    <FontAwesomeIcon icon={showFullDescription[fave.media_id] ? faChevronUp : faChevronDown} />
+                </button>
+                </div>
+            ))
+            ) : (
+            <p className="faves-page__text">No favourites found.</p>
+            )}
+        </div>
+        {filteredFaves.length > 5 && (
+            <button className="faves-page__load-more" onClick={toggleFaves}>
+            <FontAwesomeIcon icon={isExpanded ? faMinus : faPlus} /> {isExpanded ? 'Hide Cards' : 'Load More'}
+            </button>
+        )}
+        {isModalOpen && (
+            <div className="faves-page__modal">
+            <div className="faves-page__modal-content">
+                <button className="faves-page__modal-content-close" onClick={closeModal}>
+                <FontAwesomeIcon icon={faTimes} />
+                </button>
+                {isLoading ? (
+                <Loader />
+                ) : (
+                <iframe
+                    width="560"
+                    height="315"
+                    src={trailerUrl}
+                    title="YouTube video player"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                ></iframe>
+                )}
+            </div>
+            </div>
+        )}
+        {showCalendar && (
+            <div className="faves-page__calendar-modal">
+                <button className="faves-page__calendar-close-btn" onClick={handleCloseCalendar}>
+                    <FontAwesomeIcon icon={faClose} className='faves-page__close-icon' />
+                </button>
+                <Calendar
+                    userId={userId}
+                    eventTitle={eventTitle}
+                    mediaType={selectedMediaType}
+                    duration={duration}
+                    handleSave={handleSaveEvent}
+                    onClose={handleCloseCalendar}
+                    ref={calendarRef}
+                />
+            </div>
+            )}
+        </div>
     </div>
   );
 };

@@ -13,6 +13,35 @@
   margin-left: 2.15rem;
   margin-right: 2.15rem;
 
+  &__content {
+    border: 10px solid $frosted-glass;
+    box-shadow: $shadow-septenary;
+    border-radius: 1.15rem;
+    padding: 1rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  &__magnifying-glass-icon {
+    color: $primary-dark-blue;
+    cursor: pointer;
+    margin-left: 0.5rem;
+    transition: transform 1s ease;
+
+    &:hover {
+      transform: rotate(360deg);
+      color: $primary-medium-blue;
+    }
+
+    &:active {
+      color: $primary-button-blue;
+      transform: scale(0.9);
+    }
+  }
+
   &__calendar-modal {
     position: fixed;
     top: 0;
@@ -127,6 +156,69 @@
     &:hover::before {
       left: 100%;
       transition: left 1s;
+    }
+  }
+
+  &__clear-icon {
+    color: $primary-dark-blue;
+    cursor: pointer;
+    margin-left: 0.5rem;
+    transition: transform 0.3s ease-in-out;
+
+    &:hover {
+      color: $primary-button-blue;
+      transform: scale(1.1);
+    }
+
+    &:active {
+      color: $primary-medium-blue;
+      transform: scale(0.9);
+    }
+}
+
+  &__search-bar-container {
+    display: flex;
+    justify-content: center;
+    width: 30%;
+    margin-top: .1rem;
+    padding: .15rem 1rem .15rem 1rem;
+    background: rgba($primary-medium-blue, 0.6);
+    backdrop-filter: blur(15px);
+    border-radius: 2.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), 0 -8px 16px rgba(255, 255, 255, 0.5);
+  }
+
+  &__search-bar {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    margin: 1rem 0;
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 -4px 6px rgba(255, 255, 255, 0.6);
+    display: flex;
+    align-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    overflow: hidden;
+    
+    & input {
+      flex-grow: 1;
+      padding: 0.5rem 1rem;
+      border: none;
+      outline: none;
+      background: transparent;
+      color: $primary-dark-blue;
+      font-size: 1rem;
+      font-family: $primary-font;
+    
+
+        &::placeholder {
+            color: $neutral-white;
+            text-shadow: $shadow-senary;
+        }
     }
   }
 
