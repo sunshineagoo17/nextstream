@@ -191,7 +191,7 @@ const FavouritesPage = () => {
                 type="text" 
                 value={searchQuery} 
                 onChange={(e) => setSearchQuery(e.target.value)} 
-                onKeyPress={handleSearchEnter}
+                onKeyDown={handleSearchEnter}
                 className="faves-page__search-input" 
                 placeholder="Search for movies, shows, or genres..." 
             />
