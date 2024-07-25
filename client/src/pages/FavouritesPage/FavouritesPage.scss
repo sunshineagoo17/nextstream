@@ -162,6 +162,20 @@
     margin-bottom: .625rem;
   }
 
+  &__media-icon-link {
+    color: $primary-button-blue;
+
+    &:hover{
+        color: $primary-button-dark-blue;
+        box-shadow: $shadow-primary;
+    }
+
+    &:active {
+        color: $primary-pale-blue;
+        box-shadow: none;
+    }
+  }
+
   &__description {
     color: $primary-dark-blue;
     line-height: 1.25rem;

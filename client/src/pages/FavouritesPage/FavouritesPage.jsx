@@ -100,7 +100,9 @@ const FavouritesPage = () => {
               </div>
               <h2 className="faves-page__subtitle">{fave.title}</h2>
               <p className="faves-page__media-icon">
-                <FontAwesomeIcon icon={fave.media_type === 'tv' ? faTv : faFilm} />
+                <a href={`https://www.themoviedb.org/${fave.media_type}/${fave.media_id}`} target="_blank" rel="noopener noreferrer">
+                  <FontAwesomeIcon icon={fave.media_type === 'tv' ? faTv : faFilm} className="faves-page__media-icon-link"/>
+                </a>
               </p>
               <p className="faves-page__text">Genre: {fave.genres.join(', ')}</p>
               <p className={`faves-page__description ${showFullDescription[fave.media_id] ? 'faves-page__description--expanded' : ''}`}>
