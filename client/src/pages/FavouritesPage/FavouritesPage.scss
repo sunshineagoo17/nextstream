@@ -158,6 +158,10 @@
 
   &__title {
     text-align: center;
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    gap: .25rem;
     margin-bottom: 1.25rem;
     text-shadow: .125rem .125rem .3125rem rgba(0, 0, 0, .2);
     color: $primary-pale-blue;
@@ -186,6 +190,10 @@
     &:hover::before {
       left: 100%;
       transition: left 1s;
+    }
+
+    @include tablet {
+      gap: .5rem;
     }
 
     @include large-desktop {
@@ -231,11 +239,11 @@
     @include tablet {
       width: 65%;
       border-radius: 2.5rem;
-      padding: .15rem 1rem .15rem 1rem;
+      padding: .15rem 1rem;
     }
 
     @include desktop {
-      width: 30%;
+      width: 51.75%;
     }
   }
 
@@ -291,6 +299,14 @@
 
     @include tablet {
       padding: 0.5rem 1rem;
+    }
+
+    @include desktop {
+      max-width: 45rem;
+    }
+
+    @include large-desktop {
+      max-width: 85rem;
     }
   }
 
