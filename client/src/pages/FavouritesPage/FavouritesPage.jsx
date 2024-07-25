@@ -2,9 +2,10 @@ import { useState, useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFilm, faTv, faPlus, faChevronDown, faChevronUp, faHeart, faMinus } from '@fortawesome/free-solid-svg-icons';
+import { faFilm, faTv, faPlus, faChevronDown, faChevronUp, faHeart, faMinus, faPlay, faTimes } from '@fortawesome/free-solid-svg-icons';
 import api from '../../services/api';
 import BlobBg from '../../components/BlobBg/BlobBg';
+import Loader from '../../components/Loader/Loader';
 import './FavouritesPage.scss';
 
 const FavouritesPage = () => {
@@ -13,6 +14,9 @@ const FavouritesPage = () => {
   const [showFullDescription, setShowFullDescription] = useState({});
   const [displayedFaves, setDisplayedFaves] = useState([]);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [trailerUrl, setTrailerUrl] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const { isAuthenticated } = useContext(AuthContext);
 
   useEffect(() => {
@@ -47,6 +51,27 @@ const FavouritesPage = () => {
     setIsExpanded(!isExpanded);
   };
 
+  const handlePlayTrailer = async (media_id, media_type) => {
+    setIsLoading(true);
+    try {
+      const response = await api.get(`/api/faves/${userId}/trailer/${media_type}/${media_id}`);
+      const trailerData = response.data;
+      if (trailerData && trailerData.trailerUrl) {
+        setTrailerUrl(trailerData.trailerUrl);
+        setIsModalOpen(true);
+      }
+    } catch (error) {
+      console.error('Error fetching trailer:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setTrailerUrl('');
+  };
+
   return (
     <div className="faves-page">
       <BlobBg />
@@ -57,11 +82,16 @@ const FavouritesPage = () => {
         {displayedFaves.length > 0 ? (
           displayedFaves.map(fave => (
             <div key={fave.id || `${fave.media_id}-${fave.media_type}`} className="faves-page__card">
-              <img
-                src={fave.poster_path ? `https://image.tmdb.org/t/p/w500${fave.poster_path}` : 'default-poster-url'}
-                alt={fave.title}
-                className="faves-page__poster"
-              />
+              <div className="faves-page__poster-container">
+                <img
+                  src={fave.poster_path ? `https://image.tmdb.org/t/p/w500${fave.poster_path}` : 'default-poster-url'}
+                  alt={fave.title}
+                  className="faves-page__poster"
+                />
+                <div className="faves-page__play-overlay" onClick={() => handlePlayTrailer(fave.media_id, fave.media_type)}>
+                  <FontAwesomeIcon icon={faPlay} className="faves-page__play-icon" />
+                </div>
+              </div>
               <h2 className="faves-page__subtitle">{fave.title}</h2>
               <p className="faves-page__media-icon">
                 <FontAwesomeIcon icon={fave.media_type === 'tv' ? faTv : faFilm} />
@@ -84,6 +114,27 @@ const FavouritesPage = () => {
           <FontAwesomeIcon icon={isExpanded ? faMinus : faPlus} /> {isExpanded ? 'Hide Cards' : 'Load More'}
         </button>
       )}
+        {isModalOpen && (
+        <div className="faves-page__modal">
+            <div className="faves-page__modal-content">
+            <button className="faves-page__modal-content-close" onClick={closeModal}>
+                <FontAwesomeIcon icon={faTimes} />
+            </button>
+            {isLoading ? (
+                <Loader />
+            ) : (
+                <iframe
+                width="560"
+                height="315"
+                src={trailerUrl}
+                title="YouTube video player"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                ></iframe>
+            )}
+            </div>
+        </div>
+        )}
     </div>
   );
 };

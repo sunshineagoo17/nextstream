@@ -67,7 +67,7 @@
     padding: 1.25rem;
     width: 100%;
     max-width: 12.5rem;
-    height: 28.125rem; 
+    height: 28.125rem;
     text-align: center;
     transition: transform .7s;
     display: flex;
@@ -83,18 +83,57 @@
     }
 
     &:active {
-      background-color: $primary-medium-blue;
+      background-color: $primary-very-light-blue;
       box-shadow: 0 0 .25rem $primary-dark-blue;
     }
   }
 
-  &__poster {
+  &__poster-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
     width: 8rem;
     border: .0625rem solid $frosted-glass;
     height: auto;
     border-radius: .625rem;
     margin-bottom: .625rem;
     box-shadow: $shadow-quaternary;
+    overflow: hidden;
+
+    &:hover {
+      border: .2188rem solid $primary-button-blue;
+    }
+  }
+
+  &__poster {
+    width: 100%;
+    height: auto;
+    border-radius: .625rem;
+    box-shadow: $shadow-quaternary;
+  }
+
+  &__play-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+
+    &:hover {
+      opacity: 1;
+      cursor: pointer;
+    }
+  }
+
+  &__play-icon {
+    color: $neutral-white;
+    font-size: 2rem;
   }
 
   &__subtitle {
@@ -206,15 +245,52 @@
     }
 
     &:active {
-        background: linear-gradient(45deg, $primary-light-blue, $base-darker-blue);
-        color: $primary-pale-blue;
-        transform: scale(.95);
-        box-shadow: 0 .125rem .25rem rgba($neutral-black, .2);
+      background: linear-gradient(45deg, $primary-light-blue, $base-darker-blue);
+      color: $primary-pale-blue;
+      transform: scale(.95);
+      box-shadow: 0 .125rem .25rem rgba($neutral-black, .2);
     }
 
     &:focus {
       outline: none;
       box-shadow: $shadow-septenary;
+    }
+  }
+
+  &__modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+
+    &-content {
+      background: rgba(255, 255, 255, .7);
+      backdrop-filter: blur(.625rem);
+      border-radius: .9375rem;
+      padding: 1.25rem;
+      box-shadow: 0 .25rem .75rem rgba($neutral-black, .2);
+      position: relative;
+
+      &-close {
+        position: absolute;
+        top: .5rem;
+        right: .5rem;
+        background: none;
+        border: none;
+        font-size: 1.25rem;
+        cursor: pointer;
+        color: $neutral-black;
+
+        &:hover {
+          color: $primary-dark-blue;
+        }
+      }
     }
   }
 }
