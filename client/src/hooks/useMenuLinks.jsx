@@ -9,7 +9,8 @@ const useMenuLinks = () => {
   const authenticatedLinks = [
     { name: "Top Picks", path: `/top-picks/${authUserId}` },
     { name: "Calendar", path: `/calendar/${authUserId}` },
-    { name: "Profile", path: `/profile/${authUserId}` }
+    { name: "Profile", path: `/profile/${authUserId}` },
+    { name: "Favourites", path: `/faves/${authUserId}` } 
   ];
 
   const unauthenticatedLinks = [
