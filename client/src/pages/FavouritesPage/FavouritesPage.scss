@@ -13,6 +13,11 @@
   margin-left: 2.15rem;
   margin-right: 2.15rem;
 
+  @include large-desktop {
+    margin-top: 1rem;
+    margin-bottom: 19.9rem;
+  }
+
   &__content {
     border: 10px solid $frosted-glass;
     box-shadow: $shadow-septenary;
@@ -156,6 +161,10 @@
     &:hover::before {
       left: 100%;
       transition: left 1s;
+    }
+
+    @include large-desktop {
+      margin-bottom: 2.2rem;
     }
   }
 
