@@ -277,6 +277,15 @@
       box-shadow: 0 .25rem .75rem rgba($neutral-black, .2);
       position: relative;
 
+      @media (max-width: 767px) {
+        width: 90%;
+        height: auto;
+        iframe {
+          width: 100%;
+          height: auto;
+        }
+      }
+
       &-close {
         position: absolute;
         top: .5rem;
@@ -286,9 +295,16 @@
         font-size: 1.25rem;
         cursor: pointer;
         color: $neutral-black;
+        transition: transform .3s ease-in-out;
 
         &:hover {
           color: $primary-dark-blue;
+          transform: scale(1.125);
+        }
+
+        &:active {
+            color: $primary-medium-blue;
+            transform: scale(.9);
         }
       }
     }

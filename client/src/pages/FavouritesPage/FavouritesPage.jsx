@@ -6,6 +6,7 @@ import { faFilm, faTv, faPlus, faChevronDown, faChevronUp, faHeart, faMinus, faP
 import api from '../../services/api';
 import BlobBg from '../../components/BlobBg/BlobBg';
 import Loader from '../../components/Loader/Loader';
+import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
 import './FavouritesPage.scss';
 
 const FavouritesPage = () => {
@@ -17,6 +18,7 @@ const FavouritesPage = () => {
   const [trailerUrl, setTrailerUrl] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [alert, setAlert] = useState(null);
   const { isAuthenticated } = useContext(AuthContext);
 
   useEffect(() => {
@@ -59,9 +61,12 @@ const FavouritesPage = () => {
       if (trailerData && trailerData.trailerUrl) {
         setTrailerUrl(trailerData.trailerUrl);
         setIsModalOpen(true);
+      } else {
+        setAlert({ message: 'Apologies, the trailer was not found.', type: 'error' });
       }
     } catch (error) {
       console.error('Error fetching trailer:', error);
+      setAlert({ message: 'Error fetching trailer.', type: 'error' });
     } finally {
       setIsLoading(false);
     }
@@ -78,6 +83,7 @@ const FavouritesPage = () => {
       <h1 className="faves-page__title">
         Your Favourites <FontAwesomeIcon icon={faHeart} />
       </h1>
+      {alert && <CustomAlerts message={alert.message} type={alert.type} onClose={() => setAlert(null)} />}
       <div className="faves-page__grid">
         {displayedFaves.length > 0 ? (
           displayedFaves.map(fave => (
@@ -114,27 +120,27 @@ const FavouritesPage = () => {
           <FontAwesomeIcon icon={isExpanded ? faMinus : faPlus} /> {isExpanded ? 'Hide Cards' : 'Load More'}
         </button>
       )}
-        {isModalOpen && (
+      {isModalOpen && (
         <div className="faves-page__modal">
-            <div className="faves-page__modal-content">
+          <div className="faves-page__modal-content">
             <button className="faves-page__modal-content-close" onClick={closeModal}>
-                <FontAwesomeIcon icon={faTimes} />
+              <FontAwesomeIcon icon={faTimes} />
             </button>
             {isLoading ? (
-                <Loader />
+              <Loader />
             ) : (
-                <iframe
+              <iframe
                 width="560"
                 height="315"
                 src={trailerUrl}
                 title="YouTube video player"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
-                ></iframe>
+              ></iframe>
             )}
-            </div>
+          </div>
         </div>
-        )}
+      )}
     </div>
   );
 };
