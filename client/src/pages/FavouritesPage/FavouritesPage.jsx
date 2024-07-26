@@ -382,7 +382,7 @@ const FavouritesPage = () => {
                     Description: {fave.overview}
                   </p>
                   <button className="faves-page__more-button" onClick={() => handleShowMore(fave.media_id)}>
-                    <FontAwesomeIcon icon={showFullDescription[fave.media_id] ? faChevronCircleUp : faChevronCircleDown} />
+                    <FontAwesomeIcon icon={showFullDescription[fave.media_id] ? faChevronCircleUp : faChevronCircleDown} className="faves-page__load-descript" />
                   </button>
                 </div>
               ))
