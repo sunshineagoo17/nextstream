@@ -2,7 +2,7 @@ import { useState, useContext, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faClose, faFilm, faTv, faPlus, faPalette, faClapperboard, faUserTie, faMask, faFingerprint, faChevronDown, faChevronCircleDown, faChevronCircleUp, faVideoCamera, faHeart, faMinus, faPlay, faTimes, faCalendarPlus, faSearch, faStar, faChild, faUserSecret, faRedo, faGhost, faLaugh, faRing, faFire, faTheaterMasks, faMagic, faBolt, faRocket, faMap, faGlobe, faTrophy } from '@fortawesome/free-solid-svg-icons';
+import { faClose, faUsersViewfinder, faFaceKissWinkHeart, faChildren, faFilm, faTv, faPlus, faPalette, faHandSpock, faQuidditch, faClapperboard, faMask, faFingerprint, faChevronDown, faChevronCircleDown, faChevronCircleUp, faVideoCamera, faHeart, faMinus, faPlay, faTimes, faCalendarPlus, faSearch, faBomb, faStar, faUserSecret, faRedo, faGhost, faLaugh, faTheaterMasks, faBolt, faMap, faGlobe, faTrophy } from '@fortawesome/free-solid-svg-icons';
 import api from '../../services/api';
 import BlobBg from '../../components/BlobBg/BlobBg';
 import Loader from '../../components/Loader/Loader';
@@ -283,11 +283,11 @@ const FavouritesPage = () => {
             <p className="faves-page__filter-card-title">Top Rated</p>
           </div>
           <div className="faves-page__filter-card" onClick={() => applyFilter('adult')}>
-            <FontAwesomeIcon icon={faUserTie} className="faves-page__filter-icon" />
-            <p className="faves-page__filter-card-title">Adult</p>
+            <FontAwesomeIcon icon={faUsersViewfinder} className="faves-page__filter-icon" />
+            <p className="faves-page__filter-card-title">Broad Audience</p>
           </div>
           <div className="faves-page__filter-card" onClick={() => applyFilter('children')}>
-            <FontAwesomeIcon icon={faChild} className="faves-page__filter-icon" />
+            <FontAwesomeIcon icon={faChildren} className="faves-page__filter-icon" />
             <p className="faves-page__filter-card-title">Family</p>
           </div>
           <div className="faves-page__filter-card" onClick={() => applyFilter('international')}>
@@ -299,7 +299,7 @@ const FavouritesPage = () => {
             <p className="faves-page__filter-card-title">Adventure</p>
           </div>
           <div className="faves-page__filter-card faves-page__hide-filter-card" onClick={() => applyFilter('action')}>
-            <FontAwesomeIcon icon={faFire} className="faves-page__filter-icon" />
+            <FontAwesomeIcon icon={faBomb} className="faves-page__filter-icon" />
             <p className="faves-page__filter-card-title">Action</p>
           </div>
           <div className="faves-page__filter-card faves-page__hide-filter-card" onClick={() => applyFilter('animation')}>
@@ -323,7 +323,7 @@ const FavouritesPage = () => {
             <p className="faves-page__filter-card-title">Drama</p>
           </div>
           <div className="faves-page__filter-card faves-page__hide-filter-card" onClick={() => applyFilter('fantasy')}>
-            <FontAwesomeIcon icon={faMagic} className="faves-page__filter-icon" />
+            <FontAwesomeIcon icon={faQuidditch} className="faves-page__filter-icon" />
             <p className="faves-page__filter-card-title">Fantasy</p>
           </div>
           <div className="faves-page__filter-card faves-page__hide-filter-card" onClick={() => applyFilter('horror')}>
@@ -339,11 +339,11 @@ const FavouritesPage = () => {
             <p className="faves-page__filter-card-title">Reality</p>
           </div>
           <div className="faves-page__filter-card faves-page__hide-filter-card" onClick={() => applyFilter('romance')}>
-            <FontAwesomeIcon icon={faRing} className="faves-page__filter-icon" />
+            <FontAwesomeIcon icon={faFaceKissWinkHeart} className="faves-page__filter-icon" />
             <p className="faves-page__filter-card-title">Romance</p>
           </div>
           <div className="faves-page__filter-card faves-page__hide-filter-card" onClick={() => applyFilter('science-fiction')}>
-            <FontAwesomeIcon icon={faRocket} className="faves-page__filter-icon" />
+            <FontAwesomeIcon icon={faHandSpock} className="faves-page__filter-icon" />
             <p className="faves-page__filter-card-title">Science Fiction</p>
           </div>
           <div className="faves-page__filter-card faves-page__hide-filter-card" onClick={() => applyFilter('thriller')}>
