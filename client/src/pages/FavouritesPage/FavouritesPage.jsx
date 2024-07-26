@@ -271,82 +271,102 @@ const FavouritesPage = () => {
         </div>
         <div className="faves-page__filters">
           <div className="faves-page__filter-card" onClick={() => applyFilter('popular')}>
+            <div className="faves-page__filter-label faves-page__label-featured">Featured</div>
             <FontAwesomeIcon icon={faStar} className="faves-page__filter-icon" />
             <p className="faves-page__filter-card-title">Popular</p>
           </div>
           <div className="faves-page__filter-card" onClick={() => applyFilter('new')}>
+            <div className="faves-page__filter-label faves-page__label-featured">Featured</div>
             <FontAwesomeIcon icon={faBolt} className="faves-page__filter-icon" />
             <p className="faves-page__filter-card-title">New</p>
           </div>
           <div className="faves-page__filter-card" onClick={() => applyFilter('top-rated')}>
+            <div className="faves-page__filter-label faves-page__label-featured">Featured</div>
             <FontAwesomeIcon icon={faTrophy} className="faves-page__filter-icon" />
             <p className="faves-page__filter-card-title">Top Rated</p>
           </div>
           <div className="faves-page__filter-card" onClick={() => applyFilter('adult')}>
+            <div className="faves-page__filter-label faves-page__label-audiences">Audiences</div>
             <FontAwesomeIcon icon={faUsersViewfinder} className="faves-page__filter-icon" />
             <p className="faves-page__filter-card-title">Broad Audience</p>
           </div>
           <div className="faves-page__filter-card" onClick={() => applyFilter('children')}>
+            <div className="faves-page__filter-label faves-page__label-audiences">Audiences</div>
             <FontAwesomeIcon icon={faChildren} className="faves-page__filter-icon" />
             <p className="faves-page__filter-card-title">Family</p>
           </div>
           <div className="faves-page__filter-card" onClick={() => applyFilter('international')}>
+            <div className="faves-page__filter-label faves-page__label-cultural">Cultural</div>
             <FontAwesomeIcon icon={faGlobe} className="faves-page__filter-icon" />
             <p className="faves-page__filter-card-title">International</p>
           </div>
           <div className="faves-page__filter-card faves-page__hide-filter-card" onClick={() => applyFilter('adventure')}>
+            <div className="faves-page__filter-label faves-page__label-genres">Genres</div>
             <FontAwesomeIcon icon={faMap} className="faves-page__filter-icon" />
             <p className="faves-page__filter-card-title">Adventure</p>
           </div>
           <div className="faves-page__filter-card faves-page__hide-filter-card" onClick={() => applyFilter('action')}>
+            <div className="faves-page__filter-label faves-page__label-genres">Genres</div>
             <FontAwesomeIcon icon={faBomb} className="faves-page__filter-icon" />
             <p className="faves-page__filter-card-title">Action</p>
           </div>
           <div className="faves-page__filter-card faves-page__hide-filter-card" onClick={() => applyFilter('animation')}>
+            <div className="faves-page__filter-label faves-page__label-genres">Genres</div>
             <FontAwesomeIcon icon={faPalette} className="faves-page__filter-icon" />
             <p className="faves-page__filter-card-title">Animation</p>
           </div>
           <div className="faves-page__filter-card faves-page__hide-filter-card" onClick={() => applyFilter('comedy')}>
+            <div className="faves-page__filter-label faves-page__label-genres">Genres</div>
             <FontAwesomeIcon icon={faLaugh} className="faves-page__filter-icon" />
             <p className="faves-page__filter-card-title">Comedy</p>
           </div>
           <div className="faves-page__filter-card faves-page__hide-filter-card" onClick={() => applyFilter('crime')}>
+            <div className="faves-page__filter-label faves-page__label-genres">Genres</div>
             <FontAwesomeIcon icon={faFingerprint} className="faves-page__filter-icon" />
             <p className="faves-page__filter-card-title">Crime</p>
           </div>
           <div className="faves-page__filter-card faves-page__hide-filter-card" onClick={() => applyFilter('documentary')}>
+            <div className="faves-page__filter-label faves-page__label-genres">Genres</div>
             <FontAwesomeIcon icon={faClapperboard} className="faves-page__filter-icon" />
             <p className="faves-page__filter-card-title">Documentary</p>
           </div>
           <div className="faves-page__filter-card faves-page__hide-filter-card" onClick={() => applyFilter('drama')}>
+            <div className="faves-page__filter-label faves-page__label-genres">Genres</div>
             <FontAwesomeIcon icon={faTheaterMasks} className="faves-page__filter-icon" />
             <p className="faves-page__filter-card-title">Drama</p>
           </div>
           <div className="faves-page__filter-card faves-page__hide-filter-card" onClick={() => applyFilter('fantasy')}>
+            <div className="faves-page__filter-label faves-page__label-genres">Genres</div>
             <FontAwesomeIcon icon={faQuidditch} className="faves-page__filter-icon" />
             <p className="faves-page__filter-card-title">Fantasy</p>
           </div>
           <div className="faves-page__filter-card faves-page__hide-filter-card" onClick={() => applyFilter('horror')}>
+            <div className="faves-page__filter-label faves-page__label-genres">Genres</div>
             <FontAwesomeIcon icon={faGhost} className="faves-page__filter-icon" />
             <p className="faves-page__filter-card-title">Horror</p>
           </div>
           <div className="faves-page__filter-card faves-page__hide-filter-card" onClick={() => applyFilter('mystery')}>
+            <div className="faves-page__filter-label faves-page__label-genres">Genres</div>
             <FontAwesomeIcon icon={faUserSecret} className="faves-page__filter-icon" />
             <p className="faves-page__filter-card-title">Mystery</p>
           </div>
           <div className="faves-page__filter-card faves-page__hide-filter-card" onClick={() => applyFilter('reality')}>
+            <div className="faves-page__filter-label faves-page__label-genres">Genres</div>
             <FontAwesomeIcon icon={faVideoCamera} className="faves-page__filter-icon" />
             <p className="faves-page__filter-card-title">Reality</p>
           </div>
           <div className="faves-page__filter-card faves-page__hide-filter-card" onClick={() => applyFilter('romance')}>
+            <div className="faves-page__filter-label faves-page__label-genres">Genres</div>
             <FontAwesomeIcon icon={faFaceKissWinkHeart} className="faves-page__filter-icon" />
             <p className="faves-page__filter-card-title">Romance</p>
           </div>
           <div className="faves-page__filter-card faves-page__hide-filter-card" onClick={() => applyFilter('science-fiction')}>
+            <div className="faves-page__filter-label faves-page__label-genres">Genres</div>
             <FontAwesomeIcon icon={faHandSpock} className="faves-page__filter-icon" />
             <p className="faves-page__filter-card-title">Science Fiction</p>
           </div>
           <div className="faves-page__filter-card faves-page__hide-filter-card" onClick={() => applyFilter('thriller')}>
+            <div className="faves-page__filter-label faves-page__label-genres">Genres</div>
             <FontAwesomeIcon icon={faMask} className="faves-page__filter-icon" />
             <p className="faves-page__filter-card-title">Thriller</p>
           </div>
