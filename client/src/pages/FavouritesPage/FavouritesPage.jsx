@@ -398,7 +398,7 @@ const FavouritesPage = () => {
             </button>
           )}
           <button className="faves-page__refresh" onClick={clearSearchQuery}>
-            <FontAwesomeIcon icon={faRedo} /> Refresh
+            <FontAwesomeIcon icon={faRedo} /> Reset View
           </button>
           <button className="faves-page__fetch-more" onClick={fetchMoreMedia}>
             <FontAwesomeIcon icon={faChevronDown} /> Fetch Faves
