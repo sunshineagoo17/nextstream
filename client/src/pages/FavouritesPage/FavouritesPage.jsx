@@ -2,7 +2,7 @@ import { useState, useContext, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faClose, faFilm, faTv, faPlus, faPalette, faClapperboard, faUserTie, faMask, faFingerprint, faChevronDown, faChevronCircleDown, faChevronCircleUp, faVideoCamera, faHeart, faMinus, faPlay, faTimes, faCalendarPlus, faSearch, faStar, faChild, faUserSecret, faRedo, faGhost, faLaugh, faHeart as faRomance, faFire, faTheaterMasks, faMagic, faBolt, faRocket, faMap, faGlobe, faTrophy } from '@fortawesome/free-solid-svg-icons';
+import { faClose, faFilm, faTv, faPlus, faPalette, faClapperboard, faUserTie, faMask, faFingerprint, faChevronDown, faChevronCircleDown, faChevronCircleUp, faVideoCamera, faHeart, faMinus, faPlay, faTimes, faCalendarPlus, faSearch, faStar, faChild, faUserSecret, faRedo, faGhost, faLaugh, faRing, faFire, faTheaterMasks, faMagic, faBolt, faRocket, faMap, faGlobe, faTrophy } from '@fortawesome/free-solid-svg-icons';
 import api from '../../services/api';
 import BlobBg from '../../components/BlobBg/BlobBg';
 import Loader from '../../components/Loader/Loader';
@@ -339,7 +339,7 @@ const FavouritesPage = () => {
             <p className="faves-page__filter-card-title">Reality</p>
           </div>
           <div className="faves-page__filter-card" onClick={() => applyFilter('romance')}>
-            <FontAwesomeIcon icon={faRomance} className="faves-page__filter-icon" />
+            <FontAwesomeIcon icon={faRing} className="faves-page__filter-icon" />
             <p className="faves-page__filter-card-title">Romance</p>
           </div>
           <div className="faves-page__filter-card" onClick={() => applyFilter('science-fiction')}>
