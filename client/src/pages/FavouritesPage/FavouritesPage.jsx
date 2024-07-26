@@ -240,7 +240,7 @@ const FavouritesPage = () => {
       const newFaves = response.data;
       setFaves(prevFaves => [...prevFaves, ...newFaves]);
       setFilteredFaves(prevFaves => [...prevFaves, ...newFaves]);
-      setPage(page + 1); // Increment the page number
+      setPage(page + 1); 
     } catch (error) {
       console.error('Error fetching more media:', error);
       setAlert({ message: 'Error fetching more media. Please try again later.', type: 'error' });

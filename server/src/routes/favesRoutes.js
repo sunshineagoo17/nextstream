@@ -59,12 +59,11 @@ router.get('/:userId/faves', async (req, res) => {
       return res.status(400).json({ error: 'User ID is required' });
     }
 
-    // Fetch interactions with 'like' status (assuming interaction value for likes is 1)
+    // Fetch interactions with 'like' status 
     const query = db('interactions')
       .where({ userId, interaction: 1 })
       .select('media_id', 'media_type');
 
-    // Apply pagination
     const faves = await query.offset((page - 1) * limit).limit(limit);
 
     // Fetch details for the liked media items
@@ -76,7 +75,6 @@ router.get('/:userId/faves', async (req, res) => {
     // Filter out any null results
     let filteredMediaDetails = mediaDetails.filter(detail => detail !== null);
 
-    // Apply additional filters if provided
     if (filter) {
       switch (filter) {
         case 'popular':
@@ -107,7 +105,6 @@ router.get('/:userId/faves', async (req, res) => {
       }
     }
 
-    // Apply search filter if provided
     if (search) {
       filteredMediaDetails = filteredMediaDetails.filter(detail =>
         detail.title.toLowerCase().includes(search.toLowerCase()) ||
