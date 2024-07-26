@@ -16,14 +16,18 @@ const getMediaDetails = async (media_id, media_type) => {
   try {
     const url = `${TMDB_BASE_URL}/${media_type}/${media_id}?api_key=${TMDB_API_KEY}&language=en-US`;
     const response = await axios.get(url);
-    const { title, name, overview, poster_path, genres } = response.data;
+    const { title, name, overview, poster_path, genres, popularity, release_date, vote_average, origin_country } = response.data;
     return {
       media_id,
       title: title || name,
       overview,
       poster_path,
       genres: genres.map(genre => genre.name),
-      media_type
+      media_type,
+      popularity,
+      release_date,
+      vote_average,
+      origin_country
     };
   } catch (error) {
     console.error(`Error fetching details for ${media_type} ${media_id}:`, error);
@@ -44,21 +48,24 @@ const getMediaTrailer = async (media_id, media_type) => {
   }
 };
 
-// Fetch user's favorite interactions
+// Fetch user's favorite interactions with pagination and search
 router.get('/:userId/faves', async (req, res) => {
   try {
     const { userId } = req.params;
-    
+    const { page = 1, limit = 10, search = '', filter = '' } = req.query;
+
     // Validate userId
     if (!userId) {
       return res.status(400).json({ error: 'User ID is required' });
     }
 
-    // Fetch the first 10 interactions with 'like' status (assuming interaction value for likes is 1)
-    const faves = await db('interactions')
+    // Fetch interactions with 'like' status (assuming interaction value for likes is 1)
+    const query = db('interactions')
       .where({ userId, interaction: 1 })
-      .limit(10) // Limit to first 10
-      .select('media_id', 'media_type'); // Select relevant fields
+      .select('media_id', 'media_type');
+
+    // Apply pagination
+    const faves = await query.offset((page - 1) * limit).limit(limit);
 
     // Fetch details for the liked media items
     const mediaDetails = await Promise.all(faves.map(async (fave) => {
@@ -67,9 +74,50 @@ router.get('/:userId/faves', async (req, res) => {
     }));
 
     // Filter out any null results
-    const filteredMediaDetails = mediaDetails.filter(detail => detail !== null);
+    let filteredMediaDetails = mediaDetails.filter(detail => detail !== null);
 
-    res.json(filteredMediaDetails);
+    // Apply additional filters if provided
+    if (filter) {
+      switch (filter) {
+        case 'popular':
+          filteredMediaDetails = filteredMediaDetails.sort((a, b) => b.popularity - a.popularity);
+          break;
+        case 'new':
+          const currentYear = new Date().getFullYear();
+          filteredMediaDetails = filteredMediaDetails.filter(detail => new Date(detail.release_date).getFullYear() === currentYear);
+          break;
+        case 'top-rated':
+          filteredMediaDetails = filteredMediaDetails.sort((a, b) => b.vote_average - a.vote_average);
+          break;
+        case 'children':
+          filteredMediaDetails = filteredMediaDetails.filter(detail => detail.genres.includes('Family') || detail.genres.includes('Animation'));
+          break;
+        case 'adult':
+          filteredMediaDetails = filteredMediaDetails.filter(detail => !detail.genres.includes('Family'));
+          break;
+        case 'international':
+          filteredMediaDetails = filteredMediaDetails.filter(detail => detail.origin_country && detail.origin_country.length > 0 && !detail.origin_country.includes('US') && !detail.origin_country.includes('CA'));
+          break;
+        case 'science-fiction':
+          filteredMediaDetails = filteredMediaDetails.filter(detail => detail.genres.includes('Science Fiction'));
+          break;
+        default:
+          filteredMediaDetails = filteredMediaDetails.filter(detail => detail.genres.includes(filter.charAt(0).toUpperCase() + filter.slice(1)));
+          break;
+      }
+    }
+
+    // Apply search filter if provided
+    if (search) {
+      filteredMediaDetails = filteredMediaDetails.filter(detail =>
+        detail.title.toLowerCase().includes(search.toLowerCase()) ||
+        detail.overview.toLowerCase().includes(search.toLowerCase()) ||
+        detail.genres.some(genre => genre.toLowerCase().includes(search.toLowerCase())) ||
+        detail.media_type.toLowerCase().includes(search.toLowerCase())
+      );
+    }
+
+    res.json(filteredMediaDetails.slice((page - 1) * limit, page * limit));
   } catch (error) {
     console.error('Error fetching favorite movies/shows:', error);
     res.status(500).json({ error: 'Error fetching favorite movies/shows' });
