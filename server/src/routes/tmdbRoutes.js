@@ -10,7 +10,6 @@ const cache = new NodeCache({ stdTTL: 3600 });
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
 const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
 
-// Streaming providers to filter by
 const STREAMING_PROVIDERS = [
   'Amazon Prime Video',
   'Apple TV Plus',
@@ -45,41 +44,45 @@ const getWatchProviders = async (mediaType, mediaId) => {
   }
 };
 
-// Function to fetch and cache popular movies and shows
+// Function to fetch popular movies and shows, handling pagination
 const fetchPopularReleases = async () => {
   try {
     console.log('Fetching popular releases...');
     
-    const [moviesResponse, showsResponse] = await Promise.all([
-      axios.get(`${TMDB_BASE_URL}/movie/popular`, {
-        params: {
-          api_key: TMDB_API_KEY,
-          language: 'en-US',
-          region: 'CA',
-          page: 1
-        }
-      }),
-      axios.get(`${TMDB_BASE_URL}/tv/popular`, {
-        params: {
-          api_key: TMDB_API_KEY,
-          language: 'en-US',
-          region: 'CA',
-          page: 1
-        }
-      })
-    ]);
+    const fetchAllPages = async (mediaType) => {
+      let results = [];
+      let page = 1;
+      let totalPages = 1;
 
-    if (!moviesResponse.data || !showsResponse.data) {
-      throw new Error('Failed to fetch data from TMDB');
-    }
+      while (results.length < 50 && page <= totalPages) {  // Fetch up to 50 items for more extensive filtering
+        const response = await axios.get(`${TMDB_BASE_URL}/${mediaType}/popular`, {
+          params: {
+            api_key: TMDB_API_KEY,
+            language: 'en-US',
+            region: 'CA',
+            page: page
+          }
+        });
 
-    const movies = moviesResponse.data.results;
-    const shows = showsResponse.data.results;
+        if (response.data) {
+          totalPages = response.data.total_pages;
+          results = results.concat(response.data.results);
+          page++;
+        }
+      }
+
+      return results;
+    };
+
+    const movies = await fetchAllPages('movie');
+    const shows = await fetchAllPages('tv');
+
+    console.log('Total shows fetched:', shows.length);
 
     let streamingMovies = [];
     let streamingShows = [];
 
-    // Filter movies
+    // Filter movies by streaming providers
     for (const movie of movies) {
       const providers = await getWatchProviders('movie', movie.id);
       if (providers.some(provider => STREAMING_PROVIDERS.includes(provider.provider_name))) {
@@ -87,27 +90,31 @@ const fetchPopularReleases = async () => {
       }
     }
 
-    // Filter shows for popular English shows
+    // Include all English-language shows without filtering by streaming providers
     for (const show of shows) {
       if (show.original_language === 'en') {
-        const providers = await getWatchProviders('tv', show.id);
-        if (providers.some(provider => STREAMING_PROVIDERS.includes(provider.provider_name))) {
-          streamingShows.push({ ...show, media_type: 'tv', providers });
-        }
+        streamingShows.push({ ...show, media_type: 'tv' });
       }
     }
 
-    // Ensure at least 3 movies and 3 shows are selected
-    streamingMovies = streamingMovies.slice(0, 3);
-    streamingShows = streamingShows.slice(0, 3);
+    console.log('Shows after filtering by language only:', streamingShows.length);
 
-    // If there aren't enough movies or shows, backfill without filtering providers
-    if (streamingMovies.length < 3) {
-      streamingMovies = movies.slice(0, 3).map(movie => ({ ...movie, media_type: 'movie', providers: [] }));
+    // Ensure at least 6 movies and 6 shows are selected
+    streamingMovies = streamingMovies.slice(0, 6);
+    streamingShows = streamingShows.slice(0, 6);
+
+    // If there aren't enough movies, backfill without filtering providers
+    if (streamingMovies.length < 6) {
+      streamingMovies = streamingMovies.concat(
+        movies.filter(movie => !streamingMovies.some(m => m.id === movie.id)).slice(0, 6 - streamingMovies.length).map(movie => ({ ...movie, media_type: 'movie', providers: [] }))
+      );
     }
 
-    if (streamingShows.length < 3) {
-      streamingShows = shows.filter(show => show.original_language === 'en').slice(0, 3).map(show => ({ ...show, media_type: 'tv', providers: [] }));
+    // If there aren't enough shows, backfill without filtering providers
+    if (streamingShows.length < 6) {
+      streamingShows = streamingShows.concat(
+        shows.filter(show => show.original_language === 'en' && !streamingShows.some(s => s.id === show.id)).slice(0, 6 - streamingShows.length).map(show => ({ ...show, media_type: 'tv' }))
+      );
     }
 
     const popularReleases = [...streamingMovies, ...streamingShows].map(item => ({
@@ -116,7 +123,6 @@ const fetchPopularReleases = async () => {
       poster_path: item.poster_path,
       media_type: item.media_type,
       url: `https://www.themoviedb.org/${item.media_type}/${item.id}`,
-      providers: item.providers.map(provider => provider.provider_name)
     }));
 
     if (popularReleases.length > 0) {
@@ -126,6 +132,7 @@ const fetchPopularReleases = async () => {
     } else {
       console.warn('No valid popular releases found to cache.');
     }
+
   } catch (error) {
     console.error('Error fetching popular releases:', error.message);
   }
