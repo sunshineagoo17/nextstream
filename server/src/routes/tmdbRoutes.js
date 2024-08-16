@@ -40,7 +40,7 @@ const getWatchProviders = async (mediaType, mediaId) => {
     const response = await axios.get(url);
     return response.data.results?.CA?.flatrate || [];
   } catch (error) {
-    console.error(`Error fetching watch providers for ${mediaType} ${mediaId}:`, error);
+    console.error(`Error fetching watch providers for ${mediaType} ${mediaId}:`, error.message);
     return [];
   }
 };
@@ -48,29 +48,36 @@ const getWatchProviders = async (mediaType, mediaId) => {
 // Function to fetch and cache popular movies and shows
 const fetchPopularReleases = async () => {
   try {
-    const moviesResponse = await axios.get(`${TMDB_BASE_URL}/movie/popular`, {
-      params: {
-        api_key: TMDB_API_KEY,
-        language: 'en-US',
-        region: 'CA',
-        page: 1
-      }
-    });
+    console.log('Fetching popular releases...');
+    
+    const [moviesResponse, showsResponse] = await Promise.all([
+      axios.get(`${TMDB_BASE_URL}/movie/popular`, {
+        params: {
+          api_key: TMDB_API_KEY,
+          language: 'en-US',
+          region: 'CA',
+          page: 1
+        }
+      }),
+      axios.get(`${TMDB_BASE_URL}/tv/popular`, {
+        params: {
+          api_key: TMDB_API_KEY,
+          language: 'en-US',
+          region: 'CA',
+          page: 1
+        }
+      })
+    ]);
 
-    const showsResponse = await axios.get(`${TMDB_BASE_URL}/tv/popular`, {
-      params: {
-        api_key: TMDB_API_KEY,
-        language: 'en-US',
-        region: 'CA',
-        page: 1
-      }
-    });
+    if (!moviesResponse.data || !showsResponse.data) {
+      throw new Error('Failed to fetch data from TMDB');
+    }
 
     const movies = moviesResponse.data.results;
     const shows = showsResponse.data.results;
 
-    const streamingMovies = [];
-    const streamingShows = [];
+    let streamingMovies = [];
+    let streamingShows = [];
 
     // Filter movies
     for (const movie of movies) {
@@ -78,33 +85,29 @@ const fetchPopularReleases = async () => {
       if (providers.some(provider => STREAMING_PROVIDERS.includes(provider.provider_name))) {
         streamingMovies.push({ ...movie, media_type: 'movie', providers });
       }
-      if (streamingMovies.length === 3) break; // Stop once we have 3 movies
     }
 
-    // Filter shows
+    // Filter shows for popular English shows
     for (const show of shows) {
-      const providers = await getWatchProviders('tv', show.id);
-      if (providers.some(provider => STREAMING_PROVIDERS.includes(provider.provider_name))) {
-        streamingShows.push({ ...show, media_type: 'tv', providers });
-      }
-      if (streamingShows.length === 3) break; // Stop once we have 3 shows
-    }
-
-    // Ensure we have 3 movies and 3 shows
-    while (streamingMovies.length < 3 && movies.length > streamingMovies.length) {
-      const movie = movies[streamingMovies.length];
-      const providers = await getWatchProviders('movie', movie.id);
-      if (providers.some(provider => STREAMING_PROVIDERS.includes(provider.provider_name))) {
-        streamingMovies.push({ ...movie, media_type: 'movie', providers });
+      if (show.original_language === 'en') {
+        const providers = await getWatchProviders('tv', show.id);
+        if (providers.some(provider => STREAMING_PROVIDERS.includes(provider.provider_name))) {
+          streamingShows.push({ ...show, media_type: 'tv', providers });
+        }
       }
     }
 
-    while (streamingShows.length < 3 && shows.length > streamingShows.length) {
-      const show = shows[streamingShows.length];
-      const providers = await getWatchProviders('tv', show.id);
-      if (providers.some(provider => STREAMING_PROVIDERS.includes(provider.provider_name))) {
-        streamingShows.push({ ...show, media_type: 'tv', providers });
-      }
+    // Ensure at least 3 movies and 3 shows are selected
+    streamingMovies = streamingMovies.slice(0, 3);
+    streamingShows = streamingShows.slice(0, 3);
+
+    // If there aren't enough movies or shows, backfill without filtering providers
+    if (streamingMovies.length < 3) {
+      streamingMovies = movies.slice(0, 3).map(movie => ({ ...movie, media_type: 'movie', providers: [] }));
+    }
+
+    if (streamingShows.length < 3) {
+      streamingShows = shows.filter(show => show.original_language === 'en').slice(0, 3).map(show => ({ ...show, media_type: 'tv', providers: [] }));
     }
 
     const popularReleases = [...streamingMovies, ...streamingShows].map(item => ({
@@ -116,10 +119,15 @@ const fetchPopularReleases = async () => {
       providers: item.providers.map(provider => provider.provider_name)
     }));
 
-    // Cache the results
-    cache.set('popularReleases', popularReleases);
+    if (popularReleases.length > 0) {
+      // Cache the results
+      cache.set('popularReleases', popularReleases);
+      console.log('Popular releases cached successfully.');
+    } else {
+      console.warn('No valid popular releases found to cache.');
+    }
   } catch (error) {
-    console.error('Error fetching popular releases:', error);
+    console.error('Error fetching popular releases:', error.message);
   }
 };
 
@@ -130,10 +138,10 @@ cron.schedule('0 * * * *', fetchPopularReleases);
 fetchPopularReleases();
 
 // Endpoint to get the popular movies and shows
-router.get('/popular', async (req, res) => {
+router.get('/popular', (req, res) => {
   const popularReleases = cache.get('popularReleases');
 
-  if (popularReleases) {
+  if (popularReleases && popularReleases.length > 0) {
     res.json({ results: popularReleases });
   } else {
     res.status(500).json({ message: 'Popular releases not available at the moment. Please try again later.' });
@@ -151,12 +159,11 @@ router.get('/search', async (req, res) => {
       },
     });
     
-    // Filter results to include only movies and TV shows
     const filteredResults = response.data.results.filter(result => result.media_type === 'movie' || result.media_type === 'tv');
 
     res.json({ results: filteredResults });
   } catch (error) {
-    console.error('Error fetching search results:', error);
+    console.error('Error fetching search results:', error.message);
     res.status(500).json({ message: 'Error fetching search results' });
   }
 });
@@ -168,7 +175,7 @@ router.get('/image/:posterPath', async (req, res) => {
     const imageUrl = `https://image.tmdb.org/t/p/w500${posterPath}`;
     res.json({ url: imageUrl });
   } catch (error) {
-    console.error('Error fetching image URL:', error);
+    console.error('Error fetching image URL:', error.message);
     res.status(500).json({ message: 'Error fetching image URL' });
   }
 });
@@ -180,7 +187,7 @@ router.get('/:mediaType/:mediaId/watch/providers', async (req, res) => {
     const providers = await getWatchProviders(mediaType, mediaId);
     res.json(providers);
   } catch (error) {
-    console.error(`Error handling watch providers request for ${mediaType} ${mediaId}:`, error);
+    console.error(`Error handling watch providers request for ${mediaType} ${mediaId}:`, error.message);
     res.status(500).json({ message: 'Error fetching watch providers' });
   }
 });
@@ -196,7 +203,7 @@ router.get('/movie/:id', async (req, res) => {
     });
     res.json(response.data);
   } catch (error) {
-    console.error(`Error fetching movie details for ${id}:`, error);
+    console.error(`Error fetching movie details for ${id}:`, error.message);
     res.status(500).json({ message: 'Error fetching movie details' });
   }
 });
@@ -212,7 +219,7 @@ router.get('/tv/:id', async (req, res) => {
     });
     res.json(response.data);
   } catch (error) {
-    console.error(`Error fetching TV show details for ${id}:`, error);
+    console.error(`Error fetching TV show details for ${id}:`, error.message);
     res.status(500).json({ message: 'Error fetching TV show details' });
   }
 });
