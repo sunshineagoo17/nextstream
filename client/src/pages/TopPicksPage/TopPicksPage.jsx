@@ -59,7 +59,8 @@ const TopPicksPage = () => {
       try {
         setIsLoading(true);
 
-        const response = await api.get(`/api/interactions/recommendations/${userId}`);
+        // Fetch top picks from the new endpoint
+        const response = await api.get(`/api/interactions/toppicks/${userId}`);
         console.log('Initial API Response:', response.data);
 
         const { topPicks } = response.data;
@@ -124,6 +125,7 @@ const TopPicksPage = () => {
       setIsLoading(true);
       setNoMoreMedia(false);
 
+      // Fetch recommendations from the new endpoint
       const response = await api.get(`/api/interactions/recommendations/${userId}`);
       console.log('API Response:', response.data);
 
