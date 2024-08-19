@@ -43,7 +43,7 @@ const FavouritesPage = () => {
         const response = await api.get(`/api/faves/${userId}/faves`, {
           params: {
             page,
-            limit: 10,
+            limit: 12,
             search: searchQuery,
             filter,
           }
@@ -232,7 +232,7 @@ const FavouritesPage = () => {
       const response = await api.get(`/api/faves/${userId}/faves`, {
         params: {
           page: page + 1,
-          limit: 10,
+          limit: 12,
           search: searchQuery,
           filter,
         }
