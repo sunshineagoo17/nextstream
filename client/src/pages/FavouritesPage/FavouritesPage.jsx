@@ -191,6 +191,7 @@ const FavouritesPage = () => {
       );
       setFilteredFaves(filtered);
       setDisplayedFaves(filtered.slice(0, 4));
+      setIsExpanded(false);  
     } catch (error) {
       console.error('Error searching:', error);
       setAlert({ message: 'Error during search. Please try again later.', type: 'error' });
@@ -220,11 +221,13 @@ const FavouritesPage = () => {
     setFilter('');
     setFilteredFaves(faves);
     setDisplayedFaves(faves.slice(0, 4));
+    setIsExpanded(false); 
   };
 
   const applyFilter = (filterType) => {
     setFilter(filterType);
     setPage(1);
+    setIsExpanded(false);  
   };
 
   const fetchMoreMedia = async () => {
@@ -240,7 +243,8 @@ const FavouritesPage = () => {
       const newFaves = response.data;
       setFaves(prevFaves => [...prevFaves, ...newFaves]);
       setFilteredFaves(prevFaves => [...prevFaves, ...newFaves]);
-      setPage(page + 1); 
+      setPage(page + 1);
+      setIsExpanded(false);  
     } catch (error) {
       console.error('Error fetching more media:', error);
       setAlert({ message: 'Error fetching more media. Please try again later.', type: 'error' });
