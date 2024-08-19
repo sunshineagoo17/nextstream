@@ -564,7 +564,7 @@
     margin-bottom: .3125rem;
   }
 
-  &__load-more {
+  &__show-more {
     margin-top: 1rem;
     background: linear-gradient(45deg, $primary-light-blue, $primary-pale-blue);
     color: $primary-dark-blue;
@@ -582,15 +582,14 @@
 
     &:hover {
       transform: scale(1.05);
-      background: linear-gradient(45deg, $primary-medium-blue, $primary-button-blue);
-      color: $neutral-white;
+      background: linear-gradient(45deg, $neutral-white, $primary-very-light-blue);
       box-shadow: 0 .375rem .5rem rgba($neutral-black, .15);
       font-weight: normal;
       margin-left: .5rem;
     }
 
     &:active {
-      background: linear-gradient(45deg, $primary-light-blue, $base-darker-blue);
+       background: linear-gradient(45deg, $primary-medium-blue, $primary-button-blue);
       color: $primary-pale-blue;
       transform: scale(.95);
       box-shadow: 0 .125rem .25rem rgba($neutral-black, .2);
@@ -606,10 +605,10 @@
     }
   }
 
-  &__refresh {
+  &__reset {
     margin-top: 1rem;
-    background: linear-gradient(45deg, $primary-medium-blue, $primary-button-blue);
-    color: $primary-pale-blue;
+    background: linear-gradient(45deg, $frosted-glass, $neutral-white);
+    color: $primary-dark-blue;
     box-shadow: 0 .375rem .5rem rgba($neutral-black, .15);
     border: .1875rem solid $frosted-glass;
     border-radius: .5rem;
@@ -626,16 +625,16 @@
 
     &:hover {
       transform: scale(1.05);
-      background: linear-gradient(45deg, $primary-light-blue, $base-darker-blue);
+      background: linear-gradient(60deg, $neutral-white, $primary-very-light-blue);
       box-shadow: 0 .125rem .25rem rgba($neutral-black, .2);
-      color: $primary-pale-blue;
+      color: $primary-dark-blue;
       font-weight: normal;
     }
 
     &:active {
-      background: linear-gradient(45deg, $primary-light-blue, $primary-pale-blue);
-      color: $primary-dark-blue;
-      box-shadow: 0 .25rem .375rem rgba($neutral-black, .1);
+      background: linear-gradient(45deg, $primary-medium-blue, $primary-button-blue);
+      color: $neutral-white;
+      box-shadow: 0 .375rem .5rem rgba($neutral-black, .15);
       transform: scale(.95);
     }
 
@@ -649,10 +648,10 @@
     }
   }
 
-  &__fetch-more {
+  &__fetch-faves {
     margin-top: 1rem;
-    background: linear-gradient(45deg, $primary-light-blue, $base-darker-blue);
-    color: $neutral-white;
+    background: linear-gradient(45deg, $primary-pale-blue, $primary-light-blue);
+    color: $primary-dark-blue;
     box-shadow: 0 .125rem .25rem rgba($neutral-black, .2); 
     border: .1875rem solid $frosted-glass;
     border-radius: .5rem;
@@ -669,7 +668,7 @@
     &:hover {
       transform: scale(1.05);
       font-weight: normal;
-      background: linear-gradient(45deg, $primary-light-blue, $primary-pale-blue);
+      background: linear-gradient(45deg, $neutral-white, $primary-very-light-blue);
       color: $primary-dark-blue;
       box-shadow: 0 .25rem .375rem rgba($neutral-black, .1);
     }

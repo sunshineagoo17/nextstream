@@ -413,14 +413,14 @@ const FavouritesPage = () => {
         )}
         <div className="faves-page__action-buttons">
           {filteredFaves.length > 4 && (
-            <button className="faves-page__load-more" onClick={toggleFaves}>
+            <button className="faves-page__show-more" onClick={toggleFaves}>
               <FontAwesomeIcon icon={isExpanded ? faMinus : faPlus} /> {isExpanded ? 'Hide Cards' : 'Show More'}
             </button>
           )}
-          <button className="faves-page__refresh" onClick={clearSearchQuery}>
+          <button className="faves-page__reset" onClick={clearSearchQuery}>
             <FontAwesomeIcon icon={faRedo} /> Reset View
           </button>
-          <button className="faves-page__fetch-more" onClick={fetchMoreMedia}>
+          <button className="faves-page__fetch-faves" onClick={fetchMoreMedia}>
             <FontAwesomeIcon icon={faChevronDown} /> Fetch Faves
           </button>
         </div>
