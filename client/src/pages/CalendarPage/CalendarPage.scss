@@ -196,7 +196,7 @@
   &__hero-text {
     position: relative;
     z-index: 3;
-    background: $primary-dark-blue-gradient;
+    background: $primary-darker-blue-gradient;
     padding: 1.25rem;
     border-radius: 1rem;
     box-shadow: $shadow-senary;
@@ -246,8 +246,11 @@
     text-shadow: $shadow-primary;
     justify-content: center;
     align-items: center;
-    box-shadow: $shadow-quaternary;
+    box-shadow: $shadow-quinary;
+    background: $primary-darker-blue-overlay;
     border-radius: .5rem;
+    border: 3px solid $primary-light-blue;
+    padding: 0.5rem 1rem;
 
     @include tablet {
       font-size: 2.5rem;
