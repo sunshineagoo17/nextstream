@@ -172,7 +172,7 @@ router.get('/recommendations/:userId', async (req, res) => {
         const details = await getMediaDetails(media.media_id, media.media_type);
         if (details) {
           const similarMedia = await axios.get(`${TMDB_BASE_URL}/${media.media_type}/${media.media_id}/similar`, {
-            params: { api_key: TMDB_API_KEY }
+            params: { api_key: TMDB_API_KEY, language: 'en-US' }
           });
           const similarItems = similarMedia.data.results.map(item => ({
             ...item,
