@@ -193,7 +193,18 @@ const FavouritesPage = () => {
           limit: 1000,
         },
       });
-      const filtered = response.data;
+  
+      // Filter by title, genre, or media type
+      const filtered = response.data.filter((item) => {
+        const titleMatch = item.title.toLowerCase().includes(lowerCaseQuery);
+        const genreMatch = item.genres.some((genre) =>
+          genre.toLowerCase().includes(lowerCaseQuery)
+        );
+        const mediaTypeMatch = item.media_type.toLowerCase().includes(lowerCaseQuery);
+  
+        return titleMatch || genreMatch || mediaTypeMatch;
+      });
+  
       setFaves(filtered);
       setFilteredFaves(filtered);
       setDisplayedFaves(filtered.slice(0, 4));
@@ -204,7 +215,7 @@ const FavouritesPage = () => {
     } finally {
       setIsSearching(false);
     }
-  };
+  };  
 
   const handleSearchEnter = (e) => {
     if (e.key === 'Enter') {
