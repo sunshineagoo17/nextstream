@@ -259,42 +259,54 @@ const FavouritesPage = () => {
   };
 
   const fetchMoreMedia = async () => {
-    setIsLoading(true); // Start loader
+    setIsLoading(true);
   
     try {
-      const response = await api.get(`/api/faves/${userId}/faves`, {
-        params: {
-          page: page + 1,
-          limit: 4,
-          search: searchQuery,
-          filter,
-        },
-      });
+      let newFaves = [];
+      let currentPage = page;
   
-      const newFaves = response.data;
+      while (newFaves.length < 4) {
+        const response = await api.get(`/api/faves/${userId}/faves`, {
+          params: {
+            page: currentPage + 1,
+            limit: 4,
+            search: searchQuery,
+            filter,
+          },
+        });
   
-      // Ensure no duplicates are added
-      const uniqueNewFaves = newFaves.filter(
-        (newFave) =>
-          !displayedFaves.some(
-            (displayedFave) =>
-              displayedFave.media_id === newFave.media_id && displayedFave.media_type === newFave.media_type
-          )
-      );
+        const fetchedFaves = response.data;
   
-      // Add new faves to the list and update the page number
-      setDisplayedFaves((prevFaves) => [...prevFaves, ...uniqueNewFaves]);
-      setFaves((prevFaves) => [...prevFaves, ...uniqueNewFaves]);
-      setFilteredFaves((prevFaves) => [...prevFaves, ...uniqueNewFaves]);
-      setPage(page + 1);
+        // Filter out duplicates
+        const uniqueFaves = fetchedFaves.filter(
+          (fave) =>
+            !displayedFaves.some(
+              (displayedFave) =>
+                displayedFave.media_id === fave.media_id && displayedFave.media_type === fave.media_type
+            )
+        );
+  
+        newFaves = [...newFaves, ...uniqueFaves];
+  
+        // If there are no more items to fetch, break the loop
+        if (fetchedFaves.length < 4) {
+          break;
+        }
+  
+        currentPage += 1;
+      }
+  
+      // Add exactly 4 new unique items to the displayed list
+      setDisplayedFaves((prevFaves) => [...prevFaves, ...newFaves.slice(0, 4)]);
+      setPage(currentPage);
     } catch (error) {
       console.error('Error fetching more media:', error);
       setAlert({ message: 'Error fetching more media. Please try again later.', type: 'error' });
     } finally {
-      setIsLoading(false); // Stop loader after the media has been successfully added
+      setIsLoading(false);
     }
   };  
-
+  
   return (
     <div className="faves-page">
       <BlobBg />
