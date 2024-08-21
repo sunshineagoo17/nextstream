@@ -42,15 +42,15 @@ const FavouritesPage = () => {
       try {
         const response = await api.get(`/api/faves/${userId}/faves`, {
           params: {
-            page,
-            limit: 12,
+            page: 1,
+            limit: 1000,
             search: searchQuery,
             filter,
-          }
+          },
         });
         const newFaves = response.data;
-        setFaves(prevFaves => page === 1 ? newFaves : [...prevFaves, ...newFaves]);
-        setFilteredFaves(prevFaves => page === 1 ? newFaves : [...prevFaves, ...newFaves]);
+        setFaves(newFaves);
+        setFilteredFaves(newFaves);
         setDisplayedFaves(newFaves.slice(0, 4));
       } catch (error) {
         console.error('Error fetching faves:', error);
@@ -61,7 +61,7 @@ const FavouritesPage = () => {
     };
 
     fetchFaves();
-  }, [userId, isAuthenticated, page, searchQuery, filter]);
+  }, [userId, isAuthenticated, searchQuery, filter]);
 
   useEffect(() => {
     const updatePlaceholder = () => {
@@ -86,7 +86,7 @@ const FavouritesPage = () => {
   const handleShowMore = (id) => {
     setShowFullDescription((prevState) => ({
       ...prevState,
-      [id]: !prevState[id]
+      [id]: !prevState[id],
     }));
   };
 
@@ -94,7 +94,7 @@ const FavouritesPage = () => {
     if (isExpanded) {
       setDisplayedFaves(filteredFaves.slice(0, 4));
     } else {
-      setDisplayedFaves(filteredFaves);
+      setDisplayedFaves(filteredFaves.slice(0, displayedFaves.length + 8));
     }
     setIsExpanded(!isExpanded);
   };
@@ -183,15 +183,21 @@ const FavouritesPage = () => {
   const handleSearchQuery = async () => {
     setIsSearching(true);
     try {
+      setPage(1);
       const lowerCaseQuery = searchQuery.toLowerCase();
-      const filtered = faves.filter(fave =>
-        fave.title.toLowerCase().includes(lowerCaseQuery) ||
-        fave.genres.some(genre => genre.toLowerCase().includes(lowerCaseQuery)) ||
-        fave.media_type.toLowerCase().includes(lowerCaseQuery)
-      );
+      const response = await api.get(`/api/faves/${userId}/faves`, {
+        params: {
+          search: lowerCaseQuery,
+          filter,
+          page: 1,
+          limit: 1000,
+        },
+      });
+      const filtered = response.data;
+      setFaves(filtered);
       setFilteredFaves(filtered);
       setDisplayedFaves(filtered.slice(0, 4));
-      setIsExpanded(false);  
+      setIsExpanded(false);
     } catch (error) {
       console.error('Error searching:', error);
       setAlert({ message: 'Error during search. Please try again later.', type: 'error' });
@@ -219,35 +225,70 @@ const FavouritesPage = () => {
   const clearSearchQuery = () => {
     setSearchQuery('');
     setFilter('');
+    setPage(1);
     setFilteredFaves(faves);
     setDisplayedFaves(faves.slice(0, 4));
-    setIsExpanded(false); 
+    setIsExpanded(false);
   };
 
-  const applyFilter = (filterType) => {
+  const applyFilter = async (filterType) => {
     setFilter(filterType);
     setPage(1);
-    setIsExpanded(false);  
+    setIsExpanded(false);
+
+    try {
+      setIsLoading(true);
+      const response = await api.get(`/api/faves/${userId}/faves`, {
+        params: {
+          search: searchQuery,
+          filter: filterType,
+          page: 1,
+          limit: 1000,
+        },
+      });
+      const filtered = response.data;
+      setFaves(filtered);
+      setFilteredFaves(filtered);
+      setDisplayedFaves(filtered.slice(0, 4));
+    } catch (error) {
+      console.error('Error filtering:', error);
+      setAlert({ message: 'Error during filtering. Please try again later.', type: 'error' });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const fetchMoreMedia = async () => {
+    setIsLoading(true);
     try {
       const response = await api.get(`/api/faves/${userId}/faves`, {
         params: {
           page: page + 1,
-          limit: 12,
+          limit: 4,
           search: searchQuery,
           filter,
-        }
+        },
       });
       const newFaves = response.data;
-      setFaves(prevFaves => [...prevFaves, ...newFaves]);
-      setFilteredFaves(prevFaves => [...prevFaves, ...newFaves]);
+
+      const uniqueNewFaves = newFaves.filter(
+        (newFave) =>
+          !displayedFaves.some(
+            (displayedFave) =>
+              displayedFave.media_id === newFave.media_id && displayedFave.media_type === newFave.media_type
+          )
+      );
+
+      setFaves((prevFaves) => [...prevFaves, ...uniqueNewFaves]);
+      setFilteredFaves((prevFaves) => [...prevFaves, ...uniqueNewFaves]);
+      setDisplayedFaves((prevFaves) => [...prevFaves, ...uniqueNewFaves]);
       setPage(page + 1);
-      setIsExpanded(false);  
+      setIsExpanded(false);
     } catch (error) {
       console.error('Error fetching more media:', error);
       setAlert({ message: 'Error fetching more media. Please try again later.', type: 'error' });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -255,7 +296,7 @@ const FavouritesPage = () => {
     <div className="faves-page">
       <BlobBg />
       <h1 className="faves-page__title">
-        Your Favourites <FontAwesomeIcon icon={faHeart} className='faves-page__heart-icon' />
+        Your Favourites <FontAwesomeIcon icon={faHeart} className="faves-page__heart-icon" />
       </h1>
       <div className="faves-page__content">
         <div className="faves-page__search-bar-container">
@@ -381,8 +422,8 @@ const FavouritesPage = () => {
         ) : (
           <div className="faves-page__grid">
             {displayedFaves.length > 0 ? (
-              displayedFaves.map(fave => (
-                <div key={fave.id || `${fave.media_id}-${fave.media_type}`} className="faves-page__card">
+              displayedFaves.map((fave) => (
+                <div key={`${fave.media_id}-${fave.media_type}-${fave.title}`} className="faves-page__card">
                   <div className="faves-page__poster-container">
                     <img
                       src={fave.poster_path ? `https://image.tmdb.org/t/p/w500${fave.poster_path}` : 'default-poster-url'}
@@ -428,6 +469,7 @@ const FavouritesPage = () => {
             <FontAwesomeIcon icon={faChevronDown} /> Fetch Faves
           </button>
         </div>
+        {isLoading && <Loader />}
         {isModalOpen && (
           <div className="faves-page__modal">
             <div className="faves-page__modal-content">
@@ -452,7 +494,7 @@ const FavouritesPage = () => {
         {showCalendar && (
           <div className="faves-page__calendar-modal">
             <button className="faves-page__calendar-close-btn" onClick={handleCloseCalendar}>
-              <FontAwesomeIcon icon={faClose} className='faves-page__close-icon' />
+              <FontAwesomeIcon icon={faClose} className="faves-page__close-icon" />
             </button>
             <Calendar
               userId={userId}

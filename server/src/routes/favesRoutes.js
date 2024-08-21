@@ -59,12 +59,10 @@ router.get('/:userId/faves', async (req, res) => {
       return res.status(400).json({ error: 'User ID is required' });
     }
 
-    // Fetch interactions with 'like' status 
-    const query = db('interactions')
+    // Fetch all liked interactions (without pagination at this point)
+    const faves = await db('interactions')
       .where({ userId, interaction: 1 })
-      .select('media_id', 'media_type');
-
-    const faves = await query.offset((page - 1) * limit).limit(limit);
+      .distinct('media_id', 'media_type');
 
     // Fetch details for the liked media items
     const mediaDetails = await Promise.all(faves.map(async (fave) => {
@@ -75,6 +73,7 @@ router.get('/:userId/faves', async (req, res) => {
     // Filter out any null results
     let filteredMediaDetails = mediaDetails.filter(detail => detail !== null);
 
+    // Apply filtering
     if (filter) {
       switch (filter) {
         case 'popular':
@@ -105,6 +104,7 @@ router.get('/:userId/faves', async (req, res) => {
       }
     }
 
+    // Apply search
     if (search) {
       filteredMediaDetails = filteredMediaDetails.filter(detail =>
         detail.title.toLowerCase().includes(search.toLowerCase()) ||
@@ -114,7 +114,10 @@ router.get('/:userId/faves', async (req, res) => {
       );
     }
 
-    res.json(filteredMediaDetails.slice((page - 1) * limit, page * limit));
+    // Now paginate the filtered results
+    const paginatedResults = filteredMediaDetails.slice((page - 1) * limit, page * limit);
+
+    res.json(paginatedResults);
   } catch (error) {
     console.error('Error fetching favorite movies/shows:', error);
     res.status(500).json({ error: 'Error fetching favorite movies/shows' });
