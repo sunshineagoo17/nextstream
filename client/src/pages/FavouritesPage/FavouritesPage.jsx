@@ -259,7 +259,8 @@ const FavouritesPage = () => {
   };
 
   const fetchMoreMedia = async () => {
-    setIsLoading(true);
+    setIsLoading(true); // Start loader
+  
     try {
       const response = await api.get(`/api/faves/${userId}/faves`, {
         params: {
@@ -269,8 +270,10 @@ const FavouritesPage = () => {
           filter,
         },
       });
+  
       const newFaves = response.data;
-
+  
+      // Ensure no duplicates are added
       const uniqueNewFaves = newFaves.filter(
         (newFave) =>
           !displayedFaves.some(
@@ -278,19 +281,19 @@ const FavouritesPage = () => {
               displayedFave.media_id === newFave.media_id && displayedFave.media_type === newFave.media_type
           )
       );
-
+  
+      // Add new faves to the list and update the page number
+      setDisplayedFaves((prevFaves) => [...prevFaves, ...uniqueNewFaves]);
       setFaves((prevFaves) => [...prevFaves, ...uniqueNewFaves]);
       setFilteredFaves((prevFaves) => [...prevFaves, ...uniqueNewFaves]);
-      setDisplayedFaves((prevFaves) => [...prevFaves, ...uniqueNewFaves]);
       setPage(page + 1);
-      setIsExpanded(false);
     } catch (error) {
       console.error('Error fetching more media:', error);
       setAlert({ message: 'Error fetching more media. Please try again later.', type: 'error' });
     } finally {
-      setIsLoading(false);
+      setIsLoading(false); // Stop loader after the media has been successfully added
     }
-  };
+  };  
 
   return (
     <div className="faves-page">
