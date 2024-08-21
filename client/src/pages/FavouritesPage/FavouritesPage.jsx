@@ -102,22 +102,26 @@ const FavouritesPage = () => {
   const handlePlayTrailer = async (media_id, media_type) => {
     setIsLoading(true);
     try {
+      console.log(`Fetching trailer for ${media_type} with ID: ${media_id}`);
       const response = await api.get(`/api/faves/${userId}/trailer/${media_type}/${media_id}`);
       const trailerData = response.data;
+      console.log('Trailer Data:', trailerData);
+  
       if (trailerData && trailerData.trailerUrl) {
         setTrailerUrl(trailerData.trailerUrl);
         setIsModalOpen(true);
       } else {
-        setAlert({ message: 'Apologies, the trailer was not found.', type: 'error' });
+        console.warn('No trailer found in the response:', trailerData);
+        showAlert('Apologies, the trailer is not available.', 'info');
       }
     } catch (error) {
-      console.error('Error fetching trailer:', error);
-      setAlert({ message: 'Error fetching trailer.', type: 'error' });
+      console.error('Error fetching trailer:', error.response ? error.response.data : error.message);
+      showAlert('Apologies, the trailer is not available.', 'info');
     } finally {
       setIsLoading(false);
     }
-  };
-
+  };  
+  
   const handleAddToCalendar = async (title, mediaType, mediaId) => {
     let duration = 0;
     try {
@@ -299,8 +303,9 @@ const FavouritesPage = () => {
   
         newFaves = [...newFaves, ...uniqueFaves];
   
-        // If there are no more items to fetch, break the loop
+        // If there are no more items to fetch, break the loop and show a toast notification
         if (fetchedFaves.length < 4) {
+          showAlert('No more media to fetch.', 'info');
           break;
         }
   

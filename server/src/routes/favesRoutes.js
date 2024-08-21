@@ -38,12 +38,47 @@ const getMediaDetails = async (media_id, media_type) => {
 // Function to get trailer details from TMDB
 const getMediaTrailer = async (media_id, media_type) => {
   try {
-    const url = `${TMDB_BASE_URL}/${media_type}/${media_id}/videos?api_key=${TMDB_API_KEY}&language=en-US`;
+    const url = `${TMDB_BASE_URL}/${media_type}/${media_id}/videos?api_key=${TMDB_API_KEY}`;
     const response = await axios.get(url);
-    const trailers = response.data.results.filter(video => video.type === 'Trailer' && video.site === 'YouTube');
-    return trailers.length > 0 ? `https://www.youtube.com/embed/${trailers[0].key}` : null;
+    console.log('Full TMDB response:', response.data); // Debugging line
+
+    // Try to find a YouTube trailer first
+    let video = response.data.results.find(
+      video => video.type === 'Trailer' && video.site === 'YouTube'
+    );
+
+    // If no YouTube trailer, try to find a Vimeo trailer
+    if (!video) {
+      video = response.data.results.find(
+        video => video.type === 'Trailer' && video.site === 'Vimeo'
+      );
+    }
+
+    // If no trailer is found, look for a Featurette
+    if (!video && media_type === 'tv') {
+      video = response.data.results.find(
+        video => video.type === 'Featurette' && (video.site === 'YouTube' || video.site === 'Vimeo')
+      );
+    }
+
+    // If no Featurette is found, look for Opening Credits
+    if (!video && media_type === 'tv') {
+      video = response.data.results.find(
+        video => video.type === 'Opening Credits' && (video.site === 'YouTube' || video.site === 'Vimeo')
+      );
+    }
+
+    // Construct the appropriate embed URL based on the site
+    if (video) {
+      const embedUrl = video.site === 'YouTube'
+        ? `https://www.youtube.com/embed/${video.key}`
+        : `https://player.vimeo.com/video/${video.key}`;
+      return embedUrl;
+    } else {
+      return null;
+    }
   } catch (error) {
-    console.error(`Error fetching trailer for ${media_type} ${media_id}:`, error);
+    console.error(`Error fetching video for ${media_type} ${media_id}:`, error);
     return null;
   }
 };
@@ -131,13 +166,13 @@ router.get('/:userId/trailer/:media_type/:media_id', async (req, res) => {
     const trailerUrl = await getMediaTrailer(media_id, media_type);
 
     if (!trailerUrl) {
-      return res.status(404).json({ error: 'Trailer not found' });
+      return res.status(404).json({ error: 'Apologies, no trailer is available.' });
     }
 
     res.json({ trailerUrl });
   } catch (error) {
-    console.error(`Error fetching trailer for ${media_type} ${media_id}:`, error);
-    res.status(500).json({ error: 'Error fetching trailer' });
+    console.error(`Error fetching video for ${media_type} ${media_id}:`, error);
+    res.status(500).json({ error: 'Error fetching video' });
   }
 });
 
