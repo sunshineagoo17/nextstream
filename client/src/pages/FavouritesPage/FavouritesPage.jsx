@@ -189,7 +189,7 @@ const FavouritesPage = () => {
   };
 
   const handleSearchQuery = async () => {
-    if (!searchQuery.trim()) return; 
+    if (!searchQuery.trim()) return;
     setIsSearching(true);
     try {
       setPage(1);
@@ -202,22 +202,25 @@ const FavouritesPage = () => {
           limit: 1000,
         },
       });
-  
-      // Filter by title, genre, or media type
+
       const filtered = response.data.filter((item) => {
         const titleMatch = item.title.toLowerCase().includes(lowerCaseQuery);
         const genreMatch = item.genres.some((genre) =>
           genre.toLowerCase().includes(lowerCaseQuery)
         );
         const mediaTypeMatch = item.media_type.toLowerCase().includes(lowerCaseQuery);
-  
+
         return titleMatch || genreMatch || mediaTypeMatch;
       });
-  
+
       setFaves(filtered);
       setFilteredFaves(filtered);
       setDisplayedFaves(filtered.slice(0, 4));
       setIsExpanded(false);
+
+      if (filtered.length === 0) {
+        showAlert('Try searching for something else.', 'info');
+      }
     } catch (error) {
       console.error('Error searching:', error);
       setAlert({ message: 'Error during search. Please try again later.', type: 'error' });
@@ -350,6 +353,16 @@ const FavouritesPage = () => {
             )}
           </div>
         </div>
+
+        <div className="faves-page__search-actions">
+          <button className="faves-page__clear-search" onClick={clearSearchQuery}>
+            <FontAwesomeIcon icon={faTimes} /> Clear Search
+          </button>
+          <button className="faves-page__reset-filters" onClick={() => applyFilter('')}>
+            <FontAwesomeIcon icon={faRedo} /> Reset Filters
+          </button>
+        </div>
+
         <div className="faves-page__filters">
           <div className="faves-page__filter-card" onClick={() => applyFilter('popular')}>
             <div className="faves-page__filter-label faves-page__label-featured">Featured</div>
@@ -491,7 +504,7 @@ const FavouritesPage = () => {
               ))
             ) : (
             <p className="faves-page__text">
-              You haven't added any favourites yet. Explore our <a href={`/top-picks/${userId}`}>Top Picks</a> to find something you'll love!
+              No results found for your search. Please try a different title or genre.
             </p>
             )}
           </div>

@@ -26,6 +26,53 @@
     margin-bottom: 20.075rem;
   }
 
+  &__search-actions {
+    margin-bottom: 1.5rem;
+
+    @include tablet {
+      margin-bottom: 2.5rem;
+    }
+  }
+
+  &__clear-search,
+  &__reset-filters {
+    background: $primary-very-light-blue;
+    color: $primary-dark-blue;
+    box-shadow: 0 .125rem .25rem rgba($neutral-black, .2); 
+    border: .1875rem solid $frosted-glass;
+    border-radius: .75rem;
+    padding: .25rem;
+    font-size: .7rem;
+    font-family: $primary-font;
+    line-height: .75rem;
+    cursor: pointer;
+    transition: background .3s ease, transform .3s ease, box-shadow .3s ease;
+
+    &:hover {
+      transform: scale(1.05);
+      background: $neutral-white;
+      color: $primary-dark-blue;
+      font-weight: normal;
+      box-shadow: 0 .25rem .375rem rgba($neutral-black, .1);
+    }
+
+    &:active {
+      background: $primary-medium-blue;
+      color: $neutral-white;
+      box-shadow: 0 .375rem .5rem rgba($neutral-black, .15);
+      transform: scale(.95);
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: $shadow-septenary;
+    }
+
+    & + & {
+      margin-left: .75rem;
+    }
+  }
+
   &__filter-card-title {
     font-family: $primary-font;
     color: $primary-dark-blue;
@@ -254,7 +301,7 @@
     background: rgba($primary-gradient-blue, .8);
     backdrop-filter: blur(.9375rem);
     border-radius: 1.5rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: .5rem;
     box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .2), 0 -.5rem 1rem rgba(255, 255, 255, .5);
 
     @include tablet {
