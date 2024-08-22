@@ -60,7 +60,7 @@ const FavouritesPage = () => {
         console.error('Error fetching faves:', error);
         setAlert({ message: 'Error fetching favorites. Please try again later.', type: 'error' });
       } finally {
-        setIsLoading(false);  // Stop loading after the request is complete
+        setIsLoading(false);  
       }
     };
 
@@ -189,6 +189,7 @@ const FavouritesPage = () => {
   };
 
   const handleSearchQuery = async () => {
+    if (!searchQuery.trim()) return; 
     setIsSearching(true);
     try {
       setPage(1);
@@ -223,7 +224,7 @@ const FavouritesPage = () => {
     } finally {
       setIsSearching(false);
     }
-  };  
+  }; 
 
   const handleSearchEnter = (e) => {
     if (e.key === 'Enter') {
@@ -278,7 +279,7 @@ const FavouritesPage = () => {
   };
 
   const fetchMoreMedia = async () => {
-    setIsLoading(true); // Show the loader
+    setIsLoading(true); 
 
     try {
       let newFaves = [];
