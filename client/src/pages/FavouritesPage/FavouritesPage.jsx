@@ -34,6 +34,7 @@ const FavouritesPage = () => {
   const [selectedMediaId, setSelectedMediaId] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearching, setIsSearching] = useState(false);
+  const [hasSearched, setHasSearched] = useState(false);
   const [filter, setFilter] = useState('');
   const { isAuthenticated } = useContext(AuthContext);
   const calendarRef = useRef(null);
@@ -191,6 +192,7 @@ const FavouritesPage = () => {
   const handleSearchQuery = async () => {
     if (!searchQuery.trim()) return;
     setIsSearching(true);
+    setHasSearched(true);
     try {
       setPage(1);
       const lowerCaseQuery = searchQuery.toLowerCase();
@@ -217,10 +219,6 @@ const FavouritesPage = () => {
       setFilteredFaves(filtered);
       setDisplayedFaves(filtered.slice(0, 4));
       setIsExpanded(false);
-
-      if (filtered.length === 0) {
-        showAlert('Try searching for something else.', 'info');
-      }
     } catch (error) {
       console.error('Error searching:', error);
       setAlert({ message: 'Error during search. Please try again later.', type: 'error' });
@@ -249,6 +247,7 @@ const FavouritesPage = () => {
     setSearchQuery('');
     setFilter('');
     setPage(1);
+    setHasSearched(false);
     setFilteredFaves(faves);
     setDisplayedFaves(faves.slice(0, 4));
     setIsExpanded(false);
@@ -503,9 +502,15 @@ const FavouritesPage = () => {
                 </div>
               ))
             ) : (
-            <p className="faves-page__text">
-              No results found for your search. Please try a different title or genre.
-            </p>
+            !isLoading && hasSearched ? (
+              <p className="faves-page__text">
+                No results found for your search. Please try a different title or genre.
+              </p>
+            ) : (
+              <p className="faves-page__text">
+                You haven't added any favourites yet. Explore our <a href={`/top-picks/${userId}`}>Top Picks</a> to find something to watch!
+              </p>
+            )
             )}
           </div>
         )}
