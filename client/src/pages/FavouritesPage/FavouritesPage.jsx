@@ -2,7 +2,12 @@ import { useState, useContext, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faClose, faUsersViewfinder, faFaceKissWinkHeart, faChildren, faFilm, faTv, faPlus, faPalette, faHandSpock, faQuidditch, faClapperboard, faMask, faFingerprint, faChevronDown, faChevronCircleDown, faChevronCircleUp, faVideoCamera, faHeart, faMinus, faPlay, faTimes, faCalendarPlus, faSearch, faBomb, faStar, faUserSecret, faRedo, faGhost, faLaugh, faTheaterMasks, faBolt, faMap, faGlobe, faTrophy } from '@fortawesome/free-solid-svg-icons';
+import {
+  faClose, faUsersViewfinder, faFaceKissWinkHeart, faChildren, faFilm, faTv, faPlus, faPalette,
+  faHandSpock, faQuidditch, faClapperboard, faMask, faFingerprint, faChevronDown, faChevronCircleDown,
+  faChevronCircleUp, faVideoCamera, faHeart, faMinus, faPlay, faTimes, faCalendarPlus, faSearch,
+  faBomb, faStar, faUserSecret, faRedo, faGhost, faLaugh, faTheaterMasks, faBolt, faMap, faGlobe, faTrophy
+} from '@fortawesome/free-solid-svg-icons';
 import api from '../../services/api';
 import BlobBg from '../../components/BlobBg/BlobBg';
 import Loader from '../../components/Loader/Loader';
@@ -20,7 +25,7 @@ const FavouritesPage = () => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [trailerUrl, setTrailerUrl] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);  
   const [alert, setAlert] = useState(null);
   const [showCalendar, setShowCalendar] = useState(false);
   const [selectedMediaType, setSelectedMediaType] = useState('');
@@ -38,7 +43,6 @@ const FavouritesPage = () => {
     const fetchFaves = async () => {
       if (!isAuthenticated) return;
 
-      setIsLoading(true);
       try {
         const response = await api.get(`/api/faves/${userId}/faves`, {
           params: {
@@ -56,7 +60,7 @@ const FavouritesPage = () => {
         console.error('Error fetching faves:', error);
         setAlert({ message: 'Error fetching favorites. Please try again later.', type: 'error' });
       } finally {
-        setIsLoading(false);
+        setIsLoading(false);  // Stop loading after the request is complete
       }
     };
 
@@ -274,12 +278,12 @@ const FavouritesPage = () => {
   };
 
   const fetchMoreMedia = async () => {
-    setIsLoading(true);
-  
+    setIsLoading(true); // Show the loader
+
     try {
       let newFaves = [];
       let currentPage = page;
-  
+
       while (newFaves.length < 4) {
         const response = await api.get(`/api/faves/${userId}/faves`, {
           params: {
@@ -289,9 +293,9 @@ const FavouritesPage = () => {
             filter,
           },
         });
-  
+
         const fetchedFaves = response.data;
-  
+
         // Filter out duplicates
         const uniqueFaves = fetchedFaves.filter(
           (fave) =>
@@ -300,18 +304,18 @@ const FavouritesPage = () => {
                 displayedFave.media_id === fave.media_id && displayedFave.media_type === fave.media_type
             )
         );
-  
+
         newFaves = [...newFaves, ...uniqueFaves];
-  
+
         // If there are no more items to fetch, break the loop and show a toast notification
         if (fetchedFaves.length < 4) {
-          showAlert('No more media to fetch.', 'info');
+          showAlert("That's all for now. There's no more media available.", "info");
           break;
         }
-  
+
         currentPage += 1;
       }
-  
+
       // Add exactly 4 new unique items to the displayed list
       setDisplayedFaves((prevFaves) => [...prevFaves, ...newFaves.slice(0, 4)]);
       setPage(currentPage);
@@ -452,7 +456,9 @@ const FavouritesPage = () => {
           <Loader />
         ) : (
           <div className="faves-page__grid">
-            {displayedFaves.length > 0 ? (
+            {isLoading && displayedFaves.length === 0 ? (
+              <p className="faves-page__text">Favourites are currently loading...</p>
+            ) : displayedFaves.length > 0 ? (
               displayedFaves.map((fave) => (
                 <div key={`${fave.media_id}-${fave.media_type}-${fave.title}`} className="faves-page__card">
                   <div className="faves-page__poster-container">
@@ -483,7 +489,9 @@ const FavouritesPage = () => {
                 </div>
               ))
             ) : (
-              <p className="faves-page__text">No favourites found.</p>
+            <p className="faves-page__text">
+              You haven't added any favourites yet. Explore our <a href={`/top-picks/${userId}`}>Top Picks</a> to find something you'll love!
+            </p>
             )}
           </div>
         )}
@@ -500,7 +508,6 @@ const FavouritesPage = () => {
             <FontAwesomeIcon icon={faChevronDown} /> Fetch Faves
           </button>
         </div>
-        {isLoading && <Loader />}
         {isModalOpen && (
           <div className="faves-page__modal">
             <div className="faves-page__modal-content">
@@ -536,6 +543,11 @@ const FavouritesPage = () => {
               onClose={handleCloseCalendar}
               ref={calendarRef}
             />
+          </div>
+        )}
+        {isLoading && displayedFaves.length > 0 && (
+          <div className="faves-page__loader-container">
+            <Loader />
           </div>
         )}
       </div>

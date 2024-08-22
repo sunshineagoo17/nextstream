@@ -42,39 +42,58 @@ const getMediaTrailer = async (media_id, media_type) => {
     const response = await axios.get(url);
     console.log('Full TMDB response:', response.data); // Debugging line
 
-    // Try to find a YouTube trailer first
+    let videoTypesChecked = [];
+    
     let video = response.data.results.find(
-      video => video.type === 'Trailer' && video.site === 'YouTube'
+      video => {
+        videoTypesChecked.push('YouTube Trailer');
+        return video.type === 'Trailer' && video.site === 'YouTube';
+      }
     );
 
-    // If no YouTube trailer, try to find a Vimeo trailer
     if (!video) {
       video = response.data.results.find(
-        video => video.type === 'Trailer' && video.site === 'Vimeo'
+        video => {
+          videoTypesChecked.push('Vimeo Trailer');
+          return video.type === 'Trailer' && video.site === 'Vimeo';
+        }
       );
     }
 
-    // If no trailer is found, look for a Featurette
     if (!video && media_type === 'tv') {
       video = response.data.results.find(
-        video => video.type === 'Featurette' && (video.site === 'YouTube' || video.site === 'Vimeo')
+        video => {
+          videoTypesChecked.push('Featurette');
+          return video.type === 'Featurette' && (video.site === 'YouTube' || video.site === 'Vimeo');
+        }
       );
     }
 
-    // If no Featurette is found, look for Opening Credits
     if (!video && media_type === 'tv') {
       video = response.data.results.find(
-        video => video.type === 'Opening Credits' && (video.site === 'YouTube' || video.site === 'Vimeo')
+        video => {
+          videoTypesChecked.push('Teaser');
+          return video.type === 'Teaser' && (video.site === 'YouTube' || video.site === 'Vimeo');
+        }
       );
     }
 
-    // Construct the appropriate embed URL based on the site
+    if (!video && media_type === 'tv') {
+      video = response.data.results.find(
+        video => {
+          videoTypesChecked.push('Opening Credits');
+          return video.type === 'Opening Credits' && (video.site === 'YouTube' || video.site === 'Vimeo');
+        }
+      );
+    }
+
     if (video) {
       const embedUrl = video.site === 'YouTube'
         ? `https://www.youtube.com/embed/${video.key}`
         : `https://player.vimeo.com/video/${video.key}`;
       return embedUrl;
     } else {
+      console.log(`No video found. Types checked: ${videoTypesChecked.join(', ')}`);
       return null;
     }
   } catch (error) {
