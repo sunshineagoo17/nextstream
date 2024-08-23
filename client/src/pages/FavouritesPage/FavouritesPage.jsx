@@ -57,6 +57,7 @@ const FavouritesPage = () => {
           },
         });
         const newFaves = response.data;
+        console.log('Fetched favourites:', newFaves);
         setFaves(newFaves);
         setFilteredFaves(newFaves);
         setDisplayedFaves(newFaves.slice(0, 4));
@@ -136,12 +137,14 @@ const FavouritesPage = () => {
       if (mediaType === 'movie') {
         const movieDetails = await api.get(`/api/tmdb/movie/${mediaId}`);
         duration = movieDetails.data.runtime || 0;
+        console.log('Movie details:', movieDetails.data);
         if (duration === 0) {
           showAlert("Duration's not available for this media.", 'info');
         }
       } else if (mediaType === 'tv') {
         const tvDetails = await api.get(`/api/tmdb/tv/${mediaId}`);
         duration = tvDetails.data.episode_run_time[0] || 0;
+        console.log('TV details:', tvDetails.data);
         if (duration > 0) {
           showAlert('Duration is based on the very first episode.', 'info');
         }
@@ -175,6 +178,7 @@ const FavouritesPage = () => {
         media_id: selectedMediaId,
         userId,
       };
+      console.log('Saving event:', newEvent);
       await api.post(`/api/calendar/${userId}/events`, newEvent);
       setShowCalendar(false);
     } catch (error) {
@@ -218,6 +222,7 @@ const FavouritesPage = () => {
         return titleMatch || genreMatch || mediaTypeMatch;
       });
   
+      console.log('Filtered results:', filtered);
       setFaves(filtered);
       setFilteredFaves(filtered);
       setDisplayedFaves(filtered.slice(0, 4));
@@ -272,6 +277,7 @@ const FavouritesPage = () => {
         },
       });
       const filtered = response.data;
+      console.log('Filtered faves:', filtered);
       setFaves(filtered);
       setFilteredFaves(filtered);
       setDisplayedFaves(filtered.slice(0, 4));
@@ -301,6 +307,7 @@ const FavouritesPage = () => {
         });
 
         const fetchedFaves = response.data;
+        console.log('Fetched more media:', fetchedFaves);
 
         // Filter out duplicates
         const uniqueFaves = fetchedFaves.filter(
@@ -514,87 +521,89 @@ const FavouritesPage = () => {
         {isSearching ? (
           <Loader />
         ) : (
-          <div className="faves-page__grid">
+          <>
             {isLoading && displayedFaves.length === 0 ? (
-              <p className="faves-page__text">Favourites are currently loading...</p>
+              <p className="faves-page__text faves-page__text--center">Favourites are currently loading...</p>
             ) : displayedFaves.length > 0 ? (
-              displayedFaves.map((fave) => (
-                <div key={`${fave.media_id}-${fave.media_type}-${fave.title}`} className="faves-page__card">
-                  <div className="faves-page__poster-container">
-                    <img
-                      src={fave.poster_path ? `https://image.tmdb.org/t/p/w500${fave.poster_path}` : 'default-poster-url'}
-                      alt={fave.title}
-                      className="faves-page__poster"
-                    />
-                    <div className="faves-page__play-overlay" onClick={() => handlePlayTrailer(fave.media_id, fave.media_type)}>
-                      <FontAwesomeIcon icon={faPlay} className="faves-page__play-icon" />
-                    </div>
-                  </div>
-                  <h2 className="faves-page__subtitle">{fave.title}</h2>
-                  <p className="faves-page__media-icon">
-                    <a href={`https://www.themoviedb.org/${fave.media_type}/${fave.media_id}`} target="_blank" rel="noopener noreferrer">
-                      <FontAwesomeIcon 
-                        icon={fave.media_type === 'tv' ? faTv : faFilm} 
-                        className="faves-page__media-icon-link" 
-                        data-tooltip-id="mediaTypeTooltip" 
-                        data-tooltip-content={fave.media_type === 'tv' ? 'Media Type: TV Show' : 'Media Type: Movie'} 
+              <div className="faves-page__grid">
+                {displayedFaves.map((fave) => (
+                  <div key={`${fave.media_id}-${fave.media_type}-${fave.title}`} className="faves-page__card">
+                    <div className="faves-page__poster-container">
+                      <img
+                        src={fave.poster_path ? `https://image.tmdb.org/t/p/w500${fave.poster_path}` : 'default-poster-url'}
+                        alt={fave.title}
+                        className="faves-page__poster"
                       />
-                    </a>
-                    <FontAwesomeIcon 
-                      icon={faCalendarPlus} 
-                      onClick={() => handleAddToCalendar(fave.title, fave.media_type, fave.media_id)} 
-                      className="faves-page__cal-icon" 
-                      data-tooltip-id="calendarTooltip" 
-                      data-tooltip-content="Add to Calendar" 
-                    />
-                    <FontAwesomeIcon 
-                      icon={faSearch} 
-                      onClick={() => handleSearchClick(fave.title, fave.name)} 
-                      className="faves-page__search-icon" 
-                      data-tooltip-id="searchTooltip" 
-                      data-tooltip-content="Find Streams" 
-                    />
-                    <FontAwesomeIcon 
-                      icon={lockedMedia[`${fave.media_id}-${fave.media_type}`] ? faLock : faUnlock} 
-                      onClick={() => handleLockMedia(fave.media_id, fave.media_type)} 
-                      className={`faves-page__lock-icon ${lockedMedia[`${fave.media_id}-${fave.media_type}`] ? 'faves-page__lock-icon--locked' : ''}`} 
-                      data-tooltip-id="lockTooltip" 
-                      data-tooltip-content={lockedMedia[`${fave.media_id}-${fave.media_type}`] ? 'Unlock Media' : 'Lock Media'} 
-                    />
-                    <FontAwesomeIcon 
-                      icon={faTrash} 
-                      onClick={() => handleDeleteMedia(fave.media_id, fave.media_type)} 
-                      className="faves-page__trash-icon" 
-                      data-tooltip-id="trashTooltip" 
-                      data-tooltip-content="Delete from Favourites" 
-                    />
-                    <Tooltip id="mediaTypeTooltip" place="top" />
-                    <Tooltip id="calendarTooltip" place="top" />
-                    <Tooltip id="searchTooltip" place="top" />
-                    <Tooltip id="lockTooltip" place="top" />
-                    <Tooltip id="trashTooltip" place="top" />
-                  </p>
-                  <p className="faves-page__text">Genre: {fave.genres.join(', ')}</p>
-                  <p className={`faves-page__description ${showFullDescription[fave.media_id] ? 'faves-page__description--expanded' : ''}`}>
-                    Description: {fave.overview}
-                  </p>
-                  <button className="faves-page__more-button" onClick={() => handleShowMore(fave.media_id)}>
-                    <FontAwesomeIcon icon={showFullDescription[fave.media_id] ? faChevronCircleUp : faChevronCircleDown} className="faves-page__load-descript" />
-                  </button>
-                </div>
-              ))
+                      <div className="faves-page__play-overlay" onClick={() => handlePlayTrailer(fave.media_id, fave.media_type)}>
+                        <FontAwesomeIcon icon={faPlay} className="faves-page__play-icon" />
+                      </div>
+                    </div>
+                    <h2 className="faves-page__subtitle">{fave.title}</h2>
+                    <p className="faves-page__media-icon">
+                      <a href={`https://www.themoviedb.org/${fave.media_type}/${fave.media_id}`} target="_blank" rel="noopener noreferrer">
+                        <FontAwesomeIcon 
+                          icon={fave.media_type === 'tv' ? faTv : faFilm} 
+                          className="faves-page__media-icon-link" 
+                          data-tooltip-id="mediaTypeTooltip" 
+                          data-tooltip-content={fave.media_type === 'tv' ? 'Media Type: TV Show' : 'Media Type: Movie'} 
+                        />
+                      </a>
+                      <FontAwesomeIcon 
+                        icon={faCalendarPlus} 
+                        onClick={() => handleAddToCalendar(fave.title, fave.media_type, fave.media_id)} 
+                        className="faves-page__cal-icon" 
+                        data-tooltip-id="calendarTooltip" 
+                        data-tooltip-content="Add to Calendar" 
+                      />
+                      <FontAwesomeIcon 
+                        icon={faSearch} 
+                        onClick={() => handleSearchClick(fave.title, fave.name)} 
+                        className="faves-page__search-icon" 
+                        data-tooltip-id="searchTooltip" 
+                        data-tooltip-content="Find Streams" 
+                      />
+                      <FontAwesomeIcon 
+                        icon={lockedMedia[`${fave.media_id}-${fave.media_type}`] ? faLock : faUnlock} 
+                        onClick={() => handleLockMedia(fave.media_id, fave.media_type)} 
+                        className={`faves-page__lock-icon ${lockedMedia[`${fave.media_id}-${fave.media_type}`] ? 'faves-page__lock-icon--locked' : ''}`} 
+                        data-tooltip-id="lockTooltip" 
+                        data-tooltip-content={lockedMedia[`${fave.media_id}-${fave.media_type}`] ? 'Unlock Media' : 'Lock Media'} 
+                      />
+                      <FontAwesomeIcon 
+                        icon={faTrash} 
+                        onClick={() => handleDeleteMedia(fave.media_id, fave.media_type)} 
+                        className="faves-page__trash-icon" 
+                        data-tooltip-id="trashTooltip" 
+                        data-tooltip-content="Delete from Favourites" 
+                      />
+                      <Tooltip id="mediaTypeTooltip" place="top" />
+                      <Tooltip id="calendarTooltip" place="top" />
+                      <Tooltip id="searchTooltip" place="top" />
+                      <Tooltip id="lockTooltip" place="top" />
+                      <Tooltip id="trashTooltip" place="top" />
+                    </p>
+                    <p className="faves-page__text">Genre: {fave.genres.join(', ')}</p>
+                    <p className={`faves-page__description ${showFullDescription[fave.media_id] ? 'faves-page__description--expanded' : ''}`}>
+                      Description: {fave.overview}
+                    </p>
+                    <button className="faves-page__more-button" onClick={() => handleShowMore(fave.media_id)}>
+                      <FontAwesomeIcon icon={showFullDescription[fave.media_id] ? faChevronCircleUp : faChevronCircleDown} className="faves-page__load-descript" />
+                    </button>
+                  </div>
+                ))}
+              </div>
             ) : (
-            !isLoading && hasSearched ? (
-              <p className="faves-page__text">
-                No results found for your search. Please try a different title or genre.
-              </p>
-            ) : (
-              <p className="faves-page__text">
-                You haven't added any favourites yet. Explore our <a href={`/top-picks/${userId}`}>Top Picks</a> to find something to watch!
-              </p>
-            )
+              !isLoading && hasSearched ? (
+                <p className="faves-page__text faves-page__text--center">
+                  No results found for your search. Please try a different title or genre.
+                </p>
+              ) : (
+                <p className="faves-page__text faves-page__text--center">
+                  You haven't added any favourites yet. Explore our <a href={`/top-picks/${userId}`}>Top Picks</a> to find something to watch!
+                </p>
+              )
             )}
-          </div>
+          </>
         )}
         <div className="faves-page__action-buttons">
           {filteredFaves.length > 4 && (
