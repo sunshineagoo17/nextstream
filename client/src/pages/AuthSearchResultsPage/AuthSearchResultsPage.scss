@@ -685,8 +685,42 @@
       @include block-item(6rem, 6rem);
     }
   }
-}
 
-.calendar {
-  background-color: rgba($neutral-white, .75);
+  &__interaction-icons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 0.25rem;
+  }
+
+  &__thumbs-up,
+  &__thumbs-down {
+    font-size: .5rem;
+    color: $neutral-white;
+    box-shadow: $shadow-senary;
+    border-radius: .5rem;
+    padding: .25rem;
+    cursor: pointer;
+    transition: transform 0.2s ease, color 0.2s ease;
+
+    &:hover {
+      transform: scale(1.1);
+      color: $primary-very-light-blue;
+      border: 2px solid $primary-very-light-blue;
+    }
+
+    &:active {
+      transform: scale(0.9);
+      color: $primary-button-blue;
+      border: 2px solid $primary-button-blue;
+    }
+
+    @include tablet {
+      font-size: .75rem;
+    }
+
+    @include desktop {
+      font-size: 1.25rem;
+    }
+  }
 }
