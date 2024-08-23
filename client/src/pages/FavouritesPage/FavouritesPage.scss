@@ -62,17 +62,13 @@
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
 
     @include tablet {
-      width: 75%;
+      width: 80%;
       padding: 1rem 2rem;
-      margin-bottom: 2rem;
+      margin-bottom: 1.75rem;
     }
 
-    @include desktop {
-      margin-bottom: 2.5rem;
-    }
-
-    @include large-desktop {
-      margin-bottom: 3rem;
+    @include desktop {      
+      width: 100%;
     }
   }
 
@@ -140,6 +136,26 @@
 
     & + & {
       margin-left: .75rem;
+    }
+  }
+
+  &__filters-container {
+    margin-bottom: 2rem;
+    text-align: center;
+    display: flex;
+    padding-top: 1.5rem;
+    justify-content: center;
+    width: 100%;
+    background-color: $primary-dark-blue;
+    border: 5px solid $primary-very-light-blue;
+    box-shadow: $shadow-primary;
+    background: rgba($primary-gradient-blue, .8);
+    backdrop-filter: blur(.9375rem);
+    border-radius: 1.5rem;
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .2), 0 -.5rem 1rem rgba(255, 255, 255, .5);
+
+    @include tablet {
+      width: 100%;
     }
   }
 
