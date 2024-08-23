@@ -174,6 +174,15 @@ const AuthSearchResultsPage = ({ userId }) => {
           result.id === mediaId ? { ...result, interaction: newInteraction } : result
         )
       );
+  
+      // Show alert based on the interaction type
+      if (newInteraction === 1) {
+        showAlert('You liked this item!', 'success');
+      } else if (newInteraction === 0) {
+        showAlert('You disliked this item!', 'info');
+      } else {
+        showAlert('Interaction removed.', 'info');
+      }
     } catch (error) {
       console.error('Error toggling interaction:', error);
       showAlert('Error toggling interaction. Please try again later.', 'error');
