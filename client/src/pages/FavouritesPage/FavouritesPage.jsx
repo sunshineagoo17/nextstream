@@ -8,7 +8,7 @@ import {
   faHandSpock, faQuidditch, faClapperboard, faMask, faFingerprint, faChevronDown, faChevronCircleDown,
   faChevronCircleUp, faVideoCamera, faHeart, faMinus, faPlay, faTimes, faCalendarPlus, faSearch,
   faBomb, faStar, faUserSecret, faRedo, faGhost, faLaugh, faTheaterMasks, faBolt, faMap, faGlobe, faTrophy,
-  faLock, faTrash
+  faLock, faUnlock, faTrash
 } from '@fortawesome/free-solid-svg-icons';
 import api from '../../services/api';
 import BlobBg from '../../components/BlobBg/BlobBg';
@@ -207,17 +207,17 @@ const FavouritesPage = () => {
           limit: 1000,
         },
       });
-
+  
       const filtered = response.data.filter((item) => {
         const titleMatch = item.title.toLowerCase().includes(lowerCaseQuery);
         const genreMatch = item.genres.some((genre) =>
           genre.toLowerCase().includes(lowerCaseQuery)
         );
         const mediaTypeMatch = item.media_type.toLowerCase().includes(lowerCaseQuery);
-
+  
         return titleMatch || genreMatch || mediaTypeMatch;
       });
-
+  
       setFaves(filtered);
       setFilteredFaves(filtered);
       setDisplayedFaves(filtered.slice(0, 4));
@@ -228,7 +228,7 @@ const FavouritesPage = () => {
     } finally {
       setIsSearching(false);
     }
-  }; 
+  };  
 
   const handleSearchEnter = (e) => {
     if (e.key === 'Enter') {
@@ -555,7 +555,7 @@ const FavouritesPage = () => {
                       data-tooltip-content="Find Streams" 
                     />
                     <FontAwesomeIcon 
-                      icon={faLock} 
+                      icon={lockedMedia[`${fave.media_id}-${fave.media_type}`] ? faLock : faUnlock} 
                       onClick={() => handleLockMedia(fave.media_id, fave.media_type)} 
                       className={`faves-page__lock-icon ${lockedMedia[`${fave.media_id}-${fave.media_type}`] ? 'faves-page__lock-icon--locked' : ''}`} 
                       data-tooltip-id="lockTooltip" 
