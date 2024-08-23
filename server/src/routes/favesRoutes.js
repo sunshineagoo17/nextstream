@@ -43,7 +43,7 @@ const getMediaTrailer = async (media_id, media_type) => {
     console.log('Full TMDB response:', response.data); // Debugging line
 
     let videoTypesChecked = [];
-    
+
     let video = response.data.results.find(
       video => {
         videoTypesChecked.push('YouTube Trailer');
@@ -194,5 +194,23 @@ router.get('/:userId/trailer/:media_type/:media_id', async (req, res) => {
     res.status(500).json({ error: 'Error fetching video' });
   }
 });
+
+// Update the interaction value from 1 to 0 when removing a media item from favorites
+router.delete('/:userId/delete/:media_id/:media_type', async (req, res) => {
+  try {
+    const { userId, media_id, media_type } = req.params;
+
+    // Update interaction value to 0 in the database instead of deleting the record
+    await db('interactions')
+      .where({ userId, media_id, media_type })
+      .update({ interaction: 0 });
+
+    res.json({ message: 'Media interaction updated to 0 (removed from favorites)' });
+  } catch (error) {
+    console.error('Error updating media interaction:', error);
+    res.status(500).json({ error: 'Error updating media interaction' });
+  }
+});
+
 
 module.exports = router;

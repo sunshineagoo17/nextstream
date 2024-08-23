@@ -7,7 +7,8 @@ import {
   faClose, faUsersViewfinder, faFaceKissWinkHeart, faChildren, faFilm, faTv, faPlus, faPalette,
   faHandSpock, faQuidditch, faClapperboard, faMask, faFingerprint, faChevronDown, faChevronCircleDown,
   faChevronCircleUp, faVideoCamera, faHeart, faMinus, faPlay, faTimes, faCalendarPlus, faSearch,
-  faBomb, faStar, faUserSecret, faRedo, faGhost, faLaugh, faTheaterMasks, faBolt, faMap, faGlobe, faTrophy
+  faBomb, faStar, faUserSecret, faRedo, faGhost, faLaugh, faTheaterMasks, faBolt, faMap, faGlobe, faTrophy,
+  faLock, faTrash
 } from '@fortawesome/free-solid-svg-icons';
 import api from '../../services/api';
 import BlobBg from '../../components/BlobBg/BlobBg';
@@ -40,6 +41,7 @@ const FavouritesPage = () => {
   const { isAuthenticated } = useContext(AuthContext);
   const calendarRef = useRef(null);
   const [page, setPage] = useState(1);
+  const [lockedMedia, setLockedMedia] = useState({});
 
   useEffect(() => {
     const fetchFaves = async () => {
@@ -60,7 +62,7 @@ const FavouritesPage = () => {
         setDisplayedFaves(newFaves.slice(0, 4));
       } catch (error) {
         console.error('Error fetching faves:', error);
-        setAlert({ message: 'Error fetching favorites. Please try again later.', type: 'error' });
+        setAlert({ message: 'Error fetching favourites. Please try again later.', type: 'error' });
       } finally {
         setIsLoading(false);  
       }
@@ -329,8 +331,43 @@ const FavouritesPage = () => {
     } finally {
       setIsLoading(false);
     }
-  };  
+  };
+
+  const handleLockMedia = (media_id, media_type) => {
+    setLockedMedia((prevLocked) => ({
+      ...prevLocked,
+      [`${media_id}-${media_type}`]: !prevLocked[`${media_id}-${media_type}`],
+    }));
+  };
+
+  const handleDeleteMedia = async (media_id, media_type) => {
+    if (lockedMedia[`${media_id}-${media_type}`]) {
+      showAlert('This media item is locked and cannot be deleted.', 'info');
+      return;
+    }
   
+    try {
+      console.log(`Deleting media: ID ${media_id}, Type ${media_type}`);
+      await api.delete(`/api/faves/${userId}/delete/${media_id}/${media_type}`);
+      
+      // Remove the item from faves and displayedFaves
+      setFaves((prevFaves) =>
+        prevFaves.filter((fave) => !(fave.media_id === media_id && fave.media_type === media_type))
+      );
+      setFilteredFaves((prevFaves) =>
+        prevFaves.filter((fave) => !(fave.media_id === media_id && fave.media_type === media_type))
+      );
+      setDisplayedFaves((prevDisplayed) =>
+        prevDisplayed.filter((fave) => !(fave.media_id === media_id && fave.media_type === media_type))
+      );
+      
+      showAlert('Media removed from favourites.', 'success');
+    } catch (error) {
+      console.error('Error deleting media:', error);
+      showAlert('Error deleting media. Please try again later.', 'error');
+    }
+  };  
+
   return (
     <div className="faves-page">
       <BlobBg />
@@ -517,9 +554,25 @@ const FavouritesPage = () => {
                       data-tooltip-id="searchTooltip" 
                       data-tooltip-content="Find Streams" 
                     />
+                    <FontAwesomeIcon 
+                      icon={faLock} 
+                      onClick={() => handleLockMedia(fave.media_id, fave.media_type)} 
+                      className={`faves-page__lock-icon ${lockedMedia[`${fave.media_id}-${fave.media_type}`] ? 'faves-page__lock-icon--locked' : ''}`} 
+                      data-tooltip-id="lockTooltip" 
+                      data-tooltip-content={lockedMedia[`${fave.media_id}-${fave.media_type}`] ? 'Unlock Media' : 'Lock Media'} 
+                    />
+                    <FontAwesomeIcon 
+                      icon={faTrash} 
+                      onClick={() => handleDeleteMedia(fave.media_id, fave.media_type)} 
+                      className="faves-page__trash-icon" 
+                      data-tooltip-id="trashTooltip" 
+                      data-tooltip-content="Delete from Favourites" 
+                    />
                     <Tooltip id="mediaTypeTooltip" place="top" />
                     <Tooltip id="calendarTooltip" place="top" />
                     <Tooltip id="searchTooltip" place="top" />
+                    <Tooltip id="lockTooltip" place="top" />
+                    <Tooltip id="trashTooltip" place="top" />
                   </p>
                   <p className="faves-page__text">Genre: {fave.genres.join(', ')}</p>
                   <p className={`faves-page__description ${showFullDescription[fave.media_id] ? 'faves-page__description--expanded' : ''}`}>
