@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext, useRef, useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCalendarPlus, faClose, faChevronRight, faChevronLeft, faImage } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarPlus, faClose, faChevronRight, faChevronLeft, faThumbsUp, faThumbsDown, faImage } from '@fortawesome/free-solid-svg-icons';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import axios from 'axios';
 import AnimatedBg from '../../components/AnimatedBg/AnimatedBg';
@@ -62,6 +62,17 @@ const AuthSearchResultsPage = ({ userId }) => {
       const updatedResults = await Promise.all(
         filteredResults.map(async (result) => {
           try {
+            // Fetch the interaction status for the user and this media item
+            const interactionResponse = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/interactions/${userId}`, {
+              params: {
+                media_id: result.id,
+                media_type: result.media_type,
+              }
+            });
+
+            const interactionData = interactionResponse.data.find(interaction => interaction.media_id === result.id);
+            const interaction = interactionData ? interactionData.interaction : null;
+
             const providersResponse = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/tmdb/${result.media_type}/${result.id}/watch/providers`);
             const providers = providersResponse.data || [];
 
@@ -75,10 +86,10 @@ const AuthSearchResultsPage = ({ userId }) => {
               duration = tvDetails.data.episode_run_time[0] || 0;
             }
 
-            return { ...result, providers, duration };
+            return { ...result, providers, duration, interaction };
           } catch (error) {
-            console.error(`Error fetching watch providers for ${result.media_type} ${result.id}:`, error);
-            return { ...result, providers: [], duration: 0 };
+            console.error(`Error fetching watch providers or interaction for ${result.media_type} ${result.id}:`, error);
+            return { ...result, providers: [], duration: 0, interaction: null };
           }
         })
       );
@@ -91,7 +102,7 @@ const AuthSearchResultsPage = ({ userId }) => {
       setIsLoading(false);
       setShowCalendar(false);
     }
-  }, [query]);
+  }, [query, userId]);
 
   useEffect(() => {
     if (query && initialRender.current) {
@@ -136,6 +147,38 @@ const AuthSearchResultsPage = ({ userId }) => {
     setCurrentIndex((prevIndex) => (prevIndex + 3 >= results.length ? 0 : prevIndex + 3));
   };
 
+  const handleToggleInteraction = async (mediaId, newInteraction) => {
+    try {
+      const result = results.find((result) => result.id === mediaId);
+  
+      if (!result) {
+        console.error(`No result found for mediaId ${mediaId}`);
+        return;
+      }
+  
+      if (!result.media_type) {
+        console.error(`media_type is missing for result with mediaId ${mediaId}`);
+        return;
+      }
+  
+      await axios.post(`${process.env.REACT_APP_BASE_URL}/api/interactions`, {
+        userId,
+        media_id: mediaId,
+        interaction: newInteraction,
+        media_type: result.media_type,
+      });
+  
+      setResults((prevResults) =>
+        prevResults.map((result) =>
+          result.id === mediaId ? { ...result, interaction: newInteraction } : result
+        )
+      );
+    } catch (error) {
+      console.error('Error toggling interaction:', error);
+      showAlert('Error toggling interaction. Please try again later.', 'error');
+    }
+  };  
+
   const renderPaginationCircles = () => {
     const totalPages = Math.ceil(results.length / 3);
     const currentPage = Math.floor(currentIndex / 3);
@@ -161,6 +204,21 @@ const AuthSearchResultsPage = ({ userId }) => {
     }
     return <FontAwesomeIcon icon={faImage} className="auth-search-results__media-icon auth-search-results__media-none-icon" alt="No Media Type Available" />;
   };
+
+  const getInteractionIcon = (interaction, mediaId) => {
+    if (interaction === 1) {
+      return <FontAwesomeIcon icon={faThumbsUp} className="auth-search-results__thumbs-up" onClick={() => handleToggleInteraction(mediaId, 0)} />;
+    } else if (interaction === 0) {
+      return <FontAwesomeIcon icon={faThumbsDown} className="auth-search-results__thumbs-down" onClick={() => handleToggleInteraction(mediaId, 1)} />;
+    } else {
+      return (
+        <div className="auth-search-results__neutral-interactions">
+          <FontAwesomeIcon icon={faThumbsUp} className="auth-search-results__thumbs-up" onClick={() => handleToggleInteraction(mediaId, 1)} />
+          <FontAwesomeIcon icon={faThumbsDown} className="auth-search-results__thumbs-down" onClick={() => handleToggleInteraction(mediaId, 0)} />
+        </div>
+      );
+    }
+  };     
 
   return (
     <>
@@ -227,6 +285,8 @@ const AuthSearchResultsPage = ({ userId }) => {
                       <FontAwesomeIcon icon={faCalendarPlus} className='auth-search-results__calendar-icon' />
                     </button>
                   </div>
+
+                  {/* Streaming Services */}
                   <div className="auth-search-results__streaming-services">
                     {result.providers && result.providers.length > 0 ? (
                       <>
@@ -257,6 +317,11 @@ const AuthSearchResultsPage = ({ userId }) => {
                         No streaming services available for {result.title || result.name}.
                       </p>
                     )}
+                  </div>
+
+                  {/* Interaction Icons */}
+                  <div className="auth-search-results__interaction-icons">
+                    {getInteractionIcon(result.interaction, result.id)}
                   </div>
                 </div>
               ))

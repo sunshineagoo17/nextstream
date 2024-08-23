@@ -23,7 +23,7 @@ const getMediaDetails = async (media_id, media_type) => {
   }
 };
 
-// Route to record a user's interaction with a media item
+// Route to record or update a user's interaction with a media item
 router.post('/', async (req, res) => {
   const { userId, media_id, interaction, media_type } = req.body;
 
@@ -33,17 +33,33 @@ router.post('/', async (req, res) => {
   }
 
   try {
-    console.log('Inserting interaction:', { userId, media_id, interaction, media_type });
+    console.log('Recording interaction:', { userId, media_id, interaction, media_type });
 
-    // Insert the interaction into the 'interactions' table
-    await db('interactions').insert({
-      userId,
-      media_id,
-      interaction,
-      media_type
-    });
+    // Check if the interaction already exists
+    const existingInteraction = await db('interactions')
+      .where({ userId, media_id, media_type })
+      .first();
 
-    // Record the viewed media in the 'viewed_media' table
+    if (existingInteraction) {
+      // Update the existing interaction
+      await db('interactions')
+        .where({ userId, media_id, media_type })
+        .update({ interaction });
+
+      console.log('Interaction updated');
+    } else {
+      // Insert a new interaction
+      await db('interactions').insert({
+        userId,
+        media_id,
+        interaction,
+        media_type
+      });
+
+      console.log('Interaction inserted');
+    }
+
+    // Record the viewed media in the 'viewed_media' table if necessary
     await db('viewed_media').insert({
       userId,
       media_id,
