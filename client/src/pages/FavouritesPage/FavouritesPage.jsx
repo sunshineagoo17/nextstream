@@ -12,6 +12,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import HomeCinemaSVG from "../../assets/images/home-cinema.svg";
 import LikesSVG from "../../assets/images/like-faves.svg";
+import NoResultsSVG from "../../assets/images/search-faves.svg";
 import api from '../../services/api';
 import BlobBg from '../../components/BlobBg/BlobBg';
 import Loader from '../../components/Loader/Loader';
@@ -599,9 +600,12 @@ const FavouritesPage = () => {
               </div>
             ) : (
               !isLoading && hasSearched ? (
-                <p className="faves-page__text faves-page__text--center">
-                  No results found for your search. Please try a different title or genre.
-                </p>
+                <div className="faves-page__no-faves-container">
+                  <img src={NoResultsSVG} alt="Likes Img" className="faves-page__no-faves-svg" />
+                  <p className="faves-page__text faves-page__text--center">
+                    No results found for your search. Please try a different title or genre.
+                  </p>
+                </div>
               ) : (
                 <div className="faves-page__no-faves-container">
                   <img src={LikesSVG} alt="Likes Img" className="faves-page__no-faves-svg" />
