@@ -516,9 +516,9 @@ const FavouritesPage = () => {
                       data-tooltip-id="searchTooltip" 
                       data-tooltip-content="Find Streams" 
                     />
-                    <Tooltip id="mediaTypeTooltip" place="top" className="custom-tooltip" />
-                    <Tooltip id="calendarTooltip" place="top" className="custom-tooltip" />
-                    <Tooltip id="searchTooltip" place="top" className="custom-tooltip" />
+                    <Tooltip id="mediaTypeTooltip" place="top" />
+                    <Tooltip id="calendarTooltip" place="top" />
+                    <Tooltip id="searchTooltip" place="top" />
                   </p>
                   <p className="faves-page__text">Genre: {fave.genres.join(', ')}</p>
                   <p className={`faves-page__description ${showFullDescription[fave.media_id] ? 'faves-page__description--expanded' : ''}`}>
