@@ -3,19 +3,25 @@
 @use "../../styles/partials/mixins" as *;
 @use "../../styles/global.scss" as *;
 
-#interactionTooltip {
-  background-color: $neutral-white;
-  color: $primary-dark-blue;
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
+.tooltip-custom {
+  background-color: $neutral-white !important;;
+  color: $primary-dark-blue !important;;
+  padding: 0.25rem !important;
+  border-radius: 1rem;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
-  font-family: $primary-font;
-  font-size: 0.85rem;
+  font-family: $primary-font !important;
+  font-size: 0.75rem !important;
   line-height: 1.25rem;
   font-weight: bold;
+  z-index: 9999;
+
+  @include tablet {
+    padding: .75rem !important;
+    font-size: 0.85rem !important;
+  }
 
   &::after {
-    border: $primary-button-blue transparent transparent transparent;
+    border-color: $primary-button-blue transparent transparent transparent;
   }
 }
 
@@ -252,6 +258,7 @@
   }
 
   &__no-results-copy {
+    text-align: center;
     color: $primary-pale-blue;
     background-color: $primary-dark-blue;
     padding-left: .45rem;

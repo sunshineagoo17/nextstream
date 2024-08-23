@@ -208,53 +208,53 @@ const AuthSearchResultsPage = ({ userId }) => {
 
   const getInteractionIcon = (interaction, mediaId) => {
     if (interaction === 1) {
-      return (
-        <>
-          <FontAwesomeIcon
-            icon={faThumbsUp}
-            className="auth-search-results__thumbs-up"
-            onClick={() => handleToggleInteraction(mediaId, 0)}
-            data-tooltip-id="interactionTooltip"
-            data-tooltip-content="LIKED (click to dislike)"
-          />
-          <Tooltip id="interactionTooltip" place="top" />
-        </>
-      );
+        return (
+            <>
+                <FontAwesomeIcon
+                    icon={faThumbsUp}
+                    className="auth-search-results__thumbs-up"
+                    onClick={() => handleToggleInteraction(mediaId, 0)}
+                    data-tooltip-id={`thumbsUpTooltip-${mediaId}`}
+                    data-tooltip-content="LIKED"
+                />
+                <Tooltip id={`thumbsUpTooltip-${mediaId}`} place="top" className="tooltip-custom" />
+            </>
+        );
     } else if (interaction === 0) {
-      return (
-        <>
-          <FontAwesomeIcon
-            icon={faThumbsDown}
-            className="auth-search-results__thumbs-down"
-            onClick={() => handleToggleInteraction(mediaId, 1)}
-            data-tooltip-id="interactionTooltip"
-            data-tooltip-content="DISLIKED (click to like)"
-          />
-          <Tooltip id="interactionTooltip" place="top" />
-        </>
-      );
+        return (
+            <>
+                <FontAwesomeIcon
+                    icon={faThumbsDown}
+                    className="auth-search-results__thumbs-down"
+                    onClick={() => handleToggleInteraction(mediaId, 1)}
+                    data-tooltip-id={`thumbsDownTooltip-${mediaId}`}
+                    data-tooltip-content="DISLIKED"
+                />
+                <Tooltip id={`thumbsDownTooltip-${mediaId}`} place="top" className="tooltip-custom" />
+            </>
+        );
     } else {
-      return (
-        <>
-          <div className="auth-search-results__neutral-interactions">
-            <FontAwesomeIcon
-              icon={faThumbsUp}
-              className="auth-search-results__thumbs-up"
-              onClick={() => handleToggleInteraction(mediaId, 1)}
-              data-tooltip-id="interactionTooltip"
-              data-tooltip-content="Click to LIKE"
-            />
-            <FontAwesomeIcon
-              icon={faThumbsDown}
-              className="auth-search-results__thumbs-down"
-              onClick={() => handleToggleInteraction(mediaId, 0)}
-              data-tooltip-id="interactionTooltip"
-              data-tooltip-content="Click to DISLIKE"
-            />
-          </div>
-          <Tooltip id="interactionTooltip" place="top" />
-        </>
-      );
+        return (
+            <>
+                <div className="auth-search-results__neutral-interactions">
+                    <FontAwesomeIcon
+                        icon={faThumbsUp}
+                        className="auth-search-results__thumbs-up"
+                        onClick={() => handleToggleInteraction(mediaId, 1)}
+                        data-tooltip-id={`interactionTooltip-${mediaId}`}
+                        data-tooltip-content="LIKE"
+                    />
+                    <FontAwesomeIcon
+                        icon={faThumbsDown}
+                        className="auth-search-results__thumbs-down"
+                        onClick={() => handleToggleInteraction(mediaId, 0)}
+                        data-tooltip-id={`interactionTooltip-${mediaId}`}
+                        data-tooltip-content="DISLIKE"
+                    />
+                </div>
+                <Tooltip id={`interactionTooltip-${mediaId}`} place="top" className="tooltip-custom" />
+            </>
+        );
     }
   };
 
