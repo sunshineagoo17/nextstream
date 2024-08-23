@@ -6,7 +6,9 @@
 
 #mediaTypeTooltip,
 #calendarTooltip,
-#searchTooltip {
+#searchTooltip,
+#lockTooltip,
+#trashTooltip {
   background-color: $primary-dark-blue;
   color: $neutral-white;
   padding: 0.5rem 1rem;
@@ -616,8 +618,11 @@
 
   &__media-icon-link,
   &__search-icon,
-  &__cal-icon {
+  &__cal-icon,
+  &__lock-icon,
+  &__trash-icon {
     color: $primary-button-blue;
+    cursor: pointer;
     transition: transform .3s ease-in-out;
 
     &:hover{
