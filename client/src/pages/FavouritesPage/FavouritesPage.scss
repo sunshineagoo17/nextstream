@@ -53,6 +53,41 @@
     }
   }
 
+  &__text-link {
+    background: $primary-gradient-blue;
+    border: none;
+    font: $primary-font;
+    color: $neutral-white;
+    cursor: help;
+    text-decoration: none;
+    border: 1px solid $primary-dark-blue;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+
+    &:hover,
+    &:focus,
+    &:visited {
+      padding: 0.25rem 0.5rem;
+      background-color: $primary-medium-blue;
+      border: 1px solid $primary-dark-blue;
+      color: $neutral-white;
+      text-decoration: none;
+      box-shadow: $shadow-primary;
+    }
+
+    &:active {
+      padding: 0.25rem 0.5rem;
+      background-color: $primary-light-blue;
+      color: $neutral-white;
+      border: 2px solid $neutral-light-grey;
+      border-radius: 0.25rem;
+      transform: scale(0.9);
+      text-decoration: none;
+      font-weight: bold;
+    }
+  }
+
   &__loading-container,
   &__no-faves-container {
     @include block-item(auto, 20vh);
