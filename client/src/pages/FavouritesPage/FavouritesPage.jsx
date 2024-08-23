@@ -1,4 +1,5 @@
 import { useState, useContext, useEffect, useRef } from 'react';
+import { Tooltip } from 'react-tooltip';
 import { useParams, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -494,10 +495,30 @@ const FavouritesPage = () => {
                   <h2 className="faves-page__subtitle">{fave.title}</h2>
                   <p className="faves-page__media-icon">
                     <a href={`https://www.themoviedb.org/${fave.media_type}/${fave.media_id}`} target="_blank" rel="noopener noreferrer">
-                      <FontAwesomeIcon icon={fave.media_type === 'tv' ? faTv : faFilm} className="faves-page__media-icon-link" />
+                      <FontAwesomeIcon 
+                        icon={fave.media_type === 'tv' ? faTv : faFilm} 
+                        className="faves-page__media-icon-link" 
+                        data-tooltip-id="mediaTypeTooltip" 
+                        data-tooltip-content={fave.media_type === 'tv' ? 'Media Type: TV Show' : 'Media Type: Movie'} 
+                      />
                     </a>
-                    <FontAwesomeIcon icon={faCalendarPlus} onClick={() => handleAddToCalendar(fave.title, fave.media_type, fave.media_id)} className="faves-page__cal-icon" />
-                    <FontAwesomeIcon icon={faSearch} onClick={() => handleSearchClick(fave.title, fave.name)} className="faves-page__search-icon" />
+                    <FontAwesomeIcon 
+                      icon={faCalendarPlus} 
+                      onClick={() => handleAddToCalendar(fave.title, fave.media_type, fave.media_id)} 
+                      className="faves-page__cal-icon" 
+                      data-tooltip-id="calendarTooltip" 
+                      data-tooltip-content="Add to Calendar" 
+                    />
+                    <FontAwesomeIcon 
+                      icon={faSearch} 
+                      onClick={() => handleSearchClick(fave.title, fave.name)} 
+                      className="faves-page__search-icon" 
+                      data-tooltip-id="searchTooltip" 
+                      data-tooltip-content="Find Streams" 
+                    />
+                    <Tooltip id="mediaTypeTooltip" place="top" className="custom-tooltip" />
+                    <Tooltip id="calendarTooltip" place="top" className="custom-tooltip" />
+                    <Tooltip id="searchTooltip" place="top" className="custom-tooltip" />
                   </p>
                   <p className="faves-page__text">Genre: {fave.genres.join(', ')}</p>
                   <p className={`faves-page__description ${showFullDescription[fave.media_id] ? 'faves-page__description--expanded' : ''}`}>
