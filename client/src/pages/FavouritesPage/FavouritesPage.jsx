@@ -11,6 +11,7 @@ import {
   faLock, faUnlock, faTrash
 } from '@fortawesome/free-solid-svg-icons';
 import HomeCinemaSVG from "../../assets/images/home-cinema.svg";
+import LikesSVG from "../../assets/images/like-faves.svg";
 import api from '../../services/api';
 import BlobBg from '../../components/BlobBg/BlobBg';
 import Loader from '../../components/Loader/Loader';
@@ -602,9 +603,12 @@ const FavouritesPage = () => {
                   No results found for your search. Please try a different title or genre.
                 </p>
               ) : (
-                <p className="faves-page__text faves-page__text--center">
-                  You haven't added any favourites yet. Explore our <a href={`/top-picks/${userId}`}>Top Picks</a> to find something to watch!
-                </p>
+                <div className="faves-page__no-faves-container">
+                  <img src={LikesSVG} alt="Likes Img" className="faves-page__no-faves-svg" />
+                  <p className="faves-page__text--center">
+                    You haven't added any favourites yet. Explore our <a className="faves-page__text-link" href={`/top-picks/${userId}`}>Top Picks</a> to find something to watch!
+                  </p>
+                </div>
               )
             )}
           </>
