@@ -144,7 +144,11 @@ router.get('/:userId/faves', async (req, res) => {
           filteredMediaDetails = filteredMediaDetails.filter(detail => detail.genres.includes('Family') || detail.genres.includes('Animation'));
           break;
         case 'adult':
-          filteredMediaDetails = filteredMediaDetails.filter(detail => !detail.genres.includes('Family'));
+        case 'broad-audience': 
+          filteredMediaDetails = filteredMediaDetails.filter(detail => 
+            !detail.genres.includes('Family') && 
+            !detail.genres.includes('Animation')
+          );
           break;
         case 'international':
           filteredMediaDetails = filteredMediaDetails.filter(detail => detail.origin_country && detail.origin_country.length > 0 && !detail.origin_country.includes('US') && !detail.origin_country.includes('CA'));
@@ -211,6 +215,5 @@ router.delete('/:userId/delete/:media_id/:media_type', async (req, res) => {
     res.status(500).json({ error: 'Error updating media interaction' });
   }
 });
-
 
 module.exports = router;
