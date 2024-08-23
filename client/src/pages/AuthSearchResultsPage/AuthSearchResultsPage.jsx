@@ -1,10 +1,10 @@
+import axios from 'axios';
 import { useState, useEffect, useContext, useRef, useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarPlus, faClose, faChevronRight, faChevronLeft, faThumbsUp, faThumbsDown, faImage } from '@fortawesome/free-solid-svg-icons';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
-import axios from 'axios';
-import { Tooltip } from 'react-tooltip'; // Corrected import
+import { Tooltip } from 'react-tooltip'; 
 import AnimatedBg from '../../components/AnimatedBg/AnimatedBg';
 import Loader from '../../components/Loader/Loader';
 import DefaultVideoImg from '../../assets/images/video-img-default.png';
@@ -113,7 +113,7 @@ const AuthSearchResultsPage = ({ userId }) => {
       const timer = setTimeout(() => {
         fetchResults();
       }, 300);
-      return () => clearTimeout(timer); // Cleanup function to clear timeout
+      return () => clearTimeout(timer); 
     }
   }, [query, fetchResults]);
 
