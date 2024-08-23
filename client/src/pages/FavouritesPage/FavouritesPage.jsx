@@ -10,6 +10,7 @@ import {
   faBomb, faStar, faUserSecret, faRedo, faGhost, faLaugh, faTheaterMasks, faBolt, faMap, faGlobe, faTrophy,
   faLock, faUnlock, faTrash
 } from '@fortawesome/free-solid-svg-icons';
+import HomeCinemaSVG from "../../assets/images/home-cinema.svg";
 import api from '../../services/api';
 import BlobBg from '../../components/BlobBg/BlobBg';
 import Loader from '../../components/Loader/Loader';
@@ -523,7 +524,10 @@ const FavouritesPage = () => {
         ) : (
           <>
             {isLoading && displayedFaves.length === 0 ? (
-              <p className="faves-page__text faves-page__text--center">Favourites are currently loading...</p>
+              <div className="faves-page__loading-container">
+                <img src={HomeCinemaSVG} alt="Loading..." className="faves-page__loading-svg" />
+                <p className="faves-page__text--center">Favourites are currently loading...</p>
+              </div>
             ) : displayedFaves.length > 0 ? (
               <div className="faves-page__grid">
                 {displayedFaves.map((fave) => (
