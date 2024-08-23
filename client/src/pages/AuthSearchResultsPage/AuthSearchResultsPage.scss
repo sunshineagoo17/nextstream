@@ -3,6 +3,22 @@
 @use "../../styles/partials/mixins" as *;
 @use "../../styles/global.scss" as *;
 
+#interactionTooltip {
+  background-color: $neutral-white;
+  color: $primary-dark-blue;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+  font-family: $primary-font;
+  font-size: 0.85rem;
+  line-height: 1.25rem;
+  font-weight: bold;
+
+  &::after {
+    border: $primary-button-blue transparent transparent transparent;
+  }
+}
+
 .calendar-modal {
   position: fixed;
   top: 0;

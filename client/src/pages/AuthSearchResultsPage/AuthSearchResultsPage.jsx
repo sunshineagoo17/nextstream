@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarPlus, faClose, faChevronRight, faChevronLeft, faThumbsUp, faThumbsDown, faImage } from '@fortawesome/free-solid-svg-icons';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import axios from 'axios';
+import { Tooltip } from 'react-tooltip'; // Corrected import
 import AnimatedBg from '../../components/AnimatedBg/AnimatedBg';
 import Loader from '../../components/Loader/Loader';
 import DefaultVideoImg from '../../assets/images/video-img-default.png';
@@ -207,18 +208,55 @@ const AuthSearchResultsPage = ({ userId }) => {
 
   const getInteractionIcon = (interaction, mediaId) => {
     if (interaction === 1) {
-      return <FontAwesomeIcon icon={faThumbsUp} className="auth-search-results__thumbs-up" onClick={() => handleToggleInteraction(mediaId, 0)} />;
+      return (
+        <>
+          <FontAwesomeIcon
+            icon={faThumbsUp}
+            className="auth-search-results__thumbs-up"
+            onClick={() => handleToggleInteraction(mediaId, 0)}
+            data-tooltip-id="interactionTooltip"
+            data-tooltip-content="LIKED (click to dislike)"
+          />
+          <Tooltip id="interactionTooltip" place="top" />
+        </>
+      );
     } else if (interaction === 0) {
-      return <FontAwesomeIcon icon={faThumbsDown} className="auth-search-results__thumbs-down" onClick={() => handleToggleInteraction(mediaId, 1)} />;
+      return (
+        <>
+          <FontAwesomeIcon
+            icon={faThumbsDown}
+            className="auth-search-results__thumbs-down"
+            onClick={() => handleToggleInteraction(mediaId, 1)}
+            data-tooltip-id="interactionTooltip"
+            data-tooltip-content="DISLIKED (click to like)"
+          />
+          <Tooltip id="interactionTooltip" place="top" />
+        </>
+      );
     } else {
       return (
-        <div className="auth-search-results__neutral-interactions">
-          <FontAwesomeIcon icon={faThumbsUp} className="auth-search-results__thumbs-up" onClick={() => handleToggleInteraction(mediaId, 1)} />
-          <FontAwesomeIcon icon={faThumbsDown} className="auth-search-results__thumbs-down" onClick={() => handleToggleInteraction(mediaId, 0)} />
-        </div>
+        <>
+          <div className="auth-search-results__neutral-interactions">
+            <FontAwesomeIcon
+              icon={faThumbsUp}
+              className="auth-search-results__thumbs-up"
+              onClick={() => handleToggleInteraction(mediaId, 1)}
+              data-tooltip-id="interactionTooltip"
+              data-tooltip-content="Click to LIKE"
+            />
+            <FontAwesomeIcon
+              icon={faThumbsDown}
+              className="auth-search-results__thumbs-down"
+              onClick={() => handleToggleInteraction(mediaId, 0)}
+              data-tooltip-id="interactionTooltip"
+              data-tooltip-content="Click to DISLIKE"
+            />
+          </div>
+          <Tooltip id="interactionTooltip" place="top" />
+        </>
       );
     }
-  };     
+  };
 
   return (
     <>
