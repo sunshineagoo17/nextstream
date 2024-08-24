@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlay, faCalendarPlus, faThumbsUp, faThumbsDown, faStar } from '@fortawesome/free-solid-svg-icons';
+import { faPlay, faCalendarPlus, faThumbsUp, faThumbsDown, faStar, faClose } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import AnimatedBg from '../../components/AnimatedBg/AnimatedBg';
 import Loader from '../../components/Loader/Loader';
+import Calendar from '../CalendarPage/sections/Calendar';
+import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
 import { AuthContext } from '../../context/AuthContext/AuthContext'; 
 import './NextViewPage.scss';
 
@@ -15,6 +17,9 @@ const NextViewPage = () => {
     const [mediaData, setMediaData] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [showTrailer, setShowTrailer] = useState(false);
+    const [interaction, setInteraction] = useState(null); 
+    const [showCalendar, setShowCalendar] = useState(false);
+    const [alert, setAlert] = useState({ show: false, message: '', type: '' });
 
     useEffect(() => {
         if (!mediaType || !mediaId) {
@@ -28,6 +33,15 @@ const NextViewPage = () => {
                 const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/tmdb/${mediaType}/${mediaId}`);
                 if (response.data) {
                     setMediaData(response.data);
+
+                    const interactionResponse = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/interactions/${userId}`, {
+                        params: {
+                            media_id: mediaId,
+                            media_type: mediaType,
+                        }
+                    });
+                    const interactionData = interactionResponse.data.find(i => i.media_id === mediaId);
+                    setInteraction(interactionData ? interactionData.interaction : null);
                 } else {
                     console.error('No media data found');
                     navigate('/not-found');
@@ -41,7 +55,7 @@ const NextViewPage = () => {
         };
 
         fetchMediaData();
-    }, [mediaId, mediaType, navigate]);
+    }, [mediaId, mediaType, navigate, userId]);
 
     const handlePlayTrailer = () => {
         setShowTrailer(true);
@@ -53,8 +67,37 @@ const NextViewPage = () => {
             return;
         }
 
-        // Logic to add to calendar goes here, using userId
-        // e.g., open a modal or make a POST request to your calendar API endpoint
+        if (mediaType === 'tv' && mediaData.episode_run_time.length === 0) {
+            showAlert('Duration is not available for this media.', 'info');
+            return;
+        }
+        setShowCalendar(true);
+    };
+
+    const handleCloseCalendar = () => {
+        setShowCalendar(false);
+    };
+
+    const handleToggleInteraction = async (newInteraction) => {
+        try {
+            await axios.post(`${process.env.REACT_APP_BASE_URL}/api/interactions`, {
+                userId,
+                media_id: mediaId,
+                interaction: newInteraction,
+                media_type: mediaType,
+            });
+            setInteraction(newInteraction);
+        } catch (error) {
+            console.error('Error toggling interaction:', error);
+        }
+    };
+
+    const showAlert = (message, type) => {
+        setAlert({ show: true, message, type });
+    };
+
+    const closeAlert = () => {
+        setAlert({ show: false, message: '', type: '' });
     };
 
     if (isLoading) {
@@ -67,8 +110,19 @@ const NextViewPage = () => {
 
     return (
         <div className="nextview-page">
+            {alert.show && (
+                <CustomAlerts
+                    message={alert.message}
+                    type={alert.type}
+                    onClose={closeAlert}
+                />
+            )}
             <div className="nextview-page__content">
-                <h1 className="nextview-page__title">{mediaData.title || mediaData.name}</h1>
+                <h1 className="nextview-page__title">
+                    {mediaData.title || mediaData.name}
+                    {mediaData.release_date && <span className="nextview-page__release-date"> ({new Date(mediaData.release_date).getFullYear()})</span>}
+                </h1>
+                {mediaData.adult && <p className="nextview-page__rating">Rated R</p>}
                 <p className="nextview-page__description">{mediaData.overview}</p>
 
                 <div className="nextview-page__media-info">
@@ -124,8 +178,16 @@ const NextViewPage = () => {
                         Add to Calendar
                     </button>
                     <div className="nextview-page__interaction-buttons">
-                        <FontAwesomeIcon icon={faThumbsUp} className="nextview-page__thumbs-up" />
-                        <FontAwesomeIcon icon={faThumbsDown} className="nextview-page__thumbs-down" />
+                        <FontAwesomeIcon 
+                            icon={faThumbsUp} 
+                            className={`nextview-page__thumbs-up ${interaction === 1 ? 'active' : ''}`} 
+                            onClick={() => handleToggleInteraction(1)}
+                        />
+                        <FontAwesomeIcon 
+                            icon={faThumbsDown} 
+                            className={`nextview-page__thumbs-down ${interaction === 0 ? 'active' : ''}`} 
+                            onClick={() => handleToggleInteraction(0)}
+                        />
                     </div>
                 </div>
             </div>
@@ -149,6 +211,21 @@ const NextViewPage = () => {
             <div className="nextview-page__background">
                 <AnimatedBg />
             </div>
+
+            {showCalendar && (
+                <div className="calendar-modal">
+                    <button className="calendar-close-btn" onClick={handleCloseCalendar}>
+                        <FontAwesomeIcon icon={faClose} className='calendar-modal__close-icon' />
+                    </button>
+                    <Calendar
+                        userId={userId}
+                        eventTitle={mediaData.title || mediaData.name}
+                        mediaType={mediaType}
+                        duration={mediaType === 'movie' ? mediaData.runtime : mediaData.episode_run_time[0]}
+                        onClose={handleCloseCalendar}
+                    />
+                </div>
+            )}
         </div>
     );
 };
