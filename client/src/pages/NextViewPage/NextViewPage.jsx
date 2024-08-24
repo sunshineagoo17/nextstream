@@ -222,15 +222,29 @@ const NextViewPage = () => {
                 <p className="nextview-page__description">{mediaData.overview}</p>
 
                 <div className="nextview-page__media-info">
-                    <div className="nextview-page__poster-container">
-                        <img 
-                            src={`https://image.tmdb.org/t/p/w500${mediaData.poster_path}`} 
-                            alt={mediaData.title || mediaData.name} 
-                            className="nextview-page__poster"
-                        />
-                        <div className="nextview-page__play-overlay" onClick={handlePlayTrailer}>
-                            <FontAwesomeIcon icon={faPlay} className="nextview-page__play-icon" />
+                    <div className="nextview-page__left-media-container">
+                        <div className="nextview-page__poster-container">
+                            <img 
+                                src={`https://image.tmdb.org/t/p/w500${mediaData.poster_path}`} 
+                                alt={mediaData.title || mediaData.name} 
+                                className="nextview-page__poster"
+                            />
+                            <div className="nextview-page__play-overlay" onClick={handlePlayTrailer}>
+                                <FontAwesomeIcon icon={faPlay} className="nextview-page__play-icon" />
+                            </div>
                         </div>
+
+                        <div className="nextview-page__actions">
+                            <div className="nextview-page__media-type">
+                                <FontAwesomeIcon icon={mediaType === 'tv' ? faTv : faFilm} />
+                            </div>
+                            <button className="nextview-page__calendar-button" onClick={handleAddToCalendar}>
+                                <FontAwesomeIcon icon={faCalendarPlus} />
+                            </button>
+                            <div className="nextview-page__interaction-buttons">
+                                {getInteractionIcon()}
+                            </div>
+                        </div> 
                     </div>
 
                     <div className="nextview-page__details">
@@ -299,20 +313,6 @@ const NextViewPage = () => {
                                 </button>
                             )}
                         </div>
-                    </div>
-                </div>
-
-                <div className="nextview-page__actions">
-                    <div className="nextview-page__media-type">
-                        <FontAwesomeIcon icon={mediaType === 'tv' ? faTv : faFilm} />
-                        {mediaType === 'tv' ? ' TV Show' : ' Movie'}
-                    </div>
-                    <button className="nextview-page__calendar-button" onClick={handleAddToCalendar}>
-                        <FontAwesomeIcon icon={faCalendarPlus} />
-                        Add to Calendar
-                    </button>
-                    <div className="nextview-page__interaction-buttons">
-                        {getInteractionIcon()}
                     </div>
                 </div>
             </div>
