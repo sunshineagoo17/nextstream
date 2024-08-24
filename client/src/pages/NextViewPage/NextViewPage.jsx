@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlay, faCalendarPlus, faThumbsUp, faThumbsDown, faStar, faClose, faTv, faFilm } from '@fortawesome/free-solid-svg-icons';
+import { faPlay, faCalendarPlus, faThumbsUp, faThumbsDown, faStar, faClose, faTv, faFilm, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import AnimatedBg from '../../components/AnimatedBg/AnimatedBg';
 import Loader from '../../components/Loader/Loader';
@@ -24,6 +24,9 @@ const NextViewPage = () => {
     const [alert, setAlert] = useState({ show: false, message: '', type: '' });
     const [providers, setProviders] = useState([]);
     const [cast, setCast] = useState([]);
+    const [scrollPosition, setScrollPosition] = useState(0);
+
+    const castContainerRef = useRef(null);
 
     useEffect(() => {
         if (!mediaType || !mediaId) {
@@ -42,7 +45,7 @@ const NextViewPage = () => {
 
                     // Fetch the cast information
                     const castResponse = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/tmdb/${mediaType}/${mediaId}/credits`);
-                    setCast(castResponse.data.cast.slice(0, 10)); // Limiting to top 10 cast members
+                    setCast(castResponse.data.cast); // Set all cast members
                 } else {
                     console.error('No media data found');
                     navigate('/not-found');
@@ -122,6 +125,14 @@ const NextViewPage = () => {
 
     const closeAlert = () => {
         setAlert({ show: false, message: '', type: '' });
+    };
+
+    const handleScrollRight = () => {
+        if (castContainerRef.current) {
+            const newPosition = scrollPosition + castContainerRef.current.clientWidth;
+            castContainerRef.current.scrollTo({ left: newPosition, behavior: 'smooth' });
+            setScrollPosition(newPosition);
+        }
     };
 
     if (isLoading) {
@@ -252,15 +263,30 @@ const NextViewPage = () => {
                         </div>
 
                         {/* Cast Section */}
-                        <div className="nextview-page__cast">
+                        <div className="nextview-page__cast-container">
                             <h3>Cast:</h3>
-                            <ul className="nextview-page__cast-list">
-                                {cast.map(member => (
-                                    <li key={member.cast_id} className="nextview-page__cast-item">
-                                        {member.name} as {member.character}
-                                    </li>
-                                ))}
-                            </ul>
+                            <div className="nextview-page__cast-scroll" ref={castContainerRef}>
+                                <ul className="nextview-page__cast-list">
+                                    {cast.map(member => (
+                                        <li key={member.cast_id} className="nextview-page__cast-item">
+                                            <div className="nextview-page__cast-card">
+                                                <img
+                                                    src={`https://image.tmdb.org/t/p/w185${member.profile_path}`}
+                                                    alt={member.name}
+                                                    className="nextview-page__cast-img"
+                                                />
+                                                <div className="nextview-page__cast-name">{member.name}</div>
+                                                <div className="nextview-page__cast-character">as {member.character}</div>
+                                            </div>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                            {cast.length > 4 && (
+                                <button className="nextview-page__cast-arrow" onClick={handleScrollRight}>
+                                    <FontAwesomeIcon icon={faChevronRight} />
+                                </button>
+                            )}
                         </div>
                     </div>
                 </div>

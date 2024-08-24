@@ -132,7 +132,7 @@
     @include tablet {
       flex-direction: row;
       align-items: flex-start;
-      gap: 3rem;
+      gap: 1rem;
     }
 
     @include desktop {
@@ -333,44 +333,28 @@
     }
   }
 
-  &__cast {
-    margin-top: 1rem;
+  &__cast-container {
+    display: flex;
+    flex-direction: column;
     width: 100%;
+    max-width: 39.6875rem;
+    background: rgba($neutral-white, 0.7);
+    border-radius: 1rem;
+    padding: 1rem;
+    box-shadow: $shadow-tertiary;
+    position: relative;
+    overflow: hidden;
+
+    @include tablet {
+      min-width: 25.75rem;
+      width: 100%;
+      max-width: 25.75rem;
+    }
 
     h3 {
       color: $primary-dark-blue;
       margin-bottom: 0.5rem;
-      font-size: 1.25rem;
-
-      @include tablet {
-        font-size: 1.5rem;
-      }
-
-      @include desktop {
-        font-size: 1.75rem;
-      }
-    }
-
-    &-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-
-      @include tablet {
-        gap: 1rem;
-      }
-
-      @include desktop {
-        gap: 1.5rem;
-      }
-    }
-
-    &-item {
       font-size: 1rem;
-      color: $primary-dark-blue;
 
       @include tablet {
         font-size: 1.25rem;
@@ -380,6 +364,115 @@
         font-size: 1.5rem;
       }
     }
+  }
+
+  &__cast-scroll {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding-bottom: 0.5rem;
+    gap: 0.5rem;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  &__cast-list {
+    display: flex;
+    gap: 0.5rem;
+
+    @include tablet {
+      gap: 0.75rem;
+    }
+
+    @include desktop {
+      gap: 1rem;
+    }
+  }
+
+  &__cast-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 6rem;
+    max-width: 7rem;
+
+    @include tablet {
+      width: 7rem;
+    }
+
+    @include desktop {
+      width: 8rem;
+    }
+  }
+
+  &__cast-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    border-radius: 0.5rem;
+    box-shadow: $shadow-secondary;
+    background: rgba($neutral-white, 0.9);
+    padding: 0.5rem;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+
+    transition: transform 0.3s ease;
+  }
+
+  &__cast-img {
+    width: 100%;
+    border-radius: 0.5rem;
+    margin-bottom: 0.25rem;
+  }
+
+  &__cast-name,
+  &__cast-character {
+    margin-top: 0.25rem;
+    font-size: 0.75rem;
+    color: $neutral-dark-grey;
+
+    @include tablet {
+      font-size: 0.875rem;
+    }
+
+    @include desktop {
+      font-size: 1rem;
+    }
+  }
+
+  &__cast-arrow {
+    position: absolute;
+    right: -1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: $primary-gradient-blue;
+    color: $neutral-white;
+    border-radius: 50%;
+    padding: 0.5rem;
+    font-size: 1.25rem;
+    box-shadow: $shadow-primary;
+    cursor: pointer;
+    transition: transform 0.3s ease, background 0.3s ease;
+
+    &:hover {
+      background: $primary-dark-blue;
+      transform: scale(1.1);
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+
+  &__cast-arrow-left {
+    left: -1rem;
+    right: unset;
   }
 
   &__actions {
