@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlay, faCalendarPlus, faThumbsUp, faThumbsDown, faStar, faClose, faTv, faFilm, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { faPlay, faCalendarPlus, faThumbsUp, faThumbsDown, faStar, faClose, faTv, faFilm, faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import AnimatedBg from '../../components/AnimatedBg/AnimatedBg';
 import Loader from '../../components/Loader/Loader';
@@ -130,6 +130,14 @@ const NextViewPage = () => {
     const handleScrollRight = () => {
         if (castContainerRef.current) {
             const newPosition = scrollPosition + castContainerRef.current.clientWidth;
+            castContainerRef.current.scrollTo({ left: newPosition, behavior: 'smooth' });
+            setScrollPosition(newPosition);
+        }
+    };
+
+    const handleScrollLeft = () => {
+        if (castContainerRef.current) {
+            const newPosition = scrollPosition - castContainerRef.current.clientWidth;
             castContainerRef.current.scrollTo({ left: newPosition, behavior: 'smooth' });
             setScrollPosition(newPosition);
         }
@@ -265,6 +273,9 @@ const NextViewPage = () => {
                         {/* Cast Section */}
                         <div className="nextview-page__cast-container">
                             <h3>Cast:</h3>
+                            <button className="nextview-page__cast-arrow nextview-page__cast-arrow-left" onClick={handleScrollLeft}>
+                                <FontAwesomeIcon icon={faChevronLeft} />
+                            </button>
                             <div className="nextview-page__cast-scroll" ref={castContainerRef}>
                                 <ul className="nextview-page__cast-list">
                                     {cast.map(member => (
@@ -283,7 +294,7 @@ const NextViewPage = () => {
                                 </ul>
                             </div>
                             {cast.length > 4 && (
-                                <button className="nextview-page__cast-arrow" onClick={handleScrollRight}>
+                                <button className="nextview-page__cast-arrow nextview-page__cast-arrow-right" onClick={handleScrollRight}>
                                     <FontAwesomeIcon icon={faChevronRight} />
                                 </button>
                             )}
