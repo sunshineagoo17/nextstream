@@ -21,6 +21,35 @@
     padding: 4rem;
   }
 
+  &__calendar-button {
+    background: $primary-gradient-blue;
+    color: $neutral-white;
+    padding: 0.5rem;
+    border-radius: 0.75rem;
+    font-size: 1rem;
+    font-weight: bold;
+    box-shadow: $shadow-primary;
+    transition: transform 0.3s ease, background 0.3s ease;
+
+    &:hover {
+      background: $primary-dark-blue;
+      transform: scale(1.05);
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+
+    @include tablet {
+      padding: .75rem;
+      font-size: 1.25rem;
+    }
+
+    @include desktop {
+      font-size: 1.25rem;
+    }
+  }
+
   &__content {
     display: flex;
     flex-direction: column;
@@ -291,20 +320,68 @@
 
   &__actions {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    gap: 2rem;
-    margin-top: 2rem;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+    width: 100%;
 
     @include tablet {
-      gap: 3rem;
+      justify-content: flex-start;
+      gap: 2rem;
     }
 
     @include desktop {
-      gap: 4rem;
+      justify-content: flex-start;
+      gap: 2.5rem;
     }
 
-    &-buttons {
+    &-media-type {
+      display: flex;
+      align-items: center;
+      background: $primary-light-blue;
+      color: $neutral-white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.75rem;
+      font-size: 1rem;
+      font-weight: bold;
+      box-shadow: $shadow-primary;
+      transition: transform 0.3s ease, background 0.3s ease;
+
+      svg {
+        margin-right: 0.5rem;
+        font-size: 1.5rem;
+      }
+
+      &:hover {
+        background: $primary-button-blue;
+        transform: scale(1.05);
+      }
+
+      &:active {
+        transform: scale(0.95);
+      }
+
+      @include tablet {
+        font-size: 1.25rem;
+
+        svg {
+          font-size: 1.75rem;
+        }
+      }
+
+      @include desktop {
+        font-size: 1.5rem;
+
+        svg {
+          font-size: 2rem;
+        }
+      }
+    }
+
+    
+
+    &__buttons {
       display: flex;
       gap: 1rem;
 
@@ -326,13 +403,13 @@
         }
       }
 
-      .nextview-page__thumbs-up,
-      .nextview-page__thumbs-down {
-        font-size: .5rem;
+      &__thumbs-up,
+      &__thumbs-down {
+        font-size: 1.5rem;
         color: $neutral-white;
         box-shadow: $shadow-senary;
-        border-radius: .5rem;
-        padding: .25rem;
+        border-radius: 0.5rem;
+        padding: 0.25rem;
         cursor: pointer;
         transition: transform 0.2s ease, color 0.2s ease;
 
@@ -349,48 +426,12 @@
         }
 
         @include tablet {
-          font-size: .75rem;
+          font-size: 1.75rem;
         }
 
         @include desktop {
-          font-size: 1.25rem;
+          font-size: 2rem;
         }
-      }
-
-      .nextview-page__thumbs-up.active,
-      .nextview-page__thumbs-down.active {
-        color: $primary-button-blue;
-        border: 2px solid $primary-button-blue;
-      }
-    }
-
-    &-calendar-button {
-      background: $primary-gradient-blue;
-      color: $neutral-white;
-      padding: 0.75rem 1.5rem;
-      border-radius: 0.75rem;
-      font-size: 1rem;
-      font-weight: bold;
-      box-shadow: $shadow-primary;
-      transition: transform 0.3s ease, background 0.3s ease;
-
-      &:hover {
-        background: $primary-dark-blue;
-        transform: scale(1.05);
-      }
-
-      &:active {
-        transform: scale(0.95);
-      }
-
-      @include tablet {
-        padding: 1rem 2rem;
-        font-size: 1.25rem;
-      }
-
-      @include desktop {
-        padding: 1.25rem 2.5rem;
-        font-size: 1.5rem;
       }
     }
   }
