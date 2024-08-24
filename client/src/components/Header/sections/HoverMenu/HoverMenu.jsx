@@ -35,7 +35,7 @@ const HoverMenu = () => {
 
   // This determines the background class based on the current page
   const getBackgroundClass = () => {
-    const darkBackgroundPages = [
+    const darkBackgroundPaths = [
       `/login`,
       `/top-picks/${userId}`, 
       `/calendar/${userId}`, 
@@ -43,8 +43,13 @@ const HoverMenu = () => {
       `/auth-search-results/${userId}`,
       `/search`
     ];
-    return darkBackgroundPages.includes(location.pathname) ? 'dark-background' : '';
-  };
+  
+    const isDarkBackgroundPage = darkBackgroundPaths.includes(location.pathname) ||
+      // Add regular expression to match the NextView page with dynamic segments
+      new RegExp(`^/nextview/${userId}/(movie|tv)/\\d+$`).test(location.pathname);
+  
+    return isDarkBackgroundPage ? 'dark-background' : '';
+  };  
 
   return (
     <div ref={menuRef} className={`hover-menu__container ${getBackgroundClass()}`}>
