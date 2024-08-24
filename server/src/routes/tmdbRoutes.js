@@ -201,6 +201,38 @@ router.get('/:mediaType/:mediaId/watch/providers', async (req, res) => {
   }
 });
 
+// Endpoint to get credits (cast and crew) for a movie or TV show
+router.get('/:mediaType/:mediaId/credits', async (req, res) => {
+  const { mediaType, mediaId } = req.params;
+  try {
+    const response = await axios.get(`${TMDB_BASE_URL}/${mediaType}/${mediaId}/credits`, {
+      params: {
+        api_key: TMDB_API_KEY
+      }
+    });
+    res.json(response.data);
+  } catch (error) {
+    console.error(`Error fetching credits for ${mediaType} ${mediaId}:`, error.message);
+    res.status(500).json({ message: 'Error fetching credits' });
+  }
+});
+
+// Endpoint to get videos (e.g., trailers) for a movie or TV show
+router.get('/:mediaType/:mediaId/videos', async (req, res) => {
+  const { mediaType, mediaId } = req.params;
+  try {
+    const response = await axios.get(`${TMDB_BASE_URL}/${mediaType}/${mediaId}/videos`, {
+      params: {
+        api_key: TMDB_API_KEY
+      }
+    });
+    res.json(response.data);
+  } catch (error) {
+    console.error(`Error fetching videos for ${mediaType} ${mediaId}:`, error.message);
+    res.status(500).json({ message: 'Error fetching videos' });
+  }
+});
+
 // Endpoint to get details for a movie
 router.get('/movie/:id', async (req, res) => {
   const { id } = req.params;
@@ -250,11 +282,16 @@ router.get('/nextview/:userId/:mediaId/:mediaType', async (req, res) => {
     // Fetch watch providers
     const providers = await getWatchProviders(mediaType, mediaId);
 
+    // Fetch credits (cast and crew)
+    const creditsResponse = await axios.get(`${TMDB_BASE_URL}/${mediaType}/${mediaId}/credits?api_key=${TMDB_API_KEY}`);
+    const credits = creditsResponse.data.cast.slice(0, 10); // Top 10 cast members
+
     // Combine the data
     const responseData = {
       ...mediaData,
       interaction: interaction ? interaction.interaction : null,
       providers,
+      credits,
     };
 
     res.json(responseData);

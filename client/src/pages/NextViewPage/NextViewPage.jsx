@@ -23,6 +23,7 @@ const NextViewPage = () => {
     const [showCalendar, setShowCalendar] = useState(false);
     const [alert, setAlert] = useState({ show: false, message: '', type: '' });
     const [providers, setProviders] = useState([]);
+    const [cast, setCast] = useState([]);
 
     useEffect(() => {
         if (!mediaType || !mediaId) {
@@ -38,6 +39,10 @@ const NextViewPage = () => {
                     setMediaData(response.data);
                     setInteraction(response.data.interaction);
                     setProviders(response.data.providers || []);
+
+                    // Fetch the cast information
+                    const castResponse = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/tmdb/${mediaType}/${mediaId}/credits`);
+                    setCast(castResponse.data.cast.slice(0, 10)); // Limiting to top 10 cast members
                 } else {
                     console.error('No media data found');
                     navigate('/not-found');
@@ -244,6 +249,18 @@ const NextViewPage = () => {
                                     <p>No streaming services available.</p>
                                 )}
                             </div>
+                        </div>
+
+                        {/* Cast Section */}
+                        <div className="nextview-page__cast">
+                            <h3>Cast:</h3>
+                            <ul className="nextview-page__cast-list">
+                                {cast.map(member => (
+                                    <li key={member.cast_id} className="nextview-page__cast-item">
+                                        {member.name} as {member.character}
+                                    </li>
+                                ))}
+                            </ul>
                         </div>
                     </div>
                 </div>
