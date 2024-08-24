@@ -8,6 +8,7 @@ import Loader from '../../components/Loader/Loader';
 import Calendar from '../CalendarPage/sections/Calendar';
 import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
 import { AuthContext } from '../../context/AuthContext/AuthContext'; 
+import { Tooltip } from 'react-tooltip';
 import './NextViewPage.scss';
 
 const NextViewPage = () => {
@@ -17,9 +18,11 @@ const NextViewPage = () => {
     const [mediaData, setMediaData] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [showTrailer, setShowTrailer] = useState(false);
+    const [trailerUrl, setTrailerUrl] = useState('');
     const [interaction, setInteraction] = useState(null); 
     const [showCalendar, setShowCalendar] = useState(false);
     const [alert, setAlert] = useState({ show: false, message: '', type: '' });
+    const [providers, setProviders] = useState([]);
 
     useEffect(() => {
         if (!mediaType || !mediaId) {
@@ -30,24 +33,18 @@ const NextViewPage = () => {
 
         const fetchMediaData = async () => {
             try {
-                const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/tmdb/${mediaType}/${mediaId}`);
+                const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/tmdb/nextview/${userId}/${mediaId}/${mediaType}`);
                 if (response.data) {
                     setMediaData(response.data);
-
-                    const interactionResponse = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/interactions/${userId}`, {
-                        params: {
-                            media_id: mediaId,
-                            media_type: mediaType,
-                        }
-                    });
-                    const interactionData = interactionResponse.data.find(i => i.media_id === mediaId);
-                    setInteraction(interactionData ? interactionData.interaction : null);
+                    setInteraction(response.data.interaction);
+                    setProviders(response.data.providers || []);
                 } else {
                     console.error('No media data found');
                     navigate('/not-found');
                 }
             } catch (error) {
                 console.error('Error fetching media data:', error);
+                showAlert('Error loading data. Please try again later.', 'error');
                 navigate('/not-found');
             } finally {
                 setIsLoading(false);
@@ -57,8 +54,24 @@ const NextViewPage = () => {
         fetchMediaData();
     }, [mediaId, mediaType, navigate, userId]);
 
-    const handlePlayTrailer = () => {
-        setShowTrailer(true);
+    const handlePlayTrailer = async () => {
+        setIsLoading(true);
+        try {
+            const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/tmdb/${mediaType}/${mediaId}/videos`);
+            const videoData = response.data;
+
+            if (videoData && videoData.embedUrl) {
+                setTrailerUrl(videoData.embedUrl);
+                setShowTrailer(true);
+            } else {
+                showAlert('Apologies, no video is available.', 'info');
+            }
+        } catch (error) {
+            console.error('Error fetching video:', error);
+            showAlert('Apologies, no video is available.', 'info');
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     const handleAddToCalendar = () => {
@@ -67,10 +80,7 @@ const NextViewPage = () => {
             return;
         }
 
-        if (mediaType === 'tv' && mediaData.episode_run_time.length === 0) {
-            showAlert('Duration is not available for this media.', 'info');
-            return;
-        }
+        showAlert(`You can now add ${mediaData.title || mediaData.name} to your calendar!`, 'success');
         setShowCalendar(true);
     };
 
@@ -87,8 +97,17 @@ const NextViewPage = () => {
                 media_type: mediaType,
             });
             setInteraction(newInteraction);
+
+            if (newInteraction === 1) {
+                showAlert('You liked this item!', 'success');
+            } else if (newInteraction === 0) {
+                showAlert('You disliked this item!', 'info');
+            } else {
+                showAlert('Interaction removed.', 'info');
+            }
         } catch (error) {
             console.error('Error toggling interaction:', error);
+            showAlert('Error toggling interaction. Please try again later.', 'error');
         }
     };
 
@@ -108,6 +127,58 @@ const NextViewPage = () => {
         return <p>Media data could not be loaded.</p>;
     }
 
+    const getInteractionIcon = () => {
+        if (interaction === 1) {
+            return (
+                <>
+                    <FontAwesomeIcon
+                        icon={faThumbsUp}
+                        className="nextview-page__thumbs-up active"
+                        onClick={() => handleToggleInteraction(0)}
+                        data-tooltip-id={`thumbsUpTooltip-${mediaId}`}
+                        data-tooltip-content="LIKED"
+                    />
+                    <Tooltip id={`thumbsUpTooltip-${mediaId}`} place="top" className="tooltip-custom" />
+                </>
+            );
+        } else if (interaction === 0) {
+            return (
+                <>
+                    <FontAwesomeIcon
+                        icon={faThumbsDown}
+                        className="nextview-page__thumbs-down active"
+                        onClick={() => handleToggleInteraction(1)}
+                        data-tooltip-id={`thumbsDownTooltip-${mediaId}`}
+                        data-tooltip-content="DISLIKED"
+                    />
+                    <Tooltip id={`thumbsDownTooltip-${mediaId}`} place="top" className="tooltip-custom" />
+                </>
+            );
+        } else {
+            return (
+                <>
+                    <div className="nextview-page__neutral-interactions">
+                        <FontAwesomeIcon
+                            icon={faThumbsUp}
+                            className="nextview-page__thumbs-up"
+                            onClick={() => handleToggleInteraction(1)}
+                            data-tooltip-id={`interactionTooltip-${mediaId}`}
+                            data-tooltip-content="LIKE"
+                        />
+                        <FontAwesomeIcon
+                            icon={faThumbsDown}
+                            className="nextview-page__thumbs-down"
+                            onClick={() => handleToggleInteraction(0)}
+                            data-tooltip-id={`interactionTooltip-${mediaId}`}
+                            data-tooltip-content="DISLIKE"
+                        />
+                    </div>
+                    <Tooltip id={`interactionTooltip-${mediaId}`} place="top" className="tooltip-custom" />
+                </>
+            );
+        }
+    };
+
     return (
         <div className="nextview-page">
             {alert.show && (
@@ -121,6 +192,7 @@ const NextViewPage = () => {
                 <h1 className="nextview-page__title">
                     {mediaData.title || mediaData.name}
                     {mediaData.release_date && <span className="nextview-page__release-date"> ({new Date(mediaData.release_date).getFullYear()})</span>}
+                    {mediaData.certification && <span className="nextview-page__certification"> {mediaData.certification}</span>}
                 </h1>
                 {mediaData.adult && <p className="nextview-page__rating">Rated R</p>}
                 <p className="nextview-page__description">{mediaData.overview}</p>
@@ -149,14 +221,14 @@ const NextViewPage = () => {
                         </div>
 
                         <div className="nextview-page__duration">
-                            {mediaType === 'movie' ? `${mediaData.runtime} minutes` : `${mediaData.episode_run_time[0]} minutes per episode`}
+                            {mediaType === 'movie' ? `${mediaData.runtime} minutes` : `${mediaData.episode_run_time[0] || mediaData.episode_run_time[0]} minutes per episode`}
                         </div>
 
                         <div className="nextview-page__streaming">
                             <h3>Available on:</h3>
                             <div className="nextview-page__streaming-services">
-                                {mediaData.providers?.results?.CA?.flatrate?.length > 0 ? (
-                                    mediaData.providers.results.CA.flatrate.map(provider => (
+                                {providers.length > 0 ? (
+                                    providers.map(provider => (
                                         <img
                                             key={provider.provider_id}
                                             src={`https://image.tmdb.org/t/p/original${provider.logo_path}`}
@@ -178,27 +250,18 @@ const NextViewPage = () => {
                         Add to Calendar
                     </button>
                     <div className="nextview-page__interaction-buttons">
-                        <FontAwesomeIcon 
-                            icon={faThumbsUp} 
-                            className={`nextview-page__thumbs-up ${interaction === 1 ? 'active' : ''}`} 
-                            onClick={() => handleToggleInteraction(1)}
-                        />
-                        <FontAwesomeIcon 
-                            icon={faThumbsDown} 
-                            className={`nextview-page__thumbs-down ${interaction === 0 ? 'active' : ''}`} 
-                            onClick={() => handleToggleInteraction(0)}
-                        />
+                        {getInteractionIcon()}
                     </div>
                 </div>
             </div>
 
-            {showTrailer && mediaData.videos?.results?.find(video => video.type === 'Trailer') && (
+            {showTrailer && (
                 <div className="nextview-page__trailer-modal">
                     <button className="nextview-page__close-btn" onClick={() => setShowTrailer(false)}>
                         Close
                     </button>
                     <iframe
-                        src={`https://www.youtube.com/embed/${mediaData.videos.results.find(video => video.type === 'Trailer').key}`}
+                        src={trailerUrl}
                         title="Trailer"
                         frameBorder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -215,7 +278,7 @@ const NextViewPage = () => {
             {showCalendar && (
                 <div className="calendar-modal">
                     <button className="calendar-close-btn" onClick={handleCloseCalendar}>
-                        <FontAwesomeIcon icon={faClose} className='calendar-modal__close-icon' />
+                        <FontAwesomeIcon icon={faClose} className='nextview-page__close-icon' />
                     </button>
                     <Calendar
                         userId={userId}

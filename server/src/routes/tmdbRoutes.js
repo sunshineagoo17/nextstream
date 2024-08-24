@@ -3,6 +3,8 @@ const axios = require('axios');
 const router = express.Router();
 const NodeCache = require('node-cache');
 const cron = require('node-cron');
+const knexConfig = require('../../knexfile');
+const db = require('knex')(knexConfig.development);
 require('dotenv').config();
 
 const cache = new NodeCache({ stdTTL: 3600 });
@@ -54,7 +56,7 @@ const fetchPopularReleases = async () => {
       let page = 1;
       let totalPages = 1;
 
-      while (results.length < 50 && page <= totalPages) {  // Fetch up to 50 items for more extensive filtering
+      while (results.length < 50 && page <= totalPages) {
         const response = await axios.get(`${TMDB_BASE_URL}/${mediaType}/popular`, {
           params: {
             api_key: TMDB_API_KEY,
@@ -231,24 +233,28 @@ router.get('/tv/:id', async (req, res) => {
   }
 });
 
-// New Endpoint to fetch detailed media data and interaction for the NextViewPage
-router.get('/nextview/:userId/:mediaId', async (req, res) => {
-  const { userId, mediaId } = req.params;
+// Endpoint to fetch detailed media data, including interaction, trailers, and watch providers for the NextViewPage
+router.get('/nextview/:userId/:mediaId/:mediaType', async (req, res) => {
+  const { userId, mediaId, mediaType } = req.params;
 
   try {
-    // Fetch the media details from TMDB
-    const mediaResponse = await axios.get(`${TMDB_BASE_URL}/movie/${mediaId}?api_key=${TMDB_API_KEY}`);
+    // Fetch the media details from TMDB including videos
+    const mediaResponse = await axios.get(`${TMDB_BASE_URL}/${mediaType}/${mediaId}?api_key=${TMDB_API_KEY}&append_to_response=videos`);
     const mediaData = mediaResponse.data;
 
     // Fetch user interaction for this media item
     const interaction = await db('interactions')
-      .where({ userId, media_id: mediaId, media_type: 'movie' }) // or 'tv' depending on your logic
+      .where({ userId, media_id: mediaId, media_type: mediaType })
       .first();
+
+    // Fetch watch providers
+    const providers = await getWatchProviders(mediaType, mediaId);
 
     // Combine the data
     const responseData = {
       ...mediaData,
       interaction: interaction ? interaction.interaction : null,
+      providers,
     };
 
     res.json(responseData);
