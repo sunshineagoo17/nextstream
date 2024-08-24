@@ -221,7 +221,11 @@ const NextViewPage = () => {
                         </div>
 
                         <div className="nextview-page__duration">
-                            {mediaType === 'movie' ? `${mediaData.runtime} minutes` : `${mediaData.episode_run_time[0] || mediaData.episode_run_time[0]} minutes per episode`}
+                            {mediaType === 'movie' 
+                                ? `${mediaData.runtime} minutes` 
+                                : mediaData.episode_run_time[0] 
+                                    ? `${mediaData.episode_run_time[0]} minutes per episode`
+                                    : 'Duration: Unavailable'}
                         </div>
 
                         <div className="nextview-page__streaming">
