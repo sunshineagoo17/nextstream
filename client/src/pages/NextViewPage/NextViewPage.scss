@@ -149,6 +149,10 @@
 
   &__title {
     font-family: $primary-font;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: .5rem;
     font-size: 2rem;
     color: $primary-dark-blue;
     text-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.2);
@@ -165,9 +169,13 @@
 
   &__certification {
     font-size: 1rem;
-    color: $primary-button-blue;
+    padding: .25rem .75rem;
+    background-color: $primary-button-blue;
+    border: 2px solid $neutral-white;
+    border-radius: .5rem;
+    color: $neutral-white;
+    box-shadow: $shadow-primary;
     font-weight: bold;
-    margin-right: 0.5rem;
 
     @include tablet {
       font-size: 1.25rem;

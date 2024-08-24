@@ -16,6 +16,7 @@ const NextViewPage = () => {
     const navigate = useNavigate();  
     const { userId } = useContext(AuthContext); 
     const [mediaData, setMediaData] = useState(null);
+    const [certification, setCertification] = useState(null); // New state for certification
     const [isLoading, setIsLoading] = useState(true);
     const [showTrailer, setShowTrailer] = useState(false);
     const [trailerUrl, setTrailerUrl] = useState('');
@@ -42,6 +43,20 @@ const NextViewPage = () => {
                     setMediaData(response.data);
                     setInteraction(response.data.interaction);
                     setProviders(response.data.providers || []);
+
+                    // Fetch the certification data based on media type
+                    if (mediaType === 'movie') {
+                        const releaseInfo = response.data.release_dates.results.find(r => r.iso_3166_1 === 'US'); // Filter for US region
+                        if (releaseInfo && releaseInfo.release_dates.length > 0) {
+                            const certification = releaseInfo.release_dates[0].certification;
+                            setCertification(certification || 'NR'); // NR for Not Rated
+                        }
+                    } else if (mediaType === 'tv') {
+                        const contentRating = response.data.content_ratings.results.find(r => r.iso_3166_1 === 'US'); // Filter for US region
+                        if (contentRating) {
+                            setCertification(contentRating.rating || 'NR'); // NR for Not Rated
+                        }
+                    }
 
                     // Fetch the cast information
                     const castResponse = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/tmdb/${mediaType}/${mediaId}/credits`);
@@ -107,9 +122,9 @@ const NextViewPage = () => {
             setInteraction(newInteraction);
 
             if (newInteraction === 1) {
-                showAlert('You liked this item!', 'success');
+                showAlert('You liked this media!', 'success');
             } else if (newInteraction === 0) {
-                showAlert('You disliked this item!', 'info');
+                showAlert('You disliked this media!', 'info');
             } else {
                 showAlert('Interaction removed.', 'info');
             }
@@ -216,9 +231,8 @@ const NextViewPage = () => {
                 <h1 className="nextview-page__title">
                     {mediaData.title || mediaData.name}
                     {mediaData.release_date && <span className="nextview-page__release-date"> ({new Date(mediaData.release_date).getFullYear()})</span>}
-                    {mediaData.certification && <span className="nextview-page__certification"> {mediaData.certification}</span>}
+                    {certification && <span className="nextview-page__certification"> {certification}</span>}
                 </h1>
-                {mediaData.adult && <p className="nextview-page__rating">Rated R</p>}
                 <p className="nextview-page__description">{mediaData.overview}</p>
 
                 <div className="nextview-page__media-info">

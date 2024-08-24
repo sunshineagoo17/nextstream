@@ -270,34 +270,58 @@ router.get('/nextview/:userId/:mediaId/:mediaType', async (req, res) => {
   const { userId, mediaId, mediaType } = req.params;
 
   try {
-    // Fetch the media details from TMDB including videos
-    const mediaResponse = await axios.get(`${TMDB_BASE_URL}/${mediaType}/${mediaId}?api_key=${TMDB_API_KEY}&append_to_response=videos`);
-    const mediaData = mediaResponse.data;
+      // Fetch the media details from TMDB including videos and certifications
+      const mediaResponse = await axios.get(`${TMDB_BASE_URL}/${mediaType}/${mediaId}`, {
+          params: {
+              api_key: TMDB_API_KEY,
+              append_to_response: 'videos,release_dates,content_ratings'
+          }
+      });
+      const mediaData = mediaResponse.data;
 
-    // Fetch user interaction for this media item
-    const interaction = await db('interactions')
-      .where({ userId, media_id: mediaId, media_type: mediaType })
-      .first();
+      // Fetch the content rating based on mediaType
+      let certification = null;
+      if (mediaType === 'movie') {
+          const releaseInfo = mediaData.release_dates.results.find(country => country.iso_3166_1 === 'US');
+          if (releaseInfo && releaseInfo.release_dates.length > 0) {
+              certification = releaseInfo.release_dates[0].certification || null;
+          }
+      } else if (mediaType === 'tv') {
+          const contentRatingInfo = mediaData.content_ratings.results.find(country => country.iso_3166_1 === 'US');
+          if (contentRatingInfo) {
+              certification = contentRatingInfo.rating || null;
+          }
+      }
 
-    // Fetch watch providers
-    const providers = await getWatchProviders(mediaType, mediaId);
+      // Fetch user interaction for this media item
+      const interaction = await db('interactions')
+          .where({ userId, media_id: mediaId, media_type: mediaType })
+          .first();
 
-    // Fetch credits (cast and crew)
-    const creditsResponse = await axios.get(`${TMDB_BASE_URL}/${mediaType}/${mediaId}/credits?api_key=${TMDB_API_KEY}`);
-    const credits = creditsResponse.data.cast.slice(0, 10); // Top 10 cast members
+      // Fetch watch providers
+      const providers = await getWatchProviders(mediaType, mediaId);
 
-    // Combine the data
-    const responseData = {
-      ...mediaData,
-      interaction: interaction ? interaction.interaction : null,
-      providers,
-      credits,
-    };
+      // Fetch credits (cast and crew)
+      const creditsResponse = await axios.get(`${TMDB_BASE_URL}/${mediaType}/${mediaId}/credits`, {
+          params: {
+              api_key: TMDB_API_KEY
+          }
+      });
+      const credits = creditsResponse.data.cast.slice(0, 10); // Top 10 cast members
 
-    res.json(responseData);
+      // Combine the data
+      const responseData = {
+          ...mediaData,
+          certification, // Add the certification data to the response
+          interaction: interaction ? interaction.interaction : null,
+          providers,
+          credits,
+      };
+
+      res.json(responseData);
   } catch (error) {
-    console.error('Error fetching next view media data:', error);
-    res.status(500).json({ message: 'Error fetching media data' });
+      console.error('Error fetching next view media data:', error);
+      res.status(500).json({ message: 'Error fetching media data' });
   }
 });
 
