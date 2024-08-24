@@ -177,9 +177,9 @@ const AuthSearchResultsPage = ({ userId }) => {
   
       // Show alert based on the interaction type
       if (newInteraction === 1) {
-        showAlert('You liked this item!', 'success');
+        showAlert('You liked this media!', 'success');
       } else if (newInteraction === 0) {
-        showAlert('You disliked this item!', 'info');
+        showAlert('You disliked this media!', 'info');
       } else {
         showAlert('Interaction removed.', 'info');
       }
