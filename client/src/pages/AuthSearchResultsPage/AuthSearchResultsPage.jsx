@@ -303,7 +303,10 @@ const AuthSearchResultsPage = ({ userId }) => {
               results.slice(currentIndex, currentIndex + 3).map(result => (
                 <div key={result.id} className="auth-search-results__card">
                   <div className="auth-search-results__poster-wrapper">
-                    <a href={`https://www.themoviedb.org/${result.media_type}/${result.id}`} className="auth-search-results__link" target="_blank" rel="noopener noreferrer">
+                    <div 
+                      className="auth-search-results__link" 
+                      onClick={() => navigate(`/nextview/${userId}/${result.media_type}/${result.id}`)} 
+                      aria-label={`View details for ${result.title || result.name}`}>
                       {result.poster_path ? (
                         <img
                           className="auth-search-results__poster"
@@ -323,7 +326,7 @@ const AuthSearchResultsPage = ({ userId }) => {
                         </div>
                       )}
                       {getMediaTypeIcon(result.media_type)}
-                    </a>
+                    </div>
                     <button
                       aria-label="Add to Calendar"
                       className="auth-search-results__calendar-button"

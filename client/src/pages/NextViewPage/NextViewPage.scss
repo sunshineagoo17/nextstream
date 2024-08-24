@@ -1,0 +1,452 @@
+@use "../../styles/partials/colors" as *;
+@use "../../styles/partials/fonts" as *;
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/global.scss" as *;
+
+.nextview-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 2rem;
+  min-height: 100vh;
+  background-color: $primary-darker-blue;
+  position: relative;
+
+  @include tablet {
+    padding: 3rem;
+  }
+
+  @include desktop {
+    padding: 4rem;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 60rem;
+    background: rgba($neutral-white, 0.8);
+    backdrop-filter: blur(0.5rem);
+    border-radius: 1.5rem;
+    padding: 2rem;
+    box-shadow: $shadow-primary;
+    border: 0.125rem solid rgba($neutral-white, 0.5);
+
+    @include tablet {
+      padding: 3rem;
+    }
+
+    @include desktop {
+      padding: 4rem;
+    }
+  }
+
+  &__title {
+    font-family: $primary-font;
+    font-size: 2rem;
+    color: $primary-dark-blue;
+    text-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.2);
+    margin-bottom: 1rem;
+
+    @include tablet {
+      font-size: 2.5rem;
+    }
+
+    @include desktop {
+      font-size: 3rem;
+    }
+  }
+
+  &__description {
+    font-family: $primary-font;
+    font-size: 1rem;
+    color: $neutral-dark-grey;
+    line-height: 1.5rem;
+    text-align: center;
+    margin-bottom: 2rem;
+
+    @include tablet {
+      font-size: 1.25rem;
+      line-height: 1.75rem;
+    }
+
+    @include desktop {
+      font-size: 1.5rem;
+      line-height: 2rem;
+    }
+  }
+
+  &__media-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    width: 100%;
+
+    @include tablet {
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 3rem;
+    }
+
+    @include desktop {
+      gap: 4rem;
+    }
+  }
+
+  &__poster-container {
+    position: relative;
+    width: 100%;
+    max-width: 20rem;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: $shadow-quaternary;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+
+    @include tablet {
+      max-width: 25rem;
+    }
+
+    @include desktop {
+      max-width: 30rem;
+    }
+  }
+
+  &__poster {
+    width: 100%;
+    height: auto;
+    border-radius: 1rem;
+  }
+
+  &__play-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+
+    &:hover {
+      opacity: 1;
+      cursor: pointer;
+    }
+  }
+
+  &__play-icon {
+    color: $neutral-white;
+    font-size: 2rem;
+
+    @include tablet {
+      font-size: 2.5rem;
+    }
+
+    @include desktop {
+      font-size: 3rem;
+    }
+  }
+
+  &__details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    width: 100%;
+
+    @include tablet {
+      gap: 1.5rem;
+    }
+
+    @include desktop {
+      gap: 2rem;
+    }
+  }
+
+  &__genre {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+
+    &-item {
+      background: $primary-light-blue;
+      color: $neutral-white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      font-size: 0.85rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      box-shadow: $shadow-secondary;
+
+      @include tablet {
+        font-size: 1rem;
+      }
+
+      @include desktop {
+        font-size: 1.25rem;
+      }
+    }
+  }
+
+  &__rating {
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    color: $primary-dark-blue;
+    font-weight: bold;
+
+    svg {
+      margin-right: 0.5rem;
+      color: $primary-button-blue;
+    }
+
+    @include tablet {
+      font-size: 1.25rem;
+    }
+
+    @include desktop {
+      font-size: 1.5rem;
+    }
+  }
+
+  &__duration {
+    font-size: 1rem;
+    color: $primary-dark-blue;
+
+    @include tablet {
+      font-size: 1.25rem;
+    }
+
+    @include desktop {
+      font-size: 1.5rem;
+    }
+  }
+
+  &__streaming {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background: rgba($neutral-white, 0.7);
+    border-radius: 1rem;
+    padding: 1rem;
+    box-shadow: $shadow-tertiary;
+
+    h3 {
+      color: $primary-dark-blue;
+      margin-bottom: 0.5rem;
+      font-size: 1.25rem;
+
+      @include tablet {
+        font-size: 1.5rem;
+      }
+
+      @include desktop {
+        font-size: 1.75rem;
+      }
+    }
+
+    &-services {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+
+      @include tablet {
+        gap: 1rem;
+      }
+
+      @include desktop {
+        gap: 1.5rem;
+      }
+
+      &-logo {
+        width: 3rem;
+        height: auto;
+        border-radius: 0.5rem;
+        box-shadow: $shadow-secondary;
+        transition: transform 0.3s ease;
+
+        &:hover {
+          transform: scale(1.1);
+        }
+
+        @include tablet {
+          width: 4rem;
+        }
+
+        @include desktop {
+          width: 5rem;
+        }
+      }
+    }
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 2rem;
+
+    @include tablet {
+      gap: 3rem;
+    }
+
+    @include desktop {
+      gap: 4rem;
+    }
+
+    &-buttons {
+      display: flex;
+      gap: 1rem;
+
+      svg {
+        font-size: 2rem;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+
+        &:hover {
+          transform: scale(1.1);
+        }
+
+        @include tablet {
+          font-size: 2.5rem;
+        }
+
+        @include desktop {
+          font-size: 3rem;
+        }
+      }
+
+      .nextview-page__thumbs-up {
+        color: $primary-button-blue;
+      }
+
+      .nextview-page__thumbs-down {
+        color: $primary-light-blue;
+      }
+    }
+
+    &-calendar-button {
+      background: $primary-gradient-blue;
+      color: $neutral-white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.75rem;
+      font-size: 1rem;
+      font-weight: bold;
+      box-shadow: $shadow-primary;
+      transition: transform 0.3s ease, background 0.3s ease;
+
+      &:hover {
+        background: $primary-dark-blue;
+        transform: scale(1.05);
+      }
+
+      &:active {
+        transform: scale(0.95);
+      }
+
+      @include tablet {
+        padding: 1rem 2rem;
+        font-size: 1.25rem;
+      }
+
+      @include desktop {
+        padding: 1.25rem 2.5rem;
+        font-size: 1.5rem;
+      }
+    }
+  }
+
+  &__trailer-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba($neutral-black, 0.8);
+    z-index: 1000;
+    padding: 2rem;
+
+    @include tablet {
+      padding: 3rem;
+    }
+
+    @include desktop {
+      padding: 4rem;
+    }
+
+    iframe {
+      width: 100%;
+      max-width: 60rem;
+      height: auto;
+      border-radius: 1rem;
+      box-shadow: $shadow-quaternary;
+
+      @include tablet {
+        height: 75vh;
+      }
+
+      @include desktop {
+        height: 80vh;
+      }
+    }
+  }
+
+  &__close-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    color: $neutral-white;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+
+    @include tablet {
+      font-size: 2.5rem;
+    }
+
+    @include desktop {
+      font-size: 3rem;
+    }
+  }
+
+  &__background {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 15rem;
+    overflow: hidden;
+    z-index: -1;
+
+    @include tablet {
+      height: 20rem;
+    }
+
+    @include desktop {
+      height: 25rem;
+    }
+  }
+}

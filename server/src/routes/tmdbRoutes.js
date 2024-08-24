@@ -231,4 +231,31 @@ router.get('/tv/:id', async (req, res) => {
   }
 });
 
+// New Endpoint to fetch detailed media data and interaction for the NextViewPage
+router.get('/nextview/:userId/:mediaId', async (req, res) => {
+  const { userId, mediaId } = req.params;
+
+  try {
+    // Fetch the media details from TMDB
+    const mediaResponse = await axios.get(`${TMDB_BASE_URL}/movie/${mediaId}?api_key=${TMDB_API_KEY}`);
+    const mediaData = mediaResponse.data;
+
+    // Fetch user interaction for this media item
+    const interaction = await db('interactions')
+      .where({ userId, media_id: mediaId, media_type: 'movie' }) // or 'tv' depending on your logic
+      .first();
+
+    // Combine the data
+    const responseData = {
+      ...mediaData,
+      interaction: interaction ? interaction.interaction : null,
+    };
+
+    res.json(responseData);
+  } catch (error) {
+    console.error('Error fetching next view media data:', error);
+    res.status(500).json({ message: 'Error fetching media data' });
+  }
+});
+
 module.exports = router;

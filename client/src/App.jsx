@@ -21,6 +21,7 @@ import { AuthProvider, AuthContext } from './context/AuthContext/AuthContext';
 import { SearchBarProvider } from './context/SearchBarContext/SearchBarContext'; 
 import LoginRequired from './pages/LoginRequired/LoginRequired';
 import FavouritesPage from './pages/FavouritesPage/FavouritesPage';
+import NextViewPage from './pages/NextViewPage/NextViewPage'; // Import the NextViewPage component
 import './styles/global.scss';
 
 const App = () => {
@@ -70,6 +71,7 @@ const App = () => {
         <Route path="/search" element={isAuthenticated ? <AuthSearchResultsPage openModal={openCalendarModal} userId={userId} /> : <SearchResultsPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route path="/login-required" element={<LoginRequired />} />
+        <Route path="/nextview/:userId/:mediaType/:mediaId" element={isAuthenticated ? <NextViewPage /> : <Navigate to="/login-required" />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer onContactClick={handleContactClick} />
