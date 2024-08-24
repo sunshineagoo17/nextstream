@@ -16,7 +16,7 @@ const NextViewPage = () => {
     const navigate = useNavigate();  
     const { userId } = useContext(AuthContext); 
     const [mediaData, setMediaData] = useState(null);
-    const [certification, setCertification] = useState(null); // New state for certification
+    const [certification, setCertification] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [showTrailer, setShowTrailer] = useState(false);
     const [trailerUrl, setTrailerUrl] = useState('');
@@ -46,21 +46,21 @@ const NextViewPage = () => {
 
                     // Fetch the certification data based on media type
                     if (mediaType === 'movie') {
-                        const releaseInfo = response.data.release_dates.results.find(r => r.iso_3166_1 === 'US'); // Filter for US region
+                        const releaseInfo = response.data.release_dates.results.find(r => r.iso_3166_1 === 'US');
                         if (releaseInfo && releaseInfo.release_dates.length > 0) {
                             const certification = releaseInfo.release_dates[0].certification;
-                            setCertification(certification || 'NR'); // NR for Not Rated
+                            setCertification(certification || 'NR');
                         }
                     } else if (mediaType === 'tv') {
-                        const contentRating = response.data.content_ratings.results.find(r => r.iso_3166_1 === 'US'); // Filter for US region
+                        const contentRating = response.data.content_ratings.results.find(r => r.iso_3166_1 === 'US');
                         if (contentRating) {
-                            setCertification(contentRating.rating || 'NR'); // NR for Not Rated
+                            setCertification(contentRating.rating || 'NR');
                         }
                     }
 
                     // Fetch the cast information
                     const castResponse = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/tmdb/${mediaType}/${mediaId}/credits`);
-                    setCast(castResponse.data.cast); // Set all cast members
+                    setCast(castResponse.data.cast);
                 } else {
                     console.error('No media data found');
                     navigate('/not-found');
@@ -177,7 +177,7 @@ const NextViewPage = () => {
                         data-tooltip-id={`thumbsUpTooltip-${mediaId}`}
                         data-tooltip-content="LIKED"
                     />
-                    <Tooltip id={`thumbsUpTooltip-${mediaId}`} place="top" className="tooltip-custom" />
+                    <Tooltip id={`thumbsUpTooltip-${mediaId}`} place="top" className="custom-tooltip" />
                 </>
             );
         } else if (interaction === 0) {
@@ -190,7 +190,7 @@ const NextViewPage = () => {
                         data-tooltip-id={`thumbsDownTooltip-${mediaId}`}
                         data-tooltip-content="DISLIKED"
                     />
-                    <Tooltip id={`thumbsDownTooltip-${mediaId}`} place="top" className="tooltip-custom" />
+                    <Tooltip id={`thumbsDownTooltip-${mediaId}`} place="top" className="custom-tooltip" />
                 </>
             );
         } else {
@@ -212,7 +212,7 @@ const NextViewPage = () => {
                             data-tooltip-content="DISLIKE"
                         />
                     </div>
-                    <Tooltip id={`interactionTooltip-${mediaId}`} place="top" className="tooltip-custom" />
+                    <Tooltip id={`interactionTooltip-${mediaId}`} place="top" className="custom-tooltip" />
                 </>
             );
         }
@@ -231,7 +231,18 @@ const NextViewPage = () => {
                 <h1 className="nextview-page__title">
                     {mediaData.title || mediaData.name}
                     {mediaData.release_date && <span className="nextview-page__release-date"> ({new Date(mediaData.release_date).getFullYear()})</span>}
-                    {certification && <span className="nextview-page__certification"> {certification}</span>}
+                    {certification && (
+                        <>
+                            <span
+                                className="nextview-page__certification"
+                                data-tooltip-id={`certificationTooltip-${mediaId}`}
+                                data-tooltip-content={`Rating`}
+                            >
+                                {certification}
+                            </span>
+                            <Tooltip id={`certificationTooltip-${mediaId}`} place="top" className="custom-tooltip" />
+                        </>
+                    )}
                 </h1>
                 <p className="nextview-page__description">{mediaData.overview}</p>
 
@@ -250,11 +261,22 @@ const NextViewPage = () => {
 
                         <div className="nextview-page__actions">
                             <div className="nextview-page__media-type">
-                                <FontAwesomeIcon icon={mediaType === 'tv' ? faTv : faFilm} />
+                                <FontAwesomeIcon
+                                    icon={mediaType === 'tv' ? faTv : faFilm}
+                                    data-tooltip-id={`mediaTypeTooltip-${mediaId}`}
+                                    data-tooltip-content={`${mediaType === 'tv' ? 'TV Show' : 'Movie'}`}
+                                />
+                                <Tooltip id={`mediaTypeTooltip-${mediaId}`} place="top" className="custom-tooltip" />
                             </div>
-                            <button className="nextview-page__calendar-button" onClick={handleAddToCalendar}>
+                            <button
+                                className="nextview-page__calendar-button"
+                                onClick={handleAddToCalendar}
+                                data-tooltip-id={`calendarTooltip-${mediaId}`}
+                                data-tooltip-content="Add to Calendar"
+                            >
                                 <FontAwesomeIcon icon={faCalendarPlus} />
                             </button>
+                            <Tooltip id={`calendarTooltip-${mediaId}`} place="top" className="custom-tooltip" />
                             <div className="nextview-page__interaction-buttons">
                                 {getInteractionIcon()}
                             </div>
