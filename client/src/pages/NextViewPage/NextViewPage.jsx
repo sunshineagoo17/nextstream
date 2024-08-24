@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlay, faCalendarPlus, faThumbsUp, faThumbsDown, faStar, faClose } from '@fortawesome/free-solid-svg-icons';
+import { faPlay, faCalendarPlus, faThumbsUp, faThumbsDown, faStar, faClose, faTv, faFilm } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import AnimatedBg from '../../components/AnimatedBg/AnimatedBg';
 import Loader from '../../components/Loader/Loader';
@@ -249,6 +249,10 @@ const NextViewPage = () => {
                 </div>
 
                 <div className="nextview-page__actions">
+                    <div className="nextview-page__media-type">
+                        <FontAwesomeIcon icon={mediaType === 'tv' ? faTv : faFilm} />
+                        {mediaType === 'tv' ? ' TV Show' : ' Movie'}
+                    </div>
                     <button className="nextview-page__calendar-button" onClick={handleAddToCalendar}>
                         <FontAwesomeIcon icon={faCalendarPlus} />
                         Add to Calendar
