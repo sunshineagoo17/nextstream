@@ -21,6 +21,55 @@
     padding: 4rem;
   }
 
+  &__streaming-services {
+    display: flex;
+    gap: .5rem
+  }
+
+  &__streaming-provider-logo {
+    width: 3.5rem;
+    padding: .25rem;
+    height: auto;
+    border-radius: .5rem;
+    box-shadow: $shadow-tertiary;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.1);
+      background: $primary-gradient-blue;
+      border-radius: 2.5rem;
+    }
+
+    @include tablet {
+      width: 3.5rem;
+    }
+  }
+
+  &__streaming {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: auto;
+    background: $primary-very-light-blue;
+    border-radius: 1rem;
+    padding: 1rem;
+    box-shadow: $shadow-tertiary;
+
+    h3 {
+      color: $primary-dark-blue;
+      margin-bottom: 0.5rem;
+      font-size: 1.25rem;
+
+      @include tablet {
+        font-size: 1.5rem;
+      }
+
+      @include desktop {
+        font-size: 1.75rem;
+      }
+    }
+  }
+
   &__calendar-button {
     background: $primary-gradient-blue;
     color: $neutral-white;
@@ -132,7 +181,7 @@
     @include tablet {
       flex-direction: row;
       align-items: flex-start;
-      gap: 1rem;
+      gap: 2rem;
     }
 
     @include desktop {
@@ -203,11 +252,12 @@
   &__details {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     gap: 1rem;
     width: 100%;
 
     @include tablet {
+      align-items: flex-start;
       gap: 1.5rem;
     }
 
@@ -272,64 +322,6 @@
 
     @include desktop {
       font-size: 1.5rem;
-    }
-  }
-
-  &__streaming {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    background: rgba($neutral-white, 0.7);
-    border-radius: 1rem;
-    padding: 1rem;
-    box-shadow: $shadow-tertiary;
-
-    h3 {
-      color: $primary-dark-blue;
-      margin-bottom: 0.5rem;
-      font-size: 1.25rem;
-
-      @include tablet {
-        font-size: 1.5rem;
-      }
-
-      @include desktop {
-        font-size: 1.75rem;
-      }
-    }
-
-    &-services {
-      display: flex;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-
-      @include tablet {
-        gap: 1rem;
-      }
-
-      @include desktop {
-        gap: 1.5rem;
-      }
-
-      &-logo {
-        width: 3rem;
-        height: auto;
-        border-radius: 0.5rem;
-        box-shadow: $shadow-secondary;
-        transition: transform 0.3s ease;
-
-        &:hover {
-          transform: scale(1.1);
-        }
-
-        @include tablet {
-          width: 4rem;
-        }
-
-        @include desktop {
-          width: 5rem;
-        }
-      }
     }
   }
 
