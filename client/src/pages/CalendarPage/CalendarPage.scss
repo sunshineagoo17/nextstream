@@ -238,12 +238,10 @@
   }
 
   &__title {
-    font-size: 1.25rem;
     color: $neutral-white;
     margin: .625rem 0 0;
     width: 13rem;
     display: flex;
-    text-shadow: $shadow-primary;
     justify-content: center;
     align-items: center;
     box-shadow: $shadow-quinary;
@@ -251,11 +249,16 @@
     border-radius: .5rem;
     border: 3px solid $primary-light-blue;
     padding: 0.5rem 1rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-shadow: $shadow-primary;
+    line-height: 1.75rem;
 
     @include tablet {
       font-size: 2.5rem;
       width: 25rem;
       border-radius: 1rem;
+      line-height: 3.5rem;
     }
   }
 }

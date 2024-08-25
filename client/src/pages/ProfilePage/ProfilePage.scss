@@ -183,17 +183,18 @@
     align-items: center;
     color: $primary-medium-blue;
     font-family: $primary-font;
-    font-size: 1.5rem;
-    font-weight: 400;
-    text-shadow: $shadow-primary;
-    line-height: 1.5rem;
     margin-top: 1rem;
     margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-shadow: $shadow-primary;
+    line-height: 1.75rem;
 
     @include tablet {
-      font-size: 1.75rem; 
       margin-top: 1.5rem;
       margin-bottom: 2rem;
+      font-size: 2.5rem;
+      line-height: 2.5rem;
     }
   }
 
