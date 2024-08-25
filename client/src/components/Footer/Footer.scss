@@ -46,6 +46,17 @@
   &__privacy-policy-link, 
   &__tac-link {
     @include animate-effect-footer;
+  
+    &:hover {
+      border: 1px solid $primary-light-blue;
+      border-radius: .5rem;
+      padding: .25rem;
+    }
+
+    &:active {
+      border: 2px solid $primary-very-light-blue;
+      border-radius: 1rem;
+    }
   }
 
   &__copyright,
@@ -71,6 +82,11 @@
   &__privacy-policy,
   &__tac {
     color: $primary-light-blue;
+
+    &:active {
+      font-weight: bold;
+      color: $primary-very-light-blue;
+    }
   }
 
   &__btn-container {
