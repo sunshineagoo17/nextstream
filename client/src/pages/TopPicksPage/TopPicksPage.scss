@@ -128,15 +128,33 @@
   }
 
   &__title-container {
-    background-color: $primary-medium-blue;
     padding: 1rem;
     border-radius: 1rem;
     border: 2px solid $primary-pale-blue;
     margin-top: 0;
     margin-bottom: 1rem;
     box-shadow: $shadow-quaternary;
-  }
-
+    background-color: $primary-medium-blue;
+    position: relative;
+    overflow: hidden;
+    
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 100%; 
+      width: 150%;
+      height: 100%;
+      background: linear-gradient(270deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, .4) 50%, rgba(255, 255, 255, 0) 100%);
+      transform: skewX(25deg);
+      transition: right 0.8s ease; 
+    }
+  
+    &:hover::before {
+      right: -50%;
+    }
+  }  
+  
   &__intro {
     font-size: 1rem;
     margin-bottom: .5rem;
