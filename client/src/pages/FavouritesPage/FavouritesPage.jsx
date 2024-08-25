@@ -391,16 +391,17 @@ const FavouritesPage = () => {
     }
   };  
 
-  const handleShare = (title, url) => {
+  const handleShare = (title, mediaId, mediaType) => {
+    const nextViewUrl = `${window.location.origin}/nextview/${userId}/${mediaType}/${mediaId}`;
     if (navigator.share) {
       navigator.share({
         title: `Check out this title - ${title}`,
-        url: url,
+        url: nextViewUrl,
       })
       .then(() => console.log('Successful share!'))
       .catch((error) => console.error('Error sharing:', error));
     } else {
-      navigator.clipboard.writeText(`Check out this title - ${title}: ${url}`)
+      navigator.clipboard.writeText(`Check out this title - ${title}: ${nextViewUrl}`)
       .then(() => showAlert('Link copied to clipboard!', 'success'))
       .catch((error) => showAlert('Failed to copy link', 'error'));
     }
@@ -598,7 +599,7 @@ const FavouritesPage = () => {
                       />
                       <FontAwesomeIcon 
                         icon={faShareAlt} 
-                        onClick={() => handleShare(fave.title, `https://www.themoviedb.org/${fave.media_type}/${fave.media_id}`)} 
+                        onClick={() => handleShare(fave.title, fave.media_id, fave.media_type)} 
                         className="faves-page__share-icon" 
                         data-tooltip-id="shareTooltip" 
                         data-tooltip-content="Share this title" 

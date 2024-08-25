@@ -663,25 +663,25 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: $primary-darker-blue;
-    color: $primary-very-light-blue;
-    border: 3px solid $primary-button-blue;
-    box-shadow: $shadow-tertiary;
+    background-color: $primary-dark-blue;
+    color: $neutral-white;
+    border: 3px solid $primary-very-light-blue;
+    box-shadow: $shadow-septenary;
     border-radius: .5rem;
     padding: 0.5rem;
     font-size: 1.25rem;
     cursor: pointer;
     
     &:hover {
-      background: $primary-dark-blue;
-      color: $neutral-white;
+      background: $primary-button-blue;
+      color: $primary-very-light-blue;
       box-shadow: $shadow-primary;
       border: 3px solid $neutral-white;
     }
 
     &:active {
       background: $neutral-white;
-      color: $primary-dark-blue;
+      color: $primary-button-blue;
       border: 3px solid $primary-dark-blue;
     }
   }
