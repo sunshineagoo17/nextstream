@@ -15,7 +15,7 @@ import NextIcon from '../../assets/images/next-icon.svg';
 import 'react-toastify/dist/ReactToastify.css';
 import './SearchResultsPage.scss';
 
-const SearchResultsPage = () => {
+const SearchResultsPage = ({ isAuthenticated, userId }) => {
   const [results, setResults] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -30,6 +30,14 @@ const SearchResultsPage = () => {
 
   const handleRegisterClick = () => {
     navigate('/register');
+  };
+
+  const handleCardClick = (mediaType, mediaId) => {
+    if (isAuthenticated) {
+      navigate(`/nextview/${userId}/${mediaType}/${mediaId}`);
+    } else {
+      navigate('/login-required');
+    }
   };
 
   const getMediaTypeIcon = (mediaType) => {
@@ -134,7 +142,11 @@ const SearchResultsPage = () => {
             {results.length > 0 ? (
               results.slice(currentIndex, currentIndex + 3).map(result => (
                 <div key={result.id} className="search-results__card">
-                  <a href={`https://www.themoviedb.org/${result.media_type}/${result.id}`} className="search-results__link" target="_blank" rel="noopener noreferrer">
+                  <div
+                    className="search-results__link"
+                    onClick={() => handleCardClick(result.media_type, result.id)}
+                    aria-label={`View details for ${result.title || result.name}`}
+                  >
                     {result.poster_path ? (
                       <img
                         className="search-results__poster"
@@ -154,7 +166,7 @@ const SearchResultsPage = () => {
                       </div>
                     )}
                     {getMediaTypeIcon(result.media_type)}
-                  </a>
+                  </div>
                 </div>
               ))
             ) : (
