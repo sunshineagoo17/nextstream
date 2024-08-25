@@ -630,32 +630,56 @@
 
   &__cast-arrow {
     position: absolute;
-    right: -1rem;
     top: 50%;
     transform: translateY(-50%);
-    background: $primary-gradient-blue;
+    background: $primary-dark-blue;
     color: $neutral-white;
-    border-radius: 50%;
+    border-radius: .5rem;
     padding: 0.5rem;
     font-size: 1.25rem;
     box-shadow: $shadow-primary;
+    border: 1px solid $neutral-white;
     cursor: pointer;
-    transition: transform 0.3s ease, background 0.3s ease;
-
+    
     &:hover {
-      background: $primary-dark-blue;
-      transform: scale(1.1);
+      background: $primary-button-blue;
     }
 
     &:active {
-      transform: scale(0.95);
+      background: $neutral-white;
+      color: $primary-button-blue;
+      border: 2px solid $primary-medium-blue;
+      box-shadow: $shadow-tertiary;
     }
   }
-
+  
   &__cast-arrow-left {
     left: -1rem;
     right: unset;
+    transition: transform 0.3s ease, background 0.3s ease, left 0.3s ease, right 0.3s ease;
+  
+    &:hover {
+      left: -1.5rem;
+    }
+
+    &:active {
+      left: -1rem;
+    }
   }
+  
+  &__cast-arrow-right {
+    right: -1rem;
+    left: unset;
+    transition: transform 0.3s ease, background 0.3s ease, left 0.3s ease, right 0.3s ease;
+  
+    &:hover {
+      right: -1.5rem; 
+    }
+
+    &:active {
+      right: -1rem;
+    }
+  }  
 
   &__actions {
     display: flex;
