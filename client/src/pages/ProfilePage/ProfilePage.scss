@@ -4,6 +4,28 @@
 @use "../../styles/partials/mixins" as *;
 @use "../../styles/global.scss" as *;
 
+.location-tooltip {
+  background-color: $primary-dark-blue !important;
+  color: $neutral-white !important;
+  padding: 0.25rem !important;
+  border-radius: 1rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+  font-family: $primary-font !important;
+  font-size: 0.75rem !important;
+  line-height: 1.25rem;
+  font-weight: bold;
+  z-index: 9999;
+
+  @include tablet {
+    padding: .75rem !important;
+    font-size: 0.85rem !important;
+  }
+
+  &::after {
+    border-color: $primary-dark-blue transparent transparent transparent !important;
+  }
+}
+
 .profile {
   width: 100%;
   display: flex;

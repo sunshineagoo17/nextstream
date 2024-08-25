@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilm, faTv, faImage } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
+import { Tooltip } from 'react-tooltip';
 import { AuthContext } from '../../../../context/AuthContext/AuthContext';
 import CircleRating from '../CircleRating/CircleRating';
 import DefaultPoster from "../../../../assets/images/posternoimg-icon.png";
@@ -35,9 +36,10 @@ const MediaCard = ({ media = {}, handlers }) => {
       <div className="media-card__details">
         <h2 className="media-card__title">
             {title || name}
-          <span onClick={handleMediaTypeClick} className="media-card__type-link">
-            <FontAwesomeIcon icon={icon} className="media-card__type-icon" />
-          </span>
+            <span onClick={handleMediaTypeClick} className="media-card__type-link" data-tooltip-id="mediaTypeTooltip" data-tooltip-content="View Details">
+              <FontAwesomeIcon icon={icon} className="media-card__type-icon" />
+            </span>
+            <Tooltip id="mediaTypeTooltip" place="top" className="details-tooltip" /> 
         </h2>
         <CircleRating rating={validRating} />
         <p className="media-card__overview">{overview}</p>

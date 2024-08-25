@@ -3,6 +3,27 @@
 @use "../../../../styles/partials/mixins" as *;
 @use "../../../../styles/global.scss" as *;
 
+.details-tooltip {
+  background-color: $primary-dark-blue !important;
+  color: $neutral-white !important;
+  padding: .75rem !important;
+  border-radius: 1rem;
+  font-family: $primary-font !important;
+  font-size: 1rem !important;
+  line-height: 1.25rem;
+  z-index: 9999;
+  font-weight: normal;
+  text-align: center;
+
+  @include tablet {
+    margin-left: .25rem;
+  }
+
+  &::after {
+    border-color: $primary-dark-blue !important;
+  }
+}
+
 .media-card {
   position: relative;
   display: flex;

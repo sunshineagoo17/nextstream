@@ -2,6 +2,7 @@ import { useState, useEffect, useContext, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { toast, ToastContainer, Slide } from 'react-toastify';
+import { Tooltip } from 'react-tooltip';
 import api from '../../services/api';
 import LocationIcon from '../../assets/images/profile-location.svg';
 import ShowIcon from '../../assets/images/register-visible-icon.svg';
@@ -413,7 +414,15 @@ export const ProfilePage = () => {
               <div className="profile__region-content">
                 <div className="profile__select-your-region">
                   <div className="profile__region-heading">
-                    <img src={LocationIcon} className="profile__location-icon" alt="Location Icon" onClick={fetchLocation} />
+                    <img
+                      src={LocationIcon}
+                      className="profile__location-icon"
+                      alt="Location Icon"
+                      onClick={fetchLocation}
+                      data-tooltip-id="locationTooltip"
+                      data-tooltip-content="Update location"
+                    />
+                    <Tooltip id="locationTooltip" place="top" className="location-tooltip" />
                     <div className="profile__region-title">Select Your Region</div>
                   </div>
                   <div className="profile__region-input">
