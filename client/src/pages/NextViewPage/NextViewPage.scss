@@ -192,7 +192,7 @@
   &__certification {
     font-size: 1rem;
     padding: .25rem .75rem;
-    background-color: $primary-button-blue;
+    background-color: $primary-light-blue;
     border: 2px solid $neutral-white;
     border-radius: .5rem;
     color: $neutral-white;
@@ -391,7 +391,7 @@
     padding: 1.1rem;
     background: $primary-pale-blue;
     box-shadow: $shadow-tertiary;
-    border: 5px solid $primary-button-blue;
+    border: 5px solid $primary-light-blue;
     position: relative;
 
     @include tablet {
@@ -543,29 +543,6 @@
 
     @include desktop {
       gap: 2.5rem;
-    }
-  }
-
-  &__buttons {
-    display: flex;
-    gap: 1rem;
-
-    svg {
-      font-size: 2rem;
-      cursor: pointer;
-      transition: transform 0.3s ease;
-
-      &:hover {
-        transform: scale(1.1);
-      }
-
-      @include tablet {
-        font-size: 2.5rem;
-      }
-
-      @include desktop {
-        font-size: 3rem;
-      }
     }
   }
 
