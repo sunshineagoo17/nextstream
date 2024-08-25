@@ -299,16 +299,18 @@ const NextViewPage = () => {
                             ))}
                         </div>
 
-                        <div className="nextview-page__rating">
-                            <FontAwesomeIcon icon={faStar} /> {mediaData.vote_average} / 10
-                        </div>
+                        <div className="nextview-page__details-container">
+                            <div className="nextview-page__rating">
+                                <FontAwesomeIcon icon={faStar} /> {mediaData.vote_average} / 10
+                            </div>
 
-                        <div className="nextview-page__duration">
-                            {mediaType === 'movie' 
-                                ? `${mediaData.runtime} minutes` 
-                                : mediaData.episode_run_time[0] 
-                                    ? `${mediaData.episode_run_time[0]} minutes per episode`
-                                    : 'Duration: Unavailable'}
+                            <div className="nextview-page__duration">
+                                {mediaType === 'movie' 
+                                    ? `${mediaData.runtime} minutes` 
+                                    : mediaData.episode_run_time[0] 
+                                        ? `${mediaData.episode_run_time[0]} minutes per episode`
+                                        : 'Duration: Unavailable'}
+                            </div>
                         </div>
 
                         <div className="nextview-page__streaming">

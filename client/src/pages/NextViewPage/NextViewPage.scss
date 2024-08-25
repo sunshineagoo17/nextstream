@@ -293,6 +293,17 @@
     }
   }
 
+  &__details-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: .5rem;
+    gap: .5rem;
+    border: 3px solid $primary-very-light-blue;
+    border-radius: .75rem;
+    box-shadow: $shadow-tertiary;
+  }
+
   &__title {
     font-family: $primary-font;
     display: flex;
@@ -476,7 +487,12 @@
     align-items: center;
     font-size: 1rem;
     color: $primary-dark-blue;
+    padding: .5rem;
+    background-color: $neutral-white;
+    box-shadow: $shadow-secondary;
+    border-radius: .5rem;
     font-weight: bold;
+    border: 2px solid $primary-very-light-blue;
 
     svg {
       margin-right: 0.5rem;
@@ -484,24 +500,21 @@
     }
 
     @include tablet {
-      font-size: 1.25rem;
-    }
-
-    @include desktop {
-      font-size: 1.5rem;
+      font-size: 1rem;
     }
   }
 
   &__duration {
     font-size: 1rem;
     color: $primary-dark-blue;
+    padding: .5rem;
+    background-color: $neutral-white;
+    box-shadow: $shadow-secondary;
+    border-radius: .5rem;
+    border: 2px solid $primary-very-light-blue;
 
     @include tablet {
-      font-size: 1.25rem;
-    }
-
-    @include desktop {
-      font-size: 1.5rem;
+      font-size: 1rem;
     }
   }
 
