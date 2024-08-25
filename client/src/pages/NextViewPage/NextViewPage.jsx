@@ -1,7 +1,11 @@
 import { useState, useEffect, useContext, useRef, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlay, faCalendarPlus, faThumbsUp, faThumbsDown, faStar, faClose, faTv, faFilm, faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import {
+  faPlay, faCalendarPlus, faThumbsUp, faThumbsDown, faStar, faClose, faTv, faFilm, faChevronRight, faChevronLeft,
+  faMap, faBomb, faPalette, faLaugh, faFingerprint, faClapperboard, faTheaterMasks, faQuidditch, faGhost, faUserSecret,
+  faVideoCamera, faFaceKissWinkHeart, faHandSpock, faMask, faGlobe, faTrophy, faUsersViewfinder, faChildren
+} from '@fortawesome/free-solid-svg-icons';
 import { AuthContext } from '../../context/AuthContext/AuthContext'; 
 import { Tooltip } from 'react-tooltip';
 import axios from 'axios';
@@ -10,6 +14,29 @@ import Loader from '../../components/Loader/Loader';
 import Calendar from '../CalendarPage/sections/Calendar';
 import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
 import './NextViewPage.scss';
+
+const genreIconMapping = {
+  Adventure: faMap,
+  Action: faBomb,
+  Animation: faPalette,
+  Comedy: faLaugh,
+  Crime: faFingerprint,
+  Documentary: faClapperboard,
+  Drama: faTheaterMasks,
+  Fantasy: faQuidditch,
+  Horror: faGhost,
+  Mystery: faUserSecret,
+  Reality: faVideoCamera,
+  Romance: faFaceKissWinkHeart,
+  'Science Fiction': faHandSpock,
+  Thriller: faMask,
+  International: faGlobe,
+  Popular: faStar,
+  New: faTrophy,
+  'Broad Audience': faUsersViewfinder,
+  Family: faChildren,
+  // Add other genres and their corresponding icons here
+};
 
 const NextViewPage = () => {
     const { mediaId, mediaType } = useParams();
@@ -297,7 +324,12 @@ const NextViewPage = () => {
                     <div className="nextview-page__details">
                         <div className="nextview-page__genre">
                             {mediaData.genres.map(genre => (
-                                <span key={genre.id} className="nextview-page__genre-item">{genre.name}</span>
+                                <span key={genre.id} className="nextview-page__genre-item">
+                                    <FontAwesomeIcon
+                                        icon={genreIconMapping[genre.name] || faFilm}
+                                        className="nextview-page__genre-icon"
+                                    /> {genre.name}
+                                </span>
                             ))}
                         </div>
 

@@ -78,7 +78,7 @@
     color: $primary-pale-blue;
     padding: 1rem;
     width: 100%;
-    background: linear-gradient(145deg, $primary-gradient-blue, lighten($primary-dark-blue, 10%));
+    background: linear-gradient(145deg, $primary-dark-blue, lighten($primary-button-blue, 5%));
     border-radius: .75rem;
     box-shadow: .3125rem .3125rem .9375rem rgba(0, 0, 0, .2), -.3125rem -3125rem .9375rem rgba(255, 255, 255, .1);
     border: 5px solid $neutral-white;
@@ -129,14 +129,14 @@
   }
 
   &__copy {
-    background-color: $primary-medium-blue;
+    background: $primary-darker-blue-overlay;
     border-radius: .75rem;
     color: $neutral-white;
     text-shadow: none;
     font-size: 1.15rem;
     margin-bottom: .5rem;
     box-shadow: $shadow-quaternary;
-    border: 5px solid $primary-light-blue;
+    border: 5px solid $primary-very-light-blue;
     line-height: 1.35rem;
     width: 80rem;
     padding: 1.25rem;
@@ -179,7 +179,7 @@
     flex-direction: column;
     align-items: center;
     width: auto;
-    background: $primary-pale-blue;
+    background: $frosted-glass;
     border-radius: 1rem;
     padding: 1rem;
     border: 5px solid $primary-very-light-blue;
@@ -289,9 +289,9 @@
     align-items: center;
     width: 100%;
     max-width: 60rem;
-    background: $primary-darker-blue;
+    background: linear-gradient(120deg, $primary-dark-blue, darken($primary-light-blue, 35%));
     backdrop-filter: blur(0.5rem);
-    border-radius: 1.5rem;
+    border-radius: 1.25rem;
     padding: 2rem;
     box-shadow: $shadow-quaternary;
     border: 5px solid $primary-button-blue;
@@ -310,8 +310,8 @@
     flex-direction: row;
     justify-content: center;
     padding: .5rem;
-    background-color: $neutral-white;
-    gap: .1rem;
+    background-color: $frosted-glass;
+    gap: .5rem;
     border: 5px solid $primary-very-light-blue;
     border-radius: .75rem;
     box-shadow: $shadow-tertiary;
@@ -447,8 +447,7 @@
   &__cast-copy {
     font-family: $primary-font;
     font-size: 1.15rem;
-    font-weight: bold;
-    color: $primary-button-dark-blue;
+    color: $neutral-white;
     margin-bottom: .25rem;
   }
 
@@ -502,11 +501,11 @@
   }
 
   &__content {
-    background-color: $primary-button-dark-blue;
+    background-color: $primary-darker-blue-overlay;
     box-shadow: $shadow-primary;
     border-radius: 1rem;
     padding: .75rem;
-    border: 5px solid $neutral-white;
+    border: 5px solid $primary-very-light-blue;
     margin-bottom: 2.5rem;
   }
 
@@ -519,7 +518,6 @@
     background-color: $primary-pale-blue;
     box-shadow: $shadow-secondary;
     border-radius: .5rem;
-    font-weight: bold;
     border: 2px solid $neutral-white;
 
     svg {
@@ -543,10 +541,9 @@
     flex-direction: column;
     width: 100%;
     max-width: 39.6875rem;
-    background: rgba($neutral-white, 0.7);
     border-radius: 1rem;
     padding: 1.1rem;
-    background: $primary-pale-blue;
+    background: $frosted-glass;
     box-shadow: $shadow-tertiary;
     border: 5px solid $primary-very-light-blue;
     position: relative;
