@@ -285,11 +285,11 @@
     border: 7px solid $primary-button-blue;
 
     @include tablet {
-      padding: 3rem;
+      padding: 2.5rem;
     }
 
     @include desktop {
-      padding: 4rem;
+      padding: 2.75rem;
     }
   }
 
@@ -298,8 +298,8 @@
     flex-direction: row;
     justify-content: center;
     padding: .5rem;
-    gap: .5rem;
-    border: 3px solid $primary-very-light-blue;
+    gap: .1rem;
+    border: 5px solid $primary-very-light-blue;
     border-radius: .75rem;
     box-shadow: $shadow-tertiary;
   }
@@ -325,41 +325,13 @@
   }
 
   &__certification {
-    font-size: 1rem;
-    padding: .25rem .75rem;
+    font-size: .75rem;
+    padding: .25rem .5rem;
     background-color: $primary-light-blue;
     border: 2px solid $neutral-white;
     border-radius: .5rem;
     color: $neutral-white;
     box-shadow: $shadow-primary;
-    font-weight: bold;
-
-    @include tablet {
-      font-size: 1.25rem;
-    }
-
-    @include desktop {
-      font-size: 1.5rem;
-    }
-  }
-
-  &__description {
-    font-family: $primary-font;
-    font-size: 1rem;
-    color: $neutral-dark-grey;
-    line-height: 1.5rem;
-    text-align: center;
-    margin-bottom: 2rem;
-
-    @include tablet {
-      font-size: 1.25rem;
-      line-height: 1.75rem;
-    }
-
-    @include desktop {
-      font-size: 1.5rem;
-      line-height: 2rem;
-    }
   }
 
   &__media-info {
@@ -457,6 +429,18 @@
     }
   }
 
+  &__streaming-copy,
+  &__cast-copy {
+    font-family: $primary-font;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: $primary-button-dark-blue;
+  }
+
+  &__cast-copy {
+    margin-bottom: .5rem;
+  }
+
   &__genre {
     display: flex;
     flex-wrap: wrap;
@@ -467,20 +451,52 @@
       color: $neutral-white;
       padding: 0.5rem 1rem;
       border-radius: 0.5rem;
-      font-size: 0.85rem;
-      font-weight: bold;
-      text-transform: uppercase;
+      font-size: 1rem;
       box-shadow: $shadow-secondary;
-
-      @include tablet {
-        font-size: 1rem;
-      }
-
-      @include desktop {
-        font-size: 1.25rem;
-      }
     }
   }
+
+  &__title {
+    font-weight: bold;
+    font-size: 1.15rem;
+    color: $primary-dark-blue;
+    margin-bottom: .15rem;
+
+    @include tablet {
+      font-size: 1.35rem;
+    }
+  }
+
+  &__description {
+    text-align: center;
+    font-family: $primary-font;
+    color: $primary-dark-blue;
+    font-size: .75rem;
+    line-height: 1rem;
+
+    @include large-mobile {
+      font-size: .8rem;
+    }
+
+    @include tablet {
+      font-size: 1rem;
+      line-height: 1.25rem;
+    }
+
+    @include desktop {
+      line-height: 1.5rem;
+    }
+  }
+
+  &__content-container {
+    background-color: $neutral-white;
+    box-shadow: $shadow-primary;
+    border-radius: 1rem;
+    padding: .5rem;
+    border: 5px solid $primary-light-blue;
+    margin-bottom: 2.5rem;
+  }
+
 
   &__rating {
     display: flex;
@@ -498,10 +514,6 @@
       margin-right: 0.5rem;
       color: $primary-button-blue;
     }
-
-    @include tablet {
-      font-size: 1rem;
-    }
   }
 
   &__duration {
@@ -512,10 +524,6 @@
     box-shadow: $shadow-secondary;
     border-radius: .5rem;
     border: 2px solid $primary-very-light-blue;
-
-    @include tablet {
-      font-size: 1rem;
-    }
   }
 
   &__cast-container {
@@ -528,7 +536,7 @@
     padding: 1.1rem;
     background: $primary-pale-blue;
     box-shadow: $shadow-tertiary;
-    border: 5px solid $primary-light-blue;
+    border: 5px solid $primary-very-light-blue;
     position: relative;
 
     @include tablet {
@@ -645,24 +653,26 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: $primary-dark-blue;
+    background: $primary-button-blue;
     color: $neutral-white;
+    border: 2px solid $neutral-white;
+    box-shadow: $shadow-tertiary;
     border-radius: .5rem;
     padding: 0.5rem;
     font-size: 1.25rem;
-    box-shadow: $shadow-primary;
-    border: 1px solid $neutral-white;
     cursor: pointer;
     
     &:hover {
-      background: $primary-button-blue;
+      background: $primary-dark-blue;
+      color: $neutral-white;
+      box-shadow: $shadow-primary;
+      border: 3px solid $primary-very-light-blue;
     }
 
     &:active {
       background: $neutral-white;
       color: $primary-button-blue;
-      border: 2px solid $primary-medium-blue;
-      box-shadow: $shadow-tertiary;
+      border: 2px solid $primary-button-blue;
     }
   }
   

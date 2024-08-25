@@ -236,23 +236,25 @@ const NextViewPage = () => {
                 </p>
             </div>
             <div className="nextview-page__content">
-                <h1 className="nextview-page__title">
-                    {mediaData.title || mediaData.name}
-                    {mediaData.release_date && <span className="nextview-page__release-date"> ({new Date(mediaData.release_date).getFullYear()})</span>}
-                    {certification && (
-                        <>
-                            <span
-                                className="nextview-page__certification"
-                                data-tooltip-id={`certificationTooltip-${mediaId}`}
-                                data-tooltip-content={`Rating`}
-                            >
-                                {certification}
-                            </span>
-                            <Tooltip id={`certificationTooltip-${mediaId}`} place="top" className="custom-tooltip" />
-                        </>
-                    )}
-                </h1>
-                <p className="nextview-page__description">{mediaData.overview}</p>
+                <div className="nextview-page__content-container">
+                    <h1 className="nextview-page__title">
+                        {mediaData.title || mediaData.name}
+                        {mediaData.release_date && <span className="nextview-page__release-date"> ({new Date(mediaData.release_date).getFullYear()})</span>}
+                        {certification && (
+                            <>
+                                <span
+                                    className="nextview-page__certification"
+                                    data-tooltip-id={`certificationTooltip-${mediaId}`}
+                                    data-tooltip-content={`Rating`}
+                                >
+                                    {certification}
+                                </span>
+                                <Tooltip id={`certificationTooltip-${mediaId}`} place="top" className="custom-tooltip" />
+                            </>
+                        )}
+                    </h1>
+                    <p className="nextview-page__description">{mediaData.overview}</p>
+                </div>
 
                 <div className="nextview-page__media-info">
                     <div className="nextview-page__left-media-container">
@@ -314,7 +316,7 @@ const NextViewPage = () => {
                         </div>
 
                         <div className="nextview-page__streaming">
-                            <h3>Available on:</h3>
+                            <p className="nextview-page__streaming-copy">Available on:</p>
                             <div className="nextview-page__streaming-services">
                                 {providers.length > 0 ? (
                                     providers.map(provider => (
@@ -333,7 +335,7 @@ const NextViewPage = () => {
 
                         {/* Cast Section */}
                         <div className={`nextview-page__cast-container ${cast.length <= 3 ? 'no-scroll' : ''}`}>
-                            <h3>Cast:</h3>
+                            <p className="nextview-page__cast-copy">Cast:</p>
                             {cast.length === 0 ? (
                                 <p>Cast information unavailable.</p>
                             ) : (

@@ -409,8 +409,8 @@ const FavouritesPage = () => {
         </div>
 
         <div className="faves-page__copy-container">
+          <p className="faves-page__copy-header">Your Favourites, Your Way!</p>
           <p className="faves-page__copy">
-            <p className="faves-page__copy-header">Your Favourites, Your Way!</p>
             Search, filter, and explore your favourite movies and shows. Use the filter cards to narrow your results, expand cards for details, watch trailers, and add to your calendar. Click on the lock icon to save your must-watch, or remove them with the trash icon. Fetch more with the button below and enjoy a seamless streaming experience!
           </p>
         </div>
