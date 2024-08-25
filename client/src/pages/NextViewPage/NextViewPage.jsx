@@ -322,32 +322,40 @@ const NextViewPage = () => {
                         </div>
 
                         {/* Cast Section */}
-                        <div className="nextview-page__cast-container">
+                        <div className={`nextview-page__cast-container ${cast.length <= 3 ? 'no-scroll' : ''}`}>
                             <h3>Cast:</h3>
-                            <button className="nextview-page__cast-arrow nextview-page__cast-arrow-left" onClick={handleScrollLeft}>
-                                <FontAwesomeIcon icon={faChevronLeft} />
-                            </button>
-                            <div className="nextview-page__cast-scroll" ref={castContainerRef}>
-                                <ul className="nextview-page__cast-list">
-                                    {cast.map(member => (
-                                        <li key={member.cast_id} className="nextview-page__cast-item">
-                                            <div className="nextview-page__cast-card">
-                                                <img
-                                                    src={`https://image.tmdb.org/t/p/w185${member.profile_path}`}
-                                                    alt={member.name}
-                                                    className="nextview-page__cast-img"
-                                                />
-                                                <div className="nextview-page__cast-name">{member.name}</div>
-                                                <div className="nextview-page__cast-character">as {member.character}</div>
-                                            </div>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                            {cast.length > 4 && (
-                                <button className="nextview-page__cast-arrow nextview-page__cast-arrow-right" onClick={handleScrollRight}>
-                                    <FontAwesomeIcon icon={faChevronRight} />
-                                </button>
+                            {cast.length === 0 ? (
+                                <p>Cast information unavailable.</p>
+                            ) : (
+                                <>
+                                    {cast.length > 3 && (
+                                        <button className="nextview-page__cast-arrow nextview-page__cast-arrow-left" onClick={handleScrollLeft}>
+                                            <FontAwesomeIcon icon={faChevronLeft} />
+                                        </button>
+                                    )}
+                                    <div className="nextview-page__cast-scroll" ref={castContainerRef}>
+                                        <ul className="nextview-page__cast-list">
+                                            {cast.map(member => (
+                                                <li key={member.cast_id} className="nextview-page__cast-item">
+                                                    <div className="nextview-page__cast-card">
+                                                        <img
+                                                            src={`https://image.tmdb.org/t/p/w185${member.profile_path}`}
+                                                            alt={member.name}
+                                                            className="nextview-page__cast-img"
+                                                        />
+                                                        <div className="nextview-page__cast-name">{member.name}</div>
+                                                        <div className="nextview-page__cast-character">as {member.character}</div>
+                                                    </div>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                    {cast.length > 3 && (
+                                        <button className="nextview-page__cast-arrow nextview-page__cast-arrow-right" onClick={handleScrollRight}>
+                                            <FontAwesomeIcon icon={faChevronRight} />
+                                        </button>
+                                    )}
+                                </>
                             )}
                         </div>
                     </div>

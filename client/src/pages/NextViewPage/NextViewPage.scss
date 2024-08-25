@@ -400,6 +400,10 @@
       max-width: 25.75rem;
     }
 
+    &.no-scroll .nextview-page__cast-scroll {
+      overflow: hidden;
+    }
+
     h3 {
       color: $primary-dark-blue;
       margin-bottom: 0.5rem;
