@@ -1,5 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../../../../context/AuthContext/AuthContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
 import checkmarkIcon from '../../../../assets/images/checkmark-icon.svg'; 
 import './SubscriptionStatus.scss';
 
@@ -28,7 +30,10 @@ const SubscriptionStatus = ({ isSubscribed, onSubscriptionChange, onDeleteAccoun
   return (
     <div className="subscription-status">
       <div className="subscription-status__container">
-        <div className="subscription-status__title">Subscription Status</div>
+      <div className="subscription-status__title">
+        <FontAwesomeIcon icon={faCircleCheck} className="subscription-status__icon" />
+        Subscription Status
+      </div>
         <div className="subscription-status__active">
           <div className="subscription-status__select" onClick={toggleActiveStatus}>
             <div className={`subscription-status__checkbox ${isActive ? 'subscription-status__checkbox--active' : 'subscription-status__checkbox--inactive'}`}>
