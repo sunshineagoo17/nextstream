@@ -26,7 +26,7 @@ const CalendarPage = () => {
           setLoading(false);
         }
       } else {
-        setLoading(false); // Stop loading if userId is not available
+        setLoading(false); 
       }
     };
 

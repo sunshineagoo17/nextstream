@@ -23,6 +23,7 @@ import './FavouritesPage.scss';
 const FavouritesPage = () => {
   const { userId } = useParams();
   const navigate = useNavigate();
+  const { isAuthenticated, name, setName } = useContext(AuthContext);
   const [faves, setFaves] = useState([]);
   const [filteredFaves, setFilteredFaves] = useState([]);
   const [showFullDescription, setShowFullDescription] = useState({});
@@ -41,7 +42,6 @@ const FavouritesPage = () => {
   const [isSearching, setIsSearching] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
   const [filter, setFilter] = useState('');
-  const { isAuthenticated } = useContext(AuthContext);
   const calendarRef = useRef(null);
   const [page, setPage] = useState(1);
   const [lockedMedia, setLockedMedia] = useState({});
@@ -94,6 +94,21 @@ const FavouritesPage = () => {
       window.removeEventListener('resize', updatePlaceholder);
     };
   }, []);
+
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      if (userId) {
+        try {
+          const response = await api.get(`/api/profile/${userId}`);
+          setName(response.data.name);
+        } catch (error) {
+          console.error('Error fetching user profile:', error);
+        }
+      }
+    };
+
+    fetchUserProfile();
+  }, [userId, setName]);
 
   const handleShowMore = (id) => {
     setShowFullDescription((prevState) => ({
@@ -380,7 +395,7 @@ const FavouritesPage = () => {
     <div className="faves-page">
       <BlobBg />
       <h1 className="faves-page__title">
-        Your Favourites <FontAwesomeIcon icon={faHeart} className="faves-page__heart-icon" />
+        {name ? `${name}'s Favourites` : 'Your Favourites'} <FontAwesomeIcon icon={faHeart} className="faves-page__heart-icon" />
       </h1>
       <div className="faves-page__content">
         <div className="faves-page__search-bar-container">
