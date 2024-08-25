@@ -244,10 +244,8 @@ const FavouritesPage = () => {
     }
   };
 
-  const handleSearchClick = (title, name) => {
-    const query = title || name;
-    const encodedQuery = encodeURIComponent(query);
-    navigate(`/search?q=${encodedQuery}`);
+  const handleSearchClick = (mediaId, mediaType) => {
+    navigate(`/nextview/${userId}/${mediaType}/${mediaId}`);
   };
 
   const showAlert = (message, type) => {
@@ -563,10 +561,10 @@ const FavouritesPage = () => {
                       />
                       <FontAwesomeIcon 
                         icon={faSearch} 
-                        onClick={() => handleSearchClick(fave.title, fave.name)} 
+                        onClick={() => handleSearchClick(fave.media_id, fave.media_type)} 
                         className="faves-page__search-icon" 
                         data-tooltip-id="searchTooltip" 
-                        data-tooltip-content="Find Streams" 
+                        data-tooltip-content="More Info" 
                       />
                       <FontAwesomeIcon 
                         icon={lockedMedia[`${fave.media_id}-${fave.media_type}`] ? faLock : faUnlock} 
