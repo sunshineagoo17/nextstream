@@ -11,7 +11,7 @@
   border-radius: .5rem;
   box-shadow: 0 .25rem .5rem rgba($neutral-black, .1);
 
-  &__type-icon, &__search-icon {
+  &__type-icon {
     font-size: .75rem;
     color: $primary-light-blue;
     background: rgba(255, 255, 255, .7);
@@ -58,52 +58,11 @@
     display: flex;
     align-items: center;
     gap: .5rem;
+    color: $primary-dark-blue;
 
     @include tablet {
       font-size: 1.25rem;
       gap: 0;
-    }
-  }
-
-  &__tmdb-link {
-    font: $primary-font;
-    color: $primary-dark-blue;
-    cursor: pointer;
-    text-decoration: none;
-    border-radius: .25rem;
-    transition: background-color .3s, transform .3s;
-
-    &:visited {
-      color: $primary-dark-blue;
-    }
-
-    &:hover,
-    &:focus {
-      padding-left: .25rem;
-      padding-right: .25rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: $primary-medium-blue;
-      border: .0938rem solid $primary-pale-blue;
-      color: $neutral-white;
-      text-decoration: none;
-      box-shadow: $shadow-primary;
-    }
-
-    &:active {
-      padding-left: .25rem;
-      padding-right: .25rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: $primary-light-blue;
-      color: $neutral-white;
-      border: .125rem solid $neutral-light-grey;
-      border-radius: .25rem;
-      transform: scale(.95);
-      text-decoration: none;
-      font-weight: bold;
     }
   }
 
