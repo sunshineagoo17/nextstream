@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useRef, useCallback } from 'react';
+import { useState, useEffect, useContext, useRef, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay, faCalendarPlus, faThumbsUp, faThumbsDown, faStar, faClose, faTv, faFilm, faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
@@ -363,18 +363,20 @@ const NextViewPage = () => {
             </div>
 
             {showTrailer && (
-                <div className="nextview-page__trailer-modal">
-                    <button className="nextview-page__close-btn" onClick={() => setShowTrailer(false)}>
-                        Close
-                    </button>
-                    <iframe
-                        src={trailerUrl}
-                        title="Trailer"
-                        frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                        className="nextview-page__trailer"
-                    ></iframe>
+                <div className="nextview-page__modal">
+                    <div className="nextview-page__modal-content">
+                        <button className="nextview-page__modal-content-close" onClick={() => setShowTrailer(false)}>
+                            <FontAwesomeIcon icon={faClose} />
+                        </button>
+                        <iframe
+                            src={trailerUrl}
+                            title="Trailer"
+                            frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                            className="nextview-page__trailer"
+                        ></iframe>
+                    </div>
                 </div>
             )}
 
