@@ -45,7 +45,7 @@
 
   &__gradient-subtitle {
     font-weight: bold;
-    background: linear-gradient(270deg, $neutral-white, $primary-gradient-blue, $neutral-white);
+    background: linear-gradient(270deg, $neutral-white, $primary-gradient-blue, $primary-medium-blue);
     background-size: 600% 600%;
     margin-right: .35rem;
     -webkit-background-clip: text;
@@ -78,10 +78,10 @@
     color: $primary-pale-blue;
     padding: 1rem;
     width: 100%;
-    background: linear-gradient(145deg, $primary-gradient-blue, lighten($primary-gradient-blue, 10%));
+    background: linear-gradient(145deg, $primary-gradient-blue, lighten($primary-dark-blue, 10%));
     border-radius: .75rem;
     box-shadow: .3125rem .3125rem .9375rem rgba(0, 0, 0, .2), -.3125rem -3125rem .9375rem rgba(255, 255, 255, .1);
-    border: 5px solid $primary-pale-blue;
+    border: 5px solid $neutral-white;
     position: relative;
     overflow: hidden;
     line-height: 2.15rem;
@@ -129,14 +129,14 @@
   }
 
   &__copy {
-    background: $primary-button-blue;
+    background-color: $primary-medium-blue;
     border-radius: .75rem;
     color: $neutral-white;
     text-shadow: none;
     font-size: 1.15rem;
     margin-bottom: .5rem;
     box-shadow: $shadow-quaternary;
-    border: 3px solid $primary-pale-blue;
+    border: 5px solid $primary-light-blue;
     line-height: 1.35rem;
     width: 80rem;
     padding: 1.25rem;
@@ -178,14 +178,14 @@
     flex-direction: column;
     align-items: center;
     width: auto;
-    background: $primary-very-light-blue;
+    background: $primary-pale-blue;
     border-radius: 1rem;
     padding: 1rem;
-    border: 5px solid $neutral-white;
+    border: 5px solid $primary-very-light-blue;
     box-shadow: $shadow-tertiary;
 
     h3 {
-      color: $primary-dark-blue;
+      color: $primary-button-blue;
       margin-bottom: 0.5rem;
       font-size: 1.25rem;
 
@@ -283,7 +283,7 @@
     }
   }
 
-  &__content {
+  &__content-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -293,8 +293,8 @@
     backdrop-filter: blur(0.5rem);
     border-radius: 1.5rem;
     padding: 2rem;
-    box-shadow: $shadow-septenary;
-    border: 7px solid $primary-button-blue;
+    box-shadow: $shadow-quaternary;
+    border: 5px solid $neutral-white;
 
     @include tablet {
       padding: 2.5rem;
@@ -310,6 +310,7 @@
     flex-direction: row;
     justify-content: center;
     padding: .5rem;
+    background-color: $neutral-white;
     gap: .1rem;
     border: 5px solid $primary-very-light-blue;
     border-radius: .75rem;
@@ -323,7 +324,7 @@
     align-items: center;
     gap: .5rem;
     font-size: 2rem;
-    color: $primary-dark-blue;
+    color: $primary-button-blue;
     text-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.2);
     margin-bottom: 1rem;
 
@@ -470,19 +471,20 @@
 
   &__title {
     font-weight: bold;
-    font-size: 1.15rem;
-    color: $primary-dark-blue;
+    font-size: 1.3rem;
+    font-family: $secondary-font;
+    color: $primary-medium-blue;
     margin-bottom: .15rem;
 
     @include tablet {
-      font-size: 1.35rem;
+      font-size: 1.5rem;
     }
   }
 
   &__description {
     text-align: center;
-    font-family: $primary-font;
-    color: $primary-dark-blue;
+    font-family: $secondary-font;
+    color: $primary-medium-blue;
     font-size: .75rem;
     line-height: 1rem;
 
@@ -500,27 +502,26 @@
     }
   }
 
-  &__content-container {
+  &__content {
     background-color: $neutral-white;
     box-shadow: $shadow-primary;
     border-radius: 1rem;
-    padding: .5rem;
-    border: 5px solid $primary-light-blue;
+    padding: .75rem;
+    border: 5px solid $primary-very-light-blue;
     margin-bottom: 2.5rem;
   }
-
 
   &__rating {
     display: flex;
     align-items: center;
     font-size: 1rem;
-    color: $primary-dark-blue;
+    color: $primary-medium-blue;
     padding: .5rem;
-    background-color: $neutral-white;
+    background-color: $primary-pale-blue;
     box-shadow: $shadow-secondary;
     border-radius: .5rem;
     font-weight: bold;
-    border: 2px solid $primary-very-light-blue;
+    border: 2px solid $neutral-white;
 
     svg {
       margin-right: 0.5rem;
@@ -530,12 +531,12 @@
 
   &__duration {
     font-size: 1rem;
-    color: $primary-dark-blue;
+    color: $primary-medium-blue;
     padding: .5rem;
-    background-color: $neutral-white;
+    background-color: $primary-pale-blue;
     box-shadow: $shadow-secondary;
     border-radius: .5rem;
-    border: 2px solid $primary-very-light-blue;
+    border: 2px solid $neutral-white;
   }
 
   &__cast-container {

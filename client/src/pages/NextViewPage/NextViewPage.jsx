@@ -235,8 +235,8 @@ const NextViewPage = () => {
                     is a detailed media display page in your app. It shows all the essential information about a selected movie or TV show, including its title, description, rating, genres, and available streaming services. You can watch a trailer, add the media to your calendar, and interact by liking or disliking it. The page is designed to give users a comprehensive and interactive experience with their chosen media.
                 </p>
             </div>
-            <div className="nextview-page__content">
-                <div className="nextview-page__content-container">
+            <div className="nextview-page__content-container">
+                <div className="nextview-page__content">
                     <h1 className="nextview-page__title">
                         {mediaData.title || mediaData.name}
                         {mediaData.release_date && <span className="nextview-page__release-date"> ({new Date(mediaData.release_date).getFullYear()})</span>}
