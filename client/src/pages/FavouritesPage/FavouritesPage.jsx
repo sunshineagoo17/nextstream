@@ -8,7 +8,7 @@ import {
   faHandSpock, faQuidditch, faClapperboard, faMask, faFingerprint, faChevronDown, faChevronCircleDown,
   faChevronCircleUp, faVideoCamera, faHeart, faMinus, faPlay, faTimes, faCalendarPlus, faSearch,
   faBomb, faStar, faUserSecret, faRedo, faGhost, faLaugh, faTheaterMasks, faBolt, faMap, faGlobe, faTrophy,
-  faLock, faUnlock, faTrash
+  faLock, faUnlock, faTrash, faShareAlt
 } from '@fortawesome/free-solid-svg-icons';
 import HomeCinemaSVG from "../../assets/images/home-cinema.svg";
 import LikesSVG from "../../assets/images/like-faves.svg";
@@ -391,6 +391,21 @@ const FavouritesPage = () => {
     }
   };  
 
+  const handleShare = (title, url) => {
+    if (navigator.share) {
+      navigator.share({
+        title: `Check out this title - ${title}`,
+        url: url,
+      })
+      .then(() => console.log('Successful share!'))
+      .catch((error) => console.error('Error sharing:', error));
+    } else {
+      navigator.clipboard.writeText(`Check out this title - ${title}: ${url}`)
+      .then(() => showAlert('Link copied to clipboard!', 'success'))
+      .catch((error) => showAlert('Failed to copy link', 'error'));
+    }
+  };
+
   return (
     <div className="faves-page">
       <BlobBg />
@@ -582,6 +597,13 @@ const FavouritesPage = () => {
                         data-tooltip-content="More Info" 
                       />
                       <FontAwesomeIcon 
+                        icon={faShareAlt} 
+                        onClick={() => handleShare(fave.title, `https://www.themoviedb.org/${fave.media_type}/${fave.media_id}`)} 
+                        className="faves-page__share-icon" 
+                        data-tooltip-id="shareTooltip" 
+                        data-tooltip-content="Share this title" 
+                      />
+                      <FontAwesomeIcon 
                         icon={lockedMedia[`${fave.media_id}-${fave.media_type}`] ? faLock : faUnlock} 
                         onClick={() => handleLockMedia(fave.media_id, fave.media_type)} 
                         className={`faves-page__lock-icon ${lockedMedia[`${fave.media_id}-${fave.media_type}`] ? 'faves-page__lock-icon--locked' : ''}`} 
@@ -598,6 +620,7 @@ const FavouritesPage = () => {
                       <Tooltip id="mediaTypeTooltip" place="top" />
                       <Tooltip id="calendarTooltip" place="top" />
                       <Tooltip id="searchTooltip" place="top" />
+                      <Tooltip id="shareTooltip" place="top" />
                       <Tooltip id="lockTooltip" place="top" />
                       <Tooltip id="trashTooltip" place="top" />
                     </p>
