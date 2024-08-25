@@ -34,6 +34,61 @@ const STREAMING_PROVIDERS = [
   'Tubi'
 ];
 
+// Utility function to get the trailer or other video types
+const getMediaTrailer = async (media_id, media_type) => {
+  try {
+    const url = `${TMDB_BASE_URL}/${media_type}/${media_id}/videos?api_key=${TMDB_API_KEY}`;
+    const response = await axios.get(url);
+
+    const videoTypesChecked = [];
+    let video = response.data.results.find(video => {
+      videoTypesChecked.push('YouTube Trailer');
+      return video.type === 'Trailer' && video.site === 'YouTube';
+    });
+
+    if (!video) {
+      video = response.data.results.find(video => {
+        videoTypesChecked.push('Featurette');
+        return video.type === 'Featurette' && (video.site === 'YouTube' || video.site === 'Vimeo');
+      });
+    }
+
+    if (!video) {
+      video = response.data.results.find(video => {
+        videoTypesChecked.push('Teaser');
+        return video.type === 'Teaser' && (video.site === 'YouTube' || video.site === 'Vimeo');
+      });
+    }
+
+    if (!video) {
+      video = response.data.results.find(video => {
+        videoTypesChecked.push('Opening Scene');
+        return video.type === 'Opening Scene' && (video.site === 'YouTube' || video.site === 'Vimeo');
+      });
+    }
+
+    if (!video) {
+      video = response.data.results.find(video => {
+        videoTypesChecked.push('Opening Credits');
+        return video.type === 'Opening Credits' && (video.site === 'YouTube' || video.site === 'Vimeo');
+      });
+    }
+
+    if (video) {
+      const embedUrl = video.site === 'YouTube'
+        ? `https://www.youtube.com/embed/${video.key}`
+        : `https://player.vimeo.com/video/${video.key}`;
+      return embedUrl;
+    } else {
+      console.log(`No video found. Types checked: ${videoTypesChecked.join(', ')}`);
+      return null;
+    }
+  } catch (error) {
+    console.error(`Error fetching video for ${media_type} ${media_id}:`, error);
+    return null;
+  }
+};
+
 // Function to get the watch providers
 const getWatchProviders = async (mediaType, mediaId) => {
   try {
@@ -221,12 +276,14 @@ router.get('/:mediaType/:mediaId/credits', async (req, res) => {
 router.get('/:mediaType/:mediaId/videos', async (req, res) => {
   const { mediaType, mediaId } = req.params;
   try {
-    const response = await axios.get(`${TMDB_BASE_URL}/${mediaType}/${mediaId}/videos`, {
-      params: {
-        api_key: TMDB_API_KEY
-      }
-    });
-    res.json(response.data);
+    // Use the getMediaTrailer function here to get the trailer or other videos
+    const trailerUrl = await getMediaTrailer(mediaId, mediaType);
+    
+    if (trailerUrl) {
+      res.json({ trailerUrl });
+    } else {
+      res.status(404).json({ message: 'Apologies, no trailer is available.' });
+    }
   } catch (error) {
     console.error(`Error fetching videos for ${mediaType} ${mediaId}:`, error.message);
     res.status(500).json({ message: 'Error fetching videos' });
@@ -309,6 +366,9 @@ router.get('/nextview/:userId/:mediaId/:mediaType', async (req, res) => {
       });
       const credits = creditsResponse.data.cast.slice(0, 10); // Top 10 cast members
 
+      // Fetch the trailer using the enhanced logic
+      const trailerUrl = await getMediaTrailer(mediaId, mediaType);
+
       // Combine the data
       const responseData = {
           ...mediaData,
@@ -316,6 +376,7 @@ router.get('/nextview/:userId/:mediaId/:mediaType', async (req, res) => {
           interaction: interaction ? interaction.interaction : null,
           providers,
           credits,
+          trailerUrl, // Add the trailer URL to the response
       };
 
       res.json(responseData);

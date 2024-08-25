@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useRef } from 'react';
+import React, { useState, useEffect, useContext, useRef, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay, faCalendarPlus, faThumbsUp, faThumbsDown, faStar, faClose, faTv, faFilm, faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
@@ -28,6 +28,11 @@ const NextViewPage = () => {
     const [scrollPosition, setScrollPosition] = useState(0);
 
     const castContainerRef = useRef(null);
+
+    const showAlert = useCallback((message, type) => {
+        setAlert({ show: true, message, type });
+        setTimeout(() => closeAlert(), 3000); 
+    }, []);
 
     useEffect(() => {
         if (!mediaType || !mediaId) {
@@ -75,7 +80,7 @@ const NextViewPage = () => {
         };
 
         fetchMediaData();
-    }, [mediaId, mediaType, navigate, userId]);
+    }, [mediaId, mediaType, navigate, userId, showAlert]);
 
     const handlePlayTrailer = async () => {
         setIsLoading(true);
@@ -83,8 +88,8 @@ const NextViewPage = () => {
             const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/tmdb/${mediaType}/${mediaId}/videos`);
             const videoData = response.data;
 
-            if (videoData && videoData.embedUrl) {
-                setTrailerUrl(videoData.embedUrl);
+            if (videoData && videoData.trailerUrl) {
+                setTrailerUrl(videoData.trailerUrl);
                 setShowTrailer(true);
             } else {
                 showAlert('Apologies, no video is available.', 'info');
@@ -99,7 +104,7 @@ const NextViewPage = () => {
 
     const handleAddToCalendar = () => {
         if (!userId) {
-            alert('Please log in to add this to your calendar.');
+            showAlert('Please log in to add this to your calendar.', 'error');
             return;
         }
 
@@ -132,10 +137,6 @@ const NextViewPage = () => {
             console.error('Error toggling interaction:', error);
             showAlert('Error toggling interaction. Please try again later.', 'error');
         }
-    };
-
-    const showAlert = (message, type) => {
-        setAlert({ show: true, message, type });
     };
 
     const closeAlert = () => {
