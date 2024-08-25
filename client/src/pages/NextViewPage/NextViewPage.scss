@@ -159,8 +159,9 @@
     padding: .25rem;
     height: auto;
     border-radius: .5rem;
-    box-shadow: $shadow-tertiary;
     transition: transform 0.3s ease;
+    background-color: $neutral-white;
+    box-shadow: $shadow-secondary;
 
     &:hover {
       transform: scale(1.1);
@@ -269,12 +270,11 @@
     padding: 0.25rem;
     border-radius: 0.5rem;
     font-size: 1rem;
-    color: $primary-button-blue;
     background-color: $frosted-glass;
     box-shadow: $shadow-septenary;
 
     svg {
-      color: $primary-button-blue;
+      color: $primary-very-light-blue;
     }
 
     @include tablet {
@@ -289,12 +289,12 @@
     align-items: center;
     width: 100%;
     max-width: 60rem;
-    background: rgba($neutral-white, 0.8);
+    background: $primary-darker-blue;
     backdrop-filter: blur(0.5rem);
     border-radius: 1.5rem;
     padding: 2rem;
     box-shadow: $shadow-quaternary;
-    border: 5px solid $neutral-white;
+    border: 5px solid $primary-button-blue;
 
     @include tablet {
       padding: 2.5rem;
@@ -324,7 +324,7 @@
     align-items: center;
     gap: .5rem;
     font-size: 2rem;
-    color: $primary-button-blue;
+    color: $neutral-white;
     text-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.2);
     margin-bottom: 1rem;
 
@@ -341,8 +341,7 @@
     font-size: .75rem;
     padding: .25rem .5rem;
     background-color: $primary-light-blue;
-    border: 2px solid $neutral-white;
-    border-radius: .5rem;
+    border-radius: .35rem;
     color: $neutral-white;
     box-shadow: $shadow-primary;
   }
@@ -373,6 +372,8 @@
     overflow: hidden;
     box-shadow: $shadow-quaternary;
     transition: transform 0.3s ease;
+    border-radius: 1.5rem;
+    border: 5px solid $primary-very-light-blue;
 
     &:hover {
       transform: scale(1.05);
@@ -445,13 +446,10 @@
   &__streaming-copy,
   &__cast-copy {
     font-family: $primary-font;
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     font-weight: bold;
     color: $primary-button-dark-blue;
-  }
-
-  &__cast-copy {
-    margin-bottom: .5rem;
+    margin-bottom: .25rem;
   }
 
   &__genre {
@@ -460,12 +458,13 @@
     gap: 0.5rem;
 
     &-item {
-      background: $primary-light-blue;
-      color: $neutral-white;
+      background: $frosted-glass;
+      color: $primary-very-light-blue;
       padding: 0.5rem 1rem;
       border-radius: 0.5rem;
       font-size: 1rem;
-      box-shadow: $shadow-secondary;
+      box-shadow: $shadow-septenary;
+      border: 1px solid $frosted-glass;
     }
   }
 
@@ -473,7 +472,7 @@
     font-weight: bold;
     font-size: 1.3rem;
     font-family: $secondary-font;
-    color: $primary-medium-blue;
+    color: $neutral-white;
     margin-bottom: .15rem;
 
     @include tablet {
@@ -484,7 +483,7 @@
   &__description {
     text-align: center;
     font-family: $secondary-font;
-    color: $primary-medium-blue;
+    color: $primary-very-light-blue;
     font-size: .75rem;
     line-height: 1rem;
 
@@ -503,11 +502,11 @@
   }
 
   &__content {
-    background-color: $neutral-white;
+    background-color: $primary-button-dark-blue;
     box-shadow: $shadow-primary;
     border-radius: 1rem;
     padding: .75rem;
-    border: 5px solid $primary-very-light-blue;
+    border: 5px solid $neutral-white;
     margin-bottom: 2.5rem;
   }
 
@@ -646,14 +645,15 @@
   }
 
   &__cast-name {
-    font-weight: bold;
-    font-size: 0.95rem;
+    font-size: .9rem;
     color: $primary-medium-blue;
+    font-family: $secondary-font;
   }
 
   &__cast-character {
     color: $primary-gradient-blue;
     font-size: 0.75rem;
+    font-family: $secondary-font;
   }
 
   &__cast-name,
@@ -666,9 +666,9 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: $primary-button-blue;
-    color: $neutral-white;
-    border: 2px solid $neutral-white;
+    background: $primary-darker-blue;
+    color: $primary-very-light-blue;
+    border: 3px solid $primary-button-blue;
     box-shadow: $shadow-tertiary;
     border-radius: .5rem;
     padding: 0.5rem;
@@ -679,13 +679,13 @@
       background: $primary-dark-blue;
       color: $neutral-white;
       box-shadow: $shadow-primary;
-      border: 3px solid $primary-very-light-blue;
+      border: 3px solid $neutral-white;
     }
 
     &:active {
       background: $neutral-white;
-      color: $primary-button-blue;
-      border: 2px solid $primary-button-blue;
+      color: $primary-dark-blue;
+      border: 3px solid $primary-dark-blue;
     }
   }
   
