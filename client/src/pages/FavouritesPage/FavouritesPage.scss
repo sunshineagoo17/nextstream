@@ -29,9 +29,11 @@
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 1.25rem;
 
   @include tablet {
     padding: 2.15rem;
+    margin-bottom: 1.5rem;
   }
 
   @include desktop {
@@ -42,7 +44,7 @@
 
   @include large-desktop {
     margin-top: 1rem;
-    margin-bottom: 20.075rem;
+    margin-bottom: 3rem;
   }
 
   &__search-actions {
@@ -135,10 +137,37 @@
     box-shadow: $shadow-primary;
     font-size: .85rem;
     line-height: 1.25rem;
+    animation: bounce 1.5s infinite ease-in-out, colorShift 3s infinite ease-in-out;
 
     @include tablet {
       margin-bottom: .5rem;
     }
+  }
+
+  @keyframes bounce {
+      0%, 100% {
+          transform: scale(1);
+          box-shadow: $shadow-primary;
+      }
+      50% {
+          transform: scale(1.1);
+          box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.2);
+      }
+  }
+
+  @keyframes colorShift {
+      0% {
+          border-color: $primary-very-light-blue;
+          background: $neutral-white;
+      }
+      50% {
+          border-color: $primary-medium-blue;
+          background: lighten($primary-light-blue, 15%);
+      }
+      100% {
+          border-color: $primary-very-light-blue;
+          background: $neutral-white;
+      }
   }
   
   &__copy-container {
