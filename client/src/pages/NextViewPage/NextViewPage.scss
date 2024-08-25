@@ -39,7 +39,7 @@
   }
 
   @include desktop {
-    padding: 4rem;
+    padding: 3.25rem;
   }
 
   &__gradient-subtitle {
@@ -114,6 +114,17 @@
   &__header {
     text-shadow: $shadow-primary;
     margin-bottom: .5rem;
+    display: flex;
+    align-items: center;
+    color: $neutral-white;
+    font-family: $primary-font;
+    font-size: 1.5rem;
+    font-weight: bold;
+
+    @include tablet {
+      margin-bottom: 1rem;
+      font-size: 2.5rem;
+    }
   }
 
   &__copy {
