@@ -2,13 +2,13 @@ import { useState, useEffect, useContext, useRef, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay, faCalendarPlus, faThumbsUp, faThumbsDown, faStar, faClose, faTv, faFilm, faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import { AuthContext } from '../../context/AuthContext/AuthContext'; 
+import { Tooltip } from 'react-tooltip';
 import axios from 'axios';
-import AnimatedBg from '../../components/AnimatedBg/AnimatedBg';
+import WavesBg from '../../components/WavesBg/WavesBg';
 import Loader from '../../components/Loader/Loader';
 import Calendar from '../CalendarPage/sections/Calendar';
 import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
-import { AuthContext } from '../../context/AuthContext/AuthContext'; 
-import { Tooltip } from 'react-tooltip';
 import './NextViewPage.scss';
 
 const NextViewPage = () => {
@@ -270,6 +270,7 @@ const NextViewPage = () => {
                         <div className="nextview-page__actions">
                             <div className="nextview-page__media-type">
                                 <FontAwesomeIcon
+                                    className="nextview-page__media-icon"
                                     icon={mediaType === 'tv' ? faTv : faFilm}
                                     data-tooltip-id={`mediaTypeTooltip-${mediaId}`}
                                     data-tooltip-content={`${mediaType === 'tv' ? 'TV Show' : 'Movie'}`}
@@ -388,7 +389,7 @@ const NextViewPage = () => {
             )}
 
             <div className="nextview-page__background">
-                <AnimatedBg />
+                <WavesBg />
             </div>
 
             {showCalendar && (

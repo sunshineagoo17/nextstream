@@ -137,31 +137,6 @@
     }
   }
 
-  &__media-type {
-    display: flex;
-    align-items: center;
-    background: $neutral-light-grey;
-    color: $primary-button-blue;
-    padding: 0.5rem 1rem;
-    border-radius: 0.75rem;
-    font-size: 1rem;
-    border: 1px solid $frosted-glass;
-    box-shadow: $shadow-senary;
-
-    svg {
-      font-size: 1.5rem;
-      color: $primary-button-blue;
-    }
-
-    @include tablet {
-      font-size: 1.25rem;
-    }
-
-    @include desktop {
-      font-size: 1.5rem;
-    }
-  }
-
   &__streaming-services {
     display: flex;
     gap: .5rem;
@@ -213,30 +188,85 @@
   }
 
   &__calendar-button {
-    background: $primary-gradient-blue;
-    color: $neutral-white;
-    padding: 0.5rem;
-    border-radius: 0.75rem;
+    padding: 0.25rem;
+    border-radius: 0.5rem;
     font-size: 1rem;
-    font-weight: bold;
-    box-shadow: $shadow-primary;
+    border: none;
+    cursor: pointer;
+    color: $primary-button-blue;
+    background-color: $frosted-glass;
+    box-shadow: $shadow-secondary;
     transition: transform 0.3s ease, background 0.3s ease;
 
     &:hover {
       background: $primary-dark-blue;
-      transform: scale(1.05);
+      transform: scale(1.1);
+      color: $neutral-white;
+      border: 2px solid $primary-button-blue;
     }
 
     &:active {
       transform: scale(0.95);
+      background: $neutral-white;
+      color: $primary-dark-blue;
+      box-shadow: $shadow-primary;
     }
 
     @include tablet {
-      padding: .75rem;
+      padding: .5rem;
       font-size: 1.25rem;
     }
+  }
 
-    @include desktop {
+  &__thumbs-up,
+  &__thumbs-down {
+    padding: 0.25rem;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    color: $primary-button-blue;
+    background-color: $frosted-glass;
+    box-shadow: $shadow-secondary;
+    transition: transform 0.3s ease, background 0.3s ease;
+
+    &:hover {
+      background: $primary-dark-blue;
+      transform: scale(1.1);
+      color: $neutral-white;
+      border: 2px solid $primary-button-blue;
+    }
+
+    &:active {
+      transform: scale(0.95);
+      background: $neutral-white;
+      color: $primary-dark-blue;
+      box-shadow: $shadow-primary;
+    }
+
+    @include tablet {
+      padding: .5rem;
+      font-size: 1.25rem;
+    }
+  }
+
+  &__media-type {
+    display: flex;
+    align-items: center;
+    border: 1px solid $frosted-glass;
+    padding: 0.25rem;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    color: $primary-button-blue;
+    background-color: $frosted-glass;
+    box-shadow: $shadow-septenary;
+
+    svg {
+      color: $primary-button-blue;
+    }
+
+    @include tablet {
+      padding: .5rem;
       font-size: 1.25rem;
     }
   }
@@ -251,8 +281,8 @@
     backdrop-filter: blur(0.5rem);
     border-radius: 1.5rem;
     padding: 2rem;
-    box-shadow: $shadow-primary;
-    border: 0.125rem solid rgba($neutral-white, 0.5);
+    box-shadow: $shadow-septenary;
+    border: 7px solid $primary-button-blue;
 
     @include tablet {
       padding: 3rem;
@@ -641,37 +671,6 @@
 
     @include desktop {
       gap: 2.5rem;
-    }
-  }
-
-  &__thumbs-up,
-  &__thumbs-down {
-    font-size: 1.5rem;
-    color: $neutral-white;
-    box-shadow: $shadow-senary;
-    border-radius: 0.5rem;
-    padding: 0.25rem;
-    cursor: pointer;
-    transition: transform 0.2s ease, color 0.2s ease;
-
-    &:hover {
-      transform: scale(1.1);
-      color: $primary-very-light-blue;
-      border: 2px solid $primary-very-light-blue;
-    }
-
-    &:active {
-      transform: scale(0.9);
-      color: $primary-button-blue;
-      border: 2px solid $primary-button-blue;
-    }
-
-    @include tablet {
-      font-size: 1.75rem;
-    }
-
-    @include desktop {
-      font-size: 2rem;
     }
   }
 
