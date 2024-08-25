@@ -252,7 +252,7 @@
   &__subscription-header,
   &__notifications-header,
   &__region-header {
-    background-color: $primary-darker-blue;
+    background: $primary-light-blue;
     border: 2px solid $primary-pale-blue;
     box-shadow: $shadow-primary;
     text-align: center;
@@ -269,9 +269,10 @@
   }
 
   &__text-wrapper {
-    background-color: $primary-darker-blue;
-    color: $primary-very-light-blue;
-    font-family: $primary-font;
+    background: $primary-light-blue;
+    color: $neutral-white;
+    font-family: $secondary-font;
+    padding: .25rem;
     font-size: 1rem;
 
     @include tablet {
