@@ -4,20 +4,20 @@
 @use "../../styles/global.scss" as *;
 
 .custom-tooltip {
-  background-color: $primary-dark-blue !important;
-  color: $neutral-white !important;
+  background-color: $neutral-white !important;
+  color: $primary-dark-blue !important;
   padding: 0.25rem !important;
   border-radius: 1rem;
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
   font-family: $primary-font !important;
+  text-shadow: none;
   font-size: 0.75rem !important;
   line-height: 1.25rem;
   font-weight: bold;
   z-index: 9999;
 
   @include tablet {
+    font-size: .95rem !important;
     padding: .75rem !important;
-    font-size: 0.85rem !important;
   }
 
   &::after {
