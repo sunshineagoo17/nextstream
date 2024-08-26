@@ -360,7 +360,7 @@ const NextViewPage = () => {
                                         />
                                     ))
                                 ) : (
-                                    <p>No streaming services available.</p>
+                                    <p className="nextview-page__no-streaming-services">No streaming services available.</p>
                                 )}
                             </div>
                         </div>
