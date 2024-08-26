@@ -170,6 +170,23 @@
           background: $neutral-white;
       }
   }
+
+  &__svg-text{
+    color: $primary-button-dark-blue;
+    font-family: $primary-font;
+    font-weight: bold;
+    background: $neutral-white;
+    padding: .5rem;
+    border-radius: .5rem;
+    border: 3px solid $primary-very-light-blue;
+    box-shadow: $shadow-primary;
+    font-size: .85rem;
+    line-height: 1.25rem;
+
+    @include tablet {
+      margin-bottom: .5rem;
+    }
+  }
   
   &__copy-container {
     width: 100%;
