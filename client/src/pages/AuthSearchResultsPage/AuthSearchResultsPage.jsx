@@ -236,38 +236,47 @@ const AuthSearchResultsPage = ({ userId }) => {
     return (
       <>
         {interaction === 1 ? (
-          <FontAwesomeIcon
-            icon={faThumbsUp}
-            className="auth-search-results__thumbs-up"
-            onClick={() => handleToggleInteraction(mediaId, 0)}
-            data-tooltip-id={`thumbsUpTooltip-${mediaId}`}
-            data-tooltip-content="LIKED"
-          />
-        ) : interaction === 0 ? (
-          <FontAwesomeIcon
-            icon={faThumbsDown}
-            className="auth-search-results__thumbs-down"
-            onClick={() => handleToggleInteraction(mediaId, 1)}
-            data-tooltip-id={`thumbsDownTooltip-${mediaId}`}
-            data-tooltip-content="DISLIKED"
-          />
-        ) : (
-          <div className="auth-search-results__neutral-interactions">
+          <>
             <FontAwesomeIcon
               icon={faThumbsUp}
               className="auth-search-results__thumbs-up"
-              onClick={() => handleToggleInteraction(mediaId, 1)}
-              data-tooltip-id={`interactionTooltip-${mediaId}`}
-              data-tooltip-content="LIKE"
+              onClick={() => handleToggleInteraction(mediaId, 0)}
+              data-tooltip-id={`thumbsUpTooltip-${mediaId}`}
+              data-tooltip-content="LIKED"
             />
+            <Tooltip id={`thumbsUpTooltip-${mediaId}`} place="top" className="tooltip-custom" />
+          </>
+        ) : interaction === 0 ? (
+          <>
             <FontAwesomeIcon
               icon={faThumbsDown}
               className="auth-search-results__thumbs-down"
-              onClick={() => handleToggleInteraction(mediaId, 0)}
-              data-tooltip-id={`interactionTooltip-${mediaId}`}
-              data-tooltip-content="DISLIKE"
+              onClick={() => handleToggleInteraction(mediaId, 1)}
+              data-tooltip-id={`thumbsDownTooltip-${mediaId}`}
+              data-tooltip-content="DISLIKED"
             />
-          </div>
+            <Tooltip id={`thumbsDownTooltip-${mediaId}`} place="top" className="tooltip-custom" />
+          </>
+        ) : (
+          <>
+            <div className="auth-search-results__neutral-interactions">
+              <FontAwesomeIcon
+                icon={faThumbsUp}
+                className="auth-search-results__thumbs-up"
+                onClick={() => handleToggleInteraction(mediaId, 1)}
+                data-tooltip-id={`interactionTooltip-${mediaId}`}
+                data-tooltip-content="LIKE"
+              />
+              <FontAwesomeIcon
+                icon={faThumbsDown}
+                className="auth-search-results__thumbs-down"
+                onClick={() => handleToggleInteraction(mediaId, 0)}
+                data-tooltip-id={`interactionTooltip-${mediaId}`}
+                data-tooltip-content="DISLIKE"
+              />
+            </div>
+            <Tooltip id={`interactionTooltip-${mediaId}`} place="top" className="tooltip-custom" />
+          </>
         )}
         <FontAwesomeIcon
           icon={faShareAlt}
@@ -276,13 +285,10 @@ const AuthSearchResultsPage = ({ userId }) => {
           data-tooltip-id={`shareTooltip-${mediaId}`}
           data-tooltip-content="SHARE"
         />
-        <Tooltip id={`thumbsUpTooltip-${mediaId}`} place="top" className="tooltip-custom" />
-        <Tooltip id={`thumbsDownTooltip-${mediaId}`} place="top" className="tooltip-custom" />
-        <Tooltip id={`interactionTooltip-${mediaId}`} place="top" className="tooltip-custom" />
         <Tooltip id={`shareTooltip-${mediaId}`} place="top" className="tooltip-custom" />
       </>
     );
-  };
+  };  
 
   return (
     <>
