@@ -45,6 +45,36 @@
     box-shadow: $shadow-primary;
   }
 
+  &__swipe-guide {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    animation: swipeAnimation 7s ease-in-out infinite;
+    opacity: 0.8;
+
+    & .top-picks-page__swipe-icon {
+      font-size: 2.5rem;
+      color: $neutral-white;
+    }
+  }
+
+  @keyframes swipeAnimation {
+    0% {
+      transform: translate(-250%, -50%);
+      opacity: 0.5;
+    }
+    50% {
+      transform: translate(250%, -50%);
+      opacity: 1;
+    }
+    100% {
+      transform: translate(-250%, -50%);
+      opacity: 0.5;
+    }
+  }
+
   &__gradient-subtitle {
     font-weight: bold;
     background: linear-gradient(270deg, $neutral-white, $primary-gradient-blue, $neutral-white);

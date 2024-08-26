@@ -2,7 +2,7 @@ import { useState, useEffect, useContext, useRef } from 'react';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { useSwipeable } from 'react-swipeable';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCalendarPlus, faClose, faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarPlus, faClose, faArrowLeft, faArrowRight, faHandPointer } from '@fortawesome/free-solid-svg-icons';
 import MediaCard from './sections/MediaCard/MediaCard';
 import Calendar from '../CalendarPage/sections/Calendar';
 import AnimatedBg from '../../components/AnimatedBg/AnimatedBg';
@@ -25,6 +25,8 @@ const TopPicksPage = () => {
   const [noMoreMedia, setNoMoreMedia] = useState(false);
   const [duration, setDuration] = useState(0);
   const [alert, setAlert] = useState({ show: false, message: '', type: '' });
+  const [showSwipeGuide, setShowSwipeGuide] = useState(false); 
+  const [isFirstSession, setIsFirstSession] = useState(false); 
   const calendarRef = useRef(null);
 
   const saveStateToLocalStorage = (state, key) => {
@@ -52,6 +54,15 @@ const TopPicksPage = () => {
     setMedia(storedMedia);
     setCurrentIndex(storedCurrentIndex);
     setSwipedMediaIds(storedSwipedMediaIds);
+
+    // Check if the user is new and this is their first session
+    const hasSeenSwipeGuide = localStorage.getItem(`hasSeenSwipeGuide_${userId}`);
+    if (!hasSeenSwipeGuide && storedCurrentIndex === 0) {
+      setIsFirstSession(true);
+      setShowSwipeGuide(true);
+      localStorage.setItem(`hasSeenSwipeGuide_${userId}`, 'true');
+      setTimeout(() => setShowSwipeGuide(false), 7000); 
+    }
   }, [userId]);
 
   useEffect(() => {
@@ -312,6 +323,11 @@ const TopPicksPage = () => {
           {isLoading && <Loader />}
           {!isLoading && media.length > 0 && currentIndex < media.length && (
             <div className="top-picks-page__media-card">
+              {isFirstSession && showSwipeGuide && (
+                <div className="top-picks-page__swipe-guide">
+                  <FontAwesomeIcon icon={faHandPointer} className="top-picks-page__swipe-icon" />
+                </div>
+              )}
               <button className="top-picks-page__nav-button top-picks-page__nav-button--left" onClick={() => handleSwipe('Left')}>
                 <FontAwesomeIcon icon={faArrowLeft} />
               </button>

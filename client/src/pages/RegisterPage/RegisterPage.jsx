@@ -142,7 +142,7 @@ export const RegisterPage = () => {
         <ToastContainer
           position="top-center"
           autoClose={4000}
-          hideProgressBar={true}
+          hideProgressBar={false}
           transition={Slide}
           closeOnClick
           pauseOnHover
