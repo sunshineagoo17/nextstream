@@ -32,6 +32,7 @@
   border-radius: .5rem;
   box-shadow: 0 .25rem .5rem rgba($neutral-black, .1);
 
+  &__share-icon,
   &__type-icon {
     font-size: .75rem;
     color: $primary-light-blue;

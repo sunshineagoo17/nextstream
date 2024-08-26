@@ -4,7 +4,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faPlay, faCalendarPlus, faStar, faThumbsUp, faThumbsDown, faClose, faTv, faFilm, faChevronRight, faChevronLeft,
   faMap, faBomb, faPalette, faLaugh, faFingerprint, faClapperboard, faTheaterMasks, faQuidditch, faGhost, faUserSecret,
-  faVideoCamera, faFaceKissWinkHeart, faHandSpock, faMask, faChildren, faShareAlt
+  faVideoCamera, faFaceKissWinkHeart, faMusic, faHandSpock, faMask, faChildren, faShareAlt,
+  faFighterJet, faScroll, faHatCowboy, faChild, faTelevision,
+  faBalanceScale, faHeartBroken, faBolt, faExplosion, faMeteor
 } from '@fortawesome/free-solid-svg-icons';
 import { AuthContext } from '../../context/AuthContext/AuthContext'; 
 import { Tooltip } from 'react-tooltip';
@@ -24,13 +26,24 @@ const genreIconMapping = {
   Documentary: faClapperboard,
   Drama: faTheaterMasks,
   Fantasy: faQuidditch,
+  History: faScroll,
   Horror: faGhost,
+  Music: faMusic,
   Mystery: faUserSecret,
+  Politics: faBalanceScale,
   Reality: faVideoCamera,
   Romance: faFaceKissWinkHeart,
   'Science Fiction': faHandSpock,
+  Soap: faHeartBroken,
   Thriller: faMask,
+  War: faFighterJet,
+  Western: faHatCowboy,
   Family: faChildren,
+  Kids: faChild,
+  'TV Movie': faTelevision,
+  'Action & Adventure': faBolt,
+  'War & Politics': faExplosion,
+  'Sci-Fi & Fantasy': faMeteor
 };
 
 const NextViewPage = () => {
