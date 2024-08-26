@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useState, useEffect, useContext, useRef, useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCalendarPlus, faClose, faChevronRight, faChevronLeft, faThumbsUp, faThumbsDown, faImage } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarPlus, faClose, faChevronRight, faChevronLeft, faThumbsUp, faThumbsDown, faImage, faShareAlt } from '@fortawesome/free-solid-svg-icons';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { Tooltip } from 'react-tooltip'; 
 import AnimatedBg from '../../components/AnimatedBg/AnimatedBg';
@@ -10,7 +10,7 @@ import Loader from '../../components/Loader/Loader';
 import DefaultVideoImg from '../../assets/images/video-img-default.png';
 import VideoCamera from "../../assets/images/videocamera-1.png";
 import TvIcon from "../../assets/images/tv-icon.png";
-import NoDataImg from "../../assets/images/no-data.svg";
+import NoDataImg from '../../assets/images/no-data.svg';
 import PreviousIcon from '../../assets/images/previous-icon.svg';
 import NextIcon from '../../assets/images/next-icon.svg';
 import Calendar from '../CalendarPage/sections/Calendar';
@@ -187,7 +187,24 @@ const AuthSearchResultsPage = ({ userId }) => {
       console.error('Error toggling interaction:', error);
       showAlert('Error toggling interaction. Please try again later.', 'error');
     }
-  };  
+  };
+
+  const handleShare = (title, mediaType, mediaId) => {
+    const url = `${window.location.origin}/nextview/${userId}/${mediaType}/${mediaId}`;
+    
+    if (navigator.share) {
+      navigator.share({
+        title: `Check out this title - ${title}`,
+        url: url,
+      })
+      .then(() => console.log('Successful share!'))
+      .catch((error) => console.error('Error sharing:', error));
+    } else {
+      navigator.clipboard.writeText(`Check out this title - ${title}: ${url}`)
+      .then(() => showAlert('Link copied to clipboard!', 'success'))
+      .catch((error) => showAlert('Failed to copy link', 'error'));
+    }
+  };
 
   const renderPaginationCircles = () => {
     const totalPages = Math.ceil(results.length / 3);
@@ -215,56 +232,56 @@ const AuthSearchResultsPage = ({ userId }) => {
     return <FontAwesomeIcon icon={faImage} className="auth-search-results__media-icon auth-search-results__media-none-icon" alt="No Media Type Available" />;
   };
 
-  const getInteractionIcon = (interaction, mediaId) => {
-    if (interaction === 1) {
-        return (
-            <>
-                <FontAwesomeIcon
-                    icon={faThumbsUp}
-                    className="auth-search-results__thumbs-up"
-                    onClick={() => handleToggleInteraction(mediaId, 0)}
-                    data-tooltip-id={`thumbsUpTooltip-${mediaId}`}
-                    data-tooltip-content="LIKED"
-                />
-                <Tooltip id={`thumbsUpTooltip-${mediaId}`} place="top" className="tooltip-custom" />
-            </>
-        );
-    } else if (interaction === 0) {
-        return (
-            <>
-                <FontAwesomeIcon
-                    icon={faThumbsDown}
-                    className="auth-search-results__thumbs-down"
-                    onClick={() => handleToggleInteraction(mediaId, 1)}
-                    data-tooltip-id={`thumbsDownTooltip-${mediaId}`}
-                    data-tooltip-content="DISLIKED"
-                />
-                <Tooltip id={`thumbsDownTooltip-${mediaId}`} place="top" className="tooltip-custom" />
-            </>
-        );
-    } else {
-        return (
-            <>
-                <div className="auth-search-results__neutral-interactions">
-                    <FontAwesomeIcon
-                        icon={faThumbsUp}
-                        className="auth-search-results__thumbs-up"
-                        onClick={() => handleToggleInteraction(mediaId, 1)}
-                        data-tooltip-id={`interactionTooltip-${mediaId}`}
-                        data-tooltip-content="LIKE"
-                    />
-                    <FontAwesomeIcon
-                        icon={faThumbsDown}
-                        className="auth-search-results__thumbs-down"
-                        onClick={() => handleToggleInteraction(mediaId, 0)}
-                        data-tooltip-id={`interactionTooltip-${mediaId}`}
-                        data-tooltip-content="DISLIKE"
-                    />
-                </div>
-                <Tooltip id={`interactionTooltip-${mediaId}`} place="top" className="tooltip-custom" />
-            </>
-        );
-    }
+  const getInteractionIcon = (interaction, mediaId, mediaType, title) => {
+    return (
+      <>
+        {interaction === 1 ? (
+          <FontAwesomeIcon
+            icon={faThumbsUp}
+            className="auth-search-results__thumbs-up"
+            onClick={() => handleToggleInteraction(mediaId, 0)}
+            data-tooltip-id={`thumbsUpTooltip-${mediaId}`}
+            data-tooltip-content="LIKED"
+          />
+        ) : interaction === 0 ? (
+          <FontAwesomeIcon
+            icon={faThumbsDown}
+            className="auth-search-results__thumbs-down"
+            onClick={() => handleToggleInteraction(mediaId, 1)}
+            data-tooltip-id={`thumbsDownTooltip-${mediaId}`}
+            data-tooltip-content="DISLIKED"
+          />
+        ) : (
+          <div className="auth-search-results__neutral-interactions">
+            <FontAwesomeIcon
+              icon={faThumbsUp}
+              className="auth-search-results__thumbs-up"
+              onClick={() => handleToggleInteraction(mediaId, 1)}
+              data-tooltip-id={`interactionTooltip-${mediaId}`}
+              data-tooltip-content="LIKE"
+            />
+            <FontAwesomeIcon
+              icon={faThumbsDown}
+              className="auth-search-results__thumbs-down"
+              onClick={() => handleToggleInteraction(mediaId, 0)}
+              data-tooltip-id={`interactionTooltip-${mediaId}`}
+              data-tooltip-content="DISLIKE"
+            />
+          </div>
+        )}
+        <FontAwesomeIcon
+          icon={faShareAlt}
+          className="auth-search-results__share-icon"
+          onClick={() => handleShare(title, mediaType, mediaId)}
+          data-tooltip-id={`shareTooltip-${mediaId}`}
+          data-tooltip-content="SHARE"
+        />
+        <Tooltip id={`thumbsUpTooltip-${mediaId}`} place="top" className="tooltip-custom" />
+        <Tooltip id={`thumbsDownTooltip-${mediaId}`} place="top" className="tooltip-custom" />
+        <Tooltip id={`interactionTooltip-${mediaId}`} place="top" className="tooltip-custom" />
+        <Tooltip id={`shareTooltip-${mediaId}`} place="top" className="tooltip-custom" />
+      </>
+    );
   };
 
   return (
@@ -371,7 +388,7 @@ const AuthSearchResultsPage = ({ userId }) => {
 
                   {/* Interaction Icons */}
                   <div className="auth-search-results__interaction-icons">
-                    {getInteractionIcon(result.interaction, result.id)}
+                    {getInteractionIcon(result.interaction, result.id, result.media_type, result.title || result.name)}
                   </div>
                 </div>
               ))
