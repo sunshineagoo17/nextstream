@@ -53,6 +53,7 @@ const NextViewPage = () => {
     const [mediaData, setMediaData] = useState(null);
     const [certification, setCertification] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
+    const [isTrailerLoading, setIsTrailerLoading] = useState(false);
     const [showTrailer, setShowTrailer] = useState(false);
     const [trailerUrl, setTrailerUrl] = useState('');
     const [interaction, setInteraction] = useState(null); 
@@ -118,7 +119,7 @@ const NextViewPage = () => {
     }, [mediaId, mediaType, navigate, userId, showAlert]);
 
     const handlePlayTrailer = async () => {
-        setIsLoading(true);
+        setIsTrailerLoading(true);
         try {
             const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/tmdb/${mediaType}/${mediaId}/videos`);
             const videoData = response.data;
@@ -133,7 +134,7 @@ const NextViewPage = () => {
             console.error('Error fetching video:', error);
             showAlert('Apologies, no video is available.', 'info');
         } finally {
-            setIsLoading(false);
+            setIsTrailerLoading(false);
         }
     };
 
@@ -448,14 +449,20 @@ const NextViewPage = () => {
                         <button className="nextview-page__modal-content-close" onClick={() => setShowTrailer(false)}>
                             <FontAwesomeIcon icon={faClose} />
                         </button>
-                        <iframe
-                            src={trailerUrl}
-                            title="Trailer"
-                            frameBorder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowFullScreen
-                            className="nextview-page__trailer"
-                        ></iframe>
+                        {isTrailerLoading ? (
+                            <div className="loader-overlay">
+                                <Loader />
+                            </div>
+                        ) : (
+                            <iframe
+                                src={trailerUrl}
+                                title="Trailer"
+                                frameBorder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen
+                                className="nextview-page__trailer"
+                            ></iframe>
+                        )}
                     </div>
                 </div>
             )}
