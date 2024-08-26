@@ -2,9 +2,9 @@ import { useState, useEffect, useContext, useRef, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faPlay, faCalendarPlus, faThumbsUp, faThumbsDown, faStar, faClose, faTv, faFilm, faChevronRight, faChevronLeft,
+  faPlay, faCalendarPlus, faStar, faThumbsUp, faThumbsDown, faClose, faTv, faFilm, faChevronRight, faChevronLeft,
   faMap, faBomb, faPalette, faLaugh, faFingerprint, faClapperboard, faTheaterMasks, faQuidditch, faGhost, faUserSecret,
-  faVideoCamera, faFaceKissWinkHeart, faHandSpock, faMask, faGlobe, faTrophy, faUsersViewfinder, faChildren
+  faVideoCamera, faFaceKissWinkHeart, faHandSpock, faMask, faChildren, faShareAlt
 } from '@fortawesome/free-solid-svg-icons';
 import { AuthContext } from '../../context/AuthContext/AuthContext'; 
 import { Tooltip } from 'react-tooltip';
@@ -30,12 +30,7 @@ const genreIconMapping = {
   Romance: faFaceKissWinkHeart,
   'Science Fiction': faHandSpock,
   Thriller: faMask,
-  International: faGlobe,
-  Popular: faStar,
-  New: faTrophy,
-  'Broad Audience': faUsersViewfinder,
   Family: faChildren,
-  // Add other genres and their corresponding icons here
 };
 
 const NextViewPage = () => {
@@ -163,6 +158,23 @@ const NextViewPage = () => {
         } catch (error) {
             console.error('Error toggling interaction:', error);
             showAlert('Error toggling interaction. Please try again later.', 'error');
+        }
+    };
+
+    const handleShare = () => {
+        const url = `${window.location.origin}/nextview/${userId}/${mediaType}/${mediaId}`;
+        
+        if (navigator.share) {
+            navigator.share({
+                title: `Check out this title - ${mediaData.title || mediaData.name}`,
+                url: url,
+            })
+            .then(() => console.log('Successful share!'))
+            .catch((error) => console.error('Error sharing:', error));
+        } else {
+            navigator.clipboard.writeText(`Check out this title - ${mediaData.title || mediaData.name}: ${url}`)
+            .then(() => showAlert('Link copied to clipboard!', 'success'))
+            .catch((error) => showAlert('Failed to copy link', 'error'));
         }
     };
 
@@ -315,6 +327,17 @@ const NextViewPage = () => {
                                 <FontAwesomeIcon icon={faCalendarPlus} />
                             </button>
                             <Tooltip id={`calendarTooltip-${mediaId}`} place="top" className="custom-tooltip" />
+                            
+                            <button
+                                className="nextview-page__share-button"
+                                onClick={handleShare}
+                                data-tooltip-id={`shareTooltip-${mediaId}`}
+                                data-tooltip-content="Share"
+                            >
+                                <FontAwesomeIcon icon={faShareAlt} />
+                            </button>
+                            <Tooltip id={`shareTooltip-${mediaId}`} place="top" className="custom-tooltip" />
+
                             <div className="nextview-page__interaction-buttons">
                                 {getInteractionIcon()}
                             </div>
@@ -369,7 +392,7 @@ const NextViewPage = () => {
                         <div className={`nextview-page__cast-container ${cast.length <= 3 ? 'no-scroll' : ''}`}>
                             <p className="nextview-page__cast-copy">Cast:</p>
                             {cast.length === 0 ? (
-                                <p>Cast information unavailable.</p>
+                                <p className="nextview-page__no-cast-copy">Cast information unavailable.</p>
                             ) : (
                                 <>
                                     {cast.length > 3 && (
