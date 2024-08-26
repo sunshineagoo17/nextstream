@@ -31,7 +31,7 @@
   align-items: center;
   flex-direction: column;
   background-color: $primary-darker-blue;
-  padding: 2rem;
+  padding: 1.55rem;
   min-height: 100vh;
   position: relative;
 
@@ -76,15 +76,25 @@
     margin-bottom: 1.25rem;
     text-shadow: .125rem .125rem .3125rem rgba(0, 0, 0, .2);
     color: $primary-pale-blue;
-    padding: 1rem;
+    padding: 1.5rem;
     width: 100%;
-    background: linear-gradient(145deg, $primary-dark-blue, lighten($primary-button-blue, 5%));
+    background: linear-gradient(145deg, $primary-dark-blue, darken($primary-button-blue, 5%));
     border-radius: .75rem;
     box-shadow: .3125rem .3125rem .9375rem rgba(0, 0, 0, .2), -.3125rem -3125rem .9375rem rgba(255, 255, 255, .1);
-    border: 5px solid $neutral-white;
+    border: 5px solid $primary-very-light-blue;
     position: relative;
     overflow: hidden;
     line-height: 2.15rem;
+
+      @include tablet {
+        padding: 1.5rem 1.75rem;
+      }
+  
+      @include desktop {
+        padding: 2rem 6rem;
+        max-width: 155rem;
+      }
+    
 
     &::before {
       content: "";
@@ -101,14 +111,6 @@
     &:hover::before {
       left: 100%;
       transition: left 1s;
-    }
-
-    @include tablet {
-      gap: .5rem;
-    }
-
-    @include large-desktop {
-      margin-bottom: 2.2rem;
     }
   }
 
@@ -129,22 +131,22 @@
   }
 
   &__copy {
-    background: $primary-darker-blue-overlay;
+    background: $frosted-glass;
     border-radius: .75rem;
-    color: $neutral-white;
+    color: $primary-very-light-blue;
     text-shadow: none;
-    font-size: 1.15rem;
+    font-size: .85rem;
     margin-bottom: .5rem;
-    box-shadow: $shadow-quaternary;
-    border: 5px solid $primary-very-light-blue;
-    line-height: 1.35rem;
-    width: 80rem;
-    padding: 1.25rem;
+    box-shadow: $shadow-primary;
+    border: 5px solid $frosted-glass;
+    line-height: 1.25rem;
+    min-width: 13.5rem;
+    padding: .75rem;
 
     @include tablet {
       font-size: 1.35rem;
       line-height: 1.75rem;
-      width: 60rem;
+      min-width: 35rem;
       padding: 1.5rem;
     }
   }
@@ -201,13 +203,15 @@
   }
 
   &__calendar-button,
-  &__share-button {
+  &__share-button,
+  &__interaction-buttons {
+    @include block-item(2.375rem, 2.375rem);
     padding: 0.25rem;
     border-radius: 0.5rem;
     font-size: 1rem;
     border: none;
     cursor: pointer;
-    color: $primary-button-blue;
+    color: $primary-medium-blue;
     background-color: $frosted-glass;
     box-shadow: $shadow-secondary;
     transition: transform 0.3s ease, background 0.3s ease;
@@ -232,36 +236,9 @@
     }
   }
 
-  &__thumbs-up,
-  &__thumbs-down {
-    padding: 0.25rem;
-    border-radius: 0.5rem;
-    font-size: 1rem;
-    border: none;
-    cursor: pointer;
-    color: $primary-button-blue;
-    background-color: $frosted-glass;
-    box-shadow: $shadow-secondary;
-    transition: transform 0.3s ease, background 0.3s ease;
-
-    &:hover {
-      background: $primary-dark-blue;
-      transform: scale(1.1);
-      color: $neutral-white;
-      border: 2px solid $primary-button-blue;
-    }
-
-    &:active {
-      transform: scale(0.95);
-      background: $neutral-white;
-      color: $primary-dark-blue;
-      box-shadow: $shadow-primary;
-    }
-
-    @include tablet {
-      padding: .5rem;
-      font-size: 1.25rem;
-    }
+  &__interaction-buttons {
+    display: flex;
+    justify-content: center;
   }
 
   &__media-type {
@@ -287,22 +264,23 @@
   &__content-container {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    width: 100%;
-    max-width: 60rem;
-    background: linear-gradient(120deg, $primary-dark-blue, darken($primary-light-blue, 35%));
+    background: $frosted-glass;
     backdrop-filter: blur(0.5rem);
     border-radius: 1.25rem;
-    padding: 2rem;
     box-shadow: $shadow-quaternary;
-    border: 5px solid $primary-button-blue;
+    border: 5px solid $frosted-glass;
+    padding: 1.5rem;
+    width: 100%;
 
     @include tablet {
-      padding: 2.5rem;
+      padding: 1.5rem;
     }
 
     @include desktop {
-      padding: 2.75rem;
+      padding: 2rem 6rem;
+      max-width: 155rem;
     }
   }
 
@@ -323,14 +301,16 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: .5rem;
-    font-size: 2rem;
+    flex-wrap: wrap;
+    gap: .25rem;
+    font-size: 1.5rem;
     color: $neutral-white;
     text-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.2);
     margin-bottom: 1rem;
 
     @include tablet {
       font-size: 2.5rem;
+      gap: .5rem;
     }
 
     @include desktop {
@@ -363,11 +343,20 @@
     @include tablet {
       flex-direction: row;
       align-items: flex-start;
-      gap: 2rem;
+      justify-content: center;
+      gap: .9rem;
+      width: 70%;
     }
 
     @include desktop {
       gap: 4rem;
+      display: flex;
+      align-items: center;
+      width: 50%;
+    }
+
+    @include large-desktop {
+      gap: 3rem;
     }
   }
 
@@ -446,38 +435,61 @@
     }
 
     @include desktop {
+      align-items: center;
+      border: 5px solid $frosted-glass;
+      padding: 1.5rem;
       gap: 2rem;
+      border-radius: 1rem;
+      box-shadow: $shadow-secondary;
     }
   }
 
   &__streaming-copy,
   &__cast-copy {
     font-family: $primary-font;
-    font-size: 1.15rem;
+    font-size: 1rem;
     color: $neutral-white;
     margin-bottom: .25rem;
     text-align: center;
+
+    @include tablet {
+      font-size: 1.15rem;
+    }
   }
 
   &__genre {
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
     gap: 0.5rem;
 
+    @include tablet {
+      justify-content: flex-start;
+
+      @include desktop {
+        justify-content: center;
+      }
+    }
+
     &-item {
       background: $frosted-glass;
-      color: $primary-very-light-blue;
-      padding: 0.5rem 1rem;
-      border-radius: 0.5rem;
-      font-size: 1rem;
+      color: $primary-medium-blue;
+      padding: .25rem .5rem;
+      border-radius: .5rem;
+      font-size: .85rem;
       box-shadow: $shadow-septenary;
       border: 1px solid $frosted-glass;
+
+      @include tablet {
+        padding: .5rem 1rem;
+        font-size: 1rem;
+      }
     }
   }
 
   &__title {
     font-weight: bold;
-    font-size: 1.3rem;
+    font-size: 1rem;
     font-family: $secondary-font;
     color: $neutral-white;
     margin-bottom: .15rem;
@@ -490,7 +502,7 @@
   &__description {
     text-align: center;
     font-family: $secondary-font;
-    color: $primary-very-light-blue;
+    color: $primary-dark-blue;
     font-size: .75rem;
     line-height: 1rem;
 
@@ -509,39 +521,64 @@
   }
 
   &__content {
-    background-color: $primary-darker-blue-overlay;
+    background-color: $frosted-glass;
     box-shadow: $shadow-primary;
     border-radius: 1rem;
     padding: .75rem;
     border: 5px solid $primary-very-light-blue;
-    margin-bottom: 2.5rem;
+    margin-bottom: 1.5rem;
+
+    @include tablet {
+      margin-bottom: 2.5rem;
+      min-width: 31.5rem;
+      padding: .65rem;
+    }
+
+    @include desktop {
+      width: 60.5rem;
+      padding: 1rem;
+    }
   }
 
   &__rating {
     display: flex;
     align-items: center;
-    font-size: 1rem;
+    font-size: .85rem;
     color: $primary-medium-blue;
-    padding: .5rem;
+    padding: .25rem .5rem;
     background-color: $primary-pale-blue;
     box-shadow: $shadow-secondary;
     border-radius: .5rem;
     border: 2px solid $neutral-white;
+    line-height: 1rem;
+
+    @include tablet {
+      line-height: 1.25rem;
+      font-size: 1rem;
+      padding: .5rem;
+    }
 
     svg {
       margin-right: 0.5rem;
-      color: $primary-button-blue;
+      color: $primary-medium-blue;
     }
   }
 
   &__duration {
-    font-size: 1rem;
+    font-size: .85rem;
     color: $primary-medium-blue;
-    padding: .5rem;
+    padding: .25rem .5rem;
     background-color: $primary-pale-blue;
     box-shadow: $shadow-secondary;
     border-radius: .5rem;
     border: 2px solid $neutral-white;
+    line-height: 1rem;
+
+    @include tablet {
+      line-height: 1.25rem;
+      font-size: 1rem;
+      padding: .5rem;
+    }
   }
 
   &__cast-container {
@@ -557,9 +594,14 @@
     position: relative;
 
     @include tablet {
-      min-width: 25.75rem;
+      min-width: 22.5rem;
       width: 100%;
-      max-width: 25.75rem;
+      max-width: 22.5rem;
+    }
+
+    @include desktop {
+      width: 100%;
+      max-width: 32rem;
     }
 
     &.no-scroll .nextview-page__cast-scroll {
@@ -650,15 +692,23 @@
   }
 
   &__cast-name {
-    font-size: .9rem;
+    font-size: .85rem;
     color: $primary-medium-blue;
     font-family: $secondary-font;
+
+    @include tablet {
+      font-size: 1rem;
+    }
   }
 
   &__cast-character {
     color: $primary-gradient-blue;
-    font-size: 0.75rem;
+    font-size: 0.65rem;
     font-family: $secondary-font;
+
+    @include tablet {
+      font-size: .75rem;
+    }
   }
 
   &__cast-name,
@@ -809,7 +859,15 @@
 
   &__no-streaming-services,
   &__no-cast-copy {
-    color: $primary-very-light-blue;
+    color: $primary-medium-blue;
+    font-size: .85rem;
+    text-align: center;
+    line-height: 1.25rem;
+
+    @include tablet {
+      font-size: 1rem;
+      line-height: 1.5rem;
+    }
   }
 
   &__background {
