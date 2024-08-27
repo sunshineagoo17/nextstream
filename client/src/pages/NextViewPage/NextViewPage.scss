@@ -519,8 +519,13 @@
     text-align: center;
     font-family: $secondary-font;
     color: $primary-dark-blue;
+    background-color: $primary-pale-blue;
+    border-radius: .5rem;
+    padding: .5rem;
     font-size: .75rem;
     line-height: 1rem;
+    box-shadow: $shadow-secondary;
+    border: 3px solid $neutral-white;
 
     @include large-mobile {
       font-size: .8rem;
