@@ -70,10 +70,11 @@ export const Content = () => {
     navigate(path);
   };
 
-  const handleCardClick = (title) => {
+  const handleCardClick = (release) => {
     if (isAuthenticated) {
-      const encodedQuery = encodeURIComponent(title);
-      navigate(`/search?q=${encodedQuery}`);
+      const mediaType = release.media_type;
+      const mediaId = release.id;
+      navigate(`/nextview/${userId}/${mediaType}/${mediaId}`);
     } else {
       navigate('/login-required');
     }
@@ -153,7 +154,7 @@ export const Content = () => {
                   <div key={index} className={`content__card${index + 1}-container ${animationClass}`}>
                     <div 
                       className={`content__card${index + 1}`}
-                      onClick={() => handleCardClick(release.title || release.name)}
+                      onClick={() => handleCardClick(release)}
                     >
                       <img
                         className={`content__poster${index + 1}`}
