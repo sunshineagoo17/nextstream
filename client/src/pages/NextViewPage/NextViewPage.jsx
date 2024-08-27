@@ -6,7 +6,7 @@ import {
   faMap, faBomb, faPalette, faLaugh, faFingerprint, faClapperboard, faTheaterMasks, faQuidditch, faGhost, faUserSecret,
   faVideoCamera, faFaceKissWinkHeart, faMusic, faHandSpock, faMask, faChildren, faShareAlt,
   faFighterJet, faScroll, faHatCowboy, faChild, faTelevision,
-  faBalanceScale, faHeartBroken, faBolt, faExplosion, faMeteor
+  faBalanceScale, faHeartBroken, faBolt, faExplosion, faMeteor, faUser // Import the user icon
 } from '@fortawesome/free-solid-svg-icons';
 import { AuthContext } from '../../context/AuthContext/AuthContext'; 
 import { Tooltip } from 'react-tooltip';
@@ -419,11 +419,15 @@ const NextViewPage = () => {
                                             {cast.map(member => (
                                                 <li key={member.cast_id} className="nextview-page__cast-item">
                                                     <div className="nextview-page__cast-card">
-                                                        <img
-                                                            src={`https://image.tmdb.org/t/p/w185${member.profile_path}`}
-                                                            alt={member.name}
-                                                            className="nextview-page__cast-img"
-                                                        />
+                                                        {member.profile_path ? (
+                                                            <img
+                                                                src={`https://image.tmdb.org/t/p/w185${member.profile_path}`}
+                                                                alt={member.name}
+                                                                className="nextview-page__cast-img"
+                                                            />
+                                                        ) : (
+                                                            <FontAwesomeIcon icon={faUser} className="nextview-page__cast-img-placeholder" />
+                                                        )}
                                                         <div className="nextview-page__cast-name">{member.name}</div>
                                                         <div className="nextview-page__cast-character">as {member.character}</div>
                                                     </div>
