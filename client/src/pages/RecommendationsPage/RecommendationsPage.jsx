@@ -212,7 +212,7 @@ const RecommendationsPage = () => {
                       <FontAwesomeIcon icon={faPlay} className="recommendations-page__play-icon" />
                     </div>
                   </div>
-                  <h2 className="recommendations-page__subtitle">{item.title || item.name}</h2>
+                  <h2 className="recommendations-page__subtitle">{item.title || item.name || 'Title: N/A'}</h2>
                   <p className="recommendations-page__media-icon">
                     <a href={`https://www.themoviedb.org/${item.media_type}/${item.id}`} target="_blank" rel="noopener noreferrer">
                       <FontAwesomeIcon
@@ -261,7 +261,7 @@ const RecommendationsPage = () => {
                     Genre: {Array.isArray(item.genres) && item.genres.length > 0 ? item.genres.map((genre) => genre.name || genre).join(', ') : 'N/A'}
                   </p>
                   <p className={`recommendations-page__description ${showFullDescription[item.id] ? 'recommendations-page__description--expanded' : ''}`}>
-                    Description: {item.overview}
+                    Description: {item.overview || 'Description: Unavailable'}
                   </p>
                   <button className="recommendations-page__more-button" onClick={() => handleShowMore(item.id)}>
                     <FontAwesomeIcon icon={showFullDescription[item.id] ? faChevronCircleUp : faChevronCircleDown} className="recommendations-page__load-descript" />
