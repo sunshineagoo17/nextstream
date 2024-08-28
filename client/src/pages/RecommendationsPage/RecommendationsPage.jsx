@@ -94,11 +94,11 @@ const RecommendationsPage = () => {
         setTrailerUrl(trailerData.trailerUrl);
         setIsModalOpen(true);
       } else {
-        showAlert('Apologies, the trailer is not available.', 'info');
+        showAlert('Apologies, the video is not available.', 'info');
       }
     } catch (error) {
       console.error('Error fetching trailer:', error);
-      showAlert('Apologies, the trailer is not available.', 'info');
+      showAlert('Apologies, the video is not available.', 'info');
     } finally {
       setIsLoading(false);
     }
