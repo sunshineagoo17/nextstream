@@ -75,7 +75,28 @@ const RecommendationsPage = () => {
       fetchInitialMedia();
     }
   }, [userId]);
-  
+
+  const handleShare = (title, mediaId, mediaType) => {
+    const mediaTitle = title || 'Title Unavailable'; 
+    console.log('Sharing media:', { mediaTitle, mediaId, mediaType }); 
+
+    const nextViewUrl = `${window.location.origin}/nextview/${userId}/${mediaType}/${mediaId}`;
+    console.log('Constructed URL:', nextViewUrl); 
+
+    if (navigator.share) {
+      navigator.share({
+        title: `Check out this title - ${mediaTitle}`,
+        url: nextViewUrl,
+      })
+      .then(() => console.log('Successful share!'))
+      .catch((error) => console.error('Error sharing:', error));
+    } else {
+      navigator.clipboard.writeText(`Check out this title - ${mediaTitle}: ${nextViewUrl}`)
+      .then(() => showAlert('Link copied to clipboard!', 'success'))
+      .catch((error) => showAlert('Failed to copy link', 'error'));
+    }
+};
+
   const fetchRecommendations = async () => {
     try {
       setIsFetchingMore(true);
@@ -91,7 +112,7 @@ const RecommendationsPage = () => {
       if (uniqueRecommendations.length > 0) {
         const updatedMedia = [...media, ...uniqueRecommendations];
         setMedia(updatedMedia);
-        localStorage.setItem('media', JSON.stringify(updatedMedia)); // Update localStorage
+        localStorage.setItem('media', JSON.stringify(updatedMedia)); 
         setPage((prevPage) => prevPage + 1);
         setHasFetched(true);
         setIsExpanded(true);
@@ -281,11 +302,11 @@ const RecommendationsPage = () => {
                       />
                     )}
                     <FontAwesomeIcon
-                      icon={faShareAlt}
-                      className="recommendations-page__share-icon"
-                      data-tooltip-id="shareTooltip"
-                      data-tooltip-content="Share"
-                      onClick={() => navigator.share({ title: item.title || item.name, url: window.location.href })}
+                        icon={faShareAlt}
+                        className="recommendations-page__share-icon"
+                        data-tooltip-id="shareTooltip"
+                        data-tooltip-content="Share"
+                        onClick={() => handleShare(item.title || item.name, item.id, item.media_type)}
                     />
                   </p>
                   <p className="recommendations-page__text">
