@@ -4,6 +4,24 @@
 @use "../../styles/partials/mixins" as *;
 @use "../../styles/global.scss" as *;
 
+#mediaTooltip,
+#calTooltip,
+#shareIconTooltip,
+#likeTooltip,
+#dislikeTooltip {
+  background-color: $primary-dark-blue;
+  color: $neutral-white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-family: $primary-font;
+  font-size: 0.85rem;
+  line-height: 1.25rem;
+
+  &::after {
+    border: $primary-button-blue transparent transparent transparent;
+  }
+}
+
 .recommendations-page {
   padding: 1.5rem;
   display: flex;

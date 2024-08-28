@@ -5,6 +5,7 @@ import {
   faPlay, faCalendarPlus, faPlus, faChevronDown, faChevronUp, faFilm, faTv, faChevronCircleDown, faChevronCircleUp, faTimes, faThumbsUp, faThumbsDown, faShareAlt
 } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
+import { Tooltip } from 'react-tooltip';
 import LightBlobBg from '../../components/LightBlobBg/LightBlobBg';
 import DefaultPoster from "../../assets/images/posternoimg-icon.png";
 import Loader from '../../components/Loader/Loader';
@@ -277,7 +278,7 @@ const RecommendationsPage = () => {
                       <FontAwesomeIcon
                         icon={item.media_type === 'tv' ? faTv : faFilm}
                         className="recommendations-page__media-icon-link"
-                        data-tooltip-id="mediaTypeTooltip"
+                        data-tooltip-id="mediaTooltip"
                         data-tooltip-content="More Info"
                       />
                     </Link>
@@ -285,7 +286,7 @@ const RecommendationsPage = () => {
                       icon={faCalendarPlus}
                       onClick={() => handleAddToCalendar(item.title, item.media_type, item.id)}
                       className="recommendations-page__cal-icon"
-                      data-tooltip-id="calendarTooltip"
+                      data-tooltip-id="calTooltip"
                       data-tooltip-content="Add to Calendar"
                     />
                     <FontAwesomeIcon
@@ -309,7 +310,7 @@ const RecommendationsPage = () => {
                     <FontAwesomeIcon
                         icon={faShareAlt}
                         className="recommendations-page__share-icon"
-                        data-tooltip-id="shareTooltip"
+                        data-tooltip-id="shareIconTooltip"
                         data-tooltip-content="Share"
                         onClick={() => handleShare(item.title || item.name, item.id, item.media_type)}
                     />
@@ -380,6 +381,12 @@ const RecommendationsPage = () => {
             />
           </div>
         )}
+        {/* Tooltip components */}
+        <Tooltip id="mediaTooltip" place="top" />
+        <Tooltip id="calTooltip" place="top" />
+        <Tooltip id="likeTooltip" place="top" />
+        <Tooltip id="dislikeTooltip" place="top" />
+        <Tooltip id="shareIconTooltip" place="top" />
       </div>
     </div>
   );
