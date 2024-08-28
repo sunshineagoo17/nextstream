@@ -35,16 +35,16 @@
     align-items: center;
     gap: .25rem;
     margin-bottom: 1.25rem;
-    color: $primary-pale-blue;
+    color: $primary-medium-blue;
     padding: 1rem;
     width: 100%;
     border-radius: .75rem;
     box-shadow: .3125rem .3125rem .9375rem rgba(0, 0, 0, .2), -.3125rem -3125rem .9375rem rgba(255, 255, 255, .1);
-    border: .1875rem solid $neutral-white;
+    border: 5px solid $neutral-white;
     position: relative;
     overflow: hidden;
     line-height: 1.75rem;
-    background: linear-gradient(145deg, $primary-gradient-blue, lighten($primary-gradient-blue, 10%));
+    background: linear-gradient(145deg, $primary-very-light-blue, lighten($primary-pale-blue, 10%));
     font-size: 1.5rem;
     font-weight: bold;
     text-shadow: $shadow-primary;
@@ -76,16 +76,9 @@
     }
   }
 
-  &__heart-icon {
-    box-shadow: $shadow-septenary;
-    padding: .25rem;
-    border: .25rem solid $frosted-glass;
-    border-radius: 1.15rem;
-  }
-
   &__content {
     border: .125rem solid $frosted-glass;
-    box-shadow: $shadow-septenary;
+    box-shadow: $shadow-primary;
     border-radius: 1.15rem;
     padding: 1rem .5rem;
     width: 100%;
@@ -95,7 +88,7 @@
     flex-direction: column;
 
     @include tablet {
-      border: .625rem solid $frosted-glass;
+      border: .625rem solid $primary-light-blue;
       padding: 1rem;
     }
   }

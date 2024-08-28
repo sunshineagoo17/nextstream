@@ -6,7 +6,7 @@ import {
   faMap, faBomb, faPalette, faLaugh, faFingerprint, faClapperboard, faTheaterMasks, faQuidditch, faGhost, faUserSecret,
   faVideoCamera, faFaceKissWinkHeart, faMusic, faHandSpock, faMask, faChildren, faShareAlt,
   faFighterJet, faScroll, faHatCowboy, faChild, faTelevision,
-  faBalanceScale, faHeartBroken, faBolt, faExplosion, faMeteor, faUser // Import the user icon
+  faBalanceScale, faHeartBroken, faBolt, faExplosion, faMeteor, faUser, faMicrophone
 } from '@fortawesome/free-solid-svg-icons';
 import { AuthContext } from '../../context/AuthContext/AuthContext'; 
 import { Tooltip } from 'react-tooltip';
@@ -35,6 +35,7 @@ const genreIconMapping = {
   Romance: faFaceKissWinkHeart,
   'Science Fiction': faHandSpock,
   Soap: faHeartBroken,
+  Talk: faMicrophone,
   Thriller: faMask,
   War: faFighterJet,
   Western: faHatCowboy,

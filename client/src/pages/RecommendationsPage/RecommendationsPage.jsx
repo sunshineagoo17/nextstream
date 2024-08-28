@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faPlay, faCalendarPlus, faSearch, faPlus, faChevronDown, faChevronUp, faFilm, faTv, faChevronCircleDown, faChevronCircleUp, faTimes, faThumbsUp, faThumbsDown, faShareAlt,
 } from '@fortawesome/free-solid-svg-icons';
-import BlobBg from '../../components/BlobBg/BlobBg';
+import LightBlobBg from '../../components/LightBlobBg/LightBlobBg';
 import Loader from '../../components/Loader/Loader';
 import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
 import Calendar from '../CalendarPage/sections/Calendar';
@@ -187,7 +187,7 @@ const RecommendationsPage = () => {
 
   return (
     <div className="recommendations-page">
-      <BlobBg />
+      <LightBlobBg />
       <h1 className="recommendations-page__title">
         {name ? `${name}'s Recommendations` : 'Your Recommendations'}
       </h1>
