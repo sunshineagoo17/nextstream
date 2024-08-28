@@ -373,17 +373,18 @@
 
     &:hover {
       transform: scale(1.05);
-      background: linear-gradient(45deg, $neutral-white, $primary-very-light-blue);
+      background: linear-gradient(45deg, $primary-light-blue, $primary-pale-blue);
       box-shadow: 0 .375rem .5rem rgba($neutral-black, .15);
       font-weight: normal;
       margin-left: .5rem;
     }
 
     &:active {
-       background: linear-gradient(45deg, $primary-medium-blue, $primary-button-blue);
-      color: $primary-pale-blue;
-      transform: scale(.95);
-      box-shadow: 0 .125rem .25rem rgba($neutral-black, .2);
+        background: linear-gradient(45deg, $neutral-white, $primary-light-blue);
+        color: $primary-medium-blue;
+        font-weight: bold;
+        transform: scale(.95);
+        box-shadow: 0 .125rem .25rem rgba($neutral-black, .2);
     }
 
     &:focus {
@@ -400,12 +401,12 @@
 
   &__fetch-more {
     margin-top: 1rem;
-    background: linear-gradient(45deg, $primary-light-blue, $primary-pale-blue);
+    background: linear-gradient(45deg, $neutral-white, $primary-very-light-blue);
   }
 
   &__toggle {
     margin-top: 1rem;
-    background: linear-gradient(45deg, $primary-pale-blue, $primary-light-blue);
+    background: linear-gradient(45deg, $primary-very-light-blue, $neutral-white);
   }
 
   &__modal {
