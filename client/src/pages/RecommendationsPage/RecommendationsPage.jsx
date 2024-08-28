@@ -28,6 +28,7 @@ const RecommendationsPage = () => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isFetchingMore, setIsFetchingMore] = useState(false); 
   const [hasFetched, setHasFetched] = useState(false); 
+  const [likedStatus, setLikedStatus] = useState({}); 
   const calendarRef = useRef(null);
 
   useEffect(() => {
@@ -71,8 +72,8 @@ const RecommendationsPage = () => {
         // Append the new unique recommendations to the existing media
         setMedia((prevMedia) => [...prevMedia, ...uniqueRecommendations]);
         setPage((prevPage) => prevPage + 1);
-        setHasFetched(true); // Set to true when recommendations are fetched
-        setIsExpanded(true); // Automatically expand to show new recommendations
+        setHasFetched(true); 
+        setIsExpanded(true);
       } else {
         showAlert("That's all for now. There's no more media available.", 'info');
       }
@@ -80,7 +81,7 @@ const RecommendationsPage = () => {
       console.error('Error fetching recommendations:', error);
       showAlert('Error fetching recommendations. Please try again later.', 'error');
     } finally {
-      setIsFetchingMore(false); // Ensure loading stops once the fetch is complete
+      setIsFetchingMore(false); 
     }
   };
 
@@ -149,6 +150,7 @@ const RecommendationsPage = () => {
     try {
       await api.post('/api/interactions', { userId, media_id, interaction: 1, media_type });
       showAlert('You liked this media!', 'success');
+      setLikedStatus((prevState) => ({ ...prevState, [media_id]: 'liked' })); 
     } catch (error) {
       console.error('Error liking media:', error);
       showAlert('Failed to like the media.', 'error');
@@ -159,6 +161,7 @@ const RecommendationsPage = () => {
     try {
       await api.post('/api/interactions', { userId, media_id, interaction: 0, media_type });
       showAlert('You disliked this media!', 'info');
+      setLikedStatus((prevState) => ({ ...prevState, [media_id]: 'disliked' })); 
     } catch (error) {
       console.error('Error disliking media:', error);
       showAlert('Failed to dislike the media.', 'error');
@@ -237,18 +240,22 @@ const RecommendationsPage = () => {
                     />
                     <FontAwesomeIcon
                       icon={faThumbsUp}
-                      className="recommendations-page__like-icon"
+                      className={`recommendations-page__like-icon ${likedStatus[item.id] === 'liked' ? 'active' : ''}`}
                       data-tooltip-id="likeTooltip"
                       data-tooltip-content="Like"
                       onClick={() => handleLike(item.id, item.media_type)}
+                      style={{ display: likedStatus[item.id] === 'disliked' ? 'none' : 'inline' }} 
                     />
-                    <FontAwesomeIcon
-                      icon={faThumbsDown}
-                      className="recommendations-page__dislike-icon"
-                      data-tooltip-id="dislikeTooltip"
-                      data-tooltip-content="Dislike"
-                      onClick={() => handleDislike(item.id, item.media_type)}
-                    />
+                    {likedStatus[item.id] !== 'liked' && (
+                      <FontAwesomeIcon
+                        icon={faThumbsDown}
+                        className={`recommendations-page__dislike-icon ${likedStatus[item.id] === 'disliked' ? 'active' : ''}`}
+                        data-tooltip-id="dislikeTooltip"
+                        data-tooltip-content="Dislike"
+                        onClick={() => handleDislike(item.id, item.media_type)}
+                        style={{ display: likedStatus[item.id] === 'liked' ? 'none' : 'inline' }}
+                      />
+                    )}
                     <FontAwesomeIcon
                       icon={faShareAlt}
                       className="recommendations-page__share-icon"
