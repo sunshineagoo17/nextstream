@@ -37,7 +37,7 @@ const HoverMenu = () => {
   const getBackgroundClass = () => {
     const darkBackgroundPaths = [
       `/login`,
-      `/top-picks/${userId}`, 
+      `/nextswipe/${userId}`, 
       `/calendar/${userId}`, 
       `/faves/${userId}`, 
       `/auth-search-results/${userId}`,

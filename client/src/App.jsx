@@ -9,7 +9,7 @@ import RegisterPage from './pages/RegisterPage/RegisterPage';
 import ResetPasswordPage from './pages/ResetPasswordPage/ResetPasswordPage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import ProfilePage from './pages/ProfilePage/ProfilePage';
-import TopPicksPage from './pages/TopPicksPage/TopPicksPage';
+import NextSwipePage from './pages/NextSwipe/NextSwipe';
 import CalendarPage from './pages/CalendarPage/CalendarPage';
 import SearchResultsPage from './pages/SearchResultsPage/SearchResultsPage';
 import AuthSearchResultsPage from './pages/AuthSearchResultsPage/AuthSearchResultsPage';
@@ -22,7 +22,7 @@ import { SearchBarProvider } from './context/SearchBarContext/SearchBarContext';
 import LoginRequired from './pages/LoginRequired/LoginRequired';
 import FavouritesPage from './pages/FavouritesPage/FavouritesPage';
 import NextViewPage from './pages/NextViewPage/NextViewPage';
-import RecommendationsPage from './pages/RecommendationsPage/RecommendationsPage'; 
+import TopPicksPage from './pages/TopPicksPage/TopPicksPage'; 
 import './styles/global.scss';
 
 const App = () => {
@@ -66,14 +66,14 @@ const App = () => {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/profile/:userId" element={isAuthenticated ? <ProfilePage /> : <Navigate to="/login-required" />} />
-        <Route path="/top-picks/:userId" element={isAuthenticated ? <TopPicksPage openModal={openCalendarModal} /> : <Navigate to="/login-required" />} />
+        <Route path="/nextswipe/:userId" element={isAuthenticated ? <NextSwipePage openModal={openCalendarModal} /> : <Navigate to="/login-required" />} />
         <Route path="/calendar/:userId" element={isAuthenticated ? <CalendarPage openModal={openCalendarModal} /> : <Navigate to="/login-required" />} />
         <Route path="/faves/:userId" element={isAuthenticated ? <FavouritesPage /> : <Navigate to="/login-required" />} /> 
         <Route path="/search" element={isAuthenticated ? <AuthSearchResultsPage openModal={openCalendarModal} userId={userId} /> : <SearchResultsPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route path="/login-required" element={<LoginRequired />} />
         <Route path="/nextview/:userId/:mediaType/:mediaId" element={isAuthenticated ? <NextViewPage /> : <Navigate to="/login-required" />} />
-        <Route path="/recommendations/:userId" element={isAuthenticated ? <RecommendationsPage /> : <Navigate to="/login-required" />} />
+        <Route path="/top-picks/:userId" element={isAuthenticated ? <TopPicksPage /> : <Navigate to="/login-required" />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer onContactClick={handleContactClick} />
