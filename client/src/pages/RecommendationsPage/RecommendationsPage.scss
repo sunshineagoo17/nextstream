@@ -93,6 +93,21 @@
     }
   }
 
+  &__load-descript {
+    color: $primary-dark-blue;
+    transition: transform .3s ease-in-out;
+
+    &:hover {
+      color: $primary-button-blue;
+      transform: scale(1.125);
+    }
+
+    &:active {
+      color: $primary-medium-blue;
+      transform: scale(.9);
+    }
+  }
+
   &__loading-container,
   &__no-recommendations-container {
     @include block-item(auto, 30vh);
