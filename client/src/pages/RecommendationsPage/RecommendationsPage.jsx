@@ -6,6 +6,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import LightBlobBg from '../../components/LightBlobBg/LightBlobBg';
+import DefaultPoster from "../../assets/images/posternoimg-icon.png";
 import Loader from '../../components/Loader/Loader';
 import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
 import Calendar from '../CalendarPage/sections/Calendar';
@@ -208,7 +209,7 @@ const RecommendationsPage = () => {
                 <div key={`${item.id}-${item.media_type}`} className="recommendations-page__card">
                   <div className="recommendations-page__poster-container">
                     <img
-                      src={item.poster_path ? `https://image.tmdb.org/t/p/w500${item.poster_path}` : 'default-poster-url'}
+                      src={item.poster_path ? `https://image.tmdb.org/t/p/w500${item.poster_path}` : DefaultPoster}
                       alt={item.title}
                       className="recommendations-page__poster"
                     />
