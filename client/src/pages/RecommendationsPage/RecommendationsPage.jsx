@@ -10,6 +10,7 @@ import DefaultPoster from "../../assets/images/posternoimg-icon.png";
 import Loader from '../../components/Loader/Loader';
 import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
 import Calendar from '../CalendarPage/sections/Calendar';
+import UserRating from './sections/UserRating/UserRating';
 import './RecommendationsPage.scss';
 import api from '../../services/api';
 
@@ -270,14 +271,15 @@ const RecommendationsPage = () => {
                     </div>
                   </div>
                   <h2 className="recommendations-page__subtitle">{item.title || item.name || 'Title: N/A'}</h2>
+                  <UserRating rating={(item.vote_average || 0) * 10} className="recommendations-page__rating-icon" />
                   <p className="recommendations-page__media-icon">
                     <Link to={`/nextview/${userId}/${item.media_type}/${item.id}`}>
-                        <FontAwesomeIcon
+                      <FontAwesomeIcon
                         icon={item.media_type === 'tv' ? faTv : faFilm}
                         className="recommendations-page__media-icon-link"
                         data-tooltip-id="mediaTypeTooltip"
                         data-tooltip-content="More Info"
-                        />
+                      />
                     </Link>
                     <FontAwesomeIcon
                       icon={faCalendarPlus}

@@ -1,0 +1,44 @@
+@use "../../../../styles/partials/colors" as *;
+@use "../../../../styles/partials/fonts" as *;
+@use "../../../../styles/partials/mixins" as *;
+@use "../../../../styles/global.scss" as *;
+
+.user-rating-container {
+  @include block-item(2.75rem, 2.75rem);
+  position: relative;
+  cursor: pointer;
+  margin-bottom: .5rem;
+
+  &:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+.tooltip-text {
+  visibility: hidden;
+  width: 7.5rem;
+  background-color: $primary-dark-blue;
+  color: $neutral-white;
+  text-align: center;
+  border-radius: .375rem;
+  padding: .3125rem;
+  position: absolute;
+  z-index: 9999;
+  bottom: 100%; 
+  left: 50%;
+  margin-left: -3.75rem;
+  opacity: 0;
+  transition: opacity 0.3s;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -.3125rem;
+    border-width: .3125rem;
+    border-style: solid;
+    border-color: $primary-dark-blue transparent transparent transparent;
+  }
+}
