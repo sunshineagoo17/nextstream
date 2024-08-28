@@ -23,6 +23,61 @@ const getMediaDetails = async (media_id, media_type) => {
   }
 };
 
+// Function to get trailers and other videos (featurette, teaser, etc.)
+const getMediaTrailer = async (media_id, media_type) => {
+  try {
+    const url = `${TMDB_BASE_URL}/${media_type}/${media_id}/videos?api_key=${TMDB_API_KEY}`;
+    const response = await axios.get(url);
+
+    const videoTypesChecked = [];
+    let video = response.data.results.find(video => {
+      videoTypesChecked.push('YouTube Trailer');
+      return video.type === 'Trailer' && video.site === 'YouTube';
+    });
+
+    if (!video) {
+      video = response.data.results.find(video => {
+        videoTypesChecked.push('Featurette');
+        return video.type === 'Featurette' && (video.site === 'YouTube' || video.site === 'Vimeo');
+      });
+    }
+
+    if (!video) {
+      video = response.data.results.find(video => {
+        videoTypesChecked.push('Teaser');
+        return video.type === 'Teaser' && (video.site === 'YouTube' || video.site === 'Vimeo');
+      });
+    }
+
+    if (!video) {
+      video = response.data.results.find(video => {
+        videoTypesChecked.push('Opening Scene');
+        return video.type === 'Opening Scene' && (video.site === 'YouTube' || video.site === 'Vimeo');
+      });
+    }
+
+    if (!video) {
+      video = response.data.results.find(video => {
+        videoTypesChecked.push('Opening Credits');
+        return video.type === 'Opening Credits' && (video.site === 'YouTube' || video.site === 'Vimeo');
+      });
+    }
+
+    if (video) {
+      const embedUrl = video.site === 'YouTube'
+        ? `https://www.youtube.com/embed/${video.key}`
+        : `https://player.vimeo.com/video/${video.key}`;
+      return embedUrl;
+    } else {
+      console.log(`No video found. Types checked: ${videoTypesChecked.join(', ')}`);
+      return null;
+    }
+  } catch (error) {
+    console.error(`Error fetching video for ${media_type} ${media_id}:`, error);
+    return null;
+  }
+};
+
 // Route to record or update a user's interaction with a media item
 router.post('/', async (req, res) => {
   const { userId, media_id, interaction, media_type } = req.body;
@@ -120,14 +175,14 @@ router.get('/toppicks/:userId', async (req, res) => {
           .map(item => ({ ...item, media_type: 'tv' }));
 
         // Ensure equal balance between movies and shows in top picks
-        const picksCount = Math.min(3, popularMovies.length, popularShows.length);
+        const picksCount = Math.min(4, popularMovies.length, popularShows.length);
         initialTopPicks = [
           ...popularMovies.slice(0, picksCount),
           ...popularShows.slice(0, picksCount)
         ];
 
         // If there aren't enough picks, fetch the next page
-        if (initialTopPicks.length < 3) {
+        if (initialTopPicks.length < 4) {
           await fetchTopPicks(page + 1);
         }
       } catch (error) {
@@ -137,8 +192,19 @@ router.get('/toppicks/:userId', async (req, res) => {
 
     await fetchTopPicks();
 
+    // Fetch detailed information for each top pick to include genres
+    const detailedTopPicks = await Promise.all(
+      initialTopPicks.map(async (item) => {
+        const details = await getMediaDetails(item.id, item.media_type);
+        return {
+          ...item,
+          genres: details ? details.genres : [] 
+        };
+      })
+    );
+
     res.status(200).json({
-      topPicks: initialTopPicks
+      topPicks: detailedTopPicks
     });
   } catch (error) {
     console.error('Error fetching top picks:', error);
@@ -185,6 +251,8 @@ router.get('/recommendations/:userId', async (req, res) => {
           console.error(`Skipping media with null media type for media ID: ${media.media_id}`);
           continue;
         }
+
+        // Fetch detailed media information, including genres
         const details = await getMediaDetails(media.media_id, media.media_type);
         if (details) {
           const similarMedia = await axios.get(`${TMDB_BASE_URL}/${media.media_type}/${media.media_id}/similar`, {
@@ -192,7 +260,8 @@ router.get('/recommendations/:userId', async (req, res) => {
           });
           const similarItems = similarMedia.data.results.map(item => ({
             ...item,
-            media_type: media.media_type
+            media_type: media.media_type,
+            genres: details.genres // Add genres to each similar item
           }));
 
           // Separate recommendations by media type
@@ -286,6 +355,23 @@ router.get('/:userId', async (req, res) => {
   } catch (error) {
     console.error('Error fetching interactions:', error);
     res.status(500).json({ error: 'Error fetching interactions' });
+  }
+});
+
+// Example route using getMediaTrailer
+router.get('/:userId/trailer/:media_type/:media_id', async (req, res) => {
+  try {
+    const { media_type, media_id } = req.params;
+    const trailerUrl = await getMediaTrailer(media_id, media_type);
+
+    if (!trailerUrl) {
+      return res.status(404).json({ error: 'Apologies, no trailer is available.' });
+    }
+
+    res.json({ trailerUrl });
+  } catch (error) {
+    console.error(`Error fetching video for ${media_type} ${media_id}:`, error);
+    res.status(500).json({ error: 'Error fetching video' });
   }
 });
 

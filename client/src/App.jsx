@@ -18,10 +18,11 @@ import CalendarModal from './pages/CalendarPage/sections/Calendar';
 import Header from './components/Header/Header';
 import HoverMenu from './components/Header/sections/HoverMenu/HoverMenu';
 import { AuthProvider, AuthContext } from './context/AuthContext/AuthContext';
-import { SearchBarProvider } from './context/SearchBarContext/SearchBarContext'; 
+import { SearchBarProvider } from './context/SearchBarContext/SearchBarContext';
 import LoginRequired from './pages/LoginRequired/LoginRequired';
 import FavouritesPage from './pages/FavouritesPage/FavouritesPage';
-import NextViewPage from './pages/NextViewPage/NextViewPage'; // Import the NextViewPage component
+import NextViewPage from './pages/NextViewPage/NextViewPage';
+import RecommendationsPage from './pages/RecommendationsPage/RecommendationsPage'; 
 import './styles/global.scss';
 
 const App = () => {
@@ -72,6 +73,7 @@ const App = () => {
         <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route path="/login-required" element={<LoginRequired />} />
         <Route path="/nextview/:userId/:mediaType/:mediaId" element={isAuthenticated ? <NextViewPage /> : <Navigate to="/login-required" />} />
+        <Route path="/recommendations/:userId" element={isAuthenticated ? <RecommendationsPage /> : <Navigate to="/login-required" />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer onContactClick={handleContactClick} />

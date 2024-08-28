@@ -3,7 +3,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path');
 const cookieParser = require('cookie-parser');
-const rateLimit = require('express-rate-limit');
+const session = require('express-session'); 
 require('dotenv').config();
 
 const emailRoutes = require('./src/routes/emailRoutes');
@@ -15,6 +15,7 @@ const calendarRoutes = require('./src/routes/calendarRoutes');
 const interactionRoutes = require('./src/routes/interactionRoutes');
 const cronJobs = require('./src/services/cronJobs');
 const favesRoutes = require('./src/routes/favesRoutes');
+const recommendationsRoutes = require('./src/routes/recommendationsRoutes');
 
 const app = express();
 
@@ -22,6 +23,14 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
+
+// Use session middleware
+app.use(session({
+  secret: process.env.SESSION_SECRET,  
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false } 
+}));
 
 // Configure CORS
 const corsOptions = {
@@ -48,6 +57,7 @@ app.use('/api/profile', profileRoutes);
 app.use('/api/tmdb', tmdbRoutes);
 app.use('/api/calendar', calendarRoutes);
 app.use('/api/interactions', interactionRoutes);
+app.use('/api/recommendations', recommendationsRoutes);
 app.use('/api/faves', favesRoutes);
 
 // Serve static files from the React app if needed
