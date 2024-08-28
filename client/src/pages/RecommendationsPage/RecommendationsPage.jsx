@@ -39,34 +39,33 @@ const RecommendationsPage = () => {
         setIsLoading(true);
         const storedMedia = localStorage.getItem('media');
         let initialMedia = [];
-
+  
         if (storedMedia) {
           initialMedia = JSON.parse(storedMedia);
         } else {
-          const response = await api.get(`/api/interactions/toppicks/${userId}`);
-          initialMedia = response.data.topPicks;
+          // Fetch top picks
+          const topPicksResponse = await api.get(`/api/interactions/toppicks/${userId}`);
+          let topPicks = topPicksResponse.data.topPicks;
+  
+          // Fetch initial recommendations
+          const recommendationsResponse = await api.get(`/api/recommendations/${userId}`, {
+            params: { limit: 4 },
+          });
+          let recommendations = recommendationsResponse.data.recommendations;
+  
+          // Combine top picks and recommendations, ensuring no duplicates
+          initialMedia = [...topPicks, ...recommendations.filter(rec => !topPicks.some(tp => tp.id === rec.id))];
+          
+          // Save combined media in localStorage
           localStorage.setItem('media', JSON.stringify(initialMedia)); 
         }
-
-        // Filter out interacted media
-        const filteredMedia = initialMedia.filter(item => item.interaction === null || item.interaction === undefined);
-
-        // Ensure there are 8 items, fetch more if needed
-        if (filteredMedia.length < 8) {
-          const response = await api.get(`/api/recommendations/${userId}`, {
-            params: { limit: 8 - filteredMedia.length },
-          });
-          const additionalMedia = response.data.recommendations;
-          const uniqueAdditionalMedia = additionalMedia.filter(
-            (newRec) => !filteredMedia.some((existingRec) => existingRec.id === newRec.id)
-          );
-          setMedia([...filteredMedia, ...uniqueAdditionalMedia]);
-        } else {
-          setMedia(filteredMedia);
-        }
+  
+        // Set the media state to the combined data
+        setMedia(initialMedia);
+        setIsExpanded(initialMedia.length > 8); // Show all if more than 8
       } catch (error) {
-        console.error('Error fetching top picks:', error);
-        showAlert('Error fetching top picks. Please try again later.', 'error');
+        console.error('Error fetching initial media:', error);
+        showAlert('Error fetching media. Please try again later.', 'error');
       } finally {
         setIsLoading(false);
       }
@@ -100,7 +99,7 @@ const RecommendationsPage = () => {
         showAlert("That's all for now. There's no more media available.", 'info');
       }
     } catch (error) {
-      console.error('Error fetching recommendations:', error);
+      console.error('Error fetching more recommendations:', error);
       showAlert('Error fetching recommendations. Please try again later.', 'error');
     } finally {
       setIsFetchingMore(false);
