@@ -247,9 +247,14 @@ const RecommendationsPage = () => {
   return (
     <div className="recommendations-page">
       <LightBlobBg />
-      <h1 className="recommendations-page__title">
-        {name ? `${name}'s Recommendations` : 'Your Recommendations'}
-      </h1>
+      <div className="recommendations-page__header-container">
+        <h1 className="recommendations-page__title">
+            {name ? `${name}'s Recommendations` : 'Your Recommendations'}
+        </h1>
+        <h2 className="recommendations-page__copy">
+            Explore personalized movie and TV show recommendations. Like or dislike media, watch trailers, add events to your calendar, and share your favourites with friends!
+        </h2>
+      </div>
       <div className="recommendations-page__content">
         {alert && <CustomAlerts message={alert.message} type={alert.type} onClose={() => setAlert(null)} />}
         {isLoading && media.length === 0 ? (
