@@ -2,8 +2,9 @@ import { useState, useEffect, useContext, useRef } from 'react';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faPlay, faCalendarPlus, faSearch, faPlus, faChevronDown, faChevronUp, faFilm, faTv, faChevronCircleDown, faChevronCircleUp, faTimes, faThumbsUp, faThumbsDown, faShareAlt,
+  faPlay, faCalendarPlus, faPlus, faChevronDown, faChevronUp, faFilm, faTv, faChevronCircleDown, faChevronCircleUp, faTimes, faThumbsUp, faThumbsDown, faShareAlt,
 } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 import LightBlobBg from '../../components/LightBlobBg/LightBlobBg';
 import Loader from '../../components/Loader/Loader';
 import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
@@ -217,26 +218,20 @@ const RecommendationsPage = () => {
                   </div>
                   <h2 className="recommendations-page__subtitle">{item.title || item.name || 'Title: N/A'}</h2>
                   <p className="recommendations-page__media-icon">
-                    <a href={`https://www.themoviedb.org/${item.media_type}/${item.id}`} target="_blank" rel="noopener noreferrer">
-                      <FontAwesomeIcon
+                    <Link to={`/nextview/${userId}/${item.media_type}/${item.id}`}>
+                        <FontAwesomeIcon
                         icon={item.media_type === 'tv' ? faTv : faFilm}
                         className="recommendations-page__media-icon-link"
                         data-tooltip-id="mediaTypeTooltip"
-                        data-tooltip-content={item.media_type === 'tv' ? 'Media Type: TV Show' : 'Media Type: Movie'}
-                      />
-                    </a>
+                        data-tooltip-content="More Info"
+                        />
+                    </Link>
                     <FontAwesomeIcon
                       icon={faCalendarPlus}
                       onClick={() => handleAddToCalendar(item.title, item.media_type, item.id)}
                       className="recommendations-page__cal-icon"
                       data-tooltip-id="calendarTooltip"
                       data-tooltip-content="Add to Calendar"
-                    />
-                    <FontAwesomeIcon
-                      icon={faSearch}
-                      className="recommendations-page__search-icon"
-                      data-tooltip-id="searchTooltip"
-                      data-tooltip-content="More Info"
                     />
                     <FontAwesomeIcon
                       icon={faThumbsUp}
