@@ -149,23 +149,26 @@ const RecommendationsPage = () => {
 
   const handleAddToCalendar = async (title, mediaType, mediaId) => {
     try {
-      if (mediaType === 'movie') {
-        const movieDetails = await api.get(`/api/tmdb/movie/${mediaId}`);
-        setDuration(movieDetails.data.runtime || 0);
-      } else if (mediaType === 'tv') {
-        const tvDetails = await api.get(`/api/tmdb/tv/${mediaId}`);
-        setDuration(tvDetails.data.episode_run_time[0] || 0);
-      }
-    } catch (error) {
-      console.error('Error fetching duration data:', error);
-      showAlert('Failed to fetch media duration.', 'error');
-      return;
-    }
+        let mediaTitle = title;
 
-    setEventTitle(title);
-    setSelectedMediaType(mediaType);
-    setShowCalendar(true);
-  };
+        if (mediaType === 'movie') {
+            const movieDetails = await api.get(`/api/tmdb/movie/${mediaId}`);
+            mediaTitle = movieDetails.data.title || title;
+            setDuration(movieDetails.data.runtime || 0);
+        } else if (mediaType === 'tv') {
+            const tvDetails = await api.get(`/api/tmdb/tv/${mediaId}`);
+            mediaTitle = tvDetails.data.name || title;
+            setDuration(tvDetails.data.episode_run_time[0] || 0);
+        }
+
+        setEventTitle(mediaTitle);
+        setSelectedMediaType(mediaType);
+        setShowCalendar(true);
+    } catch (error) {
+        console.error('Error fetching duration data:', error);
+        showAlert('Failed to fetch media duration.', 'error');
+    }
+};
 
   const handleCloseCalendar = () => {
     setShowCalendar(false);
