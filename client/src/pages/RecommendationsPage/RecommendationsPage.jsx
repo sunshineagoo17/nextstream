@@ -37,9 +37,33 @@ const RecommendationsPage = () => {
     const fetchInitialMedia = async () => {
       try {
         setIsLoading(true);
-        const response = await api.get(`/api/interactions/toppicks/${userId}`);
-        const { topPicks } = response.data;
-        setMedia(topPicks);
+        const storedMedia = localStorage.getItem('media');
+        let initialMedia = [];
+
+        if (storedMedia) {
+          initialMedia = JSON.parse(storedMedia);
+        } else {
+          const response = await api.get(`/api/interactions/toppicks/${userId}`);
+          initialMedia = response.data.topPicks;
+          localStorage.setItem('media', JSON.stringify(initialMedia)); 
+        }
+
+        // Filter out interacted media
+        const filteredMedia = initialMedia.filter(item => item.interaction === null || item.interaction === undefined);
+
+        // Ensure there are 8 items, fetch more if needed
+        if (filteredMedia.length < 8) {
+          const response = await api.get(`/api/recommendations/${userId}`, {
+            params: { limit: 8 - filteredMedia.length },
+          });
+          const additionalMedia = response.data.recommendations;
+          const uniqueAdditionalMedia = additionalMedia.filter(
+            (newRec) => !filteredMedia.some((existingRec) => existingRec.id === newRec.id)
+          );
+          setMedia([...filteredMedia, ...uniqueAdditionalMedia]);
+        } else {
+          setMedia(filteredMedia);
+        }
       } catch (error) {
         console.error('Error fetching top picks:', error);
         showAlert('Error fetching top picks. Please try again later.', 'error');
@@ -47,34 +71,30 @@ const RecommendationsPage = () => {
         setIsLoading(false);
       }
     };
-
+  
     if (userId) {
       fetchInitialMedia();
     }
   }, [userId]);
-
+  
   const fetchRecommendations = async () => {
     try {
       setIsFetchingMore(true);
       const response = await api.get(`/api/recommendations/${userId}`, {
-        params: {
-          page,
-          limit: 4,
-        },
+        params: { page, limit: 4 },
       });
-
+  
       const newRecommendations = response.data.recommendations;
-
-      // Filter out any recommendations that are already in the media state
       const uniqueRecommendations = newRecommendations.filter(
         (newRec) => !media.some((existingRec) => existingRec.id === newRec.id)
       );
-
+  
       if (uniqueRecommendations.length > 0) {
-        // Append the new unique recommendations to the existing media
-        setMedia((prevMedia) => [...prevMedia, ...uniqueRecommendations]);
+        const updatedMedia = [...media, ...uniqueRecommendations];
+        setMedia(updatedMedia);
+        localStorage.setItem('media', JSON.stringify(updatedMedia)); // Update localStorage
         setPage((prevPage) => prevPage + 1);
-        setHasFetched(true); 
+        setHasFetched(true);
         setIsExpanded(true);
       } else {
         showAlert("That's all for now. There's no more media available.", 'info');
@@ -83,9 +103,9 @@ const RecommendationsPage = () => {
       console.error('Error fetching recommendations:', error);
       showAlert('Error fetching recommendations. Please try again later.', 'error');
     } finally {
-      setIsFetchingMore(false); 
+      setIsFetchingMore(false);
     }
-  };
+  };  
 
   const handlePlayTrailer = async (media_id, media_type) => {
     setIsLoading(true);
@@ -152,23 +172,32 @@ const RecommendationsPage = () => {
     try {
       await api.post('/api/interactions', { userId, media_id, interaction: 1, media_type });
       showAlert('You liked this media!', 'success');
-      setLikedStatus((prevState) => ({ ...prevState, [media_id]: 'liked' })); 
+      const updatedMedia = media.map(item => item.id === media_id ? { ...item, interaction: 1 } : item);
+      const nonInteractedMedia = updatedMedia.filter(item => item.interaction === null || item.interaction === undefined);
+      
+      setMedia(nonInteractedMedia);
+      localStorage.setItem('media', JSON.stringify(nonInteractedMedia)); 
     } catch (error) {
       console.error('Error liking media:', error);
       showAlert('Failed to like the media.', 'error');
     }
-  };
+  };  
 
   const handleDislike = async (media_id, media_type) => {
     try {
       await api.post('/api/interactions', { userId, media_id, interaction: 0, media_type });
       showAlert('You disliked this media!', 'info');
-      setLikedStatus((prevState) => ({ ...prevState, [media_id]: 'disliked' })); 
+      
+      const updatedMedia = media.map(item => item.id === media_id ? { ...item, interaction: 0 } : item);
+      const nonInteractedMedia = updatedMedia.filter(item => item.interaction === null || item.interaction === undefined);
+      
+      setMedia(nonInteractedMedia);
+      localStorage.setItem('media', JSON.stringify(nonInteractedMedia)); 
     } catch (error) {
       console.error('Error disliking media:', error);
       showAlert('Failed to dislike the media.', 'error');
     }
-  };
+  };  
 
   const handleShowMore = (id) => {
     setShowFullDescription((prevState) => ({
@@ -264,7 +293,7 @@ const RecommendationsPage = () => {
                     Genre: {Array.isArray(item.genres) && item.genres.length > 0 ? item.genres.map((genre) => genre.name || genre).join(', ') : 'N/A'}
                   </p>
                   <p className={`recommendations-page__description ${showFullDescription[item.id] ? 'recommendations-page__description--expanded' : ''}`}>
-                    Description: {item.overview || 'Description: Unavailable'}
+                    Description: {item.overview || 'Unavailable'}
                   </p>
                   <button className="recommendations-page__more-button" onClick={() => handleShowMore(item.id)}>
                     <FontAwesomeIcon icon={showFullDescription[item.id] ? faChevronCircleUp : faChevronCircleDown} className="recommendations-page__load-descript" />
