@@ -279,7 +279,10 @@
 
   &__media-icon-link,
   &__search-icon,
-  &__cal-icon {
+  &__cal-icon,
+  &__share-icon,
+  &__like-icon,
+  &__dislike-icon {
     color: $primary-button-blue;
     cursor: pointer;
     transition: transform .3s ease-in-out;

@@ -2,7 +2,7 @@ import { useState, useEffect, useContext, useRef } from 'react';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faPlay, faCalendarPlus, faPlus, faChevronDown, faChevronUp, faFilm, faTv, faChevronCircleDown, faChevronCircleUp, faTimes, faThumbsUp, faThumbsDown, faShareAlt,
+  faPlay, faCalendarPlus, faPlus, faChevronDown, faChevronUp, faFilm, faTv, faChevronCircleDown, faChevronCircleUp, faTimes, faThumbsUp, faThumbsDown, faShareAlt
 } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import LightBlobBg from '../../components/LightBlobBg/LightBlobBg';
