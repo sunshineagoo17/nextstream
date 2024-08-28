@@ -575,27 +575,19 @@ const FavouritesPage = () => {
                     </div>
                     <h2 className="faves-page__subtitle">{fave.title}</h2>
                     <p className="faves-page__media-icon">
-                      <a href={`https://www.themoviedb.org/${fave.media_type}/${fave.media_id}`} target="_blank" rel="noopener noreferrer">
-                        <FontAwesomeIcon 
-                          icon={fave.media_type === 'tv' ? faTv : faFilm} 
-                          className="faves-page__media-icon-link" 
-                          data-tooltip-id="mediaTypeTooltip" 
-                          data-tooltip-content={fave.media_type === 'tv' ? 'Media Type: TV Show' : 'Media Type: Movie'} 
-                        />
-                      </a>
+                      <FontAwesomeIcon 
+                        icon={fave.media_type === 'tv' ? faTv : faFilm} 
+                        className="faves-page__media-icon-link" 
+                        data-tooltip-id="searchTooltip" 
+                        data-tooltip-content="More Info" 
+                        onClick={() => handleSearchClick(fave.media_id, fave.media_type)}
+                      />
                       <FontAwesomeIcon 
                         icon={faCalendarPlus} 
                         onClick={() => handleAddToCalendar(fave.title, fave.media_type, fave.media_id)} 
                         className="faves-page__cal-icon" 
                         data-tooltip-id="calendarTooltip" 
                         data-tooltip-content="Add to Calendar" 
-                      />
-                      <FontAwesomeIcon 
-                        icon={faSearch} 
-                        onClick={() => handleSearchClick(fave.media_id, fave.media_type)} 
-                        className="faves-page__search-icon" 
-                        data-tooltip-id="searchTooltip" 
-                        data-tooltip-content="More Info" 
                       />
                       <FontAwesomeIcon 
                         icon={faShareAlt} 
@@ -618,7 +610,6 @@ const FavouritesPage = () => {
                         data-tooltip-id="trashTooltip" 
                         data-tooltip-content="Delete from Favourites" 
                       />
-                      <Tooltip id="mediaTypeTooltip" place="top" />
                       <Tooltip id="calendarTooltip" place="top" />
                       <Tooltip id="searchTooltip" place="top" />
                       <Tooltip id="shareTooltip" place="top" />
