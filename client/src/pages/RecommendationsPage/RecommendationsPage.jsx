@@ -31,7 +31,7 @@ const RecommendationsPage = () => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isFetchingMore, setIsFetchingMore] = useState(false); 
   const [hasFetched, setHasFetched] = useState(false); 
-  const [likedStatus, setLikedStatus] = useState({}); 
+  const [likedStatus] = useState({});
   const calendarRef = useRef(null);
 
   useEffect(() => {
