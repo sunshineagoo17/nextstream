@@ -292,7 +292,7 @@ const NextViewPage = () => {
             <div className="nextview-page__content-container">
                 <div className="nextview-page__content">
                     <h1 className="nextview-page__title">
-                        {mediaData.title || mediaData.name}
+                        {mediaData.title || mediaData.name || "Title: N/A"}
                         {mediaData.release_date && <span className="nextview-page__release-date"> ({new Date(mediaData.release_date).getFullYear()})</span>}
                         {certification && (
                             <>
@@ -307,7 +307,9 @@ const NextViewPage = () => {
                             </>
                         )}
                     </h1>
-                    <p className="nextview-page__description">{mediaData.overview}</p>
+                    <p className="nextview-page__description">
+                        {mediaData.overview || "Description: Unavailable"}
+                    </p>
                 </div>
 
                 <div className="nextview-page__media-info">
