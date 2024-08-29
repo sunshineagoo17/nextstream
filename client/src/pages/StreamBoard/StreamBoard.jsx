@@ -102,6 +102,7 @@ const StreamBoard = () => {
 
       // Find and remove the item from its current status array
       let movedItem;
+      // eslint-disable-next-line no-unused-vars
       for (const [key, items] of Object.entries(updatedItems)) {
         const itemIndex = items.findIndex((item) => item.media_id === media_id);
         if (itemIndex > -1) {

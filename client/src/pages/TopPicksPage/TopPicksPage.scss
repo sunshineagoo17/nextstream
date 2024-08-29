@@ -88,7 +88,7 @@
     box-shadow: $shadow-primary;
     font-size: .85rem;
     line-height: 1.25rem;
-    animation: bounce 1.5s infinite ease-in-out, colorShift 3s infinite ease-in-out;
+    animation: bounce 3s infinite ease-in-out, colorShift 3s infinite ease-in-out;
 
     @include tablet {
       margin-bottom: .5rem;
