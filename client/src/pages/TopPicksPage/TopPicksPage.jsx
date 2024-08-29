@@ -12,6 +12,7 @@ import Loader from '../../components/Loader/Loader';
 import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
 import Calendar from '../CalendarPage/sections/Calendar';
 import UserRating from './sections/UserRating/UserRating';
+import ProgressSVG from '../../assets/images/progress-img.svg';
 import './TopPicksPage.scss';
 import api from '../../services/api';
 
@@ -260,6 +261,8 @@ const TopPicksPage = () => {
         {alert && <CustomAlerts message={alert.message} type={alert.type} onClose={() => setAlert(null)} />}
         {isLoading && media.length === 0 ? (
           <div className="recommendations-page__loading-container">
+            <img src={ProgressSVG} alt="Loading..." className="recommendations-page__loading-svg" />
+            <p className="recommendations-page__text--center">Media is currently loading...</p>
             <Loader />
           </div>
         ) : (
