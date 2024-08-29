@@ -8,8 +8,8 @@ const authenticate = (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded; // Set user information from decoded token to request object
-    console.log('Token decoded:', decoded);
+    req.user = decoded; 
+    console.log('Token decoded and req.user set:', req.user); 
     next();
   } catch (error) {
     console.log('Invalid token:', error.message);

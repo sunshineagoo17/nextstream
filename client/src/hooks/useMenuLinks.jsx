@@ -11,6 +11,7 @@ const useMenuLinks = () => {
     { name: "NextSwipe", path: `/nextswipe/${authUserId}` },
     { name: "Favourites", path: `/faves/${authUserId}` },
     { name: "Calendar", path: `/calendar/${authUserId}` },
+    { name: "Streamboard", path: `/streamboard/${authUserId}` },
     { name: "Profile", path: `/profile/${authUserId}` }
   ];
 

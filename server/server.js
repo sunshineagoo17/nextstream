@@ -16,6 +16,9 @@ const interactionRoutes = require('./src/routes/interactionRoutes');
 const cronJobs = require('./src/services/cronJobs');
 const favesRoutes = require('./src/routes/favesRoutes');
 const recommendationsRoutes = require('./src/routes/recommendationsRoutes');
+const mediaStatusRoutes = require('./src/routes/mediaStatusRoutes'); 
+
+const authenticate = require('./src/middleware/authenticate');
 
 const app = express();
 
@@ -59,6 +62,7 @@ app.use('/api/calendar', calendarRoutes);
 app.use('/api/interactions', interactionRoutes);
 app.use('/api/recommendations', recommendationsRoutes);
 app.use('/api/faves', favesRoutes);
+app.use('/api/media-status', authenticate, mediaStatusRoutes); 
 
 // Serve static files from the React app if needed
 app.use(express.static(path.join(__dirname, 'client/build')));

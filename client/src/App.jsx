@@ -23,6 +23,7 @@ import LoginRequired from './pages/LoginRequired/LoginRequired';
 import FavouritesPage from './pages/FavouritesPage/FavouritesPage';
 import NextViewPage from './pages/NextViewPage/NextViewPage';
 import TopPicksPage from './pages/TopPicksPage/TopPicksPage'; 
+import StreamBoard from './pages/StreamBoard/StreamBoard';
 import './styles/global.scss';
 
 const App = () => {
@@ -74,6 +75,7 @@ const App = () => {
         <Route path="/login-required" element={<LoginRequired />} />
         <Route path="/nextview/:userId/:mediaType/:mediaId" element={isAuthenticated ? <NextViewPage /> : <Navigate to="/login-required" />} />
         <Route path="/top-picks/:userId" element={isAuthenticated ? <TopPicksPage /> : <Navigate to="/login-required" />} />
+        <Route path="/streamboard/:userId" element={isAuthenticated ? <StreamBoard /> : <Navigate to="/login-required" />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer onContactClick={handleContactClick} />
