@@ -39,10 +39,11 @@ const TopPicksPage = () => {
     const fetchInitialMedia = async () => {
       try {
         setIsLoading(true);
-        const storedMedia = localStorage.getItem('media');
         let initialMedia = [];
   
+        const storedMedia = localStorage.getItem('media');
         if (storedMedia) {
+          // Parse stored media if it exists
           initialMedia = JSON.parse(storedMedia);
         } else {
           // Fetch top picks
@@ -57,9 +58,9 @@ const TopPicksPage = () => {
   
           // Combine top picks and recommendations, ensuring no duplicates
           initialMedia = [...topPicks, ...recommendations.filter(rec => !topPicks.some(tp => tp.id === rec.id))];
-          
-          // Save combined media in localStorage
-          localStorage.setItem('media', JSON.stringify(initialMedia)); 
+  
+          // Save the combined media array to local storage
+          localStorage.setItem('media', JSON.stringify(initialMedia));
         }
   
         // Set the media state to the combined data
@@ -76,7 +77,7 @@ const TopPicksPage = () => {
     if (userId) {
       fetchInitialMedia();
     }
-  }, [userId]);
+  }, [userId]);  
 
   const handleShare = (title, mediaId, mediaType) => {
     const mediaTitle = title || 'Title Unavailable'; 

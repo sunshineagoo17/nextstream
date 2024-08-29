@@ -8,17 +8,16 @@ const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
 
 // Function to get media details from TMDB using the media ID and type
 const getMediaDetails = async (media_id, media_type) => {
-  if (!media_type) {
-    console.error(`Media type is missing for media ID: ${media_id}`);
-    return null;
-  }
-
   try {
     const url = `${TMDB_BASE_URL}/${media_type}/${media_id}?api_key=${TMDB_API_KEY}`;
     const response = await axios.get(url);
-    return response.data;
+    const { genres, ...otherData } = response.data;
+    return {
+      ...otherData,
+      genres: genres.map(genre => genre.name) 
+    };
   } catch (error) {
-    console.error(`Error fetching details for ${media_type} ${media_id}:`, error);
+    console.error('Error fetching media details:', error);
     return null;
   }
 };
