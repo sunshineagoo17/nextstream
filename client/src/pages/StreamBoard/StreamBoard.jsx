@@ -40,7 +40,7 @@ const MediaItem = ({ item, moveMediaItem, index, status }) => {
 };
 
 // Column Component
-const MediaColumn = ({ status, mediaItems, moveMediaItem }) => {
+const MediaColumn = ({ status, mediaItems, moveMediaItem, showPagination, onPageChange }) => {
   const [, drop] = useDrop(() => ({
     accept: ItemTypes.MEDIA,
     drop: (draggedItem) => {
@@ -64,6 +64,12 @@ const MediaColumn = ({ status, mediaItems, moveMediaItem }) => {
           />
         ))}
       </div>
+      {showPagination && (
+        <div className="media-column__pagination">
+          <button onClick={() => onPageChange('prev')}>Previous</button>
+          <button onClick={() => onPageChange('next')}>Next</button>
+        </div>
+      )}
     </div>
   );
 };
@@ -75,6 +81,9 @@ const StreamBoard = () => {
     scheduled: [],
     watched: [],
   });
+
+  const [toWatchPage, setToWatchPage] = useState(1);
+  const itemsPerPage = 8;
 
   useEffect(() => {
     const fetchMediaItems = async () => {
@@ -98,19 +107,21 @@ const StreamBoard = () => {
 
   const moveMediaItem = (media_id, newStatus) => {
     setMediaItems((prevItems) => {
+      // Create a new object to hold the updated items
       const updatedItems = { ...prevItems };
 
-      // Find and remove the item from its current status array
-      let movedItem;
-      // eslint-disable-next-line no-unused-vars
-      for (const [key, items] of Object.entries(updatedItems)) {
-        const itemIndex = items.findIndex((item) => item.media_id === media_id);
+      // Remove the item from its current status array
+      let movedItem = null;
+      for (const status in updatedItems) {
+        const itemIndex = updatedItems[status].findIndex((item) => item.media_id === media_id);
         if (itemIndex > -1) {
-          [movedItem] = items.splice(itemIndex, 1);
+          // Remove the item from its current array
+          [movedItem] = updatedItems[status].splice(itemIndex, 1);
           break;
         }
       }
 
+      // If the item was successfully moved, update its status and add it to the new array
       if (movedItem) {
         movedItem.status = newStatus;
         updatedItems[newStatus.toLowerCase().replace(' ', '_')].push(movedItem);
@@ -125,13 +136,25 @@ const StreamBoard = () => {
       .catch(error => console.error('Error updating media status:', error));
   };
 
+  const handlePageChange = (direction) => {
+    setToWatchPage((prevPage) => {
+      if (direction === 'prev' && prevPage > 1) return prevPage - 1;
+      if (direction === 'next' && prevPage < Math.ceil(mediaItems.to_watch.length / itemsPerPage)) return prevPage + 1;
+      return prevPage;
+    });
+  };
+
+  const paginatedToWatchItems = mediaItems.to_watch.slice((toWatchPage - 1) * itemsPerPage, toWatchPage * itemsPerPage);
+
   return (
     <DndProvider backend={HTML5Backend}>
       <div className="streamboard">
         <MediaColumn 
           status="To Watch" 
-          mediaItems={mediaItems.to_watch} 
+          mediaItems={paginatedToWatchItems} 
           moveMediaItem={moveMediaItem} 
+          showPagination={true} 
+          onPageChange={handlePageChange} 
         />
         <MediaColumn 
           status="Scheduled" 
