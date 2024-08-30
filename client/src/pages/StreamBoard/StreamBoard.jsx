@@ -96,7 +96,6 @@ const MediaColumn = ({ status, mediaItems, moveMediaItem, showPagination, onPage
 
   return (
     <div ref={drop} className={`streamboard__media-column streamboard__media-column--${status.toLowerCase()}`}>
-      <h2 className="streamboard__media-column-title">{status.replace('_', ' ')}</h2>
       <div className="streamboard__media-column-content">
         {mediaItems.map((item, index) => (
           <MediaItem 
