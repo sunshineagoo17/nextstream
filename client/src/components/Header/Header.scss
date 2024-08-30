@@ -40,6 +40,25 @@
     }
   }
 
+  &__right-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    @include large-mobile {
+      gap: .25rem;
+    }
+
+    @include tablet {
+      gap: 0;
+    }
+
+    @include desktop {
+      gap: 1rem;
+    }
+  }
+
   &__clear-btn,
   &__clear-btn--mobile {
     background: none;
@@ -203,22 +222,27 @@
     border: .1rem solid $neutral-white;
     border-radius: .35rem;
     box-shadow: $shadow-primary;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Ensure the icon is centered */
   }
 
   &__magnifying-glass {
-    left: .35rem;
     position: relative;
-    top: .65rem;
+    top: 0.65rem;
+    left: 0.35rem;
 
     @include tablet {
-      left: .75rem;
+      left: 0.75rem;
+      top: .75rem;
     }
   }
 
   &__icon-container {
     @include block-item(1.5rem, 1.875rem);
-    left: -.4375rem;
     position: relative;
+    left: -.25rem;
+    top: .25rem;
     transition: transform 1s ease;
 
     &:hover {
@@ -229,7 +253,7 @@
   &__search-vector {
     @include block-item(1.1rem, 1.1rem);
     position: absolute;
-    top: .625rem;
+    top: 0.625rem;
 
     @include desktop {
       @include block-item(1.1875rem, 1.1875rem);

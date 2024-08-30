@@ -8,6 +8,7 @@ import nextStreamLogo from "../../assets/images/nextstream-wordmark.png";
 import searchVector from "../../assets/images/search-vector-handle.svg";
 import UserIcon from "../../assets/images/user-icon.svg";
 import LogoutIcon from "../../assets/images/logout-icon.svg";
+import DarkModeToggle from '../DarkModeToggle/DarkModeToggle';
 import "./Header.scss";
 
 const Header = () => {
@@ -71,11 +72,9 @@ const Header = () => {
         <div className="header__nav-container">
           <div className="header__search-bar" ref={searchBarDesktopRef}>
             <div className="header__search-icon">
-              <div className="header__magnifying-glass">
-                <div className="header__icon-container">
-                  <img className="header__search-vector" alt="Magnifying Glass" src={searchVector} />
-                  <div className="header__search-ellipse" />
-                </div>
+              <div className="header__icon-container">
+                <img className="header__search-vector" alt="Magnifying Glass" src={searchVector} />
+                <div className="header__search-ellipse" />
               </div>
             </div>
             <div className="header__search-content">
@@ -105,23 +104,26 @@ const Header = () => {
             <img className="header__logo" alt="Nextstream logo" src={nextStreamLogo} />
           </Link>
         </div>
-        {(isAuthenticated || isGuest) ? (
-          <button className="header__login-container" onClick={handleLogout}>
-            <div className="header__login">
-              <div className="header__sign-in-txt">Logout</div>
-              <img className="header__sign-in-icon" src={LogoutIcon} alt="Logout Icon" />
-            </div>
-          </button>
-        ) : (
-          <Link to="/login" aria-label="Sign In">
-            <button className="header__login-container">
+        <div className="header__right-container">
+          <DarkModeToggle />
+          {(isAuthenticated || isGuest) ? (
+            <button className="header__login-container" onClick={handleLogout}>
               <div className="header__login">
-                <div className="header__sign-in-txt">Sign In</div>
-                <img className="header__sign-in-icon" src={UserIcon} alt="User Icon" />
+                <div className="header__sign-in-txt">Logout</div>
+                <img className="header__sign-in-icon" src={LogoutIcon} alt="Logout Icon" />
               </div>
             </button>
-          </Link>
-        )}
+          ) : (
+            <Link to="/login" aria-label="Sign In">
+              <button className="header__login-container">
+                <div className="header__login">
+                  <div className="header__sign-in-txt">Sign In</div>
+                  <img className="header__sign-in-icon" src={UserIcon} alt="User Icon" />
+                </div>
+              </button>
+            </Link>
+          )}
+        </div>
       </div>
       <div className="header__search-bar--mobile" ref={searchBarMobileRef}>
         <div className="header__search-icon--mobile">

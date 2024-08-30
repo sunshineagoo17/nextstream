@@ -1,0 +1,34 @@
+@use 'colors' as *;
+
+// Global Dark Mode Styles
+[data-theme='dark'] {
+    // Background and text colors
+    background-color: $primary-darker-blue;
+    color: $neutral-white;
+  
+    // Header styles
+    .header {
+      background-color: $primary-button-dark-blue;
+      color: $primary-very-light-blue;
+    }
+  
+    // Button styles
+    .btn {
+      background-color: $primary-medium-blue;
+      color: $neutral-white;
+  
+      &:hover {
+        background-color: $primary-light-blue;
+      }
+    }
+  
+    // Card styles
+    .card {
+      background-color: $primary-dark-blue;
+      color: $neutral-white;
+      box-shadow: $shadow-secondary;
+    }
+  
+    // Add more components and global styles here as needed
+  }
+  

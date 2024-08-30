@@ -1,6 +1,7 @@
 @use "./partials/colors" as *;
 @use "./partials/fonts" as *;
 @use "./partials/mixins" as *;
+@use "./partials//dark-mode" as *;
 
 @mixin borderGlowLogo() {
   @keyframes borderGlowLogo {

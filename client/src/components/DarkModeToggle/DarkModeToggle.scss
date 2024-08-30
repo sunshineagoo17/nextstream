@@ -1,0 +1,125 @@
+@use "../../styles/partials/colors" as *;
+@use "../../styles/partials/fonts" as *;
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/global.scss" as *;
+
+.dark-mode-toggle {
+    position: relative;
+    background: none;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    padding: 10px;
+    border-radius: 50%;
+    display: none;
+    transition: transform 0.3s ease-in-out;
+
+    @include large-mobile {
+        display: block;
+    }
+  
+    .icon {
+        @include block-item(1rem, 1rem);
+        font-size: 24px;
+        color: var(--primary-color);
+        transition: color 0.3s ease-in-out;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        @include tablet {
+            @include block-item(1.5rem, 1.5rem);
+        }
+    }
+  
+    .sun {
+      color: #fee100; 
+      animation: sun-spin 3s linear infinite, sun-glow 4s infinite alternate; 
+      padding: .25rem;
+      background-color: $primary-button-dark-blue;
+      box-shadow: $shadow-primary;
+      border-radius: .5rem;
+      border: 2px solid $neutral-white;
+
+      &:hover {
+        opacity: 0.7;
+        color: #fee100;
+        background-color: $neutral-white;
+        box-shadow: 0 0 10px 3px rgba(254, 225, 0, 0.7), 0 0 20px 5px rgba(254, 225, 0, 0.4); 
+      }
+
+      &:active {
+        opacity: 1;
+        background: $primary-button-blue;
+        color: $neutral-white;
+      }
+    }
+  
+    .moon {
+      color: $neutral-white;
+      animation: moonlight 1s infinite alternate;
+    }
+  
+    .light-effect {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      opacity: 0;
+      transform: translate(-50%, -50%);
+      transition: all 0.3s ease-in-out;
+    }
+  
+    &.light .light-effect {
+      opacity: 0.5;
+      animation: sun-glow 4s infinite alternate; 
+    }
+  
+    &.dark .light-effect {
+      width: 40px;
+      height: 40px;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(0, 0, 0, 0) 70%);
+      opacity: 0.7;
+      animation: flashlight 1.5s infinite alternate;
+    }
+}
+
+@keyframes sun-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+}
+  
+@keyframes sun-glow {
+    0% {
+      transform: scale(1);
+      opacity: 0.7;
+    }
+    100% {
+      transform: scale(1.2);
+      opacity: 1;
+    }
+}
+  
+@keyframes moonlight {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(1.1);
+    }
+}
+  
+@keyframes flashlight {
+    0% {
+      transform: translate(-50%, -50%) scale(1);
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(1.2);
+    }
+}

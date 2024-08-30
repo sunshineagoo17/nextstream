@@ -34,6 +34,12 @@ const App = () => {
   const { isAuthenticated, isGuest, userId } = useContext(AuthContext);
 
   useEffect(() => {
+    // Initialize theme on app load
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+  }, []);
+  
+  useEffect(() => {
     console.log('App component useEffect');
     console.log('isAuthenticated:', isAuthenticated);
     console.log('isGuest:', isGuest);
