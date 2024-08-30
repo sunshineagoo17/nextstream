@@ -196,7 +196,12 @@ const StreamBoard = () => {
     <DndProvider backend={HTML5Backend}>
       <div className="streamboard-container">
         <div className="streamboard__title">
-            {name ? `${name}'s Streamboard` : 'Your Streamboard'}
+            <h1 className='streamboard__header-text'>
+                {name ? `${name}'s Streamboard` : 'Your Streamboard'}
+            </h1>
+            <p className="streamboard__copy">
+                Drag, Drop, Done: Manage Your Faves with Ease!
+            </p>
         </div>
         {loading && <Loader />} 
         {alert.message && (
