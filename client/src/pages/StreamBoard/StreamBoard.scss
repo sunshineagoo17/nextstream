@@ -1,4 +1,3 @@
-// Import partials
 @use "../../styles/partials/colors" as *;
 @use "../../styles/partials/fonts" as *;
 @use "../../styles/partials/mixins" as *;
@@ -8,11 +7,19 @@
   padding: 2rem;
   text-align: center;
 
-  .streamboard-title {
-    font-size: 2rem;
+  .streamboard__title {
+    font-size: 1.5rem;
     font-weight: bold;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     color: #333;
+
+    @include tablet {
+      font-size: 2rem;
+    }
+
+    @include desktop {
+      font-size: 2.5rem;
+    }
   }
 }
 
@@ -20,22 +27,42 @@
   display: flex;
   justify-content: space-around;
   padding: 2rem;
+  flex-wrap: wrap;
+
+  @include tablet {
+    flex-wrap: nowrap;
+  }
 }
 
-.media-column {
-  width: 30%;
+.streamboard__media-column {
+  width: 100%;
+  max-width: 100%;
   background: rgba(255, 255, 255, 0.3);
   border-radius: 20px;
   backdrop-filter: blur(10px);
   box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.1),
               -8px -8px 16px rgba(255, 255, 255, 0.7);
   padding: 1rem;
+  margin-bottom: 1.5rem;
+
+  @include tablet {
+    max-width: 30%;
+    margin-bottom: 0;
+  }
 
   &__title {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     color: #333;
     margin-bottom: 1rem;
     text-align: center;
+
+    @include tablet {
+      font-size: 1.5rem;
+    }
+
+    @include desktop {
+      font-size: 1.75rem;
+    }
   }
 
   &__content {
@@ -45,39 +72,44 @@
   }
 }
 
-.media-column--to_watch {
-  background-color: #f0f8ff; /* Light blue */
+.streamboard__media-column--to_watch {
+  background-color: #f0f8ff;
 }
 
-.media-column--scheduled {
-  background-color: #fffacd; /* Light yellow */
+.streamboard__media-column--scheduled {
+  background-color: #fffacd;
 }
 
-.media-column--watched {
-  background-color: #e6e6fa; /* Light lavender */
+.streamboard__media-column--watched {
+  background-color: #e6e6fa;
 }
 
-.media-column__pagination {
+.streamboard__media-column-pagination {
   display: flex;
   justify-content: space-between;
   padding: 10px;
 }
 
-.media-column__pagination button {
+.streamboard__pagination-button {
   padding: 5px 10px;
   cursor: pointer;
   background-color: #007bff;
   color: #fff;
   border: none;
   border-radius: 3px;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: darken(#007bff, 10%);
+  }
+
+  &:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
 }
 
-.media-column__pagination button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
-
-.media-item {
+.streamboard__media-item {
   display: flex;
   align-items: center;
   background: rgba(255, 255, 255, 0.4);
@@ -87,14 +119,30 @@
   padding: 1rem;
   transition: transform 0.2s ease;
 
+  @include tablet {
+    padding: 1.25rem;
+  }
+
+  @include desktop {
+    padding: 1.5rem;
+  }
+
   &--dragging {
     transform: scale(1.05);
   }
 
   &__icon {
-    font-size: 2rem;
-    margin-right: 1rem;
+    font-size: 1.5rem;
+    margin-right: 0.75rem;
     color: #007BFF;
+
+    @include tablet {
+      font-size: 2rem;
+    }
+
+    @include desktop {
+      font-size: 2.5rem;
+    }
   }
 
   &__details {
@@ -102,13 +150,29 @@
   }
 
   &__title {
-    font-size: 1.25rem;
+    font-size: 1rem;
     color: #222;
     margin: 0;
+
+    @include tablet {
+      font-size: 1.25rem;
+    }
+
+    @include desktop {
+      font-size: 1.5rem;
+    }
   }
 
   &__genre {
-    font-size: 1rem;
+    font-size: 0.85rem;
     color: #666;
+
+    @include tablet {
+      font-size: 1rem;
+    }
+
+    @include desktop {
+      font-size: 1.15rem;
+    }
   }
 }

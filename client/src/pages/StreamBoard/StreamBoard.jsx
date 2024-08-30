@@ -9,12 +9,10 @@ import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
 import api from '../../services/api';  
 import './StreamBoard.scss'; 
 
-// Item Types for DnD
 const ItemTypes = {
   MEDIA: 'media',
 };
 
-// Media Item Component
 const MediaItem = ({ item, moveMediaItem, index, status }) => {
   const [{ isDragging }, drag] = useDrag(() => ({
     type: ItemTypes.MEDIA,
@@ -27,21 +25,20 @@ const MediaItem = ({ item, moveMediaItem, index, status }) => {
   return (
     <div 
       ref={drag} 
-      className={`media-item${isDragging ? ' media-item--dragging' : ''}`} 
+      className={`streamboard__media-item${isDragging ? ' streamboard__media-item--dragging' : ''}`} 
       style={{ opacity: isDragging ? 0.5 : 1 }}
     >
-      <div className="media-item__icon">
+      <div className="streamboard__media-item-icon">
         <FontAwesomeIcon icon={item.media_type === 'movie' ? faFilm : faTv} />
       </div>
-      <div className="media-item__details">
-        <h3 className="media-item__title">{item.title}</h3>
-        <p className="media-item__genre">{item.genre}</p>
+      <div className="streamboard__media-item-details">
+        <h3 className="streamboard__media-item-title">{item.title}</h3>
+        <p className="streamboard__media-item-genre">{item.genre}</p>
       </div>
     </div>
   );
 };
 
-// Column Component
 const MediaColumn = ({ status, mediaItems, moveMediaItem, showPagination, onPageChange }) => {
   const [, drop] = useDrop(() => ({
     accept: ItemTypes.MEDIA,
@@ -53,9 +50,9 @@ const MediaColumn = ({ status, mediaItems, moveMediaItem, showPagination, onPage
   }));
 
   return (
-    <div ref={drop} className={`media-column media-column--${status.toLowerCase()}`}>
-      <h2 className="media-column__title">{status.replace('_', ' ')}</h2>
-      <div className="media-column__content">
+    <div ref={drop} className={`streamboard__media-column streamboard__media-column--${status.toLowerCase()}`}>
+      <h2 className="streamboard__media-column-title">{status.replace('_', ' ')}</h2>
+      <div className="streamboard__media-column-content">
         {mediaItems.map((item, index) => (
           <MediaItem 
             key={item.media_id} 
@@ -67,9 +64,9 @@ const MediaColumn = ({ status, mediaItems, moveMediaItem, showPagination, onPage
         ))}
       </div>
       {showPagination && (
-        <div className="media-column__pagination">
-          <button onClick={() => onPageChange('prev')}>Previous</button>
-          <button onClick={() => onPageChange('next')}>Next</button>
+        <div className="streamboard__media-column-pagination">
+          <button onClick={() => onPageChange('prev')} className="streamboard__pagination-button">Previous</button>
+          <button onClick={() => onPageChange('next')} className="streamboard__pagination-button">Next</button>
         </div>
       )}
     </div>
@@ -77,7 +74,7 @@ const MediaColumn = ({ status, mediaItems, moveMediaItem, showPagination, onPage
 };
 
 const StreamBoard = () => {
-  const { userId } = useContext(AuthContext);  
+  const { userId, user } = useContext(AuthContext);  
   const [mediaItems, setMediaItems] = useState({
     to_watch: [],
     scheduled: [],
@@ -85,9 +82,30 @@ const StreamBoard = () => {
   });
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState({ type: '', message: '' });
+  const [currentScreen, setCurrentScreen] = useState('desktop');
 
   const [toWatchPage, setToWatchPage] = useState(1);
-  const itemsPerPage = 8;
+  const [scheduledPage, setScheduledPage] = useState(1);
+  const [watchedPage, setWatchedPage] = useState(1);
+
+  useEffect(() => {
+    const updateScreenSize = () => {
+      if (window.innerWidth <= 768) {
+        setCurrentScreen('mobile');
+      } else if (window.innerWidth <= 1024) {
+        setCurrentScreen('tablet');
+      } else {
+        setCurrentScreen('desktop');
+      }
+    };
+
+    updateScreenSize();
+    window.addEventListener('resize', updateScreenSize);
+
+    return () => window.removeEventListener('resize', updateScreenSize);
+  }, []);
+
+  const itemsPerPage = currentScreen === 'mobile' ? 4 : 8;
 
   useEffect(() => {
     const fetchMediaItems = async () => {
@@ -102,7 +120,6 @@ const StreamBoard = () => {
           watched: watchedResponse.data,
         });
 
-        // Check for duplicates in state
         const allItems = [...toWatchResponse.data, ...scheduledResponse.data, ...watchedResponse.data];
         const duplicates = allItems.filter((item, index, self) => self.findIndex(i => i.media_id === item.media_id) !== index);
         if (duplicates.length > 0) {
@@ -119,17 +136,15 @@ const StreamBoard = () => {
   }, [userId]);
 
   const moveMediaItem = async (media_id, newStatus) => {
-    setLoading(true); // Start loading
+    setLoading(true); 
 
     try {
       const response = await api.put(`/api/media-status/${media_id}`, { status: newStatus });
       console.log(`Media status updated to ${newStatus}:`, response.data);
 
-      // Update the UI only after the database confirms the change
       setMediaItems((prevItems) => {
         const updatedItems = { ...prevItems };
 
-        // Remove the item from its current status array
         let movedItem = null;
         for (const status in updatedItems) {
           const itemIndex = updatedItems[status].findIndex((item) => item.media_id === media_id);
@@ -139,7 +154,6 @@ const StreamBoard = () => {
           }
         }
 
-        // Add the item to the new status array, ensuring no duplication
         if (movedItem) {
           movedItem.status = newStatus;
           updatedItems[newStatus.toLowerCase().replace(' ', '_')].unshift(movedItem);
@@ -153,48 +167,67 @@ const StreamBoard = () => {
       console.error('Error updating media status:', error);
       setAlert({ type: 'error', message: 'Failed to update media status.' });
     } finally {
-      setLoading(false); // End loading
+      setLoading(false); 
     }
   };
 
-  const handlePageChange = (direction) => {
-    setToWatchPage((prevPage) => {
+  const handlePageChange = (status, direction) => {
+    const pageState = {
+      to_watch: setToWatchPage,
+      scheduled: setScheduledPage,
+      watched: setWatchedPage,
+    };
+    
+    const setPage = pageState[status];
+    
+    setPage((prevPage) => {
       if (direction === 'prev' && prevPage > 1) return prevPage - 1;
-      if (direction === 'next' && prevPage < Math.ceil(mediaItems.to_watch.length / itemsPerPage)) return prevPage + 1;
+      if (direction === 'next' && prevPage < Math.ceil(mediaItems[status].length / itemsPerPage)) return prevPage + 1;
       return prevPage;
     });
-  };
+  };  
 
-  const paginatedToWatchItems = mediaItems.to_watch.slice((toWatchPage - 1) * itemsPerPage, toWatchPage * itemsPerPage);
+  const getPaginatedItems = (status, currentPage) => {
+    return mediaItems[status].slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+  };
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <div className="streamboard">
-        {loading && <Loader />} {/* Show loader when loading */}
+      <div className="streamboard-container">
+        <div className="streamboard__title">
+          {user && user.username ? `${user.username}'s Streamboard` : 'Your Streamboard'}
+        </div>
+        {loading && <Loader />} 
         {alert.message && (
           <CustomAlerts 
             type={alert.type} 
             message={alert.message} 
             onClose={() => setAlert({ type: '', message: '' })} 
           />
-        )} {/* Show alert */}
-        <MediaColumn 
-          status="to_watch" 
-          mediaItems={paginatedToWatchItems} 
-          moveMediaItem={moveMediaItem} 
-          showPagination={true} 
-          onPageChange={handlePageChange} 
-        />
-        <MediaColumn 
-          status="Scheduled" 
-          mediaItems={mediaItems.scheduled} 
-          moveMediaItem={moveMediaItem} 
-        />
-        <MediaColumn 
-          status="Watched" 
-          mediaItems={mediaItems.watched} 
-          moveMediaItem={moveMediaItem} 
-        />
+        )}
+        <div className="streamboard">
+          <MediaColumn 
+            status="to_watch" 
+            mediaItems={getPaginatedItems('to_watch', toWatchPage)} 
+            moveMediaItem={moveMediaItem} 
+            showPagination={mediaItems.to_watch.length > itemsPerPage} 
+            onPageChange={(direction) => handlePageChange('to_watch', direction)} 
+          />
+          <MediaColumn 
+            status="scheduled" 
+            mediaItems={getPaginatedItems('scheduled', scheduledPage)} 
+            moveMediaItem={moveMediaItem} 
+            showPagination={mediaItems.scheduled.length > itemsPerPage} 
+            onPageChange={(direction) => handlePageChange('scheduled', direction)} 
+          />
+          <MediaColumn 
+            status="watched" 
+            mediaItems={getPaginatedItems('watched', watchedPage)} 
+            moveMediaItem={moveMediaItem} 
+            showPagination={mediaItems.watched.length > itemsPerPage} 
+            onPageChange={(direction) => handlePageChange('watched', direction)} 
+          />
+        </div>
       </div>
     </DndProvider>
   );
