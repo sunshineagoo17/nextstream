@@ -6,13 +6,15 @@ import { Link } from 'react-router-dom';
 import {
   faFilm, faTv, faMap, faBomb, faPalette, faLaugh, faFingerprint, faClapperboard, faTheaterMasks, faQuidditch, faGhost,
   faUserSecret, faVideoCamera, faFaceKissWinkHeart, faMusic, faHandSpock, faMask, faChildren, faFighterJet, faScroll,
-  faHatCowboy, faChild, faTelevision, faBalanceScale, faHeartBroken, faBolt, faExplosion, faMeteor, faMicrophone
+  faHatCowboy, faChild, faTelevision, faBalanceScale, faHeartBroken, faBolt, faExplosion, faMeteor, faMicrophone, faStar,
+  faCalendarPlus, faTrash, faClose
 } from '@fortawesome/free-solid-svg-icons';
-import { AuthContext } from '../../context/AuthContext/AuthContext';  
+import { AuthContext } from '../../context/AuthContext/AuthContext';
 import Loader from '../../components/Loader/Loader';
 import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
-import api from '../../services/api';  
-import './StreamBoard.scss'; 
+import Calendar from '../CalendarPage/sections/Calendar'; 
+import api from '../../services/api';
+import './StreamBoard.scss';
 
 const ItemTypes = {
   MEDIA: 'media',
@@ -48,7 +50,7 @@ const genreIconMapping = {
   'Sci-Fi & Fantasy': faMeteor
 };
 
-const MediaItem = ({ item, index, status }) => {
+const MediaItem = ({ item, index, status, moveMediaItem, handleAddToCalendar }) => {
   const [{ isDragging }, drag] = useDrag(() => ({
     type: ItemTypes.MEDIA,
     item: { id: item.media_id, index, currentStatus: status },
@@ -58,17 +60,18 @@ const MediaItem = ({ item, index, status }) => {
   }));
 
   return (
-    <div 
-      ref={drag} 
-      className={`streamboard__media-item${isDragging ? ' streamboard__media-item--dragging' : ''}`} 
+    <div
+      ref={drag}
+      className={`streamboard__media-item${isDragging ? ' streamboard__media-item--dragging' : ''}`}
       style={{ opacity: isDragging ? 0.5 : 1 }}
     >
       <div className="streamboard__media-item-icon">
         <Link to={`/nextview/${item.userId}/${item.media_type}/${item.media_id}`}>
-            <FontAwesomeIcon icon={item.media_type === 'movie' ? faFilm : faTv} />
+          <FontAwesomeIcon icon={item.media_type === 'movie' ? faFilm : faTv} />
         </Link>
         <p className="streamboard__media-item-duration">{item.duration ? `${item.duration} min` : 'Duration N/A'}</p>
       </div>
+
       <div className="streamboard__media-item-details">
         <h3 className="streamboard__media-item-title">{item.title}</h3>
         <div className="streamboard__media-item-genre">
@@ -77,17 +80,37 @@ const MediaItem = ({ item, index, status }) => {
               <FontAwesomeIcon
                 icon={genreIconMapping[genreName] || faFilm}
                 className="streamboard__genre-icon"
-              /> 
+              />
               <span className="streamboard__genre-text">{genreName}</span>
             </span>
           ))}
         </div>
+
+        {/* Two additional icons under the title and genre */}
+        <div className="streamboard__media-icons">
+          <FontAwesomeIcon icon={faStar} className="streamboard__extra-icon" />
+          <FontAwesomeIcon icon={faBolt} className="streamboard__extra-icon" />
+        </div>
+      </div>
+
+      {/* Calendar and Trash icons in the lower right */}
+      <div className="streamboard__media-actions">
+        <FontAwesomeIcon
+          icon={faCalendarPlus}
+          className="streamboard__calendar-icon"
+          onClick={() => handleAddToCalendar(item.title, item.media_type, item.media_id, () => moveMediaItem(item.media_id, 'scheduled'))} 
+        />
+        <FontAwesomeIcon
+          icon={faTrash}
+          className="streamboard__trash-icon"
+          onClick={() => moveMediaItem(item.media_id, 'removed')} 
+        />
       </div>
     </div>
   );
 };
 
-const MediaColumn = ({ status, mediaItems, moveMediaItem, showPagination, onPageChange }) => {
+const MediaColumn = ({ status, mediaItems, moveMediaItem, handleAddToCalendar, showPagination, onPageChange }) => {
   const [, drop] = useDrop(() => ({
     accept: ItemTypes.MEDIA,
     drop: (draggedItem) => {
@@ -101,12 +124,13 @@ const MediaColumn = ({ status, mediaItems, moveMediaItem, showPagination, onPage
     <div ref={drop} className={`streamboard__media-column streamboard__media-column--${status.toLowerCase()}`}>
       <div className="streamboard__media-column-content">
         {mediaItems.map((item, index) => (
-          <MediaItem 
-            key={item.media_id} 
-            item={item} 
-            index={index} 
-            status={status} 
-            moveMediaItem={moveMediaItem} 
+          <MediaItem
+            key={item.media_id}
+            item={item}
+            index={index}
+            status={status}
+            moveMediaItem={moveMediaItem}
+            handleAddToCalendar={handleAddToCalendar}
           />
         ))}
       </div>
@@ -121,7 +145,7 @@ const MediaColumn = ({ status, mediaItems, moveMediaItem, showPagination, onPage
 };
 
 const StreamBoard = () => {
-  const { userId, name } = useContext(AuthContext);  
+  const { userId, name } = useContext(AuthContext);
   const [mediaItems, setMediaItems] = useState({
     to_watch: [],
     scheduled: [],
@@ -130,6 +154,11 @@ const StreamBoard = () => {
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState({ type: '', message: '' });
   const [currentScreen, setCurrentScreen] = useState('desktop');
+  const [showCalendar, setShowCalendar] = useState(false);
+  const [eventTitle, setEventTitle] = useState('');
+  const [duration, setDuration] = useState(0);
+  const [selectedMediaId, setSelectedMediaId] = useState(null);
+  const [selectedMediaType, setSelectedMediaType] = useState('');
 
   const [toWatchPage, setToWatchPage] = useState(1);
   const [scheduledPage, setScheduledPage] = useState(1);
@@ -183,7 +212,7 @@ const StreamBoard = () => {
   }, [userId]);
 
   const moveMediaItem = async (media_id, newStatus) => {
-    setLoading(true); 
+    setLoading(true);
 
     try {
       const response = await api.put(`/api/media-status/${media_id}`, { status: newStatus });
@@ -214,7 +243,7 @@ const StreamBoard = () => {
       console.error('Error updating media status:', error);
       setAlert({ type: 'error', message: 'Failed to update media status.' });
     } finally {
-      setLoading(false); 
+      setLoading(false);
     }
   };
 
@@ -224,62 +253,129 @@ const StreamBoard = () => {
       scheduled: setScheduledPage,
       watched: setWatchedPage,
     };
-    
+
     const setPage = pageState[status];
-    
+
     setPage((prevPage) => {
       if (direction === 'prev' && prevPage > 1) return prevPage - 1;
       if (direction === 'next' && prevPage < Math.ceil(mediaItems[status].length / itemsPerPage)) return prevPage + 1;
       return prevPage;
     });
-  };  
+  };
 
   const getPaginatedItems = (status, currentPage) => {
     return mediaItems[status].slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+  };
+
+  const handleAddToCalendar = async (title, mediaType, mediaId, callback) => {
+    let duration = 0;
+    try {
+      if (mediaType === 'movie') {
+        const movieDetails = await api.get(`/api/tmdb/movie/${mediaId}`);
+        duration = movieDetails.data.runtime || 0;
+        console.log('Movie details:', movieDetails.data);
+      } else if (mediaType === 'tv') {
+        const tvDetails = await api.get(`/api/tmdb/tv/${mediaId}`);
+        duration = tvDetails.data.episode_run_time[0] || 0;
+        console.log('TV details:', tvDetails.data);
+      }
+
+      setEventTitle(title);
+      setSelectedMediaType(mediaType);
+      setSelectedMediaId(mediaId);
+      setDuration(duration);
+      setShowCalendar(true);
+
+      if (callback) callback(); // Move media item to scheduled
+    } catch (error) {
+      console.error('Error fetching duration data:', error);
+      setAlert({ type: 'error', message: 'Failed to fetch media duration.' });
+    }
+  };
+
+  const handleCloseCalendar = () => {
+    setShowCalendar(false);
+  };
+
+  const handleSaveEvent = async (eventTitle, eventDate) => {
+    try {
+      const newEvent = {
+        title: eventTitle,
+        start: eventDate,
+        end: eventDate,
+        media_id: selectedMediaId,
+        userId,
+      };
+      console.log('Saving event:', newEvent);
+      await api.post(`/api/calendar/${userId}/events`, newEvent);
+      setShowCalendar(false);
+      setAlert({ type: 'success', message: 'Event saved successfully.' });
+    } catch (error) {
+      console.error('Error saving event:', error);
+      setAlert({ type: 'error', message: 'Failed to save event.' });
+    }
   };
 
   return (
     <DndProvider backend={HTML5Backend}>
       <div className="streamboard-container">
         <div className="streamboard__title">
-            <h1 className='streamboard__header-text'>
-                {name ? `${name}'s Streamboard` : 'Your Streamboard'}
-            </h1>
-            <p className="streamboard__copy">
-                Drag, Drop, Done: Manage Your Faves with Ease!
-            </p>
+          <h1 className='streamboard__header-text'>
+            {name ? `${name}'s Streamboard` : 'Your Streamboard'}
+          </h1>
+          <p className="streamboard__copy">
+            Drag, Drop, Done: Manage Your Faves with Ease!
+          </p>
         </div>
-        {loading && <Loader />} 
+        {loading && <Loader />}
         {alert.message && (
-          <CustomAlerts 
-            type={alert.type} 
-            message={alert.message} 
-            onClose={() => setAlert({ type: '', message: '' })} 
+          <CustomAlerts
+            type={alert.type}
+            message={alert.message}
+            onClose={() => setAlert({ type: '', message: '' })}
           />
         )}
         <div className="streamboard">
-          <MediaColumn 
-            status="to_watch" 
-            mediaItems={getPaginatedItems('to_watch', toWatchPage)} 
-            moveMediaItem={moveMediaItem} 
-            showPagination={mediaItems.to_watch.length > itemsPerPage} 
-            onPageChange={(direction) => handlePageChange('to_watch', direction)} 
+          <MediaColumn
+            status="to_watch"
+            mediaItems={getPaginatedItems('to_watch', toWatchPage)}
+            moveMediaItem={moveMediaItem}
+            handleAddToCalendar={handleAddToCalendar}
+            showPagination={mediaItems.to_watch.length > itemsPerPage}
+            onPageChange={(direction) => handlePageChange('to_watch', direction)}
           />
-          <MediaColumn 
-            status="scheduled" 
-            mediaItems={getPaginatedItems('scheduled', scheduledPage)} 
-            moveMediaItem={moveMediaItem} 
-            showPagination={mediaItems.scheduled.length > itemsPerPage} 
-            onPageChange={(direction) => handlePageChange('scheduled', direction)} 
+          <MediaColumn
+            status="scheduled"
+            mediaItems={getPaginatedItems('scheduled', scheduledPage)}
+            moveMediaItem={moveMediaItem}
+            handleAddToCalendar={handleAddToCalendar}
+            showPagination={mediaItems.scheduled.length > itemsPerPage}
+            onPageChange={(direction) => handlePageChange('scheduled', direction)}
           />
-          <MediaColumn 
-            status="watched" 
-            mediaItems={getPaginatedItems('watched', watchedPage)} 
-            moveMediaItem={moveMediaItem} 
-            showPagination={mediaItems.watched.length > itemsPerPage} 
-            onPageChange={(direction) => handlePageChange('watched', direction)} 
+          <MediaColumn
+            status="watched"
+            mediaItems={getPaginatedItems('watched', watchedPage)}
+            moveMediaItem={moveMediaItem}
+            handleAddToCalendar={handleAddToCalendar}
+            showPagination={mediaItems.watched.length > itemsPerPage}
+            onPageChange={(direction) => handlePageChange('watched', direction)}
           />
         </div>
+        {showCalendar && (
+          <div className="streamboard__calendar-modal">
+            <button className="streamboard__calendar-close-btn" onClick={handleCloseCalendar}>
+              <FontAwesomeIcon icon={faClose} className="streamboard__close-icon" />
+            </button>
+            <Calendar
+              userId={userId}
+              eventTitle={eventTitle}
+              mediaType={selectedMediaType}
+              duration={duration}
+              handleSave={handleSaveEvent}
+              onClose={handleCloseCalendar}
+            />
+          </div>
+        )}
       </div>
     </DndProvider>
   );

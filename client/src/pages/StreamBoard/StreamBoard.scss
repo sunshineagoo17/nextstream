@@ -65,6 +65,90 @@
     }
   }
 
+  &__calendar-modal {
+    @include block-item(100%, 100%);
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba($neutral-black, .8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: -1rem;
+    z-index: 1000;
+  }
+
+  &__graphic-container {
+    margin-top: 2rem;
+    width: 20rem;
+
+    @include tablet {
+      width: 30%;
+    }
+  }
+
+  &__calendar-close-btn {
+    @include block-item(1.75rem, 1.75rem);
+    position: absolute;
+    top: 1rem; 
+    transform: translateX(-50%);
+    background-color: transparent;
+    color: $neutral-white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: .0625rem solid $neutral-white;
+    padding: .25rem;
+    font-size: 1rem;
+    box-shadow: $shadow-senary;
+    cursor: pointer;
+    z-index: 1001;
+    border-radius: .2rem;
+    transition: all .3s ease; 
+
+    &:hover {
+      background-color: $primary-dark-blue;
+      color: $neutral-white;
+      padding: 1rem; 
+      border-radius: .5rem; 
+      transform: translateX(-50%) scale(1.25); 
+    }
+
+    &:active {
+      transform: translateX(-50%) scale(1);
+      box-shadow: $shadow-senary;
+    }
+
+    @include small-mobile {
+      top: 1rem;
+    }
+
+    @include large-mobile {
+      top: 1rem;
+    }
+
+    @include tablet {
+      top: .25rem;
+      font-size: 1.5rem;
+    }
+
+    @include desktop {
+      top: 4.5rem;
+    }
+
+    @include large-desktop {
+      top: 9rem;
+    }
+
+    @include extra-large-desktop {
+      top: 11.5rem;
+    }
+  }
+
+  &__close-icon {
+    @include block-item(.75rem, .75rem);
+  }
+
   &__title {
     display: flex;
     justify-content: center;
@@ -129,8 +213,6 @@
     }
   }
 }
-
-
 
 .streamboard__media-column {
   position: relative;
