@@ -351,7 +351,7 @@ const StreamBoard = () => {
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <div className="streamboard-container">
+      <div className="streamboard__container">
         <div className="streamboard__title">
           <h1 className='streamboard__header-text'>
             {name ? `${name}'s Streamboard` : 'Your Streamboard'}
