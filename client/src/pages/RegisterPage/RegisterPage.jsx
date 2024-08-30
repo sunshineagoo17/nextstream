@@ -29,7 +29,7 @@ export const RegisterPage = () => {
   const [termsError, setTermsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false); 
   const navigate = useNavigate();
-  const { login } = useContext(AuthContext);
+  const { login, guestLogin } = useContext(AuthContext);
 
   useEffect(() => {
     const rememberedName = Cookies.get('name');
@@ -76,6 +76,12 @@ export const RegisterPage = () => {
       setTermsError(false);
     }
   };
+
+  const handleGuestClick = () => {
+    const guestToken = 'guestTokenValue'; 
+    guestLogin(guestToken); 
+    navigate('/top-picks/guest');
+};
 
   const clearError = (field) => {
     setErrors((prevErrors) => {
@@ -248,9 +254,10 @@ export const RegisterPage = () => {
                 <p className="register__terms-txt">I agree to the <Link to="/terms" aria-label="Terms and Conditions" className="register__terms-link">terms and conditions.</Link></p>
               </label>
               {termsError && <p className="error">Please agree to the terms and conditions</p>}
-              <p className="register__already-account">
-                Already have an account? <Link to="/login" aria-label="Log In"><span className="register__signin-link">Sign In.</span></Link>
-              </p>
+              <div className="register__account-avail-container">
+                <p className="register__account-available">Already have an account? <Link to="/login" aria-label="Log In"><span className="register__signin-link">Sign In.</span></Link></p>
+                <p className="register__guest-text">Or you can login as a <button className="register__guest-signin-link" onClick={handleGuestClick} aria-label="Continue as Guest">Guest.</button></p>
+              </div>
               <div className="register__button-group">
                 <button className="register__button register__button--previous" onClick={goToPreviousPage}>
                   <img src={ArrowIcon} className="register__button-icon" alt="Arrow Icon" />

@@ -312,9 +312,15 @@
     }
   }
 
-  &__already-account {
+  &__account-available {
     font-size: 1rem;
     color: $primary-medium-blue;
+    text-align: center;
+    border: 2px solid $neutral-white;
+    border-radius: .5rem;
+    padding: .25rem .5rem;
+    box-shadow: $shadow-tertiary;
+    line-height: 1.2rem;
 
     &-link {
       font-weight: bold;
@@ -336,12 +342,23 @@
     }
   }
 
-  &__signin-link {
+  &__guest-text {
+    font-family: $secondary-font;
+    font-size: .8rem;
+    text-align: center;
+    color: $primary-medium-blue;
+    margin-top: .25rem;
+    border: none;
+  }
+
+  &__signin-link,
+  &__guest-signin-link {
     cursor: pointer;
     color: $primary-light-blue;
     font-weight: bold;
     text-decoration: none;
-    border-radius: .25rem;
+    background-color: $frosted-glass;
+    border: .0625rem solid $frosted-glass;
     transition: transform 0.1s ease, background-color 0.1s ease, color 0.1s ease;
 
     &:visited {
@@ -352,6 +369,7 @@
     &:focus {
       padding-left: .25rem;
       padding-right: .25rem;
+      border-radius: .25rem;
       background-color: $primary-medium-blue;
       border: .0625rem solid $primary-dark-blue;
       color: $neutral-white;
@@ -370,6 +388,15 @@
       text-decoration: none;
       font-weight: bold;
     }
+  }
+
+  &__guest-signin-link {
+    border: 2px solid $primary-light-blue-gradient-bg;
+    border-radius: .25rem;
+    box-shadow: $shadow-tertiary;
+    padding: 0 .25rem;
+    font-family: $secondary-font;
+    font-weight: normal;
   }
 
   &__button-group {

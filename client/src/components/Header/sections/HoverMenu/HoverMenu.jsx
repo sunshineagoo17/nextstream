@@ -41,7 +41,9 @@ const HoverMenu = () => {
       `/calendar/${userId}`, 
       `/faves/${userId}`, 
       `/auth-search-results/${userId}`,
-      `/search`
+      `/streamboard/${userId}`,
+      `/search`,
+      `/calendar/guest`
     ];
   
     const isDarkBackgroundPage = darkBackgroundPaths.includes(location.pathname) ||
