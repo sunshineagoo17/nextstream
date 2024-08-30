@@ -82,4 +82,26 @@ router.post('/', async (req, res) => {
   }
 });
 
+// DELETE /media-status/:media_id
+router.delete('/:media_id', async (req, res) => {
+    const { media_id } = req.params;
+  
+    if (!req.user || !req.user.userId) {
+      return res.status(401).json({ error: 'Unauthorized' });
+    }
+  
+    try {
+      // Delete the media item from the 'media_statuses' table
+      await db('media_statuses')
+        .where('media_id', media_id)
+        .andWhere('userId', req.user.userId)
+        .del();
+  
+      res.json({ success: true, message: 'Media item deleted successfully' });
+    } catch (error) {
+      console.error('Error deleting media item:', error);
+      res.status(500).json({ error: 'Failed to delete media item' });
+    }
+  });  
+
 module.exports = router;

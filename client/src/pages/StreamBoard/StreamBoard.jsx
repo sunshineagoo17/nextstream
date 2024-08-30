@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import {
   faFilm, faTv, faMap, faBomb, faPalette, faLaugh, faFingerprint, faClapperboard, faTheaterMasks, faQuidditch, faGhost,
   faUserSecret, faVideoCamera, faFaceKissWinkHeart, faMusic, faHandSpock, faMask, faChildren, faFighterJet, faScroll,
-  faHatCowboy, faChild, faTelevision, faBalanceScale, faHeartBroken, faBolt, faExplosion, faMeteor, faMicrophone, faStar,
+  faHatCowboy, faChild, faTelevision, faBalanceScale, faHeartBroken, faBolt, faExplosion, faMeteor, faMicrophone,
   faCalendarPlus, faTrash, faClose
 } from '@fortawesome/free-solid-svg-icons';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
@@ -50,7 +50,7 @@ const genreIconMapping = {
   'Sci-Fi & Fantasy': faMeteor
 };
 
-const MediaItem = ({ item, index, status, moveMediaItem, handleAddToCalendar }) => {
+const MediaItem = ({ item, index, status, moveMediaItem, handleAddToCalendar, handleDeleteMedia }) => {
   const [{ isDragging }, drag] = useDrag(() => ({
     type: ItemTypes.MEDIA,
     item: { id: item.media_id, index, currentStatus: status },
@@ -85,12 +85,6 @@ const MediaItem = ({ item, index, status, moveMediaItem, handleAddToCalendar }) 
             </span>
           ))}
         </div>
-
-        {/* Two additional icons under the title and genre */}
-        <div className="streamboard__media-icons">
-          <FontAwesomeIcon icon={faStar} className="streamboard__extra-icon" />
-          <FontAwesomeIcon icon={faBolt} className="streamboard__extra-icon" />
-        </div>
       </div>
 
       {/* Calendar and Trash icons in the lower right */}
@@ -103,14 +97,14 @@ const MediaItem = ({ item, index, status, moveMediaItem, handleAddToCalendar }) 
         <FontAwesomeIcon
           icon={faTrash}
           className="streamboard__trash-icon"
-          onClick={() => moveMediaItem(item.media_id, 'removed')} 
+          onClick={() => handleDeleteMedia(item.media_id, item.media_type)} 
         />
       </div>
     </div>
   );
 };
 
-const MediaColumn = ({ status, mediaItems, moveMediaItem, handleAddToCalendar, showPagination, onPageChange }) => {
+const MediaColumn = ({ status, mediaItems, moveMediaItem, handleAddToCalendar, handleDeleteMedia, showPagination, onPageChange }) => {
   const [, drop] = useDrop(() => ({
     accept: ItemTypes.MEDIA,
     drop: (draggedItem) => {
@@ -131,6 +125,7 @@ const MediaColumn = ({ status, mediaItems, moveMediaItem, handleAddToCalendar, s
             status={status}
             moveMediaItem={moveMediaItem}
             handleAddToCalendar={handleAddToCalendar}
+            handleDeleteMedia={handleDeleteMedia}
           />
         ))}
       </div>
@@ -247,6 +242,45 @@ const StreamBoard = () => {
     }
   };
 
+  const handleDeleteMedia = async (media_id, media_type) => {
+    setLoading(true);
+
+    try {
+      // Remove the media item from the media status database
+      await api.delete(`/api/media-status/${media_id}`);
+
+      // Change the interaction value from 1 to 0
+      await api.post('/api/interactions', {
+        userId,
+        media_id,
+        interaction: 0,
+        media_type,
+      });
+
+      // Update the UI after successful deletion and interaction update
+      setMediaItems((prevItems) => {
+        const updatedItems = { ...prevItems };
+
+        for (const status in updatedItems) {
+          const itemIndex = updatedItems[status].findIndex((item) => item.media_id === media_id);
+          if (itemIndex > -1) {
+            updatedItems[status].splice(itemIndex, 1);
+            break;
+          }
+        }
+
+        return updatedItems;
+      });
+
+      setAlert({ type: 'success', message: 'Media removed successfully.' });
+    } catch (error) {
+      console.error('Error deleting media:', error);
+      setAlert({ type: 'error', message: 'Failed to delete media.' });
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handlePageChange = (status, direction) => {
     const pageState = {
       to_watch: setToWatchPage,
@@ -341,6 +375,7 @@ const StreamBoard = () => {
             mediaItems={getPaginatedItems('to_watch', toWatchPage)}
             moveMediaItem={moveMediaItem}
             handleAddToCalendar={handleAddToCalendar}
+            handleDeleteMedia={handleDeleteMedia}
             showPagination={mediaItems.to_watch.length > itemsPerPage}
             onPageChange={(direction) => handlePageChange('to_watch', direction)}
           />
@@ -349,6 +384,7 @@ const StreamBoard = () => {
             mediaItems={getPaginatedItems('scheduled', scheduledPage)}
             moveMediaItem={moveMediaItem}
             handleAddToCalendar={handleAddToCalendar}
+            handleDeleteMedia={handleDeleteMedia}
             showPagination={mediaItems.scheduled.length > itemsPerPage}
             onPageChange={(direction) => handlePageChange('scheduled', direction)}
           />
@@ -357,6 +393,7 @@ const StreamBoard = () => {
             mediaItems={getPaginatedItems('watched', watchedPage)}
             moveMediaItem={moveMediaItem}
             handleAddToCalendar={handleAddToCalendar}
+            handleDeleteMedia={handleDeleteMedia}
             showPagination={mediaItems.watched.length > itemsPerPage}
             onPageChange={(direction) => handlePageChange('watched', direction)}
           />
