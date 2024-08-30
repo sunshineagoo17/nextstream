@@ -24,8 +24,8 @@ export const LoginRequired = () => {
     };
 
     const handleGuestClick = () => {
-        const guestToken = 'guestTokenValue'; // Replace with your logic to generate or retrieve a guest token
-        guestLogin(guestToken); // Call guestLogin to set the guest state
+        const guestToken = 'guestTokenValue'; 
+        guestLogin(guestToken); 
         navigate('/top-picks/guest');
     };
 
@@ -39,7 +39,7 @@ export const LoginRequired = () => {
                         <p className="login-required__intro">You need to be logged in to view this page.</p>
                         <p className="login-required__text">
                             Please <button className="login-required__login-link" onClick={handleLoginClick} aria-label="Go to Login Page">
-                            log</button> in to access the content. Don't have an account? <button className="login-required__register-link" onClick={handleRegisterClick} aria-label="Go to Register Page">Register</button> now! Or explore as a <button className="login-required__guest-link" onClick={handleGuestClick} aria-label="Continue as Guest">Guest</button>.
+                            log</button> in to access the content. Don't have an account? <button className="login-required__register-link" onClick={handleRegisterClick} aria-label="Go to Register Page">Register</button> now or explore our app as a <button className="login-required__guest-link" onClick={handleGuestClick} aria-label="Continue as Guest">Guest</button>.
                         </p>
                         <div className="login-required__graphic-container">
                             <img src={LoginImg} alt="Login required graphic" className="login-required__graphic" />

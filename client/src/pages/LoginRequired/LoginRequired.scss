@@ -74,7 +74,8 @@
   }
 
   &__login-link,
-  &__register-link {
+  &__register-link,
+  &__guest-link {
     background: none;
     border: none;
     font: $primary-font;
