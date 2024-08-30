@@ -101,6 +101,14 @@ const StreamBoard = () => {
           scheduled: scheduledResponse.data,
           watched: watchedResponse.data,
         });
+
+        // Check for duplicates in state
+        const allItems = [...toWatchResponse.data, ...scheduledResponse.data, ...watchedResponse.data];
+        const duplicates = allItems.filter((item, index, self) => self.findIndex(i => i.media_id === item.media_id) !== index);
+        if (duplicates.length > 0) {
+          console.warn('Duplicate items found:', duplicates);
+        }
+
       } catch (error) {
         console.error('Error fetching media items:', error);
         setAlert({ type: 'error', message: 'Failed to load media items.' });
@@ -171,7 +179,7 @@ const StreamBoard = () => {
           />
         )} {/* Show alert */}
         <MediaColumn 
-          status="To Watch" 
+          status="to_watch" 
           mediaItems={paginatedToWatchItems} 
           moveMediaItem={moveMediaItem} 
           showPagination={true} 

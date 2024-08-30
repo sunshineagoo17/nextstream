@@ -15,12 +15,11 @@ exports.up = function(knex) {
       table.date('release_date'); 
       table.string('genre'); 
       table.timestamp('timestamp').defaultTo(knex.fn.now()); 
-  
-      // Optional: Add foreign key constraints if needed
-      // table.foreign('userId').references('id').inTable('users');
-      // table.foreign('media_id').references('id').inTable('media');
+      
+      // Add unique constraint
+      table.unique(['userId', 'media_id'], 'unique_user_media');
     });
-  };
+};
 
 /**
  * @param { import("knex").Knex } knex
@@ -28,4 +27,4 @@ exports.up = function(knex) {
  */
 exports.down = function(knex) {
     return knex.schema.dropTableIfExists('media_statuses');
-  };
+};
