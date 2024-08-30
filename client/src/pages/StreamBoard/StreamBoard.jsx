@@ -1,9 +1,11 @@
-import React, { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useDrag, useDrop, DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilm, faTv } from '@fortawesome/free-solid-svg-icons';
 import { AuthContext } from '../../context/AuthContext/AuthContext';  
+import Loader from '../../components/Loader/Loader';
+import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
 import api from '../../services/api';  
 import './StreamBoard.scss'; 
 
@@ -81,6 +83,8 @@ const StreamBoard = () => {
     scheduled: [],
     watched: [],
   });
+  const [loading, setLoading] = useState(false);
+  const [alert, setAlert] = useState({ type: '', message: '' });
 
   const [toWatchPage, setToWatchPage] = useState(1);
   const itemsPerPage = 8;
@@ -99,41 +103,50 @@ const StreamBoard = () => {
         });
       } catch (error) {
         console.error('Error fetching media items:', error);
+        setAlert({ type: 'error', message: 'Failed to load media items.' });
       }
     };
 
     fetchMediaItems();
   }, [userId]);
 
-  const moveMediaItem = (media_id, newStatus) => {
-    setMediaItems((prevItems) => {
-      // Create a new object to hold the updated items
-      const updatedItems = { ...prevItems };
+  const moveMediaItem = async (media_id, newStatus) => {
+    setLoading(true); // Start loading
 
-      // Remove the item from its current status array
-      let movedItem = null;
-      for (const status in updatedItems) {
-        const itemIndex = updatedItems[status].findIndex((item) => item.media_id === media_id);
-        if (itemIndex > -1) {
-          // Remove the item from its current array
-          [movedItem] = updatedItems[status].splice(itemIndex, 1);
-          break;
+    try {
+      const response = await api.put(`/api/media-status/${media_id}`, { status: newStatus });
+      console.log(`Media status updated to ${newStatus}:`, response.data);
+
+      // Update the UI only after the database confirms the change
+      setMediaItems((prevItems) => {
+        const updatedItems = { ...prevItems };
+
+        // Remove the item from its current status array
+        let movedItem = null;
+        for (const status in updatedItems) {
+          const itemIndex = updatedItems[status].findIndex((item) => item.media_id === media_id);
+          if (itemIndex > -1) {
+            [movedItem] = updatedItems[status].splice(itemIndex, 1);
+            break;
+          }
         }
-      }
 
-      // If the item was successfully moved, update its status and add it to the new array
-      if (movedItem) {
-        movedItem.status = newStatus;
-        updatedItems[newStatus.toLowerCase().replace(' ', '_')].push(movedItem);
-      }
+        // Add the item to the new status array, ensuring no duplication
+        if (movedItem) {
+          movedItem.status = newStatus;
+          updatedItems[newStatus.toLowerCase().replace(' ', '_')].unshift(movedItem);
+        }
 
-      return updatedItems;
-    });
+        return updatedItems;
+      });
 
-    // Update status in the database
-    api.put(`/api/media-status/${media_id}`, { status: newStatus })
-      .then(response => console.log('Media status updated:', response.data))
-      .catch(error => console.error('Error updating media status:', error));
+      setAlert({ type: 'success', message: 'Media status updated successfully.' });
+    } catch (error) {
+      console.error('Error updating media status:', error);
+      setAlert({ type: 'error', message: 'Failed to update media status.' });
+    } finally {
+      setLoading(false); // End loading
+    }
   };
 
   const handlePageChange = (direction) => {
@@ -149,6 +162,14 @@ const StreamBoard = () => {
   return (
     <DndProvider backend={HTML5Backend}>
       <div className="streamboard">
+        {loading && <Loader />} {/* Show loader when loading */}
+        {alert.message && (
+          <CustomAlerts 
+            type={alert.type} 
+            message={alert.message} 
+            onClose={() => setAlert({ type: '', message: '' })} 
+          />
+        )} {/* Show alert */}
         <MediaColumn 
           status="To Watch" 
           mediaItems={paginatedToWatchItems} 
