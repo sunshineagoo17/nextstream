@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import { useDrag, useDrop, DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link } from 'react-router-dom';
 import {
   faFilm, faTv, faMap, faBomb, faPalette, faLaugh, faFingerprint, faClapperboard, faTheaterMasks, faQuidditch, faGhost,
   faUserSecret, faVideoCamera, faFaceKissWinkHeart, faMusic, faHandSpock, faMask, faChildren, faFighterJet, faScroll,
@@ -63,7 +64,9 @@ const MediaItem = ({ item, index, status }) => {
       style={{ opacity: isDragging ? 0.5 : 1 }}
     >
       <div className="streamboard__media-item-icon">
-        <FontAwesomeIcon icon={item.media_type === 'movie' ? faFilm : faTv} />
+        <Link to={`/nextview/${item.userId}/${item.media_type}/${item.media_id}`}>
+            <FontAwesomeIcon icon={item.media_type === 'movie' ? faFilm : faTv} />
+        </Link>
         <p className="streamboard__media-item-duration">{item.duration ? `${item.duration} min` : 'Duration N/A'}</p>
       </div>
       <div className="streamboard__media-item-details">
