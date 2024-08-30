@@ -357,7 +357,7 @@ const StreamBoard = () => {
             {name ? `${name}'s Streamboard` : 'Your Streamboard'}
           </h1>
           <p className="streamboard__copy">
-            Drag, Drop, Done: Manage Your Faves with Ease!
+            Drag, Drop, Done: Manage Your Favourites with Ease!
           </p>
         </div>
         {loading && <Loader />}
