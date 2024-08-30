@@ -33,6 +33,47 @@
       text-shadow: $shadow-primary;
     }
 
+    input {
+      background-color: $primary-medium-blue;
+
+      &:focus {
+        background-color: $primary-dark-blue;
+        color: $neutral-white;
+      }
+    }
+
+    // Login Page
+    .login {
+      background-color: $primary-darker-blue;
+
+      &__title {
+        color: $neutral-white;
+      }
+    }
+
+    // Register Page 
+    .register {
+      background-color: $primary-darker-blue;
+
+      &__hero {
+        background-image: none;
+      }
+
+      &__account-available,
+      &__guest-text {
+        color: $primary-very-light-blue;
+      }
+
+      &__title,
+      &__terms-txt {
+        color: $neutral-white;
+      }
+
+      &__content-card {
+        background-color: $dark-mode-royal-blue;
+      }
+    }
+
     // Homepage 
     .hero {
       background: linear-gradient(180deg, $primary-medium-blue 0%, $dark-mode-royal-blue 50%, $base-darker-blue 100%);
