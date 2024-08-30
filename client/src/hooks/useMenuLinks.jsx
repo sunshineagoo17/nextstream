@@ -4,7 +4,7 @@ import { AuthContext } from '../context/AuthContext/AuthContext';
 
 const useMenuLinks = () => {
   const location = useLocation();
-  const { isAuthenticated, userId: authUserId } = useContext(AuthContext);
+  const { isAuthenticated, isGuest, userId: authUserId } = useContext(AuthContext);
 
   const authenticatedLinks = [
     { name: "Top Picks", path: `/top-picks/${authUserId}` },
@@ -13,6 +13,14 @@ const useMenuLinks = () => {
     { name: "Calendar", path: `/calendar/${authUserId}` },
     { name: "Streamboard", path: `/streamboard/${authUserId}` },
     { name: "Profile", path: `/profile/${authUserId}` }
+  ];
+
+  const guestLinks = [
+    { name: "Top Picks", path: `/top-picks/guest` },
+    { name: "Calendar", path: `/calendar/guest` },
+    { name: "Register", path: "/register" },
+    { name: "Terms", path: "/terms" },
+    { name: "Privacy Policy", path: "/privacy-policy" }
   ];
 
   const unauthenticatedLinks = [
@@ -27,6 +35,9 @@ const useMenuLinks = () => {
     if (isAuthenticated) {
       const filteredAuthenticatedLinks = authenticatedLinks.filter(link => link.path !== path);
       return path !== "/" ? [homeLink, ...filteredAuthenticatedLinks] : filteredAuthenticatedLinks;
+    } else if (isGuest) {
+      const filteredGuestLinks = guestLinks.filter(link => link.path !== path);
+      return path !== "/" ? [homeLink, ...filteredGuestLinks] : filteredGuestLinks;
     } else {
       const filteredUnauthenticatedLinks = unauthenticatedLinks.filter(link => link.path !== path);
       return path !== "/" ? [homeLink, ...filteredUnauthenticatedLinks] : filteredUnauthenticatedLinks;
