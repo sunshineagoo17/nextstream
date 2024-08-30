@@ -95,3 +95,22 @@ $pastel-orange: #FAD5A5;
 $pastel-dark-orange: #dd6312;
 $pastel-purple: #f3e8fa;
 $pastel-dark-purple: #4B0082;
+
+// Dark Mode Complementary Colors
+$dark-mode-deep-blue: #091626;
+$dark-mode-royal-blue: #002855;
+$dark-mode-sky-blue: #67bfff;
+$dark-mode-ice-blue: #A3D4FF;
+
+// Dark Mode Mixins
+@mixin dark-mode-frosted-glass-effect {
+    background-color: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+  
+  @mixin dark-mode-gradient-bg {
+    background: linear-gradient(180deg, $dark-mode-deep-blue 0%, $dark-mode-royal-blue 50%, $dark-mode-sky-blue 100%);
+  }

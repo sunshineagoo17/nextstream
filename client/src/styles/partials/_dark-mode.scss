@@ -11,6 +11,70 @@
       background-color: $primary-button-dark-blue;
       color: $primary-very-light-blue;
     }
+
+    .header__logo {
+        filter: invert(100%) sepia(100%) saturate(0%) brightness(1000%);
+    }
+
+    .header__search-bar,
+    .header__search-input--mobile,
+    .header__search-bar--mobile,
+    .header__search-input {
+        background-color: $primary-darker-blue;
+    }
+
+    .header__search-input--mobile,
+    .header__search-input {
+        border-radius: .25rem;
+    }
+
+    a {
+      color: $neutral-white;
+      text-shadow: $shadow-primary;
+    }
+
+    // Homepage 
+    .hero {
+      background: linear-gradient(180deg, $primary-medium-blue 0%, $dark-mode-royal-blue 50%, $base-darker-blue 100%);
+      border-bottom: 3px solid $primary-button-blue;
+
+      &__title {
+        color: $primary-very-light-blue;
+      }
+
+      &__subtitle {
+        color: $neutral-white;
+      }
+    }
+
+    .content {
+      background-color: $base-darker-blue;
+
+      &__new-releases-subtitle {
+        color: $neutral-white;
+      }
+
+      &__new-releases {
+        border-top: 3px solid $primary-medium-blue;
+      }
+
+      &__label-header-container,
+      &__label-header-new-container {
+        background: $frosted-glass;
+      }
+
+      &__label-features, 
+      &__label-header-new-releases{
+        color: $primary-very-light-blue;
+      }
+
+      &__card-features__feature__label {
+        background-color: $primary-button-dark-blue;
+        border: 3px solid $frosted-glass;
+        color: $primary-very-light-blue;
+        box-shadow: $shadow-tertiary;
+      }
+    }
   
     // Button styles
     .btn {
