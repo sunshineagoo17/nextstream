@@ -22,8 +22,8 @@ exports.seed = async function(knex) {
       });
 
     if (mediaDetails) {
-      // Safely handle the genres field
       const genres = mediaDetails.genres ? mediaDetails.genres.map(genre => genre.name).join(', ') : 'Unknown';
+      const duration = mediaDetails.runtime || mediaDetails.episode_run_time?.[0] || null; // Fetching duration 
 
       // Check if the record already exists
       const existingRecord = await knex('media_statuses')
@@ -43,6 +43,7 @@ exports.seed = async function(knex) {
           media_type: media.media_type,
           release_date: mediaDetails.release_date || mediaDetails.first_air_date || null,
           genre: genres,
+          duration: duration, 
           timestamp: knex.fn.now(),
         });
       } else {

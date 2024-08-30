@@ -13,7 +13,8 @@ exports.up = function(knex) {
       table.text('overview'); 
       table.string('media_type').notNullable(); 
       table.date('release_date'); 
-      table.string('genre'); 
+      table.string('genre');
+      table.integer('duration'); 
       table.timestamp('timestamp').defaultTo(knex.fn.now()); 
       
       // Add unique constraint

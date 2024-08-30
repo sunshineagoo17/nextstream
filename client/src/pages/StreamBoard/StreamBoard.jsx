@@ -30,6 +30,7 @@ const MediaItem = ({ item, index, status }) => {
     >
       <div className="streamboard__media-item-icon">
         <FontAwesomeIcon icon={item.media_type === 'movie' ? faFilm : faTv} />
+        <p className="streamboard__media-item-duration">{item.duration ? `${item.duration} min` : 'Duration N/A'}</p>
       </div>
       <div className="streamboard__media-item-details">
         <h3 className="streamboard__media-item-title">{item.title}</h3>
