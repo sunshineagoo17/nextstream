@@ -13,7 +13,7 @@ const ItemTypes = {
   MEDIA: 'media',
 };
 
-const MediaItem = ({ item, moveMediaItem, index, status }) => {
+const MediaItem = ({ item, index, status }) => {
   const [{ isDragging }, drag] = useDrag(() => ({
     type: ItemTypes.MEDIA,
     item: { id: item.media_id, index, currentStatus: status },
@@ -74,7 +74,7 @@ const MediaColumn = ({ status, mediaItems, moveMediaItem, showPagination, onPage
 };
 
 const StreamBoard = () => {
-  const { userId, user } = useContext(AuthContext);  
+  const { userId, name } = useContext(AuthContext);  
   const [mediaItems, setMediaItems] = useState({
     to_watch: [],
     scheduled: [],
@@ -195,7 +195,7 @@ const StreamBoard = () => {
     <DndProvider backend={HTML5Backend}>
       <div className="streamboard-container">
         <div className="streamboard__title">
-          {user && user.username ? `${user.username}'s Streamboard` : 'Your Streamboard'}
+            {name ? `${name}'s Streamboard` : 'Your Streamboard'}
         </div>
         {loading && <Loader />} 
         {alert.message && (
