@@ -2,7 +2,11 @@ import { useState, useEffect, useContext } from 'react';
 import { useDrag, useDrop, DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFilm, faTv } from '@fortawesome/free-solid-svg-icons';
+import {
+  faFilm, faTv, faMap, faBomb, faPalette, faLaugh, faFingerprint, faClapperboard, faTheaterMasks, faQuidditch, faGhost,
+  faUserSecret, faVideoCamera, faFaceKissWinkHeart, faMusic, faHandSpock, faMask, faChildren, faFighterJet, faScroll,
+  faHatCowboy, faChild, faTelevision, faBalanceScale, faHeartBroken, faBolt, faExplosion, faMeteor, faMicrophone
+} from '@fortawesome/free-solid-svg-icons';
 import { AuthContext } from '../../context/AuthContext/AuthContext';  
 import Loader from '../../components/Loader/Loader';
 import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
@@ -11,6 +15,36 @@ import './StreamBoard.scss';
 
 const ItemTypes = {
   MEDIA: 'media',
+};
+
+const genreIconMapping = {
+  Adventure: faMap,
+  Action: faBomb,
+  Animation: faPalette,
+  Comedy: faLaugh,
+  Crime: faFingerprint,
+  Documentary: faClapperboard,
+  Drama: faTheaterMasks,
+  Fantasy: faQuidditch,
+  History: faScroll,
+  Horror: faGhost,
+  Music: faMusic,
+  Mystery: faUserSecret,
+  Politics: faBalanceScale,
+  Reality: faVideoCamera,
+  Romance: faFaceKissWinkHeart,
+  'Science Fiction': faHandSpock,
+  Soap: faHeartBroken,
+  Talk: faMicrophone,
+  Thriller: faMask,
+  War: faFighterJet,
+  Western: faHatCowboy,
+  Family: faChildren,
+  Kids: faChild,
+  'TV Movie': faTelevision,
+  'Action & Adventure': faBolt,
+  'War & Politics': faExplosion,
+  'Sci-Fi & Fantasy': faMeteor
 };
 
 const MediaItem = ({ item, index, status }) => {
@@ -34,7 +68,17 @@ const MediaItem = ({ item, index, status }) => {
       </div>
       <div className="streamboard__media-item-details">
         <h3 className="streamboard__media-item-title">{item.title}</h3>
-        <p className="streamboard__media-item-genre">{item.genre}</p>
+        <div className="streamboard__media-item-genre">
+          {item.genre && item.genre.split(', ').map((genreName, i) => (
+            <span key={i} className="streamboard__media-genre-item">
+              <FontAwesomeIcon
+                icon={genreIconMapping[genreName] || faFilm}
+                className="streamboard__genre-icon"
+              /> 
+              <span className="streamboard__genre-text">{genreName}</span>
+            </span>
+          ))}
+        </div>
       </div>
     </div>
   );

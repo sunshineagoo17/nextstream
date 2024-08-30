@@ -24,33 +24,33 @@
 }
 
 @keyframes wave {
-    0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
-    }
+  0% {
+    background-position: 0% 50%;
   }
-  
-  .streamboard {
-    display: flex;
-    background: linear-gradient(135deg, $primary-button-blue, $primary-very-light-blue, $primary-pale-blue, $neutral-white);
-    background-size: 300% 300%;
-    animation: wave 10s ease infinite;
-    justify-content: space-around;
-    padding: 2rem;
-    flex-wrap: wrap;
-    border: 5px solid $primary-very-light-blue;
-    border-radius: 1rem;
-    box-shadow: $shadow-quaternary;
-  
-    @include tablet {
-      flex-wrap: nowrap;
-    }
-  
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.streamboard {
+  display: flex;
+  background: linear-gradient(135deg, $primary-button-blue, $primary-very-light-blue, $primary-pale-blue, $neutral-white);
+  background-size: 300% 300%;
+  animation: wave 10s ease infinite;
+  justify-content: space-around;
+  padding: 2rem;
+  flex-wrap: wrap;
+  border: 5px solid $primary-very-light-blue;
+  border-radius: 1rem;
+  box-shadow: $shadow-quaternary;
+
+  @include tablet {
+    flex-wrap: nowrap;
+  }
+
   &__header-text {
     font-size: 1.5rem;
     font-weight: bold;
@@ -58,16 +58,23 @@
     text-shadow: $shadow-primary;
     text-align: center;
     color: $neutral-white;
-    text-shadow: $shadow-primary;
 
     @include tablet {
-        font-size: 2.5rem;
-        line-height: 2.5rem;
+      font-size: 2.5rem;
+      line-height: 2.5rem;
+    }
+  }
+
+  &__genre-text {
+    display: none;
+
+    @include tablet {
+      display: inline;
     }
   }
 
   &__title {
-    display: flex; 
+    display: flex;
     justify-content: center;
     align-items: center;
     gap: .25rem;
@@ -75,7 +82,7 @@
     padding: 1rem;
     width: 100%;
     border-radius: .75rem;
-    box-shadow: .3125rem .3125rem .9375rem rgba(0, 0, 0, .2), -.3125rem -3125rem .9375rem rgba(255, 255, 255, .1);
+    box-shadow: .3125rem .3125rem .9375rem rgba(0, 0, 0, .2), -.3125rem -.3125rem .9375rem rgba(255, 255, 255, .1);
     border: .1875rem solid $neutral-white;
     position: relative;
     overflow: hidden;
@@ -106,7 +113,7 @@
       margin-bottom: 2.2rem;
     }
   }
-  
+
   &__copy {
     color: $pastel-blue;
     font-family: $primary-font;
@@ -120,15 +127,14 @@
     box-shadow: $shadow-secondary;
 
     @include tablet {
-        font-size: 1.125rem;
-        line-height: 1.5rem;
+      font-size: 1.125rem;
+      line-height: 1.5rem;
     }
 
     @include desktop {
-        line-height: 1.75rem;
-        font-size: 1.25rem;
+      line-height: 1.75rem;
+      font-size: 1.25rem;
     }
-
   }
 }
 
@@ -156,7 +162,7 @@
 }
 
 .streamboard__media-column--to_watch {
-    background-color: $primary-pale-blue;
+  background-color: $primary-pale-blue;
 }
 
 .streamboard__media-column--scheduled {
@@ -164,7 +170,7 @@
 }
 
 .streamboard__media-column--watched {
-    background-color: $primary-very-light-blue;
+  background-color: $primary-very-light-blue;
 }
 
 .streamboard__media-column-pagination {
@@ -193,88 +199,96 @@
 }
 
 .streamboard__media-item {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 12px;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1),
+              -4px -4px 8px rgba(255, 255, 255, 0.7);
+  padding: 1rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  @include tablet {
+    padding: 1.25rem;
+  }
+
+  @include desktop {
+    padding: 1.5rem;
+  }
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.2),
+                -6px -6px 12px rgba(255, 255, 255, 0.9);
+  }
+
+  &--dragging {
+    transform: scale(1.05);
+  }
+
+  &__icon {
+    font-size: 1.5rem;
+    margin-right: 0.75rem;
+    color: #007BFF;
+
+    @include tablet {
+      font-size: 2rem;
+    }
+
+    @include desktop {
+      font-size: 2.5rem;
+    }
+  }
+
+  &__details {
+    flex: 1;
+  }
+
+  &__title {
+    font-size: 1rem;
+    color: #222;
+    margin: 0;
+
+    @include tablet {
+      font-size: 1.25rem;
+    }
+
+    @include desktop {
+      font-size: 1.5rem;
+    }
+  }
+
+  &__genre {
     display: flex;
     align-items: center;
-    background: rgba(255, 255, 255, 0.4);
-    border-radius: 12px;
-    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1),
-                -4px -4px 8px rgba(255, 255, 255, 0.7);
-    padding: 1rem;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-  
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: #666;
+
     @include tablet {
-      padding: 1.25rem;
-    }
-  
-    @include desktop {
-      padding: 1.5rem;
-    }
-  
-    &:hover {
-      transform: translateY(-5px);
-      box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.2),
-                  -6px -6px 12px rgba(255, 255, 255, 0.9);
-    }
-  
-    &--dragging {
-      transform: scale(1.05);
-    }
-  
-    &__icon {
-      font-size: 1.5rem;
-      margin-right: 0.75rem;
-      color: #007BFF;
-  
-      @include tablet {
-        font-size: 2rem;
-      }
-  
-      @include desktop {
-        font-size: 2.5rem;
-      }
-    }
-  
-    &__details {
-      flex: 1;
-    }
-  
-    &__title {
       font-size: 1rem;
-      color: #222;
-      margin: 0;
-  
-      @include tablet {
-        font-size: 1.25rem;
-      }
-  
-      @include desktop {
-        font-size: 1.5rem;
-      }
     }
-  
-    &__genre {
-      font-size: 0.85rem;
+
+    @include desktop {
+      font-size: 1.15rem;
+    }
+
+    .streamboard__genre-icon {
+      font-size: 1rem;
       color: #666;
-  
-      @include tablet {
-        font-size: 1rem;
-      }
-  
-      @include desktop {
-        font-size: 1.15rem;
-      }
     }
-  
-    &__duration {
-      font-size: 0.75rem;
-      color: #999;
-  
-      @include tablet {
-        font-size: 1rem;
-      }
-  
-      @include desktop {
-        font-size: 1.15rem;
-      }
+  }
+
+  &__duration {
+    font-size: 0.75rem;
+    color: #999;
+
+    @include tablet {
+      font-size: 1rem;
     }
-  }  
+
+    @include desktop {
+      font-size: 1.15rem;
+    }
+  }
+}
