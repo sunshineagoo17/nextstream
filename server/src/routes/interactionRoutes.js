@@ -3,6 +3,8 @@ const router = express.Router();
 const axios = require('axios');
 const knexConfig = require('../../knexfile');
 const db = require('knex')(knexConfig.development);
+const authenticate = require('../middleware/authenticate');
+const guestAuthenticate = require('../middleware/guestAuthenticate');
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
 const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
 
@@ -128,8 +130,20 @@ router.post('/', async (req, res) => {
   }
 });
 
-// Fetch initial top picks for a user
-router.get('/toppicks/:userId', async (req, res) => {
+// Fetch initial top picks for a user or guest
+router.get('/toppicks/:userId', (req, res, next) => {
+  const token = req.cookies.token || req.cookies.guestToken;
+
+  if (token) {
+    if (req.cookies.token) {
+      authenticate(req, res, next);
+    } else if (req.cookies.guestToken) {
+      guestAuthenticate(req, res, next);
+    }
+  } else {
+    return res.status(401).json({ message: 'Access denied. No token provided.' });
+  }
+}, async (req, res) => {
   const { userId } = req.params;
 
   try {

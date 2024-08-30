@@ -80,4 +80,27 @@ router.post('/logout', (req, res) => {
   res.json({ success: true, message: 'Logged out successfully' });
 });
 
+// Guest Login Route
+router.post('/guest-login', (req, res) => {
+  // Create a JWT token with a 'guest' role and no userId
+  const token = jwt.sign({ role: 'guest' }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+  // Set the JWT as a cookie
+  res.cookie('guestToken', token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'strict',
+    path: '/',
+    expires: new Date(Date.now() + 3600000) 
+  });
+
+  res.json({ success: true, message: 'Guest logged in successfully', token });
+});
+
+// Guest Logout Route
+router.post('/guest-logout', (req, res) => {
+  res.clearCookie('guestToken');
+  res.json({ success: true, message: 'Guest logged out successfully' });
+});
+
 module.exports = router;

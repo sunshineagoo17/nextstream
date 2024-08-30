@@ -17,7 +17,7 @@ import './TopPicksPage.scss';
 import api from '../../services/api';
 
 const TopPicksPage = () => {
-  const { userId } = useContext(AuthContext);
+  const { userId, isGuest } = useContext(AuthContext);
   const { name } = useContext(AuthContext);
   const [media, setMedia] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -42,43 +42,50 @@ const TopPicksPage = () => {
         setIsLoading(true);
         let initialMedia = [];
   
+        const idToUse = isGuest ? 'guestUserId' : userId;
+        console.log('Fetching media for userId:', idToUse);
+  
         const storedMedia = localStorage.getItem('media');
         if (storedMedia) {
           // Parse stored media if it exists
           initialMedia = JSON.parse(storedMedia);
+          console.log('Using stored media:', initialMedia);
         } else {
-          // Fetch top picks
-          const topPicksResponse = await api.get(`/api/interactions/toppicks/${userId}`);
+          const topPicksResponse = await api.get(`/api/interactions/toppicks/${idToUse}`);
           let topPicks = topPicksResponse.data.topPicks;
+          console.log('Fetched top picks:', topPicks);
   
-          // Fetch initial recommendations
-          const recommendationsResponse = await api.get(`/api/recommendations/${userId}`, {
-            params: { limit: 4 },
-          });
-          let recommendations = recommendationsResponse.data.recommendations;
-  
-          // Combine top picks and recommendations, ensuring no duplicates
-          initialMedia = [...topPicks, ...recommendations.filter(rec => !topPicks.some(tp => tp.id === rec.id))];
+          if (!isGuest) {
+            const recommendationsResponse = await api.get(`/api/recommendations/${idToUse}`, {
+              params: { limit: 4 },
+            });
+            let recommendations = recommendationsResponse.data.recommendations;
+            initialMedia = [...topPicks, ...recommendations.filter(rec => !topPicks.some(tp => tp.id === rec.id))];
+          } else {
+            initialMedia = topPicks;
+          }
   
           // Save the combined media array to local storage
           localStorage.setItem('media', JSON.stringify(initialMedia));
+          console.log('Combined media:', initialMedia);
         }
   
         // Set the media state to the combined data
         setMedia(initialMedia);
-        setIsExpanded(initialMedia.length > 8); // Show all if more than 8
+        setIsExpanded(initialMedia.length > 8);
       } catch (error) {
         console.error('Error fetching initial media:', error);
         showAlert('Error fetching media. Please try again later.', 'error');
       } finally {
+        console.log('Finished fetching media');
         setIsLoading(false);
       }
     };
   
-    if (userId) {
+    if (userId || isGuest) {
       fetchInitialMedia();
     }
-  }, [userId]);  
+  }, [userId, isGuest]);
 
   const handleShare = (title, mediaId, mediaType) => {
     const mediaTitle = title || 'Title Unavailable'; 
@@ -86,6 +93,11 @@ const TopPicksPage = () => {
 
     const nextViewUrl = `${window.location.origin}/nextview/${userId}/${mediaType}/${mediaId}`;
     console.log('Constructed URL:', nextViewUrl); 
+
+    if (isGuest) {
+      showAlert('Guests cannot share media. Please log in to access more features.', 'info');
+      return;
+    }
 
     if (navigator.share) {
       navigator.share({
@@ -99,9 +111,14 @@ const TopPicksPage = () => {
       .then(() => showAlert('Link copied to clipboard!', 'success'))
       .catch((error) => showAlert('Failed to copy link', 'error'));
     }
-};
+  };
 
   const fetchRecommendations = async () => {
+    if (isGuest) {
+      showAlert('Guests cannot fetch new recommendations. Please log in to access more features.', 'info');
+      return;
+    }
+
     try {
       setIsFetchingMore(true);
       const response = await api.get(`/api/recommendations/${userId}`, {
@@ -152,6 +169,11 @@ const TopPicksPage = () => {
   };
 
   const handleAddToCalendar = async (title, mediaType, mediaId) => {
+    if (isGuest) {
+      showAlert('Guests cannot add to calendar.', 'info');
+      return;
+    }
+
     try {
         let mediaTitle = title;
 
@@ -196,6 +218,11 @@ const TopPicksPage = () => {
   };
 
   const handleLike = async (media_id, media_type) => {
+    if (isGuest) {
+      showAlert('Guests cannot like media. Please log in to access more features.', 'info');
+      return;
+    }
+
     try {
       await api.post('/api/interactions', { userId, media_id, interaction: 1, media_type });
       showAlert('You liked this media!', 'success');
@@ -211,6 +238,11 @@ const TopPicksPage = () => {
   };  
 
   const handleDislike = async (media_id, media_type) => {
+    if (isGuest) {
+      showAlert('Guests cannot dislike media. Please log in to access more features.', 'info');
+      return;
+    }
+
     try {
       await api.post('/api/interactions', { userId, media_id, interaction: 0, media_type });
       showAlert('You disliked this media!', 'info');
@@ -244,6 +276,13 @@ const TopPicksPage = () => {
   const closeModal = () => {
     setIsModalOpen(false);
     setTrailerUrl('');
+  };
+
+  const handleClick = (e) => {
+    if (isGuest) {
+      e.preventDefault();
+      showAlert('Guests cannot access this feature. Please log in for full access.', 'info');
+    }
   };
 
   return (
@@ -283,7 +322,11 @@ const TopPicksPage = () => {
                   <h2 className="recommendations-page__subtitle">{item.title || item.name || 'Title: N/A'}</h2>
                   <UserRating rating={(item.vote_average || 0) * 10} className="recommendations-page__rating-icon" />
                   <p className="recommendations-page__media-icon">
-                    <Link to={`/nextview/${userId}/${item.media_type}/${item.id}`}>
+                  <Link 
+                      to={`/nextview/${userId}/${item.media_type}/${item.id}`} 
+                      onClick={handleClick}
+                      aria-disabled={isGuest ? "true" : "false"}
+                    >
                       <FontAwesomeIcon
                         icon={item.media_type === 'tv' ? faTv : faFilm}
                         className="recommendations-page__media-icon-link"

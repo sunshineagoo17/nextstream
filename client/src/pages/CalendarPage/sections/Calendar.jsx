@@ -10,6 +10,7 @@ import interactionPlugin from '@fullcalendar/interaction';
 import moment from 'moment-timezone';
 import api from '../../../services/api';
 import Loader from '../../../components/Loader/Loader';
+import CustomAlerts from '../../../components/CustomAlerts/CustomAlerts';
 import './Calendar.scss';
 
 const viewNames = {
@@ -19,7 +20,7 @@ const viewNames = {
 };
 
 const Calendar = forwardRef(({ userId, eventTitle, mediaType, duration, onClose }, ref) => {
-  const { isAuthenticated } = useContext(AuthContext);
+  const { isAuthenticated, isGuest } = useContext(AuthContext);
   const [events, setEvents] = useState([]);
   const [filteredEvents, setFilteredEvents] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
@@ -35,6 +36,7 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, duration, onClose 
   const [newEventType, setNewEventType] = useState(mediaType || 'movie');
   const calendarRef = useRef(null);
   const miniCalendarRef = useRef(null);
+  const [customAlert, setCustomAlert] = useState({ message: '', type: '' }); 
   const isDeletingEvent = useRef(false);
 
   const fetchEvents = useCallback(async () => {
@@ -79,6 +81,11 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, duration, onClose 
     };
   }, [miniCalendarVisible]);
 
+  const showCustomAlert = (message, type) => {
+    setCustomAlert({ message, type });
+    setTimeout(() => setCustomAlert({ message: '', type: '' }), 3000); 
+  };
+
   const handleDateClick = (arg) => {
     const localDate = moment(arg.date).format('YYYY-MM-DDTHH:mm:ss');
     setNewEventStartDate(localDate);
@@ -117,6 +124,11 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, duration, onClose 
   };
 
   const handleAddEvent = async () => {
+    if (isGuest) {
+      showCustomAlert('Guests cannot add events.', 'info');
+      return;
+    }
+
     setLoading(true);
     try {
       const newEvent = {
@@ -455,6 +467,13 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, duration, onClose 
         </div>
       </div>
       {loading && <Loader />}
+      {customAlert.message && (
+        <CustomAlerts
+          message={customAlert.message}
+          type={customAlert.type}
+          onClose={() => setCustomAlert({ message: '', type: '' })}
+        />
+      )}
       {modalVisible && (
         <div className="modal">
           <div className="modal-content">

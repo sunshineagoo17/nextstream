@@ -11,7 +11,7 @@ import LogoutIcon from "../../assets/images/logout-icon.svg";
 import "./Header.scss";
 
 const Header = () => {
-  const { isAuthenticated, logout } = useContext(AuthContext);
+  const { isAuthenticated, isGuest, logout } = useContext(AuthContext);
   const navigate = useNavigate();
   const [query, setQuery] = useState('');
   const { searchBarDesktopRef, searchBarMobileRef } = useSearchBar();
@@ -105,7 +105,7 @@ const Header = () => {
             <img className="header__logo" alt="Nextstream logo" src={nextStreamLogo} />
           </Link>
         </div>
-        {isAuthenticated ? (
+        {(isAuthenticated || isGuest) ? (
           <button className="header__login-container" onClick={handleLogout}>
             <div className="header__login">
               <div className="header__sign-in-txt">Logout</div>
