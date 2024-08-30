@@ -193,69 +193,88 @@
 }
 
 .streamboard__media-item {
-  display: flex;
-  align-items: center;
-  background: rgba(255, 255, 255, 0.4);
-  border-radius: 12px;
-  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1),
-              -4px -4px 8px rgba(255, 255, 255, 0.7);
-  padding: 1rem;
-  transition: transform 0.2s ease;
-
-  @include tablet {
-    padding: 1.25rem;
-  }
-
-  @include desktop {
-    padding: 1.5rem;
-  }
-
-  &--dragging {
-    transform: scale(1.05);
-  }
-
-  &__icon {
-    font-size: 1.5rem;
-    margin-right: 0.75rem;
-    color: #007BFF;
-
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 12px;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1),
+                -4px -4px 8px rgba(255, 255, 255, 0.7);
+    padding: 1rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  
     @include tablet {
-      font-size: 2rem;
+      padding: 1.25rem;
     }
-
+  
     @include desktop {
-      font-size: 2.5rem;
+      padding: 1.5rem;
     }
-  }
-
-  &__details {
-    flex: 1;
-  }
-
-  &__title {
-    font-size: 1rem;
-    color: #222;
-    margin: 0;
-
-    @include tablet {
-      font-size: 1.25rem;
+  
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.2),
+                  -6px -6px 12px rgba(255, 255, 255, 0.9);
     }
-
-    @include desktop {
+  
+    &--dragging {
+      transform: scale(1.05);
+    }
+  
+    &__icon {
       font-size: 1.5rem;
+      margin-right: 0.75rem;
+      color: #007BFF;
+  
+      @include tablet {
+        font-size: 2rem;
+      }
+  
+      @include desktop {
+        font-size: 2.5rem;
+      }
     }
-  }
-
-  &__genre {
-    font-size: 0.85rem;
-    color: #666;
-
-    @include tablet {
+  
+    &__details {
+      flex: 1;
+    }
+  
+    &__title {
       font-size: 1rem;
+      color: #222;
+      margin: 0;
+  
+      @include tablet {
+        font-size: 1.25rem;
+      }
+  
+      @include desktop {
+        font-size: 1.5rem;
+      }
     }
-
-    @include desktop {
-      font-size: 1.15rem;
+  
+    &__genre {
+      font-size: 0.85rem;
+      color: #666;
+  
+      @include tablet {
+        font-size: 1rem;
+      }
+  
+      @include desktop {
+        font-size: 1.15rem;
+      }
     }
-  }
-}
+  
+    &__duration {
+      font-size: 0.75rem;
+      color: #999;
+  
+      @include tablet {
+        font-size: 1rem;
+      }
+  
+      @include desktop {
+        font-size: 1.15rem;
+      }
+    }
+  }  
