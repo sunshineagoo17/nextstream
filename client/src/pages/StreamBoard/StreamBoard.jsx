@@ -86,7 +86,7 @@ const MediaItem = ({ item, index, status, moveMediaItem, handleAddToCalendar, ha
 
       <div className="streamboard__media-actions">
         <Link to={`/nextview/${item.userId}/${item.media_type}/${item.media_id}`}>
-            <FontAwesomeIcon className="streamboard__media-type-icon"icon={item.media_type === 'movie' ? faFilm : faTv} />
+          <FontAwesomeIcon className="streamboard__media-type-icon" icon={item.media_type === 'movie' ? faFilm : faTv} />
         </Link>
         <FontAwesomeIcon
           icon={faCalendarPlus}
@@ -357,7 +357,8 @@ const StreamBoard = () => {
             {name ? `${name}'s Streamboard` : 'Your Streamboard'}
           </h1>
           <p className="streamboard__copy">
-            Drag, Drop, Done: Manage Your Favourites with Ease!
+            Drag, Drop, Done: Manage Your Favourites with Ease!<br />
+            Your cards are looking a bit empty? Start adding some <Link to={`/faves/${userId}`} className='streamboard__link'>favourites</Link> and manage your must-watch list with ease.
           </p>
         </div>
         {loading && <Loader />}

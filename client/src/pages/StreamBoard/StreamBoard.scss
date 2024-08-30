@@ -58,10 +58,35 @@
     text-shadow: $shadow-primary;
     text-align: center;
     color: $neutral-white;
+    margin-bottom: .5rem;
 
     @include tablet {
       font-size: 2.5rem;
       line-height: 2.5rem;
+    }
+  }
+
+  &__link {
+    font-weight: bold;
+    color: $primary-pale-blue;
+    text-shadow: $shadow-primary;
+    border: 3px solid $frosted-glass;
+    border-radius: .5rem;
+    padding: .08rem .25rem;
+    box-shadow: $shadow-primary;
+
+    &:hover {
+        font-weight: normal;
+        color: $primary-button-blue;
+        background-color: $neutral-white;
+    }
+
+    &:active {
+        border: none;
+        background-color: $primary-medium-blue;
+        color: $primary-pale-blue;
+        text-shadow: none;
+        box-shadow: $shadow-septenary;
     }
   }
 
@@ -194,21 +219,23 @@
     color: $pastel-blue;
     font-family: $primary-font;
     font-size: .85rem;
-    line-height: 1.15rem;
+    line-height: 1.5rem;
     font-weight: normal;
     background-color: $frosted-glass;
     padding: .25rem .75rem;
     border-radius: .5rem;
     border: 3px solid $frosted-glass;
     box-shadow: $shadow-secondary;
+    margin-bottom: .5rem;
 
     @include tablet {
       font-size: 1.125rem;
-      line-height: 1.5rem;
+      line-height: 2rem;
+      margin-bottom: 1rem;
     }
 
     @include desktop {
-      line-height: 1.75rem;
+      line-height: 2.25rem;
       font-size: 1.25rem;
     }
   }
