@@ -140,6 +140,13 @@
     }
   }
 
+  &__btn-create-account-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+  }
+
   &__content-card {
     background-color: $primary-dark-blue;
     padding: 2rem;
@@ -152,37 +159,65 @@
     @include borderAnimation;
   }
 
-  &__btn-create-account {
-    background: linear-gradient(45deg, $primary-light-blue, $primary-pale-blue); 
+  &__btn-create-account,
+  &__guest-link {
     border: none;
     border-radius: .3125rem;
     color: $primary-dark-blue;
-    padding: .625rem 1.25rem;
-    font-size: .85rem;
+    padding: .625rem .25rem;
+    font-size: .65rem;
     font-family: $primary-font;
-    margin-left: .5rem;
     cursor: pointer;
     margin-top: 1rem;
+    line-height: .85rem;
     transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
     box-shadow: 0 .25rem .375rem rgba($neutral-black, 0.1);
 
     &:hover {
-      background: linear-gradient(45deg, $primary-medium-blue, $primary-cyan); 
       transform: scale(1.05);
       color: $neutral-white;
       box-shadow: 0 .375rem .5rem rgba($neutral-black, 0.15);
     }
 
     &:active {
-      background: linear-gradient(45deg, $primary-light-blue, $base-darker-blue); 
       transform: scale(0.95);
       color: $primary-pale-blue;
       box-shadow: 0 .125rem .25rem rgba($neutral-black, 0.2);
+      font-weight: bold;
     }
 
     &:focus { 
       outline: none;
       box-shadow: $shadow-septenary; 
+    }
+
+    @include tablet {
+      padding: .625rem 1rem;
+      font-size: .85rem;
+    }
+  }
+
+  &__btn-create-account {
+    background: linear-gradient(45deg, $primary-light-blue, $primary-pale-blue); 
+
+    &:hover {
+      background: linear-gradient(45deg, $primary-medium-blue, $primary-cyan); 
+    }
+
+    &:active {
+      background: linear-gradient(45deg, $primary-light-blue, $base-darker-blue); 
+    }
+  }
+
+  &__guest-link {
+    background: linear-gradient(45deg, $primary-pale-blue, $primary-light-blue); 
+
+    &:hover {
+      background: linear-gradient(45deg, $primary-cyan, $primary-medium-blue); 
+    }
+
+    &:active {
+      background: linear-gradient(45deg, $base-darker-blue, $primary-light-blue); 
     }
   }
   

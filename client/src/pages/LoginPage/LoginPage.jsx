@@ -23,7 +23,7 @@ export const LoginPage = () => {
   const [errors, setErrors] = useState({});
   const [isForgotPasswordModalOpen, setIsForgotPasswordModalOpen] = useState(false);
   const navigate = useNavigate();
-  const { login } = useContext(AuthContext);
+  const { login, guestLogin } = useContext(AuthContext);
 
   useEffect(() => {
     const storedEmail = Cookies.get('rememberedEmail');
@@ -56,6 +56,12 @@ export const LoginPage = () => {
   const clearErrors = () => {
     setErrors({});
   };
+
+  const handleGuestClick = () => {
+    const guestToken = 'guestTokenValue'; 
+    guestLogin(guestToken); 
+    navigate('/top-picks/guest');
+};
 
   const handleSignIn = async () => {
     if (!validateFields()) return;
@@ -193,9 +199,10 @@ export const LoginPage = () => {
               <div className="login__btn-create-account-wrapper">
                 <Link to="/register" aria-label="Create a NextStream Account" className="login__btn-create-account-container">
                   <button className="login__btn-create-account">
-                    Create an account
+                    Create an Account
                   </button>
                 </Link>
+                <button className="login__guest-link" onClick={handleGuestClick} aria-label="Continue as Guest">Login as a Guest</button>
               </div>
 
               {errors.general && (
