@@ -288,33 +288,45 @@
   }
 
   &--to_watch::before {
-    content: "Watchlist";
+    content: "WATCHLIST";
     font-size: 1rem;
     font-weight: bold;
     background-color: $primary-medium-blue;
     font-family: $secondary-font;
     color: $neutral-white;
     box-shadow: $shadow-secondary;
+
+    @include tablet {
+        font-size: 1.25rem;
+    }
   }
 
   &--scheduled::before {
-    content: "Scheduled";
+    content: "SCHEDULED";
     font-size: 1rem;
     font-weight: bold;
     background-color: $primary-medium-blue;
     font-family: $secondary-font;
     color: $neutral-white;
     box-shadow: $shadow-secondary;
+
+    @include tablet {
+        font-size: 1.25rem;
+    }
   }
 
   &--watched::before {
-    content: "Watched";
+    content: "WATCHED";
     font-size: 1rem;
     font-weight: bold;
     background-color: $primary-medium-blue;
     font-family: $secondary-font;
     color: $neutral-white;
     box-shadow: $shadow-secondary;
+
+    @include tablet {
+        font-size: 1.25rem;
+    }
   }
 
   &__content {
@@ -489,6 +501,12 @@
     line-height: 1.25rem;
     border-radius: .5rem;
     margin-bottom: .5rem;
+    font-size: .95rem;
+
+    @include tablet {
+        font-size: 1rem;
+        padding: .15rem .25rem;
+    }
 }
 
 .streamboard__media-type-icon,
