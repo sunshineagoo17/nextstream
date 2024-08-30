@@ -65,15 +65,12 @@ const MediaItem = ({ item, index, status, moveMediaItem, handleAddToCalendar, ha
       className={`streamboard__media-item${isDragging ? ' streamboard__media-item--dragging' : ''}`}
       style={{ opacity: isDragging ? 0.5 : 1 }}
     >
+      <h3 className="streamboard__media-item-title">{item.title}</h3>
       <div className="streamboard__media-item-icon">
-        <Link to={`/nextview/${item.userId}/${item.media_type}/${item.media_id}`}>
-          <FontAwesomeIcon icon={item.media_type === 'movie' ? faFilm : faTv} />
-        </Link>
-        <p className="streamboard__media-item-duration">{item.duration ? `${item.duration} min` : 'Duration N/A'}</p>
+        <p className="streamboard__media-item-duration">Duration: {item.duration ? `${item.duration} min` : 'Duration N/A'}</p>
       </div>
 
       <div className="streamboard__media-item-details">
-        <h3 className="streamboard__media-item-title">{item.title}</h3>
         <div className="streamboard__media-item-genre">
           {item.genre && item.genre.split(', ').map((genreName, i) => (
             <span key={i} className="streamboard__media-genre-item">
@@ -87,8 +84,10 @@ const MediaItem = ({ item, index, status, moveMediaItem, handleAddToCalendar, ha
         </div>
       </div>
 
-      {/* Calendar and Trash icons in the lower right */}
       <div className="streamboard__media-actions">
+        <Link to={`/nextview/${item.userId}/${item.media_type}/${item.media_id}`}>
+            <FontAwesomeIcon className="streamboard__media-type-icon"icon={item.media_type === 'movie' ? faFilm : faTv} />
+        </Link>
         <FontAwesomeIcon
           icon={faCalendarPlus}
           className="streamboard__calendar-icon"

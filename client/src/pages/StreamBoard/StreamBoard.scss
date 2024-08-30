@@ -11,7 +11,7 @@
     font-size: 1.5rem;
     font-weight: bold;
     margin-bottom: 1.5rem;
-    color: #333;
+    color: $primary-dark-blue;
 
     @include tablet {
       font-size: 2rem;
@@ -311,6 +311,7 @@
 
 .streamboard__media-item {
   display: flex;
+  flex-direction: column;
   align-items: center;
   background: rgba(255, 255, 255, 0.4);
   border-radius: 12px;
@@ -337,9 +338,23 @@
     transform: scale(1.05);
   }
 
+  &__title {
+    font-size: 1rem;
+    color: #222;
+    margin-bottom: 0.5rem;
+
+    @include tablet {
+      font-size: 1.25rem;
+    }
+
+    @include desktop {
+      font-size: 1.5rem;
+    }
+  }
+
   &__icon {
     font-size: 1.5rem;
-    margin-right: 0.75rem;
+    margin-bottom: 0.75rem;
     color: #007BFF;
 
     @include tablet {
@@ -353,20 +368,7 @@
 
   &__details {
     flex: 1;
-  }
-
-  &__title {
-    font-size: 1rem;
-    color: #222;
-    margin: 0;
-
-    @include tablet {
-      font-size: 1.25rem;
-    }
-
-    @include desktop {
-      font-size: 1.5rem;
-    }
+    text-align: center;
   }
 
   &__genre {
@@ -382,11 +384,6 @@
 
     @include desktop {
       font-size: 1.15rem;
-    }
-
-    .streamboard__genre-icon {
-      font-size: 1rem;
-      color: #666;
     }
 
     .streamboard__genre-text {
@@ -412,6 +409,11 @@
   }
 }
 
+.streamboard__genre-icon {
+    font-size: 1rem;
+    color: $primary-button-blue;
+  }
+
 .streamboard__media-column-pagination {
   display: flex;
   justify-content: space-between;
@@ -421,18 +423,120 @@
 .streamboard__pagination-button {
   padding: 5px 10px;
   cursor: pointer;
-  background-color: #007bff;
+  background-color: $primary-button-blue;
   color: $neutral-white;
-  border: none;
-  border-radius: 3px;
+  font-family: $primary-font;
+  border-radius: .5rem;
+  border: 2px solid $neutral-white;
   transition: background-color 0.3s ease;
+  box-shadow: $shadow-secondary;
+  text-shadow: $shadow-primary;
 
   &:hover {
-    background-color: darken(#007bff, 10%);
+    background-color: $primary-very-light-blue;
+    color: $primary-medium-blue;
+    text-shadow: $shadow-primary;
+    border-radius: 1rem;
+  }
+
+  &:active {
+    background-color: $neutral-white;
+    color: $primary-dark-blue;
+    box-shadow: $shadow-secondary;
+    border: 2px solid $neutral-white;
   }
 
   &:disabled {
     background-color: #ccc;
     cursor: not-allowed;
   }
+}
+
+.streamboard__media-item-title {
+    color: $neutral-white;
+    font-family: $secondary-font;
+    background-color: $primary-button-blue;
+    border: 5px solid $frosted-glass;
+    text-shadow: $shadow-primary;
+    box-shadow: $shadow-tertiary;
+    line-height: 1.25rem;
+    border-radius: .5rem;
+    margin-bottom: .5rem;
+}
+
+.streamboard__media-type-icon,
+  .streamboard__calendar-icon,
+  .streamboard__trash-icon {
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    background-color: $neutral-white;
+    color: $primary-medium-blue;
+    box-shadow: $shadow-primary;
+    border: 1px solid $frosted-glass;
+    cursor: pointer;
+    transition: transform 0.3s ease, color 0.3s ease;
+
+    &:hover {
+      background-color: $primary-dark-blue;
+      color: $neutral-white;
+      border: 1px solid $primary-button-blue;
+      transform: scale(1.1);
+    }
+
+    &:active {
+      background-color: $primary-light-blue;
+      transform: scale(0.9);
+      border: 2px solid $neutral-white;
+    }
+  }
+
+.streamboard__media-actions {
+    display: flex;
+    gap: .5rem;
+    margin-top: .5rem;
+}
+
+.streamboard__media-item-icon {
+    display: flex;
+    flex-direction: row;
+    gap: .5rem;
+    font-size: .85rem;
+    color: $primary-button-blue;
+}
+
+.streamboard__media-item-duration {
+    font-size: .85rem;
+    color: $primary-medium-blue;
+  }
+
+.streamboard__media-item-genre {
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 0.15rem;
+    margin-top: .3rem;
+  }
+
+  .streamboard__genre-text {
+    color: $primary-medium-blue;
+    font-size: .85rem;
+  }
+  
+  .streamboard__media-genre-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 0.15rem;
+    box-shadow: $shadow-secondary;
+    border: 3px solid $neutral-white;
+    padding: .15rem .25rem;
+    border-radius: .5rem;
+    line-height: .8rem;
+  }
+
+  .streamboard__media-item-details {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
