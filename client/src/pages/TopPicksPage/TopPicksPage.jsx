@@ -42,12 +42,11 @@ const TopPicksPage = () => {
         setIsLoading(true);
         let initialMedia = [];
   
-        const idToUse = isGuest ? 'guestUserId' : userId;
-        console.log('Fetching media for userId:', idToUse);
+        const idToUse = isGuest ? 'guest' : userId; // Use 'guest' instead of 'guestUserId'
+        console.log('Fetching media for id:', idToUse);
   
         const storedMedia = localStorage.getItem('media');
         if (storedMedia) {
-          // Parse stored media if it exists
           initialMedia = JSON.parse(storedMedia);
           console.log('Using stored media:', initialMedia);
         } else {
@@ -65,12 +64,10 @@ const TopPicksPage = () => {
             initialMedia = topPicks;
           }
   
-          // Save the combined media array to local storage
           localStorage.setItem('media', JSON.stringify(initialMedia));
           console.log('Combined media:', initialMedia);
         }
   
-        // Set the media state to the combined data
         setMedia(initialMedia);
         setIsExpanded(initialMedia.length > 8);
       } catch (error) {
@@ -85,7 +82,7 @@ const TopPicksPage = () => {
     if (userId || isGuest) {
       fetchInitialMedia();
     }
-  }, [userId, isGuest]);
+  }, [userId, isGuest]);  
 
   const handleShare = (title, mediaId, mediaType) => {
     const mediaTitle = title || 'Title Unavailable'; 

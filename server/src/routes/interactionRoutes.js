@@ -131,14 +131,14 @@ router.post('/', async (req, res) => {
 });
 
 // Fetch initial top picks for a user or guest
-router.get('/toppicks/:userId', (req, res, next) => {
+router.get('/toppicks/:userId', async (req, res, next) => {
   const token = req.cookies.token || req.cookies.guestToken;
 
   if (token) {
     if (req.cookies.token) {
-      authenticate(req, res, next);
+      authenticate(req, res, next); 
     } else if (req.cookies.guestToken) {
-      guestAuthenticate(req, res, next);
+      guestAuthenticate(req, res, next); 
     }
   } else {
     return res.status(401).json({ message: 'Access denied. No token provided.' });
