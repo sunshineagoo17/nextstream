@@ -136,14 +136,14 @@ router.get('/toppicks/:userId', async (req, res, next) => {
 
   if (token) {
     if (req.cookies.token) {
-      authenticate(req, res, next); 
+      await authenticate(req, res, next);
     } else if (req.cookies.guestToken) {
-      guestAuthenticate(req, res, next); 
+      await guestAuthenticate(req, res, next);
     }
   } else {
     return res.status(401).json({ message: 'Access denied. No token provided.' });
   }
-}, async (req, res) => {
+
   const { userId } = req.params;
 
   try {
@@ -274,7 +274,7 @@ router.get('/recommendations/:userId', async (req, res) => {
           const similarItems = similarMedia.data.results.map(item => ({
             ...item,
             media_type: media.media_type,
-            genres: details.genres // Add genres to each similar item
+            genres: details.genres 
           }));
 
           // Separate recommendations by media type

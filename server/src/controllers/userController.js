@@ -13,7 +13,7 @@ if (!fs.existsSync(uploadDir)) {
 // Multer setup for image upload
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'uploads/'); // Directory to save the uploaded files
+    cb(null, 'uploads/'); 
   },
   filename: function (req, file, cb) {
     cb(null, `${Date.now()}-${file.originalname}`);

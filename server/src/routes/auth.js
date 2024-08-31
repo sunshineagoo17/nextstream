@@ -82,7 +82,7 @@ router.post('/logout', (req, res) => {
 
 // Guest Login Route with extended expiration time
 router.post('/guest-login', (req, res) => {
-  // Create a JWT token with a 'guest' role and no userId
+  // Creates a JWT token with a 'guest' role and no userId
   const token = jwt.sign({ role: 'guest' }, process.env.JWT_SECRET, { expiresIn: '24h' });
 
   // Set the JWT as a cookie

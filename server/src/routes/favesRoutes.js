@@ -40,7 +40,7 @@ const getMediaTrailer = async (media_id, media_type) => {
   try {
     const url = `${TMDB_BASE_URL}/${media_type}/${media_id}/videos?api_key=${TMDB_API_KEY}`;
     const response = await axios.get(url);
-    console.log('Full TMDB response:', response.data); // Debugging line
+    console.log('Full TMDB response:', response.data); 
 
     let videoTypesChecked = [];
 

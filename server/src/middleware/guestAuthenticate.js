@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 
 const guestAuthenticate = (req, res, next) => {
   const token = req.cookies.guestToken;
-  console.log('Guest Token:', token);  // Log the token
+  console.log('Guest Token:', token);  
 
   if (!token) {
     return res.status(401).json({ message: 'Access denied. No guest token provided.' });
@@ -10,7 +10,7 @@ const guestAuthenticate = (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    console.log('Decoded Token:', decoded);  // Log the decoded token
+    console.log('Decoded Token:', decoded); 
 
     // Check if the token is close to expiration (e.g., less than 10 minutes left)
     const timeLeft = decoded.exp * 1000 - Date.now();
