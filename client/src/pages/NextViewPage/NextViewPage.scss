@@ -6,11 +6,11 @@
 .custom-tooltip {
   background-color: $primary-dark-blue !important;
   color: $neutral-white !important;
-  padding: 0.25rem !important;
+  padding: .25rem !important;
   border-radius: 1rem;
   font-family: $primary-font !important;
   text-shadow: none;
-  font-size: 0.75rem !important;
+  font-size: .75rem !important;
   line-height: 1.25rem;
   font-weight: bold;
   z-index: 9999;
@@ -81,7 +81,7 @@
     background: linear-gradient(145deg, $primary-dark-blue, darken($primary-button-blue, 5%));
     border-radius: .75rem;
     box-shadow: .3125rem .3125rem .9375rem rgba(0, 0, 0, .2), -.3125rem -3125rem .9375rem rgba(255, 255, 255, .1);
-    border: 5px solid $primary-very-light-blue;
+    border: .3125rem solid $primary-very-light-blue;
     position: relative;
     overflow: hidden;
     line-height: 2.15rem;
@@ -98,11 +98,10 @@
 
     &::before {
       content: "";
+      @include block-item(100%, 100%);
       position: absolute;
       top: 0;
       left: -100%;
-      width: 100%;
-      height: 100%;
       background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, .4) 50%, rgba(255, 255, 255, 0) 100%);
       transform: skewX(-25deg);
       transition: left 1s;
@@ -138,7 +137,7 @@
     font-size: .85rem;
     margin-bottom: .5rem;
     box-shadow: $shadow-primary;
-    border: 5px solid $frosted-glass;
+    border: .3125rem solid $frosted-glass;
     line-height: 1.25rem;
     min-width: 13.5rem;
     padding: .75rem;
@@ -161,7 +160,7 @@
     padding: .25rem;
     height: auto;
     border-radius: .5rem;
-    transition: transform 0.3s ease;
+    transition: transform .3s ease;
     background-color: $neutral-white;
     box-shadow: $shadow-secondary;
 
@@ -184,12 +183,12 @@
     background: $frosted-glass;
     border-radius: 1rem;
     padding: 1rem;
-    border: 5px solid $primary-very-light-blue;
+    border: .3125rem solid $primary-very-light-blue;
     box-shadow: $shadow-tertiary;
 
     h3 {
       color: $primary-button-blue;
-      margin-bottom: 0.5rem;
+      margin-bottom: .5rem;
       font-size: 1.25rem;
 
       @include tablet {
@@ -206,29 +205,29 @@
   &__share-button,
   &__thumbs-up,
   &__thumbs-down {
-    padding: 0.25rem;
-    border-radius: 0.5rem;
+    padding: .25rem;
+    border-radius: .5rem;
     font-size: 1rem;
     border: none;
     cursor: pointer;
     color: $primary-medium-blue;
     background-color: $frosted-glass;
     box-shadow: $shadow-secondary;
-    transition: transform 0.3s ease, background 0.3s ease;
+    transition: transform .3s ease, background .3s ease;
 
     &:hover {
       background: $primary-dark-blue;
       transform: scale(1.1);
       color: $neutral-white;
-      border: 2px solid $primary-button-blue;
+      border: .125rem solid $primary-button-blue;
     }
 
     &:active {
-      transform: scale(0.95);
+      transform: scale(.95);
       background: $neutral-white;
       color: $primary-button-blue;
       box-shadow: $shadow-primary;
-      border: 3px solid $primary-dark-blue;
+      border: .1875rem solid $primary-dark-blue;
     }
 
     @include tablet {
@@ -261,9 +260,9 @@
   &__media-type {
     display: flex;
     align-items: center;
-    border: 1px solid $frosted-glass;
+    border: .0625rem solid $frosted-glass;
     padding: .65rem;
-    border-radius: 0.5rem;
+    border-radius: .5rem;
     font-size: 1rem;
     background-color: $frosted-glass;
     box-shadow: $shadow-septenary;
@@ -284,10 +283,10 @@
     justify-content: center;
     align-items: center;
     background: $frosted-glass;
-    backdrop-filter: blur(0.5rem);
+    backdrop-filter: blur(.5rem);
     border-radius: 1.25rem;
     box-shadow: $shadow-quaternary;
-    border: 5px solid $neutral-light-grey;
+    border: .3125rem solid $neutral-light-grey;
     padding: 1.5rem;
     width: 100%;
 
@@ -308,7 +307,7 @@
     padding: .5rem;
     background-color: $frosted-glass;
     gap: .5rem;
-    border: 5px solid $primary-very-light-blue;
+    border: .3125rem solid $primary-very-light-blue;
     border-radius: .75rem;
     box-shadow: $shadow-tertiary;
   }
@@ -324,7 +323,7 @@
     gap: .25rem;
     font-size: 1.5rem;
     color: $primary-button-blue;
-    text-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.2);
+    text-shadow: 0 .125rem .25rem rgba(0, 0, 0, .2);
     margin-bottom: .25rem;
 
     @include tablet {
@@ -382,9 +381,9 @@
     border-radius: 1rem;
     overflow: hidden;
     box-shadow: $shadow-quaternary;
-    transition: transform 0.3s ease;
+    transition: transform .3s ease;
     border-radius: 1.5rem;
-    border: 5px solid $primary-very-light-blue;
+    border: .3125rem solid $primary-very-light-blue;
 
     &:hover {
       transform: scale(1.05);
@@ -400,23 +399,21 @@
   }
 
   &__poster {
-    width: 100%;
-    height: auto;
+    @include block-item(100%, auto);
     border-radius: 1rem;
   }
 
   &__play-overlay {
+    @include block-item(100%, 100%);
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba($neutral-black, .5);
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity .3s ease;
 
     &:hover {
       opacity: 1;
@@ -451,7 +448,7 @@
 
     @include desktop {
       align-items: center;
-      border: 5px solid $frosted-glass;
+      border: .3125rem solid $frosted-glass;
       padding: 1.5rem;
       gap: 2rem;
       border-radius: 1rem;
@@ -476,7 +473,7 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 0.5rem;
+    gap: .5rem;
 
     @include tablet {
       justify-content: flex-start;
@@ -497,7 +494,7 @@
       border-radius: .5rem;
       font-size: .85rem;
       box-shadow: $shadow-septenary;
-      border: 1px solid $frosted-glass;
+      border: .0625rem solid $frosted-glass;
 
       @include tablet {
         padding: .5rem 1rem;
@@ -516,7 +513,7 @@
     font-size: .75rem;
     line-height: 1rem;
     box-shadow: $shadow-secondary;
-    border: 3px solid $neutral-white;
+    border: .1875rem solid $neutral-white;
 
     @include large-mobile {
       font-size: .8rem;
@@ -537,7 +534,7 @@
     box-shadow: $shadow-primary;
     border-radius: 1rem;
     padding: .75rem;
-    border: 5px solid $primary-very-light-blue;
+    border: .3125rem solid $primary-very-light-blue;
     margin-bottom: 1.5rem;
 
     @include tablet {
@@ -561,7 +558,7 @@
     background-color: $primary-pale-blue;
     box-shadow: $shadow-secondary;
     border-radius: .5rem;
-    border: 2px solid $neutral-white;
+    border: .125rem solid $neutral-white;
     line-height: 1rem;
 
     @include tablet {
@@ -571,7 +568,7 @@
     }
 
     svg {
-      margin-right: 0.5rem;
+      margin-right: .5rem;
       color: $primary-button-blue;
     }
   }
@@ -583,7 +580,7 @@
     background-color: $primary-pale-blue;
     box-shadow: $shadow-secondary;
     border-radius: .5rem;
-    border: 2px solid $neutral-white;
+    border: .125rem solid $neutral-white;
     line-height: 1rem;
 
     @include tablet {
@@ -602,7 +599,7 @@
     padding: 1.1rem;
     background: $frosted-glass;
     box-shadow: $shadow-tertiary;
-    border: 5px solid $primary-very-light-blue;
+    border: .3125rem solid $primary-very-light-blue;
     position: relative;
 
     @include tablet {
@@ -622,7 +619,7 @@
 
     h3 {
       color: $primary-dark-blue;
-      margin-bottom: 0.5rem;
+      margin-bottom: .5rem;
       font-size: 1rem;
 
       @include tablet {
@@ -639,7 +636,7 @@
     display: flex;
     overflow-x: auto;
     scroll-behavior: smooth;
-    padding-bottom: 0.5rem;
+    padding-bottom: .5rem;
     gap: .5rem;
 
     &::-webkit-scrollbar {
@@ -656,7 +653,7 @@
 
   &__cast-list {
     display: flex;
-    gap: 0.5rem;
+    gap: .5rem;
 
     @include tablet {
       gap: 1rem;
@@ -685,28 +682,28 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    border-radius: 0.5rem;
+    border-radius: .5rem;
     box-shadow: $shadow-primary;
-    background: rgba($neutral-white, 0.9);
-    padding: 0.5rem;
+    background: rgba($neutral-white, .9);
+    padding: .5rem;
 
     &:hover {
       transform: scale(1.05);
     }
 
-    transition: transform 0.3s ease;
+    transition: transform .3s ease;
   }
 
   &__cast-img {
     width: 100%;
-    border-radius: 0.5rem;
-    margin-bottom: 0.25rem;
+    border-radius: .5rem;
+    margin-bottom: .25rem;
   }
 
   &__cast-img-placeholder {
     width: 100%;
-    border-radius: 0.5rem;
-    margin-bottom: 0.25rem;
+    border-radius: .5rem;
+    margin-bottom: .25rem;
     color: $primary-button-blue;
   }
 
@@ -722,7 +719,7 @@
 
   &__cast-character {
     color: $primary-gradient-blue;
-    font-size: 0.65rem;
+    font-size: .65rem;
     font-family: $secondary-font;
 
     @include tablet {
@@ -732,7 +729,7 @@
 
   &__cast-name,
   &__cast-character {
-    margin-top: 0.25rem;
+    margin-top: .25rem;
     line-height: 1rem;
   }
 
@@ -742,10 +739,10 @@
     transform: translateY(-50%);
     background-color: $primary-dark-blue;
     color: $neutral-white;
-    border: 2px solid $primary-very-light-blue;
+    border: .125rem solid $primary-very-light-blue;
     box-shadow: $shadow-septenary;
     border-radius: .5rem;
-    padding: 0.5rem;
+    padding: .5rem;
     font-size: 1.25rem;
     cursor: pointer;
     
@@ -753,20 +750,20 @@
       background: $primary-button-blue;
       color: $primary-very-light-blue;
       box-shadow: $shadow-primary;
-      border: 3px solid $primary-medium-blue;
+      border: .1875rem solid $primary-medium-blue;
     }
 
     &:active {
       background: $primary-very-light-blue;
       color: $primary-button-blue;
-      border: 3px solid $primary-dark-blue;
+      border: .1875rem solid $primary-dark-blue;
     }
   }
   
   &__cast-arrow-left {
     left: -1rem;
     right: unset;
-    transition: transform 0.3s ease, background 0.3s ease, left 0.3s ease, right 0.3s ease;
+    transition: transform .3s ease, background .3s ease, left .3s ease, right .3s ease;
   
     &:hover {
       left: -1.5rem;
@@ -780,7 +777,7 @@
   &__cast-arrow-right {
     right: -1rem;
     left: unset;
-    transition: transform 0.3s ease, background 0.3s ease, left 0.3s ease, right 0.3s ease;
+    transition: transform .3s ease, background .3s ease, left .3s ease, right .3s ease;
   
     &:hover {
       right: -1.5rem; 
@@ -809,33 +806,30 @@
   }
 
   &__modal {
+    @include block-item(100%, 100%);
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: rgba($neutral-black, 0.8);
+    background: rgba($neutral-black, .8);
     z-index: 1000;
   
     &-content {
-      background: rgba(255, 255, 255, 0.7);
-      backdrop-filter: blur(0.625rem);
-      border-radius: 0.9375rem;
+      background: rgba(255, 255, 255, .7);
+      backdrop-filter: blur(.625rem);
+      border-radius: .9375rem;
       padding: 1.25rem;
-      box-shadow: 0 0.25rem 0.75rem rgba($neutral-black, 0.2);
+      box-shadow: 0 .25rem .75rem rgba($neutral-black, .2);
       position: relative;
   
       @include tablet {
-        width: 90%;  
-        height: 25rem;
+        @include block-item(90%, 25rem);
       }
   
       @include desktop {
-        width: 68%; 
-        height: 30rem;
+        @include block-item(68%, 30rem);
       }
 
       @include large-desktop {
@@ -847,21 +841,20 @@
       }
   
       iframe {
-        width: 100%;
-        height: 100%;
+        @include block-item(100%, 100%);
         border-radius: inherit;
       }
 
       &-close {
         position: absolute;
-        top: 0.5rem;
-        right: 0.5rem;
+        top: .5rem;
+        right: .5rem;
         background: none;
         border: none;
         font-size: 1.25rem;
         cursor: pointer;
         color: $neutral-black;
-        transition: transform 0.3s ease-in-out;
+        transition: transform .3s ease-in-out;
 
         &:hover {
           color: $primary-dark-blue;
@@ -870,7 +863,7 @@
 
         &:active {
           color: $primary-medium-blue;
-          transform: scale(0.9);
+          transform: scale(.9);
         }
       }
     }
@@ -890,11 +883,10 @@
   }
 
   &__background {
+    @include block-item(100%, 15rem);
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 100%;
-    height: 15rem;
     overflow: hidden;
     z-index: -1;
 
@@ -908,15 +900,14 @@
   }
   
   .loader-overlay {
+    @include block-item(100%, 100%);
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: rgba($neutral-black, 0.5);
+    background: rgba($neutral-black, .5);
     z-index: 1100;
   }
 }
