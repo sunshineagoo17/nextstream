@@ -27,7 +27,7 @@
   &__container {
     position: relative;
     z-index: 2;
-    max-width: 800px;
+    max-width: 50rem;
     width: 100%;
 
 
@@ -83,10 +83,10 @@
     color: $primary-medium-blue;
     cursor: pointer;
     text-decoration: none;
-    border: 1px solid $primary-medium-blue;
-    padding: 0.25rem 0.5rem;
-    border-radius: 0.25rem;
-    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    border: .0625rem solid $primary-medium-blue;
+    padding: .25rem .5rem;
+    border-radius: .25rem;
+    transition: background-color .3s, color .3s, border-color .3s;
 
     &:visited {
       text-decoration: none;
@@ -97,7 +97,7 @@
       padding-left: .25rem;
       padding-right: .25rem;
       background-color: $primary-medium-blue;
-      border: 1px solid $primary-dark-blue;
+      border: .0625rem solid $primary-dark-blue;
       color: $neutral-white;
       text-decoration: none;
       box-shadow: $shadow-primary;
@@ -108,9 +108,9 @@
       padding-right: .25rem;
       background-color: $primary-light-blue;
       color: $neutral-white;
-      border: 2px solid $neutral-light-grey;
-      border-radius: 0.25rem;
-      transform: scale(0.9);
+      border: .125rem solid $neutral-light-grey;
+      border-radius: .25rem;
+      transform: scale(.9);
       text-decoration: none;
       font-weight: bold;
     }
@@ -126,7 +126,7 @@
     cursor: crosshair;
     max-width: 100%;
     height: auto;
-    border-radius: 0.5rem;
+    border-radius: .5rem;
     box-shadow: $shadow-primary;
   }
 

@@ -29,7 +29,7 @@
     left: 50%;
     margin-left: -3.75rem;
     opacity: 0;
-    transition: opacity 0.3s;
+    transition: opacity .3s;
 
     &::after {
       content: '';

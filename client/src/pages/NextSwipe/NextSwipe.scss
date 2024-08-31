@@ -1,3 +1,4 @@
+// Import partials
 @use "../../styles/partials/colors" as *;
 @use "../../styles/partials/fonts" as *;
 @use "../../styles/partials/mixins" as *;
@@ -14,11 +15,10 @@
   min-height: 100vh;
 
   &__calendar-modal {
+    @include block-item(100%, 100%);
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
     background-color: rgba($neutral-black, .8);
     display: flex;
     justify-content: center;
@@ -41,7 +41,7 @@
     cursor: crosshair;
     max-width: 100%;
     height: auto;
-    border-radius: 0.5rem;
+    border-radius: .5rem;
     box-shadow: $shadow-primary;
   }
 
@@ -52,7 +52,7 @@
     transform: translate(-50%, -50%);
     z-index: 1000;
     animation: swipeAnimation 7s ease-in-out infinite;
-    opacity: 0.8;
+    opacity: .8;
 
     & .top-picks-page__swipe-icon {
       font-size: 2.5rem;
@@ -63,7 +63,7 @@
   @keyframes swipeAnimation {
     0% {
       transform: translate(-250%, -50%);
-      opacity: 0.5;
+      opacity: .5;
     }
     50% {
       transform: translate(250%, -50%);
@@ -71,7 +71,7 @@
     }
     100% {
       transform: translate(-250%, -50%);
-      opacity: 0.5;
+      opacity: .5;
     }
   }
 
@@ -133,7 +133,7 @@
     border-radius: 1.25rem;
     box-shadow: $shadow-quaternary;
     padding: 1rem;
-    border: 5px solid $neutral-white;
+    border: .3125rem solid $neutral-white;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -148,7 +148,7 @@
     flex-direction: column;
     box-shadow: $shadow-primary;
     border-radius: 1.5rem;
-    border: 5px solid $primary-dark-blue;
+    border: .3125rem solid $primary-dark-blue;
     justify-content: center;
     align-items: center;
 
@@ -160,7 +160,7 @@
   &__title-container {
     padding: 1rem;
     border-radius: 1rem;
-    border: 2px solid $primary-pale-blue;
+    border: .125rem solid $primary-pale-blue;
     margin-top: 0;
     margin-bottom: 1rem;
     box-shadow: $shadow-quaternary;
@@ -170,14 +170,13 @@
     
     &::before {
       content: "";
+      @include block-item(150%, 100%);
       position: absolute;
       top: 0;
       right: 100%; 
-      width: 150%;
-      height: 100%;
       background: linear-gradient(270deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, .4) 50%, rgba(255, 255, 255, 0) 100%);
       transform: skewX(25deg);
-      transition: right 0.8s ease; 
+      transition: right .8s ease; 
     }
   
     &:hover::before {
@@ -205,7 +204,7 @@
     align-items: center;
     position: relative;
     width: 100%;
-    max-width: 600px;
+    max-width: 37.5rem;
     margin-top: 2rem;
   }
 
@@ -222,7 +221,7 @@
     flex-direction: column;
     padding: 2rem;
     width: 100%;
-    max-width: 500px;
+    max-width: 31.25rem;
     margin-top: 2rem;
 
     @include small-mobile {
@@ -232,7 +231,8 @@
     img {
       width: 100%;
       height: auto;
-      border-radius: 0.5rem;
+      border-radius: .5rem;
+
       @include small-mobile {
         width: 100%;
       }
@@ -243,25 +243,25 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background-color: rgba($neutral-black, 0.1);
+    background-color: rgba($neutral-black, .1);
     border: none;
     color: $primary-medium-blue;
     font-size: 1.5rem;
     cursor: pointer;
     padding: 1rem;
     border-radius: 50%;
-    transition: all 0.3s ease;
+    transition: all .3s ease;
     z-index: 1001;
 
       &:hover {
-        background-color: rgba($neutral-black, 0.3);
+        background-color: rgba($neutral-black, .3);
         color: $neutral-white;
         transform: translateY(-50%) scale(1.1);
       }
 
       &:active {
         transform: translateY(-50%) scale(1);
-        box-shadow: 0 0 .625rem rgba($neutral-black, 0.5);
+        box-shadow: 0 0 .625rem rgba($neutral-black, .5);
         background-color: $primary-dark-blue;
         color: $primary-very-light-blue;
       }
@@ -285,8 +285,8 @@
 
   &__calendar-button {
     @include block-item (5rem, 3rem);
-    border: 1px solid $neutral-white;
-    padding: 0.5rem 1rem;
+    border: .0625rem solid $neutral-white;
+    padding: .5rem 1rem;
     background: $button-dark-gradient;
     color: $neutral-white;
     box-shadow: $shadow-primary;
@@ -299,7 +299,7 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    transition: transform 0.3s ease-in-out;
+    transition: transform .3s ease-in-out;
 
       @include tablet {
         @include block-item (11rem, 4.5rem);
@@ -310,19 +310,18 @@
       &:hover {
         background: $primary-dark-blue;
         color: $neutral-white;
-        border: 1px solid $primary-light-blue;
+        border: .0625rem solid $primary-light-blue;
         transform: scale(1.03);
       }
 
       &::before {
         content: "";
+        @include block-item(200%, 100%);
         position: absolute;
         top: 0;
         right: -100%;
-        width: 200%;
-        height: 100%;
-        background: linear-gradient(to left, transparent, rgba(255, 255, 255, 0.2), transparent);
-        transition: right 0.5s;
+        background: linear-gradient(to left, transparent, rgba(255, 255, 255, .2), transparent);
+        transition: right .5s;
       }
 
       &:hover::before {
@@ -335,7 +334,7 @@
    
       svg {
         @include tablet {
-        margin-right: 0.5rem;
+        margin-right: .5rem;
       }
     }
   }
@@ -344,57 +343,56 @@
     @include block-item(15rem, 5rem);
     background-color: $primary-pale-blue;
     color: $primary-medium-blue;
-    border: 2px solid $primary-medium-blue;
-    padding: 0.5rem 1rem;
+    border: .125rem solid $primary-medium-blue;
+    padding: .5rem 1rem;
     font-size: 1rem;
     font-weight: bold;
     font-family: $primary-font;
     box-shadow: $shadow-senary;
     border-radius: 1rem;
     cursor: pointer;
-    transition: background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
+    transition: background-color .3s, color .3s, border-color .3s, box-shadow .3s;
     
     &:hover,
     &:focus,
     &:visited {
       background-color: $primary-light-blue;
       color: $neutral-white;
-      border: 1px solid $primary-medium-blue;
+      border: .0625rem solid $primary-medium-blue;
       text-decoration: none;
       animation: pulse 1.5s infinite;
-      box-shadow: 0 0 20px $primary-dark-blue, 0 0 30px $primary-dark-blue, 0 0 40px $primary-dark-blue;
+      box-shadow: 0 0 1.25rem $primary-dark-blue, 0 0 1.875rem $primary-dark-blue, 0 0 2.5rem $primary-dark-blue;
     }
     
     &:active {
       background-color: $primary-medium-blue;
       color: $neutral-white;
       border-radius: 1.25rem;
-      border: 3px solid $primary-pale-blue;
-      transform: translateY(4px);
+      border: .1875rem solid $primary-pale-blue;
+      transform: translateY(.25rem);
       text-decoration: none;
       font-weight: bold;
-      box-shadow: 0 0 10px $primary-medium-blue, 0 0 20px $primary-medium-blue;
+      box-shadow: 0 0 .625rem $primary-medium-blue, 0 0 1.25rem $primary-medium-blue;
     }
     
     @keyframes pulse {
       0% {
-        box-shadow: 0 0 20px $primary-dark-blue, 0 0 30px $primary-dark-blue, 0 0 40px $primary-dark-blue;
+        box-shadow: 0 0 1.25rem $primary-dark-blue, 0 0 1.875rem $primary-dark-blue, 0 0 2.5rem $primary-dark-blue;
       }
       50% {
-        box-shadow: 0 0 30px $primary-dark-blue, 0 0 40px $primary-dark-blue, 0 0 50px $primary-dark-blue;
+        box-shadow: 0 0 1.875rem $primary-dark-blue, 0 0 2.5rem $primary-dark-blue, 0 0 3.125rem $primary-dark-blue;
       }
       100% {
-        box-shadow: 0 0 20px $primary-dark-blue, 0 0 30px $primary-dark-blue, 0 0 40px $primary-dark-blue;
+        box-shadow: 0 0 1.25rem $primary-dark-blue, 0 0 1.875rem $primary-dark-blue, 0 0 2.5rem $primary-dark-blue;
       }
     }
   }
 
   &__background {
+    @include block-item(100%, 8.4375rem);
     position: absolute;
     bottom: -2.1875rem;
     left: 0;
-    width: 100%;
-    height: 8.4375rem;
     overflow: hidden;
     z-index: -9999;
 
@@ -433,7 +431,7 @@
     align-items: center;
     padding: 1rem;
     background-color: $primary-dark-blue;
-    border:  2px solid $neutral-white;
+    border: .125rem solid $neutral-white;
     margin: .5rem;
     box-shadow: $shadow-primary;
     border-radius: 1rem;
@@ -458,14 +456,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid $neutral-white;
+  border: .0625rem solid $neutral-white;
   padding: .25rem;
   font-size: 1rem;
   box-shadow: $shadow-senary;
   cursor: pointer;
   z-index: 1001;
   border-radius: .2rem;
-  transition: all 0.3s ease; 
+  transition: all .3s ease; 
 
   &:hover {
     background-color: $primary-dark-blue;
@@ -607,5 +605,5 @@
   background-color: $primary-light-blue;
   box-shadow: $shadow-quaternary;
   border-radius: 1rem;
-  border: 3px solid $neutral-white;
+  border: .1875rem solid $neutral-white;
 }

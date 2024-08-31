@@ -36,7 +36,7 @@
   &__loader-circle {
     @include block-item(1.5rem, 1.5rem);
     display: inline-block;
-    border: .1875rem solid rgba(255, 255, 255, 0.3);
+    border: .1875rem solid rgba(255, 255, 255, .3);
     border-radius: 50%;
     border-top-color: $neutral-white;
     animation: spin 1s ease-in-out infinite;
@@ -87,7 +87,7 @@
     cursor: pointer;
     color: $primary-very-light-blue;
     border-radius: .25rem;
-    transition: transform 0.1s ease, background-color 0.1s ease, color 0.1s ease;
+    transition: transform .1s ease, background-color .1s ease, color .1s ease;
 
     &:visited {
       text-decoration: none;
@@ -110,8 +110,8 @@
       background-color: $primary-light-blue;
       color: $neutral-white;
       border: .125rem solid $neutral-light-grey;
-      border-radius: 0.25rem;
-      transform: scale(0.9);
+      border-radius: .25rem;
+      transform: scale(.9);
       text-decoration: none;
       font-weight: bold;
     }
@@ -170,19 +170,19 @@
     cursor: pointer;
     margin-top: 1rem;
     line-height: .85rem;
-    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 .25rem .375rem rgba($neutral-black, 0.1);
+    transition: background .3s ease, transform .3s ease, box-shadow .3s ease;
+    box-shadow: 0 .25rem .375rem rgba($neutral-black, .1);
 
     &:hover {
       transform: scale(1.05);
       color: $neutral-white;
-      box-shadow: 0 .375rem .5rem rgba($neutral-black, 0.15);
+      box-shadow: 0 .375rem .5rem rgba($neutral-black, .15);
     }
 
     &:active {
-      transform: scale(0.95);
+      transform: scale(.95);
       color: $primary-pale-blue;
-      box-shadow: 0 .125rem .25rem rgba($neutral-black, 0.2);
+      box-shadow: 0 .125rem .25rem rgba($neutral-black, .2);
       font-weight: bold;
     }
 
@@ -228,7 +228,7 @@
       @include hover-raise-effect;
       cursor: crosshair;
       height: auto;
-      border-radius: 0.5rem;
+      border-radius: .5rem;
       box-shadow: $shadow-tertiary;
       display: block;
       max-width: 25rem;
@@ -283,7 +283,7 @@
     width: 100%;
     padding: 1rem;
     border: .125rem solid $primary-light-blue;
-    border-radius: 0.5rem;
+    border-radius: .5rem;
     font-size: 1rem;
     box-shadow: $shadow-primary;
     background: $neutral-white;
@@ -321,11 +321,11 @@
     left: 1rem;
     background: $primary-light-blue;
     border-radius: .35rem;
-    padding: 0 0.5rem;
+    padding: 0 .5rem;
     box-shadow: $shadow-tertiary;
     color: $neutral-light-grey;
     font-size: 1rem;
-    transition: all 0.3s ease;
+    transition: all .3s ease;
     pointer-events: none;
   }
 
@@ -348,7 +348,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: transform 0.1s ease;
+      transition: transform .1s ease;
 
       img {
         @include block-item(1rem, 1rem);
@@ -356,7 +356,7 @@
     }
 
     &:active .login__password-toggle-icon {
-      transform: scale(0.9);
+      transform: scale(.9);
     }
   }
 
@@ -364,7 +364,7 @@
     margin: 1rem 0;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: .5rem;
     color: $primary-medium-blue;
 
     .login__checkbox-box {
@@ -372,11 +372,11 @@
       box-shadow: $shadow-primary;
       border-radius: .25rem;
       border: .0625rem solid $primary-medium-blue;
-      transition: transform 0.1s ease;
+      transition: transform .1s ease;
     }
 
     .login__checkbox-box:active {
-      transform: scale(0.9);
+      transform: scale(.9);
     }
   }
   
@@ -387,22 +387,22 @@
   }
 
   &__button {
-    padding: 0.5rem 1.075rem;
+    padding: .5rem 1.075rem;
     border: none;
-    border-radius: 0.5rem;
+    border-radius: .5rem;
     font-size: 1rem;
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    transition: transform 0.1s ease;
+    gap: .5rem;
+    transition: transform .1s ease;
 
     @include tablet {
         padding: .5rem 1.55rem;
     }
 
     &:active {
-      transform: scale(0.95);
+      transform: scale(.95);
     }
 
     &--previous {
@@ -441,8 +441,8 @@
         position: absolute;
         top: 0;
         left: -100%;
-        background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent);
-        transition: left 0.5s;
+        background: linear-gradient(to right, transparent, rgba(255, 255, 255, .2), transparent);
+        transition: left .5s;
       }
 
       &:hover::before {
@@ -484,8 +484,8 @@
         position: absolute;
         top: 0;
         right: -100%;
-        background: linear-gradient(to left, transparent, rgba(255, 255, 255, 0.2), transparent);
-        transition: right 0.5s;
+        background: linear-gradient(to left, transparent, rgba(255, 255, 255, .2), transparent);
+        transition: right .5s;
       }
 
       &:hover::before {

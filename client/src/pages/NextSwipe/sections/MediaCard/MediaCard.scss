@@ -40,7 +40,7 @@
     border-radius: 50%;
     padding: .25rem;
     cursor: pointer;
-    transition: transform 0.3s ease, background-color 0.3s, border 0.3s;
+    transition: transform .3s ease, background-color .3s, border .3s;
     border: .0625rem solid transparent;
 
     @include tablet {
@@ -64,8 +64,7 @@
   }
 
   &__image {
-    width: 100%;
-    height: auto;
+    @include block-item(100%, auto);
     box-shadow: $shadow-primary;
   }
 
