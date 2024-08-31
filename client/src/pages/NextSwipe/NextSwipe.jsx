@@ -6,7 +6,8 @@ import { faCalendarPlus, faClose, faArrowLeft, faArrowRight, faHandPointer } fro
 import MediaCard from './sections/MediaCard/MediaCard';
 import Calendar from '../CalendarPage/sections/Calendar';
 import AnimatedBg from '../../components/AnimatedBg/AnimatedBg';
-import Loader from '../../components/Loader/Loader';
+import LogoLoader from '../../components/LogoLoader/LogoLoader';
+// import Loader from '../../components/Loader/Loader'; // Optional default loader
 import NoMoreMedia from "../../assets/images/no-more-media.svg";
 import ShowMedia from "../../assets/images/show-media.svg";
 import api from '../../services/api';
@@ -320,7 +321,7 @@ const NextSwipe = () => {
               <img src={ShowMedia} alt="Woman waiting for media" className="top-picks-page__graphic" />
             </div>
           )}
-          {isLoading && <Loader />}
+          {isLoading && <LogoLoader />}
           {!isLoading && media.length > 0 && currentIndex < media.length && (
             <div className="top-picks-page__media-card">
               {isFirstSession && showSwipeGuide && (
