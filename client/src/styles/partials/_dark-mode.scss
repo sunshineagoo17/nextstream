@@ -77,7 +77,19 @@
     // Forgot Password
 
     // 404 Page
+    .not-found__content-card {
+      background: $primary-light-blue;
+    }
 
+    .not-found__intro {
+      color: $neutral-white;
+    }
+
+    // Login Required
+    .login-required__content-card {
+      background: $primary-very-light-blue;
+    }
+    
     // Login Page
     .login {
       background-color: $primary-darker-blue;
