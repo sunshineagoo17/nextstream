@@ -186,6 +186,26 @@
       }
     }
 
+    // Recommendations 
+    .top-picks-page__container {
+      background: $dark-mode-deep-blue;
+    }
+
+    .top-picks-page__media-card {
+      background: $frosted-glass;
+    }
+
+    .media-card__details {
+      background: $primary-very-light-blue;
+      border-radius: 0 0 .5rem .5rem;
+    }
+
+    .media-card__image {
+      background: $primary-very-light-blue;
+      border-radius: .5rem .5rem 0 0;
+    }
+
+
     // Homepage 
     .hero {
       background: linear-gradient(180deg, $primary-medium-blue 0%, $dark-mode-royal-blue 50%, $base-darker-blue 100%);
