@@ -25,22 +25,22 @@
     @include block-item(2.85rem, 2.85rem);
     padding: .25rem;
     background-color: $primary-light-blue;
-    border: 2px solid $neutral-white;
+    border: .125rem solid $neutral-white;
     box-shadow: $shadow-primary;
     border-radius: .35rem;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s ease;
+    transition: all .3s ease;
 
     &:hover {
-      box-shadow: 0 0 10px $primary-light-blue; 
+      box-shadow: 0 0 .625rem $primary-light-blue; 
     }
   
     &:active {
-      transform: scale(0.95);
-      box-shadow: 0 0 10px $primary-dark-blue;
+      transform: scale(.95);
+      box-shadow: 0 0 .625rem $primary-dark-blue;
     }
 
     @include tablet {
@@ -59,21 +59,21 @@
       display: block;
       width: 100%;
       border-radius: .5rem;
-      height: 0.2rem;
+      height: .2rem;
       background-color: $neutral-white;
-      transition: all 0.3s ease;
+      transition: all .3s ease;
       box-shadow: $shadow-primary;
     }
 
     &.open {
       span:nth-child(1) {
-        transform: rotate(45deg) translate(0.57rem, 0.5rem);
+        transform: rotate(45deg) translate(.57rem, .5rem);
       }
       span:nth-child(2) {
         opacity: 0;
       }
       span:nth-child(3) {
-        transform: rotate(-45deg) translate(0.55rem, -0.5rem);
+        transform: rotate(-45deg) translate(.55rem, -.5rem);
       }
     }
   }
@@ -85,8 +85,8 @@
     transform: translateX(-50%);
     width: 12rem;
     background: $frosted-glass;
-    backdrop-filter: blur(10px);
-    border-radius: 0.5rem;
+    backdrop-filter: blur(.625rem);
+    border-radius: .5rem;
     box-shadow: $shadow-secondary;
     display: flex;
     flex-direction: column;
@@ -94,26 +94,26 @@
     padding: 1rem;
 
     .hover-menu__item {
-      padding: 0.5rem 1rem;
+      padding: .5rem 1rem;
       text-decoration: none;
       width: 100%;
       cursor: pointer;
       color: $primary-dark-blue;
-      border-radius: 0.25rem;
-      transition: background 0.3s ease;
+      border-radius: .25rem;
+      transition: background .3s ease;
 
       &:hover {
         @include glow-animation;
-        background: rgba($primary-light-blue, 0.2);
+        background: rgba($primary-light-blue, .2);
         border-radius: .5rem;
-        border: 1px solid $primary-medium-blue;
+        border: .0625rem solid $primary-medium-blue;
         color: $primary-medium-blue;
       }
 
       &:active {
         background: $primary-dark-blue;
         color: $primary-pale-blue;
-        border: 3px solid $primary-pale-cyan;
+        border: .1875rem solid $primary-pale-cyan;
         border-radius: .5rem;
       }
     }
@@ -121,22 +121,22 @@
 
   &.dark-background {
     .hover-menu__content {
-      background: rgba($primary-dark-blue, 0.7);
+      background: rgba($primary-dark-blue, .7);
       color: $neutral-white;
 
       .hover-menu__item {
         color: $neutral-white;
 
         &:hover {
-          background: rgba($primary-very-light-blue, 0.2);
-          border: 1px solid $primary-very-light-blue;
+          background: rgba($primary-very-light-blue, .2);
+          border: .0625rem solid $primary-very-light-blue;
           color: $primary-medium-blue;
         }
 
         &:active {
           background: $primary-dark-blue;
           color: $neutral-white;
-          border: 3px solid $primary-light-blue;
+          border: .1875rem solid $primary-light-blue;
         }
       }
 

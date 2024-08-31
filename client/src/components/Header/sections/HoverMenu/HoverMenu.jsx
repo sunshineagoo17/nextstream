@@ -47,13 +47,12 @@ const HoverMenu = () => {
     ];
   
     const isDarkBackgroundPage = darkBackgroundPaths.includes(location.pathname) ||
-      // Add regular expression to match the NextView page with dynamic segments
+      // Added regular expression to match the NextView page with dynamic segments
       new RegExp(`^/nextview/${userId}/(movie|tv)/\\d+$`).test(location.pathname);
   
-     // Check if dark mode is enabled by reading the 'data-theme' attribute
+     // Checks if dark mode is enabled by reading the 'data-theme' attribute
     const isDarkModeEnabled = document.documentElement.getAttribute('data-theme') === 'dark';
 
-    // Return 'dark-background' if either condition is true
     return isDarkBackgroundPage || isDarkModeEnabled ? 'dark-background' : '';
   };
 

@@ -224,16 +224,16 @@
     box-shadow: $shadow-primary;
     display: flex;
     align-items: center;
-    justify-content: center; /* Ensure the icon is centered */
+    justify-content: center;
   }
 
   &__magnifying-glass {
     position: relative;
-    top: 0.65rem;
-    left: 0.35rem;
+    top: .65rem;
+    left: .35rem;
 
     @include tablet {
-      left: 0.75rem;
+      left: .75rem;
       top: .75rem;
     }
   }
@@ -253,7 +253,7 @@
   &__search-vector {
     @include block-item(1.1rem, 1.1rem);
     position: absolute;
-    top: 0.625rem;
+    top: .625rem;
 
     @include desktop {
       @include block-item(1.1875rem, 1.1875rem);
