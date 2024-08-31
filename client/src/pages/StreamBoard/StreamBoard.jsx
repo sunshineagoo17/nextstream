@@ -245,10 +245,10 @@ const StreamBoard = () => {
     setLoading(true);
 
     try {
-      // Remove the media item from the media status database
+      // Removes the media item from the media status database
       await api.delete(`/api/media-status/${media_id}`);
 
-      // Change the interaction value from 1 to 0
+      // Changes the interaction value from 1 to 0
       await api.post('/api/interactions', {
         userId,
         media_id,
@@ -256,7 +256,7 @@ const StreamBoard = () => {
         media_type,
       });
 
-      // Update the UI after successful deletion and interaction update
+      // Updates the UI after successful deletion and interaction update
       setMediaItems((prevItems) => {
         const updatedItems = { ...prevItems };
 
@@ -319,7 +319,7 @@ const StreamBoard = () => {
       setDuration(duration);
       setShowCalendar(true);
 
-      if (callback) callback(); // Move media item to scheduled
+      if (callback) callback(); // Moves the media item to scheduled
     } catch (error) {
       console.error('Error fetching duration data:', error);
       setAlert({ type: 'error', message: 'Failed to fetch media duration.' });

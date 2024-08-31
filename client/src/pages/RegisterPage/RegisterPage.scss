@@ -29,7 +29,7 @@
   &__loader-circle {
     @include block-item(1.5rem, 1.5rem);
     display: inline-block;
-    border: .1875rem solid rgba(255, 255, 255, 0.3);
+    border: .1875rem solid rgba(255, 255, 255, .3);
     border-radius: 50%;
     border-top-color: $neutral-white;
     animation: spin 1s ease-in-out infinite;
@@ -56,8 +56,8 @@
     cursor: pointer;
     text-decoration: none;
     padding: 0;
-    border-radius: 0.25rem;
-    transition: background-color 0.3s, transform 0.3s;
+    border-radius: .25rem;
+    transition: background-color .3s, transform .3s;
 
     &:visited {
       text-decoration: none;
@@ -80,8 +80,8 @@
       background-color: $primary-light-blue;
       color: $neutral-white;
       border: .125rem solid $neutral-light-grey;
-      border-radius: 0.25rem;
-      transform: scale(0.9);
+      border-radius: .25rem;
+      transform: scale(.9);
       text-decoration: none;
       font-weight: bold;
     }
@@ -159,7 +159,7 @@
       @include hover-raise-effect;
       cursor: crosshair;
       height: auto;
-      border-radius: 0.5rem;
+      border-radius: .5rem;
       display: block;
       max-width: 25rem;
       width: 100%;
@@ -202,7 +202,7 @@
     width: 100%;
     padding: 1rem;
     border: .125rem solid $primary-light-blue;
-    border-radius: 0.5rem;
+    border-radius: .5rem;
     font-size: 1rem;
     box-shadow: $shadow-primary;
     background: $neutral-white;
@@ -240,11 +240,11 @@
     left: 1rem;
     background: $primary-light-blue;
     border-radius: .35rem;
-    padding: 0 0.5rem;
+    padding: 0 .5rem;
     box-shadow: $shadow-tertiary;
     color: $neutral-light-grey;
     font-size: 1rem;
-    transition: all 0.3s ease;
+    transition: all .3s ease;
     pointer-events: none;
   }
 
@@ -276,7 +276,7 @@
       align-items: center;
       margin-top: 1rem;
       justify-content: center;
-      transition: transform 0.1s ease;
+      transition: transform .1s ease;
 
       @include tablet {
         margin-top: .85rem;
@@ -288,7 +288,7 @@
     }
 
     &:active .register__password-toggle-icon {
-      transform: scale(0.9);
+      transform: scale(.9);
     }
   }
 
@@ -296,7 +296,7 @@
     margin: 1rem 0;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: .5rem;
     color: $primary-medium-blue;
 
     .register__checkbox-box {
@@ -304,11 +304,11 @@
       box-shadow: $shadow-primary;
       border-radius: .25rem;
       border: .0625rem solid $primary-medium-blue;
-      transition: transform 0.1s ease;
+      transition: transform .1s ease;
     }
 
     .register__checkbox-box:active {
-      transform: scale(0.9);
+      transform: scale(.9);
     }
   }
 
@@ -316,7 +316,7 @@
     font-size: 1rem;
     color: $primary-medium-blue;
     text-align: center;
-    border: 2px solid $neutral-white;
+    border: .125rem solid $neutral-white;
     border-radius: .5rem;
     padding: .25rem .5rem;
     box-shadow: $shadow-tertiary;
@@ -326,18 +326,18 @@
       font-weight: bold;
       cursor: pointer;
       color: $primary-medium-blue;
-      transition: background-color 0.3s ease, color 0.3s ease;
+      transition: background-color .3s ease, color .3s ease;
 
       &:hover {
         background-color: $primary-medium-blue;
         color: $neutral-white;
         text-decoration: normal;
-        padding: 0.1rem 0.5rem;
-        border-radius: 0.25rem;
+        padding: .1rem .5rem;
+        border-radius: .25rem;
       }
 
       &:active {
-        transform: scale(0.95);
+        transform: scale(.95);
       }
     }
   }
@@ -359,7 +359,7 @@
     text-decoration: none;
     background-color: $frosted-glass;
     border: .0625rem solid $frosted-glass;
-    transition: transform 0.1s ease, background-color 0.1s ease, color 0.1s ease;
+    transition: transform .1s ease, background-color .1s ease, color .1s ease;
 
     &:visited {
       text-decoration: none;
@@ -383,15 +383,15 @@
       background-color: $primary-light-blue;
       color: $neutral-white;
       border: .125rem solid $neutral-light-grey;
-      border-radius: 0.25rem;
-      transform: scale(0.9);
+      border-radius: .25rem;
+      transform: scale(.9);
       text-decoration: none;
       font-weight: bold;
     }
   }
 
   &__guest-signin-link {
-    border: 2px solid $primary-light-blue-gradient-bg;
+    border: .125rem solid $primary-light-blue-gradient-bg;
     border-radius: .25rem;
     box-shadow: $shadow-tertiary;
     padding: 0 .25rem;
@@ -408,21 +408,21 @@
   &__button {
     padding: .5rem 1.075rem;
     border: none;
-    border-radius: 0.5rem;
+    border-radius: .5rem;
     font-size: 1rem;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-items: center;
-    gap: 0.5rem;
-    transition: transform 0.1s ease;
+    gap: .5rem;
+    transition: transform .1s ease;
 
     @include tablet {
       padding: .5rem 1.55rem;
     }
 
     &:active {
-      transform: scale(0.95);
+      transform: scale(.95);
     }
 
     &--previous {
@@ -461,8 +461,8 @@
         position: absolute;
         top: 0;
         left: -100%;
-        background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent);
-        transition: left 0.5s;
+        background: linear-gradient(to right, transparent, rgba(255, 255, 255, .2), transparent);
+        transition: left .5s;
       }
 
       &:hover::before {
@@ -504,8 +504,8 @@
         position: absolute;
         top: 0;
         right: -100%;
-        background: linear-gradient(to left, transparent, rgba(255, 255, 255, 0.2), transparent);
-        transition: right 0.5s;
+        background: linear-gradient(to left, transparent, rgba(255, 255, 255, .2), transparent);
+        transition: right .5s;
       }
 
       &:hover::before {
@@ -532,8 +532,8 @@ a:active {
 
 .frosted-toast-register {
   backdrop-filter: blur(.25rem);
-  background: rgba($primary-dark-blue, 0.75);
-  border: .1875rem solid rgba($primary-light-blue, 0.75);
+  background: rgba($primary-dark-blue, .75);
+  border: .1875rem solid rgba($primary-light-blue, .75);
   border-radius: .625rem;
   box-shadow: $shadow-primary;
   color: $primary-pale-blue;
