@@ -299,7 +299,7 @@
     // Homepage 
     .hero {
       background: linear-gradient(180deg, $primary-medium-blue 0%, $dark-mode-royal-blue 50%, $base-darker-blue 100%);
-      border-bottom: 3px solid $primary-button-blue;
+      border-bottom: .1875rem solid $primary-button-blue;
 
       &__title {
         color: $primary-very-light-blue;
@@ -318,7 +318,7 @@
       }
 
       &__new-releases {
-        border-top: 3px solid $primary-medium-blue;
+        border-top: .1875rem solid $primary-medium-blue;
       }
 
       &__label-header-container,
@@ -338,7 +338,7 @@
 
       &__card-features__feature__label {
         background-color: $primary-button-dark-blue;
-        border: 3px solid $frosted-glass;
+        border: .1875rem solid $frosted-glass;
         color: $primary-very-light-blue;
         box-shadow: $shadow-tertiary;
       }

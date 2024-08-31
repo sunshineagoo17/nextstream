@@ -1,13 +1,13 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
-// Set up an axios instance
+// Sets up an axios instance
 const api = axios.create({
   baseURL: process.env.REACT_APP_BASE_URL,
   withCredentials: true, // Include cookies in requests
 });
 
-// Add a request interceptor to include the token in all requests
+// Adds a request interceptor to include the token in all requests
 api.interceptors.request.use(
   (config) => {
     const token = Cookies.get('token');
@@ -21,7 +21,7 @@ api.interceptors.request.use(
   }
 );
 
-// Add a response interceptor to log errors
+// Adds a response interceptor to log errors
 api.interceptors.response.use(
   response => response,
   error => {

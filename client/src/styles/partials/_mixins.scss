@@ -76,7 +76,7 @@
   
 // Base button mixin
 @mixin button-style {
-    border-radius: 0.25rem;
+    border-radius: .25rem;
     text-transform: uppercase;
     border: $secondary;
     font-size: .75rem;
@@ -117,9 +117,8 @@
 
 // BG for TAC and Privacy Policy pages
 @mixin bg-white {
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, .8);
+    backdrop-filter: blur(.625rem);
     border-radius: 1rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 .25rem .375rem rgba($neutral-black, .1);
 }
-  

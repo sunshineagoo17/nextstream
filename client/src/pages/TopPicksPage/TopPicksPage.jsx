@@ -42,7 +42,7 @@ const TopPicksPage = () => {
         setIsLoading(true);
         let initialMedia = [];
   
-        const idToUse = isGuest ? 'guest' : userId; // Use 'guest' instead of 'guestUserId'
+        const idToUse = isGuest ? 'guest' : userId; 
         console.log('Fetching media for id:', idToUse);
   
         const storedMedia = localStorage.getItem('media');

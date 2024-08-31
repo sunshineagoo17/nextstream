@@ -11,10 +11,10 @@
 #dislikeTooltip {
   background-color: $primary-dark-blue;
   color: $neutral-white;
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
+  padding: .5rem 1rem;
+  border-radius: .5rem;
   font-family: $primary-font;
-  font-size: 0.85rem;
+  font-size: .85rem;
   line-height: 1.25rem;
 
   &::after {
@@ -50,7 +50,7 @@
     @include block-item(auto, 30vh);
     display: flex;
     background-color: $frosted-glass;
-    border: 5px solid $neutral-white;
+    border: .3125rem solid $neutral-white;
     border-radius: 1rem;
     flex-direction: column;
     align-items: center;
@@ -84,7 +84,7 @@
     background: $neutral-white;
     padding: .5rem;
     border-radius: .5rem;
-    border: 3px solid $primary-very-light-blue;
+    border: .1875rem solid $primary-very-light-blue;
     box-shadow: $shadow-primary;
     font-size: .85rem;
     line-height: 1.25rem;
@@ -102,7 +102,7 @@
       }
       50% {
           transform: scale(1.1);
-          box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.2);
+          box-shadow: 0 .5rem 1.5rem rgba($neutral-black, .2);
       }
   }
 
@@ -143,10 +143,10 @@
     width: 100%;
     text-align: center;
     margin-bottom: 1.5rem;
-    padding: 0.75rem 1rem;
-    border: 5px solid $frosted-glass;
+    padding: .75rem 1rem;
+    border: .3125rem solid $frosted-glass;
     border-radius: .9375rem;
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+    box-shadow: 0 .5rem 1rem rgba($neutral-black, .1);
 
     @include tablet {
       width: 80%;
@@ -170,8 +170,8 @@
     padding: 1rem;
     width: 100%;
     border-radius: .75rem;
-    box-shadow: .3125rem .3125rem .9375rem rgba(0, 0, 0, .2), -.3125rem -3125rem .9375rem rgba(255, 255, 255, .1);
-    border: 5px solid $neutral-white;
+    box-shadow: .3125rem .3125rem .9375rem rgba($neutral-black, .2), -.3125rem -3125rem .9375rem rgba(255, 255, 255, .1);
+    border: .3125rem solid $neutral-white;
     position: relative;
     overflow: hidden;
     line-height: 1.75rem;
@@ -244,7 +244,7 @@
     @include block-item(auto, 30vh);
     display: flex;
     background-color: $frosted-glass;
-    border: 5px solid $neutral-white;
+    border: .3125rem solid $neutral-white;
     border-radius: 1rem;
     flex-direction: column;
     align-items: center;
@@ -269,7 +269,7 @@
     background: $neutral-white;
     padding: .5rem;
     border-radius: .5rem;
-    border: 3px solid $primary-very-light-blue;
+    border: .1875rem solid $primary-very-light-blue;
     box-shadow: $shadow-primary;
     font-size: .85rem;
     line-height: 1.25rem;
@@ -364,7 +364,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: rgba(0, 0, 0, .5);
+    background: rgba($neutral-black, .5);
     opacity: 0;
     transition: opacity .3s ease;
 
@@ -563,7 +563,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    background: rgba(0, 0, 0, .8);
+    background: rgba($neutral-black, .8);
     display: flex;
     justify-content: center;
     align-items: center;
