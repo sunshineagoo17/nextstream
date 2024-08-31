@@ -72,6 +72,29 @@
       &__content-card {
         background-color: $dark-mode-royal-blue;
       }
+
+      &__container {
+        background: $primary-dark-blue;
+      }
+    }
+
+    // T&C
+    .terms,
+    .privacy {
+      background-color: $dark-mode-deep-blue;
+
+      &__content-card {
+        background-color: $primary-very-light-blue;
+      }
+
+      &__nextstream-link {
+        color: $dark-mode-royal-blue;
+        text-shadow: $shadow-primary;
+
+        &:hover {
+          color: $neutral-white;
+        }
+      }
     }
 
     // Homepage 
