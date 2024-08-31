@@ -45,7 +45,7 @@ const ForgotPasswordModal = ({ onClose }) => {
               required
             />
           </div>
-          <button type="submit">Send Reset Link</button>
+          <button type="submit" className="modal-forgot-password__reset">Send Reset Link</button>
         </form>
         {message && <p className={`modal-forgot-password__message ${isError ? 'error' : 'success'}`}>{message}</p>}
       </div>

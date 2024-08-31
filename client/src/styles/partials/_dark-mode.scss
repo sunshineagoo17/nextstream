@@ -99,6 +99,15 @@
       }
     }
 
+    // Forgot Password Modal
+    .modal-forgot-password__input {
+      color: $neutral-white;
+    }
+
+    .modal-forgot-password__reset {
+      color: $primary-dark-blue;
+    }
+
     // Register Page 
     .register {
       background-color: $primary-darker-blue;
