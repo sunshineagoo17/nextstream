@@ -1,4 +1,5 @@
 @use 'colors' as *;
+@use 'mixins' as *;
 
 // Global Dark Mode Styles
 [data-theme='dark'] {
@@ -97,26 +98,54 @@
       }
     }
 
-    // Profile 
-    .profile__main {
-      background-color: $primary-dark-blue;
+    // Profile     
+    .profile-img {
+      &::before {
+        background: none;
+      }
     }
 
-    .profile__title {
-      color: $primary-pale-blue;
+    .profile {
+      background: $primary-darker-blue;
+    
+      &__main {
+        background: $primary-dark-blue;
+      }
+
+      &__title {
+        color: $primary-pale-blue;
+      }
+
+      &__content-details,
+      &__content-password,
+      &__content-notifications,
+      &__content-subscription-container,
+      &__content-region,
+      &__dropdown {
+        background-color: $primary-button-dark-blue;
+      }
+
+      &__dropdown {
+        color: $neutral-white;
+      }
     }
 
-    .profile__content-details,
-    .profile__content-password,
-    .profile__content-notifications,
-    .profile__content-subscription-container,
-    .profile__content-region,
-    .profile__dropdown {
-      background-color: $primary-button-dark-blue;
+    // Top Picks
+    .recommendations-page {
+      background: $primary-darker-blue;
+      margin: 0;
+
+      @include desktop {
+        padding: 2rem 3.5rem;
+      }
+
+      &__copy {
+        color: $neutral-white;
+      }
     }
 
-    .profile__dropdown {
-      color: $neutral-white;
+    .light-blob-container {
+      background: $primary-darker-blue;
     }
 
     // Streamboard 
