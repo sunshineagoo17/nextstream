@@ -4,18 +4,16 @@
 @use "../../styles/global.scss" as *;
 
 .loader-container {
+    @include block-item(9.375rem, 9.375rem);
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100vh;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, .1);
+    backdrop-filter: blur(.625rem);
     border-radius: 1.5rem;
     box-shadow: $shadow-quinary;
     position: relative;
-    width: 150px;
-    height: 150px;
-    
 }
 
 .loader-wrapper {
@@ -30,10 +28,9 @@
 }
 
 .loader-svg {
-    width: 100px;
-    height: 100px;
+    @include block-item(6.25rem, 6.25rem);
     border-radius: 1.25rem;
-    border: 3px solid $frosted-glass;
+    border: .1875rem solid $frosted-glass;
     z-index: 2;
     animation: color-pulse 2s infinite, pulse 1.5s infinite;
 }
