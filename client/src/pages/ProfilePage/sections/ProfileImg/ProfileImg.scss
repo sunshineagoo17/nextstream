@@ -12,20 +12,19 @@
     padding: .75rem;
     width: 17.5rem;
     margin-bottom: 1.5rem;
-    border: 4px solid $neutral-white;
+    border: .25rem solid $neutral-white;
     background-color: $primary-medium-blue;
     position: relative;
     
     &::before {
       content: "";
+      @include block-item(150%, 100%);
       position: absolute;
       top: 0;
       right: 100%; 
-      width: 150%;
-      height: 100%;
       background: linear-gradient(270deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, .4) 50%, rgba(255, 255, 255, 0) 100%);
       transform: skewX(25deg);
-      transition: right 0.8s ease; 
+      transition: right .8s ease; 
     }
   
     &:hover::before {
@@ -91,7 +90,7 @@
         @include block-item(6rem, 6rem); 
         background-size: cover;
         border-radius: 6.25rem;
-        border: 2.5px solid $neutral-white;
+        border: .1563rem solid $neutral-white;
         box-shadow: $shadow-primary;
         position: relative;
         flex-shrink: 0;
@@ -110,7 +109,7 @@
     &__ellipse {
         @include block-item(.875rem, .875rem);
         background-color: $feedback-mint-green;
-        border: 1px solid $neutral-white;
+        border: .0625rem solid $neutral-white;
         border-radius: .4375rem;
     }
 
@@ -155,7 +154,7 @@
     &__button {
         @include block-item(1.5rem, 1.5rem);
         background-color: $primary-light-blue;
-        border: 1.5px solid $neutral-white;
+        border: .0938rem solid $neutral-white;
         box-shadow: $shadow-primary;
         border-radius: .5rem;
         color: $neutral-white;
@@ -165,7 +164,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-top: 0.5rem;
+        margin-top: .5rem;
 
         &:hover {
             background-color: $primary-medium-blue;
@@ -173,7 +172,7 @@
 
         &:active {
             background-color: $primary-dark-blue;
-            transform: scale(0.9);
+            transform: scale(.9);
         }
 
         &::after {
@@ -184,14 +183,14 @@
             transform: translateY(-30%);
             background: $neutral-white;
             color: $primary-dark-blue;
-            padding: 0.5rem 1rem;
-            border-radius: 0.5rem;
+            padding: .5rem 1rem;
+            border-radius: .5rem;
             box-shadow: $shadow-tertiary;
             white-space: nowrap;
             opacity: 0;
             visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-            font-size: 0.65rem;
+            transition: opacity .3s ease, visibility .3s ease;
+            font-size: .65rem;
             z-index: 10;
 
             @include tablet {
@@ -230,8 +229,8 @@
 
 .frosted-toast-profile-img {
     backdrop-filter: blur(.25rem);
-    background: rgba($primary-dark-blue, 0.75);
-    border: .1875rem solid rgba($primary-light-blue, 0.75);
+    background: rgba($primary-dark-blue, .75);
+    border: .1875rem solid rgba($primary-light-blue, .75);
     border-radius: .625rem;
     box-shadow: $shadow-primary;
     color: $primary-pale-blue;

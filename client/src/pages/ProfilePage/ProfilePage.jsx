@@ -35,8 +35,6 @@ export const ProfilePage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [saveMessage, setSaveMessage] = useState({ text: '', className: '' });
   const [errors, setErrors] = useState({});
-
-  // Refs for input fields
   const nameRef = useRef(null);
   const usernameRef = useRef(null);
   const emailRef = useRef(null);
@@ -140,11 +138,11 @@ export const ProfilePage = () => {
 
     try {
       if (currentPassword && newPassword) {
-        // Update user with new password
+        // Updates user with new password
         updatedUser.password = newPassword;
       }
 
-      // Update user profile only if there are no validation errors
+      // Updates user profile only if there are no validation errors
       await api.put(`/api/profile/${userId}`, updatedUser);
       setSaveMessage({ text: 'Profile updated successfully!', className: 'success' });
 

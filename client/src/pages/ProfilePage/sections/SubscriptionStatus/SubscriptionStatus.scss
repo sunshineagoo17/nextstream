@@ -16,7 +16,7 @@
     color: $neutral-white;
     font-family: $primary-font;
     font-size: 1rem;
-    letter-spacing: -0.05rem;
+    letter-spacing: -.05rem;
   }
 
   &__container {
@@ -31,17 +31,17 @@
     font-family: $primary-font;
     font-size: 1rem;
     font-weight: 400;
-    letter-spacing: -0.01125rem;
+    letter-spacing: -.01125rem;
     line-height: 1.5rem;
     margin-bottom: 1rem;
   }
 
   &__icon {
     @include block-item(.9rem, .9rem);
-    margin-right: 0.25rem;
+    margin-right: .25rem;
     padding: .1rem;
     border-radius: .5rem;
-    border: 2px solid $primary-pale-blue;
+    border: .125rem solid $primary-pale-blue;
     transition: box-shadow .3s ease, transform .3s ease-in-out;
 
     &:hover {
@@ -62,7 +62,7 @@
   &__active {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: .5rem;
     justify-content: center;
   }
 
@@ -73,14 +73,14 @@
     justify-content: center;
     cursor: pointer;
     position: relative;
-    transition: all 0.3s ease;
+    transition: all .3s ease;
 
     &:hover {
-      background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent);
+      background: linear-gradient(to right, transparent, rgba(255, 255, 255, .2), transparent);
     }
 
     &:active {
-      transform: scale(0.95);
+      transform: scale(.95);
     }
   }
 
@@ -88,12 +88,12 @@
     @include block-item(100%, 100%);
     box-shadow: $shadow-primary;
     background-color: $primary-light-blue;
-    border: 0.1875rem solid $feedback-mint-light-green;
-    border-radius: 0.75rem;
+    border: .1875rem solid $feedback-mint-light-green;
+    border-radius: .75rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s ease;
+    transition: all .3s ease;
 
     &--active {
       background-color: $feedback-mint-light-green;
@@ -117,14 +117,14 @@
   &__box {
     @include block-item(10.5rem, 3rem);
     background-color: $primary-light-blue;
-    border: 0.1875rem solid $feedback-mint-light-green;
-    border-radius: 0.75rem;
+    border: .1875rem solid $feedback-mint-light-green;
+    border-radius: .75rem;
     box-shadow: $shadow-primary;
     display: flex;
     align-items: center;
-    padding: 0 0.5rem;
+    padding: 0 .5rem;
     justify-content: center;
-    transition: all 0.3s ease;
+    transition: all .3s ease;
 
     @include tablet {
       @include block-item(9.25rem, 3rem);
@@ -152,16 +152,16 @@
     @include block-item(13.9688rem, 3.5625rem);
     align-items: center;
     background-color: $primary-light-blue;
-    border: 0.1875rem solid $feedback-error-peach;
-    border-radius: 0.75rem;
+    border: .1875rem solid $feedback-error-peach;
+    border-radius: .75rem;
     box-shadow: $shadow-primary;
     cursor: pointer;
     display: inline-flex;
-    gap: 0.5rem;
+    gap: .5rem;
     justify-content: center;
-    padding: 0.75rem 2rem;
+    padding: .75rem 2rem;
     position: relative;
-    transition: all 0.3s ease;
+    transition: all .3s ease;
 
     @include tablet {
       @include block-item(12.6563rem, 3.5625rem);
@@ -172,20 +172,20 @@
     }
 
     &:hover {
-      backdrop-filter: blur(0.25rem);
-      box-shadow: 0 0 0.625rem rgba(255, 0, 0, 0.5);
+      backdrop-filter: blur(.25rem);
+      box-shadow: 0 0 .625rem rgba(255, 0, 0, .5);
       background: $feedback-error-light-peach;
     }
 
     &:active {
-      transform: scale(0.95);
+      transform: scale(.95);
     }
 
     &--delete {
       width: 12.6563rem;
       background-color: $feedback-error-peach;
       border-color: $feedback-error-peach;
-      box-shadow: 0 0 0.625rem rgba(255, 0, 0, 0.3);
+      box-shadow: 0 0 .625rem rgba(255, 0, 0, .3);
 
       @include tablet {
         width: 12.6563rem;

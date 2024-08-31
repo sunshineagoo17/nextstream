@@ -7,17 +7,17 @@
 .location-tooltip {
   background-color: $primary-dark-blue !important;
   color: $neutral-white !important;
-  padding: 0.25rem !important;
+  padding: .25rem !important;
   border-radius: 1rem;
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+  box-shadow: 0 .5rem 1rem rgba($neutral-black, .1);
   font-family: $primary-font !important;
-  font-size: 0.75rem !important;
+  font-size: .75rem !important;
   line-height: 1.25rem;
   z-index: 9999;
 
   @include tablet {
     padding: .75rem !important;
-    font-size: 0.85rem !important;
+    font-size: .85rem !important;
   }
 
   &::after {
@@ -53,8 +53,8 @@
   }
 
   &__text-wrapper {
-    border-radius: 0.5rem 0.5rem 0 0;
-    border: 1px solid $primary-pale-blue;
+    border-radius: .5rem .5rem 0 0;
+    border: .0625rem solid $primary-pale-blue;
     box-shadow: $shadow-senary;
     width: 11rem;
   }
@@ -75,11 +75,11 @@
   
     &:hover .profile__btn-save-account {
       background: linear-gradient(180deg, rgb(238, 244, 252) 0%, rgb(64, 146, 255) 100%);
-      animation: shimmer 0.5s linear infinite;
+      animation: shimmer .5s linear infinite;
     }
 
     &:active {
-      transform: scale(0.95);
+      transform: scale(.95);
     }
   }
   
@@ -96,14 +96,14 @@
     @include block-item(9.25rem, 2.875rem);
     align-items: center;
     background-color: $neutral-white;
-    border: 2px solid $primary-very-light-blue;
+    border: .125rem solid $primary-very-light-blue;
     border-radius: .75rem;
     box-shadow: $shadow-quinary;
     display: flex;
     justify-content: center;
     padding: .75rem 2rem;
     position: absolute;
-    transition: background 0.3s ease;
+    transition: background .3s ease;
     cursor: pointer;
 
     &:hover .profile__btn-save-account-txt {
@@ -111,14 +111,14 @@
     }
     
     &:active {
-      transform: scale(0.95);
+      transform: scale(.95);
     }
   }
   
   &__btn-save-account-txt {
     font-family: $primary-font;
     font-size: 1rem;
-    letter-spacing: -0.05rem;
+    letter-spacing: -.05rem;
     position: relative;
     white-space: nowrap;
     cursor: pointer;
@@ -177,7 +177,7 @@
     flex-direction: column;
     background-color: $primary-pale-blue;
     width: 100%; 
-    border: 1px solid $neutral-white;
+    border: .0625rem solid $neutral-white;
     border-radius: 1rem;
     box-shadow: $shadow-senary;
     margin: 2.5rem 0 2.5rem 0;
@@ -243,9 +243,9 @@
     padding: 1rem;
     width: 100%;
     background-color: $neutral-white;
-    border: 0.125rem solid $primary-very-light-blue;
+    border: .125rem solid $primary-very-light-blue;
     box-shadow: $shadow-quinary;
-    border-radius: 0.75rem;
+    border-radius: .75rem;
   }
 
   &__content-details,
@@ -253,8 +253,8 @@
   &__content-notifications,
   &__content-password {
     background-color: $neutral-white;
-    border: 0.125rem solid $primary-very-light-blue;
-    border-radius: 0.75rem;
+    border: .125rem solid $primary-very-light-blue;
+    border-radius: .75rem;
     box-shadow: $shadow-quinary;
     padding: 1rem;
     width: 100%;
@@ -275,10 +275,10 @@
   &__notifications-header,
   &__region-header {
     background: $primary-light-blue;
-    border: 2px solid $primary-pale-blue;
+    border: .125rem solid $primary-pale-blue;
     box-shadow: $shadow-primary;
     text-align: center;
-    border-radius: 0.5rem 0.5rem 0 0;
+    border-radius: .5rem .5rem 0 0;
     width: 11rem; 
 
     @include tablet {
@@ -313,8 +313,8 @@
   &__region-content {
     align-items: center;
     background-color: $primary-very-light-blue;
-    border: 0.1875rem solid $primary-pale-blue;
-    border-radius: 0 .5rem 0.5rem 0.5rem;
+    border: .1875rem solid $primary-pale-blue;
+    border-radius: 0 .5rem .5rem .5rem;
     box-shadow: $shadow-primary;
     display: flex;
     justify-content: center;
@@ -327,10 +327,10 @@
 
   &__location-icon {
     @include block-item(1.5rem, 1.5rem);
-    margin-right: 0.25rem;
+    margin-right: .25rem;
     padding: .1rem;
     border-radius: .5rem;
-    border: 2px solid $primary-pale-blue;
+    border: .125rem solid $primary-pale-blue;
     transition: box-shadow .3s ease transform .3s ease-in-out;
     cursor: pointer;
 
@@ -355,14 +355,14 @@
     font: $primary-font;
     width: 100%;
     padding: 1rem;
-    border: 2px solid $primary-light-blue;
-    border-radius: 0.5rem;
+    border: .125rem solid $primary-light-blue;
+    border-radius: .5rem;
     font-size: 1rem;
     box-shadow: $shadow-senary;
     background: $neutral-white;
     margin-bottom: 1rem;
     color: $neutral-black;
-    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    transition: background-color .3s ease, color .3s ease, border-color .3s ease;
 
     &:focus,
     &:not(:placeholder-shown) {
@@ -374,11 +374,11 @@
       font-size: 1rem;
 
       & + .profile__label {
-        top: -0.85rem;
+        top: -.85rem;
         font-size: 1rem;
         font: $secondary-font;
         background-color: $primary-medium-blue;
-        border: 1px solid $primary-light-blue;
+        border: .0625rem solid $primary-light-blue;
         color: $neutral-white;
       }
 
@@ -407,12 +407,12 @@
     @include block-item(13.9688rem, 3.5625rem);
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: .5rem;
     font-family: $primary-font;
     font-size: 1rem;
     background: $neutral-white;
-    border: 2px solid $primary-light-blue;
-    border-radius: 0.5rem;
+    border: .125rem solid $primary-light-blue;
+    border-radius: .5rem;
     box-shadow: $shadow-primary;
     cursor: pointer;
     color: $primary-dark-blue;
@@ -446,7 +446,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.1s ease;
+    transition: transform .1s ease;
 
     @include tablet {
       @include block-item(1rem, 1rem);
@@ -464,7 +464,7 @@
   }
 
   &:active .profile__password-toggle-icon {
-    transform: scale(0.9);
+    transform: scale(.9);
   }
 
   &__location-icon {
@@ -482,11 +482,11 @@
     left: 1rem;
     background: $primary-light-blue;
     border-radius: .35rem;
-    padding: 0 0.5rem;
+    padding: 0 .5rem;
     box-shadow: $shadow-tertiary;
     color: $neutral-light-grey;
     font-size: 1rem;
-    transition: all 0.3s ease;
+    transition: all .3s ease;
     pointer-events: none;
 
     @include tablet {
@@ -519,11 +519,11 @@
     @include block-item(13.9688rem, 3.5625rem);
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: .5rem;
     font-family: $primary-font;
     font-size: 1rem;
     background: $neutral-white;
-    border-radius: 0.5rem;
+    border-radius: .5rem;
     box-shadow: $shadow-primary;
     cursor: pointer;
     color: $primary-dark-blue;
@@ -551,7 +551,7 @@
     font-family: $primary-font;
     font-size: 1rem;
     color: $primary-medium-blue;
-    margin-bottom: 0.5rem;
+    margin-bottom: .5rem;
   }
 }
 
@@ -567,29 +567,29 @@
 .save-message {
   padding: 1rem;
   margin-bottom: 1rem;
-  border-radius: 0.5rem;
+  border-radius: .5rem;
   text-align: center;
   box-shadow: $shadow-primary;
   position: relative; 
 
   &.success{
-    background-color: rgba($feedback-mint-light-green, 0.8); 
+    background-color: rgba($feedback-mint-light-green, .8); 
     color: $toast-success;
-    border: 3px solid $feedback-mint-green;
+    border: .1875rem solid $feedback-mint-green;
   }
 
   &.error {
-    background-color: rgba($feedback-error-light-peach, 0.8); 
+    background-color: rgba($feedback-error-light-peach, .8); 
     color: $feedback-error-label;
-    border: 1px solid $feedback-error-peach;
+    border: .0625rem solid $feedback-error-peach;
     margin-left: .75rem;
     margin-right: .75rem;
   }
 
   .save-message__close {
     position: absolute;
-    top: 0.5rem;
-    right: 0.5rem;
+    top: .5rem;
+    right: .5rem;
     background: none;
     border: none;
     font-size: 1rem;
@@ -611,8 +611,8 @@
 
 .frosted-toast-profile {
   backdrop-filter: blur(.25rem);
-  background: rgba($primary-dark-blue, 0.75);
-  border: .1875rem solid rgba($primary-light-blue, 0.75);
+  background: rgba($primary-dark-blue, .75);
+  border: .1875rem solid rgba($primary-light-blue, .75);
   border-radius: .625rem;
   box-shadow: $shadow-primary;
   color: $primary-pale-blue;
