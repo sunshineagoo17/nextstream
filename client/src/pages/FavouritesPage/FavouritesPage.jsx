@@ -325,7 +325,7 @@ const FavouritesPage = () => {
         const fetchedFaves = response.data;
         console.log('Fetched more media:', fetchedFaves);
 
-        // Filter out duplicates
+        // Filters out duplicates
         const uniqueFaves = fetchedFaves.filter(
           (fave) =>
             !displayedFaves.some(
@@ -336,7 +336,7 @@ const FavouritesPage = () => {
 
         newFaves = [...newFaves, ...uniqueFaves];
 
-        // If there are no more items to fetch, break the loop and show a toast notification
+        // If there are no more items to fetch, this breaks the loop and show a toast notification
         if (fetchedFaves.length < 4) {
           showAlert("That's all for now. There's no more media available.", "info");
           break;
@@ -345,7 +345,7 @@ const FavouritesPage = () => {
         currentPage += 1;
       }
 
-      // Add exactly 4 new unique items to the displayed list
+      // Adds exactly 4 new unique items to the displayed list
       setDisplayedFaves((prevFaves) => [...prevFaves, ...newFaves.slice(0, 4)]);
       setPage(currentPage);
     } catch (error) {
@@ -373,7 +373,7 @@ const FavouritesPage = () => {
       console.log(`Deleting media: ID ${media_id}, Type ${media_type}`);
       await api.delete(`/api/faves/${userId}/delete/${media_id}/${media_type}`);
       
-      // Remove the item from faves and displayedFaves
+      // Removes the item from faves and displayedFaves
       setFaves((prevFaves) =>
         prevFaves.filter((fave) => !(fave.media_id === media_id && fave.media_type === media_type))
       );

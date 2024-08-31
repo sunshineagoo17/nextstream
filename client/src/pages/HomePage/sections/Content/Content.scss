@@ -9,7 +9,7 @@
   align-items: flex-start;
   flex-direction: column;
   width: 100%;
-  margin-top: 0.025rem;
+  margin-top: .025rem;
 
   &__container {
     display: flex;
@@ -64,13 +64,13 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: 0.85rem;
+      border-radius: .85rem;
       box-shadow: $shadow-quaternary;
       cursor: pointer;
-      transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+      transition: transform .2s ease, background-color .2s ease, border-color .2s ease;
 
       &:active {
-        transform: scale(0.95);
+        transform: scale(.95);
       }
 
       background-color: $base-darker-blue;
@@ -84,27 +84,27 @@
 
     .content__nav-circles {
       display: flex;
-      gap: 0.5rem;
+      gap: .5rem;
 
       .content__nav-circle {
         @include block-item(.75rem, .75rem);
-        background: rgba($neutral-white, 0.7);
-        border: 1.5px solid $primary-very-light-blue;
-        backdrop-filter: blur(0.5rem);
+        background: rgba($neutral-white, .7);
+        border: .0938rem solid $primary-very-light-blue;
+        backdrop-filter: blur(.5rem);
         border-radius: 50%;
         cursor: pointer;
-        transition: transform 0.3s ease, background-color 0.3s, box-shadow 0.3s;
+        transition: transform .3s ease, background-color .3s, box-shadow .3s;
         box-shadow: $shadow-quaternary;
 
         &:hover {
           transform: scale(1.1);
-          background-color: rgba($primary-light-blue, 0.8);
+          background-color: rgba($primary-light-blue, .8);
           box-shadow: $shadow-tertiary;
         }
 
         &--active {
           background-color: $primary-medium-blue;
-          box-shadow: 0 0 0.25rem $primary-dark-blue;
+          box-shadow: 0 0 .25rem $primary-dark-blue;
         }
 
         @include tablet {
@@ -122,12 +122,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: rgba($primary-light-blue, 0.3);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.4);
+    background: rgba($primary-light-blue, .3);
+    backdrop-filter: blur(1.25rem);
+    border: .0625rem solid rgba(255, 255, 255, .4);
     border-radius: 1rem;
     padding: 1rem;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 .25rem 1.875rem rgba(0, 0, 0, .1);
 
     @include tablet {
       @include block-item(40.3244rem, 20.625rem);
@@ -145,7 +145,7 @@
   &__card-media {
     display: flex;
     gap: .35rem;
-    transition: transform 0.5s ease-in-out;
+    transition: transform .5s ease-in-out;
       
     @include tablet {
         gap: 1rem;
@@ -160,7 +160,6 @@
     }
   }
 
-  // Add the sliding animations
   @keyframes slideInFromRight {
     from {
       transform: translateX(100%);
@@ -215,26 +214,26 @@
     position: relative;
     border-radius: 1.6rem;
     box-shadow: $shadow-quaternary;
-    transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+    transition: transform .2s ease, background-color .2s ease, border-color .2s ease;
 
     &.slide-in-right {
-      animation: slideInFromRight 1s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+      animation: slideInFromRight 1s cubic-bezier(.25, .8, .25, 1) forwards;
     }
 
     &.slide-in-left {
-      animation: slideInFromLeft 1s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+      animation: slideInFromLeft 1s cubic-bezier(.25, .8, .25, 1) forwards;
     }
 
     &.slide-out-right {
-      animation: slideOutToRight 1s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+      animation: slideOutToRight 1s cubic-bezier(.25, .8, .25, 1) forwards;
     }
 
     &.slide-out-left {
-      animation: slideOutToLeft 1s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+      animation: slideOutToLeft 1s cubic-bezier(.25, .8, .25, 1) forwards;
     }  
 
     &:active {
-      transform: scale(0.95);
+      transform: scale(.95);
     }
 
     @include tablet {
@@ -292,19 +291,19 @@
     @include block-item(1.5rem, 1.5rem);
     background-color: $base-darker-blue;
     box-shadow: $shadow-quaternary;
-    border-radius: 0.35rem;
+    border-radius: .35rem;
     display: flex;
     justify-content: center;
     align-items: center;
     position: absolute;
     bottom: 1.5rem;
-    right: 0.4rem;
+    right: .4rem;
 
     @include tablet {
       @include block-item(2.3125rem, 2.3125rem);
-      border-radius: 0.5rem;
+      border-radius: .5rem;
       bottom: 2rem;
-      right: 0.5rem;
+      right: .5rem;
     }
 
     @include desktop {
@@ -315,7 +314,7 @@
 
   .content__video-icon,
   .content__tv-icon {
-    @include block-item(0.9rem, auto);
+    @include block-item(.9rem, auto);
 
     @include tablet {
       @include block-item(1.5625rem, auto);
@@ -353,10 +352,10 @@
   .content__label-header-container {
     @include block-item(9rem, 3.5rem);
     margin-left: 1.5rem;
-    margin-bottom: 0.75rem;
-    border: 0.125rem solid $neutral-white;
-    border-bottom-left-radius: 0.5rem;
-    border-bottom-right-radius: 0.5rem;
+    margin-bottom: .75rem;
+    border: .125rem solid $neutral-white;
+    border-bottom-left-radius: .5rem;
+    border-bottom-right-radius: .5rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -384,8 +383,8 @@
     flex-direction: column;
     align-items: center;
     background-color: $neutral-white;
-    box-shadow: 0 1.75rem 5.25rem rgba($neutral-black, 0.18);
-    border-radius: 0.5rem;
+    box-shadow: 0 1.75rem 5.25rem rgba($neutral-black, .18);
+    border-radius: .5rem;
     text-align: center;
   }
 
@@ -396,7 +395,7 @@
     align-items: center;
     background: $primary-icon-bg;
     box-shadow: $shadow-primary;
-    border-radius: 0.5rem;
+    border-radius: .5rem;
     margin-bottom: 1rem;
   }
 
@@ -426,14 +425,14 @@
 
   .content__label-header-new-container {
     background-color: $primary-very-light-blue;
-    border-bottom-left-radius: 0.5rem;
-    border-bottom-right-radius: 0.5rem;
-    border: 2px solid $neutral-white;
+    border-bottom-left-radius: .5rem;
+    border-bottom-right-radius: .5rem;
+    border: .125rem solid $neutral-white;
     box-shadow: $shadow-quinary;
-    margin-top: 0.05rem;
+    margin-top: .05rem;
 
     @include tablet {
-      margin-left: 0.6rem;
+      margin-left: .6rem;
 
       &:hover {
         @include glow-animation;
@@ -469,7 +468,7 @@
     color: $primary-dark-blue;
     font-family: $primary-font;
     margin-top: 1rem;
-    font-size: 0.85rem;
+    font-size: .85rem;
     font-weight: 400;
     letter-spacing: 0;
     line-height: 1.15rem;
@@ -488,8 +487,8 @@
 
   .content__label-header-background {
     @include block-item(100%, 100%);
-    border-bottom-left-radius: 0.5rem;
-    border-bottom-right-radius: 0.5rem;
+    border-bottom-left-radius: .5rem;
+    border-bottom-right-radius: .5rem;
   }
 
   .content__label-features {
@@ -541,8 +540,8 @@
       position: relative; 
 
       &:active {
-        transform: scale(0.95);
-        transition: transform 0.1s ease;
+        transform: scale(.95);
+        transition: transform .1s ease;
       }
     
       @include tablet {
@@ -556,13 +555,13 @@
         align-items: center;
         background: $primary-icon-bg;
         box-shadow: $shadow-primary;
-        border-top-left-radius: 0.25rem;
-        border-top-right-radius: 0.25rem;
+        border-top-left-radius: .25rem;
+        border-top-right-radius: .25rem;
     
         @include tablet {
           @include block-item(5.5rem, 4.5rem);
-          border-top-left-radius: 0.5rem;
-          border-top-right-radius: 0.5rem;
+          border-top-left-radius: .5rem;
+          border-top-right-radius: .5rem;
     
           @include desktop {
             @include block-item(9.6875rem, 9.6875rem);
@@ -579,14 +578,14 @@
         transform: translateX(-50%);
         background: $neutral-white;
         color: $primary-dark-blue;
-        padding: 0.5rem 1rem;
-        border-radius: 0.5rem;
+        padding: .5rem 1rem;
+        border-radius: .5rem;
         box-shadow: $shadow-tertiary;
         white-space: nowrap; 
         opacity: 0;
         visibility: hidden;
-        transition: opacity 0.3s ease, visibility 0.3s ease;
-        font-size: 0.65rem;
+        transition: opacity .3s ease, visibility .3s ease;
+        font-size: .65rem;
         z-index: 10;
     
         @include tablet {
@@ -603,8 +602,8 @@
       &__calendar-icon,
       &__search-icon {
         @include block-item(2.75rem, 2.75rem);
-        border-top-left-radius: 0.5rem;
-        border-top-right-radius: 0.5rem;
+        border-top-left-radius: .5rem;
+        border-top-right-radius: .5rem;
         transition: transform 1.75s ease-in;
 
         @include tablet {
@@ -623,8 +622,8 @@
       &__label {
         @include block-item(9.5rem, 3.5rem);
         background: $neutral-white;
-        box-shadow: 0 1.75rem 5.25rem rgba($neutral-black, 0.18);
-        border-radius: 0.5rem;
+        box-shadow: 0 1.75rem 5.25rem rgba($neutral-black, .18);
+        border-radius: .5rem;
         text-align: center;
         color: $primary-medium-blue;
         font-size: 1rem;
@@ -656,8 +655,8 @@
   cursor: pointer;
   text-decoration: none;
   padding: 0;
-  border-radius: 0.25rem;
-  transition: background-color 0.3s, transform 0.3s;
+  border-radius: .25rem;
+  transition: background-color .3s, transform .3s;
 
   &:visited {
     color: $primary-dark-blue;
@@ -668,7 +667,7 @@
     padding-left: .25rem;
     padding-right: .25rem;
     background-color: $primary-medium-blue;
-    border: 1px solid $primary-medium-blue;
+    border: .0625rem solid $primary-medium-blue;
     color: $neutral-white;
     border-color: $primary-dark-blue;
     text-decoration: none;
@@ -680,9 +679,9 @@
     padding-right: .25rem;
     background-color: $primary-light-blue;
     color: $neutral-white;
-    border: 2px solid $neutral-light-grey;
-    border-radius: 0.25rem;
-    transform: scale(0.5);
+    border: .125rem solid $neutral-light-grey;
+    border-radius: .25rem;
+    transform: scale(.5);
     text-decoration: none;
     font-weight: bold;
   }
@@ -690,8 +689,8 @@
 
 .frosted-toast-content {
   backdrop-filter: blur(.25rem);
-  background: rgba($primary-dark-blue, 0.75);
-  border: .1875rem solid rgba($primary-light-blue, 0.75);
+  background: rgba($primary-dark-blue, .75);
+  border: .1875rem solid rgba($primary-light-blue, .75);
   border-radius: .625rem;
   box-shadow: $shadow-primary;
   color: $primary-pale-blue;

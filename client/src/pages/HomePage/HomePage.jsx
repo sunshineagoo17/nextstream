@@ -17,7 +17,6 @@ export const HomePage = () => {
       setShowCookieNotification(true);
     }
 
-    // Set isLoading to false immediately after initial mount
     setIsLoading(false);
   }, []);
 

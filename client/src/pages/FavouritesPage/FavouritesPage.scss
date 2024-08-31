@@ -11,11 +11,11 @@
 #trashTooltip {
   background-color: $primary-dark-blue;
   color: $neutral-white;
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+  padding: .5rem 1rem;
+  border-radius: .5rem;
+  box-shadow: 0 .5rem 1rem rgba($neutral-black, .1);
   font-family: $primary-font;
-  font-size: 0.85rem;
+  font-size: .85rem;
   line-height: 1.25rem;
 
   &::after {
@@ -61,18 +61,18 @@
     color: $neutral-white;
     cursor: help;
     text-decoration: none;
-    border: 1px solid $primary-dark-blue;
+    border: .0625rem solid $primary-dark-blue;
     padding-left: .25rem;
     padding-right: .25rem;
-    border-radius: 0.25rem;
-    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    border-radius: .25rem;
+    transition: background-color .3s, color .3s, border-color .3s;
     white-space: nowrap;
 
     &:hover,
     &:focus,
     &:visited {
       background-color: $primary-medium-blue;
-      border: 1px solid $primary-dark-blue;
+      border: .0625rem solid $primary-dark-blue;
       color: $neutral-white;
       text-decoration: none;
       box-shadow: $shadow-primary;
@@ -81,9 +81,9 @@
     &:active {
       background-color: $primary-light-blue;
       color: $neutral-white;
-      border: 2px solid $neutral-light-grey;
-      border-radius: 0.25rem;
-      transform: scale(0.9);
+      border: .125rem solid $neutral-light-grey;
+      border-radius: .25rem;
+      transform: scale(.9);
       text-decoration: none;
       font-weight: bold;
     }
@@ -98,7 +98,7 @@
     @include block-item(auto, 30vh);
     display: flex;
     background-color: $frosted-glass;
-    border: 5px solid $neutral-white;
+    border: .3125rem solid $neutral-white;
     border-radius: 1rem;
     flex-direction: column;
     align-items: center;
@@ -133,7 +133,7 @@
     background: $neutral-white;
     padding: .5rem;
     border-radius: .5rem;
-    border: 3px solid $primary-very-light-blue;
+    border: .1875rem solid $primary-very-light-blue;
     box-shadow: $shadow-primary;
     font-size: .85rem;
     line-height: 1.25rem;
@@ -151,7 +151,7 @@
       }
       50% {
           transform: scale(1.1);
-          box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.2);
+          box-shadow: 0 .5rem 1.5rem rgba($neutral-black, .2);
       }
   }
 
@@ -177,7 +177,7 @@
     background: $neutral-white;
     padding: .5rem;
     border-radius: .5rem;
-    border: 3px solid $primary-very-light-blue;
+    border: .1875rem solid $primary-very-light-blue;
     box-shadow: $shadow-primary;
     font-size: .85rem;
     line-height: 1.25rem;
@@ -191,11 +191,11 @@
     width: 100%;
     text-align: center;
     margin-bottom: 1.5rem;
-    padding: 0.75rem 1rem;
+    padding: .75rem 1rem;
     background: rgba($primary-gradient-blue, .8);
-    border: 5px solid $primary-very-light-blue;
+    border: .3125rem solid $primary-very-light-blue;
     border-radius: .9375rem;
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+    box-shadow: 0 .5rem 1rem rgba($neutral-black, .1);
 
     @include tablet {
       width: 80%;
@@ -213,7 +213,7 @@
     font-size: 1.15rem;
     color: $primary-very-light-blue;
     margin-bottom: .5rem;
-    text-shadow: .125rem .125rem .3125rem rgba(0, 0, 0, .2);
+    text-shadow: .125rem .125rem .3125rem rgba($neutral-black, .2);
 
     @include tablet {
       font-size: 1.35rem;
@@ -284,12 +284,12 @@
     justify-content: center;
     width: 100%;
     background-color: $primary-dark-blue;
-    border: 5px solid $primary-very-light-blue;
+    border: .3125rem solid $primary-very-light-blue;
     box-shadow: $shadow-primary;
     background: rgba($primary-gradient-blue, .8);
     backdrop-filter: blur(.9375rem);
     border-radius: 1.5rem;
-    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .2), 0 -.5rem 1rem rgba(255, 255, 255, .5);
+    box-shadow: 0 .5rem 1rem rgba($neutral-black, .2), 0 -.5rem 1rem rgba(255, 255, 255, .5);
 
     @include tablet {
       width: 100%;
@@ -457,7 +457,7 @@
     padding: 1rem;
     width: 100%;
     border-radius: .75rem;
-    box-shadow: .3125rem .3125rem .9375rem rgba(0, 0, 0, .2), -.3125rem -3125rem .9375rem rgba(255, 255, 255, .1);
+    box-shadow: .3125rem .3125rem .9375rem rgba($neutral-black, .2), -.3125rem -3125rem .9375rem rgba(255, 255, 255, .1);
     border: .1875rem solid $neutral-white;
     position: relative;
     overflow: hidden;
@@ -527,7 +527,7 @@
     backdrop-filter: blur(.9375rem);
     border-radius: 1.5rem;
     margin-bottom: .5rem;
-    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .2), 0 -.5rem 1rem rgba(255, 255, 255, .5);
+    box-shadow: 0 .5rem 1rem rgba($neutral-black, .2), 0 -.5rem 1rem rgba(255, 255, 255, .5);
 
     @include tablet {
       width: 65%;
@@ -578,7 +578,7 @@
 
     &:hover {
       background: rgba(255, 255, 255, .8);
-      box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .2), 0 -.5rem 1rem rgba(255, 255, 255, .7);
+      box-shadow: 0 .5rem 1rem rgba($neutral-black, .2), 0 -.5rem 1rem rgba(255, 255, 255, .7);
       border: .0625rem solid rgba(255, 255, 255, .4);
       transform: scale(1.025);
     }
@@ -689,7 +689,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: rgba(0, 0, 0, .5);
+    background: rgba($neutral-black, .5);
     opacity: 0;
     transition: opacity .3s ease;
 
@@ -967,7 +967,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    background: rgba(0, 0, 0, .8);
+    background: rgba($neutral-black, .8);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1073,7 +1073,7 @@
     align-items: center;
     justify-content: center;
     position: relative;
-    padding: 0.5rem;
+    padding: .5rem;
     background: rgba($neutral-white, .7);
     backdrop-filter: blur(.625rem);
     border-radius: .9375rem;

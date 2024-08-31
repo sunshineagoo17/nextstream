@@ -6,18 +6,18 @@
 .tooltip-custom {
   background-color: $neutral-white !important;
   color: $primary-dark-blue !important;
-  padding: 0.25rem !important;
+  padding: .25rem !important;
   border-radius: 1rem;
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+  box-shadow: 0 .5rem 1rem rgba($neutral-black, .1);
   font-family: $primary-font !important;
-  font-size: 0.75rem !important;
+  font-size: .75rem !important;
   line-height: 1.25rem;
   font-weight: bold;
   z-index: 9999;
 
   @include tablet {
     padding: .75rem !important;
-    font-size: 0.85rem !important;
+    font-size: .85rem !important;
   }
 
   &::after {
@@ -26,12 +26,11 @@
 }
 
 .calendar-modal {
+  @include block-item(100%, 100%);
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba($neutral-black, .8);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -49,14 +48,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid $neutral-white;
+  border: .0625rem solid $neutral-white;
   padding: .05rem;
   font-size: 1.5rem;
   box-shadow: $shadow-senary;
   cursor: pointer;
   z-index: 1001;
   border-radius: .2rem;
-  transition: all 0.3s ease;
+  transition: all .3s ease;
 
   &:hover {
     background-color: $primary-dark-blue;
@@ -103,8 +102,8 @@
 
 .frosted-toast-auth {
   backdrop-filter: blur(.25rem);
-  background: rgba($primary-dark-blue, 0.75);
-  border: .1875rem solid rgba($primary-light-blue, 0.75);
+  background: rgba($primary-dark-blue, .75);
+  border: .1875rem solid rgba($primary-light-blue, .75);
   border-radius: .625rem;
   box-shadow: $shadow-primary;
   color: $primary-pale-blue;
@@ -156,7 +155,7 @@
     @include block-item(1.1rem, 1.1rem);
     font-size: 1.5rem;
     color: $primary-very-light-blue;
-    transition: transform 0.2s ease, color 0.2s ease;
+    transition: transform .2s ease, color .2s ease;
   
     &:hover {
       transform: scale(1.1);
@@ -164,7 +163,7 @@
     }
   
     &:active {
-      transform: scale(0.9);
+      transform: scale(.9);
       color: $primary-dark-blue;
     }
   }
@@ -180,7 +179,7 @@
     @include block-item(.75rem, .75rem);
     background: rgba($neutral-white, .7);
     border: .0938rem solid $primary-very-light-blue;
-    backdrop-filter: blur(0.5rem);
+    backdrop-filter: blur(.5rem);
     border-radius: 50%;
     cursor: pointer;
     transition: transform .3s ease, background-color .3s, box-shadow .3s;
@@ -194,7 +193,7 @@
 
     &.active {
       background-color: $primary-medium-blue;
-      border: 1.5px solid $primary-light-blue;
+      border: .0938rem solid $primary-light-blue;
       box-shadow: 0 0 .25rem $primary-dark-blue;
     }
 
@@ -207,7 +206,7 @@
     cursor: pointer;
     color: $neutral-white;
     font-size: .5rem;
-    transition: transform 0.3s ease;
+    transition: transform .3s ease;
 
     &:hover {
       color: $primary-very-light-blue;
@@ -229,7 +228,7 @@
   &__container {
     position: relative;
     z-index: 1;
-    max-width: 1200px;
+    max-width: 75rem;
     width: 100%;
   }
 
@@ -276,17 +275,16 @@
     display: none;
 
     @include tablet {
+      @include block-item(1.875rem, 1.875rem);
       display: block;
       position: absolute;
-      bottom: 15px;
-      right: 10px;
-      width: 30px;
-      height: 30px;
-      background-color: rgba(255, 255, 255, 0.8);
+      bottom: .9375rem;
+      right: .625rem;
+      background-color: rgba(255, 255, 255, .8);
       border-radius: 15%;
       box-shadow: $shadow-tertiary;
-      padding: 4px;
-      transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+      padding: .25rem;
+      transition: transform .2s ease, background-color .2s ease, border-color .2s ease;
 
       &:hover {
         transform: scale(1.05);
@@ -294,7 +292,7 @@
       }
 
       &:active {
-        transform: scale(0.9);
+        transform: scale(.9);
         background: $primary-dark-blue;
       }
     }
@@ -307,7 +305,7 @@
     bottom: -.05rem;
   
     @include desktop {
-      bottom: 15px;
+      bottom: .9375rem;
     }
   
   }
@@ -315,16 +313,16 @@
   &__calendar-button {
     @include block-item(.75rem, .75rem);
     position: absolute;
-    top: 2px;
-    right: 2px;
-    background: rgba(255, 255, 255, 0.8);
+    top: .125rem;
+    right: .125rem;
+    background: rgba(255, 255, 255, .8);
     border: none;
     border-radius: 50%;
-    padding: 10px;
+    padding: .625rem;
     cursor: pointer;
     box-shadow: $shadow-tertiary;
     overflow: hidden;
-    transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+    transition: transform .2s ease, background-color .2s ease, border-color .2s ease;
 
     &:hover {
       transform: scale(1.05);
@@ -333,22 +331,22 @@
     }
 
     &:active {
-      transform: scale(0.9);
+      transform: scale(.9);
       background: $primary-medium-blue;
     }
 
     @include tablet {
       @include block-item(2rem, 2rem);
-      top: 7px;
-      right: 10px;
+      top: .4375rem;
+      right: .625rem;
     }
   }
 
   &__calendar-icon {
     @include block-item(.65rem, .65rem);
     position: relative;
-    top: -9px;
-    right: 5px;
+    top: -.5625rem;
+    right: .3125rem;
     color: $primary-medium-blue;
 
       &:hover {
@@ -357,8 +355,8 @@
 
       @include tablet {
         @include block-item(1.25rem, 1.25rem);
-        top: -5px;
-        right: 4px;
+        top: -.3125rem;
+        right: .25rem;
       }
     }
 
@@ -376,10 +374,9 @@
     }
 
     &__streaming-service {
-      width: 40px;
-      height: auto;
-      border-radius: 5px;
-      background-color: rgba(255, 255, 255, 0.5);
+      @include block-item(2.5rem, auto);
+      border-radius: .3125rem;
+      background-color: rgba(255, 255, 255, .5);
       box-shadow: $shadow-senary;
     }
   }
@@ -406,8 +403,8 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      border-radius: 10px;
-      background: rgba(255, 255, 255, 0.5);
+      border-radius: .625rem;
+      background: rgba(255, 255, 255, .5);
       box-shadow: $shadow-senary;
     }
   }
@@ -447,8 +444,8 @@
 
   &__error-no-img-title,
   &__error-no-img-txt {
-    font-size: 0.5rem;
-    line-height: 0.5rem;
+    font-size: .5rem;
+    line-height: .5rem;
     text-align: center;
 
     @include tablet {
@@ -467,20 +464,20 @@
   }
 
   &__error-no-img-title {
-    border: .25px solid $primary-very-light-blue;
-    padding: 0.25rem;
-    margin-top: 0.25rem;
-    border-radius: 0.5rem;
+    border: .0156rem solid $primary-very-light-blue;
+    padding: .25rem;
+    margin-top: .25rem;
+    border-radius: .5rem;
     color: $primary-very-light-blue;
     box-shadow: $shadow-tertiary;
 
     &:hover {
-      background-color: white;
+      background-color: $neutral-white;
       color: $primary-dark-blue;
     }
 
     &:active {
-      border: 2px solid $primary-pale-blue;
+      border: .125rem solid $primary-pale-blue;
       box-shadow: $shadow-primary;
       font-weight: normal;
       background-color: $primary-medium-blue;
@@ -489,7 +486,7 @@
 
     @include tablet {
       font-weight: bold;
-      border: 1px solid $primary-very-light-blue;
+      border: .0625rem solid $primary-very-light-blue;
       padding: .6rem;
       margin-top: .75rem;
     }
@@ -524,7 +521,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: 6px solid $primary-very-light-blue;
+    border: .375rem solid $primary-very-light-blue;
     background-color: $primary-dark-blue;
     box-shadow: $shadow-quaternary;
   }
@@ -565,10 +562,10 @@
     color: $primary-medium-blue;
     cursor: pointer;
     text-decoration: none;
-    border: 1px solid $primary-medium-blue;
-    padding: 0.25rem 0.5rem;
-    border-radius: 0.25rem;
-    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    border: .0625rem solid $primary-medium-blue;
+    padding: .25rem .5rem;
+    border-radius: .25rem;
+    transition: background-color .3s, color .3s, border-color .3s;
 
     &:hover,
     &:focus,
@@ -583,25 +580,24 @@
     &:active {
       background-color: $primary-medium-blue;
       color: $neutral-white;
-      border: 1px solid $primary-cyan;
-      border-radius: 0.25rem;
-      transform: translateY(1px);
+      border: .0625rem solid $primary-cyan;
+      border-radius: .25rem;
+      transform: translateY(.0625rem);
       text-decoration: none;
       font-weight: bold;
     }
   }
 
   &__background {
+    @include block-item(100%, 8.4375rem);
     position: absolute;
     bottom: -2.1875rem;
     left: 0;
-    width: 100%;
-    height: 8.4375rem;
     overflow: hidden;
     z-index: -1;
 
     @include small-mobile {
-      bottom: -0.3125rem;
+      bottom: -.3125rem;
       height: 8.4375rem;
     }
 
@@ -631,15 +627,15 @@
     @include block-item(16.5rem, 19rem);
     @include pulsate-animation;
     display: flex;
-    gap: 0.5rem;
+    gap: .5rem;
     justify-content: center;
     align-items: center;
-    background: rgba($primary-light-blue, 0.3);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.4);
+    background: rgba($primary-light-blue, .3);
+    backdrop-filter: blur(1.25rem);
+    border: .0625rem solid rgba(255, 255, 255, .4);
     border-radius: 1rem;
     padding: .45rem;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 .25rem 1.875rem rgba($neutral-black, .1);
 
     @include tablet {
       gap: 1rem;
@@ -673,7 +669,7 @@
     box-shadow: $shadow-tertiary;
     display: flex;
     flex-direction: column;
-    border: 1px solid $primary-light-blue;
+    border: .0625rem solid $primary-light-blue;
     justify-content: center;
     align-items: center;
     overflow: hidden;
@@ -713,7 +709,7 @@
     display: flex;
     justify-content: center;
     gap: 1rem;
-    margin-top: 0.25rem;
+    margin-top: .25rem;
   }
 
   &__thumbs-up,
@@ -725,18 +721,18 @@
     border-radius: .5rem;
     padding: .25rem;
     cursor: pointer;
-    transition: transform 0.2s ease, color 0.2s ease;
+    transition: transform .2s ease, color .2s ease;
 
     &:hover {
       transform: scale(1.1);
       color: $primary-very-light-blue;
-      border: 2px solid $primary-very-light-blue;
+      border: .125rem solid $primary-very-light-blue;
     }
 
     &:active {
-      transform: scale(0.9);
+      transform: scale(.9);
       color: $primary-button-blue;
-      border: 2px solid $primary-button-blue;
+      border: .125rem solid $primary-button-blue;
     }
 
     @include tablet {

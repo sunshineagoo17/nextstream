@@ -353,7 +353,7 @@ const AuthSearchResultsPage = ({ userId }) => {
                     <button
                       aria-label="Add to Calendar"
                       className="auth-search-results__calendar-button"
-                      onClick={() => handleAddToCalendar(result.title || result.name, result.media_type, result.duration)}  // Pass the duration
+                      onClick={() => handleAddToCalendar(result.title || result.name, result.media_type, result.duration)} 
                     >
                       <FontAwesomeIcon icon={faCalendarPlus} className='auth-search-results__calendar-icon' />
                     </button>
