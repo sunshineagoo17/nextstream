@@ -6,11 +6,11 @@
 
 .custom-alerts {
   position: fixed;
-  top: 0.625rem;
+  top: .625rem;
   left: 50%;
   transform: translateX(-50%);
-  backdrop-filter: blur(0.25rem);
-  border-radius: 0.625rem;
+  backdrop-filter: blur(.25rem);
+  border-radius: .625rem;
   box-shadow: $shadow-primary;
   font-family: $primary-font;
   padding: 1rem;
@@ -22,7 +22,7 @@
   z-index: 1100;
   width: 90%;
   max-width: 18.75rem;
-  animation: slide-in 0.5s ease-in-out;
+  animation: slide-in .5s ease-in-out;
   box-sizing: border-box;
 
   @include tablet {
@@ -34,20 +34,20 @@
   }
 
   &--info {
-    background: rgba(0, 123, 255, 0.75);
-    border: 0.1875rem solid rgba(0, 123, 255, 0.95);
+    background: rgba(0, 123, 255, .75);
+    border: .1875rem solid rgba(0, 123, 255, .95);
     color: $neutral-white;
   }
 
   &--success {
     background: $feedback-mint-green;
-    border: 0.1875rem solid $neutral-white;
+    border: .1875rem solid $neutral-white;
     color: #073f21;
   }
 
   &--error {
     background: $feedback-error-peach;
-    border: 0.1875rem solid $neutral-white;
+    border: .1875rem solid $neutral-white;
     color: $neutral-white;
   }
 
@@ -56,7 +56,7 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    gap: 0.5rem;
+    gap: .5rem;
   }
 
   &__icon {
@@ -80,16 +80,16 @@
     }
 
     &:active {
-      transform: scale(0.9);
+      transform: scale(.9);
     }
   }
 
   &__progress-bar {
     width: 100%;
-    height: 0.3125rem;
-    border-radius: 0.25rem;
+    height: .3125rem;
+    border-radius: .25rem;
     background: $neutral-white;
-    margin-top: 0.85rem;
+    margin-top: .85rem;
     animation: progress-bar 3s linear forwards;
   }
 
