@@ -17,41 +17,37 @@
 
 .light-blob {
   position: absolute;
-  background: radial-gradient(circle, rgba($primary-light-blue, 0.7), rgba($primary-pale-blue, 0.9));
+  background: radial-gradient(circle, rgba($primary-light-blue, .7), rgba($primary-pale-blue, .9));
   border-radius: 50%;
-  filter: blur(40px);
+  filter: blur(2.5rem);
   animation: morph 15s infinite ease-in-out;
-  opacity: 0.9;
+  opacity: .9;
   mix-blend-mode: screen;
 }
 
 .light-blob1 {
-  width: 700px;
-  height: 700px;
+  @include block-item(43.75rem, 43.75rem);
   top: 10%;
   left: 5%;
   animation-delay: 0s;
 }
 
 .light-blob2 {
-  width: 600px;
-  height: 600px;
+  @include block-item(37.5rem, 37.5rem);
   top: 20%;
   left: 60%;
   animation-delay: 2.5s;
 }
 
 .light-blob3 {
-  width: 650px;
-  height: 650px;
+  @include block-item(40.625rem, 40.625rem);
   bottom: 15%;
   right: 5%;
   animation-delay: 5s;
 }
 
 .light-blob4 {
-  width: 500px;
-  height: 500px;
+  @include block-item(31.25rem, 31.25rem);
   top: 50%;
   left: 25%;
   animation-delay: 7.5s;
@@ -62,12 +58,12 @@
     transform: translate(0, 0) scale(1);
   }
   25% {
-    transform: translate(-150px, -150px) scale(1.7);
+    transform: translate(-9.375rem, -9.375rem) scale(1.7);
   }
   50% {
-    transform: translate(150px, -150px) scale(0.6);
+    transform: translate(9.375rem, -9.375rem) scale(.6);
   }
   75% {
-    transform: translate(-150px, 150px) scale(1.5);
+    transform: translate(-9.375rem, 9.375rem) scale(1.5);
   }
 }
