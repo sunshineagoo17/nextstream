@@ -19,7 +19,7 @@ export const Content = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [animationClass, setAnimationClass] = useState('');
   const navigate = useNavigate();
-  const { userId, isAuthenticated } = useContext(AuthContext);
+  const { userId, isAuthenticated, isGuest } = useContext(AuthContext);
   const { searchBarDesktopRef, searchBarMobileRef } = useSearchBar();
 
   useEffect(() => {
@@ -66,10 +66,6 @@ export const Content = () => {
     }
   };
 
-  const navigateTo = (path) => {
-    navigate(path);
-  };
-
   const handleCardClick = (release) => {
     if (isAuthenticated) {
       const mediaType = release.media_type;
@@ -77,6 +73,22 @@ export const Content = () => {
       navigate(`/nextview/${userId}/${mediaType}/${mediaId}`);
     } else {
       navigate('/login-required');
+    }
+  };
+
+  const handleNavigateToCalendar = () => {
+    if (isGuest) {
+      navigate('/calendar/guest');
+    } else {
+      navigate(`/calendar/${userId}`);
+    }
+  };
+
+  const handleNavigateToTopPicks = () => {
+    if (isGuest) {
+      navigate('/top-picks/guest');
+    } else {
+      navigate(`/top-picks/${userId}`);
     }
   };
 
@@ -112,7 +124,7 @@ export const Content = () => {
               <div
                 className="content__card-features__feature content__card-features__feature--2"
                 data-tooltip="Personalized recommendations based on your history."
-                onClick={() => navigateTo(`/top-picks/${userId}`)}
+                onClick={handleNavigateToTopPicks}
               >
                 <div className="content__card-features__feature__icon-bg">
                   <img className="content__card-features__feature__favourites-icon" src={Favourites} alt="Favourites icon" />
@@ -124,7 +136,7 @@ export const Content = () => {
               <div
                 className="content__card-features__feature content__card-features__feature--3"
                 data-tooltip="Plan your schedule and never miss a show/movie."
-                onClick={() => navigateTo(`/calendar/${userId}`)}
+                onClick={handleNavigateToCalendar}
               >
                 <div className="content__card-features__feature__icon-bg">
                   <img className="content__card-features__feature__calendar-icon" src={CalendarIcon} alt="Calendar icon" />
