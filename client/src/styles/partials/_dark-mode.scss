@@ -9,7 +9,7 @@
   
     // Header styles
     .header {
-      background-color: $primary-button-dark-blue;
+      background-color: $primary-dark-navy-blue;
       color: $primary-very-light-blue;
     }
 
@@ -323,12 +323,17 @@
 
       &__label-header-container,
       &__label-header-new-container {
-        background: $frosted-glass;
+        background: $primary-gradient-blue;
+      }
+
+      &__card-features__feature__icon-bg {
+        background: $primary-medium-blue-gradient;
       }
 
       &__label-features, 
       &__label-header-new-releases{
-        color: $primary-very-light-blue;
+        color: $neutral-white;
+        text-shadow: $shadow-primary;
       }
 
       &__card-features__feature__label {
