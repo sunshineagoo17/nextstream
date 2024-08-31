@@ -78,7 +78,7 @@
       }
     }
 
-    // T&C
+    // T&C and Privacy Policy
     .terms,
     .privacy {
       background-color: $dark-mode-deep-blue;
@@ -94,6 +94,66 @@
         &:hover {
           color: $neutral-white;
         }
+      }
+    }
+
+    // Profile 
+    .profile__main {
+      background-color: $primary-dark-blue;
+    }
+
+    .profile__title {
+      color: $primary-pale-blue;
+    }
+
+    .profile__content-details,
+    .profile__content-password,
+    .profile__content-notifications,
+    .profile__content-subscription-container,
+    .profile__content-region,
+    .profile__dropdown {
+      background-color: $primary-button-dark-blue;
+    }
+
+    .profile__dropdown {
+      color: $neutral-white;
+    }
+
+    // Streamboard 
+    .streamboard {
+      background: $frosted-glass;
+    
+      &__media-column--to_watch {
+        background-color: $primary-medium-blue;
+      }
+
+      &__media-item {
+        background-color: $primary-very-light-blue;
+      }
+
+      &__calendar-icon,
+      &__trash-icon,
+      &__media-type-icon {
+        background-color: $primary-dark-blue;
+        color: $neutral-white;
+
+        &:hover{
+          background-color: $neutral-white;
+          color: $primary-button-blue;
+        }
+
+        &:active {
+          color: $primary-dark-blue;
+          background-color: $primary-very-light-blue;
+        }
+      }
+
+      &__media-column--scheduled {
+        background-color: $dark-mode-royal-blue;
+      }
+
+      &__media-column--watched {
+        background-color: $dark-mode-deep-blue;
       }
     }
 
