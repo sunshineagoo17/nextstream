@@ -375,7 +375,7 @@ const NextViewPage = () => {
 
                         <div className="nextview-page__details-container">
                             <div className="nextview-page__rating">
-                                <FontAwesomeIcon icon={faStar} /> {mediaData.vote_average} / 10
+                                <FontAwesomeIcon icon={faStar} className="nextview-page__star-icon" /> {mediaData.vote_average} / 10
                             </div>
 
                             <div className="nextview-page__duration">

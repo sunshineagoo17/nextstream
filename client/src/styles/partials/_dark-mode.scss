@@ -152,6 +152,14 @@
       }
     }
 
+    // NextView Page 
+    .nextview-page__title,
+    .nextview-page__genre-icon,
+    .nextview-page__streaming-copy,
+    .nextview-page__cast-copy {
+      color: $neutral-white;
+    }
+    
     // Profile     
     .profile-img {
       &::before {
@@ -196,6 +204,11 @@
       &__copy {
         color: $neutral-white;
       }
+
+      &__title {
+        background: $primary-medium-blue;
+        color: $neutral-white;
+      }
     }
 
     .light-blob-container {
@@ -205,6 +218,10 @@
     // Streamboard 
     .streamboard {
       background: $frosted-glass;
+
+      &__title {
+        background: $primary-darker-blue-gradient;
+      }
     
       &__media-column--to_watch {
         background-color: $primary-medium-blue;
@@ -339,4 +356,3 @@
       box-shadow: $shadow-secondary;
     }
   }
-  

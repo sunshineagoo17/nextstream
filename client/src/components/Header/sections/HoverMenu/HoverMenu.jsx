@@ -50,8 +50,12 @@ const HoverMenu = () => {
       // Add regular expression to match the NextView page with dynamic segments
       new RegExp(`^/nextview/${userId}/(movie|tv)/\\d+$`).test(location.pathname);
   
-    return isDarkBackgroundPage ? 'dark-background' : '';
-  };  
+     // Check if dark mode is enabled by reading the 'data-theme' attribute
+    const isDarkModeEnabled = document.documentElement.getAttribute('data-theme') === 'dark';
+
+    // Return 'dark-background' if either condition is true
+    return isDarkBackgroundPage || isDarkModeEnabled ? 'dark-background' : '';
+  };
 
   return (
     <div ref={menuRef} className={`hover-menu__container ${getBackgroundClass()}`}>
