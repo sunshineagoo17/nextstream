@@ -186,6 +186,25 @@
       }
     }
 
+    // Faves 
+    .faves-page__title,
+    .faves-page__search-bar-container {
+      background: $primary-darker-blue;
+    }
+
+    .faves-page__search-input {
+      border-radius: 1.25rem;
+      color: $neutral-white;
+    }
+
+    .faves-page__copy-container {
+      background: $dark-mode-royal-blue;
+    }
+
+    .faves-page__filters-container {
+      background: $frosted-glass;
+    }
+
     // Recommendations 
     .top-picks-page__container {
       background: $dark-mode-deep-blue;
