@@ -34,7 +34,12 @@
       text-shadow: $shadow-primary;
     }
 
-    input {
+    .modal-contact__submit-text {
+      color: $primary-dark-blue;
+    }
+
+    input,
+    textarea {
       background-color: $primary-medium-blue;
 
       &:focus {
@@ -42,6 +47,27 @@
         color: $neutral-white;
       }
     }
+
+    // Calendar Page
+    .calendar-page {
+      background-color: $primary-darker-blue;
+    }
+
+    tbody {
+      background: $primary-dark-blue;
+    }
+
+    .calendar__search-bar {
+      color: $neutral-white;
+    }
+
+    .calendar__overlay {
+      background: $frosted-glass;
+    }
+
+    // Forgot Password
+
+    // 404 Page
 
     // Login Page
     .login {

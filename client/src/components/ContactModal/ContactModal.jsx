@@ -129,7 +129,7 @@ const ContactModal = ({ onClose }) => {
               data-required-msg="Please enter your message."
             />
           </label>
-          <button type="submit" disabled={loading}>
+          <button type="submit" disabled={loading} className='modal-contact__submit-text'>
             {loading ? 'Sending...' : 'Send'}
           </button>
         </form>
