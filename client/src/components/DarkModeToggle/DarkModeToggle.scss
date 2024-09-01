@@ -33,25 +33,28 @@
     }
   
     .sun {
-      color: #fee100; 
+      color: $neutral-white; 
       animation: sun-spin 3s linear infinite, sun-glow 4s infinite alternate; 
       padding: .25rem;
-      background-color: $primary-button-dark-blue;
-      box-shadow: $shadow-primary;
+      background: $primary-button-blue;
+      box-shadow: $shadow-secondary;
       border-radius: .5rem;
       border: .125rem solid $neutral-white;
 
       &:hover {
-        opacity: .7;
+        border: .125rem solid $frosted-glass;
+        background: $neutral-white;
         color: #fee100;
-        background-color: $neutral-white;
         box-shadow: 0 0 .625rem .1875rem rgba(254, 225, 0, .7), 0 0 1.25rem .3125rem rgba(254, 225, 0, .4); 
       }
 
       &:active {
         opacity: 1;
-        background: $primary-button-blue;
-        color: $neutral-white;
+        color: #FFA000;
+        background: radial-gradient(circle, #FFD700 50%, #FFC107 70%, #FFA000 100%);
+        box-shadow: $shadow-secondary;
+        border: 2px solid $neutral-white;
+        border-radius: 1.5rem;
       }
     }
   
