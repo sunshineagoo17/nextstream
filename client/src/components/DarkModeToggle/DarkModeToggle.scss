@@ -78,7 +78,7 @@
     }
   
     &.dark .light-effect {
-      @include block-item(2.5rem, 2.5rem);
+      @include block-item(2.25rem, 2.25rem);
       background: radial-gradient(circle, rgba(255, 255, 255, .8) 0%, $primary-dark-navy-blue 70%);
       opacity: .7;
       animation: flashlight 1.5s infinite alternate;
