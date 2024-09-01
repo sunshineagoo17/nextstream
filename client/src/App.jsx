@@ -26,6 +26,10 @@ import TopPicksPage from './pages/TopPicksPage/TopPicksPage';
 import StreamBoard from './pages/StreamBoard/StreamBoard';
 import './styles/global.scss';
 
+// Firebase 
+import { messaging } from './services/firebase'; 
+import { getToken, onMessage } from 'firebase/messaging';
+
 const App = () => {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false);
@@ -34,17 +38,57 @@ const App = () => {
   const { isAuthenticated, isGuest, userId } = useContext(AuthContext);
 
   useEffect(() => {
-    // Initialize theme on app load
-    const savedTheme = localStorage.getItem('theme') || 'light';
-    document.documentElement.setAttribute('data-theme', savedTheme);
-  }, []);
+    const requestFCMToken = async () => {
+      try {
+        const permission = await Notification.requestPermission();
+        if (permission === 'granted') {
+          console.log('Notification permission granted.');
+          
+          // Wait for the service worker to be ready
+          const registration = await navigator.serviceWorker.ready;
   
+          // Retrieve the FCM token
+          const currentToken = await getToken(messaging, { vapidKey: process.env.REACT_APP_VAPID_KEY, serviceWorkerRegistration: registration });
+          if (currentToken) {
+            console.log('FCM Token:', currentToken);
+            // Send the token to your server and update the UI if necessary
+          } else {
+            console.log('No registration token available. Request permission to generate one.');
+          }
+        } else if (permission === 'denied') {
+          console.warn('Notification permission denied by the user.');
+        } else {
+          console.warn('Notification permission request was dismissed.');
+        }
+      } catch (err) {
+        console.error('An error occurred while retrieving token. ', err);
+      }
+    };
+  
+    // Request the FCM token if the user is authenticated
+    if (isAuthenticated) {
+      requestFCMToken();
+    }
+  
+    // Handle incoming messages
+    onMessage(messaging, (payload) => {
+      console.log('Message received:', payload);
+      // Handle the message in the UI if needed
+    });
+  }, [isAuthenticated, isGuest, userId]);  
+
   useEffect(() => {
     console.log('App component useEffect');
     console.log('isAuthenticated:', isAuthenticated);
     console.log('isGuest:', isGuest);
     console.log('userId:', userId);
   }, [isAuthenticated, isGuest, userId]);
+
+  useEffect(() => {
+    // Initialize theme on app load
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+  }, []);
 
   const handleContactClick = () => {
     setIsContactModalOpen(true);
