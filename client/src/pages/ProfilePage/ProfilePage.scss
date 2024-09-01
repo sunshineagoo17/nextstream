@@ -270,7 +270,7 @@
   }
 
   &__custom-time-input {
-    width: 4rem;
+    width: 5rem;
     padding: .75rem;
     font-family: $primary-font;
     font-size: 1rem;
@@ -278,19 +278,36 @@
     background-color: $neutral-white;
     border: .125rem solid $primary-light-blue;
     border-radius: .5rem;
+    color: $primary-dark-blue;
     box-shadow: $shadow-primary;
 
-    &:focus {
-      background-color: $primary-very-light-blue;
-    }
+      appearance: none; 
+      -webkit-appearance: none; 
+      -moz-appearance: textfield; 
 
-    @include tablet {
-      font-size: 1rem;
-    }
+      &::-webkit-inner-spin-button,
+      &::-webkit-outer-spin-button {
+          -webkit-appearance: none; 
+          margin: 0;
+      }
 
-    @include desktop {
-      font-size: 1.125rem; 
-    }
+      &::placeholder {
+          color: $primary-light-blue;
+          font-size: .85rem;
+          opacity: 1;
+      }
+
+      &:focus::placeholder {
+          color: $primary-medium-blue;
+      }
+
+      &:focus {
+          background-color: $primary-very-light-blue;
+      }
+
+      @include tablet {
+          font-size: 1rem;
+      }
   }
 
   &__custom-time-label {
