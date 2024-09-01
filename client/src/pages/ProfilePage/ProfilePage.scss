@@ -238,6 +238,52 @@
     flex-direction: row;
   }
 
+  &__custom-time-container {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    margin-top: .75rem;
+  }
+
+  &__custom-time-input {
+    width: 4rem;
+    padding: .75rem;
+    font-family: $primary-font;
+    font-size: 1rem;
+    text-align: center;
+    background-color: $neutral-white;
+    border: .125rem solid $primary-light-blue;
+    border-radius: .5rem;
+    box-shadow: $shadow-primary;
+
+    &:focus {
+      background-color: $primary-very-light-blue;
+    }
+
+    @include tablet {
+      font-size: 1rem;
+    }
+
+    @include desktop {
+      font-size: 1.125rem; 
+    }
+  }
+
+  &__custom-time-label {
+    font-family: $primary-font;
+    font-size: 1rem;
+    color: $primary-medium-blue;
+    margin-right: .5rem;
+
+    @include tablet {
+      font-size: 1.25rem;
+    }
+
+    @include desktop {
+      font-size: 1.25rem; 
+    }
+  }
+
   &__content-subscription-container {
     flex-direction: column;
     padding: 1rem;

@@ -7,6 +7,8 @@ import api from '../../services/api';
 import LocationIcon from '../../assets/images/profile-location.svg';
 import ShowIcon from '../../assets/images/register-visible-icon.svg';
 import HideIcon from '../../assets/images/register-invisible-icon.svg';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBell } from '@fortawesome/free-solid-svg-icons';
 import ToggleButton from '../../components/ToggleButton/ToggleButton';
 import SubscriptionStatus from './sections/SubscriptionStatus/SubscriptionStatus';
 import Loader from '../../components/Loader/Loader';
@@ -29,10 +31,14 @@ export const ProfilePage = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [receiveReminders, setReceiveReminders] = useState(false);
   const [receiveNotifications, setReceiveNotifications] = useState(false);
+  const [receivePushNotifications, setReceivePushNotifications] = useState(false);
   const [selectedRegion, setSelectedRegion] = useState('Choose your area...');
   const [isSubscribed, setIsSubscribed] = useState(true);
   const [isActive, setIsActive] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
+  const [notificationTime, setNotificationTime] = useState('30');
+  const [customHours, setCustomHours] = useState('');
+  const [customMinutes, setCustomMinutes] = useState('');
   const [saveMessage, setSaveMessage] = useState({ text: '', className: '' });
   const [errors, setErrors] = useState({});
   const nameRef = useRef(null);
@@ -50,6 +56,8 @@ export const ProfilePage = () => {
           setUser(response.data);
           setReceiveReminders(response.data.receiveReminders);
           setReceiveNotifications(response.data.receiveNotifications);
+          setReceivePushNotifications(response.data.receivePushNotifications);
+          setNotificationTime(response.data.notificationTime || '30');
           setSelectedRegion(response.data.region);
           setIsSubscribed(response.data.isSubscribed);
           setIsActive(response.data.isActive);
@@ -131,6 +139,10 @@ export const ProfilePage = () => {
       email: user.email,
       receiveReminders,
       receiveNotifications,
+      receivePushNotifications,
+      notificationTime,
+      customHours,
+      customMinutes,
       region: selectedRegion,
       isSubscribed,
       isActive
@@ -154,21 +166,17 @@ export const ProfilePage = () => {
       }
     } catch (error) {
       if (error.response) {
-        console.log('Error response:', error.response);
         if (error.response.status === 409 && error.response.data.message === 'Email is already taken') {
           setErrors({ email: 'Email is already taken' });
-          console.log('Email is already taken error set');
           emailRef.current.scrollIntoView({ behavior: 'smooth' });
         } else if (error.response.status === 401 && error.response.data.message === 'Incorrect password') {
           setErrors({ currentPassword: 'Current password is incorrect' });
           currentPasswordRef.current.scrollIntoView({ behavior: 'smooth' });
         } else {
-          console.error('Error updating profile:', error);
           setSaveMessage({ text: 'Error updating profile. Please try again.', className: 'error' });
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }
       } else {
-        console.error('Error updating profile:', error);
         setSaveMessage({ text: 'Error updating profile. Please try again.', className: 'error' });
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
@@ -181,6 +189,7 @@ export const ProfilePage = () => {
     if (!newStatus) {
       setReceiveReminders(false);
       setReceiveNotifications(false);
+      setReceivePushNotifications(false);
     }
     clearSaveMessage();
   };
@@ -196,7 +205,6 @@ export const ProfilePage = () => {
         navigate('/');
       }, 3000);
     } catch (error) {
-      console.error('Error deleting account:', error);
       setSaveMessage({ text: 'Error deleting account. Please try again.', className: 'error' });
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -212,10 +220,25 @@ export const ProfilePage = () => {
         className: 'frosted-toast-profile',
       });
     } catch (error) {
-      console.error('Error fetching location:', error);
       toast.error('Error fetching location. Please try again.', {
         className: 'frosted-toast-profile',
       });
+    }
+  };
+
+  const handleNotificationTimeChange = (value) => {
+    setNotificationTime(value);
+    if (value !== 'custom') {
+      setCustomHours('');
+      setCustomMinutes('');
+    }
+  };
+
+  const handleCustomTimeChange = (type, value) => {
+    if (type === 'hours') {
+      setCustomHours(value);
+    } else if (type === 'minutes') {
+      setCustomMinutes(value);
     }
   };
 
@@ -386,6 +409,55 @@ export const ProfilePage = () => {
                     onChange={(checked) => { setReceiveNotifications(checked); clearSaveMessage(); clearErrors(); }}
                   />
                   <p className="profile__notification-text">Receive notifications for new recommendations</p>
+                </div>
+                <div className="profile__notification-item">
+                  <ToggleButton
+                    checked={receivePushNotifications}
+                    onChange={(checked) => { setReceivePushNotifications(checked); clearSaveMessage(); clearErrors(); }}
+                  />
+                  <FontAwesomeIcon icon={faBell} className="profile__icon" />
+                  <p className="profile__notification-text">Push Notifications</p>
+                  {receivePushNotifications && (
+                    <div className="profile__custom-time-container">
+                      <select
+                        id="notification-time"
+                        value={notificationTime}
+                        onChange={(e) => handleNotificationTimeChange(e.target.value)}
+                        className="profile__dropdown"
+                      >
+                        <option value="5">5 minutes before</option>
+                        <option value="15">15 minutes before</option>
+                        <option value="30">30 minutes before</option>
+                        <option value="60">1 hour before</option>
+                        <option value="custom">Custom time</option>
+                      </select>
+                      {notificationTime === 'custom' && (
+                        <>
+                          <input
+                            type="number"
+                            id="custom-hours"
+                            className="profile__custom-time-input"
+                            placeholder="Hours"
+                            min="0"
+                            max="23"
+                            value={customHours}
+                            onChange={(e) => handleCustomTimeChange('hours', e.target.value)}
+                          />
+                          <span className="profile__custom-time-label">:</span>
+                          <input
+                            type="number"
+                            id="custom-minutes"
+                            className="profile__custom-time-input"
+                            placeholder="Minutes"
+                            min="0"
+                            max="59"
+                            value={customMinutes}
+                            onChange={(e) => handleCustomTimeChange('minutes', e.target.value)}
+                          />
+                        </>
+                      )}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
