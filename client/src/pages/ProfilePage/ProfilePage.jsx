@@ -396,6 +396,10 @@ export const ProfilePage = () => {
                 <div className="profile__text-wrapper">Notifications</div>
               </div>
               <div className="profile__notifications-content">
+                <div className="profile__notification-title-container">
+                  <FontAwesomeIcon icon={faBell} className="profile__notifications-alerts-icon" />
+                  <p className="profile__notification-text">Alert States</p>
+                </div>
                 <div className="profile__notification-item">
                   <ToggleButton
                     checked={receiveReminders}
@@ -410,13 +414,14 @@ export const ProfilePage = () => {
                   />
                   <p className="profile__notification-text">Receive notifications for new recommendations</p>
                 </div>
-                <div className="profile__notification-item">
+                <div className="profile__notification-push-item">
                   <ToggleButton
                     checked={receivePushNotifications}
                     onChange={(checked) => { setReceivePushNotifications(checked); clearSaveMessage(); clearErrors(); }}
                   />
-                  <FontAwesomeIcon icon={faBell} className="profile__icon" />
-                  <p className="profile__notification-text">Push Notifications</p>
+                  <p className="profile__notification-text">Receive push notifications for scheduled media</p>
+                </div>
+                  <div className="profile__notification-custom-time">
                   {receivePushNotifications && (
                     <div className="profile__custom-time-container">
                       <select
@@ -432,7 +437,7 @@ export const ProfilePage = () => {
                         <option value="custom">Custom time</option>
                       </select>
                       {notificationTime === 'custom' && (
-                        <>
+                        <div className="profile__notification-custom-time-labels">
                           <input
                             type="number"
                             id="custom-hours"
@@ -443,7 +448,7 @@ export const ProfilePage = () => {
                             value={customHours}
                             onChange={(e) => handleCustomTimeChange('hours', e.target.value)}
                           />
-                          <span className="profile__custom-time-label">:</span>
+                          <p className="profile__custom-time-label">:</p>
                           <input
                             type="number"
                             id="custom-minutes"
@@ -454,7 +459,7 @@ export const ProfilePage = () => {
                             value={customMinutes}
                             onChange={(e) => handleCustomTimeChange('minutes', e.target.value)}
                           />
-                        </>
+                        </div>
                       )}
                     </div>
                   )}
