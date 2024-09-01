@@ -79,9 +79,17 @@
   
     &.dark .light-effect {
       @include block-item(2.25rem, 2.25rem);
-      background: radial-gradient(circle, rgba(255, 255, 255, .8) 0%, $primary-dark-navy-blue 70%);
+      background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, $primary-dark-navy-blue 70%);
       opacity: .7;
       animation: flashlight 1.5s infinite alternate;
+
+      &:hover {
+        background: radial-gradient(circle, rgba(255, 235, 59, 1) 0%, $primary-dark-navy-blue 70%);
+      }
+
+      &:active {
+          background: radial-gradient(circle, rgba(176, 196, 222, 1) 0%, $primary-dark-navy-blue 55%);
+      }
     }
 }
 
