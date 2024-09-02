@@ -293,8 +293,9 @@ router.get('/:userId/location', authenticate, async (req, res) => {
 // Updates FCM token
 router.post('/update-fcm-token', authenticate, async (req, res) => {
   const { fcmToken } = req.body;
-  const userId = req.user.id; 
+  const userId = req.user.userId; 
 
+  console.log('Updating FCM token for user ID:', userId);  
   try {
     await knex('users')
       .where({ id: userId })

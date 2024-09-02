@@ -1,5 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, useLocation, Navigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
+import api from './services/api'; // Import your Axios instance
 import HomePage from './pages/HomePage/HomePage';
 import Footer from './components/Footer/Footer';
 import TermsAndConditions from './pages/TermsAndConditions/TermsAndConditions';
@@ -36,18 +38,12 @@ const App = () => {
   const [eventTitle, setEventTitle] = useState('');
   const location = useLocation();
   const { isAuthenticated, isGuest, userId } = useContext(AuthContext);
+  const token = localStorage.getItem('token') || Cookies.get('token');
 
   useEffect(() => {
     const sendTokenToServer = async (token) => {
       try {
-        await fetch('/api/profile/update-fcm-token', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            // 'Authorization': `Bearer ${your_auth_token}`, 
-          },
-          body: JSON.stringify({ fcmToken: token }),
-        });
+        await api.post('/api/profile/update-fcm-token', { fcmToken: token });
         console.log('Token sent to server successfully.');
       } catch (error) {
         console.error('Error sending token to server:', error);
@@ -62,10 +58,14 @@ const App = () => {
 
           const registration = await navigator.serviceWorker.ready;
 
-          const currentToken = await getToken(messaging, { vapidKey: process.env.REACT_APP_VAPID_KEY, serviceWorkerRegistration: registration });
+          const currentToken = await getToken(messaging, {
+            vapidKey: process.env.REACT_APP_VAPID_KEY,
+            serviceWorkerRegistration: registration,
+          });
+
           if (currentToken) {
             console.log('FCM Token:', currentToken);
-            await sendTokenToServer(currentToken); 
+            await sendTokenToServer(currentToken);
           } else {
             console.log('No registration token available. Request permission to generate one.');
           }
@@ -84,11 +84,15 @@ const App = () => {
     }
 
     // Handle incoming messages
-    onMessage(messaging, (payload) => {
+    const unsubscribe = onMessage(messaging, (payload) => {
       console.log('Message received:', payload);
       // Handle the message in the UI if needed
     });
-  }, [isAuthenticated, isGuest, userId]);
+
+    return () => {
+      unsubscribe();
+    };
+  }, [isAuthenticated, isGuest, userId, token]);
 
   useEffect(() => {
     console.log('App component useEffect');
