@@ -38,20 +38,34 @@ const App = () => {
   const { isAuthenticated, isGuest, userId } = useContext(AuthContext);
 
   useEffect(() => {
+    const sendTokenToServer = async (token) => {
+      try {
+        await fetch('/api/profile/update-fcm-token', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            // 'Authorization': `Bearer ${your_auth_token}`, 
+          },
+          body: JSON.stringify({ fcmToken: token }),
+        });
+        console.log('Token sent to server successfully.');
+      } catch (error) {
+        console.error('Error sending token to server:', error);
+      }
+    };
+
     const requestFCMToken = async () => {
       try {
         const permission = await Notification.requestPermission();
         if (permission === 'granted') {
           console.log('Notification permission granted.');
-          
-          // Wait for the service worker to be ready
+
           const registration = await navigator.serviceWorker.ready;
-  
-          // Retrieve the FCM token
+
           const currentToken = await getToken(messaging, { vapidKey: process.env.REACT_APP_VAPID_KEY, serviceWorkerRegistration: registration });
           if (currentToken) {
             console.log('FCM Token:', currentToken);
-            // Send the token to your server and update the UI if necessary
+            await sendTokenToServer(currentToken); 
           } else {
             console.log('No registration token available. Request permission to generate one.');
           }
@@ -64,18 +78,17 @@ const App = () => {
         console.error('An error occurred while retrieving token. ', err);
       }
     };
-  
-    // Request the FCM token if the user is authenticated
+
     if (isAuthenticated) {
       requestFCMToken();
     }
-  
+
     // Handle incoming messages
     onMessage(messaging, (payload) => {
       console.log('Message received:', payload);
       // Handle the message in the UI if needed
     });
-  }, [isAuthenticated, isGuest, userId]);  
+  }, [isAuthenticated, isGuest, userId]);
 
   useEffect(() => {
     console.log('App component useEffect');

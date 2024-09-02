@@ -123,20 +123,40 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, duration, onClose 
     setModalVisible(true);
   };
 
+  const fetchUserNotificationTime = async () => {
+    try {
+      const response = await api.get(`/api/profile/${userId}`);
+      const { notificationTime, customHours, customMinutes } = response.data;
+      return { notificationTime, customHours, customMinutes };
+    } catch (error) {
+      console.error('Error fetching notification time:', error);
+      return { notificationTime: '30', customHours: 0, customMinutes: 0 }; 
+    }
+  };
+  
   const handleAddEvent = async () => {
     if (isGuest) {
       showCustomAlert('Guests cannot add events.', 'info');
       return;
     }
-
+  
     setLoading(true);
     try {
+      const { notificationTime, customHours, customMinutes } = await fetchUserNotificationTime();
+  
+      let notificationTimeOffset = notificationTime;
+      if (notificationTime === 'custom') {
+        notificationTimeOffset = parseInt(customHours || 0) * 60 + parseInt(customMinutes || 0);
+      }
+  
       const newEvent = {
         title: newEventTitle,
         start: moment(newEventStartDate).format('YYYY-MM-DDTHH:mm:ss'),
         end: moment(newEventEndDate).format('YYYY-MM-DDTHH:mm:ss'),
-        eventType: newEventType
+        eventType: newEventType,
+        notificationTime: notificationTimeOffset,  
       };
+  
       await api.post(`/api/calendar/${userId}/events`, newEvent);
       await fetchEvents();
       toast.success('Event added successfully!', { className: 'frosted-toast-cal' });
@@ -148,7 +168,7 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, duration, onClose 
       setModalVisible(false);
     }
   };
-
+  
   const handleEditEvent = async () => {
     if (!selectedEvent) return;
     setLoading(true);

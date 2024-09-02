@@ -11,6 +11,7 @@ const path = require('path');
 const fs = require('fs');
 const { generateAndNotifyRecommendations } = require('../services/recommendationService');
 const { sendScheduledEventReminders } = require('../utils/scheduledEventReminders');
+const { sendPushNotifications } = require('../services/pushNotificationService');
 
 // Region mappings
 const regionMapping = {
@@ -88,6 +89,10 @@ router.get('/:userId', authenticate, async (req, res) => {
       email: user.email,
       receiveReminders: user.receiveReminders,
       receiveNotifications: user.receiveNotifications,
+      receivePushNotifications: user.receivePushNotifications,
+      notificationTime: user.notificationTime,
+      customHours: user.customHours,
+      customMinutes: user.customMinutes,
       region: regionReverseMapping[user.region] || '',
       isSubscribed: user.isSubscribed,
       isActive: user.isActive,
@@ -122,13 +127,17 @@ router.post('/check-password', async (req, res) => {
 
 // Update user profile
 router.put('/:userId', async (req, res) => {
-  const { name, username, email, password, receiveReminders, receiveNotifications, region, isSubscribed, isActive } = req.body;
+  const { name, username, email, password, receiveReminders, receiveNotifications, receivePushNotifications, notificationTime, customHours, customMinutes, region, isSubscribed, isActive } = req.body;
   const updatedUser = {
     name,
     username,
     email,
     receiveReminders,
     receiveNotifications,
+    receivePushNotifications,
+    notificationTime,
+    customHours,
+    customMinutes,
     region: regionMapping[region] || null,
     isSubscribed,
     isActive 
@@ -166,6 +175,30 @@ router.put('/:userId', async (req, res) => {
 
       if (events.length > 0) {
         await sendScheduledEventReminders(user.email, events);
+      }
+    }
+
+    if (receivePushNotifications) {
+      let notificationTimeOffset = notificationTime;
+    
+      // Handle custom time selection
+      if (notificationTime === 'custom') {
+        // Calculate the offset in minutes
+        notificationTimeOffset = parseInt(customHours || 0) * 60 + parseInt(customMinutes || 0);
+      }
+    
+      // Calculate the time window based on the selected notification time
+      const notificationWindowStart = moment().add(notificationTimeOffset, 'minutes').toISOString();
+      const notificationWindowEnd = moment(notificationWindowStart).add(1, 'hours').toISOString(); 
+    
+      const events = await knex('events')
+        .where({ user_id: user.id })
+        .andWhere('start', '>=', notificationWindowStart)
+        .andWhere('start', '<', notificationWindowEnd)
+        .select('title', 'start');
+    
+      if (events.length > 0) {
+        await sendPushNotifications(user, events);
       }
     }
 
@@ -254,6 +287,23 @@ router.get('/:userId/location', authenticate, async (req, res) => {
   } catch (error) {
     console.error('Error fetching location:', error);
     res.status(500).json({ error: 'Failed to fetch location' });
+  }
+});
+
+// Updates FCM token
+router.post('/update-fcm-token', authenticate, async (req, res) => {
+  const { fcmToken } = req.body;
+  const userId = req.user.id; 
+
+  try {
+    await knex('users')
+      .where({ id: userId })
+      .update({ fcmToken });
+
+    res.status(200).json({ message: 'FCM Token updated successfully.' });
+  } catch (error) {
+    console.error('Error updating FCM token:', error);
+    res.status(500).json({ message: 'Error updating FCM token.' });
   }
 });
 
