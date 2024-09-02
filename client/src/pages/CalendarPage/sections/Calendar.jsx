@@ -105,13 +105,15 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, duration, onClose 
       console.error('Event data not found.');
       return;
     }
-
+  
+    console.log('Event data:', event); 
+  
     const id = event.id;
     const title = event.title || '';
     const start = moment(event.start).format('YYYY-MM-DDTHH:mm:ss') || '';
     const end = event.end ? moment(event.end).format('YYYY-MM-DDTHH:mm:ss') : start;
     const eventType = event.extendedProps.eventType || 'movie';
-
+  
     setSelectedEvent({
       id,
       title,

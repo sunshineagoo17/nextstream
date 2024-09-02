@@ -13,28 +13,32 @@ if (!admin.apps.length) {
 
 async function sendPushNotifications(user, events) {
     const fcmToken = user.fcmToken;
-  
+
     for (const event of events) {
-      const message = {
-        notification: {
-          title: `Upcoming Stream: ${event.title}`,
-          body: `Your viewing will start at ${moment(event.start).format('HH:mm')}`,
-        },
-        token: fcmToken,
-        data: {
-          url: `/calendar/${user.id}/events/${event.id}`, 
-          eventId: event.id.toString(),
-        },
-      };
-  
-      try {
-        const response = await admin.messaging().send(message);
-        console.log(`Push notification sent for upcoming title: ${event.title}, response: ${response}`);
-      } catch (error) {
-        console.error('Error sending push notification:', error);
-      }
+        // Log the event start time and notification offset
+        console.log(`Event Start Time: ${moment(event.start).format('YYYY-MM-DD HH:mm:ss')}`);
+        console.log(`Notification Time Offset: ${user.notificationTime} minutes`);
+
+        const message = {
+            notification: {
+                title: `Upcoming Stream: ${event.title}`,
+                body: `Your viewing will start at ${moment(event.start).format('HH:mm')}`,
+            },
+            token: fcmToken,
+            data: {
+                url: `/calendar/${user.id}/events/${event.id}`, 
+                eventId: event.id.toString(),
+            },
+        };
+
+        try {
+            const response = await admin.messaging().send(message);
+            console.log(`Push notification sent for upcoming title: ${event.title}, response: ${response}`);
+        } catch (error) {
+            console.error('Error sending push notification:', error);
+        }
     }
-  }
+}
 
 module.exports = {
   sendPushNotifications,
