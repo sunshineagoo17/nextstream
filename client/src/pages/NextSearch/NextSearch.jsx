@@ -43,7 +43,7 @@ const NextSearch = () => {
                             return { ...result, knownFor };
                         } else {
                             const castResponse = await api.get(`/api/tmdb/${result.media_type}/${result.id}/credits`);
-                            return { ...result, cast: castResponse.data.cast.slice(0, 5) }; // Top 5 cast members
+                            return { ...result, cast: castResponse.data.cast.slice(0, 5) }; 
                         }
                     })
             );
@@ -57,7 +57,7 @@ const NextSearch = () => {
     }
 }, [searchQuery, isAuthenticated]);
 
-  const fetchPopularMedia = async (type) => {
+const fetchPopularMedia = async (type) => {
     setIsLoading(true);
     try {
       let endpoint;
@@ -77,13 +77,26 @@ const NextSearch = () => {
           break;
       }
       const response = await api.get(`/api/tmdb/${endpoint}`);
-      setPopularMedia(response.data.results);
+      
+      let filteredMedia = response.data.results;
+
+      // For "In Theatres" filter out movies older than 3 months
+      if (type === 'in_theatres') {
+        const sixMonthsAgo = new Date();
+        sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 3);
+        filteredMedia = filteredMedia.filter(movie => {
+          const releaseDate = new Date(movie.release_date);
+          return releaseDate >= sixMonthsAgo;
+        });
+      }
+
+      setPopularMedia(filteredMedia);
     } catch (error) {
       console.error('Error fetching popular media:', error);
     } finally {
       setIsLoading(false);
     }
-  };
+};
 
   useEffect(() => {
     fetchPopularMedia(mediaType);

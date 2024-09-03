@@ -421,7 +421,7 @@ router.get('/person/:id', async (req, res) => {
         });
         return {
           ...media,
-          cast: creditsResponse.data.cast.slice(0, 5) // Top 5 cast members
+          cast: creditsResponse.data.cast.slice(0, 5) 
         };
       })
     );
