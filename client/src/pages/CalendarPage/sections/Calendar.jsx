@@ -42,16 +42,26 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, duration, onClose 
   const fetchEvents = useCallback(async () => {
     try {
       setLoading(true);
+  
+      // Check if the user is a guest
+      if (isGuest) {
+        // Display a specific custom alert message for guests
+        showCustomAlert('Guests have limited access to the calendar page.', 'info');
+        setLoading(false);
+        return;
+      }
+  
+      // If the user is not a guest, proceed with the API request
       const response = await api.get(`/api/calendar/${userId}/events`);
       setEvents(response.data);
       setFilteredEvents(response.data);
     } catch (error) {
       console.error('Error fetching events:', error.response ? error.response.data : error.message);
-      toast.error('Failed to fetch events.', { className: 'frosted-toast-cal' });
+      showCustomAlert('Failed to fetch events.', 'error');
     } finally {
       setLoading(false);
     }
-  }, [userId]);
+  }, [userId, isGuest]);  
 
   useEffect(() => {
     fetchEvents();
