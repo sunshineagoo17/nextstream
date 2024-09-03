@@ -17,7 +17,6 @@ const cronJobs = require('./src/services/cronJobs');
 const favesRoutes = require('./src/routes/favesRoutes');
 const recommendationsRoutes = require('./src/routes/recommendationsRoutes');
 const mediaStatusRoutes = require('./src/routes/mediaStatusRoutes'); 
-const searchRoutes = require('./src/routes/searchRoutes'); 
 
 const authenticate = require('./src/middleware/authenticate');
 const guestAuthenticate = require('./src/middleware/guestAuthenticate');
@@ -60,7 +59,6 @@ app.use('/api/auth', authRoutes);
 app.use('/api/password-reset', passwordResetRoutes);
 app.use('/api/profile', profileRoutes);
 app.use('/api/tmdb', tmdbRoutes);
-app.use('/api/search', searchRoutes); 
 
 // Calendar Routes (Allow both authenticated users and guests)
 app.use('/api/calendar', (req, res, next) => {

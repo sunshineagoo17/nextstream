@@ -23,7 +23,23 @@ const NextSearch = () => {
         const response = await api.get('/api/tmdb/search', {
           params: { query: searchQuery },
         });
-        setResults(response.data.results);
+        const filteredResults = await Promise.all(
+          response.data.results
+            .filter(
+              result =>
+                result.media_type === 'movie' ||
+                result.media_type === 'tv' ||
+                result.media_type === 'person'
+            )
+            .map(async result => {
+              if (result.media_type !== 'person') {
+                const castResponse = await api.get(`/api/tmdb/${result.media_type}/${result.id}/credits`);
+                return { ...result, cast: castResponse.data.cast.slice(0, 5) }; // Top 5 cast members
+              }
+              return result;
+            })
+        );
+        setResults(filteredResults);
       } catch (error) {
         console.error('Error fetching search results:', error);
       } finally {
@@ -35,9 +51,23 @@ const NextSearch = () => {
   const fetchPopularMedia = async (type) => {
     setIsLoading(true);
     try {
-      const response = await api.get('/api/tmdb/popular', {
-        params: { type },
-      });
+      let endpoint;
+      switch (type) {
+        case 'on_tv':
+          endpoint = 'tv/on_the_air';
+          break;
+        case 'for_rent':
+          endpoint = 'movie/now_playing';
+          break;
+        case 'in_theatres':
+          endpoint = 'movie/upcoming';
+          break;
+        case 'streaming':
+        default:
+          endpoint = 'movie/popular'; 
+          break;
+      }
+      const response = await api.get(`${process.env.REACT_APP_BASE_URL}/api/tmdb/${endpoint}`);
       setPopularMedia(response.data.results);
     } catch (error) {
       console.error('Error fetching popular media:', error);
@@ -142,6 +172,16 @@ const NextSearch = () => {
                       alt={result.title}
                       className="next-search__poster"
                     />
+                    {result.cast && (
+                      <div className="next-search__cast">
+                        <h4>Cast:</h4>
+                        <ul>
+                          {result.cast.map((actor) => (
+                            <li key={actor.id}>{actor.name}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
                   </div>
                 )}
                 {result.media_type === 'tv' && (
@@ -152,6 +192,16 @@ const NextSearch = () => {
                       alt={result.name}
                       className="next-search__poster"
                     />
+                    {result.cast && (
+                      <div className="next-search__cast">
+                        <h4>Cast:</h4>
+                        <ul>
+                          {result.cast.map((actor) => (
+                            <li key={actor.id}>{actor.name}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
                   </div>
                 )}
                 {result.media_type === 'person' && (
