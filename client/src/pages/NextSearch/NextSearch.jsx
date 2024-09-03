@@ -1,8 +1,10 @@
-import { useState, useEffect, useCallback, useContext } from 'react';
+import { useState, useEffect, useCallback, useContext, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import api from '../../services/api';
 import Loader from '../../components/Loader/Loader';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import './NextSearch.scss';
 
 const NextSearch = () => {
@@ -13,6 +15,7 @@ const NextSearch = () => {
   const [popularMedia, setPopularMedia] = useState([]);
   const [mediaType, setMediaType] = useState('streaming');
   const location = useLocation();
+  const scrollContainerRef = useRef(null);
 
   const query = new URLSearchParams(location.search).get('q');
 
@@ -109,6 +112,14 @@ const fetchPopularMedia = async (type) => {
     }
   }, [query, handleSearch, isAuthenticated]);
 
+  const scrollLeft = () => {
+    scrollContainerRef.current.scrollBy({ left: -300, behavior: 'smooth' });
+  };
+
+  const scrollRight = () => {
+    scrollContainerRef.current.scrollBy({ left: 300, behavior: 'smooth' });
+  };
+
   return (
     <div className="next-search">
       {/* Search Bar */}
@@ -156,24 +167,26 @@ const fetchPopularMedia = async (type) => {
             In Theatres
           </button>
         </div>
-
-        {/* Popular Media Grid */}
-        {isLoading ? (
-          <Loader />
-        ) : (
-          <div className="next-search__grid">
-            {popularMedia.map((media) => (
-              <div key={media.id} className="next-search__card">
-                <img
-                  src={`https://image.tmdb.org/t/p/w500${media.poster_path}`}
-                  alt={media.title || media.name}
-                  className="next-search__poster"
-                />
-                <h3 className="next-search__title">{media.title || media.name}</h3>
-              </div>
-            ))}
+        <div className="next-search__carousel">
+          <FontAwesomeIcon icon={faChevronLeft} className="next-search__nav-arrow left" onClick={scrollLeft} />
+          <div className="next-search__scroll-container" ref={scrollContainerRef}>
+            {isLoading ? (
+              <Loader />
+            ) : (
+              popularMedia.map((media) => (
+                <div key={media.id} className="next-search__card">
+                  <img
+                    src={`https://image.tmdb.org/t/p/w500${media.poster_path}`}
+                    alt={media.title || media.name}
+                    className="next-search__poster"
+                  />
+                  <h3 className="next-search__title">{media.title || media.name}</h3>
+                </div>
+              ))
+            )}
           </div>
-        )}
+          <FontAwesomeIcon icon={faChevronRight} className="next-search__nav-arrow right" onClick={scrollRight} />
+        </div>
       </div>
 
       {/* Search Results Section */}

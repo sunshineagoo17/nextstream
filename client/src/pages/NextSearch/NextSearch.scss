@@ -78,11 +78,15 @@
     margin-bottom: 2rem;
 
     @include tablet {
-      width: 80%;
+      width: 90%;
     }
 
     @include desktop {
-      width: 60%;
+      width: 90%;
+    }
+
+    @include large-desktop {
+        width: 60%;
     }
   }
 
@@ -131,39 +135,57 @@
     }
   }
 
-  &__grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
+  &__carousel {
+    position: relative;
+    display: flex;
+    align-items: center;
     width: 100%;
-    justify-items: center;
-
-    @include tablet {
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-    }
-
-    @include desktop {
-      grid-template-columns: repeat(4, 1fr);
-      gap: 2rem;
-    }
-  }
-
-  &__card {
-    width: 100%;
-    max-width: 15rem;
-    background-color: $neutral-white;
-    border-radius: .75rem;
-    box-shadow: $shadow-quaternary;
     overflow: hidden;
-    transition: transform .3s;
 
-    &:hover {
-      transform: scale(1.05);
+    .next-search__scroll-container {
+      display: flex;
+      overflow-x: scroll; /* Change to scroll */
+      scrollbar-width: thin; /* Make scrollbar visible */
+      -ms-overflow-style: auto; /* For Internet Explorer and Edge */
+      scroll-behavior: smooth;
+      width: 100%;
     }
 
-    @include tablet {
-      max-width: 18rem;
+    .next-search__card {
+      width: 100%;
+      max-width: 8rem; /* Smaller card size */
+      background-color: $neutral-white;
+      border-radius: .75rem;
+      box-shadow: $shadow-quaternary;
+      transition: transform .3s;
+      margin-right: 1rem;
+      flex-shrink: 0;
+
+      &:hover {
+        transform: scale(1.05);
+      }
+
+      @include tablet {
+        max-width: 10rem;
+      }
+    }
+
+    .next-search__nav-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 2rem;
+      color: $primary-dark-blue;
+      cursor: pointer;
+      z-index: 2;
+
+      &.left {
+        left: 0.5rem;
+      }
+
+      &.right {
+        right: 0.5rem;
+      }
     }
   }
 
@@ -177,11 +199,11 @@
   &__title {
     padding: .5rem;
     color: $primary-dark-blue;
-    font-size: 1rem;
+    font-size: 0.9rem; /* Adjust font size for smaller cards */
     text-align: center;
 
     @include tablet {
-      font-size: 1.25rem;
+      font-size: 1rem;
     }
   }
 
