@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useCallback, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import api from '../../services/api';
@@ -6,19 +6,18 @@ import Loader from '../../components/Loader/Loader';
 import './NextSearch.scss';
 
 const NextSearch = () => {
+  const { isAuthenticated } = useContext(AuthContext);
   const [results, setResults] = useState([]);
-  const [isLoading, setIsLoading] = useState(false); 
+  const [isLoading, setIsLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [popularMedia, setPopularMedia] = useState([]);
   const [mediaType, setMediaType] = useState('streaming');
   const location = useLocation();
 
-  const { isAuthenticated } = useContext(AuthContext);
-
   const query = new URLSearchParams(location.search).get('q');
 
-  const handleSearch = async () => {
-    if (searchQuery.trim()) {
+  const handleSearch = useCallback(async () => {
+    if (searchQuery.trim() && isAuthenticated) {
       setIsLoading(true);
       try {
         const response = await api.get('/api/tmdb/search', {
@@ -31,7 +30,7 @@ const NextSearch = () => {
         setIsLoading(false);
       }
     }
-  };
+  }, [searchQuery, isAuthenticated]);
 
   const fetchPopularMedia = async (type) => {
     setIsLoading(true);
@@ -52,11 +51,11 @@ const NextSearch = () => {
   }, [mediaType]);
 
   useEffect(() => {
-    if (query && !searchQuery) {
+    if (query && isAuthenticated) {
       setSearchQuery(query);
-      handleSearch(); // Trigger search if there's a query in the URL
+      handleSearch();
     }
-  }, [query]);
+  }, [query, handleSearch, isAuthenticated]);
 
   return (
     <div className="next-search">
@@ -69,8 +68,11 @@ const NextSearch = () => {
           onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
           placeholder="Search for movies, shows, or actors..."
           className="next-search__input"
+          disabled={!isAuthenticated}
         />
-        <button onClick={handleSearch} className="next-search__button">Search</button>
+        <button onClick={handleSearch} className="next-search__button" disabled={!isAuthenticated}>
+          Search
+        </button>
       </div>
 
       {/* Popular Media Section */}
