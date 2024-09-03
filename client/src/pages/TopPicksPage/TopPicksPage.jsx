@@ -135,7 +135,7 @@ const TopPicksPage = () => {
         setHasFetched(true);
         setIsExpanded(true);
       } else {
-        showAlert("That's all for now. There's no more media available.", 'info');
+        showAlert("That's all for now. Try again later.", 'info');
       }
     } catch (error) {
       console.error('Error fetching more recommendations:', error);

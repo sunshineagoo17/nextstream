@@ -42,16 +42,26 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, duration, onClose 
   const fetchEvents = useCallback(async () => {
     try {
       setLoading(true);
+  
+      // Check if the user is a guest
+      if (isGuest) {
+        // Display a specific custom alert message for guests
+        showCustomAlert('Guests have limited access to the calendar page.', 'info');
+        setLoading(false);
+        return;
+      }
+  
+      // If the user is not a guest, proceed with the API request
       const response = await api.get(`/api/calendar/${userId}/events`);
       setEvents(response.data);
       setFilteredEvents(response.data);
     } catch (error) {
       console.error('Error fetching events:', error.response ? error.response.data : error.message);
-      toast.error('Failed to fetch events.', { className: 'frosted-toast-cal' });
+      showCustomAlert('Failed to fetch events.', 'error');
     } finally {
       setLoading(false);
     }
-  }, [userId]);
+  }, [userId, isGuest]);  
 
   useEffect(() => {
     fetchEvents();
@@ -105,13 +115,15 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, duration, onClose 
       console.error('Event data not found.');
       return;
     }
-
+  
+    console.log('Event data:', event); 
+  
     const id = event.id;
     const title = event.title || '';
     const start = moment(event.start).format('YYYY-MM-DDTHH:mm:ss') || '';
     const end = event.end ? moment(event.end).format('YYYY-MM-DDTHH:mm:ss') : start;
     const eventType = event.extendedProps.eventType || 'movie';
-
+  
     setSelectedEvent({
       id,
       title,
@@ -123,20 +135,40 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, duration, onClose 
     setModalVisible(true);
   };
 
+  const fetchUserNotificationTime = async () => {
+    try {
+      const response = await api.get(`/api/profile/${userId}`);
+      const { notificationTime, customHours, customMinutes } = response.data;
+      return { notificationTime, customHours, customMinutes };
+    } catch (error) {
+      console.error('Error fetching notification time:', error);
+      return { notificationTime: '30', customHours: 0, customMinutes: 0 }; 
+    }
+  };
+  
   const handleAddEvent = async () => {
     if (isGuest) {
       showCustomAlert('Guests cannot add events.', 'info');
       return;
     }
-
+  
     setLoading(true);
     try {
+      const { notificationTime, customHours, customMinutes } = await fetchUserNotificationTime();
+  
+      let notificationTimeOffset = notificationTime;
+      if (notificationTime === 'custom') {
+        notificationTimeOffset = parseInt(customHours || 0) * 60 + parseInt(customMinutes || 0);
+      }
+  
       const newEvent = {
         title: newEventTitle,
         start: moment(newEventStartDate).format('YYYY-MM-DDTHH:mm:ss'),
         end: moment(newEventEndDate).format('YYYY-MM-DDTHH:mm:ss'),
-        eventType: newEventType
+        eventType: newEventType,
+        notificationTime: notificationTimeOffset,  
       };
+  
       await api.post(`/api/calendar/${userId}/events`, newEvent);
       await fetchEvents();
       toast.success('Event added successfully!', { className: 'frosted-toast-cal' });
@@ -148,7 +180,7 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, duration, onClose 
       setModalVisible(false);
     }
   };
-
+  
   const handleEditEvent = async () => {
     if (!selectedEvent) return;
     setLoading(true);
