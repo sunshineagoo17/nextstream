@@ -220,8 +220,8 @@
     }
 
     @include large-desktop {
-        width: 70%;
-      }
+      width: 70%;
+    }
 
     .next-search__grid {
       display: grid;
@@ -236,15 +236,11 @@
 
       @include tablet {
         grid-template-columns: repeat(4, 1fr);
-        grid-template-rows: auto auto;
+        grid-template-rows: auto;
       }
 
       @include desktop {
-        grid-template-columns: repeat(5, 1fr);
-      }
-
-      @include large-desktop {
-        grid-template-columns: repeat(6, 1fr);
+        grid-template-columns: repeat(8, 2fr);
       }
     }
 
