@@ -147,50 +147,52 @@ const fetchPopularMedia = async (type) => {
       <div className="next-search__popular-section">
         <h2 className="next-search__section-title">What's Popular</h2>
         <div className="next-search__tabs">
-          <button
-            className={`next-search__tab ${mediaType === 'streaming' ? 'next-search__tab--active' : ''}`}
-            onClick={() => setMediaType('streaming')}
-          >
-            Streaming
-          </button>
-          <button
-            className={`next-search__tab ${mediaType === 'on_tv' ? 'next-search__tab--active' : ''}`}
-            onClick={() => setMediaType('on_tv')}
-          >
-            On TV
-          </button>
-          <button
-            className={`next-search__tab ${mediaType === 'for_rent' ? 'next-search__tab--active' : ''}`}
-            onClick={() => setMediaType('for_rent')}
-          >
-            For Rent
-          </button>
-          <button
-            className={`next-search__tab ${mediaType === 'in_theatres' ? 'next-search__tab--active' : ''}`}
-            onClick={() => setMediaType('in_theatres')}
-          >
-            In Theatres
-          </button>
+            <div className="next-search__tabs-container">
+                <button
+                    className={`next-search__tab ${mediaType === 'streaming' ? 'next-search__tab--active' : ''}`}
+                    onClick={() => setMediaType('streaming')}
+                >
+                    Streaming
+                </button>
+                <button
+                    className={`next-search__tab ${mediaType === 'on_tv' ? 'next-search__tab--active' : ''}`}
+                    onClick={() => setMediaType('on_tv')}
+                >
+                    On TV
+                </button>
+                <button
+                    className={`next-search__tab ${mediaType === 'for_rent' ? 'next-search__tab--active' : ''}`}
+                    onClick={() => setMediaType('for_rent')}
+                >
+                    For Rent
+                </button>
+                <button
+                    className={`next-search__tab ${mediaType === 'in_theatres' ? 'next-search__tab--active' : ''}`}
+                    onClick={() => setMediaType('in_theatres')}
+                >
+                    In Theatres
+                </button>
+            </div> 
         </div>
         <div className="next-search__carousel">
-          <FontAwesomeIcon icon={faChevronLeft} className="next-search__nav-arrow left" onClick={scrollLeft} />
-          <div className="next-search__scroll-container" ref={scrollContainerRef}>
+        <FontAwesomeIcon icon={faChevronLeft} className="next-search__nav-arrow left" onClick={scrollLeft} />
+        <div className="next-search__scroll-container" ref={scrollContainerRef}>
             {isLoading ? (
-              <Loader />
+            <Loader />
             ) : (
-              popularMedia.map((media) => (
-                <div key={media.id} className="next-search__card">
-                  <img
+            popularMedia.map((media) => (
+                <div key={media.id} className="next-search__card next-search__card--popular">
+                <img
                     src={`https://image.tmdb.org/t/p/w500${media.poster_path}`}
                     alt={media.title || media.name}
-                    className="next-search__poster"
-                  />
-                  <h3 className="next-search__title">{media.title || media.name}</h3>
+                    className="next-search__poster next-search__poster--popular"
+                />
+                <h3 className="next-search__title">{media.title || media.name}</h3>
                 </div>
-              ))
+            ))
             )}
-          </div>
-          <FontAwesomeIcon icon={faChevronRight} className="next-search__nav-arrow right" onClick={scrollRight} />
+        </div>
+        <FontAwesomeIcon icon={faChevronRight} className="next-search__nav-arrow right" onClick={scrollRight} />
         </div>
       </div>
 
