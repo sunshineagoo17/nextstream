@@ -56,7 +56,7 @@ export const ProfilePage = () => {
           setUser(response.data);
           setReceiveReminders(response.data.receiveReminders);
           setReceiveNotifications(response.data.receiveNotifications);
-          setReceivePushNotifications(response.data.receivePushNotifications);
+          setReceivePushNotifications(!!response.data.receivePushNotifications);
           setNotificationTime(response.data.notificationTime || '30');
           setSelectedRegion(response.data.region);
           setIsSubscribed(response.data.isSubscribed);
@@ -68,12 +68,12 @@ export const ProfilePage = () => {
           setIsLoading(false);
         }
       } else {
-        setIsLoading(false); // Stop loading if userId is not available
+        setIsLoading(false); 
       }
     };
-
+  
     fetchProfile();
-  }, [userId]);
+  }, [userId]);  
 
   const clearSaveMessage = () => {
     setSaveMessage({ text: '', className: '' });
