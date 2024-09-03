@@ -15,12 +15,6 @@ self.addEventListener('message', (event) => {
     // Retrieve Firebase Messaging object
     messaging = firebase.messaging();
 
-    // Test Notification (for testing purposes)
-    self.registration.showNotification('Test Notification', {
-      body: 'This is a test notification',
-      icon: './nextstream-brandmark-logo.svg' 
-    });
-
     // Handle background messages
     messaging.onBackgroundMessage((payload) => {
       console.log('[firebase-messaging-sw.js] Received background message', payload);
@@ -30,7 +24,12 @@ self.addEventListener('message', (event) => {
         icon: './nextstream-brandmark-logo.svg', 
       };
 
-      self.registration.showNotification(notificationTitle, notificationOptions);
+      // Check if notification permission is granted
+      if (Notification.permission === 'granted') {
+        self.registration.showNotification(notificationTitle, notificationOptions);
+      } else {
+        console.warn('Notification permission not granted.');
+      }
     });
 
     console.log('Firebase initialized in service worker.');

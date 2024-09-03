@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, useLocation, Navigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
-import api from './services/api'; // Import your Axios instance
+import api from './services/api'; 
 import HomePage from './pages/HomePage/HomePage';
 import Footer from './components/Footer/Footer';
 import TermsAndConditions from './pages/TermsAndConditions/TermsAndConditions';
