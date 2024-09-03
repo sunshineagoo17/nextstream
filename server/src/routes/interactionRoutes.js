@@ -8,6 +8,21 @@ const guestAuthenticate = require('../middleware/guestAuthenticate');
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
 const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
 
+// Middleware to handle authentication for both users and guests
+const handleAuthentication = (req, res, next) => {
+  const token = req.cookies.token || req.cookies.guestToken;
+
+  if (token) {
+    if (req.cookies.token) {
+      authenticate(req, res, next);
+    } else if (req.cookies.guestToken) {
+      guestAuthenticate(req, res, next);
+    }
+  } else {
+    return res.status(401).json({ message: 'Access denied. No token provided.' });
+  }
+};
+
 // Function to get media details from TMDB using the media ID and type
 const getMediaDetails = async (media_id, media_type) => {
   try {
@@ -16,7 +31,7 @@ const getMediaDetails = async (media_id, media_type) => {
     const { genres, ...otherData } = response.data;
     return {
       ...otherData,
-      genres: genres.map(genre => genre.name) 
+      genres: genres.map(genre => genre.name)
     };
   } catch (error) {
     console.error('Error fetching media details:', error);
@@ -80,8 +95,9 @@ const getMediaTrailer = async (media_id, media_type) => {
 };
 
 // Route to record or update a user's interaction with a media item
-router.post('/', async (req, res) => {
-  const { userId, media_id, interaction, media_type } = req.body;
+router.post('/', handleAuthentication, async (req, res) => {
+  const { media_id, interaction, media_type } = req.body;
+  const userId = req.user.userId;
 
   if (!media_type) {
     console.error('Media type is missing');
@@ -131,20 +147,8 @@ router.post('/', async (req, res) => {
 });
 
 // Fetch initial top picks for a user or guest
-router.get('/toppicks/:userId', async (req, res, next) => {
-  const token = req.cookies.token || req.cookies.guestToken;
-
-  if (token) {
-    if (req.cookies.token) {
-      await authenticate(req, res, next);
-    } else if (req.cookies.guestToken) {
-      await guestAuthenticate(req, res, next);
-    }
-  } else {
-    return res.status(401).json({ message: 'Access denied. No token provided.' });
-  }
-
-  const { userId } = req.params;
+router.get('/toppicks/:userId', handleAuthentication, async (req, res) => {
+  const userId = req.user.userId;
 
   try {
     // Fetch the user's liked, viewed, and sent media to avoid duplicates in top picks
@@ -211,7 +215,7 @@ router.get('/toppicks/:userId', async (req, res, next) => {
         const details = await getMediaDetails(item.id, item.media_type);
         return {
           ...item,
-          genres: details ? details.genres : [] 
+          genres: details ? details.genres : []
         };
       })
     );
@@ -226,8 +230,8 @@ router.get('/toppicks/:userId', async (req, res, next) => {
 });
 
 // Fetch user's liked, viewed, and sent media to avoid recommending them again
-router.get('/recommendations/:userId', async (req, res) => {
-  const { userId } = req.params;
+router.get('/recommendations/:userId', handleAuthentication, async (req, res) => {
+  const userId = req.user.userId;
 
   try {
     // Fetch user's liked media
@@ -274,7 +278,7 @@ router.get('/recommendations/:userId', async (req, res) => {
           const similarItems = similarMedia.data.results.map(item => ({
             ...item,
             media_type: media.media_type,
-            genres: details.genres 
+            genres: details.genres
           }));
 
           // Separate recommendations by media type
@@ -351,8 +355,8 @@ router.get('/recommendations/:userId', async (req, res) => {
 });
 
 // Route to fetch all interactions for a specific user, optionally filtered by interaction type
-router.get('/:userId', async (req, res) => {
-  const { userId } = req.params;
+router.get('/:userId', handleAuthentication, async (req, res) => {
+  const userId = req.user.userId;
   const { interactionType } = req.query;
 
   try {
@@ -372,7 +376,7 @@ router.get('/:userId', async (req, res) => {
 });
 
 // Example route using getMediaTrailer
-router.get('/:userId/trailer/:media_type/:media_id', async (req, res) => {
+router.get('/:userId/trailer/:media_type/:media_id', handleAuthentication, async (req, res) => {
   try {
     const { media_type, media_id } = req.params;
     const trailerUrl = await getMediaTrailer(media_id, media_type);
