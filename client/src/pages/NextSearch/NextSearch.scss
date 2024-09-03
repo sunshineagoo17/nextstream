@@ -144,16 +144,16 @@
 
     .next-search__scroll-container {
       display: flex;
-      overflow-x: scroll; /* Change to scroll */
-      scrollbar-width: thin; /* Make scrollbar visible */
-      -ms-overflow-style: auto; /* For Internet Explorer and Edge */
+      overflow-x: scroll; 
+      scrollbar-width: thin; 
+      -ms-overflow-style: auto; 
       scroll-behavior: smooth;
       width: 100%;
     }
 
     .next-search__card {
       width: 100%;
-      max-width: 8rem; /* Smaller card size */
+      max-width: 8rem; 
       background-color: $neutral-white;
       border-radius: .75rem;
       box-shadow: $shadow-quaternary;
@@ -199,7 +199,7 @@
   &__title {
     padding: .5rem;
     color: $primary-dark-blue;
-    font-size: 0.9rem; /* Adjust font size for smaller cards */
+    font-size: 0.9rem; 
     text-align: center;
 
     @include tablet {
