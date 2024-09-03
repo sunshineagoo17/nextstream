@@ -14,6 +14,7 @@ const NextSearch = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [popularMedia, setPopularMedia] = useState([]);
   const [mediaType, setMediaType] = useState('streaming');
+  const [visibleResults, setVisibleResults] = useState(8);
   const location = useLocation();
   const scrollContainerRef = useRef(null);
 
@@ -120,6 +121,10 @@ const fetchPopularMedia = async (type) => {
     scrollContainerRef.current.scrollBy({ left: 300, behavior: 'smooth' });
   };
 
+  const handleLoadMore = () => {
+    setVisibleResults((prev) => prev + 8);
+  };
+
   return (
     <div className="next-search">
       {/* Search Bar */}
@@ -195,75 +200,80 @@ const fetchPopularMedia = async (type) => {
         {isLoading ? (
           <Loader />
         ) : results.length > 0 ? (
-          <div className="next-search__grid">
-            {results.map((result) => (
-              <div key={result.id} className="next-search__card">
-                {/* Display media based on its type */}
-                {result.media_type === 'movie' && (
-                  <div className="next-search__movie">
-                    <h3 className="next-search__title">{result.title}</h3>
-                    <img
-                      src={`https://image.tmdb.org/t/p/w500${result.poster_path}`}
-                      alt={result.title}
-                      className="next-search__poster"
-                    />
-                    {result.cast && (
-                      <div className="next-search__cast">
-                        <h4>Cast:</h4>
-                        <ul>
-                          {result.cast.map((actor) => (
-                            <li key={actor.id}>{actor.name}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                  </div>
-                )}
-                {result.media_type === 'tv' && (
-                  <div className="next-search__tv">
-                    <h3 className="next-search__title">{result.name}</h3>
-                    <img
-                      src={`https://image.tmdb.org/t/p/w500${result.poster_path}`}
-                      alt={result.name}
-                      className="next-search__poster"
-                    />
-                    {result.cast && (
-                      <div className="next-search__cast">
-                        <h4>Cast:</h4>
-                        <ul>
-                          {result.cast.map((actor) => (
-                            <li key={actor.id}>{actor.name}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                  </div>
-                )}
-                {result.media_type === 'person' && (
-                  <div className="next-search__person">
-                    <h3 className="next-search__title">{result.name}</h3>
-                    <img
-                      src={`https://image.tmdb.org/t/p/w500${result.profile_path}`}
-                      alt={result.name}
-                      className="next-search__poster"
-                    />
-                    {result.knownFor && (
-                      <div className="next-search__known-for">
-                        <h4>Known For:</h4>
-                        <ul>
-                          {result.knownFor.map((media) => (
-                            <li key={media.id}>
-                              {media.title || media.name} ({media.media_type})
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
+          <>
+            <div className="next-search__grid">
+              {results.slice(0, visibleResults).map((result) => (
+                <div key={result.id} className="next-search__card">
+                  {/* Display media based on its type */}
+                  {result.media_type === 'movie' && (
+                    <div className="next-search__movie">
+                      <h3 className="next-search__title">{result.title}</h3>
+                      <img
+                        src={`https://image.tmdb.org/t/p/w500${result.poster_path}`}
+                        alt={result.title}
+                        className="next-search__poster"
+                      />
+                      {result.cast && (
+                        <div className="next-search__cast">
+                          <h4>Cast:</h4>
+                          <ul>
+                            {result.cast.map((actor) => (
+                              <li key={actor.id}>{actor.name}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                  {result.media_type === 'tv' && (
+                    <div className="next-search__tv">
+                      <h3 className="next-search__title">{result.name}</h3>
+                      <img
+                        src={`https://image.tmdb.org/t/p/w500${result.poster_path}`}
+                        alt={result.name}
+                        className="next-search__poster"
+                      />
+                      {result.cast && (
+                        <div className="next-search__cast">
+                          <h4>Cast:</h4>
+                          <ul>
+                            {result.cast.map((actor) => (
+                              <li key={actor.id}>{actor.name}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                  {result.media_type === 'person' && (
+                    <div className="next-search__person">
+                      <h3 className="next-search__title">{result.name}</h3>
+                      <img
+                        src={`https://image.tmdb.org/t/p/w500${result.profile_path}`}
+                        alt={result.name}
+                        className="next-search__poster"
+                      />
+                      {result.knownFor && (
+                        <div className="next-search__known-for">
+                          <h4>Known For:</h4>
+                          <ul>
+                            {result.knownFor.map((media) => (
+                              <li key={media.id}>
+                                {media.title || media.name} ({media.media_type})
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+            {visibleResults < results.length && (
+              <button onClick={handleLoadMore} className="next-search__more-button">Load More</button>
+            )}
+          </>
         ) : (
           <p className="next-search__no-results">No results found.</p>
         )}
