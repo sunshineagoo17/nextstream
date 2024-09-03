@@ -131,24 +131,28 @@
       border-radius: 1.5rem;
       border: none;
       cursor: pointer;
-      box-shadow: $shadow-primary;
+      box-shadow: $shadow-tertiary;
       transition: background-color .3s, transform .3s;
 
       &:hover {
         background-color: $primary-medium-blue;
         color: $neutral-white;
         transform: scale(1.1);
+        font-weight: bold;
       }
 
       &:active {
         background-color: $primary-dark-blue;
         transform: scale(.95);
+        font-weight: normal;
       }
 
       &--active {
         background-color: $primary-button-blue;
         color: $neutral-white;
         text-shadow: $shadow-primary;
+        border: 2px solid $neutral-white;
+        box-shadow: $shadow-senary;
       }
     }
   }
