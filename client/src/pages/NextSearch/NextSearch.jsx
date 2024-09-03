@@ -18,35 +18,44 @@ const NextSearch = () => {
 
   const handleSearch = useCallback(async () => {
     if (searchQuery.trim() && isAuthenticated) {
-      setIsLoading(true);
-      try {
-        const response = await api.get('/api/tmdb/search', {
-          params: { query: searchQuery },
-        });
-        const filteredResults = await Promise.all(
-          response.data.results
-            .filter(
-              result =>
-                result.media_type === 'movie' ||
-                result.media_type === 'tv' ||
-                result.media_type === 'person'
-            )
-            .map(async result => {
-              if (result.media_type !== 'person') {
-                const castResponse = await api.get(`/api/tmdb/${result.media_type}/${result.id}/credits`);
-                return { ...result, cast: castResponse.data.cast.slice(0, 5) }; // Top 5 cast members
-              }
-              return result;
-            })
-        );
-        setResults(filteredResults);
-      } catch (error) {
-        console.error('Error fetching search results:', error);
-      } finally {
-        setIsLoading(false);
-      }
+        setIsLoading(true);
+        try {
+            const response = await api.get('/api/tmdb/search', {
+                params: { query: searchQuery },
+            });
+
+            const filteredResults = await Promise.all(
+                response.data.results
+                    .filter(
+                        result =>
+                            result.media_type === 'movie' ||
+                            result.media_type === 'tv' ||
+                            result.media_type === 'person'
+                    )
+                    .map(async result => {
+                        if (result.media_type === 'person') {
+                            const knownFor = result.known_for.map(item => ({
+                                id: item.id,
+                                title: item.title || item.name,
+                                poster_path: item.poster_path,
+                                media_type: item.media_type,
+                            }));
+                            return { ...result, knownFor };
+                        } else {
+                            const castResponse = await api.get(`/api/tmdb/${result.media_type}/${result.id}/credits`);
+                            return { ...result, cast: castResponse.data.cast.slice(0, 5) }; // Top 5 cast members
+                        }
+                    })
+            );
+
+            setResults(filteredResults);
+        } catch (error) {
+            console.error('Error fetching search results:', error);
+        } finally {
+            setIsLoading(false);
+        }
     }
-  }, [searchQuery, isAuthenticated]);
+}, [searchQuery, isAuthenticated]);
 
   const fetchPopularMedia = async (type) => {
     setIsLoading(true);
@@ -67,7 +76,7 @@ const NextSearch = () => {
           endpoint = 'movie/popular'; 
           break;
       }
-      const response = await api.get(`${process.env.REACT_APP_BASE_URL}/api/tmdb/${endpoint}`);
+      const response = await api.get(`/api/tmdb/${endpoint}`);
       setPopularMedia(response.data.results);
     } catch (error) {
       console.error('Error fetching popular media:', error);
@@ -212,6 +221,18 @@ const NextSearch = () => {
                       alt={result.name}
                       className="next-search__poster"
                     />
+                    {result.knownFor && (
+                      <div className="next-search__known-for">
+                        <h4>Known For:</h4>
+                        <ul>
+                          {result.knownFor.map((media) => (
+                            <li key={media.id}>
+                              {media.title || media.name} ({media.media_type})
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
                   </div>
                 )}
               </div>

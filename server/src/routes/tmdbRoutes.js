@@ -212,7 +212,7 @@ router.get('/popular', (req, res) => {
   }
 });
 
-// Endpoint to search for movies and TV shows
+// Endpoint to search for movies, TV shows, and persons
 router.get('/search', async (req, res) => {
   const { query } = req.query;
   try {
@@ -223,7 +223,11 @@ router.get('/search', async (req, res) => {
       },
     });
     
-    const filteredResults = response.data.results.filter(result => result.media_type === 'movie' || result.media_type === 'tv');
+    const filteredResults = response.data.results.filter(result => 
+      result.media_type === 'movie' || 
+      result.media_type === 'tv' || 
+      result.media_type === 'person'
+    );
 
     res.json({ results: filteredResults });
   } catch (error) {
@@ -383,6 +387,49 @@ router.get('/nextview/:userId/:mediaId/:mediaType', async (req, res) => {
   } catch (error) {
       console.error('Error fetching next view media data:', error);
       res.status(500).json({ message: 'Error fetching media data' });
+  }
+});
+
+// Endpoint to get details for a person, including their "known for" media
+router.get('/person/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    // Fetch person details from TMDB
+    const personResponse = await axios.get(`${TMDB_BASE_URL}/person/${id}`, {
+      params: {
+        api_key: TMDB_API_KEY,
+        append_to_response: 'combined_credits'
+      }
+    });
+    const personData = personResponse.data;
+
+    // Extract the "known for" movies and TV shows
+    const knownFor = personData.combined_credits.cast.slice(0, 5).map(media => ({
+      id: media.id,
+      title: media.title || media.name,
+      poster_path: media.poster_path,
+      media_type: media.media_type
+    }));
+
+    // Fetch the cast information for each "known for" item
+    const enrichedKnownFor = await Promise.all(
+      knownFor.map(async media => {
+        const creditsResponse = await axios.get(`${TMDB_BASE_URL}/${media.media_type}/${media.id}/credits`, {
+          params: {
+            api_key: TMDB_API_KEY
+          }
+        });
+        return {
+          ...media,
+          cast: creditsResponse.data.cast.slice(0, 5) // Top 5 cast members
+        };
+      })
+    );
+
+    res.json({ ...personData, knownFor: enrichedKnownFor });
+  } catch (error) {
+    console.error(`Error fetching person details for ${id}:`, error.message);
+    res.status(500).json({ message: 'Error fetching person details' });
   }
 });
 
