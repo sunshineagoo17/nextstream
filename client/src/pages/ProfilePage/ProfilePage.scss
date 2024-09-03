@@ -238,6 +238,92 @@
     flex-direction: row;
   }
 
+  &__notification-custom-time {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  &__notification-push-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    flex-direction: row;
+  }
+
+  &__custom-time-container {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    margin-top: .75rem;
+    flex-direction: column;
+  }
+
+  &__notification-custom-time-labels {
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    gap: .25rem;
+  }
+
+  &__custom-time-input {
+    width: 5rem;
+    padding: .75rem;
+    font-family: $primary-font;
+    font-size: 1rem;
+    text-align: center;
+    background-color: $neutral-white;
+    border: .125rem solid $primary-light-blue;
+    border-radius: .5rem;
+    color: $primary-dark-blue;
+    box-shadow: $shadow-primary;
+
+      appearance: none; 
+      -webkit-appearance: none; 
+      -moz-appearance: textfield; 
+
+      &::-webkit-inner-spin-button,
+      &::-webkit-outer-spin-button {
+          -webkit-appearance: none; 
+          margin: 0;
+      }
+
+      &::placeholder {
+          color: $primary-light-blue;
+          font-size: .85rem;
+          opacity: 1;
+      }
+
+      &:focus::placeholder {
+          color: $primary-medium-blue;
+      }
+
+      &:focus {
+          background-color: $primary-very-light-blue;
+      }
+
+      @include tablet {
+          font-size: 1rem;
+      }
+  }
+
+  &__custom-time-label {
+    font-family: $primary-font;
+    font-size: 1rem;
+    color: $primary-medium-blue;
+
+    @include tablet {
+      font-size: 1.25rem;
+    }
+
+    @include desktop {
+      font-size: 1.25rem; 
+    }
+  }
+
   &__content-subscription-container {
     flex-direction: column;
     padding: 1rem;
@@ -343,6 +429,22 @@
     &:active {
       background-color: $primary-light-blue;
       transform: scale(.95);
+    }
+  }
+
+  &__notifications-alerts-icon {
+    @include block-item(1rem, 1rem);
+    margin-right: .25rem;
+    padding: .1rem;
+    border-radius: .5rem;
+    border: .125rem solid $primary-pale-blue;
+    transition: box-shadow .3s ease transform .3s ease-in-out;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $neutral-white;
+      box-shadow: $shadow-secondary;
+      transform: scale(1.15);
     }
   }
 
@@ -503,6 +605,17 @@
     align-items: center;
     flex-direction: column;
     position: relative;
+  }
+
+  &__notification-title-container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+  }
+
+  &__notification-push {
+    display: flex;
+    flex-direction: row;
   }
 
   &__password-toggle {

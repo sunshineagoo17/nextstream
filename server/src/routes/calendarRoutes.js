@@ -4,31 +4,22 @@ const authenticate = require('../middleware/authenticate');
 const guestAuthenticate = require('../middleware/guestAuthenticate');
 const calendarController = require('../controllers/calendarController');
 
-// Get all events for a user - accessible to both authenticated users and guests
-router.get('/:userId/events', (req, res, next) => {
-    const token = req.cookies.token || req.cookies.guestToken;
-  
-    if (token) {
-      if (req.cookies.token) {
-        authenticate(req, res, next);
-      } else if (req.cookies.guestToken) {
-        guestAuthenticate(req, res, next);
-      }
-    } else {
-      return res.status(401).json({ message: 'Access denied. No token provided.' });
-    }
-  }, calendarController.getEvents);
+// Get all events for an authenticated user
+router.get('/:userId/events', authenticate, calendarController.getEvents);
 
-// Search events for a user
-router.get('/:userId/events/search', authenticate, calendarController.searchEvents); 
+// Get all events for a guest user
+router.get('/guest/events', guestAuthenticate, calendarController.getEvents);
 
-// Add a new event
+// Search events for an authenticated user
+router.get('/:userId/events/search', authenticate, calendarController.searchEvents);
+
+// Add a new event for an authenticated user
 router.post('/:userId/events', authenticate, calendarController.addEvent);
 
-// Update an existing event
+// Update an existing event for an authenticated user
 router.put('/:userId/events/:eventId', authenticate, calendarController.updateEvent);
 
-// Delete an event
+// Delete an event for an authenticated user
 router.delete('/:userId/events/:eventId', authenticate, calendarController.deleteEvent);
 
 module.exports = router;
