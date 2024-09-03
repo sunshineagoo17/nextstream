@@ -7,6 +7,7 @@ const useMenuLinks = () => {
   const { isAuthenticated, isGuest, userId: authUserId } = useContext(AuthContext);
 
   const authenticatedLinks = [
+    { name: "NextSearch", path: `/nextsearch/${authUserId}` },
     { name: "Top Picks", path: `/top-picks/${authUserId}` },
     { name: "NextSwipe", path: `/nextswipe/${authUserId}` },
     { name: "Favourites", path: `/faves/${authUserId}` },

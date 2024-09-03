@@ -15,6 +15,7 @@ import NextSwipePage from './pages/NextSwipe/NextSwipe';
 import CalendarPage from './pages/CalendarPage/CalendarPage';
 import SearchResultsPage from './pages/SearchResultsPage/SearchResultsPage';
 import AuthSearchResultsPage from './pages/AuthSearchResultsPage/AuthSearchResultsPage';
+import NextSearch from './pages/NextSearch/NextSearch';
 import ContactModal from './components/ContactModal/ContactModal';
 import CalendarModal from './pages/CalendarPage/sections/Calendar';
 import Header from './components/Header/Header';
@@ -139,6 +140,7 @@ const App = () => {
         <Route path="/calendar/:userId" element={isAuthenticated || isGuest ? <CalendarPage openModal={openCalendarModal} /> : <Navigate to="/login-required" />} />
         <Route path="/faves/:userId" element={isAuthenticated ? <FavouritesPage /> : <Navigate to="/login-required" />} /> 
         <Route path="/search" element={isAuthenticated ? <AuthSearchResultsPage openModal={openCalendarModal} userId={userId} /> : <SearchResultsPage />} />
+        <Route path="/nextsearch/:userId" element={isAuthenticated ? <NextSearch userId={userId} /> : <Navigate to="/login-required" />} /> {/* New NextSearch route */}
         <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route path="/login-required" element={<LoginRequired />} />
         <Route path="/nextview/:userId/:mediaType/:mediaId" element={isAuthenticated ? <NextViewPage /> : <Navigate to="/login-required" />} />
