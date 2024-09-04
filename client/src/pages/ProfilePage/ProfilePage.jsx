@@ -164,6 +164,12 @@ export const ProfilePage = () => {
         setNewPassword('');
         setConfirmPassword('');
       }
+
+      // Set timeout to clear the message after 3000ms
+      setTimeout(() => {
+        clearSaveMessage();
+      }, 3000);
+
     } catch (error) {
       if (error.response) {
         if (error.response.status === 409 && error.response.data.message === 'Email is already taken') {
