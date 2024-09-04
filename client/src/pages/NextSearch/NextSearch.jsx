@@ -242,28 +242,33 @@ const NextSearch = () => {
                         </div>
                     </div>
                     {result.media_type === 'movie' || result.media_type === 'tv' ? (
-                      result.cast && (
-                        <div className="next-search__cast">
-                          <h4>Cast:</h4>
-                          <ul>
-                            {result.cast.map((actor) => (
-                              <li key={actor.id}>{actor.name}</li>
+                        result.cast && result.cast.length > 0 ? (
+                            <div className="next-search__cast">
+                            <h4>Cast:</h4>
+                            <ul>
+                                {result.cast.map((actor) => (
+                                <li key={actor.id}>{actor.name}</li>
+                                ))}
+                            </ul>
+                            </div>
+                        ) : (
+                            <div className="next-search__cast">
+                                <h4>Cast:</h4>
+                                <p>Info Unavailable</p>
+                            </div>
+                        )
+                        ) : result.media_type === 'person' && result.knownFor ? (
+                        <div className="next-search__known-for">
+                            <h4>Known For:</h4>
+                            <ul>
+                            {result.knownFor.map((media) => (
+                                <li key={media.id}>
+                                {media.title || media.name} ({media.media_type})
+                                </li>
                             ))}
-                          </ul>
+                            </ul>
                         </div>
-                      )
-                    ) : result.media_type === 'person' && result.knownFor ? (
-                      <div className="next-search__known-for">
-                        <h4>Known For:</h4>
-                        <ul>
-                          {result.knownFor.map((media) => (
-                            <li key={media.id}>
-                              {media.title || media.name} ({media.media_type})
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    ) : null}
+                        ) : null}
                   </div>
                 ))
               )}
