@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faChevronRight, faPlay, faTimes, faSearch } from '@fortawesome/free-solid-svg-icons';
+import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
 import api from '../../services/api';
 import Loader from '../../components/Loader/Loader'; 
 import UserRating from '../TopPicksPage/sections/UserRating/UserRating'; 
@@ -22,6 +23,7 @@ const NextSearch = () => {
   const [showRightArrowResults, setShowRightArrowResults] = useState(false);
   const [showLeftArrowPopular, setShowLeftArrowPopular] = useState(false);
   const [showRightArrowPopular, setShowRightArrowPopular] = useState(false);
+  const [alert, setAlert] = useState({ message: '', type: '', visible: false });
 
   const location = useLocation();
   const searchScrollRef = useRef(null);
@@ -85,11 +87,10 @@ const NextSearch = () => {
         setTrailerUrl(trailerUrl);
         setIsModalOpen(true);
       } else {
-        alert('No trailer available for this media');
+        setAlert({ message: 'No video available for this media', type: 'info', visible: true });
       }
     } catch (error) {
-      console.error('Error fetching trailer:', error);
-      alert('Could not load the trailer. Please try again later.');
+      setAlert({ message: 'Could not load video. Please try again later.', type: 'error', visible: true });
     }
   };
 
@@ -123,6 +124,7 @@ const NextSearch = () => {
         setResults(filteredResults);
       } catch (error) {
         console.error('Error fetching search results:', error);
+        setAlert({ message: 'Could not fetch search results. Please try again later.', type: 'error', visible: true });
       } finally {
         setIsLoading(false);
       }
@@ -157,6 +159,7 @@ const NextSearch = () => {
       setPopularMedia(updatedPopularMedia);
     } catch (error) {
       console.error('Error fetching popular media:', error);
+      setAlert({ message: 'Error fetching popular media', type: 'error', visible: true });
     } finally {
       setIsLoading(false);
     }
@@ -197,6 +200,15 @@ const NextSearch = () => {
         <div className="next-search__loader-overlay">
           <Loader />
         </div>
+      )}
+
+      {/* Custom Alert */}
+      {alert.visible && (
+        <CustomAlerts
+          message={alert.message}
+          type={alert.type}
+          onClose={() => setAlert({ ...alert, visible: false })}
+        />
       )}
 
       {/* Search Bar */}
