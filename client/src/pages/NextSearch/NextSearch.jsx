@@ -137,7 +137,7 @@ const NextSearch = () => {
               ) : (
                 results.map((result) => (
                   <div key={result.id} className="next-search__card next-search__card--results">
-                    <h3 className="next-search__title">{result.title || result.name}</h3>
+                    <h3 className="next-search__title--results">{result.title || result.name}</h3>
                     <img
                       src={`https://image.tmdb.org/t/p/w500${result.poster_path}`}
                       alt={result.title || result.name}
@@ -202,7 +202,7 @@ const NextSearch = () => {
             ) : popularMedia.length > 0 ? (
               popularMedia.map((media) => (
                 <div key={media.id} className="next-search__card next-search__card--popular">
-                  <h3 className="next-search__title">{media.title || media.name}</h3>
+                  <h3 className="next-search__title--popular">{media.title || media.name}</h3>
                   <img
                     src={`https://image.tmdb.org/t/p/w500${media.poster_path}`}
                     alt={media.title || media.name}
