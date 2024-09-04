@@ -146,6 +146,7 @@
     transition: transform 0.3s ease;
     transition: transform 0.6s ease-in-out;
     z-index: 10;
+    cursor: pointer;
 
     &:hover {
       transform: rotate(360deg);  
@@ -408,9 +409,9 @@
     margin-right: 1rem;
     flex-shrink: 0;
 
-    &:hover {
-      transform: scale(1.05);
-    }
+    // &:hover {
+    //   transform: scale(1.05);
+    // }
 
     @include tablet {
       max-width: 12rem;
@@ -478,21 +479,25 @@
   &__poster-container-results {
     position: relative;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-
-    &:active {
-        transform: scale(.9); 
-    }
   }
 
   &__poster-container-popular {
     &:hover {
         transform: rotate(-2deg) translateX(5px);
     }
+
+    &:active {
+        transform: scale(.9); 
+    }
   }
 
   &__poster-container-results {
     &:hover {
         transform: rotate(2deg) translateX(5px);
+    }
+
+    &:active {
+        transform: scale(.9); 
     }
   }
 
