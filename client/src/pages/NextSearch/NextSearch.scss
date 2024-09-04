@@ -26,7 +26,6 @@
       margin: 3.5rem;
     }
   
-    // More visible ripple effect
     &::before {
       content: '';
       position: absolute;
@@ -35,18 +34,18 @@
       width: 100%;
       height: 100%;
       background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.3) 20%, transparent 70%);
-      animation: ripple-animation 6s infinite ease-in-out; // Increase speed and size
+      animation: ripple-animation 6s infinite ease-in-out;
       z-index: 0;
       opacity: 0.9;
     }
   
     @keyframes ripple-animation {
       0% {
-        transform: scale(0.7);  // Start with a smaller scale
+        transform: scale(0.7);  
         opacity: 0.7;
       }
       50% {
-        transform: scale(1.2);  // Make the ripple larger at the peak
+        transform: scale(1.2);  
         opacity: 0.5;
       }
       100% {
@@ -54,8 +53,7 @@
         opacity: 0.7;
       }
     }
-  
-    // More exaggerated wave effect
+
     &::after {
       content: '';
       position: absolute;
@@ -64,7 +62,7 @@
       width: 160%;
       height: 160%;
       background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.15) 15%, transparent 85%);
-      animation: wave-animation 7s infinite ease-in-out;  // Increase speed and size
+      animation: wave-animation 7s infinite ease-in-out;  
       z-index: 0;
       opacity: 0.6;
     }
