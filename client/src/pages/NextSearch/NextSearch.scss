@@ -4,24 +4,24 @@
 @use "../../styles/global.scss" as *;
 
 .next-search {
-    @include frosted-glass2;
-    border-radius: 1.25rem;
-    box-shadow: $shadow-quaternary;
-    margin: 1.5rem;
-    border: .3125rem solid $neutral-white;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 2rem;
+  @include frosted-glass2;
+  border-radius: 1.25rem;
+  box-shadow: $shadow-quaternary;
+  margin: 1.5rem;
+  border: .3125rem solid $neutral-white;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 2rem;
 
-    @include tablet {
-        margin: 2.5rem;
-    }
+  @include tablet {
+    margin: 2.5rem;
+  }
 
-    @include desktop {
-        margin: 3.5rem;
-    }
+  @include desktop {
+    margin: 3.5rem;
+  }
 
   &__input-container {
     display: flex;
@@ -39,12 +39,14 @@
   }
 
   &__play-overlay {
-    @include block-item(100%, 100%);
     position: absolute;
     top: 0;
     left: 0;
+    width: 100%;
+    height: 100%;
     display: flex;
     justify-content: center;
+    border-radius: .5rem;
     align-items: center;
     background: rgba($neutral-black, .5);
     opacity: 0;
@@ -355,6 +357,10 @@
     border-radius: 1rem;
   }
 
+  &__poster-container {
+    position: relative;
+  }
+
   &__poster {
     width: 100%;
     height: auto;
@@ -442,7 +448,6 @@
     backdrop-filter: blur(5px);
     border-radius: 1rem;
     padding: 1rem;
-    position: relative;
     overflow: hidden;
 
     &--popular {
@@ -455,124 +460,6 @@
       background: $primary-very-light-blue;
       border: 3px solid $neutral-white;
       box-shadow: $shadow-tertiary;
-    }
-  }
-
-  &__poster {
-    width: 100%;
-    height: auto;
-    border-radius: .75rem;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: .75rem;
-    transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
-
-    &--results {
-        border-bottom-color: $primary-medium-blue;
-        border-top-color: $primary-medium-blue;
-
-        &:hover {
-            transform: scale(1.1) rotate(2deg);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-            background: rgba(255, 255, 255, 0.35);
-        }
-
-        &:active {
-            transform: scale(0.95) rotate(0deg);
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-            background: $primary-button-blue;
-            color: $neutral-white;
-        }
-
-        &::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.5) 0%, transparent 70%);
-            opacity: 0.6;
-            transform: scale(0.75);
-            transition: transform 0.5s ease, opacity 0.5s ease;
-            pointer-events: none;
-        }
-
-        &:hover::before {
-            transform: scale(1.1);
-            opacity: 0.8;
-        }
-
-        &::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba($feedback-error-light-peach, 0.2), rgba($primary-button-blue, 0.7));
-            mix-blend-mode: screen;
-            transition: opacity 0.5s ease;
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        &:hover::after {
-            opacity: 1;
-        }
-
-        &:active::after {
-            opacity: 0.75;
-        }
-    }
-
-    &--popular {
-      &:hover {
-        transform: scale(1.1) rotate(-2deg);
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-        background: rgba(255, 255, 255, 0.35);
-      }
-
-      &:active {
-        transform: scale(0.95) rotate(0deg);
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-        background: $primary-button-blue;
-        color: $neutral-white;
-      }
-
-      &::before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: radial-gradient(circle, rgba(255, 255, 255, 0.5) 0%, transparent 70%);
-        opacity: 0.6;
-        transform: scale(0.75);
-        transition: transform 0.5s ease, opacity 0.5s ease;
-        pointer-events: none;
-      }
-
-      &:hover::before {
-        transform: scale(1.1);
-        opacity: 0.8;
-      }
-
-      &::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(135deg, rgba($feedback-error-light-peach, 0.2), rgba($primary-button-blue, 0.7));
-        mix-blend-mode: screen;
-        transition: opacity 0.5s ease;
-        opacity: 0;
-        pointer-events: none;
-      }
-
-      &:hover::after {
-        opacity: 1;
-      }
-
-      &:active::after {
-        opacity: 0.75;
-      }
     }
   }
 

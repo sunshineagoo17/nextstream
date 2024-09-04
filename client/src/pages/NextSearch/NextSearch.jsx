@@ -167,29 +167,6 @@ const NextSearch = () => {
                         <FontAwesomeIcon icon={faPlay} className="next-search__play-icon" />
                       </div>
                     </div>
-                    {result.media_type === 'movie' || result.media_type === 'tv' ? (
-                      result.cast && (
-                        <div className="next-search__cast">
-                          <h4>Cast:</h4>
-                          <ul>
-                            {result.cast.map((actor) => (
-                              <li key={actor.id}>{actor.name}</li>
-                            ))}
-                          </ul>
-                        </div>
-                      )
-                    ) : result.media_type === 'person' && result.knownFor ? (
-                      <div className="next-search__known-for">
-                        <h4>Known For:</h4>
-                        <ul>
-                          {result.knownFor.map((media) => (
-                            <li key={media.id}>
-                              {media.title || media.name} ({media.media_type})
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    ) : null}
                   </div>
                 ))
               )}
@@ -218,31 +195,31 @@ const NextSearch = () => {
           </div>
         </div>
         <div className="next-search__carousel">
-            <FontAwesomeIcon icon={faChevronLeft} className="next-search__nav-arrow left" onClick={() => scrollLeft(popularScrollRef)} />
-            <div className="next-search__scroll-container-popular" ref={popularScrollRef}>
-                {isLoading ? (
-                <Loader />
-                ) : popularMedia.length > 0 ? (
-                popularMedia.map((media) => (
-                    <div key={media.id} className="next-search__card next-search__card--popular">
-                    <h3 className="next-search__title--popular">{media.title || media.name}</h3>
-                    <div className="next-search__poster-container">
-                        <img
-                        src={`https://image.tmdb.org/t/p/w500${media.poster_path}`}
-                        alt={media.title || media.name}
-                        className="next-search__poster next-search__poster--popular"
-                        />
-                        <div className="next-search__play-overlay" onClick={() => handlePlayTrailer(media.id, media.media_type || 'movie')}>
-                        <FontAwesomeIcon icon={faPlay} className="next-search__play-icon" />
-                        </div>
+          <FontAwesomeIcon icon={faChevronLeft} className="next-search__nav-arrow left" onClick={() => scrollLeft(popularScrollRef)} />
+          <div className="next-search__scroll-container-popular" ref={popularScrollRef}>
+            {isLoading ? (
+              <Loader />
+            ) : popularMedia.length > 0 ? (
+              popularMedia.map((media) => (
+                <div key={media.id} className="next-search__card next-search__card--popular">
+                  <h3 className="next-search__title--popular">{media.title || media.name}</h3>
+                  <div className="next-search__poster-container">
+                    <img
+                      src={`https://image.tmdb.org/t/p/w500${media.poster_path}`}
+                      alt={media.title || media.name}
+                      className="next-search__poster next-search__poster--popular"
+                    />
+                    <div className="next-search__play-overlay" onClick={() => handlePlayTrailer(media.id, media.media_type || 'movie')}>
+                      <FontAwesomeIcon icon={faPlay} className="next-search__play-icon" />
                     </div>
-                    </div>
-                ))
-                ) : (
-                <p className="next-search__no-results">No popular media found.</p>
-                )}
-            </div>
-            <FontAwesomeIcon icon={faChevronRight} className="next-search__nav-arrow right" onClick={() => scrollRight(popularScrollRef)} />
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p className="next-search__no-results">No popular media found.</p>
+            )}
+          </div>
+          <FontAwesomeIcon icon={faChevronRight} className="next-search__nav-arrow right" onClick={() => scrollRight(popularScrollRef)} />
         </div>
       </div>
 
