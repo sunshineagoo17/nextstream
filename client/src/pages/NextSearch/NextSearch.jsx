@@ -5,6 +5,7 @@ import api from '../../services/api';
 import Loader from '../../components/Loader/Loader';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faChevronRight, faPlay, faTimes } from '@fortawesome/free-solid-svg-icons';
+import UserRating from '../TopPicksPage/sections/UserRating/UserRating'; 
 import './NextSearch.scss';
 import DefaultPoster from "../../assets/images/posternoimg-icon.png";
 
@@ -76,7 +77,6 @@ const NextSearch = () => {
     };
   }, [popularMedia]);
 
-  // Fetch trailers
   const handlePlayTrailer = async (mediaId, mediaType) => {
     try {
       const response = await api.get(`/api/tmdb/${mediaType}/${mediaId}/videos`);
@@ -103,18 +103,13 @@ const NextSearch = () => {
 
         const filteredResults = await Promise.all(
           response.data.results
-            .filter(
-              result =>
-                result.media_type === 'movie' ||
-                result.media_type === 'tv' ||
-                result.media_type === 'person'
-            )
+            .filter(result => result.media_type === 'movie' || result.media_type === 'tv' || result.media_type === 'person')
             .map(async result => {
               if (result.media_type === 'person') {
                 const knownFor = result.known_for.map(item => ({
                   id: item.id,
                   title: item.title || item.name,
-                  poster_path: item.poster_path ? `https://image.tmdb.org/t/p/w500${item.poster_path}` : DefaultPoster, // Use default if no poster
+                  poster_path: item.poster_path ? `https://image.tmdb.org/t/p/w500${item.poster_path}` : DefaultPoster,
                   media_type: item.media_type,
                 }));
                 return { ...result, knownFor };
@@ -156,7 +151,8 @@ const NextSearch = () => {
       const response = await api.get(`/api/tmdb/${endpoint}`);
       const updatedPopularMedia = response.data.results.map(media => ({
         ...media,
-        poster_path: media.poster_path ? `https://image.tmdb.org/t/p/w500${media.poster_path}` : DefaultPoster, // Use default if no poster
+        poster_path: media.poster_path ? `https://image.tmdb.org/t/p/w500${media.poster_path}` : DefaultPoster,
+        vote_average: media.vote_average,
       }));
       setPopularMedia(updatedPopularMedia);
     } catch (error) {
@@ -221,16 +217,18 @@ const NextSearch = () => {
                   <div key={result.id} className="next-search__card next-search__card--results">
                     <h3 className="next-search__title--results">{result.title || result.name}</h3>
                     <div className="next-search__poster-container">
-                      <img
-                        src={result.poster_path ? `https://image.tmdb.org/t/p/w500${result.poster_path}` : DefaultPoster} // Corrected poster path logic
-                        alt={result.title || result.name}
-                        className="next-search__poster next-search__poster--results"
-                      />
-                      <div className="next-search__play-overlay" onClick={() => handlePlayTrailer(result.id, result.media_type)}>
-                        <FontAwesomeIcon icon={faPlay} className="next-search__play-icon" />
-                      </div>
+                        <img
+                            src={result.poster_path ? `https://image.tmdb.org/t/p/w500${result.poster_path}` : DefaultPoster}
+                            alt={result.title || result.name}
+                            className="next-search__poster next-search__poster--results"
+                        />
+                        <div className="next-search__rating-container">
+                            <UserRating rating={(result.vote_average || 0) * 10} />
+                        </div>
+                        <div className="next-search__play-overlay" onClick={() => handlePlayTrailer(result.id, result.media_type)}>
+                            <FontAwesomeIcon icon={faPlay} className="next-search__play-icon" />
+                        </div>
                     </div>
-                    {/* Show cast or known for based on media type */}
                     {result.media_type === 'movie' || result.media_type === 'tv' ? (
                       result.cast && (
                         <div className="next-search__cast">
@@ -296,6 +294,9 @@ const NextSearch = () => {
                       alt={media.title || media.name}
                       className="next-search__poster next-search__poster--popular"
                     />
+                    <div className="next-search__rating-container">
+                        <UserRating rating={(media.vote_average || 0) * 10} />
+                    </div>
                     <div className="next-search__play-overlay" onClick={() => handlePlayTrailer(media.id, media.media_type || 'movie')}>
                       <FontAwesomeIcon icon={faPlay} className="next-search__play-icon" />
                     </div>

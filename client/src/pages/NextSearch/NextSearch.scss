@@ -361,6 +361,19 @@
     position: relative;
   }
 
+  &__rating-container {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.4rem;
+    width: 2.3rem; 
+    height: 2.3rem;
+    background: $primary-light-blue-gradient;
+    display: flex;
+    border-radius: 50%; 
+    justify-content: center;
+    box-shadow: $shadow-senary;  
+  }  
+
   &__poster {
     width: 100%;
     height: auto;
