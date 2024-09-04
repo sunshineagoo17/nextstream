@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { useState, useEffect, useContext, useRef, useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -16,6 +15,7 @@ import NextIcon from '../../assets/images/next-icon.svg';
 import Calendar from '../CalendarPage/sections/Calendar';
 import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
 import './AuthSearchResultsPage.scss';
+import api from '../../services/api'; 
 
 const AuthSearchResultsPage = ({ userId }) => {
   const { isAuthenticated } = useContext(AuthContext);
@@ -45,7 +45,7 @@ const AuthSearchResultsPage = ({ userId }) => {
 
   const fetchResults = useCallback(async () => {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/tmdb/search`, {
+      const response = await api.get(`/api/tmdb/search`, {
         params: {
           query,
           language: 'en-US',
@@ -64,7 +64,7 @@ const AuthSearchResultsPage = ({ userId }) => {
         filteredResults.map(async (result) => {
           try {
             // Fetch the interaction status for the user and this media item
-            const interactionResponse = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/interactions/${userId}`, {
+            const interactionResponse = await api.get(`/api/interactions/${userId}`, {
               params: {
                 media_id: result.id,
                 media_type: result.media_type,
@@ -74,16 +74,16 @@ const AuthSearchResultsPage = ({ userId }) => {
             const interactionData = interactionResponse.data.find(interaction => interaction.media_id === result.id);
             const interaction = interactionData ? interactionData.interaction : null;
 
-            const providersResponse = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/tmdb/${result.media_type}/${result.id}/watch/providers`);
+            const providersResponse = await api.get(`/api/tmdb/${result.media_type}/${result.id}/watch/providers`);
             const providers = providersResponse.data || [];
 
             // Fetch runtime for movies and episode runtime for TV shows
             let duration = 0;
             if (result.media_type === 'movie') {
-              const movieDetails = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/tmdb/movie/${result.id}`);
+              const movieDetails = await api.get(`/api/tmdb/movie/${result.id}`);
               duration = movieDetails.data.runtime || 0;
             } else if (result.media_type === 'tv') {
-              const tvDetails = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/tmdb/tv/${result.id}`);
+              const tvDetails = await api.get(`/api/tmdb/tv/${result.id}`);
               duration = tvDetails.data.episode_run_time[0] || 0;
             }
 
@@ -162,7 +162,7 @@ const AuthSearchResultsPage = ({ userId }) => {
         return;
       }
   
-      await axios.post(`${process.env.REACT_APP_BASE_URL}/api/interactions`, {
+      await api.post(`/api/interactions`, {
         userId,
         media_id: mediaId,
         interaction: newInteraction,

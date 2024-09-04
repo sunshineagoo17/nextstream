@@ -10,7 +10,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { AuthContext } from '../../context/AuthContext/AuthContext'; 
 import { Tooltip } from 'react-tooltip';
-import axios from 'axios';
+import api from '../../services/api';
 import WavesBg from '../../components/WavesBg/WavesBg';
 import Loader from '../../components/Loader/Loader';
 import Calendar from '../CalendarPage/sections/Calendar';
@@ -80,7 +80,7 @@ const NextViewPage = () => {
 
         const fetchMediaData = async () => {
             try {
-                const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/tmdb/nextview/${userId}/${mediaId}/${mediaType}`);
+                const response = await api.get(`${process.env.REACT_APP_BASE_URL}/api/tmdb/nextview/${userId}/${mediaId}/${mediaType}`);
                 if (response.data) {
                     setMediaData(response.data);
                     setInteraction(response.data.interaction);
@@ -101,7 +101,7 @@ const NextViewPage = () => {
                     }
 
                     // Fetch the cast information
-                    const castResponse = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/tmdb/${mediaType}/${mediaId}/credits`);
+                    const castResponse = await api.get(`${process.env.REACT_APP_BASE_URL}/api/tmdb/${mediaType}/${mediaId}/credits`);
                     setCast(castResponse.data.cast);
                 } else {
                     console.error('No media data found');
@@ -122,7 +122,7 @@ const NextViewPage = () => {
     const handlePlayTrailer = async () => {
         setIsTrailerLoading(true);
         try {
-            const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/tmdb/${mediaType}/${mediaId}/videos`);
+            const response = await api.get(`${process.env.REACT_APP_BASE_URL}/api/tmdb/${mediaType}/${mediaId}/videos`);
             const videoData = response.data;
 
             if (videoData && videoData.trailerUrl) {
@@ -155,7 +155,7 @@ const NextViewPage = () => {
 
     const handleToggleInteraction = async (newInteraction) => {
         try {
-            await axios.post(`${process.env.REACT_APP_BASE_URL}/api/interactions`, {
+            await api.post(`${process.env.REACT_APP_BASE_URL}/api/interactions`, {
                 userId,
                 media_id: mediaId,
                 interaction: newInteraction,
