@@ -16,11 +16,64 @@ const NextSearch = () => {
   const [mediaType, setMediaType] = useState('streaming');
   const [trailerUrl, setTrailerUrl] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showLeftArrowResults, setShowLeftArrowResults] = useState(false);
+  const [showRightArrowResults, setShowRightArrowResults] = useState(false);
+  const [showLeftArrowPopular, setShowLeftArrowPopular] = useState(false);
+  const [showRightArrowPopular, setShowRightArrowPopular] = useState(false);
+
   const location = useLocation();
   const searchScrollRef = useRef(null);
   const popularScrollRef = useRef(null);
 
   const query = new URLSearchParams(location.search).get('q');
+
+  const checkForOverflow = (scrollRef, setShowLeft, setShowRight) => {
+    if (!scrollRef || !scrollRef.current) {
+      return;
+    }
+
+    const { scrollWidth, clientWidth, scrollLeft } = scrollRef.current;
+    setShowRight(scrollWidth > clientWidth && scrollLeft + clientWidth < scrollWidth);
+    setShowLeft(scrollLeft > 0);
+  };
+
+  useEffect(() => {
+    const searchScrollEl = searchScrollRef.current;
+
+    const handleScrollResults = () => {
+      checkForOverflow(searchScrollRef, setShowLeftArrowResults, setShowRightArrowResults);
+    };
+
+    if (searchScrollEl) {
+      checkForOverflow(searchScrollRef, setShowLeftArrowResults, setShowRightArrowResults);
+      searchScrollEl.addEventListener('scroll', handleScrollResults);
+    }
+
+    return () => {
+      if (searchScrollEl) {
+        searchScrollEl.removeEventListener('scroll', handleScrollResults);
+      }
+    };
+  }, [results]); // Results section for handling search results scroll
+
+  useEffect(() => {
+    const popularScrollEl = popularScrollRef.current;
+
+    const handleScrollPopular = () => {
+      checkForOverflow(popularScrollRef, setShowLeftArrowPopular, setShowRightArrowPopular);
+    };
+
+    if (popularScrollEl) {
+      checkForOverflow(popularScrollRef, setShowLeftArrowPopular, setShowRightArrowPopular);
+      popularScrollEl.addEventListener('scroll', handleScrollPopular);
+    }
+
+    return () => {
+      if (popularScrollEl) {
+        popularScrollEl.removeEventListener('scroll', handleScrollPopular);
+      }
+    };
+  }, [popularMedia]); // Popular section for handling the popular media scroll
 
   // Fetch trailers
   const handlePlayTrailer = async (mediaId, mediaType) => {
@@ -149,7 +202,7 @@ const NextSearch = () => {
       {results.length > 0 && (
         <div className="next-search__results-section">
           <div className="next-search__carousel">
-            <FontAwesomeIcon icon={faChevronLeft} className="next-search__nav-arrow left" onClick={() => scrollLeft(searchScrollRef)} />
+            {showLeftArrowResults && <FontAwesomeIcon icon={faChevronLeft} className="next-search__nav-arrow left" onClick={() => scrollLeft(searchScrollRef)} />}
             <div className="next-search__scroll-container-results" ref={searchScrollRef}>
               {isLoading ? (
                 <Loader />
@@ -171,7 +224,7 @@ const NextSearch = () => {
                 ))
               )}
             </div>
-            <FontAwesomeIcon icon={faChevronRight} className="next-search__nav-arrow right" onClick={() => scrollRight(searchScrollRef)} />
+            {showRightArrowResults && <FontAwesomeIcon icon={faChevronRight} className="next-search__nav-arrow right" onClick={() => scrollRight(searchScrollRef)} />}
           </div>
         </div>
       )}
@@ -195,7 +248,7 @@ const NextSearch = () => {
           </div>
         </div>
         <div className="next-search__carousel">
-          <FontAwesomeIcon icon={faChevronLeft} className="next-search__nav-arrow left" onClick={() => scrollLeft(popularScrollRef)} />
+          {showLeftArrowPopular && <FontAwesomeIcon icon={faChevronLeft} className="next-search__nav-arrow left" onClick={() => scrollLeft(popularScrollRef)} />}
           <div className="next-search__scroll-container-popular" ref={popularScrollRef}>
             {isLoading ? (
               <Loader />
@@ -219,7 +272,7 @@ const NextSearch = () => {
               <p className="next-search__no-results">No popular media found.</p>
             )}
           </div>
-          <FontAwesomeIcon icon={faChevronRight} className="next-search__nav-arrow right" onClick={() => scrollRight(popularScrollRef)} />
+          {showRightArrowPopular && <FontAwesomeIcon icon={faChevronRight} className="next-search__nav-arrow right" onClick={() => scrollRight(popularScrollRef)} />}
         </div>
       </div>
 
