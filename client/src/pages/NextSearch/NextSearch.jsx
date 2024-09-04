@@ -141,7 +141,7 @@ const NextSearch = () => {
                     <img
                       src={`https://image.tmdb.org/t/p/w500${result.poster_path}`}
                       alt={result.title || result.name}
-                      className="next-search__poster"
+                      className="next-search__poster next-search__poster--results"
                     />
                     {/* Show cast or known for based on media type */}
                     {result.media_type === 'movie' || result.media_type === 'tv' ? (
