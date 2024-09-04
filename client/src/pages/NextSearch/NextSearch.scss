@@ -114,6 +114,10 @@
     }
   }
 
+  &__alert-wrapper {
+    z-index: 9999;
+  }
+
   &__input {
     flex-grow: 1;
     padding: .5rem 3rem; 

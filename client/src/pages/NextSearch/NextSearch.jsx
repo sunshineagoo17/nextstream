@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback, useContext, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronLeft, faChevronRight, faPlay, faTimes, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faChevronRight, faPlay, faTimes, faSearch, faTv, faFilm, faCalendarPlus, faThumbsUp, faThumbsDown, faShareAlt } from '@fortawesome/free-solid-svg-icons';
 import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
 import api from '../../services/api';
 import Loader from '../../components/Loader/Loader'; 
@@ -11,7 +11,7 @@ import './NextSearch.scss';
 import DefaultPoster from "../../assets/images/posternoimg-icon.png";
 
 const NextSearch = () => {
-  const { isAuthenticated } = useContext(AuthContext);
+  const { userId, isAuthenticated } = useContext(AuthContext);
   const [results, setResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -30,6 +30,10 @@ const NextSearch = () => {
   const popularScrollRef = useRef(null);
 
   const query = new URLSearchParams(location.search).get('q');
+
+  const showAlert = (message, type) => {
+    setAlert({ message, type });
+  };
 
   const checkForOverflow = (scrollRef, setShowLeft, setShowRight) => {
     if (!scrollRef || !scrollRef.current) {
@@ -194,6 +198,42 @@ const NextSearch = () => {
     setTrailerUrl('');
   };
 
+  const handleAddToCalendar = (title, mediaType, mediaId) => {
+    console.log(`Adding ${title} to calendar.`);
+    // Implement calendar logic
+  };
+
+  const handleLike = (mediaId, mediaType) => {
+    console.log(`Liked media: ${mediaId} (${mediaType})`);
+    // Implement like logic
+  };
+
+  const handleDislike = (mediaId, mediaType) => {
+    console.log(`Disliked media: ${mediaId} (${mediaType})`);
+    // Implement dislike logic
+  };
+
+  const handleShare = (title, mediaId, mediaType) => {
+    const mediaTitle = title || 'Title Unavailable'; 
+    console.log('Sharing media:', { mediaTitle, mediaId, mediaType }); 
+
+    const nextViewUrl = `${window.location.origin}/nextview/${userId}/${mediaType}/${mediaId}`;
+    console.log('Constructed URL:', nextViewUrl); 
+
+    if (navigator.share) {
+      navigator.share({
+        title: `Check out this title - ${mediaTitle}`,
+        url: nextViewUrl,
+      })
+      .then(() => console.log('Successful share!'))
+      .catch((error) => console.error('Error sharing:', error));
+    } else {
+      navigator.clipboard.writeText(`Check out this title - ${mediaTitle}: ${nextViewUrl}`)
+      .then(() => showAlert('Link copied to clipboard!', 'success'))
+      .catch((error) => showAlert('Failed to copy link', 'error'));
+    }
+  };
+
   return (
     <div className="next-search">
       {isLoading && (
@@ -202,14 +242,16 @@ const NextSearch = () => {
         </div>
       )}
 
-      {/* Custom Alert */}
-      {alert.visible && (
-        <CustomAlerts
-          message={alert.message}
-          type={alert.type}
-          onClose={() => setAlert({ ...alert, visible: false })}
-        />
-      )}
+    {/* Custom Alert */}
+        {alert.visible && (
+        <div className="next-search__alert-wrapper">
+            <CustomAlerts
+            message={alert.message}
+            type={alert.type}
+            onClose={() => setAlert({ ...alert, visible: false })}
+            />
+        </div>
+        )}
 
       {/* Search Bar */}
       <div className="next-search__input-container">
@@ -256,6 +298,40 @@ const NextSearch = () => {
                       <FontAwesomeIcon icon={faPlay} className="next-search__play-icon" />
                     </div>
                   </div>
+                  
+                  {/* Action Icons */}
+                  <div className="next-search__icons-row">
+                    <FontAwesomeIcon
+                      icon={result.media_type === 'tv' ? faTv : faFilm}
+                      className="next-search__media-icon"
+                      title={result.media_type === 'tv' ? 'TV Show' : 'Movie'}
+                    />
+                    <FontAwesomeIcon
+                      icon={faCalendarPlus}
+                      className="next-search__calendar-icon"
+                      onClick={() => handleAddToCalendar(result.title, result.media_type, result.id)}
+                      title="Add to Calendar"
+                    />
+                    <FontAwesomeIcon
+                      icon={faThumbsUp}
+                      className="next-search__like-icon"
+                      onClick={() => handleLike(result.id, result.media_type)}
+                      title="Like"
+                    />
+                    <FontAwesomeIcon
+                      icon={faThumbsDown}
+                      className="next-search__dislike-icon"
+                      onClick={() => handleDislike(result.id, result.media_type)}
+                      title="Dislike"
+                    />
+                    <FontAwesomeIcon
+                      icon={faShareAlt}
+                      className="next-search__share-icon"
+                      onClick={() => handleShare(result.title || result.name, result.id, result.media_type)}
+                      title="Share"
+                    />
+                  </div>
+                  
                   {result.media_type === 'movie' || result.media_type === 'tv' ? (
                     result.cast && result.cast.length > 0 ? (
                       <div className="next-search__cast">
@@ -329,6 +405,39 @@ const NextSearch = () => {
                     <div className="next-search__play-overlay" onClick={() => handlePlayTrailer(media.id, media.media_type || 'movie')}>
                       <FontAwesomeIcon icon={faPlay} className="next-search__play-icon" />
                     </div>
+                  </div>
+
+                  {/* Action Icons */}
+                  <div className="next-search__icons-row">
+                    <FontAwesomeIcon
+                      icon={media.media_type === 'tv' ? faTv : faFilm}
+                      className="next-search__media-icon"
+                      title={media.media_type === 'tv' ? 'TV Show' : 'Movie'}
+                    />
+                    <FontAwesomeIcon
+                      icon={faCalendarPlus}
+                      className="next-search__calendar-icon"
+                      onClick={() => handleAddToCalendar(media.title, media.media_type, media.id)}
+                      title="Add to Calendar"
+                    />
+                    <FontAwesomeIcon
+                      icon={faThumbsUp}
+                      className="next-search__like-icon"
+                      onClick={() => handleLike(media.id, media.media_type)}
+                      title="Like"
+                    />
+                    <FontAwesomeIcon
+                      icon={faThumbsDown}
+                      className="next-search__dislike-icon"
+                      onClick={() => handleDislike(media.id, media.media_type)}
+                      title="Dislike"
+                    />
+                    <FontAwesomeIcon
+                      icon={faShareAlt}
+                      className="next-search__share-icon"
+                      onClick={() => handleShare(media.title || media.name, media.id, media.media_type)}
+                      title="Share"
+                    />
                   </div>
                 </div>
               ))
