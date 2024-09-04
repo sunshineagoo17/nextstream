@@ -13,6 +13,7 @@
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  position: relative;
   padding-top: 2rem;
 
   @include tablet {
@@ -22,6 +23,19 @@
   @include desktop {
     margin: 3.5rem;
   }
+  
+    &__loader-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: $primary-darker-blue-overlay; 
+        z-index: 10;
+    }
 
   &__input-container {
     display: flex;

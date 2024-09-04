@@ -1,10 +1,10 @@
 import { useState, useEffect, useCallback, useContext, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
-import api from '../../services/api';
-import Loader from '../../components/Loader/Loader';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronLeft, faChevronRight, faPlay, faTimes, faSearch } from '@fortawesome/free-solid-svg-icons'; 
+import { faChevronLeft, faChevronRight, faPlay, faTimes, faSearch } from '@fortawesome/free-solid-svg-icons';
+import api from '../../services/api';
+import Loader from '../../components/Loader/Loader'; 
 import UserRating from '../TopPicksPage/sections/UserRating/UserRating'; 
 import './NextSearch.scss';
 import DefaultPoster from "../../assets/images/posternoimg-icon.png";
@@ -193,12 +193,18 @@ const NextSearch = () => {
 
   return (
     <div className="next-search">
+      {isLoading && (
+        <div className="next-search__loader-overlay">
+          <Loader />
+        </div>
+      )}
+
       {/* Search Bar */}
       <div className="next-search__input-container">
         <FontAwesomeIcon 
-            icon={faSearch}
-            className="next-search__search-icon"
-            onClick={handleSearch} 
+          icon={faSearch}
+          className="next-search__search-icon"
+          onClick={handleSearch} 
         />
         <input
           type="text"
@@ -222,56 +228,52 @@ const NextSearch = () => {
           <div className="next-search__carousel">
             {showLeftArrowResults && <FontAwesomeIcon icon={faChevronLeft} className="next-search__nav-arrow left" onClick={() => scrollLeft(searchScrollRef)} />}
             <div className="next-search__scroll-container-results" ref={searchScrollRef}>
-              {isLoading ? (
-                <Loader />
-              ) : (
-                results.map((result) => (
-                  <div key={result.id} className="next-search__card next-search__card--results">
-                    <h3 className="next-search__title--results">{result.title || result.name}</h3>
-                    <div className="next-search__poster-container">
-                        <img
-                            src={result.poster_path ? `https://image.tmdb.org/t/p/w500${result.poster_path}` : DefaultPoster}
-                            alt={result.title || result.name}
-                            className="next-search__poster next-search__poster--results"
-                        />
-                        <div className="next-search__rating-container">
-                            <UserRating rating={(result.vote_average || 0) * 10} />
-                        </div>
-                        <div className="next-search__play-overlay" onClick={() => handlePlayTrailer(result.id, result.media_type)}>
-                            <FontAwesomeIcon icon={faPlay} className="next-search__play-icon" />
-                        </div>
+              {results.map((result) => (
+                <div key={result.id} className="next-search__card next-search__card--results">
+                  <h3 className="next-search__title--results">{result.title || result.name}</h3>
+                  <div className="next-search__poster-container">
+                    <img
+                      src={result.poster_path ? `https://image.tmdb.org/t/p/w500${result.poster_path}` : DefaultPoster}
+                      alt={result.title || result.name}
+                      className="next-search__poster next-search__poster--results"
+                    />
+                    <div className="next-search__rating-container">
+                      <UserRating rating={(result.vote_average || 0) * 10} />
                     </div>
-                    {result.media_type === 'movie' || result.media_type === 'tv' ? (
-                        result.cast && result.cast.length > 0 ? (
-                            <div className="next-search__cast">
-                            <h4>Cast:</h4>
-                            <ul>
-                                {result.cast.map((actor) => (
-                                <li key={actor.id}>{actor.name}</li>
-                                ))}
-                            </ul>
-                            </div>
-                        ) : (
-                            <div className="next-search__cast">
-                                <h4>Cast:</h4>
-                                <p>Info Unavailable</p>
-                            </div>
-                        )
-                        ) : result.media_type === 'person' && result.knownFor ? (
-                        <div className="next-search__known-for">
-                            <h4>Known For:</h4>
-                            <ul>
-                            {result.knownFor.map((media) => (
-                                <li key={media.id}>
-                                {media.title || media.name} ({media.media_type})
-                                </li>
-                            ))}
-                            </ul>
-                        </div>
-                        ) : null}
+                    <div className="next-search__play-overlay" onClick={() => handlePlayTrailer(result.id, result.media_type)}>
+                      <FontAwesomeIcon icon={faPlay} className="next-search__play-icon" />
+                    </div>
                   </div>
-                ))
-              )}
+                  {result.media_type === 'movie' || result.media_type === 'tv' ? (
+                    result.cast && result.cast.length > 0 ? (
+                      <div className="next-search__cast">
+                        <h4>Cast:</h4>
+                        <ul>
+                          {result.cast.map((actor) => (
+                            <li key={actor.id}>{actor.name}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    ) : (
+                      <div className="next-search__cast">
+                        <h4>Cast:</h4>
+                        <p>Info Unavailable</p>
+                      </div>
+                    )
+                  ) : result.media_type === 'person' && result.knownFor ? (
+                    <div className="next-search__known-for">
+                      <h4>Known For:</h4>
+                      <ul>
+                        {result.knownFor.map((media) => (
+                          <li key={media.id}>
+                            {media.title || media.name} ({media.media_type})
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ) : null}
+                </div>
+              ))}
             </div>
             {showRightArrowResults && <FontAwesomeIcon icon={faChevronRight} className="next-search__nav-arrow right" onClick={() => scrollRight(searchScrollRef)} />}
           </div>
@@ -299,9 +301,7 @@ const NextSearch = () => {
         <div className="next-search__carousel">
           {showLeftArrowPopular && <FontAwesomeIcon icon={faChevronLeft} className="next-search__nav-arrow left" onClick={() => scrollLeft(popularScrollRef)} />}
           <div className="next-search__scroll-container-popular" ref={popularScrollRef}>
-            {isLoading ? (
-              <Loader />
-            ) : popularMedia.length > 0 ? (
+            {popularMedia.length > 0 ? (
               popularMedia.map((media) => (
                 <div key={media.id} className="next-search__card next-search__card--popular">
                   <h3 className="next-search__title--popular">{media.title || media.name}</h3>
@@ -312,7 +312,7 @@ const NextSearch = () => {
                       className="next-search__poster next-search__poster--popular"
                     />
                     <div className="next-search__rating-container">
-                        <UserRating rating={(media.vote_average || 0) * 10} />
+                      <UserRating rating={(media.vote_average || 0) * 10} />
                     </div>
                     <div className="next-search__play-overlay" onClick={() => handlePlayTrailer(media.id, media.media_type || 'movie')}>
                       <FontAwesomeIcon icon={faPlay} className="next-search__play-icon" />
