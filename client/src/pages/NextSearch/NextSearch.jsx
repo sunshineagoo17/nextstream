@@ -132,12 +132,12 @@ const NextSearch = () => {
           <h2 className="next-search__section-title">Search Results</h2>
           <div className="next-search__carousel">
             <FontAwesomeIcon icon={faChevronLeft} className="next-search__nav-arrow left" onClick={() => scrollLeft(searchScrollRef)} />
-            <div className="next-search__scroll-container" ref={searchScrollRef}>
+            <div className="next-search__scroll-container-results" ref={searchScrollRef}>
               {isLoading ? (
                 <Loader />
               ) : (
                 results.map((result) => (
-                  <div key={result.id} className="next-search__card">
+                  <div key={result.id} className="next-search__card next-search__card--results">
                     <h3 className="next-search__title">{result.title || result.name}</h3>
                     <img
                       src={`https://image.tmdb.org/t/p/w500${result.poster_path}`}
@@ -179,7 +179,7 @@ const NextSearch = () => {
 
       {/* Popular Media Section */}
       <div className="next-search__popular-section">
-        <h2 className="next-search__section-title">What's Popular</h2>
+        <h2 className="next-search__section-title-popular">What's Popular</h2>
         <div className="next-search__tabs">
           <div className="next-search__tabs-container">
             <button className={`next-search__tab ${mediaType === 'streaming' ? 'next-search__tab--active' : ''}`} onClick={() => setMediaType('streaming')}>
@@ -198,7 +198,7 @@ const NextSearch = () => {
         </div>
         <div className="next-search__carousel">
           <FontAwesomeIcon icon={faChevronLeft} className="next-search__nav-arrow left" onClick={() => scrollLeft(popularScrollRef)} />
-          <div className="next-search__scroll-container" ref={popularScrollRef}>
+          <div className="next-search__scroll-container-popular" ref={popularScrollRef}>
             {isLoading ? (
               <Loader />
             ) : popularMedia.length > 0 ? (
