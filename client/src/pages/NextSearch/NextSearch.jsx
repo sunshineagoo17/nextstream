@@ -4,7 +4,7 @@ import { AuthContext } from '../../context/AuthContext/AuthContext';
 import api from '../../services/api';
 import Loader from '../../components/Loader/Loader';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faChevronRight, faPlay, faTimes } from '@fortawesome/free-solid-svg-icons';
 import './NextSearch.scss';
 
 const NextSearch = () => {
@@ -14,11 +14,30 @@ const NextSearch = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [popularMedia, setPopularMedia] = useState([]);
   const [mediaType, setMediaType] = useState('streaming');
+  const [trailerUrl, setTrailerUrl] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const location = useLocation();
   const searchScrollRef = useRef(null);
   const popularScrollRef = useRef(null);
 
   const query = new URLSearchParams(location.search).get('q');
+
+  // Fetch trailers
+  const handlePlayTrailer = async (mediaId, mediaType) => {
+    try {
+      const response = await api.get(`/api/tmdb/${mediaType}/${mediaId}/videos`);
+      const { trailerUrl } = response.data;
+      if (trailerUrl) {
+        setTrailerUrl(trailerUrl);
+        setIsModalOpen(true);
+      } else {
+        alert('No trailer available for this media');
+      }
+    } catch (error) {
+      console.error('Error fetching trailer:', error);
+      alert('Could not load the trailer. Please try again later.');
+    }
+  };
 
   const handleSearch = useCallback(async () => {
     if (searchQuery.trim() && isAuthenticated) {
@@ -30,12 +49,7 @@ const NextSearch = () => {
 
         const filteredResults = await Promise.all(
           response.data.results
-            .filter(
-              result =>
-                result.media_type === 'movie' ||
-                result.media_type === 'tv' ||
-                result.media_type === 'person'
-            )
+            .filter(result => result.media_type === 'movie' || result.media_type === 'tv' || result.media_type === 'person')
             .map(async result => {
               if (result.media_type === 'person') {
                 const knownFor = result.known_for.map(item => ({
@@ -108,6 +122,11 @@ const NextSearch = () => {
     scrollRef.current.scrollBy({ left: 300, behavior: 'smooth' });
   };
 
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setTrailerUrl('');
+  };
+
   return (
     <div className="next-search">
       {/* Search Bar */}
@@ -138,12 +157,16 @@ const NextSearch = () => {
                 results.map((result) => (
                   <div key={result.id} className="next-search__card next-search__card--results">
                     <h3 className="next-search__title--results">{result.title || result.name}</h3>
-                    <img
-                      src={`https://image.tmdb.org/t/p/w500${result.poster_path}`}
-                      alt={result.title || result.name}
-                      className="next-search__poster next-search__poster--results"
-                    />
-                    {/* Show cast or known for based on media type */}
+                    <div className="next-search__poster-container">
+                      <img
+                        src={`https://image.tmdb.org/t/p/w500${result.poster_path}`}
+                        alt={result.title || result.name}
+                        className="next-search__poster next-search__poster--results"
+                      />
+                      <div className="next-search__play-overlay" onClick={() => handlePlayTrailer(result.id, result.media_type)}>
+                        <FontAwesomeIcon icon={faPlay} className="next-search__play-icon" />
+                      </div>
+                    </div>
                     {result.media_type === 'movie' || result.media_type === 'tv' ? (
                       result.cast && (
                         <div className="next-search__cast">
@@ -195,28 +218,52 @@ const NextSearch = () => {
           </div>
         </div>
         <div className="next-search__carousel">
-          <FontAwesomeIcon icon={faChevronLeft} className="next-search__nav-arrow left" onClick={() => scrollLeft(popularScrollRef)} />
-          <div className="next-search__scroll-container-popular" ref={popularScrollRef}>
-            {isLoading ? (
-              <Loader />
-            ) : popularMedia.length > 0 ? (
-              popularMedia.map((media) => (
-                <div key={media.id} className="next-search__card next-search__card--popular">
-                  <h3 className="next-search__title--popular">{media.title || media.name}</h3>
-                  <img
-                    src={`https://image.tmdb.org/t/p/w500${media.poster_path}`}
-                    alt={media.title || media.name}
-                    className="next-search__poster next-search__poster--popular"
-                  />
-                </div>
-              ))
-            ) : (
-              <p className="next-search__no-results">No popular media found.</p>
-            )}
-          </div>
-          <FontAwesomeIcon icon={faChevronRight} className="next-search__nav-arrow right" onClick={() => scrollRight(popularScrollRef)} />
+            <FontAwesomeIcon icon={faChevronLeft} className="next-search__nav-arrow left" onClick={() => scrollLeft(popularScrollRef)} />
+            <div className="next-search__scroll-container-popular" ref={popularScrollRef}>
+                {isLoading ? (
+                <Loader />
+                ) : popularMedia.length > 0 ? (
+                popularMedia.map((media) => (
+                    <div key={media.id} className="next-search__card next-search__card--popular">
+                    <h3 className="next-search__title--popular">{media.title || media.name}</h3>
+                    <div className="next-search__poster-container">
+                        <img
+                        src={`https://image.tmdb.org/t/p/w500${media.poster_path}`}
+                        alt={media.title || media.name}
+                        className="next-search__poster next-search__poster--popular"
+                        />
+                        <div className="next-search__play-overlay" onClick={() => handlePlayTrailer(media.id, media.media_type || 'movie')}>
+                        <FontAwesomeIcon icon={faPlay} className="next-search__play-icon" />
+                        </div>
+                    </div>
+                    </div>
+                ))
+                ) : (
+                <p className="next-search__no-results">No popular media found.</p>
+                )}
+            </div>
+            <FontAwesomeIcon icon={faChevronRight} className="next-search__nav-arrow right" onClick={() => scrollRight(popularScrollRef)} />
         </div>
       </div>
+
+      {/* Trailer Modal */}
+      {isModalOpen && (
+        <div className="next-search__modal">
+          <div className="next-search__modal-content">
+            <button className="next-search__modal-content-close" onClick={closeModal}>
+              <FontAwesomeIcon icon={faTimes} />
+            </button>
+            <iframe
+              width="560"
+              height="315"
+              src={trailerUrl}
+              title="YouTube video player"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            ></iframe>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
