@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faImage } from '@fortawesome/free-solid-svg-icons'; 
-import axios from 'axios';
+import api from '../../services/api'; 
 import AnimatedBg from '../../components/AnimatedBg/AnimatedBg';
 import Loader from '../../components/Loader/Loader';
 import DefaultVideoImg from '../../assets/images/video-img-default.png';
@@ -52,7 +52,7 @@ const SearchResultsPage = ({ isAuthenticated, userId }) => {
   useEffect(() => {
     const fetchResults = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/tmdb/search`, {
+        const response = await api.get('/api/tmdb/search', {
           params: {
             query,
             language: 'en-US',

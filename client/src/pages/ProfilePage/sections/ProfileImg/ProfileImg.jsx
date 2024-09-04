@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { AuthContext } from '../../../../context/AuthContext/AuthContext';
-import axios from "axios";
+import api from "../../../../services/api"; 
 import ProfileUploadBtn from "../../../../assets/images/profile-upload.svg";
 import DeleteIcon from "../../../../assets/images/delete-icon.svg";
 import DefaultAvatar from "../../../../assets/images/default-avatar.svg";
@@ -17,7 +17,7 @@ const ProfileImg = ({ userId, username, isActive, onStatusToggle }) => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/profile/${userId}`, {
+        const response = await api.get(`/api/profile/${userId}`, {
           withCredentials: true
         });
         if (response.data.avatar) {
@@ -51,7 +51,7 @@ const ProfileImg = ({ userId, username, isActive, onStatusToggle }) => {
  
     setLoading(true);
     try {
-      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/profile/${userId}/avatar`, formData, {
+      const response = await api.post(`/api/profile/${userId}/avatar`, formData, {
         headers: {
           "Content-Type": "multipart/form-data"
         },
@@ -70,7 +70,7 @@ const ProfileImg = ({ userId, username, isActive, onStatusToggle }) => {
   const handleImageDelete = async () => {
     setLoading(true);
     try {
-      await axios.delete(`${process.env.REACT_APP_BASE_URL}/api/profile/${userId}/avatar`, {
+      await api.delete(`/api/profile/${userId}/avatar`, {
         withCredentials: true
       });
       setImagePreview(DefaultAvatar);
@@ -86,7 +86,7 @@ const ProfileImg = ({ userId, username, isActive, onStatusToggle }) => {
   const toggleStatus = async () => {
     const newStatus = !isActive;
     try {
-      await axios.post(`${process.env.REACT_APP_BASE_URL}/api/profile/${userId}/update-status`, { isActive: newStatus }, {
+      await api.post(`/api/profile/${userId}/update-status`, { isActive: newStatus }, {
         withCredentials: true
       });
       onStatusToggle(newStatus);

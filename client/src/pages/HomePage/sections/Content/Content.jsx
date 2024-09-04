@@ -4,7 +4,7 @@ import { AuthContext } from "../../../../context/AuthContext/AuthContext";
 import { useSearchBar } from '../../../../context/SearchBarContext/SearchBarContext';
 import { ToastContainer, Slide, toast } from 'react-toastify'; 
 import 'react-toastify/dist/ReactToastify.css';
-import axios from 'axios';
+import api from "../../../../services/api"; 
 import VideoCamera from "../../../../assets/images/videocamera-1.png";
 import TvIcon from "../../../../assets/images/tv-icon.png";
 import CalendarIcon from "../../../../assets/images/calendar-icon.svg";
@@ -25,10 +25,9 @@ export const Content = () => {
   useEffect(() => {
     console.log('User ID:', userId);
 
-    // Fetch the newest releases from the backend
     const fetchNewReleases = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/tmdb/popular`);
+        const response = await api.get('/api/tmdb/popular');
         setNewReleases(response.data.results);
       } catch (error) {
         console.error("Error fetching new releases:", error);

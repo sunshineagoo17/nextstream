@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { toast, ToastContainer, Slide } from 'react-toastify';
-import axios from 'axios';
+import api from '../../services/api';
 import Cookies from 'js-cookie'; 
 import AnimatedBg from '../../components/AnimatedBg/AnimatedBg';
 import ShowIcon from "../../assets/images/register-visible-icon.svg";
@@ -63,7 +63,7 @@ export const ResetPasswordPage = () => {
     }
     try {
       setIsLoading(true); 
-      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/password-reset/reset-password`, { token, newPassword });
+      const response = await api.post('/api/password-reset/reset-password', { token, newPassword }); 
       setMessage(response.data.message);
       setMessageType(response.data.success ? 'success' : 'error');
       if (response.data.success) {
@@ -72,7 +72,6 @@ export const ResetPasswordPage = () => {
           className: 'frosted-toast-reset',
         });
         navigate('/login');
-      } else {
       }
     } catch (error) {
       toast.error('Error resetting password. Please try again.', {
