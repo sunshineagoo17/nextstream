@@ -129,7 +129,6 @@ const NextSearch = () => {
       {/* Search Results Section */}
       {results.length > 0 && (
         <div className="next-search__results-section">
-          <h2 className="next-search__section-title">Search Results</h2>
           <div className="next-search__carousel">
             <FontAwesomeIcon icon={faChevronLeft} className="next-search__nav-arrow left" onClick={() => scrollLeft(searchScrollRef)} />
             <div className="next-search__scroll-container-results" ref={searchScrollRef}>
@@ -179,7 +178,6 @@ const NextSearch = () => {
 
       {/* Popular Media Section */}
       <div className="next-search__popular-section">
-        <h2 className="next-search__section-title-popular">What's Popular</h2>
         <div className="next-search__tabs">
           <div className="next-search__tabs-container">
             <button className={`next-search__tab ${mediaType === 'streaming' ? 'next-search__tab--active' : ''}`} onClick={() => setMediaType('streaming')}>

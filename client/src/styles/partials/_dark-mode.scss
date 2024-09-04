@@ -260,7 +260,7 @@
     // Faves 
     .faves-page__title,
     .faves-page__search-bar-container {
-      background: $primary-darker-blue;
+      background: $primary-darker-blue-gradient;
     }
 
     .faves-page__search-input {
@@ -299,7 +299,7 @@
     // Homepage 
     .hero {
       background: linear-gradient(180deg, $primary-medium-blue 0%, $dark-mode-royal-blue 50%, $base-darker-blue 100%);
-      border-bottom: .1875rem solid $primary-button-blue;
+      border-bottom: .1875rem solid $neutral-light-grey;
 
       &__title {
         color: $primary-very-light-blue;
@@ -318,7 +318,7 @@
       }
 
       &__new-releases {
-        border-top: .1875rem solid $primary-medium-blue;
+        border-top: .1875rem solid $neutral-light-grey;
       }
 
       &__label-header-container,
@@ -337,9 +337,10 @@
       }
 
       &__card-features__feature__label {
-        background-color: $primary-button-dark-blue;
-        border: .1875rem solid $frosted-glass;
-        color: $primary-very-light-blue;
+        background-color: $neutral-light-grey;
+        border: .1875rem solid $primary-very-light-blue;
+        color: $primary-medium-blue;
+        text-shadow: $shadow-primary;
         box-shadow: $shadow-tertiary;
       }
     }
