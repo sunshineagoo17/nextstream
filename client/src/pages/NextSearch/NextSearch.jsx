@@ -87,10 +87,10 @@ const NextSearch = () => {
         setTrailerUrl(trailerUrl);
         setIsModalOpen(true);
       } else {
-        setAlert({ message: 'No video available for this media', type: 'info', visible: true });
+        setAlert({ message: `No video available for this ${mediaType}`, type: 'info', visible: true });
       }
     } catch (error) {
-      setAlert({ message: 'Could not load video. Please try again later.', type: 'error', visible: true });
+      setAlert({ message: 'Apologies, there is no available video.', type: 'info', visible: true });
     }
   };
 
