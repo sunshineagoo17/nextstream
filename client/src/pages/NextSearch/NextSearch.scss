@@ -26,6 +26,8 @@
   &__input-container {
     display: flex;
     justify-content: center;
+    align-items: center;
+    position: relative;
     margin-bottom: 1.5rem;
     width: 100%;
 
@@ -35,6 +37,71 @@
 
     @include desktop {
       width: 60%;
+    }
+  }
+
+  &__input {
+    flex-grow: 1;
+    padding: .5rem 3rem; 
+    border-radius: 2.5rem;
+    background-color: $primary-very-light-blue;
+    backdrop-filter: blur(.625rem);
+    box-shadow: $shadow-quaternary;
+    border: .25rem solid rgba(255, 255, 255, .7);
+    outline: none;
+    color: $primary-dark-blue;
+    font-size: 1rem;
+    font-family: $primary-font;
+
+    &::placeholder {
+      color: $neutral-light-grey;
+    }
+
+    &:focus {
+      background-color: $neutral-white;
+      border: .25rem solid $primary-medium-blue;
+      box-shadow: $shadow-septenary;
+    }
+  }
+
+  &__search-icon {
+    position: absolute;
+    left: 1rem;
+    color: $primary-dark-blue;
+    font-size: 1rem;
+    transition: transform 0.3s ease;
+    transition: transform 0.6s ease-in-out;
+    z-index: 10;
+
+    &:hover {
+      transform: rotate(360deg);  
+      text-shadow: $shadow-primary;
+      color: $primary-button-blue;
+    }
+
+    &:active {
+        color: $neutral-white;
+        transform: scale(.9);  
+    }
+  }
+
+  &__close-icon {
+    position: absolute;
+    right: 1rem;
+    color: $primary-dark-blue;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+
+    &:hover {
+        color: $primary-button-blue;
+        transform: scale(1.2);  
+        text-shadow: $shadow-primary;
+    }
+
+    &:active {
+        color: $neutral-white;
+        transform: scale(.9);  
     }
   }
 
@@ -84,7 +151,7 @@
 
       @media (max-width: 767px) {
         @include block-item(90%, auto);
-        
+
         iframe {
           @include block-item(100%, auto);
         }
@@ -111,30 +178,6 @@
           transform: scale(.9);
         }
       }
-    }
-  }
-
-  &__input {
-    flex-grow: 1;
-    padding: .5rem 1rem;
-    border-radius: 2.5rem;
-    background-color: $primary-very-light-blue;
-    backdrop-filter: blur(.625rem);
-    box-shadow: $shadow-quaternary;
-    border: .25rem solid rgba(255, 255, 255, .7);
-    outline: none;
-    color: $primary-dark-blue;
-    font-size: 1rem;
-    font-family: $primary-font;
-
-    &::placeholder {
-      color: $neutral-light-grey;
-    }
-
-    &:focus {
-      background-color: $neutral-white;
-      border: .25rem solid $primary-medium-blue;
-      box-shadow: $shadow-septenary;
     }
   }
 

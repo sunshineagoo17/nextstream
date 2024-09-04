@@ -4,7 +4,7 @@ import { AuthContext } from '../../context/AuthContext/AuthContext';
 import api from '../../services/api';
 import Loader from '../../components/Loader/Loader';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronLeft, faChevronRight, faPlay, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faChevronRight, faPlay, faTimes, faSearch } from '@fortawesome/free-solid-svg-icons'; 
 import UserRating from '../TopPicksPage/sections/UserRating/UserRating'; 
 import './NextSearch.scss';
 import DefaultPoster from "../../assets/images/posternoimg-icon.png";
@@ -181,6 +181,11 @@ const NextSearch = () => {
     scrollRef.current.scrollBy({ left: 300, behavior: 'smooth' });
   };
 
+  const clearSearch = () => {
+    setSearchQuery('');
+    setResults([]);
+  };
+
   const closeModal = () => {
     setIsModalOpen(false);
     setTrailerUrl('');
@@ -190,6 +195,11 @@ const NextSearch = () => {
     <div className="next-search">
       {/* Search Bar */}
       <div className="next-search__input-container">
+        <FontAwesomeIcon 
+            icon={faSearch}
+            className="next-search__search-icon"
+            onClick={handleSearch} 
+        />
         <input
           type="text"
           value={searchQuery}
@@ -199,9 +209,11 @@ const NextSearch = () => {
           className="next-search__input"
           disabled={!isAuthenticated}
         />
-        <button onClick={handleSearch} className="next-search__button" disabled={!isAuthenticated}>
-          Search
-        </button>
+        <FontAwesomeIcon
+          icon={faTimes}
+          className="next-search__close-icon"
+          onClick={clearSearch} 
+        />
       </div>
 
       {/* Search Results Section */}
