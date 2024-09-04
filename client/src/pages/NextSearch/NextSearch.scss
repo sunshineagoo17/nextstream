@@ -4,25 +4,87 @@
 @use "../../styles/global.scss" as *;
 
 .next-search {
-  @include frosted-glass2;
-  border-radius: 1.25rem;
-  box-shadow: $shadow-quaternary;
-  margin: 1.5rem;
-  border: .3125rem solid $neutral-white;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  padding-top: 2rem;
-
-  @include tablet {
-    margin: 2.5rem;
-  }
-
-  @include desktop {
-    margin: 3.5rem;
-  }
+    @include frosted-glass2;
+    border-radius: 1.25rem;
+    box-shadow: $shadow-quaternary;
+    margin: 1.5rem;
+    border: .3125rem solid $neutral-white;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    padding-top: 2rem;
+    background: linear-gradient(135deg, rgba($frosted-glass, .75), rgba($primary-button-blue, 1));
+    overflow: hidden;
+  
+    @include tablet {
+      margin: 2.5rem;
+    }
+  
+    @include desktop {
+      margin: 3.5rem;
+    }
+  
+    // More visible ripple effect
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.3) 20%, transparent 70%);
+      animation: ripple-animation 6s infinite ease-in-out; // Increase speed and size
+      z-index: 0;
+      opacity: 0.9;
+    }
+  
+    @keyframes ripple-animation {
+      0% {
+        transform: scale(0.7);  // Start with a smaller scale
+        opacity: 0.7;
+      }
+      50% {
+        transform: scale(1.2);  // Make the ripple larger at the peak
+        opacity: 0.5;
+      }
+      100% {
+        transform: scale(0.7);
+        opacity: 0.7;
+      }
+    }
+  
+    // More exaggerated wave effect
+    &::after {
+      content: '';
+      position: absolute;
+      top: -30%;
+      left: -30%;
+      width: 160%;
+      height: 160%;
+      background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.15) 15%, transparent 85%);
+      animation: wave-animation 7s infinite ease-in-out;  // Increase speed and size
+      z-index: 0;
+      opacity: 0.6;
+    }
+  
+    @keyframes wave-animation {
+      0% {
+        transform: scale(0.6) rotate(0deg);  
+      }
+      50% {
+        transform: scale(1.3) rotate(30deg);  
+      }
+      100% {
+        transform: scale(0.6) rotate(0deg);
+      }
+    }
+  
+    & > * {
+      position: relative;
+      z-index: 1;
+    }
   
     &__loader-overlay {
         position: absolute;
