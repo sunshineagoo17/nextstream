@@ -243,7 +243,7 @@ const NextSearch = () => {
               {results.map((result) => (
                 <div key={result.id} className="next-search__card next-search__card--results">
                   <h3 className="next-search__title--results">{result.title || result.name}</h3>
-                  <div className="next-search__poster-container">
+                  <div className="next-search__poster-container-results">
                     <img
                       src={result.poster_path ? `https://image.tmdb.org/t/p/w500${result.poster_path}` : DefaultPoster}
                       alt={result.title || result.name}
@@ -317,7 +317,7 @@ const NextSearch = () => {
               popularMedia.map((media) => (
                 <div key={media.id} className="next-search__card next-search__card--popular">
                   <h3 className="next-search__title--popular">{media.title || media.name}</h3>
-                  <div className="next-search__poster-container">
+                  <div className="next-search__poster-container-popular">
                     <img
                       src={media.poster_path || DefaultPoster}
                       alt={media.title || media.name}

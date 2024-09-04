@@ -474,8 +474,26 @@
     border-radius: 1rem;
   }
 
-  &__poster-container {
+  &__poster-container-popular,
+  &__poster-container-results {
     position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    &:active {
+        transform: scale(.9); 
+    }
+  }
+
+  &__poster-container-popular {
+    &:hover {
+        transform: rotate(-2deg) translateX(5px);
+    }
+  }
+
+  &__poster-container-results {
+    &:hover {
+        transform: rotate(2deg) translateX(5px);
+    }
   }
 
   &__rating-container {
