@@ -6,6 +6,7 @@ import Loader from '../../components/Loader/Loader';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faChevronRight, faPlay, faTimes } from '@fortawesome/free-solid-svg-icons';
 import './NextSearch.scss';
+import DefaultPoster from "../../assets/images/posternoimg-icon.png";
 
 const NextSearch = () => {
   const { isAuthenticated } = useContext(AuthContext);
@@ -54,7 +55,7 @@ const NextSearch = () => {
         searchScrollEl.removeEventListener('scroll', handleScrollResults);
       }
     };
-  }, [results]); // Results section for handling search results scroll
+  }, [results]);
 
   useEffect(() => {
     const popularScrollEl = popularScrollRef.current;
@@ -73,7 +74,7 @@ const NextSearch = () => {
         popularScrollEl.removeEventListener('scroll', handleScrollPopular);
       }
     };
-  }, [popularMedia]); // Popular section for handling the popular media scroll
+  }, [popularMedia]);
 
   // Fetch trailers
   const handlePlayTrailer = async (mediaId, mediaType) => {
@@ -102,13 +103,18 @@ const NextSearch = () => {
 
         const filteredResults = await Promise.all(
           response.data.results
-            .filter(result => result.media_type === 'movie' || result.media_type === 'tv' || result.media_type === 'person')
+            .filter(
+              result =>
+                result.media_type === 'movie' ||
+                result.media_type === 'tv' ||
+                result.media_type === 'person'
+            )
             .map(async result => {
               if (result.media_type === 'person') {
                 const knownFor = result.known_for.map(item => ({
                   id: item.id,
                   title: item.title || item.name,
-                  poster_path: item.poster_path,
+                  poster_path: item.poster_path ? `https://image.tmdb.org/t/p/w500${item.poster_path}` : DefaultPoster, // Use default if no poster
                   media_type: item.media_type,
                 }));
                 return { ...result, knownFor };
@@ -148,7 +154,11 @@ const NextSearch = () => {
           break;
       }
       const response = await api.get(`/api/tmdb/${endpoint}`);
-      setPopularMedia(response.data.results);
+      const updatedPopularMedia = response.data.results.map(media => ({
+        ...media,
+        poster_path: media.poster_path ? `https://image.tmdb.org/t/p/w500${media.poster_path}` : DefaultPoster, // Use default if no poster
+      }));
+      setPopularMedia(updatedPopularMedia);
     } catch (error) {
       console.error('Error fetching popular media:', error);
     } finally {
@@ -212,7 +222,7 @@ const NextSearch = () => {
                     <h3 className="next-search__title--results">{result.title || result.name}</h3>
                     <div className="next-search__poster-container">
                       <img
-                        src={`https://image.tmdb.org/t/p/w500${result.poster_path}`}
+                        src={result.poster_path ? `https://image.tmdb.org/t/p/w500${result.poster_path}` : DefaultPoster} // Corrected poster path logic
                         alt={result.title || result.name}
                         className="next-search__poster next-search__poster--results"
                       />
@@ -220,6 +230,30 @@ const NextSearch = () => {
                         <FontAwesomeIcon icon={faPlay} className="next-search__play-icon" />
                       </div>
                     </div>
+                    {/* Show cast or known for based on media type */}
+                    {result.media_type === 'movie' || result.media_type === 'tv' ? (
+                      result.cast && (
+                        <div className="next-search__cast">
+                          <h4>Cast:</h4>
+                          <ul>
+                            {result.cast.map((actor) => (
+                              <li key={actor.id}>{actor.name}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      )
+                    ) : result.media_type === 'person' && result.knownFor ? (
+                      <div className="next-search__known-for">
+                        <h4>Known For:</h4>
+                        <ul>
+                          {result.knownFor.map((media) => (
+                            <li key={media.id}>
+                              {media.title || media.name} ({media.media_type})
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ) : null}
                   </div>
                 ))
               )}
@@ -258,7 +292,7 @@ const NextSearch = () => {
                   <h3 className="next-search__title--popular">{media.title || media.name}</h3>
                   <div className="next-search__poster-container">
                     <img
-                      src={`https://image.tmdb.org/t/p/w500${media.poster_path}`}
+                      src={media.poster_path || DefaultPoster}
                       alt={media.title || media.name}
                       className="next-search__poster next-search__poster--popular"
                     />
