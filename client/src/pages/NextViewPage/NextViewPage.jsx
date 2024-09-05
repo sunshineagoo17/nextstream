@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext, useRef, useCallback } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faPlay, faCalendarPlus, faStar, faThumbsUp, faThumbsDown, faClose, faTv, faFilm, faChevronRight, faChevronLeft,
@@ -420,23 +420,25 @@ const NextViewPage = () => {
                                     <div className="nextview-page__cast-scroll" ref={castContainerRef}>
                                         <ul className="nextview-page__cast-list">
                                             {cast.map(member => (
-                                                <li key={member.cast_id} className="nextview-page__cast-item">
-                                                    <div className="nextview-page__cast-card">
-                                                        {member.profile_path ? (
-                                                            <img
-                                                                src={`https://image.tmdb.org/t/p/w185${member.profile_path}`}
-                                                                alt={member.name}
-                                                                className="nextview-page__cast-img"
-                                                            />
-                                                        ) : (
-                                                            <FontAwesomeIcon icon={faUser} className="nextview-page__cast-img-placeholder" />
-                                                        )}
-                                                        <div className="nextview-page__cast-name">{member.name}</div>
-                                                        <div className="nextview-page__cast-character">as {member.character}</div>
-                                                    </div>
+                                                <li key={member.id} className="nextview-page__cast-item"> 
+                                                    <Link to={`/spotlight/${userId}/${member.id}`}> 
+                                                        <div className="nextview-page__cast-card">
+                                                            {member.profile_path ? (
+                                                                <img
+                                                                    src={`https://image.tmdb.org/t/p/w185${member.profile_path}`}
+                                                                    alt={member.name}
+                                                                    className="nextview-page__cast-img"
+                                                                />
+                                                            ) : (
+                                                                <FontAwesomeIcon icon={faUser} className="nextview-page__cast-img-placeholder" />
+                                                            )}
+                                                            <div className="nextview-page__cast-name">{member.name}</div>
+                                                            <div className="nextview-page__cast-character">as {member.character}</div>
+                                                        </div>
+                                                    </Link>
                                                 </li>
                                             ))}
-                                        </ul>
+                                        </ul> 
                                     </div>
                                     {cast.length > 3 && (
                                         <button className="nextview-page__cast-arrow nextview-page__cast-arrow-right" onClick={handleScrollRight}>

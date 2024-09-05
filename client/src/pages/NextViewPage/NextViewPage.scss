@@ -668,6 +668,11 @@
     text-align: center;
     width: 6rem;
     max-width: 7rem;
+    transition: transform .3s ease;
+
+    &:active {
+      transform: scale(.9);
+    }
 
     @include tablet {
       width: 7rem;
