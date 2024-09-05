@@ -4,6 +4,7 @@ import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faChevronRight, faPlay, faTimes, faSearch, faTv, faFilm, faCalendarPlus, faThumbsUp, faThumbsDown, faShareAlt } from '@fortawesome/free-solid-svg-icons';
 import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
+import Calendar from '../CalendarPage/sections/Calendar';
 import api from '../../services/api';
 import Loader from '../../components/Loader/Loader'; 
 import UserRating from '../TopPicksPage/sections/UserRating/UserRating'; 
@@ -19,11 +20,16 @@ const NextSearch = () => {
   const [mediaType, setMediaType] = useState('streaming');
   const [trailerUrl, setTrailerUrl] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [duration, setDuration] = useState(0);
+  const [eventTitle, setEventTitle] = useState('');
+  const [showCalendar, setShowCalendar] = useState(false);
+  const [selectedMediaType, setSelectedMediaType] = useState('');
   const [showLeftArrowResults, setShowLeftArrowResults] = useState(false);
   const [showRightArrowResults, setShowRightArrowResults] = useState(false);
   const [showLeftArrowPopular, setShowLeftArrowPopular] = useState(false);
   const [showRightArrowPopular, setShowRightArrowPopular] = useState(false);
   const [alert, setAlert] = useState({ message: '', type: '', visible: false });
+  const calendarRef = useRef(null);
 
   const location = useLocation();
   const searchScrollRef = useRef(null);
@@ -198,9 +204,49 @@ const NextSearch = () => {
     setTrailerUrl('');
   };
 
-  const handleAddToCalendar = (title, mediaType, mediaId) => {
-    console.log(`Adding ${title} to calendar.`);
-    // Implement calendar logic
+  const handleAddToCalendar = async (title, mediaType, mediaId) => {
+
+    try {
+        let mediaTitle = title;
+
+        if (mediaType === 'movie') {
+            const movieDetails = await api.get(`/api/tmdb/movie/${mediaId}`);
+            mediaTitle = movieDetails.data.title || title;
+            setDuration(movieDetails.data.runtime || 0);
+        } else if (mediaType === 'tv') {
+            const tvDetails = await api.get(`/api/tmdb/tv/${mediaId}`);
+            mediaTitle = tvDetails.data.name || title;
+            setDuration(tvDetails.data.episode_run_time[0] || 0);
+        }
+
+        setEventTitle(mediaTitle);
+        setSelectedMediaType(mediaType);
+        setShowCalendar(true);
+    } catch (error) {
+        console.error('Error fetching duration data:', error);
+        showAlert('Failed to fetch media duration.', 'error');
+    }
+};
+
+  const handleCloseCalendar = () => {
+    setShowCalendar(false);
+  };
+
+  const handleSaveEvent = async (eventTitle, eventDate) => {
+    try {
+      const newEvent = {
+        title: eventTitle,
+        start: eventDate,
+        end: eventDate,
+        media_id: selectedMediaType,
+        userId,
+      };
+      await api.post(`/api/calendar/${userId}/events`, newEvent);
+      setShowCalendar(false);
+    } catch (error) {
+      console.error('Error saving event:', error);
+      showAlert('Error saving event. Please try again later.', 'error');
+    }
   };
 
   const handleLike = (mediaId, mediaType) => {
@@ -467,6 +513,23 @@ const NextSearch = () => {
           </div>
         </div>
       )}
+
+        {showCalendar && (
+          <div className="next-search__calendar-modal">
+            <button className="next-search__calendar-close-btn" onClick={handleCloseCalendar}>
+              <FontAwesomeIcon icon={faTimes} className="next-search__cal-close-icon" />
+            </button>
+            <Calendar
+              userId={userId}
+              eventTitle={eventTitle}
+              mediaType={selectedMediaType}
+              duration={duration}
+              handleSave={handleSaveEvent}
+              onClose={handleCloseCalendar}
+              ref={calendarRef}
+            />
+          </div>
+        )}
     </div>
   );
 };
