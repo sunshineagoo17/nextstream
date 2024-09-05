@@ -6,7 +6,7 @@
 
 .footer {
   @include block-item(100%, auto);
-  background: $primary-darker-blue-gradient;
+  background: $primary-gradient-blue;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -63,13 +63,13 @@
   &__privacy-policy,
   &__tac {
     font-size: .725rem;
-    color: $primary-pale-blue;
+    color: $neutral-white;
     font-family: $primary-font;
     font-weight: 400;
+    text-shadow: $shadow-primary;
 
     @include tablet {
       font-size: .725rem;
-      color: $primary-pale-blue;
       font-family: $primary-font;
       font-weight: 400;
     }
@@ -81,7 +81,11 @@
 
   &__privacy-policy,
   &__tac {
-    color: $primary-light-blue;
+    color: $primary-very-light-blue;
+
+    &:hover {
+      box-shadow: $shadow-senary;
+    }
 
     &:active {
       font-weight: bold;

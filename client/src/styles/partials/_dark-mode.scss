@@ -161,6 +161,18 @@
       }
     }
 
+    // Footer
+    .footer {
+      background: $primary-darker-blue-gradient;
+
+      &__privacy-policy,
+      &__tac {
+        &:hover {
+          box-shadow: none;
+        }
+      }
+    }
+
     // Forgot Password Modal
     .modal-forgot-password__input {
       color: $neutral-white;
