@@ -523,6 +523,55 @@
     }
   }
 
+  &__sub-tabs {
+    display: flex;
+    justify-content: center;
+    margin-top: -1.5rem;
+    width: 25rem;
+    padding: .35rem 0;
+    border-top: .1875rem solid $neutral-white;
+    background-color: $primary-pale-blue;
+    border-radius: 0 0 1rem 1rem;
+    box-shadow: $shadow-quaternary;
+
+    .next-search__sub-tab {
+      margin: 0 .5rem;
+      padding: .4rem 0.75rem;
+      color: $primary-medium-blue;
+      border-radius: 1rem;
+      border: .125rem solid $neutral-white;
+      border: none;
+      background: $frosted-glass;
+      cursor: pointer;
+      transition: background-color .3s, transform .3s;
+      font-size: .7rem;
+      font-weight: normal;
+      box-shadow: $shadow-tertiary;
+
+      &:hover {
+        background-color: $primary-button-blue;
+        color: $neutral-white;
+        transform: scale(1.05);
+        font-weight: bold;
+        box-shadow: $shadow-tertiary;
+      }
+
+      &:active {
+        background-color: $primary-dark-blue;
+        transform: scale(.95);
+        font-weight: normal;
+      }
+
+      &--active {
+        background-color: $primary-very-light-blue;
+        color: $primary-medium-blue;
+        font-weight: bold;
+        border: .125rem solid $frosted-glass;
+        font-weight: bold;
+      }
+    }
+  }
+
   &__popular-section {
     margin-top: 2rem;
     border: .5rem solid $primary-very-light-blue;
@@ -546,7 +595,7 @@
     }
 
     &::before {
-      content: "What's Popular";
+      content: "Watchlist";
       position: absolute;
       top: -1.25rem;
       left: 50%;
@@ -580,16 +629,20 @@
     display: flex;
     justify-content: center;
     margin-bottom: 1.5rem;
-    margin-top: 2.25rem;
-    width: 100%;
+    width: 25rem;
+    padding: .5rem 0;
+    border-radius: 1rem 1rem 0 0;
+    box-shadow: $shadow-tertiary;
+    border: 2px solid $neutral-white;
 
     .next-search__tab {
       margin: 0 .5rem;
       padding: .5rem 1rem;
       background-color: $primary-very-light-blue;
       color: $primary-dark-blue;
-      border-radius: 1.5rem;
+      border-radius: .5rem;
       border: none;
+      text-shadow: $shadow-primary;
       cursor: pointer;
       box-shadow: $shadow-tertiary;
       transition: background-color .3s, transform .3s;

@@ -4,7 +4,7 @@ import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import { Tooltip } from 'react-tooltip';
-import { faChevronLeft, faChevronRight, faPlay, faTimes, faSearch, faTv, faFilm, faCalendarPlus, faThumbsUp, faThumbsDown, faShareAlt, faUser } from '@fortawesome/free-solid-svg-icons'; // Added faUser icon
+import { faChevronLeft, faChevronRight, faPlay, faTimes, faSearch, faTv, faFilm, faCalendarPlus, faThumbsUp, faThumbsDown, faShareAlt, faUser } from '@fortawesome/free-solid-svg-icons';
 import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
 import Calendar from '../CalendarPage/sections/Calendar';
 import api from '../../services/api';
@@ -19,7 +19,8 @@ const NextSearch = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [popularMedia, setPopularMedia] = useState([]);
-  const [mediaType, setMediaType] = useState('streaming');
+  const [mediaType, setMediaType] = useState('trending'); 
+  const [subMediaType, setSubMediaType] = useState('all');
   const [trailerUrl, setTrailerUrl] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [duration, setDuration] = useState(0);
@@ -41,7 +42,7 @@ const NextSearch = () => {
   const query = new URLSearchParams(location.search).get('q');
 
   const showAlert = (message, type) => {
-    setAlert({ message, type, visible: true });  
+    setAlert({ message, type, visible: true });
   };
 
   const checkForOverflow = (scrollRef, setShowLeft, setShowRight) => {
@@ -118,7 +119,7 @@ const NextSearch = () => {
         interactionsMap[interaction.media_id] = interaction.interaction;
       });
 
-      setLikedStatus(interactionsMap); 
+      setLikedStatus(interactionsMap);
     } catch (error) {
       showAlert('Error fetching interactions', 'error');
     }
@@ -126,7 +127,7 @@ const NextSearch = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      fetchInteractions(); 
+      fetchInteractions();
     }
   }, [isAuthenticated, fetchInteractions]);
 
@@ -166,40 +167,69 @@ const NextSearch = () => {
     }
   }, [searchQuery, isAuthenticated]);
 
-  const fetchPopularMedia = useCallback(async (type) => {
+  const fetchPopularMedia = useCallback(async (type, subType) => {
     setIsLoading(true);
     try {
       let endpoint;
-      let mediaType = 'movie'; 
-  
-      switch (type) {
-        case 'on_tv':
-          endpoint = 'tv/on_the_air';
-          mediaType = 'tv';
-          break;
-        case 'for_rent':
-          endpoint = 'movie/now_playing';
-          mediaType = 'movie';
-          break;
-        case 'in_theatres':
-          endpoint = 'movie/upcoming';
-          mediaType = 'movie';
-          break;
-        case 'streaming':
-        default:
-          endpoint = 'movie/popular';
-          mediaType = 'movie';
-          break;
+      let mediaType = 'movie';
+
+      // Switch based on the mediaType and subType for Movies, Shows, and Trending
+      if (type === 'movie') {
+        switch (subType) {
+          case 'now_playing':
+            endpoint = 'movie/now_playing';
+            break;
+          case 'popular':
+            endpoint = 'movie/popular';
+            break;
+          case 'top_rated':
+            endpoint = 'movie/top_rated';
+            break;
+          case 'upcoming':
+            endpoint = 'movie/upcoming';
+            break;
+          default:
+            endpoint = 'movie/popular';
+        }
+      } else if (type === 'tv') {
+        mediaType = 'tv';
+        switch (subType) {
+          case 'airing_today':
+            endpoint = 'tv/airing_today';
+            break;
+          case 'on_the_air':
+            endpoint = 'tv/on_the_air';
+            break;
+          case 'popular':
+            endpoint = 'tv/popular';
+            break;
+          case 'top_rated':
+            endpoint = 'tv/top_rated';
+            break;
+          default:
+            endpoint = 'tv/popular';
+        }
+      } else if (type === 'trending') {
+        switch (subType) {
+          case 'movie':
+            endpoint = 'trending/movie/week';
+            break;
+          case 'tv':
+            endpoint = 'trending/tv/week';
+            break;
+          default:
+            endpoint = 'trending/all/week';
+        }
       }
-  
+
       const response = await api.get(`/api/tmdb/${endpoint}`);
       const updatedPopularMedia = response.data.results.map(media => ({
         ...media,
-        media_type: mediaType, 
+        media_type: mediaType,
         poster_path: media.poster_path ? `https://image.tmdb.org/t/p/w500${media.poster_path}` : DefaultPoster,
         vote_average: media.vote_average,
       }));
-  
+
       setPopularMedia(updatedPopularMedia);
     } catch (error) {
       showAlert('Error fetching popular media', 'error');
@@ -209,8 +239,8 @@ const NextSearch = () => {
   }, []);
 
   useEffect(() => {
-    fetchPopularMedia(mediaType);
-  }, [mediaType, fetchPopularMedia]);
+    fetchPopularMedia(mediaType, subMediaType);
+  }, [mediaType, subMediaType, fetchPopularMedia]);
 
   useEffect(() => {
     if (query && isAuthenticated) {
@@ -301,7 +331,7 @@ const NextSearch = () => {
   };
 
   const handleShare = (title, mediaId, mediaType) => {
-    const mediaTitle = title || 'Title Unavailable'; 
+    const mediaTitle = title || 'Title Unavailable';
     const nextViewUrl = `${window.location.origin}/nextview/${userId}/${mediaType}/${mediaId}`;
 
     if (navigator.share) {
@@ -497,23 +527,69 @@ const NextSearch = () => {
         </div>
       )}
 
+      {/* Main Category Selection */}
+      <div className="next-search__tabs">
+        <button className={`next-search__tab ${mediaType === 'trending' ? 'next-search__tab--active' : ''}`} onClick={() => { setMediaType('trending'); setSubMediaType('all'); }}>
+          Trending
+        </button>
+        <button className={`next-search__tab ${mediaType === 'movie' ? 'next-search__tab--active' : ''}`} onClick={() => { setMediaType('movie'); setSubMediaType('now_playing'); }}>
+          Movies
+        </button>
+        <button className={`next-search__tab ${mediaType === 'tv' ? 'next-search__tab--active' : ''}`} onClick={() => { setMediaType('tv'); setSubMediaType('airing_today'); }}>
+          Shows
+        </button>
+      </div>
+
+      {/* Sub Tabs for Selected Category */}
+      <div className="next-search__sub-tabs">
+        {mediaType === 'movie' && (
+          <>
+            <button className={`next-search__sub-tab ${subMediaType === 'now_playing' ? 'next-search__sub-tab--active' : ''}`} onClick={() => setSubMediaType('now_playing')}>
+              Now Playing
+            </button>
+            <button className={`next-search__sub-tab ${subMediaType === 'popular' ? 'next-search__sub-tab--active' : ''}`} onClick={() => setSubMediaType('popular')}>
+              Popular
+            </button>
+            <button className={`next-search__sub-tab ${subMediaType === 'top_rated' ? 'next-search__sub-tab--active' : ''}`} onClick={() => setSubMediaType('top_rated')}>
+              Top Rated
+            </button>
+            <button className={`next-search__sub-tab ${subMediaType === 'upcoming' ? 'next-search__sub-tab--active' : ''}`} onClick={() => setSubMediaType('upcoming')}>
+              Upcoming
+            </button>
+          </>
+        )}
+        {mediaType === 'tv' && (
+          <>
+            <button className={`next-search__sub-tab ${subMediaType === 'airing_today' ? 'next-search__sub-tab--active' : ''}`} onClick={() => setSubMediaType('airing_today')}>
+              Airing Today
+            </button>
+            <button className={`next-search__sub-tab ${subMediaType === 'on_the_air' ? 'next-search__sub-tab--active' : ''}`} onClick={() => setSubMediaType('on_the_air')}>
+              On The Air
+            </button>
+            <button className={`next-search__sub-tab ${subMediaType === 'popular' ? 'next-search__sub-tab--active' : ''}`} onClick={() => setSubMediaType('popular')}>
+              Popular
+            </button>
+            <button className={`next-search__sub-tab ${subMediaType === 'top_rated' ? 'next-search__sub-tab--active' : ''}`} onClick={() => setSubMediaType('top_rated')}>
+              Top Rated
+            </button>
+          </>
+        )}
+        {mediaType === 'trending' && (
+          <>
+            <button className={`next-search__sub-tab ${subMediaType === 'all' ? 'next-search__sub-tab--active' : ''}`} onClick={() => setSubMediaType('all')}>
+              All
+            </button>
+            <button className={`next-search__sub-tab ${subMediaType === 'movie' ? 'next-search__sub-tab--active' : ''}`} onClick={() => setSubMediaType('movie')}>
+              Movies
+            </button>
+            <button className={`next-search__sub-tab ${subMediaType === 'tv' ? 'next-search__sub-tab--active' : ''}`} onClick={() => setSubMediaType('tv')}>
+              TV
+            </button>
+          </>
+        )}
+      </div>
+
       <div className="next-search__popular-section">
-        <div className="next-search__tabs">
-          <div className="next-search__tabs-container">
-            <button className={`next-search__tab ${mediaType === 'streaming' ? 'next-search__tab--active' : ''}`} onClick={() => setMediaType('streaming')}>
-              Streaming
-            </button>
-            <button className={`next-search__tab ${mediaType === 'on_tv' ? 'next-search__tab--active' : ''}`} onClick={() => setMediaType('on_tv')}>
-              On TV
-            </button>
-            <button className={`next-search__tab ${mediaType === 'for_rent' ? 'next-search__tab--active' : ''}`} onClick={() => setMediaType('for_rent')}>
-              For Rent
-            </button>
-            <button className={`next-search__tab ${mediaType === 'in_theatres' ? 'next-search__tab--active' : ''}`} onClick={() => setMediaType('in_theatres')}>
-              In Theatres
-            </button>
-          </div>
-        </div>
         <div className="next-search__carousel">
           {showLeftArrowPopular && <FontAwesomeIcon icon={faChevronLeft} className="next-search__nav-arrow left" onClick={() => scrollLeft(popularScrollRef)} />}
           <div className="next-search__scroll-container-popular" ref={popularScrollRef}>

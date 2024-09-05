@@ -433,4 +433,75 @@ router.get('/person/:id', async (req, res) => {
   }
 });
 
+// Trending endpoint for movies, TV, and all
+router.get('/trending/:mediaType/:timeWindow', async (req, res) => {
+  const { mediaType, timeWindow } = req.params;
+
+  if (!['movie', 'tv', 'all'].includes(mediaType) || !['day', 'week'].includes(timeWindow)) {
+    return res.status(400).json({ message: 'Invalid media type or time window' });
+  }
+
+  try {
+    const response = await axios.get(`${TMDB_BASE_URL}/trending/${mediaType}/${timeWindow}`, {
+      params: {
+        api_key: TMDB_API_KEY,
+      },
+    });
+
+    // Filter out 'person' media type if present in the response 
+    const filteredResults = response.data.results.filter(result => result.media_type !== 'person');
+
+    res.json({ results: filteredResults });
+  } catch (error) {
+    console.error(`Error fetching trending ${mediaType} for ${timeWindow}:`, error.message);
+    res.status(500).json({ message: `Error fetching trending ${mediaType} for ${timeWindow}` });
+  }
+});
+
+// Movie category endpoint for now playing, popular, top rated, and upcoming
+router.get('/movie/:movieCategory', async (req, res) => {
+  const { movieCategory } = req.params;
+
+  if (!['now_playing', 'popular', 'top_rated', 'upcoming'].includes(movieCategory)) {
+    return res.status(400).json({ message: 'Invalid movie category' });
+  }
+
+  try {
+    const response = await axios.get(`${TMDB_BASE_URL}/movie/${movieCategory}`, {
+      params: {
+        api_key: TMDB_API_KEY,
+        language: 'en-US',
+        region: 'CA',
+      },
+    });
+    res.json(response.data.results);
+  } catch (error) {
+    console.error(`Error fetching ${movieCategory} movies:`, error.message);
+    res.status(500).json({ message: `Error fetching ${movieCategory} movies` });
+  }
+});
+
+// TV category endpoint for airing today, on the air, popular, and top rated
+router.get('/tv/:tvCategory', async (req, res) => {
+  const { tvCategory } = req.params;
+
+  if (!['airing_today', 'on_the_air', 'popular', 'top_rated'].includes(tvCategory)) {
+    return res.status(400).json({ message: 'Invalid TV category' });
+  }
+
+  try {
+    const response = await axios.get(`${TMDB_BASE_URL}/tv/${tvCategory}`, {
+      params: {
+        api_key: TMDB_API_KEY,
+        language: 'en-US',
+        region: 'CA',
+      },
+    });
+    res.json(response.data.results);
+  } catch (error) {
+    console.error(`Error fetching ${tvCategory} TV shows:`, error.message);
+    res.status(500).json({ message: `Error fetching ${tvCategory} TV shows` });
+  }
+});
+
 module.exports = router;
