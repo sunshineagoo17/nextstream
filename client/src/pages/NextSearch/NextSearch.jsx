@@ -334,17 +334,23 @@ const NextSearch = () => {
 
   const handleShare = (title, mediaId, mediaType) => {
     const mediaTitle = title || 'Title Unavailable';
-    const nextViewUrl = `${window.location.origin}/nextview/${userId}/${mediaType}/${mediaId}`;
+    const nextViewUrl = mediaType === 'person' 
+        ? `${window.location.origin}/spotlight/${userId}/${mediaId}` 
+        : `${window.location.origin}/nextview/${userId}/${mediaType}/${mediaId}`;
+
+    const shareMessage = mediaType === 'person' 
+        ? `Check out this artist - ${mediaTitle}` 
+        : `Check out this title - ${mediaTitle}`;
 
     if (navigator.share) {
       navigator.share({
-        title: `Check out this title - ${mediaTitle}`,
+        title: shareMessage,
         url: nextViewUrl,
       })
       .then(() => showAlert('Successful share!', 'success'))
       .catch((error) => console.error('Error sharing:', error));
     } else {
-      navigator.clipboard.writeText(`Check out this title - ${mediaTitle}: ${nextViewUrl}`)
+      navigator.clipboard.writeText(`${shareMessage}: ${nextViewUrl}`)
       .then(() => showAlert('Link copied to clipboard!', 'success'))
       .catch(() => showAlert('Failed to copy link', 'error'));
     }
@@ -435,83 +441,95 @@ const NextSearch = () => {
 
                   <div className="next-search__icons-row">
                     {result.media_type === 'person' ? (
-                      <Link to={`/spotlight/${userId}/${result.id}`}>
+                      <>
+                        <Link to={`/spotlight/${userId}/${result.id}`}>
+                          <FontAwesomeIcon
+                            icon={faUser}
+                            className="next-search__media-icon"
+                            title="Person Spotlight"
+                            data-tooltip-id="personTooltip"
+                            data-tooltip-content="View Spotlight"
+                          />
+                        </Link>
                         <FontAwesomeIcon
-                          icon={faUser}
-                          className="next-search__media-icon"
-                          title="Person Spotlight"
-                          data-tooltip-id="personTooltip"
-                          data-tooltip-content="View Spotlight"
+                          icon={faShareAlt}
+                          className="next-search__share-icon"
+                          onClick={() => handleShare(result.name, result.id, result.media_type)}
+                          title="Share"
+                          data-tooltip-id="shareIconTooltip"
+                          data-tooltip-content="Share"
                         />
-                      </Link>
-                    ) : (
-                      <Link to={`/nextview/${userId}/${result.media_type}/${result.id}`}>
-                        <FontAwesomeIcon
-                          icon={result.media_type === 'tv' ? faTv : faFilm}
-                          className="next-search__media-icon"
-                          title={result.media_type === 'tv' ? 'TV Show' : 'Movie'}
-                          data-tooltip-id="mediaTooltip"
-                          data-tooltip-content="More Info"
-                        />
-                      </Link>
-                    )}
-
-                    <FontAwesomeIcon
-                      icon={faCalendarPlus}
-                      className="next-search__cal-icon"
-                      onClick={() => handleAddToCalendar(result.title, result.media_type, result.id)}
-                      title="Add to Calendar"
-                      data-tooltip-id="calTooltip"
-                      data-tooltip-content="Add to Calendar"
-                    />
-
-                    {likedStatus[result.id] === 1 ? (
-                      <FontAwesomeIcon
-                        icon={faThumbsUp}
-                        className="next-search__like-icon active"
-                        onClick={() => handleDislike(result.id, result.media_type)}
-                        title="Liked"
-                        data-tooltip-id="likeTooltip"
-                        data-tooltip-content="Like"
-                      />
-                    ) : likedStatus[result.id] === 0 ? (
-                      <FontAwesomeIcon
-                        icon={faThumbsDown}
-                        className="next-search__dislike-icon active"
-                        onClick={() => handleLike(result.id, result.media_type)}
-                        title="Disliked"
-                        data-tooltip-id="dislikeTooltip"
-                        data-tooltip-content="Dislike"
-                      />
+                      </>
                     ) : (
                       <>
+                        <Link to={`/nextview/${userId}/${result.media_type}/${result.id}`}>
+                          <FontAwesomeIcon
+                            icon={result.media_type === 'tv' ? faTv : faFilm}
+                            className="next-search__media-icon"
+                            title={result.media_type === 'tv' ? 'TV Show' : 'Movie'}
+                            data-tooltip-id="mediaTooltip"
+                            data-tooltip-content="More Info"
+                          />
+                        </Link>
+
                         <FontAwesomeIcon
-                          icon={faThumbsUp}
-                          className="next-search__like-icon"
-                          onClick={() => handleLike(result.id, result.media_type)}
-                          title="Like"
-                          data-tooltip-id="likeTooltip"
-                          data-tooltip-content="Like"
+                          icon={faCalendarPlus}
+                          className="next-search__cal-icon"
+                          onClick={() => handleAddToCalendar(result.title, result.media_type, result.id)}
+                          title="Add to Calendar"
+                          data-tooltip-id="calTooltip"
+                          data-tooltip-content="Add to Calendar"
                         />
+
+                        {likedStatus[result.id] === 1 ? (
+                          <FontAwesomeIcon
+                            icon={faThumbsUp}
+                            className="next-search__like-icon active"
+                            onClick={() => handleDislike(result.id, result.media_type)}
+                            title="Liked"
+                            data-tooltip-id="likeTooltip"
+                            data-tooltip-content="Like"
+                          />
+                        ) : likedStatus[result.id] === 0 ? (
+                          <FontAwesomeIcon
+                            icon={faThumbsDown}
+                            className="next-search__dislike-icon active"
+                            onClick={() => handleLike(result.id, result.media_type)}
+                            title="Disliked"
+                            data-tooltip-id="dislikeTooltip"
+                            data-tooltip-content="Dislike"
+                          />
+                        ) : (
+                          <>
+                            <FontAwesomeIcon
+                              icon={faThumbsUp}
+                              className="next-search__like-icon"
+                              onClick={() => handleLike(result.id, result.media_type)}
+                              title="Like"
+                              data-tooltip-id="likeTooltip"
+                              data-tooltip-content="Like"
+                            />
+                            <FontAwesomeIcon
+                              icon={faThumbsDown}
+                              className="next-search__dislike-icon"
+                              onClick={() => handleDislike(result.id, result.media_type)}
+                              title="Dislike"
+                              data-tooltip-id="dislikeTooltip"
+                              data-tooltip-content="Dislike"
+                            />
+                          </>
+                        )}
+
                         <FontAwesomeIcon
-                          icon={faThumbsDown}
-                          className="next-search__dislike-icon"
-                          onClick={() => handleDislike(result.id, result.media_type)}
-                          title="Dislike"
-                          data-tooltip-id="dislikeTooltip"
-                          data-tooltip-content="Dislike"
+                          icon={faShareAlt}
+                          className="next-search__share-icon"
+                          onClick={() => handleShare(result.title || result.name, result.id, result.media_type)}
+                          title="Share"
+                          data-tooltip-id="shareIconTooltip"
+                          data-tooltip-content="Share"
                         />
                       </>
                     )}
-
-                    <FontAwesomeIcon
-                      icon={faShareAlt}
-                      className="next-search__share-icon"
-                      onClick={() => handleShare(result.title || result.name, result.id, result.media_type)}
-                      title="Share"
-                      data-tooltip-id="shareIconTooltip"
-                      data-tooltip-content="Share"
-                    />
                   </div>
 
                   {result.media_type === 'movie' || result.media_type === 'tv' ? (
