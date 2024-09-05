@@ -413,7 +413,15 @@ const NextSearch = () => {
                   <h3 className="next-search__title--results">{result.title || result.name}</h3>
                   <div className="next-search__poster-container-results">
                     <img
-                      src={result.poster_path ? `https://image.tmdb.org/t/p/w500${result.poster_path}` : DefaultPoster}
+                      src={
+                        result.media_type === 'person'
+                          ? result.profile_path
+                            ? `https://image.tmdb.org/t/p/w500${result.profile_path}`
+                            : DefaultPoster
+                          : result.poster_path
+                          ? `https://image.tmdb.org/t/p/w500${result.poster_path}`
+                          : DefaultPoster
+                      }
                       alt={result.title || result.name}
                       className="next-search__poster next-search__poster--results"
                     />
