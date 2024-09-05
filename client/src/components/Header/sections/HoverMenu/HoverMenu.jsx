@@ -43,14 +43,16 @@ const HoverMenu = () => {
       `/auth-search-results/${userId}`,
       `/streamboard/${userId}`,
       `/search`,
-      `/calendar/guest`
+      `/calendar/guest`,
     ];
   
     const isDarkBackgroundPage = darkBackgroundPaths.includes(location.pathname) ||
       // Added regular expression to match the NextView page with dynamic segments
-      new RegExp(`^/nextview/${userId}/(movie|tv)/\\d+$`).test(location.pathname);
+      new RegExp(`^/nextview/${userId}/(movie|tv)/\\d+$`).test(location.pathname) ||
+      // Added regular expression to match the Spotlight page with dynamic segments
+      new RegExp(`^/spotlight/${userId}/\\d+$`).test(location.pathname);
   
-     // Checks if dark mode is enabled by reading the 'data-theme' attribute
+    // Checks if dark mode is enabled by reading the 'data-theme' attribute
     const isDarkModeEnabled = document.documentElement.getAttribute('data-theme') === 'dark';
 
     return isDarkBackgroundPage || isDarkModeEnabled ? 'dark-background' : '';
