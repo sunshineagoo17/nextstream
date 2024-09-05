@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback, useContext, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronLeft, faChevronRight, faPlay, faTimes, faSearch, faTv, faFilm, faCalendarPlus, faThumbsUp, faThumbsDown, faShareAlt } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faChevronRight, faPlay, faTimes, faSearch, faTv, faFilm, faCalendarPlus, faThumbsUp, faThumbsDown, faShareAlt, faUser } from '@fortawesome/free-solid-svg-icons'; // Added faUser icon
 import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
 import Calendar from '../CalendarPage/sections/Calendar';
 import api from '../../services/api';
@@ -145,27 +145,36 @@ const NextSearch = () => {
     setIsLoading(true);
     try {
       let endpoint;
+      let mediaType = 'movie'; 
+  
       switch (type) {
         case 'on_tv':
           endpoint = 'tv/on_the_air';
+          mediaType = 'tv';
           break;
         case 'for_rent':
           endpoint = 'movie/now_playing';
+          mediaType = 'movie';
           break;
         case 'in_theatres':
           endpoint = 'movie/upcoming';
+          mediaType = 'movie';
           break;
         case 'streaming':
         default:
           endpoint = 'movie/popular';
+          mediaType = 'movie';
           break;
       }
+  
       const response = await api.get(`/api/tmdb/${endpoint}`);
       const updatedPopularMedia = response.data.results.map(media => ({
         ...media,
+        media_type: mediaType, 
         poster_path: media.poster_path ? `https://image.tmdb.org/t/p/w500${media.poster_path}` : DefaultPoster,
         vote_average: media.vote_average,
       }));
+  
       setPopularMedia(updatedPopularMedia);
     } catch (error) {
       console.error('Error fetching popular media:', error);
@@ -173,7 +182,7 @@ const NextSearch = () => {
     } finally {
       setIsLoading(false);
     }
-  };
+  };  
 
   useEffect(() => {
     fetchPopularMedia(mediaType);
@@ -347,10 +356,11 @@ const NextSearch = () => {
                   
                   {/* Action Icons */}
                   <div className="next-search__icons-row">
+                    {/* Logic to Display the Correct Icon */}
                     <FontAwesomeIcon
-                      icon={result.media_type === 'tv' ? faTv : faFilm}
+                      icon={result.media_type === 'person' ? faUser : result.media_type === 'tv' ? faTv : faFilm}
                       className="next-search__media-icon"
-                      title={result.media_type === 'tv' ? 'TV Show' : 'Movie'}
+                      title={result.media_type === 'person' ? 'Person' : result.media_type === 'tv' ? 'TV Show' : 'Movie'}
                     />
                     <FontAwesomeIcon
                       icon={faCalendarPlus}
@@ -455,10 +465,11 @@ const NextSearch = () => {
 
                   {/* Action Icons */}
                   <div className="next-search__icons-row">
+                    {/* Logic to Display the Correct Icon for Popular Section */}
                     <FontAwesomeIcon
-                      icon={media.media_type === 'tv' ? faTv : faFilm}
+                      icon={media.media_type === 'person' ? faUser : media.media_type === 'tv' ? faTv : faFilm}
                       className="next-search__media-icon"
-                      title={media.media_type === 'tv' ? 'TV Show' : 'Movie'}
+                      title={media.media_type === 'person' ? 'Person' : media.media_type === 'tv' ? 'TV Show' : 'Movie'}
                     />
                     <FontAwesomeIcon
                       icon={faCalendarPlus}
