@@ -5,6 +5,8 @@
 
 #mediaTooltip,
 #calTooltip,
+#searchTooltip,
+#closeTooltip,
 #shareIconTooltip,
 #likeTooltip,
 #dislikeTooltip {
@@ -312,13 +314,17 @@
     justify-content: center;
     border-radius: .5rem;
     align-items: center;
-    background: rgba($neutral-black, .5);
+    cursor: pointer;
+    background: linear-gradient(145deg, rgba($pastel-blue, .75), rgba($primary-button-blue, .75));
     opacity: 0;
     transition: opacity .3s ease;
 
     &:hover {
       opacity: 1;
-      cursor: pointer;
+    }
+
+    &:active {
+        background: linear-gradient(145deg, rgba($primary-button-blue, .75), rgba($pastel-blue, .75));
     }
   }
 

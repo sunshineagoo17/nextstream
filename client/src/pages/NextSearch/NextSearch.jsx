@@ -350,6 +350,8 @@ const NextSearch = () => {
           icon={faSearch}
           className="next-search__search-icon"
           onClick={handleSearch} 
+          data-tooltip-id="searchTooltip"
+          data-tooltip-content="Search" 
         />
         <input
           type="text"
@@ -363,7 +365,9 @@ const NextSearch = () => {
         <FontAwesomeIcon
           icon={faTimes}
           className="next-search__close-icon"
-          onClick={clearSearch} 
+          onClick={clearSearch}
+          data-tooltip-id="closeTooltip"
+          data-tooltip-content="Clear Search" 
         />
       </div>
 
@@ -612,7 +616,7 @@ const NextSearch = () => {
         <div className="next-search__modal">
           <div className="next-search__modal-content">
             <button className="next-search__modal-content-close" onClick={closeModal}>
-              <FontAwesomeIcon icon={faTimes} />
+                <FontAwesomeIcon icon={faTimes} />
             </button>
             <iframe
               width="560"
@@ -643,6 +647,8 @@ const NextSearch = () => {
         </div>
       )}
         {/* Tooltip components */}
+        <Tooltip id="searchTooltip" place="top" />
+        <Tooltip id="closeTooltip" place="top" />
         <Tooltip id="mediaTooltip" place="top" />
         <Tooltip id="calTooltip" place="top" />
         <Tooltip id="likeTooltip" place="top" />
