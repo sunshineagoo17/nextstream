@@ -45,55 +45,53 @@
     }
   
     &::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.3) 20%, transparent 70%);
-      animation: ripple-animation 6s infinite ease-in-out;
-      z-index: 0;
-      opacity: 0.9;
+        @include block-item(100%, 100%);
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, .3) 20%, transparent 70%);
+        animation: ripple-animation 6s infinite ease-in-out;
+        z-index: 0;
+        opacity: .9;
     }
   
     @keyframes ripple-animation {
       0% {
-        transform: scale(0.7);  
-        opacity: 0.7;
+        transform: scale(.7);  
+        opacity: .7;
       }
       50% {
         transform: scale(1.2);  
-        opacity: 0.5;
+        opacity: .5;
       }
       100% {
-        transform: scale(0.7);
-        opacity: 0.7;
+        transform: scale(.7);
+        opacity: .7;
       }
     }
 
     &::after {
       content: '';
+      @include block-item(160%, 160%);
       position: absolute;
       top: -30%;
       left: -30%;
-      width: 160%;
-      height: 160%;
-      background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.15) 15%, transparent 85%);
+      background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, .15) 15%, transparent 85%);
       animation: wave-animation 7s infinite ease-in-out;  
       z-index: 0;
-      opacity: 0.6;
+      opacity: .6;
     }
   
     @keyframes wave-animation {
       0% {
-        transform: scale(0.6) rotate(0deg);  
+        transform: scale(.6) rotate(0deg);  
       }
       50% {
         transform: scale(1.3) rotate(30deg);  
       }
       100% {
-        transform: scale(0.6) rotate(0deg);
+        transform: scale(.6) rotate(0deg);
       }
     }
   
@@ -103,11 +101,10 @@
     }
   
     &__loader-overlay {
+        @include block-item(100%, 100%);
         position: absolute;
         top: 0;
         left: 0;
-        width: 100%;
-        height: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -269,8 +266,8 @@
     left: 1rem;
     color: $primary-dark-blue;
     font-size: 1rem;
-    transition: transform 0.3s ease;
-    transition: transform 0.6s ease-in-out;
+    transition: transform .3s ease;
+    transition: transform .6s ease-in-out;
     z-index: 10;
     cursor: pointer;
 
@@ -292,7 +289,7 @@
     color: $primary-dark-blue;
     font-size: 1rem;
     cursor: pointer;
-    transition: transform 0.3s ease;
+    transition: transform .3s ease;
 
     &:hover {
         color: $primary-button-blue;
@@ -307,11 +304,10 @@
   }
 
   &__play-overlay {
+    @include block-item(100%, 100%);
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
     display: flex;
     justify-content: center;
     border-radius: .5rem;
@@ -404,7 +400,7 @@
     align-items: center;
     margin-top: .5rem;
     margin-bottom: .5rem;
-    border: 2px solid $neutral-white;
+    border: .125rem solid $neutral-white;
     background: $primary-pale-blue;
     box-shadow: $shadow-tertiary;
     padding: .25rem .5rem;
@@ -570,7 +566,7 @@
     justify-content: center;
     background: $primary-pale-blue;
     border-radius: 1.5rem;
-    border: 3px solid $neutral-white;
+    border: .1875rem solid $neutral-white;
     box-shadow: $shadow-tertiary;
   }
 
@@ -609,7 +605,7 @@
         background-color: $primary-button-blue;
         color: $neutral-white;
         text-shadow: $shadow-primary;
-        border: 2px solid $neutral-white;
+        border: .125rem solid $neutral-white;
         box-shadow: $shadow-senary;
       }
     }
@@ -649,10 +645,6 @@
     margin-right: 1rem;
     flex-shrink: 0;
 
-    // &:hover {
-    //   transform: scale(1.05);
-    // }
-
     @include tablet {
       max-width: 12rem;
     }
@@ -661,7 +653,7 @@
   &__card--popular {
     background-color: $neutral-white;
     max-width: 8rem;
-    padding: 0.75rem;
+    padding: .75rem;
 
     @include tablet {
       max-width: 9rem;
@@ -674,7 +666,7 @@
     font-size: 2rem;
     color: $primary-very-light-blue;
     box-shadow: $shadow-tertiary;
-    border: 3px solid $primary-medium-blue;
+    border: .1875rem solid $primary-medium-blue;
     padding: .25rem;
     background: $primary-darker-blue;
     border-radius: .5rem;
@@ -683,23 +675,23 @@
     z-index: 2;
 
     &.left {
-      left: 0.5rem;
+      left: .5rem;
     }
 
     &.right {
-      right: 0.5rem;
+      right: .5rem;
     }
 
     &:hover {
       transform: scale(1.1);
-      border: 1px solid $primary-very-light-blue;
+      border: .0625rem solid $primary-very-light-blue;
       color: $primary-medium-blue;
       background: $primary-very-light-blue;
     }
 
     &:active {
       transform: scale(.9);
-      border: 3px solid $primary-light-blue;
+      border: .1875rem solid $primary-light-blue;
       color: $neutral-white;
       background: $primary-medium-blue;
     }
@@ -718,12 +710,12 @@
   &__poster-container-popular,
   &__poster-container-results {
     position: relative;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform .3s ease, box-shadow .3s ease;
   }
 
   &__poster-container-popular {
     &:hover {
-        transform: rotate(-2deg) translateX(5px);
+        transform: rotate(-2deg) translateX(.3125rem);
     }
 
     &:active {
@@ -733,7 +725,7 @@
 
   &__poster-container-results {
     &:hover {
-        transform: rotate(2deg) translateX(5px);
+        transform: rotate(2deg) translateX(.3125rem);
     }
 
     &:active {
@@ -742,11 +734,10 @@
   }
 
   &__rating-container {
+    @include block-item(2.3rem, 2.3rem);
     position: absolute;
-    top: 0.6rem;
-    right: 0.4rem;
-    width: 2.3rem; 
-    height: 2.3rem;
+    top: .6rem;
+    right: .4rem;
     background: $primary-light-blue-gradient;
     display: flex;
     border-radius: 50%; 
@@ -755,8 +746,7 @@
   }  
 
   &__poster {
-    width: 100%;
-    height: auto;
+    @include block-item(100%, auto);
     display: block;
     border-bottom: .25rem solid $primary-light-blue;
     border-top: .25rem solid $primary-light-blue;
@@ -836,22 +826,22 @@
   &__card {
     width: 100%;
     max-width: 15rem;
-    background: rgba(255, 255, 255, 0.25);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(5px);
+    background: rgba(255, 255, 255, .25);
+    box-shadow: 0 .25rem 1.875rem rgba(0, 0, 0, .1);
+    backdrop-filter: blur(.3125rem);
     border-radius: 1rem;
     padding: 1rem;
     overflow: hidden;
 
     &--popular {
       background: $neutral-white;
-      border: 3px solid $primary-gradient-blue;
+      border: .1875rem solid $primary-gradient-blue;
       box-shadow: $shadow-senary;
     }
 
     &--results {
       background: $primary-very-light-blue;
-      border: 3px solid $neutral-white;
+      border: .1875rem solid $neutral-white;
       box-shadow: $shadow-tertiary;
     }
   }
@@ -870,11 +860,11 @@
   }
 
   &__title--results {
-    border: 3px solid $neutral-white;
+    border: .1875rem solid $neutral-white;
   }
 
   &__title--popular {
-    border: 3px solid $primary-very-light-blue;
+    border: .1875rem solid $primary-very-light-blue;
   }
 
   &__cast,
