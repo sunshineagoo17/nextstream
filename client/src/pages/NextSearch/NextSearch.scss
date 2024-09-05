@@ -3,6 +3,24 @@
 @use "../../styles/partials/mixins" as *;
 @use "../../styles/global.scss" as *;
 
+#mediaTooltip,
+#calTooltip,
+#shareIconTooltip,
+#likeTooltip,
+#dislikeTooltip {
+  background-color: $primary-dark-blue;
+  color: $neutral-white;
+  padding: .5rem 1rem;
+  border-radius: .5rem;
+  font-family: $primary-font;
+  font-size: .85rem;
+  line-height: 1.25rem;
+
+  &::after {
+    border: $primary-button-blue transparent transparent transparent;
+  }
+}
+
 .next-search {
     @include frosted-glass2;
     border-radius: 1.25rem;
