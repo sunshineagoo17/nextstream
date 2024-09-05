@@ -4,132 +4,151 @@
 @use "../../styles/global.scss" as *;
 
 .dark-mode-toggle {
-    position: relative;
-    background: none;
-    border: none;
-    cursor: pointer;
-    outline: none;
-    padding: .625rem;
-    border-radius: 50%;
-    display: none;
-    transition: transform .3s ease-in-out;
+  position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  padding: .625rem;
+  border-radius: 50%;
+  display: none;
+  transition: transform .3s ease-in-out;
 
-    @include large-mobile {
-        display: block;
+  @include large-mobile {
+    display: block;
+  }
+
+  .icon {
+    @include block-item(1rem, 1rem);
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    transition: color .3s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @include tablet {
+      @include block-item(1.5rem, 1.5rem);
     }
-  
-    .icon {
-        @include block-item(1rem, 1rem);
-        font-size: 1.5rem;
-        color: var(--primary-color);
-        transition: color .3s ease-in-out;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+  }
 
-        @include tablet {
-            @include block-item(1.5rem, 1.5rem);
-        }
-    }
-  
-    .sun {
-      color: $neutral-white; 
-      animation: sun-spin 3s linear infinite, sun-glow 4s infinite alternate; 
-      padding: .25rem;
-      background: $primary-button-blue;
-      box-shadow: $shadow-secondary;
-      border-radius: .5rem;
-      border: .125rem solid $neutral-white;
+  .sun {
+    color: $neutral-white; 
+    padding: .6rem;
+    background: $primary-light-blue;
+    box-shadow: $shadow-secondary;
+    border-radius: .5rem;
+    border: .125rem solid $neutral-white;
+    transition: background 0.5s, clip-path 0.5s ease-in-out;
 
-      &:hover {
-        border: .125rem solid $frosted-glass;
-        background: $neutral-white;
-        color: #fee100;
-        box-shadow: 0 0 .625rem .1875rem rgba(254, 225, 0, .7), 0 0 1.25rem .3125rem rgba(254, 225, 0, .4); 
-      }
-
-      &:active {
-        opacity: 1;
-        color: #FFA000;
-        background: radial-gradient(circle, #FFD700 50%, #FFC107 70%, #FFA000 100%);
-        box-shadow: $shadow-secondary;
-        border: 2px solid $neutral-white;
-        border-radius: 1.5rem;
-      }
-    }
-  
-    .moon {
+    &:hover {
+      border: .125rem solid #fee100;
+      background: #fee100;
       color: $neutral-white;
-      animation: moonlight 1s infinite alternate;
+      box-shadow: 0 0 .625rem .1875rem rgba(254, 225, 0, .7), 0 0 1.25rem .3125rem rgba(254, 225, 0, .4);
+      animation: morph-bg 5s infinite; 
     }
-  
-    .light-effect {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 0;
-      height: 0;
-      border-radius: 50%;
-      opacity: 0;
-      transform: translate(-50%, -50%);
-      transition: all .3s ease-in-out;
-    }
-  
-    &.light .light-effect {
-      opacity: .5;
-      animation: sun-glow 4s infinite alternate; 
-    }
-  
-    &.dark .light-effect {
-      @include block-item(2.25rem, 2.25rem);
-      background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, $primary-dark-navy-blue 70%);
-      opacity: .7;
-      animation: flashlight 1.5s infinite alternate;
 
-      &:hover {
-        background: radial-gradient(circle, rgba(255, 235, 59, 1) 0%, $primary-dark-navy-blue 70%);
-      }
-
-      &:active {
-          background: radial-gradient(circle, rgba(176, 196, 222, 1) 0%, $primary-dark-navy-blue 55%);
-      }
+    &:active {
+      opacity: 1;
+      color: #FFA000;
+      background: radial-gradient(circle, #FFD700 50%, #FFC107 70%, #FFA000 100%);
+      box-shadow: $shadow-secondary;
+      border: 2px solid $neutral-white;
+      border-radius: 1.5rem;
     }
+  }
+
+  .moon {
+    color: $neutral-white;
+    animation: moonlight 1s infinite alternate;
+  }
+
+  .light-effect {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    opacity: 0;
+    transform: translate(-50%, -50%);
+    transition: all .3s ease-in-out;
+  }
+
+  &.light .light-effect {
+    opacity: .5;
+    animation: sun-glow 4s infinite alternate;
+  }
+
+  &.dark .light-effect {
+    @include block-item(2.25rem, 2.25rem);
+    background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, $primary-dark-navy-blue 70%);
+    opacity: .7;
+    animation: flashlight 1.5s infinite alternate;
+
+    &:hover {
+      background: radial-gradient(circle, rgba(255, 235, 59, 1) 0%, $primary-dark-navy-blue 70%);
+    }
+
+    &:active {
+      background: radial-gradient(circle, rgba(176, 196, 222, 1) 0%, $primary-dark-navy-blue 55%);
+    }
+  }
 }
 
 @keyframes sun-spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
-  
+
 @keyframes sun-glow {
-    0% {
-      transform: scale(1);
-      opacity: .7;
-    }
-    100% {
-      transform: scale(1.2);
-      opacity: 1;
-    }
+  0% {
+    transform: scale(1);
+    opacity: .7;
+  }
+  100% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
 }
-  
+
 @keyframes moonlight {
-    0% {
-      transform: scale(1);
-    }
-    100% {
-      transform: scale(1.1);
-    }
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.1);
+  }
 }
-  
+
 @keyframes flashlight {
-    0% {
-      transform: translate(-50%, -50%) scale(1);
-    }
-    100% {
-      transform: translate(-50%, -50%) scale(1.2);
-    }
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+}
+
+@keyframes morph-bg {
+  0% {
+    clip-path: circle(50%); 
+  }
+  25% {
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); 
+  }
+  50% {
+    clip-path: ellipse(50% 30% at 50% 50%); 
+  }
+  75% {
+    clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  }
+  100% {
+    clip-path: circle(50%); 
+  }
 }
