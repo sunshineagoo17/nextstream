@@ -9,6 +9,8 @@ import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
 import Calendar from '../CalendarPage/sections/Calendar';
 import api from '../../services/api';
 import Loader from '../../components/Loader/Loader'; 
+import ReelSVG from "../../assets/images/reel-svg.svg";
+import WindowsSVG from "../../assets/images/windows-svg.svg";
 import UserRating from '../TopPicksPage/sections/UserRating/UserRating'; 
 import './NextSearch.scss';
 import DefaultPoster from "../../assets/images/posternoimg-icon.png";
@@ -589,99 +591,113 @@ const NextSearch = () => {
         )}
       </div>
 
+      {isLoading && (
+          <div className="next-search__loading-container">
+            <img src={ReelSVG} alt="Loading..." className="next-search__loading-svg" />
+            <p className="next-search__text--center">Media is currently loading...</p>
+          </div>
+        )}
+
       <div className="next-search__popular-section">
         <div className="next-search__carousel">
           {showLeftArrowPopular && <FontAwesomeIcon icon={faChevronLeft} className="next-search__nav-arrow left" onClick={() => scrollLeft(popularScrollRef)} />}
           <div className="next-search__scroll-container-popular" ref={popularScrollRef}>
-  {popularMedia.length > 0 ? (
-    popularMedia.map((media) => (
-      <div key={media.id} className="next-search__card next-search__card--popular">
-        <h3 className="next-search__title--popular">{media.title || media.name}</h3>
-        <div className="next-search__poster-container-popular">
-          <img
-            src={media.poster_path || DefaultPoster}
-            alt={media.title || media.name}
-            className="next-search__poster next-search__poster--popular"
-          />
-          <div className="next-search__rating-container">
-            <UserRating rating={(media.vote_average || 0) * 10} />
-          </div>
-          <div className="next-search__play-overlay" onClick={() => handlePlayTrailer(media.id, media.media_type)}>
-            <FontAwesomeIcon icon={faPlay} className="next-search__play-icon" />
-          </div>
-        </div>
+            {popularMedia.length > 0 ? (
+              popularMedia.map((media) => (
+                <div key={media.id} className="next-search__card next-search__card--popular">
+                  <h3 className="next-search__title--popular">{media.title || media.name}</h3>
+                  <div className="next-search__poster-container-popular">
+                    <img
+                      src={media.poster_path || DefaultPoster}
+                      alt={media.title || media.name}
+                      className="next-search__poster next-search__poster--popular"
+                    />
+                    <div className="next-search__rating-container">
+                      <UserRating rating={(media.vote_average || 0) * 10} />
+                    </div>
+                    <div className="next-search__play-overlay" onClick={() => handlePlayTrailer(media.id, media.media_type)}>
+                      <FontAwesomeIcon icon={faPlay} className="next-search__play-icon" />
+                    </div>
+                  </div>
 
-        <div className="next-search__icons-row">
-          <Link to={`/nextview/${userId}/${media.media_type}/${media.id}`}>
-            <FontAwesomeIcon
-              icon={media.media_type && media.media_type.toLowerCase() === 'tv' ? faTv : faFilm} 
-              className="next-search__media-icon"
-              title={media.media_type && media.media_type.toLowerCase() === 'tv' ? 'TV Show' : 'Movie'}
-              data-tooltip-id="mediaTooltip"
-              data-tooltip-content="More Info"
-            />
-          </Link>
-          <FontAwesomeIcon
-            icon={faCalendarPlus}
-            className="next-search__cal-icon"
-            onClick={() => handleAddToCalendar(media.title, media.media_type, media.id)}
-            title="Add to Calendar"
-            data-tooltip-id="calTooltip"
-            data-tooltip-content="Add to Calendar"
-          />
-          {likedStatus[media.id] === 1 ? (
-            <FontAwesomeIcon
-              icon={faThumbsUp}
-              className="next-search__like-icon active"
-              onClick={() => handleDislike(media.id, media.media_type)}
-              title="Liked"
-              data-tooltip-id="likeTooltip"
-              data-tooltip-content="Like"
-            />
-          ) : likedStatus[media.id] === 0 ? (
-            <FontAwesomeIcon
-              icon={faThumbsDown}
-              className="next-search__dislike-icon active"
-              onClick={() => handleLike(media.id, media.media_type)}
-              title="Disliked"
-              data-tooltip-id="dislikeTooltip"
-              data-tooltip-content="Dislike"
-            />
-          ) : (
-            <>
-              <FontAwesomeIcon
-                icon={faThumbsUp}
-                className="next-search__like-icon"
-                onClick={() => handleLike(media.id, media.media_type)}
-                title="Like"
-                data-tooltip-id="likeTooltip"
-                data-tooltip-content="Like"
-              />
-              <FontAwesomeIcon
-                icon={faThumbsDown}
-                className="next-search__dislike-icon"
-                onClick={() => handleDislike(media.id, media.media_type)}
-                title="Dislike"
-                data-tooltip-id="dislikeTooltip"
-                data-tooltip-content="Dislike"
-              />
-            </>
-          )}
-          <FontAwesomeIcon
-            icon={faShareAlt}
-            className="next-search__share-icon"
-            onClick={() => handleShare(media.title || media.name, media.id, media.media_type)}
-            title="Share"
-            data-tooltip-id="shareIconTooltip"
-            data-tooltip-content="Share"
-          />
-        </div>
-      </div>
-    ))
-  ) : (
-    <p className="next-search__no-results">No popular media found.</p>
-  )}
-</div>
+                  <div className="next-search__icons-row">
+                    <Link to={`/nextview/${userId}/${media.media_type}/${media.id}`}>
+                      <FontAwesomeIcon
+                        icon={media.media_type && media.media_type.toLowerCase() === 'tv' ? faTv : faFilm} 
+                        className="next-search__media-icon"
+                        title={media.media_type && media.media_type.toLowerCase() === 'tv' ? 'TV Show' : 'Movie'}
+                        data-tooltip-id="mediaTooltip"
+                        data-tooltip-content="More Info"
+                      />
+                    </Link>
+                    <FontAwesomeIcon
+                      icon={faCalendarPlus}
+                      className="next-search__cal-icon"
+                      onClick={() => handleAddToCalendar(media.title, media.media_type, media.id)}
+                      title="Add to Calendar"
+                      data-tooltip-id="calTooltip"
+                      data-tooltip-content="Add to Calendar"
+                    />
+                    {likedStatus[media.id] === 1 ? (
+                      <FontAwesomeIcon
+                        icon={faThumbsUp}
+                        className="next-search__like-icon active"
+                        onClick={() => handleDislike(media.id, media.media_type)}
+                        title="Liked"
+                        data-tooltip-id="likeTooltip"
+                        data-tooltip-content="Like"
+                      />
+                    ) : likedStatus[media.id] === 0 ? (
+                      <FontAwesomeIcon
+                        icon={faThumbsDown}
+                        className="next-search__dislike-icon active"
+                        onClick={() => handleLike(media.id, media.media_type)}
+                        title="Disliked"
+                        data-tooltip-id="dislikeTooltip"
+                        data-tooltip-content="Dislike"
+                      />
+                    ) : (
+                      <>
+                        <FontAwesomeIcon
+                          icon={faThumbsUp}
+                          className="next-search__like-icon"
+                          onClick={() => handleLike(media.id, media.media_type)}
+                          title="Like"
+                          data-tooltip-id="likeTooltip"
+                          data-tooltip-content="Like"
+                        />
+                        <FontAwesomeIcon
+                          icon={faThumbsDown}
+                          className="next-search__dislike-icon"
+                          onClick={() => handleDislike(media.id, media.media_type)}
+                          title="Dislike"
+                          data-tooltip-id="dislikeTooltip"
+                          data-tooltip-content="Dislike"
+                        />
+                      </>
+                    )}
+                    <FontAwesomeIcon
+                      icon={faShareAlt}
+                      className="next-search__share-icon"
+                      onClick={() => handleShare(media.title || media.name, media.id, media.media_type)}
+                      title="Share"
+                      data-tooltip-id="shareIconTooltip"
+                      data-tooltip-content="Share"
+                    />
+                  </div>
+                </div>
+              ))
+            ) : (
+              !isLoading && (
+                <div className="next-search__not-loading-overlay">
+                  <div className="next-search__not-loading-container">
+                    <img src={WindowsSVG} alt="No media available" className="next-search__not-loading-svg" />
+                    <p className="next-search__not-loading-text--center">There's no media available.</p>
+                  </div>
+                </div>
+              )              
+            )}
+          </div>
 
           {showRightArrowPopular && <FontAwesomeIcon icon={faChevronRight} className="next-search__nav-arrow right" onClick={() => scrollRight(popularScrollRef)} />}
         </div>
