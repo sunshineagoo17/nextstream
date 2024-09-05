@@ -1,5 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, useLocation, Navigate } from 'react-router-dom';
+import { AuthProvider, AuthContext } from './context/AuthContext/AuthContext';
+import { SearchBarProvider } from './context/SearchBarContext/SearchBarContext';
 import Cookies from 'js-cookie';
 import api from './services/api'; 
 import HomePage from './pages/HomePage/HomePage';
@@ -20,9 +22,8 @@ import ContactModal from './components/ContactModal/ContactModal';
 import CalendarModal from './pages/CalendarPage/sections/Calendar';
 import Header from './components/Header/Header';
 import HoverMenu from './components/Header/sections/HoverMenu/HoverMenu';
-import { AuthProvider, AuthContext } from './context/AuthContext/AuthContext';
-import { SearchBarProvider } from './context/SearchBarContext/SearchBarContext';
 import LoginRequired from './pages/LoginRequired/LoginRequired';
+import SpotlightPage from './pages/SpotlightPage/SpotlightPage';
 import FavouritesPage from './pages/FavouritesPage/FavouritesPage';
 import NextViewPage from './pages/NextViewPage/NextViewPage';
 import TopPicksPage from './pages/TopPicksPage/TopPicksPage'; 
@@ -146,6 +147,7 @@ const App = () => {
         <Route path="/nextview/:userId/:mediaType/:mediaId" element={isAuthenticated ? <NextViewPage /> : <Navigate to="/login-required" />} />
         <Route path="/top-picks/:userId" element={isGuest || isAuthenticated ? <TopPicksPage /> : <Navigate to="/login-required" />} />
         <Route path="/streamboard/:userId" element={isAuthenticated ? <StreamBoard /> : <Navigate to="/login-required" />} />
+        <Route path="/spotlight/:userId/:personId" element={isAuthenticated ? <SpotlightPage /> : <Navigate to="/login-required" />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer onContactClick={handleContactClick} />

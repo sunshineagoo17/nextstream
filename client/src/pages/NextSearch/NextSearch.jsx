@@ -426,17 +426,28 @@ const NextSearch = () => {
                   </div>
 
                   <div className="next-search__icons-row">
-                    <Link 
-                      to={`/nextview/${userId}/${result.media_type}/${result.id}`} 
-                    >
+                    {result.media_type === 'person' ? (
+                      <Link to={`/spotlight/${userId}/${result.id}`}>
                         <FontAwesomeIcon
-                            icon={result.media_type === 'person' ? faUser : result.media_type === 'tv' ? faTv : faFilm}
-                            className="next-search__media-icon"
-                            title={result.media_type === 'person' ? 'Person' : result.media_type === 'tv' ? 'TV Show' : 'Movie'}
-                            data-tooltip-id="mediaTooltip"
-                            data-tooltip-content="More Info"
+                          icon={faUser}
+                          className="next-search__media-icon"
+                          title="Person Spotlight"
+                          data-tooltip-id="personTooltip"
+                          data-tooltip-content="View Spotlight"
                         />
-                    </Link>
+                      </Link>
+                    ) : (
+                      <Link to={`/nextview/${userId}/${result.media_type}/${result.id}`}>
+                        <FontAwesomeIcon
+                          icon={result.media_type === 'tv' ? faTv : faFilm}
+                          className="next-search__media-icon"
+                          title={result.media_type === 'tv' ? 'TV Show' : 'Movie'}
+                          data-tooltip-id="mediaTooltip"
+                          data-tooltip-content="More Info"
+                        />
+                      </Link>
+                    )}
+
                     <FontAwesomeIcon
                       icon={faCalendarPlus}
                       className="next-search__cal-icon"
@@ -445,6 +456,7 @@ const NextSearch = () => {
                       data-tooltip-id="calTooltip"
                       data-tooltip-content="Add to Calendar"
                     />
+
                     {likedStatus[result.id] === 1 ? (
                       <FontAwesomeIcon
                         icon={faThumbsUp}
@@ -466,30 +478,31 @@ const NextSearch = () => {
                     ) : (
                       <>
                         <FontAwesomeIcon
-                            icon={faThumbsUp}
-                            className="next-search__like-icon"
-                            onClick={() => handleLike(result.id, result.media_type)}
-                            title="Like"
-                            data-tooltip-id="likeTooltip"
-                            data-tooltip-content="Like"
+                          icon={faThumbsUp}
+                          className="next-search__like-icon"
+                          onClick={() => handleLike(result.id, result.media_type)}
+                          title="Like"
+                          data-tooltip-id="likeTooltip"
+                          data-tooltip-content="Like"
                         />
                         <FontAwesomeIcon
-                            icon={faThumbsDown}
-                            className="next-search__dislike-icon"
-                            onClick={() => handleDislike(result.id, result.media_type)}
-                            title="Dislike"
-                            data-tooltip-id="dislikeTooltip"
-                            data-tooltip-content="Dislike"
+                          icon={faThumbsDown}
+                          className="next-search__dislike-icon"
+                          onClick={() => handleDislike(result.id, result.media_type)}
+                          title="Dislike"
+                          data-tooltip-id="dislikeTooltip"
+                          data-tooltip-content="Dislike"
                         />
                       </>
                     )}
+
                     <FontAwesomeIcon
-                        icon={faShareAlt}
-                        className="next-search__share-icon"
-                        onClick={() => handleShare(result.title || result.name, result.id, result.media_type)}
-                        title="Share"
-                        data-tooltip-id="shareIconTooltip"
-                        data-tooltip-content="Share"
+                      icon={faShareAlt}
+                      className="next-search__share-icon"
+                      onClick={() => handleShare(result.title || result.name, result.id, result.media_type)}
+                      title="Share"
+                      data-tooltip-id="shareIconTooltip"
+                      data-tooltip-content="Share"
                     />
                   </div>
 
@@ -793,7 +806,7 @@ const NextSearch = () => {
         </div>
       )}
         {/* Tooltip components */}
-       
+        <Tooltip id="personTooltip" place="top" />
         <Tooltip id="trendingTvTooltip" place="top" />
         <Tooltip id="trendingMoviesTooltip" place="top" />
         <Tooltip id="trendingAllTooltip" place="top" />

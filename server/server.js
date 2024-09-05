@@ -3,7 +3,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path');
 const cookieParser = require('cookie-parser');
-const session = require('express-session'); 
+const session = require('express-session');
 require('dotenv').config();
 
 const emailRoutes = require('./src/routes/emailRoutes');
@@ -16,7 +16,8 @@ const interactionRoutes = require('./src/routes/interactionRoutes');
 const cronJobs = require('./src/services/cronJobs');
 const favesRoutes = require('./src/routes/favesRoutes');
 const recommendationsRoutes = require('./src/routes/recommendationsRoutes');
-const mediaStatusRoutes = require('./src/routes/mediaStatusRoutes'); 
+const mediaStatusRoutes = require('./src/routes/mediaStatusRoutes');
+const spotlightRoutes = require('./src/routes/spotlightRoutes');
 
 const authenticate = require('./src/middleware/authenticate');
 const guestAuthenticate = require('./src/middleware/guestAuthenticate');
@@ -30,10 +31,10 @@ app.use(cookieParser());
 
 // Use session middleware
 app.use(session({
-  secret: process.env.SESSION_SECRET,  
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: false } 
+  cookie: { secure: false }
 }));
 
 // Configure CORS
@@ -60,31 +61,34 @@ app.use('/api/password-reset', passwordResetRoutes);
 app.use('/api/profile', profileRoutes);
 app.use('/api/tmdb', tmdbRoutes);
 
+// Spotlight Routes for person details
+app.use('/api/spotlight', authenticate, spotlightRoutes);
+
 // Calendar Routes (Allow both authenticated users and guests)
 app.use('/api/calendar', (req, res, next) => {
-    const token = req.cookies.token || req.cookies.guestToken;
-  
-    if (token) {
-      if (req.cookies.token) {
-        authenticate(req, res, next);
-      } else if (req.cookies.guestToken) {
-        guestAuthenticate(req, res, next);
-      }
-    } else {
-      return res.status(401).json({ message: 'Access denied. No token provided.' });
+  const token = req.cookies.token || req.cookies.guestToken;
+
+  if (token) {
+    if (req.cookies.token) {
+      authenticate(req, res, next);
+    } else if (req.cookies.guestToken) {
+      guestAuthenticate(req, res, next);
     }
-  }, calendarRoutes);
+  } else {
+    return res.status(401).json({ message: 'Access denied. No token provided.' });
+  }
+}, calendarRoutes);
 
 app.use('/api/interactions', interactionRoutes);
 app.use('/api/recommendations', authenticate, recommendationsRoutes);
 app.use('/api/faves', authenticate, favesRoutes);
-app.use('/api/media-status', authenticate, mediaStatusRoutes); 
+app.use('/api/media-status', authenticate, mediaStatusRoutes);
 
 // Serve static files from the React app if needed
 app.use(express.static(path.join(__dirname, 'client/build')));
 
 // Serve React app for specific routes
-const allowedRoutes = ['/','/terms']; 
+const allowedRoutes = ['/', '/terms'];
 app.get(allowedRoutes, (req, res) => {
   res.sendFile(path.join(__dirname, 'client/build/index.html'));
 });
