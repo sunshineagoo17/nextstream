@@ -632,7 +632,7 @@
     width: 25rem;
     padding: .5rem 0;
     border-radius: 1rem 1rem 0 0;
-    box-shadow: $shadow-tertiary;
+    box-shadow: $shadow-secondary;
     border: 2px solid $neutral-white;
 
     .next-search__tab {
@@ -664,7 +664,7 @@
         background-color: $primary-button-blue;
         color: $neutral-white;
         text-shadow: $shadow-primary;
-        border: .125rem solid $neutral-white;
+        border: .125rem solid $frosted-glass;
         box-shadow: $shadow-senary;
       }
     }

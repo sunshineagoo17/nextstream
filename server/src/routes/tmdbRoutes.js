@@ -442,16 +442,41 @@ router.get('/trending/:mediaType/:timeWindow', async (req, res) => {
   }
 
   try {
-    const response = await axios.get(`${TMDB_BASE_URL}/trending/${mediaType}/${timeWindow}`, {
-      params: {
-        api_key: TMDB_API_KEY,
-      },
-    });
+    let response;
+    
+    if (mediaType === 'all') {
+      // Fetches both movies and TV shows
+      const [moviesResponse, tvResponse] = await Promise.all([
+        axios.get(`${TMDB_BASE_URL}/trending/movie/${timeWindow}`, {
+          params: {
+            api_key: TMDB_API_KEY,
+          },
+        }),
+        axios.get(`${TMDB_BASE_URL}/trending/tv/${timeWindow}`, {
+          params: {
+            api_key: TMDB_API_KEY,
+          },
+        })
+      ]);
 
-    // Filter out 'person' media type if present in the response 
-    const filteredResults = response.data.results.filter(result => result.media_type !== 'person');
+      // Combine the results from both endpoints
+      const combinedResults = [...moviesResponse.data.results, ...tvResponse.data.results];
 
-    res.json({ results: filteredResults });
+      // Filter out 'person' media type and return combined results
+      response = combinedResults.filter(result => result.media_type !== 'person');
+    } else {
+      // Fetch only movies or TV shows depending on mediaType
+      const mediaResponse = await axios.get(`${TMDB_BASE_URL}/trending/${mediaType}/${timeWindow}`, {
+        params: {
+          api_key: TMDB_API_KEY,
+        },
+      });
+
+      // Filter out 'person' media type if present in the response 
+      response = mediaResponse.data.results.filter(result => result.media_type !== 'person');
+    }
+
+    res.json({ results: response });
   } catch (error) {
     console.error(`Error fetching trending ${mediaType} for ${timeWindow}:`, error.message);
     res.status(500).json({ message: `Error fetching trending ${mediaType} for ${timeWindow}` });
