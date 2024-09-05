@@ -14,7 +14,6 @@ import DefaultPoster from "../../assets/images/posternoimg-icon.png";
 const NextSearch = () => {
   const { userId, isAuthenticated } = useContext(AuthContext);
   const [results, setResults] = useState([]);
-  const [media, setMedia] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [popularMedia, setPopularMedia] = useState([]);
@@ -30,7 +29,7 @@ const NextSearch = () => {
   const [showLeftArrowPopular, setShowLeftArrowPopular] = useState(false);
   const [showRightArrowPopular, setShowRightArrowPopular] = useState(false);
   const [alert, setAlert] = useState({ message: '', type: '', visible: false });
-  const [likedStatus] = useState({});
+  const [likedStatus, setLikedStatus] = useState({});
   const calendarRef = useRef(null);
 
   const location = useLocation();
@@ -106,6 +105,31 @@ const NextSearch = () => {
     }
   };
 
+  // Fetch the interaction status for each media and merge it with the media data
+    const fetchInteractions = useCallback(async () => {
+        try {
+        const response = await api.get(`/api/interactions/${userId}`);
+        const interactionsData = response.data;
+    
+        // Create an object to map media_id to its interaction value
+        const interactionsMap = {};
+        interactionsData.forEach(interaction => {
+            interactionsMap[interaction.media_id] = interaction.interaction;
+        });
+    
+        setLikedStatus(interactionsMap); 
+        } catch (error) {
+        console.error('Error fetching interactions:', error);
+        setAlert({ message: 'Error fetching interactions', type: 'error', visible: true });
+        }
+    }, [userId]);
+    
+    useEffect(() => {
+        if (isAuthenticated) {
+        fetchInteractions(); 
+        }
+    }, [isAuthenticated, fetchInteractions]);
+
   const handleSearch = useCallback(async () => {
     if (searchQuery.trim() && isAuthenticated) {
       setIsLoading(true);
@@ -143,7 +167,7 @@ const NextSearch = () => {
     }
   }, [searchQuery, isAuthenticated]);
 
-  const fetchPopularMedia = async (type) => {
+  const fetchPopularMedia = useCallback(async (type) => {
     setIsLoading(true);
     try {
       let endpoint;
@@ -184,11 +208,11 @@ const NextSearch = () => {
     } finally {
       setIsLoading(false);
     }
-  };  
-
+  }, []);
+  
   useEffect(() => {
     fetchPopularMedia(mediaType);
-  }, [mediaType]);
+  }, [mediaType, fetchPopularMedia]);  
 
   useEffect(() => {
     if (query && isAuthenticated) {
@@ -260,44 +284,34 @@ const NextSearch = () => {
     }
   };
 
-  const handleLike = async (media_id, media_type) => {
+  // Corrected interaction handling with persistence
+  const handleInteraction = async (media_id, media_type, interactionValue) => {
     try {
-      await api.post('/api/interactions', { userId, media_id, interaction: 1, media_type });
-      showAlert('You liked this media!', 'success');
-      const updatedMedia = media.map(item => item.id === media_id ? { ...item, interaction: 1 } : item);
-      const nonInteractedMedia = updatedMedia.filter(item => item.interaction === null || item.interaction === undefined);
+      await api.post('/api/interactions', { userId, media_id, interaction: interactionValue, media_type });
       
-      setMedia(nonInteractedMedia);
-      localStorage.setItem('media', JSON.stringify(nonInteractedMedia)); 
+      // Update the likedStatus to reflect the interaction
+      setLikedStatus(prevStatus => ({ ...prevStatus, [media_id]: interactionValue === 1 ? 'liked' : 'disliked' }));
+      
+      // Show a success message
+      const message = interactionValue === 1 ? 'You liked this media!' : 'You disliked this media!';
+      showAlert(message, 'success');
     } catch (error) {
-      console.error('Error liking media:', error);
-      showAlert('Failed to like the media.', 'error');
+      console.error('Error toggling interaction:', error);
+      showAlert('Failed to update the interaction.', 'error');
     }
-  };  
+  };
+
+  const handleLike = async (media_id, media_type) => {
+    handleInteraction(media_id, media_type, 1);
+  };
 
   const handleDislike = async (media_id, media_type) => {
-    try {
-      await api.post('/api/interactions', { userId, media_id, interaction: 0, media_type });
-      showAlert('You disliked this media!', 'info');
-      
-      const updatedMedia = media.map(item => item.id === media_id ? { ...item, interaction: 0 } : item);
-      const nonInteractedMedia = updatedMedia.filter(item => item.interaction === null || item.interaction === undefined);
-      
-      setMedia(nonInteractedMedia);
-      localStorage.setItem('media', JSON.stringify(nonInteractedMedia)); 
-    } catch (error) {
-      console.error('Error disliking media:', error);
-      showAlert('Failed to dislike the media.', 'error');
-    }
-  };  
-
+    handleInteraction(media_id, media_type, 0);
+  };
 
   const handleShare = (title, mediaId, mediaType) => {
     const mediaTitle = title || 'Title Unavailable'; 
-    console.log('Sharing media:', { mediaTitle, mediaId, mediaType }); 
-
     const nextViewUrl = `${window.location.origin}/nextview/${userId}/${mediaType}/${mediaId}`;
-    console.log('Constructed URL:', nextViewUrl); 
 
     if (navigator.share) {
       navigator.share({
@@ -392,20 +406,24 @@ const NextSearch = () => {
                       onClick={() => handleAddToCalendar(result.title, result.media_type, result.id)}
                       title="Add to Calendar"
                     />
-                    <FontAwesomeIcon
-                      icon={faThumbsUp}
-                      className="next-search__like-icon"
-                      onClick={() => handleLike(result.id, result.media_type)}
-                      style={{ display: likedStatus[result.id] === 'disliked' ? 'none' : 'inline' }} 
-                      title="Like"
-                    />
-                    <FontAwesomeIcon
-                      icon={faThumbsDown}
-                      className="next-search__dislike-icon"
-                      onClick={() => handleDislike(result.id, result.media_type)}
-                      style={{ display: likedStatus[result.id] === 'liked' ? 'none' : 'inline' }}
-                      title="Dislike"
-                    />
+                    {/* Show Like button if not disliked */}
+                    {likedStatus[result.id] !== 'disliked' && (
+                      <FontAwesomeIcon
+                        icon={faThumbsUp}
+                        className="next-search__like-icon"
+                        onClick={() => handleLike(result.id, result.media_type)}
+                        title="Like"
+                      />
+                    )}
+                    {/* Show Dislike button if not liked */}
+                    {likedStatus[result.id] !== 'liked' && (
+                      <FontAwesomeIcon
+                        icon={faThumbsDown}
+                        className="next-search__dislike-icon"
+                        onClick={() => handleDislike(result.id, result.media_type)}
+                        title="Dislike"
+                      />
+                    )}
                     <FontAwesomeIcon
                       icon={faShareAlt}
                       className="next-search__share-icon"
@@ -503,20 +521,24 @@ const NextSearch = () => {
                       onClick={() => handleAddToCalendar(media.title, media.media_type, media.id)}
                       title="Add to Calendar"
                     />
-                    <FontAwesomeIcon
-                      icon={faThumbsUp}
-                      className="next-search__like-icon"
-                      onClick={() => handleLike(media.id, media.media_type)}
-                      style={{ display: likedStatus[media.id] === 'disliked' ? 'none' : 'inline' }} 
-                      title="Like"
-                    />
-                    <FontAwesomeIcon
-                      icon={faThumbsDown}
-                      className="next-search__dislike-icon"
-                      onClick={() => handleDislike(media.id, media.media_type)}
-                      style={{ display: likedStatus[media.id] === 'liked' ? 'none' : 'inline' }}
-                      title="Dislike"
-                    />
+                    {/* Show Like button if not disliked */}
+                    {likedStatus[media.id] !== 'disliked' && (
+                      <FontAwesomeIcon
+                          icon={faThumbsUp}
+                          className="next-search__like-icon"
+                          onClick={() => handleLike(media.id, media.media_type)}
+                          title="Like"
+                      />
+                      )}
+                      {/* Show Dislike button if not liked */}
+                      {likedStatus[media.id] !== 'liked' && (
+                      <FontAwesomeIcon
+                          icon={faThumbsDown}
+                          className="next-search__dislike-icon"
+                          onClick={() => handleDislike(media.id, media.media_type)}
+                          title="Dislike"
+                      />
+                    )}
                     <FontAwesomeIcon
                       icon={faShareAlt}
                       className="next-search__share-icon"

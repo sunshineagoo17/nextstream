@@ -45,29 +45,35 @@ const TopPicksPage = () => {
         const idToUse = isGuest ? 'guest' : userId; 
         console.log('Fetching media for id:', idToUse);
   
+        // Clear localStorage media if outdated or null
         const storedMedia = localStorage.getItem('media');
-        if (storedMedia) {
-          initialMedia = JSON.parse(storedMedia);
-          console.log('Using stored media:', initialMedia);
-        } else {
+        if (!storedMedia) {
           const topPicksResponse = await api.get(`/api/interactions/toppicks/${idToUse}`);
           let topPicks = topPicksResponse.data.topPicks;
           console.log('Fetched top picks:', topPicks);
   
           if (!isGuest) {
+            // Fetch recommendations only for authenticated users
             const recommendationsResponse = await api.get(`/api/recommendations/${idToUse}`, {
               params: { limit: 4 },
             });
             let recommendations = recommendationsResponse.data.recommendations;
+  
+            // Combine and filter out duplicates
             initialMedia = [...topPicks, ...recommendations.filter(rec => !topPicks.some(tp => tp.id === rec.id))];
           } else {
             initialMedia = topPicks;
           }
   
+          // Save the fetched media to localStorage
           localStorage.setItem('media', JSON.stringify(initialMedia));
-          console.log('Combined media:', initialMedia);
+          console.log('Stored initial media in localStorage:', initialMedia);
+        } else {
+          initialMedia = JSON.parse(storedMedia);
+          console.log('Using stored media from localStorage:', initialMedia);
         }
   
+        // Set the media in state and handle view expansion
         setMedia(initialMedia);
         setIsExpanded(initialMedia.length > 8);
       } catch (error) {
@@ -78,7 +84,7 @@ const TopPicksPage = () => {
         setIsLoading(false);
       }
     };
-  
+
     if (userId || isGuest) {
       fetchInitialMedia();
     }
