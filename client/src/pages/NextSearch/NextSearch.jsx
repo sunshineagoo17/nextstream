@@ -14,7 +14,7 @@ import './NextSearch.scss';
 import DefaultPoster from "../../assets/images/posternoimg-icon.png";
 
 const NextSearch = () => {
-  const { userId, isAuthenticated } = useContext(AuthContext);
+  const { userId, name, isAuthenticated } = useContext(AuthContext);
   const [results, setResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -335,6 +335,15 @@ const NextSearch = () => {
           />
         </div>
       )}
+
+    <div className="next-search__title">
+        <h1 className='next-search__header-text'>
+        {name ? `${name}'s NextSearch` : 'Your NextSearch'}
+        </h1>
+        <p className="next-search__copy">
+            With <span className="next-search__gradient-subtitle">NextSearch</span>, explore popular movies and TV shows or search for specific titles, actors, and genres. Get extended search results tailored to your input and see what's trending now.
+        </p>
+    </div>
 
       <div className="next-search__input-container">
         <FontAwesomeIcon 
