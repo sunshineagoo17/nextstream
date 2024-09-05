@@ -39,7 +39,7 @@
     box-shadow: $shadow-secondary;
     border-radius: .5rem;
     border: .125rem solid $neutral-white;
-    transition: background 0.5s, clip-path 0.5s ease-in-out;
+    transition: background .5s, clip-path .5s ease-in-out;
 
     &:hover {
       border: .125rem solid #fee100;
@@ -54,7 +54,7 @@
       color: #FFA000;
       background: radial-gradient(circle, #FFD700 50%, #FFC107 70%, #FFA000 100%);
       box-shadow: $shadow-secondary;
-      border: 2px solid $neutral-white;
+      border: .125rem solid $neutral-white;
       border-radius: 1.5rem;
     }
   }
@@ -65,11 +65,10 @@
   }
 
   .light-effect {
+    @include block-item(0, 0);
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 0;
-    height: 0;
     border-radius: 50%;
     opacity: 0;
     transform: translate(-50%, -50%);
@@ -137,18 +136,23 @@
 
 @keyframes morph-bg {
   0% {
-    clip-path: circle(50%); 
+    clip-path: circle(50%);
+    transition: clip-path .5s cubic-bezier(.68, -.55, .27, 1.55); 
   }
-  25% {
-    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); 
+  20% {
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    transition: clip-path 1s cubic-bezier(.68, -.55, .27, 1.55); 
   }
   50% {
-    clip-path: ellipse(50% 30% at 50% 50%); 
+    clip-path: ellipse(50% 35% at 50% 50%);
+    transition: clip-path 1.2s ease-in-out;
   }
-  75% {
+  80% {
     clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+    transition: clip-path 1s ease-in-out;
   }
   100% {
-    clip-path: circle(50%); 
+    clip-path: circle(50%);
+    transition: clip-path .5s cubic-bezier(.68, -.55, .27, 1.55);
   }
 }
