@@ -277,6 +277,45 @@
     @include block-item(.75rem, .75rem);
   }
 
+  &__icons-row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: .5rem;
+    border: 2px solid $neutral-white;
+    background: $primary-pale-blue;
+    box-shadow: $shadow-tertiary;
+    padding: .25rem .5rem;
+    border-radius: .5rem;
+  }
+
+  &__media-icon,
+  &__search-icon,
+  &__cal-icon,
+  &__share-icon,
+  &__like-icon,
+  &__dislike-icon {
+    color: $primary-button-blue;
+    cursor: pointer;
+    transition: transform .3s ease-in-out;
+
+    &:hover{
+        color: $primary-button-dark-blue;
+        box-shadow: $shadow-primary;
+        background-color: $neutral-white;
+        border-radius: .25rem;
+        border: .0625rem solid $primary-medium-blue;
+        padding: .1rem;
+        transform: scale(1.1);
+    }
+
+    &:active {
+        color: $primary-pale-blue;
+        box-shadow: none;
+        background-color: $primary-dark-blue;
+        transform: scale(.9);
+    }
+  }
+
   &__calendar-close-btn {
     @include block-item(1.75rem, 1.75rem);
     position: absolute;
