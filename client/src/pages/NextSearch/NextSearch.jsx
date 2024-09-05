@@ -546,45 +546,100 @@ const NextSearch = () => {
       <div className="next-search__sub-tabs">
         {mediaType === 'movie' && (
           <>
-            <button className={`next-search__sub-tab ${subMediaType === 'now_playing' ? 'next-search__sub-tab--active' : ''}`} onClick={() => setSubMediaType('now_playing')}>
+            <button 
+              className={`next-search__sub-tab ${subMediaType === 'now_playing' ? 'next-search__sub-tab--active' : ''}`}
+              onClick={() => setSubMediaType('now_playing')}
+              data-tooltip-id="movieNowPlayingTooltip"
+              data-tooltip-content="In Theatres"
+            >
               Now Playing
             </button>
-            <button className={`next-search__sub-tab ${subMediaType === 'popular' ? 'next-search__sub-tab--active' : ''}`} onClick={() => setSubMediaType('popular')}>
+            <button 
+              className={`next-search__sub-tab ${subMediaType === 'popular' ? 'next-search__sub-tab--active' : ''}`} 
+              onClick={() => setSubMediaType('popular')}
+              data-tooltip-id="moviePopularTooltip"
+              data-tooltip-content="Fan Faves"
+            >
               Popular
             </button>
-            <button className={`next-search__sub-tab ${subMediaType === 'top_rated' ? 'next-search__sub-tab--active' : ''}`} onClick={() => setSubMediaType('top_rated')}>
+            <button 
+              className={`next-search__sub-tab ${subMediaType === 'top_rated' ? 'next-search__sub-tab--active' : ''}`} 
+              onClick={() => setSubMediaType('top_rated')}
+              data-tooltip-id="movieTopRatedTooltip"
+              data-tooltip-content="Highest Rated"
+            >
               Top Rated
             </button>
-            <button className={`next-search__sub-tab ${subMediaType === 'upcoming' ? 'next-search__sub-tab--active' : ''}`} onClick={() => setSubMediaType('upcoming')}>
+            <button
+              className={`next-search__sub-tab ${subMediaType === 'upcoming' ? 'next-search__sub-tab--active' : ''}`}
+              onClick={() => setSubMediaType('upcoming')}
+              data-tooltip-id="movieUpcomingReleasesTooltip"
+              data-tooltip-content="Future Releases"
+            >
               Upcoming
             </button>
           </>
         )}
         {mediaType === 'tv' && (
           <>
-            <button className={`next-search__sub-tab ${subMediaType === 'airing_today' ? 'next-search__sub-tab--active' : ''}`} onClick={() => setSubMediaType('airing_today')}>
+            <button
+              className={`next-search__sub-tab ${subMediaType === 'airing_today' ? 'next-search__sub-tab--active' : ''}`}
+              onClick={() => setSubMediaType('airing_today')}
+              data-tooltip-id="tvAirsTodayTooltip"
+              data-tooltip-content="Fresh Episodes"
+            >
               Airing Today
             </button>
-            <button className={`next-search__sub-tab ${subMediaType === 'on_the_air' ? 'next-search__sub-tab--active' : ''}`} onClick={() => setSubMediaType('on_the_air')}>
+            <button
+              className={`next-search__sub-tab ${subMediaType === 'on_the_air' ? 'next-search__sub-tab--active' : ''}`}
+              onClick={() => setSubMediaType('on_the_air')}
+              data-tooltip-id="tvOnAirTooltip"
+              data-tooltip-content="Upcoming Shows"
+            >
               On The Air
             </button>
-            <button className={`next-search__sub-tab ${subMediaType === 'popular' ? 'next-search__sub-tab--active' : ''}`} onClick={() => setSubMediaType('popular')}>
+            <button
+              className={`next-search__sub-tab ${subMediaType === 'popular' ? 'next-search__sub-tab--active' : ''}`}
+              onClick={() => setSubMediaType('popular')}
+              data-tooltip-id="tvPopularTooltip"
+              data-tooltip-content="Hit Series"
+            >
               Popular
             </button>
-            <button className={`next-search__sub-tab ${subMediaType === 'top_rated' ? 'next-search__sub-tab--active' : ''}`} onClick={() => setSubMediaType('top_rated')}>
+            <button
+              className={`next-search__sub-tab ${subMediaType === 'top_rated' ? 'next-search__sub-tab--active' : ''}`}
+              onClick={() => setSubMediaType('top_rated')}
+              data-tooltip-id="tvTopTooltip"
+              data-tooltip-content="Prime Series"
+            >
               Top Rated
             </button>
           </>
         )}
         {mediaType === 'trending' && (
           <>
-            <button className={`next-search__sub-tab ${subMediaType === 'all' ? 'next-search__sub-tab--active' : ''}`} onClick={() => setSubMediaType('all')}>
+            <button
+              className={`next-search__sub-tab ${subMediaType === 'all' ? 'next-search__sub-tab--active' : ''}`}
+              onClick={() => setSubMediaType('all')}
+              data-tooltip-id="trendingAllTooltip"
+              data-tooltip-content="Media Trends"
+            >
               All
             </button>
-            <button className={`next-search__sub-tab ${subMediaType === 'movie' ? 'next-search__sub-tab--active' : ''}`} onClick={() => setSubMediaType('movie')}>
+            <button
+              className={`next-search__sub-tab ${subMediaType === 'movie' ? 'next-search__sub-tab--active' : ''}`}
+              onClick={() => setSubMediaType('movie')}
+              data-tooltip-id="trendingMoviesTooltip"
+              data-tooltip-content="Trending Movies"
+            >
               Movies
             </button>
-            <button className={`next-search__sub-tab ${subMediaType === 'tv' ? 'next-search__sub-tab--active' : ''}`} onClick={() => setSubMediaType('tv')}>
+            <button
+              className={`next-search__sub-tab ${subMediaType === 'tv' ? 'next-search__sub-tab--active' : ''}`}
+              onClick={() => setSubMediaType('tv')}
+              data-tooltip-id="trendingTvTooltip"
+              data-tooltip-content="Trending Series"
+            >
               TV
             </button>
           </>
@@ -738,6 +793,18 @@ const NextSearch = () => {
         </div>
       )}
         {/* Tooltip components */}
+       
+        <Tooltip id="trendingTvTooltip" place="top" />
+        <Tooltip id="trendingMoviesTooltip" place="top" />
+        <Tooltip id="trendingAllTooltip" place="top" />
+        <Tooltip id="tvPopularTooltip" place="top" />
+        <Tooltip id="tvTopTooltip" place="top" />
+        <Tooltip id="tvOnAirTooltip" place="top" />
+        <Tooltip id="tvAirsTodayTooltip" place="top" />
+        <Tooltip id="movieNowPlayingTooltip" place="top" />
+        <Tooltip id="moviePopularTooltip" place="top" />
+        <Tooltip id="movieTopRatedTooltip" place="top" />
+        <Tooltip id="movieUpcomingReleasesTooltip" place="top" />
         <Tooltip id="searchTooltip" place="top" />
         <Tooltip id="closeTooltip" place="top" />
         <Tooltip id="mediaTooltip" place="top" />

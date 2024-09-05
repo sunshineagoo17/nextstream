@@ -3,6 +3,17 @@
 @use "../../styles/partials/mixins" as *;
 @use "../../styles/global.scss" as *;
 
+#trendingTvTooltip,
+#trendingMoviesTooltip,
+#trendingAllTooltip,
+#tvPopularTooltip,
+#tvTopTooltip,
+#tvOnAirTooltip,
+#tvAirsTodayTooltip,
+#movieNowPlayingTooltip,
+#moviePopularTooltip,
+#movieTopRatedTooltip,
+#movieUpcomingReleasesTooltip,
 #mediaTooltip,
 #calTooltip,
 #searchTooltip,
