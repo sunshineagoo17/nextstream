@@ -97,6 +97,70 @@
       }
     }
 
+    // NextSearch
+    .next-search {
+      background: linear-gradient(135deg, rgba($primary-button-dark-blue, .75), rgba($base-darker-blue, 1));
+
+      &__title {
+        background: $dark-mode-royal-blue;
+      }
+
+      &__copy {
+        background: $frosted-glass;
+      }
+
+      &__cal-icon,
+      &__media-icon,
+      &__share-icon,
+      &__like-icon,
+      &__dislike-icon {
+        &:hover {
+          color: $primary-button-blue;
+        }
+
+        &:active {
+          background: $base-darker-blue;
+          color: $neutral-white;
+        }
+      }
+
+      &__cal-icon,
+      &__media-icon,
+      &__share-icon,
+      &__like-icon,
+      &__dislike-icon,
+      &__search-icon,
+      &__close-icon,
+      &__title--results {
+        color: $neutral-white;
+      }
+
+      &__results-section,
+      &__icons-row,
+      &__scroll-container-popular,
+      &__scroll-container-results {
+        background: $frosted-glass;
+      }
+
+      &__cast,
+      &__title--popular {
+        color: $primary-very-light-blue;
+      }
+
+      &__card {
+        background: $primary-medium-blue;
+        border-color: $frosted-glass;
+      }
+
+      &__card--popular {
+        background: $primary-dark-blue;
+      }
+
+      &__tabs-container {
+        background: $base-darker-blue;
+      }
+    }
+
     // Forgot Password Modal
     .modal-forgot-password__input {
       color: $neutral-white;
