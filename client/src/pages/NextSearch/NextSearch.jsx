@@ -110,7 +110,6 @@ const NextSearch = () => {
     }
   };
 
-  // Fetches the interaction status for each media and merge it with the media data
   const fetchInteractions = useCallback(async () => {
     try {
       const response = await api.get(`/api/interactions/${userId}`);
@@ -176,7 +175,6 @@ const NextSearch = () => {
       let mediaType = type; 
   
       if (type === 'movie') {
-        // Logic for fetching movies
         switch (subType) {
           case 'now_playing':
             endpoint = 'movie/now_playing';
@@ -434,9 +432,13 @@ const NextSearch = () => {
                     <div className="next-search__rating-container">
                       <UserRating rating={(result.vote_average || 0) * 10} />
                     </div>
-                    <div className="next-search__play-overlay" onClick={() => handlePlayTrailer(result.id, result.media_type)}>
-                      <FontAwesomeIcon icon={faPlay} className="next-search__play-icon" />
-                    </div>
+
+                    {/* Play overlay only for non-person media types */}
+                    {result.media_type !== 'person' && (
+                      <div className="next-search__play-overlay" onClick={() => handlePlayTrailer(result.id, result.media_type)}>
+                        <FontAwesomeIcon icon={faPlay} className="next-search__play-icon" />
+                      </div>
+                    )}
                   </div>
 
                   <div className="next-search__icons-row">
@@ -709,9 +711,11 @@ const NextSearch = () => {
                     <div className="next-search__rating-container">
                       <UserRating rating={(media.vote_average || 0) * 10} />
                     </div>
-                    <div className="next-search__play-overlay" onClick={() => handlePlayTrailer(media.id, media.media_type)}>
-                      <FontAwesomeIcon icon={faPlay} className="next-search__play-icon" />
-                    </div>
+                    {media.media_type !== 'person' && (
+                      <div className="next-search__play-overlay" onClick={() => handlePlayTrailer(media.id, media.media_type)}>
+                        <FontAwesomeIcon icon={faPlay} className="next-search__play-icon" />
+                      </div>
+                    )}
                   </div>
 
                   <div className="next-search__icons-row">
