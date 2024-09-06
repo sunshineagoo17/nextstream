@@ -387,6 +387,12 @@
     box-shadow: $shadow-primary;
   }
 
+  &__credits-wrapper {
+    display: flex; 
+    align-items: center; 
+    position: relative;
+}
+
   &__credits-container {
     @include frosted-glass2;
     display: flex;
@@ -403,46 +409,79 @@
     border-bottom: .5rem solid $primary-very-light-blue;
     width: 100%; 
     scrollbar-width: thin; /* Firefox */
-    scrollbar-color: $primary-medium-blue $primary-light-blue;
+    scrollbar-color: $primary-medium-blue $primary-very-light-blue;
 
         /* WebKit Scrollbar Styles */
         &::-webkit-scrollbar {
             background-color: $primary-light-blue;
             height: .75rem; 
+            box-shadow: $shadow-primary;
         }
 
         &::-webkit-scrollbar-thumb {
             background-color: $primary-medium-blue;
-            box-shadow: $shadow-primary;
+            box-shadow: $shadow-tertiary;
             border-radius: 1rem;
         }
 
         &::-webkit-scrollbar-track {
             background-color: $primary-very-light-blue;
-            margin-bottom: .125rem; 
+            box-shadow: $shadow-primary;
         }
     }
 
-    &__cast-arrow {
+    &__nav-arrow {
+        z-index: 1;
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
-        background-color: rgba($neutral-black, .5);
-        border: none;
+        background-color: $primary-dark-blue;
         color: $neutral-white;
-        font-size: 1.5rem;
-        cursor: pointer;
-        z-index: 1;
+        border: .125rem solid $primary-very-light-blue;
+        box-shadow: $shadow-septenary;
+        border-radius: .5rem;
         padding: .5rem;
-        border-radius: 50%;
+        font-size: 1.25rem;
+        cursor: pointer;
+        
+        &:hover {
+            background: $primary-button-blue;
+            color: $primary-very-light-blue;
+            box-shadow: $shadow-primary;
+            border: .1875rem solid $primary-medium-blue;
+        }
+
+        &:active {
+            background: $primary-very-light-blue;
+            color: $primary-button-blue;
+            border: .1875rem solid $primary-dark-blue;
+        }
     }
     
-    &__cast-arrow-left {
-        left: 2rem; 
+    &__nav-arrow-left {
+        left: -1rem; 
+        transition: transform .3s ease, background .3s ease, left .3s ease, right .3s ease;
+        
+        &:hover {
+            left: -1.5rem;
+        }
+    
+        &:active {
+            left: -1rem;
+        }
     }
     
-    &__cast-arrow-right {
-        right: 2rem;
+    &__nav-arrow-right {
+        right: -1rem;
+        transition: transform .3s ease, background .3s ease, left .3s ease, right .3s ease;
+
+        &:hover {
+            right: -1.5rem; 
+          }
+      
+          &:active {
+            right: -1rem;
+          }
     }
 
   &__credits-item {

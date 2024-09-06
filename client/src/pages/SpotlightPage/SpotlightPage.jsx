@@ -197,7 +197,7 @@ const SpotlightPage = () => {
                         {/* Credits Section */}
                         <div className="spotlight-page__credits-wrapper">
                             {credits.length > 3 && (
-                                <button className="spotlight-page__cast-arrow spotlight-page__cast-arrow-left" onClick={handleScrollLeft}>
+                                <button className="spotlight-page__nav-arrow spotlight-page__nav-arrow-left" onClick={handleScrollLeft}>
                                     <FontAwesomeIcon icon={faChevronLeft} />
                                 </button>
                             )}
@@ -224,7 +224,7 @@ const SpotlightPage = () => {
                             </div>
 
                             {credits.length > 3 && (
-                                <button className="spotlight-page__cast-arrow spotlight-page__cast-arrow-right" onClick={handleScrollRight}>
+                                <button className="spotlight-page__nav-arrow spotlight-page__nav-arrow-right" onClick={handleScrollRight}>
                                     <FontAwesomeIcon icon={faChevronRight} />
                                 </button>
                             )}
