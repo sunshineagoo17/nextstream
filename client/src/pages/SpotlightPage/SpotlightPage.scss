@@ -9,9 +9,10 @@
     align-items: center;
     flex-direction: column;
     background-color: $frosted-glass;
+    padding: 1.5rem;
   
     @include tablet {
-      padding: 3rem;
+      padding: 2.25rem;
     }
   
     @include desktop {
@@ -34,16 +35,27 @@
 
   &__actor-container {
     display: flex;
-    justify-content: space-between;
-    flex-direction: row;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     gap: 2rem;
 
     @include tablet {
         padding: .65rem;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
     }
 
     @include desktop {
       padding: 1rem;
+      flex-direction: row;
+      align-items: normal;
+    }
+
+    @include large-desktop {
+        display: flex;
+        gap: 4rem;
     }
   }
 
@@ -53,8 +65,7 @@
     border-radius: 1rem;
     padding: .75rem;
     border: .3125rem solid $primary-very-light-blue;
-    margin-bottom: 1.5rem;
-    margin-top: 1.5rem;
+    margin: 1.25rem;
 
     @include tablet {
         margin-top: 2.5rem;
@@ -184,7 +195,7 @@
     font-weight: bold;
     font-size: 1rem;
     gap: .25rem;
-    font-size: 1.5rem;
+    font-size: 1rem;
     color: $primary-button-blue;
     text-shadow: 0 .125rem .25rem rgba($neutral-black, .2);
     margin-bottom: .25rem;
@@ -227,7 +238,7 @@
     border-radius: .25rem;
     color: $primary-button-blue;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: .85rem;
     margin-top: .5rem;
     padding: 0;
     text-align: left;   
@@ -259,6 +270,10 @@
       transform: scale(.9);
       text-decoration: none;
       font-weight: bold;
+    }
+
+    @include tablet {
+        font-size: 1rem;
     }
   }
 
@@ -294,23 +309,36 @@
   }
 
   &__details {
-    width: 60rem;
+    width: 15rem;
+    
+    @include tablet {
+        width: 40rem;
+    }
+
+    @include desktop {
+        width: 50rem;
+    }
   }
 
   &__personal-info-icon {
-    color: $primary-button-blue;
-    margin-right: .35rem;
-    box-shadow: $shadow-quaternary;
-    padding: .25rem;
-    border-radius: .5rem;
-    border: .0625rem solid $neutral-white;
-    transition: color .4s ease-in-out, background .4s ease-in-out, box-shadow .4s ease-in-out, border .4s ease-in-out;
+    display: none;
+    
+        @include tablet {
+            display: block;
+            color: $primary-button-blue;
+            margin-right: .35rem;
+            box-shadow: $shadow-quaternary;
+            padding: .25rem;
+            border-radius: .5rem;
+            border: .0625rem solid $neutral-white;
+            transition: color .4s ease-in-out, background .4s ease-in-out, box-shadow .4s ease-in-out, border .4s ease-in-out;
 
-        &:hover {
-            box-shadow: none;
-            border: none;
-            color: $neutral-white;
-            background: $primary-button-blue;
+            &:hover {
+                box-shadow: none;
+                border: none;
+                color: $neutral-white;
+                background: $primary-button-blue;
+            }
         }
     }
 
@@ -342,7 +370,11 @@
   }
 
   &__credit-poster{
-    width: 10rem;
+    width: 7rem;
+
+    @include tablet {
+        width: 10rem;
+    }
   }
 
   &__info-container, 
@@ -367,13 +399,21 @@
 
   &__info-txt {
     display: flex;
-    font-size: .85rem;
+    flex-direction: column;
+    font-size: .75rem;
     text-align: center;
     font-family: $secondary-font;
-    line-height: 1.35rem;
+    line-height: 1rem;
     color: $primary-dark-blue;
     gap: .2rem;
-    align-items: last baseline;
+    align-items: center;
+
+    @include tablet {
+        flex-direction: row;
+        font-size: .85rem;
+        line-height: 1.35rem;
+        align-items: last baseline;
+    }
   }
 
   &__text-container {
@@ -459,29 +499,53 @@
     }
     
     &__nav-arrow-left {
-        left: -1rem; 
+        left: -.5rem; 
         transition: transform .3s ease, background .3s ease, left .3s ease, right .3s ease;
         
         &:hover {
-            left: -1.5rem;
+            left: -.8rem;
         }
     
         &:active {
-            left: -1rem;
+            left: -.5rem;
+        }
+
+        @include tablet {
+            left: -1rem; 
+
+            &:hover {
+                left: -1.5rem;
+            }
+        
+            &:active {
+                left: -1rem;
+            }
         }
     }
     
     &__nav-arrow-right {
-        right: -1rem;
+        right: -.5rem;
         transition: transform .3s ease, background .3s ease, left .3s ease, right .3s ease;
 
         &:hover {
-            right: -1.5rem; 
+            right: -.8rem; 
           }
       
           &:active {
-            right: -1rem;
+            right: -.5rem;
           }
+
+          @include tablet {
+            right: -1rem; 
+
+            &:hover {
+                right: -1.5rem; 
+              }
+          
+              &:active {
+                right: -1rem;
+              }
+        }
     }
 
   &__credits-item {
