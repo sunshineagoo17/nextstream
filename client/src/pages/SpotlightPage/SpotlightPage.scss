@@ -4,81 +4,238 @@
 @use "../../styles/global.scss" as *;
 
 .spotlight-page {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 1.5rem;
-  background-color: $frosted-glass;
-  min-height: 100vh;
-  position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: $frosted-glass;
+  
+    @include tablet {
+      padding: 3rem;
+    }
+  
+    @include desktop {
+      padding: 3.25rem;
+    }
 
-  @include tablet {
-    padding: 2rem;
+  &__content-container {
+    @include frosted-glass2;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: $frosted-glass;
+    backdrop-filter: blur(.5rem);
+    border-radius: 1.25rem;
+    box-shadow: $shadow-quaternary;
+    border: .3125rem solid $neutral-light-grey;
   }
 
-  @include desktop {
-    padding: 2.5rem;
+  &__actor-container {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    width: 100%;
+    gap: 3rem;
+
+    @include tablet {
+        min-width: 31.5rem;
+        padding: .65rem;
+    }
+
+    @include desktop {
+      width: 60.5rem;
+      padding: 1rem;
+    }
+  }
+
+  &__content {
+    background-color: $frosted-glass;
+    box-shadow: $shadow-primary;
+    border-radius: 1rem;
+    padding: .75rem;
+    border: .3125rem solid $primary-very-light-blue;
+    margin-bottom: 1.5rem;
+    margin-top: 1.5rem;
+
+    @include tablet {
+        margin-top: 2.5rem;
+        margin-bottom: 2.5rem;
+        min-width: 31.5rem;
+        padding: .65rem;
+    }
+
+    @include desktop {
+      width: 60.5rem;
+      padding: 1rem;
+    }
   }
 
   &__heading-container {
     text-align: center;
-    background: linear-gradient(145deg, $primary-dark-blue, darken($primary-button-blue, 5%));
-    padding: 1rem;
-    border-radius: 0.75rem;
-    box-shadow: $shadow-primary;
-    color: $neutral-white;
-    margin-bottom: 1.5rem;
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: .25rem;
+    margin-bottom: 1.25rem;
+    text-shadow: .125rem .125rem .3125rem rgba(0, 0, 0, .2);
+    color: $primary-pale-blue;
+    padding: 1.5rem;
     width: 100%;
-    max-width: 60rem;
+    background: linear-gradient(145deg, $primary-dark-blue, darken($primary-button-blue, 5%));
+    border-radius: .75rem;
+    box-shadow: .3125rem .3125rem .9375rem rgba(0, 0, 0, .2), -.3125rem -3125rem .9375rem rgba(255, 255, 255, .1);
+    border: .3125rem solid $primary-very-light-blue;
+    position: relative;
+    overflow: hidden;
+    line-height: 2.15rem;
 
-    @include tablet {
-      padding: 1.5rem;
+      @include tablet {
+        padding: 1.5rem 1.75rem;
+      }
+  
+      @include desktop {
+        padding: 2rem 6rem;
+        max-width: 155rem;
+      }
+    
+    &::before {
+      content: "";
+      @include block-item(100%, 100%);
+      position: absolute;
+      top: 0;
+      left: -100%;
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, .4) 50%, rgba(255, 255, 255, 0) 100%);
+      transform: skewX(-25deg);
+      transition: left 1s;
     }
 
-    @include desktop {
-      padding: 2rem;
+    &:hover::before {
+      left: 100%;
+      transition: left 1s;
     }
   }
 
   &__header {
+    text-shadow: $shadow-primary;
+    margin-bottom: .5rem;
+    display: flex;
+    align-items: center;
+    color: $neutral-white;
+    font-family: $primary-font;
     font-size: 1.5rem;
     font-weight: bold;
 
     @include tablet {
-      font-size: 2rem;
-    }
-
-    @include desktop {
+      margin-bottom: 1rem;
       font-size: 2.5rem;
     }
   }
 
   &__copy {
-    font-size: 1rem;
-    margin-top: 0.5rem;
+    background: $frosted-glass;
+    border-radius: .75rem;
     color: $primary-very-light-blue;
-    
+    text-shadow: none;
+    font-size: .85rem;
+    margin-bottom: .5rem;
+    box-shadow: $shadow-primary;
+    border: .3125rem solid $frosted-glass;
+    line-height: 1.25rem;
+    min-width: 13.5rem;
+    padding: .75rem;
+
     @include tablet {
-      font-size: 1.2rem;
+      font-size: 1.35rem;
+      line-height: 1.75rem;
+      min-width: 35rem;
+      padding: 1.5rem;
     }
   }
 
-  &__content-container {
+  &__gradient-subtitle {
+    font-weight: bold;
+    background: linear-gradient(270deg, $neutral-white, $primary-gradient-blue, $primary-medium-blue);
+    background-size: 600% 600%;
+    margin-right: .35rem;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: GradientAnimation 10s ease infinite;
+  }
+  
+  @keyframes GradientAnimation {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  &__person-name {
     display: flex;
-    flex-direction: column;
-    gap: 2rem;
+    justify-content: center;
     align-items: center;
-    justify-content: flex-start;
-    width: 100%;
-    max-width: 60rem;
+    flex-wrap: wrap;
+    font-family: $secondary-font;
+    font-weight: bold;
+    font-size: 1rem;
+    gap: .25rem;
+    font-size: 1.5rem;
+    color: $primary-button-blue;
+    text-shadow: 0 .125rem .25rem rgba(0, 0, 0, .2);
+    margin-bottom: .25rem;
 
     @include tablet {
-      flex-direction: row;
+      gap: .5rem;
+      font-size: 1.5rem;
+    }
+  }
+
+  &__person-bio {
+    text-align: center;
+    font-family: $secondary-font;
+    color: $primary-dark-blue;
+    background-color: $primary-pale-blue;
+    border-radius: .5rem;
+    padding: .5rem;
+    font-size: .75rem;
+    line-height: 1rem;
+    box-shadow: $shadow-secondary;
+    border: .1875rem solid $neutral-white;
+
+    @include large-mobile {
+      font-size: .8rem;
+    }
+
+    @include tablet {
+      font-size: 1rem;
+      line-height: 1.25rem;
     }
 
     @include desktop {
-      max-width: 70rem;
+      line-height: 1.5rem;
+    }
+  }
+
+  &__read-more {
+    color: $primary-button-blue;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    text-align: left;
+    padding: 0;
+    margin-top: 0.5rem;
+
+    &:hover {
+      text-decoration: underline;
     }
   }
 
@@ -87,28 +244,25 @@
     flex-direction: column;
     align-items: center;
     gap: 1rem;
-    width: 100%;
-    max-width: 18rem;
-
-    @include tablet {
-      max-width: 20rem;
-    }
-
-    @include desktop {
-      max-width: 22rem;
-    }
+    width: 15rem;
   }
 
   &__image-container {
-    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 1rem;
-    overflow: hidden;
+    border: .5rem solid $primary-medium-blue;
     box-shadow: $shadow-quaternary;
+  }
 
-    img {
-      width: 100%;
-      height: auto;
-    }
+  &__image {
+    width: 15rem;
+    border-radius: .5rem;
+  }
+
+  &__details {
+    width: 100%;
   }
 
   &__right-container {
@@ -124,45 +278,105 @@
     padding: 1rem;
     border-radius: 1rem;
     box-shadow: $shadow-quaternary;
+
     p {
-      font-size: 0.9rem;
+      font-size: 0.85rem;
+
       strong {
         font-weight: bold;
       }
+
       @include tablet {
-        font-size: 1rem;
+        font-size: 0.9rem;
       }
     }
+  }
+
+  &__credit-poster{
+    width: 10rem;
+  }
+
+  &__info-container, 
+  &__filmography-container {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 1rem;
+    overflow: hidden;
+    color: $neutral-light-grey;
+    padding: 0.5rem;
+    border-radius: .75rem .75rem 0 0;
+    background-color: $primary-medium-blue;
+    box-shadow: $shadow-senary;
+    justify-content: center;
+    font-family: $secondary-font;
+    font-weight: bold;
+  }
+
+  &__filmography-container {
+    margin-top: 1rem;
+  }
+
+  &__info-txt {
+    text-align: center;
+  }
+
+  &__text-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    border: 3px solid $primary-very-light-blue;
+    border-radius: 0 0 .75rem .75rem ;
+    padding: .25rem;
+    box-shadow: $shadow-primary;
   }
 
   &__credits-container {
     display: flex;
     flex-wrap: nowrap;
     gap: 1rem;
-    overflow-x: auto;
+    overflow: hidden;
     padding: 0.5rem;
     border-radius: 0.75rem;
     background-color: $frosted-glass;
     box-shadow: $shadow-quaternary;
+    position: relative;
   }
 
   &__credits-item {
-    min-width: 8rem;
+    min-width: 5rem; /* Significantly reduced poster size */
     text-align: center;
+
     img {
       width: 100%;
       border-radius: 0.5rem;
       box-shadow: $shadow-tertiary;
     }
+
     span {
       margin-top: 0.5rem;
-      font-size: 0.75rem;
+      font-size: 0.7rem;
     }
   }
 
   &__chevron-icon {
-    font-size: 1.5rem;
+    font-size: 1.2rem; /* Reduced size for arrows */
     cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: $primary-button-blue;
+    background-color: $neutral-white;
+    border-radius: 50%;
+    padding: 0.4rem;
+
+    &--left {
+      left: -1rem;
+    }
+
+    &--right {
+      right: -1rem;
+    }
   }
 
   &__background {
@@ -170,15 +384,15 @@
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 8rem;
+    height: 6rem;
     z-index: -1;
 
     @include tablet {
-      height: 10rem;
+      height: 8rem;
     }
 
     @include desktop {
-      height: 12rem;
+      height: 10rem;
     }
   }
 }
