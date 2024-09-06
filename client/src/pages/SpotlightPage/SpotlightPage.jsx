@@ -97,7 +97,7 @@ const SpotlightPage = () => {
                 <h1 className="spotlight-page__header">Spotlight</h1>
                 <p className="spotlight-page__copy">
                     <span className="spotlight-page__gradient-subtitle">Spotlight</span>
-                    showcases detailed information about actors and public figures, including their filmography, biography, and known works. Explore and learn more about their career journey.
+                    showcases detailed information about actors and actresses, including their filmography, biography, and known works. Explore and learn more about your favourite artist.
                 </p>
             </div>
 
