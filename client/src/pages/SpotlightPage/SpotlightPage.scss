@@ -77,13 +77,13 @@
     align-items: center;
     gap: .25rem;
     margin-bottom: 1.25rem;
-    text-shadow: .125rem .125rem .3125rem rgba(0, 0, 0, .2);
+    text-shadow: .125rem .125rem .3125rem rgba($neutral-black, .2);
     color: $primary-pale-blue;
     padding: 1.5rem;
     width: 100%;
     background: linear-gradient(145deg, $primary-dark-blue, darken($primary-button-blue, 5%));
     border-radius: .75rem;
-    box-shadow: .3125rem .3125rem .9375rem rgba(0, 0, 0, .2), -.3125rem -3125rem .9375rem rgba(255, 255, 255, .1);
+    box-shadow: .3125rem .3125rem .9375rem rgba($neutral-black, .2), -.3125rem -3125rem .9375rem rgba(255, 255, 255, .1);
     border: .3125rem solid $primary-very-light-blue;
     position: relative;
     overflow: hidden;
@@ -186,7 +186,7 @@
     gap: .25rem;
     font-size: 1.5rem;
     color: $primary-button-blue;
-    text-shadow: 0 .125rem .25rem rgba(0, 0, 0, .2);
+    text-shadow: 0 .125rem .25rem rgba($neutral-black, .2);
     margin-bottom: .25rem;
 
     @include tablet {
@@ -228,7 +228,7 @@
     color: $primary-button-blue;
     cursor: pointer;
     font-size: 1rem;
-    margin-top: 0.5rem;
+    margin-top: .5rem;
     padding: 0;
     text-align: left;   
     text-decoration: none;
@@ -303,8 +303,8 @@
     box-shadow: $shadow-quaternary;
     padding: .25rem;
     border-radius: .5rem;
-    border: 1px solid $neutral-white;
-    transition: color 0.4s ease-in-out, background 0.4s ease-in-out, box-shadow 0.4s ease-in-out, border 0.4s ease-in-out;
+    border: .0625rem solid $neutral-white;
+    transition: color .4s ease-in-out, background .4s ease-in-out, box-shadow .4s ease-in-out, border .4s ease-in-out;
 
         &:hover {
             box-shadow: none;
@@ -329,14 +329,14 @@
     box-shadow: $shadow-quaternary;
 
     p {
-      font-size: 0.85rem;
+      font-size: .85rem;
 
       strong {
         font-weight: bold;
       }
 
       @include tablet {
-        font-size: 0.9rem;
+        font-size: .9rem;
       }
     }
   }
@@ -352,7 +352,7 @@
     gap: 1rem;
     overflow: hidden;
     color: $neutral-light-grey;
-    padding: 0.5rem;
+    padding: .5rem;
     border-radius: .75rem .75rem 0 0;
     background-color: $primary-medium-blue;
     box-shadow: $shadow-senary;
@@ -381,7 +381,7 @@
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    border: 3px solid $primary-very-light-blue;
+    border: .1875rem solid $primary-very-light-blue;
     border-radius: 0 0 .75rem .75rem ;
     padding: .25rem;
     box-shadow: $shadow-primary;
@@ -391,26 +391,26 @@
     @include frosted-glass2;
     display: flex;
     gap: 1rem; 
-    padding: 0.5rem;
+    padding: .5rem;
     border-radius:  0 0 .75rem .75rem;
     background-color: $frosted-glass;
     box-shadow: $shadow-secondary;
     scroll-behavior: smooth; 
     overflow-x: auto; 
     overflow-y: hidden; 
-    border: 2px solid $primary-very-light-blue;
+    border: .125rem solid $primary-very-light-blue;
     width: 100%; 
     scrollbar-width: thin; /* For Firefox */
-    scrollbar-color: $primary-button-blue $primary-very-light-blue;
+    scrollbar-color: $primary-medium-blue $primary-light-blue;
 
     /* Webkit scrollbar styles */
     &::-webkit-scrollbar {
-        height: 12px;
+        height: .875rem;
     }
 
     &::-webkit-scrollbar-thumb {
         background-color: $primary-button-blue; 
-        border-radius: 10px; 
+        border-radius: .625rem; 
     }
 
     &::-webkit-scrollbar-track {
@@ -422,13 +422,13 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba($neutral-black, .5);
     border: none;
-    color: white;
+    color: $neutral-white;
     font-size: 1.5rem;
     cursor: pointer;
     z-index: 1;
-    padding: 0.5rem;
+    padding: .5rem;
     border-radius: 50%;
   }
 
@@ -446,9 +446,9 @@
 
     img {
     //   width: 5.5rem; // Add back in to change filmography poster layout
-      border-radius: 0.5rem;
+      border-radius: .5rem;
       box-shadow: $shadow-tertiary;
-      border: 2px solid $primary-very-light-blue;
+      border: .125rem solid $primary-very-light-blue;
       transition: transform .3s ease, box-shadow .3s ease;
 
         &:hover {
@@ -461,8 +461,8 @@
     }
 
     span {
-        margin-top: 0.5rem;
-        font-size: 0.7rem;
+        margin-top: .5rem;
+        font-size: .7rem;
         color: $dark-mode-royal-blue;
     }
   }
@@ -472,7 +472,7 @@
     line-height: .8rem;
     background: $primary-pale-blue;
     border-radius: .5rem;
-    border: 2px solid $neutral-white;
+    border: .125rem solid $neutral-white;
     box-shadow: $shadow-secondary;
     transition: transform .3s ease, box-shadow .3s ease;
 
@@ -494,7 +494,7 @@
     color: $primary-button-blue;
     background-color: $neutral-white;
     border-radius: 50%;
-    padding: 0.4rem;
+    padding: .4rem;
 
     &--left {
       left: -1rem;
@@ -506,11 +506,10 @@
   }
 
   &__background {
+    @include block-item(100%, 6rem);
     position: absolute;
     bottom: 3rem;
     left: 0;
-    width: 100%;
-    height: 6rem;
     z-index: -1;
 
     @include tablet {

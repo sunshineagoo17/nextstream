@@ -2,12 +2,12 @@ import { useState, useEffect, useContext, useRef, useCallback } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLocationDot, faBirthdayCake, faTransgender, faClapperboard, faUserEdit } from '@fortawesome/free-solid-svg-icons';
+import { faLocationDot, faBirthdayCake, faTransgender, faClapperboard, faUserEdit, faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import api from '../../services/api';
 import WavesBg from '../../components/WavesBg/WavesBg';
 import Loader from '../../components/Loader/Loader';
 import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
-import DefaultSpotlightImg  from "../../assets/images/defaultimg.png";
+import DefaultSpotlightImg from "../../assets/images/defaultimg.png";
 import DefaultCreditImg from "../../assets/images/posternoimg-icon.png";
 import './SpotlightPage.scss';
 
@@ -15,14 +15,13 @@ const SpotlightPage = () => {
     const { personId } = useParams();
     const navigate = useNavigate();
     const { isAuthenticated, userId } = useContext(AuthContext);
-    
     const [personData, setPersonData] = useState(null);
     const [credits, setCredits] = useState([]);
     const [images, setImages] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [alert, setAlert] = useState({ show: false, message: '', type: '' });
     const [showFullBio, setShowFullBio] = useState(false);
-
+    const [scrollPosition, setScrollPosition] = useState(0);
     const creditsContainerRef = useRef(null);
 
     const showAlert = useCallback((message, type) => {
@@ -57,6 +56,22 @@ const SpotlightPage = () => {
 
         fetchPersonData();
     }, [personId, navigate, showAlert, isAuthenticated]);
+
+    const handleScrollRight = () => {
+        if (creditsContainerRef.current) {
+            const newPosition = scrollPosition + creditsContainerRef.current.clientWidth;
+            creditsContainerRef.current.scrollTo({ left: newPosition, behavior: 'smooth' });
+            setScrollPosition(newPosition);
+        }
+    };
+
+    const handleScrollLeft = () => {
+        if (creditsContainerRef.current) {
+            const newPosition = scrollPosition - creditsContainerRef.current.clientWidth;
+            creditsContainerRef.current.scrollTo({ left: newPosition, behavior: 'smooth' });
+            setScrollPosition(newPosition);
+        }
+    };
 
     const formatDate = (dateStr) => {
         if (!dateStr) return 'Unknown';
@@ -129,7 +144,7 @@ const SpotlightPage = () => {
                                 </a>
                             ) : (
                                 <img
-                                    src={DefaultSpotlightImg} 
+                                    src={DefaultSpotlightImg}
                                     alt="Default Profile"
                                     className="spotlight-page__image"
                                 />
@@ -144,7 +159,7 @@ const SpotlightPage = () => {
                                 <strong>
                                     <FontAwesomeIcon icon={faClapperboard} className="spotlight-page__personal-info-icon" />
                                     Known For:
-                                </strong> 
+                                </strong>
                                 {personData.known_for_department}
                             </p>
                             <p className="spotlight-page__info-txt">
@@ -178,21 +193,41 @@ const SpotlightPage = () => {
                         </div>
 
                         <div className="spotlight-page__filmography-container">Filmography</div>
-                        <div className="spotlight-page__credits-container" ref={creditsContainerRef} style={{ overflowX: 'auto', scrollbarWidth: 'thin' }}>
-                            {credits.length > 0 ? credits.map(credit => (
-                                <div key={credit.id} className="spotlight-page__credits-item">
-                                    <Link to={`/nextview/${userId}/${credit.media_type}/${credit.id}`}>
-                                        <img
-                                            src={credit.poster_path ? `https://image.tmdb.org/t/p/w500${credit.poster_path}` : DefaultCreditImg} // Use DefaultCreditImg when no poster is available
-                                            alt={credit.title || credit.name}
-                                            className="spotlight-page__credit-poster"
-                                        />
-                                        <div className="spotlight-page__credit-title">
-                                            <span>{credit.title || credit.name}</span>
+
+                        {/* Credits Section */}
+                        <div className="spotlight-page__credits-wrapper">
+                            {credits.length > 3 && (
+                                <button className="spotlight-page__cast-arrow spotlight-page__cast-arrow-left" onClick={handleScrollLeft}>
+                                    <FontAwesomeIcon icon={faChevronLeft} />
+                                </button>
+                            )}
+
+                            <div className="spotlight-page__credits-container" ref={creditsContainerRef} style={{ overflowX: 'auto', scrollbarWidth: 'thin' }}>
+                                {credits.length > 0 ? (
+                                    credits.map(credit => (
+                                        <div key={credit.id} className="spotlight-page__credits-item">
+                                            <Link to={`/nextview/${userId}/${credit.media_type}/${credit.id}`}>
+                                                <img
+                                                    src={credit.poster_path ? `https://image.tmdb.org/t/p/w500${credit.poster_path}` : DefaultCreditImg}
+                                                    alt={credit.title || credit.name}
+                                                    className="spotlight-page__credit-poster"
+                                                />
+                                                <div className="spotlight-page__credit-title">
+                                                    <span>{credit.title || credit.name}</span>
+                                                </div>
+                                            </Link>
                                         </div>
-                                    </Link>
-                                </div>
-                            )) : <p>No filmography available.</p>}
+                                    ))
+                                ) : (
+                                    <p>No filmography available.</p>
+                                )}
+                            </div>
+
+                            {credits.length > 3 && (
+                                <button className="spotlight-page__cast-arrow spotlight-page__cast-arrow-right" onClick={handleScrollRight}>
+                                    <FontAwesomeIcon icon={faChevronRight} />
+                                </button>
+                            )}
                         </div>
                     </div>
                 </div>
