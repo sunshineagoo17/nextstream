@@ -191,6 +191,14 @@
       color: $dark-mode-royal-blue;
     }
 
+    .spotlight-page__personal-info-icon {
+      color: $primary-very-light-blue;
+
+      &:hover {
+        color: $neutral-white;
+      }
+    }
+
     // Footer
     .footer {
       background: $primary-darker-blue-gradient;

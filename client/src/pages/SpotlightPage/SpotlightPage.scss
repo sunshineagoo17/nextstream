@@ -222,17 +222,43 @@
   }
 
   &__read-more {
-    color: $primary-button-blue;
     background: none;
     border: none;
+    border-radius: .25rem;
+    color: $primary-button-blue;
     cursor: pointer;
-    font-size: 0.9rem;
-    text-align: left;
-    padding: 0;
+    font-size: 1rem;
     margin-top: 0.5rem;
+    padding: 0;
+    text-align: left;   
+    text-decoration: none;
+    margin-left: .25rem;
+    transition: background-color .3s, color .3s, border-color .3s;
 
-    &:hover {
-      text-decoration: underline;
+    &:visited {
+      text-decoration: none;
+    }
+
+    &:hover,
+    &:focus {
+        padding: .25rem .5rem;
+        background-color: $primary-medium-blue;
+        border: .0625rem solid $primary-dark-blue;
+        color: $neutral-white;
+        text-decoration: none;
+        box-shadow: $shadow-primary;
+    }
+
+    &:active {
+      padding-left: .25rem;
+      padding-right: .25rem;
+      background-color: $primary-light-blue;
+      color: $neutral-white;
+      border: .125rem solid $neutral-light-grey;
+      border-radius: .25rem;
+      transform: scale(.9);
+      text-decoration: none;
+      font-weight: bold;
     }
   }
 
@@ -270,6 +296,23 @@
   &__details {
     width: 60rem;
   }
+
+  &__personal-info-icon {
+    color: $primary-button-blue;
+    margin-right: .35rem;
+    box-shadow: $shadow-quaternary;
+    padding: .25rem;
+    border-radius: .5rem;
+    border: 1px solid $neutral-white;
+    transition: color 0.4s ease-in-out, background 0.4s ease-in-out, box-shadow 0.4s ease-in-out, border 0.4s ease-in-out;
+
+        &:hover {
+            box-shadow: none;
+            border: none;
+            color: $neutral-white;
+            background: $primary-button-blue;
+        }
+    }
 
   &__right-container {
     display: flex;
@@ -323,11 +366,14 @@
   }
 
   &__info-txt {
+    display: flex;
     font-size: .85rem;
     text-align: center;
     font-family: $secondary-font;
     line-height: 1.35rem;
     color: $primary-dark-blue;
+    gap: .2rem;
+    align-items: last baseline;
   }
 
   &__text-container {

@@ -1,6 +1,8 @@
 import { useState, useEffect, useContext, useRef, useCallback } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLocationDot, faBirthdayCake, faTransgender, faClapperboard, faUserEdit } from '@fortawesome/free-solid-svg-icons';
 import api from '../../services/api';
 import WavesBg from '../../components/WavesBg/WavesBg';
 import Loader from '../../components/Loader/Loader';
@@ -138,11 +140,41 @@ const SpotlightPage = () => {
                     <div className="spotlight-page__details">
                         <div className="spotlight-page__info-container">Personal Info</div>
                         <div className="spotlight-page__text-container">
-                            <p className="spotlight-page__info-txt"><strong>Known For:</strong> {personData.known_for_department}</p>
-                            <p className="spotlight-page__info-txt"><strong>Gender:</strong> {personData.gender === 1 ? 'Female' : 'Male'}</p>
-                            <p className="spotlight-page__info-txt"><strong>Birthday:</strong> {formatDate(personData.birthday)} ({calculateAge(personData.birthday)} years old)</p>
-                            <p className="spotlight-page__info-txt"><strong>Place of Birth:</strong> {personData.place_of_birth || 'Unknown'}</p>
-                            <p className="spotlight-page__info-txt"><strong>Also Known As:</strong> {personData.also_known_as?.join(', ') || 'N/A'}</p>
+                            <p className="spotlight-page__info-txt">
+                                <strong>
+                                    <FontAwesomeIcon icon={faClapperboard} className="spotlight-page__personal-info-icon" />
+                                    Known For:
+                                </strong> 
+                                {personData.known_for_department}
+                            </p>
+                            <p className="spotlight-page__info-txt">
+                                <strong>
+                                    <FontAwesomeIcon icon={faTransgender} className="spotlight-page__personal-info-icon" />
+                                    Gender:
+                                </strong>
+                                {personData.gender === 1 ? 'Female' : 'Male'}
+                            </p>
+                            <p className="spotlight-page__info-txt">
+                                <strong>
+                                    <FontAwesomeIcon icon={faBirthdayCake} className="spotlight-page__personal-info-icon" />
+                                    Birthday:
+                                </strong>
+                                {formatDate(personData.birthday)} ({calculateAge(personData.birthday)} years old)
+                            </p>
+                            <p className="spotlight-page__info-txt">
+                                <strong>
+                                    <FontAwesomeIcon icon={faLocationDot} className="spotlight-page__personal-info-icon" />
+                                    Place of Birth:
+                                </strong>
+                                {personData.place_of_birth || 'Unknown'}
+                            </p>
+                            <p className="spotlight-page__info-txt">
+                                <strong>
+                                    <FontAwesomeIcon icon={faUserEdit} className="spotlight-page__personal-info-icon" />
+                                    Also Known As:
+                                </strong>
+                                {personData.also_known_as?.join(', ') || 'N/A'}
+                            </p>
                         </div>
 
                         <div className="spotlight-page__filmography-container">Filmography</div>
