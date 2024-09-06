@@ -32,6 +32,7 @@ router.get('/:person_id', async (req, res) => {
         id: credit.id,
         title: credit.title || credit.name,
         poster_path: credit.poster_path,  
+        media_type: credit.media_type
       })),
     });
   } catch (error) {

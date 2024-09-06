@@ -14,6 +14,7 @@ import api from '../../services/api';
 import WavesBg from '../../components/WavesBg/WavesBg';
 import Loader from '../../components/Loader/Loader';
 import Calendar from '../CalendarPage/sections/Calendar';
+import DefaultPosterImg from '../../assets/images/posternoimg-icon.png';
 import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
 import './NextViewPage.scss';
 
@@ -316,14 +317,16 @@ const NextViewPage = () => {
                     <div className="nextview-page__left-media-container">
                         <div className="nextview-page__poster-container">
                             <img 
-                                src={`https://image.tmdb.org/t/p/w500${mediaData.poster_path}`} 
-                                alt={mediaData.title || mediaData.name} 
+                                src={mediaData.poster_path 
+                                        ? `https://image.tmdb.org/t/p/w500${mediaData.poster_path}` 
+                                        : DefaultPosterImg}  
+                                alt={mediaData.title || mediaData.name || "No Poster Available"} 
                                 className="nextview-page__poster"
                             />
                             <div className="nextview-page__play-overlay" onClick={handlePlayTrailer}>
                                 <FontAwesomeIcon icon={faPlay} className="nextview-page__play-icon" />
                             </div>
-                        </div>
+                        </div> 
 
                         <div className="nextview-page__actions">
                             <div className="nextview-page__media-type">
