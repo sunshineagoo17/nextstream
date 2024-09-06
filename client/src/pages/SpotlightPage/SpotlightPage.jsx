@@ -1,7 +1,5 @@
 import { useState, useEffect, useContext, useRef, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import api from '../../services/api';
 import WavesBg from '../../components/WavesBg/WavesBg';
@@ -13,13 +11,13 @@ const SpotlightPage = () => {
     const { personId } = useParams();
     const navigate = useNavigate();
     const { isAuthenticated } = useContext(AuthContext);
+    
     const [personData, setPersonData] = useState(null);
     const [credits, setCredits] = useState([]);
     const [images, setImages] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [alert, setAlert] = useState({ show: false, message: '', type: '' });
-    const [scrollPosition, setScrollPosition] = useState(0);
-    const [showFullBio, setShowFullBio] = useState(false); 
+    const [showFullBio, setShowFullBio] = useState(false);
 
     const creditsContainerRef = useRef(null);
 
@@ -43,8 +41,8 @@ const SpotlightPage = () => {
             try {
                 const personResponse = await api.get(`/api/spotlight/${personId}`);
                 setPersonData(personResponse.data.details);
-                setCredits(personResponse.data.combinedCredits.cast || []); // Ensure credits is an empty array if undefined
-                setImages(personResponse.data.images.profiles?.slice(0, 1) || []); // Ensure images is an empty array if undefined
+                setCredits(personResponse.data.combinedCredits || []);
+                setImages(personResponse.data.images.profiles?.slice(0, 1) || []);
             } catch (error) {
                 showAlert('Error loading person details. Please try again later.', 'error');
                 navigate('/not-found');
@@ -56,19 +54,6 @@ const SpotlightPage = () => {
         fetchPersonData();
     }, [personId, navigate, showAlert, isAuthenticated]);
 
-    const handleScrollRight = () => {
-        const newPosition = scrollPosition + creditsContainerRef.current.clientWidth;
-        creditsContainerRef.current.scrollTo({ left: newPosition, behavior: 'smooth' });
-        setScrollPosition(newPosition);
-    };
-
-    const handleScrollLeft = () => {
-        const newPosition = scrollPosition - creditsContainerRef.current.clientWidth;
-        creditsContainerRef.current.scrollTo({ left: newPosition, behavior: 'smooth' });
-        setScrollPosition(newPosition);
-    };
-
-    // Format the birthday nicely
     const formatDate = (dateStr) => {
         if (!dateStr) return 'Unknown';
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -76,7 +61,6 @@ const SpotlightPage = () => {
         return date.toLocaleDateString(undefined, options);
     };
 
-    // Calculate the age
     const calculateAge = (birthday) => {
         if (!birthday) return 'Unknown';
         const today = new Date();
@@ -134,7 +118,7 @@ const SpotlightPage = () => {
                             {images.length > 0 ? (
                                 <img
                                     src={`https://image.tmdb.org/t/p/w500${images[0].file_path}`}
-                                    alt={personData.name} 
+                                    alt={personData.name}
                                     className="spotlight-page__image"
                                 />
                             ) : (
@@ -154,27 +138,21 @@ const SpotlightPage = () => {
                         </div>
 
                         <div className="spotlight-page__filmography-container">Filmography</div>
-                        <div className="spotlight-page__credits-container" ref={creditsContainerRef}>
-                            {credits.length > 3 && (
-                                <button className="spotlight-page__cast-arrow spotlight-page__cast-arrow-left" onClick={handleScrollLeft}>
-                                    <FontAwesomeIcon icon={faChevronLeft} />
-                                </button>
-                            )}
+                        <div 
+                            className="spotlight-page__credits-container" 
+                            ref={creditsContainerRef} 
+                            style={{ overflowX: 'auto', scrollbarWidth: 'thin' }} 
+                        >
                             {credits.length > 0 ? credits.map(credit => (
                                 <div key={credit.id} className="spotlight-page__credits-item">
-                                    <img 
-                                        src={`https://image.tmdb.org/t/p/w500${credit.poster_path}`} 
-                                        alt={credit.title || credit.name} 
+                                    <img
+                                        src={`https://image.tmdb.org/t/p/w500${credit.poster_path}`}
+                                        alt={credit.title || credit.name}
                                         className="spotlight-page__credit-poster"
                                     />
-                                    <span>{credit.title || credit.name}</span>
+                                    <div className="spotlight-page__credit-title"><span>{credit.title || credit.name}</span></div>
                                 </div>
                             )) : <p>No filmography available.</p>}
-                            {credits.length > 3 && (
-                                <button className="spotlight-page__cast-arrow spotlight-page__cast-arrow-right" onClick={handleScrollRight}>
-                                    <FontAwesomeIcon icon={faChevronRight} />
-                                </button>
-                            )}
                         </div>
                     </div>
                 </div>
