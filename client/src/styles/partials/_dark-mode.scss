@@ -147,6 +147,22 @@
         color: $primary-very-light-blue;
       }
 
+      &__sub-tabs {
+        background: $primary-button-blue;
+      }
+
+      &__sub-tab {
+        border: 1px solid $primary-very-light-blue;
+        color: $primary-very-light-blue;
+        text-shadow: $shadow-primary;
+
+        &--active {
+          color: $primary-medium-blue;
+          border: 1px solid $primary-light-blue;
+          box-shadow: $shadow-septenary;
+        }
+      }
+
       &__card {
         background: $primary-medium-blue;
         border-color: $frosted-glass;
@@ -159,6 +175,20 @@
       &__tabs-container {
         background: $base-darker-blue;
       }
+    }
+
+    // Spotlight
+    .spotlight-page__person-name {
+      color: $primary-medium-blue;
+    }
+
+    .spotlight-page__person-bio {
+      color: $primary-very-light-blue;
+      background: $primary-medium-blue;
+    }
+
+    .spotlight-page__info-txt {
+      color: $dark-mode-royal-blue;
     }
 
     // Footer
