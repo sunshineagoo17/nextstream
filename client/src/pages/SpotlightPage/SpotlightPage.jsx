@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext, useRef, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronRight, faChevronLeft, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { Tooltip } from 'react-tooltip';
 import api from '../../services/api';
@@ -11,7 +11,7 @@ import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
 import './SpotlightPage.scss';
 
 const SpotlightPage = () => {
-    const { userId, personId } = useParams(); // Ensure userId is captured here
+    const { userId, personId } = useParams();
     const navigate = useNavigate();
     const { isAuthenticated } = useContext(AuthContext);
     const [personData, setPersonData] = useState(null);
@@ -36,7 +36,7 @@ const SpotlightPage = () => {
     }, [isAuthenticated, navigate]);
 
     useEffect(() => {
-        if (!personId || !userId) { // Ensure both personId and userId are validated
+        if (!personId || !userId) {
             navigate('/not-found');
             return;
         }
@@ -46,7 +46,7 @@ const SpotlightPage = () => {
                 const personResponse = await api.get(`/api/spotlight/${personId}`);
                 setPersonData(personResponse.data.details);
                 setCredits(personResponse.data.combinedCredits.cast);
-                setImages(personResponse.data.images.profiles);
+                setImages(personResponse.data.images.profiles.slice(0, 1)); // Display only one image
             } catch (error) {
                 showAlert('Error loading person details. Please try again later.', 'error');
                 navigate('/not-found');
@@ -92,7 +92,7 @@ const SpotlightPage = () => {
                 <h1 className="spotlight-page__header">Spotlight</h1>
                 <p className="spotlight-page__copy">
                     <span className="spotlight-page__gradient-subtitle">Spotlight</span>
-                    showcases detailed information about actors and public figures, including their filmography, biography, and known works. Explore and learn more about their career journey.
+                    showcases detailed information about actors and public figures, including their filmography, biography, and known works.
                 </p>
             </div>
 
@@ -103,29 +103,28 @@ const SpotlightPage = () => {
 
             <div className="spotlight-page__content-container">
                 <div className="spotlight-page__left-container">
-                    <div className="spotlight-page__images-container">
+                    <div className="spotlight-page__image-container">
                         {images.length > 0 ? (
-                            images.map((image, index) => (
-                                <img
-                                    key={index}
-                                    src={`https://image.tmdb.org/t/p/w500${image.file_path}`}
-                                    alt={personData.name} 
-                                    className="spotlight-page__image"
-                                />
-                            ))
+                            <img
+                                src={`https://image.tmdb.org/t/p/w500${images[0].file_path}`}
+                                alt={personData.name}
+                                className="spotlight-page__image"
+                            />
                         ) : (
-                            <p>No images available</p>
+                            <p>No image available</p>
                         )}
                     </div>
                 </div>
 
-                <div className="spotlight-page__details">
-                    <p><strong>Known For:</strong> {personData.known_for_department}</p>
-                    <p><strong>Gender:</strong> {personData.gender === 1 ? 'Female' : 'Male'}</p>
-                    <p><strong>Birthday:</strong> {personData.birthday || 'Unknown'}</p>
-                    <p><strong>Place of Birth:</strong> {personData.place_of_birth || 'Unknown'}</p>
+                <div className="spotlight-page__right-container">
+                    <div className="spotlight-page__person-info">
+                        <p><strong>Known For:</strong> {personData.known_for_department}</p>
+                        <p><strong>Gender:</strong> {personData.gender === 1 ? 'Female' : 'Male'}</p>
+                        <p><strong>Birthday:</strong> {personData.birthday || 'Unknown'}</p>
+                        <p><strong>Place of Birth:</strong> {personData.place_of_birth || 'Unknown'}</p>
+                        <p><strong>Also Known As:</strong> {personData.also_known_as?.join(', ') || 'N/A'}</p>
+                    </div>
 
-                    <h3>Filmography:</h3>
                     <div className="spotlight-page__credits-container" ref={creditsContainerRef}>
                         {credits.length > 3 && (
                             <FontAwesomeIcon
@@ -137,10 +136,11 @@ const SpotlightPage = () => {
                             />
                         )}
                         {credits.map(credit => (
-                            <div key={credit.id} className="spotlight-page__credit-item">
-                                <FontAwesomeIcon
-                                    icon={faUser}
-                                    className="spotlight-page__credit-icon"
+                            <div key={credit.id} className="spotlight-page__credits-item">
+                                <img
+                                    src={`https://image.tmdb.org/t/p/w500${credit.poster_path}`}
+                                    alt={credit.title || credit.name}
+                                    className="spotlight-page__poster"
                                 />
                                 <span>{credit.title || credit.name}</span>
                             </div>

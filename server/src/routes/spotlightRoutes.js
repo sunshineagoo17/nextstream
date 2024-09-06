@@ -6,12 +6,12 @@ require('dotenv').config();
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
 const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
 
-// Get person details, images, and combined credits
+// Get person details, images, combined credits, and external IDs
 router.get('/:person_id', async (req, res) => {
   const { person_id } = req.params;
 
   try {
-    // Fetch person details, images, and combined credits concurrently
+    // Fetch person details, images, combined credits, and external IDs concurrently
     const [detailsResponse, imagesResponse, creditsResponse] = await Promise.all([
       axios.get(`${TMDB_BASE_URL}/person/${person_id}`, {
         params: { api_key: TMDB_API_KEY },
@@ -21,14 +21,18 @@ router.get('/:person_id', async (req, res) => {
       }),
       axios.get(`${TMDB_BASE_URL}/person/${person_id}/combined_credits`, {
         params: { api_key: TMDB_API_KEY },
-      }),
+      })
     ]);
 
     // Send the combined data as a response
     return res.json({
       details: detailsResponse.data,
       images: imagesResponse.data,
-      combinedCredits: creditsResponse.data,
+      combinedCredits: creditsResponse.data.cast.map(credit => ({
+        id: credit.id,
+        title: credit.title || credit.name,
+        poster_path: credit.poster_path,  
+      })),
     });
   } catch (error) {
     console.error('Error fetching person data:', error.message);
