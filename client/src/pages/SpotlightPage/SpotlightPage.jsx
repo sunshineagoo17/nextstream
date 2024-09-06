@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext, useRef, useCallback } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import api from '../../services/api';
 import WavesBg from '../../components/WavesBg/WavesBg';
@@ -10,7 +10,7 @@ import './SpotlightPage.scss';
 const SpotlightPage = () => {
     const { personId } = useParams();
     const navigate = useNavigate();
-    const { isAuthenticated } = useContext(AuthContext);
+    const { isAuthenticated, userId } = useContext(AuthContext);
     
     const [personData, setPersonData] = useState(null);
     const [credits, setCredits] = useState([]);
@@ -138,19 +138,19 @@ const SpotlightPage = () => {
                         </div>
 
                         <div className="spotlight-page__filmography-container">Filmography</div>
-                        <div 
-                            className="spotlight-page__credits-container" 
-                            ref={creditsContainerRef} 
-                            style={{ overflowX: 'auto', scrollbarWidth: 'thin' }} 
-                        >
+                        <div className="spotlight-page__credits-container" ref={creditsContainerRef} style={{ overflowX: 'auto', scrollbarWidth: 'thin' }}>
                             {credits.length > 0 ? credits.map(credit => (
                                 <div key={credit.id} className="spotlight-page__credits-item">
-                                    <img
-                                        src={`https://image.tmdb.org/t/p/w500${credit.poster_path}`}
-                                        alt={credit.title || credit.name}
-                                        className="spotlight-page__credit-poster"
-                                    />
-                                    <div className="spotlight-page__credit-title"><span>{credit.title || credit.name}</span></div>
+                                    <Link to={`/nextview/${userId}/${credit.media_type}/${credit.id}`}>
+                                        <img
+                                            src={`https://image.tmdb.org/t/p/w500${credit.poster_path}`}
+                                            alt={credit.title || credit.name}
+                                            className="spotlight-page__credit-poster"
+                                        />
+                                        <div className="spotlight-page__credit-title">
+                                            <span>{credit.title || credit.name}</span>
+                                        </div>
+                                    </Link>
                                 </div>
                             )) : <p>No filmography available.</p>}
                         </div>

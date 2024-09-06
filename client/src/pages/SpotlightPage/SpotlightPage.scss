@@ -429,7 +429,16 @@
     border-radius: .5rem;
     border: 2px solid $neutral-white;
     box-shadow: $shadow-secondary;
-  }
+    transition: transform .3s ease, box-shadow .3s ease;
+
+        &:hover {
+            transform: scale(1.05); 
+        }
+
+        &:active {
+            transform: scale(.9); 
+        }
+    }
 
   &__chevron-icon {
     font-size: 1.2rem;
