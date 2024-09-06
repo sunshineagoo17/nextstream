@@ -261,7 +261,7 @@
     border: .25rem solid rgba(255, 255, 255, .7);
     outline: none;
     color: $primary-dark-blue;
-    font-size: 1rem;
+    font-size: .65rem;
     font-family: $primary-font;
 
     &::placeholder {
@@ -272,6 +272,10 @@
       background-color: $neutral-white;
       border: .25rem solid $primary-medium-blue;
       box-shadow: $shadow-septenary;
+    }
+
+    @include tablet {
+      font-size: 1rem;
     }
   }
 
@@ -539,12 +543,16 @@
     display: flex;
     justify-content: center;
     margin-top: -1.5rem;
-    width: 25rem;
+    width: 15rem;
     padding: .35rem 0;
     border-top: .1875rem solid $neutral-white;
     background-color: $primary-pale-blue;
     border-radius: 0 0 1rem 1rem;
     box-shadow: $shadow-quaternary;
+
+    @include tablet {
+      width: 25rem;
+    }
 
     .next-search__sub-tab {
       margin: 0 .5rem;
@@ -590,13 +598,9 @@
     background: $frosted-glass;
     box-shadow: $shadow-quaternary;
     border-radius: 1.3rem;
-    width: 100%;
+    width: 90%;
     margin-bottom: 2rem;
     position: relative;
-
-    @include tablet {
-      width: 90%;
-    }
 
     @include desktop {
       width: 90%;
@@ -609,6 +613,7 @@
     &::before {
       content: "Watchlist";
       position: absolute;
+      font-size: .95rem;
       top: -1.25rem;
       left: 50%;
       transform: translateX(-50%);
@@ -617,7 +622,6 @@
       padding: .25rem .75rem;
       border-radius: .5rem;
       box-shadow: $shadow-secondary;
-      font-size: 1.15rem;
       text-transform: uppercase;
       font-weight: bold;
       text-shadow: $shadow-primary;
@@ -625,6 +629,10 @@
       z-index: 1;
       border: .15rem solid $primary-very-light-blue;
       border-bottom: .3rem solid $primary-very-light-blue;
+
+      @include tablet {
+        font-size: 1.15rem;
+      }
     }
   }
 
@@ -641,15 +649,19 @@
     display: flex;
     justify-content: center;
     margin-bottom: 1.5rem;
-    width: 25rem;
+    width: 15rem;
     padding: .5rem 0;
     border-radius: 1rem 1rem 0 0;
     box-shadow: $shadow-secondary;
     border: 2px solid $neutral-white;
 
+    @include tablet {
+      width: 25rem;
+    }
+
     .next-search__tab {
       margin: 0 .5rem;
-      padding: .5rem 1rem;
+      padding: .25rem .5rem;
       background-color: $primary-very-light-blue;
       color: $primary-dark-blue;
       border-radius: .5rem;
@@ -670,6 +682,10 @@
         background-color: $primary-dark-blue;
         transform: scale(.95);
         font-weight: normal;
+      }
+
+      @include tablet {
+        padding: .5rem 1rem;
       }
 
       &--active {
@@ -994,14 +1010,15 @@
   }
 
   &__results-section {
-    margin-top: 2rem;
+    margin-top: 1rem;
     border: .5rem solid $neutral-white;
     background: $primary-very-light-blue;
     box-shadow: $shadow-quaternary;
     border-radius: 1.65rem;
-    width: 100%;
-    margin-bottom: 2rem;
+    width: 90%;
+    margin-bottom: 1.5rem;
     position: relative;
+    text-align: center;
 
     @include tablet {
       width: 95%;
@@ -1018,7 +1035,8 @@
     &::before {
       content: "Search Results";
       position: absolute;
-      top: -1.25rem;
+      top: -1.5rem;
+      font-size: .95rem;
       left: 50%;
       transform: translateX(-50%);
       background: $primary-gradient-blue;
@@ -1026,7 +1044,6 @@
       padding: .25rem .75rem;
       border-radius: .5rem;
       box-shadow: $shadow-secondary;
-      font-size: 1.15rem;
       text-transform: uppercase;
       font-weight: bold;
       text-shadow: $shadow-primary;
@@ -1034,6 +1051,10 @@
       z-index: 1;
       border: .15rem solid $neutral-white;
       border-bottom: .3rem solid $neutral-white;
+    
+      @include tablet {
+        font-size: 1.15rem;
+      }
     }
   }
 
