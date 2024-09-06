@@ -317,7 +317,11 @@
   }
 
   &__info-txt {
+    font-size: .85rem;
     text-align: center;
+    font-family: $secondary-font;
+    line-height: 1.35rem;
+    color: $primary-dark-blue;
   }
 
   &__text-container {
