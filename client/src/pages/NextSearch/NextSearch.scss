@@ -556,7 +556,7 @@
 
     .next-search__sub-tab {
       margin: 0 .5rem;
-      padding: .4rem 0.75rem;
+      padding: .4rem .75rem;
       color: $primary-medium-blue;
       border-radius: 1rem;
       border: .125rem solid $neutral-white;
@@ -653,7 +653,7 @@
     padding: .5rem 0;
     border-radius: 1rem 1rem 0 0;
     box-shadow: $shadow-secondary;
-    border: 2px solid $neutral-white;
+    border: .125rem solid $neutral-white;
 
     @include tablet {
       width: 25rem;
@@ -776,9 +776,8 @@
   }
 
   &__not-loading-overlay {
+    @include block-item(100%, auto);
     padding: .75rem;
-    width: 100%;
-    height: auto;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -862,29 +861,57 @@
     }
   }  
 
-  &__scroll-container-popular {
-    display: flex;
-    overflow-x: scroll;
-    scrollbar-width: thin;
-    -ms-overflow-style: auto;
-    scroll-behavior: smooth;
-    background: $primary-very-light-blue;
-    width: 100%;
-    border: .5rem solid $primary-pale-blue;
-    border-radius: 1.4rem;
+  &__scroll-container-results {
+    border: .5rem solid $primary-button-blue;
+    border-bottom: 1rem solid $primary-button-blue;
   }
 
+  &__scroll-container-popular {
+    border: .5rem solid $primary-medium-blue;
+    border-bottom: 1rem solid $primary-medium-blue;
+  }
+  /* For webkit browsers */
+  &__scroll-container-popular,
   &__scroll-container-results {
-    margin-top: 3rem;
-    display: flex;
-    overflow-x: scroll;
-    scrollbar-width: thin;
-    -ms-overflow-style: auto;
-    scroll-behavior: smooth;
-    background: $neutral-white;
-    width: 100%;
-    border: .5rem solid $primary-light-blue;
-    border-radius: 1.4rem;
+      display: flex;
+      overflow-x: scroll;
+      scrollbar-width: thin; /* For Firefox */
+      -ms-overflow-style: none; /* For IE and Edge */
+      scroll-behavior: smooth;
+      background: $neutral-white;
+      width: 100%;
+      border-radius: 1.05rem;
+      scrollbar-color: $primary-medium-blue $primary-light-blue;
+
+      /* Custom Scrollbar for WebKit Browsers */
+      &::-webkit-scrollbar {
+          height: .5rem;
+          color: $primary-very-light-blue;
+      }
+
+      &::-webkit-scrollbar-thumb {
+          background-color: $primary-dark-blue;
+          border-radius: .625rem;
+      }
+
+      &::-webkit-scrollbar-thumb:hover {
+          background-color: $primary-dark-blue;
+      }
+
+      &::-webkit-scrollbar-track {
+          background-color: $primary-very-light-blue; 
+      }
+
+      &::-webkit-scrollbar-corner {
+          background-color: $primary-very-light-blue; 
+      }
+  }
+
+  /* For Firefox */
+  .scroll-container-popular,
+  .scroll-container-results {
+      scrollbar-color: $primary-dark-blue $primary-button-blue; 
+      scrollbar-width: thin;
   }
 
   &__card {
