@@ -24,9 +24,9 @@ router.get('/:person_id', async (req, res) => {
       })
     ]);
 
-    // Send the combined data as a response
     return res.json({
       details: detailsResponse.data,
+      imdb_id: detailsResponse.data.imdb_id,  
       images: imagesResponse.data,
       combinedCredits: creditsResponse.data.cast.map(credit => ({
         id: credit.id,

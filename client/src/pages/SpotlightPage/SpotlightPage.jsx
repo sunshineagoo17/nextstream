@@ -118,11 +118,13 @@ const SpotlightPage = () => {
                     <div className="spotlight-page__left-container">
                         <div className="spotlight-page__image-container">
                             {images.length > 0 ? (
-                                <img
-                                    src={`https://image.tmdb.org/t/p/w500${images[0].file_path}`}
-                                    alt={personData.name}
-                                    className="spotlight-page__image"
-                                />
+                                <a href={`https://www.imdb.com/name/${personData.imdb_id}`} target="_blank" rel="noopener noreferrer">
+                                    <img
+                                        src={`https://image.tmdb.org/t/p/w500${images[0].file_path}`}
+                                        alt={personData.name}
+                                        className="spotlight-page__image"
+                                    />
+                                </a>
                             ) : (
                                 <img
                                     src={DefaultSpotlightImg} 

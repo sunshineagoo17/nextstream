@@ -251,11 +251,14 @@
     border-radius: 1rem;
     border: .5rem solid $primary-medium-blue;
     box-shadow: $shadow-quaternary;
-
     transition: transform .3s ease, box-shadow .3s ease;
 
     &:hover {
         transform: rotate(2deg) translateX(.3125rem);
+    }
+    
+    &:active {
+        transform: scale(.9); 
     }
   }
 
