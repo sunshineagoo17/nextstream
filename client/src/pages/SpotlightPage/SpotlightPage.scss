@@ -392,53 +392,58 @@
     display: flex;
     gap: 1rem; 
     padding: .5rem;
-    border-radius:  0 0 .75rem .75rem;
+    border-radius: 0 0 .75rem .75rem;
     background-color: $frosted-glass;
     box-shadow: $shadow-secondary;
     scroll-behavior: smooth; 
-    overflow-x: auto; 
+    overflow-x: auto;
     overflow-y: hidden; 
+    position: relative;
     border: .125rem solid $primary-very-light-blue;
+    border-bottom: .5rem solid $primary-very-light-blue;
     width: 100%; 
-    scrollbar-width: thin; /* For Firefox */
+    scrollbar-width: thin; /* Firefox */
     scrollbar-color: $primary-medium-blue $primary-light-blue;
 
-    /* Webkit scrollbar styles */
-    &::-webkit-scrollbar {
-        height: .875rem;
+        /* WebKit Scrollbar Styles */
+        &::-webkit-scrollbar {
+            background-color: $primary-light-blue;
+            height: .75rem; 
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: $primary-medium-blue;
+            box-shadow: $shadow-primary;
+            border-radius: 1rem;
+        }
+
+        &::-webkit-scrollbar-track {
+            background-color: $primary-very-light-blue;
+            margin-bottom: .125rem; 
+        }
     }
 
-    &::-webkit-scrollbar-thumb {
-        background-color: $primary-button-blue; 
-        border-radius: .625rem; 
+    &__cast-arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: rgba($neutral-black, .5);
+        border: none;
+        color: $neutral-white;
+        font-size: 1.5rem;
+        cursor: pointer;
+        z-index: 1;
+        padding: .5rem;
+        border-radius: 50%;
     }
-
-    &::-webkit-scrollbar-track {
-        background-color: $primary-very-light-blue;
+    
+    &__cast-arrow-left {
+        left: 2rem; 
     }
-}
-
-  &__cast-arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba($neutral-black, .5);
-    border: none;
-    color: $neutral-white;
-    font-size: 1.5rem;
-    cursor: pointer;
-    z-index: 1;
-    padding: .5rem;
-    border-radius: 50%;
-  }
-
-  &__cast-arrow-left {
-    left: .5rem;
-  }
-
-  &__cast-arrow-right {
-    right: .5rem;
-  }
+    
+    &__cast-arrow-right {
+        right: 2rem;
+    }
 
   &__credits-item {
     min-width: 5rem;

@@ -204,8 +204,8 @@ const SpotlightPage = () => {
 
                             <div className="spotlight-page__credits-container" ref={creditsContainerRef} style={{ overflowX: 'auto', scrollbarWidth: 'thin' }}>
                                 {credits.length > 0 ? (
-                                    credits.map(credit => (
-                                        <div key={credit.id} className="spotlight-page__credits-item">
+                                    credits.map((credit, index) => (
+                                        <div key={`${credit.id}-${index}`} className="spotlight-page__credits-item">
                                             <Link to={`/nextview/${userId}/${credit.media_type}/${credit.id}`}>
                                                 <img
                                                     src={credit.poster_path ? `https://image.tmdb.org/t/p/w500${credit.poster_path}` : DefaultCreditImg}
