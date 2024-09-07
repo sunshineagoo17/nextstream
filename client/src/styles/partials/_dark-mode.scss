@@ -238,6 +238,23 @@
         color: $neutral-white;
       }
 
+      &__oauth-btn-google,
+      &__oauth-btn-github {
+        border: .125rem solid $primary-light-blue;
+
+        &:hover {
+          background: $neutral-white;
+          color: $primary-button-blue;
+          text-shadow: $shadow-primary;
+          border: none;
+        }
+
+        &:active {
+          background: $primary-dark-blue;
+          color: $neutral-white;
+        }
+      }
+
       &__content-card {
         background-color: $dark-mode-royal-blue;
       }

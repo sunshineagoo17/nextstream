@@ -415,8 +415,12 @@
     color: $primary-light-blue;
     font-weight: bold;
     text-decoration: none;
+    border-radius: .25rem;
+    padding: 0 .25rem;
+    font-family: $secondary-font;
     background-color: $frosted-glass;
     border: .0625rem solid $frosted-glass;
+    box-shadow: $shadow-quinary;
     transition: transform .1s ease, background-color .1s ease, color .1s ease;
 
     &:visited {
@@ -433,6 +437,7 @@
       color: $neutral-white;
       text-decoration: none;
       box-shadow: $shadow-primary;
+      transform: scale(1.1);
     }
 
     &:active {
@@ -446,15 +451,6 @@
       text-decoration: none;
       font-weight: bold;
     }
-  }
-
-  &__guest-signin-link {
-    border: .125rem solid $primary-light-blue-gradient-bg;
-    border-radius: .25rem;
-    box-shadow: $shadow-tertiary;
-    padding: 0 .25rem;
-    font-family: $secondary-font;
-    font-weight: normal;
   }
 
   &__button-group {
