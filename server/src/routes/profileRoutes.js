@@ -267,7 +267,7 @@ router.post('/:userId/update-status', authenticate, async (req, res) => {
   }
 });
 
-// Delete user account
+// Permanently delete user account and related events
 router.delete('/:userId', authenticate, async (req, res) => {
   try {
     const user = await knex('users').where({ id: req.params.userId }).first();
@@ -275,8 +275,13 @@ router.delete('/:userId', authenticate, async (req, res) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
+    // Delete all related events for this user
+    await knex('events').where({ user_id: req.params.userId }).del();
+
+    // Permanently delete the user
     await knex('users').where({ id: req.params.userId }).del();
-    res.json({ message: 'User account deleted successfully' });
+
+    res.json({ message: 'User account and related events deleted successfully' });
   } catch (error) {
     console.error('Error deleting account:', error);
     res.status(500).json({ message: 'Error deleting account' });

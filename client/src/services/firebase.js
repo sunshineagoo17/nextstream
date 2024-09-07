@@ -1,6 +1,6 @@
 import { initializeApp, getApps } from 'firebase/app';
 import { getMessaging } from 'firebase/messaging';
-import { getAuth, GoogleAuthProvider, GithubAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
+import { getAuth, GoogleAuthProvider, GithubAuthProvider, signInWithPopup, signOut, fetchSignInMethodsForEmail, linkWithCredential, EmailAuthProvider } from 'firebase/auth';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -83,23 +83,31 @@ const signInAndRegisterWithGithub = async () => {
       photoURL: result.user.photoURL,
     });
 
-    return result; 
+    return result;
   } catch (error) {
     console.error('GitHub sign-in error:', error);
 
-    switch (error.code) {
-      case 'auth/popup-closed-by-user':
-        console.error('Popup closed by user before completing the sign-in.');
-        break;
-      case 'auth/cancelled-popup-request':
-        console.error('Popup already open or request canceled.');
-        break;
-      case 'auth/account-exists-with-different-credential':
-        console.error('An account already exists with the same email but different sign-in credentials.');
-        throw new Error('This email is already registered with a different provider.');
-      default:
-        console.error('GitHub sign-in failed:', error.message);
+    if (error.code === 'auth/account-exists-with-different-credential') {
+      const existingEmail = error.customData.email;
+      console.log('Account exists with different credentials for:', existingEmail);
+
+      // Check which sign-in methods are associated with the email
+      const signInMethods = await fetchSignInMethodsForEmail(auth, existingEmail);
+      console.log('Sign-in methods:', signInMethods);
+
+      if (signInMethods.includes('password')) {
+        const password = prompt('An account already exists with this email. Please enter your password to link GitHub to your existing account.');
+        const emailCredential = EmailAuthProvider.credential(existingEmail, password);
+
+        await linkWithCredential(auth.currentUser, emailCredential);
+        console.log('GitHub account linked with email/password account.');
+      } else if (signInMethods.length) {
+        throw new Error(`This email is already registered with ${signInMethods[0]}. Please sign in using that method and link the GitHub account afterward.`);
+      } else {
+        throw new Error('This email is already registered with a different provider. Please sign in using that provider.');
+      }
     }
+
     throw error;
   }
 };
@@ -108,27 +116,36 @@ const signInAndRegisterWithGithub = async () => {
 const signInWithGithub = async () => {
   try {
     const result = await signInWithPopup(auth, githubProvider);
-    const { email, displayName, photoURL } = result.user;
 
-    console.log('GitHub sign-in successful:', { email, displayName, photoURL });
+    console.log('GitHub sign-in successful:', {
+      email: result.user.email,
+      displayName: result.user.displayName,
+      photoURL: result.user.photoURL,
+    });
 
     return result;
   } catch (error) {
     console.error('GitHub sign-in error:', error.code, error.message);
 
-    switch (error.code) {
-      case 'auth/popup-closed-by-user':
-        console.error('Popup closed by user before completing the sign-in.');
-        break;
-      case 'auth/cancelled-popup-request':
-        console.error('Popup already open or request canceled.');
-        break;
-      case 'auth/account-exists-with-different-credential':
-        console.error('An account already exists with the same email but different sign-in credentials.');
-        throw new Error('This email is already registered with a different provider.');
-      default:
-        console.error('GitHub sign-in failed:', error.message);
+    if (error.code === 'auth/account-exists-with-different-credential') {
+      const existingEmail = error.customData.email;
+      console.log('Account exists with different credentials for:', existingEmail);
+
+      // Check which sign-in methods are associated with the email
+      const signInMethods = await fetchSignInMethodsForEmail(auth, existingEmail);
+      console.log('Sign-in methods:', signInMethods);
+
+      if (signInMethods.includes('password')) {
+        const password = prompt('An account already exists with this email. Please enter your password to link GitHub to your existing account.');
+        const emailCredential = EmailAuthProvider.credential(existingEmail, password);
+
+        await linkWithCredential(auth.currentUser, emailCredential);
+        console.log('GitHub account linked with email/password account.');
+      } else if (signInMethods.length) {
+        throw new Error(`This email is already registered with ${signInMethods[0]}. Please sign in using that method.`);
+      }
     }
+
     throw error;
   }
 };
