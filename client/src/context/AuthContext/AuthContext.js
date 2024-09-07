@@ -1,7 +1,11 @@
 import { createContext, useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Loader from '../../components/Loader/Loader';
 import api from '../../services/api';
+import { signInAndRegisterWithGoogle, signInWithGoogle, signInWithGithub, logOut } from '../../services/firebase'; 
+import { useNavigate } from 'react-router-dom';
 
 export const AuthContext = createContext();
 
@@ -11,6 +15,7 @@ export const AuthProvider = ({ children }) => {
   const [userId, setUserId] = useState(null);
   const [name, setName] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     const token = Cookies.get('token') || localStorage.getItem('token');
@@ -72,6 +77,89 @@ export const AuthProvider = ({ children }) => {
     fetchUserName();
   };
 
+  // Helper function to handle OAuth login response
+  const handleOAuthLoginResponse = (response, provider) => {
+    if (response.data.success) {
+      login(response.data.token, response.data.userId, true);
+      toast.success('Login successful! Redirecting...');
+      setTimeout(() => navigate(`/profile/${response.data.userId}`), 3000);
+    } else if (response.data.reason === 'email_linked_to_other_provider') {
+      toast.error(`This email is already linked to ${response.data.provider}. Please log in using ${response.data.provider}.`);
+    } else {
+      throw new Error(response.data.message || 'OAuth login failed.');
+    }
+  };
+
+  // Register with Google OAuth
+  const registerWithGoogle = async () => {
+    try {
+      const result = await signInAndRegisterWithGoogle(); 
+  
+      if (!result || !result.user) {
+        throw new Error("Google sign-in result is missing user data.");
+      }
+  
+      const { email, displayName } = result.user;
+  
+      const response = await api.post('/api/auth/oauth-register', {
+        email,
+        displayName,
+        provider: 'google',
+      });
+  
+      if (response.data.success) {
+        login(response.data.token, response.data.userId, true);
+        toast.success('OAuth registration successful! Redirecting...');
+        setTimeout(() => navigate(`/profile/${response.data.userId}`), 3000);
+      } else {
+        throw new Error(response.data.message || 'OAuth registration failed.');
+      }
+    } catch (error) {
+      console.error('Google sign-in error:', error.message);
+      toast.error(error.message || 'Error during Google sign-in. Please try again.');
+    }
+  };
+  
+  // Login with Google OAuth
+  const loginWithGoogle = async () => {
+    try {
+      const result = await signInWithGoogle(); 
+  
+      if (!result || !result.user) {
+        throw new Error("Google sign-in result is missing user data.");
+      }
+  
+      const { email } = result.user;
+  
+      const response = await api.post('/api/auth/oauth-login', { email, provider: 'google' });
+  
+      handleOAuthLoginResponse(response, 'google');
+    } catch (error) {
+      console.error('Google login error:', error.message);
+      toast.error(error.message || 'Error during Google login. Please try again.');
+    }
+  };
+
+  // Login with GitHub OAuth
+  const loginWithGithub = async () => {
+    try {
+      const result = await signInWithGithub();
+  
+      if (!result || !result.user) {
+        throw new Error("GitHub sign-in result is missing user data.");
+      }
+  
+      const { email } = result.user;
+  
+      const response = await api.post('/api/auth/oauth-login', { email, provider: 'github' });
+  
+      handleOAuthLoginResponse(response, 'github');
+    } catch (error) {
+      console.error('GitHub login error:', error.message);
+      toast.error(error.message || 'Error during GitHub login. Please try again.');
+    }
+  };
+
   const guestLogin = (guestToken) => {
     if (!guestToken) {
       console.error('Invalid guest token');
@@ -84,17 +172,22 @@ export const AuthProvider = ({ children }) => {
     setIsAuthenticated(false);
   };
 
-  const logout = () => {
-    Cookies.remove('token', { path: '/' });
-    Cookies.remove('userId', { path: '/' });
-    Cookies.remove('guestToken', { path: '/' });
-    localStorage.removeItem('token');
-    localStorage.removeItem('userId');
-    localStorage.removeItem('guestToken');
-    setIsAuthenticated(false);
-    setIsGuest(false);
-    setUserId(null);
-    setName('');
+  const logout = async () => {
+    try {
+      await logOut();
+      Cookies.remove('token', { path: '/' });
+      Cookies.remove('userId', { path: '/' });
+      Cookies.remove('guestToken', { path: '/' });
+      localStorage.removeItem('token');
+      localStorage.removeItem('userId');
+      localStorage.removeItem('guestToken');
+      setIsAuthenticated(false);
+      setIsGuest(false);
+      setUserId(null);
+      setName('');
+    } catch (error) {
+      console.error('Sign-out error:', error);
+    }
   };
 
   if (isLoading) {
@@ -102,7 +195,22 @@ export const AuthProvider = ({ children }) => {
   }
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, isGuest, userId, name, setName, setIsAuthenticated, login, guestLogin, logout }}>
+    <AuthContext.Provider
+      value={{
+        isAuthenticated,
+        isGuest,
+        userId,
+        name,
+        setName,
+        setIsAuthenticated,
+        login,
+        registerWithGoogle,    // For Google registration
+        loginWithGoogle,       // For Google login
+        loginWithGithub,       // For GitHub login
+        guestLogin,
+        logout,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

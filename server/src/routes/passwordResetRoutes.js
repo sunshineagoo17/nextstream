@@ -12,8 +12,14 @@ router.post('/forgot-password', async (req, res) => {
   const { email } = req.body;
   try {
     const user = await knex('users').where({ email }).first();
+    
     if (!user) {
       return res.status(404).json({ message: 'No user with that email address found.' });
+    }
+
+    // Checks if user is an OAuth user
+    if (user.provider) {
+      return res.status(400).json({ message: 'Password reset is not available for OAuth users.' });
     }
 
     const token = crypto.randomBytes(20).toString('hex');
@@ -68,6 +74,11 @@ router.post('/reset-password', async (req, res) => {
 
     if (!user) {
       return res.status(400).json({ message: 'Password reset token is invalid or has expired.' });
+    }
+
+    // Checks if user is an OAuth user
+    if (user.provider) {
+      return res.status(400).json({ message: 'Password reset is not available for OAuth users.' });
     }
 
     const hashedPassword = await hashPassword(newPassword);

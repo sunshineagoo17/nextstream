@@ -87,6 +87,7 @@ router.get('/:userId', authenticate, async (req, res) => {
       name: user.name,
       username: user.username,
       email: user.email,
+      provider: user.provider || 'traditional', 
       receiveReminders: user.receiveReminders,
       receiveNotifications: user.receiveNotifications,
       receivePushNotifications: user.receivePushNotifications,
@@ -104,13 +105,17 @@ router.get('/:userId', authenticate, async (req, res) => {
   }
 });
 
-// Check password endpoint
+// Check password endpoint (for traditional users only)
 router.post('/check-password', async (req, res) => {
   const { userId, currentPassword } = req.body;
   try {
     const user = await knex('users').where({ id: userId }).first();
     if (!user) {
       return res.status(404).json({ valid: false, message: 'User not found' });
+    }
+
+    if (user.provider) {
+      return res.status(400).json({ valid: false, message: 'OAuth users do not have a password set.' });
     }
 
     const isValid = await comparePassword(currentPassword, user.password);
@@ -143,23 +148,31 @@ router.put('/:userId', async (req, res) => {
     isActive 
   };
 
-  if (password) {
-    const hashedPassword = await bcrypt.hash(password, 10);
-    updatedUser.password = hashedPassword;
-  }
-
   try {
+    // Fetch the user
+    const user = await knex('users').where({ id: req.params.userId }).first();
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
     // Check for duplicate email
     const existingUser = await knex('users').where({ email }).whereNot({ id: req.params.userId }).first();
     if (existingUser) {
       return res.status(409).json({ message: 'Email is already taken' });
     }
 
-    const user = await knex('users').where({ id: req.params.userId }).first();
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+    // Check if the user is an OAuth user
+    if (password && user.provider) {
+      return res.status(400).json({ message: 'Cannot update password for OAuth users' });
     }
 
+    // Hash the password if provided
+    if (password) {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      updatedUser.password = hashedPassword;
+    }
+
+    // Update the user's profile
     await knex('users').where({ id: req.params.userId }).update(updatedUser);
 
     if (receiveNotifications) {

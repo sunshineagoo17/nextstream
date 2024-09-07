@@ -2,6 +2,8 @@ import { useState, useContext, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { ToastContainer, toast, Slide } from 'react-toastify';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGoogle, faGithub } from '@fortawesome/free-brands-svg-icons';
 import api from '../../services/api'; 
 import SignUpIcon from '../../assets/images/register-sign-up-icon.svg';
 import ArrowIcon from '../../assets/images/register-arrow-icon.svg';
@@ -29,7 +31,7 @@ export const RegisterPage = () => {
   const [termsError, setTermsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false); 
   const navigate = useNavigate();
-  const { login, guestLogin } = useContext(AuthContext);
+  const { login, guestLogin, registerWithGoogle, loginWithGithub } = useContext(AuthContext);
 
   useEffect(() => {
     const rememberedName = Cookies.get('name');
@@ -81,7 +83,7 @@ export const RegisterPage = () => {
     const guestToken = 'guestTokenValue'; 
     guestLogin(guestToken); 
     navigate('/top-picks/guest');
-};
+  };
 
   const clearError = (field) => {
     setErrors((prevErrors) => {
@@ -140,6 +142,39 @@ export const RegisterPage = () => {
       setIsLoading(false);
     }
   };
+
+  // Handle OAuth registration for Google and GitHub
+  const handleOAuthRegister = async (providerLogin) => {
+    try {
+      setIsLoading(true);  // Start loader
+      const result = await providerLogin();
+      
+      if (result && result.user) {
+        const { email, displayName } = result.user;
+        const response = await api.post('/api/auth/oauth-register', {
+          email,
+          displayName,
+          provider: result.user.providerData[0]?.providerId || 'unknown',
+        });
+  
+        if (response.data.success) {
+          login(response.data.token, response.data.userId, true);
+          toast.success('OAuth registration successful! Redirecting to profile page...', {
+            className: 'frosted-toast-register',
+          });
+  
+          setTimeout(() => {
+            navigate(`/profile/${response.data.userId}`);
+          }, 3000);
+        }
+      }
+    } catch (error) {
+      console.error('OAuth registration error:', error);
+      toast.error('Error during OAuth registration. Please try again.');
+    } finally {
+      setIsLoading(false); 
+    }
+  };  
 
   return (
     <>
@@ -274,6 +309,17 @@ export const RegisterPage = () => {
                   )}
                 </button>
               </div>
+
+              {/* OAuth Buttons for Google and GitHub */}
+              <div className="register__oauth-buttons">
+                <button className="register__oauth-button" onClick={() => handleOAuthRegister(registerWithGoogle)}>
+                  <FontAwesomeIcon icon={faGoogle} className="register__oauth-icon" /> Register with Google
+                </button>
+                <button className="register__oauth-button" onClick={() => handleOAuthRegister(loginWithGithub)}>
+                  <FontAwesomeIcon icon={faGithub} className="register__oauth-icon" /> Register with GitHub
+                </button>
+              </div>
+
               {errors.general && <p className="error">{errors.general}</p>}
             </div>
           </div>

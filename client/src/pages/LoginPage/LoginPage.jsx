@@ -10,9 +10,14 @@ import ArrowIcon from '../../assets/images/register-arrow-icon.svg';
 import SignUpIcon from '../../assets/images/register-sign-up-icon.svg';
 import SignInCouple from '../../assets/images/login-hero-couple-watching.svg';
 import ForgotPasswordModal from '../../components/ForgotPasswordModal/ForgotPasswordModal';
+import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
 import Loader from '../../components/Loader/Loader';
 import Cookies from 'js-cookie';
 import './LoginPage.scss';
+
+// FontAwesome Icons
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGoogle, faGithub } from '@fortawesome/free-brands-svg-icons';
 
 export const LoginPage = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -22,8 +27,9 @@ export const LoginPage = () => {
   const [rememberMe, setRememberMe] = useState(false);
   const [errors, setErrors] = useState({});
   const [isForgotPasswordModalOpen, setIsForgotPasswordModalOpen] = useState(false);
+  const [customAlertMessage, setCustomAlertMessage] = useState(null);
   const navigate = useNavigate();
-  const { login, guestLogin } = useContext(AuthContext);
+  const { login, guestLogin, loginWithGoogle, loginWithGithub } = useContext(AuthContext);
 
   useEffect(() => {
     const storedEmail = Cookies.get('rememberedEmail');
@@ -61,7 +67,7 @@ export const LoginPage = () => {
     const guestToken = 'guestTokenValue'; 
     guestLogin(guestToken); 
     navigate('/top-picks/guest');
-};
+  };
 
   const handleSignIn = async () => {
     if (!validateFields()) return;
@@ -91,16 +97,38 @@ export const LoginPage = () => {
         setErrors({ general: 'Login failed. Please try again.' });
       }
     } catch (error) {
-      console.error('Login error:', error);
-      if (error.response && error.response.data && error.response.data.message) {
-        setErrors({ general: error.response.data.message });
-      } else {
-        setErrors({ general: 'An error occurred. Please try again.' });
-      }
+      setErrors({ general: error.response?.data?.message || 'An error occurred. Please try again.' });
     } finally {
       setIsLoading(false);
     }
   };
+
+  const handleOAuthLogin = async (providerLogin) => {
+    try {
+      const result = await providerLogin();
+      if (result && result.user) {
+        const { email } = result.user;
+        const response = await api.post('/api/auth/oauth-login', { email });
+  
+        if (response.data.success) {
+          Cookies.set('token', response.data.token, { expires: 7, secure: true, sameSite: 'strict' });
+          Cookies.set('userId', response.data.userId, { expires: 7, secure: true, sameSite: 'strict' });
+          localStorage.setItem('token', response.data.token);
+          localStorage.setItem('userId', response.data.userId);
+  
+          login(response.data.token, response.data.userId, rememberMe);
+          navigate(`/profile/${response.data.userId}`);
+        } else if (response.data.reason === 'email_exists') {
+          // Set custom alert message when the email is already linked to another provider
+          setCustomAlertMessage(`This email is already linked to ${response.data.provider}. Would you like to log in with that provider?`);
+        } else {
+          setErrors({ general: 'OAuth login failed. Please try again.' });
+        }
+      }
+    } catch (error) {
+      setErrors({ general: 'OAuth login error. Please try again.' });
+    }
+  };  
 
   const handleCheckboxChange = (event) => {
     setRememberMe(event.target.checked);
@@ -202,6 +230,16 @@ export const LoginPage = () => {
                     Create an Account
                   </button>
                 </Link>
+              </div>
+
+              {/* Google and GitHub login buttons */}
+              <div className="login__social-login-wrapper">
+                <button className="login__social-button--google" onClick={() => handleOAuthLogin(loginWithGoogle)}>
+                  <FontAwesomeIcon icon={faGoogle} className="login__social-icon" />
+                </button>
+                <button className="login__social-button--github" onClick={() => handleOAuthLogin(loginWithGithub)}>
+                  <FontAwesomeIcon icon={faGithub} className="login__social-icon" /> 
+                </button>
                 <button className="login__guest-link" onClick={handleGuestClick} aria-label="Continue as Guest">Login as a Guest</button>
               </div>
 
@@ -210,6 +248,14 @@ export const LoginPage = () => {
                   <img src={ErrorIcon} className="login__error-icon" alt="error icon" />
                   <p className="error">{errors.general}</p>
                 </div>
+              )}
+
+              {/* Custom alert for showing email linked message */}
+              {customAlertMessage && (
+                <CustomAlerts 
+                  message={customAlertMessage} 
+                  onClose={() => setCustomAlertMessage(null)} 
+                />
               )}
 
             </div>
