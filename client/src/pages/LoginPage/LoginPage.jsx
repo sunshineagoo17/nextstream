@@ -109,26 +109,27 @@ export const LoginPage = () => {
       if (result && result.user) {
         const { email } = result.user;
         const response = await api.post('/api/auth/oauth-login', { email });
-  
+
         if (response.data.success) {
           Cookies.set('token', response.data.token, { expires: 7, secure: true, sameSite: 'strict' });
           Cookies.set('userId', response.data.userId, { expires: 7, secure: true, sameSite: 'strict' });
           localStorage.setItem('token', response.data.token);
           localStorage.setItem('userId', response.data.userId);
-  
+
           login(response.data.token, response.data.userId, rememberMe);
           navigate(`/profile/${response.data.userId}`);
         } else if (response.data.reason === 'email_exists') {
-          // Set custom alert message when the email is already linked to another provider
+          // Trigger custom alert for email already linked
           setCustomAlertMessage(`This email is already linked to ${response.data.provider}. Would you like to log in with that provider?`);
         } else {
           setErrors({ general: 'OAuth login failed. Please try again.' });
         }
       }
     } catch (error) {
-      setErrors({ general: 'OAuth login error. Please try again.' });
+      // Show OAuth login error in CustomAlerts
+      setCustomAlertMessage('OAuth login error. Please try again.');
     }
-  };  
+  };
 
   const handleCheckboxChange = (event) => {
     setRememberMe(event.target.checked);
@@ -243,6 +244,7 @@ export const LoginPage = () => {
                 <button className="login__guest-link" onClick={handleGuestClick} aria-label="Continue as Guest">Login as a Guest</button>
               </div>
 
+              {/* General error messages with ErrorIcon */}
               {errors.general && (
                 <div className="login__error-container">
                   <img src={ErrorIcon} className="login__error-icon" alt="error icon" />
@@ -250,7 +252,7 @@ export const LoginPage = () => {
                 </div>
               )}
 
-              {/* Custom alert for showing email linked message */}
+              {/* Custom alert for showing email linked message or other custom alerts */}
               {customAlertMessage && (
                 <CustomAlerts 
                   message={customAlertMessage} 

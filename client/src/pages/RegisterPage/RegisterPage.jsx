@@ -31,7 +31,7 @@ export const RegisterPage = () => {
   const [termsError, setTermsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false); 
   const navigate = useNavigate();
-  const { login, guestLogin, registerWithGoogle, loginWithGithub } = useContext(AuthContext);
+  const { login, guestLogin, registerWithGoogle, registerWithGithub } = useContext(AuthContext);
 
   useEffect(() => {
     const rememberedName = Cookies.get('name');
@@ -312,11 +312,11 @@ export const RegisterPage = () => {
 
               {/* OAuth Buttons for Google and GitHub */}
               <div className="register__oauth-buttons">
-                <button className="register__oauth-button" onClick={() => handleOAuthRegister(registerWithGoogle)}>
-                  <FontAwesomeIcon icon={faGoogle} className="register__oauth-icon" /> Register with Google
+                <button className="register__oauth-btn-google" onClick={() => handleOAuthRegister(registerWithGoogle)}>
+                  <FontAwesomeIcon icon={faGoogle} className="register__oauth-icon" /> <p className='register__google-txt'>Register with Google</p>
                 </button>
-                <button className="register__oauth-button" onClick={() => handleOAuthRegister(loginWithGithub)}>
-                  <FontAwesomeIcon icon={faGithub} className="register__oauth-icon" /> Register with GitHub
+                <button className="register__oauth-btn-github" onClick={() => handleOAuthRegister(registerWithGithub)}>
+                  <FontAwesomeIcon icon={faGithub} className="register__oauth-icon" /> <p className='register__github-txt'>Register with GitHub</p>
                 </button>
               </div>
 

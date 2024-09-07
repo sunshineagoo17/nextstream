@@ -68,6 +68,42 @@ const signInWithGoogle = async () => {
   }
 };
 
+// Register with GitHub
+const signInAndRegisterWithGithub = async () => {
+  try {
+    const result = await signInWithPopup(auth, githubProvider);
+
+    if (!result || !result.user) {
+      throw new Error("GitHub sign-in did not return a user.");
+    }
+
+    console.log('GitHub sign-in successful:', {
+      email: result.user.email,
+      displayName: result.user.displayName,
+      photoURL: result.user.photoURL,
+    });
+
+    return result; 
+  } catch (error) {
+    console.error('GitHub sign-in error:', error);
+
+    switch (error.code) {
+      case 'auth/popup-closed-by-user':
+        console.error('Popup closed by user before completing the sign-in.');
+        break;
+      case 'auth/cancelled-popup-request':
+        console.error('Popup already open or request canceled.');
+        break;
+      case 'auth/account-exists-with-different-credential':
+        console.error('An account already exists with the same email but different sign-in credentials.');
+        throw new Error('This email is already registered with a different provider.');
+      default:
+        console.error('GitHub sign-in failed:', error.message);
+    }
+    throw error;
+  }
+};
+
 // Sign in with GitHub
 const signInWithGithub = async () => {
   try {
@@ -87,6 +123,9 @@ const signInWithGithub = async () => {
       case 'auth/cancelled-popup-request':
         console.error('Popup already open or request canceled.');
         break;
+      case 'auth/account-exists-with-different-credential':
+        console.error('An account already exists with the same email but different sign-in credentials.');
+        throw new Error('This email is already registered with a different provider.');
       default:
         console.error('GitHub sign-in failed:', error.message);
     }
@@ -104,4 +143,4 @@ const logOut = async () => {
   }
 };
 
-export { messaging, auth, signInAndRegisterWithGoogle, signInWithGoogle, signInWithGithub, logOut };
+export { messaging, auth, signInAndRegisterWithGoogle, signInWithGoogle, signInAndRegisterWithGithub, signInWithGithub, logOut };
