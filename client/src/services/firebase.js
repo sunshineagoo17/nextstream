@@ -23,6 +23,9 @@ const auth = getAuth(app);
 
 // Google provider
 const googleProvider = new GoogleAuthProvider();
+googleProvider.setCustomParameters({
+  prompt: 'select_account' 
+});
 
 // Register with Google
 const signInAndRegisterWithGoogle = async () => {

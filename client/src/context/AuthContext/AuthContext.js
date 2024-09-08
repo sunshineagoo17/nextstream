@@ -116,7 +116,7 @@ export const AuthProvider = ({ children }) => {
         }
       }
     } catch (error) {
-      showAlertMessage('User not found. Please register first.', 'error');
+      showAlertMessage('Login failed. Please try again.', 'error');
     }
   };  
 
@@ -146,24 +146,35 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
+      // Clear Firebase Google authentication session
       await logOut();
+      
+      // Clear cookies and local storage
       Cookies.remove('token', { path: '/' });
       Cookies.remove('userId', { path: '/' });
       Cookies.remove('guestToken', { path: '/' });
       localStorage.removeItem('token');
       localStorage.removeItem('userId');
       localStorage.removeItem('guestToken');
+  
+      // Clear authentication state in the app
       setIsAuthenticated(false);
       setIsGuest(false);
       setUserId(null);
       setName('');
       setIsLoading(false);
+  
+      // Display success alert to the user
       showAlertMessage('Successfully logged out.', 'success');
+  
+      // Optionally redirect to login page after logout
+      navigate('/'); 
+  
     } catch (error) {
       console.error('Sign-out error:', error);
       showAlertMessage('Error during sign out. Please try again.', 'error');
     }
-  };
+  };  
 
   if (isLoading) {
     return <Loader />;
