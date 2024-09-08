@@ -148,10 +148,27 @@ router.post('/', handleAuthentication, async (req, res) => {
 
 // Fetch initial top picks for a user or guest
 router.get('/toppicks/:userId', handleAuthentication, async (req, res) => {
-  const userId = req.user.userId;
+  const userId = req.user.role === 'guest' ? null : req.user.userId; 
 
   try {
-    // Fetch the user's liked, viewed, and sent media to avoid duplicates in top picks
+    // For guests, simply fetch popular movies and shows
+    if (!userId) {
+      const popularMoviesResponse = await axios.get(`${TMDB_BASE_URL}/movie/popular`, {
+        params: { api_key: TMDB_API_KEY, language: 'en-US', page: 1 }
+      });
+      const popularShowsResponse = await axios.get(`${TMDB_BASE_URL}/tv/popular`, {
+        params: { api_key: TMDB_API_KEY, language: 'en-US', page: 1 }
+      });
+
+      const topPicks = [
+        ...popularMoviesResponse.data.results.map(item => ({ ...item, media_type: 'movie' })),
+        ...popularShowsResponse.data.results.map(item => ({ ...item, media_type: 'tv' }))
+      ];
+
+      return res.status(200).json({ topPicks });
+    }
+
+    // For authenticated users, fetch the user's liked, viewed, and sent media to avoid duplicates in top picks
     const likedMedia = await db('interactions')
       .select('media_id', 'media_type')
       .where('userId', userId)

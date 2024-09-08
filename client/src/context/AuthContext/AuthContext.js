@@ -80,7 +80,6 @@ export const AuthProvider = ({ children }) => {
   // Amalgamated function to handle OAuth login
   const handleOAuthLogin = async (providerLogin, provider) => {
     try {
-      // Ensure the user is signed out before triggering the popup
       await logOut(); 
       
       const result = await providerLogin();
@@ -88,11 +87,7 @@ export const AuthProvider = ({ children }) => {
       if (result && result.user) {
         const { email } = result.user;
   
-        // Send provider and email to the server for authentication
-        const response = await api.post('/api/auth/oauth-login', {
-          email,
-          provider,
-        });
+        const response = await api.post('/api/auth/oauth-login', { email, provider });
   
         if (response.data.success) {
           // Set cookies and local storage for the token and user ID
@@ -116,18 +111,29 @@ export const AuthProvider = ({ children }) => {
     }
   };  
 
-  const guestLogin = (guestToken) => {
-    if (!guestToken) {
-      console.error('Invalid guest token');
-      return;
+  // Updated guest login to call the backend and store the token
+  const guestLogin = async () => {
+    try {
+      const response = await api.post('/api/auth/guest-login');
+      const guestToken = response.data.token;
+  
+      if (!guestToken) {
+        throw new Error('Failed to obtain guest token');
+      }
+  
+      Cookies.set('guestToken', guestToken, { expires: 1, secure: true, sameSite: 'strict', path: '/' });
+      localStorage.setItem('guestToken', guestToken);
+      setIsGuest(true);
+      setIsAuthenticated(false);
+      setIsLoading(false);
+      toast.success('Guest login successful');
+  
+      navigate('/top-picks/guest');
+    } catch (error) {
+      console.error('Error during guest login:', error);
+      toast.error('Failed to log in as a guest.');
     }
-
-    Cookies.set('guestToken', guestToken, { expires: 1, secure: true, sameSite: 'strict', path: '/' });
-    localStorage.setItem('guestToken', guestToken);
-    setIsGuest(true);
-    setIsAuthenticated(false);
-    setIsLoading(false); 
-  };
+  };  
 
   const logout = async () => {
     try {
@@ -143,8 +149,10 @@ export const AuthProvider = ({ children }) => {
       setUserId(null);
       setName('');
       setIsLoading(false);
+      toast.success('Successfully logged out.');
     } catch (error) {
       console.error('Sign-out error:', error);
+      toast.error('Error during sign out. Please try again.');
     }
   };
 

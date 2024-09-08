@@ -14,7 +14,6 @@
   @include tablet {
     margin-bottom: 0;
   }
-  
 
   @include desktop {
     margin-bottom: 2.5rem;
@@ -30,19 +29,18 @@
     max-width: 50rem;
     width: 100%;
 
-
     @include tablet {
       margin-bottom: 2.5rem;
     }
-  
+
     @include desktop {
       margin-bottom: 2rem;
     }
-  
+
     @include large-desktop {
       margin-bottom: 3.2rem;
     }
-  
+
     @include extra-large-desktop {
       margin-bottom: 4.2rem;
     }
@@ -119,15 +117,23 @@
   &__graphic-container {
     text-align: center;
     margin-top: 2rem;
+    perspective: 62.5rem;
   }
 
   &__graphic {
     @include hover-raise-effect;
-    cursor: crosshair;
+    cursor: pointer;
     max-width: 100%;
     height: auto;
     border-radius: .5rem;
     box-shadow: $shadow-primary;
+    transition: transform .3s ease, box-shadow .3s ease; 
+    transform-origin: center; 
+
+    &:active {
+      transform: scale(.9); // Scale down when clicked
+      box-shadow: 0 0 .625rem rgba($neutral-black, .3); 
+    }
   }
 
   &__background {
