@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { toast, ToastContainer, Slide } from 'react-toastify';
 import api from '../../services/api';
@@ -23,9 +23,35 @@ export const ResetPasswordPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const token = new URLSearchParams(location.search).get('token');
+  const graphicRef = useRef(null); 
 
   useEffect(() => {
     setIsLoading(false);
+  }, []);
+
+  useEffect(() => {
+    const graphic = graphicRef.current;
+    
+    // Check if the graphic element is available before adding event listeners
+    if (graphic) {
+      const handleMouseMove = (e) => {
+        const rect = graphic.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        const rotateX = (y / rect.height - 0.5) * 30;
+        const rotateY = (x / rect.width - 0.5) * -30;
+
+        graphic.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        graphic.style.boxShadow = `${-rotateY}px ${rotateX}px 20px rgba(0, 0, 0, 0.2)`;
+      };
+
+      graphic.addEventListener('mousemove', handleMouseMove);
+
+      return () => {
+        graphic.removeEventListener('mousemove', handleMouseMove);
+      };
+    }
   }, []);
 
   const togglePasswordVisibility = () => {
@@ -151,7 +177,12 @@ export const ResetPasswordPage = () => {
                 <button type="submit" className="reset-password__button">Reset Password</button>
               </form>
               <div className="reset-password__graphic-container">
-                <img src={ResetPasswordImg} alt="reset password graphic" className="reset-password__graphic" />
+                <img 
+                  src={ResetPasswordImg} 
+                  alt="reset password graphic" 
+                  className="reset-password__graphic" 
+                  ref={graphicRef}  
+                />
               </div>
               {message && (
                 <div className={`reset-password__message ${messageType === 'error' ? 'reset-password__message--error' : 'reset-password__message--success'}`}>

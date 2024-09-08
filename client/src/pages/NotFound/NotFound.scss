@@ -83,15 +83,25 @@
   &__graphic-container {
     text-align: center;
     margin-top: 2rem;
+    cursor: pointer;
+
+    &:hover .not-found__graphic {
+      transform: scale(1.05);
+    }
   }
 
   &__graphic {
     @include hover-raise-effect;
-    cursor: crosshair;
+    cursor: cursor;
     max-width: 100%;
     height: auto;
     border-radius: .5rem;
     box-shadow: $shadow-primary;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    &:active {
+      transform: scale(0.9);
+    }
   }
 
   &__background {

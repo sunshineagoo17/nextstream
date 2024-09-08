@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AnimatedBg from '../../components/AnimatedBg/AnimatedBg';
 import Loader from '../../components/Loader/Loader';
@@ -34,6 +34,7 @@ const imageArr = [
 export const NotFound = () => {
     const [isLoading, setIsLoading] = useState(true);
     const navigate = useNavigate();
+    const graphicRef = useRef(null);
 
     const getNextOption = useCallback(() => {
         let nextIndex = 0;
@@ -59,9 +60,42 @@ export const NotFound = () => {
     };
 
     useEffect(() => {
-        // Set isLoading to false after component mounts
         setIsLoading(false);
     }, []);
+
+    useEffect(() => {
+        const handleMouseMove = (e) => {
+            const graphic = graphicRef.current;
+            if (graphic) {
+                const rect = graphic.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                const rotateX = (y / rect.height - 0.5) * 30;
+                const rotateY = (x / rect.width - 0.5) * -30;
+
+                graphic.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                graphic.style.boxShadow = `${-rotateY}px ${rotateX}px 20px rgba(0, 0, 0, 0.2)`;
+            }
+        };
+
+        const graphicContainer = document.querySelector('.not-found__graphic-container');
+        graphicContainer.addEventListener('mousemove', handleMouseMove);
+
+        return () => {
+            graphicContainer.removeEventListener('mousemove', handleMouseMove);
+        };
+    }, []);
+
+    const handleClick = () => {
+        const graphic = graphicRef.current;
+        if (graphic) {
+            graphic.style.transform = 'scale(0.9)'; 
+            setTimeout(() => {
+                navigate('/');
+            }, 150);  
+        }
+    };
 
     return (
         <>
@@ -77,8 +111,13 @@ export const NotFound = () => {
                                 homepage.
                             </button>
                         </p>
-                        <div className="not-found__graphic-container">
-                            <img src={currentOption?.image} alt="404 graphic" className="not-found__graphic" />
+                        <div className="not-found__graphic-container" onClick={handleClick}>
+                            <img
+                                src={currentOption?.image}
+                                alt="404 graphic"
+                                className="not-found__graphic"
+                                ref={graphicRef}
+                            />
                         </div>
                     </div>
                 </div>
