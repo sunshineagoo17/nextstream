@@ -1,12 +1,11 @@
 import { createContext, useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
-import { signInAndRegisterWithGoogle, signInWithGoogle, signInWithGithub, logOut } from '../../services/firebase'; 
+import { signInAndRegisterWithGoogle, signInAndRegisterWithGithub, signInWithGoogle, signInWithGithub, logOut } from '../../services/firebase'; 
 import { useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import Cookies from 'js-cookie';
 import Loader from '../../components/Loader/Loader';
 import api from '../../services/api';
-
 
 export const AuthContext = createContext();
 
@@ -15,17 +14,13 @@ export const AuthProvider = ({ children }) => {
   const [isGuest, setIsGuest] = useState(false);
   const [userId, setUserId] = useState(null);
   const [name, setName] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true); 
   const navigate = useNavigate(); 
 
   useEffect(() => {
     const token = Cookies.get('token') || localStorage.getItem('token');
     const guestToken = Cookies.get('guestToken') || localStorage.getItem('guestToken');
     const storedUserId = localStorage.getItem('userId') || Cookies.get('userId');
-
-    console.log('Token:', token);
-    console.log('Guest Token:', guestToken);
-    console.log('Stored User ID:', storedUserId);
 
     if (token && storedUserId) {
       setIsAuthenticated(true);
@@ -52,11 +47,13 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  const login = (token, userId, rememberMe) => {
+  const login = async (token, userId, rememberMe) => {
     if (!token || !userId) {
       console.error('Invalid token or userId');
       return;
     }
+
+    setIsLoading(true); 
 
     Cookies.set('token', token, { expires: rememberMe ? 7 : 1, secure: true, sameSite: 'strict', path: '/' });
     Cookies.set('userId', userId.toString(), { expires: rememberMe ? 7 : 1, secure: true, sameSite: 'strict', path: '/' });
@@ -70,136 +67,54 @@ export const AuthProvider = ({ children }) => {
       try {
         const response = await api.get(`/api/profile/${userId}`);
         setName(response.data.name);
+        navigate(`/profile/${userId}`); 
       } catch (error) {
         console.error('Error fetching user name:', error);
       }
+      setIsLoading(false); 
     };
 
-    fetchUserName();
+    await fetchUserName();
   };
 
-  // Helper function to handle OAuth login response
-  const handleOAuthLoginResponse = (response, provider) => {
-    if (response.data.success) {
-      login(response.data.token, response.data.userId, true);
-      toast.success('Login successful! Redirecting...');
-      setTimeout(() => navigate(`/profile/${response.data.userId}`), 3000);
-    } else if (response.data.reason === 'email_linked_to_other_provider') {
-      toast.error(`This email is already linked to ${provider}. Please log in using ${provider}.`);
-    } else {
-      throw new Error(response.data.message || 'OAuth login failed.');
-    }
-  };
-
-  // Register with Google OAuth
-  const registerWithGoogle = async () => {
+  // Amalgamated function to handle OAuth login (Google/GitHub)
+  const handleOAuthLogin = async (providerLogin, provider) => {
     try {
-      const result = await signInAndRegisterWithGoogle();
+      // Ensure the user is signed out before triggering the popup
+      await logOut(); // Clear any cached session
+      
+      const result = await providerLogin();
   
-      if (!result || !result.user) {
-        throw new Error("Google sign-in result is missing user data.");
-      }
+      if (result && result.user) {
+        const { email } = result.user;
   
-      const { email, displayName } = result.user;
+        // Send provider and email to the server for authentication
+        const response = await api.post('/api/auth/oauth-login', {
+          email,
+          provider,
+        });
   
-      const response = await api.post('/api/auth/oauth-register', {
-        email,
-        displayName,
-        provider: 'google',
-      });
+        if (response.data.success) {
+          // Set cookies and local storage for the token and user ID
+          Cookies.set('token', response.data.token, { expires: 7, secure: true, sameSite: 'strict' });
+          Cookies.set('userId', response.data.userId, { expires: 7, secure: true, sameSite: 'strict' });
+          localStorage.setItem('token', response.data.token);
+          localStorage.setItem('userId', response.data.userId);
   
-      if (response.data.success) {
-        login(response.data.token, response.data.userId, true);
-        toast.success("Registration successful! Redirecting...");
-        setTimeout(() => navigate(`/profile/${response.data.userId}`), 3000);
-      } else {
-        throw new Error(response.data.message || 'OAuth registration failed.');
+          // Log the user in and redirect to the profile page
+          login(response.data.token, response.data.userId, true);
+          toast.success('Login successful! Redirecting...');
+          setTimeout(() => navigate(`/profile/${response.data.userId}`), 3000);
+        } else if (response.data.reason === 'email_linked_to_other_provider') {
+          toast.error(`This email is already linked to ${response.data.provider}. Please log in using that provider.`);
+        } else {
+          toast.error('OAuth login failed. Please try again.');
+        }
       }
     } catch (error) {
-      if (error.response && error.response.status === 400) {
-        toast.info("This email's already being used.");  
-      } else {
-        toast.error(error.message || 'Error during Google sign-in. Please try again.');
-      }
+      toast.error('OAuth login error. Please try again.');
     }
   };  
-  
-  // Login with Google OAuth
-  const loginWithGoogle = async () => {
-    try {
-      const result = await signInWithGoogle(); 
-
-      if (!result || !result.user) {
-        throw new Error("Google sign-in result is missing user data.");
-      }
-
-      const { email } = result.user;
-      const response = await api.post('/api/auth/oauth-login', { email, provider: 'google' });
-
-      handleOAuthLoginResponse(response, 'Google');
-    } catch (error) {
-      if (error.response && error.response.status === 400) {
-        toast.info("This email's already being used.");
-      } else {
-        toast.error(error.message || 'Error during Google login. Please try again.');
-      }
-    }
-  };
-
-  // Register with GitHub OAuth
-  const registerWithGithub = async () => {
-    try {
-      const result = await signInWithGithub();
-
-      if (!result || !result.user) {
-        throw new Error("GitHub sign-in result is missing user data.");
-      }
-
-      const { email, displayName } = result.user;
-
-      const response = await api.post('/api/auth/oauth-register', {
-        email,
-        displayName: displayName || 'GitHub User',
-        provider: 'github',
-      });
-
-      if (response.data.success) {
-        login(response.data.token, response.data.userId, true);
-        toast.success("Registration successful! Redirecting...");
-        setTimeout(() => navigate(`/profile/${response.data.userId}`), 3000);
-      } else {
-        throw new Error(response.data.message || 'OAuth registration failed.');
-      }
-    } catch (error) {
-      if (error.response && error.response.status === 400) {
-        toast.info("This email's already being used.");
-      } else {
-        toast.error(error.message || 'Error during GitHub sign-in. Please try again.');
-      }
-    }
-  };
-
-  // Login with GitHub OAuth
-  const loginWithGithub = async () => {
-    try {
-      const result = await signInWithGithub();
-
-      if (!result || !result.user) {
-        throw new Error("GitHub sign-in result is missing user data.");
-      }
-
-      const { email } = result.user;
-      const response = await api.post('/api/auth/oauth-login', { email, provider: 'github' });
-
-      handleOAuthLoginResponse(response, 'GitHub');
-    } catch (error) {
-      if (error.response && error.response.status === 400) {
-        toast.info("This email's already being used.");
-      } else {
-        toast.error(error.message || 'Error during GitHub login. Please try again.');
-      }
-    }
-  };
 
   const guestLogin = (guestToken) => {
     if (!guestToken) {
@@ -211,6 +126,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem('guestToken', guestToken);
     setIsGuest(true);
     setIsAuthenticated(false);
+    setIsLoading(false); 
   };
 
   const logout = async () => {
@@ -226,13 +142,14 @@ export const AuthProvider = ({ children }) => {
       setIsGuest(false);
       setUserId(null);
       setName('');
+      setIsLoading(false);
     } catch (error) {
       console.error('Sign-out error:', error);
     }
   };
 
   if (isLoading) {
-    return <Loader />;
+    return <Loader />; 
   }
 
   return (
@@ -245,10 +162,10 @@ export const AuthProvider = ({ children }) => {
         setName,
         setIsAuthenticated,
         login,
-        registerWithGoogle,    
-        registerWithGithub,    
-        loginWithGoogle,      
-        loginWithGithub,       
+        registerWithGoogle: () => handleOAuthLogin(signInAndRegisterWithGoogle, 'google'),    
+        registerWithGithub: () => handleOAuthLogin(signInAndRegisterWithGithub, 'github'),    
+        loginWithGoogle: () => handleOAuthLogin(signInWithGoogle, 'google'),
+        loginWithGithub: () => handleOAuthLogin(signInWithGithub, 'github'),
         guestLogin,
         logout,
       }}

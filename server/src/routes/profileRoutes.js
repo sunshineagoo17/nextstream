@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const authenticate = require('../middleware/authenticate');
 const knex = require('../config/db');
 const axios = require('axios');
+const admin = require('firebase-admin');
 const router = express.Router();
 const moment = require('moment-timezone');
 const { comparePassword } = require('../utils/hashPasswords');
@@ -267,18 +268,33 @@ router.post('/:userId/update-status', authenticate, async (req, res) => {
   }
 });
 
-// Permanently delete user account and related events
+// Delete user account (MySQL + Firebase)
 router.delete('/:userId', authenticate, async (req, res) => {
   try {
     const user = await knex('users').where({ id: req.params.userId }).first();
+    
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    // Delete all related events for this user
+    // Delete all related events for this user in MySQL
     await knex('events').where({ user_id: req.params.userId }).del();
 
-    // Permanently delete the user
+    // Check and delete Firebase user if Firebase UID exists
+    if (user.firebaseUid) {
+      try {
+        await admin.auth().deleteUser(user.firebaseUid);
+        console.log(`Deleted Firebase user with UID: ${user.firebaseUid}`);
+      } catch (firebaseError) {
+        console.error(`Failed to delete Firebase user: ${firebaseError.message}`);
+        // Optionally handle failure to delete the Firebase user, if needed
+        return res.status(500).json({ message: 'Error deleting Firebase user.' });
+      }
+    } else {
+      console.warn(`No Firebase UID found for user ${user.email}`);
+    }
+
+    // Permanently delete the user from MySQL
     await knex('users').where({ id: req.params.userId }).del();
 
     res.json({ message: 'User account and related events deleted successfully' });

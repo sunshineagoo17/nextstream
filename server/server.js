@@ -4,7 +4,15 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
+const admin = require('firebase-admin');
 require('dotenv').config();
+
+// Initialize Firebase Admin SDK
+if (!admin.apps.length) {
+  admin.initializeApp({
+    credential: admin.credential.cert(require('./src/config/nextstream-firebaseServiceAccountKey.json')), 
+  });
+}
 
 const emailRoutes = require('./src/routes/emailRoutes');
 const passwordResetRoutes = require('./src/routes/passwordResetRoutes');

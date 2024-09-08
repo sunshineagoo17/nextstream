@@ -148,6 +148,8 @@ router.post('/oauth-register', async (req, res) => {
 
 // OAuth Login (Google/GitHub)
 router.post('/oauth-login', async (req, res) => {
+  console.log('OAuth login attempt:', req.body);
+  
   try {
     const { email, provider } = req.body;
 
