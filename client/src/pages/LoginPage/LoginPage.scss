@@ -250,24 +250,29 @@
     background: linear-gradient(45deg, $primary-light-blue, $primary-pale-blue); 
 
     &:hover {
-      background: linear-gradient(45deg, $primary-medium-blue, $primary-cyan); 
+      background: linear-gradient(45deg, $primary-pale-blue, $primary-light-blue); 
+      color: $primary-dark-blue;
+      text-shadow: $shadow-primary;
     }
 
     &:active {
-      background: linear-gradient(45deg, $primary-light-blue, $base-darker-blue); 
+      background: $neutral-white; 
+      color: $primary-medium-blue;
     }
   }
 
-  &__guest-link,
-  &__social-button--github {
+  &__guest-link {
     background: linear-gradient(45deg, $primary-pale-blue, $primary-light-blue); 
 
     &:hover {
-      background: linear-gradient(45deg, $primary-cyan, $primary-medium-blue); 
+      background: linear-gradient(45deg, $primary-light-blue, $primary-pale-blue); 
+      color: $primary-dark-blue;
+      text-shadow: $shadow-primary;
     }
 
     &:active {
-      background: linear-gradient(45deg, $base-darker-blue, $primary-light-blue); 
+      background: $neutral-white; 
+      color: $primary-medium-blue;
     }
   }
   
