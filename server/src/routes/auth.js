@@ -93,7 +93,7 @@ router.post('/login', async (req, res) => {
   }
 });
 
-// OAuth Registration (Google/GitHub)
+// OAuth Registration (Google)
 router.post('/oauth-register', async (req, res) => {
   try {
     const { email, displayName, provider } = req.body;
@@ -146,7 +146,7 @@ router.post('/oauth-register', async (req, res) => {
   }
 });
 
-// OAuth Login (Google/GitHub)
+// OAuth Login (Google)
 router.post('/oauth-login', async (req, res) => {
   console.log('OAuth login attempt:', req.body);
   

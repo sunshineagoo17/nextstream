@@ -161,52 +161,46 @@
   }
 
   &__social-button--google,
-  &__social-button--github,
   &__guest-link {
-    border: none;
-    border-radius: .3125rem;
-    color: $primary-dark-blue;
-    padding: .625rem .25rem;
-    font-size: .65rem;
-    font-family: $primary-font;
-    cursor: pointer;
-    margin-top: 1rem;
-    line-height: .85rem;
-    transition: background .3s ease, transform .3s ease, box-shadow .3s ease;
-    box-shadow: 0 .25rem .375rem rgba($neutral-black, .1);
+      @include block-item (6.8119rem, 2.5rem);
+      border: none;
+      border-radius: .3125rem;
+      color: $primary-dark-blue;
+      font-size: .65rem;
+      font-family: $primary-font;
+      cursor: pointer;
+      margin-top: 1rem;
+      line-height: .85rem;
+      transition: background .3s ease, transform .3s ease, box-shadow .3s ease;
+      box-shadow: 0 .25rem .375rem rgba($neutral-black, .1);
 
-    &:hover {
-      transform: scale(1.05);
-      color: $neutral-white;
-      box-shadow: 0 .375rem .5rem rgba($neutral-black, .15);
+      @include tablet {
+        @include block-item (9rem, 2rem);
+        font-size: .85rem;
     }
 
-    &:active {
-      transform: scale(.95);
-      color: $primary-pale-blue;
-      box-shadow: 0 .125rem .25rem rgba($neutral-black, .2);
-      font-weight: bold;
-    }
+      &:hover {
+        transform: scale(1.05);
+        color: $neutral-white;
+        box-shadow: 0 .375rem .5rem rgba($neutral-black, .15);
+      }
 
-    &:focus { 
-      outline: none;
-      box-shadow: $shadow-septenary; 
-    }
+      &:active {
+        transform: scale(.95);
+        color: $primary-pale-blue;
+        box-shadow: 0 .125rem .25rem rgba($neutral-black, .2);
+        font-weight: bold;
+      }
 
-    @include tablet {
-      padding: .625rem 1rem;
-      font-size: .85rem;
-    }
+      &:focus { 
+        outline: none;
+        box-shadow: $shadow-septenary; 
+      }
   }
 
   &__social-login-wrapper {
     display: flex;
-    gap: 1.25rem;
-    flex-direction: row;
-
-    @include tablet {
-      gap: .75rem;
-    }
+    gap: 1rem;
   }
 
   &__btn-create-account {
@@ -275,14 +269,6 @@
     &:active {
       background: linear-gradient(45deg, $base-darker-blue, $primary-light-blue); 
     }
-  }
-
-  &__social-button--github,
-  &__social-button--google {
-    width: 2.15rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
   }
   
   &__image-card {

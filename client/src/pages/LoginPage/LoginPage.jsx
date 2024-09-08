@@ -17,7 +17,7 @@ import './LoginPage.scss';
 
 // FontAwesome Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGoogle, faGithub } from '@fortawesome/free-brands-svg-icons';
+import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 
 export const LoginPage = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -29,7 +29,7 @@ export const LoginPage = () => {
   const [isForgotPasswordModalOpen, setIsForgotPasswordModalOpen] = useState(false);
   const [customAlertMessage, setCustomAlertMessage] = useState(null);
   const navigate = useNavigate();
-  const { login, guestLogin, loginWithGoogle, loginWithGithub } = useContext(AuthContext);
+  const { login, guestLogin, loginWithGoogle } = useContext(AuthContext);
 
   useEffect(() => {
     const storedEmail = Cookies.get('rememberedEmail');
@@ -233,13 +233,10 @@ export const LoginPage = () => {
                 </Link>
               </div>
 
-              {/* Google and GitHub login buttons */}
+              {/* Google Login button */}
               <div className="login__social-login-wrapper">
                 <button className="login__social-button--google" onClick={() => handleOAuthLogin(loginWithGoogle)}>
-                  <FontAwesomeIcon icon={faGoogle} className="login__social-icon" />
-                </button>
-                <button className="login__social-button--github" onClick={() => handleOAuthLogin(loginWithGithub)}>
-                  <FontAwesomeIcon icon={faGithub} className="login__social-icon" /> 
+                  <FontAwesomeIcon icon={faGoogle} className="login__social-icon" /> Login with Google
                 </button>
                 <button className="login__guest-link" onClick={handleGuestClick} aria-label="Continue as Guest">Login as a Guest</button>
               </div>

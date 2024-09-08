@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGoogle, faGithub } from '@fortawesome/free-brands-svg-icons';
+import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import api from '../../services/api'; 
 import SignUpIcon from '../../assets/images/register-sign-up-icon.svg';
 import ArrowIcon from '../../assets/images/register-arrow-icon.svg';
@@ -31,7 +31,7 @@ export const RegisterPage = () => {
   const [termsError, setTermsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false); 
   const navigate = useNavigate();
-  const { login, guestLogin, registerWithGoogle, registerWithGithub } = useContext(AuthContext);
+  const { login, guestLogin, registerWithGoogle } = useContext(AuthContext);
 
   useEffect(() => {
     const rememberedName = Cookies.get('name');
@@ -143,7 +143,7 @@ export const RegisterPage = () => {
     }
   };
 
-  // Handle OAuth registration for Google and GitHub
+  // Handle OAuth registration for Google
   const handleOAuthRegister = async (providerLogin) => {
     try {
       setIsLoading(true);  // Start loader
@@ -310,15 +310,10 @@ export const RegisterPage = () => {
                 </button>
               </div>
 
-              {/* OAuth Buttons for Google and GitHub */}
-              <div className="register__oauth-buttons">
-                <button className="register__oauth-btn-google" onClick={() => handleOAuthRegister(registerWithGoogle)}>
-                  <FontAwesomeIcon icon={faGoogle} className="register__oauth-icon" /> <p className='register__google-txt'>Register with Google</p>
-                </button>
-                <button className="register__oauth-btn-github" onClick={() => handleOAuthRegister(registerWithGithub)}>
-                  <FontAwesomeIcon icon={faGithub} className="register__oauth-icon" /> <p className='register__github-txt'>Register with GitHub</p>
-                </button>
-              </div>
+              {/* OAuth Button for Google */}
+              <button className="register__oauth-btn-google" onClick={() => handleOAuthRegister(registerWithGoogle)}>
+                <FontAwesomeIcon icon={faGoogle} className="register__oauth-icon" /> <p className='register__google-txt'>Register with Google</p>
+              </button>
 
               {errors.general && <p className="error">{errors.general}</p>}
             </div>

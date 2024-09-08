@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
-import { signInAndRegisterWithGoogle, signInAndRegisterWithGithub, signInWithGoogle, signInWithGithub, logOut } from '../../services/firebase'; 
+import { signInAndRegisterWithGoogle, signInWithGoogle, logOut } from '../../services/firebase'; 
 import { useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import Cookies from 'js-cookie';
@@ -77,11 +77,11 @@ export const AuthProvider = ({ children }) => {
     await fetchUserName();
   };
 
-  // Amalgamated function to handle OAuth login (Google/GitHub)
+  // Amalgamated function to handle OAuth login
   const handleOAuthLogin = async (providerLogin, provider) => {
     try {
       // Ensure the user is signed out before triggering the popup
-      await logOut(); // Clear any cached session
+      await logOut(); 
       
       const result = await providerLogin();
   
@@ -163,9 +163,7 @@ export const AuthProvider = ({ children }) => {
         setIsAuthenticated,
         login,
         registerWithGoogle: () => handleOAuthLogin(signInAndRegisterWithGoogle, 'google'),    
-        registerWithGithub: () => handleOAuthLogin(signInAndRegisterWithGithub, 'github'),    
         loginWithGoogle: () => handleOAuthLogin(signInWithGoogle, 'google'),
-        loginWithGithub: () => handleOAuthLogin(signInWithGithub, 'github'),
         guestLogin,
         logout,
       }}
