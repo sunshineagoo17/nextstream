@@ -128,7 +128,11 @@ const SpotlightPage = () => {
                 <div className="spotlight-page__content">
                     <h2 className="spotlight-page__person-name">{personData.name}</h2>
                     <p className="spotlight-page__person-bio">
-                        {showFullBio ? personData.biography : `${personData.biography?.slice(0, 200)}...`}
+                        {personData.biography ? (
+                            showFullBio ? personData.biography : `${personData.biography.slice(0, 200)}...`
+                        ) : (
+                            'Biography details are unavailable.'
+                        )}
                         {personData.biography && personData.biography.length > 200 && (
                             <button className="spotlight-page__read-more" onClick={() => setShowFullBio(!showFullBio)}>
                                 {showFullBio ? 'Read Less' : 'Read More'}

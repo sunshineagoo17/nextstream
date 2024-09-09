@@ -38,57 +38,53 @@ const TopPicksPage = () => {
 
   useEffect(() => {
     const fetchInitialMedia = async () => {
-      try {
-        setIsLoading(true);
-        let initialMedia = [];
-  
-        const idToUse = isGuest ? 'guest' : userId; 
-        console.log('Fetching media for id:', idToUse);
-  
-        // Clear localStorage media if outdated or null
-        const storedMedia = localStorage.getItem('media');
-        if (!storedMedia) {
-          const topPicksResponse = await api.get(`/api/interactions/toppicks/${idToUse}`);
-          let topPicks = topPicksResponse.data.topPicks;
-          console.log('Fetched top picks:', topPicks);
-  
-          if (!isGuest) {
-            // Fetch recommendations only for authenticated users
-            const recommendationsResponse = await api.get(`/api/recommendations/${idToUse}`, {
-              params: { limit: 4 },
-            });
-            let recommendations = recommendationsResponse.data.recommendations;
-  
-            // Combine and filter out duplicates
-            initialMedia = [...topPicks, ...recommendations.filter(rec => !topPicks.some(tp => tp.id === rec.id))];
-          } else {
-            initialMedia = topPicks;
-          }
-  
-          // Save the fetched media to localStorage
-          localStorage.setItem('media', JSON.stringify(initialMedia));
-          console.log('Stored initial media in localStorage:', initialMedia);
-        } else {
-          initialMedia = JSON.parse(storedMedia);
-          console.log('Using stored media from localStorage:', initialMedia);
+        try {
+            setIsLoading(true);
+            let initialMedia = [];
+            const idToUse = isGuest ? 'guest' : userId;
+
+            // Fetch all interacted media (liked, disliked, or swiped) from the database
+            const interactedMediaResponse = await api.get(`/api/interactions/${idToUse}`);
+            const interactedMediaIds = interactedMediaResponse.data.map(media => media.media_id);
+
+            // Fetch Top Picks media
+            const topPicksResponse = await api.get(`/api/interactions/toppicks/${idToUse}`);
+            let topPicks = topPicksResponse.data.topPicks;
+
+            // Filter out interacted media from top picks
+            const filteredTopPicks = topPicks.filter(media => !interactedMediaIds.includes(media.id));
+
+            if (!isGuest) {
+                // Fetch recommendations only for authenticated users
+                const recommendationsResponse = await api.get(`/api/recommendations/${idToUse}`, {
+                    params: { limit: 4 },
+                });
+                let recommendations = recommendationsResponse.data.recommendations;
+
+                // Combine and filter out duplicates and interacted media from recommendations
+                initialMedia = [
+                    ...filteredTopPicks,
+                    ...recommendations.filter(rec => !filteredTopPicks.some(tp => tp.id === rec.id) && !interactedMediaIds.includes(rec.id)),
+                ];
+            } else {
+                initialMedia = filteredTopPicks;
+            }
+
+            // Update state with the filtered media
+            setMedia(initialMedia);
+            setIsExpanded(initialMedia.length > 8);
+        } catch (error) {
+            console.error('Error fetching initial media:', error);
+            showAlert('Error fetching media. Please try again later.', 'error');
+        } finally {
+            setIsLoading(false);
         }
-  
-        // Set the media in state and handle view expansion
-        setMedia(initialMedia);
-        setIsExpanded(initialMedia.length > 8);
-      } catch (error) {
-        console.error('Error fetching initial media:', error);
-        showAlert('Error fetching media. Please try again later.', 'error');
-      } finally {
-        console.log('Finished fetching media');
-        setIsLoading(false);
-      }
     };
 
     if (userId || isGuest) {
-      fetchInitialMedia();
+        fetchInitialMedia();
     }
-  }, [userId, isGuest]);  
+  }, [userId, isGuest]);
 
   const handleShare = (title, mediaId, mediaType) => {
     const mediaTitle = title || 'Title Unavailable'; 
