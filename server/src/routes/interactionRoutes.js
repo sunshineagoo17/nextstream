@@ -26,15 +26,21 @@ const handleAuthentication = (req, res, next) => {
 // Function to get media details from TMDB using the media ID and type
 const getMediaDetails = async (media_id, media_type) => {
   try {
+    // Check if media_type is not 'person' since 'person' doesn't have genres
+    if (media_type === 'person') {
+      console.warn(`Skipping media type 'person' for id ${media_id}`);
+      return null; 
+    }
+
     const url = `${TMDB_BASE_URL}/${media_type}/${media_id}?api_key=${TMDB_API_KEY}`;
     const response = await axios.get(url);
-    
+
     // Ensure genres exist and are an array, otherwise return an empty array
     const { genres = [], ...otherData } = response.data;
 
     return {
       ...otherData,
-      genres: genres.map(genre => genre.name)  // Safely map over genres
+      genres: genres.map(genre => genre.name)
     };
   } catch (error) {
     console.error(`Error fetching media details for ${media_type} ${media_id}:`, error);

@@ -16,13 +16,27 @@ const getMediaDetails = async (media_id, media_type) => {
   try {
     const url = `${TMDB_BASE_URL}/${media_type}/${media_id}?api_key=${TMDB_API_KEY}&language=en-US`;
     const response = await axios.get(url);
+
+    if (media_type === 'person') {
+      return {
+        media_id,
+        name: response.data.name,
+        biography: response.data.biography,
+        profile_path: response.data.profile_path,
+        media_type,
+        popularity: response.data.popularity,
+        known_for_department: response.data.known_for_department,
+      };
+    }
+
+    // Proceed as usual for 'movie' or 'tv'
     const { title, name, overview, poster_path, genres, popularity, release_date, vote_average, origin_country } = response.data;
     return {
       media_id,
       title: title || name,
       overview,
       poster_path,
-      genres: genres.map(genre => genre.name),
+      genres: genres ? genres.map(genre => genre.name) : [],  
       media_type,
       popularity,
       release_date,
