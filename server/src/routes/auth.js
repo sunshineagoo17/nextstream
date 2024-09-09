@@ -34,7 +34,17 @@ router.post('/register', async (req, res) => {
     const existingUser = await knex('users').where({ email }).first();
 
     if (existingUser) {
-      return res.status(400).json({ success: false, message: 'Email already in use' });
+      if (!existingUser.provider) {
+        // If a user exists but without a provider, prompt the user to use the traditional login
+        return res.status(400).json({
+          success: false,
+          reason: 'email_linked_to_null_provider',
+          provider: null,
+          message: 'This email is already registered. Please log in using your email and password.'
+        });
+      } else {
+        return res.status(400).json({ success: false, message: "Email's already in use" });
+      }
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -105,6 +115,14 @@ router.post('/oauth-register', async (req, res) => {
       if (existingUser.provider === provider) {
         // If the user already exists with the same provider, notify them
         return res.status(400).json({ success: false, message: 'Email already registered with this provider' });
+      } else if (!existingUser.provider) {
+        // Handle null provider case: if user exists without a linked provider
+        return res.status(400).json({
+          success: false,
+          reason: 'email_linked_to_null_provider',
+          provider: null,
+          message: 'This email is already registered. Please log in using your email and password.'
+        });
       } else {
         // If the user exists with a different provider, notify them about that
         return res.status(400).json({
@@ -164,8 +182,8 @@ router.post('/oauth-login', async (req, res) => {
       return res.status(400).json({
         success: false,
         reason: 'email_linked_to_other_provider',
-        provider: user.provider,
-        message: `This email is linked to ${user.provider}. Please log in with that provider.`
+        provider: user.provider || null,  
+        message: `This email is linked to ${user.provider || 'another provider'}. Please log in using that provider.`
       });
     }
 

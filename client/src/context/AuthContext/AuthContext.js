@@ -86,39 +86,57 @@ export const AuthProvider = ({ children }) => {
     await fetchUserName();
   };
 
-  // Amalgamated function to handle OAuth login
-  const handleOAuthLogin = async (providerLogin, provider) => {
-    try {
-      await logOut(); 
-      
-      const result = await providerLogin();
+// Amalgamated function to handle OAuth login
+const handleOAuthLogin = async (providerLogin, provider) => {
+  try {
+    await logOut(); 
   
-      if (result && result.user) {
-        const { email } = result.user;
+    const result = await providerLogin();
   
-        const response = await api.post('/api/auth/oauth-login', { email, provider });
+    if (result && result.user) {
+      const { email } = result.user;
   
-        if (response.data.success) {
-          // Set cookies and local storage for the token and user ID
-          Cookies.set('token', response.data.token, { expires: 7, secure: true, sameSite: 'strict' });
-          Cookies.set('userId', response.data.userId, { expires: 7, secure: true, sameSite: 'strict' });
-          localStorage.setItem('token', response.data.token);
-          localStorage.setItem('userId', response.data.userId);
+      const response = await api.post('/api/auth/oauth-login', { email, provider });
   
-          // Log the user in and redirect to the profile page
-          login(response.data.token, response.data.userId, true);
-          showAlertMessage('Login successful! Redirecting...', 'success');
-          setTimeout(() => navigate(`/profile/${response.data.userId}`), 3000);
-        } else if (response.data.reason === 'email_linked_to_other_provider') {
-          showAlertMessage('This email is already being used. Please log in with that account.', 'error');
+      if (response.data.success) {
+        // Successful login
+        Cookies.set('token', response.data.token, { expires: 7, secure: true, sameSite: 'strict' });
+        Cookies.set('userId', response.data.userId, { expires: 7, secure: true, sameSite: 'strict' });
+        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('userId', response.data.userId);
+  
+        // Log the user in and redirect to the profile page
+        login(response.data.token, response.data.userId, true);
+        showAlertMessage('Login successful! Redirecting...', 'success');
+        setTimeout(() => navigate(`/profile/${response.data.userId}`), 3000);
+      } else if (response.data.reason === 'email_linked_to_other_provider') {
+        // Handle cases where provider is null
+        if (!response.data.provider) {
+          showAlertMessage('This email is already linked to a provider, but the provider is unknown. Please log in with the correct provider.', 'error');
         } else {
-          showAlertMessage('Login unsuccessful. Please try again.', 'error');
+          // Display the specific provider linked to the email
+          showAlertMessage(`This email is already linked to ${response.data.provider}. Please log in using that account.`, 'error');
         }
+      } else {
+        console.error('Login error:', response.data.message); // Log the specific error message
+        showAlertMessage('Login unsuccessful. Please try again.', 'error');
       }
-    } catch (error) {
+    }
+  } catch (error) {
+    if (error.response && error.response.status) {
+      if (error.response.status === 404) {
+        showAlertMessage('User not found. Please register first.', 'error');
+      } else if (error.response.status === 400) {
+        showAlertMessage("Email's already being used. Please log in.", 'error');
+      } else {
+        showAlertMessage('Login failed. Please try again.', 'error');
+      }
+    } else {
+      console.error('OAuth login failed:', error.response?.data || error); // Add detailed logging
       showAlertMessage('Login failed. Please try again.', 'error');
     }
-  };  
+  }
+};  
 
   // Updated guest login to call the backend and store the token
   const guestLogin = async () => {
@@ -167,7 +185,6 @@ export const AuthProvider = ({ children }) => {
       // Display success alert to the user
       showAlertMessage('Successfully logged out.', 'success');
   
-      // Optionally redirect to login page after logout
       navigate('/'); 
   
     } catch (error) {
