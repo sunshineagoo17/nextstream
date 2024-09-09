@@ -1,16 +1,30 @@
 const express = require('express');
-const { writeFileSync } = require('fs');
 const { createEvent } = require('ics');
-const path = require('path');
-
 const router = express.Router();
 
-router.get('/ics', (req, res) => {
-  const { title, start, end, description, location } = req.query;
+// Route to create ICS
+router.post('/create-ics', (req, res) => {
+  const { title, start, end, description, location } = req.body;
+
+  if (!title || !start || !end || !location) {
+    return res.status(400).send('Missing required event fields');
+  }
 
   const event = {
-    start: [parseInt(start.slice(0, 4)), parseInt(start.slice(5, 7)), parseInt(start.slice(8, 10)), parseInt(start.slice(11, 13)), parseInt(start.slice(14, 16))],
-    end: [parseInt(end.slice(0, 4)), parseInt(end.slice(5, 7)), parseInt(end.slice(8, 10)), parseInt(end.slice(11, 13)), parseInt(end.slice(14, 16))],
+    start: [
+      parseInt(start.slice(0, 4)),
+      parseInt(start.slice(5, 7)),
+      parseInt(start.slice(8, 10)),
+      parseInt(start.slice(11, 13)),
+      parseInt(start.slice(14, 16))
+    ],
+    end: [
+      parseInt(end.slice(0, 4)),
+      parseInt(end.slice(5, 7)),
+      parseInt(end.slice(8, 10)),
+      parseInt(end.slice(11, 13)),
+      parseInt(end.slice(14, 16))
+    ],
     title,
     description,
     location,
@@ -18,14 +32,14 @@ router.get('/ics', (req, res) => {
 
   createEvent(event, (error, value) => {
     if (error) {
-      console.log(error);
+      console.error('Error generating ICS event:', error);
       return res.status(500).send('Error generating calendar file.');
     }
 
-    const filePath = path.join(__dirname, 'calendar-event.ics');
-    writeFileSync(filePath, value);
-
-    res.download(filePath, 'event.ics');
+    // Sends the ICS file directly in the response
+    res.setHeader('Content-Disposition', 'attachment; filename=event.ics');
+    res.setHeader('Content-Type', 'text/calendar');
+    res.send(value); 
   });
 });
 
