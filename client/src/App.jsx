@@ -28,6 +28,7 @@ import FavouritesPage from './pages/FavouritesPage/FavouritesPage';
 import NextViewPage from './pages/NextViewPage/NextViewPage';
 import TopPicksPage from './pages/TopPicksPage/TopPicksPage'; 
 import StreamBoard from './pages/StreamBoard/StreamBoard';
+import QuickstartGuide from './components/QuickStartGuide/QuickStartGuide'; 
 import './styles/global.scss';
 
 // Firebase 
@@ -41,6 +42,10 @@ const App = () => {
   const location = useLocation();
   const { isAuthenticated, isGuest, userId } = useContext(AuthContext);
   const token = localStorage.getItem('token') || Cookies.get('token');
+
+  const [showQuickstart, setShowQuickstart] = useState(true); 
+
+  const handleCloseQuickstart = () => setShowQuickstart(false);
 
   useEffect(() => {
     const sendTokenToServer = async (token) => {
@@ -88,7 +93,6 @@ const App = () => {
     // Handle incoming messages
     const unsubscribe = onMessage(messaging, (payload) => {
       console.log('Message received:', payload);
-      // Handle the message in the UI if needed
     });
 
     return () => {
@@ -141,7 +145,7 @@ const App = () => {
         <Route path="/calendar/:userId" element={isAuthenticated || isGuest ? <CalendarPage openModal={openCalendarModal} /> : <Navigate to="/login-required" />} />
         <Route path="/faves/:userId" element={isAuthenticated ? <FavouritesPage /> : <Navigate to="/login-required" />} /> 
         <Route path="/search" element={isAuthenticated ? <AuthSearchResultsPage openModal={openCalendarModal} userId={userId} /> : <SearchResultsPage />} />
-        <Route path="/nextsearch/:userId" element={isAuthenticated ? <NextSearch userId={userId} /> : <Navigate to="/login-required" />} /> {/* New NextSearch route */}
+        <Route path="/nextsearch/:userId" element={isAuthenticated ? <NextSearch userId={userId} /> : <Navigate to="/login-required" />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route path="/login-required" element={<LoginRequired />} />
         <Route path="/nextview/:userId/:mediaType/:mediaId" element={isAuthenticated ? <NextViewPage /> : <Navigate to="/login-required" />} />
@@ -153,6 +157,16 @@ const App = () => {
       <Footer onContactClick={handleContactClick} />
       {isContactModalOpen && <ContactModal onClose={handleCloseContactModal} />}
       {isCalendarModalOpen && <CalendarModal onClose={closeCalendarModal} eventTitle={eventTitle} />}
+
+      {/* Quickstart Guide */}
+      {showQuickstart && (
+        <QuickstartGuide
+          onClose={handleCloseQuickstart}
+          isAuthenticated={isAuthenticated}
+          currentPage={location.pathname === `/profile/${userId}` ? 'profile' : null}
+          userId={userId}
+        />
+      )}
     </div>
   );
 };

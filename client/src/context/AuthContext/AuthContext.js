@@ -118,7 +118,7 @@ const handleOAuthLogin = async (providerLogin, provider) => {
           showAlertMessage(`This email is already linked to ${response.data.provider}. Please log in using that account.`, 'error');
         }
       } else {
-        console.error('Login error:', response.data.message); // Log the specific error message
+        console.error('Login error:', response.data.message);
         showAlertMessage('Login unsuccessful. Please try again.', 'error');
       }
     }
@@ -132,7 +132,7 @@ const handleOAuthLogin = async (providerLogin, provider) => {
         showAlertMessage('Login failed. Please try again.', 'error');
       }
     } else {
-      console.error('OAuth login failed:', error.response?.data || error); // Add detailed logging
+      console.error('OAuth login failed:', error.response?.data || error);
       showAlertMessage('Login failed. Please try again.', 'error');
     }
   }
@@ -174,6 +174,7 @@ const handleOAuthLogin = async (providerLogin, provider) => {
       localStorage.removeItem('token');
       localStorage.removeItem('userId');
       localStorage.removeItem('guestToken');
+      localStorage.removeItem('quickstartCompleted');
   
       // Clear authentication state in the app
       setIsAuthenticated(false);

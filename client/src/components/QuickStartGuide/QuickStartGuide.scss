@@ -1,0 +1,88 @@
+@use "../../styles/partials/colors" as *;
+@use "../../styles/partials/fonts" as *;
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/global.scss" as *;
+
+.quickstart-guide {
+  &__overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    backdrop-filter: blur(0.05rem);
+    background: $frosted-glass;
+    z-index: 9998;
+    pointer-events: auto;
+  }
+
+  &__container {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(1rem);
+    border-radius: 1.5rem;
+    padding: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 -4px 8px rgba(255, 255, 255, 0.7);
+    font-family: $primary-font;
+    max-width: 300px;
+    text-align: center;
+    z-index: 9999;
+    pointer-events: auto;
+    transition: top 0.3s ease, left 0.3s ease, transform 0.3s ease;
+  }
+
+  &__title {
+    font-size: 1.6rem;
+    color: $primary-dark-blue;
+    margin-bottom: 1.2rem;
+    line-height: 1.1;
+    font-weight: normal; 
+  }
+
+  &__header {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__step {
+    font-size: 1.2rem;
+    color: $primary-dark-blue;
+    margin-bottom: 2rem;
+    line-height: 1.6; 
+  }
+
+  &__button,
+  &__close {
+    background: linear-gradient(145deg, #f0f0f0, #ffffff);
+    box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.1), -6px -6px 12px rgba(255, 255, 255, 0.7);
+    border-radius: 0.8rem;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    color: $primary-dark-blue;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 1rem;
+
+    &:hover {
+      transform: scale(1.05); 
+      border: .1875rem solid $neutral-white;
+      background: linear-gradient(145deg, #e0e0e0, #ffffff);
+      box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1), -4px -4px 8px rgba(255, 255, 255, 0.5);
+    }
+
+    &:active {
+      transform: scale(0.95); 
+      background: $neutral-white;
+      border: .25rem solid $neutral-light-grey;
+      box-shadow: $shadow-tertiary;
+      text-shadow: $shadow-primary;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
