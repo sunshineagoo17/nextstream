@@ -21,9 +21,9 @@ const QuickstartGuide = ({ onClose, isAuthenticated, currentPage, userId }) => {
     () => [
       { text: "Welcome to NextStream! Give it a go. Explore!", position: { top: '50%', left: '50%', transform: 'translate(-50%, -50%)' } },
       { text: "Use the search bar to find movie titles and shows.", position: { top: '10%', left: '10%', transform: 'translate(0, 0)' } },
-      { text: "Here's the hover menu.", position: { top: '10%', left: '0%', transform: 'translate(0, 0)' } },
+      { text: "Here's the hover menu. Check out our pages!", position: { top: '10%', left: '0%', transform: 'translate(0, 0)' } },
       { text: "Add to your favourites and grow your watchlist.", position: { top: '10%', left: '0%', transform: 'translate(0, 0)' } },
-      { text: "Use the calendar to track your favorite shows/movies.", position: { top: '10%', left: '3%', transform: 'translate(0, 0)' } },
+      { text: "Use the calendar to track your favourite shows/movies.", position: { top: '10%', left: '3%', transform: 'translate(0, 0)' } },
       { text: "You're all set! Enjoy exploring the app!", position: { top: '50%', left: '50%', transform: 'translate(-50%, -50%)' } }
     ],
     []
@@ -86,7 +86,7 @@ const QuickstartGuide = ({ onClose, isAuthenticated, currentPage, userId }) => {
           {currentStep < steps.length - 1 ? "Next" : "Finish"}
         </button>
         <button className="quickstart-guide__close" onClick={handleCloseGuide}>
-          Close Quick Start Guide
+          Close Quickstart Guide
         </button>
       </div>
     </div>
