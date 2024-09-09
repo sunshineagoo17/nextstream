@@ -26,7 +26,7 @@ const getMediaDetails = async (media_id, media_type) => {
     const response = await axios.get(url);
     return response.data;
   } catch (error) {
-    console.error(`Error fetching details for ${media_type} ${media_id}:`, error);
+    console.error(`Error fetching details for ${media_type} ${media_id}:`, error.response ? error.response.data : error.message);
     return null;
   }
 };
@@ -64,53 +64,61 @@ router.get('/:userId', async (req, res) => {
     const fetchRecommendations = async (page = 1) => {
       let movieRecommendations = [];
       let showRecommendations = [];
-
+    
+      // Iterate over the liked media to fetch recommendations
       for (let media of likedMedia) {
-        if (!media.media_type) {
-          console.error(`Skipping media with null media type for media ID: ${media.media_id}`);
-          continue;
+        // Ensure the media type is only 'movie' or 'tv'
+        if (!media.media_type || (media.media_type !== 'movie' && media.media_type !== 'tv')) {
+          console.error(`Skipping media with invalid or unsupported media type (expected 'movie' or 'tv') for media ID: ${media.media_id}, type: ${media.media_type}`);
+          continue;  
         }
-
+    
         const details = await getMediaDetails(media.media_id, media.media_type);
         if (details) {
-          const similarMedia = await axios.get(`${TMDB_BASE_URL}/${media.media_type}/${media.media_id}/similar`, {
-            params: { api_key: TMDB_API_KEY, language: 'en-US' }
-          });
-          const similarItems = similarMedia.data.results.map(item => ({
-            ...item,
-            media_type: media.media_type,
-            genres: details.genres
-          }));
-
-          if (media.media_type === 'movie') {
-            movieRecommendations.push(...similarItems);
-          } else if (media.media_type === 'tv') {
-            showRecommendations.push(...similarItems);
+          try {
+            const similarMedia = await axios.get(`${TMDB_BASE_URL}/${media.media_type}/${media.media_id}/similar`, {
+              params: { api_key: TMDB_API_KEY, language: 'en-US', page }
+            });
+            const similarItems = similarMedia.data.results.map(item => ({
+              ...item,
+              media_type: media.media_type,
+              genres: details.genres
+            }));
+    
+            // Add recommendations to respective lists based on media type
+            if (media.media_type === 'movie') {
+              movieRecommendations.push(...similarItems);
+            } else if (media.media_type === 'tv') {
+              showRecommendations.push(...similarItems);
+            }
+          } catch (error) {
+            console.error(`Error fetching similar media for ${media.media_type} ${media.media_id}:`, error.response ? error.response.data : error.message);
           }
         }
       }
-
-      // Remove duplicates and already interacted or displayed media from recommendations
+    
+      // Remove duplicates and already interacted/displayed media from recommendations
       movieRecommendations = movieRecommendations.filter((item, index, self) =>
         index === self.findIndex(t => t.id === item.id) && !exclusionList.includes(item.id)
       );
-
+    
       showRecommendations = showRecommendations.filter((item, index, self) =>
         index === self.findIndex(t => t.id === item.id) && !exclusionList.includes(item.id)
       );
-
+    
       const recommendationsCount = Math.min(2, movieRecommendations.length, showRecommendations.length);
       const finalRecommendations = [
         ...movieRecommendations.slice(0, recommendationsCount),
         ...showRecommendations.slice(0, recommendationsCount)
       ];
-
+    
+      // If fewer than 4 recommendations are found, continue fetching recursively
       if (finalRecommendations.length < 4 && page <= 10) {
         return await fetchRecommendations(page + 1);
       }
-
+    
       return finalRecommendations;
-    };
+    };    
 
     let finalRecommendations = await fetchRecommendations();
 
@@ -118,25 +126,30 @@ router.get('/:userId', async (req, res) => {
       console.log('No recommendations found. Falling back to popular media.');
 
       const fetchFallbackMedia = async () => {
-        const popularMoviesResponse = await axios.get(`${TMDB_BASE_URL}/movie/popular`, {
-          params: { api_key: TMDB_API_KEY, language: 'en-US', page: 1 }
-        });
-        const popularShowsResponse = await axios.get(`${TMDB_BASE_URL}/tv/popular`, {
-          params: { api_key: TMDB_API_KEY, language: 'en-US', page: 1 }
-        });
+        try {
+          const popularMoviesResponse = await axios.get(`${TMDB_BASE_URL}/movie/popular`, {
+            params: { api_key: TMDB_API_KEY, language: 'en-US', page: 1 }
+          });
+          const popularShowsResponse = await axios.get(`${TMDB_BASE_URL}/tv/popular`, {
+            params: { api_key: TMDB_API_KEY, language: 'en-US', page: 1 }
+          });
 
-        const popularMovies = popularMoviesResponse.data.results
-          .filter(media => !exclusionList.includes(media.id))
-          .map(item => ({ ...item, media_type: 'movie' }));
+          const popularMovies = popularMoviesResponse.data.results
+            .filter(media => !exclusionList.includes(media.id))
+            .map(item => ({ ...item, media_type: 'movie' }));
 
-        const popularShows = popularShowsResponse.data.results
-          .filter(media => !exclusionList.includes(media.id))
-          .map(item => ({ ...item, media_type: 'tv' }));
+          const popularShows = popularShowsResponse.data.results
+            .filter(media => !exclusionList.includes(media.id))
+            .map(item => ({ ...item, media_type: 'tv' }));
 
-        return [
-          ...popularMovies.slice(0, 2),
-          ...popularShows.slice(0, 2)
-        ];
+          return [
+            ...popularMovies.slice(0, 2),
+            ...popularShows.slice(0, 2)
+          ];
+        } catch (error) {
+          console.error('Error fetching popular media:', error.response ? error.response.data : error.message);
+          return [];
+        }
       };
 
       finalRecommendations = await fetchFallbackMedia();

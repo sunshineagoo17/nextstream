@@ -28,13 +28,16 @@ const getMediaDetails = async (media_id, media_type) => {
   try {
     const url = `${TMDB_BASE_URL}/${media_type}/${media_id}?api_key=${TMDB_API_KEY}`;
     const response = await axios.get(url);
-    const { genres, ...otherData } = response.data;
+    
+    // Ensure genres exist and are an array, otherwise return an empty array
+    const { genres = [], ...otherData } = response.data;
+
     return {
       ...otherData,
-      genres: genres.map(genre => genre.name)
+      genres: genres.map(genre => genre.name)  // Safely map over genres
     };
   } catch (error) {
-    console.error('Error fetching media details:', error);
+    console.error(`Error fetching media details for ${media_type} ${media_id}:`, error);
     return null;
   }
 };
