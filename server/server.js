@@ -26,6 +26,7 @@ const favesRoutes = require('./src/routes/favesRoutes');
 const recommendationsRoutes = require('./src/routes/recommendationsRoutes');
 const mediaStatusRoutes = require('./src/routes/mediaStatusRoutes');
 const spotlightRoutes = require('./src/routes/spotlightRoutes');
+const eventDownloadRoutes = require('./src/routes/eventDownloadRoutes');
 
 const authenticate = require('./src/middleware/authenticate');
 const guestAuthenticate = require('./src/middleware/guestAuthenticate');
@@ -68,6 +69,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/password-reset', passwordResetRoutes);
 app.use('/api/profile', profileRoutes);
 app.use('/api/tmdb', tmdbRoutes);
+app.use('/api/external-cal', eventDownloadRoutes);
 
 // Spotlight Routes for person details
 app.use('/api/spotlight', authenticate, spotlightRoutes);

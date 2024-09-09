@@ -11,6 +11,7 @@ import moment from 'moment-timezone';
 import api from '../../../services/api';
 import Loader from '../../../components/Loader/Loader';
 import CustomAlerts from '../../../components/CustomAlerts/CustomAlerts';
+import AddToCalendar from '../../../components/AddToCalendar/AddToCalendar';
 import './Calendar.scss';
 
 const viewNames = {
@@ -562,6 +563,18 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, duration, onClose 
                 TV Show
               </label>
             </div>
+
+            {/* Add to Calendar component */}
+            {selectedEvent && (
+                <AddToCalendar
+                  eventTitle={selectedEvent.title}
+                  eventStart={selectedEvent.start}
+                  eventEnd={selectedEvent.end}
+                  eventLocation="Online/Theater"
+                  eventDescription="Watch this event!"
+                />
+              )}
+
             <button onClick={selectedEvent ? handleEditEvent : handleAddEvent}>
               {selectedEvent ? 'Save' : 'Add'}
             </button>
