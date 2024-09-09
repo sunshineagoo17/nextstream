@@ -1,0 +1,97 @@
+@use "../../styles/partials/colors" as *;
+@use "../../styles/partials/fonts" as *;
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/global.scss" as *;
+
+.add-to-cal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .5rem;
+  margin-top: -1.25rem;
+  margin-bottom: 1rem;
+
+  @include tablet {
+    gap: .75rem;
+  }
+
+  &__link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 10rem;
+    height: 3rem;
+    border-radius: .5rem;
+    text-decoration: none;
+    font-size: .7rem;
+    cursor: pointer;
+    transition: background-color .3s ease, box-shadow .3s ease, transform .2s ease;
+    border: .0625rem solid rgba(255, 255, 255, .2);
+    
+    svg {
+      margin-right: .25rem;
+      transition: transform .3s ease;
+
+      @include tablet {
+        margin-right: .5rem;
+      }
+    }
+
+    &:hover {
+      box-shadow: .25rem .25rem .625rem rgba($neutral-black, .15), -.25rem -.25rem .625rem rgba(255, 255, 255, .5);
+      svg {
+        animation: shake .7s ease-in-out infinite; 
+      }
+    }
+
+    @include tablet {
+        font-size: .85rem;
+    }
+
+    &--google {
+      background: linear-gradient(145deg, #90caf9, $primary-button-blue);
+      color: $neutral-white;
+      
+      &:hover {
+        background: linear-gradient(145deg, $primary-button-blue, #64b5f6);
+        transform: scale(1.05); 
+      }
+
+      &:active {
+        background: #42a5f5; 
+        color: $primary-pale-cyan;
+        border: .125rem solid $neutral-white;
+        box-shadow: $shadow-senary;
+        transform: scale(.9);
+        font-weight: bold;
+      }
+    }
+
+    &--apple {
+      background: linear-gradient(145deg, $primary-button-blue, #90caf9);
+      color: $neutral-white;
+      
+      &:hover {
+        background: linear-gradient(145deg, #90caf9, $primary-button-blue);  
+        transform: scale(1.05);
+      }
+
+      &:active {
+        background: #42a5f5; 
+        color: $primary-pale-cyan;
+        border: .125rem solid $neutral-white;
+        box-shadow: $shadow-senary;
+        transform: scale(.9);
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+// Keyframes for shake effect
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-.1875rem); }
+  50% { transform: translateX(.1875rem); }
+  75% { transform: translateX(-.1875rem); }
+}

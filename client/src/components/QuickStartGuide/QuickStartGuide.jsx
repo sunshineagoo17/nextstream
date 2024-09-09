@@ -105,10 +105,10 @@ const QuickstartGuide = ({ onClose, isAuthenticated, currentPage, userId }) => {
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" className="squiggly-arrow" style={{ transform: 'rotate(230deg)' }}>
               <defs>
                 <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
-                  <polygon points="0 0, 10 3.5, 0 7" fill="transparent" stroke="#blue" stroke-width="2" />
+                  <polygon points="0 0, 10 3.5, 0 7" fill="transparent" stroke="#blue" strokeWidth="2" />
                 </marker>
               </defs>
-              <path d="M10,40 C 30,10 50,70 90,40" fill="transparent" stroke="#blue" stroke-width="2" marker-end="url(#arrowhead)" />
+              <path d="M10,40 C 30,10 50,70 90,40" fill="transparent" stroke="#blue" strokeWidth="2" markerEnd="url(#arrowhead)" />
             </svg>
           </div>
         )}
@@ -118,10 +118,10 @@ const QuickstartGuide = ({ onClose, isAuthenticated, currentPage, userId }) => {
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" className="squiggly-arrow squiggly-arrow--search" style={{ transform: 'scaleX(-1) rotate(280deg)' }}>
             <defs>
                 <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
-                <polygon points="0 0, 10 3.5, 0 7" fill="transparent" stroke="#blue" stroke-width="2" />
+                <polygon points="0 0, 10 3.5, 0 7" fill="transparent" stroke="#blue" strokeWidth="2" />
                 </marker>
             </defs>
-            <path d="M10,40 Q 50,0 90,40" fill="transparent" stroke="#blue" stroke-width="2" marker-end="url(#arrowhead)" />
+            <path d="M10,40 Q 50,0 90,40" fill="transparent" stroke="#blue" strokeWidth="2" markerEnd="url(#arrowhead)" />
             </svg>
         </div>
         )}
