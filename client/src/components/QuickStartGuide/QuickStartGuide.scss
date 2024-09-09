@@ -16,6 +16,27 @@
     pointer-events: auto;
   }
 
+  &__arrow {
+    position: absolute;
+    top: -10px; 
+    left: 20px; 
+    animation: bounce 1.5s infinite ease-in-out;
+
+    @include tablet {
+        top: -30px; 
+        left: 20px; 
+    }
+  }
+
+  @keyframes bounce {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
   &__container {
     position: absolute;
     background: rgba(255, 255, 255, .95);
