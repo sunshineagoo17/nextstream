@@ -1,15 +1,17 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { AuthContext } from '../../../../context/AuthContext/AuthContext';  
 import './CookieNotification.scss';
 
 const CookieNotification = () => {
   const [visible, setVisible] = useState(false);
   const [cookiesEnabled, setCookiesEnabled] = useState(false);
   const [animationClass, setAnimationClass] = useState('');
+  const { login, logout } = useContext(AuthContext); 
 
   useEffect(() => {
     const cookieConsent = localStorage.getItem('cookieConsent');
     if (!cookieConsent) {
-      setVisible(true);
+      setVisible(true); 
     } else {
       setCookiesEnabled(cookieConsent === 'enabled');
     }
@@ -19,32 +21,33 @@ const CookieNotification = () => {
     setAnimationClass('slide-out');
     setTimeout(() => {
       setVisible(false);
-      localStorage.setItem('cookieNotificationSeen', 'true');
-    }, 500); 
+    }, 500);
   };
 
   const handleEnableCookies = () => {
     setCookiesEnabled(true);
-    setAnimationClass('slide-out');
     localStorage.setItem('cookieConsent', 'enabled');
-    // Logic to enable cookies/related features
-    // For example (in version 2.0), initialize analytics tracking
-    // initAnalytics();
+    const token = localStorage.getItem('token');
+    const userId = localStorage.getItem('userId');
+    if (token && userId) {
+      login(token, userId); 
+    }
+    setAnimationClass('slide-out');
     setTimeout(() => {
       setVisible(false);
-    }, 500); 
+    }, 500);
   };
 
   const handleDisableCookies = () => {
     setCookiesEnabled(false);
-    setAnimationClass('slide-out');
     localStorage.setItem('cookieConsent', 'disabled');
-    // Logic to disable cookies/related features
-    // For example (in version 2.0), disable analytics tracking
-    // disableAnalytics();
+    logout();  
+    localStorage.removeItem('token');  
+    localStorage.removeItem('userId');
+    setAnimationClass('slide-out');
     setTimeout(() => {
       setVisible(false);
-    }, 500); 
+    }, 500);
   };
 
   if (!visible) {
@@ -54,9 +57,7 @@ const CookieNotification = () => {
   return (
     <div className={`cookie-notification ${animationClass}`}>
       <p className="cookie-notification__message">
-        {cookiesEnabled
-          ? "Cookies are enabled. Enjoy a personalized experience!"
-          : "We use cookies to enhance your experience. Please enable cookies."}
+        Please enable your cookies to save your preferences and stay logged in. Without them, some essential features may not work properly.
       </p>
       <div className="cookie-notification__buttons">
         {!cookiesEnabled && (
