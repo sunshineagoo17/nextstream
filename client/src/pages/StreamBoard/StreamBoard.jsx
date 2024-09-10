@@ -7,7 +7,7 @@ import {
   faFilm, faTv, faMap, faBomb, faPalette, faLaugh, faFingerprint, faClapperboard, faTheaterMasks, faQuidditch, faGhost,
   faUserSecret, faVideoCamera, faFaceKissWinkHeart, faMusic, faHandSpock, faMask, faChildren, faFighterJet, faScroll,
   faHatCowboy, faChild, faTelevision, faBalanceScale, faHeartBroken, faBolt, faExplosion, faMeteor, faMicrophone,
-  faCalendarPlus, faTrash, faClose
+  faCalendarPlus, faTrash, faClose, faSearch
 } from '@fortawesome/free-solid-svg-icons';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import Loader from '../../components/Loader/Loader';
@@ -50,7 +50,7 @@ const genreIconMapping = {
   'Sci-Fi & Fantasy': faMeteor
 };
 
-const MediaItem = ({ item, index, status, moveMediaItem, handleAddToCalendar, handleDeleteMedia }) => {
+const MediaItem = ({ item, index, status, moveMediaItem, handleAddToCalendar, handleDeleteMedia, isSearchResult }) => {
   const [{ isDragging }, drag] = useDrag(() => ({
     type: ItemTypes.MEDIA,
     item: { id: item.media_id, index, currentStatus: status },
@@ -65,6 +65,15 @@ const MediaItem = ({ item, index, status, moveMediaItem, handleAddToCalendar, ha
       className={`streamboard__media-item${isDragging ? ' streamboard__media-item--dragging' : ''}`}
       style={{ opacity: isDragging ? 0.5 : 1 }}
     >
+      {/* Status Tag */}
+      {isSearchResult && (
+        <div className="streamboard__media-status">
+          {status === 'to_watch' && <div className="streamboard__status-badge">Watchlist</div>}
+          {status === 'scheduled' && <div className="streamboard__status-badge">Scheduled</div>}
+          {status === 'watched' && <div className="streamboard__status-badge">Watched</div>}
+        </div>
+      )}
+
       <h3 className="streamboard__media-item-title">{item.title}</h3>
       <div className="streamboard__media-item-icon">
         <p className="streamboard__media-item-duration">Duration: {item.duration ? `${item.duration} min` : 'Duration N/A'}</p>
@@ -138,6 +147,48 @@ const MediaColumn = ({ status, mediaItems, moveMediaItem, handleAddToCalendar, h
   );
 };
 
+// New Search Bar and Result Display
+const SearchBar = ({ onSearch }) => {
+  const [query, setQuery] = useState('');
+
+  const handleSearch = () => {
+    onSearch(query);
+  };
+
+  return (
+    <div className="search-bar">
+      <input
+        type="text"
+        placeholder="Search media..."
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        className="search-bar__input"
+      />
+      <button onClick={handleSearch} className="search-bar__button">
+        <FontAwesomeIcon icon={faSearch} />
+      </button>
+    </div>
+  );
+};
+
+const SearchResult = ({ result, moveMediaItem, handleAddToCalendar, handleDeleteMedia }) => (
+  <div className="search-result">
+    {result ? (
+      <MediaItem
+        item={result}
+        index={0}
+        status={result.status}
+        moveMediaItem={moveMediaItem}
+        handleAddToCalendar={handleAddToCalendar}
+        handleDeleteMedia={handleDeleteMedia}
+        isSearchResult={true} 
+      />
+    ) : (
+      <p>No results found.</p>
+    )}
+  </div>
+);
+
 const StreamBoard = () => {
   const { userId, name } = useContext(AuthContext);
   const [mediaItems, setMediaItems] = useState({
@@ -147,6 +198,7 @@ const StreamBoard = () => {
   });
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState({ type: '', message: '' });
+  const [searchResult, setSearchResult] = useState(null);
   const [currentScreen, setCurrentScreen] = useState('desktop');
   const [showCalendar, setShowCalendar] = useState(false);
   const [eventTitle, setEventTitle] = useState('');
@@ -177,31 +229,31 @@ const StreamBoard = () => {
 
   const itemsPerPage = currentScreen === 'mobile' ? 4 : 8;
 
-  useEffect(() => {
-    const fetchMediaItems = async () => {
-      try {
-        const toWatchResponse = await api.get(`/api/media-status/to_watch`);
-        const scheduledResponse = await api.get(`/api/media-status/scheduled`);
-        const watchedResponse = await api.get(`/api/media-status/watched`);
+  const fetchMediaItems = async () => {
+    try {
+      const toWatchResponse = await api.get(`/api/media-status/to_watch`);
+      const scheduledResponse = await api.get(`/api/media-status/scheduled`);
+      const watchedResponse = await api.get(`/api/media-status/watched`);
 
-        setMediaItems({
-          to_watch: toWatchResponse.data,
-          scheduled: scheduledResponse.data,
-          watched: watchedResponse.data,
-        });
+      setMediaItems({
+        to_watch: toWatchResponse.data,
+        scheduled: scheduledResponse.data,
+        watched: watchedResponse.data,
+      });
 
-        const allItems = [...toWatchResponse.data, ...scheduledResponse.data, ...watchedResponse.data];
-        const duplicates = allItems.filter((item, index, self) => self.findIndex(i => i.media_id === item.media_id) !== index);
-        if (duplicates.length > 0) {
-          console.warn('Duplicate items found:', duplicates);
-        }
-
-      } catch (error) {
-        console.error('Error fetching media items:', error);
-        setAlert({ type: 'error', message: 'Failed to load media items.' });
+      const allItems = [...toWatchResponse.data, ...scheduledResponse.data, ...watchedResponse.data];
+      const duplicates = allItems.filter((item, index, self) => self.findIndex(i => i.media_id === item.media_id) !== index);
+      if (duplicates.length > 0) {
+        console.warn('Duplicate items found:', duplicates);
       }
-    };
 
+    } catch (error) {
+      console.error('Error fetching media items:', error);
+      setAlert({ type: 'error', message: 'Failed to load media items.' });
+    }
+  };
+
+  useEffect(() => {
     fetchMediaItems();
   }, [userId]);
 
@@ -349,6 +401,12 @@ const StreamBoard = () => {
     }
   };
 
+  const handleSearch = (query) => {
+    const allItems = [...mediaItems.to_watch, ...mediaItems.scheduled, ...mediaItems.watched];
+    const result = allItems.find((item) => item.title.toLowerCase().includes(query.toLowerCase()));
+    setSearchResult(result || null);
+  };
+
   return (
     <DndProvider backend={HTML5Backend}>
       <div className="streamboard__container">
@@ -369,6 +427,20 @@ const StreamBoard = () => {
             onClose={() => setAlert({ type: '', message: '' })}
           />
         )}
+
+        {/* Search Bar */}
+        <SearchBar onSearch={handleSearch} />
+
+        {/* Search Result */}
+        {searchResult && (
+          <SearchResult
+            result={searchResult}
+            moveMediaItem={moveMediaItem}
+            handleAddToCalendar={handleAddToCalendar}
+            handleDeleteMedia={handleDeleteMedia}
+          />
+        )}
+
         <div className="streamboard">
           <MediaColumn
             status="to_watch"
