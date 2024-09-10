@@ -12,6 +12,7 @@ import Favourites from "../../../../assets/images/favourites-icon.svg";
 import SearchIcon from "../../../../assets/images/search-icon.svg";
 import PreviousIcon from "../../../../assets/images/previous-icon.svg";
 import NextIcon from "../../../../assets/images/next-icon.svg";
+import DefaultPoster from "../../../../assets/images/posternoimg-icon.png";
 import "./Content.scss";
 
 export const Content = () => {
@@ -21,6 +22,10 @@ export const Content = () => {
   const navigate = useNavigate();
   const { userId, isAuthenticated, isGuest } = useContext(AuthContext);
   const { searchBarDesktopRef, searchBarMobileRef } = useSearchBar();
+  
+  const handleError = (e) => {
+    e.target.src = DefaultPoster;
+  };
 
   useEffect(() => {
     console.log('User ID:', userId);
@@ -171,6 +176,7 @@ export const Content = () => {
                         className={`content__poster${index + 1}`}
                         alt={release.title || release.name}
                         src={`https://image.tmdb.org/t/p/w500${release.poster_path}`}
+                        onError={handleError}
                       />
                     </div>
                     <div className={`content__icon-bg-${release.media_type === 'tv' ? 'tv' : 'video'}`}>

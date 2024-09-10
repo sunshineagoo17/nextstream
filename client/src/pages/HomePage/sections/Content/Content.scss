@@ -275,6 +275,16 @@
   .content__poster5,
   .content__poster6 {
     @include block-item(4.8rem, auto);
+    transition: transform .3s ease, box-shadow .3s ease;
+
+    &:hover {
+      transform: rotate(2deg) translateX(.3125rem);
+      border: .15rem solid $primary-light-blue;
+    }
+
+    &:active {
+        transform: scale(.9); 
+    }
 
     @include tablet {
       @include block-item(11rem, auto);
