@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect, useRef } from 'react';
 import { Tooltip } from 'react-tooltip';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -692,21 +692,38 @@ const FavouritesPage = () => {
                       />
 
                       {/* Media Status Icons */}
-                      {fave.status ? (
-                        <>
-                          {fave.status === 'to_watch' && (
-                            <span><FontAwesomeIcon icon={faBookmark} className="faves-page__status-icon" /></span>
-                          )}
-                          {fave.status === 'scheduled' && (
-                            <span><FontAwesomeIcon icon={faClock} className="faves-page__status-icon" /></span>
-                          )}
-                          {fave.status === 'watched' && (
-                            <span><FontAwesomeIcon icon={faEye} className="faves-page__status-icon" /></span>
-                          )}
-                        </>
-                      ) : (
-                        <span>Status: N/A</span>
-                      )}
+                      <Link to={`/streamboard/${userId}`} data-tooltip-id="watchlistStatusTooltip" data-tooltip-content="Watchlist Status">
+                        {fave.status ? (
+                          <>
+                            {fave.status === 'to_watch' && (
+                              <span>
+                                <FontAwesomeIcon 
+                                  icon={faBookmark}
+                                  className="faves-page__status-icon" 
+                                />
+                              </span>
+                            )}
+                            {fave.status === 'scheduled' && (
+                              <span>
+                                <FontAwesomeIcon 
+                                  icon={faClock}
+                                  className="faves-page__status-icon" 
+                                />
+                              </span>
+                            )}
+                            {fave.status === 'watched' && (
+                              <span>
+                                <FontAwesomeIcon 
+                                  icon={faEye}
+                                  className="faves-page__status-icon" 
+                                />
+                              </span>
+                            )}
+                          </>
+                        ) : (
+                          <span>Status: N/A</span>
+                        )}
+                      </Link>
 
                       <FontAwesomeIcon 
                         icon={faShareAlt} 
@@ -729,6 +746,7 @@ const FavouritesPage = () => {
                         data-tooltip-id="trashTooltip" 
                         data-tooltip-content="Delete from Favourites" 
                       />
+                      <Tooltip id="watchlistStatusTooltip" place="top" />
                       <Tooltip id="calendarTooltip" place="top" />
                       <Tooltip id="searchTooltip" place="top" />
                       <Tooltip id="shareTooltip" place="top" />

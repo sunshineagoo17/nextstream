@@ -4,6 +4,7 @@
 @use "../../styles/partials/mixins" as *;
 @use "../../styles/global.scss" as *;
 
+#watchlistStatusTooltip,
 #calendarTooltip,
 #searchTooltip,
 #shareTooltip,
@@ -749,6 +750,7 @@
     justify-content: center;
   }
 
+  &__status-icon,
   &__media-icon-link,
   &__search-icon,
   &__share-icon,
