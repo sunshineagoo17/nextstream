@@ -189,32 +189,54 @@ const FavouritesPage = () => {
       if (mediaType === 'movie') {
         const movieDetails = await api.get(`/api/tmdb/movie/${mediaId}`);
         duration = movieDetails.data.runtime || 0;
-        console.log('Movie details:', movieDetails.data);
-        if (duration === 0) {
-          showAlert("Duration's not available for this media.", 'info');
-        }
       } else if (mediaType === 'tv') {
         const tvDetails = await api.get(`/api/tmdb/tv/${mediaId}`);
         duration = tvDetails.data.episode_run_time[0] || 0;
-        console.log('TV details:', tvDetails.data);
-        if (duration > 0) {
-          showAlert('Duration is based on the very first episode.', 'info');
-        }
       }
-      if (duration === 0) {
-        showAlert("Duration's not available for this media.", 'info');
-      }
+
+      setEventTitle(title);
+      setSelectedMediaType(mediaType);
+      setSelectedMediaId(mediaId);
+      setDuration(duration);
+      setShowCalendar(true);
+
+      // Update media status to "scheduled" immediately
+      await moveMediaItem(mediaId, 'scheduled');
     } catch (error) {
       console.error('Error fetching duration data:', error);
       showAlert('Failed to fetch media duration.', 'error');
-      return;
     }
+  };
 
-    setEventTitle(title);
-    setSelectedMediaType(mediaType);
-    setSelectedMediaId(mediaId);
-    setDuration(duration);
-    setShowCalendar(true);
+  const moveMediaItem = async (media_id, newStatus) => {
+    try {
+      // Send request to update the media status in the database
+      await api.put(`/api/media-status/${media_id}`, { status: newStatus });
+  
+      // Update UI with the new status
+      setFaves((prevFaves) => {
+        return prevFaves.map((fave) =>
+          fave.media_id === media_id ? { ...fave, status: newStatus } : fave
+        );
+      });
+  
+      setFilteredFaves((prevFaves) => {
+        return prevFaves.map((fave) =>
+          fave.media_id === media_id ? { ...fave, status: newStatus } : fave
+        );
+      });
+  
+      setDisplayedFaves((prevDisplayedFaves) => {
+        return prevDisplayedFaves.map((fave) =>
+          fave.media_id === media_id ? { ...fave, status: newStatus } : fave
+        );
+      });
+  
+      showAlert('Media status updated successfully', 'success');
+    } catch (error) {
+      console.error('Error updating media status:', error);
+      showAlert('Failed to update media status.', 'error');
+    }
   };
 
   const handleCloseCalendar = () => {
@@ -318,7 +340,7 @@ const FavouritesPage = () => {
       setIsSearching(false);
     }
   };
-  
+
   const handleSearchEnter = (e) => {
     if (e.key === 'Enter') {
       handleSearchQuery();

@@ -437,7 +437,8 @@ const StreamBoard = () => {
           </h1>
           <p className="streamboard__copy">
             Drag, Drop, Done: Manage Your Favourites with Ease!<br />
-            Your cards are looking a bit empty? Start adding some <Link to={`/faves/${userId}`} className='streamboard__link'>favourites</Link> and manage your must-watch list with ease.
+            Search and Discover: Quickly find and update your must-watch media.<br />
+            Empty cards? Start adding titles to your <Link to={`/faves/${userId}`} className='streamboard__link'>favourites</Link> and organize your list in no time.
           </p>
         </div>
         {loading && <Loader />}
