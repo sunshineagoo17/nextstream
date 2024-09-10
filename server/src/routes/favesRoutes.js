@@ -149,41 +149,55 @@ router.get('/:userId/faves', async (req, res) => {
           break;
         case 'new':
           const currentYear = new Date().getFullYear();
-          filteredMediaDetails = filteredMediaDetails.filter(detail => new Date(detail.release_date).getFullYear() === currentYear);
+          filteredMediaDetails = filteredMediaDetails.filter(detail => 
+            new Date(detail.release_date).getFullYear() === currentYear
+          );
           break;
         case 'top-rated':
           filteredMediaDetails = filteredMediaDetails.sort((a, b) => b.vote_average - a.vote_average);
           break;
         case 'children':
-          filteredMediaDetails = filteredMediaDetails.filter(detail => detail.genres.includes('Family') || detail.genres.includes('Animation'));
+          filteredMediaDetails = filteredMediaDetails.filter(detail => 
+            Array.isArray(detail.genres) && detail.genres.some(genre => genre && (genre === 'Family' || genre === 'Animation'))
+          );
           break;
         case 'adult':
         case 'broad-audience': 
           filteredMediaDetails = filteredMediaDetails.filter(detail => 
-            !detail.genres.includes('Family') && 
-            !detail.genres.includes('Animation')
+            Array.isArray(detail.genres) && detail.genres.every(genre => genre && genre !== 'Family' && genre !== 'Animation')
           );
           break;
         case 'international':
-          filteredMediaDetails = filteredMediaDetails.filter(detail => detail.origin_country && detail.origin_country.length > 0 && !detail.origin_country.includes('US') && !detail.origin_country.includes('CA'));
+          filteredMediaDetails = filteredMediaDetails.filter(detail => 
+            detail.origin_country && Array.isArray(detail.origin_country) && detail.origin_country.length > 0 && 
+            !detail.origin_country.includes('US') && !detail.origin_country.includes('CA')
+          );
           break;
         case 'science-fiction':
-          filteredMediaDetails = filteredMediaDetails.filter(detail => detail.genres.includes('Science Fiction'));
+          filteredMediaDetails = filteredMediaDetails.filter(detail => 
+            Array.isArray(detail.genres) && detail.genres.some(genre => genre && genre === 'Science Fiction')
+          );
           break;
         default:
-          filteredMediaDetails = filteredMediaDetails.filter(detail => detail.genres.includes(filter.charAt(0).toUpperCase() + filter.slice(1)));
+          filteredMediaDetails = filteredMediaDetails.filter(detail => 
+            Array.isArray(detail.genres) && detail.genres.some(genre => genre && genre.includes(filter.charAt(0).toUpperCase() + filter.slice(1)))
+          );
           break;
       }
     }
 
-    // Apply search
+    // Apply search with safety checks
     if (search) {
-      filteredMediaDetails = filteredMediaDetails.filter(detail =>
-        detail.title.toLowerCase().includes(search.toLowerCase()) ||
-        detail.overview.toLowerCase().includes(search.toLowerCase()) ||
-        detail.genres.some(genre => genre.toLowerCase().includes(search.toLowerCase())) ||
-        detail.media_type.toLowerCase().includes(search.toLowerCase())
-      );
+      filteredMediaDetails = filteredMediaDetails.filter(detail => {
+        const titleMatch = detail.title ? detail.title.toLowerCase().includes(search.toLowerCase()) : false;
+        const overviewMatch = detail.overview ? detail.overview.toLowerCase().includes(search.toLowerCase()) : false;
+        const genreMatch = Array.isArray(detail.genres) 
+          ? detail.genres.some(genre => genre && genre.toLowerCase().includes(search.toLowerCase())) 
+          : false;
+        const mediaTypeMatch = detail.media_type ? detail.media_type.toLowerCase().includes(search.toLowerCase()) : false;
+
+        return titleMatch || overviewMatch || genreMatch || mediaTypeMatch;
+      });
     }
 
     // Now paginate the filtered results

@@ -50,23 +50,19 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, duration, onClose 
         setLoading(false);
         return;
       }
-  
-      // Attempt to fetch events for the user
+      
       const response = await api.get(`/api/calendar/${userId}/events`);
   
       if (response.data && response.data.length > 0) {
         setEvents(response.data);
         setFilteredEvents(response.data);
       } else {
-        // No events found, treat this case gracefully
         setEvents([]);
         setFilteredEvents([]);
         showCustomAlert('No events found. Start by adding your first event!', 'info');
       }
     } catch (error) {
-      // Handle specific case where no events exist for new users
       if (error.response && error.response.status === 404 && error.response.data.message === 'No events found for this user') {
-        // No events found, inform the user
         setEvents([]);
         setFilteredEvents([]);
         showCustomAlert('No events found. Start by adding your first event!', 'info');
@@ -579,25 +575,23 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, duration, onClose 
               </label>
             </div>
 
-            {/* Add to Calendar component */}
-            {selectedEvent && (
-                <AddToCalendar
-                  eventTitle={selectedEvent.title}
-                  eventStart={selectedEvent.start}
-                  eventEnd={selectedEvent.end}
+          {/* AddToCalendar component */}
+          <AddToCalendar
+                  eventTitle={selectedEvent ? selectedEvent.title : newEventTitle}
+                  eventStart={selectedEvent ? selectedEvent.start : newEventStartDate}
+                  eventEnd={selectedEvent ? selectedEvent.end : newEventEndDate}
                   eventLocation="Online/Theater"
                   eventDescription="Watch this event!"
                 />
-              )}
 
-            <button onClick={selectedEvent ? handleEditEvent : handleAddEvent}>
-              {selectedEvent ? 'Save' : 'Add'}
-            </button>
-            {selectedEvent && <button onClick={handleDeleteEvent}>Delete</button>}
-            <button onClick={() => setModalVisible(false)}>Cancel</button>
-          </div>
-        </div>
-      )}
+                <button onClick={selectedEvent ? handleEditEvent : handleAddEvent}>
+                  {selectedEvent ? 'Save' : 'Add'}
+                </button>
+                {selectedEvent && <button onClick={handleDeleteEvent}>Delete</button>}
+                <button onClick={() => setModalVisible(false)}>Cancel</button>
+              </div>
+            </div>
+          )}
       <ToastContainer
         position="top-center"
         autoClose={3000}

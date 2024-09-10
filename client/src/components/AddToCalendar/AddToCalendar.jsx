@@ -1,49 +1,56 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle, faApple } from '@fortawesome/free-brands-svg-icons';
 import Loader from '../Loader/Loader';
-import api from '../../services/api';
 import './AddToCalendar.scss';
+
+// Function to format dates for .ics and Google Calendar
+const formatDate = (date) => {
+  return new Date(date).toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
+};
+
+// Generate .ics file content
+const generateICSFile = (eventTitle, eventStart, eventEnd, eventDescription, eventLocation) => {
+  const startDate = formatDate(eventStart);
+  const endDate = formatDate(eventEnd);
+
+  return `BEGIN:VCALENDAR
+VERSION:2.0
+BEGIN:VEVENT
+SUMMARY:${eventTitle}
+DESCRIPTION:${eventDescription}
+DTSTART:${startDate}
+DTEND:${endDate}
+LOCATION:${eventLocation}
+END:VEVENT
+END:VCALENDAR`;
+};
 
 const AddToCalendar = ({ eventTitle, eventStart, eventEnd, eventLocation, eventDescription }) => {
   const [loading, setLoading] = useState(false);
   const [appleLink, setAppleLink] = useState(null);
 
-  const formatDate = (date) => {
-    return new Date(date).toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
-  };
-
+  // Google Calendar link generation
   const googleCalendarLink = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(eventTitle)}&dates=${formatDate(eventStart)}/${formatDate(eventEnd)}&details=${encodeURIComponent(eventDescription)}&location=${encodeURIComponent(eventLocation)}`;
 
-  const generateAppleDownloadLink = async () => {
-    setLoading(true);
+  // Generate .ics file for Apple Calendar 
+  useEffect(() => {
+    const generateAppleDownloadLink = () => {
+      setLoading(true);
+      try {
+        const icsContent = generateICSFile(eventTitle, eventStart, eventEnd, eventDescription, eventLocation);
+        const blob = new Blob([icsContent], { type: 'text/calendar' });
+        const url = URL.createObjectURL(blob);
+        setAppleLink(url); 
+      } catch (error) {
+        console.error('Error generating ICS file:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    try {
-      const response = await api.post('/api/external-cal/create-ics', {
-        title: eventTitle,
-        start: eventStart,
-        end: eventEnd,
-        description: eventDescription,
-        location: eventLocation
-      }, {
-        responseType: 'blob',
-      });
-
-      // Create a Blob URL and set it for the Apple link
-      const blob = new Blob([response.data], { type: 'text/calendar' });
-      const downloadLink = window.URL.createObjectURL(blob);
-      setAppleLink(downloadLink);  // Set the link to be used for the download
-    } catch (error) {
-      console.error('Error creating or downloading ICS file:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // Call the function to generate the Apple Calendar link immediately after rendering
-  useState(() => {
     generateAppleDownloadLink();
-  }, []);
+  }, [eventTitle, eventStart, eventEnd, eventDescription, eventLocation]);
 
   return (
     <div className="add-to-cal">

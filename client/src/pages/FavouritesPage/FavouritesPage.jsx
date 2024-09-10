@@ -218,9 +218,11 @@ const FavouritesPage = () => {
     if (!searchQuery.trim()) return;
     setIsSearching(true);
     setHasSearched(true);
+  
     try {
-      setPage(1);
       const lowerCaseQuery = searchQuery.toLowerCase();
+  
+      // Fetch the favorites based on the search query
       const response = await api.get(`/api/faves/${userId}/faves`, {
         params: {
           search: lowerCaseQuery,
@@ -230,17 +232,21 @@ const FavouritesPage = () => {
         },
       });
   
+      // Declare `filtered` and apply filtering logic
       const filtered = response.data.filter((item) => {
-        const titleMatch = item.title.toLowerCase().includes(lowerCaseQuery);
-        const genreMatch = item.genres.some((genre) =>
-          genre.toLowerCase().includes(lowerCaseQuery)
-        );
-        const mediaTypeMatch = item.media_type.toLowerCase().includes(lowerCaseQuery);
+        // Ensure title, genres, and media_type are present before using them
+        const titleMatch = item.title ? item.title.toLowerCase().includes(lowerCaseQuery) : false;
+  
+        const genreMatch = Array.isArray(item.genres)
+          ? item.genres.some((genre) => genre && genre.toLowerCase().includes(lowerCaseQuery))
+          : false;
+  
+        const mediaTypeMatch = item.media_type ? item.media_type.toLowerCase().includes(lowerCaseQuery) : false;
   
         return titleMatch || genreMatch || mediaTypeMatch;
       });
   
-      console.log('Filtered results:', filtered);
+      // Update state with filtered results
       setFaves(filtered);
       setFilteredFaves(filtered);
       setDisplayedFaves(filtered.slice(0, 4));
