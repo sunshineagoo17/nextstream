@@ -8,7 +8,7 @@ import {
   faHandSpock, faQuidditch, faClapperboard, faMask, faFingerprint, faChevronDown, faChevronCircleDown,
   faChevronCircleUp, faVideoCamera, faHeart, faMinus, faPlay, faTimes, faCalendarPlus, faSearch,
   faBomb, faStar, faUserSecret, faRedo, faGhost, faLaugh, faTheaterMasks, faBolt, faMap, faGlobe, faTrophy,
-  faLock, faUnlock, faTrash, faShareAlt
+  faLock, faUnlock, faTrash, faShareAlt, faClock, faEye, faBookmark
 } from '@fortawesome/free-solid-svg-icons';
 import HomeCinemaSVG from "../../assets/images/home-cinema.svg";
 import LikesSVG from "../../assets/images/like-faves.svg";
@@ -45,36 +45,70 @@ const FavouritesPage = () => {
   const calendarRef = useRef(null);
   const [page, setPage] = useState(1);
   const [lockedMedia, setLockedMedia] = useState({});
+  const [mediaStatuses, setMediaStatuses] = useState({
+    to_watch: [],
+    scheduled: [],
+    watched: [],
+  });
 
   useEffect(() => {
-    const fetchFaves = async () => {
+    const fetchData = async () => {
       if (!isAuthenticated) return;
-
+  
       try {
-        const response = await api.get(`/api/faves/${userId}/faves`, {
-          params: {
-            page: 1,
-            limit: 1000,
-            search: searchQuery,
-            filter,
-          },
+        const [favesResponse, toWatchResponse, scheduledResponse, watchedResponse] = await Promise.all([
+          api.get(`/api/faves/${userId}/faves`, {
+            params: {
+              page: 1,
+              limit: 1000,
+              search: searchQuery,
+              filter,
+            },
+          }),
+          api.get(`/api/media-status/to_watch`),
+          api.get(`/api/media-status/scheduled`),
+          api.get(`/api/media-status/watched`)
+        ]);
+  
+        const fetchedFaves = favesResponse.data;
+        const toWatch = toWatchResponse.data;
+        const scheduled = scheduledResponse.data;
+        const watched = watchedResponse.data;
+  
+        // Merge status into faves
+        const favesWithStatus = fetchedFaves.map(fave => {
+          const statusItem = toWatch.find(item => item.media_id === fave.media_id) 
+                            || scheduled.find(item => item.media_id === fave.media_id) 
+                            || watched.find(item => item.media_id === fave.media_id);
+  
+          return {
+            ...fave,
+            status: statusItem ? statusItem.status : null
+          };
         });
-        const newFaves = response.data;
-        console.log('Fetched favourites:', newFaves);
-        setFaves(newFaves);
-        setFilteredFaves(newFaves);
-        setDisplayedFaves(newFaves.slice(0, 4));
+  
+        setFaves(favesWithStatus);
+        setFilteredFaves(favesWithStatus);
+        setDisplayedFaves(favesWithStatus.slice(0, 4));
+  
+        setMediaStatuses({
+          to_watch: toWatch,
+          scheduled: scheduled,
+          watched: watched,
+        });
       } catch (error) {
-        console.error('Error fetching faves:', error);
+        console.log('Error fetching faves:', error);
         setAlert({ message: 'Error fetching favourites. Please try again later.', type: 'error' });
       } finally {
-        setIsLoading(false);  
+        setIsLoading(false);
       }
     };
-
-    fetchFaves();
+  
+    if (userId) {
+      fetchData();
+    }
   }, [userId, isAuthenticated, searchQuery, filter]);
-
+  
   useEffect(() => {
     const updatePlaceholder = () => {
       const input = document.querySelector('.faves-page__search-input');
@@ -222,19 +256,28 @@ const FavouritesPage = () => {
     try {
       const lowerCaseQuery = searchQuery.toLowerCase();
   
-      // Fetch the favorites based on the search query
-      const response = await api.get(`/api/faves/${userId}/faves`, {
-        params: {
-          search: lowerCaseQuery,
-          filter,
-          page: 1,
-          limit: 1000,
-        },
-      });
+      // Fetch the favorites and media statuses in parallel
+      const [favesResponse, toWatchResponse, scheduledResponse, watchedResponse] = await Promise.all([
+        api.get(`/api/faves/${userId}/faves`, {
+          params: {
+            search: lowerCaseQuery,
+            filter,
+            page: 1,
+            limit: 1000,
+          },
+        }),
+        api.get(`/api/media-status/to_watch`),
+        api.get(`/api/media-status/scheduled`),
+        api.get(`/api/media-status/watched`),
+      ]);
   
-      // Declare `filtered` and apply filtering logic
-      const filtered = response.data.filter((item) => {
-        // Ensure title, genres, and media_type are present before using them
+      const fetchedFaves = favesResponse.data;
+      const toWatch = toWatchResponse.data;
+      const scheduled = scheduledResponse.data;
+      const watched = watchedResponse.data;
+  
+      // Apply filtering logic
+      const filtered = fetchedFaves.filter((item) => {
         const titleMatch = item.title ? item.title.toLowerCase().includes(lowerCaseQuery) : false;
   
         const genreMatch = Array.isArray(item.genres)
@@ -246,10 +289,23 @@ const FavouritesPage = () => {
         return titleMatch || genreMatch || mediaTypeMatch;
       });
   
-      // Update state with filtered results
-      setFaves(filtered);
-      setFilteredFaves(filtered);
-      setDisplayedFaves(filtered.slice(0, 4));
+      // Merge status into filtered favorites
+      const favesWithStatus = filtered.map((fave) => {
+        const statusItem =
+          toWatch.find((item) => item.media_id === fave.media_id) ||
+          scheduled.find((item) => item.media_id === fave.media_id) ||
+          watched.find((item) => item.media_id === fave.media_id);
+  
+        return {
+          ...fave,
+          status: statusItem ? statusItem.status : null,
+        };
+      });
+  
+      // Update state with filtered and merged results
+      setFaves(favesWithStatus);
+      setFilteredFaves(favesWithStatus);
+      setDisplayedFaves(favesWithStatus.slice(0, 4));
       setIsExpanded(false);
     } catch (error) {
       console.error('Error searching:', error);
@@ -287,22 +343,49 @@ const FavouritesPage = () => {
     setFilter(filterType);
     setPage(1);
     setIsExpanded(false);
-
+  
     try {
       setIsLoading(true);
-      const response = await api.get(`/api/faves/${userId}/faves`, {
-        params: {
-          search: searchQuery,
-          filter: filterType,
-          page: 1,
-          limit: 1000,
-        },
+  
+      // Fetch the filtered favorites and media statuses
+      const [favesResponse, toWatchResponse, scheduledResponse, watchedResponse] = await Promise.all([
+        api.get(`/api/faves/${userId}/faves`, {
+          params: {
+            search: searchQuery,
+            filter: filterType,
+            page: 1,
+            limit: 1000,
+          },
+        }),
+        api.get(`/api/media-status/to_watch`),
+        api.get(`/api/media-status/scheduled`),
+        api.get(`/api/media-status/watched`),
+      ]);
+  
+      const fetchedFaves = favesResponse.data;
+      const toWatch = toWatchResponse.data;
+      const scheduled = scheduledResponse.data;
+      const watched = watchedResponse.data;
+  
+      // Merge the status into faves
+      const favesWithStatus = fetchedFaves.map((fave) => {
+        const statusItem =
+          toWatch.find((item) => item.media_id === fave.media_id) ||
+          scheduled.find((item) => item.media_id === fave.media_id) ||
+          watched.find((item) => item.media_id === fave.media_id);
+  
+        return {
+          ...fave,
+          status: statusItem ? statusItem.status : null,
+        };
       });
-      const filtered = response.data;
-      console.log('Filtered faves:', filtered);
-      setFaves(filtered);
-      setFilteredFaves(filtered);
-      setDisplayedFaves(filtered.slice(0, 4));
+  
+      console.log('Filtered faves with status:', favesWithStatus);
+  
+      // Update state with filtered results and their status
+      setFaves(favesWithStatus);
+      setFilteredFaves(favesWithStatus);
+      setDisplayedFaves(favesWithStatus.slice(0, 4));
     } catch (error) {
       console.error('Error filtering:', error);
       setAlert({ message: 'Error during filtering. Please try again later.', type: 'error' });
@@ -312,12 +395,13 @@ const FavouritesPage = () => {
   };
 
   const fetchMoreMedia = async () => {
-    setIsLoading(true); 
-
+    setIsLoading(true);
+  
     try {
       let newFaves = [];
       let currentPage = page;
-
+  
+      // Fetch media until 4 new unique items are found
       while (newFaves.length < 4) {
         const response = await api.get(`/api/faves/${userId}/faves`, {
           params: {
@@ -327,31 +411,42 @@ const FavouritesPage = () => {
             filter,
           },
         });
-
+  
         const fetchedFaves = response.data;
-        console.log('Fetched more media:', fetchedFaves);
-
-        // Filters out duplicates
-        const uniqueFaves = fetchedFaves.filter(
+  
+        // Merge the media statuses with the fetched faves
+        const mergedFaves = fetchedFaves.map(fave => {
+          const statusItem = mediaStatuses.to_watch.find(item => item.media_id === fave.media_id) ||
+                             mediaStatuses.scheduled.find(item => item.media_id === fave.media_id) ||
+                             mediaStatuses.watched.find(item => item.media_id === fave.media_id);
+  
+          return {
+            ...fave,
+            status: statusItem ? statusItem.status : null
+          };
+        });
+  
+        // Filter out duplicates
+        const uniqueFaves = mergedFaves.filter(
           (fave) =>
             !displayedFaves.some(
               (displayedFave) =>
                 displayedFave.media_id === fave.media_id && displayedFave.media_type === fave.media_type
             )
         );
-
+  
         newFaves = [...newFaves, ...uniqueFaves];
-
-        // If there are no more items to fetch, this breaks the loop and show a toast notification
+  
+        // If there are no more items to fetch, break the loop and show a toast notification
         if (fetchedFaves.length < 4) {
           showAlert("That's all for now. There's no more media available.", "info");
           break;
         }
-
+  
         currentPage += 1;
       }
-
-      // Adds exactly 4 new unique items to the displayed list
+  
+      // Add the new unique faves to the displayed list
       setDisplayedFaves((prevFaves) => [...prevFaves, ...newFaves.slice(0, 4)]);
       setPage(currentPage);
     } catch (error) {
@@ -360,7 +455,7 @@ const FavouritesPage = () => {
     } finally {
       setIsLoading(false);
     }
-  };
+  };  
 
   const handleLockMedia = (media_id, media_type) => {
     setLockedMedia((prevLocked) => ({
@@ -595,6 +690,24 @@ const FavouritesPage = () => {
                         data-tooltip-id="calendarTooltip" 
                         data-tooltip-content="Add to Calendar" 
                       />
+
+                      {/* Media Status Icons */}
+                      {fave.status ? (
+                        <>
+                          {fave.status === 'to_watch' && (
+                            <span><FontAwesomeIcon icon={faBookmark} className="faves-page__status-icon" /></span>
+                          )}
+                          {fave.status === 'scheduled' && (
+                            <span><FontAwesomeIcon icon={faClock} className="faves-page__status-icon" /></span>
+                          )}
+                          {fave.status === 'watched' && (
+                            <span><FontAwesomeIcon icon={faEye} className="faves-page__status-icon" /></span>
+                          )}
+                        </>
+                      ) : (
+                        <span>Status: N/A</span>
+                      )}
+
                       <FontAwesomeIcon 
                         icon={faShareAlt} 
                         onClick={() => handleShare(fave.title, fave.media_id, fave.media_type)} 
@@ -622,7 +735,9 @@ const FavouritesPage = () => {
                       <Tooltip id="lockTooltip" place="top" />
                       <Tooltip id="trashTooltip" place="top" />
                     </p>
-                    <p className="faves-page__text">Genre: {fave.genres.join(', ')}</p>
+                    <p className="faves-page__text">
+                      Genre: {fave.genres && Array.isArray(fave.genres) ? fave.genres.join(', ') : 'N/A'}
+                    </p>
                     <p className={`faves-page__description ${showFullDescription[fave.media_id] ? 'faves-page__description--expanded' : ''}`}>
                       Description: {fave.overview}
                     </p>
