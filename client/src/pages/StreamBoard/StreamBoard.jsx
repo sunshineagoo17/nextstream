@@ -148,31 +148,48 @@ const MediaColumn = ({ status, mediaItems, moveMediaItem, handleAddToCalendar, h
 };
 
 // New Search Bar and Result Display
-const SearchBar = ({ onSearch }) => {
+const SearchBar = ({ onSearch, onClearSearch }) => {
   const [query, setQuery] = useState('');
 
   const handleSearch = () => {
     onSearch(query);
   };
 
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  };
+
+  const handleClear = () => {
+    setQuery('');
+    onClearSearch(); 
+  };
+
   return (
-    <div className="search-bar">
+    <div className="streamboard__search-bar">
       <input
         type="text"
         placeholder="Search media..."
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        className="search-bar__input"
+        onKeyPress={handleKeyPress}
+        className="streamboard__search-bar-input"
       />
-      <button onClick={handleSearch} className="search-bar__button">
-        <FontAwesomeIcon icon={faSearch} />
+      {query && (
+        <button onClick={handleClear} className="streamboard__search-bar-button-clear">
+          <FontAwesomeIcon icon={faClose} className="streamboard__search-bar-clear-icon" />
+        </button>
+      )}
+      <button onClick={handleSearch} className="streamboard__search-bar-button-search">
+        <FontAwesomeIcon icon={faSearch} className="streamboard__search-bar-search-icon" />
       </button>
     </div>
   );
 };
 
 const SearchResult = ({ result, moveMediaItem, handleAddToCalendar, handleDeleteMedia }) => (
-  <div className="search-result">
+  <div className="streamboard__search-result">
     {result ? (
       <MediaItem
         item={result}
@@ -407,6 +424,10 @@ const StreamBoard = () => {
     setSearchResult(result || null);
   };
 
+  const handleClearSearch = () => {
+    setSearchResult(null);
+  };
+
   return (
     <DndProvider backend={HTML5Backend}>
       <div className="streamboard__container">
@@ -429,7 +450,7 @@ const StreamBoard = () => {
         )}
 
         {/* Search Bar */}
-        <SearchBar onSearch={handleSearch} />
+        <SearchBar onSearch={handleSearch} onClearSearch={handleClearSearch} />
 
         {/* Search Result */}
         {searchResult && (
