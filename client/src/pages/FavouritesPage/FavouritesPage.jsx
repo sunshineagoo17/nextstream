@@ -256,32 +256,22 @@ const FavouritesPage = () => {
     try {
       const lowerCaseQuery = searchQuery.toLowerCase();
   
-      // Fetch the favorites and media statuses in parallel
-      const [favesResponse, toWatchResponse, scheduledResponse, watchedResponse] = await Promise.all([
-        api.get(`/api/faves/${userId}/faves`, {
-          params: {
-            search: lowerCaseQuery,
-            filter,
-            page: 1,
-            limit: 1000,
-          },
-        }),
+      // Fetch all media items including to_watch, scheduled, and watched
+      const [toWatchResponse, scheduledResponse, watchedResponse] = await Promise.all([
         api.get(`/api/media-status/to_watch`),
         api.get(`/api/media-status/scheduled`),
         api.get(`/api/media-status/watched`),
       ]);
   
-      const fetchedFaves = favesResponse.data;
-      const toWatch = toWatchResponse.data;
-      const scheduled = scheduledResponse.data;
-      const watched = watchedResponse.data;
+      const allMedia = [...toWatchResponse.data, ...scheduledResponse.data, ...watchedResponse.data];
   
-      // Apply filtering logic
-      const filtered = fetchedFaves.filter((item) => {
+      // Search logic: include title, media type, and genres
+      const filteredMedia = allMedia.filter((item) => {
         const titleMatch = item.title ? item.title.toLowerCase().includes(lowerCaseQuery) : false;
   
-        const genreMatch = Array.isArray(item.genres)
-          ? item.genres.some((genre) => genre && genre.toLowerCase().includes(lowerCaseQuery))
+        // Check if genres exist and are an array
+        const genreMatch = item.genres && Array.isArray(item.genres)
+          ? item.genres.some((genre) => genre.toLowerCase().includes(lowerCaseQuery))
           : false;
   
         const mediaTypeMatch = item.media_type ? item.media_type.toLowerCase().includes(lowerCaseQuery) : false;
@@ -289,37 +279,51 @@ const FavouritesPage = () => {
         return titleMatch || genreMatch || mediaTypeMatch;
       });
   
-      // Merge status into filtered favorites
-      const favesWithStatus = filtered.map((fave) => {
+      // Fetch genre details if not available directly
+      const mediaWithGenres = await Promise.all(
+        filteredMedia.map(async (mediaItem) => {
+          if (!mediaItem.genres || mediaItem.genres.length === 0) {
+            try {
+              const genreResponse = await api.get(`/api/tmdb/${mediaItem.media_type}/${mediaItem.media_id}`);
+              mediaItem.genres = genreResponse.data.genres.map(genre => genre.name);
+            } catch (error) {
+              console.error('Error fetching genre information:', error);
+            }
+          }
+          return mediaItem;
+        })
+      );
+  
+      const mediaWithStatus = mediaWithGenres.map((mediaItem) => {
         const statusItem =
-          toWatch.find((item) => item.media_id === fave.media_id) ||
-          scheduled.find((item) => item.media_id === fave.media_id) ||
-          watched.find((item) => item.media_id === fave.media_id);
+          toWatchResponse.data.find((item) => item.media_id === mediaItem.media_id) ||
+          scheduledResponse.data.find((item) => item.media_id === mediaItem.media_id) ||
+          watchedResponse.data.find((item) => item.media_id === mediaItem.media_id);
   
         return {
-          ...fave,
+          ...mediaItem,
           status: statusItem ? statusItem.status : null,
         };
       });
   
-      // Update state with filtered and merged results
-      setFaves(favesWithStatus);
-      setFilteredFaves(favesWithStatus);
-      setDisplayedFaves(favesWithStatus.slice(0, 4));
+      // Update state with the search results
+      setFaves(mediaWithStatus);
+      setFilteredFaves(mediaWithStatus);
+      setDisplayedFaves(mediaWithStatus.slice(0, 4));
       setIsExpanded(false);
     } catch (error) {
-      console.error('Error searching:', error);
+      console.error('Error during search:', error);
       setAlert({ message: 'Error during search. Please try again later.', type: 'error' });
     } finally {
       setIsSearching(false);
     }
-  };  
-
+  };
+  
   const handleSearchEnter = (e) => {
     if (e.key === 'Enter') {
       handleSearchQuery();
     }
-  };
+  };  
 
   const handleSearchClick = (mediaId, mediaType) => {
     navigate(`/nextview/${userId}/${mediaType}/${mediaId}`);
