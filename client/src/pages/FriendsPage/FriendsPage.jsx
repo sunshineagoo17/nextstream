@@ -57,24 +57,27 @@ const fetchFriends = useCallback(async () => {
     }
   }, [isAuthenticated, userId, fetchFriends, fetchPendingRequests]);
 
-  // Select a friend and fetch messages
-  const handleSelectFriend = async (friend) => {
-    setSelectedFriend(friend);
-    try {
-      const messagesData = await fetchMessages(friend.id);
-      setMessages(messagesData);
+    // Select a friend and fetch messages
+    const handleSelectFriend = async (friend) => {
+        setSelectedFriend(friend);
+        setNewMessage(''); 
+        setTyping(false); 
 
-      messagesData.forEach(async (message) => {
-        if (!message.is_read && message.receiver_id === userId) {
-          await markMessageAsRead(message.id);
+        try {
+        const messagesData = await fetchMessages(friend.id);
+        setMessages(messagesData);
+
+        messagesData.forEach(async (message) => {
+            if (!message.is_read && message.receiver_id === userId) {
+            await markMessageAsRead(message.id);
+            }
+        });
+
+        await markAllMessagesAsRead(friend.id);
+        } catch (error) {
+        console.log('Error fetching messages or marking them as read', error);
         }
-      });
-
-      await markAllMessagesAsRead(friend.id);
-    } catch (error) {
-      console.log('Error fetching messages or marking them as read', error);
-    }
-  };
+    };
 
   // Send a new message
   const handleSendMessage = async () => {
