@@ -161,7 +161,6 @@
     box-shadow: $shadow-secondary;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-content: center;
   }
 
@@ -199,8 +198,8 @@
 
   &__accept-friend {
     padding: .5rem 1rem;
-    background: $primary-button-dark-blue; 
-    color: $neutral-white;
+    background: $feedback-mint-green; 
+    color: $pastel-dark-green;
     border: none;
     border-radius: .5rem;
     margin-left: .5rem;
@@ -210,11 +209,12 @@
     transition: background .3s ease, transform .2s ease;
 
     &:hover {
-      background: $neutral-white;
-      color: $primary-button-blue; 
+      background: $frosted-glass;
+      color: $neutral-white; 
       transform: translateY(-.125rem);
       box-shadow: $shadow-primary; 
       text-shadow: $shadow-primary;
+      border: .0625rem solid $neutral-white;
     }
 
     &:active {
@@ -297,6 +297,7 @@
     border: none;
     border-radius: .5rem;
     margin-top: .25rem;
+    margin-bottom: .5rem;
     cursor: pointer;
     box-shadow: $shadow-secondary;
     backdrop-filter: blur(.625rem);
@@ -346,14 +347,29 @@
     box-shadow: $shadow-tertiary;
   }
 
-  &__username {
+  &__username--search {
     font-size: .75rem;
-    background: $neutral-white;
+    background: $pastel-dark-blue;
     font-family: $secondary-font;
     box-shadow: $shadow-senary;
+    color: $pastel-blue;
+    text-shadow: $shadow-primary;
+    font-weight: bold;
     padding: .25rem;
     border-radius: .5rem;
-    border: .125rem solid $neutral-light-grey;
+    border: .125rem solid $pastel-blue;
+  }
+
+  &__username--pending {
+    font-size: .75rem;
+    font-family: $secondary-font;
+    text-shadow: $shadow-primary;
+    background: $feedback-error-peach;
+    color: $pastel-pink;
+    padding: .25rem;
+    font-weight: bold;
+    border-radius: .5rem;
+    border: .125rem solid $feedback-error-light-peach;
   }
 
   &__clear-button {
@@ -511,20 +527,6 @@
         font-size: 1rem;
         color: $primary-dark-blue;
         font-weight: 600;
-      }
-
-      button {
-        padding: .3125rem .625rem;
-        background: $primary-light-blue;
-        border: none;
-        color: $neutral-white;
-        border-radius: .5rem;
-        cursor: pointer;
-        transition: background .3s ease;
-
-        &:hover {
-          background: $primary-dark-navy-blue;
-        }
       }
     }
   }

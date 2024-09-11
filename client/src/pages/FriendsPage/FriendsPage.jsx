@@ -16,7 +16,6 @@ const FriendsPage = () => {
   const [newMessage, setNewMessage] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [typing, setTyping] = useState(false);
-  const [showChat, setShowChat] = useState(false);
 
 // Fetch friends list
 const fetchFriends = useCallback(async () => {
@@ -73,10 +72,6 @@ const fetchFriends = useCallback(async () => {
     } catch (error) {
       console.error('Error fetching messages or marking them as read', error);
     }
-  };
-
-  const toggleChat = () => {
-    setShowChat(!showChat);
   };
 
   // Send a new message
@@ -197,7 +192,7 @@ const filteredFriends = friends;
                     ) : (
                     searchResults.map((user) => (
                         <div key={user.id} className="friends-page__search-item">
-                        <span className="friends-page__username">{user.name}</span>
+                        <span className="friends-page__username--search">{user.name}</span>
                         <button
                             onClick={() => handleSendFriendRequest(user.id)}
                             className="friends-page__add-friend"
@@ -218,7 +213,7 @@ const filteredFriends = friends;
             ) : (
                 pendingRequests.map((request) => (
                 <div key={request.id} className="friends-page__pending-item">
-                    <span>{request.name}</span>
+                    <span className="friends-page__username--pending">{request.name}</span>
                     <button 
                         onClick={() => handleAcceptFriendRequest(request.id)}
                         className="friends-page__accept-friend"
@@ -271,10 +266,6 @@ const filteredFriends = friends;
                     ))
                 )}
             </div>
-            {/* Button to show chat */}
-        <button onClick={toggleChat} className="friends-page__chat-button">
-          {showChat ? "Hide Chat" : "Show Chat"}
-        </button>
         </div>
     
         {/* Chat Section */}
