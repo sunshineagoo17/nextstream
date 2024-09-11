@@ -176,7 +176,6 @@
     }
   }
 
-  &__add-friend,
   &__accept-friend {
     padding: .5rem 1rem;
     background: $primary-button-dark-blue; 
@@ -190,14 +189,47 @@
     transition: background .3s ease, transform .2s ease;
 
     &:hover {
-      background: $primary-button-dark-blue; 
+      background: $neutral-white;
+      color: $primary-button-blue; 
       transform: translateY(-.125rem);
       box-shadow: $shadow-primary; 
+      text-shadow: $shadow-primary;
     }
 
     &:active {
       transform: translateY(.0625rem); 
-      box-shadow: $shadow-quaternary;
+      box-shadow: $shadow-septenary;
+    }
+  }
+
+  &__add-friend {
+    padding: .5rem 1rem;
+    background: $feedback-mint-light-green; 
+    color: $pastel-dark-green;
+    border: none;
+    border-radius: .5rem;
+    margin-left: .5rem;
+    cursor: pointer;
+    box-shadow: $shadow-secondary;
+    backdrop-filter: blur(.625rem);
+    transition: background .3s ease, transform .2s ease;
+
+    &:hover {
+        background: $primary-very-light-blue;
+        color: $neutral-white; 
+        transform: translateY(-.125rem);
+        box-shadow: $shadow-primary; 
+        text-shadow: $shadow-primary;
+        border: 1px solid $neutral-white;
+    }
+
+    &:active {
+      transform: translateY(.0625rem); 
+      background: $frosted-glass;
+      color: $feedback-success-green;
+      text-shadow: none;
+      font-weight: bold;
+      border: 1px solid $feedback-success-green;
     }
   }
 
@@ -219,10 +251,48 @@
     border-radius: .5rem;
     cursor: pointer;
     box-shadow: $shadow-secondary;
-    transition: background .3s ease;
+    transition: background .3s ease, transform .2s ease;
 
     &:hover {
-      background: $primary-button-dark-blue;
+      background: $primary-very-light-blue;
+      transform: translateY(-.125rem);
+      box-shadow: $shadow-primary; 
+      text-shadow: $shadow-primary;
+      border: 1px solid $neutral-white;
+    }
+
+    &:active {
+        background: $neutral-white;
+        color: $primary-button-blue;
+        transform: translateY(.0625rem); 
+        box-shadow: $shadow-septenary;
+      }
+  }
+
+  &__remove-friend {
+    padding: .5rem 1rem;
+    background: $feedback-error-peach; 
+    color: $dark-mode-deep-blue;
+    border: none;
+    border-radius: .5rem;
+    margin-left: .5rem;
+    cursor: pointer;
+    box-shadow: $shadow-secondary;
+    backdrop-filter: blur(.625rem);
+    transition: background .3s ease, transform .2s ease;
+
+    &:hover {
+      background: $primary-cyan;
+      color: $neutral-white; 
+      transform: translateY(-.125rem);
+      box-shadow: $shadow-primary; 
+      text-shadow: $shadow-primary;
+      border: 1px solid $neutral-white;
+    }
+
+    &:active {
+      transform: translateY(.0625rem); 
+      box-shadow: $shadow-septenary;
     }
   }
 

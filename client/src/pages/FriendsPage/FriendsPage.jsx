@@ -239,7 +239,12 @@ const filteredFriends = friends;
                 className="friends-page__avatar"
                 />
                 <span>{friend.name}</span>
-                <button onClick={() => handleRemoveFriend(friend.id)}>Remove</button>
+                <button
+                    onClick={() => handleRemoveFriend(friend.id)}
+                    className="friends-page__remove-friend"
+                >
+                    Remove
+                </button>
             </div>
             ))
         )}
