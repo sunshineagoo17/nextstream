@@ -156,13 +156,15 @@ const handleAcceptFriendRequest = async (friendId) => {
     }
   };
   
-  // Remove a friend
-  const handleRemoveFriend = async (friendId) => {
+// Remove a friend
+const handleRemoveFriend = async (friendId) => {
     try {
       await removeFriend(friendId);
       fetchFriends(); 
+      setAlertMessage({ message: 'Friend removed successfully!', type: 'success' });
     } catch (error) {
       console.log('Error removing friend', error);
+      setAlertMessage({ message: 'Error removing friend.', type: 'error' });
     }
   };
 
@@ -242,7 +244,7 @@ const filteredFriends = friends;
 
             {/* Pending Friend Requests Section */}
             <div className="friends-page__pending-section glassmorphic-card">
-            <h3 className="friends-page__card-subtitle--requests">Pending Requests</h3>
+            <h3 className="friends-page__card-subtitle--requests">Incoming Friend Requests</h3>
             {pendingRequests.length === 0 ? (
                 <p>No pending friend requests.</p>
             ) : (
@@ -263,43 +265,48 @@ const filteredFriends = friends;
             {/* Friends List Section */}
             <div className="friends-page__list glassmorphic-card">
                 <h3 className="friends-page__card-subtitle--friends">Your NextCrew</h3>
-                {filteredFriends.length === 0 ? (
-                    <p>No friends added yet.</p>
-                ) : (
-                    filteredFriends.map((friend) => (
-                    <div
-                        key={friend.id}
-                        className={`friends-page__item ${selectedFriend?.id === friend.id ? 'selected' : ''}`}
-                        onClick={() => handleSelectFriend(friend)}
-                    >
-                        <div className="friends-page__friend-info">
-                        {/* Avatar */}
-                        <FontAwesomeIcon 
-                            icon={faUser} 
-                            alt={friend.name}
-                            className="friends-page__avatar-default"
-                        />
-                        {/* <img
-                            src={friend.avatar || '../../assets/images/default-avatar.svg'}
-                            alt={friend.name}
-                            className="friends-page__avatar"
-                        /> */}
-                        <div className="friends-page__friend-details">
-                            {/* Name */}
-                            <p className="friends-page__label"><strong className='friends-page__user-info'>Name:</strong> {friend.name}</p>
-                            {/* Username */}
-                            <p className="friends-page__label"><strong className='friends-page__user-info'>Username:</strong> {friend.username}</p>
-                        </div>
-                        </div>
-                        <button
-                        onClick={() => handleRemoveFriend(friend.id)}
-                        className="friends-page__remove-friend"
+                <div className="friend-page__friend-info-container">
+                    {filteredFriends.length === 0 ? (
+                        <p>No friends added yet.</p>
+                    ) : (
+                        filteredFriends.map((friend) => (
+                        <div
+                            key={friend.id}
+                            className={`friends-page__item ${selectedFriend?.id === friend.id ? 'selected' : ''}`}
                         >
-                        Remove
-                        </button>
-                    </div>
-                    ))
-                )}
+                            <div className="friends-page__friend-info">
+                                {/* Avatar */}
+                                <FontAwesomeIcon 
+                                    icon={faUser} 
+                                    alt={friend.name}
+                                    className="friends-page__avatar-default"
+                                />
+                                {/* Friend details */}
+                                <div className="friends-page__friend-details">
+                                    {/* Name */}
+                                    <p className="friends-page__label"><strong className='friends-page__user-info'>Name:</strong> {friend.name}</p>
+                                    {/* Username */}
+                                    <p className="friends-page__label"><strong className='friends-page__user-info'>Username:</strong> {friend.username}</p>
+                                </div>
+                                <div className="friends-page__actions">
+                                    <button
+                                        onClick={() => handleRemoveFriend(friend.id)}
+                                        className="friends-page__remove-friend"
+                                    >
+                                        Remove
+                                    </button>
+                                    <button
+                                        onClick={() => handleSelectFriend(friend)}
+                                        className="friends-page__chat-button"
+                                    >
+                                        Chat
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        ))
+                    )}
+                </div>
             </div>
         </div>
     

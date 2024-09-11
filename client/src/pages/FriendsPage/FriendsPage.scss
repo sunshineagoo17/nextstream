@@ -220,6 +220,8 @@
     &:active {
       transform: translateY(.0625rem); 
       box-shadow: $shadow-septenary;
+      background: $feedback-mint-light-green;
+      color: $pastel-dark-green;
     }
   }
 
@@ -246,11 +248,11 @@
 
     &:active {
       transform: translateY(.0625rem); 
-      background: $frosted-glass;
-      color: $feedback-success-green;
+      background: $pastel-dark-green;
+      color: $feedback-mint-light-green; 
       text-shadow: none;
       font-weight: bold;
-      border: .0625rem solid $feedback-success-green;
+      border: .0625rem solid $feedback-mint-light-green; 
     }
   }
 
@@ -315,6 +317,8 @@
     &:active {
       transform: translateY(.0625rem); 
       box-shadow: $shadow-septenary;
+      color: $pastel-dark-pink;
+      background: $pastel-pink;
     }
   }
 
@@ -539,16 +543,33 @@
   }
 
   &__chat-button {
-    padding: 0.75rem 1.5rem;
-    background-color: $primary-button-blue;
-    color: $neutral-white;
-    border-radius: 0.5rem;
-    margin-top: 1rem;
-    cursor: pointer;
+    padding: .5rem 1rem;
+    background: $primary-pale-cyan; 
+    color: $primary-button-blue;
+    text-shadow: $shadow-primary;
     border: none;
-    transition: background-color 0.3s ease;
+    border-radius: .5rem;
+    margin-top: .25rem;
+    margin-bottom: .5rem;
+    cursor: pointer;
+    box-shadow: $shadow-senary;
+    backdrop-filter: blur(.625rem);
+    transition: background .3s ease, transform .2s ease;
+
     &:hover {
-      background-color: darken($primary-button-blue, 10%);
+      background: $primary-cyan;
+      color: $neutral-white; 
+      transform: translateY(-.125rem);
+      box-shadow: $shadow-primary; 
+      text-shadow: $shadow-primary;
+      border: .0625rem solid $neutral-white;
+    }
+
+    &:active {
+      transform: translateY(.0625rem); 
+      box-shadow: $shadow-septenary;
+      background: $primary-gradient-blue; 
+      color: $neutral-white;
     }
   }
 
@@ -637,12 +658,18 @@
     color: $dark-mode-royal-blue;
   }
 
+  &__actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
   &__friend-info {
     border: .0625rem solid $neutral-white;
     box-shadow: $shadow-primary;
     border-radius: .5rem;
     padding: .25rem .75rem;
-    cursor: pointer;
   }
 
   &__message-input {
