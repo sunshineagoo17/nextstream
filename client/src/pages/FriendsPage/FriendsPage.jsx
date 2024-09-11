@@ -79,25 +79,20 @@ const fetchFriends = useCallback(async () => {
         }
     };
 
-  // Send a new message
-  const handleSendMessage = async () => {
+// Send a new message
+const handleSendMessage = async () => {
     if (newMessage.trim()) {
-      const messageData = {
-        sender_id: userId,
-        receiver_id: selectedFriend.id,
-        message: newMessage,
-      };
-
       try {
-        await sendMessage(messageData);
+        await sendMessage(selectedFriend.id, newMessage);
         setMessages([...messages, { sender: 'me', text: newMessage }]);
         setNewMessage('');
         setTyping(false);
       } catch (error) {
-        console.log('Error sending message', error);
+        console.error('Error sending message', error);
       }
     }
   };
+  
 
   const handleCloseChat = () => {
     setSelectedFriend(null);
