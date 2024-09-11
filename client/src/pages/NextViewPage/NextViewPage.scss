@@ -96,7 +96,6 @@
         max-width: 155rem;
       }
     
-
     &::before {
       content: "";
       @include block-item(100%, 100%);

@@ -29,6 +29,7 @@ import NextViewPage from './pages/NextViewPage/NextViewPage';
 import TopPicksPage from './pages/TopPicksPage/TopPicksPage'; 
 import StreamBoard from './pages/StreamBoard/StreamBoard';
 import QuickstartGuide from './components/QuickStartGuide/QuickStartGuide'; 
+import FriendsPage from './pages/FriendsPage/FriendsPage';
 import './styles/global.scss';
 
 // Firebase 
@@ -152,6 +153,7 @@ const App = () => {
         <Route path="/top-picks/:userId" element={isGuest || isAuthenticated ? <TopPicksPage /> : <Navigate to="/login-required" />} />
         <Route path="/streamboard/:userId" element={isAuthenticated ? <StreamBoard /> : <Navigate to="/login-required" />} />
         <Route path="/spotlight/:userId/:personId" element={isAuthenticated ? <SpotlightPage /> : <Navigate to="/login-required" />} />
+        <Route path="/friends/:userId" element={isAuthenticated ? <FriendsPage /> : <Navigate to="/login-required" />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer onContactClick={handleContactClick} />

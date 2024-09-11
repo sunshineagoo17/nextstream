@@ -27,6 +27,9 @@ const recommendationsRoutes = require('./src/routes/recommendationsRoutes');
 const mediaStatusRoutes = require('./src/routes/mediaStatusRoutes');
 const spotlightRoutes = require('./src/routes/spotlightRoutes');
 const eventDownloadRoutes = require('./src/routes/eventDownloadRoutes');
+const friendsRoutes = require('./src/routes/friendsRoutes');
+const friendsMsgsRoutes = require('./src/routes/friendsMsgsRoutes');
+const userRoutes = require('./src/routes/userRoutes');
 
 const authenticate = require('./src/middleware/authenticate');
 const guestAuthenticate = require('./src/middleware/guestAuthenticate');
@@ -93,6 +96,11 @@ app.use('/api/interactions', interactionRoutes);
 app.use('/api/recommendations', authenticate, recommendationsRoutes);
 app.use('/api/faves', authenticate, favesRoutes);
 app.use('/api/media-status', authenticate, mediaStatusRoutes);
+
+// Friends API Routes
+app.use('/api/friends', authenticate, friendsRoutes);
+app.use('/api/messages', authenticate, friendsMsgsRoutes);
+app.use('/api/users', authenticate, userRoutes);
 
 // Serve static files from the React app if needed
 app.use(express.static(path.join(__dirname, 'client/build')));

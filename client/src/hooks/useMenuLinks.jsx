@@ -13,6 +13,7 @@ const useMenuLinks = () => {
     { name: "Favourites", path: `/faves/${authUserId}` },
     { name: "Calendar", path: `/calendar/${authUserId}` },
     { name: "Streamboard", path: `/streamboard/${authUserId}` },
+    { name: "Friends", path: `/friends/${authUserId}` },
     { name: "Profile", path: `/profile/${authUserId}` }
   ];
 

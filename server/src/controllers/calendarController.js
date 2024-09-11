@@ -23,10 +23,66 @@ exports.getEvents = async (req, res) => {
       return res.status(404).json({ message: 'No events found for this user' });
     }
 
-    res.status(200).json(events);
+    // Fetch shared events as well
+    const sharedEvents = await knex('calendar_events')
+      .join('events', 'calendar_events.event_id', '=', 'events.id')
+      .where({ friend_id: userIdentifier, isAccepted: true })
+      .select('events.*', 'calendar_events.isShared');
+
+    res.status(200).json([...events, ...sharedEvents]);
   } catch (error) {
     console.error('Error fetching events:', error);
     res.status(500).json({ message: 'Error fetching events' });
+  }
+};
+
+// Share an event with a friend
+exports.shareEventWithFriend = async (req, res) => {
+  const { userId, eventId } = req.params;
+  const { friendId } = req.body; 
+
+  try {
+    const event = await knex('events').where({ id: eventId, user_id: userId }).first();
+    if (!event) {
+      return res.status(404).json({ message: 'Event not found' });
+    }
+
+    await knex('calendar_events').insert({
+      event_id: eventId,
+      user_id: userId,
+      friend_id: friendId,
+      isShared: true
+    });
+
+    res.status(200).json({ message: 'Event shared successfully with friend.' });
+  } catch (error) {
+    console.error('Error sharing event:', error);
+    res.status(500).json({ message: 'Error sharing event.' });
+  }
+};
+
+// Respond to a shared event
+exports.respondToSharedEvent = async (req, res) => {
+  const { userId, calendarEventId } = req.params;
+  const { isAccepted } = req.body;
+
+  try {
+    const sharedEvent = await knex('calendar_events')
+      .where({ id: calendarEventId, friend_id: userId })
+      .first();
+
+    if (!sharedEvent) {
+      return res.status(404).json({ message: 'Shared event not found' });
+    }
+
+    await knex('calendar_events')
+      .where({ id: calendarEventId, friend_id: userId })
+      .update({ isAccepted });
+
+    res.status(200).json({ message: 'Shared event response updated successfully.' });
+  } catch (error) {
+    console.error('Error responding to shared event:', error);
+    res.status(500).json({ message: 'Error responding to shared event.' });
   }
 };
 
@@ -44,11 +100,22 @@ exports.searchEvents = async (req, res) => {
       userIdentifier = userId;
     }
 
+    // Search user's own events
     const events = await knex('events')
       .where({ user_id: userIdentifier })
       .andWhere('title', 'like', `%${query}%`);
 
-    res.status(200).json(events);
+    // Search shared events for this user
+    const sharedEvents = await knex('calendar_events')
+      .join('events', 'calendar_events.event_id', '=', 'events.id')
+      .where({ friend_id: userIdentifier, isAccepted: true })
+      .andWhere('events.title', 'like', `%${query}%`)
+      .select('events.*', 'calendar_events.isShared');
+
+    // Combine user's events and shared events
+    const allEvents = [...events, ...sharedEvents];
+
+    res.status(200).json(allEvents);
   } catch (error) {
     console.error('Error searching events:', error);
     res.status(500).json({ message: 'Error searching events' });

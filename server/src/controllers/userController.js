@@ -1,5 +1,6 @@
 const User = require("../models/userModel");
 const bcrypt = require('bcryptjs');
+const knex = require('../config/db');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
@@ -130,6 +131,30 @@ const deleteUser = async (req, res) => {
     res.json({ message: 'User account deleted successfully' });
   } catch (err) {
     res.status(500).json({ message: 'Error deleting account', error: err.message });
+  }
+};
+
+exports.searchUsers = async (req, res) => {
+  const { query } = req.query;
+  
+  if (!query || query.length < 2) {
+    return res.status(400).json({ message: 'Search query must be at least 2 characters long' });
+  }
+
+  try {
+    const users = await knex('users')
+      .where(function() {
+        this.where('name', 'like', `${query}`)
+            .orWhere('username', 'like', `${query}`)
+            .orWhere('email', 'like', `${query}`);
+      })
+      .select('id', 'name', 'username', 'avatar')
+      .limit(20);
+    
+    res.status(200).json(users);
+  } catch (error) {
+    console.error('Error searching users:', error);
+    res.status(500).json({ message: 'Error searching users' });
   }
 };
 

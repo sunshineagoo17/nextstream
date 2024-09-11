@@ -43,6 +43,7 @@ const HoverMenu = () => {
       `/auth-search-results/${userId}`,
       `/streamboard/${userId}`,
       `/search`,
+      `/friends/${userId}`,
       `/calendar/guest`,
     ];
   

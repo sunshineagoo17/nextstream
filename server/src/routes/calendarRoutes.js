@@ -22,4 +22,10 @@ router.put('/:userId/events/:eventId', authenticate, calendarController.updateEv
 // Delete an event for an authenticated user
 router.delete('/:userId/events/:eventId', authenticate, calendarController.deleteEvent);
 
+// Share an event with a friend
+router.post('/:userId/events/:eventId/share', authenticate, calendarController.shareEventWithFriend);
+
+// Accept or decline a shared event
+router.put('/:userId/shared-events/:calendarEventId/respond', authenticate, calendarController.respondToSharedEvent);
+
 module.exports = router;
