@@ -7,6 +7,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const admin = require('firebase-admin');
+const knex = require('../server/src/config/db');
 require('dotenv').config();
 
 // Initialize Firebase Admin SDK
@@ -84,14 +85,31 @@ io.on('connection', (socket) => {
   });
 
   // Listen for the send_message event
-  socket.on('send_message', (data) => {
+  socket.on('send_message', async (data) => {
     const { senderId, receiverId, message } = data;
 
-    // Send the message to the room of the receiver
-    io.to(receiverId).emit('receive_message', {
-      senderId,
-      message,
-    });
+    try {
+      // Insert the message into the database
+      const savedMessage = await knex('messages').insert({
+        sender_id: senderId,
+        receiver_id: receiverId,
+        message: message,
+        is_read: false, // Initially, message is unread
+        created_at: knex.fn.now(),
+      });
+
+      // Emit the message to the recipient's room
+      io.to(receiverId).emit('receive_message', {
+        senderId,
+        receiverId,
+        message,
+        created_at: new Date()
+      });
+
+      console.log('Message saved and sent:', savedMessage);
+    } catch (error) {
+      console.error('Error saving message:', error);
+    }
   });
 
   socket.on('disconnect', () => {
