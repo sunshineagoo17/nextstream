@@ -162,6 +162,7 @@ const filteredFriends = friends;
 
         {/* Search Users to Send Friend Requests */}
         <div className="friends-page__search-section glassmorphic-card">
+            <h3 className="friends-page__card-subtitle--search">Grow Your Crew</h3>
             <div className="friends-page__search-container">
                 <input
                 type="text"
@@ -188,7 +189,7 @@ const filteredFriends = friends;
                 ) : (
                 searchResults.map((user) => (
                     <div key={user.id} className="friends-page__search-item">
-                    <span>{user.name}</span>
+                    <span className="friends-page__username">{user.name}</span>
                     <button
                         onClick={() => handleSendFriendRequest(user.id)}
                         className="friends-page__add-friend"
@@ -203,7 +204,7 @@ const filteredFriends = friends;
 
         {/* Pending Friend Requests Section */}
         <div className="friends-page__pending-section glassmorphic-card">
-          <h3>Pending Requests</h3>
+          <h3 className="friends-page__card-subtitle--requests">Pending Requests</h3>
           {pendingRequests.length === 0 ? (
             <p>No pending friend requests.</p>
           ) : (
@@ -223,31 +224,39 @@ const filteredFriends = friends;
 
         {/* Friends List Section */}
         <div className="friends-page__list glassmorphic-card">
-        <h3>Friends</h3>
-        {filteredFriends.length === 0 ? (
-            <p>No friends added yet.</p>
-        ) : (
-            filteredFriends.map((friend) => (
-            <div
-                key={friend.id}
-                className={`friends-page__item ${selectedFriend?.id === friend.id ? 'selected' : ''}`}
-                onClick={() => handleSelectFriend(friend)}
-            >
-                <img
-                src={friend.avatar || '/path/to/default/avatar.png'}
-                alt={friend.name}
-                className="friends-page__avatar"
-                />
-                <span>{friend.name}</span>
-                <button
+            <h3 className="friends-page__card-subtitle--friends">Friends</h3>
+            {filteredFriends.length === 0 ? (
+                <p>No friends added yet.</p>
+            ) : (
+                filteredFriends.map((friend) => (
+                <div
+                    key={friend.id}
+                    className={`friends-page__item ${selectedFriend?.id === friend.id ? 'selected' : ''}`}
+                    onClick={() => handleSelectFriend(friend)}
+                >
+                    <div className="friends-page__friend-info">
+                    {/* Avatar */}
+                    <img
+                        src={friend.avatar || '/path/to/default/avatar.png'}
+                        alt={friend.name}
+                        className="friends-page__avatar"
+                    />
+                    <div className="friends-page__friend-details">
+                        {/* Name */}
+                        <p className="friends-page__label"><strong>Name:</strong> {friend.name}</p>
+                        {/* Username */}
+                        <p className="friends-page__label"><strong>Username:</strong> {friend.username}</p>
+                    </div>
+                    </div>
+                    <button
                     onClick={() => handleRemoveFriend(friend.id)}
                     className="friends-page__remove-friend"
-                >
+                    >
                     Remove
-                </button>
-            </div>
-            ))
-        )}
+                    </button>
+                </div>
+                ))
+            )}
         </div>
 
         {/* Chat Section */}

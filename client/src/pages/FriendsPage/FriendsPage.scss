@@ -275,7 +275,7 @@
     color: $dark-mode-deep-blue;
     border: none;
     border-radius: .5rem;
-    margin-left: .5rem;
+    margin-top: .25rem;
     cursor: pointer;
     box-shadow: $shadow-secondary;
     backdrop-filter: blur(.625rem);
@@ -298,6 +298,41 @@
 
   &__search-container {
     position: relative;
+  }
+
+  &__card-subtitle--search {
+    width: 80%;
+  }
+
+  &__card-subtitle--requests {
+    width: 85%;
+  }
+
+  &__card-subtitle--friends {
+    width: 30%;
+  }
+
+  &__card-subtitle--search,
+  &__card-subtitle--requests,
+  &__card-subtitle--friends {
+    background: $frosted-glass;
+    color: $primary-dark-blue;
+    margin-bottom: .5rem;
+    border-radius: .5rem;
+    justify-content: center;
+    border: .125rem solid $frosted-glass;
+    text-align: center;
+    box-shadow: $shadow-tertiary;
+  }
+
+  &__username {
+    font-size: .75rem;
+    background: $neutral-white;
+    font-family: $secondary-font;
+    box-shadow: $shadow-senary;
+    padding: .25rem;
+    border-radius: .5rem;
+    border: .125rem solid $neutral-light-grey;
   }
 
   &__clear-button {
