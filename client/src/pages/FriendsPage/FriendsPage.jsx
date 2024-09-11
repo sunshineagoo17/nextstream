@@ -125,15 +125,18 @@ const fetchFriends = useCallback(async () => {
   };
   
   // Accept a friend request
-  const handleAcceptFriendRequest = async (friendId) => {
+const handleAcceptFriendRequest = async (friendId) => {
     try {
       await acceptFriendRequest(friendId);
       fetchFriends(); 
+      setPendingRequests((prevPendingRequests) =>
+        prevPendingRequests.filter((request) => request.id !== friendId)
+      );
     } catch (error) {
       console.error('Error accepting friend request', error);
     }
   };
-
+  
   // Remove a friend
   const handleRemoveFriend = async (friendId) => {
     try {
