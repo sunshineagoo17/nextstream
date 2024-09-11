@@ -138,7 +138,11 @@ const handleKeyDown = (event) => {
 const handleDeleteMessage = async (messageId) => {
   try {
     await deleteMessage(messageId);
-    setMessages(messages.filter((message) => message.id !== messageId));
+    
+    // Optimistically remove the message from the UI after deleting
+    setMessages((prevMessages) => prevMessages.filter((message) => message.id !== messageId));
+
+    console.log('Message deleted successfully');
   } catch (error) {
     console.error('Error deleting message:', error);
   }

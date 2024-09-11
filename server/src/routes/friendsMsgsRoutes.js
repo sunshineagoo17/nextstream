@@ -166,6 +166,34 @@ router.post('/mark-all-read/:friendId', authenticate, async (req, res) => {
       res.status(500).json({ message: 'Error marking all messages as read' });
     }
   });
-  
+
+// Delete a message by its ID
+router.delete('/delete/:messageId', authenticate, async (req, res) => {
+  const { messageId } = req.params;
+  const userId = req.user.userId; 
+
+  try {
+    const message = await knex('messages')
+      .where({ id: messageId })
+      .andWhere(function () {
+        this.where('sender_id', userId).orWhere('receiver_id', userId);
+      })
+      .first();
+
+    if (!message) {
+      return res.status(404).json({ message: 'Message not found or you do not have permission to delete this message.' });
+    }
+
+    // Delete the message from the database
+    await knex('messages')
+      .where({ id: messageId })
+      .del();
+
+    res.status(200).json({ message: 'Message deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting message:', error);
+    res.status(500).json({ message: 'Error deleting message' });
+  }
+});
 
 module.exports = router;

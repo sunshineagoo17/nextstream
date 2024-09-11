@@ -687,6 +687,8 @@
   &__message {
     margin-bottom: .9375rem;
     padding: .625rem .9375rem;
+    display: flex;
+    justify-content: space-between;
     border-radius: .75rem;
     max-width: 70%;
     position: relative;
