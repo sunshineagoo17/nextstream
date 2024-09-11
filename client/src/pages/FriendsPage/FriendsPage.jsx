@@ -26,13 +26,11 @@ const FriendsPage = () => {
 const fetchFriends = useCallback(async () => {
     try {
       const friendsData = await getFriends();
-      
-      console.log("Fetched Friends Data:", friendsData); 
-      
+      console.log("Fetched Friends Data:", friendsData);
       if (Array.isArray(friendsData)) {
-        setFriends(friendsData); 
+        setFriends(friendsData);
       } else if (friendsData && Array.isArray(friendsData.friends)) {
-        setFriends(friendsData.friends); 
+        setFriends(friendsData.friends);
       } else {
         setFriends([]);
         console.log("Invalid friends data structure.");
@@ -66,7 +64,6 @@ const fetchFriends = useCallback(async () => {
       socket.emit('join_room', userId);
     }
   }, [userId]);
-  
 
 // Select a friend and fetch messages
 const handleSelectFriend = async (friend) => {
@@ -76,6 +73,7 @@ const handleSelectFriend = async (friend) => {
 
   try {
       const messagesData = await fetchMessages(friend.id);
+      console.log("Fetched Messages Data:", messagesData);
       setMessages(messagesData);
 
       // Mark individual unread messages as read
@@ -95,23 +93,30 @@ const handleSelectFriend = async (friend) => {
 useEffect(() => {
   // Listen for incoming messages from the server
   socket.on('receive_message', (data) => {
-    setMessages((prevMessages) => [...prevMessages, data]);
-  });
+    console.log("Received Message:", data);
+      if (data.senderId === selectedFriend?.id || data.receiverId === selectedFriend?.id) {
+        setMessages((prevMessages) => [...prevMessages, data]);
+      }
+    });
 
-  return () => {
-    socket.off('receive_message'); 
-  };
-}, []);
+    return () => {
+      socket.off('receive_message');
+    };
+  }, [selectedFriend]);
 
 // Send a new message
 const handleSendMessage = () => {
   if (newMessage.trim() && selectedFriend) {
-    socket.emit('send_message', {
+    const messageData = {
       senderId: userId,
       receiverId: selectedFriend.id,
       message: newMessage,
-    });
-    setNewMessage('');
+    };
+
+    socket.emit('send_message', messageData);
+    console.log('Sending Message:', messageData); 
+    setMessages((prevMessages) => [...prevMessages, messageData]); 
+    setNewMessage(''); 
   }
 };
 
@@ -230,19 +235,19 @@ const filteredFriends = friends;
                 <h3 className="friends-page__card-subtitle--search">Grow Your Crew</h3>
                 <div className="friends-page__search-container">
                     <input
-                    type="text"
-                    className="friends-page__search"
-                    placeholder="Search users..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    onKeyDown={(e) => {
-                        if (e.key === 'Enter') handleSearch();
-                    }}
+                      type="text"
+                      className="friends-page__search"
+                      placeholder="Search users..."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      onKeyDown={(e) => {
+                          if (e.key === 'Enter') handleSearch();
+                      }}
                     />
                     {searchTerm && (
-                    <button className="friends-page__clear-button" onClick={clearSearch}>
-                        &times;
-                    </button>
+                      <button className="friends-page__clear-button" onClick={clearSearch}>
+                          &times;
+                      </button>
                     )}
                 </div>
                 <button className="friends-page__search-button" onClick={handleSearch}>
@@ -337,49 +342,47 @@ const filteredFriends = friends;
     
         {/* Chat Section */}
         {selectedFriend && (
-            <div className="friends-page__container friends-page__container--chat">
-                <div className="friends-page__chat glassmorphic-card">
-                    <FontAwesomeIcon
-                        icon={faTimes}
-                        className="friends-page__chat-close"
-                        onClick={handleCloseChat}
-                    />
-                    <div className="friends-page__chat-header">
-                    <span className="friends-page__chat-header-title">Chat with: {selectedFriend.name}</span>
-                    
+          <div className="friends-page__container friends-page__container--chat">
+            <div className="friends-page__chat glassmorphic-card">
+              <FontAwesomeIcon
+                icon={faTimes}
+                className="friends-page__chat-close"
+                onClick={handleCloseChat}
+              />
+              <div className="friends-page__chat-header">
+                <span className="friends-page__chat-header-title">Chat with: {selectedFriend.name}</span>
+              </div>
+              <div className="friends-page__messages">
+                {messages.length === 0 ? (
+                  <p className="friends-page__no-msgs">No messages yet. Start the conversation!</p>
+                ) : (
+                  messages.map((message, index) => (
+                    <div key={index} className={`friends-page__message ${message.senderId === userId ? 'me' : 'friend'}`}>
+                      {message.message}
                     </div>
-                    <div className="friends-page__messages">
-                    {messages.length === 0 ? (
-                        <p className="friends-page__no-msgs">No messages yet. Start the conversation!</p>
-                    ) : (
-                        messages.map((message, index) => (
-                        <div key={index} className={`friends-page__message ${message.sender === 'me' ? 'me' : 'friend'}`}>
-                            {message.text}
-                        </div>
-                        ))
-                    )}
-                    </div>
-                    <div className="friends-page__message-input">
-                    <input
-                        type="text"
-                        value={newMessage}
-                        className="friends-page__msg-placeholder"
-                        onChange={(e) => setNewMessage(e.target.value)}
-                        onKeyDown={() => setTyping(true)}
-                        placeholder="Type a message..."
-                    />
-                    <button
-                        className='friends-page__send-btn'
-                        onClick={handleSendMessage}  
-                    >
-                        Send
-                    </button>
-                    </div>
-                    {typing && <div className="friends-page__typing">Typing...</div>}
-                </div>
+                  ))
+                )}
+              </div>
+              <div className="friends-page__message-input">
+                <input
+                  type="text"
+                  value={newMessage}
+                  className="friends-page__msg-placeholder"
+                  onChange={(e) => setNewMessage(e.target.value)}
+                  placeholder="Type a message..."
+                />
+                <button
+                  className='friends-page__send-btn'
+                  onClick={handleSendMessage}
+                >
+                  Send
+                </button>
+              </div>
+              {typing && <div className="friends-page__typing">Typing...</div>}
             </div>
-            )}
-        </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
