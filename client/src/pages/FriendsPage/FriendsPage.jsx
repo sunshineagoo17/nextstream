@@ -2,6 +2,8 @@ import { useContext, useState, useEffect, useCallback } from 'react';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { getFriends, sendFriendRequest, acceptFriendRequest, removeFriend, searchUsers, fetchPendingRequests as fetchPendingRequestsService } from '../../services/friendsService'; // Ensure correct import
 import { fetchMessages, sendMessage, markMessageAsRead, markAllMessagesAsRead } from '../../services/messageService';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 import './FriendsPage.scss';
 
 const FriendsPage = () => {
@@ -14,6 +16,7 @@ const FriendsPage = () => {
   const [newMessage, setNewMessage] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [typing, setTyping] = useState(false);
+  const [showChat, setShowChat] = useState(false);
 
 // Fetch friends list
 const fetchFriends = useCallback(async () => {
@@ -70,6 +73,10 @@ const fetchFriends = useCallback(async () => {
     } catch (error) {
       console.error('Error fetching messages or marking them as read', error);
     }
+  };
+
+  const toggleChat = () => {
+    setShowChat(!showChat);
   };
 
   // Send a new message
@@ -158,138 +165,151 @@ const filteredFriends = friends;
                     View your friends, manage pending requests, and share recommendations. Keep up with what your crew is watching and discover new shows and movies together.
                 </p>
         </div>
-      <div className="friends-page__container">
 
+    <div className="friends-page__main-content">
+      <div className="friends-page__container friends-page__container--friends-cards">
         {/* Search Users to Send Friend Requests */}
-        <div className="friends-page__search-section glassmorphic-card">
-            <h3 className="friends-page__card-subtitle--search">Grow Your Crew</h3>
-            <div className="friends-page__search-container">
-                <input
-                type="text"
-                className="friends-page__search"
-                placeholder="Search users..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                onKeyDown={(e) => {
-                    if (e.key === 'Enter') handleSearch();
-                }}
-                />
-                {searchTerm && (
-                <button className="friends-page__clear-button" onClick={clearSearch}>
-                    &times;
-                </button>
-                )}
-            </div>
-            <button className="friends-page__search-button" onClick={handleSearch}>
-                Search
-            </button>
-            <div className="friends-page__search-results">
-                {searchResults.length === 0 ? (
-                <p>No users found for your search.</p>
-                ) : (
-                searchResults.map((user) => (
-                    <div key={user.id} className="friends-page__search-item">
-                    <span className="friends-page__username">{user.name}</span>
-                    <button
-                        onClick={() => handleSendFriendRequest(user.id)}
-                        className="friends-page__add-friend"
-                    >
-                        Add Friend
-                    </button>
-                    </div>
-                ))
-                )}
-            </div>
-        </div>
-
-        {/* Pending Friend Requests Section */}
-        <div className="friends-page__pending-section glassmorphic-card">
-          <h3 className="friends-page__card-subtitle--requests">Pending Requests</h3>
-          {pendingRequests.length === 0 ? (
-            <p>No pending friend requests.</p>
-          ) : (
-            pendingRequests.map((request) => (
-              <div key={request.id} className="friends-page__pending-item">
-                <span>{request.name}</span>
-                <button 
-                    onClick={() => handleAcceptFriendRequest(request.id)}
-                    className="friends-page__accept-friend"
-                >
-                    Accept
-                </button>
-              </div>
-            ))
-          )}
-        </div>
-
-        {/* Friends List Section */}
-        <div className="friends-page__list glassmorphic-card">
-            <h3 className="friends-page__card-subtitle--friends">Friends</h3>
-            {filteredFriends.length === 0 ? (
-                <p>No friends added yet.</p>
-            ) : (
-                filteredFriends.map((friend) => (
-                <div
-                    key={friend.id}
-                    className={`friends-page__item ${selectedFriend?.id === friend.id ? 'selected' : ''}`}
-                    onClick={() => handleSelectFriend(friend)}
-                >
-                    <div className="friends-page__friend-info">
-                    {/* Avatar */}
-                    <img
-                        src={friend.avatar || '/path/to/default/avatar.png'}
-                        alt={friend.name}
-                        className="friends-page__avatar"
+            <div className="friends-page__search-section glassmorphic-card">
+                <h3 className="friends-page__card-subtitle--search">Grow Your Crew</h3>
+                <div className="friends-page__search-container">
+                    <input
+                    type="text"
+                    className="friends-page__search"
+                    placeholder="Search users..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter') handleSearch();
+                    }}
                     />
-                    <div className="friends-page__friend-details">
-                        {/* Name */}
-                        <p className="friends-page__label"><strong>Name:</strong> {friend.name}</p>
-                        {/* Username */}
-                        <p className="friends-page__label"><strong>Username:</strong> {friend.username}</p>
-                    </div>
-                    </div>
-                    <button
-                    onClick={() => handleRemoveFriend(friend.id)}
-                    className="friends-page__remove-friend"
+                    {searchTerm && (
+                    <button className="friends-page__clear-button" onClick={clearSearch}>
+                        &times;
+                    </button>
+                    )}
+                </div>
+                <button className="friends-page__search-button" onClick={handleSearch}>
+                    Search
+                </button>
+                <div className="friends-page__search-results">
+                    {searchResults.length === 0 ? (
+                    <p>No users found for your search.</p>
+                    ) : (
+                    searchResults.map((user) => (
+                        <div key={user.id} className="friends-page__search-item">
+                        <span className="friends-page__username">{user.name}</span>
+                        <button
+                            onClick={() => handleSendFriendRequest(user.id)}
+                            className="friends-page__add-friend"
+                        >
+                            Add Friend
+                        </button>
+                        </div>
+                    ))
+                    )}
+                </div>
+            </div>
+
+            {/* Pending Friend Requests Section */}
+            <div className="friends-page__pending-section glassmorphic-card">
+            <h3 className="friends-page__card-subtitle--requests">Pending Requests</h3>
+            {pendingRequests.length === 0 ? (
+                <p>No pending friend requests.</p>
+            ) : (
+                pendingRequests.map((request) => (
+                <div key={request.id} className="friends-page__pending-item">
+                    <span>{request.name}</span>
+                    <button 
+                        onClick={() => handleAcceptFriendRequest(request.id)}
+                        className="friends-page__accept-friend"
                     >
-                    Remove
+                        Accept
                     </button>
                 </div>
                 ))
             )}
-        </div>
+            </div>
 
+            {/* Friends List Section */}
+            <div className="friends-page__list glassmorphic-card">
+                <h3 className="friends-page__card-subtitle--friends">Your NextCrew</h3>
+                {filteredFriends.length === 0 ? (
+                    <p>No friends added yet.</p>
+                ) : (
+                    filteredFriends.map((friend) => (
+                    <div
+                        key={friend.id}
+                        className={`friends-page__item ${selectedFriend?.id === friend.id ? 'selected' : ''}`}
+                        onClick={() => handleSelectFriend(friend)}
+                    >
+                        <div className="friends-page__friend-info">
+                        {/* Avatar */}
+                        <FontAwesomeIcon 
+                            icon={faUser} 
+                            alt={friend.name}
+                            className="friends-page__avatar-default"
+                        />
+                        {/* <img
+                            src={friend.avatar || '../../assets/images/default-avatar.svg'}
+                            alt={friend.name}
+                            className="friends-page__avatar"
+                        /> */}
+                        <div className="friends-page__friend-details">
+                            {/* Name */}
+                            <p className="friends-page__label"><strong className='friends-page__user-info'>Name:</strong> {friend.name}</p>
+                            {/* Username */}
+                            <p className="friends-page__label"><strong className='friends-page__user-info'>Username:</strong> {friend.username}</p>
+                        </div>
+                        </div>
+                        <button
+                        onClick={() => handleRemoveFriend(friend.id)}
+                        className="friends-page__remove-friend"
+                        >
+                        Remove
+                        </button>
+                    </div>
+                    ))
+                )}
+            </div>
+            {/* Button to show chat */}
+        <button onClick={toggleChat} className="friends-page__chat-button">
+          {showChat ? "Hide Chat" : "Show Chat"}
+        </button>
+        </div>
+    
         {/* Chat Section */}
         {selectedFriend && (
-          <div className="friends-page__chat glassmorphic-card">
-            <div className="friends-page__chat-header">
-              <span>{selectedFriend.name}</span>
+            <div className="friends-page__container friends-page__container--chat">
+                <div className="friends-page__chat glassmorphic-card">
+                    <div className="friends-page__chat-header">
+                    <span>{selectedFriend.name}</span>
+                    </div>
+                    <div className="friends-page__messages">
+                    {messages.length === 0 ? (
+                        <p>No messages yet. Start the conversation!</p>
+                    ) : (
+                        messages.map((message, index) => (
+                        <div key={index} className={`friends-page__message ${message.sender === 'me' ? 'me' : 'friend'}`}>
+                            {message.text}
+                        </div>
+                        ))
+                    )}
+                    </div>
+                    <div className="friends-page__message-input">
+                    <input
+                        type="text"
+                        value={newMessage}
+                        onChange={(e) => setNewMessage(e.target.value)}
+                        onKeyDown={() => setTyping(true)}
+                        placeholder="Type a message..."
+                    />
+                    <button onClick={handleSendMessage}>Send</button>
+                    </div>
+                    {typing && <div className="friends-page__typing">Typing...</div>}
+                </div>
             </div>
-            <div className="friends-page__messages">
-              {messages.length === 0 ? (
-                <p>No messages yet. Start the conversation!</p>
-              ) : (
-                messages.map((message, index) => (
-                  <div key={index} className={`friends-page__message ${message.sender === 'me' ? 'me' : 'friend'}`}>
-                    {message.text}
-                  </div>
-                ))
-              )}
-            </div>
-            <div className="friends-page__message-input">
-              <input
-                type="text"
-                value={newMessage}
-                onChange={(e) => setNewMessage(e.target.value)}
-                onKeyDown={() => setTyping(true)}
-                placeholder="Type a message..."
-              />
-              <button onClick={handleSendMessage}>Send</button>
-            </div>
-            {typing && <div className="friends-page__typing">Typing...</div>}
-          </div>
-        )}
-      </div>
+            )}
+        </div>
     </div>
   );
 };
