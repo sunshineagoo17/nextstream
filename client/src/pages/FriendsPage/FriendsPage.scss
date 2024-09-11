@@ -220,7 +220,7 @@
         transform: translateY(-.125rem);
         box-shadow: $shadow-primary; 
         text-shadow: $shadow-primary;
-        border: 1px solid $neutral-white;
+        border: .0625rem solid $neutral-white;
     }
 
     &:active {
@@ -229,7 +229,7 @@
       color: $feedback-success-green;
       text-shadow: none;
       font-weight: bold;
-      border: 1px solid $feedback-success-green;
+      border: .0625rem solid $feedback-success-green;
     }
   }
 
@@ -258,7 +258,7 @@
       transform: translateY(-.125rem);
       box-shadow: $shadow-primary; 
       text-shadow: $shadow-primary;
-      border: 1px solid $neutral-white;
+      border: .0625rem solid $neutral-white;
     }
 
     &:active {
@@ -287,7 +287,7 @@
       transform: translateY(-.125rem);
       box-shadow: $shadow-primary; 
       text-shadow: $shadow-primary;
-      border: 1px solid $neutral-white;
+      border: .0625rem solid $neutral-white;
     }
 
     &:active {
