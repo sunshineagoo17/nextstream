@@ -48,6 +48,32 @@
       }
     }
 
+    // Friends List
+    .friends-page {
+      background: $primary-darker-blue-gradient;
+
+      &__copy {
+        color: $neutral-white;
+        background: $primary-button-dark-blue;
+      }
+
+      &__chat {
+        background: $frosted-glass;
+      }
+
+      &__chat-username {
+        color: $neutral-white;
+      }
+
+      &__heading-container {
+        background: $frosted-glass;
+      }
+
+      &__chat-header {
+        border: none;
+      }
+    }
+
     // Calendar Page
     .calendar-page {
       background-color: $primary-darker-blue;

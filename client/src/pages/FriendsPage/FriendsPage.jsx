@@ -318,7 +318,7 @@ const filteredFriends = friends;
             <div className="friends-page__container friends-page__container--chat">
                 <div className="friends-page__chat glassmorphic-card">
                     <div className="friends-page__chat-header">
-                    <span>{selectedFriend.name}</span>
+                    <span className="friends-page__chat-username">{selectedFriend.name}</span>
                     </div>
                     <div className="friends-page__messages">
                     {messages.length === 0 ? (
