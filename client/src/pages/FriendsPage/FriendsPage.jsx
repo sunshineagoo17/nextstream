@@ -318,11 +318,11 @@ const filteredFriends = friends;
             <div className="friends-page__container friends-page__container--chat">
                 <div className="friends-page__chat glassmorphic-card">
                     <div className="friends-page__chat-header">
-                    <span className="friends-page__chat-username">{selectedFriend.name}</span>
+                    <span className="friends-page__chat-header-title">Chat with: {selectedFriend.name}</span>
                     </div>
                     <div className="friends-page__messages">
                     {messages.length === 0 ? (
-                        <p>No messages yet. Start the conversation!</p>
+                        <p className="friends-page__no-msgs">No messages yet. Start the conversation!</p>
                     ) : (
                         messages.map((message, index) => (
                         <div key={index} className={`friends-page__message ${message.sender === 'me' ? 'me' : 'friend'}`}>
@@ -335,11 +335,17 @@ const filteredFriends = friends;
                     <input
                         type="text"
                         value={newMessage}
+                        className="friends-page__msg-placeholder"
                         onChange={(e) => setNewMessage(e.target.value)}
                         onKeyDown={() => setTyping(true)}
                         placeholder="Type a message..."
                     />
-                    <button onClick={handleSendMessage}>Send</button>
+                    <button
+                        className='friends-page__send-btn'
+                        onClick={handleSendMessage}  
+                    >
+                        Send
+                    </button>
                     </div>
                     {typing && <div className="friends-page__typing">Typing...</div>}
                 </div>
