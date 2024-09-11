@@ -138,12 +138,7 @@ const fetchFriends = useCallback(async () => {
     }
   };
 
-  const filteredFriends = searchTerm
-  ? friends.filter((friend) =>
-      friend.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      friend.username.toLowerCase().includes(searchTerm.toLowerCase())
-    )
-  : [];
+const filteredFriends = friends;
 
   const clearSearch = () => {
     setSearchTerm('');      
@@ -164,6 +159,7 @@ const fetchFriends = useCallback(async () => {
                 </p>
         </div>
       <div className="friends-page__container">
+
         {/* Search Users to Send Friend Requests */}
         <div className="friends-page__search-section glassmorphic-card">
             <div className="friends-page__search-container">
@@ -229,7 +225,7 @@ const fetchFriends = useCallback(async () => {
         <div className="friends-page__list glassmorphic-card">
         <h3>Friends</h3>
         {filteredFriends.length === 0 ? (
-            <p>No friends match your search.</p>
+            <p>No friends added yet.</p>
         ) : (
             filteredFriends.map((friend) => (
             <div
@@ -238,7 +234,7 @@ const fetchFriends = useCallback(async () => {
                 onClick={() => handleSelectFriend(friend)}
             >
                 <img
-                src={friend.avatar || '/path/to/default/avatar.png'} 
+                src={friend.avatar || '/path/to/default/avatar.png'}
                 alt={friend.name}
                 className="friends-page__avatar"
                 />
