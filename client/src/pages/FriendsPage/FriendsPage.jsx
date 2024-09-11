@@ -1,9 +1,9 @@
 import { useContext, useState, useEffect, useCallback } from 'react';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { getFriends, sendFriendRequest, acceptFriendRequest, removeFriend, searchUsers, fetchPendingRequests as fetchPendingRequestsService } from '../../services/friendsService'; // Ensure correct import
-import { fetchMessages, markMessageAsRead, markAllMessagesAsRead } from '../../services/messageService';
+import { fetchMessages, sendMessage, deleteMessage, markAllMessagesAsRead } from '../../services/messageService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faTimes, faTrash } from '@fortawesome/free-solid-svg-icons';
 import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
 import io from 'socket.io-client';
 import './FriendsPage.scss';
@@ -43,80 +43,104 @@ const fetchFriends = useCallback(async () => {
   // Fetch pending friend requests
   const fetchPendingRequests = useCallback(async () => {
     try {
-        const pendingData = await fetchPendingRequestsService(); 
-        console.log("Pending Requests Data:", pendingData); 
-        setPendingRequests(pendingData); 
+      const pendingData = await fetchPendingRequestsService();
+      setPendingRequests(pendingData);
     } catch (error) {
-        console.log('Error fetching pending friend requests:', error);
+      console.error('Error fetching pending friend requests:', error);
     }
   }, []);
 
   useEffect(() => {
     if (isAuthenticated && userId) {
-      fetchFriends(); 
-      fetchPendingRequests(); 
+      fetchFriends();
+      fetchPendingRequests();
     }
   }, [isAuthenticated, userId, fetchFriends, fetchPendingRequests]);
 
   useEffect(() => {
-    // Emit join_room event to join a room based on the user's id
     if (userId) {
       socket.emit('join_room', userId);
     }
   }, [userId]);
 
-// Select a friend and fetch messages
-const handleSelectFriend = async (friend) => {
-  setSelectedFriend(friend);
-  setNewMessage(''); 
-  setTyping(false); 
+  // Select a friend and fetch messages
+  const handleSelectFriend = async (friend) => {
+    console.log('Friend:', friend);
+    setSelectedFriend(friend);
+    setNewMessage('');
+    setTyping(false);
 
-  try {
+    try {
       const messagesData = await fetchMessages(friend.id);
-      console.log("Fetched Messages Data:", messagesData);
       setMessages(messagesData);
-
-      // Mark individual unread messages as read
-      messagesData.forEach(async (message) => {
-          if (!message.is_read && message.receiver_id === userId) {
-              await markMessageAsRead(message.id);
-          }
-      });
 
       // Mark all messages as read for the selected friend
       await markAllMessagesAsRead(friend.id);
-  } catch (error) {
-      console.log('Error fetching messages or marking them as read', error);
+    } catch (error) {
+      console.error('Error fetching messages or marking them as read', error);
+    }
+  };
+
+useEffect(() => {
+  // Fetch messages when a friend is selected
+  if (selectedFriend) {
+    const fetchMessagesForFriend = async () => {
+      try {
+        const messagesData = await fetchMessages(selectedFriend.id);
+        setMessages(messagesData);
+      } catch (error) {
+        console.error('Error fetching messages:', error);
+      }
+    };
+    fetchMessagesForFriend();
+  }
+}, [selectedFriend]);
+
+useEffect(() => {
+  socket.on('receive_message', (data) => {
+    setMessages((prevMessages) => [...prevMessages, data]);
+  });
+
+  return () => {
+    socket.off('receive_message');
+  };
+}, []);
+
+const handleSendMessage = async () => {
+  console.log('Selected Friend:', selectedFriend);  
+
+  if (newMessage.trim() && selectedFriend?.id) {
+    const newMessageObj = {
+      senderId: userId,  
+      receiverId: selectedFriend.id,
+      message: newMessage,
+      timestamp: new Date().toISOString(),  
+      is_read: false,  
+    };
+
+    setMessages((prevMessages) => [...prevMessages, newMessageObj]);
+
+    try {
+      await sendMessage(selectedFriend.id, newMessage);
+      setNewMessage('');  
+    } catch (error) {
+      console.error('Error sending message:', error);
+    }
   }
 };
 
-useEffect(() => {
-  // Listen for incoming messages from the server
-  socket.on('receive_message', (data) => {
-    console.log("Received Message:", data);
-      if (data.senderId === selectedFriend?.id || data.receiverId === selectedFriend?.id) {
-        setMessages((prevMessages) => [...prevMessages, data]);
-      }
-    });
+const handleKeyDown = (event) => {
+  if (event.key === 'Enter') {
+    handleSendMessage();
+  }
+};
 
-    return () => {
-      socket.off('receive_message');
-    };
-  }, [selectedFriend]);
-
-// Send a new message
-const handleSendMessage = () => {
-  if (newMessage.trim() && selectedFriend) {
-    const messageData = {
-      senderId: userId,
-      receiverId: selectedFriend.id,
-      message: newMessage,
-    };
-
-    socket.emit('send_message', messageData);
-    console.log('Sending Message:', messageData); 
-    setMessages((prevMessages) => [...prevMessages, messageData]); 
-    setNewMessage(''); 
+const handleDeleteMessage = async (messageId) => {
+  try {
+    await deleteMessage(messageId);
+    setMessages(messages.filter((message) => message.id !== messageId));
+  } catch (error) {
+    console.error('Error deleting message:', error);
   }
 };
 
@@ -135,11 +159,7 @@ const handleSendMessage = () => {
   
     try {
       const searchResultsData = await searchUsers(searchTerm.trim());
-      
-      // Filter out the logged-in user's own username
       const filteredSearchResults = searchResultsData.filter(user => user.id !== userId);
-  
-      // If no users are found, display a custom alert
       if (filteredSearchResults.length === 0) {
         setAlertMessage({ message: 'No users found for your search.', type: 'info' });
       }
@@ -349,26 +369,32 @@ const filteredFriends = friends;
                 className="friends-page__chat-close"
                 onClick={handleCloseChat}
               />
-              <div className="friends-page__chat-header">
-                <span className="friends-page__chat-header-title">Chat with: {selectedFriend.name}</span>
-              </div>
-              <div className="friends-page__messages">
-                {messages.length === 0 ? (
-                  <p className="friends-page__no-msgs">No messages yet. Start the conversation!</p>
-                ) : (
-                  messages.map((message, index) => (
-                    <div key={index} className={`friends-page__message ${message.senderId === userId ? 'me' : 'friend'}`}>
-                      {message.message}
-                    </div>
-                  ))
-                )}
-              </div>
+            <div className="friends-page__chat-header">
+              <span className="friends-page__chat-header-title">Chat with: {selectedFriend.name}</span>
+            </div>
+            <div className="friends-page__messages">
+              {messages.length === 0 ? (
+                <p className="friends-page__no-msgs">No messages yet. Start the conversation!</p>
+              ) : (
+                messages.map((message, index) => (
+                  <div key={index} className={`friends-page__message ${message.senderId === userId ? 'me' : 'friend'}`}>
+                    {message.message}
+                    <FontAwesomeIcon
+                      icon={faTrash}
+                      className="friends-page__delete-icon"
+                      onClick={() => handleDeleteMessage(message.id)}
+                    />
+                  </div>
+                ))
+              )}
+            </div>
               <div className="friends-page__message-input">
                 <input
                   type="text"
                   value={newMessage}
                   className="friends-page__msg-placeholder"
                   onChange={(e) => setNewMessage(e.target.value)}
+                  onKeyDown={handleKeyDown}
                   placeholder="Type a message..."
                 />
                 <button
