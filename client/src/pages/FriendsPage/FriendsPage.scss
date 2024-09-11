@@ -47,6 +47,36 @@
     color: $primary-medium-blue;
   }
 
+  &__chat-close {
+    cursor: pointer;
+    background: $neutral-white;
+    color: $primary-cyan;
+    position: absolute;
+    font-size: .75rem;
+    right: 1.5rem;
+    box-shadow: $shadow-primary;
+    padding: .15rem;
+    border: .125rem solid $primary-very-light-blue;
+    border-radius: .4rem;
+    transition: background .3s ease, transform .2s ease;
+
+    &:hover {
+        background: $primary-button-blue;
+        color: $neutral-white;
+        text-shadow: $shadow-primary;
+        transform: translateY(-.125rem);
+    }
+
+    &:active {
+        background: $primary-light-cyan;
+        color: $primary-cyan;
+        text-shadow: $shadow-primary;
+        border: .125rem solid $primary-cyan;
+        box-shadow: $shadow-senary;
+        transform: translateY(.0625rem); 
+    }
+  }
+  
   &__send-btn {
     padding: .3125rem .625rem;
     background: $primary-light-blue;

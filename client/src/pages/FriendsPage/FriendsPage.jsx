@@ -3,7 +3,7 @@ import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { getFriends, sendFriendRequest, acceptFriendRequest, removeFriend, searchUsers, fetchPendingRequests as fetchPendingRequestsService } from '../../services/friendsService'; // Ensure correct import
 import { fetchMessages, sendMessage, markMessageAsRead, markAllMessagesAsRead } from '../../services/messageService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faTimes } from '@fortawesome/free-solid-svg-icons';
 import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
 import './FriendsPage.scss';
 
@@ -97,6 +97,12 @@ const fetchFriends = useCallback(async () => {
         console.log('Error sending message', error);
       }
     }
+  };
+
+  const handleCloseChat = () => {
+    setSelectedFriend(null);
+    setNewMessage('');
+    setTyping(false);
   };
 
   // Search users to send friend requests
@@ -317,8 +323,14 @@ const filteredFriends = friends;
         {selectedFriend && (
             <div className="friends-page__container friends-page__container--chat">
                 <div className="friends-page__chat glassmorphic-card">
+                    <FontAwesomeIcon
+                        icon={faTimes}
+                        className="friends-page__chat-close"
+                        onClick={handleCloseChat}
+                    />
                     <div className="friends-page__chat-header">
                     <span className="friends-page__chat-header-title">Chat with: {selectedFriend.name}</span>
+                    
                     </div>
                     <div className="friends-page__messages">
                     {messages.length === 0 ? (
