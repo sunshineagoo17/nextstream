@@ -7,12 +7,10 @@ const { hashPassword } = require('../src/utils/hashPasswords');
 exports.seed = async function(knex) {
   // Hash the passwords before inserting them
   const hashedPassword1 = await hashPassword('HugoIsTheBestDog');
-  const hashedPassword2 = await hashPassword('HugoIsTheBest');
 
   // Users data
   const usersData = [
     { id: 1, name: 'Sunshine', username: 'sunshine', email: 'sunshine.agoo@gmail.com', password: hashedPassword1 },
-    { id: 2, name: 'Magda', username: 'magda', email: 'magdaandshine@gmail.com', password: hashedPassword2 }
   ];
 
   // Check and insert users data
@@ -23,10 +21,10 @@ exports.seed = async function(knex) {
     }
   }
 
-  // Viewed media data
+  // Viewed media data - for both movies and TV shows
   const viewedMediaData = [
-    { userId: 1, media_id: 101, media_type: 'movie' },
-    { userId: 2, media_id: 102, media_type: 'tv' }
+    { userId: 1, media_id: 101, media_type: 'movie' }, 
+    { userId: 1, media_id: 103, media_type: 'tv' },
   ];
 
   // Check and insert viewed media data
@@ -41,10 +39,10 @@ exports.seed = async function(knex) {
     }
   }
 
-  // Interactions data
+  // Interactions data - for both movies and TV shows
   const interactionsData = [
     { userId: 1, media_id: 101, interaction: true, media_type: 'movie' },
-    { userId: 2, media_id: 102, interaction: false, media_type: 'tv' }
+    { userId: 1, media_id: 103, interaction: true, media_type: 'tv' }, 
   ];
 
   // Check and insert interactions data

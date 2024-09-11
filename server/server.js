@@ -1,4 +1,6 @@
 const express = require('express');
+const http = require('http'); 
+const socketIO = require('socket.io');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path');
@@ -35,6 +37,14 @@ const authenticate = require('./src/middleware/authenticate');
 const guestAuthenticate = require('./src/middleware/guestAuthenticate');
 
 const app = express();
+const server = http.createServer(app);  
+const io = socketIO(server, { 
+  cors: {
+    origin: 'http://localhost:3000',  
+    methods: ['GET', 'POST'],
+    credentials: true
+  }
+});
 
 // Middleware
 app.use(bodyParser.json());
@@ -62,6 +72,32 @@ const cache = new NodeCache({ stdTTL: 3600 });
 
 // Serve uploaded avatars
 app.use('/uploads', express.static(path.join(__dirname, 'src/uploads')));
+
+// Socket.IO Setup
+io.on('connection', (socket) => {
+  console.log('New user connected:', socket.id);
+
+  // Join the user to their own room based on their userId
+  socket.on('join_room', (roomId) => {
+    socket.join(roomId);
+    console.log(`User with socket ID: ${socket.id} joined room: ${roomId}`);
+  });
+
+  // Listen for the send_message event
+  socket.on('send_message', (data) => {
+    const { senderId, receiverId, message } = data;
+
+    // Send the message to the room of the receiver
+    io.to(receiverId).emit('receive_message', {
+      senderId,
+      message,
+    });
+  });
+
+  socket.on('disconnect', () => {
+    console.log('User disconnected:', socket.id);
+  });
+});
 
 // Start scheduled jobs
 cronJobs.scheduleJobs();
@@ -117,8 +153,8 @@ app.use((err, req, res, next) => {
   res.status(500).send('Wait! Something broke!');
 });
 
-// Server listen
+// Start the server
 const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
-  console.log(`Hey you. The server's running on port ${PORT}`);
+server.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });

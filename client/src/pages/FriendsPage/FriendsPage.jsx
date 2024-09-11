@@ -1,11 +1,14 @@
 import { useContext, useState, useEffect, useCallback } from 'react';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { getFriends, sendFriendRequest, acceptFriendRequest, removeFriend, searchUsers, fetchPendingRequests as fetchPendingRequestsService } from '../../services/friendsService'; // Ensure correct import
-import { fetchMessages, sendMessage, markMessageAsRead, markAllMessagesAsRead } from '../../services/messageService';
+import { fetchMessages, markMessageAsRead, markAllMessagesAsRead } from '../../services/messageService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faTimes } from '@fortawesome/free-solid-svg-icons';
 import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
+import io from 'socket.io-client';
 import './FriendsPage.scss';
+
+const socket = io('http://localhost:8080');
 
 const FriendsPage = () => {
   const { isAuthenticated, userId } = useContext(AuthContext);
@@ -57,6 +60,14 @@ const fetchFriends = useCallback(async () => {
     }
   }, [isAuthenticated, userId, fetchFriends, fetchPendingRequests]);
 
+  useEffect(() => {
+    // Emit join_room event to join a room based on the user's id
+    if (userId) {
+      socket.emit('join_room', userId);
+    }
+  }, [userId]);
+  
+
 // Select a friend and fetch messages
 const handleSelectFriend = async (friend) => {
   setSelectedFriend(friend);
@@ -81,19 +92,26 @@ const handleSelectFriend = async (friend) => {
   }
 };
 
-// Send a new message
-const handleSendMessage = async () => {
-  if (newMessage.trim()) {
-    try {
-      const sentMessage = await sendMessage(selectedFriend.id, newMessage);
+useEffect(() => {
+  // Listen for incoming messages from the server
+  socket.on('receive_message', (data) => {
+    setMessages((prevMessages) => [...prevMessages, data]);
+  });
 
-      // Update the messages state with the new message returned by the server
-      setMessages([...messages, { ...sentMessage, sender: 'me' }]);
-      setNewMessage('');
-      setTyping(false);
-    } catch (error) {
-      console.error('Error sending message', error);
-    }
+  return () => {
+    socket.off('receive_message'); 
+  };
+}, []);
+
+// Send a new message
+const handleSendMessage = () => {
+  if (newMessage.trim() && selectedFriend) {
+    socket.emit('send_message', {
+      senderId: userId,
+      receiverId: selectedFriend.id,
+      message: newMessage,
+    });
+    setNewMessage('');
   }
 };
 
