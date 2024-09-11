@@ -3,18 +3,14 @@ import api from './api';
 // Fetch user's friends
 export const getFriends = async () => {
     try {
-      // No need to send userId in the request
-      const response = await api.get(`/api/friends/list`);
-      if (response.data.length === 0) {
-        console.log('No friends found for this user.');
-        return { friends: [], pendingRequests: [] };
-      }
-      return response.data;
+      const response = await api.get('/api/friends/list'); // Ensure correct endpoint
+      console.log('Response from API:', response); // Log the response
+      return response.data; // Make sure to return the response data
     } catch (error) {
       console.error('Error fetching friends', error);
       throw error;
     }
-};
+  };  
 
 // Send a friend request
 export const sendFriendRequest = async (friendId) => {

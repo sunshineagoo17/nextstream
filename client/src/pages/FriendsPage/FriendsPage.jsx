@@ -15,29 +15,30 @@ const FriendsPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [typing, setTyping] = useState(false);
 
-  // Fetch friends list
 // Fetch friends list
 const fetchFriends = useCallback(async () => {
     try {
-      const friendsData = await getFriends(); // No userId needed
-
-      if (!friendsData || !Array.isArray(friendsData.friends)) {
-        console.log("Invalid friends data or no friends found.");
-        setFriends([]); 
-        setPendingRequests([]); 
+      const friendsData = await getFriends();
+      
+      console.log("Fetched Friends Data:", friendsData); // Log the response
+      
+      if (Array.isArray(friendsData)) {
+        setFriends(friendsData); // If friendsData is an array, set it directly
+      } else if (friendsData && Array.isArray(friendsData.friends)) {
+        setFriends(friendsData.friends); // Handle nested friends array
       } else {
-        setFriends(friendsData.friends);
-        setPendingRequests(friendsData.pendingRequests || []);
+        setFriends([]); // Default to empty array if structure is wrong
+        console.log("Invalid friends data structure.");
       }
     } catch (error) {
-      console.error('Error fetching friends', error);
+      console.error("Error fetching friends", error);
     }
   }, []);
 
   // Fetch pending friend requests
   const fetchPendingRequests = useCallback(async () => {
     try {
-        const pendingData = await fetchPendingRequestsService(); // Call the pending request service
+        const pendingData = await fetchPendingRequestsService(); 
         console.log("Pending Requests Data:", pendingData); 
         setPendingRequests(pendingData); // Set the pending requests in the state
     } catch (error) {
@@ -137,10 +138,12 @@ const fetchFriends = useCallback(async () => {
     }
   };
 
-  const filteredFriends = friends.filter((friend) =>
-    friend.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    friend.username.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredFriends = searchTerm
+  ? friends.filter((friend) =>
+      friend.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      friend.username.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+  : friends; // Default to all friends if no search term
 
   const clearSearch = () => {
     setSearchTerm('');      
@@ -225,21 +228,26 @@ const fetchFriends = useCallback(async () => {
 
         {/* Friends List Section */}
         <div className="friends-page__list glassmorphic-card">
-          <h3>Friends</h3>
-          {friends.length === 0 ? (
-            <p>No friends yet. Search for users to send a friend request.</p>
-          ) : (
+        <h3>Friends</h3>
+        {filteredFriends.length === 0 ? (
+            <p>No friends match your search.</p>
+        ) : (
             filteredFriends.map((friend) => (
-              <div
+            <div
                 key={friend.id}
                 className={`friends-page__item ${selectedFriend?.id === friend.id ? 'selected' : ''}`}
                 onClick={() => handleSelectFriend(friend)}
-              >
+            >
+                <img
+                src={friend.avatar || '/path/to/default/avatar.png'} // Fallback to a default avatar
+                alt={friend.name}
+                className="friends-page__avatar"
+                />
                 <span>{friend.name}</span>
                 <button onClick={() => handleRemoveFriend(friend.id)}>Remove</button>
-              </div>
+            </div>
             ))
-          )}
+        )}
         </div>
 
         {/* Chat Section */}
