@@ -103,12 +103,16 @@ const fetchFriends = useCallback(async () => {
   
     try {
       const searchResultsData = await searchUsers(searchTerm.trim());
-      setSearchResults(searchResultsData);
+      
+      // Filter out the logged-in user's own username
+      const filteredSearchResults = searchResultsData.filter(user => user.id !== userId);
+      
+      setSearchResults(filteredSearchResults);
     } catch (error) {
       console.error('Error searching users', error);
     }
-  };  
-
+  };
+  
   // Send a friend request
   const handleSendFriendRequest = async (friendId) => {
     try {
