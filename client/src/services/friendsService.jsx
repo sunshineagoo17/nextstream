@@ -3,9 +3,9 @@ import api from './api';
 // Fetch user's friends
 export const getFriends = async () => {
     try {
-      const response = await api.get('/api/friends/list'); // Ensure correct endpoint
-      console.log('Response from API:', response); // Log the response
-      return response.data; // Make sure to return the response data
+      const response = await api.get('/api/friends/list'); 
+      console.log('Response from API:', response); 
+      return response.data; 
     } catch (error) {
       console.error('Error fetching friends', error);
       throw error;
@@ -24,10 +24,10 @@ export const acceptFriendRequest = async (friendId) => {
   return response.data;
 };
 
-// Remove a friend (with request body - preferred method)
+// Remove a friend 
 export const removeFriend = async (friendId) => {
   const response = await api.delete(`/api/friends/remove`, {
-    data: { friendId }  // This sends `friendId` in the request body
+    data: { friendId }  
   });
   return response.data;
 };
@@ -40,7 +40,6 @@ export const searchUsers = async (searchTerm) => {
 
 export const fetchPendingRequests = async () => {
     try {
-      // No need to send userId in the request
       const response = await api.get(`/api/friends/pending`);
       return response.data;
     } catch (error) {

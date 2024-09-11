@@ -20,13 +20,13 @@
     align-items: center;
     gap: .25rem;
     margin-bottom: 1.25rem;
-    text-shadow: .125rem .125rem .3125rem rgba(0, 0, 0, .2);
+    text-shadow: .125rem .125rem .3125rem rgba($neutral-black, .2);
     color: $primary-pale-blue;
     padding: 1.5rem;
     width: 100%;
     // background: linear-gradient(145deg, $primary-dark-blue, darken($primary-button-blue, 5%));
     border-radius: .75rem;
-    box-shadow: .3125rem .3125rem .9375rem rgba(0, 0, 0, .2), -.3125rem -3125rem .9375rem rgba(255, 255, 255, .1);
+    box-shadow: .3125rem .3125rem .9375rem rgba($neutral-black, .2), -.3125rem -3125rem .9375rem rgba(255, 255, 255, .1);
     border: .3125rem solid $primary-very-light-blue;
     position: relative;
     overflow: hidden;
@@ -122,15 +122,15 @@
     display: flex;
     flex-direction: column;
     width: 90%;
-    max-width: 1200px;
+    max-width: 75rem;
     box-shadow: $shadow-quaternary;
-    border-radius: 20px;
+    border-radius: 1.25rem;
     overflow: hidden;
-    backdrop-filter: blur(20px);
+    backdrop-filter: blur(1.25rem);
     background: $frosted-glass;
     box-shadow: $shadow-primary;
-    padding: 20px;
-    gap: 20px;
+    padding: 1.25rem;
+    gap: 1.25rem;
 
     @include tablet {
       flex-direction: row;
@@ -139,36 +139,36 @@
 
   &__search-section {
     background: $pastel-blue;
-    border-radius: 15px;
-    padding: 20px;
+    border-radius: .9375rem;
+    padding: 1.25rem;
     box-shadow: $shadow-secondary;
   }
 
 
   &__pending-section {
     background: $secondary-light-pink-gradient;
-    border-radius: 15px;
-    padding: 20px;
+    border-radius: .9375rem;
+    padding: 1.25rem;
     box-shadow: $shadow-secondary;
   }
 
   &__chat {
     background: $feedback-mint-green;
-    border-radius: 15px;
-    padding: 20px;
+    border-radius: .9375rem;
+    padding: 1.25rem;
     box-shadow: $shadow-secondary;
   }
 
   &__list {
     background: $primary-cyan;
-    border-radius: 15px;
-    padding: 20px;
+    border-radius: .9375rem;
+    padding: 1.25rem;
     box-shadow: $shadow-secondary;
   }
 
   &__search-section,
   &__pending-section {
-    margin-bottom: 20px;
+    margin-bottom: 1.25rem;
 
     @include tablet {
       flex: 1;
@@ -178,48 +178,48 @@
 
   &__add-friend,
   &__accept-friend {
-    padding: 8px 16px;
+    padding: .5rem 1rem;
     background: $primary-button-dark-blue; 
     color: $neutral-white;
     border: none;
-    border-radius: 8px;
+    border-radius: .5rem;
     margin-left: .5rem;
     cursor: pointer;
     box-shadow: $shadow-secondary;
-    backdrop-filter: blur(10px);
-    transition: background 0.3s ease, transform 0.2s ease;
+    backdrop-filter: blur(.625rem);
+    transition: background .3s ease, transform .2s ease;
 
     &:hover {
       background: $primary-button-dark-blue; 
-      transform: translateY(-2px);
+      transform: translateY(-.125rem);
       box-shadow: $shadow-primary; 
     }
 
     &:active {
-      transform: translateY(1px); 
+      transform: translateY(.0625rem); 
       box-shadow: $shadow-quaternary;
     }
   }
 
   &__search {
     width: 100%;
-    padding: 10px;
-    border-radius: 10px;
+    padding: .625rem;
+    border-radius: .625rem;
     border: none;
     box-shadow: $shadow-senary;
-    backdrop-filter: blur(5px);
-    margin-bottom: 10px;
+    backdrop-filter: blur(.3125rem);
+    margin-bottom: .625rem;
   }
 
   &__search-button {
-    padding: 10px 15px;
+    padding: .625rem .9375rem;
     background: $primary-button-blue;
     border: none;
     color: $neutral-white;
-    border-radius: 8px;
+    border-radius: .5rem;
     cursor: pointer;
     box-shadow: $shadow-secondary;
-    transition: background 0.3s ease;
+    transition: background .3s ease;
 
     &:hover {
       background: $primary-button-dark-blue;
@@ -232,14 +232,14 @@
 
   &__clear-button {
     position: absolute;
-    right: 10px;
+    right: .625rem;
     top: 15%;
     background: transparent;
     border: none;
-    font-size: 20px;
+    font-size: 1.25rem;
     color: $primary-dark-blue;
     cursor: pointer;
-    transition: transform 0.2s ease;
+    transition: transform .2s ease;
   
     &:hover {
       color: $primary-button-blue;
@@ -253,10 +253,10 @@
   }
 
   &__search-results {
-    margin-top: 10px;
+    margin-top: .625rem;
 
     p {
-      font-size: 14px;
+      font-size: .875rem;
       color: $primary-dark-blue;
     }
 
@@ -264,21 +264,21 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 10px;
+      padding: .625rem;
       width: 100%;
       background: $primary-light-cyan;
-      border-radius: 10px;
+      border-radius: .625rem;
       box-shadow: $shadow-secondary;
-      margin-bottom: 10px;
+      margin-bottom: .625rem;
 
       button {
-        padding: 5px 10px;
+        padding: .3125rem .625rem;
         background: $primary-light-blue;
         border: none;
         color: $neutral-white;
-        border-radius: 8px;
+        border-radius: .5rem;
         cursor: pointer;
-        transition: background 0.3s ease;
+        transition: background .3s ease;
 
         &:hover {
           background: $primary-dark-navy-blue;
@@ -289,12 +289,12 @@
 
   &__pending-section {
     h3 {
-      margin-bottom: 10px;
+      margin-bottom: .625rem;
       color: $primary-dark-blue;
     }
 
     p {
-      font-size: 14px;
+      font-size: .875rem;
       color: $primary-dark-blue;
     }
 
@@ -302,20 +302,20 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 10px;
+      padding: .625rem;
       background: $primary-light-cyan;
-      border-radius: 10px;
+      border-radius: .625rem;
       box-shadow: $shadow-secondary;
-      margin-bottom: 10px;
+      margin-bottom: .625rem;
 
       button {
-        padding: 5px 10px;
+        padding: .3125rem .625rem;
         background: $primary-light-blue;
         border: none;
         color: $neutral-white;
-        border-radius: 8px;
+        border-radius: .5rem;
         cursor: pointer;
-        transition: background 0.3s ease;
+        transition: background .3s ease;
 
         &:hover {
           background: $primary-dark-navy-blue;
@@ -328,42 +328,42 @@
     flex: 2;
     display: flex;
     flex-direction: column;
-    border-right: 1px solid rgba(255, 255, 255, 0.2);
+    border-right: .0625rem solid rgba(255, 255, 255, .2);
     
     h3 {
-      margin-bottom: 10px;
+      margin-bottom: .625rem;
       color: $primary-dark-blue;
     }
 
     p {
-      font-size: 14px;
+      font-size: .875rem;
       color: $primary-dark-blue;
     }
 
     &__items {
       flex: 1;
       overflow-y: auto;
-      margin-top: 20px;
+      margin-top: 1.25rem;
 
       &::-webkit-scrollbar {
-        width: 5px;
+        width: .3125rem;
       }
 
       &::-webkit-scrollbar-thumb {
         background-color: $primary-dark-blue;
-        border-radius: 10px;
+        border-radius: .625rem;
       }
     }
 
     &__item {
       display: flex;
       align-items: center;
-      padding: 15px;
-      margin-bottom: 10px;
+      padding: .9375rem;
+      margin-bottom: .625rem;
       cursor: pointer;
       background-color: $primary-pale-cyan;
-      border-radius: 12px;
-      transition: background 0.3s ease, box-shadow 0.3s ease;
+      border-radius: .75rem;
+      transition: background .3s ease, box-shadow .3s ease;
 
       &.selected {
         background-color: $primary-light-blue;
@@ -376,26 +376,25 @@
       }
 
       img {
-        width: 40px;
-        height: 40px;
+        @include block-item(2.5rem, 2.5rem);
         border-radius: 50%;
-        margin-right: 15px;
+        margin-right: .9375rem;
       }
 
       span {
-        font-size: 16px;
+        font-size: 1rem;
         color: $primary-dark-blue;
         font-weight: 600;
       }
 
       button {
-        padding: 5px 10px;
+        padding: .3125rem .625rem;
         background: $primary-light-blue;
         border: none;
         color: $neutral-white;
-        border-radius: 8px;
+        border-radius: .5rem;
         cursor: pointer;
-        transition: background 0.3s ease;
+        transition: background .3s ease;
 
         &:hover {
           background: $primary-dark-navy-blue;
@@ -409,19 +408,19 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 20px;
+    padding: 1.25rem;
     background: $primary-pale-blue;
-    border-radius: 20px;
+    border-radius: 1.25rem;
   }
 
   &__chat-header {
     display: flex;
     align-items: center;
-    padding-bottom: 15px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: .9375rem;
+    border-bottom: .0625rem solid rgba(255, 255, 255, .2);
 
     span {
-      font-size: 18px;
+      font-size: 1.125rem;
       font-weight: 600;
       color: $primary-dark-blue;
     }
@@ -429,31 +428,31 @@
 
   &__messages {
     flex: 1;
-    padding: 20px;
+    padding: 1.25rem;
     overflow-y: auto;
-    background: rgba(255, 255, 255, 0.5);
-    border-radius: 10px;
+    background: rgba(255, 255, 255, .5);
+    border-radius: .625rem;
     box-shadow: $shadow-secondary;
-    backdrop-filter: blur(5px);
-    margin-bottom: 20px;
+    backdrop-filter: blur(.3125rem);
+    margin-bottom: 1.25rem;
 
     &::-webkit-scrollbar {
-      width: 5px;
+      width: .3125rem;
     }
 
     &::-webkit-scrollbar-thumb {
       background-color: $primary-dark-blue;
-      border-radius: 10px;
+      border-radius: .625rem;
     }
   }
 
   &__message {
-    margin-bottom: 15px;
-    padding: 10px 15px;
-    border-radius: 12px;
+    margin-bottom: .9375rem;
+    padding: .625rem .9375rem;
+    border-radius: .75rem;
     max-width: 70%;
     position: relative;
-    font-size: 15px;
+    font-size: .9375rem;
     line-height: 1.4;
     background-color: $primary-pale-cyan;
     box-shadow: $shadow-primary;
@@ -474,29 +473,29 @@
     display: flex;
     align-items: center;
     background: $primary-very-light-blue;
-    padding: 10px;
-    border-radius: 10px;
+    padding: .625rem;
+    border-radius: .625rem;
     box-shadow: $shadow-tertiary;
 
     input {
       flex: 1;
       border: none;
-      padding: 10px;
-      border-radius: 8px;
-      margin-right: 10px;
+      padding: .625rem;
+      border-radius: .5rem;
+      margin-right: .625rem;
       background: $primary-light-cyan;
       box-shadow: $shadow-senary;
     }
 
     button {
-      padding: 10px 20px;
+      padding: .625rem 1.25rem;
       background: $primary-button-blue;
       border: none;
       color: $neutral-white;
-      border-radius: 8px;
+      border-radius: .5rem;
       cursor: pointer;
       box-shadow: $shadow-secondary;
-      transition: background 0.3s ease;
+      transition: background .3s ease;
 
       &:hover {
         background: $primary-button-dark-blue;
@@ -505,9 +504,9 @@
   }
 
   &__typing {
-    font-size: 14px;
+    font-size: .875rem;
     color: $secondary-light-pink;
-    margin-top: -10px;
+    margin-top: -.625rem;
   }
 
   &__select-friend {
@@ -515,8 +514,7 @@
     justify-content: center;
     align-items: center;
     height: 100%;
-    font-size: 18px;
+    font-size: 1.125rem;
     color: $primary-dark-blue;
-    font-weight: 500;
   }
 }

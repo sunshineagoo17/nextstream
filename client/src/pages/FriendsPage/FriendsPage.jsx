@@ -20,14 +20,14 @@ const fetchFriends = useCallback(async () => {
     try {
       const friendsData = await getFriends();
       
-      console.log("Fetched Friends Data:", friendsData); // Log the response
+      console.log("Fetched Friends Data:", friendsData); 
       
       if (Array.isArray(friendsData)) {
-        setFriends(friendsData); // If friendsData is an array, set it directly
+        setFriends(friendsData); 
       } else if (friendsData && Array.isArray(friendsData.friends)) {
-        setFriends(friendsData.friends); // Handle nested friends array
+        setFriends(friendsData.friends); 
       } else {
-        setFriends([]); // Default to empty array if structure is wrong
+        setFriends([]);
         console.log("Invalid friends data structure.");
       }
     } catch (error) {
@@ -40,7 +40,7 @@ const fetchFriends = useCallback(async () => {
     try {
         const pendingData = await fetchPendingRequestsService(); 
         console.log("Pending Requests Data:", pendingData); 
-        setPendingRequests(pendingData); // Set the pending requests in the state
+        setPendingRequests(pendingData); 
     } catch (error) {
         console.error('Error fetching pending friend requests:', error);
     }
@@ -112,7 +112,7 @@ const fetchFriends = useCallback(async () => {
     try {
       const response = await sendFriendRequest(friendId);
       console.log('Friend request sent:', response);
-      fetchFriends(); // Refresh friends list after sending a friend request
+      fetchFriends(); 
     } catch (error) {
       console.error('Error sending friend request', error);
     }
@@ -143,7 +143,7 @@ const fetchFriends = useCallback(async () => {
       friend.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       friend.username.toLowerCase().includes(searchTerm.toLowerCase())
     )
-  : friends; // Default to all friends if no search term
+  : [];
 
   const clearSearch = () => {
     setSearchTerm('');      
@@ -177,7 +177,6 @@ const fetchFriends = useCallback(async () => {
                     if (e.key === 'Enter') handleSearch();
                 }}
                 />
-                {/* Clear Button */}
                 {searchTerm && (
                 <button className="friends-page__clear-button" onClick={clearSearch}>
                     &times;
@@ -239,7 +238,7 @@ const fetchFriends = useCallback(async () => {
                 onClick={() => handleSelectFriend(friend)}
             >
                 <img
-                src={friend.avatar || '/path/to/default/avatar.png'} // Fallback to a default avatar
+                src={friend.avatar || '/path/to/default/avatar.png'} 
                 alt={friend.name}
                 className="friends-page__avatar"
                 />

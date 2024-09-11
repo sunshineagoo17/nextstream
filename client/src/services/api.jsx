@@ -4,7 +4,7 @@ import Cookies from 'js-cookie';
 // Sets up an axios instance
 const api = axios.create({
   baseURL: process.env.REACT_APP_BASE_URL,
-  withCredentials: true, // Include cookies in requests
+  withCredentials: true, 
 });
 
 // Adds a request interceptor to include the token in all requests
