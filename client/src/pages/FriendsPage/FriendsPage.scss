@@ -176,7 +176,8 @@
     }
   }
 
-  &__add-friend {
+  &__add-friend,
+  &__accept-friend {
     padding: 8px 16px;
     background: $primary-button-dark-blue; 
     color: $neutral-white;

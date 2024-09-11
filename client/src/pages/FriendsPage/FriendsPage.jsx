@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect, useCallback } from 'react';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
-import { getFriends, sendFriendRequest, acceptFriendRequest, removeFriend, searchUsers } from '../../services/friendsService';
+import { getFriends, sendFriendRequest, acceptFriendRequest, removeFriend, searchUsers, fetchPendingRequests as fetchPendingRequestsService } from '../../services/friendsService'; // Ensure correct import
 import { fetchMessages, sendMessage, markMessageAsRead, markAllMessagesAsRead } from '../../services/messageService';
 import './FriendsPage.scss';
 
@@ -16,34 +16,47 @@ const FriendsPage = () => {
   const [typing, setTyping] = useState(false);
 
   // Fetch friends list
-  const fetchFriends = useCallback(async () => {
+// Fetch friends list
+const fetchFriends = useCallback(async () => {
     try {
-      const friendsData = await getFriends(userId);
-      
-      if (friendsData.friends.length === 0) {
-        console.log("No friends found for this user.");
-        setFriends([]); // Set empty friends array if none are found
-        setPendingRequests([]); // Set empty pending requests
+      const friendsData = await getFriends(); // No userId needed
+
+      if (!friendsData || !Array.isArray(friendsData.friends)) {
+        console.log("Invalid friends data or no friends found.");
+        setFriends([]); 
+        setPendingRequests([]); 
       } else {
         setFriends(friendsData.friends);
-        setPendingRequests(friendsData.pendingRequests);
+        setPendingRequests(friendsData.pendingRequests || []);
       }
     } catch (error) {
       console.error('Error fetching friends', error);
     }
-  }, [userId]);
+  }, []);
+
+  // Fetch pending friend requests
+  const fetchPendingRequests = useCallback(async () => {
+    try {
+        const pendingData = await fetchPendingRequestsService(); // Call the pending request service
+        console.log("Pending Requests Data:", pendingData); 
+        setPendingRequests(pendingData); // Set the pending requests in the state
+    } catch (error) {
+        console.error('Error fetching pending friend requests:', error);
+    }
+  }, []);
 
   useEffect(() => {
     if (isAuthenticated && userId) {
-      fetchFriends(); // Only fetch friends if userId is valid
+      fetchFriends(); 
+      fetchPendingRequests(); 
     }
-  }, [isAuthenticated, userId, fetchFriends]);
+  }, [isAuthenticated, userId, fetchFriends, fetchPendingRequests]);
 
   // Select a friend and fetch messages
   const handleSelectFriend = async (friend) => {
     setSelectedFriend(friend);
     try {
-      const messagesData = await fetchMessages(friend.id, userId);
+      const messagesData = await fetchMessages(friend.id);
       setMessages(messagesData);
 
       messagesData.forEach(async (message) => {
@@ -52,7 +65,7 @@ const FriendsPage = () => {
         }
       });
 
-      await markAllMessagesAsRead(friend.id, userId);
+      await markAllMessagesAsRead(friend.id);
     } catch (error) {
       console.error('Error fetching messages or marking them as read', error);
     }
@@ -80,7 +93,6 @@ const FriendsPage = () => {
 
   // Search users to send friend requests
   const handleSearch = async () => {
-    // Ensure the search term is not empty and has at least 3 characters
     if (!searchTerm.trim()) {
       console.log("Please enter a search term.");
       return;
@@ -94,12 +106,12 @@ const FriendsPage = () => {
     }
   };  
 
-// Send a friend request
-const handleSendFriendRequest = async (friendId) => {
+  // Send a friend request
+  const handleSendFriendRequest = async (friendId) => {
     try {
       const response = await sendFriendRequest(friendId);
       console.log('Friend request sent:', response);
-      // Refresh friends list or update state as necessary
+      fetchFriends(); // Refresh friends list after sending a friend request
     } catch (error) {
       console.error('Error sending friend request', error);
     }
@@ -109,7 +121,7 @@ const handleSendFriendRequest = async (friendId) => {
   const handleAcceptFriendRequest = async (friendId) => {
     try {
       await acceptFriendRequest(friendId);
-      fetchFriends(); // Refresh friends list
+      fetchFriends(); 
     } catch (error) {
       console.error('Error accepting friend request', error);
     }
@@ -119,7 +131,7 @@ const handleSendFriendRequest = async (friendId) => {
   const handleRemoveFriend = async (friendId) => {
     try {
       await removeFriend(friendId);
-      fetchFriends(); // Refresh friends list
+      fetchFriends(); 
     } catch (error) {
       console.error('Error removing friend', error);
     }
@@ -200,7 +212,12 @@ const handleSendFriendRequest = async (friendId) => {
             pendingRequests.map((request) => (
               <div key={request.id} className="friends-page__pending-item">
                 <span>{request.name}</span>
-                <button onClick={() => handleAcceptFriendRequest(request.id)}>Accept</button>
+                <button 
+                    onClick={() => handleAcceptFriendRequest(request.id)}
+                    className="friends-page__accept-friend"
+                >
+                    Accept
+                </button>
               </div>
             ))
           )}

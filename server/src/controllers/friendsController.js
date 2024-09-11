@@ -168,10 +168,7 @@ exports.getPendingFriendRequests = async (req, res) => {
     try {
         const pendingRequests = await knex('friends')
             .join('users', 'friends.user_id', '=', 'users.id')
-            .where({
-                'friends.friend_id': userId,
-                'friends.isAccepted': false
-            })
+            .where({ 'friends.friend_id': userId, 'friends.isAccepted': false })
             .select('users.id', 'users.name', 'users.username', 'users.avatar');
 
         res.status(200).json(pendingRequests);

@@ -40,4 +40,15 @@ export const removeFriend = async (friendId) => {
 export const searchUsers = async (searchTerm) => {
     const response = await api.get(`/api/users/search?query=${searchTerm}`);
     return response.data;
-  };
+};
+
+export const fetchPendingRequests = async () => {
+    try {
+      // No need to send userId in the request
+      const response = await api.get(`/api/friends/pending`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching pending friend requests', error);
+      throw error;
+    }
+};
