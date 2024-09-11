@@ -4,6 +4,7 @@ import { getFriends, sendFriendRequest, acceptFriendRequest, removeFriend, searc
 import { fetchMessages, sendMessage, markMessageAsRead, markAllMessagesAsRead } from '../../services/messageService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
+import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
 import './FriendsPage.scss';
 
 const FriendsPage = () => {
@@ -16,6 +17,7 @@ const FriendsPage = () => {
   const [newMessage, setNewMessage] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [typing, setTyping] = useState(false);
+  const [alertMessage, setAlertMessage] = useState(null);
 
 // Fetch friends list
 const fetchFriends = useCallback(async () => {
@@ -33,7 +35,7 @@ const fetchFriends = useCallback(async () => {
         console.log("Invalid friends data structure.");
       }
     } catch (error) {
-      console.error("Error fetching friends", error);
+      console.log("Error fetching friends", error);
     }
   }, []);
 
@@ -44,7 +46,7 @@ const fetchFriends = useCallback(async () => {
         console.log("Pending Requests Data:", pendingData); 
         setPendingRequests(pendingData); 
     } catch (error) {
-        console.error('Error fetching pending friend requests:', error);
+        console.log('Error fetching pending friend requests:', error);
     }
   }, []);
 
@@ -70,7 +72,7 @@ const fetchFriends = useCallback(async () => {
 
       await markAllMessagesAsRead(friend.id);
     } catch (error) {
-      console.error('Error fetching messages or marking them as read', error);
+      console.log('Error fetching messages or marking them as read', error);
     }
   };
 
@@ -89,7 +91,7 @@ const fetchFriends = useCallback(async () => {
         setNewMessage('');
         setTyping(false);
       } catch (error) {
-        console.error('Error sending message', error);
+        console.log('Error sending message', error);
       }
     }
   };
@@ -106,34 +108,51 @@ const fetchFriends = useCallback(async () => {
       
       // Filter out the logged-in user's own username
       const filteredSearchResults = searchResultsData.filter(user => user.id !== userId);
-      
+  
+      // If no users are found, display a custom alert
+      if (filteredSearchResults.length === 0) {
+        setAlertMessage({ message: 'No users found for your search.', type: 'info' });
+      }
+  
       setSearchResults(filteredSearchResults);
     } catch (error) {
-      console.error('Error searching users', error);
+      console.log('Error searching users', error);
+      setAlertMessage({ message: 'Error searching users.', type: 'error' });
     }
-  };
+  };  
   
-  // Send a friend request
-  const handleSendFriendRequest = async (friendId) => {
+// Send a friend request
+const handleSendFriendRequest = async (friendId) => {
+    const isAlreadyFriend = friends.some(friend => friend.id === friendId);
+    
+    if (isAlreadyFriend) {
+        setAlertMessage({ message: 'This user is already in your friends list!', type: 'info' });
+      return;
+    }
+  
     try {
       const response = await sendFriendRequest(friendId);
       console.log('Friend request sent:', response);
-      fetchFriends(); 
+      fetchFriends();
+      setAlertMessage({ message: 'Friend request sent successfully!', type: 'success' });
     } catch (error) {
-      console.error('Error sending friend request', error);
+      console.log('Error sending friend request', error);
+      setAlertMessage({ message: 'Error sending friend request.', type: 'error' });
     }
-  };
+  };  
   
   // Accept a friend request
 const handleAcceptFriendRequest = async (friendId) => {
     try {
       await acceptFriendRequest(friendId);
-      fetchFriends(); 
+      fetchFriends();
       setPendingRequests((prevPendingRequests) =>
         prevPendingRequests.filter((request) => request.id !== friendId)
       );
+      setAlertMessage({ message: 'Friend request accepted!', type: 'success' });
     } catch (error) {
-      console.error('Error accepting friend request', error);
+      console.log('Error accepting friend request', error);
+      setAlertMessage({ message: 'Error accepting friend request.', type: 'error' });
     }
   };
   
@@ -143,7 +162,7 @@ const handleAcceptFriendRequest = async (friendId) => {
       await removeFriend(friendId);
       fetchFriends(); 
     } catch (error) {
-      console.error('Error removing friend', error);
+      console.log('Error removing friend', error);
     }
   };
 
@@ -160,6 +179,15 @@ const filteredFriends = friends;
 
   return (
     <div className="friends-page">
+    {/* Custom Alert */}
+    {alertMessage && (
+        <CustomAlerts 
+            message={alertMessage.message} 
+            type={alertMessage.type} 
+            onClose={() => setAlertMessage(null)} 
+        />
+        )}
+
         <div className="friends-page__heading-container">
                 <h1 className="friends-page__header">Friends List</h1>
                 <p className="friends-page__copy">
