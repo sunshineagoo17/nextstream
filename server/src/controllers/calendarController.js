@@ -3,33 +3,36 @@ const moment = require('moment-timezone');
 const { sendPushNotifications } = require('../services/pushNotificationService');
 
 // Get all events for a user
+// Get all events for a user
 exports.getEvents = async (req, res) => {
   const { userId } = req.params;
   console.log('Request User ID:', userId);
 
   try {
     // Differentiate between authenticated users and guests
-    let userIdentifier;
-    if (req.user && req.user.role === 'guest') {
-      userIdentifier = 'guest';
-    } else {
-      userIdentifier = userId;
-    }
+    const userIdentifier = req.user && req.user.role === 'guest' ? 'guest' : userId;
 
-    const events = await knex('events').where({ user_id: userIdentifier });
-    console.log('Fetched events for User ID:', userIdentifier, events);
+    // Fetch the user's own events
+    const userEvents = await knex('events').where({ user_id: userIdentifier });
+    console.log('Fetched user\'s own events:', userEvents);
 
-    if (events.length === 0) {
+    // Fetch shared events (including both accepted and pending invites)
+    const sharedEvents = await knex('calendar_events')
+      .join('events', 'calendar_events.event_id', '=', 'events.id')
+      .where({ friend_id: userIdentifier })
+      .select('events.*', 'calendar_events.isShared', 'calendar_events.isAccepted');
+    
+    console.log('Fetched shared events:', sharedEvents);
+
+    // Combine both user events and shared events
+    const allEvents = [...userEvents, ...sharedEvents];
+
+    if (allEvents.length === 0) {
       return res.status(404).json({ message: 'No events found for this user' });
     }
 
-    // Fetch shared events as well
-    const sharedEvents = await knex('calendar_events')
-      .join('events', 'calendar_events.event_id', '=', 'events.id')
-      .where({ friend_id: userIdentifier, isAccepted: true })
-      .select('events.*', 'calendar_events.isShared');
-
-    res.status(200).json([...events, ...sharedEvents]);
+    // Send all events (both owned and shared)
+    res.status(200).json(allEvents);
   } catch (error) {
     console.error('Error fetching events:', error);
     res.status(500).json({ message: 'Error fetching events' });
