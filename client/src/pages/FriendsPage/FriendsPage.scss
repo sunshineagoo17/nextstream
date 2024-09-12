@@ -695,48 +695,91 @@
     font-size: .9375rem;
     line-height: 1.4;
   
-    // Unread messages from the user
     &.me {
       &.unread {
         opacity: 1;
         font-weight: bold;
         border-radius: 15px 15px 15px 0;
         background: $primary-button-blue;
-        color: $primary-light-cyan;
-        border: 1px solid $primary-light-cyan;
-        box-shadow: $shadow-primary;
+        color: $pastel-blue;
+        border: 2px solid $neutral-white;
+        box-shadow: $shadow-quaternary;
+        font-family: $primary-font;
       }
   
       &.read {
+        opacity: .9;
         border-radius: 15px 15px 15px 0;
-        border: 1px solid $frosted-glass;
-        background: $primary-button-blue;
-        color: $dark-mode-deep-blue;
-        box-shadow: $shadow-senary;
+        border: 1px solid $pastel-blue;
+        background: $primary-light-blue;
+        color: $pastel-blue;
+        font-family: $primary-font;
       }
     }
   
-    // Unread messages from the sender
     &.sender {
       &.unread {
         opacity: 1;
         font-weight: bold;
         border-radius: 15px 15px 0 15px;
-        color: $primary-dark-blue;
+        color: #0d480d;
         background: $feedback-mint-green;
-        border: 1px solid $feedback-mint-light-green;
-        box-shadow: $shadow-primary;
+        border: 2px solid $neutral-white;
+        box-shadow: $shadow-quaternary;
+        font-family: $secondary-font;
       }
   
       &.read {
+        opacity: .9;
         border-radius: 15px 15px 0 15px;
         background: $feedback-mint-green;
         color: $neutral-white;
-        border: 1px solid $neutral-white;
+        border: 1px solid $feedback-mint-green;
         box-shadow: $shadow-primary;
+        font-family: $secondary-font;
       }
     }
   }
+
+  &__delete-icon {
+    color: $feedback-error-peach;
+    transition: background-color 0.3s ease, transform 0.5s ease; 
+    display: inline-block;  
+    padding: 0.15rem;       
+    border-radius: .5rem; 
+  
+    @keyframes wiggle {
+      0%, 100% { transform: rotate(0deg); }
+      15% { transform: rotate(-10deg); }
+      30% { transform: rotate(10deg); }
+      45% { transform: rotate(-10deg); }
+      60% { transform: rotate(10deg); }
+      75% { transform: rotate(-5deg); }
+      90% { transform: rotate(5deg); }
+    }
+  
+    &:hover {
+      animation: wiggle 0.6s ease-in-out, backgroundSlide 0.9s forwards;
+      background: $neutral-white;
+      color: $feedback-error-peach;
+      cursor: pointer;  
+      box-shadow: $shadow-primary;
+    }
+  
+    &:active {
+      background-color: $feedback-error-light-peach;
+      font-weight: bold;
+      transform: scale(0.9);
+      background: $feedback-error-peach;
+      color: $feedback-mint-green;
+    }
+  
+    &:focus {
+      outline: none;
+      box-shadow: $shadow-primary;
+    }
+  }
+  
   
   &__user-info {
     color: $dark-mode-royal-blue;

@@ -46,7 +46,7 @@ const fetchFriends = useCallback(async () => {
       const pendingData = await fetchPendingRequestsService();
       setPendingRequests(pendingData);
     } catch (error) {
-      console.error('Error fetching pending friend requests:', error);
+      console.log('Error fetching pending friend requests:', error);
     }
   }, []);
 
@@ -74,19 +74,17 @@ const fetchFriends = useCallback(async () => {
 
       const validMessages = messagesData.map(message => ({
         ...message,
-        senderId: message.senderId || "unknown_sender",  // Debug fallback for missing senderId
+        senderId: message.senderId || "unknown_sender", 
       }));
 
-      // Log messages to debug missing senderId
       validMessages.forEach((message) => {
         console.log(`Message: ${message.message}, senderId: ${message.senderId}, userId: ${userId}, is_read: ${message.is_read}`);
       });
 
-      // Mark all messages as read and set them in the state
       await markAllMessagesAsRead(friend.id); 
       setMessages(validMessages);
     } catch (error) {
-      console.error('Error fetching messages or marking them as read', error);
+      console.log('Error fetching messages or marking them as read', error);
     }
   };
 
@@ -97,7 +95,7 @@ const fetchFriends = useCallback(async () => {
           const messagesData = await fetchMessages(selectedFriend.id);
           setMessages(messagesData);
         } catch (error) {
-          console.error('Error fetching messages:', error);
+          console.log('Error fetching messages:', error);
         }
       };
       fetchMessagesForFriend();
@@ -108,7 +106,7 @@ const fetchFriends = useCallback(async () => {
     socket.on('receive_message', (data) => {
       const newMessage = {
         ...data,
-        is_read: false // By default, unread when received
+        is_read: false 
       };
       setMessages((prevMessages) => [...prevMessages, newMessage]);
     });
@@ -136,7 +134,7 @@ const handleSendMessage = async () => {
       await sendMessage(selectedFriend.id, newMessage);
       setNewMessage('');  
     } catch (error) {
-      console.error('Error sending message:', error);
+      console.log('Error sending message:', error);
     }
   }
 };
@@ -151,12 +149,11 @@ const handleDeleteMessage = async (messageId) => {
   try {
     await deleteMessage(messageId);
     
-    // Optimistically remove the message from the UI after deleting
     setMessages((prevMessages) => prevMessages.filter((message) => message.id !== messageId));
-
     console.log('Message deleted successfully');
   } catch (error) {
-    console.error('Error deleting message:', error);
+    console.log('Error deleting message:', error);
+    setAlertMessage({ message: 'Error deleting message.', type: 'error' });
   }
 };
 
