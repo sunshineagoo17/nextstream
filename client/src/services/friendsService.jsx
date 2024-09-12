@@ -72,3 +72,14 @@ export const respondToSharedEvent = async (userId, calendarEventId, isAccepted) 
     throw error;
   }
 };
+
+// Fetch shared friends for a specific event
+export const getSharedFriendsForEvent = async (userId, eventId) => {
+  try {
+    const response = await api.get(`/api/calendar/${userId}/events/${eventId}/shared`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching shared friends for the event', error);
+    throw error;
+  }
+};

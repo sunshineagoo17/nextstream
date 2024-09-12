@@ -31,4 +31,7 @@ router.put('/:userId/shared-events/:calendarEventId/respond', authenticate, cale
 // Get pending calendar invites for a user
 router.get('/pending-invites', authenticate, calendarController.getPendingCalendarInvites);
 
+// Get the list of friends with whom an event has already been shared
+router.get('/:userId/events/:eventId/shared', authenticate, calendarController.getSharedFriendsForEvent);
+
 module.exports = router;

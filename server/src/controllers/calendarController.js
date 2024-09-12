@@ -313,3 +313,27 @@ exports.shareEventWithFriends = async (req, res) => {
     res.status(500).json({ message: 'Error sharing event with friends.' });
   }
 };
+
+// Fetch sent invites
+exports.getSharedFriendsForEvent = async (req, res) => {
+  const { eventId, userId } = req.params;
+
+  try {
+    // Fetch friends with whom the event has already been shared
+    const sharedFriends = await knex('calendar_events')
+      .where({ event_id: eventId, user_id: userId, isShared: true })
+      .select('friend_id');
+
+    // If no friends found, return empty array
+    if (sharedFriends.length === 0) {
+      return res.status(200).json({ sharedFriendIds: [] });
+    }
+
+    // Return the list of shared friend IDs
+    const sharedFriendIds = sharedFriends.map((friend) => friend.friend_id);
+    res.status(200).json({ sharedFriendIds });
+  } catch (error) {
+    console.error('Error fetching shared friends:', error);
+    res.status(500).json({ message: 'Error fetching shared friends.' });
+  }
+};
