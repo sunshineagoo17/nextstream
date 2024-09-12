@@ -414,7 +414,7 @@ const filteredFriends = friends;
 
         {/* Pending Calendar Invites Section */}
         <div className="friends-page__pending-calendar glassmorphic-card">
-          <h3 className="friends-page__card-subtitle--requests">Pending Calendar Invites</h3>
+          <h3 className="friends-page__card-subtitle--pendingrequests">Pending Calendar Invites</h3>
           {pendingCalendarInvites.length === 0 ? (
               <p>No pending calendar invites.</p>
           ) : (

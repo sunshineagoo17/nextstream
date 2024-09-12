@@ -72,6 +72,15 @@
       &__chat-header {
         border: none;
       }
+
+      &__card-subtitle--pendingrequests {
+        color: $neutral-white;
+      }
+
+      &__pending-calendar__pending-item {
+        background: $primary-light-blue;
+      }
+      
     }
 
     // Calendar Page
@@ -98,6 +107,10 @@
     .modal-input {
       color: $primary-dark-blue;
       background-color: $primary-very-light-blue;
+    }
+
+    .share-event__label {
+      color: $neutral-white;
     }
 
     // 404 Page

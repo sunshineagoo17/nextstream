@@ -399,11 +399,13 @@
 
   &__card-subtitle--search,
   &__card-subtitle--requests,
+  &__card-subtitle--pendingrequests,
   &__card-subtitle--friends {
     margin-bottom: .5rem;
   }
 
   &__card-subtitle--search,
+  &__card-subtitle--pendingrequests,
   &__card-subtitle--requests,
   &__card-subtitle--friends,
   &__chat-header-title {
@@ -930,11 +932,13 @@
           }
 
           &.friends-page__accept-friend {
-            background: $feedback-mint-green;
+            background: $feedback-mint-light-green;
+            color: $pastel-dark-green;
           }
 
           &.friends-page__delete-invite {
-            background: $feedback-error-peach;
+            color: $pastel-dark-pink;
+            background: $feedback-error-light-peach;
           }
         }
       }

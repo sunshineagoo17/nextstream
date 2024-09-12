@@ -40,6 +40,30 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, duration, onClose 
   const miniCalendarRef = useRef(null);
   const [customAlert, setCustomAlert] = useState({ message: '', type: '' }); 
   const isDeletingEvent = useRef(false);
+  const modalRef = useRef(null);
+
+  const handleCloseModal = () => {
+    setModalVisible(false);
+  };
+
+   // Close modal if clicked outside
+   useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        setModalVisible(false);
+      }
+    };
+
+    if (modalVisible) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [modalVisible]);
 
   const fetchEvents = useCallback(async () => {
     try {
@@ -521,14 +545,21 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, duration, onClose 
       )}
       {modalVisible && (
         <div className="modal">
-          <div className="modal-content">
+          <div className="modal-content" ref={modalRef}>
+          <button className="modal-close-btn" onClick={handleCloseModal}>
+              <FontAwesomeIcon icon={faTimes} />
+            </button>
             <h2>{selectedEvent ? 'Edit Event' : 'Add Event'}</h2>
             <div className="modal-input-container">
               <input
                 type="text"
                 className="modal-input"
                 value={selectedEvent ? selectedEvent.title : newEventTitle}
-                onChange={(e) => selectedEvent ? setSelectedEvent({ ...selectedEvent, title: e.target.value }) : setNewEventTitle(e.target.value)}
+                onChange={(e) =>
+                  selectedEvent
+                    ? setSelectedEvent({ ...selectedEvent, title: e.target.value })
+                    : setNewEventTitle(e.target.value)
+                }
                 onKeyDown={handleEventTitleKeyDown}
               />
               {(selectedEvent ? selectedEvent.title : newEventTitle) && (
