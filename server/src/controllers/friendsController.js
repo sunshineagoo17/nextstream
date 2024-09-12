@@ -43,16 +43,21 @@ exports.addFriend = async (req, res) => {
     }
 
     try {
+        console.log('User ID:', userId);
+        console.log('Friend ID:', friendId);
+
+        // Check if friend exists
+        const friendExists = await knex('users').where('id', friendId).first();
+        if (!friendExists) {
+            return res.status(404).json({ message: 'Friend not found' });
+        }
+
         const existingFriendship = await knex('friends')
-            .where({
-                user_id: userId,
-                friend_id: friendId
+            .where(function() {
+                this.where({ user_id: userId, friend_id: friendId })
+                    .orWhere({ user_id: friendId, friend_id: userId });
             })
-            .orWhere({
-                user_id: friendId,
-                friend_id: userId
-            })
-            .first();
+            .first();      
 
         if (existingFriendship) {
             return res.status(400).json({ message: 'Friendship already exists or pending' });
