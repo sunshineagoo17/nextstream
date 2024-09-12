@@ -18,6 +18,11 @@ const ShareEventWithFriends = ({ eventId, userId }) => {
     };
     fetchFriends();
   }, []);
+
+// Log selected friends when they change
+useEffect(() => {
+    console.log('Selected friends:', selectedFriends);
+    }, [selectedFriends]);
   
   // Handle selecting and deselecting friends
   const handleSelectFriend = (friendId) => {
@@ -31,18 +36,14 @@ const ShareEventWithFriends = ({ eventId, userId }) => {
   // Share the event with selected friends
   const handleShareEvent = async () => {
     try {
-      await Promise.all(
-        selectedFriends.map((friendId) =>
-          api.post(`/api/calendar/${userId}/events/${eventId}/share`, {
-            friendId,
-          })
-        )
-      );
-      console.log('Event shared with selected friends');
+      const response = await api.post(`/api/calendar/${userId}/events/${eventId}/share`, {
+        friendIds: selectedFriends,
+      });
+      console.log('Event shared with selected friends:', response.data);
     } catch (error) {
       console.error('Error sharing event', error);
     }
-  };  
+  };   
 
   return (
     <div className="share-event">

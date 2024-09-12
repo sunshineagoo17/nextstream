@@ -28,4 +28,7 @@ router.post('/:userId/events/:eventId/share', authenticate, calendarController.s
 // Accept or decline a shared event
 router.put('/:userId/shared-events/:calendarEventId/respond', authenticate, calendarController.respondToSharedEvent);
 
+// Get pending calendar invites for a user
+router.get('/pending-invites', authenticate, calendarController.getPendingCalendarInvites);
+
 module.exports = router;

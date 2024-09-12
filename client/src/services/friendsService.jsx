@@ -38,12 +38,29 @@ export const searchUsers = async (searchTerm) => {
     return response.data;
 };
 
+// Fetch pending friend requests
 export const fetchPendingRequests = async () => {
-    try {
-      const response = await api.get(`/api/friends/pending`);
-      return response.data;
-    } catch (error) {
-      console.error('Error fetching pending friend requests', error);
-      throw error;
-    }
+  try {
+    const response = await api.get(`/api/friends/pending`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching pending friend requests', error);
+    throw error;
+  }
+};
+
+// Fetch pending calendar invites
+export const fetchPendingCalendarInvitesService = async () => {
+  try {
+    const response = await api.get(`/api/calendar/pending-invites`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching pending calendar invites', error);
+    throw error;
+  }
+};
+
+// Accept calendar invite
+export const acceptCalendarInvite = async (inviteId) => {
+  return api.put(`/api/calendar/invite/${inviteId}/accept`);
 };

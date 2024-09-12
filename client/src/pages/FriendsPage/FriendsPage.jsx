@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect, useCallback } from 'react';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
-import { getFriends, sendFriendRequest, acceptFriendRequest, removeFriend, searchUsers, fetchPendingRequests as fetchPendingRequestsService } from '../../services/friendsService'; // Ensure correct import
+import { getFriends, acceptCalendarInvite, fetchPendingCalendarInvitesService, sendFriendRequest, acceptFriendRequest, removeFriend, searchUsers, fetchPendingRequests as fetchPendingRequestsService } from '../../services/friendsService'; 
 import { fetchMessages, sendMessage, deleteMessage, markAllMessagesAsRead } from '../../services/messageService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faTimes, faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -21,6 +21,7 @@ const FriendsPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [typing, setTyping] = useState(false);
   const [alertMessage, setAlertMessage] = useState(null);
+  const [pendingCalendarInvites, setPendingCalendarInvites] = useState([]);
 
 // Fetch friends list
 const fetchFriends = useCallback(async () => {
@@ -50,12 +51,35 @@ const fetchFriends = useCallback(async () => {
     }
   }, []);
 
+  // Fetch pending calendar invites
+  const fetchPendingCalendarInvites = useCallback(async () => {
+    try {
+      const invites = await fetchPendingCalendarInvitesService();
+      setPendingCalendarInvites(invites);
+    } catch (error) {
+      console.log('Error fetching pending calendar invites:', error);
+    }
+  }, []);
+
+    // Accept calendar invite
+    const handleAcceptCalendarInvite = async (inviteId) => {
+      try {
+        await acceptCalendarInvite(inviteId); // Calls a service to accept the invite
+        setPendingCalendarInvites(prev => prev.filter(invite => invite.id !== inviteId));
+        setAlertMessage({ message: 'Calendar invite accepted!', type: 'success' });
+      } catch (error) {
+        console.log('Error accepting calendar invite', error);
+        setAlertMessage({ message: 'Error accepting calendar invite.', type: 'error' });
+      }
+    };
+
   useEffect(() => {
     if (isAuthenticated && userId) {
       fetchFriends();
       fetchPendingRequests();
+      fetchPendingCalendarInvites();
     }
-  }, [isAuthenticated, userId, fetchFriends, fetchPendingRequests]);
+  }, [isAuthenticated, userId, fetchFriends, fetchPendingRequests, fetchPendingCalendarInvites]);
 
   useEffect(() => {
     if (userId) {
@@ -386,6 +410,23 @@ const filteredFriends = friends;
                     )}
                 </div>
             </div>
+        </div>
+
+        {/* Pending Calendar Invites Section */}
+        <div className="friends-page__pending-calendar glassmorphic-card">
+          <h3 className="friends-page__card-subtitle--requests">Pending Calendar Invites</h3>
+          {pendingCalendarInvites.length === 0 ? (
+              <p>No pending calendar invites.</p>
+          ) : (
+              pendingCalendarInvites.map((invite) => (
+              <div key={invite.id} className="friends-page__pending-calendar__pending-item">
+                  <span>{invite.eventTitle}</span>
+                  <button onClick={() => handleAcceptCalendarInvite(invite.id)} className="friends-page__accept-friend">
+                      Accept
+                  </button>
+              </div>
+              ))
+          )}
         </div>
     
         {/* Chat Section */}

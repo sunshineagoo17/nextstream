@@ -258,3 +258,48 @@ exports.getTodaysEvents = async (req, res) => {
     res.status(500).json({ message: 'Error fetching today\'s events' });
   }
 };
+
+// Fetch pending calendar invites for a user
+exports.getPendingCalendarInvites = async (req, res) => {
+  const { userId } = req.user;  
+
+  try {
+    const pendingInvites = await knex('calendar_events')
+      .where({ friend_id: userId, isAccepted: false }) 
+      .select('*');  
+    
+    if (pendingInvites.length === 0) {
+      return res.status(404).json({ message: 'No pending calendar invites' });
+    }
+
+    res.status(200).json(pendingInvites);
+  } catch (error) {
+    console.error('Error fetching pending calendar invites:', error);
+    res.status(500).json({ message: 'Error fetching pending calendar invites' });
+  }
+};
+
+exports.shareEventWithFriends = async (req, res) => {
+  const { eventId, userId } = req.params;
+  const { friendIds } = req.body;
+
+  if (!Array.isArray(friendIds) || friendIds.length === 0) {
+    return res.status(400).json({ message: 'No friends selected' });
+  }
+
+  try {
+    const sharedEventsData = friendIds.map((friendId) => ({
+      event_id: eventId,
+      user_id: userId,
+      friend_id: friendId,
+      isShared: true,
+    }));
+
+    await knex('calendar_events').insert(sharedEventsData);
+
+    res.status(200).json({ message: 'Event shared successfully with friends.' });
+  } catch (error) {
+    console.error('Error sharing event with friends:', error);
+    res.status(500).json({ message: 'Error sharing event with friends.' });
+  }
+};
