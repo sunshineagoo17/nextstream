@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect, useCallback } from 'react';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
-import { getFriends, acceptCalendarInvite, deleteCalendarInvite, fetchPendingCalendarInvitesService, sendFriendRequest, acceptFriendRequest, removeFriend, searchUsers, fetchPendingRequests as fetchPendingRequestsService } from '../../services/friendsService'; 
+import { getFriends, respondToSharedEvent, fetchPendingCalendarInvitesService, sendFriendRequest, acceptFriendRequest, removeFriend, searchUsers, fetchPendingRequests as fetchPendingRequestsService } from '../../services/friendsService'; 
 import { fetchMessages, sendMessage, deleteMessage, markAllMessagesAsRead } from '../../services/messageService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faTimes, faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -61,27 +61,15 @@ const fetchFriends = useCallback(async () => {
     }
   }, []);
 
-  // Accept calendar invite
-  const handleAcceptCalendarInvite = async (inviteId) => {
-    try {
-      await acceptCalendarInvite(inviteId); // Calls a service to accept the invite
-      setPendingCalendarInvites(prev => prev.filter(invite => invite.id !== inviteId));
-      setAlertMessage({ message: 'Calendar invite accepted!', type: 'success' });
-    } catch (error) {
-      console.log('Error accepting calendar invite', error);
-      setAlertMessage({ message: 'Error accepting calendar invite.', type: 'error' });
-    }
-  };
-
-    // Handle delete calendar invite
-const handleDeleteCalendarInvite = async (inviteId) => {
+// Handle accept or decline calendar invite using the respondToSharedEvent
+const handleRespondToInvite = async (inviteId, isAccepted) => {
   try {
-    await deleteCalendarInvite(inviteId); // Call the service to delete the invite
+    await respondToSharedEvent(userId, inviteId, isAccepted); // Calls a service to accept/decline the invite
     setPendingCalendarInvites(prev => prev.filter(invite => invite.inviteId !== inviteId)); // Remove invite from the list
-    setAlertMessage({ message: 'Calendar invite deleted!', type: 'success' });
+    setAlertMessage({ message: isAccepted ? 'Calendar invite accepted!' : 'Calendar invite declined.', type: 'success' });
   } catch (error) {
-    console.log('Error deleting calendar invite', error);
-    setAlertMessage({ message: 'Error deleting calendar invite.', type: 'error' });
+    console.log('Error responding to calendar invite', error);
+    setAlertMessage({ message: 'Error responding to calendar invite.', type: 'error' });
   }
 };
 
@@ -454,11 +442,11 @@ const filteredFriends = friends;
 
                   {/* Buttons */}
                   <div className="friends-page__calendar-actions">
-                                <button onClick={() => handleAcceptCalendarInvite(invite.inviteId)} className="friends-page__accept-friend">
+                                <button onClick={() => handleRespondToInvite(invite.inviteId, true)} className="friends-page__accept-friend">
                                     Accept
                                 </button>
-                                <button onClick={() => handleDeleteCalendarInvite(invite.inviteId)} className="friends-page__delete-invite">
-                                    Delete
+                                <button onClick={() => handleRespondToInvite(invite.inviteId, false)} className="friends-page__delete-invite">
+                                    Decline
                                 </button>
                             </div>
                         </div>

@@ -60,18 +60,15 @@ export const fetchPendingCalendarInvitesService = async () => {
   }
 };
 
-// Accept calendar invite
-export const acceptCalendarInvite = async (inviteId) => {
-  return api.put(`/api/calendar/invite/${inviteId}/accept`);
-};
-
-// Delete calendar invite
-export const deleteCalendarInvite = async (inviteId) => {
+// Respond to a shared event (accept or decline)
+export const respondToSharedEvent = async (userId, calendarEventId, isAccepted) => {
   try {
-    const response = await api.delete(`/api/calendar/invite/${inviteId}`);
+    const response = await api.put(`/api/calendar/${userId}/shared-events/${calendarEventId}/respond`, {
+      isAccepted
+    });
     return response.data;
   } catch (error) {
-    console.error('Error deleting calendar invite', error);
+    console.error('Error responding to shared event', error);
     throw error;
   }
 };
