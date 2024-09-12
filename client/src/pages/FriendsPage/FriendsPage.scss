@@ -743,6 +743,16 @@
     }
   }
 
+  &__pending-count {
+    margin-left: .5rem; 
+    padding: .1rem .5rem;
+    border: 1px solid $neutral-white;
+    background: $feedback-mint-light-green;
+    border-radius: .5rem;
+    color: $pastel-dark-green;
+    box-shadow: $shadow-primary;
+  }
+
   &__delete-icon {
     color: $feedback-error-peach;
     transition: background-color 0.3s ease, transform 0.5s ease; 

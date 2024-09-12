@@ -1,5 +1,5 @@
 const express = require('express');
-const http = require('http'); 
+const http = require('http');
 const socketIO = require('socket.io');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -13,7 +13,7 @@ require('dotenv').config();
 // Initialize Firebase Admin SDK
 if (!admin.apps.length) {
   admin.initializeApp({
-    credential: admin.credential.cert(require('./src/config/nextstream-firebaseServiceAccountKey.json')), 
+    credential: admin.credential.cert(require('./src/config/nextstream-firebaseServiceAccountKey.json')),
   });
 }
 
@@ -38,13 +38,13 @@ const authenticate = require('./src/middleware/authenticate');
 const guestAuthenticate = require('./src/middleware/guestAuthenticate');
 
 const app = express();
-const server = http.createServer(app);  
-const io = socketIO(server, { 
+const server = http.createServer(app);
+const io = socketIO(server, {
   cors: {
-    origin: 'http://localhost:3000',  
+    origin: 'http://localhost:3000',
     methods: ['GET', 'POST'],
-    credentials: true
-  }
+    credentials: true,
+  },
 });
 
 // Middleware
@@ -57,13 +57,13 @@ app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: false }
+  cookie: { secure: false },
 }));
 
 // Configure CORS
 const corsOptions = {
   origin: 'http://localhost:3000',
-  credentials: true
+  credentials: true,
 };
 app.use(cors(corsOptions));
 
@@ -78,6 +78,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'src/uploads')));
 io.on('connection', (socket) => {
   console.log('New user connected:', socket.id);
 
+  // Typing events for friends chat
   socket.on('typing', (data) => {
     socket.to(data.friendId).emit('typing', { friendId: data.userId });
   });
@@ -102,7 +103,7 @@ io.on('connection', (socket) => {
         sender_id: senderId,
         receiver_id: receiverId,
         message: message,
-        is_read: false, // Initially, message is unread
+        is_read: false,
         created_at: knex.fn.now(),
       });
 
@@ -111,15 +112,65 @@ io.on('connection', (socket) => {
         senderId,
         receiverId,
         message,
-        created_at: new Date()
+        created_at: new Date(),
       });
 
       console.log('Message saved and sent:', savedMessage);
     } catch (error) {
       console.error('Error saving message:', error);
+      socket.emit('error_message', { message: 'Error sending message. Please try again.' });
     }
   });
 
+  // Listen for new calendar invites
+  socket.on('new_calendar_invite', async (data) => {
+    const { invitedUserId, inviteDetails } = data;
+    try {
+      io.to(invitedUserId).emit('receive_calendar_invite', inviteDetails);
+      console.log('New calendar invite sent:', inviteDetails);
+    } catch (error) {
+      console.error('Error sending calendar invite:', error);
+      socket.emit('error_calendar_invite', { message: 'Error sending calendar invite.' });
+    }
+  });
+
+  // Listen for calendar invite responses
+  socket.on('respond_calendar_invite', async (data) => {
+    const { inviteId, userId, response } = data;
+    try {
+      await respondToSharedEvent(userId, inviteId, response);
+      io.to(userId).emit('calendar_invite_responded', { inviteId, response });
+    } catch (error) {
+      console.error('Error responding to calendar invite:', error);
+      socket.emit('error_calendar_response', { message: 'Error responding to invite.' });
+    }
+  });
+
+  // Listen for new friend requests
+  socket.on('new_friend_request', async (data) => {
+    const { requestedUserId, requestDetails } = data;
+    try {
+      io.to(requestedUserId).emit('receive_friend_request', requestDetails);
+      console.log('New friend request sent:', requestDetails);
+    } catch (error) {
+      console.error('Error sending friend request:', error);
+      socket.emit('error_friend_request', { message: 'Error sending friend request.' });
+    }
+  });
+
+  // Listen for friend request acceptance
+  socket.on('friend_request_accepted', async (data) => {
+    const { senderUserId, friendDetails } = data;
+    try {
+      io.to(senderUserId).emit('friend_request_accepted', friendDetails);
+      console.log('Friend request accepted:', friendDetails);
+    } catch (error) {
+      console.error('Error accepting friend request:', error);
+      socket.emit('error_friend_acceptance', { message: 'Error accepting friend request.' });
+    }
+  });
+
+  // Handle disconnect
   socket.on('disconnect', () => {
     console.log('User disconnected:', socket.id);
   });
