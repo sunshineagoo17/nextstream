@@ -166,7 +166,7 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, duration, onClose 
       title,
       start,
       end,
-      eventType
+      eventType,
     });
     setNewEventType(eventType);
     setModalVisible(true);
@@ -243,11 +243,19 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, duration, onClose 
 
   const handleEventDrop = async (info) => {
     const { id } = info.event;
+    const isSharedEvent = info.event.extendedProps.isShared === 1;
+  
+    if (isSharedEvent) {
+      showCustomAlert('This is a shared event and cannot be moved.', 'info');
+      info.revert();
+      return;
+    }
+  
     const updatedEvent = {
       title: info.event.title,
       start: moment(info.event.start).format('YYYY-MM-DDTHH:mm:ss'),
       end: info.event.end ? moment(info.event.end).format('YYYY-MM-DDTHH:mm:ss') : moment(info.event.start).format('YYYY-MM-DDTHH:mm:ss'),
-      eventType: info.event.extendedProps.eventType
+      eventType: info.event.extendedProps.eventType,
     };
     setLoading(true);
     try {

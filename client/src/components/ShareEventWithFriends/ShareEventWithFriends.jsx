@@ -84,7 +84,6 @@ const handleShareEvent = async () => {
   }
 };
 
-
   return (
     <div className="share-event glassmorphic-card">
       <h3 className="share-event__title neumorphic-text">Share Event with Friends</h3>
