@@ -12,6 +12,7 @@ import api from '../../../services/api';
 import Loader from '../../../components/Loader/Loader';
 import CustomAlerts from '../../../components/CustomAlerts/CustomAlerts';
 import AddToCalendar from '../../../components/AddToCalendar/AddToCalendar';
+import ShareEventWithFriends from '../../../components/ShareEventWithFriends/ShareEventWithFriends';
 import './Calendar.scss';
 
 const viewNames = {
@@ -538,6 +539,10 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, duration, onClose 
                 />
               )}
             </div>
+
+            {/* ShareEventWithFriends Component */}
+            <ShareEventWithFriends eventId={selectedEvent ? selectedEvent.id : null} userId={userId} />
+
             <input
               type="datetime-local"
               className="modal-input"

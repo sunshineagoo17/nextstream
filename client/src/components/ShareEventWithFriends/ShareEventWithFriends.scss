@@ -1,0 +1,56 @@
+// Import partials
+@use "../../styles/partials/colors" as *;
+@use "../../styles/partials/fonts" as *;
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/global.scss" as *;
+
+.share-event {
+    &__title {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+  
+    &__friends-list {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 1rem;
+    }
+  
+    &__friend {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5rem;
+  
+      &__checkbox {
+        margin-right: 0.5rem;
+      }
+  
+      &__label {
+        font-size: 1rem;
+        color: $primary-button-blue;
+      }
+    }
+  
+    &__button {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+  
+      &--primary {
+        background-color: $primary-button-blue;
+        color: $neutral-white;
+        transition: background-color 0.3s ease;
+  
+        &:hover {
+          background-color: darken($primary-button-blue, 10%);
+        }
+      }
+    }
+  
+    &__no-friends {
+      font-size: 1rem;
+      color: $feedback-error-peach;
+      margin-bottom: 1rem;
+    }
+  }  

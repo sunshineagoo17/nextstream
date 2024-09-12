@@ -37,9 +37,9 @@ exports.getEvents = async (req, res) => {
 };
 
 // Share an event with a friend
-exports.shareEventWithFriend = async (req, res) => {
+exports.shareEventWithFriends = async (req, res) => {
   const { userId, eventId } = req.params;
-  const { friendId } = req.body; 
+  const { friendIds } = req.body;
 
   try {
     const event = await knex('events').where({ id: eventId, user_id: userId }).first();
@@ -47,17 +47,19 @@ exports.shareEventWithFriend = async (req, res) => {
       return res.status(404).json({ message: 'Event not found' });
     }
 
-    await knex('calendar_events').insert({
+    const sharedEventsData = friendIds.map(friendId => ({
       event_id: eventId,
       user_id: userId,
       friend_id: friendId,
-      isShared: true
-    });
+      isShared: true,
+    }));
 
-    res.status(200).json({ message: 'Event shared successfully with friend.' });
+    await knex('calendar_events').insert(sharedEventsData);
+
+    res.status(200).json({ message: 'Event shared successfully with friends.' });
   } catch (error) {
-    console.error('Error sharing event:', error);
-    res.status(500).json({ message: 'Error sharing event.' });
+    console.error('Error sharing event with friends:', error);
+    res.status(500).json({ message: 'Error sharing event with friends.' });
   }
 };
 
