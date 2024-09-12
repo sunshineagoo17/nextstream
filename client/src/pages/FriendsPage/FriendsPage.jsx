@@ -5,6 +5,7 @@ import { fetchMessages, sendMessage, deleteMessage, markAllMessagesAsRead } from
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faTimes, faTrash } from '@fortawesome/free-solid-svg-icons';
 import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
+import TypingIndicator from '../../components/TypingIndicator/TypingIndicator';
 import io from 'socket.io-client';
 import './FriendsPage.scss';
 
@@ -86,7 +87,52 @@ const handleRespondToInvite = async (inviteId, isAccepted) => {
       socket.emit('join_room', userId);
     }
   }, [userId]);
+
+  let typingTimeoutId; 
+
+  const handleTyping = () => {
+    if (!typing) {
+      setTyping(true);
+      socket.emit('typing', { userId, friendId: selectedFriend?.id });
+    }
   
+    if (typingTimeoutId) {
+      clearTimeout(typingTimeoutId); 
+    }
+  
+    typingTimeoutId = setTimeout(() => {
+      setTyping(false);
+      socket.emit('stop_typing', { userId, friendId: selectedFriend?.id });
+    }, 3000);
+  };
+  
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      handleSendMessage();
+    } else {
+      handleTyping(); 
+    }
+  };
+  
+  useEffect(() => {
+    socket.on('typing', (data) => {
+      if (data.friendId === userId) {
+        setTyping(true);
+      }
+    });
+  
+    socket.on('stop_typing', (data) => {
+      if (data.friendId === userId) {
+        setTyping(false);
+      }
+    });
+  
+    return () => {
+      socket.off('typing');
+      socket.off('stop_typing');
+    };
+  }, [userId]);
+
   // Select a friend and fetch messages
   const handleSelectFriend = async (friend) => {
     setSelectedFriend(friend);
@@ -160,12 +206,6 @@ const handleSendMessage = async () => {
     } catch (error) {
       console.log('Error sending message:', error);
     }
-  }
-};
-
-const handleKeyDown = (event) => {
-  if (event.key === 'Enter') {
-    handleSendMessage();
   }
 };
 
@@ -503,7 +543,11 @@ const filteredFriends = friends;
                   Send
                 </button>
               </div>
-              {typing && <div className="friends-page__typing">Typing...</div>}
+              {typing && (
+                <div className="friends-page__typing">
+                  <TypingIndicator />
+                </div>
+              )}
             </div>
           </div>
         )}

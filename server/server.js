@@ -78,6 +78,14 @@ app.use('/uploads', express.static(path.join(__dirname, 'src/uploads')));
 io.on('connection', (socket) => {
   console.log('New user connected:', socket.id);
 
+  socket.on('typing', (data) => {
+    socket.to(data.friendId).emit('typing', { friendId: data.userId });
+  });
+
+  socket.on('stop_typing', (data) => {
+    socket.to(data.friendId).emit('stop_typing', { friendId: data.userId });
+  });
+
   // Join the user to their own room based on their userId
   socket.on('join_room', (roomId) => {
     socket.join(roomId);

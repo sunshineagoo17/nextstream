@@ -1,0 +1,44 @@
+@use "../../styles/partials/colors" as *;
+@use "../../styles/partials/fonts" as *;
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/global.scss" as *;
+
+.typing-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 1.875rem;
+    gap: .5rem;
+  
+    &__bubble {
+        @include block-item(.625rem, .625rem);
+        background: $primary-button-blue;
+        backdrop-filter: blur(.625rem);
+        border-radius: 50%;
+        box-shadow: 0 .25rem .375rem rgba($neutral-black, .1);
+        animation: typing-indicator__bubble 1.2s infinite;
+    }
+  
+    &__bubble:nth-child(2) {
+      animation-delay: .2s;
+    }
+  
+    &__bubble:nth-child(3) {
+      animation-delay: .4s;
+    }
+  }
+  
+  @keyframes typing-indicator__bubble {
+    0% {
+      transform: translateY(0);
+      opacity: .5;
+    }
+    50% {
+      transform: translateY(-6px);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: .5;
+    }
+  }
