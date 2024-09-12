@@ -46,12 +46,12 @@ useEffect(() => {
   };   
 
   return (
-    <div className="share-event">
-      <h3 className="share-event__title">Share Event with Friends</h3>
+    <div className="share-event glassmorphic-card">
+      <h3 className="share-event__title neumorphic-text">Share Event with Friends</h3>
       <div className="share-event__friends-list">
         {friends.length > 0 ? (
           friends.map((friend) => (
-            <div key={friend.id} className="share-event__friend">
+            <div key={friend.id} className="share-event__friend neumorphic-item">
               <input
                 type="checkbox"
                 id={`friend-${friend.id}`}
@@ -69,10 +69,10 @@ useEffect(() => {
         )}
       </div>
       <button
-        className="share-event__button share-event__button--primary"
+        className="share-event__button"
         onClick={handleShareEvent}
       >
-        Share with Selected Friends
+        Send Invite
       </button>
     </div>
   );
