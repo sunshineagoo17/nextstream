@@ -52,32 +52,38 @@ const ShareEventWithFriends = ({ eventId, userId, showAlert }) => {
     );
   };
 
-  // Share the event with selected friends
-  const handleShareEvent = async () => {
-    if (selectedFriends.length === 0) {
-      showAlert('Please select at least one friend to share the event.', 'info');
-      return;
-    }
+// Share the event with selected friends
+const handleShareEvent = async () => {
+  if (!eventId) {
+    showAlert('Please add the event before sharing it with friends.', 'info');
+    return;
+  }
 
-    // Check if any selected friends have already been shared with
-    const alreadySharedFriends = selectedFriends.filter(friendId => sharedFriends.includes(friendId));
+  if (selectedFriends.length === 0) {
+    showAlert('Please select at least one friend to share the event.', 'info');
+    return;
+  }
 
-    if (alreadySharedFriends.length > 0) {
-      showAlert("Event's already been shared with some selected friends.", 'info');
-      return;
-    }
+  // Check if any selected friends have already been shared with
+  const alreadySharedFriends = selectedFriends.filter(friendId => sharedFriends.includes(friendId));
 
-    try {
-      const response = await api.post(`/api/calendar/${userId}/events/${eventId}/share`, {
-        friendIds: selectedFriends,
-      });
-      console.log('Event shared with selected friends:', response.data);
-      showAlert('Event shared successfully!', 'success');
-    } catch (error) {
-      console.error('Error sharing event', error);
-      showAlert('Error sharing the event. Please try again.', 'error');
-    }
-  };
+  if (alreadySharedFriends.length > 0) {
+    showAlert("Event's already been shared with some selected friends.", 'info');
+    return;
+  }
+
+  try {
+    const response = await api.post(`/api/calendar/${userId}/events/${eventId}/share`, {
+      friendIds: selectedFriends,
+    });
+    console.log('Event shared with selected friends:', response.data);
+    showAlert('Event shared successfully!', 'success');
+  } catch (error) {
+    console.error('Error sharing event', error);
+    showAlert('Error sharing the event. Please try again.', 'error');
+  }
+};
+
 
   return (
     <div className="share-event glassmorphic-card">

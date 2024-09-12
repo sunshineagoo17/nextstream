@@ -570,14 +570,6 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, duration, onClose 
                 />
               )}
             </div>
-
-            {/* ShareEventWithFriends Component */}
-            <ShareEventWithFriends
-              eventId={selectedEvent ? selectedEvent.id : null}
-              userId={userId} 
-              showAlert={showCustomAlert}
-            />
-
             <input
               type="datetime-local"
               className="modal-input"
@@ -629,6 +621,13 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, duration, onClose 
                 </button>
                 {selectedEvent && <button onClick={handleDeleteEvent}>Delete</button>}
                 <button onClick={() => setModalVisible(false)}>Cancel</button>
+
+                 {/* ShareEventWithFriends Component */}
+                <ShareEventWithFriends
+                  eventId={selectedEvent ? selectedEvent.id : null}
+                  userId={userId} 
+                  showAlert={showCustomAlert}
+                />
               </div>
             </div>
           )}
