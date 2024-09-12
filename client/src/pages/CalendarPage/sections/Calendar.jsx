@@ -541,7 +541,11 @@ const Calendar = forwardRef(({ userId, eventTitle, mediaType, duration, onClose 
             </div>
 
             {/* ShareEventWithFriends Component */}
-            <ShareEventWithFriends eventId={selectedEvent ? selectedEvent.id : null} userId={userId} />
+            <ShareEventWithFriends
+              eventId={selectedEvent ? selectedEvent.id : null}
+              userId={userId} 
+              showAlert={showCustomAlert}
+            />
 
             <input
               type="datetime-local"

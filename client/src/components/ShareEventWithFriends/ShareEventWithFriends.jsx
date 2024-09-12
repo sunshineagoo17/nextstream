@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import api from '../../services/api';
 import './ShareEventWithFriends.scss';
 
-const ShareEventWithFriends = ({ eventId, userId }) => {
+const ShareEventWithFriends = ({ eventId, userId, showAlert }) => {
   const [friends, setFriends] = useState([]);
   const [selectedFriends, setSelectedFriends] = useState([]);
 
@@ -35,15 +35,22 @@ useEffect(() => {
 
   // Share the event with selected friends
   const handleShareEvent = async () => {
+    if (selectedFriends.length === 0) {
+      showAlert('Please select at least one friend to share the event.', 'info'); 
+      return;
+    }
+
     try {
       const response = await api.post(`/api/calendar/${userId}/events/${eventId}/share`, {
         friendIds: selectedFriends,
       });
       console.log('Event shared with selected friends:', response.data);
+      showAlert('Event shared successfully!', 'success');
     } catch (error) {
       console.error('Error sharing event', error);
+      showAlert('Error sharing the event. Please try again.', 'error');
     }
-  };   
+  }; 
 
   return (
     <div className="share-event glassmorphic-card">
