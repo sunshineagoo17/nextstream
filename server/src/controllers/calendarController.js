@@ -265,9 +265,19 @@ exports.getPendingCalendarInvites = async (req, res) => {
 
   try {
     const pendingInvites = await knex('calendar_events')
-      .where({ friend_id: userId, isAccepted: false }) 
-      .select('*');  
-    
+      .join('events', 'calendar_events.event_id', '=', 'events.id') 
+      .join('users', 'calendar_events.user_id', '=', 'users.id') 
+      .where({ 'calendar_events.friend_id': userId, 'calendar_events.isAccepted': false }) 
+      .select(
+        'calendar_events.id as inviteId',
+        'events.title as eventTitle',
+        'events.start',
+        'events.end',
+        'events.eventType',
+        'users.name as inviterName',
+        'calendar_events.isAccepted'
+      );
+
     if (pendingInvites.length === 0) {
       return res.status(404).json({ message: 'No pending calendar invites' });
     }

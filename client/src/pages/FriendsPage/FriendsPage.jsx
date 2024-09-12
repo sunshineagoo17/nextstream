@@ -419,9 +419,28 @@ const filteredFriends = friends;
               <p>No pending calendar invites.</p>
           ) : (
               pendingCalendarInvites.map((invite) => (
-              <div key={invite.id} className="friends-page__pending-calendar__pending-item">
-                  <span>{invite.eventTitle}</span>
-                  <button onClick={() => handleAcceptCalendarInvite(invite.id)} className="friends-page__accept-friend">
+              <div key={invite.inviteId} className="friends-page__pending-calendar__pending-item">
+                  <div className="friends-page__calendar-info">
+                      {/* Event Title */}
+                      <p><strong>Event Title:</strong> {invite.eventTitle}</p>
+                      
+                      {/* Inviter */}
+                      <p><strong>Invited By:</strong> {invite.inviterName}</p>
+                      
+                      {/* Date and Time */}
+                      <p><strong>Start Date:</strong> {new Date(invite.start).toLocaleDateString()}</p>
+                      <p><strong>End Date:</strong> {new Date(invite.end).toLocaleDateString()}</p>
+                      <p><strong>Start Time:</strong> {new Date(invite.start).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+                      <p><strong>End Time:</strong> {new Date(invite.end).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+                      
+                      {/* Duration */}
+                      <p><strong>Duration:</strong> {invite.end ? `${Math.round((new Date(invite.end) - new Date(invite.start)) / 60000)} minutes` : 'N/A'}</p>
+                      
+                      {/* Event Type */}
+                      <p><strong>Type:</strong> {invite.eventType === 'movie' ? 'Movie' : invite.eventType === 'tv' ? 'TV Show' : 'Unknown'}</p>
+                  </div>
+
+                  <button onClick={() => handleAcceptCalendarInvite(invite.inviteId)} className="friends-page__accept-friend">
                       Accept
                   </button>
               </div>
