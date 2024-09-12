@@ -48,14 +48,12 @@ router.post('/send', authenticate, async (req, res) => {
   
 // Retrieve the message history between two friends
 router.get('/history/:friendId', authenticate, async (req, res) => {
-    const userId = req.user.userId; 
-    const { friendId } = req.params;
-  
-    console.log("userId:", userId, "friendId:", friendId);
-  
-    if (!userId || !friendId) {
-      return res.status(400).json({ message: 'Missing userId or friendId' });
-    }
+  const userId = req.user.userId; 
+  const { friendId } = req.params;
+
+  if (!userId || !friendId) {
+    return res.status(400).json({ message: 'Missing userId or friendId' });
+  }
 
   try {
     // Ensure the user is friends with the recipient
@@ -72,8 +70,9 @@ router.get('/history/:friendId', authenticate, async (req, res) => {
       return res.status(400).json({ message: 'You are not friends with this user.' });
     }
 
-    // Fetch the message history between the two users
+    // Fetch the message history and alias sender_id and receiver_id
     const messages = await knex('messages')
+      .select('id', 'message', 'sender_id as senderId', 'receiver_id as receiverId', 'is_read', 'created_at')
       .where(function() {
         this.where('sender_id', userId).andWhere('receiver_id', friendId);
       })

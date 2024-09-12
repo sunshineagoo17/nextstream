@@ -2,8 +2,15 @@ import api from './api';
 
 // Fetch messages between the user and a friend
 export const fetchMessages = async (friendId) => {
-  const response = await api.get(`/api/messages/history/${friendId}`); 
-  return response.data;
+  const response = await api.get(`/api/messages/history/${friendId}`);
+
+  // Ensure senderId and receiverId are correctly mapped
+  const validMessages = response.data.map(message => ({
+    ...message,
+    senderId: message.senderId || "unknown",  
+  }));
+
+  return validMessages;
 };
 
 // Send a message

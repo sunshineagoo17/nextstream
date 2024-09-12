@@ -62,49 +62,61 @@ const fetchFriends = useCallback(async () => {
       socket.emit('join_room', userId);
     }
   }, [userId]);
-
+  
   // Select a friend and fetch messages
   const handleSelectFriend = async (friend) => {
-    console.log('Friend:', friend);
     setSelectedFriend(friend);
     setNewMessage('');
     setTyping(false);
 
     try {
       const messagesData = await fetchMessages(friend.id);
-      setMessages(messagesData);
 
-      // Mark all messages as read for the selected friend
-      await markAllMessagesAsRead(friend.id);
+      const validMessages = messagesData.map(message => ({
+        ...message,
+        senderId: message.senderId || "unknown_sender",  // Debug fallback for missing senderId
+      }));
+
+      // Log messages to debug missing senderId
+      validMessages.forEach((message) => {
+        console.log(`Message: ${message.message}, senderId: ${message.senderId}, userId: ${userId}, is_read: ${message.is_read}`);
+      });
+
+      // Mark all messages as read and set them in the state
+      await markAllMessagesAsRead(friend.id); 
+      setMessages(validMessages);
     } catch (error) {
       console.error('Error fetching messages or marking them as read', error);
     }
   };
 
-useEffect(() => {
-  // Fetch messages when a friend is selected
-  if (selectedFriend) {
-    const fetchMessagesForFriend = async () => {
-      try {
-        const messagesData = await fetchMessages(selectedFriend.id);
-        setMessages(messagesData);
-      } catch (error) {
-        console.error('Error fetching messages:', error);
-      }
+  useEffect(() => {
+    if (selectedFriend) {
+      const fetchMessagesForFriend = async () => {
+        try {
+          const messagesData = await fetchMessages(selectedFriend.id);
+          setMessages(messagesData);
+        } catch (error) {
+          console.error('Error fetching messages:', error);
+        }
+      };
+      fetchMessagesForFriend();
+    }
+  }, [selectedFriend]);
+
+  useEffect(() => {
+    socket.on('receive_message', (data) => {
+      const newMessage = {
+        ...data,
+        is_read: false // By default, unread when received
+      };
+      setMessages((prevMessages) => [...prevMessages, newMessage]);
+    });
+  
+    return () => {
+      socket.off('receive_message');
     };
-    fetchMessagesForFriend();
-  }
-}, [selectedFriend]);
-
-useEffect(() => {
-  socket.on('receive_message', (data) => {
-    setMessages((prevMessages) => [...prevMessages, data]);
-  });
-
-  return () => {
-    socket.off('receive_message');
-  };
-}, []);
+  }, []);
 
 const handleSendMessage = async () => {
   console.log('Selected Friend:', selectedFriend);  
@@ -194,6 +206,21 @@ const handleSendFriendRequest = async (friendId) => {
       setAlertMessage({ message: 'Error sending friend request.', type: 'error' });
     }
   };  
+
+  useEffect(() => {
+    if (messages.length && selectedFriend) {
+      localStorage.setItem(`messages_${selectedFriend.id}`, JSON.stringify(messages));
+    }
+  }, [messages, selectedFriend]);
+  
+  useEffect(() => {
+    if (selectedFriend) {
+      const savedMessages = localStorage.getItem(`messages_${selectedFriend.id}`);
+      if (savedMessages) {
+        setMessages(JSON.parse(savedMessages));
+      }
+    }
+  }, [selectedFriend]);   
   
   // Accept a friend request
 const handleAcceptFriendRequest = async (friendId) => {
@@ -380,8 +407,13 @@ const filteredFriends = friends;
               {messages.length === 0 ? (
                 <p className="friends-page__no-msgs">No messages yet. Start the conversation!</p>
               ) : (
-                messages.map((message, index) => (
-                  <div key={index} className={`friends-page__message ${message.senderId === userId ? 'me' : 'friend'}`}>
+                messages.map((message) => (
+                  <div
+                    key={message.id}
+                    className={`friends-page__message 
+                      ${message.senderId === userId ? 'me' : 'sender'} 
+                      ${message.is_read ? 'read' : 'unread'}`}
+                  >
                     {message.message}
                     <FontAwesomeIcon
                       icon={faTrash}
