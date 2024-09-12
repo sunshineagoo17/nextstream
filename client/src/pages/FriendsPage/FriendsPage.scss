@@ -701,7 +701,7 @@
       &.unread {
         opacity: 1;
         font-weight: bold;
-        border-radius: 15px 15px 15px 0;
+        border-radius: 15px 15px 0 15px;
         background: $primary-button-blue;
         color: $pastel-blue;
         border: 2px solid $neutral-white;
@@ -711,7 +711,7 @@
   
       &.read {
         opacity: .9;
-        border-radius: 15px 15px 15px 0;
+        border-radius: 15px 15px 0 15px;
         border: 1px solid $pastel-blue;
         background: $primary-light-blue;
         color: $pastel-blue;
@@ -723,7 +723,7 @@
       &.unread {
         opacity: 1;
         font-weight: bold;
-        border-radius: 15px 15px 0 15px;
+        border-radius: 15px 15px 15px 0;
         color: #0d480d;
         background: $feedback-mint-green;
         border: 2px solid $neutral-white;
@@ -733,7 +733,7 @@
   
       &.read {
         opacity: .9;
-        border-radius: 15px 15px 0 15px;
+        border-radius: 15px 15px 15px 0;
         background: $feedback-mint-green;
         color: $neutral-white;
         border: 1px solid $feedback-mint-green;
