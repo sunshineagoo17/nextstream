@@ -64,3 +64,14 @@ export const fetchPendingCalendarInvitesService = async () => {
 export const acceptCalendarInvite = async (inviteId) => {
   return api.put(`/api/calendar/invite/${inviteId}/accept`);
 };
+
+// Delete calendar invite
+export const deleteCalendarInvite = async (inviteId) => {
+  try {
+    const response = await api.delete(`/api/calendar/invite/${inviteId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error deleting calendar invite', error);
+    throw error;
+  }
+};

@@ -855,4 +855,89 @@
     font-size: 1.125rem;
     color: $primary-dark-blue;
   }
+
+  &__pending-calendar {
+    margin-top: 2rem;
+    background: $frosted-glass;
+    padding: 1.25rem;
+    border-radius: .9375rem;
+    box-shadow: $shadow-secondary;
+    display: flex;
+    flex-direction: column;
+
+    h3 {
+      font-size: 1.15rem;
+      font-family: $secondary-font;
+      font-weight: bold;
+      color: $primary-dark-blue;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      font-size: .875rem;
+      color: $primary-dark-blue;
+      margin-bottom: .5rem;
+      line-height: 1.5rem;
+    }
+
+    &__pending-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      background: $primary-pale-blue;
+      border-radius: .75rem;
+      box-shadow: $shadow-tertiary;
+      margin-bottom: 1rem;
+
+      .friends-page__calendar-info {
+        flex: 1;
+
+        p {
+          font-size: .875rem;
+          margin-bottom: .25rem;
+          strong {
+            color: $primary-dark-blue;
+          }
+        }
+      }
+
+      .friends-page__calendar-actions {
+        display: flex;
+        gap: .5rem;
+
+        button {
+          padding: .5rem 1rem;
+          background: $primary-button-blue;
+          color: $neutral-white;
+          border-radius: .5rem;
+          border: none;
+          cursor: pointer;
+          box-shadow: $shadow-secondary;
+          transition: background .3s ease, transform .2s ease;
+
+          &:hover {
+            background: $primary-light-blue;
+            transform: translateY(-.125rem);
+            box-shadow: $shadow-primary;
+          }
+
+          &:active {
+            background: $primary-dark-blue;
+            color: $neutral-white;
+            transform: translateY(.0625rem);
+            box-shadow: $shadow-septenary;
+          }
+
+          &.friends-page__accept-friend {
+            background: $feedback-mint-green;
+          }
+
+          &.friends-page__delete-invite {
+            background: $feedback-error-peach;
+          }
+        }
+      }
+    }
+  }
 }

@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect, useCallback } from 'react';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
-import { getFriends, acceptCalendarInvite, fetchPendingCalendarInvitesService, sendFriendRequest, acceptFriendRequest, removeFriend, searchUsers, fetchPendingRequests as fetchPendingRequestsService } from '../../services/friendsService'; 
+import { getFriends, acceptCalendarInvite, deleteCalendarInvite, fetchPendingCalendarInvitesService, sendFriendRequest, acceptFriendRequest, removeFriend, searchUsers, fetchPendingRequests as fetchPendingRequestsService } from '../../services/friendsService'; 
 import { fetchMessages, sendMessage, deleteMessage, markAllMessagesAsRead } from '../../services/messageService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faTimes, faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -61,17 +61,29 @@ const fetchFriends = useCallback(async () => {
     }
   }, []);
 
-    // Accept calendar invite
-    const handleAcceptCalendarInvite = async (inviteId) => {
-      try {
-        await acceptCalendarInvite(inviteId); // Calls a service to accept the invite
-        setPendingCalendarInvites(prev => prev.filter(invite => invite.id !== inviteId));
-        setAlertMessage({ message: 'Calendar invite accepted!', type: 'success' });
-      } catch (error) {
-        console.log('Error accepting calendar invite', error);
-        setAlertMessage({ message: 'Error accepting calendar invite.', type: 'error' });
-      }
-    };
+  // Accept calendar invite
+  const handleAcceptCalendarInvite = async (inviteId) => {
+    try {
+      await acceptCalendarInvite(inviteId); // Calls a service to accept the invite
+      setPendingCalendarInvites(prev => prev.filter(invite => invite.id !== inviteId));
+      setAlertMessage({ message: 'Calendar invite accepted!', type: 'success' });
+    } catch (error) {
+      console.log('Error accepting calendar invite', error);
+      setAlertMessage({ message: 'Error accepting calendar invite.', type: 'error' });
+    }
+  };
+
+    // Handle delete calendar invite
+const handleDeleteCalendarInvite = async (inviteId) => {
+  try {
+    await deleteCalendarInvite(inviteId); // Call the service to delete the invite
+    setPendingCalendarInvites(prev => prev.filter(invite => invite.inviteId !== inviteId)); // Remove invite from the list
+    setAlertMessage({ message: 'Calendar invite deleted!', type: 'success' });
+  } catch (error) {
+    console.log('Error deleting calendar invite', error);
+    setAlertMessage({ message: 'Error deleting calendar invite.', type: 'error' });
+  }
+};
 
   useEffect(() => {
     if (isAuthenticated && userId) {
@@ -440,13 +452,19 @@ const filteredFriends = friends;
                       <p><strong>Type:</strong> {invite.eventType === 'movie' ? 'Movie' : invite.eventType === 'tv' ? 'TV Show' : 'Unknown'}</p>
                   </div>
 
-                  <button onClick={() => handleAcceptCalendarInvite(invite.inviteId)} className="friends-page__accept-friend">
-                      Accept
-                  </button>
-              </div>
-              ))
-          )}
-        </div>
+                  {/* Buttons */}
+                  <div className="friends-page__calendar-actions">
+                                <button onClick={() => handleAcceptCalendarInvite(invite.inviteId)} className="friends-page__accept-friend">
+                                    Accept
+                                </button>
+                                <button onClick={() => handleDeleteCalendarInvite(invite.inviteId)} className="friends-page__delete-invite">
+                                    Delete
+                                </button>
+                            </div>
+                        </div>
+                        ))
+                    )}
+                  </div>
     
         {/* Chat Section */}
         {selectedFriend && (
