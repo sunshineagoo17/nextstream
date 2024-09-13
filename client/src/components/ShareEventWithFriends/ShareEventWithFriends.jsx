@@ -105,7 +105,7 @@ const handleShareEvent = async () => {
             </div>
           ))
         ) : (
-          <p className="share-event__no-friends">No friends available to share with.</p>
+          <p className="share-event__no-friends">Invite friends and start sharing events.</p>
         )}
       </div>
       <button
