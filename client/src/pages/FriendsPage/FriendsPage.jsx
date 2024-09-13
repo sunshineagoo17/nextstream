@@ -63,41 +63,47 @@ const FriendsPage = () => {
     }
   }, [userId]);
 
-// Handle accept or decline calendar invite
-const handleRespondToInvite = async (inviteId, isAccepted) => {
-  try {
-    // Use the respondToSharedEvent function from your service
-    await respondToSharedEvent(userId, inviteId, isAccepted); 
+  // Handle accept or decline calendar invite (for both pending and shared events)
+  const handleRespondToInvite = async (inviteId, isAccepted) => {
+    try {
+      // Use the respondToSharedEvent function from your service
+      await respondToSharedEvent(userId, inviteId, isAccepted);
 
-    // Update the pending invites list by removing the responded invite
-    setPendingCalendarInvites((prevInvites) =>
-      prevInvites.filter((invite) => invite.inviteId !== inviteId)
-    );
-
-    if (isAccepted) {
-      const acceptedInvite = pendingCalendarInvites.find(
-        (invite) => invite.inviteId === inviteId
+      // Update the pending invites list by removing the responded invite
+      setPendingCalendarInvites((prevInvites) =>
+        prevInvites.filter((invite) => invite.inviteId !== inviteId)
       );
-      setSharedCalendarEvents((prevEvents) => [
-        ...prevEvents,
-        acceptedInvite,
-      ]);
-    }
 
-    setAlertMessage({
-      message: isAccepted
-        ? 'Calendar invite accepted!'
-        : 'Calendar invite declined and removed.',
-      type: 'success',
-    });
-  } catch (error) {
-    console.log('Error responding to calendar invite', error);
-    setAlertMessage({
-      message: 'Error responding to calendar invite.',
-      type: 'error',
-    });
-  }
-};
+      if (isAccepted) {
+        // If accepted, move it from pending to shared events
+        const acceptedInvite = pendingCalendarInvites.find(
+          (invite) => invite.inviteId === inviteId
+        );
+        setSharedCalendarEvents((prevEvents) => [
+          ...prevEvents,
+          acceptedInvite,
+        ]);
+      } else {
+        // If declined or deleted, remove it from the shared calendar events
+        setSharedCalendarEvents((prevEvents) =>
+          prevEvents.filter((event) => event.inviteId !== inviteId)
+        );
+      }
+
+      setAlertMessage({
+        message: isAccepted
+          ? 'Calendar invite accepted!'
+          : 'Calendar event declined and removed.',
+        type: 'success',
+      });
+    } catch (error) {
+      console.log('Error responding to calendar invite', error);
+      setAlertMessage({
+        message: 'Error responding to calendar invite.',
+        type: 'error',
+      });
+    }
+  };
 
   // Load shared calendar events from localStorage on page load
   useEffect(() => {
@@ -715,6 +721,13 @@ const handleRespondToInvite = async (inviteId, isAccepted) => {
                       ? 'TV Show'
                       : 'Unknown'}
                   </p>
+                  <div className='friends-page__calendar-actions'>
+                    <button
+                      onClick={() => handleRespondToInvite(event.inviteId, false)}
+                      className='friends-page__delete-invite-btn'>
+                      Delete
+                    </button>
+                  </div>
                 </div>
               </div>
             ))

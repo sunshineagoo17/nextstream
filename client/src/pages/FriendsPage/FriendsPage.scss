@@ -902,6 +902,32 @@
     background: $feedback-mint-green;
   }
 
+  &__delete-invite-btn {
+    padding: .5rem 1rem;
+    color: $primary-dark-navy-blue;
+    background: $feedback-error-light-peach;
+    border-radius: .5rem;
+    border: none;
+    cursor: pointer;
+    box-shadow: $shadow-secondary;
+    transition: background .3s ease, transform .2s ease;
+
+    &:hover {
+      background: none;
+      transform: translateY(-.125rem);
+      box-shadow: $shadow-primary;
+      color: $neutral-white;
+      border: 1px solid $neutral-white;
+    }
+
+    &:active {
+      background: $pastel-pink;
+      color: $pastel-dark-pink;
+      transform: translateY(.0625rem);
+      box-shadow: $shadow-septenary;
+    }
+  }
+
   &__pending-calendar,
   &__shared-calendar {
     width: 100%;
