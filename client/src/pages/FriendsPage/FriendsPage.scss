@@ -28,6 +28,103 @@
     padding: 5rem 3.75rem;
   }
 
+  &__cal-modal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  &__close-icon {
+    color: $neutral-white;
+  }
+
+  &__close-cal-txt {
+    margin-left: .25rem;
+    font-family: $secondary-font;
+    color: $neutral-white;
+  }
+
+  &__cal-icon-container {
+    @include block-item(9.5rem, 2rem);
+    align-items: center;
+    display: flex;
+    gap: .25rem;
+    flex-direction: row;
+    color: $primary-dark-blue;
+    justify-content: center;
+    border-radius: .75rem;
+    box-shadow: $shadow-quinary;
+    background: $feedback-mint-vibrant-green;
+    border: 3px solid $feedback-mint-light-green;
+    cursor: pointer;
+    transition: background .3s ease, transform .2s ease;
+    margin-bottom: .5rem;
+
+    &:hover {
+      transform: translateY(-.125rem);
+      box-shadow: $shadow-quaternary;
+      background: $neutral-white;
+      color: $toast-success;
+      border: 1px solid $feedback-mint-green;
+      font-weight: bold;
+      border-radius: .25rem;
+    }
+
+    &:active {
+      transform: translateY(.0625rem); 
+      color: $feedback-mint-light-green;
+      background: $toast-success;
+      border: none;
+      box-shadow: $shadow-senary;
+      text-shadow: $shadow-primary;
+      border-radius: 1rem;
+    }
+  }
+
+  &__show-cal-txt {
+    font-family: $secondary-font;
+    text-shadow: $shadow-primary;
+  }
+
+  &__close-btn {
+    @include block-item(9.5rem, 2rem);
+    border-radius: .75rem;
+    background: $primary-button-blue;
+    border: 1px solid $frosted-glass;
+    cursor: pointer;
+    margin: -.25rem;
+    transition: background .3s ease, transform .2s ease;
+
+    &:hover {
+      transform: translateY(-.125rem);
+      box-shadow: $shadow-quaternary;
+      color: $neutral-white;
+      background: $primary-button-dark-blue;
+      border: 1px solid $neutral-white;
+      text-shadow: $shadow-primary;
+      border-radius: .25rem;
+    }
+
+    &:active {
+      transform: translateY(.0625rem); 
+      color: $neutral-white;
+      background: $primary-dark-blue;
+      border: none;
+      box-shadow: $shadow-septenary;
+      text-shadow: $shadow-primary;
+      border-radius: 1rem;
+    }
+  }
+
+  &__cal-events-container {
+    @include desktop {
+      display: flex;
+      flex-direction: row;
+      gap: 1.25rem;
+    }
+  }
+
   &__container--bottom {
     display: flex;
     flex-direction: column;
@@ -43,7 +140,7 @@
     gap: 1.25rem;
 
     @include desktop {
-      flex-direction: row;
+      flex-direction: column;
       justify-content: center;
     }
   }

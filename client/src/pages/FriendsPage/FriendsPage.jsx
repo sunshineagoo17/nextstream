@@ -3,9 +3,10 @@ import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { getFriends, rejectFriendRequest, fetchSharedCalendarEvents, respondToSharedEvent, fetchPendingCalendarInvitesService, sendFriendRequest, acceptFriendRequest, removeFriend, searchUsers, fetchPendingRequests as fetchPendingRequestsService } from '../../services/friendsService';
 import { fetchMessages, sendMessage, deleteMessage, markAllMessagesAsRead } from '../../services/messageService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faTimes, faTrash, faBell } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faTimes, faTrash, faBell, faClose, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
 import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
 import TypingIndicator from '../../components/TypingIndicator/TypingIndicator';
+import Calendar from '../CalendarPage/sections/Calendar';
 import io from 'socket.io-client';
 import './FriendsPage.scss';
 
@@ -24,6 +25,15 @@ const FriendsPage = () => {
   const [alertMessage, setAlertMessage] = useState(null);
   const [pendingCalendarInvites, setPendingCalendarInvites] = useState([]);
   const [sharedCalendarEvents, setSharedCalendarEvents] = useState([]);
+  const [showCalendar, setShowCalendar] = useState(false);
+
+  const handleShowCalendar = () => {
+    setShowCalendar(true);
+};
+
+const handleCloseCalendar = () => {
+    setShowCalendar(false);
+};
 
   // Fetch friends list
   const fetchFriends = useCallback(async () => {
@@ -647,156 +657,177 @@ const FriendsPage = () => {
       </div>
 
       <div className='friends-page__container--bottom'>
-        {/* Pending Calendar Invites Section */}
-        <div className='friends-page__pending-calendar glassmorphic-card'>
-          <div className='friends-page__header-row'>
-            <h3 className='friends-page__card-subtitle--pendingrequests'>
-              Pending Calendar Invites
-              {pendingCalendarInvites.length > 0 && (
-                <span className='friends-page__pending-count'>
-                  {pendingCalendarInvites.length}
-                </span>
-              )}
-            </h3>
-          </div>
-          {pendingCalendarInvites.length === 0 ? (
-            <p>No pending calendar invites.</p>
-          ) : (
-            pendingCalendarInvites.map((invite) => (
-              <div
-                key={invite.inviteId}
-                className='friends-page__pending-calendar__pending-item'>
-                <div className='friends-page__calendar-info'>
-                  {/* Event Title */}
-                  <p>
-                    <strong>Event Title:</strong> {invite.eventTitle}
-                  </p>
-                  {/* Inviter */}
-                  <p>
-                    <strong>Invited By:</strong> {invite.inviterName}
-                  </p>
-                  {/* Date and Time */}
-                  <p>
-                    <strong>Start Date:</strong>{' '}
-                    {new Date(invite.start).toLocaleDateString()}
-                  </p>
-                  <p>
-                    <strong>End Date:</strong>{' '}
-                    {new Date(invite.end).toLocaleDateString()}
-                  </p>
-                  <p>
-                    <strong>Start Time:</strong>{' '}
-                    {new Date(invite.start).toLocaleTimeString([], {
-                      hour: '2-digit',
-                      minute: '2-digit',
-                    })}
-                  </p>
-                  <p>
-                    <strong>End Time:</strong>{' '}
-                    {new Date(invite.end).toLocaleTimeString([], {
-                      hour: '2-digit',
-                      minute: '2-digit',
-                    })}
-                  </p>
-                  {/* Event Type */}
-                  <p>
-                    <strong>Type:</strong>{' '}
-                    {invite.eventType === 'movie'
-                      ? 'Movie'
-                      : invite.eventType === 'tv'
-                      ? 'TV Show'
-                      : 'Unknown'}
-                  </p>
-                </div>
-                <div className='friends-page__calendar-actions'>
-                  <button
-                    onClick={() => handleRespondToInvite(invite.inviteId, true)}
-                    className='friends-page__accept-invite'>
-                    Accept
-                  </button>
-                  <button
-                    onClick={() =>
-                      handleRespondToInvite(invite.inviteId, false)
-                    }
-                    className='friends-page__delete-invite'>
-                    Decline
-                  </button>
-                </div>
+        <div className='friends-page__cal-events-container'>
+            {/* Pending Calendar Invites Section */}
+            <div className='friends-page__pending-calendar glassmorphic-card'>
+              <div className='friends-page__header-row'>
+                <h3 className='friends-page__card-subtitle--pendingrequests'>
+                  Pending Calendar Invites
+                  {pendingCalendarInvites.length > 0 && (
+                    <span className='friends-page__pending-count'>
+                      {pendingCalendarInvites.length}
+                    </span>
+                  )}
+                </h3>
               </div>
-            ))
-          )}
-        </div>
-
-        {/* Shared Calendar Events Section */}
-        <div className='friends-page__shared-calendar glassmorphic-card different-color'>
-          <div className='friends-page__header-row'>
-            <h3 className='friends-page__card-subtitle--shared'>
-              Shared Calendar Events
-              {sharedCalendarEvents.length > 0 && (
-                <span className='friends-page__shared-count'>
-                  {sharedCalendarEvents.length}
-                </span>
+              {pendingCalendarInvites.length === 0 ? (
+                <p>No pending calendar invites.</p>
+              ) : (
+                pendingCalendarInvites.map((invite) => (
+                  <div
+                    key={invite.inviteId}
+                    className='friends-page__pending-calendar__pending-item'>
+                    <div className='friends-page__calendar-info'>
+                      {/* Event Title */}
+                      <p>
+                        <strong>Event Title:</strong> {invite.eventTitle}
+                      </p>
+                      {/* Inviter */}
+                      <p>
+                        <strong>Invited By:</strong> {invite.inviterName}
+                      </p>
+                      {/* Date and Time */}
+                      <p>
+                        <strong>Start Date:</strong>{' '}
+                        {new Date(invite.start).toLocaleDateString()}
+                      </p>
+                      <p>
+                        <strong>End Date:</strong>{' '}
+                        {new Date(invite.end).toLocaleDateString()}
+                      </p>
+                      <p>
+                        <strong>Start Time:</strong>{' '}
+                        {new Date(invite.start).toLocaleTimeString([], {
+                          hour: '2-digit',
+                          minute: '2-digit',
+                        })}
+                      </p>
+                      <p>
+                        <strong>End Time:</strong>{' '}
+                        {new Date(invite.end).toLocaleTimeString([], {
+                          hour: '2-digit',
+                          minute: '2-digit',
+                        })}
+                      </p>
+                      {/* Event Type */}
+                      <p>
+                        <strong>Type:</strong>{' '}
+                        {invite.eventType === 'movie'
+                          ? 'Movie'
+                          : invite.eventType === 'tv'
+                          ? 'TV Show'
+                          : 'Unknown'}
+                      </p>
+                    </div>
+                    <div className='friends-page__calendar-actions'>
+                      <button
+                        onClick={() => handleRespondToInvite(invite.inviteId, true)}
+                        className='friends-page__accept-invite'>
+                        Accept
+                      </button>
+                      <button
+                        onClick={() =>
+                          handleRespondToInvite(invite.inviteId, false)
+                        }
+                        className='friends-page__delete-invite'>
+                        Decline
+                      </button>
+                    </div>
+                  </div>
+                ))
               )}
-            </h3>
-          </div>
-          {sharedCalendarEvents.length === 0 ? (
-            <p>No shared calendar events.</p>
-          ) : (
-            sharedCalendarEvents.map((event) => (
-              <div
-                key={event.inviteId}
-                className='friends-page__shared-calendar__item'>
-                <div className='friends-page__calendar-info'>
-                  {/* Event Title */}
-                  <p>
-                    <strong>Event Title:</strong> {event.eventTitle}
-                  </p>
-                  {/* Inviter */}
-                  <p>
-                    <strong>Invited By:</strong> {event.inviterName}
-                  </p>
-                  {/* Date and Time */}
-                  <p>
-                    <strong>Start Date:</strong>{' '}
-                    {new Date(event.start).toLocaleDateString()}
-                  </p>
-                  <p>
-                    <strong>End Date:</strong>{' '}
-                    {new Date(event.end).toLocaleDateString()}
-                  </p>
-                  <p>
-                    <strong>Start Time:</strong>{' '}
-                    {new Date(event.start).toLocaleTimeString([], {
-                      hour: '2-digit',
-                      minute: '2-digit',
-                    })}
-                  </p>
-                  <p>
-                    <strong>End Time:</strong>{' '}
-                    {new Date(event.end).toLocaleTimeString([], {
-                      hour: '2-digit',
-                      minute: '2-digit',
-                    })}
-                  </p>
-                  {/* Event Type */}
-                  <p>
-                    <strong>Type:</strong>{' '}
-                    {event.eventType === 'movie'
-                      ? 'Movie'
-                      : event.eventType === 'tv'
-                      ? 'TV Show'
-                      : 'Unknown'}
-                  </p>
-                  <div className='friends-page__calendar-actions'>
-                    <button
-                      onClick={() => handleRespondToInvite(event.inviteId, false)}
-                      className='friends-page__delete-invite-btn'>
-                      Delete
-                    </button>
+            </div>
+
+            {/* Shared Calendar Events Section */}
+            <div className='friends-page__shared-calendar glassmorphic-card different-color'>
+              <div className='friends-page__header-row'>
+                <h3 className='friends-page__card-subtitle--shared'>
+                  Shared Calendar Events
+                  {sharedCalendarEvents.length > 0 && (
+                    <span className='friends-page__shared-count'>
+                      {sharedCalendarEvents.length}
+                    </span>
+                  )}
+                </h3>
+                <button className="friends-page__cal-icon-container" onClick={handleShowCalendar}>
+                  <FontAwesomeIcon icon={faCalendarAlt} className='friends-page__show-cal-icon' />
+                  <span className='friends-page__show-cal-txt'>Show Calendar</span>
+                </button>
+            </div>
+            {sharedCalendarEvents.length === 0 ? (
+              <p>No shared calendar events.</p>
+            ) : (
+              sharedCalendarEvents.map((event) => (
+                <div
+                  key={event.inviteId}
+                  className='friends-page__shared-calendar__item'>
+                  <div className='friends-page__calendar-info'>
+                    {/* Event Title */}
+                    <p>
+                      <strong>Event Title:</strong> {event.eventTitle}
+                    </p>
+                    {/* Inviter */}
+                    <p>
+                      <strong>Invited By:</strong> {event.inviterName}
+                    </p>
+                    {/* Date and Time */}
+                    <p>
+                      <strong>Start Date:</strong>{' '}
+                      {new Date(event.start).toLocaleDateString()}
+                    </p>
+                    <p>
+                      <strong>End Date:</strong>{' '}
+                      {new Date(event.end).toLocaleDateString()}
+                    </p>
+                    <p>
+                      <strong>Start Time:</strong>{' '}
+                      {new Date(event.start).toLocaleTimeString([], {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                      })}
+                    </p>
+                    <p>
+                      <strong>End Time:</strong>{' '}
+                      {new Date(event.end).toLocaleTimeString([], {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                      })}
+                    </p>
+                    {/* Event Type */}
+                    <p>
+                      <strong>Type:</strong>{' '}
+                      {event.eventType === 'movie'
+                        ? 'Movie'
+                        : event.eventType === 'tv'
+                        ? 'TV Show'
+                        : 'Unknown'}
+                    </p>
+                    <div className='friends-page__calendar-actions'>
+                      <button
+                        onClick={() => handleRespondToInvite(event.inviteId, false)}
+                        className='friends-page__delete-invite-btn'>
+                        Delete
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))
+              ))
+            )}
+          </div>
+        </div>
+        <div className='friends-page__calendar-container'>
+          {/* Calendar Modal */}
+          {showCalendar && (
+            <div className="friends-page__cal-modal">
+                <button className="friends-page__close-btn" onClick={handleCloseCalendar}>
+                  <FontAwesomeIcon icon={faClose} className='friends-page__close-icon' />
+                  <span className='friends-page__close-cal-txt'>Close Calendar</span>
+                </button>
+                <Calendar
+                  userId={userId}
+                  onClose={handleCloseCalendar}
+                />
+            </div>
           )}
         </div>
       </div>
