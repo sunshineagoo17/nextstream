@@ -79,21 +79,29 @@ exports.respondToSharedEvent = async (req, res) => {
       return res.status(404).json({ message: 'Shared event not found' });
     }
 
-    // Update the shared event status to accepted
-    await knex('calendar_events')
-      .where({ id: calendarEventId, friend_id: userId })
-      .update({ isAccepted });
+    if (isAccepted) {
+      // Update the shared event status to accepted
+      await knex('calendar_events')
+        .where({ id: calendarEventId, friend_id: userId })
+        .update({ isAccepted: true });
+    } else {
+      // Remove the declined shared event from the database
+      await knex('calendar_events')
+        .where({ id: calendarEventId, friend_id: userId })
+        .del();
+    }
 
-    // Fetch updated event details to move to the shared calendar list
-    const updatedEvent = await knex('calendar_events')
+    // Fetch the updated list of events
+    const updatedEvents = await knex('calendar_events')
       .join('events', 'calendar_events.event_id', '=', 'events.id')
-      .where({ 'calendar_events.id': calendarEventId })
-      .select('events.*')
-      .first();
+      .where({ 'calendar_events.friend_id': userId })
+      .select('events.*');
 
     res.status(200).json({
-      message: 'Shared event response updated successfully.',
-      updatedEvent,
+      message: isAccepted
+        ? 'Shared event accepted successfully.'
+        : 'Shared event declined and removed.',
+      updatedEvents,
     });
   } catch (error) {
     console.error('Error responding to shared event:', error);
