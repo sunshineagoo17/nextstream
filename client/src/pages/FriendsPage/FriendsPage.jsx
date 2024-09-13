@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect, useCallback } from 'react';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
-import { getFriends, fetchSharedCalendarEvents, respondToSharedEvent, fetchPendingCalendarInvitesService, sendFriendRequest, acceptFriendRequest, removeFriend, searchUsers, fetchPendingRequests as fetchPendingRequestsService } from '../../services/friendsService';
+import { getFriends, rejectFriendRequest, fetchSharedCalendarEvents, respondToSharedEvent, fetchPendingCalendarInvitesService, sendFriendRequest, acceptFriendRequest, removeFriend, searchUsers, fetchPendingRequests as fetchPendingRequestsService } from '../../services/friendsService';
 import { fetchMessages, sendMessage, deleteMessage, markAllMessagesAsRead } from '../../services/messageService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faTimes, faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -361,6 +361,26 @@ const FriendsPage = () => {
     }
   };
 
+  // Decline a friend request
+  const handleDeclineFriendRequest = async (friendId) => {
+    try {
+      await rejectFriendRequest(friendId);
+      setPendingRequests((prevPendingRequests) =>
+        prevPendingRequests.filter((request) => request.id !== friendId)
+      );
+      setAlertMessage({
+        message: 'Friend request declined!',
+        type: 'success',
+      });
+    } catch (error) {
+      console.log('Error declining friend request', error);
+      setAlertMessage({
+        message: 'Error declining friend request.',
+        type: 'error',
+      });
+    }
+  };
+
   useEffect(() => {
     if (messages.length && selectedFriend) {
       localStorage.setItem(
@@ -511,11 +531,18 @@ const FriendsPage = () => {
                   <span className='friends-page__username--pending'>
                     {request.name}
                   </span>
-                  <button
-                    onClick={() => handleAcceptFriendRequest(request.id)}
-                    className='friends-page__accept-friend'>
-                    Accept
-                  </button>
+                  <div className='friends-page__friend-requests-actions'>
+                    <button
+                      onClick={() => handleAcceptFriendRequest(request.id)}
+                      className='friends-page__accept-friend'>
+                      Accept
+                    </button>
+                    <button
+                      onClick={() => handleDeclineFriendRequest(request.id)}
+                      className='friends-page__decline-friend'>
+                      Decline
+                    </button>
+                  </div>
                 </div>
               ))
             )}

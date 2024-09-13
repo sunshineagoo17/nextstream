@@ -302,28 +302,32 @@
     }
   }
 
+  &__friend-requests-actions {
+    display: flex;
+    gap: .5rem;
+  }
+
   &__accept-friend {
-    padding: .5rem 1.5rem;
     background: $feedback-mint-light-green;
     color: $feedback-dark-green;
+    padding: .5rem 1.5rem;
     border: none;
     border-radius: .5rem;
     cursor: pointer;
+    box-shadow: $shadow-secondary;
     transition: transform .3s ease, box-shadow .3s ease, background-color .3s ease;
   
-    // Pulse glow on hover
     &:hover {
-      box-shadow: 0 0 .625rem .125rem $feedback-error-light-peach, 0 0 .9375rem .1875rem rgba(255, 255, 255, .6);
+      box-shadow: 0 0 .625rem .125rem $feedback-mint-vibrant-green, 0 0 .9375rem .1875rem rgba(255, 255, 255, .6);
     }
   
-    // Scale and transform on click
     &:active {
       animation: scaleAndCheck .8s forwards;
-      box-shadow: 0 0 .625rem .125rem $feedback-mint-green, 0 0 .9375rem .1875rem rgba(255, 255, 255, .6);
+      background: $feedback-very-light-mint-green;
+      box-shadow: 0 0 .625rem .125rem $feedback-mint-vibrant-green, 0 0 .9375rem .1875rem rgba(255, 255, 255, .6);
     }
   }
   
-  // Keyframes for scale and checkmark transformation
   @keyframes scaleAndCheck {
     0% {
       transform: scale(1);
@@ -332,7 +336,40 @@
       transform: scale(1.1);
     }
     70% {
-      background-color: $feedback-mint-green;
+      background-color: $feedback-mint-vibrant-green;
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  &__decline-friend {
+    padding: .5rem 1.5rem;
+    border: none;
+    border-radius: .5rem;
+    cursor: pointer;
+    box-shadow: $shadow-secondary;
+    transition: transform .3s ease, box-shadow .3s ease, background-color .3s ease;
+  
+    &:hover {
+      box-shadow: 0 0 .625rem .125rem $feedback-error-peach, 0 0 .9375rem .1875rem rgba(255, 255, 255, .6);
+    }
+
+    &:active {
+      animation: scaleAndCheck .8s forwards;
+      box-shadow: 0 0 .625rem .125rem $frosted-glass, 0 0 .9375rem .1875rem rgba(255, 255, 255, .6);
+    }
+  }
+  
+  @keyframes scaleAndCheck {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    70% {
+      background-color: $frosted-glass;
     }
     100% {
       transform: scale(1);
@@ -518,6 +555,7 @@
     background: $feedback-error-peach;
     color: $pastel-pink;
     padding: .25rem;
+    margin-right: .5rem;
     font-weight: bold;
     border-radius: .5rem;
     border: .125rem solid $feedback-error-light-peach;
@@ -953,6 +991,25 @@
     height: 100%;
     font-size: 1.125rem;
     color: $primary-dark-blue;
+  }
+
+  &__decline-friend {
+    padding: .5rem 1rem;
+    background: $feedback-error-peach;
+    color: $neutral-white;
+    border: none;
+    border-radius: .5rem;
+    cursor: pointer;
+    transition: background .3s ease, transform .2s ease;
+  
+    &:hover {
+      background: darken($feedback-error-peach, 10%);
+    }
+  
+    &:active {
+      transform: translateY(.0625rem);
+      background: darken($feedback-error-peach, 15%);
+    }
   }
 
   &__pending-calendar {

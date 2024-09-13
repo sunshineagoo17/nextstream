@@ -24,6 +24,12 @@ export const acceptFriendRequest = async (friendId) => {
   return response.data;
 };
 
+// Reject a friend request
+export const rejectFriendRequest = async (friendId) => {
+  const response = await api.post('/api/friends/reject', { friendId });
+  return response.data;
+};
+
 // Remove a friend 
 export const removeFriend = async (friendId) => {
   const response = await api.delete(`/api/friends/remove`, {
