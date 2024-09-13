@@ -367,14 +367,39 @@ exports.getSharedEvents = async (req, res) => {
   try {
     const sharedEvents = await knex('calendar_events')
       .join('events', 'calendar_events.event_id', '=', 'events.id')
-      .where({ friend_id: userId, isAccepted: true }) 
-      .select('events.*', 'calendar_events.isShared', 'calendar_events.isAccepted');
+      .join('users', 'calendar_events.user_id', '=', 'users.id') 
+      .where({
+        'calendar_events.friend_id': userId,
+        'calendar_events.isAccepted': true 
+      })
+      .select(
+        'calendar_events.id as inviteId', 
+        'events.title as eventTitle', 
+        'events.start', 
+        'events.end', 
+        'events.eventType',
+        'users.name as invitedByName',
+        'calendar_events.isAccepted',
+        'calendar_events.isShared'
+      );
 
     if (sharedEvents.length === 0) {
       return res.status(200).json([]);
     }
 
-    res.status(200).json(sharedEvents);
+    // Format dates and return
+    const formattedEvents = sharedEvents.map(event => ({
+      inviteId: event.inviteId,
+      eventTitle: event.eventTitle,
+      start: event.start ? moment(event.start).format('YYYY-MM-DD HH:mm:ss') : null, 
+      end: event.end ? moment(event.end).format('YYYY-MM-DD HH:mm:ss') : null,
+      eventType: event.eventType,
+      invitedByName: event.invitedByName,
+      isAccepted: event.isAccepted,
+      isShared: event.isShared
+    }));
+
+    res.status(200).json(formattedEvents);
   } catch (error) {
     console.error('Error fetching shared events:', error);
     res.status(500).json({ message: 'Error fetching shared events' });
