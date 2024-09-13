@@ -388,18 +388,15 @@
     backdrop-filter: blur(.625rem);
     transition: background .3s ease, transform .2s ease;
   
-    // Bounce effect on hover
     &:hover {
       animation: bounceHover .5s ease-in-out;
     }
 
-    // Ripple effect on click
     &:active {
       animation: rippleOut .8s forwards;
     }
   }
 
-  // Keyframes for soft bounce on hover
   @keyframes bounceHover {
     0%, 100% {
       transform: translateY(0);
@@ -409,7 +406,6 @@
     }
   }
 
-  // Ripple effect keyframes
   @keyframes rippleOut {
     0% {
       box-shadow: 0 0 0 0 rgba(255, 255, 255, .5);
@@ -485,7 +481,6 @@
     }
   }
 
-  // Keyframes for the explosion effect
   @keyframes explodeEffect {
     0% {
       transform: scale(1);
@@ -759,7 +754,6 @@
       box-shadow: 0 .25rem .75rem rgba($neutral-black, .2);
     }
   
-    // Message send effect on active
     &:active {
       animation: sendMessage .6s forwards;
       background: $primary-gradient-blue;
@@ -767,7 +761,6 @@
     }
   }
   
-  // Pulse effect keyframes for hover
   @keyframes messagePulse {
     0% {
       box-shadow: 0 0 0 0 rgba($primary-electric-cyan, .5);
@@ -777,7 +770,6 @@
     }
   }
   
-  // Send message ripple effect on click
   @keyframes sendMessage {
     0% {
       transform: scale(1);

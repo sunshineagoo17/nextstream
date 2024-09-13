@@ -50,7 +50,6 @@ const FriendsPage = () => {
         for (const friend of friends) {
           try {
             const messagesData = await fetchMessages(friend.id);
-            // Filter only unread messages and push them to allMessages
             const unreadMessages = messagesData.filter(message => !message.is_read);
             allMessages.push(...unreadMessages);
           } catch (error) {
@@ -91,16 +90,13 @@ const FriendsPage = () => {
   // Handle accept or decline calendar invite (for both pending and shared events)
   const handleRespondToInvite = async (inviteId, isAccepted) => {
     try {
-      // Use the respondToSharedEvent function from your service
+   
       await respondToSharedEvent(userId, inviteId, isAccepted);
-
-      // Update the pending invites list by removing the responded invite
       setPendingCalendarInvites((prevInvites) =>
         prevInvites.filter((invite) => invite.inviteId !== inviteId)
       );
 
       if (isAccepted) {
-        // If accepted, move it from pending to shared events
         const acceptedInvite = pendingCalendarInvites.find(
           (invite) => invite.inviteId === inviteId
         );
@@ -109,7 +105,6 @@ const FriendsPage = () => {
           acceptedInvite,
         ]);
       } else {
-        // If declined or deleted, remove it from the shared calendar events
         setSharedCalendarEvents((prevEvents) =>
           prevEvents.filter((event) => event.inviteId !== inviteId)
         );
@@ -130,7 +125,6 @@ const FriendsPage = () => {
     }
   };
 
-  // Load shared calendar events from localStorage on page load
   useEffect(() => {
     const savedSharedEvents = localStorage.getItem('sharedCalendarEvents');
     if (savedSharedEvents) {
@@ -138,7 +132,6 @@ const FriendsPage = () => {
     }
   }, []);
 
-  // Fetch data on component mount
   useEffect(() => {
     if (isAuthenticated && userId) {
       fetchFriends();
