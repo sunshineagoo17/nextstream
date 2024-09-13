@@ -10,8 +10,9 @@ exports.getFriends = async (req, res) => {
   
     try {
       console.log('Fetching friends for userId:', userId);
-
-      const query = knex('friends')
+  
+      // Fetch friends
+      const friends = await knex('friends')
         .join('users', function() {
           this.on('friends.friend_id', '=', 'users.id')
             .orOn('friends.user_id', '=', 'users.id');
@@ -23,16 +24,31 @@ exports.getFriends = async (req, res) => {
         .andWhere('friends.isAccepted', '=', true)
         .whereNot('users.id', '=', userId)
         .select('users.id', 'users.name', 'users.username', 'users.avatar');
-
-      const friends = await query;
-
-      console.log(`Found ${friends.length} friends for userId: ${userId}`);
-      res.status(200).json(friends);
+  
+      // Fetch unread message counts for each friend
+      const unreadCounts = await knex('messages')
+        .select('sender_id as friendId')
+        .count('is_read as unreadCount')
+        .where('receiver_id', userId)
+        .andWhere('is_read', false)
+        .groupBy('sender_id');
+  
+      // Combine unread counts with friends data
+      const friendsWithUnreadCount = friends.map(friend => {
+        const unreadCountData = unreadCounts.find(count => count.friendId === friend.id);
+        return {
+          ...friend,
+          unreadCount: unreadCountData ? parseInt(unreadCountData.unreadCount, 10) : 0
+        };
+      });
+  
+      console.log(`Found ${friendsWithUnreadCount.length} friends with unread message counts for userId: ${userId}`);
+      res.status(200).json(friendsWithUnreadCount);
     } catch (error) {
-      console.error('Error retrieving friends list:', error);
+      console.error('Error retrieving friends list with unread message counts:', error);
       res.status(500).json({ message: 'Error retrieving friends list', error: error.message });
     }
-};
+  };
 
 exports.addFriend = async (req, res) => {
     const { userId } = req.user;

@@ -548,6 +548,64 @@
     border: .125rem solid $pastel-blue;
   }
 
+  &__friend-info-icons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__notification-container {
+    gap: .5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__bell-icon-btn {
+    background: none;
+    border: none;
+  }
+
+  &__avatar-default {
+    color: $primary-dark-blue;
+    font-size: 1.15rem;
+  }
+
+  &__bell-icon {
+    color: $neutral-white;
+    font-size: 1.25rem;
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.3s ease;
+  
+    &:hover {
+      color: $primary-button-blue;
+      transform: scale(1.5);
+      animation: bell-shake 0.5s ease infinite; 
+    }
+
+    &:active {
+      color: $primary-dark-blue;
+    }
+  
+    @keyframes bell-shake {
+      0% { transform: rotate(0); }
+      25% { transform: rotate(10deg); }
+      50% { transform: rotate(0); }
+      75% { transform: rotate(-10deg); }
+      100% { transform: rotate(0); }
+    }  
+  }
+
+  &__unread-msg-count {
+    text-shadow: $shadow-primary; 
+    padding: .1rem .65rem;
+    border: .0625rem solid $neutral-white;
+    border-radius: .5rem;
+    color: $neutral-white;
+    box-shadow: $shadow-primary;
+  }
+
   &__username--pending {
     font-size: .75rem;
     font-family: $secondary-font;
@@ -919,10 +977,6 @@
   }
   
   &__user-info {
-    color: $dark-mode-royal-blue;
-  }
-
-  &__avatar-default {
     color: $dark-mode-royal-blue;
   }
 

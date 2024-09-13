@@ -3,7 +3,7 @@ import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { getFriends, rejectFriendRequest, fetchSharedCalendarEvents, respondToSharedEvent, fetchPendingCalendarInvitesService, sendFriendRequest, acceptFriendRequest, removeFriend, searchUsers, fetchPendingRequests as fetchPendingRequestsService } from '../../services/friendsService';
 import { fetchMessages, sendMessage, deleteMessage, markAllMessagesAsRead } from '../../services/messageService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faTimes, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faTimes, faTrash, faBell } from '@fortawesome/free-solid-svg-icons';
 import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
 import TypingIndicator from '../../components/TypingIndicator/TypingIndicator';
 import io from 'socket.io-client';
@@ -30,18 +30,43 @@ const FriendsPage = () => {
     try {
       const friendsData = await getFriends();
       console.log('Fetched Friends Data:', friendsData);
+  
       if (Array.isArray(friendsData)) {
         setFriends(friendsData);
-      } else if (friendsData && Array.isArray(friendsData.friends)) {
-        setFriends(friendsData.friends);
       } else {
-        setFriends([]);
+        setFriends([]); 
         console.log('Invalid friends data structure.');
       }
     } catch (error) {
-      console.log('Error fetching friends', error);
+      console.log('Error fetching friends:', error);
     }
-  }, []);
+  }, []);  
+
+  useEffect(() => {
+    const fetchAllUnreadMessages = async () => {
+      if (friends.length > 0) {
+        const allMessages = [];
+  
+        for (const friend of friends) {
+          try {
+            const messagesData = await fetchMessages(friend.id);
+            // Filter only unread messages and push them to allMessages
+            const unreadMessages = messagesData.filter(message => !message.is_read);
+            allMessages.push(...unreadMessages);
+          } catch (error) {
+            console.log('Error fetching messages for', friend.name, error);
+          }
+        }
+  
+        setMessages(allMessages);
+      }
+    };
+  
+    if (userId) {
+      fetchAllUnreadMessages();
+    }
+  }, [friends, userId]);
+  
 
   // Fetch pending friend requests
   const fetchPendingRequests = useCallback(async () => {
@@ -193,21 +218,21 @@ const FriendsPage = () => {
     setSelectedFriend(friend);
     setNewMessage('');
     setTyping(false);
-
+  
     try {
       const messagesData = await fetchMessages(friend.id);
-
+      console.log('Fetched messages:', messagesData); 
       const validMessages = messagesData.map((message) => ({
         ...message,
         senderId: message.senderId || 'unknown_sender',
       }));
-
+  
       validMessages.forEach((message) => {
         console.log(
-          `Message: ${message.message}, senderId: ${message.senderId}, userId: ${userId}, is_read: ${message.is_read}`
+          `Message: ${message.message}, senderId: ${message.senderId}, is_read: ${message.is_read}`
         );
       });
-
+  
       await markAllMessagesAsRead(friend.id);
       setMessages(validMessages);
     } catch (error) {
@@ -255,13 +280,14 @@ const FriendsPage = () => {
         ...data,
         is_read: false,
       };
+      console.log('New message received:', newMessage); 
       setMessages((prevMessages) => [...prevMessages, newMessage]);
     });
-
+  
     return () => {
       socket.off('receive_message');
     };
-  }, []);
+  }, []);  
 
   const handleSendMessage = async () => {
     console.log('Selected Friend:', selectedFriend);
@@ -434,8 +460,6 @@ const FriendsPage = () => {
     }
   };
 
-  const filteredFriends = friends;
-
   const clearSearch = () => {
     setSearchTerm('');
     setSearchResults([]);
@@ -548,35 +572,52 @@ const FriendsPage = () => {
             )}
           </div>
 
-          {/* Friends List Section */}
-          <div className='friends-page__list glassmorphic-card'>
-            <h3 className='friends-page__card-subtitle--friends'>
-              Your NextCrew
-            </h3>
-            <div className='friend-page__friend-info-container'>
-              {filteredFriends.length === 0 ? (
-                <p>No friends added yet.</p>
-              ) : (
-                filteredFriends.map((friend) => (
+        {/* Friends List Section */}
+        <div className='friends-page__list glassmorphic-card'>
+          <h3 className='friends-page__card-subtitle--friends'>
+            Your NextCrew
+          </h3>
+          <div className='friend-page__friend-info-container'>
+            {friends.length === 0 ? (
+              <p>No friends added yet.</p>
+            ) : (
+              friends.map((friend) => {
+                const unreadMessages = messages.filter(
+                  (message) => message.senderId === friend.id && !message.is_read
+                ).length;
+
+                return (
                   <div
                     key={friend.id}
                     className={`friends-page__item ${
                       selectedFriend?.id === friend.id ? 'selected' : ''
-                    }`}>
+                    }`}
+                  >
                     <div className='friends-page__friend-info'>
-                      {/* Avatar */}
-                      <FontAwesomeIcon
-                        icon={faUser}
-                        alt={friend.name}
-                        className='friends-page__avatar-default'
-                      />
+                      <div className='friends-page__friend-info-icons'>
+                        {/* Avatar */}
+                        <FontAwesomeIcon
+                          icon={faUser}
+                          alt={friend.name}
+                          className='friends-page__avatar-default'
+                        />
+
+                        {/* Bell Icon & Unread Count */}
+                        {unreadMessages > 0 && (
+                          <div className='friends-page__notification-container'>
+                            <button className='friends-page__bell-icon-btn'>
+                              <FontAwesomeIcon icon={faBell} className='friends-page__bell-icon' onClick={() => handleSelectFriend(friend)}/>
+                            </button>
+                            <span className='friends-page__unread-msg-count'>{unreadMessages}</span>
+                          </div>
+                        )}
+                      </div>
+                      
                       {/* Friend details */}
                       <div className='friends-page__friend-details'>
                         {/* Name */}
                         <p className='friends-page__label'>
-                          <strong className='friends-page__user-info'>
-                            Name:
-                          </strong>{' '}
+                          <strong className='friends-page__user-info'>Name:</strong>{' '}
                           {friend.name}
                         </p>
                         {/* Username */}
@@ -587,25 +628,30 @@ const FriendsPage = () => {
                           {friend.username}
                         </p>
                       </div>
+
+                      {/* Actions */}
                       <div className='friends-page__actions'>
                         <button
                           onClick={() => handleRemoveFriend(friend.id)}
-                          className='friends-page__remove-friend'>
+                          className='friends-page__remove-friend'
+                        >
                           Remove
                         </button>
                         <button
                           onClick={() => handleSelectFriend(friend)}
-                          className='friends-page__chat-button'>
+                          className='friends-page__chat-button'
+                        >
                           Chat
                         </button>
                       </div>
                     </div>
                   </div>
-                ))
-              )}
-            </div>
+                );
+              })
+            )}
           </div>
         </div>
+      </div>
 
       <div className='friends-page__container--bottom'>
         {/* Pending Calendar Invites Section */}
