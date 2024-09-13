@@ -5,10 +5,10 @@
 @use "../../styles/global.scss" as *;
 
 .glassmorphic-card--shared {
-  backdrop-filter: blur(10px);
-  background: rgba(224, 247, 250, 0.5); 
-  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(.625rem);
+  background: rgba(224, 247, 250, .5); 
+  box-shadow: 0 .5rem 2rem rgba(31, 38, 135, .37);
+  border: .0625rem solid rgba(255, 255, 255, .18);
 }
 
 .friends-page {
@@ -142,13 +142,13 @@
     align-items: center;
     gap: .25rem;
     margin-bottom: 1.25rem;
-    text-shadow: .125rem .125rem .3125rem rgba(0, 0, 0, .2);
+    text-shadow: .125rem .125rem .3125rem rgba($neutral-black, .2);
     color: $primary-pale-blue;
     padding: 1.5rem;
     width: 100%;
     background: linear-gradient(145deg, $primary-very-light-blue, darken($primary-button-blue, 5%));
     border-radius: .75rem;
-    box-shadow: .3125rem .3125rem .9375rem rgba(0, 0, 0, .2), -.3125rem -3125rem .9375rem rgba(255, 255, 255, .1);
+    box-shadow: .3125rem .3125rem .9375rem rgba($neutral-black, .2), -.3125rem -3125rem .9375rem rgba(255, 255, 255, .1);
     border: .3125rem solid $primary-very-light-blue;
     position: relative;
     overflow: hidden;
@@ -253,7 +253,7 @@
   }
 
   &__shared-calendar__item {
-    border: 1px solid $neutral-white;
+    border: .0625rem solid $neutral-white;
     display: flex;
     align-items: center;
     padding: .9375rem;
@@ -270,7 +270,6 @@
     flex-direction: column;
     align-content: center;
   }
-
 
   &__pending-section {
     background: $secondary-light-pink-gradient;
@@ -304,31 +303,39 @@
   }
 
   &__accept-friend {
-    padding: .5rem 1rem;
-    background: $feedback-mint-green; 
-    color: $pastel-dark-green;
+    padding: .5rem 1.5rem;
+    background: $feedback-mint-light-green;
+    color: $feedback-dark-green;
     border: none;
     border-radius: .5rem;
-    margin-left: .5rem;
     cursor: pointer;
-    box-shadow: $shadow-secondary;
-    backdrop-filter: blur(.625rem);
-    transition: background .3s ease, transform .2s ease;
-
+    transition: transform .3s ease, box-shadow .3s ease, background-color .3s ease;
+  
+    // Pulse glow on hover
     &:hover {
-      background: $frosted-glass;
-      color: $neutral-white; 
-      transform: translateY(-.125rem);
-      box-shadow: $shadow-primary; 
-      text-shadow: $shadow-primary;
-      border: .0625rem solid $neutral-white;
+      box-shadow: 0 0 .625rem .125rem $feedback-error-light-peach, 0 0 .9375rem .1875rem rgba(255, 255, 255, .6);
     }
-
+  
+    // Scale and transform on click
     &:active {
-      transform: translateY(.0625rem); 
-      box-shadow: $shadow-septenary;
-      background: $feedback-mint-light-green;
-      color: $pastel-dark-green;
+      animation: scaleAndCheck .8s forwards;
+      box-shadow: 0 0 .625rem .125rem $feedback-mint-green, 0 0 .9375rem .1875rem rgba(255, 255, 255, .6);
+    }
+  }
+  
+  // Keyframes for scale and checkmark transformation
+  @keyframes scaleAndCheck {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    70% {
+      background-color: $feedback-mint-green;
+    }
+    100% {
+      transform: scale(1);
     }
   }
 
@@ -343,23 +350,38 @@
     box-shadow: $shadow-secondary;
     backdrop-filter: blur(.625rem);
     transition: background .3s ease, transform .2s ease;
-
+  
+    // Bounce effect on hover
     &:hover {
-        background: $primary-very-light-blue;
-        color: $neutral-white; 
-        transform: translateY(-.125rem);
-        box-shadow: $shadow-primary; 
-        text-shadow: $shadow-primary;
-        border: .0625rem solid $neutral-white;
+      animation: bounceHover .5s ease-in-out;
     }
 
+    // Ripple effect on click
     &:active {
-      transform: translateY(.0625rem); 
-      background: $pastel-dark-green;
-      color: $feedback-mint-light-green; 
-      text-shadow: none;
-      font-weight: bold;
-      border: .0625rem solid $feedback-mint-light-green; 
+      animation: rippleOut .8s forwards;
+    }
+  }
+
+  // Keyframes for soft bounce on hover
+  @keyframes bounceHover {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-.3125rem);
+    }
+  }
+
+  // Ripple effect keyframes
+  @keyframes rippleOut {
+    0% {
+      box-shadow: 0 0 0 0 rgba(255, 255, 255, .5);
+    }
+    100% {
+      box-shadow: 0 0 .9375rem .3125rem rgba($feedback-mint-vibrant-green, .6);
+      color: $feedback-medium-green;
+      background: $neutral-white;
+      border: .125rem solid $feedback-mint-vibrant-green;
     }
   }
 
@@ -422,10 +444,24 @@
     }
 
     &:active {
-      transform: translateY(.0625rem); 
-      box-shadow: $shadow-septenary;
-      color: $pastel-dark-pink;
-      background: $pastel-pink;
+      animation: explodeEffect .8s forwards;
+    }
+  }
+
+  // Keyframes for the explosion effect
+  @keyframes explodeEffect {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.2);
+      opacity: .7;
+    }
+    100% {
+      transform: scale(0);
+      opacity: 0;
+      filter: blur(.25rem);
     }
   }
 
@@ -509,6 +545,18 @@
     }
   }
 
+  &__search-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: .625rem;
+    width: 100%;
+    background: $frosted-glass;
+    border-radius: .625rem;
+    box-shadow: $shadow-quinary;
+    margin-bottom: .625rem;
+  }
+
   &__search-results {
     margin-top: .625rem;
 
@@ -516,18 +564,17 @@
       font-size: .875rem;
       color: $primary-dark-blue;
     }
+  }
 
-    &__search-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: .625rem;
-      width: 100%;
-      background: $primary-light-cyan;
-      border-radius: .625rem;
-      box-shadow: $shadow-secondary;
-      margin-bottom: .625rem;
-    }
+  &__pending-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: .625rem;
+    background: $feedback-error-very-light-peach;
+    border-radius: .625rem;
+    box-shadow: $shadow-quinary;
+    margin-bottom: .625rem;
   }
 
   &__pending-section {
@@ -539,31 +586,6 @@
     p {
       font-size: .875rem;
       color: $primary-dark-blue;
-    }
-
-    &__pending-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: .625rem;
-      background: $primary-light-cyan;
-      border-radius: .625rem;
-      box-shadow: $shadow-secondary;
-      margin-bottom: .625rem;
-
-      button {
-        padding: .3125rem .625rem;
-        background: $primary-light-blue;
-        border: none;
-        color: $neutral-white;
-        border-radius: .5rem;
-        cursor: pointer;
-        transition: background .3s ease;
-
-        &:hover {
-          background: $primary-dark-navy-blue;
-        }
-      }
     }
   }
 
@@ -621,31 +643,70 @@
     padding: .5rem 1rem;
     background: $primary-pale-cyan; 
     color: $primary-button-blue;
-    text-shadow: $shadow-primary;
     border: none;
     border-radius: .5rem;
     margin-top: .25rem;
     margin-bottom: .5rem;
     cursor: pointer;
+    position: relative;
     box-shadow: $shadow-senary;
     backdrop-filter: blur(.625rem);
-    transition: background .3s ease, transform .2s ease;
-
+    transition: background .3s ease, transform .3s ease;
+  
     &:hover {
+      animation: messagePulse 1s infinite;
       background: $primary-cyan;
-      color: $neutral-white; 
-      transform: translateY(-.125rem);
-      box-shadow: $shadow-primary; 
+      color: $neutral-white;
       text-shadow: $shadow-primary;
-      border: .0625rem solid $neutral-white;
+      border: .0625rem solid $frosted-glass;
+      transform: translateY(-.125rem);
+      box-shadow: 0 .25rem .75rem rgba($neutral-black, .2);
     }
-
+  
+    // Message send effect on active
     &:active {
-      transform: translateY(.0625rem); 
-      box-shadow: $shadow-septenary;
-      background: $primary-gradient-blue; 
+      animation: sendMessage .6s forwards;
+      background: $primary-gradient-blue;
       color: $neutral-white;
     }
+  }
+  
+  // Pulse effect keyframes for hover
+  @keyframes messagePulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba($primary-electric-cyan, .5);
+    }
+    100% {
+      box-shadow: 0 0 .9375rem .625rem rgba($primary-electric-cyan, 0);
+    }
+  }
+  
+  // Send message ripple effect on click
+  @keyframes sendMessage {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.05) translateY(-.125rem);
+    }
+    100% {
+      transform: scale(.9) translateY(.3125rem);
+      opacity: .5;
+    }
+  }
+  
+  &__chat-button::after {
+    content: "✈";
+    position: absolute;
+    font-size: 1.25rem;
+    color: $neutral-white;
+    opacity: 0;
+    transition: opacity .3s ease, transform .6s ease;
+  }
+  
+  &__chat-button:active::after {
+    opacity: 1;
+    transform: translateX(1.25rem); 
   }
 
   &__chat-container {
@@ -717,18 +778,19 @@
       &.unread {
         opacity: 1;
         font-weight: bold;
-        border-radius: 15px 15px 0 15px;
+        border-radius: .9375rem .9375rem 0 .9375rem;
         background: $primary-button-blue;
-        color: $pastel-blue;
-        border: 2px solid $neutral-white;
+        color: $neutral-white;
+        border: .125rem solid $neutral-white;
+        text-shadow: $shadow-primary;
         box-shadow: $shadow-quaternary;
         font-family: $primary-font;
       }
   
       &.read {
         opacity: .9;
-        border-radius: 15px 15px 0 15px;
-        border: 1px solid $pastel-blue;
+        border-radius: .9375rem .9375rem 0 .9375rem;
+        border: .0625rem solid $pastel-blue;
         background: $primary-light-blue;
         color: $pastel-blue;
         font-family: $primary-font;
@@ -739,21 +801,21 @@
       &.unread {
         opacity: 1;
         font-weight: bold;
-        border-radius: 15px 15px 15px 0;
-        color: #0d480d;
+        border-radius: .9375rem .9375rem .9375rem 0;
+        color: $neutral-white;
         background: $feedback-mint-green;
-        border: 2px solid $neutral-white;
+        border: .125rem solid $neutral-white;
         box-shadow: $shadow-quaternary;
         font-family: $secondary-font;
+        text-shadow: $shadow-primary;
       }
   
       &.read {
         opacity: .9;
-        border-radius: 15px 15px 15px 0;
+        border-radius: .9375rem .9375rem .9375rem 0;
         background: $feedback-mint-green;
         color: $neutral-white;
-        border: 1px solid $feedback-mint-green;
-        box-shadow: $shadow-primary;
+        border: .0625rem solid $feedback-mint-green;
         font-family: $secondary-font;
       }
     }
@@ -762,17 +824,17 @@
   &__pending-count {
     margin-left: .5rem; 
     padding: .1rem .5rem;
-    border: 1px solid $neutral-white;
-    background: #FFCC99;
+    color: $feedback-dark-orange;
+    border: .0625rem solid $neutral-white;
+    background: $feedback-light-orange;
     border-radius: .5rem;
-    color: #d95b07;
     box-shadow: $shadow-primary;
   }
 
   &__shared-count {
     margin-left: .5rem; 
     padding: .1rem .5rem;
-    border: 1px solid $neutral-white;
+    border: .0625rem solid $neutral-white;
     background: $feedback-mint-light-green;
     border-radius: .5rem;
     color: $pastel-dark-green;
@@ -781,9 +843,9 @@
 
   &__delete-icon {
     color: $feedback-error-peach;
-    transition: background-color 0.3s ease, transform 0.5s ease; 
+    transition: background-color .3s ease, transform .5s ease; 
     display: inline-block;  
-    padding: 0.15rem;       
+    padding: .15rem;       
     border-radius: .5rem; 
   
     @keyframes wiggle {
@@ -797,7 +859,7 @@
     }
   
     &:hover {
-      animation: wiggle 0.6s ease-in-out, backgroundSlide 0.9s forwards;
+      animation: wiggle .6s ease-in-out, backgroundSlide .9s forwards;
       background: $neutral-white;
       color: $feedback-error-peach;
       cursor: pointer;  
@@ -807,7 +869,7 @@
     &:active {
       background-color: $feedback-error-light-peach;
       font-weight: bold;
-      transform: scale(0.9);
+      transform: scale(.9);
       background: $feedback-error-peach;
       color: $feedback-mint-green;
     }
@@ -817,7 +879,6 @@
       box-shadow: $shadow-primary;
     }
   }
-  
   
   &__user-info {
     color: $dark-mode-royal-blue;
@@ -895,7 +956,7 @@
   }
 
   &__pending-calendar {
-    background: #FFCC99;
+    background: $feedback-light-orange;
   }
 
   &__shared-calendar {
@@ -904,7 +965,7 @@
 
   &__delete-invite-btn {
     padding: .5rem 1rem;
-    color: $primary-dark-navy-blue;
+    color: $pastel-dark-pink;
     background: $feedback-error-light-peach;
     border-radius: .5rem;
     border: none;
@@ -917,14 +978,15 @@
       transform: translateY(-.125rem);
       box-shadow: $shadow-primary;
       color: $neutral-white;
-      border: 1px solid $neutral-white;
+      border: .0625rem solid $neutral-white;
     }
 
     &:active {
       background: $pastel-pink;
       color: $pastel-dark-pink;
       transform: translateY(.0625rem);
-      box-shadow: $shadow-septenary;
+      box-shadow: none;
+      border: none;
     }
   }
 
@@ -1001,14 +1063,26 @@
             box-shadow: $shadow-septenary;
           }
 
-          &.friends-page__accept-friend {
+          &.friends-page__accept-invite {
             background: $feedback-mint-light-green;
             color: $pastel-dark-green;
+
+            &:active {
+              background: $feedback-very-light-mint-green;
+              color: $pastel-dark-green;
+              box-shadow: none;
+            }
           }
 
           &.friends-page__delete-invite {
             color: $pastel-dark-pink;
             background: $feedback-error-light-peach;
+
+            &:active {
+              background: $pastel-pink;
+              color: $pastel-dark-pink;
+              box-shadow: none;
+            }
           }
         }
       }

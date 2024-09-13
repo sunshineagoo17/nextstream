@@ -645,7 +645,7 @@ const FriendsPage = () => {
                 <div className='friends-page__calendar-actions'>
                   <button
                     onClick={() => handleRespondToInvite(invite.inviteId, true)}
-                    className='friends-page__accept-friend'>
+                    className='friends-page__accept-invite'>
                     Accept
                   </button>
                   <button
