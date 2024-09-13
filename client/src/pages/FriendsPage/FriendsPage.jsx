@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect, useCallback } from 'react';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
-import { getFriends, respondToSharedEvent, fetchPendingCalendarInvitesService, sendFriendRequest, acceptFriendRequest, removeFriend, searchUsers, fetchPendingRequests as fetchPendingRequestsService } from '../../services/friendsService';
+import { getFriends, fetchSharedCalendarEvents, respondToSharedEvent, fetchPendingCalendarInvitesService, sendFriendRequest, acceptFriendRequest, removeFriend, searchUsers, fetchPendingRequests as fetchPendingRequestsService } from '../../services/friendsService';
 import { fetchMessages, sendMessage, deleteMessage, markAllMessagesAsRead } from '../../services/messageService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faTimes, faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -23,12 +23,13 @@ const FriendsPage = () => {
   const [typing, setTyping] = useState(false);
   const [alertMessage, setAlertMessage] = useState(null);
   const [pendingCalendarInvites, setPendingCalendarInvites] = useState([]);
+  const [sharedCalendarEvents, setSharedCalendarEvents] = useState([]);
 
   // Fetch friends list
   const fetchFriends = useCallback(async () => {
     try {
       const friendsData = await getFriends();
-      console.log("Fetched Friends Data:", friendsData);
+      console.log('Fetched Friends Data:', friendsData);
       if (Array.isArray(friendsData)) {
         setFriends(friendsData);
       } else if (friendsData && Array.isArray(friendsData.friends)) {
@@ -55,22 +56,33 @@ const FriendsPage = () => {
   // Fetch pending calendar invites
   const fetchPendingCalendarInvites = useCallback(async () => {
     try {
-      const invites = await fetchPendingCalendarInvitesService();
+      const invites = await fetchPendingCalendarInvitesService(userId);
       setPendingCalendarInvites(invites);
     } catch (error) {
       console.log('Error fetching pending calendar invites:', error);
     }
-  }, []);
+  }, [userId]);
 
   // Handle accept or decline calendar invite using the respondToSharedEvent
   const handleRespondToInvite = async (inviteId, isAccepted) => {
     try {
-      await respondToSharedEvent(userId, inviteId, isAccepted);
+      // Use the respondToSharedEvent function from your service
+      await respondToSharedEvent(userId, inviteId, isAccepted); 
 
       // Immediately update the pending invites list by removing the responded invite
       setPendingCalendarInvites((prevInvites) =>
         prevInvites.filter((invite) => invite.inviteId !== inviteId)
       );
+
+      if (isAccepted) {
+        const acceptedInvite = pendingCalendarInvites.find(
+          (invite) => invite.inviteId === inviteId
+        );
+        setSharedCalendarEvents((prevEvents) => [
+          ...prevEvents,
+          acceptedInvite,
+        ]);
+      }
 
       setAlertMessage({
         message: isAccepted
@@ -87,12 +99,21 @@ const FriendsPage = () => {
     }
   };
 
+  // Load shared calendar events from localStorage on page load
+  useEffect(() => {
+    const savedSharedEvents = localStorage.getItem('sharedCalendarEvents');
+    if (savedSharedEvents) {
+      setSharedCalendarEvents(JSON.parse(savedSharedEvents));
+    }
+  }, []);
+
   // Fetch data on component mount
   useEffect(() => {
     if (isAuthenticated && userId) {
       fetchFriends();
       fetchPendingRequests();
-      fetchPendingCalendarInvites();
+      fetchPendingCalendarInvites(userId);
+      fetchSharedCalendarEvents(userId);
     }
   }, [
     isAuthenticated,
@@ -187,6 +208,26 @@ const FriendsPage = () => {
       console.log('Error fetching messages or marking them as read', error);
     }
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const events = await fetchSharedCalendarEvents(userId);
+        if (events.length === 0) {
+          console.log('No shared events found');
+          setSharedCalendarEvents([]);
+        } else {
+          setSharedCalendarEvents(events);
+        }
+      } catch (error) {
+        console.error('Error fetching shared events:', error);
+      }
+    };
+
+    if (userId) {
+      fetchData();
+    }
+  }, [userId]);
 
   useEffect(() => {
     if (selectedFriend) {
@@ -533,6 +574,7 @@ const FriendsPage = () => {
           </div>
         </div>
 
+      <div className='friends-page__container--bottom'>
         {/* Pending Calendar Invites Section */}
         <div className='friends-page__pending-calendar glassmorphic-card'>
           <div className='friends-page__header-row'>
@@ -557,12 +599,10 @@ const FriendsPage = () => {
                   <p>
                     <strong>Event Title:</strong> {invite.eventTitle}
                   </p>
-
                   {/* Inviter */}
                   <p>
                     <strong>Invited By:</strong> {invite.inviterName}
                   </p>
-
                   {/* Date and Time */}
                   <p>
                     <strong>Start Date:</strong>{' '}
@@ -586,18 +626,6 @@ const FriendsPage = () => {
                       minute: '2-digit',
                     })}
                   </p>
-
-                  {/* Duration */}
-                  <p>
-                    <strong>Duration:</strong>{' '}
-                    {invite.end
-                      ? `${Math.round(
-                          (new Date(invite.end) - new Date(invite.start)) /
-                            60000
-                        )} minutes`
-                      : 'N/A'}
-                  </p>
-
                   {/* Event Type */}
                   <p>
                     <strong>Type:</strong>{' '}
@@ -608,8 +636,6 @@ const FriendsPage = () => {
                       : 'Unknown'}
                   </p>
                 </div>
-
-                {/* Buttons */}
                 <div className='friends-page__calendar-actions'>
                   <button
                     onClick={() => handleRespondToInvite(invite.inviteId, true)}
@@ -628,6 +654,73 @@ const FriendsPage = () => {
             ))
           )}
         </div>
+
+        {/* Shared Calendar Events Section */}
+        <div className='friends-page__shared-calendar glassmorphic-card different-color'>
+          <div className='friends-page__header-row'>
+            <h3 className='friends-page__card-subtitle--shared'>
+              Shared Calendar Events
+              {sharedCalendarEvents.length > 0 && (
+                <span className='friends-page__shared-count'>
+                  {sharedCalendarEvents.length}
+                </span>
+              )}
+            </h3>
+          </div>
+          {sharedCalendarEvents.length === 0 ? (
+            <p>No shared calendar events.</p>
+          ) : (
+            sharedCalendarEvents.map((event) => (
+              <div
+                key={event.inviteId}
+                className='friends-page__shared-calendar__item'>
+                <div className='friends-page__calendar-info'>
+                  {/* Event Title */}
+                  <p>
+                    <strong>Event Title:</strong> {event.eventTitle}
+                  </p>
+                  {/* Inviter */}
+                  <p>
+                    <strong>Invited By:</strong> {event.inviterName}
+                  </p>
+                  {/* Date and Time */}
+                  <p>
+                    <strong>Start Date:</strong>{' '}
+                    {new Date(event.start).toLocaleDateString()}
+                  </p>
+                  <p>
+                    <strong>End Date:</strong>{' '}
+                    {new Date(event.end).toLocaleDateString()}
+                  </p>
+                  <p>
+                    <strong>Start Time:</strong>{' '}
+                    {new Date(event.start).toLocaleTimeString([], {
+                      hour: '2-digit',
+                      minute: '2-digit',
+                    })}
+                  </p>
+                  <p>
+                    <strong>End Time:</strong>{' '}
+                    {new Date(event.end).toLocaleTimeString([], {
+                      hour: '2-digit',
+                      minute: '2-digit',
+                    })}
+                  </p>
+                  {/* Event Type */}
+                  <p>
+                    <strong>Type:</strong>{' '}
+                    {event.eventType === 'movie'
+                      ? 'Movie'
+                      : event.eventType === 'tv'
+                      ? 'TV Show'
+                      : 'Unknown'}
+                  </p>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+      </div>
 
         {/* Chat Section */}
         {selectedFriend && (

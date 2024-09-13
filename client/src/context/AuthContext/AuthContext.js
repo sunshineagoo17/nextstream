@@ -22,12 +22,16 @@ export const AuthProvider = ({ children }) => {
     const token = Cookies.get('token') || localStorage.getItem('token');
     const guestToken = Cookies.get('guestToken') || localStorage.getItem('guestToken');
     const storedUserId = localStorage.getItem('userId') || Cookies.get('userId');
+  
+    console.log('Token:', token);
+    console.log('Guest Token:', guestToken);
+    console.log('Stored User ID:', storedUserId);
 
     if (token && storedUserId) {
       setIsAuthenticated(true);
       setIsGuest(false);
       setUserId(parseInt(storedUserId, 10));
-
+  
       const fetchUserName = async () => {
         try {
           const response = await api.get(`/api/profile/${storedUserId}`);
@@ -37,7 +41,7 @@ export const AuthProvider = ({ children }) => {
         }
         setIsLoading(false);
       };
-
+  
       fetchUserName();
     } else if (guestToken) {
       setIsGuest(true);
@@ -46,7 +50,7 @@ export const AuthProvider = ({ children }) => {
     } else {
       setIsLoading(false);
     }
-  }, []);
+  }, []);  
 
   const showAlertMessage = (message, type) => {
     setAlert({ message, type });

@@ -50,9 +50,9 @@ export const fetchPendingRequests = async () => {
 };
 
 // Fetch pending calendar invites
-export const fetchPendingCalendarInvitesService = async () => {
+export const fetchPendingCalendarInvitesService = async (userId) => {
   try {
-    const response = await api.get(`/api/calendar/pending-invites`);
+    const response = await api.get(`/api/calendar/${userId}/pending-invites`);
     return response.data;
   } catch (error) {
     console.error('Error fetching pending calendar invites', error);
@@ -68,8 +68,8 @@ export const respondToSharedEvent = async (userId, calendarEventId, isAccepted) 
     });
     return response.data;
   } catch (error) {
-    console.error('Error responding to shared event', error);
-    throw error;
+    console.error('Error responding to shared event', error.response?.data || error.message);
+    throw error.response?.data || new Error('Failed to respond to shared event.');
   }
 };
 
@@ -80,6 +80,20 @@ export const getSharedFriendsForEvent = async (userId, eventId) => {
     return response.data;
   } catch (error) {
     console.error('Error fetching shared friends for the event', error);
+    throw error;
+  }
+};
+
+export const fetchSharedCalendarEvents = async (userId) => {
+  try {
+    const response = await api.get(`/api/calendar/${userId}/shared-events`);
+    return response.data;
+  } catch (error) {
+    if (error.response && error.response.status === 404) {
+      console.log('No shared events found for this user');
+      return []; // Return an empty array if no shared events are found
+    }
+    console.error('Error fetching shared calendar events:', error);
     throw error;
   }
 };

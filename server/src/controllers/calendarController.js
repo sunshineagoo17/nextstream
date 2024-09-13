@@ -3,7 +3,6 @@ const moment = require('moment-timezone');
 const { sendPushNotifications } = require('../services/pushNotificationService');
 
 // Get all events for a user
-// Get all events for a user
 exports.getEvents = async (req, res) => {
   const { userId } = req.params;
   console.log('Request User ID:', userId);
@@ -80,11 +79,22 @@ exports.respondToSharedEvent = async (req, res) => {
       return res.status(404).json({ message: 'Shared event not found' });
     }
 
+    // Update the shared event status to accepted
     await knex('calendar_events')
       .where({ id: calendarEventId, friend_id: userId })
       .update({ isAccepted });
 
-    res.status(200).json({ message: 'Shared event response updated successfully.' });
+    // Fetch updated event details to move to the shared calendar list
+    const updatedEvent = await knex('calendar_events')
+      .join('events', 'calendar_events.event_id', '=', 'events.id')
+      .where({ 'calendar_events.id': calendarEventId })
+      .select('events.*')
+      .first();
+
+    res.status(200).json({
+      message: 'Shared event response updated successfully.',
+      updatedEvent,
+    });
   } catch (error) {
     console.error('Error responding to shared event:', error);
     res.status(500).json({ message: 'Error responding to shared event.' });
@@ -281,8 +291,9 @@ exports.getPendingCalendarInvites = async (req, res) => {
         'calendar_events.isAccepted'
       );
 
+    // Return an empty array if no pending invites are found
     if (pendingInvites.length === 0) {
-      return res.status(404).json({ message: 'No pending calendar invites' });
+      return res.status(200).json([]);
     }
 
     res.status(200).json(pendingInvites);
@@ -338,5 +349,26 @@ exports.getSharedFriendsForEvent = async (req, res) => {
   } catch (error) {
     console.error('Error fetching shared friends:', error);
     res.status(500).json({ message: 'Error fetching shared friends.' });
+  }
+};
+
+// Get all shared events for a user
+exports.getSharedEvents = async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    const sharedEvents = await knex('calendar_events')
+      .join('events', 'calendar_events.event_id', '=', 'events.id')
+      .where({ friend_id: userId, isAccepted: true }) 
+      .select('events.*', 'calendar_events.isShared', 'calendar_events.isAccepted');
+
+    if (sharedEvents.length === 0) {
+      return res.status(200).json([]);
+    }
+
+    res.status(200).json(sharedEvents);
+  } catch (error) {
+    console.error('Error fetching shared events:', error);
+    res.status(500).json({ message: 'Error fetching shared events' });
   }
 };

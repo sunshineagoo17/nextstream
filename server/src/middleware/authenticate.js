@@ -11,6 +11,7 @@ const authenticate = (req, res, next) => {
   try {
     // Verify the token and extract payload
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    console.log('Decoded JWT Payload:', decoded); 
     
     // Ensure userId exists in the token payload
     if (!decoded.userId) {
@@ -19,7 +20,6 @@ const authenticate = (req, res, next) => {
 
     // Attach userId to req.user
     req.user = { userId: decoded.userId };
-
     console.log('Token decoded and req.user set:', req.user);  
 
     next();

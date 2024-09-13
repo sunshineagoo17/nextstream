@@ -4,6 +4,13 @@
 @use "../../styles/partials/mixins" as *;
 @use "../../styles/global.scss" as *;
 
+.glassmorphic-card--shared {
+  backdrop-filter: blur(10px);
+  background: rgba(224, 247, 250, 0.5); 
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
 .friends-page {
     display: flex;
     align-items: center;
@@ -19,6 +26,26 @@
 
   @include desktop {
     padding: 5rem 3.75rem;
+  }
+
+  &__container--bottom {
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    max-width: 75rem;
+    box-shadow: $shadow-quaternary;
+    border-radius: 1.25rem;
+    overflow: hidden;
+    backdrop-filter: blur(1.25rem);
+    background: $frosted-glass;
+    box-shadow: $shadow-primary;
+    padding: 1.25rem;
+    gap: 1.25rem;
+
+    @include desktop {
+      flex-direction: row;
+      justify-content: center;
+    }
   }
 
   &__header {
@@ -209,7 +236,7 @@
   &__container {
     display: flex;
     flex-direction: column;
-    width: 90%;
+    width: 95%;
     max-width: 75rem;
     box-shadow: $shadow-quaternary;
     border-radius: 1.25rem;
@@ -223,6 +250,15 @@
     @include desktop {
       flex-direction: row;
     }
+  }
+
+  &__shared-calendar__item {
+    border: 1px solid $neutral-white;
+    display: flex;
+    align-items: center;
+    padding: .9375rem;
+    border-radius: .75rem;
+    box-shadow: $shadow-primary;
   }
 
   &__search-section {
@@ -398,6 +434,7 @@
   }
 
   &__card-subtitle--search,
+  &__card-subtitle--shared,
   &__card-subtitle--requests,
   &__card-subtitle--pendingrequests,
   &__card-subtitle--friends {
@@ -405,6 +442,7 @@
   }
 
   &__card-subtitle--search,
+  &__card-subtitle--shared,
   &__card-subtitle--pendingrequests,
   &__card-subtitle--requests,
   &__card-subtitle--friends,
@@ -569,28 +607,6 @@
       background-color: $primary-pale-cyan;
       border-radius: .75rem;
       transition: background .3s ease, box-shadow .3s ease;
-
-      &.selected {
-        background-color: $primary-light-blue;
-        box-shadow: $shadow-primary;
-      }
-
-      &:hover {
-        background-color: $primary-light-blue;
-        box-shadow: $shadow-primary;
-      }
-
-      img {
-        @include block-item(2.5rem, 2.5rem);
-        border-radius: 50%;
-        margin-right: .9375rem;
-      }
-
-      span {
-        font-size: 1rem;
-        color: $primary-dark-blue;
-        font-weight: 600;
-      }
     }
   }
 
@@ -747,6 +763,16 @@
     margin-left: .5rem; 
     padding: .1rem .5rem;
     border: 1px solid $neutral-white;
+    background: #FFCC99;
+    border-radius: .5rem;
+    color: #d95b07;
+    box-shadow: $shadow-primary;
+  }
+
+  &__shared-count {
+    margin-left: .5rem; 
+    padding: .1rem .5rem;
+    border: 1px solid $neutral-white;
     background: $feedback-mint-light-green;
     border-radius: .5rem;
     color: $pastel-dark-green;
@@ -869,8 +895,16 @@
   }
 
   &__pending-calendar {
-    margin-top: 2rem;
-    background: $frosted-glass;
+    background: #FFCC99;
+  }
+
+  &__shared-calendar {
+    background: $feedback-mint-green;
+  }
+
+  &__pending-calendar,
+  &__shared-calendar {
+    width: 100%;
     padding: 1.25rem;
     border-radius: .9375rem;
     box-shadow: $shadow-secondary;
