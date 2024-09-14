@@ -117,8 +117,7 @@
 
   &__card-media-container {
     overflow: hidden;
-    width: 100%;
-    @include block-item(16.5rem, 19rem);
+    @include block-item(auto, 100%);
     @include pulsate-animation;
     display: flex;
     justify-content: center;
@@ -130,7 +129,12 @@
     padding: 1rem;
     box-shadow: 0 .25rem 1.875rem rgba(0, 0, 0, .1);
 
+    @include large-mobile {
+      width: 20rem;
+    }
+
     @include tablet {
+      display: flex;
       @include block-item(40.3244rem, 20.625rem);
 
       @include desktop {
@@ -145,11 +149,23 @@
 
   &__card-media {
     display: flex;
-    gap: .35rem;
+    align-items: center;
+    width: 60%;
+    height: auto;
+    gap: .25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     transition: transform .5s ease-in-out;
+
+    @include large-mobile {
+      flex-direction: row;
+      gap: .25rem;
+    }
       
     @include tablet {
         gap: 1rem;
+        flex-direction: row;
 
         @include desktop {
           gap: 1.15rem;
@@ -213,6 +229,7 @@
   .content__card6-container {
     @include hover-raise-effect-cards;
     position: relative;
+    width: auto;
     border-radius: 1.6rem;
     box-shadow: $shadow-quaternary;
     transition: transform .2s ease, background-color .2s ease, border-color .2s ease;
@@ -249,7 +266,7 @@
   .content__card4,
   .content__card5,
   .content__card6 {
-    @include block-item(5rem, 10rem);
+    @include block-item(auto, 11.85rem);
     background: $primary-darker-blue-gradient;
     border-radius: 1rem;
     box-shadow: $shadow-tertiary;
@@ -274,6 +291,14 @@
   .content__poster4,
   .content__poster5,
   .content__poster6 {
+    @include block-item(auto, 11rem);
+    border-radius: .5rem;
+
+    @include large-mobile {
+      @include block-item(auto, 9rem);
+    }
+
+    @include tablet {
     @include block-item(4.8rem, auto);
     transition: transform .3s ease, box-shadow .3s ease;
 
@@ -296,6 +321,7 @@
       }
     }
   }
+}
 
   .content__icon-bg-video,
   .content__icon-bg-tv {
