@@ -9,29 +9,28 @@ exports.getEvents = async (req, res) => {
 
   try {
     // Differentiate between authenticated users and guests
-    const userIdentifier = req.user && req.user.role === 'guest' ? 'guest' : userId;
+    const userIdentifier =
+      req.user && req.user.role === 'guest' ? 'guest' : userId;
 
     // Fetch the user's own events
     const userEvents = await knex('events').where({ user_id: userIdentifier });
-    console.log('Fetched user\'s own events:', userEvents);
+    console.log("Fetched user's own events:", userEvents);
 
     // Fetch shared events (including both accepted and pending invites)
     const sharedEvents = await knex('calendar_events')
       .join('events', 'calendar_events.event_id', '=', 'events.id')
-      .where({ friend_id: userIdentifier })
-      .select('events.*', 'calendar_events.isShared', 'calendar_events.isAccepted');
-    
-    console.log('Fetched shared events:', sharedEvents);
+      .where({ friend_id: userIdentifier, isAccepted: true })
+      .select(
+        'events.*',
+        'calendar_events.isShared',
+        'calendar_events.isAccepted'
+      );
 
-    // Combine both user events and shared events
+    console.log('Fetched shared events:', sharedEvents);
     const allEvents = [...userEvents, ...sharedEvents];
 
-    if (allEvents.length === 0) {
-      return res.status(404).json({ message: 'No events found for this user' });
-    }
-
-    // Send all events (both owned and shared)
-    res.status(200).json(allEvents);
+    // Return a 200 response with an empty array if no events found
+    return res.status(200).json(allEvents);
   } catch (error) {
     console.error('Error fetching events:', error);
     res.status(500).json({ message: 'Error fetching events' });
@@ -44,12 +43,14 @@ exports.shareEventWithFriends = async (req, res) => {
   const { friendIds } = req.body;
 
   try {
-    const event = await knex('events').where({ id: eventId, user_id: userId }).first();
+    const event = await knex('events')
+      .where({ id: eventId, user_id: userId })
+      .first();
     if (!event) {
       return res.status(404).json({ message: 'Event not found' });
     }
 
-    const sharedEventsData = friendIds.map(friendId => ({
+    const sharedEventsData = friendIds.map((friendId) => ({
       event_id: eventId,
       user_id: userId,
       friend_id: friendId,
@@ -58,7 +59,9 @@ exports.shareEventWithFriends = async (req, res) => {
 
     await knex('calendar_events').insert(sharedEventsData);
 
-    res.status(200).json({ message: 'Event shared successfully with friends.' });
+    res
+      .status(200)
+      .json({ message: 'Event shared successfully with friends.' });
   } catch (error) {
     console.error('Error sharing event with friends:', error);
     res.status(500).json({ message: 'Error sharing event with friends.' });
@@ -80,12 +83,10 @@ exports.respondToSharedEvent = async (req, res) => {
     }
 
     if (isAccepted) {
-      // Update the shared event status to accepted
       await knex('calendar_events')
         .where({ id: calendarEventId, friend_id: userId })
         .update({ isAccepted: true });
     } else {
-      // Remove the declined shared event from the database
       await knex('calendar_events')
         .where({ id: calendarEventId, friend_id: userId })
         .del();
@@ -135,7 +136,6 @@ exports.searchEvents = async (req, res) => {
       .andWhere('events.title', 'like', `%${query}%`)
       .select('events.*', 'calendar_events.isShared');
 
-    // Combine user's events and shared events
     const allEvents = [...events, ...sharedEvents];
 
     res.status(200).json(allEvents);
@@ -155,8 +155,12 @@ exports.addEvent = async (req, res) => {
   }
 
   try {
-    const formattedStart = moment.tz(start, timezone).format('YYYY-MM-DD HH:mm:ss');
-    const formattedEnd = end ? moment.tz(end, timezone).format('YYYY-MM-DD HH:mm:ss') : null;
+    const formattedStart = moment
+      .tz(start, timezone)
+      .format('YYYY-MM-DD HH:mm:ss');
+    const formattedEnd = end
+      ? moment.tz(end, timezone).format('YYYY-MM-DD HH:mm:ss')
+      : null;
 
     // Differentiate between authenticated users and guests
     let userIdentifier;
@@ -171,7 +175,7 @@ exports.addEvent = async (req, res) => {
       title,
       start: formattedStart,
       end: formattedEnd,
-      eventType
+      eventType,
     });
 
     // Send push notifications only for authenticated users
@@ -180,12 +184,26 @@ exports.addEvent = async (req, res) => {
       const events = await knex('events')
         .where('user_id', userIdentifier)
         .andWhere('start', '>=', moment().toISOString())
-        .andWhere('start', '<', moment(formattedStart).add(user.notificationTime, 'minutes').toISOString());
+        .andWhere(
+          'start',
+          '<',
+          moment(formattedStart)
+            .add(user.notificationTime, 'minutes')
+            .toISOString()
+        );
 
       await sendPushNotifications(user, events);
     }
 
-    res.status(201).json({ eventId, title, start: formattedStart, end: formattedEnd, eventType });
+    res
+      .status(201)
+      .json({
+        eventId,
+        title,
+        start: formattedStart,
+        end: formattedEnd,
+        eventType,
+      });
   } catch (error) {
     console.error('Error adding event:', error);
     res.status(500).json({ message: 'Error adding event' });
@@ -197,14 +215,17 @@ exports.updateEvent = async (req, res) => {
   const { eventId } = req.params;
   const { title, start, end, eventType, timezone } = req.body;
 
-  // Validate eventType
   if (eventType && !['movie', 'tv', 'unknown'].includes(eventType)) {
     return res.status(400).json({ message: 'Invalid eventType' });
   }
 
   try {
-    const formattedStart = moment.tz(start, timezone).format('YYYY-MM-DD HH:mm:ss');
-    const formattedEnd = end ? moment.tz(end, timezone).format('YYYY-MM-DD HH:mm:ss') : null;
+    const formattedStart = moment
+      .tz(start, timezone)
+      .format('YYYY-MM-DD HH:mm:ss');
+    const formattedEnd = end
+      ? moment.tz(end, timezone).format('YYYY-MM-DD HH:mm:ss')
+      : null;
 
     // Differentiate between authenticated users and guests
     let userIdentifier;
@@ -224,7 +245,13 @@ exports.updateEvent = async (req, res) => {
       const events = await knex('events')
         .where('user_id', userIdentifier)
         .andWhere('start', '>=', moment().toISOString())
-        .andWhere('start', '<', moment(formattedStart).add(user.notificationTime, 'minutes').toISOString());
+        .andWhere(
+          'start',
+          '<',
+          moment(formattedStart)
+            .add(user.notificationTime, 'minutes')
+            .toISOString()
+        );
 
       await sendPushNotifications(user, events);
     }
@@ -249,9 +276,7 @@ exports.deleteEvent = async (req, res) => {
       userIdentifier = req.params.userId;
     }
 
-    await knex('events')
-      .where({ id: eventId, user_id: userIdentifier })
-      .del();
+    await knex('events').where({ id: eventId, user_id: userIdentifier }).del();
 
     res.status(200).json({ message: 'Event deleted successfully' });
   } catch (error) {
@@ -275,20 +300,23 @@ exports.getTodaysEvents = async (req, res) => {
 
     res.json(events);
   } catch (error) {
-    console.error('Error fetching today\'s events:', error);
-    res.status(500).json({ message: 'Error fetching today\'s events' });
+    console.error("Error fetching today's events:", error);
+    res.status(500).json({ message: "Error fetching today's events" });
   }
 };
 
 // Fetch pending calendar invites for a user
 exports.getPendingCalendarInvites = async (req, res) => {
-  const { userId } = req.user;  
+  const { userId } = req.user;
 
   try {
     const pendingInvites = await knex('calendar_events')
-      .join('events', 'calendar_events.event_id', '=', 'events.id') 
-      .join('users', 'calendar_events.user_id', '=', 'users.id') 
-      .where({ 'calendar_events.friend_id': userId, 'calendar_events.isAccepted': false }) 
+      .join('events', 'calendar_events.event_id', '=', 'events.id')
+      .join('users', 'calendar_events.user_id', '=', 'users.id')
+      .where({
+        'calendar_events.friend_id': userId,
+        'calendar_events.isAccepted': false,
+      })
       .select(
         'calendar_events.id as inviteId',
         'events.title as eventTitle',
@@ -299,7 +327,6 @@ exports.getPendingCalendarInvites = async (req, res) => {
         'calendar_events.isAccepted'
       );
 
-    // Return an empty array if no pending invites are found
     if (pendingInvites.length === 0) {
       return res.status(200).json([]);
     }
@@ -307,7 +334,9 @@ exports.getPendingCalendarInvites = async (req, res) => {
     res.status(200).json(pendingInvites);
   } catch (error) {
     console.error('Error fetching pending calendar invites:', error);
-    res.status(500).json({ message: 'Error fetching pending calendar invites' });
+    res
+      .status(500)
+      .json({ message: 'Error fetching pending calendar invites' });
   }
 };
 
@@ -329,7 +358,9 @@ exports.shareEventWithFriends = async (req, res) => {
 
     await knex('calendar_events').insert(sharedEventsData);
 
-    res.status(200).json({ message: 'Event shared successfully with friends.' });
+    res
+      .status(200)
+      .json({ message: 'Event shared successfully with friends.' });
   } catch (error) {
     console.error('Error sharing event with friends:', error);
     res.status(500).json({ message: 'Error sharing event with friends.' });
@@ -346,7 +377,6 @@ exports.getSharedFriendsForEvent = async (req, res) => {
       .where({ event_id: eventId, user_id: userId, isShared: true })
       .select('friend_id');
 
-    // If no friends found, return empty array
     if (sharedFriends.length === 0) {
       return res.status(200).json({ sharedFriendIds: [] });
     }
@@ -367,16 +397,16 @@ exports.getSharedEvents = async (req, res) => {
   try {
     const sharedEvents = await knex('calendar_events')
       .join('events', 'calendar_events.event_id', '=', 'events.id')
-      .join('users', 'calendar_events.user_id', '=', 'users.id') 
+      .join('users', 'calendar_events.user_id', '=', 'users.id')
       .where({
         'calendar_events.friend_id': userId,
-        'calendar_events.isAccepted': true 
+        'calendar_events.isAccepted': true,
       })
       .select(
-        'calendar_events.id as inviteId', 
-        'events.title as eventTitle', 
-        'events.start', 
-        'events.end', 
+        'calendar_events.id as inviteId',
+        'events.title as eventTitle',
+        'events.start',
+        'events.end',
         'events.eventType',
         'users.name as invitedByName',
         'calendar_events.isAccepted',
@@ -388,15 +418,17 @@ exports.getSharedEvents = async (req, res) => {
     }
 
     // Format dates and return
-    const formattedEvents = sharedEvents.map(event => ({
+    const formattedEvents = sharedEvents.map((event) => ({
       inviteId: event.inviteId,
       eventTitle: event.eventTitle,
-      start: event.start ? moment(event.start).format('YYYY-MM-DD HH:mm:ss') : null, 
+      start: event.start
+        ? moment(event.start).format('YYYY-MM-DD HH:mm:ss')
+        : null,
       end: event.end ? moment(event.end).format('YYYY-MM-DD HH:mm:ss') : null,
       eventType: event.eventType,
       invitedByName: event.invitedByName,
       isAccepted: event.isAccepted,
-      isShared: event.isShared
+      isShared: event.isShared,
     }));
 
     res.status(200).json(formattedEvents);

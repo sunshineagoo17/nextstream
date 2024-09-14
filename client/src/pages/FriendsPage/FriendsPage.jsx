@@ -26,56 +26,80 @@ const FriendsPage = () => {
   const [pendingCalendarInvites, setPendingCalendarInvites] = useState([]);
   const [sharedCalendarEvents, setSharedCalendarEvents] = useState([]);
   const [showCalendar, setShowCalendar] = useState(false);
+  const [calendarKey, setCalendarKey] = useState(0);
 
   const handleShowCalendar = () => {
     setShowCalendar(true);
-};
+  };
 
-const handleCloseCalendar = () => {
+  const handleCloseCalendar = () => {
     setShowCalendar(false);
-};
+  };
+
+  const getEvents = useCallback(async () => {
+    try {
+      const response = await fetch(`/api/calendar/${userId}/events`);
+      const data = await response.json();
+
+      if (response.ok) {
+        if (data.length === 0) {
+          console.log('No events found.');
+          setSharedCalendarEvents([]);
+        } else {
+          setSharedCalendarEvents(data);
+        }
+      } else {
+        console.error('Error fetching events:', data);
+        setSharedCalendarEvents([]);
+      }
+    } catch (error) {
+      console.error('Error fetching events:', error);
+      setSharedCalendarEvents([]);
+    }
+  }, [userId]);
 
   // Fetch friends list
   const fetchFriends = useCallback(async () => {
     try {
       const friendsData = await getFriends();
       console.log('Fetched Friends Data:', friendsData);
-  
+
       if (Array.isArray(friendsData)) {
         setFriends(friendsData);
       } else {
-        setFriends([]); 
+        setFriends([]);
         console.log('Invalid friends data structure.');
       }
     } catch (error) {
       console.log('Error fetching friends:', error);
     }
-  }, []);  
+  }, []);
 
   useEffect(() => {
     const fetchAllUnreadMessages = async () => {
       if (friends.length > 0) {
         const allMessages = [];
-  
+
         for (const friend of friends) {
           try {
             const messagesData = await fetchMessages(friend.id);
-            const unreadMessages = messagesData.filter(message => !message.is_read);
+            const unreadMessages = messagesData.filter(
+              (message) => !message.is_read
+            );
             allMessages.push(...unreadMessages);
           } catch (error) {
             console.log('Error fetching messages for', friend.name, error);
           }
         }
-  
+
         setMessages(allMessages);
       }
     };
-  
+
     if (userId) {
       fetchAllUnreadMessages();
     }
   }, [friends, userId]);
-  
 
   // Fetch pending friend requests
   const fetchPendingRequests = useCallback(async () => {
@@ -100,36 +124,43 @@ const handleCloseCalendar = () => {
   // Handle accept or decline calendar invite (for both pending and shared events)
   const handleRespondToInvite = async (inviteId, isAccepted) => {
     try {
-   
       await respondToSharedEvent(userId, inviteId, isAccepted);
+
       setPendingCalendarInvites((prevInvites) =>
         prevInvites.filter((invite) => invite.inviteId !== inviteId)
       );
 
       if (isAccepted) {
-        const acceptedInvite = pendingCalendarInvites.find(
-          (invite) => invite.inviteId === inviteId
-        );
-        setSharedCalendarEvents((prevEvents) => [
-          ...prevEvents,
-          acceptedInvite,
-        ]);
+        const updatedEvents = await fetchSharedCalendarEvents(userId);
+        setSharedCalendarEvents(updatedEvents);
+
+        socket.emit('calendar_event_updated', {
+          userId,
+          inviteId,
+        });
       } else {
         setSharedCalendarEvents((prevEvents) =>
           prevEvents.filter((event) => event.inviteId !== inviteId)
         );
+
+        socket.emit('calendar_event_removed', {
+          userId,
+          inviteId,
+        });
       }
+
+      setCalendarKey((prevKey) => prevKey + 1);
 
       setAlertMessage({
         message: isAccepted
-          ? 'Calendar invite accepted!'
-          : 'Calendar event declined and removed.',
-        type: 'success',
+          ? 'Event accepted successfully!'
+          : 'Event declined and removed.',
+        type: isAccepted ? 'success' : 'info',
       });
     } catch (error) {
-      console.log('Error responding to calendar invite', error);
+      console.error('Error responding to event:', error);
       setAlertMessage({
-        message: 'Error responding to calendar invite.',
+        message: 'Failed to respond to the event.',
         type: 'error',
       });
     }
@@ -148,6 +179,7 @@ const handleCloseCalendar = () => {
       fetchPendingRequests();
       fetchPendingCalendarInvites(userId);
       fetchSharedCalendarEvents(userId);
+      getEvents();
     }
   }, [
     isAuthenticated,
@@ -155,6 +187,7 @@ const handleCloseCalendar = () => {
     fetchFriends,
     fetchPendingRequests,
     fetchPendingCalendarInvites,
+    getEvents,
   ]);
 
   // Manage socket connections and cleanup
@@ -166,8 +199,24 @@ const handleCloseCalendar = () => {
         setPendingCalendarInvites((prev) => [...prev, newInvite]);
       });
 
+      socket.on('calendar_event_updated', (data) => {
+        if (data.userId === userId) {
+          setSharedCalendarEvents((prevEvents) => [...prevEvents, data.event]);
+        }
+      });
+
+      socket.on('calendar_event_removed', (data) => {
+        if (data.userId === userId) {
+          setSharedCalendarEvents((prevEvents) =>
+            prevEvents.filter((event) => event.inviteId !== data.inviteId)
+          );
+        }
+      });
+
       return () => {
         socket.off('new_calendar_invite');
+        socket.off('calendar_event_updated');
+        socket.off('calendar_event_removed');
         socket.emit('leave_room', userId);
       };
     }
@@ -221,21 +270,21 @@ const handleCloseCalendar = () => {
     setSelectedFriend(friend);
     setNewMessage('');
     setTyping(false);
-  
+
     try {
       const messagesData = await fetchMessages(friend.id);
-      console.log('Fetched messages:', messagesData); 
+      console.log('Fetched messages:', messagesData);
       const validMessages = messagesData.map((message) => ({
         ...message,
         senderId: message.senderId || 'unknown_sender',
       }));
-  
+
       validMessages.forEach((message) => {
         console.log(
           `Message: ${message.message}, senderId: ${message.senderId}, is_read: ${message.is_read}`
         );
       });
-  
+
       await markAllMessagesAsRead(friend.id);
       setMessages(validMessages);
     } catch (error) {
@@ -283,14 +332,14 @@ const handleCloseCalendar = () => {
         ...data,
         is_read: false,
       };
-      console.log('New message received:', newMessage); 
+      console.log('New message received:', newMessage);
       setMessages((prevMessages) => [...prevMessages, newMessage]);
     });
-  
+
     return () => {
       socket.off('receive_message');
     };
-  }, []);  
+  }, []);
 
   const handleSendMessage = async () => {
     console.log('Selected Friend:', selectedFriend);
@@ -575,89 +624,95 @@ const handleCloseCalendar = () => {
             )}
           </div>
 
-        {/* Friends List Section */}
-        <div className='friends-page__list glassmorphic-card'>
-          <h3 className='friends-page__card-subtitle--friends'>
-            Your NextCrew
-          </h3>
-          <div className='friend-page__friend-info-container'>
-            {friends.length === 0 ? (
-              <p>No friends added yet.</p>
-            ) : (
-              friends.map((friend) => {
-                const unreadMessages = messages.filter(
-                  (message) => message.senderId === friend.id && !message.is_read
-                ).length;
+          {/* Friends List Section */}
+          <div className='friends-page__list glassmorphic-card'>
+            <h3 className='friends-page__card-subtitle--friends'>
+              Your NextCrew
+            </h3>
+            <div className='friend-page__friend-info-container'>
+              {friends.length === 0 ? (
+                <p>No friends added yet.</p>
+              ) : (
+                friends.map((friend) => {
+                  const unreadMessages = messages.filter(
+                    (message) =>
+                      message.senderId === friend.id && !message.is_read
+                  ).length;
 
-                return (
-                  <div
-                    key={friend.id}
-                    className={`friends-page__item ${
-                      selectedFriend?.id === friend.id ? 'selected' : ''
-                    }`}
-                  >
-                    <div className='friends-page__friend-info'>
-                      <div className='friends-page__friend-info-icons'>
-                        {/* Avatar */}
-                        <FontAwesomeIcon
-                          icon={faUser}
-                          alt={friend.name}
-                          className='friends-page__avatar-default'
-                        />
+                  return (
+                    <div
+                      key={friend.id}
+                      className={`friends-page__item ${
+                        selectedFriend?.id === friend.id ? 'selected' : ''
+                      }`}>
+                      <div className='friends-page__friend-info'>
+                        <div className='friends-page__friend-info-icons'>
+                          {/* Avatar */}
+                          <FontAwesomeIcon
+                            icon={faUser}
+                            alt={friend.name}
+                            className='friends-page__avatar-default'
+                          />
 
-                        {/* Bell Icon & Unread Count */}
-                        {unreadMessages > 0 && (
-                          <div className='friends-page__notification-container'>
-                            <button className='friends-page__bell-icon-btn'>
-                              <FontAwesomeIcon icon={faBell} className='friends-page__bell-icon' onClick={() => handleSelectFriend(friend)}/>
-                            </button>
-                            <span className='friends-page__unread-msg-count'>{unreadMessages}</span>
-                          </div>
-                        )}
-                      </div>
-                      
-                      {/* Friend details */}
-                      <div className='friends-page__friend-details'>
-                        {/* Name */}
-                        <p className='friends-page__label'>
-                          <strong className='friends-page__user-info'>Name:</strong>{' '}
-                          {friend.name}
-                        </p>
-                        {/* Username */}
-                        <p className='friends-page__label'>
-                          <strong className='friends-page__user-info'>
-                            Username:
-                          </strong>{' '}
-                          {friend.username}
-                        </p>
-                      </div>
+                          {/* Bell Icon & Unread Count */}
+                          {unreadMessages > 0 && (
+                            <div className='friends-page__notification-container'>
+                              <button className='friends-page__bell-icon-btn'>
+                                <FontAwesomeIcon
+                                  icon={faBell}
+                                  className='friends-page__bell-icon'
+                                  onClick={() => handleSelectFriend(friend)}
+                                />
+                              </button>
+                              <span className='friends-page__unread-msg-count'>
+                                {unreadMessages}
+                              </span>
+                            </div>
+                          )}
+                        </div>
 
-                      {/* Actions */}
-                      <div className='friends-page__actions'>
-                        <button
-                          onClick={() => handleRemoveFriend(friend.id)}
-                          className='friends-page__remove-friend'
-                        >
-                          Remove
-                        </button>
-                        <button
-                          onClick={() => handleSelectFriend(friend)}
-                          className='friends-page__chat-button'
-                        >
-                          Chat
-                        </button>
+                        {/* Friend details */}
+                        <div className='friends-page__friend-details'>
+                          {/* Name */}
+                          <p className='friends-page__label'>
+                            <strong className='friends-page__user-info'>
+                              Name:
+                            </strong>{' '}
+                            {friend.name}
+                          </p>
+                          {/* Username */}
+                          <p className='friends-page__label'>
+                            <strong className='friends-page__user-info'>
+                              Username:
+                            </strong>{' '}
+                            {friend.username}
+                          </p>
+                        </div>
+
+                        {/* Actions */}
+                        <div className='friends-page__actions'>
+                          <button
+                            onClick={() => handleRemoveFriend(friend.id)}
+                            className='friends-page__remove-friend'>
+                            Remove
+                          </button>
+                          <button
+                            onClick={() => handleSelectFriend(friend)}
+                            className='friends-page__chat-button'>
+                            Chat
+                          </button>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                );
-              })
-            )}
+                  );
+                })
+              )}
+            </div>
           </div>
         </div>
-      </div>
 
-      <div className='friends-page__container--bottom'>
-        <div className='friends-page__cal-events-container'>
+        <div className='friends-page__container--bottom'>
+          <div className='friends-page__cal-events-container'>
             {/* Pending Calendar Invites Section */}
             <div className='friends-page__pending-calendar glassmorphic-card'>
               <div className='friends-page__header-row'>
@@ -721,7 +776,9 @@ const handleCloseCalendar = () => {
                     </div>
                     <div className='friends-page__calendar-actions'>
                       <button
-                        onClick={() => handleRespondToInvite(invite.inviteId, true)}
+                        onClick={() =>
+                          handleRespondToInvite(invite.inviteId, true)
+                        }
                         className='friends-page__accept-invite'>
                         Accept
                       </button>
@@ -749,88 +806,106 @@ const handleCloseCalendar = () => {
                     </span>
                   )}
                 </h3>
-                <button className="friends-page__cal-icon-container" onClick={handleShowCalendar}>
-                  <FontAwesomeIcon icon={faCalendarAlt} className='friends-page__show-cal-icon' />
-                  <span className='friends-page__show-cal-txt'>Show Calendar</span>
+                <button
+                  className='friends-page__cal-icon-container'
+                  onClick={handleShowCalendar}>
+                  <FontAwesomeIcon
+                    icon={faCalendarAlt}
+                    className='friends-page__show-cal-icon'
+                  />
+                  <span className='friends-page__show-cal-txt'>
+                    Show Calendar
+                  </span>
                 </button>
-            </div>
-            {sharedCalendarEvents.length === 0 ? (
-              <p>No shared calendar events.</p>
-            ) : (
-              sharedCalendarEvents.map((event) => (
-                <div
-                  key={event.inviteId}
-                  className='friends-page__shared-calendar__item'>
-                  <div className='friends-page__calendar-info'>
-                    {/* Event Title */}
-                    <p>
-                      <strong>Event Title:</strong> {event.eventTitle}
-                    </p>
-                    {/* Inviter */}
-                    <p>
-                      <strong>Invited By:</strong> {event.inviterName}
-                    </p>
-                    {/* Date and Time */}
-                    <p>
-                      <strong>Start Date:</strong>{' '}
-                      {new Date(event.start).toLocaleDateString()}
-                    </p>
-                    <p>
-                      <strong>End Date:</strong>{' '}
-                      {new Date(event.end).toLocaleDateString()}
-                    </p>
-                    <p>
-                      <strong>Start Time:</strong>{' '}
-                      {new Date(event.start).toLocaleTimeString([], {
-                        hour: '2-digit',
-                        minute: '2-digit',
-                      })}
-                    </p>
-                    <p>
-                      <strong>End Time:</strong>{' '}
-                      {new Date(event.end).toLocaleTimeString([], {
-                        hour: '2-digit',
-                        minute: '2-digit',
-                      })}
-                    </p>
-                    {/* Event Type */}
-                    <p>
-                      <strong>Type:</strong>{' '}
-                      {event.eventType === 'movie'
-                        ? 'Movie'
-                        : event.eventType === 'tv'
-                        ? 'TV Show'
-                        : 'Unknown'}
-                    </p>
-                    <div className='friends-page__calendar-actions'>
-                      <button
-                        onClick={() => handleRespondToInvite(event.inviteId, false)}
-                        className='friends-page__delete-invite-btn'>
-                        Delete
-                      </button>
+              </div>
+              {sharedCalendarEvents.length === 0 ? (
+                <p>No shared calendar events.</p>
+              ) : (
+                sharedCalendarEvents.map((event) => (
+                  <div
+                    key={event.inviteId}
+                    className='friends-page__shared-calendar__item'>
+                    <div className='friends-page__calendar-info'>
+                      {/* Event Title */}
+                      <p>
+                        <strong>Event Title:</strong> {event.eventTitle}
+                      </p>
+                      {/* Inviter */}
+                      <p>
+                        <strong>Invited By:</strong> {event.inviterName}
+                      </p>
+                      {/* Date and Time */}
+                      <p>
+                        <strong>Start Date:</strong>{' '}
+                        {new Date(event.start).toLocaleDateString()}
+                      </p>
+                      <p>
+                        <strong>End Date:</strong>{' '}
+                        {new Date(event.end).toLocaleDateString()}
+                      </p>
+                      <p>
+                        <strong>Start Time:</strong>{' '}
+                        {new Date(event.start).toLocaleTimeString([], {
+                          hour: '2-digit',
+                          minute: '2-digit',
+                        })}
+                      </p>
+                      <p>
+                        <strong>End Time:</strong>{' '}
+                        {new Date(event.end).toLocaleTimeString([], {
+                          hour: '2-digit',
+                          minute: '2-digit',
+                        })}
+                      </p>
+                      {/* Event Type */}
+                      <p>
+                        <strong>Type:</strong>{' '}
+                        {event.eventType === 'movie'
+                          ? 'Movie'
+                          : event.eventType === 'tv'
+                          ? 'TV Show'
+                          : 'Unknown'}
+                      </p>
+                      <div className='friends-page__calendar-actions'>
+                        <button
+                          onClick={() =>
+                            handleRespondToInvite(event.inviteId, false)
+                          }
+                          className='friends-page__delete-invite-btn'>
+                          Delete
+                        </button>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))
+                ))
+              )}
+            </div>
+          </div>
+          <div className='friends-page__calendar-container'>
+            {/* Calendar Modal */}
+            {showCalendar && (
+              <div className='friends-page__cal-modal'>
+                <button
+                  className='friends-page__close-btn'
+                  onClick={handleCloseCalendar}>
+                  <FontAwesomeIcon
+                    icon={faClose}
+                    className='friends-page__close-icon'
+                  />
+                  <span className='friends-page__close-cal-txt'>
+                    Close Calendar
+                  </span>
+                </button>
+                <Calendar
+                  key={calendarKey}
+                  userId={userId}
+                  events={sharedCalendarEvents}
+                  onClose={handleCloseCalendar}
+                />
+              </div>
             )}
           </div>
         </div>
-        <div className='friends-page__calendar-container'>
-          {/* Calendar Modal */}
-          {showCalendar && (
-            <div className="friends-page__cal-modal">
-                <button className="friends-page__close-btn" onClick={handleCloseCalendar}>
-                  <FontAwesomeIcon icon={faClose} className='friends-page__close-icon' />
-                  <span className='friends-page__close-cal-txt'>Close Calendar</span>
-                </button>
-                <Calendar
-                  userId={userId}
-                  onClose={handleCloseCalendar}
-                />
-            </div>
-          )}
-        </div>
-      </div>
 
         {/* Chat Section */}
         {selectedFriend && (

@@ -13,7 +13,9 @@ require('dotenv').config();
 // Initialize Firebase Admin SDK
 if (!admin.apps.length) {
   admin.initializeApp({
-    credential: admin.credential.cert(require('./src/config/nextstream-firebaseServiceAccountKey.json')),
+    credential: admin.credential.cert(
+      require('./src/config/nextstream-firebaseServiceAccountKey.json')
+    ),
   });
 }
 
@@ -53,12 +55,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // Use session middleware
-app.use(session({
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: false },
-}));
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false },
+  })
+);
 
 // Configure CORS
 const corsOptions = {
@@ -118,7 +122,9 @@ io.on('connection', (socket) => {
       console.log('Message saved and sent:', savedMessage);
     } catch (error) {
       console.error('Error saving message:', error);
-      socket.emit('error_message', { message: 'Error sending message. Please try again.' });
+      socket.emit('error_message', {
+        message: 'Error sending message. Please try again.',
+      });
     }
   });
 
@@ -130,7 +136,9 @@ io.on('connection', (socket) => {
       console.log('New calendar invite sent:', inviteDetails);
     } catch (error) {
       console.error('Error sending calendar invite:', error);
-      socket.emit('error_calendar_invite', { message: 'Error sending calendar invite.' });
+      socket.emit('error_calendar_invite', {
+        message: 'Error sending calendar invite.',
+      });
     }
   });
 
@@ -138,11 +146,24 @@ io.on('connection', (socket) => {
   socket.on('respond_calendar_invite', async (data) => {
     const { inviteId, userId, response } = data;
     try {
+      // Update the database with the response (accept/decline)
       await respondToSharedEvent(userId, inviteId, response);
+
+      if (response === 'accepted') {
+        // Emit event to update the shared calendar with the accepted invite
+        const acceptedInvite = await getInviteDetails(inviteId); // Replace with actual fetching logic
+        io.to(userId).emit('calendar_event_updated', { event: acceptedInvite });
+      } else {
+        // Emit event to remove the declined invite from the shared calendar
+        io.to(userId).emit('calendar_event_removed', { inviteId });
+      }
+
       io.to(userId).emit('calendar_invite_responded', { inviteId, response });
     } catch (error) {
       console.error('Error responding to calendar invite:', error);
-      socket.emit('error_calendar_response', { message: 'Error responding to invite.' });
+      socket.emit('error_calendar_response', {
+        message: 'Error responding to invite.',
+      });
     }
   });
 
@@ -154,7 +175,9 @@ io.on('connection', (socket) => {
       console.log('New friend request sent:', requestDetails);
     } catch (error) {
       console.error('Error sending friend request:', error);
-      socket.emit('error_friend_request', { message: 'Error sending friend request.' });
+      socket.emit('error_friend_request', {
+        message: 'Error sending friend request.',
+      });
     }
   });
 
@@ -166,7 +189,9 @@ io.on('connection', (socket) => {
       console.log('Friend request accepted:', friendDetails);
     } catch (error) {
       console.error('Error accepting friend request:', error);
-      socket.emit('error_friend_acceptance', { message: 'Error accepting friend request.' });
+      socket.emit('error_friend_acceptance', {
+        message: 'Error accepting friend request.',
+      });
     }
   });
 
@@ -191,19 +216,25 @@ app.use('/api/external-cal', eventDownloadRoutes);
 app.use('/api/spotlight', authenticate, spotlightRoutes);
 
 // Calendar Routes (Allow both authenticated users and guests)
-app.use('/api/calendar', (req, res, next) => {
-  const token = req.cookies.token || req.cookies.guestToken;
+app.use(
+  '/api/calendar',
+  (req, res, next) => {
+    const token = req.cookies.token || req.cookies.guestToken;
 
-  if (token) {
-    if (req.cookies.token) {
-      authenticate(req, res, next);
-    } else if (req.cookies.guestToken) {
-      guestAuthenticate(req, res, next);
+    if (token) {
+      if (req.cookies.token) {
+        authenticate(req, res, next);
+      } else if (req.cookies.guestToken) {
+        guestAuthenticate(req, res, next);
+      }
+    } else {
+      return res
+        .status(401)
+        .json({ message: 'Access denied. No token provided.' });
     }
-  } else {
-    return res.status(401).json({ message: 'Access denied. No token provided.' });
-  }
-}, calendarRoutes);
+  },
+  calendarRoutes
+);
 
 app.use('/api/interactions', interactionRoutes);
 app.use('/api/recommendations', authenticate, recommendationsRoutes);
