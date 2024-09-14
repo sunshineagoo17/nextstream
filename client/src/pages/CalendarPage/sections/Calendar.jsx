@@ -82,11 +82,13 @@ const Calendar = forwardRef(
 
     useEffect(() => {
       if (calendarRef.current) {
-        const calendarApi = calendarRef.current.getApi();
-        calendarApi.removeAllEvents(); 
-        calendarApi.addEventSource(events);
+        Promise.resolve().then(() => {
+          const calendarApi = calendarRef.current.getApi();
+          calendarApi.removeAllEvents();
+          calendarApi.addEventSource(events);
+        });
       }
-    }, [events]);
+    }, [events]);    
 
     useEffect(() => {
       const handleClickOutside = (event) => {

@@ -23,7 +23,8 @@ exports.getEvents = async (req, res) => {
       .select(
         'events.*',
         'calendar_events.isShared',
-        'calendar_events.isAccepted'
+        'calendar_events.isAccepted',
+        'events.user_id as createdBy'
       );
 
     console.log('Fetched shared events:', sharedEvents);
