@@ -422,8 +422,8 @@ const AuthSearchResultsPage = ({ userId }) => {
         </div>
       </div>
       {showCalendar && (
-        <div className="calendar-modal">
-          <button className="calendar-close-btn" onClick={handleCloseCalendar}>
+        <div className="auth-search-results__cal-modal">
+          <button className="auth-search-results__cal-close-btn" onClick={handleCloseCalendar}>
             <FontAwesomeIcon icon={faClose} className='auth-search-results__close-icon' />
           </button>
           <Calendar

@@ -484,8 +484,8 @@ const NextViewPage = () => {
             </div>
 
             {showCalendar && (
-                <div className="calendar-modal">
-                    <button className="calendar-close-btn" onClick={handleCloseCalendar}>
+                <div className="nextview-page__calendar-modal">
+                    <button className="nextview-page__cal-close-btn" onClick={handleCloseCalendar}>
                         <FontAwesomeIcon icon={faClose} className='nextview-page__close-icon' />
                     </button>
                     <Calendar

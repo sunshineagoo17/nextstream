@@ -26,81 +26,6 @@
   }
 }
 
-.calendar-modal {
-  @include block-item(100%, 100%);
-  position: fixed;
-  top: 0;
-  left: 0;
-  background-color: rgba($neutral-black, .8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-  margin-top: 0;
-}
-
-.calendar-close-btn {
-  position: absolute;
-  top: 14.75rem;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: transparent;
-  color: $neutral-white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: .0625rem solid $neutral-white;
-  padding: .05rem;
-  font-size: 1.5rem;
-  box-shadow: $shadow-senary;
-  cursor: pointer;
-  z-index: 1001;
-  border-radius: .2rem;
-  transition: all .3s ease;
-
-  &:hover {
-    background-color: $primary-dark-blue;
-    color: $neutral-white;
-    padding: 1rem;
-    border-radius: .5rem;
-    transform: translateX(-50%) scale(1.1);
-  }
-
-  &:active {
-    transform: translateX(-50%) scale(1);
-    box-shadow: $shadow-senary;
-  }
-
-  @include tablet {
-    top: 6.5rem;
-  }
-
-  @include desktop {
-    top: 5rem;
-  }
-
-  @include large-desktop {
-    top: 11.5rem;
-  }
-
-  @include extra-large-desktop {
-    top: 12.75rem;
-
-    &:hover {
-      background-color: $primary-dark-blue;
-      color: $neutral-white;
-      padding: 1rem;
-      border-radius: .5rem;
-      transform: translateX(-50%) scale(1.001);
-    }
-
-    &:active {
-      transform: translateX(-50%) scale(.9);
-      box-shadow: $shadow-senary;
-    }
-  }
-}
-
 .frosted-toast-auth {
   backdrop-filter: blur(.25rem);
   background: rgba($primary-dark-blue, .75);
@@ -125,12 +50,58 @@
     border: none;
   }
 
+  &__cal-modal {
+    @include block-item(100%, 100%);
+    position: fixed;
+    top: 0;
+    left: 0;
+    flex-direction: column;
+    background-color: rgba($neutral-black, .8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    margin-top: 0;
+  }
+
   &__pagination-container {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-top: 2rem;
     gap: 1rem;
+  }
+
+  &__cal-close-btn {
+    top: 14.75rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: transparent;
+    color: $neutral-white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: .0625rem solid $neutral-white;
+    padding: .05rem;
+    font-size: 1.5rem;
+    box-shadow: $shadow-senary;
+    cursor: pointer;
+    z-index: 1001;
+    border-radius: .2rem;
+    transition: all .3s ease;
+  
+    &:hover {
+      background-color: $primary-dark-blue;
+      color: $neutral-white;
+      padding: 1rem;
+      border-radius: .5rem;
+      transform: translateX(-50%) scale(1.1);
+    }
+  
+    &:active {
+      transform: translateX(-50%) scale(1);
+      box-shadow: $shadow-senary;
+    }
   }
   
   &__page-nav-wrapper {

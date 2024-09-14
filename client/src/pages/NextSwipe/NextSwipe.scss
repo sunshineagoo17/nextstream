@@ -17,6 +17,7 @@
   &__calendar-modal {
     @include block-item(100%, 100%);
     position: fixed;
+    flex-direction: column;
     top: 0;
     left: 0;
     background-color: rgba($neutral-black, .8);
@@ -25,6 +26,37 @@
     align-items: center;
     padding-top: -1rem;
     z-index: 1000;
+  }
+
+  &__calendar-close-btn {
+    @include block-item(1.75rem, 1.75rem);
+    transform: translateX(-50%);
+    background-color: transparent;
+    color: $neutral-white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: .0625rem solid $neutral-white;
+    padding: .25rem;
+    font-size: 1rem;
+    box-shadow: $shadow-senary;
+    cursor: pointer;
+    z-index: 1001;
+    border-radius: .2rem;
+    transition: all .3s ease; 
+  
+    &:hover {
+      background-color: $primary-dark-blue;
+      color: $neutral-white;
+      padding: 1rem; 
+      border-radius: .5rem; 
+      transform: translateX(-50%) scale(1.25); 
+    }
+  
+    &:active {
+      transform: translateX(-50%) scale(1);
+      box-shadow: $shadow-senary;
+    }
   }
 
   &__graphic-container {
@@ -444,65 +476,6 @@
       }
     }
   }
-
-
-.top-picks-page__calendar-close-btn {
-  @include block-item(1.75rem, 1.75rem);
-  position: absolute;
-  top: 24rem; 
-  transform: translateX(-50%);
-  background-color: transparent;
-  color: $neutral-white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: .0625rem solid $neutral-white;
-  padding: .25rem;
-  font-size: 1rem;
-  box-shadow: $shadow-senary;
-  cursor: pointer;
-  z-index: 1001;
-  border-radius: .2rem;
-  transition: all .3s ease; 
-
-  &:hover {
-    background-color: $primary-dark-blue;
-    color: $neutral-white;
-    padding: 1rem; 
-    border-radius: .5rem; 
-    transform: translateX(-50%) scale(1.25); 
-  }
-
-  &:active {
-    transform: translateX(-50%) scale(1);
-    box-shadow: $shadow-senary;
-  }
-
-  @include small-mobile {
-    top: 25.5rem;
-  }
-
-  @include large-mobile {
-    top: 18rem;
-  }
-
-  @include tablet {
-    top: 25.5rem;
-    font-size: 1.5rem;
-  }
-
-  @include desktop {
-    top: 20rem;
-  }
-
-  @include large-desktop {
-    top: 9rem;
-  }
-
-  @include extra-large-desktop {
-    top: 19rem;
-  }
-}
 
 .modal-input {
   background-color: none;
