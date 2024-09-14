@@ -34,15 +34,19 @@
     padding: .15rem;
     border-radius: .25rem;
     box-shadow: $shadow-primary;
-    bottom: 1.85rem;
-    right: .175rem;
+    bottom: 1rem;
+    right: .25rem;
     color: $primary-light-blue;
 
     @include tablet {
       @include block-item(2rem, 2rem);
       padding: .25rem;
       border-radius: .5rem;
-      bottom: 2rem;
+      bottom: 1.5rem;
+      right: 1rem;
+    }
+
+    @include desktop {
       right: 1.5rem;
     }
   }
@@ -143,17 +147,17 @@
   }
 
   &__poster {
-      @include block-item(4.8rem, auto);
+    @include block-item(auto, 11rem);
 
-      @include tablet {
+    @include tablet {
       @include block-item(11rem, auto);
       box-shadow: $shadow-primary;
       border-radius: 1rem;
 
-          @include desktop {
-              @include block-item(90%, auto);
-          }
+      @include desktop {
+        @include block-item(90%, auto);
       }
+    }
   }
 
   &__content-card {
@@ -262,9 +266,10 @@
 
   &__card-media-container {
     overflow: hidden;
-    @include block-item(16.5rem, 19rem);
+    @include block-item(auto, auto);
     @include pulsate-animation;
     display: flex;
+    flex-direction: column;
     gap: .5rem;
     justify-content: center;
     align-items: center;
@@ -277,6 +282,7 @@
 
     @include tablet {
       gap: 1rem;
+      flex-direction: row;
       @include block-item(40.3244rem, 20.625rem);
 
       @include desktop {
@@ -299,7 +305,7 @@
   }
 
   &__card {
-    @include block-item(5rem, 9.5rem);
+    @include block-item(auto, 12.5rem);
     @include hover-raise-effect-cards;
     background: $primary-darker-blue-gradient;
     border-radius: 1rem;

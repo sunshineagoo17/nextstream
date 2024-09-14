@@ -236,12 +236,12 @@
   &__no-providers {
     margin-top: -.35rem;
     color: $primary-pale-blue;
-    font-size: .4rem;
+    font-size: .57rem;
     background-color: $primary-medium-blue;
     box-shadow: $shadow-primary;
     border-radius: .25rem;
     text-align: center;
-    line-height: .5rem;
+    line-height: .65rem;
 
     @include tablet {
       font-size: .75rem;
@@ -501,7 +501,7 @@
 
   &__poster {
     border-radius: .5rem;
-    @include block-item(100%, 6rem);
+    @include block-item(auto, 8rem);
     margin-bottom: .05rem;
 
     @include tablet {
@@ -625,11 +625,12 @@
 
   &__card-media-container {
     overflow: hidden;
-    @include block-item(16.5rem, 19rem);
+    @include block-item(13rem, auto);
     @include pulsate-animation;
     display: flex;
     gap: .5rem;
     justify-content: center;
+    flex-direction: column;
     align-items: center;
     background: rgba($primary-light-blue, .3);
     backdrop-filter: blur(1.25rem);
@@ -641,6 +642,7 @@
     @include tablet {
       gap: 1rem;
       padding: 1rem;
+      flex-direction: row;
       @include block-item(40.3244rem, 23.625rem);
 
       @include desktop {
@@ -663,7 +665,7 @@
   }
 
   &__card {
-    @include block-item(5rem, 9.5rem);
+    @include block-item(9rem, 12.5rem);
     @include hover-raise-effect-cards;
     background: $primary-darker-blue-gradient;
     border-radius: 1rem;
@@ -676,7 +678,7 @@
     overflow: hidden;
 
     @include tablet {
-      @include block-item(12rem, 18.5rem);
+      @include block-item(12rem, 19.25rem);
       border-radius: 1.5625rem;
 
       @include desktop {
@@ -709,6 +711,7 @@
   &__interaction-icons {
     display: flex;
     justify-content: center;
+    align-items: center;
     gap: 1rem;
     margin-top: .25rem;
   }
