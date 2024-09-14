@@ -267,22 +267,40 @@ exports.updateEvent = async (req, res) => {
 // Delete an event
 exports.deleteEvent = async (req, res) => {
   const { eventId } = req.params;
+  const { userId } = req.user; // Get the authenticated user's ID
 
   try {
-    // Differentiate between authenticated users and guests
-    let userIdentifier;
-    if (req.user && req.user.role === 'guest') {
-      userIdentifier = 'guest';
-    } else {
-      userIdentifier = req.params.userId;
+    // Check if the event is shared with the current user but not owned by them
+    const sharedEvent = await knex('calendar_events')
+      .where({ event_id: eventId, friend_id: userId })
+      .first();
+
+    if (sharedEvent) {
+      // If the event is shared and the user is not the owner, block the deletion
+      return res.status(403).json({
+        message: "You cannot delete a shared event that was not created by you.",
+      });
     }
 
-    await knex('events').where({ id: eventId, user_id: userIdentifier }).del();
+    // Check if the event is owned by the user and proceed with deletion
+    const event = await knex('events')
+      .where({ id: eventId, user_id: userId })
+      .first();
 
-    res.status(200).json({ message: 'Event deleted successfully' });
+    if (!event) {
+      return res.status(404).json({ message: 'Event not found or not owned by you.' });
+    }
+
+    // Delete the event if the user is the owner
+    await knex('events').where({ id: eventId, user_id: userId }).del();
+
+    // Additionally, delete any shared references to the event
+    await knex('calendar_events').where({ event_id: eventId }).del();
+
+    res.status(200).json({ message: 'Event deleted successfully.' });
   } catch (error) {
     console.error('Error deleting event:', error);
-    res.status(500).json({ message: 'Error deleting event' });
+    res.status(500).json({ message: 'Error deleting event.' });
   }
 };
 

@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext, useCallback, forwardRef, useImperativeHandle, useRef } from 'react';
 import { AuthContext } from '../../../context/AuthContext/AuthContext';
+import { Tooltip } from 'react-tooltip';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faFilm, faTv, faTimes, faTrash, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
 import { ToastContainer, toast, Slide } from 'react-toastify';
@@ -129,10 +130,6 @@ const Calendar = forwardRef(
         } else {
           setEvents([]);
           setFilteredEvents([]);
-          showCustomAlert(
-            'No events found. Start by adding your first event!',
-            'info'
-          );
         }
       } catch (error) {
         if (
@@ -364,60 +361,55 @@ const Calendar = forwardRef(
       if (isDeletingEvent.current || !selectedEvent) return;
       isDeletingEvent.current = true;
       setLoading(true);
+    
       try {
         await api.delete(`/api/calendar/${userId}/events/${selectedEvent.id}`);
         await fetchEvents();
+    
         toast.success('Event deleted successfully!', {
           className: 'frosted-toast-cal',
         });
       } catch (error) {
-        console.log(
-          'Error deleting event:',
-          error.response ? error.response.data : error.message
-        );
-        toast.error('Failed to delete event.', {
-          className: 'frosted-toast-cal',
-        });
+        if (error.response && error.response.status === 403) {
+          showCustomAlert('This is a shared event and only the inviter can delete it.', 'info');
+        } else {
+          console.log('Error deleting event:', error.response ? error.response.data : error.message);
+          toast.error('Failed to delete event.', { className: 'frosted-toast-cal' });
+        }
       } finally {
         setLoading(false);
         setModalVisible(false);
         isDeletingEvent.current = false;
       }
     }, [selectedEvent, fetchEvents, userId]);
-
-    useEffect(() => {
-      if (modalVisible) {
-        const handleGlobalDelete = (e) => {
-          if (e.key === 'Delete') {
-            handleDeleteEvent();
-          }
-        };
-        window.addEventListener('keydown', handleGlobalDelete);
-        return () => {
-          window.removeEventListener('keydown', handleGlobalDelete);
-        };
-      }
-    }, [modalVisible, handleDeleteEvent]);
-
+     
     const handleDeleteAllEvents = async () => {
       const currentView = calendarRef.current.getApi().view.type;
       const start = calendarRef.current.getApi().view.activeStart;
       const end = calendarRef.current.getApi().view.activeEnd;
-
+    
       const eventsToDelete = events.filter((event) => {
         const eventStart = new Date(event.start);
         return eventStart >= start && eventStart < end;
       });
-
+    
       try {
         setLoading(true);
+    
         for (const event of eventsToDelete) {
+          if (event.isShared && event.createdBy !== userId) {
+            showCustomAlert(`Cannot delete shared event: ${event.title}`, 'info');
+            continue;
+          }
           await api.delete(`/api/calendar/${userId}/events/${event.id}`);
         }
+    
         await fetchEvents();
         toast.success(
           `Deleted all events in the current ${viewNames[currentView]} view!`,
-          { className: 'frosted-toast-cal' }
+          { className: 'frosted-toast-cal',
+          autoClose: 500,
+          }
         );
       } catch (error) {
         console.log(
@@ -431,7 +423,7 @@ const Calendar = forwardRef(
         setLoading(false);
       }
     };
-
+    
     const renderEventContent = (eventInfo) => {
       const handleEventClickWithLoader = async (event) => {
         setLoading(true);
@@ -854,10 +846,18 @@ const Calendar = forwardRef(
                 {selectedEvent ? 'Save' : 'Add'}
               </button>
               {selectedEvent && (
-                <button onClick={handleDeleteEvent}>Delete</button>
+                <button
+                  onClick={handleDeleteEvent}
+                  data-tooltip-id="deleteDisabledTooltip" 
+                  data-tooltip-content="Only inviter can delete" 
+                >
+                  Delete
+                </button>
               )}
               <button onClick={() => setModalVisible(false)}>Cancel</button>
 
+              <Tooltip id="deleteDisabledTooltip" place="top" />
+              
               {/* ShareEventWithFriends Component */}
               <ShareEventWithFriends
                 eventId={selectedEvent ? selectedEvent.id : null}
