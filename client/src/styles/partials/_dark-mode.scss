@@ -53,23 +53,27 @@
       background: $primary-darker-blue-gradient;
 
       &__search-section {
-        background: #7a8ee6;
+        background: $container-purple;
+      }
+
+      &__search {
+        background: $container-light-purple;
       }
 
       &__pending-section {
-        background: rgb(254, 119, 141);
+        background: $container-pink;
       }
 
       &__list {
-        background: rgb(29, 173, 221);
+        background: $container-teal;
       }
 
       &__pending-calendar {
-        background: rgb(253, 198, 56);
+        background: $container-yellow;
       }
 
       &__shared-calendar {
-        background: rgb(0, 173, 141);
+        background: $container-green;
       }
 
       &__copy {
