@@ -4,7 +4,7 @@ import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import { Tooltip } from 'react-tooltip';
-import { faChevronLeft, faChevronRight, faPlay, faTimes, faSearch, faTv, faFilm, faCalendarPlus, faThumbsUp, faThumbsDown, faShareAlt, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faRobot, faChevronRight, faPlay, faTimes, faSearch, faTv, faFilm, faCalendarPlus, faThumbsUp, faThumbsDown, faShareAlt, faUser, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
 import Calendar from '../CalendarPage/sections/Calendar';
 import api from '../../services/api';
@@ -28,6 +28,7 @@ const NextStreamGpt = () => {
   const [showLeftArrowResults, setShowLeftArrowResults] = useState(false);
   const [showRightArrowResults, setShowRightArrowResults] = useState(false);
   const [alert, setAlert] = useState({ message: '', type: '', visible: false });
+  const [messages, setMessages] = useState([]);
   const [likedStatus, setLikedStatus] = useState({});
   const calendarRef = useRef(null);
   const navigate = useNavigate();
@@ -148,6 +149,50 @@ const NextStreamGpt = () => {
     }
   }, [searchQuery, isAuthenticated]);
 
+  const handleSendMessage = async () => {
+    if (searchQuery.trim() && isAuthenticated) {
+      setIsLoading(true);
+      setMessages((prevMessages) => [...prevMessages, { sender: 'user', text: searchQuery }]);  // Append user's message to chat
+  
+      try {
+        const response = await api.get('/api/tmdb/search', {
+          params: { query: searchQuery },
+        });
+  
+        const filteredResults = await Promise.all(
+          response.data.results
+            .filter(result => result.media_type === 'movie' || result.media_type === 'tv' || result.media_type === 'person')
+            .map(async result => {
+              if (result.media_type === 'person') {
+                const knownFor = result.known_for.map(item => ({
+                  id: item.id,
+                  title: item.title || item.name,
+                  poster_path: item.poster_path ? `https://image.tmdb.org/t/p/w500${item.poster_path}` : DefaultPoster,
+                  media_type: item.media_type,
+                }));
+                return { ...result, knownFor };
+              } else {
+                const castResponse = await api.get(`/api/tmdb/${result.media_type}/${result.id}/credits`);
+                return { ...result, cast: castResponse.data.cast.slice(0, 5) };
+              }
+            })
+        );
+  
+        setResults(filteredResults);  // Save the results
+        setMessages((prevMessages) => [
+          ...prevMessages,
+          { sender: 'bot', text: 'Here are some recommendations!', results: filteredResults },  // Append GPT response to chat
+        ]);
+      } catch (error) {
+        showAlert('Could not fetch search results. Please try again later.', 'error');
+      } finally {
+        setIsLoading(false);
+      }
+  
+      setSearchQuery('');  // Clear the input field after sending
+    }
+  };  
+
   useEffect(() => {
     if (query && isAuthenticated) {
       setSearchQuery(query);
@@ -161,11 +206,6 @@ const NextStreamGpt = () => {
 
   const scrollRight = (scrollRef) => {
     scrollRef.current.scrollBy({ left: 300, behavior: 'smooth' });
-  };
-
-  const clearSearch = () => {
-    setSearchQuery('');
-    setResults([]);
   };
 
   const closeModal = () => {
@@ -260,6 +300,21 @@ const NextStreamGpt = () => {
     }
   };
 
+    // Define renderMessages function here
+    const renderMessages = () => {
+        return messages.map((message, index) => (
+          <div key={index} className={`nextstream-gpt__chat-bubble nextstream-gpt__chat-bubble--${message.sender}`}>
+            <p>{message.text}</p>
+            {message.sender === 'bot' && message.results && (
+              <button className="nextstream-gpt__gpt-button" onClick={() => navigate(`/nextsearch/${userId}`)}>
+                <FontAwesomeIcon icon={faRobot} className="nextstream-gpt__gpt-icon" />
+                <span>Display GPT Results</span>
+              </button>
+            )}
+          </div>
+        ));
+      };
+
   return (
     <div className="nextstream-gpt">
       {isLoading && (
@@ -267,7 +322,7 @@ const NextStreamGpt = () => {
           <Loader />
         </div>
       )}
-
+  
       {alert.visible && (
         <div className="nextstream-gpt__alert-wrapper">
           <CustomAlerts
@@ -277,50 +332,69 @@ const NextStreamGpt = () => {
           />
         </div>
       )}
-
-    <div className="nextstream-gpt__title">
-        <h1 className='nextstream-gpt__header-text'>
+  
+      <div className="nextstream-gpt__title">
+        <h1 className="nextstream-gpt__header-text">
           NextStream GPT:<br /> Your Personal Entertainment Assistant
         </h1>
         <p className="nextstream-gpt__copy">
           <span className="nextstream-gpt__gradient-subtitle">NextStream GPT</span> combines AI-powered search with real-time streaming data, helping you find the perfect movies and shows based on your preferences. Ask questions, get tailored recommendations, and discover trending content all in one place!
         </p>
-    </div>
+      </div>
 
-     {/* Ask GPT Button */}
+      {/* Ask GPT Button */}
      <div className="nextstream-gpt__gpt-container">
         <button className="nextstream-gpt__gpt-button" onClick={handleGptSearch}>
           <FontAwesomeIcon icon={faSearch} className="nextstream-gpt__gpt-icon" />
           <p className='nextstream-gpt__gpt-txt'>Switch to Classic Search</p>
         </button>
       </div>
+  
+<div className="nextstream-gpt__chat-block">
 
-      <div className="nextstream-gpt__input-container">
-        <FontAwesomeIcon 
-          icon={faSearch}
-          className="nextstream-gpt__search-icon"
-          onClick={handleSearch} 
-          data-tooltip-id="searchTooltip"
-          data-tooltip-content="Search" 
-        />
-        <input
-          type="text"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-          placeholder="Search for movies, shows, or actors..."
-          className="nextstream-gpt__input"
-          disabled={!isAuthenticated}
-        />
-        <FontAwesomeIcon
-          icon={faTimes}
-          className="nextstream-gpt__close-icon"
-          onClick={clearSearch}
-          data-tooltip-id="closeTooltip"
-          data-tooltip-content="Clear Search" 
-        />
-      </div>
 
+  {/* Chat Messages */}
+  <div className="nextstream-gpt__chat-container">
+    <div className="nextstream-gpt__messages">
+      {messages.map((message, index) => (
+        <div key={index} className={`nextstream-gpt__message nextstream-gpt__message--${message.sender}`}>
+          {message.sender === 'gpt' && (
+            <FontAwesomeIcon icon={faRobot} className="nextstream-gpt__gpt-icon-bubble" />
+          )}
+          <p>{message.text}</p>
+          {message.sender === 'gpt' && message.results && (
+            <button className="nextstream-gpt__gpt-button" onClick={() => navigate(`/nextsearch/${userId}`)}>
+              <FontAwesomeIcon icon={faRobot} className="nextstream-gpt__gpt-icon" />
+              <span>Display GPT Results</span>
+            </button>
+          )}
+        </div>
+      ))}
+    </div>
+
+    {/* Input Container */}
+    <div className="nextstream-gpt__input-container">
+      <input
+        type="text"
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
+        placeholder="Chat with NextStream GPT..."
+        className="nextstream-gpt__input"
+      />
+      <button 
+        className="nextstream-gpt__send-button" 
+        onClick={handleSendMessage} 
+        disabled={!searchQuery.trim()}
+      >
+        <FontAwesomeIcon icon={faPaperPlane} className="nextstream-gpt__gpt-icon" />
+    </button>
+    </div>
+  </div>
+</div>
+
+
+  
       {results.length > 0 && (
         <div className="nextstream-gpt__results-section">
           <div className="nextstream-gpt__carousel">
@@ -346,7 +420,7 @@ const NextStreamGpt = () => {
                     <div className="nextstream-gpt__rating-container">
                       <UserRating rating={(result.vote_average || 0) * 10} />
                     </div>
-
+  
                     {/* Play overlay only for non-person media types */}
                     {result.media_type !== 'person' && (
                       <div className="nextstream-gpt__play-overlay" onClick={() => handlePlayTrailer(result.id, result.media_type)}>
@@ -354,7 +428,7 @@ const NextStreamGpt = () => {
                       </div>
                     )}
                   </div>
-
+  
                   <div className="nextstream-gpt__icons-row">
                     {result.media_type === 'person' ? (
                       <>
@@ -387,7 +461,7 @@ const NextStreamGpt = () => {
                             data-tooltip-content="More Info"
                           />
                         </Link>
-
+  
                         <FontAwesomeIcon
                           icon={faCalendarPlus}
                           className="nextstream-gpt__cal-icon"
@@ -396,7 +470,7 @@ const NextStreamGpt = () => {
                           data-tooltip-id="calTooltip"
                           data-tooltip-content="Add to Calendar"
                         />
-
+  
                         {likedStatus[result.id] === 1 ? (
                           <FontAwesomeIcon
                             icon={faThumbsUp}
@@ -435,7 +509,7 @@ const NextStreamGpt = () => {
                             />
                           </>
                         )}
-
+  
                         <FontAwesomeIcon
                           icon={faShareAlt}
                           className="nextstream-gpt__share-icon"
@@ -447,35 +521,6 @@ const NextStreamGpt = () => {
                       </>
                     )}
                   </div>
-
-                  {result.media_type === 'movie' || result.media_type === 'tv' ? (
-                    result.cast && result.cast.length > 0 ? (
-                      <div className="nextstream-gpt__cast">
-                        <h4>Cast:</h4>
-                        <ul>
-                          {result.cast.map((actor) => (
-                            <li key={actor.id}>{actor.name}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    ) : (
-                      <div className="nextstream-gpt__cast">
-                        <h4>Cast:</h4>
-                        <p>Info Unavailable</p>
-                      </div>
-                    )
-                  ) : result.media_type === 'person' && result.knownFor ? (
-                    <div className="nextstream-gpt__known-for">
-                      <h4>Known For:</h4>
-                      <ul>
-                        {result.knownFor.map((media) => (
-                          <li key={media.id}>
-                            {media.title || media.name} ({media.media_type})
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ) : null}
                 </div>
               ))}
             </div>
@@ -483,14 +528,14 @@ const NextStreamGpt = () => {
           </div>
         </div>
       )}
-
+  
       {isLoading && (
-          <div className="nextstream-gpt__loading-container">
-            <img src={ReelSVG} alt="Loading..." className="nextstream-gpt__loading-svg" />
-            <p className="nextstream-gpt__text--center">Media is currently loading...</p>
-          </div>
-        )}
-
+        <div className="nextstream-gpt__loading-container">
+          <img src={ReelSVG} alt="Loading..." className="nextstream-gpt__loading-svg" />
+          <p className="nextstream-gpt__text--center">Media is currently loading...</p>
+        </div>
+      )}
+  
       {isModalOpen && (
         <div className="nextstream-gpt__modal">
           <div className="nextstream-gpt__modal-content">
@@ -508,7 +553,7 @@ const NextStreamGpt = () => {
           </div>
         </div>
       )}
-
+  
       {showCalendar && (
         <div className="nextstream-gpt__calendar-modal">
           <button className="nextstream-gpt__calendar-close-btn" onClick={handleCloseCalendar}>
@@ -525,28 +570,30 @@ const NextStreamGpt = () => {
           />
         </div>
       )}
-        {/* Tooltip components */}
-        <Tooltip id="personTooltip" place="top" />
-        <Tooltip id="trendingTvTooltip" place="top" />
-        <Tooltip id="trendingMoviesTooltip" place="top" />
-        <Tooltip id="trendingAllTooltip" place="top" />
-        <Tooltip id="tvPopularTooltip" place="top" />
-        <Tooltip id="tvTopTooltip" place="top" />
-        <Tooltip id="tvOnAirTooltip" place="top" />
-        <Tooltip id="tvAirsTodayTooltip" place="top" />
-        <Tooltip id="movieNowPlayingTooltip" place="top" />
-        <Tooltip id="moviePopularTooltip" place="top" />
-        <Tooltip id="movieTopRatedTooltip" place="top" />
-        <Tooltip id="movieUpcomingReleasesTooltip" place="top" />
-        <Tooltip id="searchTooltip" place="top" />
-        <Tooltip id="closeTooltip" place="top" />
-        <Tooltip id="mediaTooltip" place="top" />
-        <Tooltip id="calTooltip" place="top" />
-        <Tooltip id="likeTooltip" place="top" />
-        <Tooltip id="dislikeTooltip" place="top" />
-        <Tooltip id="shareIconTooltip" place="top" />
+  
+      {/* Tooltip components */}
+      <Tooltip id="personTooltip" place="top" />
+      <Tooltip id="trendingTvTooltip" place="top" />
+      <Tooltip id="trendingMoviesTooltip" place="top" />
+      <Tooltip id="trendingAllTooltip" place="top" />
+      <Tooltip id="tvPopularTooltip" place="top" />
+      <Tooltip id="tvTopTooltip" place="top" />
+      <Tooltip id="tvOnAirTooltip" place="top" />
+      <Tooltip id="tvAirsTodayTooltip" place="top" />
+      <Tooltip id="movieNowPlayingTooltip" place="top" />
+      <Tooltip id="moviePopularTooltip" place="top" />
+      <Tooltip id="movieTopRatedTooltip" place="top" />
+      <Tooltip id="movieUpcomingReleasesTooltip" place="top" />
+      <Tooltip id="searchTooltip" place="top" />
+      <Tooltip id="closeTooltip" place="top" />
+      <Tooltip id="mediaTooltip" place="top" />
+      <Tooltip id="calTooltip" place="top" />
+      <Tooltip id="likeTooltip" place="top" />
+      <Tooltip id="dislikeTooltip" place="top" />
+      <Tooltip id="shareIconTooltip" place="top" />
     </div>
   );
+  
 };
 
 export default NextStreamGpt;
