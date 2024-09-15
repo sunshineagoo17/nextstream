@@ -106,8 +106,8 @@ const scheduleJobs = () => {
   // Schedule the fetching task every hour
   cron.schedule('0 * * * *', fetchPopularReleases);
 
-  // Schedule the recommendation notifications to run daily at 10 AM Eastern Time (EDT)
-  cron.schedule('0 10 * * *', async () => {
+  // Schedule the recommendation notifications to run daily at 9:00 AM Eastern Time (EDT)
+  cron.schedule('0 9 * * *', async () => {
     console.log('Running daily recommendation notifications at', moment().tz('America/Toronto').format());
     try {
       const users = await knex('users').where({ receiveNotifications: 1 }).select('id');
@@ -120,8 +120,8 @@ const scheduleJobs = () => {
     }
   });
 
-  // Schedule the event reminders to run daily at 9 AM Eastern Time (EDT)
-  cron.schedule('0 9 * * *', async () => {
+  // Schedule the event reminders to run daily at 8 AM Eastern Time (EDT)
+  cron.schedule('0 8 * * *', async () => {
     console.log('Running daily event reminders at', moment().tz('America/Toronto').format());
     try {
       const users = await knex('users').where({ receiveReminders: 1 }).select('id', 'email');

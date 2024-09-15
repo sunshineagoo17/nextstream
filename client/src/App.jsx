@@ -30,6 +30,7 @@ import TopPicksPage from './pages/TopPicksPage/TopPicksPage';
 import StreamBoard from './pages/StreamBoard/StreamBoard';
 import QuickstartGuide from './components/QuickStartGuide/QuickStartGuide'; 
 import FriendsPage from './pages/FriendsPage/FriendsPage';
+import UnsubscribePage from './pages/UnsubscribePage/UnsubscribePage';
 import './styles/global.scss';
 
 // Firebase 
@@ -148,6 +149,7 @@ const App = () => {
         <Route path="/search" element={isAuthenticated ? <AuthSearchResultsPage openModal={openCalendarModal} userId={userId} /> : <SearchResultsPage />} />
         <Route path="/nextsearch/:userId" element={isAuthenticated ? <NextSearch userId={userId} /> : <Navigate to="/login-required" />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
+        <Route path="/unsubscribe" element={<UnsubscribePage />} />
         <Route path="/login-required" element={<LoginRequired />} />
         <Route path="/nextview/:userId/:mediaType/:mediaId" element={isAuthenticated ? <NextViewPage /> : <Navigate to="/login-required" />} />
         <Route path="/top-picks/:userId" element={isGuest || isAuthenticated ? <TopPicksPage /> : <Navigate to="/login-required" />} />

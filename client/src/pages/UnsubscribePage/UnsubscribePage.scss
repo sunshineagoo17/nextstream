@@ -1,0 +1,150 @@
+@use "../../styles/partials/colors" as *;
+@use "../../styles/partials/fonts" as *;
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/global.scss" as *;
+
+.unsubscribe-page {
+  position: relative;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__container {
+    position: relative;
+    z-index: 1;
+    max-width: 50rem;
+    width: 100%;
+  }
+
+  &__intro {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: $primary-medium-blue;
+  }
+
+  &__text {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    color: $primary-dark-blue;
+  }
+
+  &__content-card {
+    @include bg-white;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: $shadow-primary;
+  }
+
+  &__title {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    line-height: 2.5rem;
+    color: $primary-dark-blue;
+    text-align: center;
+    text-shadow: $shadow-primary;
+  }
+
+  &__button {
+    @include block-item(11.5rem, 2.75rem);
+    padding: .5rem 1.075rem;
+    border: none;
+    border-radius: .5rem;
+    cursor: pointer;
+    transition: transform .3s ease-in-out;
+    background: $button-dark-gradient;
+    color: $neutral-white;
+    box-shadow: $shadow-primary;
+    overflow: hidden;
+    font-size: .85rem;
+    font-family: $primary-font;
+    position: relative;
+
+    &:hover {
+      background: $primary-dark-blue;
+      color: $neutral-white;
+      border: .125rem solid $primary-pale-blue;
+      transform: scale(1.05);
+    }
+
+    &::before {
+      content: "";
+      @include block-item(200%, 100%);
+      position: absolute;
+      top: 0;
+      left: -100%;
+      background: linear-gradient(to right, transparent, rgba(255, 255, 255, .2), transparent);
+      transition: left .5s;
+    }
+
+    &:hover::before {
+      left: 100%;
+    }
+
+    &:active {
+      transform: scale(.95);
+      background-color: $primary-light-blue;
+      color: $neutral-white;
+    }
+  }
+
+  &__graphic-container {
+    text-align: center;
+    margin-top: 2rem;
+    width: 100%;
+    height: auto;
+    display: inline-block;
+  }
+
+  &__graphic {
+    cursor: pointer;
+    max-width: 100%;
+    height: auto;
+    border-radius: .5rem;
+    box-shadow: $shadow-primary;
+    transition: transform 0.5s ease-in-out;
+  
+    &:hover {
+      transform: scale(1.05);
+      box-shadow: $shadow-secondary;
+    }
+  
+    &:active {
+      transform: scale(0.9);
+    }
+  }
+
+  &__background {
+    @include block-item(100%, 8.4375rem);
+    position: absolute;
+    bottom: -2.1875rem;
+    left: 0;
+    overflow: hidden;
+    z-index: 0;
+
+    @include small-mobile {
+      bottom: -.3125rem;
+      height: 8.4375rem;
+    }
+
+    @include large-mobile {
+      bottom: 0rem;
+      height: 9.375rem;
+    }
+
+    @include tablet {
+      bottom: 0rem;
+      height: 12.5rem;
+    }
+
+    @include desktop {
+      bottom: 0rem;
+      height: 15.625rem;
+    }
+
+    @include large-desktop {
+      bottom: 0rem;
+      height: 17.5rem;
+    }
+  }
+}

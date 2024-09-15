@@ -29,30 +29,43 @@ export const ResetPasswordPage = () => {
     setIsLoading(false);
   }, []);
 
+  // Mouse move animation
   useEffect(() => {
-    const graphic = graphicRef.current;
+    const graphicContainer = document.querySelector('.reset-password__graphic-container');
     
-    // Check if the graphic element is available before adding event listeners
-    if (graphic) {
-      const handleMouseMove = (e) => {
-        const rect = graphic.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
+    if (graphicContainer) { 
+        const handleMouseMove = (e) => {
+            const graphic = graphicRef.current;
+            if (graphic) {
+                const rect = graphic.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
 
-        const rotateX = (y / rect.height - 0.5) * 30;
-        const rotateY = (x / rect.width - 0.5) * -30;
+                const rotateX = (y / rect.height - 0.5) * 30;
+                const rotateY = (x / rect.width - 0.5) * -30;
 
-        graphic.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-        graphic.style.boxShadow = `${-rotateY}px ${rotateX}px 20px rgba(0, 0, 0, 0.2)`;
-      };
+                graphic.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                graphic.style.boxShadow = `${-rotateY}px ${rotateX}px 20px rgba(0, 0, 0, 0.2)`;
+            }
+        };
 
-      graphic.addEventListener('mousemove', handleMouseMove);
+        graphicContainer.addEventListener('mousemove', handleMouseMove);
 
-      return () => {
-        graphic.removeEventListener('mousemove', handleMouseMove);
-      };
+        return () => {
+            graphicContainer.removeEventListener('mousemove', handleMouseMove);
+        };
     }
-  }, []);
+}, []);
+
+const handleClick = () => {
+    const graphic = graphicRef.current;
+    if (graphic) {
+        graphic.style.transform = 'scale(0.9)'; 
+        setTimeout(() => {
+            navigate('/');
+        }, 150);  
+    }
+};
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -176,7 +189,7 @@ export const ResetPasswordPage = () => {
                 )}
                 <button type="submit" className="reset-password__button">Reset Password</button>
               </form>
-              <div className="reset-password__graphic-container">
+              <div className="reset-password__graphic-container" onClick={handleClick}>
                 <img 
                   src={ResetPasswordImg} 
                   alt="reset password graphic" 

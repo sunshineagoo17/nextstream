@@ -35,6 +35,7 @@ const eventDownloadRoutes = require('./src/routes/eventDownloadRoutes');
 const friendsRoutes = require('./src/routes/friendsRoutes');
 const friendsMsgsRoutes = require('./src/routes/friendsMsgsRoutes');
 const userRoutes = require('./src/routes/userRoutes');
+const unsubscribeRoutes = require('./src/routes/unsubscribeRoutes');
 
 const authenticate = require('./src/middleware/authenticate');
 const guestAuthenticate = require('./src/middleware/guestAuthenticate');
@@ -208,6 +209,7 @@ cronJobs.scheduleJobs();
 app.use('/api/email', emailRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/password-reset', passwordResetRoutes);
+app.use('/api/unsubscribe', unsubscribeRoutes);
 app.use('/api/profile', profileRoutes);
 app.use('/api/tmdb', tmdbRoutes);
 app.use('/api/external-cal', eventDownloadRoutes);
