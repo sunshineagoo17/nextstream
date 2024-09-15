@@ -300,21 +300,6 @@ const NextStreamGpt = () => {
     }
   };
 
-    // Define renderMessages function here
-    const renderMessages = () => {
-        return messages.map((message, index) => (
-          <div key={index} className={`nextstream-gpt__chat-bubble nextstream-gpt__chat-bubble--${message.sender}`}>
-            <p>{message.text}</p>
-            {message.sender === 'bot' && message.results && (
-              <button className="nextstream-gpt__gpt-button" onClick={() => navigate(`/nextsearch/${userId}`)}>
-                <FontAwesomeIcon icon={faRobot} className="nextstream-gpt__gpt-icon" />
-                <span>Display GPT Results</span>
-              </button>
-            )}
-          </div>
-        ));
-      };
-
   return (
     <div className="nextstream-gpt">
       {isLoading && (
