@@ -4,7 +4,7 @@ import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import { Tooltip } from 'react-tooltip';
-import { faChevronLeft, faRobot, faChevronRight, faPlay, faTimes, faSearch, faTv, faFilm, faCalendarPlus, faThumbsUp, faThumbsDown, faShareAlt, faUser, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faRobot, faChevronRight, faPlay, faTimes, faSearch, faComment, faTv, faFilm, faCalendarPlus, faThumbsUp, faThumbsDown, faShareAlt, faUser, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
 import Calendar from '../CalendarPage/sections/Calendar';
 import api from '../../services/api';
@@ -31,21 +31,27 @@ const NextStreamGpt = () => {
   const [messages, setMessages] = useState([]);
   const [likedStatus, setLikedStatus] = useState({});
   const calendarRef = useRef(null);
+  const [isTyping, setIsTyping] = useState(false);
+  const [isBotTyping, setIsBotTyping] = useState(false);
+  const messagesEndRef = useRef(null);
   const navigate = useNavigate();
+
 
   const location = useLocation();
   const searchScrollRef = useRef(null);
 
   const query = new URLSearchParams(location.search).get('q');
 
-  // Handler for the GPT button
-  const handleGptSearch = () => {
-    navigate(`/nextsearch/${userId}`);
-  };
-
   const showAlert = (message, type) => {
     setAlert({ message, type, visible: true });
   };
+
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [messages]);
+  
 
   const checkForOverflow = (scrollRef, setShowLeft, setShowRight) => {
     if (!scrollRef || !scrollRef.current) {
@@ -184,6 +190,9 @@ const NextStreamGpt = () => {
   const handleSendMessage = async () => {
     if (searchQuery.trim() && isAuthenticated) {
       setIsLoading(true);
+      setIsTyping(true); 
+      setIsBotTyping(true);
+
       setMessages((prevMessages) => [
         ...prevMessages,
         { sender: 'user', text: searchQuery },
@@ -238,6 +247,8 @@ const NextStreamGpt = () => {
         );
       } finally {
         setIsLoading(false);
+        setIsTyping(false);
+        setIsBotTyping(false);
       }
 
       setSearchQuery(''); 
@@ -376,11 +387,7 @@ const NextStreamGpt = () => {
 
       {alert.visible && (
         <div className='nextstream-gpt__alert-wrapper'>
-          <CustomAlerts
-            message={alert.message}
-            type={alert.type}
-            onClose={() => setAlert({ ...alert, visible: false })}
-          />
+          <CustomAlerts message={alert.message} type={alert.type} onClose={() => setAlert({ ...alert, visible: false })} />
         </div>
       )}
 
@@ -400,86 +407,86 @@ const NextStreamGpt = () => {
         </p>
       </div>
 
-      {/* Ask GPT Button */}
-      <div className='nextstream-gpt__gpt-container'>
-        <button
-          className='nextstream-gpt__gpt-button'
-          onClick={handleGptSearch}>
-          <FontAwesomeIcon
-            icon={faSearch}
-            className='nextstream-gpt__gpt-icon'
-          />
-          <p className='nextstream-gpt__gpt-txt'>Switch to Classic Search</p>
-        </button>
-      </div>
+      <button className='nextstream-gpt__gpt-button' onClick={() => navigate(`/nextsearch/${userId}`)}>
+        <FontAwesomeIcon icon={faSearch} className='nextstream-gpt__gpt-icon' /><span>Display Results</span>
+      </button>
 
       <div className='nextstream-gpt__chat-block'>
         <div className='nextstream-gpt__chat-container'>
           <div className='nextstream-gpt__messages'>
             {messages.map((message, index) => (
-              <div
-                key={index}
-                className={`nextstream-gpt__message nextstream-gpt__message--${message.sender}`}>
+              <div key={index} className={`nextstream-gpt__message nextstream-gpt__message--${message.sender}`}>
                 {message.sender === 'bot' && (
                   <div className='nextstream-gpt__bot-message'>
                     <p>{message.text}</p>
-                    <FontAwesomeIcon
-                      icon={faRobot}
-                      className='nextstream-gpt__gpt-icon-inline'
-                    />
+                    <FontAwesomeIcon icon={faRobot} className='nextstream-gpt__gpt-icon-inline' />
                   </div>
                 )}
                 {message.sender === 'user' && <p>{message.text}</p>}
               </div>
             ))}
+
+            {/* Typing Indicator */}
+            {isBotTyping && (
+              <div className="nextstream-gpt__message nextstream-gpt__message--bot">
+                <div className="nextstream-gpt__bot-message">
+                  <div className="nextstream-gpt__typing-indicator">
+                    <span className="nextstream-gpt__typing-indicator-bubble"></span>
+                    <span className="nextstream-gpt__typing-indicator-bubble"></span>
+                    <span className="nextstream-gpt__typing-indicator-bubble"></span>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
 
-          {/* Input Container */}
-          <div className='nextstream-gpt__input-container'>
+          <div className='nextstream-gpt__input-wrapper'>
+            <FontAwesomeIcon icon={faComment} className="nextstream-gpt__speech-icon" />
             <input
               type='text'
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+                setIsTyping(!!e.target.value.trim());
+              }}
               onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
               placeholder='Chat with NextStream GPT...'
               className='nextstream-gpt__input'
             />
+            {isTyping && (
+              <div className="nextstream-gpt__typing-indicator">
+                <span className="nextstream-gpt__typing-indicator-bubble"></span>
+                <span className="nextstream-gpt__typing-indicator-bubble"></span>
+                <span className="nextstream-gpt__typing-indicator-bubble"></span>
+              </div>
+            )}
             <button
               className='nextstream-gpt__send-button'
               onClick={handleSendMessage}
-              disabled={!searchQuery.trim()}>
-              <FontAwesomeIcon
-                icon={faPaperPlane}
-                className='nextstream-gpt__gpt-plane-icon'
-              />
+              disabled={!searchQuery.trim()}
+            >
+              <FontAwesomeIcon icon={faPaperPlane} className='nextstream-gpt__gpt-plane-icon' />
             </button>
+            {searchQuery && (
+              <FontAwesomeIcon
+                icon={faTimes}
+                className='nextstream-gpt__clear-input'
+                onClick={() => setSearchQuery('')}
+              />
+            )}
           </div>
         </div>
       </div>
-
-      <button
-        className='nextstream-gpt__gpt-button'
-        onClick={() => navigate(`/nextsearch/${userId}`)}>
-        <span>Display Results</span>
-      </button>
 
       {results.length > 0 && (
         <div className='nextstream-gpt__results-section'>
           <div className='nextstream-gpt__carousel'>
             {showLeftArrowResults && (
-              <FontAwesomeIcon
-                icon={faChevronLeft}
-                className='nextstream-gpt__nav-arrow left'
-                onClick={() => scrollLeft(searchScrollRef)}
-              />
+              <FontAwesomeIcon icon={faChevronLeft} className='nextstream-gpt__nav-arrow left' onClick={() => scrollLeft(searchScrollRef)} />
             )}
-            <div
-              className='nextstream-gpt__scroll-container-results'
-              ref={searchScrollRef}>
+            <div className='nextstream-gpt__scroll-container-results' ref={searchScrollRef}>
               {results.map((result) => (
-                <div
-                  key={result.id}
-                  className='nextstream-gpt__card nextstream-gpt__card--results'>
+                <div key={result.id} className='nextstream-gpt__card nextstream-gpt__card--results'>
                   <h3 className='nextstream-gpt__title--results'>
                     {result.title || result.name}
                   </h3>
@@ -503,15 +510,8 @@ const NextStreamGpt = () => {
 
                     {/* Play overlay only for non-person media types */}
                     {result.media_type !== 'person' && (
-                      <div
-                        className='nextstream-gpt__play-overlay'
-                        onClick={() =>
-                          handlePlayTrailer(result.id, result.media_type)
-                        }>
-                        <FontAwesomeIcon
-                          icon={faPlay}
-                          className='nextstream-gpt__play-icon'
-                        />
+                      <div className='nextstream-gpt__play-overlay' onClick={() => handlePlayTrailer(result.id, result.media_type)}>
+                        <FontAwesomeIcon icon={faPlay} className='nextstream-gpt__play-icon' />
                       </div>
                     )}
                   </div>
@@ -520,120 +520,30 @@ const NextStreamGpt = () => {
                     {result.media_type === 'person' ? (
                       <>
                         <Link to={`/spotlight/${userId}/${result.id}`}>
-                          <FontAwesomeIcon
-                            icon={faUser}
-                            className='nextstream-gpt__media-icon'
-                            title='Person Spotlight'
-                            data-tooltip-id='personTooltip'
-                            data-tooltip-content='View Spotlight'
-                          />
+                          <FontAwesomeIcon icon={faUser} className='nextstream-gpt__media-icon' title='Person Spotlight' />
                         </Link>
-                        <FontAwesomeIcon
-                          icon={faShareAlt}
-                          className='nextstream-gpt__share-icon'
-                          onClick={() =>
-                            handleShare(
-                              result.name,
-                              result.id,
-                              result.media_type
-                            )
-                          }
-                          title='Share'
-                          data-tooltip-id='shareIconTooltip'
-                          data-tooltip-content='Share'
-                        />
+                        <FontAwesomeIcon icon={faShareAlt} className='nextstream-gpt__share-icon' onClick={() => handleShare(result.name, result.id, result.media_type)} />
                       </>
                     ) : (
                       <>
-                        <Link
-                          to={`/nextview/${userId}/${result.media_type}/${result.id}`}>
-                          <FontAwesomeIcon
-                            icon={result.media_type === 'tv' ? faTv : faFilm}
-                            className='nextstream-gpt__media-icon'
-                            title={
-                              result.media_type === 'tv' ? 'TV Show' : 'Movie'
-                            }
-                            data-tooltip-id='mediaTooltip'
-                            data-tooltip-content='More Info'
-                          />
+                        <Link to={`/nextview/${userId}/${result.media_type}/${result.id}`}>
+                          <FontAwesomeIcon icon={result.media_type === 'tv' ? faTv : faFilm} className='nextstream-gpt__media-icon' title={result.media_type === 'tv' ? 'TV Show' : 'Movie'} />
                         </Link>
 
-                        <FontAwesomeIcon
-                          icon={faCalendarPlus}
-                          className='nextstream-gpt__cal-icon'
-                          onClick={() =>
-                            handleAddToCalendar(
-                              result.title,
-                              result.media_type,
-                              result.id
-                            )
-                          }
-                          title='Add to Calendar'
-                          data-tooltip-id='calTooltip'
-                          data-tooltip-content='Add to Calendar'
-                        />
+                        <FontAwesomeIcon icon={faCalendarPlus} className='nextstream-gpt__cal-icon' onClick={() => handleAddToCalendar(result.title, result.media_type, result.id)} />
 
                         {likedStatus[result.id] === 1 ? (
-                          <FontAwesomeIcon
-                            icon={faThumbsUp}
-                            className='nextstream-gpt__like-icon active'
-                            onClick={() =>
-                              handleDislike(result.id, result.media_type)
-                            }
-                            title='Liked'
-                            data-tooltip-id='likeTooltip'
-                            data-tooltip-content='Like'
-                          />
+                          <FontAwesomeIcon icon={faThumbsUp} className='nextstream-gpt__like-icon active' onClick={() => handleDislike(result.id, result.media_type)} />
                         ) : likedStatus[result.id] === 0 ? (
-                          <FontAwesomeIcon
-                            icon={faThumbsDown}
-                            className='nextstream-gpt__dislike-icon active'
-                            onClick={() =>
-                              handleLike(result.id, result.media_type)
-                            }
-                            title='Disliked'
-                            data-tooltip-id='dislikeTooltip'
-                            data-tooltip-content='Dislike'
-                          />
+                          <FontAwesomeIcon icon={faThumbsDown} className='nextstream-gpt__dislike-icon active' onClick={() => handleLike(result.id, result.media_type)} />
                         ) : (
                           <>
-                            <FontAwesomeIcon
-                              icon={faThumbsUp}
-                              className='nextstream-gpt__like-icon'
-                              onClick={() =>
-                                handleLike(result.id, result.media_type)
-                              }
-                              title='Like'
-                              data-tooltip-id='likeTooltip'
-                              data-tooltip-content='Like'
-                            />
-                            <FontAwesomeIcon
-                              icon={faThumbsDown}
-                              className='nextstream-gpt__dislike-icon'
-                              onClick={() =>
-                                handleDislike(result.id, result.media_type)
-                              }
-                              title='Dislike'
-                              data-tooltip-id='dislikeTooltip'
-                              data-tooltip-content='Dislike'
-                            />
+                            <FontAwesomeIcon icon={faThumbsUp} className='nextstream-gpt__like-icon' onClick={() => handleLike(result.id, result.media_type)} />
+                            <FontAwesomeIcon icon={faThumbsDown} className='nextstream-gpt__dislike-icon' onClick={() => handleDislike(result.id, result.media_type)} />
                           </>
                         )}
 
-                        <FontAwesomeIcon
-                          icon={faShareAlt}
-                          className='nextstream-gpt__share-icon'
-                          onClick={() =>
-                            handleShare(
-                              result.title || result.name,
-                              result.id,
-                              result.media_type
-                            )
-                          }
-                          title='Share'
-                          data-tooltip-id='shareIconTooltip'
-                          data-tooltip-content='Share'
-                        />
+                        <FontAwesomeIcon icon={faShareAlt} className='nextstream-gpt__share-icon' onClick={() => handleShare(result.title || result.name, result.id, result.media_type)} />
                       </>
                     )}
                   </div>
@@ -641,11 +551,7 @@ const NextStreamGpt = () => {
               ))}
             </div>
             {showRightArrowResults && (
-              <FontAwesomeIcon
-                icon={faChevronRight}
-                className='nextstream-gpt__nav-arrow right'
-                onClick={() => scrollRight(searchScrollRef)}
-              />
+              <FontAwesomeIcon icon={faChevronRight} className='nextstream-gpt__nav-arrow right' onClick={() => scrollRight(searchScrollRef)} />
             )}
           </div>
         </div>
@@ -653,55 +559,28 @@ const NextStreamGpt = () => {
 
       {isLoading && (
         <div className='nextstream-gpt__loading-container'>
-          <img
-            src={ReelSVG}
-            alt='Loading...'
-            className='nextstream-gpt__loading-svg'
-          />
-          <p className='nextstream-gpt__text--center'>
-            Media is currently loading...
-          </p>
+          <img src={ReelSVG} alt='Loading...' className='nextstream-gpt__loading-svg' />
+          <p className='nextstream-gpt__text--center'>Media is currently loading...</p>
         </div>
       )}
 
       {isModalOpen && (
         <div className='nextstream-gpt__modal'>
           <div className='nextstream-gpt__modal-content'>
-            <button
-              className='nextstream-gpt__modal-content-close'
-              onClick={closeModal}>
+            <button className='nextstream-gpt__modal-content-close' onClick={closeModal}>
               <FontAwesomeIcon icon={faTimes} />
             </button>
-            <iframe
-              width='560'
-              height='315'
-              src={trailerUrl}
-              title='YouTube video player'
-              allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
-              allowFullScreen></iframe>
+            <iframe width='560' height='315' src={trailerUrl} title='YouTube video player' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowFullScreen></iframe>
           </div>
         </div>
       )}
 
       {showCalendar && (
         <div className='nextstream-gpt__calendar-modal'>
-          <button
-            className='nextstream-gpt__calendar-close-btn'
-            onClick={handleCloseCalendar}>
-            <FontAwesomeIcon
-              icon={faTimes}
-              className='nextstream-gpt__cal-close-icon'
-            />
+          <button className='nextstream-gpt__calendar-close-btn' onClick={handleCloseCalendar}>
+            <FontAwesomeIcon icon={faTimes} className='nextstream-gpt__cal-close-icon' />
           </button>
-          <Calendar
-            userId={userId}
-            eventTitle={eventTitle}
-            mediaType={selectedMediaType}
-            duration={duration}
-            handleSave={handleSaveEvent}
-            onClose={handleCloseCalendar}
-            ref={calendarRef}
-          />
+          <Calendar userId={userId} eventTitle={eventTitle} mediaType={selectedMediaType} duration={duration} handleSave={handleSaveEvent} onClose={handleCloseCalendar} ref={calendarRef} />
         </div>
       )}
 

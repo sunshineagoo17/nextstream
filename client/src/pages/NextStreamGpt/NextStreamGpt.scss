@@ -126,6 +126,43 @@
     z-index: 1;
   }
 
+  &__typing-indicator {
+    position: absolute;
+    left: 70%; // Move typing indicator to the right
+    top: 20%; // Move typing indicator higher
+    transform: translateY(-50%);
+    display: inline-block;
+    height: .5rem;
+    padding: 0.5rem;
+    z-index: 2;
+}
+  
+  &__typing-indicator-bubble {
+    width: 0.25rem;
+    height: 0.25rem;
+    margin: 0 0.15rem;
+    background-color: $primary-button-blue;
+    border-radius: 50%;
+    animation: bounce 1.2s infinite;
+  }
+  
+  &__typing-indicator-bubble:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  
+  &__typing-indicator-bubble:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+  
+  @keyframes bounce {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-0.3rem);
+    }
+  }
+
   &__loader-overlay {
     @include block-item(100%, 100%);
     position: absolute;
@@ -335,39 +372,6 @@
     }
   }
 
-  &__send-button {
-    padding: .6rem 1.2rem;
-    border: none;
-    border-radius: 2.5rem;
-    background-color: $primary-button-blue;
-    color: $neutral-white;
-    font-size: 1rem;
-    margin-left: .5rem;
-    cursor: pointer;
-    transition: background-color .3s ease, transform .2s ease,
-      box-shadow .2s ease;
-
-    &:hover {
-      background-color: $primary-dark-blue;
-      transform: scale(1.15);
-      box-shadow: 0 .5rem 1rem rgba($neutral-black, .15),
-        inset 0 .5rem 1rem rgba(255, 255, 255, .1);
-    }
-
-    &:active {
-      transform: scale(.95);
-      background-color: $primary-very-light-blue;
-      border: .1875rem solid $neutral-white;
-      box-shadow: 0 .2rem .5rem rgba($neutral-black, .2),
-        inset 0 .2rem .5rem rgba(255, 255, 255, .15);
-    }
-
-    &:focus {
-      outline: none;
-      box-shadow: 0 0 .5rem rgba($primary-button-blue, .4);
-    }
-  }
-
   &__bot-message {
     display: flex;
     flex-direction: row-reverse;
@@ -503,6 +507,7 @@
     align-items: center;
     margin-bottom: 1.5rem;
     width: 100%;
+    z-index: 1;
 
     @include tablet {
       width: 80%;
@@ -517,9 +522,19 @@
     z-index: 9999;
   }
 
+  &__input-wrapper {
+    position: relative;
+    width: 100%;
+    margin-bottom: 1rem;
+    display: flex; 
+    align-items: center;
+  }
+
   &__input {
     flex-grow: 1;
-    padding: .5rem 3rem;
+    padding-left: 3.25rem; 
+    padding-right: 2.5rem;
+    height: 2.5rem;
     border-radius: 2.5rem;
     background-color: $primary-very-light-blue;
     backdrop-filter: blur(.625rem);
@@ -527,7 +542,7 @@
     border: .25rem solid rgba(255, 255, 255, .7);
     outline: none;
     color: $primary-dark-blue;
-    font-size: .65rem;
+    font-size: .85rem;
     font-family: $primary-font;
 
     &::placeholder {
@@ -539,9 +554,104 @@
       border: .25rem solid $pastel-blue;
       box-shadow: $shadow-senary;
     }
+  }
 
-    @include tablet {
-      font-size: 1rem;
+  &__send-button {
+    margin-left: .5rem;
+    padding: .6rem 1.2rem;
+    border: none;
+    border-radius: 2.5rem;
+    background-color: $primary-button-blue;
+    color: $neutral-white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color .3s ease, transform .2s ease, box-shadow .2s ease;
+
+    &:hover {
+      background-color: $primary-dark-blue;
+      transform: scale(1.15);
+      box-shadow: 0 .5rem 1rem rgba($neutral-black, .15),
+        inset 0 .5rem 1rem rgba(255, 255, 255, .1);
+    }
+
+    &:active {
+      transform: scale(.95);
+      background-color: $primary-very-light-blue;
+      box-shadow: 0 .2rem .5rem rgba($neutral-black, .2),
+        inset 0 .2rem .5rem rgba(255, 255, 255, .15);
+    }
+  }
+
+  &__typing-indicator {
+    position: absolute;
+    left: 2.25rem; 
+    top: 5%;
+    transform: translateY(-50%);
+    display: inline-block;
+    height: 1rem;
+    padding: 0.5rem;
+    z-index: 2;
+  }
+
+  &__typing-indicator-bubble {
+    display: inline-block;
+    width: 0.4rem;
+    height: 0.4rem;
+    margin: 0 0.15rem;
+    background-color: $primary-button-blue;
+    border-radius: 50%;
+    animation: bounce 1.2s infinite;
+  }
+  
+  &__typing-indicator-bubble:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  
+  &__typing-indicator-bubble:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+
+  @keyframes bounce {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-0.3rem);
+    }
+  }
+
+  &__speech-icon {
+    position: relative;
+    left: 2.5rem;
+    font-size: 2.25rem;
+    background: $neutral-white;
+    color: $primary-very-light-blue;
+    border: 1px solid $neutral-white;
+    box-shadow: $shadow-septenary;
+    border-radius: 1rem;
+    padding: .1rem;
+    z-index: 2;
+  }
+
+  &__clear-input {
+    position: absolute;
+    right: 5rem;
+    top: 30%;
+    font-size: .85rem;
+    color: $primary-dark-blue;
+    cursor: pointer;
+    z-index: 3;
+
+    transition: transform .3s ease;
+
+    &:hover {
+      color: $primary-button-blue;
+      transform: scale(1.2);
+    }
+
+    &:active {
+      color: $neutral-white;
+      transform: scale(.9);
     }
   }
 
