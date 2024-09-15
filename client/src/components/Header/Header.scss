@@ -68,11 +68,32 @@
     cursor: pointer;
     position: absolute;
     right: .2rem;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 35%;
+    transition: background-color .3s, transform .3s;
 
     &:hover {
-      color: $primary-dark-blue;
+      background: $primary-button-blue;
+      color: $neutral-white;
+      border: 1px solid $neutral-white;
+      box-shadow: $shadow-primary;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: .15rem;
+      transform: scale(1.15);
+      padding: .015rem;
+    }
+
+    &:active {
+      transform: scale(.9);
+      background: $neutral-white;
+      color: $primary-medium-blue;
+      box-shadow: $shadow-septenary;
+      border: 1px solid $frosted-glass;
+      border-radius: .5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }
 
