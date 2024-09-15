@@ -338,47 +338,50 @@ const NextStreamGpt = () => {
 <div className="nextstream-gpt__chat-block">
 
 
-  {/* Chat Messages */}
-  <div className="nextstream-gpt__chat-container">
-    <div className="nextstream-gpt__messages">
-      {messages.map((message, index) => (
-        <div key={index} className={`nextstream-gpt__message nextstream-gpt__message--${message.sender}`}>
-          {message.sender === 'gpt' && (
-            <FontAwesomeIcon icon={faRobot} className="nextstream-gpt__gpt-icon-bubble" />
-          )}
-          <p>{message.text}</p>
-          {message.sender === 'gpt' && message.results && (
-            <button className="nextstream-gpt__gpt-button" onClick={() => navigate(`/nextsearch/${userId}`)}>
-              <FontAwesomeIcon icon={faRobot} className="nextstream-gpt__gpt-icon" />
-              <span>Display GPT Results</span>
-            </button>
-          )}
-        </div>
-      ))}
-    </div>
-
-    {/* Input Container */}
-    <div className="nextstream-gpt__input-container">
-      <input
-        type="text"
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-        onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
-        placeholder="Chat with NextStream GPT..."
-        className="nextstream-gpt__input"
-      />
-      <button 
-        className="nextstream-gpt__send-button" 
-        onClick={handleSendMessage} 
-        disabled={!searchQuery.trim()}
+<div className="nextstream-gpt__chat-container">
+  <div className="nextstream-gpt__messages">
+    {messages.map((message, index) => (
+      <div 
+        key={index} 
+        className={`nextstream-gpt__message nextstream-gpt__message--${message.sender}`}
       >
-        <FontAwesomeIcon icon={faPaperPlane} className="nextstream-gpt__gpt-icon" />
+        {message.sender === 'bot' && (
+          <div className="nextstream-gpt__bot-message">
+            <p>{message.text}</p>
+            <FontAwesomeIcon icon={faRobot} className="nextstream-gpt__gpt-icon-inline" />
+          </div>
+        )}
+        {message.sender === 'user' && (
+          <p>{message.text}</p>
+        )}
+      </div>
+    ))}
+  </div>
+
+  {/* Input Container */}
+  <div className="nextstream-gpt__input-container">
+    <input
+      type="text"
+      value={searchQuery}
+      onChange={(e) => setSearchQuery(e.target.value)}
+      onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
+      placeholder="Chat with NextStream GPT..."
+      className="nextstream-gpt__input"
+    />
+    <button 
+      className="nextstream-gpt__send-button" 
+      onClick={handleSendMessage} 
+      disabled={!searchQuery.trim()}
+    >
+      <FontAwesomeIcon icon={faPaperPlane} className="nextstream-gpt__gpt-plane-icon" />
     </button>
-    </div>
   </div>
 </div>
+</div>
 
-
+<button className="nextstream-gpt__gpt-button" onClick={() => navigate(`/nextsearch/${userId}`)}>
+            <span>Display Results</span>
+          </button>
   
       {results.length > 0 && (
         <div className="nextstream-gpt__results-section">
