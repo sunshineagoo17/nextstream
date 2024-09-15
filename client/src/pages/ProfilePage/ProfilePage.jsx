@@ -83,6 +83,13 @@ export const ProfilePage = () => {
     setErrors({});
   };
 
+  const truncateEmail = (email, maxLength = 20) => {
+    if (email.length > maxLength) {
+      return `${email.substring(0, maxLength)}...`;
+    }
+    return email;
+  };  
+
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
@@ -315,9 +322,13 @@ export const ProfilePage = () => {
                       id="input-email"
                       placeholder="Enter your email address"
                       type="email"
-                      value={user.email || ''}
+                      value={truncateEmail(user.email || '')}
                       ref={emailRef}
-                      onChange={(e) => { setUser({ ...user, email: e.target.value }); clearSaveMessage(); clearErrors(); }}
+                      onChange={(e) => { 
+                        setUser({ ...user, email: e.target.value }); 
+                        clearSaveMessage(); 
+                        clearErrors(); 
+                      }}
                     />
                     <label className="profile__label" htmlFor="input-email">
                       Email Address
