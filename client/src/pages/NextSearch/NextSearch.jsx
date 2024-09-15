@@ -1,10 +1,10 @@
 import { useState, useEffect, useCallback, useContext, useRef } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import { Tooltip } from 'react-tooltip';
-import { faChevronLeft, faChevronRight, faPlay, faTimes, faSearch, faTv, faFilm, faCalendarPlus, faThumbsUp, faThumbsDown, faShareAlt, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faRobot, faChevronLeft, faChevronRight, faPlay, faTimes, faSearch, faTv, faFilm, faCalendarPlus, faThumbsUp, faThumbsDown, faShareAlt, faUser } from '@fortawesome/free-solid-svg-icons';
 import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
 import Calendar from '../CalendarPage/sections/Calendar';
 import api from '../../services/api';
@@ -36,12 +36,18 @@ const NextSearch = () => {
   const [alert, setAlert] = useState({ message: '', type: '', visible: false });
   const [likedStatus, setLikedStatus] = useState({});
   const calendarRef = useRef(null);
+  const navigate = useNavigate();
 
   const location = useLocation();
   const searchScrollRef = useRef(null);
   const popularScrollRef = useRef(null);
 
   const query = new URLSearchParams(location.search).get('q');
+
+  // Handler for the GPT button
+  const handleGptSearch = () => {
+    navigate(`/nextstream-gpt/${userId}`);
+  };
 
   const showAlert = (message, type) => {
     setAlert({ message, type, visible: true });
@@ -380,6 +386,14 @@ const NextSearch = () => {
             With <span className="next-search__gradient-subtitle">NextSearch</span>, explore popular movies and TV shows or search for specific titles, actors, and genres. Get extended search results tailored to your input and see what's trending now.
         </p>
     </div>
+
+     {/* Ask GPT Button */}
+     <div className="next-search__gpt-container">
+        <button className="next-search__gpt-button" onClick={handleGptSearch}>
+          <FontAwesomeIcon icon={faRobot} className="next-search__gpt-icon" />
+          <p className='next-search__gpt-txt'>Ask GPT</p>
+        </button>
+      </div>
 
       <div className="next-search__input-container">
         <FontAwesomeIcon 
