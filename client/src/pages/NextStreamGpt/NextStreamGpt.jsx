@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { Tooltip } from 'react-tooltip';
 import { faChevronLeft, faRobot, faChevronRight, faPlay, faTimes, faSearch, faComment, faTv, faFilm, faCalendarPlus, faThumbsUp, faThumbsDown, faShareAlt, faUser, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
+import ChatbotSvg from "../../assets/images/chat-bot.svg";
 import Calendar from '../CalendarPage/sections/Calendar';
 import api from '../../services/api';
 import Loader from '../../components/Loader/Loader';
@@ -408,12 +409,22 @@ const NextStreamGpt = () => {
       </div>
 
       <button className='nextstream-gpt__gpt-button' onClick={() => navigate(`/nextsearch/${userId}`)}>
-        <FontAwesomeIcon icon={faSearch} className='nextstream-gpt__gpt-icon' /><span>Display Results</span>
+        <FontAwesomeIcon icon={faSearch} className='nextstream-gpt__gpt-icon' /><span>Classic Search</span>
       </button>
 
       <div className='nextstream-gpt__chat-block'>
         <div className='nextstream-gpt__chat-container'>
           <div className='nextstream-gpt__messages'>
+             {/* Display chatbot SVG when no messages are present */}
+             {messages.length === 0 && (
+              <div className="nextstream-gpt__empty-chat">
+                <img src={ChatbotSvg} alt="Chatbot" className="nextstream-gpt__chatbot-svg" />
+                <p className='nextstream-gpt__empty-message'>
+                    Say hello to NextStream GPT to discover your next favourite stream.
+                </p>
+              </div>
+            )}
+
             {messages.map((message, index) => (
               <div key={index} className={`nextstream-gpt__message nextstream-gpt__message--${message.sender}`}>
                 {message.sender === 'bot' && (
@@ -422,7 +433,12 @@ const NextStreamGpt = () => {
                     <FontAwesomeIcon icon={faRobot} className='nextstream-gpt__gpt-icon-inline' />
                   </div>
                 )}
-                {message.sender === 'user' && <p>{message.text}</p>}
+                {message.sender === 'user' && (
+                    <div className='nextstream-gpt__user-message'>
+                        <p>{message.text}</p>
+                        <FontAwesomeIcon icon={faUser} className='nextstream-gpt__user-icon-inline' />
+                    </div>
+                )}
               </div>
             ))}
 
