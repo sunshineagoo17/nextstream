@@ -473,7 +473,7 @@
     max-width: 100%;
 
     &--user {
-      background-color: $primary-button-blue;
+      background-color: $feedback-error-peach;
       color: $neutral-white;
       text-align: right;
       justify-content: flex-end;
@@ -481,7 +481,7 @@
       text-shadow: $shadow-primary;
       border-radius: 2.5rem 2.5rem 0 2.5rem;
       line-height: 1.25rem;
-      border: .125rem solid $primary-very-light-blue;
+      border: .125rem solid $feedback-error-very-light-peach;
     }
 
     &--bot {
@@ -537,8 +537,8 @@
     box-shadow: $shadow-primary;
     padding: .25rem;
     border-radius: 1.5rem;
-    background: $primary-button-dark-blue;
-    color: $primary-very-light-blue;
+    background: $feedback-dark-pink;
+    color: $feedback-error-very-light-peach;
   }
 
   &__copy {
