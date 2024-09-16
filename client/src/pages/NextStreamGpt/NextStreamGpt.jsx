@@ -4,7 +4,7 @@ import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import { Tooltip } from 'react-tooltip';
-import { faChevronLeft, faRobot, faChevronRight, faPlay, faTimes, faSearch, faComment, faTv, faFilm, faCalendarPlus, faThumbsUp, faThumbsDown, faShareAlt, faUser, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faBroom, faRobot, faChevronRight, faPlay, faTimes, faSearch, faComment, faTv, faFilm, faCalendarPlus, faThumbsUp, faThumbsDown, faShareAlt, faUser, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
 import ChatbotSvg from "../../assets/images/chat-bot.svg";
 import Calendar from '../CalendarPage/sections/Calendar';
@@ -45,6 +45,13 @@ const NextStreamGpt = () => {
 
   const showAlert = (message, type) => {
     setAlert({ message, type, visible: true });
+  };
+
+  const handleClearChat = () => {
+    setMessages([]); 
+    setResults([]); 
+    setSearchQuery('');
+    setIsTyping(false); 
   };
 
   useEffect(() => {
@@ -250,6 +257,7 @@ const NextStreamGpt = () => {
         setIsLoading(false);
         setIsTyping(false);
         setIsBotTyping(false);
+        setSearchQuery("");
       }
 
       setSearchQuery(''); 
@@ -487,10 +495,20 @@ const NextStreamGpt = () => {
               <FontAwesomeIcon
                 icon={faTimes}
                 className='nextstream-gpt__clear-input'
-                onClick={() => setSearchQuery('')}
+                onClick={() => {
+                    setSearchQuery('');
+                    setIsTyping(false);
+                }}
               />
             )}
           </div>
+           {/* Clear Chat Button */}
+           {messages.length > 0 && (
+            <button className='nextstream-gpt__clear-chat-button' onClick={handleClearChat}>
+                <FontAwesomeIcon icon={faBroom} className='nextstream-gpt__clear-chat-icon' />
+                <p className="nextstream-gpt__clear-chat-text">Clear Chat</p>
+            </button>
+           )}
         </div>
       </div>
 

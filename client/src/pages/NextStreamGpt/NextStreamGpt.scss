@@ -269,7 +269,7 @@
   }
 
   &__gpt-icon {
-    font-size: 1.5rem;
+    font-size: 1rem;
     z-index: 1;
     animation: tilt-head 3.5s infinite ease-in-out;
   }
@@ -336,6 +336,133 @@
   &__user-message {
     display: flex;
     flex-direction: row;
+  }
+
+  &__clear-chat-button {
+    background: linear-gradient(
+      135deg,
+      $primary-very-light-blue,
+      $primary-light-blue
+    );
+    border: none;
+    border-radius: .5rem;
+    padding: .5rem 1rem;
+    color: $neutral-white;
+    font-family: $primary-font;
+    font-size: 1rem;
+    cursor: grab;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    position: relative;
+    overflow: hidden;
+    transition: all .4s ease;
+    box-shadow: 0 0 1rem rgba($primary-light-blue, .4),
+      inset 0 0 .5rem rgba($primary-medium-blue, .8);
+    animation: pulse 2.5s infinite;
+  
+    &:hover .nextstream-gpt__clear-chat-text,
+    &:hover .nextstream-gpt__clear-chat-icon {
+      animation: slide-out 1s forwards ease-out; 
+      color: $primary-very-light-blue;
+    }
+  
+    &:active .nextstream-gpt__clear-chat-text,
+    &:active .nextstream-gpt__clear-chat-icon {
+      animation: disappear 0.5s forwards ease-in-out; 
+      color: $neutral-white;
+    }
+  
+    &:hover {
+      border-radius: 2.5rem;
+      background: linear-gradient(
+        135deg,
+        $primary-dark-blue,
+        $primary-medium-blue
+      );
+      transform: translateY(-.25rem) scale(1.05);
+      box-shadow: 0 0 1.5rem rgba($primary-light-blue, .8),
+        inset 0 0 .75rem rgba($primary-dark-blue, .9);
+    }
+  
+    &:active {
+      transform: scale(.95);
+      background: linear-gradient(
+        135deg,
+        $primary-very-light-blue,
+        $primary-button-blue
+      );
+      box-shadow: 0 0 1rem rgba($primary-very-light-blue, .6),
+        inset 0 0 .5rem rgba($primary-button-blue, .8);
+    }
+  
+    &::before {
+      content: '';
+      @include block-item(100%, 100%);
+      position: absolute;
+      top: 0;
+      left: 0;
+      background: rgba($primary-light-blue, .6);
+      filter: blur(1.25rem);
+      transition: opacity .5s ease;
+      z-index: 0;
+      opacity: .75;
+    }
+  
+    &:hover::before {
+      opacity: 1;
+    }
+  }
+  
+  &__clear-chat-icon {
+    font-size: 1rem;
+    color: $primary-button-dark-blue;
+    z-index: 1;
+  }
+  
+  // Text inside the button
+  .nextstream-gpt__clear-chat-text {
+    position: relative;
+    color: $primary-button-dark-blue;
+    z-index: 1;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+  }
+  
+  // Sliding out text and icon animation
+  @keyframes slide-out {
+    0% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(150%);
+      opacity: 0;
+    }
+  }
+  
+  // Disappearing text and icon on active
+  @keyframes disappear {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+  
+  @keyframes pulse {
+    0% {
+      box-shadow: 0 0 1rem rgba($primary-light-blue, .4),
+        inset 0 0 .5rem rgba($primary-medium-blue, .8);
+    }
+    50% {
+      box-shadow: 0 0 1.5rem rgba($primary-light-blue, .8),
+        inset 0 0 .75rem rgba($primary-dark-blue, .9);
+    }
+    100% {
+      box-shadow: 0 0 1rem rgba($primary-light-blue, .4),
+        inset 0 0 .5rem rgba($primary-medium-blue, .8);
+    }
   }
 
   &__message {
