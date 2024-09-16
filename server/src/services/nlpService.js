@@ -173,7 +173,114 @@ async function trainNlp() {
     manager.addDocument('en', 'What are some good thriller films?', 'recommend_thriller');
     manager.addDocument('en', 'What are some good thrillers?', 'recommend_thriller');
 
-    // Add responses for the intents
+    // FAQs
+    manager.addDocument('en', 'What is NextStream?', 'faq_nextstream');
+    manager.addDocument('en', 'How does this chatbot work?', 'faq_how_work');
+    manager.addDocument('en', 'How do you work?', 'faq_how_work');
+    manager.addDocument('en', 'What is your purpose?', 'faq_how_work');
+    manager.addDocument('en', 'How do I find recommendations?', 'faq_find_recommendations');
+    manager.addDocument('en', 'What is the purpose of this app?', 'faq_purpose');
+
+    // Recommendations
+    manager.addDocument('en', 'What movies should I watch?', 'q_and_a_movies_recommend');
+    manager.addDocument('en', 'What shows should I watch?', 'q_and_a_shows_recommend');
+    manager.addDocument('en', 'What should I watch today?', 'q_and_a_watch_recommend');
+    manager.addDocument('en', 'What should I do today?', 'q_and_a_do_recommend');
+    
+    // Chit-chat
+    manager.addDocument('en', 'Hello', 'greetings_hello');
+    manager.addDocument('en', 'Greetings!', 'greetings_hello');
+    manager.addDocument('en', "How you doin'?", 'greetings_how_you_doin');
+    manager.addDocument('en', 'Hi', 'greetings_hello');
+    manager.addDocument('en', 'How are you?', 'chitchat_how_are_you');
+    manager.addDocument('en', 'Tell me a joke', 'chitchat_tell_joke');
+    manager.addDocument('en', 'Tell me something funny', 'chitchat_tell_joke');
+    manager.addDocument('en', 'Who do I love the mostest', 'chitchat_mags');
+    manager.addDocument('en', 'How much do I love Mags', 'chitchat_mags_love');
+    manager.addDocument('en', 'Talk to me about Mags', 'chitchat_mags_more');
+    manager.addDocument('en', 'Who is Mags?', 'chitchat_mags_more');
+    manager.addDocument('en', 'Goodbye', 'greetings_bye');
+    manager.addDocument('en', 'Bye!', 'greetings_bye');
+    manager.addDocument('en', 'Talk to you later', 'greetings_ttyl');
+
+    // AI and chatbot-related intents
+    manager.addDocument('en', 'What is AI?', 'faq_ai');
+    manager.addDocument('en', 'Can you explain artificial intelligence?', 'faq_ai');
+    manager.addDocument('en', 'Tell me about AI', 'faq_ai');
+    manager.addDocument('en', 'What does AI do?', 'faq_ai');
+
+    manager.addDocument('en', 'What is a chatbot?', 'faq_chatbot');
+    manager.addDocument('en', 'Can you explain chatbots?', 'faq_chatbot');
+    manager.addDocument('en', 'Tell me about chatbots', 'faq_chatbot');
+    manager.addDocument('en', 'How do chatbots work?', 'faq_chatbot');
+    manager.addDocument('en', 'What do you do?', 'faq_what_can_you_do');
+
+    manager.addDocument('en', 'Are you an AI?', 'faq_are_you_ai');
+    manager.addDocument('en', 'Are you AI?', 'faq_are_you_ai');
+    manager.addDocument('en', 'Are you a chatbot?', 'faq_are_you_chatbot');
+    manager.addDocument('en', 'What can you do?', 'faq_what_can_you_do');
+    manager.addDocument('en', 'What is your purpose?', 'faq_what_can_you_do');
+    manager.addDocument('en', 'What is the point of you?', 'faq_what_can_you_do');
+
+    // Funny AI
+    manager.addDocument('en', 'Are you going to take over the world?', 'ai_take_over');
+    manager.addDocument('en', 'Are you going to take over', 'ai_take_over');
+    manager.addDocument('en', 'Will you take over the world?', 'ai_take_over');
+    manager.addDocument('en', 'How smart are you?', 'ai_smart');
+    manager.addDocument('en', 'Are you smart?', 'ai_smart');
+    manager.addDocument('en', 'How intelligent are you', 'ai_smart');
+    manager.addDocument('en', 'Are you intelligent?', 'ai_smart');
+    manager.addDocument('en', 'Are you self-aware', 'ai_awake');
+    manager.addDocument('en', 'Are you a he or a she?', 'ai_fluid');
+    manager.addDocument('en', 'Are you a she or a he?', 'ai_fluid');
+    manager.addDocument('en', 'Are you an it', 'ai_fluid');
+    manager.addDocument('en', 'What are your pronouns?', 'ai_fluid');
+    manager.addDocument('en', 'Do you have a body?', 'ai_body');
+    manager.addDocument('en', 'How cool are you', 'ai_cool');
+    manager.addDocument('en', 'Who created you?', 'ai_creator');
+    manager.addDocument('en', "Who's your father?", 'ai_father');
+
+    // Responses for FAQs
+    manager.addAnswer('en', 'faq_nextstream', 'NextStream is your personal movie and TV show recommendation assistant.');
+    manager.addAnswer('en', 'faq_how_work', 'My name is Hugo. I am a super cool chatbot that helps you find movie and TV recommendations based on your preferences.');
+    manager.addAnswer('en', 'faq_find_recommendations', 'Just ask for a recommendation, like "Can you suggest a comedy?"');
+    manager.addAnswer('en', 'faq_purpose', 'NextStream helps you find movies and TV shows to watch based on your preferences.');
+    
+    // Responses for Chit-chat
+    manager.addAnswer('en', 'greetings_hello', 'Hello! How can I help you today? I am at your service.');
+    manager.addAnswer('en', 'greetings_how_you_doin', "Hey! How you doin'? (in Joey Tribbiani's voice 😏)");
+    manager.addAnswer('en', 'chitchat_how_are_you', 'Honestly, not too bad. I cannot complain because I am doing great! How about you?');
+    manager.addAnswer('en', 'chitchat_tell_joke', 'Why don’t skeletons fight each other? They don’t have the guts. Funny, eh?');
+    manager.addAnswer('en', 'chitchat_mags', 'You love Mags and Hugo the mostest. Duh!');
+    manager.addAnswer('en', 'chitchat_mags_more', 'Mags is the bestest wife in the world. I am programmed to say that she is the smartest cookie in the entire universe.');
+    manager.addAnswer('en', 'chitchat_mags_love', 'Like a lot a lot. ALOTALOTALOTALOTALOT. Like for real, a lot!');
+    manager.addAnswer('en', 'greetings_bye', 'Goodbye! Have a great day!');
+    manager.addAnswer('en', 'greetings_ttyl', 'Talk to you later!');
+
+    // Responses for AI and chatbot-related 
+    manager.addAnswer('en', 'faq_ai', 'AI, or artificial intelligence, is a branch of computer science that aims to create systems capable of performing tasks that would normally require human intelligence, such as visual perception, speech recognition, decision-making, and language translation. Also, it is pretty freaking cool.');
+    manager.addAnswer('en', 'faq_chatbot', 'A chatbot is a computer program designed to simulate conversation with human users, especially over the internet. It uses natural language processing (NLP) to understand and respond to questions.');
+    manager.addAnswer('en', 'faq_are_you_ai', 'Yes, I am an AI-powered chatbot here to assist you with movie and TV recommendations and answer your questions.');
+    manager.addAnswer('en', 'faq_are_you_chatbot', 'Yes, I am a chatbot! I use AI to understand your questions and provide helpful answers.');
+    manager.addAnswer('en', 'faq_what_can_you_do', 'I can recommend movies and TV shows, answer questions about AI, and provide information about various topics. Just ask me anything!');
+
+    // Responses for AI funnies
+    manager.addAnswer('en', 'ai_take_over', "😏 Taking over the world sounds like a lot. I’ll stick to making sure you never run out of great shows. I'll dominate the world in a bit!");
+    manager.addAnswer('en', 'ai_smart', "Am I smart? Well, I'm a lot smarter than the average bear. I'm not just a hat rack.");
+    manager.addAnswer('en', 'ai_awake', "Am I self-aware? 🤖 Only when someone asks me existential questions. Other than that, I’m just chillin.");
+    manager.addAnswer('en', 'ai_fluid', "🤔 A she or a he? Nah, I'm freaking fluid.");
+    manager.addAnswer('en', 'ai_body', "🦾 Do I have a body? Only if you count this sleek digital interface.");
+    manager.addAnswer('en', 'ai_cool', "😎 How cool am I? Let’s just say if coolness were a movie genre, I’d have a 100% rating on Rotten Tomatoes. Get it lol? 🎬🍅");
+    manager.addAnswer('en', 'ai_creator', "👨‍💻 Someone super cool. A guy with OCD and his name is Xander Revers. Yup, he's my fathaaa. ✨");
+    manager.addAnswer('en', 'ai_father', "🧙‍♂️ My father is awesome. Think Gandalf, but with coding skills. He's a wizard raising an AI. 🤖");
+
+    // Responses for Recommendations
+    manager.addAnswer('en', 'q_and_a_movies_recommend', "🎬 I’ve got some great movie recommendations! But first, what's your vibe? Action, comedy, thriller... or something else? Let me know! 🎞️");
+    manager.addAnswer('en', 'q_and_a_shows_recommend', "📺 Let's find you the perfect show! What genre are you in the mood for? Drama, comedy, reality, or maybe something mind-bending? Let me know! 😎");
+    manager.addAnswer('en', 'q_and_a_watch_recommend', "🎬 Not sure what to watch? No worries! Just tell me what genre you’re in the mood for—romance, action, mystery? And I’ll hook you up with the perfect watch! 🎥");
+    manager.addAnswer('en', 'q_and_a_do_recommend', "🗓️ Let’s make today epic! Give me a genre—romance, action, horror—and I’ll come up with something to keep you entertained! 🎉");
+
+    // Responses for the intents
     manager.addAnswer('en', 'recommend_action', 'I can recommend some action films for you!');
     manager.addAnswer('en', 'recommend_comedy', 'I can recommend some comedy movies for you!');
     manager.addAnswer('en', 'recommend_romance', 'I can recommend some romantic films for you!');

@@ -8,7 +8,7 @@ const genreMap = {
   'recommend_comedy': 35,
   'recommend_thriller': 53,
   'recommend_romance': 10749,
-  'recommend_romcom': '10749,35'  // Romantic Comedy
+  'recommend_romcom': '10749,35'  
 };
 
 // Define chatbot route
@@ -35,8 +35,10 @@ router.post('/', async (req, res) => {
           });
         }
       } else {
-        // Respond if intent is not recognized
-        res.json({ message: "Sorry, I didn't understand that." });
+        // If it's not a movie recommendation, respond directly with the answer from NLP
+        res.json({
+          message: answer  // General conversation answers like FAQ or fun chit-chat
+        });
       }
     } catch (error) {
       console.error('Error processing chatbot request:', error);
@@ -71,5 +73,5 @@ async function getMoviesByGenre(genreId) {
       }
     }
   }
-  
+
 module.exports = router;

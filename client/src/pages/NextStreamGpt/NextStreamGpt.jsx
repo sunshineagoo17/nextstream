@@ -201,17 +201,15 @@ const NextStreamGpt = () => {
       setIsTyping(true);
       setIsBotTyping(true);
   
-      // Add user's message to chat
       setMessages((prevMessages) => [
         ...prevMessages,
         { sender: 'user', text: searchQuery },
       ]);
   
       try {
-        // Send message to chatbot backend
         const response = await api.post('/api/chatbot', {
           userInput: searchQuery,
-          userId,  // Pass userId if necessary
+          userId,  
         });
   
         const chatbotMessage = response.data.message;
@@ -229,11 +227,10 @@ const NextStreamGpt = () => {
             id: movie.id,
             title: movie.title,
             poster_path: movie.poster_path,
-            media_type: 'movie',  // Assuming they're movies; adjust as needed
+            media_type: 'movie', 
           }));
           setResults(movieResults);
-        } else {
-          // No movies found, show message to retry
+        } else if (!chatbotMessage || chatbotMessage.trim() === '') {
           setResults([]);
           setMessages((prevMessages) => [
             ...prevMessages,
@@ -241,7 +238,6 @@ const NextStreamGpt = () => {
           ]);
         }
       } catch (error) {
-        // Error fetching results
         setMessages((prevMessages) => [
           ...prevMessages,
           { sender: 'bot', text: 'There was an error fetching the results. Please try again.' },
