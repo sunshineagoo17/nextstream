@@ -128,8 +128,8 @@
 
   &__typing-indicator {
     position: absolute;
-    left: 70%; // Move typing indicator to the right
-    top: 20%; // Move typing indicator higher
+    left: 70%; 
+    top: 20%; 
     transform: translateY(-50%);
     display: inline-block;
     height: .5rem;
@@ -420,7 +420,6 @@
     z-index: 1;
   }
   
-  // Text inside the button
   .nextstream-gpt__clear-chat-text {
     position: relative;
     color: $primary-button-dark-blue;
@@ -428,7 +427,6 @@
     transition: transform 0.5s ease, opacity 0.5s ease;
   }
   
-  // Sliding out text and icon animation
   @keyframes slide-out {
     0% {
       transform: translateX(0);
@@ -440,7 +438,6 @@
     }
   }
   
-  // Disappearing text and icon on active
   @keyframes disappear {
     0% {
       opacity: 1;
