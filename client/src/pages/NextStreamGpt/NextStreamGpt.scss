@@ -531,6 +531,26 @@
     border-radius: 1.5rem;
     background: $feedback-dark-green;
     color: $feedback-mint-light-green;
+    animation: tilt-head 3.5s infinite ease-in-out;
+
+        &:hover {
+            color: $neutral-white;
+        }
+    }
+ 
+    @keyframes tilt-head {
+      0%, 100% {
+        transform: rotate(0deg);
+      }
+      25% {
+        transform: rotate(-10deg);
+      }
+      50% {
+        transform: rotate(0deg); 
+      }
+      75% {
+        transform: rotate(10deg);
+      }
   }
 
   &__user-icon-inline {
@@ -539,6 +559,26 @@
     border-radius: 1.5rem;
     background: $feedback-dark-pink;
     color: $feedback-error-very-light-peach;
+
+    &:hover {
+        animation: tilt-head 3.5s infinite ease-in-out;
+        color: $neutral-white;
+    }
+ 
+    @keyframes tilt-head {
+        0%, 100% {
+          transform: rotate(0deg);
+        }
+        25% {
+          transform: rotate(-10deg);
+        }
+        50% {
+          transform: rotate(0deg); 
+        }
+        75% {
+          transform: rotate(10deg);
+        }
+    }
   }
 
   &__copy {
