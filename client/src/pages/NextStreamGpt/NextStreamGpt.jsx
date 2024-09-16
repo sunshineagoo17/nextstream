@@ -196,70 +196,55 @@ const NextStreamGpt = () => {
   }, [searchQuery, isAuthenticated]);
 
   const handleSendMessage = async () => {
-    if (searchQuery.trim() && isAuthenticated) {
+    if (searchQuery.trim()) {
       setIsLoading(true);
-      setIsTyping(true); 
+      setIsTyping(true);
       setIsBotTyping(true);
   
+      // Add user's message to chat
       setMessages((prevMessages) => [
         ...prevMessages,
         { sender: 'user', text: searchQuery },
-      ]); 
+      ]);
   
       try {
-        const response = await api.get('/api/tmdb/search', {
-          params: { query: searchQuery },
+        // Send message to chatbot backend
+        const response = await api.post('/api/chatbot', {
+          userInput: searchQuery,
+          userId,  // Pass userId if necessary
         });
   
-        const filteredResults = await Promise.all(
-          response.data.results
-            .filter(
-              (result) =>
-                result.media_type === 'movie' ||
-                result.media_type === 'tv' ||
-                result.media_type === 'person'
-            )
-            .map(async (result) => {
-              if (result.media_type === 'person') {
-                const knownFor = result.known_for.map((item) => ({
-                  id: item.id,
-                  title: item.title || item.name,
-                  poster_path: item.poster_path
-                    ? `https://image.tmdb.org/t/p/w500${item.poster_path}`
-                    : DefaultPoster,
-                  media_type: item.media_type,
-                }));
-                return { ...result, knownFor };
-              } else {
-                const castResponse = await api.get(
-                  `/api/tmdb/${result.media_type}/${result.id}/credits`
-                );
-                return { ...result, cast: castResponse.data.cast.slice(0, 5) };
-              }
-            })
-        );
+        const chatbotMessage = response.data.message;
+        const recommendedMovies = response.data.movies || [];
   
-        if (filteredResults.length > 0) {
-          setResults(filteredResults);
-          setMessages((prevMessages) => [
-            ...prevMessages,
-            {
-              sender: 'bot',
-              text: 'Here are some recommendations!',
-              results: filteredResults,
-            },
-          ]);
+        // Add chatbot's message to chat
+        setMessages((prevMessages) => [
+          ...prevMessages,
+          { sender: 'bot', text: chatbotMessage },
+        ]);
+  
+        if (recommendedMovies.length > 0) {
+          // If movies are found, display the results
+          const movieResults = recommendedMovies.map((movie) => ({
+            id: movie.id,
+            title: movie.title,
+            poster_path: movie.poster_path,
+            media_type: 'movie',  // Assuming they're movies; adjust as needed
+          }));
+          setResults(movieResults);
         } else {
-          setResults([]); 
+          // No movies found, show message to retry
+          setResults([]);
           setMessages((prevMessages) => [
             ...prevMessages,
             { sender: 'bot', text: "Sorry, I came up with no answers. Let's try again." },
           ]);
         }
       } catch (error) {
+        // Error fetching results
         setMessages((prevMessages) => [
           ...prevMessages,
-          { sender: 'bot', text: 'There was an error fetching the results. Please try again.' }
+          { sender: 'bot', text: 'There was an error fetching the results. Please try again.' },
         ]);
       } finally {
         setIsLoading(false);

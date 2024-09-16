@@ -8,6 +8,7 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const admin = require('firebase-admin');
 const knex = require('../server/src/config/db');
+const { trainNlp, processInput } = require('./src/services/nlpService');
 require('dotenv').config();
 
 // Initialize Firebase Admin SDK
@@ -36,6 +37,7 @@ const friendsRoutes = require('./src/routes/friendsRoutes');
 const friendsMsgsRoutes = require('./src/routes/friendsMsgsRoutes');
 const userRoutes = require('./src/routes/userRoutes');
 const unsubscribeRoutes = require('./src/routes/unsubscribeRoutes');
+const chatbotRoutes = require('./src/routes/chatbotRoutes');
 
 const authenticate = require('./src/middleware/authenticate');
 const guestAuthenticate = require('./src/middleware/guestAuthenticate');
@@ -213,6 +215,7 @@ app.use('/api/unsubscribe', unsubscribeRoutes);
 app.use('/api/profile', profileRoutes);
 app.use('/api/tmdb', tmdbRoutes);
 app.use('/api/external-cal', eventDownloadRoutes);
+app.use('/api/chatbot', chatbotRoutes);
 
 // Spotlight Routes for person details
 app.use('/api/spotlight', authenticate, spotlightRoutes);
@@ -247,6 +250,13 @@ app.use('/api/media-status', authenticate, mediaStatusRoutes);
 app.use('/api/friends', authenticate, friendsRoutes);
 app.use('/api/messages', authenticate, friendsMsgsRoutes);
 app.use('/api/users', authenticate, userRoutes);
+
+// Train the NLP model when the server starts
+trainNlp().then(() => {
+  console.log('NLP training complete');
+}).catch(err => {
+  console.error('Error during NLP training:', err);
+});
 
 // Serve static files from the React app if needed
 app.use(express.static(path.join(__dirname, 'client/build')));
