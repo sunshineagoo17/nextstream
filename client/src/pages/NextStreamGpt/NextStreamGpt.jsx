@@ -200,17 +200,17 @@ const NextStreamGpt = () => {
       setIsLoading(true);
       setIsTyping(true); 
       setIsBotTyping(true);
-
+  
       setMessages((prevMessages) => [
         ...prevMessages,
         { sender: 'user', text: searchQuery },
       ]); 
-
+  
       try {
         const response = await api.get('/api/tmdb/search', {
           params: { query: searchQuery },
         });
-
+  
         const filteredResults = await Promise.all(
           response.data.results
             .filter(
@@ -238,31 +238,37 @@ const NextStreamGpt = () => {
               }
             })
         );
-
-        setResults(filteredResults); 
+  
+        if (filteredResults.length > 0) {
+          setResults(filteredResults);
+          setMessages((prevMessages) => [
+            ...prevMessages,
+            {
+              sender: 'bot',
+              text: 'Here are some recommendations!',
+              results: filteredResults,
+            },
+          ]);
+        } else {
+          setResults([]); 
+          setMessages((prevMessages) => [
+            ...prevMessages,
+            { sender: 'bot', text: "Sorry, I came up with no answers. Let's try again." },
+          ]);
+        }
+      } catch (error) {
         setMessages((prevMessages) => [
           ...prevMessages,
-          {
-            sender: 'bot',
-            text: 'Here are some recommendations!',
-            results: filteredResults,
-          }, 
+          { sender: 'bot', text: 'There was an error fetching the results. Please try again.' }
         ]);
-      } catch (error) {
-        showAlert(
-          'Could not fetch search results. Please try again later.',
-          'error'
-        );
       } finally {
         setIsLoading(false);
         setIsTyping(false);
         setIsBotTyping(false);
-        setSearchQuery("");
+        setSearchQuery('');
       }
-
-      setSearchQuery(''); 
     }
-  };
+  };  
 
   useEffect(() => {
     if (query && isAuthenticated) {

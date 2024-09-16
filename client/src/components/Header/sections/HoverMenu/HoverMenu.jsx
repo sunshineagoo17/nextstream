@@ -41,6 +41,8 @@ const HoverMenu = () => {
       `/calendar/guest`,
       `/faves/${userId}`, 
       `/friends/${userId}`,
+      `/nextsearch/${userId}`, 
+      `/nextstream-gpt/${userId}`, 
       `/nextswipe/${userId}`, 
       `/auth-search-results/${userId}`,
       `/search`,
