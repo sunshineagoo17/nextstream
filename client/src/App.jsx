@@ -31,7 +31,7 @@ import StreamBoard from './pages/StreamBoard/StreamBoard';
 import QuickstartGuide from './components/QuickStartGuide/QuickStartGuide'; 
 import FriendsPage from './pages/FriendsPage/FriendsPage';
 import UnsubscribePage from './pages/UnsubscribePage/UnsubscribePage';
-import NextStreamGpt from "./pages/NextStreamGpt/NextStreamGpt";
+import NextStreamGpt from './pages/NextStreamGpt/NextStreamGpt';
 import './styles/global.scss';
 
 // Firebase 
