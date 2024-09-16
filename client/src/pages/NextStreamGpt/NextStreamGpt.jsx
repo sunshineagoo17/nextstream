@@ -195,61 +195,95 @@ const NextStreamGpt = () => {
     }
   }, [searchQuery, isAuthenticated]);
 
-  const handleSendMessage = async () => {
-    if (searchQuery.trim()) {
-      setIsLoading(true);
-      setIsTyping(true);
-      setIsBotTyping(true);
-  
+// Simulate typing effect for the chatbot message
+const typeMessage = async (message, setMessages, setIsBotTyping) => {
+  let displayedText = "";
+  const typingSpeed = 50; // Adjust typing speed in milliseconds
+
+  for (let i = 0; i < message.length; i++) {
+    // Create a scoped version of displayedText for each iteration
+    const currentText = displayedText + message[i];
+    
+    await new Promise((resolve) => setTimeout(resolve, typingSpeed));
+
+    // Update displayedText after the delay
+    displayedText = currentText;
+
+    // Update messages state safely
+    setMessages((prevMessages) => {
+      const updatedMessages = [...prevMessages];
+      const lastMessage = updatedMessages[updatedMessages.length - 1];
+
+      // Ensure we are only modifying the bot's message
+      if (lastMessage && lastMessage.sender === 'bot') {
+        lastMessage.text = currentText; // Use the current iteration's text
+      }
+      return updatedMessages;
+    });
+  }
+  setIsBotTyping(false);
+};
+
+const handleSendMessage = async () => {
+  if (searchQuery.trim()) {
+    setIsTyping(true);
+    setIsBotTyping(true);
+
+    // Add user's message to the chat
+    setMessages((prevMessages) => [
+      ...prevMessages,
+      { sender: 'user', text: searchQuery },
+    ]);
+
+    try {
+      const response = await api.post('/api/chatbot', {
+        userInput: searchQuery,
+        userId,
+      });
+
+      const chatbotMessage = response.data.message;
+      const recommendedMedia = response.data.media || [];
+
+      // Add a placeholder for the bot's message before typing
       setMessages((prevMessages) => [
         ...prevMessages,
-        { sender: 'user', text: searchQuery },
+        { sender: 'bot', text: '' },
       ]);
-  
-      try {
-        const response = await api.post('/api/chatbot', {
-          userInput: searchQuery,
-          userId,  
+
+      // Simulate typing effect for the chatbot message
+      await typeMessage(chatbotMessage, setMessages, setIsBotTyping);
+
+      if (recommendedMedia.length > 0) {
+        // Extract media results outside the map loop to avoid unsafe references
+        const mediaResults = recommendedMedia.map((item) => {
+          const id = item.id;
+          const title = item.title || item.name;
+          const poster_path = item.poster_path;
+          const media_type = item.media_type || 'movie';
+          return { id, title, poster_path, media_type };
         });
-  
-        const chatbotMessage = response.data.message;
-        const recommendedMovies = response.data.movies || [];
-  
-        // Add chatbot's message to chat
-        setMessages((prevMessages) => [
-          ...prevMessages,
-          { sender: 'bot', text: chatbotMessage },
-        ]);
-  
-        if (recommendedMovies.length > 0) {
-          // If movies are found, display the results
-          const movieResults = recommendedMovies.map((movie) => ({
-            id: movie.id,
-            title: movie.title,
-            poster_path: movie.poster_path,
-            media_type: 'movie', 
-          }));
-          setResults(movieResults);
-        } else if (!chatbotMessage || chatbotMessage.trim() === '') {
-          setResults([]);
-          setMessages((prevMessages) => [
-            ...prevMessages,
-            { sender: 'bot', text: "Sorry, I came up with no answers. Let's try again." },
-          ]);
-        }
-      } catch (error) {
-        setMessages((prevMessages) => [
-          ...prevMessages,
-          { sender: 'bot', text: 'There was an error fetching the results. Please try again.' },
-        ]);
-      } finally {
+        setResults(mediaResults);
         setIsLoading(false);
-        setIsTyping(false);
-        setIsBotTyping(false);
-        setSearchQuery('');
+      } else if (!chatbotMessage || chatbotMessage.trim() === '') {
+        setResults([]);
+        setMessages((prevMessages) => [
+          ...prevMessages,
+          { sender: 'bot', text: "Sorry, I came up with no answers. Let's try again." },
+        ]);
       }
+    } catch (error) {
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { sender: 'bot', text: 'There was an error fetching the results. Please try again.' },
+      ]);
+    } finally {
+      setIsLoading(false);
+      setIsTyping(false);
+      setIsBotTyping(false);
+      setSearchQuery('');
     }
-  };  
+  }
+};
 
   useEffect(() => {
     if (query && isAuthenticated) {
@@ -423,32 +457,33 @@ const NextStreamGpt = () => {
             {messages.map((message, index) => (
               <div key={index} className={`nextstream-gpt__message nextstream-gpt__message--${message.sender}`}>
                 {message.sender === 'bot' && (
-                  <div className='nextstream-gpt__bot-message'>
-                    <p>{message.text}</p>
-                    <FontAwesomeIcon icon={faRobot} className='nextstream-gpt__gpt-icon-inline' />
+                  <div>
+                    {/* Bot Message */}
+                    <div className='nextstream-gpt__bot-message'>
+                      <p>{message.text}</p>
+                      <FontAwesomeIcon icon={faRobot} className='nextstream-gpt__gpt-icon-inline' />
+                    </div>
+
+                    {index === messages.length - 1 && isBotTyping && (
+                      <div className="nextstream-gpt__bot-msg-typing">
+                        <div className="nextstream-gpt__typing-indicator-bot">
+                          <span className="nextstream-gpt__bot-typing-indicator-bubble"></span>
+                          <span className="nextstream-gpt__bot-typing-indicator-bubble"></span>
+                          <span className="nextstream-gpt__bot-typing-indicator-bubble"></span>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 )}
+
                 {message.sender === 'user' && (
-                    <div className='nextstream-gpt__user-message'>
-                        <p>{message.text}</p>
-                        <FontAwesomeIcon icon={faUser} className='nextstream-gpt__user-icon-inline' />
-                    </div>
+                  <div className='nextstream-gpt__user-message'>
+                    <p>{message.text}</p>
+                    <FontAwesomeIcon icon={faUser} className='nextstream-gpt__user-icon-inline' />
+                  </div>
                 )}
               </div>
             ))}
-
-            {/* Typing Indicator */}
-            {isBotTyping && (
-              <div className="nextstream-gpt__message nextstream-gpt__message--bot">
-                <div className="nextstream-gpt__bot-message">
-                  <div className="nextstream-gpt__typing-indicator">
-                    <span className="nextstream-gpt__typing-indicator-bubble"></span>
-                    <span className="nextstream-gpt__typing-indicator-bubble"></span>
-                    <span className="nextstream-gpt__typing-indicator-bubble"></span>
-                  </div>
-                </div>
-              </div>
-            )}
           </div>
 
           <div className='nextstream-gpt__input-wrapper'>
@@ -464,7 +499,7 @@ const NextStreamGpt = () => {
               placeholder='Chat with NextStream GPT...'
               className='nextstream-gpt__input'
             />
-            {isTyping && (
+            {isTyping && !isBotTyping && (
               <div className="nextstream-gpt__typing-indicator">
                 <span className="nextstream-gpt__typing-indicator-bubble"></span>
                 <span className="nextstream-gpt__typing-indicator-bubble"></span>

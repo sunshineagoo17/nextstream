@@ -4,11 +4,19 @@ const { processInput } = require('../services/nlpService');
 const router = express.Router();
 
 const genreMap = {
-  'recommend_action': 28,
-  'recommend_comedy': 35,
-  'recommend_thriller': 53,
-  'recommend_romance': 10749,
-  'recommend_romcom': '10749,35'  
+  // Movies
+  'recommend_action': { type: 'movie', genreId: 28 },
+  'recommend_comedy': { type: 'movie', genreId: 35 },
+  'recommend_thriller': { type: 'movie', genreId: 53 },
+  'recommend_romance': { type: 'movie', genreId: 10749 },
+  'recommend_romcom': { type: 'movie', genreId: '10749,35' },  
+
+  // TV Shows
+  'recommend_action_tv': { type: 'tv', genreId: 10759 },
+  'recommend_comedy_tv': { type: 'tv', genreId: 35 },
+  'recommend_thriller_tv': { type: 'tv', genreId: 80 },
+  'recommend_romance_tv': { type: 'tv', genreId: 10749 },
+  'recommend_romcom_tv': { type: 'tv', genreId: '10749,35' }
 };
 
 // Define chatbot route
@@ -22,20 +30,22 @@ router.post('/', async (req, res) => {
     const answer = nlpResult.answer;
 
     if (intent in genreMap) {
-        // Fetch movies based on the identified genre and return the most popular ones
-        const movies = await getMoviesByGenre(genreMap[intent]);
+        const { type, genreId } = genreMap[intent];
+        
+        // Fetch movies or TV shows based on the identified genre and return the most popular ones
+        const media = await getMediaByGenre(type, genreId);
   
-        if (movies.length === 0) {
-          res.json({ message: `No movies found for ${intent.split('_')[1]} at the moment.` });
+        if (media.length === 0) {
+          res.json({ message: `No ${type === 'movie' ? 'movies' : 'shows'} found for ${intent.split('_')[1]} at the moment.` });
         } else {
-          // Respond with the predefined answer and most popular movies
+          // Respond with the predefined answer and most popular media
           res.json({
-            message: answer,  // Use the predefined answer from the NLP manager
-            movies,
+            message: answer,  
+            media,  
           });
         }
       } else {
-        // If it's not a movie recommendation, respond directly with the answer from NLP
+        // If it's not a media recommendation, respond directly with the answer from NLP
         res.json({
           message: answer  // General conversation answers like FAQ or fun chit-chat
         });
@@ -46,32 +56,24 @@ router.post('/', async (req, res) => {
     }
   });
 
-// Function to fetch movies by genre, handling rom-coms manually
-async function getMoviesByGenre(genreId) {
+// Function to fetch media (movies or shows) by genre
+async function getMediaByGenre(type, genreId) {
     const tmdbApiKey = process.env.TMDB_API_KEY;
+    const mediaType = type === 'movie' ? 'movie' : 'tv';
+    let url = `https://api.themoviedb.org/3/discover/${mediaType}?api_key=${tmdbApiKey}&with_genres=${genreId}&sort_by=popularity.desc`;
 
-    // Handle rom-com separately by fetching movies that have both romance (10749) and comedy (35) genres
+    // If it's a rom-com, adjust for both romance and comedy
     if (genreId === '10749,35') {
-      const romcomUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${tmdbApiKey}&with_genres=10749,35&sort_by=popularity.desc`;
-      
-      try {
-        const romcomResponse = await axios.get(romcomUrl);
-        return romcomResponse.data.results;
-      } catch (error) {
-        console.error('Error fetching rom-com movies:', error);
-        throw new Error('Failed to fetch rom-com movies');
-      }
-    } else {
-      // Regular genre fetch for non-rom-com genres
-      const url = `https://api.themoviedb.org/3/discover/movie?api_key=${tmdbApiKey}&with_genres=${genreId}&sort_by=popularity.desc`;
-      try {
-        const response = await axios.get(url);
-        return response.data.results;
-      } catch (error) {
-        console.error(`Error fetching movies from TMDB: ${error}`);
-        throw new Error('Failed to fetch movies');
-      }
+      url = `https://api.themoviedb.org/3/discover/${mediaType}?api_key=${tmdbApiKey}&with_genres=10749,35&sort_by=popularity.desc`;
     }
-  }
+
+    try {
+      const response = await axios.get(url);
+      return response.data.results;
+    } catch (error) {
+      console.error(`Error fetching ${mediaType} from TMDB: ${error}`);
+      throw new Error(`Failed to fetch ${mediaType}`);
+    }
+}
 
 module.exports = router;

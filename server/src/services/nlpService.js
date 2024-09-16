@@ -21,7 +21,10 @@ async function trainNlp() {
       } else {
     // If the model doesn't exist, add documents and train
     
-    // Action
+    // Action Movies
+    manager.addDocument('en', 'Action', 'recommend_action');
+    manager.addDocument('en', 'Action film', 'recommend_action');
+    manager.addDocument('en', 'Action movie', 'recommend_action');
     manager.addDocument('en', 'Can you suggest an action film?', 'recommend_action');
     manager.addDocument('en', 'Can you suggest some action films?', 'recommend_action');
     manager.addDocument('en', 'Can you suggest some action movies?', 'recommend_action');
@@ -43,8 +46,29 @@ async function trainNlp() {
     manager.addDocument('en', 'Suggest an action movie', 'recommend_action');
     manager.addDocument('en', 'What are some good romantic films?', 'recommend_action');
     manager.addDocument('en', 'What are some good action movies?', 'recommend_action');
+
+    // Action Shows
+    manager.addDocument('en', 'Action series', 'recommend_action_tv');
+    manager.addDocument('en', 'Action shows', 'recommend_action_tv');
+    manager.addDocument('en', 'Action tv show', 'recommend_action_tv');
+    manager.addDocument('en', 'Can you suggest an action show?', 'recommend_action_tv');
+    manager.addDocument('en', 'Can you suggest some action shows?', 'recommend_action_tv');
+    manager.addDocument('en', 'Can you suggest action shows?', 'recommend_action_tv');
+    manager.addDocument('en', 'Can you suggest an action show?', 'recommend_action_tv');
+    manager.addDocument('en', 'Find me an action show', 'recommend_action_tv');
+    manager.addDocument('en', 'Give me an action show', 'recommend_action_tv');
+    manager.addDocument('en', 'Give me a good action show', 'recommend_action_tv');
+    manager.addDocument('en', 'I want to watch an action show', 'recommend_action_tv');
+    manager.addDocument('en', 'Recommend an action show', 'recommend_action_tv');
+    manager.addDocument('en', 'Recommend an action tv show', 'recommend_action_tv');
+    manager.addDocument('en', 'Show me action shows', 'recommend_action_tv');
+    manager.addDocument('en', 'Show me some action shows', 'recommend_action_tv');
+    manager.addDocument('en', 'Suggest action shows', 'recommend_action_tv');
+    manager.addDocument('en', 'Suggest an action show', 'recommend_action_tv');
+    manager.addDocument('en', 'What are some good action shows?', 'recommend_action_tv');
   
-    // Comedy
+    // Comedy Movies
+    manager.addDocument('en', 'Comedy', 'recommend_comedy');
     manager.addDocument('en', 'Can you suggest a comedy?', 'recommend_comedy');
     manager.addDocument('en', 'Can you suggest a comedy film?', 'recommend_comedy');
     manager.addDocument('en', 'Can you suggest something funny', 'recommend_comedy');
@@ -62,7 +86,32 @@ async function trainNlp() {
     manager.addDocument('en', 'Suggest a funny movie', 'recommend_comedy');
     manager.addDocument('en', 'What are some good comedies?', 'recommend_comedy');
 
-    // Romance
+    // Comedy Shows
+    manager.addDocument('en', 'Comedy series', 'recommend_comedy_tv');
+    manager.addDocument('en', 'Comedy show', 'recommend_comedy_tv');
+    manager.addDocument('en', 'Comedy shows', 'recommend_comedy_tv');
+    manager.addDocument('en', 'Comedy tv show', 'recommend_comedy_tv');
+    manager.addDocument('en', 'Can you suggest a comedy show?', 'recommend_comedy_tv');
+    manager.addDocument('en', 'Can you suggest comedy shows?', 'recommend_comedy_tv');
+    manager.addDocument('en', 'Can you suggest some comedy shows?', 'recommend_comedy_tv');
+    manager.addDocument('en', 'Find me a comedy show', 'recommend_comedy_tv');
+    manager.addDocument('en', 'Funny series', 'recommend_comedy_tv');
+    manager.addDocument('en', 'Funny show', 'recommend_comedy_tv');
+    manager.addDocument('en', 'Funny shows', 'recommend_comedy_tv');
+    manager.addDocument('en', 'Give me a comedy show', 'recommend_comedy_tv');
+    manager.addDocument('en', 'Give me a funny show', 'recommend_comedy_tv');
+    manager.addDocument('en', 'Give me a good funny show', 'recommend_comedy_tv');
+    manager.addDocument('en', 'I want to watch a comedy show', 'recommend_comedy_tv');
+    manager.addDocument('en', 'Recommend a comedy show', 'recommend_comedy_tv');
+    manager.addDocument('en', 'Recommend a comedy tv show', 'recommend_comedy_tv');
+    manager.addDocument('en', 'Show me comedy shows', 'recommend_comedy_tv');
+    manager.addDocument('en', 'Show me some comedy shows', 'recommend_comedy_tv');
+    manager.addDocument('en', 'Suggest comedy shows', 'recommend_comedy_tv');
+    manager.addDocument('en', 'Suggest a comedy show', 'recommend_comedy_tv');
+    manager.addDocument('en', 'What are some good comedy shows?', 'recommend_comedy_tv');
+
+    // Romance Movies
+    manager.addDocument('en', 'Romance', 'recommend_romance');
     manager.addDocument('en', 'Can you suggest a romantic film?', 'recommend_romance');
     manager.addDocument('en', 'Can you suggest a romantic movie?', 'recommend_romance');
     manager.addDocument('en', 'Can you suggest some romantic films?', 'recommend_romance');
@@ -100,7 +149,38 @@ async function trainNlp() {
     manager.addDocument('en', 'What are some good romantic films?', 'recommend_romance');
     manager.addDocument('en', 'What are some good romantic movies?', 'recommend_romance');
 
-    // Rom-coms
+    // Romance Shows
+    manager.addDocument('en', 'Romantic series', 'recommend_romance_tv');
+    manager.addDocument('en', 'Romatic show', 'recommend_romance_tv');
+    manager.addDocument('en', 'Romantic shows', 'recommend_romance_tv');
+    manager.addDocument('en', 'Romantic tv show', 'recommend_romance_tv');
+    manager.addDocument('en', 'Romance series', 'recommend_romance_tv');
+    manager.addDocument('en', 'Romance show', 'recommend_romance_tv');
+    manager.addDocument('en', 'Romance shows', 'recommend_romance_tv');
+    manager.addDocument('en', 'Romance tv', 'recommend_romance_tv');
+    manager.addDocument('en', 'Romance tv show', 'recommend_romance_tv');
+    manager.addDocument('en', 'Can you suggest a romantic show?', 'recommend_romance_tv');
+    manager.addDocument('en', 'Can you suggest romantic shows?', 'recommend_romance_tv');
+    manager.addDocument('en', 'Can you suggest some romantic shows?', 'recommend_romance_tv');
+    manager.addDocument('en', 'Find me a romance show', 'recommend_romance_tv');
+    manager.addDocument('en', 'Give me a romance show', 'recommend_romance_tv');
+    manager.addDocument('en', 'Give me a romantic show', 'recommend_romance_tv');
+    manager.addDocument('en', 'Give me a good romance show', 'recommend_romance_tv');
+    manager.addDocument('en', 'I want to watch a romance show', 'recommend_romance_tv');
+    manager.addDocument('en', 'Recommend a romance show', 'recommend_romance_tv');
+    manager.addDocument('en', 'Recommend a romance tv show', 'recommend_romance_tv');
+    manager.addDocument('en', 'Show me romance shows', 'recommend_romance_tv');
+    manager.addDocument('en', 'Show me some romance shows', 'recommend_romance_tv');
+    manager.addDocument('en', 'Suggest romantic shows', 'recommend_romance_tv');
+    manager.addDocument('en', 'Suggest a romantic show', 'recommend_romance_tv');
+    manager.addDocument('en', 'What are some good romance shows?', 'recommend_romance_tv');
+
+    // Rom-com Movies
+    manager.addDocument('en', 'Rom-com', 'recommend_romcom');
+    manager.addDocument('en', 'Rom com', 'recommend_romcom');
+    manager.addDocument('en', 'Romcom', 'recommend_romcom');
+    manager.addDocument('en', 'Romance comedy', 'recommend_romcom');
+    manager.addDocument('en', 'Romantic comedy', 'recommend_romcom');
     manager.addDocument('en', 'Can you suggest a rom-com?', 'recommend_romcom');
     manager.addDocument('en', 'Can you suggest some rom-coms?', 'recommend_romcom');
     manager.addDocument('en', 'Can you suggest a rom-com film?', 'recommend_romcom');
@@ -139,39 +219,78 @@ async function trainNlp() {
     manager.addDocument('en', 'What are some good rom-com films?', 'recommend_romcom');
     manager.addDocument('en', 'What are some good rom-com movies?', 'recommend_romcom');
 
-    // Thriller
-    manager.addDocument('en', 'Can you suggest a thriller?', 'recommend_thriller');
-    manager.addDocument('en', 'Can you suggest a horror film?', 'recommend_thriller');
-    manager.addDocument('en', 'Can you suggest a scary film?', 'recommend_thriller');
+    // Rom-com Shows
+    manager.addDocument('en', 'Rom-com show', 'recommend_romcom_tv');
+    manager.addDocument('en', 'Rom-com shows', 'recommend_romcom_tv');
+    manager.addDocument('en', 'Rom-com series', 'recommend_romcom_tv');
+    manager.addDocument('en', 'Rom-com tv', 'recommend_romcom_tv');
+    manager.addDocument('en', 'Can you suggest a rom-com show?', 'recommend_romcom_tv');
+    manager.addDocument('en', 'Can you suggest some rom-coms shows?', 'recommend_romcom_tv');
+    manager.addDocument('en', 'Can you suggest a rom-com show?', 'recommend_romcom_tv');
+    manager.addDocument('en', 'Find me a rom-com show', 'recommend_romcom_tv');
+    manager.addDocument('en', 'Find me rom-com series', 'recommend_romcom_tv');
+    manager.addDocument('en', 'Find me rom-com shows', 'recommend_romcom_tv');
+    manager.addDocument('en', 'Give me a rom-com show', 'recommend_romcom_tv');
+    manager.addDocument('en', 'Give me rom-com series', 'recommend_romcom_tv');
+    manager.addDocument('en', 'I want to watch a rom-com show', 'recommend_romcom_tv');
+    manager.addDocument('en', 'I want to watch rom-com shows', 'recommend_romcom_tv');
+    manager.addDocument('en', 'Recommend a rom-com show', 'recommend_romcom_tv');
+    manager.addDocument('en', 'Recommend me a rom-com show', 'recommend_romcom_tv');
+    manager.addDocument('en', 'Recommend me rom-com shows', 'recommend_romcom_tv');
+    manager.addDocument('en', 'Recommend rom-com series', 'recommend_romcom_tv');
+    manager.addDocument('en', 'Recommend rom-com shows', 'recommend_romcom_tv');
+    manager.addDocument('en', 'Recommend some rom-com shows', 'recommend_romcom_tv');
+    manager.addDocument('en', 'Recommend some rom-com series', 'recommend_romcom_tv');
+    manager.addDocument('en', 'Show me rom-com shows', 'recommend_romcom_tv');
+    manager.addDocument('en', 'Show me rom-com series', 'recommend_romcom_tv');
+    manager.addDocument('en', 'Suggest a rom-com show', 'recommend_romcom_tv');
+    manager.addDocument('en', 'Suggest rom-com shows', 'recommend_romcom_tv');
+    manager.addDocument('en', 'Suggest some rom-com shows', 'recommend_romcom_tv');
+    manager.addDocument('en', 'What are some good rom-com series?', 'recommend_romcom_tv');
+    manager.addDocument('en', 'What are some good rom-com shows?', 'recommend_romcom_tv');
+
+    // Thriller Movies
+    manager.addDocument('en', 'Thriller', 'recommend_thriller');
+    manager.addDocument('en', 'Thriller film', 'recommend_thriller');
+    manager.addDocument('en', 'Thriller movie', 'recommend_thriller');
+    manager.addDocument('en', 'Find me a thriller film', 'recommend_thriller');
     manager.addDocument('en', 'Can you suggest a thriller film?', 'recommend_thriller');
-    manager.addDocument('en', 'Can you suggest something scary?', 'recommend_thriller');
-    manager.addDocument('en', 'Find me a scary film', 'recommend_thriller');
-    manager.addDocument('en', 'Find me a horror film', 'recommend_thriller');
-    manager.addDocument('en', 'Find me something scary', 'recommend_thriller');
-    manager.addDocument('en', 'Find me something horrific', 'recommend_thriller');
-    manager.addDocument('en', 'Give me a horror recommendation', 'recommend_thriller');
+    manager.addDocument('en', 'Find me a thriller film', 'recommend_thriller');
+    manager.addDocument('en', 'Find me a thriller movie', 'recommend_thriller');
+    manager.addDocument('en', 'Find me something thrilling', 'recommend_thriller');
     manager.addDocument('en', 'Give me a thriller recommendation', 'recommend_thriller');
-    manager.addDocument('en', 'Give me a good horror', 'recommend_thriller');
-    manager.addDocument('en', 'I want to watch a horror film', 'recommend_thriller');
-    manager.addDocument('en', 'I want to watch something scary', 'recommend_thriller');
-    manager.addDocument('en', 'Recommend a horror film', 'recommend_thriller');
-    manager.addDocument('en', 'Recommend a scary film', 'recommend_thriller');
+    manager.addDocument('en', 'Give me a good thriller', 'recommend_thriller');
+    manager.addDocument('en', 'I want to watch a thriller film', 'recommend_thriller');
     manager.addDocument('en', 'Recommend a thriller film', 'recommend_thriller');
-    manager.addDocument('en', 'Recommend me a horror movie', 'recommend_thriller');
-    manager.addDocument('en', 'Recommend me a scary movie', 'recommend_thriller');
+    manager.addDocument('en', 'Recommend a thriller film', 'recommend_thriller');
     manager.addDocument('en', 'Recommend me a thriller movie', 'recommend_thriller');
-    manager.addDocument('en', 'Show me a horror movie', 'recommend_thriller');
-    manager.addDocument('en', 'Show me a scary movie', 'recommend_thriller');
     manager.addDocument('en', 'Show me a thriller movie', 'recommend_thriller');
-    manager.addDocument('en', 'Show me some horror movies', 'recommend_thriller');
-    manager.addDocument('en', 'Show me some scary movies', 'recommend_thriller');
     manager.addDocument('en', 'Show me some thriller movies', 'recommend_thriller');
-    manager.addDocument('en', 'Suggest a horror movie', 'recommend_thriller');
-    manager.addDocument('en', 'Suggest a scary movie', 'recommend_thriller');
-    manager.addDocument('en', 'What are some good horror films?', 'recommend_thriller');
-    manager.addDocument('en', 'What are some good scary films?', 'recommend_thriller');
+    manager.addDocument('en', 'Suggest a thriller movie', 'recommend_thriller');
     manager.addDocument('en', 'What are some good thriller films?', 'recommend_thriller');
     manager.addDocument('en', 'What are some good thrillers?', 'recommend_thriller');
+
+    // Thriller Movies
+    manager.addDocument('en', 'Thriller series', 'recommend_thriller_tv');
+    manager.addDocument('en', 'Thriller show', 'recommend_thriller_tv');
+    manager.addDocument('en', 'Thriller tv', 'recommend_thriller_tv');
+    manager.addDocument('en', 'Find me a thriller show', 'recommend_thriller_tv');
+    manager.addDocument('en', 'Can you suggest a thriller show?', 'recommend_thriller_tv');
+    manager.addDocument('en', 'Find me a thriller show', 'recommend_thriller_tv');
+    manager.addDocument('en', 'Find me some thrilling tv', 'recommend_thriller_tv');
+    manager.addDocument('en', 'Give me a thriller show recommendation', 'recommend_thriller_tv');
+    manager.addDocument('en', 'Give me a good thriller show', 'recommend_thriller_tv');
+    manager.addDocument('en', 'I want to watch a thriller show', 'recommend_thriller_tv');
+    manager.addDocument('en', 'Recommend a thriller show', 'recommend_thriller_tv');
+    manager.addDocument('en', 'Recommend thriller shows', 'recommend_thriller_tv');
+    manager.addDocument('en', 'Recommend me a thriller movie', 'recommend_thriller_tv');
+    manager.addDocument('en', 'Show me a thriller show', 'recommend_thriller_tv');
+    manager.addDocument('en', 'Show me some thriller series', 'recommend_thriller_tv');
+    manager.addDocument('en', 'Show me some thriller shows', 'recommend_thriller_tv');
+    manager.addDocument('en', 'Suggest a thriller show', 'recommend_thriller_tv');
+    manager.addDocument('en', 'Suggest thriller shows', 'recommend_thriller_tv');
+    manager.addDocument('en', 'What are some good thriller shows?', 'recommend_thriller_tv');
+    manager.addDocument('en', 'What are some good tv thrillers?', 'recommend_thriller_tv');
 
     // FAQs
     manager.addDocument('en', 'What is NextStream?', 'faq_nextstream');
@@ -224,6 +343,9 @@ async function trainNlp() {
 
     // Funny AI
     manager.addDocument('en', 'Are you going to take over the world?', 'ai_take_over');
+    manager.addDocument('en', 'Test', 'ai_test');
+    manager.addDocument('en', 'Check', 'ai_test');
+    manager.addDocument('en', 'Are you working properly', 'ai_test');
     manager.addDocument('en', 'Are you going to take over', 'ai_take_over');
     manager.addDocument('en', 'Will you take over the world?', 'ai_take_over');
     manager.addDocument('en', 'How smart are you?', 'ai_smart');
@@ -265,6 +387,7 @@ async function trainNlp() {
     manager.addAnswer('en', 'faq_what_can_you_do', 'I can recommend movies and TV shows, answer questions about AI, and provide information about various topics. Just ask me anything!');
 
     // Responses for AI funnies
+    manager.addAnswer('en', 'ai_test', "Test. Test. 123. Haha KIDDING! I am working properly. Sorry to trick ya! 😎");
     manager.addAnswer('en', 'ai_take_over', "😏 Taking over the world sounds like a lot. I’ll stick to making sure you never run out of great shows. I'll dominate the world in a bit!");
     manager.addAnswer('en', 'ai_smart', "Am I smart? Well, I'm a lot smarter than the average bear. I'm not just a hat rack.");
     manager.addAnswer('en', 'ai_awake', "Am I self-aware? 🤖 Only when someone asks me existential questions. Other than that, I’m just chillin.");
@@ -280,13 +403,20 @@ async function trainNlp() {
     manager.addAnswer('en', 'q_and_a_watch_recommend', "🎬 Not sure what to watch? No worries! Just tell me what genre you’re in the mood for—romance, action, mystery? And I’ll hook you up with the perfect watch! 🎥");
     manager.addAnswer('en', 'q_and_a_do_recommend', "🗓️ Let’s make today epic! Give me a genre—romance, action, horror—and I’ll come up with something to keep you entertained! 🎉");
 
-    // Responses for the intents
+    // Responses for the intents - Movies
     manager.addAnswer('en', 'recommend_action', 'I can recommend some action films for you!');
     manager.addAnswer('en', 'recommend_comedy', 'I can recommend some comedy movies for you!');
     manager.addAnswer('en', 'recommend_romance', 'I can recommend some romantic films for you!');
     manager.addAnswer('en', 'recommend_romcom', 'I can recommend some romcom films for you!');
     manager.addAnswer('en', 'recommend_thriller', 'I can recommend some thriller movies for you!');
- 
+
+    // Responses for the intents - Shows 
+    manager.addAnswer('en', 'recommend_action_tv', "💥 How about some edge-of-your-seat action shows? Enjoy! 📺");
+    manager.addAnswer('en', 'recommend_comedy_tv', "🤣 Let's get those laughs going! How about a hilarious comedy show? 📺");
+    manager.addAnswer('en', 'recommend_romance_tv', "💘 Love is in the air! I've got some romantic shows that will sweep you off your feet. 📺");
+    manager.addAnswer('en', 'recommend_romcom_tv', "💕😂 How about a rom-com show? A perfect mix of love and laughter, just for you! 📺");
+    manager.addAnswer('en', 'recommend_thriller_tv', "😱 Ready for a thriller show that will keep you up at night? Here you go! 📺");
+
     // Train and save the model
     await manager.train();
     manager.save(MODEL_PATH);

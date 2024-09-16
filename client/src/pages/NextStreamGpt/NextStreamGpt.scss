@@ -864,6 +864,33 @@
     }
   }
 
+  &__bot-typing-indicator-bubble {
+    display: inline-block;
+    width: 0.4rem;
+    height: 0.4rem;
+    margin: 0 0.15rem;
+    background-color: $neutral-white;
+    border-radius: .05rem;
+    animation: bounce 1.2s infinite;
+  }
+  
+  &__bot-typing-indicator-bubble:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  
+  &__bot-typing-indicator-bubble:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+
+  @keyframes bounce {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-0.3rem);
+    }
+  }
+
   &__speech-icon {
     position: relative;
     left: 2.5rem;
