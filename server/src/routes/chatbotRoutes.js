@@ -93,7 +93,7 @@ async function getMediaByGenre(type, genreId) {
       title: item.title || item.name, // Handle both movie and TV show titles
       poster_path: item.poster_path,
       media_type: mediaType, // Explicitly include media type in the response
-      vote_average: item.vote_average,
+      vote_average: item.vote_average != null ? item.vote_average : 0,
     }));
   } catch (error) {
     console.error(`Error fetching ${mediaType} from TMDB: ${error}`);

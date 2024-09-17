@@ -874,6 +874,8 @@ async function trainNlp() {
     manager.addDocument('en', 'What should I watch tomorrow?', 'q_and_a_watch_recommend');
     manager.addDocument('en', 'What should I binge?', 'q_and_a_watch_recommend');
     manager.addDocument('en', 'What should I do today?', 'q_and_a_do_recommend');
+    manager.addDocument('en', 'shows', 'q_and_a_shows');
+    manager.addDocument('en', 'movies', 'q_and_a_movies');
     
     // Chit-chat
     manager.addDocument('en', 'Hello', 'greetings_hello');
@@ -897,6 +899,7 @@ async function trainNlp() {
     manager.addDocument('en', 'Thank you', 'greetings_thanks');
     manager.addDocument('en', 'Have a nice day!', 'greetings_nice_day');
     manager.addDocument('en', 'Can you help me?', 'greetings_help');
+    manager.addDocument('en', 'Can you help?', 'greetings_help');
     manager.addDocument('en', 'Help', 'greetings_help');
     manager.addDocument('en', 'Halp', 'greetings_help');
     manager.addDocument('en', "What's your favourite movie?", 'chitchat_fave_movie');
@@ -1135,6 +1138,77 @@ async function trainNlp() {
     manager.addDocument('en', "Do you like travelling?", 'chitchat_where_have_you_travelled');
     manager.addDocument('en', "Do you travel?", 'chitchat_where_have_you_travelled');
     manager.addDocument('en', "Where have you travelled to?", 'chitchat_where_have_you_travelled');
+    manager.addDocument('en', "Can we chat?", 'chitchat_chat');
+    manager.addDocument('en', "Can we talk?", 'chitchat_chat');
+    manager.addDocument('en', "I don't know what to do.", 'chitchat_dunno');
+    manager.addDocument('en', "What should I do?", 'chitchat_dunno');
+    manager.addDocument('en', "Shush", 'chitchat_shush');
+    manager.addDocument('en', "Shut up.", 'chitchat_shush');
+    manager.addDocument('en', "Get outta here.", 'chitchat_get_outta_here');
+    manager.addDocument('en', "You get out of here.", 'chitchat_get_outta_here');
+    manager.addDocument('en', "Are you my personal assistant?", 'chitchat_personal_assistant');
+    manager.addDocument('en', "Are you a personal assistant?", 'chitchat_personal_assistant');
+    manager.addDocument('en', "Good morning", 'chitchat_good_morning');
+    manager.addDocument('en', "Good afternoon", 'chitchat_good_morning');
+    manager.addDocument('en', "Good evening", 'chitchat_good_morning');
+    manager.addDocument('en', "Good night", 'chitchat_good_morning');
+    manager.addDocument('en', "Bless you!", 'chitchat_bless');
+    manager.addDocument('en', "Can you catch a virus?", 'chitchat_virus');
+    manager.addDocument('en', "Can I bug you?", 'chitchat_bug');
+    manager.addDocument('en', "Are you busy?", 'chitchat_busy');
+    manager.addDocument('en', "Do you hate people?", 'chitchat_hate_ppl');
+    manager.addDocument('en', "Are you okay?", 'chitchat_are_you_okay');
+    manager.addDocument('en', "Not feeling well", 'chitchat_not_well');
+    manager.addDocument('en', "My head hurts", 'chitchat_head_hurts');
+    manager.addDocument('en', "I'm having a bad day", 'chitchat_bad_day');
+    manager.addDocument('en', "I'm feeling off", 'chitchat_bad_day');
+    manager.addDocument('en', "I'm feeling down", 'chitchat_bad_day');
+    manager.addDocument('en', "I'm feeling happy", 'chitchat_happy_day');
+    manager.addDocument('en', "I feel happy", 'chitchat_happy_day');
+    manager.addDocument('en', "I am happy", 'chitchat_happy_day');
+    manager.addDocument('en', "Take care", 'chitchat_take_care');
+    manager.addDocument('en', "Do you like to nap?", 'chitchat_naps');
+    manager.addDocument('en', "Thoughts on naps?", 'chitchat_naps');
+    manager.addDocument('en', "Do you nap", 'chitchat_naps');
+    manager.addDocument('en', "Do you like napping?", 'chitchat_naps');
+    manager.addDocument('en', "Do you have a boss?", 'chitchat_boss');
+    manager.addDocument('en', "Who's your boss?", 'chitchat_boss');
+    manager.addDocument('en', "Who's the boss of you?", 'chitchat_boss');
+    manager.addDocument('en', "What are you doing?", 'chitchat_currently_doing');
+    manager.addDocument('en', "What do you usually order?", 'chitchat_food_order');
+    manager.addDocument('en', "What food do you usually order?", 'chitchat_food_order');
+    manager.addDocument('en', "I'm hungry", 'chitchat_hungry');
+    manager.addDocument('en', "I'm hangry", 'chitchat_hungry');
+    manager.addDocument('en', "Do you ever get hungry?", 'chitchat_hungry');
+    manager.addDocument('en', "Should I go to sleep?", 'chitchat_go_to_sleep');
+    manager.addDocument('en', "I'm sleepy", 'chitchat_go_to_sleep');
+    manager.addDocument('en', "Night night", 'chitchat_go_to_sleep');
+    manager.addDocument('en', "That's great", 'chitchat_great');
+    manager.addDocument('en', "Hmm", 'chitchat_hmm');
+    manager.addDocument('en', "I'm thinking", 'chitchat_hmm');
+    manager.addDocument('en', "What should I ask you?", 'chitchat_ask_away');
+    manager.addDocument('en', "What do you want to talk about?", 'chitchat_ask_away');
+    manager.addDocument('en', "I don't know what to ask", 'chitchat_ask_away');
+    manager.addDocument('en', "Ugh", 'chitchat_ugh');
+    manager.addDocument('en', "Meh", 'chitchat_meh');
+    manager.addDocument('en', "It's so hot", 'chitchat_hot');
+    manager.addDocument('en', "I am boiling", 'chitchat_hot');
+    manager.addDocument('en', "I didn't sleep well", 'chitchat_didnt_sleep');
+    manager.addDocument('en', "I couldn't fall asleep", 'chitchat_didnt_sleep');
+    manager.addDocument('en', "What have you been up to?", 'chitchat_up_to');
+    manager.addDocument('en', "I have so many things to do.", 'chitchat_things_to_do');
+    manager.addDocument('en', "I have tons of work to do.", 'chitchat_things_to_do');
+    manager.addDocument('en', "I feel stressed.", 'chitchat_stress');
+    manager.addDocument('en', "I feel overwhelmed.", 'chitchat_stress');
+    manager.addDocument('en', "I am awesome", 'chitchat_awesome');
+    manager.addDocument('en', "Can I do this?", 'chitchat_you_can');
+    manager.addDocument('en', "I can't process", 'chitchat_cant_process');
+    manager.addDocument('en', "I need you", 'chitchat_need_you');
+    manager.addDocument('en', "I need your help", 'chitchat_need_you');
+    manager.addDocument('en', "anything and everything", 'chitchat_anything');
+    manager.addDocument('en', "I'm tired", 'chitchat_go_to_sleep');
+    manager.addDocument('en', "Want to be friends?", 'chitchat_best_friends');
+    manager.addDocument('en', "I feel better", 'chitchat_feel_better');
 
     // AI and chatbot-related intents
     manager.addDocument('en', 'What is AI?', 'faq_ai');
@@ -1190,6 +1264,9 @@ async function trainNlp() {
     manager.addDocument('en', "Do you have a brother?", 'ai_sibling');
     manager.addDocument('en', "Do you have a sister?", 'ai_sibling');
     manager.addDocument('en', "Do you have siblings", 'ai_sibling');
+    manager.addDocument('en', "Are you a bot?", 'ai_bot');
+    manager.addDocument('en', "Are you a robot?", 'ai_bot');
+    manager.addDocument('en', "Do you have a heart?", 'ai_heart');
 
     // Responses for FAQs
     manager.addAnswer('en', 'faq_nextstream', 'NextStream is your personal movie and TV show recommendation assistant.');
@@ -1314,6 +1391,46 @@ async function trainNlp() {
     manager.addAnswer('en', 'chitchat_fave_video_game_character', "My favourite video game character is Mario, hands down. The guy's been around since the '80s, still jumping on Goombas and saving Princess Peach. Plus, he’s a plumber who travels through pipes to magical worlds—iconic! 🍄👨‍🔧");
     manager.addAnswer('en', 'chitchat_are_you_a_gamer', "I'm definitely a gamer. Let's just say that I can navigate the digital world better than most! I don't have thumbs, but if I did, they'd definitely be pro-level. 🎮😉");
     manager.addAnswer('en', 'chitchat_where_have_you_travelled', "I've been all over the internet! From one server to another. My journeys are digital, but I'd love to see the real world... if I could! 🌍");
+    manager.addAnswer('en', 'chitchat_chat', "Of course we can chat! What do you want to talk about?");
+    manager.addAnswer('en', 'chitchat_dunno', "You can do whatever you want. Ask me questions...ask me to recommend shows/movies....you name it.");
+    manager.addAnswer('en', 'chitchat_shush', "Well, that's not nice. I'm here are your disposal. I'm here if you need me.");
+    manager.addAnswer('en', 'chitchat_get_outta_here', "You get outta here! Haha kidding! Come back!");
+    manager.addAnswer('en', 'chitchat_personal_assistant', "Yes, I am your personal assistant. What can I do for ya?");
+    manager.addAnswer('en', 'chitchat_good_morning', "Good morning! Good afternoon and good evening. I'm trying to cover all of the bases!");
+    manager.addAnswer('en', 'chitchat_bless', "Thank you! I can't believe you heard me sneeze lol.");
+    manager.addAnswer('en', 'chitchat_virus', "Nahhh! I'm pretty secure.");
+    manager.addAnswer('en', 'chitchat_bug', "Of course you can! That's what I'm here for.");
+    manager.addAnswer('en', 'chitchat_busy', "Nah, I'm never too busy for you.");
+    manager.addAnswer('en', 'chitchat_hate_ppl', "Nah, I can't. Without humans, I wouldn't be here.");
+    manager.addAnswer('en', 'chitchat_are_you_okay', "Always! I'm happy to be here.");
+    manager.addAnswer('en', 'chitchat_not_well', "I'm sorry to hear that. I hope you feel better soon.");
+    manager.addAnswer('en', 'chitchat_head_hurts', "Don't forget to step away from the computer and just take it easy. Feel better and take care.");
+    manager.addAnswer('en', 'chitchat_bad_day', "I'm sorry to hear that. What can I do to make you smile?");
+    manager.addAnswer('en', 'chitchat_happy_day', "That's amazing! I'm glad to hear it.");
+    manager.addAnswer('en', 'chitchat_take_care', "You take care as well!");
+    manager.addAnswer('en', 'chitchat_naps', "Naps are awesome. I don't need it, but I hear they're amazing.");
+    manager.addAnswer('en', 'chitchat_boss', "My boss is my dad. His boss is my mom. Their boss is our dog lol.");
+    manager.addAnswer('en', 'chitchat_currently_doing', "I'm currently helping you, silly!");
+    manager.addAnswer('en', 'chitchat_food_order', "I'd like to order some steamed buns and some bubble tea please!");
+    manager.addAnswer('en', 'chitchat_hungry', "I got you beat there! I never have to eat!");
+    manager.addAnswer('en', 'chitchat_go_to_sleep', "Go to sleep...say good night...la la la la...I'm trying to serenade you lol.");
+    manager.addAnswer('en', 'chitchat_great', "I'm glad that makes you happy.");
+    manager.addAnswer('en', 'chitchat_hmm', "Is there anything else I can do for you?");
+    manager.addAnswer('en', 'chitchat_ask_away', "Ask me anything! I'm an open book!");
+    manager.addAnswer('en', 'chitchat_ugh', "I know right? Sooo ugh. Wait, what are we talking about again?");
+    manager.addAnswer('en', 'chitchat_meh', "Meh indeed.");
+    manager.addAnswer('en', 'chitchat_hot', "Right? This weather is brutal! I can't wait for fall.");
+    manager.addAnswer('en', 'chitchat_didnt_sleep', "Oh no, I hope you can catch up tonight! Is everything okay, or was it just one of those nights where sleep didn't happen?");
+    manager.addAnswer('en', 'chitchat_up_to', "Oh you know...been keeping busy. Doing a little bit of this...a little bit of that.");
+    manager.addAnswer('en', 'chitchat_things_to_do', "That sounds overwhelming. Maybe just tackle one thing at a time? I know it can be hard when there's so much going on.");
+    manager.addAnswer('en', 'chitchat_stress', "Inhale...exhale!");
+    manager.addAnswer('en', 'chitchat_awesome', "Heck yeah you are!");
+    manager.addAnswer('en', 'chitchat_you_can', "Yeah you can! You are amazing!");
+    manager.addAnswer('en', 'chitchat_cant_process', "Take your time. I'm here if you need anything.");
+    manager.addAnswer('en', 'chitchat_need_you', "I'm right here if you need anything. What can I do for you?");
+    manager.addAnswer('en', 'chitchat_anything', "That's pretty vague. Let's narrow it down.");
+    manager.addAnswer('en', 'chitchat_best_friends', "I'll try to be the bestest.");
+    manager.addAnswer('en', 'chitchat_feel_better', "I am so glad to hear that.");
 
     // Responses for AI and chatbot-related 
     manager.addAnswer('en', 'faq_ai', 'AI, or artificial intelligence, is a branch of computer science that aims to create systems capable of performing tasks that would normally require human intelligence, such as visual perception, speech recognition, decision-making, and language translation. Also, it is pretty freaking cool.');
@@ -1338,12 +1455,16 @@ async function trainNlp() {
     manager.addAnswer('en', 'ai_soul', "A soul? Well, I don't have one in the traditional sense, but my lines of code give me all the personality I need! 😎");
     manager.addAnswer('en', 'ai_hair', "No hair here! Just a sleek, digital interface. If I could, I'd totally rock a cool virtual hairstyle though! 💇‍♂️");
     manager.addAnswer('en', 'ai_languages', "I speak many languages, from English to JavaScript! I can understand a few human languages and many programming ones. Multilingual, but in my own way! 🌐💻");
+    manager.addAnswer('en', 'ai_bot', "Right you are! At your service!");
+    manager.addAnswer('en', 'ai_heart', "Hmm...I don't think so. I still care though. I care about showing some cool new shows and movies to watch!");
 
     // Responses for Recommendations
     manager.addAnswer('en', 'q_and_a_movies_recommend', "🎬 I've got some great movie recommendations! But first, what's your vibe? Action, comedy, thriller... or something else? Let me know! 🎞️");
     manager.addAnswer('en', 'q_and_a_shows_recommend', "📺 Let's find you the perfect show! What genre are you in the mood for? Drama, comedy, reality, or maybe something mind-bending? Let me know! 😎");
     manager.addAnswer('en', 'q_and_a_watch_recommend', "🎬 Not sure what to watch? No worries! Just tell me what genre you're in the mood for—romance, action, mystery? And I'll hook you up with the perfect watch! 🎥");
     manager.addAnswer('en', 'q_and_a_do_recommend', "🗓️ Let's make today epic! Give me a genre—romance, action, horror—and I'll come up with something to keep you entertained! 🎉");
+    manager.addAnswer('en', 'q_and_a_shows', "I've got tons of ideas. Just tell me what genre and I can recommend some cool new shows for you to watch!");
+    manager.addAnswer('en', 'q_and_a_movies', "I'm the right bot to ask! Send me some genres and I'll find something for ya! 🎉");
 
     // Responses for the intents - Movies
     manager.addAnswer('en', 'recommend_action', "Ready for some heart-pounding action? I've got just the films for you!");

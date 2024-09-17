@@ -162,6 +162,8 @@ const NextStreamGpt = () => {
               result.media_type === 'person'
             )
             .map(async result => {
+              console.log("Vote Average for", result.title || result.name, "is:", result.vote_average);  
+              
               if (result.media_type === 'person') {
                 const knownFor = result.known_for.map(item => ({
                   id: item.id,
@@ -171,12 +173,19 @@ const NextStreamGpt = () => {
                 }));
                 return { ...result, knownFor };
               } else {
-                // Fetch cast data for movies or TV shows
+                // For non-person media types (movie/tv)
                 const castResponse = await api.get(`/api/tmdb/${result.media_type}/${result.id}/credits`);
-                return { ...result, cast: castResponse.data.cast.slice(0, 5) };
+                return {
+                  ...result,
+                  cast: castResponse.data.cast.slice(0, 5),
+                  title: result.title || result.name,
+                  poster_path: result.poster_path ? `https://image.tmdb.org/t/p/w500${result.poster_path}` : DefaultPoster,
+                  media_type: result.media_type,
+                  vote_average: result.vote_average // Add the vote_average here
+                };
               }
             })
-        );
+        );        
   
         setResults(filteredResults);
       } catch (error) {
@@ -540,9 +549,12 @@ const handleSendMessage = async () => {
                       alt={result.title || result.name}
                       className='nextstream-gpt__poster nextstream-gpt__poster--results'
                     />
-                    <div className='nextstream-gpt__rating-container'>
-                      <UserRating rating={(result.vote_average || 0) * 10} />
-                    </div>
+
+                    {result.media_type !== 'person' && (
+                      <div className='nextstream-gpt__rating-container'>
+                        <UserRating rating={(result.vote_average || 0) * 10} />
+                      </div>
+                    )}
   
                     {result.media_type !== 'person' && (
                       <div className='nextstream-gpt__play-overlay' onClick={() => handlePlayTrailer(result.id, result.media_type)}>
