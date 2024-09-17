@@ -102,9 +102,7 @@ const NextStreamGpt = () => {
 
   const handlePlayTrailer = async (mediaId, mediaType) => {
     try {
-      const response = await api.get(
-        `/api/tmdb/${mediaType}/${mediaId}/videos`
-      );
+      const response = await api.get(`/api/tmdb/${mediaType}/${mediaId}/videos`);
       const { trailerUrl } = response.data;
       if (trailerUrl) {
         setTrailerUrl(trailerUrl);
@@ -123,7 +121,7 @@ const NextStreamGpt = () => {
         visible: true,
       });
     }
-  };
+  };  
 
   const fetchInteractions = useCallback(async () => {
     try {
@@ -154,46 +152,41 @@ const NextStreamGpt = () => {
         const response = await api.get('/api/tmdb/search', {
           params: { query: searchQuery },
         });
-
+  
+        // Ensure we have a default media_type to avoid issues
         const filteredResults = await Promise.all(
           response.data.results
-            .filter(
-              (result) =>
-                result.media_type === 'movie' ||
-                result.media_type === 'tv' ||
-                result.media_type === 'person'
+            .filter(result => 
+              result.media_type === 'movie' || 
+              result.media_type === 'tv' || 
+              result.media_type === 'person'
             )
-            .map(async (result) => {
+            .map(async result => {
               if (result.media_type === 'person') {
-                const knownFor = result.known_for.map((item) => ({
+                const knownFor = result.known_for.map(item => ({
                   id: item.id,
                   title: item.title || item.name,
-                  poster_path: item.poster_path
-                    ? `https://image.tmdb.org/t/p/w500${item.poster_path}`
-                    : DefaultPoster,
+                  poster_path: item.poster_path ? `https://image.tmdb.org/t/p/w500${item.poster_path}` : DefaultPoster,
                   media_type: item.media_type,
                 }));
                 return { ...result, knownFor };
               } else {
-                const castResponse = await api.get(
-                  `/api/tmdb/${result.media_type}/${result.id}/credits`
-                );
+                // Fetch cast data for movies or TV shows
+                const castResponse = await api.get(`/api/tmdb/${result.media_type}/${result.id}/credits`);
                 return { ...result, cast: castResponse.data.cast.slice(0, 5) };
               }
             })
         );
-
+  
         setResults(filteredResults);
       } catch (error) {
-        showAlert(
-          'Could not fetch search results. Please try again later.',
-          'error'
-        );
+        showAlert('Could not fetch search results. Please try again later.', 'error');
       } finally {
         setIsLoading(false);
       }
     }
   }, [searchQuery, isAuthenticated]);
+  
 
 // Simulate typing effect for the chatbot message
 const typeMessage = async (message, setMessages, setIsBotTyping) => {
@@ -259,9 +252,10 @@ const handleSendMessage = async () => {
           const id = item.id;
           const title = item.title || item.name;
           const poster_path = item.poster_path;
-          const media_type = item.media_type || 'movie';
+          const media_type = item.media_type; 
           return { id, title, poster_path, media_type };
         });
+        
         setResults(mediaResults);
         setIsLoading(false);
       } else if (!chatbotMessage || chatbotMessage.trim() === '') {
@@ -414,13 +408,13 @@ const handleSendMessage = async () => {
           <Loader />
         </div>
       )}
-
+  
       {alert.visible && (
         <div className='nextstream-gpt__alert-wrapper'>
           <CustomAlerts message={alert.message} type={alert.type} onClose={() => setAlert({ ...alert, visible: false })} />
         </div>
       )}
-
+  
       <div className='nextstream-gpt__title'>
         <h1 className='nextstream-gpt__header-text'>
           NextStream GPT:
@@ -436,46 +430,32 @@ const handleSendMessage = async () => {
           all in one place!
         </p>
       </div>
-
+  
       <button className='nextstream-gpt__gpt-button' onClick={() => navigate(`/nextsearch/${userId}`)}>
         <FontAwesomeIcon icon={faSearch} className='nextstream-gpt__gpt-icon' /><span>Classic Search</span>
       </button>
-
+  
       <div className='nextstream-gpt__chat-block'>
         <div className='nextstream-gpt__chat-container'>
           <div className='nextstream-gpt__messages'>
-             {/* Display chatbot SVG when no messages are present */}
-             {messages.length === 0 && (
+            {messages.length === 0 && (
               <div className="nextstream-gpt__empty-chat">
                 <img src={ChatbotSvg} alt="Chatbot" className="nextstream-gpt__chatbot-svg" />
                 <p className='nextstream-gpt__empty-message'>
-                    Say hello to NextStream GPT to discover your next favourite stream.
+                  Say hello to NextStream GPT to discover your next favourite stream.
                 </p>
               </div>
             )}
-
+  
             {messages.map((message, index) => (
               <div key={index} className={`nextstream-gpt__message nextstream-gpt__message--${message.sender}`}>
                 {message.sender === 'bot' && (
-                  <div>
-                    {/* Bot Message */}
-                    <div className='nextstream-gpt__bot-message'>
-                      <p>{message.text}</p>
-                      <FontAwesomeIcon icon={faRobot} className='nextstream-gpt__gpt-icon-inline' />
-                    </div>
-
-                    {index === messages.length - 1 && isBotTyping && (
-                      <div className="nextstream-gpt__bot-msg-typing">
-                        <div className="nextstream-gpt__typing-indicator-bot">
-                          <span className="nextstream-gpt__bot-typing-indicator-bubble"></span>
-                          <span className="nextstream-gpt__bot-typing-indicator-bubble"></span>
-                          <span className="nextstream-gpt__bot-typing-indicator-bubble"></span>
-                        </div>
-                      </div>
-                    )}
+                  <div className='nextstream-gpt__bot-message'>
+                    <p>{message.text}</p>
+                    <FontAwesomeIcon icon={faRobot} className='nextstream-gpt__gpt-icon-inline' />
                   </div>
                 )}
-
+  
                 {message.sender === 'user' && (
                   <div className='nextstream-gpt__user-message'>
                     <p>{message.text}</p>
@@ -485,7 +465,7 @@ const handleSendMessage = async () => {
               </div>
             ))}
           </div>
-
+  
           <div className='nextstream-gpt__input-wrapper'>
             <FontAwesomeIcon icon={faComment} className="nextstream-gpt__speech-icon" />
             <input
@@ -518,22 +498,22 @@ const handleSendMessage = async () => {
                 icon={faTimes}
                 className='nextstream-gpt__clear-input'
                 onClick={() => {
-                    setSearchQuery('');
-                    setIsTyping(false);
+                  setSearchQuery('');
+                  setIsTyping(false);
                 }}
               />
             )}
           </div>
-           {/* Clear Chat Button */}
-           {messages.length > 0 && (
+  
+          {messages.length > 0 && (
             <button className='nextstream-gpt__clear-chat-button' onClick={handleClearChat}>
-                <FontAwesomeIcon icon={faBroom} className='nextstream-gpt__clear-chat-icon' />
-                <p className="nextstream-gpt__clear-chat-text">Clear Chat</p>
+              <FontAwesomeIcon icon={faBroom} className='nextstream-gpt__clear-chat-icon' />
+              <p className="nextstream-gpt__clear-chat-text">Clear Chat</p>
             </button>
-           )}
+          )}
         </div>
       </div>
-
+  
       {results.length > 0 && (
         <div className='nextstream-gpt__results-section'>
           <div className='nextstream-gpt__carousel'>
@@ -563,15 +543,14 @@ const handleSendMessage = async () => {
                     <div className='nextstream-gpt__rating-container'>
                       <UserRating rating={(result.vote_average || 0) * 10} />
                     </div>
-
-                    {/* Play overlay only for non-person media types */}
+  
                     {result.media_type !== 'person' && (
                       <div className='nextstream-gpt__play-overlay' onClick={() => handlePlayTrailer(result.id, result.media_type)}>
                         <FontAwesomeIcon icon={faPlay} className='nextstream-gpt__play-icon' />
                       </div>
                     )}
                   </div>
-
+  
                   <div className='nextstream-gpt__icons-row'>
                     {result.media_type === 'person' ? (
                       <>
@@ -585,9 +564,9 @@ const handleSendMessage = async () => {
                         <Link to={`/nextview/${userId}/${result.media_type}/${result.id}`}>
                           <FontAwesomeIcon icon={result.media_type === 'tv' ? faTv : faFilm} className='nextstream-gpt__media-icon' title={result.media_type === 'tv' ? 'TV Show' : 'Movie'} />
                         </Link>
-
+  
                         <FontAwesomeIcon icon={faCalendarPlus} className='nextstream-gpt__cal-icon' onClick={() => handleAddToCalendar(result.title, result.media_type, result.id)} />
-
+  
                         {likedStatus[result.id] === 1 ? (
                           <FontAwesomeIcon icon={faThumbsUp} className='nextstream-gpt__like-icon active' onClick={() => handleDislike(result.id, result.media_type)} />
                         ) : likedStatus[result.id] === 0 ? (
@@ -598,7 +577,7 @@ const handleSendMessage = async () => {
                             <FontAwesomeIcon icon={faThumbsDown} className='nextstream-gpt__dislike-icon' onClick={() => handleDislike(result.id, result.media_type)} />
                           </>
                         )}
-
+  
                         <FontAwesomeIcon icon={faShareAlt} className='nextstream-gpt__share-icon' onClick={() => handleShare(result.title || result.name, result.id, result.media_type)} />
                       </>
                     )}
@@ -612,14 +591,14 @@ const handleSendMessage = async () => {
           </div>
         </div>
       )}
-
+  
       {isLoading && (
         <div className='nextstream-gpt__loading-container'>
           <img src={ReelSVG} alt='Loading...' className='nextstream-gpt__loading-svg' />
           <p className='nextstream-gpt__text--center'>Media is currently loading...</p>
         </div>
       )}
-
+  
       {isModalOpen && (
         <div className='nextstream-gpt__modal'>
           <div className='nextstream-gpt__modal-content'>
@@ -630,7 +609,7 @@ const handleSendMessage = async () => {
           </div>
         </div>
       )}
-
+  
       {showCalendar && (
         <div className='nextstream-gpt__calendar-modal'>
           <button className='nextstream-gpt__calendar-close-btn' onClick={handleCloseCalendar}>
@@ -639,7 +618,7 @@ const handleSendMessage = async () => {
           <Calendar userId={userId} eventTitle={eventTitle} mediaType={selectedMediaType} duration={duration} handleSave={handleSaveEvent} onClose={handleCloseCalendar} ref={calendarRef} />
         </div>
       )}
-
+  
       {/* Tooltip components */}
       <Tooltip id='personTooltip' place='top' />
       <Tooltip id='trendingTvTooltip' place='top' />
@@ -661,7 +640,7 @@ const handleSendMessage = async () => {
       <Tooltip id='dislikeTooltip' place='top' />
       <Tooltip id='shareIconTooltip' place='top' />
     </div>
-  );
+  );  
 };
 
 export default NextStreamGpt;
