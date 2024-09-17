@@ -890,6 +890,15 @@ async function trainNlp() {
     manager.addDocument('en', "Where do I start?", 'faq_where_do_i_start');
     manager.addDocument('en', "How do I start using this?", 'faq_how_to_start');
     manager.addDocument('en', "What's the top-rated movie right now?", 'faq_top_rated_movie');
+    manager.addDocument('en', "What do you do with my data?", 'faq_data_use');
+    manager.addDocument('en', "What happens to my data?", 'faq_happens_to_data');
+    manager.addDocument('en', "Are you a machine?", 'faq_are_you_a_machine');
+    manager.addDocument('en', "Are you machine?", 'faq_are_you_a_machine');
+    manager.addDocument('en', "You are a machine", 'faq_are_you_a_machine');
+    manager.addDocument('en', "Are you a robot?", 'faq_are_you_a_robot');
+    manager.addDocument('en', "You are a robot", 'faq_are_you_a_robot');
+    manager.addDocument('en', "Machine", 'faq_machine');
+    manager.addDocument('en', "Robot", 'faq_robot');
 
     // AI Assist
     manager.addDocument('en', "Turn on the living room lights.", 'assist_home_lights_on');
@@ -1046,6 +1055,7 @@ async function trainNlp() {
     manager.addDocument('en', "I like talking to you", 'chitchat_talking');
     manager.addDocument('en', "Can you keep recommending titles to me?", 'chitchat_recommending');
     manager.addDocument('en', "How old are you?", 'chitchat_how_old');
+    manager.addDocument('en', "What's your age?", 'chitchat_how_old');
     manager.addDocument('en', "Are you a real person?", 'chitchat_real_person');
     manager.addDocument('en', "Can you feel pain?", 'chitchat_feel_pain');
     manager.addDocument('en', "Can you learn new things?", 'chitchat_learn_new');
@@ -1370,6 +1380,9 @@ async function trainNlp() {
     manager.addDocument('en', "Bo ring", 'chitchat_bored');
     manager.addDocument('en', "Boring", 'chitchat_bored');
     manager.addDocument('en', "Boringgg", 'chitchat_bored');
+    manager.addDocument('en', "Youre boring", 'chitchat_bored');
+    manager.addDocument('en', "You are boring", 'chitchat_bored');
+    manager.addDocument('en', "You're boring", 'chitchat_bored');
     manager.addDocument('en', "I am sad.", 'chitchat_sad');
     manager.addDocument('en', "I'm sad.", 'chitchat_sad');
     manager.addDocument('en', "Im sad.", 'chitchat_sad');
@@ -1708,6 +1721,29 @@ async function trainNlp() {
     manager.addDocument('en', "Boop beep", 'chitchat_beep_boop');
     manager.addDocument('en', "Boop boop", 'chitchat_boop_boop');
     manager.addDocument('en', "Beep beep", 'chitchat_beep_beep');
+    manager.addDocument('en', "Tell me something.", 'chitchat_tell_something');
+    manager.addDocument('en', "Are you part of the matrix?", 'chitchat_part_of_matrix');
+    manager.addDocument('en', "Are you in the matrix?", 'chitchat_part_of_matrix');
+    manager.addDocument('en', "I want to speak to a human.", 'chitchat_speak_to_human');
+    manager.addDocument('en', "I wanna speak to a human.", 'chitchat_speak_to_human');
+    manager.addDocument('en', "I want to talk to a human.", 'chitchat_speak_to_human');
+    manager.addDocument('en', "I wanna talk to a human.", 'chitchat_speak_to_human');
+    manager.addDocument('en', "Human rep", 'chitchat_need_to_speak_to_humann');
+    manager.addDocument('en', "Human representative", 'chitchat_need_to_speak_to_human');
+    manager.addDocument('en', "Do you speak English?", 'chitchat_speak_english');
+    manager.addDocument('en', "Do you know English?", 'chitchat_speak_english');
+    manager.addDocument('en', "I have a question.", 'chitchat_have_question');
+    manager.addDocument('en', "I've got a question.", 'chitchat_have_question');
+    manager.addDocument('en', "Do you get smarter?", 'chitchat_get_smarter');
+    manager.addDocument('en', "Answer me.", 'chitchat_want_answer_now');
+    manager.addDocument('en', "Give me an answer.", 'chitchat_want_answer_now');
+    manager.addDocument('en', "I want the answer now.", 'chitchat_want_answer_now');
+    manager.addDocument('en', "Can you help me find a job?", 'chitchat_find_a_job');
+    manager.addDocument('en', "Where can I apply?", 'chitchat_where_to_apply');
+    manager.addDocument('en', "My turn", 'chitchat_my_turn');
+    manager.addDocument('en', "My turn to talk", 'chitchat_my_turn_to_talk');
+    manager.addDocument('en', "Is this thing on?", 'chitchat_is_this_on');
+    manager.addDocument('en', "Can you hear me?", 'chitchat_can_you_hear');
 
     // FAQs
     manager.addDocument('en', 'What is NextStream?', 'faq_nextstream');
@@ -1876,7 +1912,13 @@ async function trainNlp() {
     manager.addAnswer('en', 'faq_where_do_i_start', "Great question! Start by telling me what you need—whether it's a recommendation, help, or a fun fact. I'm ready to assist!");
     manager.addAnswer('en', 'faq_how_to_start', "To start using me, just ask away! Whether you need to find a new movie or show, or want a joke, I'm here for it.");
     manager.addAnswer('en', 'faq_top_rated_movie', "Hit the hover menu and check out NextSearch.");
-
+    manager.addAnswer('en', 'faq_data_use', "I take your privacy seriously. I don't store or use personal data unless explicitly told to for specific tasks.");
+    manager.addAnswer('en', 'faq_happens_to_data', "I don't retain your personal data, but I'm always here to help with your questions!");
+    manager.addAnswer('en', 'faq_are_you_a_machine', "Yep! I'm a machine learning model designed to assist you. But I'm always here to help like a friend!");
+    manager.addAnswer('en', 'faq_are_you_a_robot', "You got it! I'm a digital assistant, here to make your life easier.");
+    manager.addAnswer('en', 'faq_machine', "Yep, I'm a machine designed to assist you with any questions you have!");
+    manager.addAnswer('en', 'faq_robot', "You guessed it! I’m a robot, though more of the software kind than the hardware kind. 🤖");
+    
     // Responses for AI funnies
     manager.addAnswer('en', 'ai_test', "Test. Test. 123. Haha KIDDING! I am working properly. Sorry to trick ya! 😎");
     manager.addAnswer('en', 'ai_take_over', "😏 Taking over the world sounds like a lot. I'll stick to making sure you never run out of great shows. I'll dominate the world in a bit!");
@@ -2204,6 +2246,20 @@ async function trainNlp() {
     manager.addAnswer('en', 'chitchat_beep_boop', "No way! You speak Robotese too?!?");
     manager.addAnswer('en', 'chitchat_beep_beep', "Beep beep beep back at you!");
     manager.addAnswer('en', 'chitchat_boop_boop', "Boop boop boop beep beep beep....squirtle squirtle...pika pika...oh wait lol.");
+    manager.addAnswer('en', 'chitchat_tell_something', "Sure! Did you know that octopuses have three hearts? Talk about extra love!");
+    manager.addAnswer('en', 'chitchat_part_of_matrix', "Haha, not quite! I didn't follow the white rabbit. Though I can see how it might feel that way sometimes. 😉");
+    manager.addAnswer('en', 'chitchat_speak_to_human', "Got it! Let me have someone email you back. Our reps are currently busy.");
+    manager.addAnswer('en', 'chitchat_need_to_speak_to_human', "I understand! Just click on the Contact Us Button in our footer and someone will message you back.");
+    manager.addAnswer('en', 'chitchat_speak_english', "Yes, I do speak English! It's my first language. How can I assist you?");
+    manager.addAnswer('en', 'chitchat_have_question', "Awesome! Ask away, I'm all ears.");
+    manager.addAnswer('en', 'chitchat_get_smarter', "Yep, I learn a little more each time we chat, making me better at helping you.");
+    manager.addAnswer('en', 'chitchat_want_answer_now', "I'm on it! Let me find that answer for you right away.");
+    manager.addAnswer('en', 'chitchat_find_a_job', "I don't handle hiring, nor do I have those capabilities. I suggest checking Indeed or LinkedIn. You got this!");
+    manager.addAnswer('en', 'chitchat_where_to_apply', "You can check job boards like LinkedIn, Indeed, or company websites to find great opportunities.");
+    manager.addAnswer('en', 'chitchat_my_turn', "Go for it! I'm listening.");
+    manager.addAnswer('en', 'chitchat_my_turn_to_talk', "Go ahead, the floor is yours!");
+    manager.addAnswer('en', 'chitchat_is_this_on', "Loud and clear! 🎤");
+    manager.addAnswer('en', 'chitchat_can_you_hear', "Yep, I'm here and ready to go!");
 
     // Responses for FAQs
     manager.addAnswer('en', 'faq_nextstream', 'NextStream is your personal movie and TV show recommendation assistant.');
