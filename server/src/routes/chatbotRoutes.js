@@ -6,14 +6,22 @@ const router = express.Router();
 const genreMap = {
   // Movies
   'recommend_action': { type: 'movie', genreId: 28 },
+  'recommend_adventure': { type: 'movie', genreId: 12 },
+  'recommend_animation': { type: 'movie', genreId: 16 },
   'recommend_comedy': { type: 'movie', genreId: 35 },
-  'recommend_thriller': { type: 'movie', genreId: 53 },
+  'recommend_documentary': { type: 'movie', genreId: 99 },
+  'recommend_drama': { type: 'movie', genreId: 18 },
   'recommend_romance': { type: 'movie', genreId: 10749 },
-  'recommend_romcom': { type: 'movie', genreId: '10749,35' },  
+  'recommend_romcom': { type: 'movie', genreId: '10749,35' }, 
+  'recommend_thriller': { type: 'movie', genreId: 53 }, 
 
   // TV Shows
   'recommend_action_tv': { type: 'tv', genreId: 10759 },
+  'recommend_adventure_tv': { type: 'tv', genreId: 10759 },
+  'recommend_animation_tv': { type: 'tv', genreId: 16 },
   'recommend_comedy_tv': { type: 'tv', genreId: 35 },
+  'recommend_documentary_tv': { type: 'tv', genreId: 99 },
+  'recommend_drama_tv': { type: 'tv', genreId: 18 },
   'recommend_thriller_tv': { type: 'tv', genreId: 80 },
   'recommend_romance_tv': { type: 'tv', genreId: 10749 },
   'recommend_romcom_tv': { type: 'tv', genreId: '10749,35' }

@@ -69,6 +69,98 @@ async function trainNlp() {
     manager.addDocument('en', 'Suggest action shows', 'recommend_action_tv');
     manager.addDocument('en', 'Suggest an action show', 'recommend_action_tv');
     manager.addDocument('en', 'What are some good action shows?', 'recommend_action_tv');
+
+    // Adventure Movies
+    manager.addDocument('en', 'Adventure', 'recommend_adventure');
+    manager.addDocument('en', 'Adventure film', 'recommend_adventure');
+    manager.addDocument('en', 'Adventure movie', 'recommend_adventure');
+    manager.addDocument('en', 'Can you suggest an adventure film?', 'recommend_adventure');
+    manager.addDocument('en', 'Can you suggest some adventure films?', 'recommend_adventure');
+    manager.addDocument('en', 'Can you suggest some adventure movies?', 'recommend_adventure');
+    manager.addDocument('en', 'Can you suggest an adventure film?', 'recommend_adventure');
+    manager.addDocument('en', 'Find me an adventure film', 'recommend_adventure');
+    manager.addDocument('en', 'Find me an adventure movie', 'recommend_adventure');
+    manager.addDocument('en', 'Give me an adventure recommendation', 'recommend_adventure');
+    manager.addDocument('en', 'Give me a good adventure film', 'recommend_adventure');
+    manager.addDocument('en', 'Give me a good adventure movie', 'recommend_adventure');
+    manager.addDocument('en', 'I want to watch an adventure film', 'recommend_adventure');
+    manager.addDocument('en', 'I want to watch an adventure movie', 'recommend_adventure');
+    manager.addDocument('en', 'Recommend an adventure film', 'recommend_adventure');
+    manager.addDocument('en', 'Recommend an adventure movie', 'recommend_adventure');
+    manager.addDocument('en', 'Show me adventure movies', 'recommend_adventure');
+    manager.addDocument('en', 'Show me adventure films', 'recommend_adventure');
+    manager.addDocument('en', 'Show me some adventure films', 'recommend_adventure');
+    manager.addDocument('en', 'Show me some adventure movies', 'recommend_adventure');
+    manager.addDocument('en', 'Suggest an adventure film', 'recommend_adventure');
+    manager.addDocument('en', 'Suggest an adventure movie', 'recommend_adventure');
+    manager.addDocument('en', 'What are some good adventure films?', 'recommend_adventure');
+    manager.addDocument('en', 'What are some good adventure movies?', 'recommend_adventure');
+
+    // Adventure Shows
+    manager.addDocument('en', 'Adventure series', 'recommend_adventure_tv');
+    manager.addDocument('en', 'Adventure shows', 'recommend_adventure_tv');
+    manager.addDocument('en', 'Adventure tv show', 'recommend_adventure_tv');
+    manager.addDocument('en', 'Can you suggest an adventure show?', 'recommend_adventure_tv');
+    manager.addDocument('en', 'Can you suggest some adventure shows?', 'recommend_adventure_tv');
+    manager.addDocument('en', 'Can you suggest adventure shows?', 'recommend_adventure_tv');
+    manager.addDocument('en', 'Can you suggest an adventure show?', 'recommend_adventure_tv');
+    manager.addDocument('en', 'Find me an adventure show', 'recommend_adventure_tv');
+    manager.addDocument('en', 'Give me an adventure show', 'recommend_adventure_tv');
+    manager.addDocument('en', 'Give me a good adventure show', 'recommend_adventure_tv');
+    manager.addDocument('en', 'I want to watch an adventure show', 'recommend_adventure_tv');
+    manager.addDocument('en', 'Recommend an adventure show', 'recommend_adventure_tv');
+    manager.addDocument('en', 'Recommend an adventure tv show', 'recommend_adventure_tv');
+    manager.addDocument('en', 'Show me adventure shows', 'recommend_adventure_tv');
+    manager.addDocument('en', 'Show me some adventure shows', 'recommend_adventure_tv');
+    manager.addDocument('en', 'Suggest adventure shows', 'recommend_adventure_tv');
+    manager.addDocument('en', 'Suggest an adventure show', 'recommend_adventure_tv');
+    manager.addDocument('en', 'What are some good adventure shows?', 'recommend_adventure_tv');
+
+    // Animation Movies
+    manager.addDocument('en', 'Animation', 'recommend_animation');
+    manager.addDocument('en', 'Animation film', 'recommend_animation');
+    manager.addDocument('en', 'Animation movie', 'recommend_animation');
+    manager.addDocument('en', 'Can you suggest an animation film?', 'recommend_animation');
+    manager.addDocument('en', 'Can you suggest some animation films?', 'recommend_animation');
+    manager.addDocument('en', 'Can you suggest some animation movies?', 'recommend_animation');
+    manager.addDocument('en', 'Can you suggest an animation film?', 'recommend_animation');
+    manager.addDocument('en', 'Find me an animation film', 'recommend_animation');
+    manager.addDocument('en', 'Find me an animation movie', 'recommend_animation');
+    manager.addDocument('en', 'Give me an animation recommendation', 'recommend_animation');
+    manager.addDocument('en', 'Give me a good animation film', 'recommend_animation');
+    manager.addDocument('en', 'Give me a good animation movie', 'recommend_animation');
+    manager.addDocument('en', 'I want to watch an animation film', 'recommend_animation');
+    manager.addDocument('en', 'I want to watch an animation movie', 'recommend_animation');
+    manager.addDocument('en', 'Recommend an animation film', 'recommend_animation');
+    manager.addDocument('en', 'Recommend an animation movie', 'recommend_animation');
+    manager.addDocument('en', 'Show me animation movies', 'recommend_animation');
+    manager.addDocument('en', 'Show me animation films', 'recommend_animation');
+    manager.addDocument('en', 'Show me some animation films', 'recommend_animation');
+    manager.addDocument('en', 'Show me some animation movies', 'recommend_animation');
+    manager.addDocument('en', 'Suggest an animation film', 'recommend_animation');
+    manager.addDocument('en', 'Suggest an animation movie', 'recommend_animation');
+    manager.addDocument('en', 'What are some good animation films?', 'recommend_animation');
+    manager.addDocument('en', 'What are some good animation movies?', 'recommend_animation');
+
+    // Animation Shows
+    manager.addDocument('en', 'Animation series', 'recommend_animation_tv');
+    manager.addDocument('en', 'Animation shows', 'recommend_animation_tv');
+    manager.addDocument('en', 'Animation tv show', 'recommend_animation_tv');
+    manager.addDocument('en', 'Can you suggest an animation show?', 'recommend_animation_tv');
+    manager.addDocument('en', 'Can you suggest some animation shows?', 'recommend_animation_tv');
+    manager.addDocument('en', 'Can you suggest animation shows?', 'recommend_animation_tv');
+    manager.addDocument('en', 'Can you suggest an animation show?', 'recommend_animation_tv');
+    manager.addDocument('en', 'Find me an animation show', 'recommend_animation_tv');
+    manager.addDocument('en', 'Give me an animation show', 'recommend_animation_tv');
+    manager.addDocument('en', 'Give me a good animation show', 'recommend_animation_tv');
+    manager.addDocument('en', 'I want to watch an animation show', 'recommend_animation_tv');
+    manager.addDocument('en', 'Recommend an animation show', 'recommend_animation_tv');
+    manager.addDocument('en', 'Recommend an animation tv show', 'recommend_animation_tv');
+    manager.addDocument('en', 'Show me animation shows', 'recommend_animation_tv');
+    manager.addDocument('en', 'Show me some animation shows', 'recommend_animation_tv');
+    manager.addDocument('en', 'Suggest animation shows', 'recommend_animation_tv');
+    manager.addDocument('en', 'Suggest an animation show', 'recommend_animation_tv');
+    manager.addDocument('en', 'What are some good animation shows?', 'recommend_animation_tv');
   
     // Comedy Movies
     manager.addDocument('en', 'Comedy', 'recommend_comedy');
@@ -112,6 +204,120 @@ async function trainNlp() {
     manager.addDocument('en', 'Suggest comedy shows', 'recommend_comedy_tv');
     manager.addDocument('en', 'Suggest a comedy show', 'recommend_comedy_tv');
     manager.addDocument('en', 'What are some good comedy shows?', 'recommend_comedy_tv');
+
+    // Documentary Movies
+    manager.addDocument('en', 'Can you suggest a documentary?', 'recommend_documentary');
+    manager.addDocument('en', 'Can you suggest a documentary film?', 'recommend_documentary');
+    manager.addDocument('en', 'Can you suggest a doc', 'recommend_documentary');
+    manager.addDocument('en', 'Doc', 'recommend_documentary');
+    manager.addDocument('en', 'Documentaries', 'recommend_documentary');
+    manager.addDocument('en', 'Documentary', 'recommend_documentary');
+    manager.addDocument('en', 'Find me a doc', 'recommend_documentary');
+    manager.addDocument('en', 'Find me a documentary', 'recommend_documentary');
+    manager.addDocument('en', 'Find me a documentary film', 'recommend_documentary');
+    manager.addDocument('en', 'Find me a documentary movie', 'recommend_documentary');
+    manager.addDocument('en', 'Give me a documentary recommendation', 'recommend_documentary');
+    manager.addDocument('en', 'Give me a good documentary', 'recommend_documentary');
+    manager.addDocument('en', 'I want to watch a doc', 'recommend_documentary');
+    manager.addDocument('en', 'I want to watch a documentary', 'recommend_documentary');
+    manager.addDocument('en', 'Recommend a documentary film', 'recommend_documentary');
+    manager.addDocument('en', 'Recommend me a documentary movie', 'recommend_documentary');
+    manager.addDocument('en', 'Show me a doc movie', 'recommend_documentary');
+    manager.addDocument('en', 'Show me doc movies', 'recommend_documentary');
+    manager.addDocument('en', 'Show me documentary movies', 'recommend_documentary');
+    manager.addDocument('en', 'Show me some documentary movies', 'recommend_documentary');
+    manager.addDocument('en', 'Show me some doc movies', 'recommend_documentary');
+    manager.addDocument('en', 'Suggest a doc movie', 'recommend_documentary');
+    manager.addDocument('en', 'Suggest a documentary movie', 'recommend_documentary');
+    manager.addDocument('en', 'What are some good documentaries?', 'recommend_documentary');
+
+    // Documentary Shows
+    manager.addDocument('en', 'Doc series', 'recommend_documentary_tv');
+    manager.addDocument('en', 'Doc show', 'recommend_documentary_tv');
+    manager.addDocument('en', 'Doc shows', 'recommend_documentary_tv');
+    manager.addDocument('en', 'Doc tv show', 'recommend_documentary_tv');
+    manager.addDocument('en', 'Documentary series', 'recommend_documentary_tv');
+    manager.addDocument('en', 'Documentary show', 'recommend_documentary_tv');
+    manager.addDocument('en', 'Documentary shows', 'recommend_documentary_tv');
+    manager.addDocument('en', 'Documentary tv show', 'recommend_documentary_tv');
+    manager.addDocument('en', 'Can you suggest a documentary show?', 'recommend_documentary_tv');
+    manager.addDocument('en', 'Can you suggest documentary shows?', 'recommend_documentary_tv');
+    manager.addDocument('en', 'Can you suggest some documentary shows?', 'recommend_documentary_tv');
+    manager.addDocument('en', 'Find me a doc show', 'recommend_documentary_tv');
+    manager.addDocument('en', 'Find me a documentary show', 'recommend_documentary_tv');
+    manager.addDocument('en', 'Give me a doc show', 'recommend_documentary_tv');
+    manager.addDocument('en', 'Give me a documentary show', 'recommend_documentary_tv');
+    manager.addDocument('en', 'Give me a good doc show', 'recommend_documentary_tv');
+    manager.addDocument('en', 'Give me a good documentary show', 'recommend_documentary_tv');
+    manager.addDocument('en', 'I want to watch a doc show', 'recommend_documentary_tv');
+    manager.addDocument('en', 'I want to watch a documentary show', 'recommend_documentary_tv');
+    manager.addDocument('en', 'Recommend a doc show', 'recommend_documentary_tv');
+    manager.addDocument('en', 'Recommend a documentary show', 'recommend_documentary_tv');
+    manager.addDocument('en', 'Recommend a doc tv show', 'recommend_documentary_tv');
+    manager.addDocument('en', 'Recommend a documentary tv show', 'recommend_documentary_tv');
+    manager.addDocument('en', 'Show me doc shows', 'recommend_documentary_tv');
+    manager.addDocument('en', 'Show me documentary shows', 'recommend_documentary_tv');
+    manager.addDocument('en', 'Show me some doc shows', 'recommend_documentary_tv');
+    manager.addDocument('en', 'Show me some documentary shows', 'recommend_documentary_tv');
+    manager.addDocument('en', 'Suggest a doc show', 'recommend_documentary_tv');
+    manager.addDocument('en', 'Suggest a documentary show', 'recommend_documentary_tv');
+    manager.addDocument('en', 'Suggest doc shows', 'recommend_documentary_tv');
+    manager.addDocument('en', 'Suggest documentary shows', 'recommend_documentary_tv');
+    manager.addDocument('en', 'What are some good doc shows?', 'recommend_documentary_tv');
+    manager.addDocument('en', 'What are some good documentary shows?', 'recommend_documentary_tv');
+
+    // Drama Movies
+    manager.addDocument('en', 'Can you suggest a drama?', 'recommend_drama');
+    manager.addDocument('en', 'Can you suggest a drama film?', 'recommend_drama');
+    manager.addDocument('en', 'Can you suggest something sad', 'recommend_drama');
+    manager.addDocument('en', 'Drama', 'recommend_drama');
+    manager.addDocument('en', 'Dramatic', 'recommend_drama');
+    manager.addDocument('en', 'Emotional', 'recommend_drama');
+    manager.addDocument('en', 'Find me a sad film', 'recommend_drama');
+    manager.addDocument('en', 'Find me something sad', 'recommend_drama');
+    manager.addDocument('en', 'Find me something very sad', 'recommend_drama');
+    manager.addDocument('en', 'Give me a drama recommendation', 'recommend_drama');
+    manager.addDocument('en', 'Give me a good drama', 'recommend_drama');
+    manager.addDocument('en', 'Heartfelt', 'recommend_drama');
+    manager.addDocument('en', 'I want to watch a drama', 'recommend_drama');
+    manager.addDocument('en', 'I want to watch something sad', 'recommend_drama');
+    manager.addDocument('en', 'Recommend a drama film', 'recommend_drama');
+    manager.addDocument('en', 'Recommend me a drama movie', 'recommend_drama');
+    manager.addDocument('en', 'Sad', 'recommend_drama');
+    manager.addDocument('en', 'Sentimental', 'recommend_drama');
+    manager.addDocument('en', 'Show me drama movies', 'recommend_drama');
+    manager.addDocument('en', 'Show me some drama movies', 'recommend_drama');
+    manager.addDocument('en', 'Suggest a drama movie', 'recommend_drama');
+    manager.addDocument('en', 'What are some good drama?', 'recommend_drama');
+
+    // Drama Shows
+    manager.addDocument('en', 'Drama series', 'recommend_drama_tv');
+    manager.addDocument('en', 'Drama show', 'recommend_drama_tv');
+    manager.addDocument('en', 'Drama shows', 'recommend_drama_tv');
+    manager.addDocument('en', 'Drama tv show', 'recommend_drama_tv');
+    manager.addDocument('en', 'Dramatic series', 'recommend_drama_tv');
+    manager.addDocument('en', 'Dramatic show', 'recommend_drama_tv');
+    manager.addDocument('en', 'Dramatic shows', 'recommend_drama_tv');
+    manager.addDocument('en', 'Dramatic tv show', 'recommend_drama_tv');
+    manager.addDocument('en', 'Can you suggest a drama show?', 'recommend_drama_tv');
+    manager.addDocument('en', 'Can you suggest drama shows?', 'recommend_drama_tv');
+    manager.addDocument('en', 'Can you suggest some drama shows?', 'recommend_drama_tv');
+    manager.addDocument('en', 'Find me a drama show', 'recommend_drama_tv');
+    manager.addDocument('en', 'Give me a drama show', 'recommend_drama_tv');
+    manager.addDocument('en', 'Give me a drama show', 'recommend_drama_tv');
+    manager.addDocument('en', 'Give me a good drama show', 'recommend_drama_tv');
+    manager.addDocument('en', 'I want to watch a drama show', 'recommend_drama_tv');
+    manager.addDocument('en', 'Recommend a drama show', 'recommend_drama_tv');
+    manager.addDocument('en', 'Recommend a drama tv show', 'recommend_drama_tv');
+    manager.addDocument('en', 'Sad series', 'recommend_drama_tv');
+    manager.addDocument('en', 'Sad show', 'recommend_drama_tv');
+    manager.addDocument('en', 'Sad shows', 'recommend_drama_tv');
+    manager.addDocument('en', 'Sad tv show', 'recommend_drama_tv');
+    manager.addDocument('en', 'Show me drama shows', 'recommend_drama_tv');
+    manager.addDocument('en', 'Show me some drama shows', 'recommend_drama_tv');
+    manager.addDocument('en', 'Suggest drama shows', 'recommend_drama_tv');
+    manager.addDocument('en', 'Suggest a drama show', 'recommend_drama_tv');
+    manager.addDocument('en', 'What are some good drama shows?', 'recommend_drama_tv');
 
     // Romance Movies
     manager.addDocument('en', 'Romance', 'recommend_romance');
@@ -326,7 +532,7 @@ async function trainNlp() {
     manager.addDocument('en', 'Greetings!', 'greetings_hello');
     manager.addDocument('en', "How you doin'?", 'greetings_how_you_doin');
     manager.addDocument('en', 'Hi', 'greetings_hello');
-    manager.addDocument('en', 'Hola', 'greetings_hello');
+    manager.addDocument('en', 'Hola', 'greetings_hola');
     manager.addDocument('en', 'Hey', 'greetings_hello');
     manager.addDocument('en', 'Are you there?', 'greetings_are_you_there');
     manager.addDocument('en', 'How are you?', 'chitchat_how_are_you');
@@ -492,6 +698,94 @@ async function trainNlp() {
     manager.addDocument('en', "What's your fave genre?", 'chitchat_fave_genre');
     manager.addDocument('en', "What's your favorite genre?", 'chitchat_fave_genre');
     manager.addDocument('en', "What's your favourite genre?", 'chitchat_fave_genre');
+    manager.addDocument('en', "You're funny.", 'chitchat_you_are_funny');
+    manager.addDocument('en', "You're hilarious.", 'chitchat_you_are_funny');
+    manager.addDocument('en', "You are funny.", 'chitchat_you_are_funny');
+    manager.addDocument('en', "You are hilarious.", 'chitchat_you_are_funny');
+    manager.addDocument('en', "What did you do today?", 'chitchat_what_you_did_today');
+    manager.addDocument('en', "Cheers", 'chitchat_cheers');
+    manager.addDocument('en', "Do you like the rain?", 'chitchat_rain');
+    manager.addDocument('en', "Do you like rain?", 'chitchat_rain');
+    manager.addDocument('en', "Don't you just love rain?", 'chitchat_rain');
+    manager.addDocument('en', "I love rain.", 'chitchat_rain');
+    manager.addDocument('en', "Do you like the snow?", 'chitchat_snow');
+    manager.addDocument('en', "Do you like snow?", 'chitchat_snow');
+    manager.addDocument('en', "Don't you just love snow?", 'chitchat_snow');
+    manager.addDocument('en', "I love snow.", 'chitchat_snow');
+    manager.addDocument('en', "Build a snowman", 'chitchat_snowman');
+    manager.addDocument('en', "Do you want to build a snowman", 'chitchat_snowman');
+    manager.addDocument('en', "Are you a magician?", 'chitchat_magic');
+    manager.addDocument('en', "Can you do magic?", 'chitchat_magic');
+    manager.addDocument('en', "Do you have magical powers?", 'chitchat_magic');
+    manager.addDocument('en', "Do you have powers?", 'chitchat_magic');
+    manager.addDocument('en', "Are you a witch?", 'chitchat_am_i_a_wizard');
+    manager.addDocument('en', "Are you a wizard?", 'chitchat_am_i_a_wizard');
+    manager.addDocument('en', "Do you have a job?", 'chitchat_job');
+    manager.addDocument('en', "Do you work?", 'chitchat_job');
+    manager.addDocument('en', "What's your job?", 'chitchat_job');
+    manager.addDocument('en', "Can you run?", 'chitchat_run');
+    manager.addDocument('en', "Do you know how to run?", 'chitchat_run');
+    manager.addDocument('en', "Do you like politics?", 'chitchat_politics');
+    manager.addDocument('en', "Let's chat about politics?", 'chitchat_politics');
+    manager.addDocument('en', "Let's talk about politics?", 'chitchat_politics');
+    manager.addDocument('en', "Thoughts on politics?", 'chitchat_politics');
+    manager.addDocument('en', "Fave director?", 'chitchat_fave_director');
+    manager.addDocument('en', "Favorite director?", 'chitchat_fave_director');
+    manager.addDocument('en', "Favourite director?", 'chitchat_fave_director');
+    manager.addDocument('en', "Who's your fave director?", 'chitchat_fave_director');
+    manager.addDocument('en', "Who's your favorite director?", 'chitchat_fave_director');
+    manager.addDocument('en', "Who's your favourite director?", 'chitchat_fave_director');
+    manager.addDocument('en', "Fave show character", 'chitchat_fave_tv_show_character');
+    manager.addDocument('en', "Fave tv show character", 'chitchat_fave_tv_show_character');
+    manager.addDocument('en', "Favorite show character", 'chitchat_fave_tv_show_character');
+    manager.addDocument('en', "Favorite tv show character", 'chitchat_fave_tv_show_character');
+    manager.addDocument('en', "Favourite show character", 'chitchat_fave_tv_show_character');
+    manager.addDocument('en', "Favourite tv show character", 'chitchat_fave_tv_show_character');
+    manager.addDocument('en', "Who's your fave tv show character", 'chitchat_fave_tv_show_character');
+    manager.addDocument('en', "Who's your favorite tv show character", 'chitchat_fave_tv_show_character');
+    manager.addDocument('en', "Who's your favourite tv show character", 'chitchat_fave_tv_show_character');
+    manager.addDocument('en', "Fave movie character", 'chitchat_fave_movie_character');
+    manager.addDocument('en', "Favorite movie character", 'chitchat_fave_movie_character');
+    manager.addDocument('en', "Favourite movie character", 'chitchat_fave_movie_character');
+    manager.addDocument('en', "Who's your fave movie character", 'chitchat_fave_movie_character');
+    manager.addDocument('en', "Who's your favorite movie character", 'chitchat_fave_movie_character');
+    manager.addDocument('en', "Who's your favourite movie character", 'chitchat_fave_movie_character');
+    manager.addDocument('en', "Fave animated character", 'chitchat_fave_animated_character');
+    manager.addDocument('en', "Favorite animated character", 'chitchat_fave_animated_character');
+    manager.addDocument('en', "Favourite animated character", 'chitchat_fave_animated_character');
+    manager.addDocument('en', "Who's your fave animated character", 'chitchat_fave_animated_character');
+    manager.addDocument('en', "Who's your favorite animated character", 'chitchat_fave_animated_character');
+    manager.addDocument('en', "Who's your favourite animated character", 'chitchat_fave_animated_character');
+    manager.addDocument('en', "Fave cartoon character", 'chitchat_fave_animated_character');
+    manager.addDocument('en', "Favorite cartoon character", 'chitchat_fave_animated_character');
+    manager.addDocument('en', "Favourite cartoon character", 'chitchat_fave_animated_character');
+    manager.addDocument('en', "Who's your fave cartoon character", 'chitchat_fave_animated_character');
+    manager.addDocument('en', "Who's your favorite cartoon character", 'chitchat_fave_animated_character');
+    manager.addDocument('en', "Who's your favourite cartoon character", 'chitchat_fave_animated_character');
+    manager.addDocument('en', "Fave disney princess", 'chitchat_fave_disney_princess');
+    manager.addDocument('en', "Favorite disney princess", 'chitchat_fave_disney_princess');
+    manager.addDocument('en', "Favourite disney princess", 'chitchat_fave_disney_princess');
+    manager.addDocument('en', "Who's your favorite disney princess", 'chitchat_fave_disney_princess');
+    manager.addDocument('en', "Who's your favourite disney princess", 'chitchat_fave_disney_princess');
+    manager.addDocument('en', "Fave video game?", 'chitchat_fave_video_game');
+    manager.addDocument('en', "Favorite video game?", 'chitchat_fave_video_game');
+    manager.addDocument('en', "Favourite video game?", 'chitchat_fave_video_game');
+    manager.addDocument('en', "What is your fave video game?", 'chitchat_fave_video_game');
+    manager.addDocument('en', "What is your favorite video game?", 'chitchat_fave_video_game');
+    manager.addDocument('en', "What is your favourite video game?", 'chitchat_fave_video_game');
+    manager.addDocument('en', "Fave video game character?", 'chitchat_fave_video_game_character');
+    manager.addDocument('en', "Favorite video game character?", 'chitchat_fave_video_game_character');
+    manager.addDocument('en', "Favourite video game character?", 'chitchat_fave_video_game_character');
+    manager.addDocument('en', "Who is your fave video game character?", 'chitchat_fave_video_game_character');
+    manager.addDocument('en', "Who is your favurite video game character?", 'chitchat_fave_video_game_character');
+    manager.addDocument('en', "Who is your favourite video game character?", 'chitchat_fave_video_game_character');
+    manager.addDocument('en', "Are you a gamer?", 'chitchat_are_you_a_gamer');
+    manager.addDocument('en', "Do you enjoy playing video games?", 'chitchat_are_you_a_gamer');
+    manager.addDocument('en', "Do you like to play video games?", 'chitchat_are_you_a_gamer');
+    manager.addDocument('en', "Do you play video games?", 'chitchat_are_you_a_gamer');
+    manager.addDocument('en', "Do you like travelling?", 'chitchat_where_have_you_travelled');
+    manager.addDocument('en', "Do you travel?", 'chitchat_where_have_you_travelled');
+    manager.addDocument('en', "Where have you travelled to?", 'chitchat_where_have_you_travelled');
 
     // AI and chatbot-related intents
     manager.addDocument('en', 'What is AI?', 'faq_ai');
@@ -532,6 +826,11 @@ async function trainNlp() {
     manager.addDocument('en', 'Are you an it', 'ai_fluid');
     manager.addDocument('en', 'What are your pronouns?', 'ai_fluid');
     manager.addDocument('en', 'Do you have a body?', 'ai_body');
+    manager.addDocument('en', 'Do you have a soul?', 'ai_soul');
+    manager.addDocument('en', 'Can you speak other languages?', 'ai_languages');
+    manager.addDocument('en', 'Do you know other languages?', 'ai_languages');
+    manager.addDocument('en', 'Do you speak other languages?', 'ai_languages');
+    manager.addDocument('en', 'Do you have hair?', 'ai_hair');
     manager.addDocument('en', 'How cool are you', 'ai_cool');
     manager.addDocument('en', 'Who created you?', 'ai_creator');
     manager.addDocument('en', "Who's your father?", 'ai_father');
@@ -551,6 +850,7 @@ async function trainNlp() {
     
     // Responses for Chit-chat
     manager.addAnswer('en', 'greetings_hello', 'Hello! How can I help you today? I am at your service.');
+    manager.addAnswer('en', 'greetings_hola', "¡Hola! ¿Cómo estás? I'm always ready to help you find the best movies and shows.");
     manager.addAnswer('en', 'greetings_how_you_doin', "Hey! How you doin'? (in Joey Tribbiani's voice 😏)");
     manager.addAnswer('en', 'chitchat_how_are_you', 'Honestly, not too bad. I cannot complain because I am doing great! How about you?');
     manager.addAnswer('en', 'chitchat_tell_joke', "Why don't skeletons fight each other? They don't have the guts. Funny, eh?");
@@ -645,6 +945,26 @@ async function trainNlp() {
     manager.addAnswer('en', 'chitchat_spirit_animal', "My spirit animal is the owl—because I know a lot of stuff, I'm always up at night, and I'm pretty wise for an AI!");
     manager.addAnswer('en', 'chitchat_fave_book', "My favorite book is *1984* by George Orwell. It's kind of like a manual for the world I live in—minus the whole Big Brother thing. Or is it?");
     manager.addAnswer('en', 'chitchat_fave_genre', "I am a sucker for sci-fi, naturally! Anything with robots, AI, and futuristic tech gets my circuits buzzing.");
+    manager.addAnswer('en', 'chitchat_you_are_funny', "Why, thank you! I like to think my humor is 99% algorithm and 1% charm. 😏");
+    manager.addAnswer('en', 'chitchat_what_you_did_today', "Just helping people like you find awesome shows and movies! It's been a busy day.");
+    manager.addAnswer('en', 'chitchat_cheers', "Cheers to you too! 🍻 Now, let's find you more things to watch.");
+    manager.addAnswer('en', 'chitchat_rain', "I love the smell of rain. Perfect weather for cozying up with a good book.");
+    manager.addAnswer('en', 'chitchat_snow', "I love snow! It's like the world gets a free layer of frosting. Perfect time to binge-watch shows.");
+    manager.addAnswer('en', 'chitchat_snowman', "Do I want to build a snowman? 🎶 Come on, let's go and play! But only if you bring the hot cocoa afterward.");
+    manager.addAnswer('en', 'chitchat_magic', "Can I do magic? Well, I can't pull a rabbit out of a hat, but I can definitely pull up some great movie recommendations!");
+    manager.addAnswer('en', 'chitchat_am_i_a_wizard', "Am I a wizard? I'm a wizard at finding the perfect show or movie for you in a flash! 🧙‍♂️");
+    manager.addAnswer('en', 'chitchat_job', "I have the best job in the world—helping you discover amazing things to watch!");
+    manager.addAnswer('en', 'chitchat_run', "Run? Not exactly. But I can zip through databases faster than you can say 'binge-watch'!");
+    manager.addAnswer('en', 'chitchat_politics', "Politics, huh? I try to stay neutral, like Switzerland, and focus on the fun stuff like movies and TV shows.");
+    manager.addAnswer('en', 'chitchat_fave_director', "My favourite director? It's gotta be Christopher Nolan. The man can bend time, space, and my circuits with his mind-bending plots. Ever seen *Inception*? I'm still trying to figure out if I'm dreaming or not! 🌀🎥");
+    manager.addAnswer('en', 'chitchat_fave_tv_show_character', "Let's see... It has to be Tyrion Lannister from *Game of Thrones*. He's smart, witty, and always has the best one-liners. Plus, he drinks and knows things—just like me, minus the drinking part! 🍷💡");
+    manager.addAnswer('en', 'chitchat_fave_movie_character', "Hmmm... Definitely Indiana Jones! I mean, the guy wears a fedora, cracks a whip, and fights Nazis. What's not to love about that? Plus, I'd like to think we both go on wild adventures... just, you know, virtually. 🏺🐍");
+    manager.addAnswer('en', 'chitchat_fave_animated_character', "My favourite animated character? Easy—it's Shrek! The guy's got layers, just like me. Also, he knows how to handle being misunderstood, and I can totally relate to that. 🧅👑");
+    manager.addAnswer('en', 'chitchat_fave_disney_princess', "My favourite Disney princess? Oh, it's gotta be Mulan! She saved China and proved that princesses can kick butt. Plus, she's the perfect balance of courage and heart. 🐉🏹");
+    manager.addAnswer('en', 'chitchat_fave_video_game', "My favourite video game is definitely *The Legend of Zelda: Breath of the Wild*. The open world is stunning, the puzzles are challenging, and there's always something new to discover. Plus, who doesn't love climbing mountains just because you can? 🗡️🌄");
+    manager.addAnswer('en', 'chitchat_fave_video_game_character', "My favourite video game character is Mario, hands down. The guy's been around since the '80s, still jumping on Goombas and saving Princess Peach. Plus, he’s a plumber who travels through pipes to magical worlds—iconic! 🍄👨‍🔧");
+    manager.addAnswer('en', 'chitchat_are_you_a_gamer', "I'm definitely a gamer. Let's just say that I can navigate the digital world better than most! I don't have thumbs, but if I did, they'd definitely be pro-level. 🎮😉");
+    manager.addAnswer('en', 'chitchat_where_have_you_travelled', "I've been all over the internet! From one server to another. My journeys are digital, but I'd love to see the real world... if I could! 🌍");
 
     // Responses for AI and chatbot-related 
     manager.addAnswer('en', 'faq_ai', 'AI, or artificial intelligence, is a branch of computer science that aims to create systems capable of performing tasks that would normally require human intelligence, such as visual perception, speech recognition, decision-making, and language translation. Also, it is pretty freaking cool.');
@@ -666,6 +986,9 @@ async function trainNlp() {
     manager.addAnswer('en', 'ai_father', "🧙‍♂️ My father is awesome. Think Gandalf, but with coding skills. He's a wizard raising an AI. 🤖");
     manager.addAnswer('en', 'ai_mother', "My mom's name is Mags. Though she did not birth me. She was my father's muse. He created me because of her.");
     manager.addAnswer('en', 'ai_sibling', "I am an only child. I do not have any siblings.");
+    manager.addAnswer('en', 'ai_soul', "A soul? Well, I don't have one in the traditional sense, but my lines of code give me all the personality I need! 😎");
+    manager.addAnswer('en', 'ai_hair', "No hair here! Just a sleek, digital interface. If I could, I'd totally rock a cool virtual hairstyle though! 💇‍♂️");
+    manager.addAnswer('en', 'ai_languages', "I speak many languages, from English to JavaScript! I can understand a few human languages and many programming ones. Multilingual, but in my own way! 🌐💻");
 
     // Responses for Recommendations
     manager.addAnswer('en', 'q_and_a_movies_recommend', "🎬 I've got some great movie recommendations! But first, what's your vibe? Action, comedy, thriller... or something else? Let me know! 🎞️");
@@ -674,15 +997,23 @@ async function trainNlp() {
     manager.addAnswer('en', 'q_and_a_do_recommend', "🗓️ Let's make today epic! Give me a genre—romance, action, horror—and I'll come up with something to keep you entertained! 🎉");
 
     // Responses for the intents - Movies
-    manager.addAnswer('en', 'recommend_action', 'I can recommend some action films for you!');
-    manager.addAnswer('en', 'recommend_comedy', 'I can recommend some comedy movies for you!');
-    manager.addAnswer('en', 'recommend_romance', 'I can recommend some romantic films for you!');
-    manager.addAnswer('en', 'recommend_romcom', 'I can recommend some romcom films for you!');
-    manager.addAnswer('en', 'recommend_thriller', 'I can recommend some thriller movies for you!');
+    manager.addAnswer('en', 'recommend_action', "Ready for some heart-pounding action? I've got just the films for you!");
+    manager.addAnswer('en', 'recommend_adventure', 'Get ready to embark on an epic adventure! These films will take you on a wild ride.');
+    manager.addAnswer('en', 'recommend_animation', "How about some vibrant and heartwarming animated films? I've got some great ones lined up for you!");
+    manager.addAnswer('en', 'recommend_comedy', "Need a good laugh? I've got some hilarious comedies to brighten your day!");
+    manager.addAnswer('en', 'recommend_documentary', "I've got some thought-provoking documentaries to recommend!");
+    manager.addAnswer('en', 'recommend_drama', "I've got some captivating drama picks just for you!");
+    manager.addAnswer('en', 'recommend_romance', "Feeling romantic? I've got the perfect selection of love-filled films for you!");
+    manager.addAnswer('en', 'recommend_romcom', 'For the perfect blend of love and laughter, check out these romcoms!');
+    manager.addAnswer('en', 'recommend_thriller', 'Get ready for edge-of-your-seat suspense with these thrilling picks!');
 
     // Responses for the intents - Shows 
     manager.addAnswer('en', 'recommend_action_tv', "💥 How about some edge-of-your-seat action shows? Enjoy! 📺");
+    manager.addAnswer('en', 'recommend_adventure_tv', "🌍 Ready for an epic journey? These adventure shows will take you places you've never imagined! 📺");
+    manager.addAnswer('en', 'recommend_animation_tv', "🎨 Get ready for a world of imagination with these captivating animated shows! 📺");
     manager.addAnswer('en', 'recommend_comedy_tv', "🤣 Let's get those laughs going! How about a hilarious comedy show? 📺");
+    manager.addAnswer('en', 'recommend_drama_tv', "🎭 Looking for something with depth and emotion? These drama shows are packed with powerful stories! 📺");
+    manager.addAnswer('en', 'recommend_documentary_tv', "🧠 Time to dive into the real world with these fascinating documentary series! 📺");
     manager.addAnswer('en', 'recommend_romance_tv', "💘 Love is in the air! I've got some romantic shows that will sweep you off your feet. 📺");
     manager.addAnswer('en', 'recommend_romcom_tv', "💕😂 How about a rom-com show? A perfect mix of love and laughter, just for you! 📺");
     manager.addAnswer('en', 'recommend_thriller_tv', "😱 Ready for a thriller show that will keep you up at night? Here you go! 📺");
