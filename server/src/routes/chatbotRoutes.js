@@ -11,9 +11,15 @@ const genreMap = {
   'recommend_comedy': { type: 'movie', genreId: 35 },
   'recommend_documentary': { type: 'movie', genreId: 99 },
   'recommend_drama': { type: 'movie', genreId: 18 },
+  'recommend_family': { type: 'movie', genreId: 10751 },
+  'recommend_fantasy': { type: 'movie', genreId: 14 },
+  'recommend_horror': { type: 'movie', genreId: 27 },
+  'recommend_mystery': { type: 'movie', genreId: 9648 },
   'recommend_romance': { type: 'movie', genreId: 10749 },
   'recommend_romcom': { type: 'movie', genreId: '10749,35' }, 
+  'recommend_scifi': { type: 'movie', genreId: 878 },
   'recommend_thriller': { type: 'movie', genreId: 53 }, 
+  'recommend_tvmovie': { type: 'movie', genreId: 10770 },
 
   // TV Shows
   'recommend_action_tv': { type: 'tv', genreId: 10759 },
@@ -22,9 +28,15 @@ const genreMap = {
   'recommend_comedy_tv': { type: 'tv', genreId: 35 },
   'recommend_documentary_tv': { type: 'tv', genreId: 99 },
   'recommend_drama_tv': { type: 'tv', genreId: 18 },
-  'recommend_thriller_tv': { type: 'tv', genreId: 80 },
+  'recommend_family_tv': { type: 'tv', genreId: 10751 },
+  'recommend_fantasy_tv': { type: 'tv', genreId: 10765 },
+  'recommend_kids_tv': { type: 'tv', genreId: 10762 },
+  'recommend_horror_tv': { type: 'tv', genreId: 27 },
+  'recommend_mystery_tv': { type: 'tv', genreId: 9648 },
+  'recommend_reality_tv': { type: 'tv', genreId: 10764 },
   'recommend_romance_tv': { type: 'tv', genreId: 10749 },
-  'recommend_romcom_tv': { type: 'tv', genreId: '10749,35' }
+  'recommend_romcom_tv': { type: 'tv', genreId: '10749,35' },
+  'recommend_scifi_tv': { type: 'tv', genreId: 10765 },
 };
 
 // Define chatbot route
