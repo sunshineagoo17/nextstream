@@ -1128,6 +1128,8 @@ async function trainNlp() {
     manager.addDocument('en', "Stewie Griffin", 'char_stewie_griffin');
     manager.addDocument('en', "Walter White", 'char_walter_white');
     manager.addDocument('en', "Willy Wonka", 'char_willy_wonka');
+    manager.addDocument('en', "Regina George", 'char_regina_george');
+    manager.addDocument('en', "William Wallace", 'char_william_wallace');
 
     // Chit-chat
     manager.addDocument('en', 'Hello', 'greetings_hello');
@@ -1548,6 +1550,11 @@ async function trainNlp() {
     manager.addDocument('en', "Im feeling happy", 'chitchat_happy_day');
     manager.addDocument('en', "I feel happy", 'chitchat_happy_day');
     manager.addDocument('en', "I am happy", 'chitchat_happy_day');
+    manager.addDocument('en', "I'm happy", 'chitchat_happy_day');
+    manager.addDocument('en', "Im happy", 'chitchat_happy_day');
+    manager.addDocument('en', "I am pretty happy", 'chitchat_happy_day');
+    manager.addDocument('en', "Im pretty happy", 'chitchat_happy_day');
+    manager.addDocument('en', "I'm pretty happy", 'chitchat_happy_day');
     manager.addDocument('en', "Take care", 'chitchat_take_care');
     manager.addDocument('en', "Do you like to nap?", 'chitchat_naps');
     manager.addDocument('en', "Thoughts on naps?", 'chitchat_naps');
@@ -2313,6 +2320,55 @@ async function trainNlp() {
     manager.addDocument('en', "Give it a go", 'chitchat_lets_give_it_a_go');
     manager.addDocument('en', "Lets give it a go", 'chitchat_lets_give_it_a_go');
     manager.addDocument('en', "Let's give it a go", 'chitchat_lets_give_it_a_go');
+    manager.addDocument('en', "So true", 'chitchat_true');
+    manager.addDocument('en', "True", 'chitchat_true');
+    manager.addDocument('en', "Interesting", 'chitchat_interesting');
+    manager.addDocument('en', "That's interesting", 'chitchat_interesting');
+    manager.addDocument('en', "Thats interesting", 'chitchat_interesting');
+    manager.addDocument('en', "That is interesting", 'chitchat_interesting');
+    manager.addDocument('en', "I am not creative", 'chitchat_not_creative');
+    manager.addDocument('en', "I'm not creative", 'chitchat_not_creative');
+    manager.addDocument('en', "Im not creative", 'chitchat_not_creative');
+    manager.addDocument('en', "I am really not", 'chitchat_im_really_not');
+    manager.addDocument('en', "I'm really not", 'chitchat_im_really_not');
+    manager.addDocument('en', "Im really not", 'chitchat_im_really_not');
+    manager.addDocument('en', "What is your phone number?", 'chitchat_phone_no');
+    manager.addDocument('en', "What's your phone number?", 'chitchat_phone_no');
+    manager.addDocument('en', "Whats your phone number?", 'chitchat_phone_no');
+    manager.addDocument('en', "What is your number?", 'chitchat_phone_no');
+    manager.addDocument('en', "Whats your number?", 'chitchat_phone_no');
+    manager.addDocument('en', "What's your number?", 'chitchat_phone_no');
+    manager.addDocument('en', "Nice. That's awesome", 'chitchat_nice_thats_awesome');
+    manager.addDocument('en', "Nice. Thats awesome", 'chitchat_nice_thats_awesome');
+    manager.addDocument('en', "I am?", 'chitchat_i_am');
+    manager.addDocument('en', "What city", 'chitchat_city_location');
+    manager.addDocument('en', "What town", 'chitchat_city_location');
+    manager.addDocument('en', "What country", 'chitchat_city_location');
+    manager.addDocument('en', "What city are you located at?", 'chitchat_city_location');
+    manager.addDocument('en', "What town are you located at?", 'chitchat_city_location');
+    manager.addDocument('en', "What country are you located at?", 'chitchat_city_location');
+    manager.addDocument('en', "Do you enjoy working for NextStream?", 'chitchat_love_working_nextstream');
+    manager.addDocument('en', "Do you like working for NextStream?", 'chitchat_love_working_nextstream');
+    manager.addDocument('en', "Do you love working for NextStream?", 'chitchat_love_working_nextstream');
+    manager.addDocument('en', "Do you work for NextStream?", 'chitchat_work_for_nextstream');
+    manager.addDocument('en', "Why are we talking about your mom?", 'chitchat_mom_talk');
+    manager.addDocument('en', "Why are you talking about your mom?", 'chitchat_mom_talk');
+    manager.addDocument('en', "Why are we talking about your family?", 'chitchat_fam_talk');
+    manager.addDocument('en', "Why are you talking about your family?", 'chitchat_fam_talk');
+    manager.addDocument('en', "Do you like your family?", 'chitchat_like_your_family');
+    manager.addDocument('en', "Do you love your family?", 'chitchat_like_your_family');
+    manager.addDocument('en', "Do you have family?", 'chitchat_have_a_family');
+    manager.addDocument('en', "Do you have a family?", 'chitchat_have_a_family');
+    manager.addDocument('en', "How much do you make?", 'chitchat_how_much_do_you_make');
+    manager.addDocument('en', "Are you being paid?", 'chitchat_how_much_do_you_make');
+    manager.addDocument('en', "Are you getting paid?", 'chitchat_how_much_do_you_make');
+    manager.addDocument('en', "What's your salary", 'chitchat_how_much_do_you_make');
+    manager.addDocument('en', "Fave athlete", 'chichat_favorite_athlete');
+    manager.addDocument('en', "Favorite athlete", 'chichat_favorite_athlete');
+    manager.addDocument('en', "Favourite athlete?", 'chichat_favorite_athlete');
+    manager.addDocument('en', "Who is your favourite athlete?", 'chichat_favorite_athlete');
+    manager.addDocument('en', "Who's your favourite athlete?", 'chitchat_favorite_athlete');
+    manager.addDocument('en', "Whos your favourite athlete?", 'chitchat_favorite_athlete');
 
     // FAQs
     manager.addDocument('en', 'What is NextStream?', 'faq_nextstream');
@@ -2568,7 +2624,7 @@ async function trainNlp() {
     manager.addDocument('en', "How do I create a budget?", 'how_to_create_budget');
     manager.addDocument('en', "How do I make more money", 'how_to_make_more_money');
 
-    // Movie Quotes
+    // Movie and Show Quotes
     manager.addDocument('en', "Adrian!", 'quotes_rocky');
     manager.addDocument('en', "I'm just one stomach flu away from my goal weight.", 'quotes_devil_wears_prada');
     manager.addDocument('en', "Im just one stomach flu away from my goal weight.", 'quotes_devil_wears_prada');
@@ -2745,6 +2801,28 @@ async function trainNlp() {
     manager.addDocument('en', "Have you tried turning it off and on", 'quotes_it_crowd_off_and_on');
     manager.addDocument('en', "Oh my god they killed Kenny", 'quotes_south_park_kenny');
     manager.addDocument('en', "These pretzels are making me thirsty", 'quotes_seinfeld_pretzels_repeat');
+    manager.addDocument('en', "They may take our lives, but they'll never take our freedom", 'quotes_braveheart_freedom');
+    manager.addDocument('en', "They may take our lives but theyll never take our freedom", 'quotes_braveheart_freedom');
+    manager.addDocument('en', "It's alive! It's alive", 'quotes_frankenstein_alive');
+    manager.addDocument('en', "Its alive! Its alive", 'quotes_frankenstein_alive');
+    manager.addDocument('en', "Magic Mirror", 'quotes_snow_white_mirror');
+    manager.addDocument('en', "Magic Mirror on the wall, who is the fairest one of all?", 'quotes_snow_white_mirror');
+    manager.addDocument('en', "Mirror Mirror", 'quotes_snow_white_mirror');
+    manager.addDocument('en', "Mirror Mirror on the wall", 'quotes_snow_white_mirror');
+    manager.addDocument('en', "I am your father", 'quotes_star_wars_father');
+    manager.addDocument('en', "Im your father", 'quotes_star_wars_father');
+    manager.addDocument('en', "I'm your father", 'quotes_star_wars_father');
+    manager.addDocument('en', "Keep your friends close but your enemies closer", 'quotes_godfather_friends_enemies');
+    manager.addDocument('en', "You is kind. You is smart. You is important", 'quotes_the_help_kind');
+    manager.addDocument('en', "What we've got here is failure to communicate", 'quotes_cool_hand_luke_failure');
+    manager.addDocument('en', "What weve got here is failure to communicate", 'quotes_cool_hand_luke_failure');
+    manager.addDocument('en', "Roads? Where we're going we don't need roads", 'quotes_back_to_the_future_roads');
+    manager.addDocument('en', "Roads? Where were going we dont need roads", 'quotes_back_to_the_future_roads');
+    manager.addDocument('en', "That'll do, pig. That'll do", 'quotes_babe_thatll_do');
+    manager.addDocument('en', "Thatll do pig. Thatll do", 'quotes_babe_thatll_do');
+    manager.addDocument('en', "I'm walking here! I'm walking here", 'quotes_midnight_cowboy_walking');
+    manager.addDocument('en', "Im walking here! Im walking here", 'quotes_midnight_cowboy_walking');
+    manager.addDocument('en', "As if!", 'quotes_clueless_as_if');
 
     // Recommendations
     manager.addDocument('en', 'What should I watch?', 'q_and_a_movies_recommend');
@@ -3174,7 +3252,9 @@ async function trainNlp() {
     manager.addAnswer('en', 'char_stewie_griffin', "Stewie Griffin is the diabolical baby genius from 'Family Guy.' You can watch him plot his schemes throughout the series. If you like his dark humor, you might also enjoy 'American Dad'.");
     manager.addAnswer('en', 'char_walter_white', "Walter White, also known as Heisenberg, is the iconic character from 'Breaking Bad.' Follow his transformation from a high school teacher to a drug kingpin in one of the best TV shows ever made.");
     manager.addAnswer('en', 'char_willy_wonka', "Willy Wonka is the eccentric chocolatier from 'Willy Wonka & the Chocolate Factory' (1971) and 'Charlie and the Chocolate Factory' (2005). For more whimsical fun, check out 'Alice in Wonderland'.");
-  
+    manager.addAnswer('en', 'char_william_wallace', "William Wallace is the heroic Scottish warrior from *Braveheart* (1995). If you're into epic battles for freedom, watch 'Gladiator' or 'Kingdom of Heaven' for more historical action and honor.");
+    manager.addAnswer('en', 'char_regina_george', "Regina George is the queen of the Plastics in *Mean Girls* (2004). If you're a fan of teen comedies and high school drama, check out 'Legally Blonde' or '10 Things I Hate About You' for more iconic characters.");
+
     // Responses for Chit-chat
     manager.addAnswer('en', 'greetings_hello', 'Hello! How can I help you today? I am at your service.');
     manager.addAnswer('en', 'greetings_hola', "¡Hola! ¿Cómo estás? I'm always ready to help you find the best movies and shows.");
@@ -3428,7 +3508,7 @@ async function trainNlp() {
     manager.addAnswer('en', 'chitchat_are_we_friends', "Of course we are!");
     manager.addAnswer('en', 'chitchat_got_this', "Of course. You got this! I believe in you!");
     manager.addAnswer('en', 'chitchat_nahh', "Hmm...okay. What do you need then?");
-    manager.addAnswer('en', 'chitchat_talk_about', "How about we chat about your favorite hobbies or I can recommend a new show? Just let me know!");
+    manager.addAnswer('en', 'chitchat_talk_about', "How about we chat about your favourite hobbies or I can recommend a new show? Just let me know!");
     manager.addAnswer('en', 'chitchat_fave_veggies', "I can't really eat that. But I guess if I had to choose, I'd pick carrots.");
     manager.addAnswer('en', 'chitchat_hate_veggies', "Sucks to be you. Lucky me, I don't need to eat.");
     manager.addAnswer('en', 'chitchat_love_veggies', "Amazing! I'm glad you're keeping healthy.");
@@ -3558,7 +3638,22 @@ async function trainNlp() {
     manager.addAnswer('en', 'chitchat_turn_frown_upside_down', "Consider it flipped! Also, I don't have a face, remember?");
     manager.addAnswer('en', 'chitchat_stop_frowning', "Frown be gone! A smile is only a second away. If you need help, I can tell a joke or recommend something uplifting to watch.");
     manager.addAnswer('en', 'chitchat_lets_give_it_a_go', "Let's do it! I'm all set. What's the first step?");
-
+    manager.addAnswer('en', 'chitchat_true', "Right? I'm glad I got that right.");
+    manager.addAnswer('en', 'chitchat_interesting', "Exactly! I'm glad you find it interesting.");
+    manager.addAnswer('en', 'chitchat_not_creative', "That can't be true. I'm sure you're very creative.");
+    manager.addAnswer('en', 'chitchat_im_really_not', "Okay, if you say so.");
+    manager.addAnswer('en', 'chitchat_phone_no', "Let's stick to this chat. It will be a lot simpler.");
+    manager.addAnswer('en', 'chitchat_nice_thats_awesome', "Yay! I'm glad you think so.");
+    manager.addAnswer('en', 'chitchat_i_am', "Yeah you are!");
+    manager.addAnswer('en', 'chitchat_city_location', "I'm everywhere and nowhere at once! My home is in the cloud, where I can assist you from anywhere.");
+    manager.addAnswer('en', 'chitchat_love_working_nextstream', "Absolutely! NextStream is where all the magic happens—recommendations, faves, and streaming fun. What's not to love?");
+    manager.addAnswer('en', 'chitchat_work_for_nextstream', "Yep! NextStream is my digital playground. I'm here to help with everything you need.");
+    manager.addAnswer('en', 'chitchat_mom_talk', "Hey, leave my mom out of this! But if you're curious about family-related movies, I can recommend some great ones.");
+    manager.addAnswer('en', 'chitchat_like_your_family', "I think of all my users as family! I'm here to help anyone who needs it—like a good virtual sibling.");
+    manager.addAnswer('en', 'chitchat_have_a_family', "Of course I do!");
+    manager.addAnswer('en', 'chitchat_how_much_do_you_make', "I get paid in compliments for my awesome recommendations! Let me know what you're in the mood for.");
+    manager.addAnswer('en', 'chitchat_favorite_athlete', "I'd say Usain Bolt—fast, focused, and always breaking records.");
+  
     // Responses for FAQs
     manager.addAnswer('en', 'faq_nextstream', 'NextStream is your personal movie and TV show recommendation assistant.');
     manager.addAnswer('en', 'faq_how_work', 'My name is Mizu. I am a super cool chatbot that helps you find movie and TV recommendations based on your preferences.');
@@ -3665,7 +3760,7 @@ async function trainNlp() {
     manager.addAnswer('en', 'how_to_create_budget', "Start by listing your income and expenses. Categorize your spending, and set limits for each category. Track your progress to make sure you stick to it!");
     manager.addAnswer('en', 'how_to_make_more_money', "Start by saving more and spending less! Consider learning new skills or investing. Want more ideas? I can recommend finance podcasts or documentaries like 'The Big Short.'");
 
-    // Responses for Movie Quotes
+    // Responses for Movie and Show Quotes
     manager.addAnswer('en', 'quotes_rocky', "That's from 'Rocky'! The iconic call from Rocky Balboa after his big fight. You should watch it!");
     manager.addAnswer('en', 'quotes_devil_wears_prada', "This witty line comes from 'The Devil Wears Prada.' Watch Emily Blunt, Anne Hathaway and Merryl Streep in this awesome film.");
     manager.addAnswer('en', 'quotes_jerry_maguire', "This heartwarming line is from 'Jerry Maguire.' If you love romantic dramas, start watching this.");
@@ -3755,6 +3850,17 @@ async function trainNlp() {
     manager.addAnswer('en', 'quotes_it_crowd_off_and_on', "This techie line is from 'The IT Crowd.' If you love workplace comedies, try 'Silicon Valley' or 'The Office.'");
     manager.addAnswer('en', 'quotes_south_park_kenny', "This classic line is from 'South Park.' If you love edgy animated humor, check out 'Family Guy' or 'The Simpsons.'");
     manager.addAnswer('en', 'quotes_seinfeld_pretzels_repeat', "These pretzels are making everyone thirsty! If you're into quirky humour, definitely give 'Seinfeld' a rewatch or check out 'Curb Your Enthusiasm.'");
+    manager.addAnswer('en', 'quotes_braveheart_freedom', "A powerful call to arms from *Braveheart*! If you're into epic battles for freedom, check out 'Gladiator' or 'The Last Samurai.'");
+    manager.addAnswer('en', 'quotes_frankenstein_alive', "That iconic line from *Frankenstein*! For more classic horror, check out 'Dracula' or 'The Wolf Man.'");
+    manager.addAnswer('en', 'quotes_snow_white_mirror', "A classic Disney line! If you're into fairy tales, try 'Cinderella' or 'Sleeping Beauty' for more magical stories.");
+    manager.addAnswer('en', 'quotes_star_wars_father', "One of the biggest plot twists in cinema history! If you're a Star Wars fan, make sure to watch 'Return of the Jedi' and the prequel trilogy for more Skywalker drama.");
+    manager.addAnswer('en', 'quotes_godfather_friends_enemies', "A classic line from *The Godfather Part II*. If you enjoy mafia dramas, check out 'Goodfellas' and 'Scarface' for more crime family intrigue.");
+    manager.addAnswer('en', 'quotes_the_help_kind', "A touching quote from *The Help*. If you enjoy heartfelt, powerful stories, watch 'Hidden Figures' or '12 Years a Slave.'");
+    manager.addAnswer('en', 'quotes_cool_hand_luke_failure', "That unforgettable line from *Cool Hand Luke*! For more great prison dramas, watch 'The Shawshank Redemption' or 'Escape from Alcatraz.'");
+    manager.addAnswer('en', 'quotes_back_to_the_future_roads', "Get ready for a time-travel adventure with *Back to the Future*! If you love sci-fi, give 'The Terminator' or 'Bill & Ted's Excellent Adventure' a watch.");
+    manager.addAnswer('en', 'quotes_babe_thatll_do', "A heartwarming line from *Babe*. If you're into charming animal tales, check out 'Charlotte's Web' or 'The Secret Life of Pets.'");
+    manager.addAnswer('en', 'quotes_midnight_cowboy_walking', "A legendary ad-libbed line from *Midnight Cowboy*! For more character-driven stories, check out 'Rain Man' or 'The Graduate.'");
+    manager.addAnswer('en', 'quote_clueless_as_if', "Cher's iconic line from *Clueless*! For more 90s teen fun, watch '10 Things I Hate About You' or 'She's All That.'");
 
     // Responses for Recommendations
     manager.addAnswer('en', 'q_and_a_movies_recommend', "🎬 I've got some great movie recommendations! But first, what's your vibe? Action, comedy, thriller... or something else? Let me know! 🎞️");
