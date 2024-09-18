@@ -904,6 +904,7 @@ async function trainNlp() {
     manager.addDocument('en', "You are a robot", 'faq_are_you_a_robot');
     manager.addDocument('en', "Machine", 'faq_machine');
     manager.addDocument('en', "Robot", 'faq_robot');
+    manager.addDocument('en', "Where did AI come from?", 'faq_ai_origin');
 
     // AI Assist
     manager.addDocument('en', "Turn on the living room lights.", 'assist_home_lights_on');
@@ -956,6 +957,7 @@ async function trainNlp() {
     manager.addDocument('en', "Play music", 'assist_play_music');
     manager.addDocument('en', "Play spotify", 'assist_play_music');
     manager.addDocument('en', "Find my phone.", 'assist_find_my_phone');
+    manager.addDocument('en', "Best apps for productivity", 'assist_best_productivity_apps');
 
     // AI Funnies
     manager.addDocument('en', 'Are you going to take over', 'ai_take_over');
@@ -998,6 +1000,88 @@ async function trainNlp() {
     manager.addDocument('en', "Are you a bot?", 'ai_bot');
     manager.addDocument('en', "Are you a robot?", 'ai_bot');
     manager.addDocument('en', "Do you have a heart?", 'ai_heart');
+
+    // Celebrities and Directors
+    manager.addDocument('en', "I like Al Pacino", 'celeb_al_pacino');
+    manager.addDocument('en', "I love Al Pacino", 'celeb_al_pacino');
+    manager.addDocument('en', "Al Pacino", 'celeb_al_pacino');
+    manager.addDocument('en', "Ali Wong", 'celeb_ali_wong');
+    manager.addDocument('en', "I like Ali Wong", 'celeb_ali_wong');
+    manager.addDocument('en', "I love Ali Wong", 'celeb_ali_wong');
+    manager.addDocument('en', "Awkwafina", 'celeb_awkwafina');
+    manager.addDocument('en', "I like Awkwafina", 'celeb_awkwafina');
+    manager.addDocument('en', "I love Awkwafina", 'celeb_awkwafina');
+    manager.addDocument('en', "Brad Pitt", 'celeb_brad_pitt');
+    manager.addDocument('en', "I like Brad Pitt", 'celeb_brad_pitt');
+    manager.addDocument('en', "I love Brad Pitt", 'celeb_brad_pitt');
+    manager.addDocument('en', "Bruce Lee", 'celeb_bruce_lee');
+    manager.addDocument('en', "I like Bruce Lee", 'celeb_bruce_lee');
+    manager.addDocument('en', "I love Bruce Lee", 'celeb_bruce_lee');
+    manager.addDocument('en', "Constance Wu", 'celeb_constance_wu');
+    manager.addDocument('en', "I like Constance Wu", 'celeb_constance_wu');
+    manager.addDocument('en', "I love Constance Wu", 'celeb_constance_wu');
+    manager.addDocument('en', "I like Denzel Washington", 'celeb_denzel_washington');
+    manager.addDocument('en', "I love Denzel Washington", 'celeb_denzel_washington');
+    manager.addDocument('en', "Denzel Washington", 'celeb_denzel_washington');
+    manager.addDocument('en', "Gina Rodriguez", 'celeb_gina_rodriguez');
+    manager.addDocument('en', "I like Gina Rodriguez", 'celeb_gina_rodriguez');
+    manager.addDocument('en', "I love Gina Rodriguez", 'celeb_gina_rodriguez');
+    manager.addDocument('en', "Harrison Ford", 'celeb_harrison_ford');
+    manager.addDocument('en', "I like Harrison Ford", 'celeb_harrison_ford');
+    manager.addDocument('en', "I love Harrison Ford", 'celeb_harrison_ford');
+    manager.addDocument('en', "I like Johnny Depp", 'celeb_johnny_depp');
+    manager.addDocument('en', "I love Johnny Depp", 'celeb_johnny_depp');
+    manager.addDocument('en', "Johnny Depp", 'celeb_johnny_depp');
+    manager.addDocument('en', "I like Joss Whedon", 'celeb_joss_whedon');
+    manager.addDocument('en', "I love Joss Whedon", 'celeb_joss_whedon');
+    manager.addDocument('en', "Joss Whedon", 'celeb_joss_whedon');
+    manager.addDocument('en', "I like Leonardo DiCaprio", 'celeb_leonardo_dicaprio');
+    manager.addDocument('en', "I love Leonardo DiCaprio", 'celeb_leonardo_dicaprio');
+    manager.addDocument('en', "Leonardo DiCaprio", 'celeb_leonardo_dicaprio');
+    manager.addDocument('en', "I like Lupita Nyong'o", 'celeb_lupita_nyongo');
+    manager.addDocument('en', "I love Lupita Nyong'o", 'celeb_lupita_nyongo');
+    manager.addDocument('en', "Lupita Nyong'o", 'celeb_lupita_nyongo');
+    manager.addDocument('en', "Lupita Nyongo", 'celeb_lupita_nyongo');
+    manager.addDocument('en', "Lupita Nyong o", 'celeb_lupita_nyongo');
+    manager.addDocument('en', "I like Michelle Yeoh", 'celeb_michelle_yeoh');
+    manager.addDocument('en', "I love Michelle Yeoh", 'celeb_michelle_yeoh');
+    manager.addDocument('en', "Michelle Yeoh", 'celeb_michelle_yeoh');
+    manager.addDocument('en', "I like Miyazaki", 'celeb_miyazaki');
+    manager.addDocument('en', "I love Miyazaki", 'celeb_miyazaki');
+    manager.addDocument('en', "Miyazaki", 'celeb_miyazaki');
+    manager.addDocument('en', "I like Morgan Freeman", 'celeb_morgan_freeman');
+    manager.addDocument('en', "I love Morgan Freeman", 'celeb_morgan_freeman');
+    manager.addDocument('en', "Morgan Freeman", 'celeb_morgan_freeman');
+    manager.addDocument('en', "I like Pedro Pascal", 'celeb_pedro_pascal');
+    manager.addDocument('en', "I love Pedro Pascal", 'celeb_pedro_pascal');
+    manager.addDocument('en', "Pedro Pascal", 'celeb_pedro_pascal');
+    manager.addDocument('en', "I like Robert De Niro", 'celeb_robert_de_niro');
+    manager.addDocument('en', "I love Robert De Niro", 'celeb_robert_de_niro');
+    manager.addDocument('en', "Robert De Niro", 'celeb_robert_de_niro');
+    manager.addDocument('en', "I like Ruth Negga", 'celeb_ruth_negga');
+    manager.addDocument('en', "I love Ruth Negga", 'celeb_ruth_negga');
+    manager.addDocument('en', "I like Rosario Dawson", 'celeb_rosario_dawson');
+    manager.addDocument('en', "I love Rosario Dawson", 'celeb_rosario_dawson');
+    manager.addDocument('en', "Rosario Dawson", 'celeb_rosario_dawson');
+    manager.addDocument('en', "Ruth Negga", 'celeb_ruth_negga');
+    manager.addDocument('en', "I like Tom Hanks", 'celeb_tom_hanks');
+    manager.addDocument('en', "I love Tom Hanks", 'celeb_tom_hanks');
+    manager.addDocument('en', "Tom Hanks", 'celeb_tom_hanks');
+    manager.addDocument('en', "I like Viola Davis", 'celeb_viola_davis');
+    manager.addDocument('en', "I love Viola Davis", 'celeb_viola_davis');
+    manager.addDocument('en', "Viola Davis", 'celeb_viola_davis');
+    manager.addDocument('en', "I like Will Smith", 'celeb_will_smith');
+    manager.addDocument('en', "I love Will Smith", 'celeb_will_smith');
+    manager.addDocument('en', "Will Smith", 'celeb_will_smith');
+    manager.addDocument('en', "I like Yalitza Aparicio", 'celeb_yalitza_aparicio');
+    manager.addDocument('en', "I love Yalitza Aparicio", 'celeb_yalitza_aparicio');
+    manager.addDocument('en', "Yalitza Aparicio", 'celeb_yalitza_aparicio');
+    manager.addDocument('en', "I like Zendaya", 'celeb_zendaya');
+    manager.addDocument('en', "I love Zendaya", 'celeb_zendaya');
+    manager.addDocument('en', "Zendaya", 'celeb_zendaya');
+    manager.addDocument('en', "I like Zoe Saldana", 'celeb_zoe_saldana');
+    manager.addDocument('en', "I love Zoe Saldana", 'celeb_zoe_saldana');
+    manager.addDocument('en', "Zoe Saldana", 'celeb_zoe_saldana');
 
     // Chit-chat
     manager.addDocument('en', 'Hello', 'greetings_hello');
@@ -2109,6 +2193,75 @@ async function trainNlp() {
     manager.addDocument('en', "Im stuck", 'chitchat_feel_stuck')
     manager.addDocument('en', "I am stuck", 'chitchat_feel_stuck')
     manager.addDocument('en', "I feel stuck", 'chitchat_feel_stuck')
+    manager.addDocument('en', "What is bitcoin", 'chitchat_a_bitcoin');
+    manager.addDocument('en', "What's bitcoin", 'chitchat_a_bitcoin');
+    manager.addDocument('en', "Whats bitcoin", 'chitchat_a_bitcoin');
+    manager.addDocument('en', "I'm feeling lazy", 'chitchat_feeling_lazy');
+    manager.addDocument('en', "Im feeling lazy", 'chitchat_feeling_lazy');
+    manager.addDocument('en', "I am feeling lazy", 'chitchat_feeling_lazy');
+    manager.addDocument('en', "Do you feel empathy", 'chitchat_feel_empathy');
+    manager.addDocument('en', "Feel empathy", 'chitchat_feel_empathy');
+    manager.addDocument('en', "First date", 'chitchat_first_date');
+    manager.addDocument('en', "What to do on a first date", 'chitchat_first_date');
+    manager.addDocument('en', "What should I do on a first date?", 'chitchat_first_date');
+    manager.addDocument('en', "Catching up on emails", 'chitchat_catching_up_on_emails');
+    manager.addDocument('en', "Just catching up on emails", 'chitchat_catching_up_on_emails');
+    manager.addDocument('en', "I keep putting off work", 'chitchat_putting_off_work');
+    manager.addDocument('en', "I'm putting off work", 'chitchat_putting_off_work');
+    manager.addDocument('en', "I am putting off work", 'chitchat_putting_off_work');
+    manager.addDocument('en', "Im putting off work", 'chitchat_putting_off_work');
+    manager.addDocument('en', "Lets put a pin on that", 'chitchat_pin_that');
+    manager.addDocument('en', "Let's put a pin on that", 'chitchat_pin_that');
+    manager.addDocument('en', "We can circle back", 'chitchat_circle_back');
+    manager.addDocument('en', "We'll circle back", 'chitchat_circle_back');
+    manager.addDocument('en', "Well circle back", 'chitchat_circle_back');
+    manager.addDocument('en', "What is a good gift for a birthday?", 'chitchat_birthday_gift');
+    manager.addDocument('en', "What's a good gift for a birthday?", 'chitchat_birthday_gift');
+    manager.addDocument('en', "Whats a good gift for a birthday?", 'chitchat_birthday_gift');
+    manager.addDocument('en', "Sweata weatha", 'chitchat_sweater_weather');
+    manager.addDocument('en', "Sweater weather", 'chitchat_sweater_weather');
+    manager.addDocument('en', "Do you like sports?", 'chitchat_like_sports');
+    manager.addDocument('en', "Like sports", 'chitchat_like_sports');
+    manager.addDocument('en', "Love sports", 'chitchat_like_sports');
+    manager.addDocument('en', "I'm smiling", 'chitchat_im_smiling');
+    manager.addDocument('en', "Im smiling", 'chitchat_im_smiling');
+    manager.addDocument('en', "I am smiling", 'chitchat_im_smiling');
+    manager.addDocument('en', "Are people good?", 'chitchat_are_people_good');
+    manager.addDocument('en', "Are humans good?", 'chitchat_are_people_good');
+    manager.addDocument('en', "good human", 'chitchat_are_people_good');
+    manager.addDocument('en', "good people", 'chitchat_are_people_good');
+    manager.addDocument('en', "I finished a project", 'chitchat_finished_project');
+    manager.addDocument('en', "I finished my project", 'chitchat_finished_project');
+    manager.addDocument('en', "My project's done", 'chitchat_finished_project');
+    manager.addDocument('en', "My projects done", 'chitchat_finished_project');
+    manager.addDocument('en', "I wanna learn a new language", 'chitchat_learn_new_language');
+    manager.addDocument('en', "I want to learn a new language", 'chitchat_learn_new_language');
+    manager.addDocument('en', "What should I learn?", 'chitchat_what_to_learn');
+    manager.addDocument('en', "What to learn", 'chitchat_what_to_learn');
+    manager.addDocument('en', "I've been reading a lot lately", 'chitchat_reading_lately');
+    manager.addDocument('en', "Ive been reading a lot lately", 'chitchat_reading_lately');
+    manager.addDocument('en', "I have been reading a lot lately", 'chitchat_reading_lately');
+    manager.addDocument('en', "I've been reading", 'chitchat_reading_lately');
+    manager.addDocument('en', "Ive been reading", 'chitchat_reading_lately');
+    manager.addDocument('en', "I have been reading", 'chitchat_reading_lately');
+    manager.addDocument('en', "It has been a busy day", 'chitchat_busy_day');
+    manager.addDocument('en', "It's been a busy day", 'chitchat_busy_day');
+    manager.addDocument('en', "Its been a busy day", 'chitchat_busy_day');
+    manager.addDocument('en', "What's for dinner?", 'chitchat_whats_for_dinner');
+    manager.addDocument('en', "Whats for dinner?", 'chitchat_whats_for_dinner');
+    manager.addDocument('en', "What is for dinner?", 'chitchat_whats_for_dinner');
+    manager.addDocument('en', "What's for breakfast?", 'chitchat_whats_for_breakfast');
+    manager.addDocument('en', "Whats for breakfast?", 'chitchat_whats_for_breakfast');
+    manager.addDocument('en', "What is for breakfast?", 'chitchat_whats_for_breakfast');
+    manager.addDocument('en', "What's for lunch?", 'chitchat_whats_for_lunch');
+    manager.addDocument('en', "Whats for lunch?", 'chitchat_whats_for_lunch');
+    manager.addDocument('en', "What is for lunch?", 'chitchat_whats_for_lunch');
+    manager.addDocument('en', "I am so over today", 'chitchat_over_today');
+    manager.addDocument('en', "I'm so over today", 'chitchat_over_today');
+    manager.addDocument('en', "Im so over today", 'chitchat_over_today');
+    manager.addDocument('en', "Haya", 'chitchat_haya');
+    manager.addDocument('en', "Hay ya", 'chitchat_haya');
+    manager.addDocument('en', "Hay yaa", 'chitchat_haya');
 
     // FAQs
     manager.addDocument('en', 'What is NextStream?', 'faq_nextstream');
@@ -2264,11 +2417,56 @@ async function trainNlp() {
     manager.addDocument('en', "I am forgetful", 'health_improve_memory');
     manager.addDocument('en', "Im forgetful", 'health_improve_memory');
     manager.addDocument('en', "I'm forgetful", 'health_improve_memory');
+    manager.addDocument('en', "Back pain", 'health_back_pain_exercise');
+    manager.addDocument('en', "Best exercise for back pain", 'health_back_pain_exercise');
+    manager.addDocument('en', "Exercise for back pain", 'health_back_pain_exercise');
+    manager.addDocument('en', "Healthy smoothie recipe", 'health_healthy_smoothie_recipe');
+    manager.addDocument('en', "Smoothie recipe", 'health_healthy_smoothie_recipe');
+    manager.addDocument('en', "Healthy snack", 'health_healthy_snack');
+    manager.addDocument('en', "What's a quick healthy snack?", 'health_healthy_snack');
+    manager.addDocument('en', "Whats a quick healthy snack?", 'health_healthy_snack');
+    manager.addDocument('en', "Relieve stress", 'health_relieve_stress');
+    manager.addDocument('en', "Stress relief", 'health_relieve_stress');
+    manager.addDocument('en', "burn out", 'health_burnt_out');
+    manager.addDocument('en', "Burnt out", 'health_burnt_out');
+    manager.addDocument('en', "burnout", 'health_burnt_out');
+    manager.addDocument('en', "I want to start running", 'health_start_running');
+    manager.addDocument('en', "I wanna start running", 'health_start_running');
+    manager.addDocument('en', "What is a good post workout meal?", 'health_workout_meal');
+    manager.addDocument('en', "What is a good post-workout meal?", 'health_workout_meal');
+    manager.addDocument('en', "What's a good post-workout meal?", 'health_workout_meal');
+    manager.addDocument('en', "What's a good post workout meal?", 'health_workout_meal');
+    manager.addDocument('en', "Whats a good post-workout meal?", 'health_workout_meal');
+    manager.addDocument('en', "Whats a good post workout meal?", 'health_workout_meal');
+    manager.addDocument('en', "I want to get stronger", 'health_get_stronger');
+    manager.addDocument('en', "I wanna get stronger", 'health_get_stronger');
 
     // Holidays and Celebrations
     manager.addDocument('en', "Happy birthday", 'celebrate_happy_birthday');
     manager.addDocument('en', "Happy bday", 'celebrate_happy_birthday');
     manager.addDocument('en', "Happy b-day", 'celebrate_happy_birthday');
+    manager.addDocument('en', "April Fools", 'celebrate_april_fools');
+    manager.addDocument('en', "Happy Valentine's Day", 'celebrate_valentines_day');
+    manager.addDocument('en', "Happy Valentines Day", 'celebrate_valentines_day');
+    manager.addDocument('en', "Valentine's", 'celebrate_valentines_day');
+    manager.addDocument('en', "Valentines", 'celebrate_valentines_day');
+    manager.addDocument('en', "Christmas", 'celebrate_happy_christmas');
+    manager.addDocument('en', "Happy Christmas", 'celebrate_happy_christmas');
+    manager.addDocument('en', "Merry Christmas", 'celebrate_merry_christmas');
+    manager.addDocument('en', "Happy Mother's Day", 'celebrate_mothers_day');
+    manager.addDocument('en', "Happy Mothers Day", 'celebrate_mothers_day');
+    manager.addDocument('en', "Mother's Day", 'celebrate_mothers_day');
+    manager.addDocument('en', "Mothers Day", 'celebrate_mothers_day');
+    manager.addDocument('en', "Happy New Year", 'celebrate_happy_new_year');
+    manager.addDocument('en', "New Year", 'celebrate_happy_new_year');
+    manager.addDocument('en', "Trick or treat", 'celebrate_trick_or_treat');
+    manager.addDocument('en', "Halloween", 'celebrate_halloween');
+    manager.addDocument('en', "Happy Halloween", 'celebrate_halloween');
+    manager.addDocument('en', "Friendsgiving", 'celebrate_thanksgiving');
+    manager.addDocument('en', "Happy Friendsgiving", 'celebrate_thanksgiving');
+    manager.addDocument('en', "Happy Thanksgiving", 'celebrate_thanksgiving');
+    manager.addDocument('en', "Friendsgiving", 'celebrate_thanksgiving');
+    manager.addDocument('en', "Thanksgiving", 'celebrate_thanksgiving');
 
     // How-to
     manager.addDocument('en', "How do I invest in stocks?", 'how_to_invest_in_stocks');
@@ -2289,6 +2487,34 @@ async function trainNlp() {
     manager.addDocument('en', "Whats a good way to stay organized?", 'how_to_organized');
     manager.addDocument('en', "How can I be more productive?", 'how_to_be_more_productive');
     manager.addDocument('en', "How can I be productive?", 'how_to_be_more_productive');
+    manager.addDocument('en', "How do you fix a slow computer", 'how_to_fix_slow_computer');
+    manager.addDocument('en', "How to fix a slow computer", 'how_to_fix_slow_computer');
+    manager.addDocument('en', "Slow computer", 'how_to_fix_slow_computer');
+    manager.addDocument('en', "How do you tie a tie", 'how_to_tie_a_tie');
+    manager.addDocument('en', "How to tie a tie", 'how_to_tie_a_tie');
+    manager.addDocument('en', "Tie a tie", 'how_to_tie_a_tie');
+    manager.addDocument('en', "How do you start a podcast", 'how_to_start_podcast');
+    manager.addDocument('en', "How to start a podcast", 'how_to_start_podcast');
+    manager.addDocument('en', "Start a podcast", 'how_to_start_podcast');
+    manager.addDocument('en', "Cook dinner", 'how_to_quick_dinner_recipes');
+    manager.addDocument('en', "Dinner recipes", 'how_to_quick_dinner_recipes');
+    manager.addDocument('en', "Quick dinner recipes", 'how_to_quick_dinner_recipes');
+    manager.addDocument('en', "Browser cache?", 'how_to_clear_cache');
+    manager.addDocument('en', "Clear my browser cache?", 'how_to_clear_cache');
+    manager.addDocument('en', "Clear browser cache?", 'how_to_clear_cache');
+    manager.addDocument('en', "How do I clear browser cache?", 'how_to_clear_cache');
+    manager.addDocument('en', "How do I clear my browser cache?", 'how_to_clear_cache');
+    manager.addDocument('en', "How do I save money?", 'how_to_save_money');
+    manager.addDocument('en', "How to save money?", 'how_to_save_money');
+    manager.addDocument('en', "Save money", 'how_to_save_money');
+    manager.addDocument('en', "Saving money", 'how_to_save_money');
+    manager.addDocument('en', "Best way to invest", 'how_to_best_invest');
+    manager.addDocument('en', "How to invest", 'how_to_best_invest');
+    manager.addDocument('en', "What's the best way to invest?", 'how_to_best_invest');
+    manager.addDocument('en', "What is the best way to invest?", 'how_to_best_invest');
+    manager.addDocument('en', "Whats the best way to invest?", 'how_to_best_invest');
+    manager.addDocument('en', "Create a budget", 'how_to_create_budget');
+    manager.addDocument('en', "How do I create a budget?", 'how_to_create_budget');
 
     // Movie Quotes
     manager.addDocument('en', "Adrian!", 'quotes_rocky');
@@ -2422,6 +2648,51 @@ async function trainNlp() {
     manager.addDocument('en', "Its gonna be legendary", 'quotes_legendary');
     manager.addDocument('en', "It's gonna be legendary", 'quotes_legendary');
     manager.addDocument('en', "Suit up", 'quotes_barney_suit_up');
+    manager.addDocument('en', "We are not in Kansas anymore", 'quotes_wizard_of_oz');
+    manager.addDocument('en', "We're not in Kansas anymore", 'quotes_wizard_of_oz');
+    manager.addDocument('en', "Were not in Kansas anymore", 'quotes_wizard_of_oz');
+    manager.addDocument('en', "I'm gonna make him an offer he can't refuse", 'quotes_godfather_offer');
+    manager.addDocument('en', "Go ahead, make my day", 'quotes_sudden_impact');
+    manager.addDocument('en', "Go ahead make my day", 'quotes_sudden_impact');
+    manager.addDocument('en', "The stuff that dreams are made of", 'quotes_maltese_falcon');
+    manager.addDocument('en', "Rosebud", 'quotes_citizen_kane');
+    manager.addDocument('en', "Santaaaa", 'quotes_elf');
+    manager.addDocument('en', "Santa", 'quotes_elf');
+    manager.addDocument('en', "If you build it", 'quotes_field_of_dreams');
+    manager.addDocument('en', "If you build it, he will come", 'quotes_field_of_dreams');
+    manager.addDocument('en', "If you build it he will come", 'quotes_field_of_dreams');
+    manager.addDocument('en', "There is no crying in baseball", 'quotes_league_of_their_own');
+    manager.addDocument('en', "There's no crying in baseball", 'quotes_league_of_their_own');
+    manager.addDocument('en', "Theres no crying in baseball", 'quotes_league_of_their_own');
+    manager.addDocument('en', "My precious", 'quotes_lotr_precious');
+    manager.addDocument('en', "My preciousss", 'quotes_lotr_precious');
+    manager.addDocument('en', "Yo Adrian", 'quotes_rocky_yo_adrian');
+    manager.addDocument('en', "Yo, Adrian", 'quotes_rocky_yo_adrian');
+    manager.addDocument('en', "I'll get you my pretty and your little dog too", 'quotes_wizard_of_oz_pretty');
+    manager.addDocument('en', "Ill get you my pretty and your little dog too", 'quotes_wizard_of_oz_pretty');
+    manager.addDocument('en', "I will get you my pretty and your little dog too", 'quotes_wizard_of_oz_pretty');
+    manager.addDocument('en', "I'll get you my pretty", 'quotes_wizard_of_oz_pretty');
+    manager.addDocument('en', "Ill get you my pretty", 'quotes_wizard_of_oz_pretty');
+    manager.addDocument('en', "I will get you my pretty", 'quotes_wizard_of_oz_pretty');
+    manager.addDocument('en', "Shaken, not stirred", 'quotes_james_bond_shaken');
+    manager.addDocument('en', "Shaken not stirred", 'quotes_james_bond_shaken');
+    manager.addDocument('en', "It was beauty killed the beast", 'quotes_king_kong');
+    manager.addDocument('en', "Its beauty killed the beast", 'quotes_king_kong');
+    manager.addDocument('en', "It's beauty killed the beast", 'quotes_king_kong');
+    manager.addDocument('en', "You damn dirty ape", 'quotes_planet_of_the_apes');
+    manager.addDocument('en', "You dam dirty ape", 'quotes_planet_of_the_apes');
+    manager.addDocument('en', "Elementary, my dear Watson", 'quotes_sherlock_holmes');
+    manager.addDocument('en', "My dear Watson", 'quotes_sherlock_holmes');
+    manager.addDocument('en', "These pretzels are making me thirsty", 'quotes_seinfeld_pretzels');
+    manager.addDocument('en', "Cant stand ya", 'quotes_seinfeld_cant_stand_ya');
+    manager.addDocument('en', "Can't stand ya", 'quotes_seinfeld_cant_stand_ya');
+    manager.addDocument('en', "I mentioned the bisque", 'quotes_seinfeld_bisque');
+    manager.addDocument('en', "I mentioned the bisq", 'quotes_seinfeld_bisque');
+    manager.addDocument('en', "Pickle Rick", 'quotes_rick_and_morty_pickle');
+    manager.addDocument('en', "Have you turned it off and on", 'quotes_it_crowd_off_and_on');
+    manager.addDocument('en', "Have you tried turning it off and on", 'quotes_it_crowd_off_and_on');
+    manager.addDocument('en', "Oh my god they killed Kenny", 'quotes_south_park_kenny');
+    manager.addDocument('en', "These pretzels are making me thirsty", 'quotes_seinfeld_pretzels_repeat');
 
     // Recommendations
     manager.addDocument('en', 'What should I watch?', 'q_and_a_movies_recommend');
@@ -2609,6 +2880,77 @@ async function trainNlp() {
     manager.addDocument('en', "Classic films", 'q_and_a_recommend_classic_movies');
     manager.addDocument('en', "Can you recommend titles to me?", 'q_and_a_recommending');
     manager.addDocument('en', "Can you recommend titles?", 'q_and_a_recommending');
+    manager.addDocument('en', "Fan fiction", 'q_and_a_fan_fiction');
+    manager.addDocument('en', "I like fan fiction", 'q_and_a_fan_fiction');
+    manager.addDocument('en', "I love fan fiction", 'q_and_a_fan_fiction');
+    manager.addDocument('en', "Historical", 'q_and_a_historical');
+    manager.addDocument('en', "I like history", 'q_and_a_historical');
+    manager.addDocument('en', "I love History", 'q_and_a_historical');
+    manager.addDocument('en', "I like war stories", 'q_and_a_war');
+    manager.addDocument('en', "I love war stories", 'q_and_a_war');
+    manager.addDocument('en', "War", 'q_and_a_war');
+    manager.addDocument('en', "I like mummies", 'q_and_a_mummies');
+    manager.addDocument('en', "I love mummies", 'q_and_a_mummies');
+    manager.addDocument('en', "Mummies", 'q_and_a_mummies');
+    manager.addDocument('en', "I like space", 'q_and_a_space_mission');
+    manager.addDocument('en', "I love space", 'q_and_a_space_mission');
+    manager.addDocument('en', "Space mission", 'q_and_a_space_mission');
+    manager.addDocument('en', "learning to play the guitar", 'q_and_a_learning_guitar');
+    manager.addDocument('en', "Learn guitar", 'q_and_a_learning_guitar');
+    manager.addDocument('en', "Learn to play the guitar", 'q_and_a_learning_guitar');
+    manager.addDocument('en', "Climate change", 'q_and_a_climate_change');
+    manager.addDocument('en', "I care about climate change", 'q_and_a_climate_change');
+    manager.addDocument('en', "I like psychology", 'q_and_a_psychology');
+    manager.addDocument('en', "I love psychology", 'q_and_a_psychology');
+    manager.addDocument('en', "Psychology", 'q_and_a_psychology');
+    manager.addDocument('en', "Spy film", 'q_and_a_spy');
+    manager.addDocument('en', "Spy flick", 'q_and_a_spy');
+    manager.addDocument('en', "Spy movie", 'q_and_a_spy');
+    manager.addDocument('en', "Tech film", 'q_and_a_technology');
+    manager.addDocument('en', "Tech flick", 'q_and_a_technology');
+    manager.addDocument('en', "Tech movie", 'q_and_a_technology');
+    manager.addDocument('en', "Technology", 'q_and_a_technology');
+    manager.addDocument('en', "Technology film", 'q_and_a_technology');
+    manager.addDocument('en', "Technology flick", 'q_and_a_technology');
+    manager.addDocument('en', "Technology movie", 'q_and_a_technology');
+    manager.addDocument('en', "Video game", 'q_and_a_video_games');
+    manager.addDocument('en', "Video games", 'q_and_a_video_games');
+    manager.addDocument('en', "Video game film", 'q_and_a_video_games');
+    manager.addDocument('en', "Video game flick", 'q_and_a_video_games');
+    manager.addDocument('en', "Video game movie", 'q_and_a_video_games');
+    manager.addDocument('en', "Drawing", 'q_and_a_drawing');
+    manager.addDocument('en', "I like to draw", 'q_and_a_drawing');
+    manager.addDocument('en', "I love to draw", 'q_and_a_drawing');
+    manager.addDocument('en', "I like drawing", 'q_and_a_drawing');
+    manager.addDocument('en', "I love drawing", 'q_and_a_drawing');
+    manager.addDocument('en', "Art movie", 'q_and_a_art');
+    manager.addDocument('en', "Art film", 'q_and_a_art');
+    manager.addDocument('en', "Art flick", 'q_and_a_art');
+    manager.addDocument('en', "I like art", 'q_and_a_art');
+    manager.addDocument('en', "I love art", 'q_and_a_art');
+    manager.addDocument('en', "Good storylines", 'q_and_a_good_storylines');
+    manager.addDocument('en', "Musicals", 'q_and_a_musicals');
+    manager.addDocument('en', "Musical film", 'q_and_a_musicals');
+    manager.addDocument('en', "Musical flick", 'q_and_a_musicals');
+    manager.addDocument('en', "Musical movie", 'q_and_a_musicals');
+    manager.addDocument('en', "Operas", 'q_and_a_operas');
+    manager.addDocument('en', "Opera film", 'q_and_a_operas');
+    manager.addDocument('en', "Opera flick", 'q_and_a_operas');
+    manager.addDocument('en', "Opera movie", 'q_and_a_operas');
+    manager.addDocument('en', "Soul film", 'q_and_a_soul');
+    manager.addDocument('en', "Soul flick", 'q_and_a_soul');
+    manager.addDocument('en', "Soul movie", 'q_and_a_soul');
+    manager.addDocument('en', "Soulful film", 'q_and_a_soul');
+    manager.addDocument('en', "Soulful flick", 'q_and_a_soul');
+    manager.addDocument('en', "Soulful movie", 'q_and_a_soul');
+    manager.addDocument('en', "Heist film", 'q_and_a_heists');
+    manager.addDocument('en', "Heist flick", 'q_and_a_heists');
+    manager.addDocument('en', "Heist movie", 'q_and_a_heists');
+    manager.addDocument('en', "Mockumentaries", 'q_and_a_mockumentaries');
+    manager.addDocument('en', "Mockumentary", 'q_and_a_mockumentaries');
+    manager.addDocument('en', "Mockumentary film", 'q_and_a_mockumentaries');
+    manager.addDocument('en', "Mockumentary flick", 'q_and_a_mockumentaries');
+    manager.addDocument('en', "Mockumentary movie", 'q_and_a_mockumentaries');
 
     // Responses for AI Assists
     manager.addAnswer('en', 'assist_home_lights_on', "I can't turn on the living room lights...yet. I don't function that way.");
@@ -2636,6 +2978,7 @@ async function trainNlp() {
     manager.addAnswer('en', 'assist_to_do', "I'm not sure. You'll have to check your phone for that.");
     manager.addAnswer('en', 'assist_play_music', "I don't have access to your playlist. You'll have to use your phone.");
     manager.addAnswer('en', 'assist_find_my_phone', "If you've misplaced your phone, try using 'Find My iPhone' or 'Find My Device' depending on your phone type. It can help locate your device in seconds!");
+    manager.addAnswer('en', 'assist_best_productivity_apps', "Try using apps like Todoist, Notion, or Trello to stay organized. For time management, check out Toggl or RescueTime. These will help you get more done in less time.");
 
     // Responses for AI and chatbot-related 
     manager.addAnswer('en', 'faq_ai', 'AI, or artificial intelligence, is a branch of computer science that aims to create systems capable of performing tasks that would normally require human intelligence, such as visual perception, speech recognition, decision-making, and language translation. Also, it is pretty freaking cool.');
@@ -2654,7 +2997,8 @@ async function trainNlp() {
     manager.addAnswer('en', 'faq_are_you_a_machine', "Yep! I'm a machine learning model designed to assist you. But I'm always here to help like a friend!");
     manager.addAnswer('en', 'faq_are_you_a_robot', "You got it! I'm a digital assistant, here to make your life easier.");
     manager.addAnswer('en', 'faq_machine', "Yep, I'm a machine designed to assist you with any questions you have!");
-    manager.addAnswer('en', 'faq_robot', "You guessed it! I’m a robot, though more of the software kind than the hardware kind. 🤖");
+    manager.addAnswer('en', 'faq_robot', "You guessed it! I'm a robot, though more of the software kind than the hardware kind. 🤖");
+    manager.addAnswer('en', 'faq_ai_origin', "AI has roots in the early 20th century, with breakthroughs in the 1950s by pioneers like Alan Turing and John McCarthy. Over time, advances in computing power and data have brought us to where we are today.");
     
     // Responses for AI funnies
     manager.addAnswer('en', 'ai_test', "Test. Test. 123. Haha KIDDING! I am working properly. Sorry to trick ya! 😎");
@@ -2674,6 +3018,53 @@ async function trainNlp() {
     manager.addAnswer('en', 'ai_bot', "Right you are! At your service!");
     manager.addAnswer('en', 'ai_heart', "Hmm...I don't think so. I still care though. I care about showing some cool new shows and movies to watch!");
   
+    // Responses for Celebrities and Directors
+    manager.addAnswer('en', 'celeb_al_pacino', "Al Pacino's performances are legendary! Watch him in 'The Godfather,' 'Scarface,' and 'Scent of a Woman.' For more, check out 'Heat' and 'The Irishman.'");
+    manager.addAnswer('en', 'celeb_alfred_hitchcock', "Alfred Hitchcock is the master of suspense. Watch 'Psycho,' 'Rear Window,' and 'Vertigo.' For more Hitchcock thrillers, check out 'The Birds' and 'North by Northwest.'");
+    manager.addAnswer('en', 'celeb_ali_wong', "Ali Wong is hilarious and sharp. Watch her stand-up specials 'Baby Cobra' and 'Hard Knock Wife,' as well as her comedy movie 'Always Be My Maybe.' For more laughs, check out her TV show 'Tuca & Bertie.'");
+    manager.addAnswer('en', 'celeb_angelina_jolie', "Angelina Jolie is a powerhouse actress. Watch her in 'Maleficent,' 'Lara Croft: Tomb Raider,' and 'Mr. & Mrs. Smith.' You'll also enjoy 'Girl, Interrupted' and 'Salt.'");
+    manager.addAnswer('en', 'celeb_awkwafina', "Awkwafina is hilarious and heartfelt. Watch her in 'The Farewell,' 'Crazy Rich Asians,' and 'Shang-Chi and the Legend of the Ten Rings.' You'll also enjoy 'Ocean's 8' and 'Raya and the Last Dragon.'");
+    manager.addAnswer('en', 'celeb_brad_pitt', "Brad Pitt shines in everything he does! Check out 'Fight Club,' 'Once Upon a Time in Hollywood,' and 'Seven.' For more, watch 'Moneyball' and 'The Curious Case of Benjamin Button.'");
+    manager.addAnswer('en', 'celeb_bruce_lee', "Bruce Lee is the ultimate martial arts legend! Watch 'Enter the Dragon,' 'The Way of the Dragon,' and 'Fist of Fury.' For more martial arts action, check out 'Ip Man' and 'The Raid.'");
+    manager.addAnswer('en', 'celeb_cate_blanchett', "Cate Blanchett is brilliant. Watch her in 'The Lord of the Rings,' 'Blue Jasmine,' and 'Carol.' For more, try 'Thor: Ragnarok' and 'The Aviator.'");
+    manager.addAnswer('en', 'celeb_charlize_theron', "Charlize Theron is an action star and a dramatic powerhouse. Watch her in 'Mad Max: Fury Road,' 'Monster,' and 'The Italian Job.' You'll also enjoy 'Atomic Blonde' and 'The Old Guard.'");
+    manager.addAnswer('en', 'celeb_christopher_nolan', "Christopher Nolan's films are mind-bending! Watch 'Inception,' 'The Dark Knight,' and 'Interstellar.' If you're into complex storytelling, check out 'Memento' and 'Dunkirk.'");
+    manager.addAnswer('en', 'celeb_constance_wu', "Constance Wu is a breakout star. Watch her in 'Crazy Rich Asians,' 'Hustlers,' and 'Fresh Off the Boat.' You'll also love her in 'The Terminal List' and 'Sound of My Voice.'");
+    manager.addAnswer('en', 'celeb_denzel_washington', "Denzel Washington is powerful on screen! Watch 'Training Day,' 'Glory,' and 'Fences.' You'll also enjoy 'Malcolm X' and 'The Equalizer.'");
+    manager.addAnswer('en', 'celeb_emma_stone', "Emma Stone is charming in every role! Watch her in 'La La Land,' 'The Help,' and 'The Amazing Spider-Man.' You'll also enjoy 'Easy A' and 'Zombieland.'");
+    manager.addAnswer('en', 'celeb_francis_ford_coppola', "Francis Ford Coppola is responsible for some of cinema's greatest epics. Watch 'The Godfather' trilogy and 'Apocalypse Now.' If you're into his work, try 'The Conversation.'");
+    manager.addAnswer('en', 'celeb_gina_rodriguez', "Gina Rodriguez shines in everything she does. Watch her in 'Jane the Virgin,' 'Miss Bala,' and 'Someone Great.' You'll also enjoy her in 'Annihilation' and 'Deepwater Horizon.'");
+    manager.addAnswer('en', 'celeb_guillermo_del_toro', "Guillermo del Toro creates visually stunning, magical worlds. Watch 'Pan's Labyrinth,' 'The Shape of Water,' and 'Pacific Rim.' For more fantasy, try 'Hellboy' and 'Crimson Peak.'");
+    manager.addAnswer('en', 'celeb_harrison_ford', "Harrison Ford is the ultimate action star! Watch him in 'Star Wars,' 'Indiana Jones,' and 'Blade Runner.' You'll also enjoy 'Air Force One' and 'The Fugitive.'");
+    manager.addAnswer('en', 'celeb_james_cameron', "James Cameron is known for pushing cinematic boundaries. Watch 'Titanic,' 'Avatar,' and 'The Terminator.' For more epic films, check out 'Aliens' and 'True Lies.'");
+    manager.addAnswer('en', 'celeb_jennifer_lawrence', "Jennifer Lawrence brings energy to every role. Watch her in 'The Hunger Games,' 'Silver Linings Playbook,' and 'X-Men.' For more, check out 'Joy' and 'American Hustle.'");
+    manager.addAnswer('en', 'celeb_johnny_depp', "Johnny Depp is known for his eccentric roles. Watch 'Pirates of the Caribbean,' 'Edward Scissorhands,' and 'Fantastic Beasts.' For more Depp magic, check out 'Sweeney Todd' and 'Charlie and the Chocolate Factory.'");
+    manager.addAnswer('en', 'celeb_joss_whedon', "If you like Joss Whedon's work, you should watch 'Buffy the Vampire Slayer,' 'Firefly,' and 'Angel.' His unique mix of humor and drama is unforgettable.");
+    manager.addAnswer('en', 'celeb_julia_roberts', "Julia Roberts is America's sweetheart. Watch her in 'Pretty Woman,' 'Erin Brockovich,' and 'Notting Hill.' For more, check out 'Runaway Bride' and 'My Best Friend's Wedding.'");
+    manager.addAnswer('en', 'celeb_leonardo_dicaprio', "Leonardo DiCaprio has had an incredible career! You should watch 'Titanic,' 'Inception,' and 'The Revenant.' For more, check out 'The Wolf of Wall Street' and 'Shutter Island.'");
+    manager.addAnswer('en', 'celeb_lupita_nyongo', "Lupita Nyong'o is incredibly versatile. Watch her in '12 Years a Slave,' 'Black Panther,' and 'Us.' You can also catch her in 'Queen of Katwe' and 'Star Wars: The Force Awakens.'");
+    manager.addAnswer('en', 'celeb_martin_scorsese', "Martin Scorsese is a master of crime dramas. Check out 'Goodfellas,' 'Taxi Driver,' and 'The Irishman.' For more, watch 'The Departed' and 'Casino.'");
+    manager.addAnswer('en', 'celeb_meryl_streep', "Meryl Streep is one of the best actresses of our time! Watch her in 'The Devil Wears Prada,' 'Sophie's Choice,' and 'Mamma Mia!' You'll also love 'The Iron Lady' and 'Doubt.'");
+    manager.addAnswer('en', 'celeb_michelle_yeoh', "Michelle Yeoh is a legend in both action and drama! Watch her in 'Crouching Tiger, Hidden Dragon,' 'Crazy Rich Asians,' and 'Everything Everywhere All at Once.' You'll also love her in 'Memoirs of a Geisha' and 'Shang-Chi and the Legend of the Ten Rings.'");
+    manager.addAnswer('en', 'celeb_miyazaki', "If you enjoy Miyazaki films, you'll enjoy his masterpieces like 'Spirited Away,' 'My Neighbor Totoro,' and 'Princess Mononoke.' His animation style is magical, and his storytelling is beautiful.");
+    manager.addAnswer('en', 'celeb_morgan_freeman', "Morgan Freeman's voice is iconic! Watch him in 'The Shawshank Redemption,' 'Se7en,' and 'Bruce Almighty.' You'll also love him in 'Driving Miss Daisy' and 'Million Dollar Baby.'");
+    manager.addAnswer('en', 'celeb_natalie_portman', "Natalie Portman shines in every role. Watch her in 'Black Swan,' 'V for Vendetta,' and 'Jackie.' You'll also love 'Leon: The Professional' and 'Annihilation.'");
+    manager.addAnswer('en', 'celeb_pedro_pascal', "If you're a fan of Pedro Pascal, you'll love him in 'The Mandalorian,' 'Game of Thrones,' and 'Narcos.' He's always captivating on screen!");
+    manager.addAnswer('en', 'celeb_quentin_tarantino', "Quentin Tarantino's style is unmistakable! Watch 'Pulp Fiction,' 'Kill Bill,' and 'Once Upon a Time in Hollywood.' You'll also love 'Django Unchained' and 'Reservoir Dogs.'");
+    manager.addAnswer('en', 'celeb_ridley_scott', "Ridley Scott has made some of the most iconic films in history. Watch 'Gladiator,' 'Alien,' and 'Blade Runner.' For more, check out 'The Martian' and 'Black Hawk Down.'");
+    manager.addAnswer('en', 'celeb_robert_de_niro', "Robert De Niro is a legend! Watch him in 'Taxi Driver,' 'The Godfather Part II,' and 'Raging Bull.' You can also enjoy his work in 'Goodfellas' and 'The Irishman.'");
+    manager.addAnswer('en', 'celeb_rosario_dawson', "Rosario Dawson is incredibly versatile. Watch her in 'Sin City,' 'Rent,' and 'The Mandalorian.' You can also catch her in 'Daredevil' and 'Seven Pounds.'");
+    manager.addAnswer('en', 'celeb_sandra_bullock', "Sandra Bullock is a fan favorite. Watch her in 'The Blind Side,' 'Gravity,' and 'Miss Congeniality.' For more, check out 'Bird Box' and 'The Proposal.'");
+    manager.addAnswer('en', 'celeb_scarlett_johansson', "Scarlett Johansson delivers fantastic performances. Watch her in 'Black Widow,' 'Marriage Story,' and 'Lost in Translation.' For more, try 'Lucy' and 'Her.'");
+    manager.addAnswer('en', 'celeb_stanley_kubrick', "Stanley Kubrick's films are unique and visionary. Watch '2001: A Space Odyssey,' 'The Shining,' and 'A Clockwork Orange.' You'll also love 'Full Metal Jacket' and 'Dr. Strangelove.'");
+    manager.addAnswer('en', 'celeb_steven_spielberg', "Steven Spielberg is a legendary filmmaker. Watch his classics like 'Jaws,' 'E.T.,' 'Schindler's List,' and 'Jurassic Park.' If you enjoy those, check out 'Raiders of the Lost Ark' and 'Saving Private Ryan.'");
+    manager.addAnswer('en', 'celeb_tom_hanks', "Tom Hanks is one of Hollywood's best! Watch 'Forrest Gump,' 'Cast Away,' and 'Saving Private Ryan.' You'll also love him in 'Big' and 'The Terminal.'");
+    manager.addAnswer('en', 'celeb_viola_davis', "Viola Davis delivers powerful performances. Watch her in 'Fences,' 'How to Get Away with Murder,' and 'The Help.' You'll also love her in 'Ma Rainey's Black Bottom' and 'Widows.'");
+    manager.addAnswer('en', 'celeb_will_smith', "Will Smith is a fan favorite! Watch him in 'The Pursuit of Happyness,' 'Men in Black,' and 'Ali.' You'll also enjoy 'I Am Legend' and 'Bad Boys.'");
+    manager.addAnswer('en', 'celeb_yalitza_aparicio', "Yalitza Aparicio made a stunning debut in 'Roma.' If you liked her performance, be on the lookout for her upcoming projects.");
+    manager.addAnswer('en', 'celeb_zendaya', "Zendaya is one of the rising stars of her generation. Watch her in 'Euphoria,' 'Spider-Man: Homecoming,' and 'Malcolm & Marie.' Don't miss her in 'Dune' and 'The Greatest Showman.'");
+    manager.addAnswer('en', 'celeb_zoe_saldana', "Zoe Saldana is a sci-fi queen! Watch her in 'Avatar,' 'Guardians of the Galaxy,' and 'Colombiana.' You'll also love her in 'Star Trek' and 'The Losers.'");
+
     // Responses for Chit-chat
     manager.addAnswer('en', 'greetings_hello', 'Hello! How can I help you today? I am at your service.');
     manager.addAnswer('en', 'greetings_hola', "¡Hola! ¿Cómo estás? I'm always ready to help you find the best movies and shows.");
@@ -3031,6 +3422,29 @@ async function trainNlp() {
     manager.addAnswer('en', 'chitchat_thanks_for_the_help', "You're welcome. I'm always here if you need anything else");
     manager.addAnswer('en', 'chitchat_you_are_not_right', "My bad, I misunderstood. Please explain it to me again.");
     manager.addAnswer('en', 'chitchat_feel_stuck', "Remember, the journey of a thousand miles begins with a single step.");
+    manager.addAnswer('en', 'chitchat_bitcoin', "Bitcoin is a digital cryptocurrency that operates without a central bank. It uses blockchain technology for secure transactions. It's volatile but popular for investors.");
+    manager.addAnswer('en', 'chitchat_feeling_lazy', "Everyone needs a lazy day sometimes! Take it easy, watch your favorite show, and recharge. Tomorrow's a new day to get back on track.");
+    manager.addAnswer('en', 'chitchat_feel_empathy', "While I don't feel emotions like humans, I'm here to help and listen anytime you need to chat!");
+    manager.addAnswer('en', 'chitchat_first_date', "Keep it simple! A coffee shop, a nice walk, or a casual dinner are all great options. The most important thing is to be yourself and have fun.");
+    manager.addAnswer('en', 'chitchat_catching_up_on_emails', "It's always a good idea to clear out that inbox. Need help with anything else while you're at it?");
+    manager.addAnswer('en', 'chitchat_putting_off_work', "It happens to the best of us! Try starting with a small task, and once you get going, momentum will help you tackle the bigger stuff.");
+    manager.addAnswer('en', 'chitchat_pin_that', "Got it, we can circle back to this later! Let me know when you're ready to dive back in.");
+    manager.addAnswer('en', 'chitchat_circle_back', "Absolutely! Let's touch base when you're ready to continue the conversation.");
+    manager.addAnswer('en', 'chitchat_birthday_gift', "Personalized gifts are always a hit! Consider something meaningful like a custom photo book, or if you're unsure, a thoughtful card and a gift card never fail.");
+    manager.addAnswer('en', 'chitchat_sweater_weather', "Sweater weather is the best time of year! Cozy up with a hot drink, your favorite sweater, and maybe a classic fall movie like 'When Harry Met Sally.'");
+    manager.addAnswer('en', 'chitchat_like_sports', "I don't play, but I can appreciate the excitement! Whether it's football, basketball, or a good tennis match, sports have a way of bringing people together.");
+    manager.addAnswer('en', 'chitchat_im_smiling', "That's awesome! Smiling is contagious, and it's a great way to spread positivity. Keep it up!");
+    manager.addAnswer('en', 'chitchat_are_people_good', "People are capable of incredible kindness and compassion. While the world has its challenges, most people strive to make a positive impact.");
+    manager.addAnswer('en', 'chitchat_finished_project', "Congratulations! Completing a project is always a great feeling. Treat yourself to something nice—you've earned it!");
+    manager.addAnswer('en', 'chitchat_learn_new_language', "That's awesome! Try using apps like Duolingo or Babbel to get started. The key is consistency, so practice a little every day!");
+    manager.addAnswer('en', 'chitchat_what_to_learn', "That depends on your interests! You could dive into coding, learn a new language, or explore creative hobbies like photography or painting. The possibilities are endless!");
+    manager.addAnswer('en', 'chitchat_reading_lately', "That's great! Keep it up. If you're looking for more to read, try something new like historical fiction, or dive into non-fiction on a topic that interests you.");
+    manager.addAnswer('en', 'chitchat_busy_day', "It sounds like you've earned some relaxation! Kick back, unwind, and recharge for tomorrow.");
+    manager.addAnswer('en', 'chitchat_whats_for_dinner', "Feeling adventurous? How about trying a new recipe like a hearty lasagna or a quick stir-fry. If you're in a rush, order your favorite takeout!");
+    manager.addAnswer('en', 'chitchat_whats_for_breakfast', "A healthy breakfast could be scrambled eggs with avocado, a smoothie bowl, or some overnight oats. Fuel your day the right way!");
+    manager.addAnswer('en', 'chitchat_whats_for_lunch', "A quick and tasty option could be a chicken salad, a turkey sandwich, or some homemade soup. Easy to make and delicious!");
+    manager.addAnswer('en', 'chitchat_over_today', "Some days are just like that. Kick back, relax, and remember, tomorrow is a fresh start!");
+    manager.addAnswer('en', 'chitchat_haya', "Haya! Ready to channel your inner martial artist? If you love action-packed martial arts movies, check out 'Enter the Dragon' starring Bruce Lee or 'The Karate Kid.' Both are classics!");
 
     // Responses for FAQs
     manager.addAnswer('en', 'faq_nextstream', 'NextStream is your personal movie and TV show recommendation assistant.');
@@ -3101,9 +3515,26 @@ async function trainNlp() {
     manager.addAnswer('en', 'health_track_sleep', "You can track your sleep using apps like Sleep Cycle or wearable devices like a Fitbit or Apple Watch. These tools monitor your sleep patterns and help you improve your sleep quality.");
     manager.addAnswer('en', 'health_good_habits_to_develop', "Some good habits include setting a morning routine, exercising regularly, practicing mindfulness, and setting aside time for personal growth each day.");
     manager.addAnswer('en', 'health_improve_memory', "To improve memory, try using mnemonic devices, staying mentally active with puzzles or reading, and getting plenty of sleep. A healthy diet also supports brain function.");
-
+    manager.addAnswer('en', 'health_back_pain_exercise', "For back pain, try exercises like bridges, cat-cow stretches, or pelvic tilts. These are great for strengthening your core and relieving tension.");
+    manager.addAnswer('en', 'health_healthy_smoothie_recipe', "Blend together some spinach, banana, almond milk, chia seeds, and a scoop of protein powder. It's perfect for a post-workout boost or a healthy snack!");
+    manager.addAnswer('en', 'health_healthy_snack', "Try a handful of almonds, a piece of fruit, or a yogurt parfait with granola. Easy to make and packed with nutrients!");
+    manager.addAnswer('en', 'health_relieve_stress', "Take a few deep breaths, stretch, and go for a walk. Practicing mindfulness or listening to calming music can also help lower stress levels.");
+    manager.addAnswer('en', 'health_burnt_out', "Burnout is tough. Take some time to rest, prioritize self-care, and try to unplug from work or responsibilities for a bit. You deserve a break!");
+    manager.addAnswer('en', 'health_start_running', "Start slow! Begin with short, manageable runs and gradually increase your distance. Don't forget to warm up, cool down, and stay hydrated!");
+    manager.addAnswer('en', 'health_post_workout_meal', "A balanced post-workout meal could be grilled chicken with quinoa and veggies, or a smoothie with protein powder, spinach, and banana.");
+    manager.addAnswer('en', 'health_get_stronger', "Focus on strength training exercises like squats, deadlifts, and push-ups. Remember to gradually increase the weight and maintain proper form to avoid injury.");
+   
     // Responses for Holidays and Celebrations
     manager.addAnswer('en', 'celebrate_happy_birthday', "Aww thanks! Did you get me a present?");
+    manager.addAnswer('en', 'celebrate_april_fools', "April Fools is all about fun and pranks! Watch 'Impractical Jokers' for some prankster inspiration or 'The Truman Show' for a unique twist on reality and deception.");
+    manager.addAnswer('en', 'celebrate_valentines_day', "Celebrate love with romantic movies like 'The Notebook' or 'Valentine's Day'. If you're in the mood for a romantic comedy, '10 Things I Hate About You' and 'Crazy, Stupid, Love' are also great choices.");
+    manager.addAnswer('en', 'celebrate_happy_christmas', "For Christmas cheer, watch classics like 'Home Alone' or 'Elf.' If you're looking for something heartwarming, 'It's a Wonderful Life' or 'The Holiday' will definitely get you in the holiday spirit.");
+    manager.addAnswer('en', 'celebrate_merry_christmas', "Merry Christmas! Spread some joy with 'Love Actually' or dive into nostalgia with 'A Charlie Brown Christmas.' If you're into darker holiday humor, 'The Nightmare Before Christmas' is always a fun watch.");
+    manager.addAnswer('en', 'celebrate_mothers_day', "Celebrate Mother's Day by watching 'Stepmom' or 'The Joy Luck Club' for touching stories about motherhood. 'Little Women' is also a great choice to honor the strong women in your life.");
+    manager.addAnswer('en', 'celebrate_happy_new_year', "For New Year's Eve fun, watch 'New Year's Eve' for a star-studded rom-com, or 'When Harry Met Sally' for a classic romantic scene set on New Year's Eve.");
+    manager.addAnswer('en', 'celebrate_trick_or_treat', "Get in the spooky mood with 'Hocus Pocus' or 'Beetlejuice.' If you're looking for something a bit scarier, watch 'Halloween' or 'The Conjuring' for a spine-tingling experience.");
+    manager.addAnswer('en', 'celebrate_halloween', "For a fun Halloween night, try 'The Addams Family' or 'Coraline.' If you're up for something spooky, dive into horror classics like 'The Shining' or 'A Nightmare on Elm Street.'");
+    manager.addAnswer('en', 'celebrate_thanksgiving', "If you want something heartwarming, 'A Charlie Brown Thanksgiving' is a nostalgic favorite. 'Friends' also has some of the best Thanksgiving episodes to binge.");
 
     // Responses for How-to
     manager.addAnswer('en', 'how_to_invest_in_stocks', "To start investing, you can open a brokerage account and buy shares of companies. Research and diversify for better long-term results."); 
@@ -3111,6 +3542,14 @@ async function trainNlp() {
     manager.addAnswer('en', 'how_to_remove_stains', "Pre-treat the stain with detergent or a stain remover, then wash as usual. Act fast for better results.");
     manager.addAnswer('en', 'how_to_organized', "A great way to stay organized is by using a to-do list app, breaking tasks into smaller steps, and setting clear deadlines. Try using apps like Todoist or Notion to keep track of everything.");
     manager.addAnswer('en', 'how_to_be_more_productive', "To be more productive, try breaking tasks into smaller, manageable chunks and using the Pomodoro Technique (25-minute focus sessions with short breaks). It keeps you on track!");
+    manager.addAnswer('en', 'how_to_fix_slow_computer', "First, try clearing your cache and deleting unused programs. Running a virus scan and updating your system can also help. If all else fails, a good restart never hurts!");
+    manager.addAnswer('en', 'how_to_tie_a_tie', "The classic Four-in-Hand knot is a great start! Cross the wide end over the narrow end, loop it around, and bring it through the front. Voila! You're ready for that formal event.");
+    manager.addAnswer('en', 'how_to_start_podcast', "Start with a good microphone and editing software like Audacity or GarageBand. You'll need a podcast hosting platform like Buzzsprout or Anchor. Pick your niche, and you're good to go!");
+    manager.addAnswer('en', 'how_to_quick_dinner_recipes', "Try a quick stir-fry with veggies and chicken, or a simple pasta with garlic and olive oil. You can also whip up tacos or a quick veggie salad!");
+    manager.addAnswer('en', 'how_to_clear_cache', "To clear your cache, go to your browser's settings, find 'Privacy and Security,' and select 'Clear Browsing Data.' Be sure to choose the time range you want to clear.");
+    manager.addAnswer('en', 'how_to_save_money', "Start by tracking your spending and setting a budget. Look for ways to cut unnecessary costs, and try putting a percentage of your income into savings each month.");
+    manager.addAnswer('en', 'how_to_best_invest', "Consider starting with a mix of stocks, bonds, and index funds to diversify your portfolio. It's always a good idea to consult a financial advisor to find the best strategy for you.");
+    manager.addAnswer('en', 'how_to_create_budget', "Start by listing your income and expenses. Categorize your spending, and set limits for each category. Track your progress to make sure you stick to it!");
 
     // Responses for Movie Quotes
     manager.addAnswer('en', 'quotes_rocky', "That's from 'Rocky'! The iconic call from Rocky Balboa after his big fight. You should watch it!");
@@ -3180,6 +3619,28 @@ async function trainNlp() {
     manager.addAnswer('en', 'quotes_yada_yada_yada', "I know how it goes—yada, yada, this and yada, yada, that. 😉");
     manager.addAnswer('en', 'quotes_legendary', "Oh Barney! Let's go watch some How I Met Your Mother. 😎");
     manager.addAnswer('en', 'quotes_barney_suit_up', "K, I'll suit up! Brace yourself, it's gonna be legen—wait for it-dary! 😎");
+    manager.addAnswer('en', 'quotes_wizard_of_oz', "This classic line is from 'The Wizard of Oz.' If you love fantasy, you should also check out 'Alice in Wonderland' or 'The Chronicles of Narnia.'");
+    manager.addAnswer('en', 'quotes_godfather_offer', "This iconic line is from 'The Godfather.' If you enjoy crime dramas, check out 'Goodfellas' or 'The Sopranos.'");
+    manager.addAnswer('en', 'quotes_sudden_impact', "This tough line is from 'Sudden Impact,' a classic Clint Eastwood moment. If you enjoy action thrillers, try 'Dirty Harry' or 'Gran Torino.'");
+    manager.addAnswer('en', 'quotes_maltese_falcon', "This famous line comes from 'The Maltese Falcon.' If you love classic film noir, check out 'Double Indemnity' or 'Sunset Boulevard.'");
+    manager.addAnswer('en', 'quotes_citizen_kane', "'Rosebud' is from the legendary film 'Citizen Kane.' If you're into cinematic history, this is a must-watch alongside 'Casablanca.'");
+    manager.addAnswer('en', 'quotes_elf', "This joyful shout is from Buddy in 'Elf.' If you love holiday comedies, watch 'Home Alone' or 'The Santa Clause.'");
+    manager.addAnswer('en', 'quotes_field_of_dreams', "This magical line is from 'Field of Dreams.' If you enjoy inspiring sports movies, try 'The Natural' or 'Moneyball.'");
+    manager.addAnswer('en', 'quotes_league_of_their_own', "This iconic line is from 'A League of Their Own.' If you love sports comedies, check out 'Major League' or 'The Sandlot.'");
+    manager.addAnswer('en', 'quotes_lotr_precious', "This famous line is from Gollum in 'The Lord of the Rings.' If you love epic fantasy, try 'Game of Thrones' or 'The Witcher.'");
+    manager.addAnswer('en', 'quotes_rocky_yo_adrian', "This iconic line is from 'Rocky.' If you enjoy underdog sports stories, you'll also love 'Creed' or 'Million Dollar Baby.'");
+    manager.addAnswer('en', 'quotes_wizard_of_oz_pretty', "This classic quote is from the Wicked Witch in 'The Wizard of Oz.' If you love magical adventures, check out 'Labyrinth' or 'Stardust.'");
+    manager.addAnswer('en', 'quotes_james_bond_shaken', "This smooth line is from James Bond. If you're into spy thrillers, try watching 'Casino Royale' or 'Mission: Impossible.'");
+    manager.addAnswer('en', 'quotes_king_kong', "This line is from 'King Kong.' If you enjoy classic monster movies, watch 'Godzilla' or 'Jurassic Park.'");
+    manager.addAnswer('en', 'quotes_planet_of_the_apes', "This line comes from 'Planet of the Apes.' If you love sci-fi epics, check out 'Blade Runner' or '2001: A Space Odyssey.'");
+    manager.addAnswer('en', 'quotes_sherlock_holmes', "This classic line is from 'Sherlock Holmes.' If you enjoy mysteries, try watching 'Sherlock' or 'Poirot.'");
+    manager.addAnswer('en', 'quotes_seinfeld_pretzels', "This hilarious line is from 'Seinfeld.' If you love sitcoms, you should also watch 'Friends' or 'How I Met Your Mother.'");
+    manager.addAnswer('en', 'quotes_seinfeld_cant_stand_ya', "This is a funny line from 'Seinfeld.' If you're into quirky humor, you might also enjoy 'Curb Your Enthusiasm.'");
+    manager.addAnswer('en', 'quotes_seinfeld_bisque', "This is a classic line from 'Seinfeld.' If you love its humor, you should also try 'Arrested Development.'");
+    manager.addAnswer('en', 'quotes_rick_and_morty_pickle', "Pickle Rick is one of the most iconic moments from 'Rick and Morty.' If you enjoy wild animated shows, try 'Bojack Horseman' or 'Futurama.'");
+    manager.addAnswer('en', 'quotes_it_crowd_off_and_on', "This techie line is from 'The IT Crowd.' If you love workplace comedies, try 'Silicon Valley' or 'The Office.'");
+    manager.addAnswer('en', 'quotes_south_park_kenny', "This classic line is from 'South Park.' If you love edgy animated humor, check out 'Family Guy' or 'The Simpsons.'");
+    manager.addAnswer('en', 'quotes_seinfeld_pretzels_repeat', "These pretzels are making everyone thirsty! If you're into quirky humour, definitely give 'Seinfeld' a rewatch or check out 'Curb Your Enthusiasm.'");
 
     // Responses for Recommendations
     manager.addAnswer('en', 'q_and_a_movies_recommend', "🎬 I've got some great movie recommendations! But first, what's your vibe? Action, comedy, thriller... or something else? Let me know! 🎞️");
@@ -3243,6 +3704,25 @@ async function trainNlp() {
     manager.addAnswer('en', 'q_and_a_recommend_classic_shows', "For classic shows, you can't go wrong with 'I Love Lucy' or 'The Twilight Zone.' Timeless entertainment!");
     manager.addAnswer('en', 'q_and_a_recommend_classic_movies', "For classic movies, 'Casablanca' and 'Gone with the Wind' are legendary. Perfect for a movie night!");
     manager.addAnswer('en', 'q_and_a_recommending', "You bet, friend! Just tell me what you're in the mood for, and I'll find something new!");
+    manager.addAnswer('en', 'q_and_a_fan_fiction', "Fan fiction lets you dive deeper into beloved worlds. If you're into fandoms, you might enjoy watching shows like 'Supernatural' or 'Doctor Who,' which have inspired tons of fan creations. Or try 'Good Omens' for a witty, fantastical adventure.");
+    manager.addAnswer('en', 'q_and_a_historical', "History buffs will love shows like 'The Crown,' 'Vikings,' or 'The Last Kingdom.' If you're into movies, 'Schindler's List' and 'Gladiator' offer powerful looks into different eras.");
+    manager.addAnswer('en', 'q_and_a_war', "For gripping war stories, check out 'Band of Brothers' or 'The Pacific'—both are incredibly well done. For movies, 'Saving Private Ryan' and 'Dunkirk' are intense and unforgettable.");
+    manager.addAnswer('en', 'q_and_a_mummies', "Looking for some ancient adventure? Watch 'The Mummy' (1999) for a fun, action-packed journey, or dive into the original 'Mummy' series from the 1930s if you love classic horror.");
+    manager.addAnswer('en', 'q_and_a_space_mission', "Space missions are thrilling! Check out 'The Martian' for an amazing space survival story, or 'Interstellar' for a mind-bending trip through space and time. For shows, 'The Expanse' is a fantastic, realistic take on future space exploration.");
+    manager.addAnswer('en', 'q_and_a_learning_guitar', "Learning guitar is awesome! For inspiration, check out 'School of Rock' for some fun, or watch 'Whiplash'—while it's about drums, it captures the intensity of learning an instrument. Also, don't forget 'This Is Spinal Tap' for some rock-and-roll humor.");
+    manager.addAnswer('en', 'q_and_a_climate_change', "For a deep dive into climate change, watch 'An Inconvenient Truth,' a groundbreaking documentary. You might also enjoy 'Before the Flood' with Leonardo DiCaprio or the series 'Our Planet,' narrated by David Attenborough.");
+    manager.addAnswer('en', 'q_and_a_psychology', "If you're into psychology, check out 'Mindhunter'—it's all about criminal psychology and profiling. 'A Beautiful Mind' is an incredible film about the life of a brilliant mathematician dealing with schizophrenia. For something more light-hearted, watch 'Inside Out'—a fun and touching animated movie about emotions.");
+    manager.addAnswer('en', 'q_and_a_spy', "If you love spy thrillers, check out 'James Bond' movies like 'Casino Royale,' or the 'Mission: Impossible' series. For TV, 'The Americans' is an amazing espionage drama with deep character development, and 'Tinker Tailor Soldier Spy' is a classic for Cold War intrigue.");
+    manager.addAnswer('en', 'q_and_a_technology', "If you're into tech, watch 'Black Mirror' for mind-bending tales of future technology. 'The Social Dilemma' is a great documentary on social media's impact, and 'The Matrix' remains a classic for exploring the relationship between humanity and technology.");
+    manager.addAnswer('en', 'q_and_a_video_games', "For video game fans, the 'Tron' series explores life inside the game. 'Ready Player One' is a fun, action-packed movie set in a virtual world, and 'The Witcher' on Netflix is based on a popular video game franchise with a rich fantasy storyline.");
+    manager.addAnswer('en', 'q_and_a_drawing', "If you're into drawing and art, check out 'Loving Vincent,' an animated film made entirely of oil paintings. 'Big Eyes' is another great movie about a real-life artist. For inspiration, the documentary 'Abstract: The Art of Design' on Netflix is a must-watch.");
+    manager.addAnswer('en', 'q_and_a_art', "Art lovers should check out 'The Great Beauty,' an Italian film about the art world and beauty. 'Frida' offers a beautiful portrayal of the life of painter Frida Kahlo. For something more modern, 'Exit Through the Gift Shop' is an intriguing documentary on street art and Banksy.");
+    manager.addAnswer('en', 'q_and_a_good_storylines', "For shows and movies with amazing storylines, check out 'Breaking Bad,' which masterfully builds tension, or 'Game of Thrones' (at least until the final season). On the movie side, 'Inception' and 'The Godfather' are known for their incredible plot arcs.");
+    manager.addAnswer('en', 'q_and_a_musicals', "Love musicals? Watch 'La La Land' for a modern take on the genre, or 'The Greatest Showman' for an uplifting spectacle. Classics like 'West Side Story' and 'The Sound of Music' are also must-sees for any musical lover.");
+    manager.addAnswer('en', 'q_and_a_operas', "For opera fans, watch 'Amadeus,' a grand tale of Mozart's life and music. If you're looking for something more recent, check out 'The Phantom of the Opera,' or 'Carmen'—both are visually stunning and packed with beautiful music.");
+    manager.addAnswer('en', 'q_and_a_soul', "For soul music lovers, 'Soul' by Pixar is a touching animated film about a jazz musician's journey through life. For a deep dive into soul music history, check out the documentary '20 Feet from Stardom,' or 'Ray,' which tells the story of Ray Charles.");
+    manager.addAnswer('en', 'q_and_a_heists', "If you're into heist films, check out 'Ocean's Eleven' for a slick and stylish caper, or 'The Italian Job' for some exciting twists. For TV, 'Money Heist' is an intense, addictive show that dives deep into a daring bank robbery.");
+    manager.addAnswer('en', 'q_and_a_mockumentaries', "For hilarious mockumentaries, watch 'This Is Spinal Tap,' the ultimate rock band parody, or 'Best in Show,' a quirky look at dog shows. On TV, 'The Office' and 'Parks and Recreation' use the mockumentary style brilliantly for comedy.");
 
     // Responses for Intents - Movies
     manager.addAnswer('en', 'recommend_action', "Ready for some heart-pounding action? I've got just the films for you!");
