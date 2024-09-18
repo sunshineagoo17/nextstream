@@ -42,7 +42,7 @@ const HoverMenu = () => {
       `/faves/${userId}`, 
       `/friends/${userId}`,
       `/nextsearch/${userId}`, 
-      `/nextstream-gpt/${userId}`, 
+      `/nextstream-bot/${userId}`, 
       `/nextswipe/${userId}`, 
       `/auth-search-results/${userId}`,
       `/search`,

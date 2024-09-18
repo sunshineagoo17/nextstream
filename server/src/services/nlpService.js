@@ -555,6 +555,8 @@ async function trainNlp() {
     manager.addDocument('en', 'Find me some reality tv', 'recommend_reality_tv');
     manager.addDocument('en', 'Give me a reality show recommendation', 'recommend_reality_tv');
     manager.addDocument('en', 'Give me a good reality show', 'recommend_reality_tv');
+    manager.addDocument('en', "I like reality TV.", 'recommend_reality_tv');
+    manager.addDocument('en', "I love reality TV.", 'recommend_reality_tv');
     manager.addDocument('en', 'I want to watch a reality show', 'recommend_reality_tv');
     manager.addDocument('en', 'Recommend a reality show', 'recommend_reality_tv');
     manager.addDocument('en', 'Recommend reality shows', 'recommend_reality_tv');
@@ -938,6 +940,7 @@ async function trainNlp() {
     manager.addDocument('en', "What's on my to do list", 'assist_to_do');
     manager.addDocument('en', "What's on my todo list", 'assist_to_do');
     manager.addDocument('en', "Play music", 'assist_play_music');
+    manager.addDocument('en', "Find my phone.", 'assist_find_my_phone');
 
     // AI Funnies
     manager.addDocument('en', 'Are you going to take over the world?', 'ai_take_over');
@@ -993,8 +996,8 @@ async function trainNlp() {
     manager.addDocument('en', 'How are you feeling today?', 'chitchat_how_are_you');
     manager.addDocument('en', 'Tell me a joke', 'chitchat_tell_joke');
     manager.addDocument('en', 'Tell me something funny', 'chitchat_tell_joke');
-    manager.addDocument('en', 'Who do I love the mostest', 'chitchat_mags');
-    manager.addDocument('en', 'How much do I love Mags', 'chitchat_mags_love');
+    manager.addDocument('en', 'Who do you love the mostest', 'chitchat_mags');
+    manager.addDocument('en', 'How much do you love Mags', 'chitchat_mags_love');
     manager.addDocument('en', 'Talk to me about Mags', 'chitchat_mags_more');
     manager.addDocument('en', 'Who is Mags?', 'chitchat_mags_more');
     manager.addDocument('en', 'Goodbye', 'greetings_bye');
@@ -1341,6 +1344,7 @@ async function trainNlp() {
     manager.addDocument('en', "Did you fall asleep?", 'chitchat_check_sleep');
     manager.addDocument('en', "Got any plans this weekend?", 'chitchat_weekend_plans');
     manager.addDocument('en', "I like you", 'chitchat_i_like_you');
+    manager.addDocument('en', "I love you", 'chitchat_i_like_you');
     manager.addDocument('en', "Cheer me up", 'chitchat_cheer_up');
     manager.addDocument('en', "Tell me more", 'chitchat_more_info');
     manager.addDocument('en', "I love this", 'chitchat_love_this');
@@ -1472,6 +1476,9 @@ async function trainNlp() {
     manager.addDocument('en', "Are you trustworthy?", 'chitchat_can_you_be_trusted');
     manager.addDocument('en', "Can I trust you?", 'chitchat_can_you_be_trusted');
     manager.addDocument('en', "Can you be trusted?", 'chitchat_can_you_be_trusted');
+    manager.addDocument('en', "I don't trust you", 'chitchat_can_you_be_trusted');
+    manager.addDocument('en', "I dont trust you", 'chitchat_can_you_be_trusted');
+    manager.addDocument('en', "I do not trust you", 'chitchat_can_you_be_trusted');
     manager.addDocument('en', "I wanna see what you can do.", 'chitchat_show_what_i_can_do');
     manager.addDocument('en', "I want to see what you can do.", 'chitchat_show_what_i_can_do');
     manager.addDocument('en', "Is he nice?", 'chitchat_is_nice');
@@ -1490,6 +1497,9 @@ async function trainNlp() {
     manager.addDocument('en', "You're not helpful", 'chitchat_you_suck');
     manager.addDocument('en', "You are terrible", 'chitchat_terrible');
     manager.addDocument('en', "You are not helpful", 'chitchat_not_helpful');
+    manager.addDocument('en', "You are not very helpful", 'chitchat_not_helpful');
+    manager.addDocument('en', "Youre not very helpful", 'chitchat_not_helpful');
+    manager.addDocument('en', "You're not very helpful", 'chitchat_not_helpful');
     manager.addDocument('en', "Do better", 'chitchat_be_better');
     manager.addDocument('en', "Be better", 'chitchat_be_better');
     manager.addDocument('en', "Ahoy", 'chitchat_ahoy');
@@ -1704,6 +1714,7 @@ async function trainNlp() {
     manager.addDocument('en', "You are correct", 'chitchat_you_are_right');
     manager.addDocument('en', "You're correct", 'chitchat_you_are_right');
     manager.addDocument('en', "Youre correct", 'chitchat_you_are_right');
+    manager.addDocument('en', "Incorrect", 'chitchat_you_are_wrong');
     manager.addDocument('en', "That's incorrect", 'chitchat_you_are_wrong');
     manager.addDocument('en', "That is incorrect", 'chitchat_you_are_wrong');
     manager.addDocument('en', "Thats incorrect", 'chitchat_you_are_wrong');
@@ -1744,6 +1755,161 @@ async function trainNlp() {
     manager.addDocument('en', "My turn to talk", 'chitchat_my_turn_to_talk');
     manager.addDocument('en', "Is this thing on?", 'chitchat_is_this_on');
     manager.addDocument('en', "Can you hear me?", 'chitchat_can_you_hear');
+    manager.addDocument('en', "Drink", 'chitchat_have_a_drink');
+    manager.addDocument('en', "Drink something", 'chitchat_have_a_drink');
+    manager.addDocument('en', "Have a drink", 'chitchat_have_a_drink');
+    manager.addDocument('en', "Do you enjoy watching movies?", 'chitchat_do_you_like_movies');
+    manager.addDocument('en', "Do you like movies?", 'chitchat_do_you_like_movies');
+    manager.addDocument('en', "Do you enjoy watching shows?", 'chitchat_do_you_like_shows');
+    manager.addDocument('en', "Do you like shows?", 'chitchat_do_you_like_shows');
+    manager.addDocument('en', "Do you like to binge", 'chitchat_do_you_binge');
+    manager.addDocument('en', "Do you love to binge", 'chitchat_do_you_binge');
+    manager.addDocument('en', "Are you reliable", 'chitchat_are_you_reliable');
+    manager.addDocument('en', "Can I rely on you", 'chitchat_are_you_reliable');
+    manager.addDocument('en', "How are you reliable", 'chitchat_are_you_reliable');
+    manager.addDocument('en', "Should I rely on you?", 'chitchat_are_you_reliable');
+    manager.addDocument('en', "Recommend something", 'chitchat_recommend_something');
+    manager.addDocument('en', "Pick me up", 'chitchat_pick_me_up');
+    manager.addDocument('en', "I need a laugh", 'chitchat_make_me_laugh');
+    manager.addDocument('en', "Make me laugh", 'chitchat_make_me_laugh');
+    manager.addDocument('en', "Make a funny", 'chitchat_make_me_laugh');
+    manager.addDocument('en', "Am I the man?", 'chitchat_who_da_man');
+    manager.addDocument('en', "Who da man?", 'chitchat_who_da_man');
+    manager.addDocument('en', "Who the man?", 'chitchat_who_da_man');
+    manager.addDocument('en', "May the Force be with you", 'chitchat_may_the_force');
+    manager.addDocument('en', "May the 4th", 'chitchat_may_the_force');
+    manager.addDocument('en', "May the 4th be with you", 'chitchat_may_the_force');
+    manager.addDocument('en', "We were on a break!", 'chitchat_we_were_on_a_break');
+    manager.addDocument('en', "My sandwich", 'chitchat_my_sandwich');
+    manager.addDocument('en', "I am Groot", 'chitchat_i_am_groot');
+    manager.addDocument('en', "D'oh!", 'chitchat_doh');
+    manager.addDocument('en', "Doh", 'chitchat_doh');
+    manager.addDocument('en', "Dope", 'chitchat_doh');
+    manager.addDocument('en', "Winter is coming", 'chitchat_winter_is_coming');
+    manager.addDocument('en', "Heres looking at you kid", 'chitchat_heres_looking_at_you');
+    manager.addDocument('en', "Here's looking at you, kid.", 'chitchat_heres_looking_at_you');
+    manager.addDocument('en', "Here's looking at you", 'chitchat_heres_looking_at_you');
+    manager.addDocument('en', "Heres looking at you", 'chitchat_heres_looking_at_you');
+    manager.addDocument('en', "You can't handle the truth!", 'chitchat_cant_handle_truth');
+    manager.addDocument('en', "You cant handle the truth", 'chitchat_cant_handle_truth');
+    manager.addDocument('en', "Im the king of the world", 'chitchat_king_of_world');
+    manager.addDocument('en', "I'm the king of the world!", 'chitchat_king_of_world');
+    manager.addDocument('en', "Life is like a box of chocolates", 'chitchat_life_box_of_chocolates');
+    manager.addDocument('en', "Why so serious?", 'chitchat_why_so_serious');
+    manager.addDocument('en', "E.T. phone home.", 'chitchat_et_phone_home');
+    manager.addDocument('en', "ET phone home", 'chitchat_et_phone_home');
+    manager.addDocument('en', "Phone home", 'chitchat_et_phone_home');
+    manager.addDocument('en', "I see dead people", 'chitchat_i_see_dead_people');
+    manager.addDocument('en', "Hasta la vista baby", 'chitchat_hasta_la_vista');
+    manager.addDocument('en', "Asta la vista baby", 'chitchat_hasta_la_vista');
+    manager.addDocument('en', "I come in peace", 'chitchat_i_come_in_peace');
+    manager.addDocument('en', "We come in peace", 'chitchat_we_come_in_peace');
+    manager.addDocument('en', "Who are you gonna call?", 'chitchat_who_gonna_call');
+    manager.addDocument('en', "To infinity and beyond", 'chitchat_infinity_beyond');
+    manager.addDocument('en', "You talking to me?", 'chitchat_you_talking_to_me');
+    manager.addDocument('en', "Houston we have a problem.", 'chitchat_houston_problem');
+    manager.addDocument('en', "Say hello to my little friend", 'chitchat_say_hello_little_friend');
+    manager.addDocument('en', "Here's Johnny!", 'chitchat_heres_johnny');
+    manager.addDocument('en', "Heres Johnny", 'chitchat_heres_johnny');
+    manager.addDocument('en', "There's no place like home.", 'chitchat_no_place_like_home');
+    manager.addDocument('en', "Theres no place like home", 'chitchat_no_place_like_home');
+    manager.addDocument('en', "Bazinga", 'chitchat_bazinga');
+    manager.addDocument('en', "Soft kitty warm kitty little ball of fur", 'chitchat_soft_kitty');
+    manager.addDocument('en', "Yada, yada, yada.", 'chitchat_yada_yada_yada');
+    manager.addDocument('en', "Yada yada yada", 'chitchat_yada_yada_yada');
+    manager.addDocument('en', "It's gonna be legen—wait for it—dary", 'chitchat_legendary');
+    manager.addDocument('en', "Its gonna be legen wait for it dary", 'chitchat_legendary');
+    manager.addDocument('en', "Its gonna be legendary", 'chitchat_legendary');
+    manager.addDocument('en', "It's gonna be legendary", 'chitchat_legendary');
+    manager.addDocument('en', "Suit up", 'chitchat_barney_suit_up');
+    manager.addDocument('en', "Marry me", 'chitchat_marry_me');
+    manager.addDocument('en', "Happy birthday", 'chitchat_barney_suit_up');
+    manager.addDocument('en', "Happy bday", 'chitchat_barney_suit_up');
+    manager.addDocument('en', "Happy b-day", 'chitchat_barney_suit_up');
+    manager.addDocument('en', "Sleep tight", 'chitchat_sleep_tight');
+    manager.addDocument('en', "How do i organize", 'chitchat_organized');
+    manager.addDocument('en', "What's a good way to stay organized?", 'chitchat_organized');
+    manager.addDocument('en', "What's a good way to stay organized?", 'chitchat_organized');
+    manager.addDocument('en', "How can I be more productive?", 'chitchat_be_more_productive');
+    manager.addDocument('en', "How can I be productive?", 'chitchat_be_more_productive');
+    manager.addDocument('en', "What?", 'chitchat_what');
+    manager.addDocument('en', "Que", 'chitchat_que');
+    manager.addDocument('en', "Why?", 'chitchat_why');
+    manager.addDocument('en', "Why not?", 'chitchat_why');
+    manager.addDocument('en', "Por que?", 'chitchat_why');
+    manager.addDocument('en', "Porque", 'chitchat_why');
+    manager.addDocument('en', "Porkay", 'chitchat_why');
+    manager.addDocument('en', "Por kay", 'chitchat_why');
+    manager.addDocument('en', "How?", 'chitchat_how');
+    manager.addDocument('en', "I'm confused", 'chitchat_confused');
+    manager.addDocument('en', "Im confused", 'chitchat_confused');
+    manager.addDocument('en', "I am confused", 'chitchat_confused');
+    manager.addDocument('en', "You are not making sense.", 'chitchat_not_making_sense');
+    manager.addDocument('en', "You're not making sense.", 'chitchat_not_making_sense');
+    manager.addDocument('en', "Youre not making sense.", 'chitchat_not_making_sense');
+    manager.addDocument('en', "You make no sense.", 'chitchat_not_making_sense');
+    manager.addDocument('en', "I don't understand", 'chitchat_do_not_understand');
+    manager.addDocument('en', "I dont understand", 'chitchat_do_not_understand');
+    manager.addDocument('en', "I do not understand", 'chitchat_do_not_understand');
+    manager.addDocument('en', "Go to jail", 'chitchat_monopoly');
+    manager.addDocument('en', "Straight to jail", 'chitchat_monopoly');
+    manager.addDocument('en', "You are cool", 'chitchat_you_look_cool');
+    manager.addDocument('en', "You look cool", 'chitchat_you_look_cool');
+    manager.addDocument('en', "You are pretty", 'chitchat_you_look_cool');
+    manager.addDocument('en', "You're pretty", 'chitchat_you_look_cool');
+    manager.addDocument('en', "Youre pretty cool", 'chitchat_you_look_cool');
+    manager.addDocument('en', "Where are you from?", 'chitchat_where_from');
+    manager.addDocument('en', "Where did you come from?", 'chitchat_where_from');
+    manager.addDocument('en', "Mizu", 'chitchat_mizu');
+    manager.addDocument('en', "I don't want to stop chatting", 'chitchat_dont_stop_talking');
+    manager.addDocument('en', "I dont want to stop chatting", 'chitchat_dont_stop_talking');
+    manager.addDocument('en', "I don't want to stop typing", 'chitchat_dont_stop_talking');
+    manager.addDocument('en', "I dont want to stop typing", 'chitchat_dont_stop_talking');
+    manager.addDocument('en', "I don't want to stop talking", 'chitchat_dont_stop_talking');
+    manager.addDocument('en', "I dont want to stop talking", 'chitchat_dont_stop_talking');
+    manager.addDocument('en', "What time is it?", 'chitchat_what_time');
+    manager.addDocument('en', "I am excited", 'chitchat_am_excited');
+    manager.addDocument('en', "Im excited", 'chitchat_am_excited');
+    manager.addDocument('en', "I am excited", 'chitchat_am_excited');
+    manager.addDocument('en', "I am okay", 'chitchat_am_okay');
+    manager.addDocument('en', "I'm okay", 'chitchat_am_okay');
+    manager.addDocument('en', "Im okay", 'chitchat_am_okay');
+    manager.addDocument('en', "Not much", 'chitchat_not_much');
+    manager.addDocument('en', "I am stressed about work", 'chitchat_work_stress')
+    manager.addDocument('en', "I'm stressed about work", 'chitchat_work_stress');
+    manager.addDocument('en', "Im stressed about work", 'chitchat_work_stress')
+    manager.addDocument('en', "Work stress", 'chitchat_work_stress')
+    manager.addDocument('en', "Stress at work", 'chitchat_work_stress')
+    manager.addDocument('en', "I feel unmotivated", 'chitchat_feel_unmotivated')
+    manager.addDocument('en', "I am feeling unmotivated", 'chitchat_feel_unmotivated')
+    manager.addDocument('en', "Im feeling unmotivated", 'chitchat_feel_unmotivated')
+    manager.addDocument('en', "I'm unmotivated", 'chitchat_feel_unmotivated')
+    manager.addDocument('en', "I need motivation", 'chitchat_feel_unmotivated')
+    manager.addDocument('en', "I'm nervous", 'chitchat_am_nervous')
+    manager.addDocument('en', "Im nervous", 'chitchat_am_nervous')
+    manager.addDocument('en', "I am nervous", 'chitchat_am_nervous')
+    manager.addDocument('en', "My nerves are shot", 'chitchat_am_nervous')
+    manager.addDocument('en', "My dog", 'chitchat_dogs_are_the_best')
+    manager.addDocument('en', "Sleeping", 'chitchat_sleeping')
+    manager.addDocument('en', "Do you have pets", 'chitchat_pets')
+    manager.addDocument('en', "Do you own pets", 'chitchat_pets')
+    manager.addDocument('en', "Say good luck!", 'chitchat_wish_luck')
+    manager.addDocument('en', "Send me luck!", 'chitchat_wish_luck')
+    manager.addDocument('en', "Wish me luck!", 'chitchat_wish_luck')
+    manager.addDocument('en', "Cross your fingers", 'chitchat_crossing_fingers')
+    manager.addDocument('en', "You are great", 'chitchat_you_are_great')
+    manager.addDocument('en', "You're great", 'chitchat_you_are_great')
+    manager.addDocument('en', "Youre great", 'chitchat_you_are_great')
+    manager.addDocument('en', "Thanks for the help", 'chitchat_thanks_for_the_help')
+    manager.addDocument('en', "Not right", 'chitchat_you_are_not_right')
+    manager.addDocument('en', "That's not right", 'chitchat_you_are_not_right')
+    manager.addDocument('en', "Thats not right", 'chitchat_you_are_not_right')
+    manager.addDocument('en', "You didn't get that right", 'chitchat_you_are_not_right')
+    manager.addDocument('en', "You didnt get that right", 'chitchat_you_are_not_right')
+    manager.addDocument('en', "I'm stuck", 'chitchat_feel_stuck')
+    manager.addDocument('en', "Im stuck", 'chitchat_feel_stuck')
+    manager.addDocument('en', "I am stuck", 'chitchat_feel_stuck')
+    manager.addDocument('en', "I feel stuck", 'chitchat_feel_stuck')
 
     // FAQs
     manager.addDocument('en', 'What is NextStream?', 'faq_nextstream');
@@ -1767,6 +1933,7 @@ async function trainNlp() {
 
     // Fun Facts
     manager.addDocument('en', "What's the population of the world?", 'facts_world_population');
+    manager.addDocument('en', "Got any cool facts?", 'facts_fun');
     manager.addDocument('en', "Tell me a fun fact", 'facts_fun');
     manager.addDocument('en', "Tell me something interesting", 'facts_fun');
     manager.addDocument('en', "Fun fact", 'facts_fun');
@@ -1803,6 +1970,8 @@ async function trainNlp() {
     manager.addDocument('en', "Is there life on other planets?", 'fun_fact_life_other_planets');
     manager.addDocument('en', "Do aliens exist?", 'fun_fact_life_other_planets');
     manager.addDocument('en', "Do you believe in aliens?", 'fun_fact_life_other_planets');
+    manager.addDocument('en', "How far is the moon from Earth?", 'fun_fact_distance_moon_earth');
+    manager.addDocument('en', "Why is the sky blue?", 'fun_fact_why_sky_blue');
 
     // Health Related
     manager.addDocument('en', "What's a good exercise for my abs?", 'exercise_abs');
@@ -1843,7 +2012,85 @@ async function trainNlp() {
     manager.addDocument('en', "I have a headache", 'health_causes_headaches');
     manager.addDocument('en', "How many steps should I take?", 'health_fitness_steps');
     manager.addDocument('en', "What's the recommended number of steps?", 'health_fitness_steps');
-    
+    manager.addDocument('en', "Best diet", 'health_diet_for_weight_loss');
+    manager.addDocument('en', "What's the best diet for weight loss?", 'health_diet_for_weight_loss');
+    manager.addDocument('en', "Whats the best diet for weight loss?", 'health_diet_for_weight_loss');
+    manager.addDocument('en', "How do I track my sleep?", 'health_track_sleep');
+    manager.addDocument('en', "What are some good habits to develop?", 'health_good_habits_to_develop');
+    manager.addDocument('en', "How do I improve my memory?", 'health_improve_memory');
+    manager.addDocument('en', "I forgot", 'health_improve_memory');
+    manager.addDocument('en', "I am forgetful", 'health_improve_memory');
+    manager.addDocument('en', "Im forgetful", 'health_improve_memory');
+    manager.addDocument('en', "I'm forgetful", 'health_improve_memory');
+
+    // Movie Quotes
+    manager.addDocument('en', "Adrian!", 'quotes_rocky');
+    manager.addDocument('en', "I'm just one stomach flu away from my goal weight.", 'quotes_devil_wears_prada');
+    manager.addDocument('en', "You complete me.", 'quotes_jerry_maguire');
+    manager.addDocument('en', "You had me at hello.", 'quotes_jerry_maguire');
+    manager.addDocument('en', "Show me the money!", 'quotes_jerry_maguire_show_me');
+    manager.addDocument('en', "Houston, we have a problem.", 'quotes_apollo13');
+    manager.addDocument('en', "Houston we have a problem.", 'quotes_apollo13');
+    manager.addDocument('en', "You're gonna need a bigger boat.", 'quotes_jaws');
+    manager.addDocument('en', "Youre gonna need a bigger boat.", 'quotes_jaws');
+    manager.addDocument('en', "Nobody puts Baby in a corner.", 'quotes_dirty_dancing');
+    manager.addDocument('en', "This is the beginning of a beautiful friendship.", 'quotes_casablanca_friendship');
+    manager.addDocument('en', "Frankly my dear I don't give a damn.", 'quotes_gone_with_the_wind');
+    manager.addDocument('en', "Frankly my dear I dont give a damn.", 'quotes_gone_with_the_wind');
+    manager.addDocument('en', "Im just a girl standing in front of a boy asking him to love her.", 'quotes_notting_hill');
+    manager.addDocument('en', "I'm just a girl standing in front of a boy asking him to love her.", 'quotes_notting_hill');
+    manager.addDocument('en', "Help me, I'm poor.", 'quotes_bridesmaids');
+    manager.addDocument('en', "Help me, Im poor.", 'quotes_bridesmaids');
+    manager.addDocument('en', "This is the way.", 'quotes_mandalorian');
+    manager.addDocument('en', "Lumos.", 'quotes_harry_potter_spells');
+    manager.addDocument('en', "Expelliarmus.", 'quotes_harry_potter_spells');
+    manager.addDocument('en', "Stupefy.", 'quotes_harry_potter_spells');
+    manager.addDocument('en', "Accio", 'quotes_harry_potter_spells');
+    manager.addDocument('en', "Riddikulus", 'quotes_harry_potter_spells');
+    manager.addDocument('en', "Reparo", 'quotes_harry_potter_spells');
+    manager.addDocument('en', "Expecto patronum", 'quotes_harry_potter_spells');
+    manager.addDocument('en', "Wingardium Leviosa", 'quotes_harry_potter_spells');
+    manager.addDocument('en', "Protego", 'quotes_harry_potter_spells');
+    manager.addDocument('en', "Alohomora", 'quotes_harry_potter_spells');
+    manager.addDocument('en', "Bow ties are cool.", 'quotes_doctor_who');
+    manager.addDocument('en', "Geronimo.", 'quotes_doctor_who');
+    manager.addDocument('en', "Allons-y.", 'quotes_doctor_who');
+    manager.addDocument('en', "Avada kedavra.", 'quotes_harry_potter_avada');
+    manager.addDocument('en', "Reducto.", 'quotes_harry_potter_reducto');
+    manager.addDocument('en', "Diffindo", 'quotes_harry_potter_diffindo');
+    manager.addDocument('en', "Petrificus Totalus", 'quotes_harry_potter_petrificus');
+    manager.addDocument('en', "Imperio", 'quotes_harry_potter_imperio');
+    manager.addDocument('en', "Obleviate", 'quotes_harry_potter_obleviate');
+    manager.addDocument('en', "Sectumsempra", 'quotes_harry_potter_sectumsempra');
+    manager.addDocument('en', "Eve.", 'quotes_wall_e');
+    manager.addDocument('en', "It tastes like feet.", 'quotes_friends_feet');
+    manager.addDocument('en', "It's a moo point.", 'quotes_friends_moo_point');
+    manager.addDocument('en', "Seven seven seven", 'quotes_friends_seven');
+    manager.addDocument('en', "Seven", 'quotes_friends_seven');
+    manager.addDocument('en', "7 7 7", 'quotes_friends_seven');
+    manager.addDocument('en', "You shall not pass!", 'quotes_lotr_pass');
+    manager.addDocument('en', "It's not about how hard you hit.", 'quotes_rocky_balboa_hard_hit');
+    manager.addDocument('en', "Its not about how hard you hit.", 'quotes_rocky_balboa_hard_hit');
+    manager.addDocument('en', "I'll have what she's having.", 'quotes_when_harry_met_sally');
+    manager.addDocument('en', "Ill have what shes having.", 'quotes_when_harry_met_sally');
+    manager.addDocument('en', "That's what she said.", 'quotes_the_office_twss');
+    manager.addDocument('en', "Thats what she said.", 'quotes_the_office_twss');
+    manager.addDocument('en', "I declare bankruptcy!", 'quotes_the_office_bankruptcy');
+    manager.addDocument('en', "No soup for you!", 'quotes_seinfeld_soup');
+    manager.addDocument('en', "Jambalaya", 'quotes_seinfeld_soup');
+    manager.addDocument('en', "Pivot!", 'quotes_friends_pivot');
+    manager.addDocument('en', "Pivottt", 'quotes_friends_pivot');
+    manager.addDocument('en', "Just keep swimming.", 'quotes_finding_nemo');
+    manager.addDocument('en', "The flower that blooms in adversity is the most rare and beautiful of all.", 'quotes_mulan');
+    manager.addDocument('en', "Knock knock knock Penny", 'quotes_big_bang_theory_knock_knock');
+    manager.addDocument('en', "You're in my spot", 'quotes_big_bang_theory_spot');
+    manager.addDocument('en', "Youre in my spot", 'quotes_big_bang_theory_spot');
+    manager.addDocument('en', "Our babies will be smart and beautiful", 'quotes_big_bang_theory_babies');
+    manager.addDocument('en', "Quid pro quo Clarice", 'quotes_silence_of_the_lambs');
+    manager.addDocument('en', "fava beans", 'quotes_silence_of_the_lambs_fava');
+    manager.addDocument('en', "These are not the droids you're looking for", 'quotes_star_wars_droids');
+    manager.addDocument('en', "These are not the droids youre looking for", 'quotes_star_wars_droids');
+
     // Recommendations
     manager.addDocument('en', 'What should I watch?', 'q_and_a_movies_recommend');
     manager.addDocument('en', 'What movies should I watch?', 'q_and_a_movies_recommend');
@@ -1873,7 +2120,146 @@ async function trainNlp() {
     manager.addDocument('en', "Okay, show me a show Id like.", 'q_and_a_recommend_show');
     manager.addDocument('en', "Okay, show me a show I'd like.", 'q_and_a_recommend_show');
     manager.addDocument('en', "What show would you recommend?", 'q_and_a_recommend_show');
- 
+    manager.addDocument('en', "I love dragons?", 'q_and_a_recommend_show_dragons');
+    manager.addDocument('en', "I love magic!", 'q_and_a_recommend_show_magic');
+    manager.addDocument('en', "I love superheroes", 'q_and_a_recommend_show_superheroes');
+    manager.addDocument('en', "I enjoy sci-fi", 'q_and_a_recommend_show_sci_fi');
+    manager.addDocument('en', "I love sci-fi", 'q_and_a_recommend_show_sci_fi');
+    manager.addDocument('en', "I like sci-fi", 'q_and_a_recommend_show_sci_fi');
+    manager.addDocument('en', "I love video games!", 'q_and_a_recommend_show_video_games');
+    manager.addDocument('en', "I enjoy video games!", 'q_and_a_recommend_show_video_games');
+    manager.addDocument('en', "I'm a gamer", 'q_and_a_recommend_show_video_games');
+    manager.addDocument('en', "Im a gamer", 'q_and_a_recommend_show_video_games');
+    manager.addDocument('en', "I am a gamer", 'q_and_a_recommend_show_video_games');
+    manager.addDocument('en', "I love time travel", 'q_and_a_recommend_show_time_travel');
+    manager.addDocument('en', "I enjoy time travel", 'q_and_a_recommend_show_time_travel');
+    manager.addDocument('en', "I enjoy disaster films", 'q_and_a_recommend_show_disaster_films');
+    manager.addDocument('en', "I like disaster films", 'q_and_a_recommend_show_disaster_films');
+    manager.addDocument('en', "I love disaster films", 'q_and_a_recommend_show_disaster_films');
+    manager.addDocument('en', "I hate Sharknado", 'q_and_a_sharknado_dislike');
+    manager.addDocument('en', "Sharknado sucks", 'q_and_a_sharknado_dislike');
+    manager.addDocument('en', "I enjoy AI movies", 'q_and_a_recommend_show_ai_movies');
+    manager.addDocument('en', "I love movies about AI.", 'q_and_a_recommend_show_ai_movies');
+    manager.addDocument('en', "I love AI.", 'q_and_a_recommend_show_ai_movies');
+    manager.addDocument('en', "I like ghosts.", 'q_and_a_recommend_show_ghosts');
+    manager.addDocument('en', "I love ghosts.", 'q_and_a_recommend_show_ghosts');
+    manager.addDocument('en', "I enjoy movies about space.", 'q_and_a_recommend_movies_space');
+    manager.addDocument('en', "I like movies about space.", 'q_and_a_recommend_movies_space');
+    manager.addDocument('en', "I love movies about space.", 'q_and_a_recommend_movies_space');
+    manager.addDocument('en', "I like supernatural.", 'q_and_a_recommend_supernatural');
+    manager.addDocument('en', "I love supernatural.", 'q_and_a_recommend_supernatural');
+    manager.addDocument('en', "I enjoy watching Doctor Who.", 'q_and_a_recommend_doctor_who');
+    manager.addDocument('en', "I like Doctor Who.", 'q_and_a_recommend_doctor_who');
+    manager.addDocument('en', "I love Doctor Who.", 'q_and_a_recommend_doctor_who');
+    manager.addDocument('en', "I enjoy watching Criminal Minds.", 'q_and_a_recommend_criminal_minds');
+    manager.addDocument('en', "I like Criminal Minds.", 'q_and_a_recommend_criminal_minds');
+    manager.addDocument('en', "I love Criminal Minds.", 'q_and_a_recommend_criminal_minds');
+    manager.addDocument('en', "Dystopian futures", 'q_and_a_recommend_dystopian_futures');
+    manager.addDocument('en', "Dystopian Society", 'q_and_a_recommend_dystopian_futures');
+    manager.addDocument('en', "I like dystopian futures.", 'q_and_a_recommend_dystopian_futures');
+    manager.addDocument('en', "I love dystopian futures.", 'q_and_a_recommend_dystopian_futures');
+    manager.addDocument('en', "I enjoy robot movies.", 'q_and_a_recommend_robot_movies');
+    manager.addDocument('en', "I like robot movies.", 'q_and_a_recommend_robot_movies');
+    manager.addDocument('en', "I love robot movies.", 'q_and_a_recommend_robot_movies');
+    manager.addDocument('en', "Robot movies", 'q_and_a_recommend_robot_movies');
+    manager.addDocument('en', "Post-apocalyptic movies.", 'q_and_a_recommend_post_apocalyptic');
+    manager.addDocument('en', "I like post-apocalyptic movies.", 'q_and_a_recommend_post_apocalyptic');
+    manager.addDocument('en', "I love post-apocalyptic movies.", 'q_and_a_recommend_post_apocalyptic');
+    manager.addDocument('en', "I like zombies.", 'q_and_a_recommend_zombie_shows');
+    manager.addDocument('en', "I love zombies.", 'q_and_a_recommend_zombie_shows');
+    manager.addDocument('en', "Zombie shows", 'q_and_a_recommend_zombie_shows');
+    manager.addDocument('en', "I like Jumanji.", 'q_and_a_recommend_jumanji');
+    manager.addDocument('en', "I love Jumanji.", 'q_and_a_recommend_jumanji');
+    manager.addDocument('en', "Jumanji", 'q_and_a_recommend_jumanji');
+    manager.addDocument('en', "Brendan Fraser", 'q_and_a_recommend_brendan_fraser');
+    manager.addDocument('en', "I love Brendan Fraser", 'q_and_a_recommend_brendan_fraser');
+    manager.addDocument('en', "I like Star Wars.", 'q_and_a_recommend_star_wars');
+    manager.addDocument('en', "I love Star Wars.", 'q_and_a_recommend_star_wars');
+    manager.addDocument('en', "Star Wars.", 'q_and_a_recommend_star_wars');
+    manager.addDocument('en', "I like Steve Carell.", 'q_and_a_recommend_steve_carell');
+    manager.addDocument('en', "I love Steve Carell.", 'q_and_a_recommend_steve_carell');
+    manager.addDocument('en', "Michael Scott", 'q_and_a_recommend_steve_carell');
+    manager.addDocument('en', "Steve Carell", 'q_and_a_recommend_steve_carell');
+    manager.addDocument('en', "I like trans shows.", 'q_and_a_recommend_trans_shows');
+    manager.addDocument('en', "I love trans shows.", 'q_and_a_recommend_trans_shows');
+    manager.addDocument('en', "Trans shows", 'q_and_a_recommend_trans_shows');
+    manager.addDocument('en', "I like shows like Friends.", 'q_and_a_recommend_shows_like_friends');
+    manager.addDocument('en', "I love shows like Friends.", 'q_and_a_recommend_shows_like_friends');
+    manager.addDocument('en', "Like Friends", 'q_and_a_recommend_shows_like_friends');
+    manager.addDocument('en', "Elliot Page", 'q_and_a_recommend_elliot_page');
+    manager.addDocument('en', "I like Elliot Page.", 'q_and_a_recommend_elliot_page');
+    manager.addDocument('en', "I love Elliot Page.", 'q_and_a_recommend_elliot_page');
+    manager.addDocument('en', "I love stand-up comedy.", 'q_and_a_recommend_standup_comedy');
+    manager.addDocument('en', "Stand-up", 'q_and_a_recommend_standup_comedy');
+    manager.addDocument('en', "Standup", 'q_and_a_recommend_standup_comedy');
+    manager.addDocument('en', "Stand up", 'q_and_a_recommend_standup_comedy');
+    manager.addDocument('en', "Stand-up comedy", 'q_and_a_recommend_standup_comedy');
+    manager.addDocument('en', "Standup comedy", 'q_and_a_recommend_standup_comedy');
+    manager.addDocument('en', "Stand up comedy", 'q_and_a_recommend_standup_comedy');
+    manager.addDocument('en', "I have pets", 'q_and_a_recommend_pet_movies');
+    manager.addDocument('en', "I like pet movies.", 'q_and_a_recommend_pet_movies');
+    manager.addDocument('en', "I love pet movies.", 'q_and_a_recommend_pet_movies');
+    manager.addDocument('en', "I am a nature lover", 'q_and_a_recommend_nature_shows');
+    manager.addDocument('en', "Im a nature lover", 'q_and_a_recommend_nature_shows');
+    manager.addDocument('en', "I'm a nature lover", 'q_and_a_recommend_nature_shows');
+    manager.addDocument('en', "I like nature.", 'q_and_a_recommend_nature_shows');
+    manager.addDocument('en', "I love nature.", 'q_and_a_recommend_nature_shows');
+    manager.addDocument('en', "I like LGBTQ shows", 'q_and_a_recommend_lgbtq_shows');
+    manager.addDocument('en', "I love LGBTQ shows", 'q_and_a_recommend_lgbtq_shows');
+    manager.addDocument('en', "LGBTQ shows", 'q_and_a_recommend_lgbtq_shows');
+    manager.addDocument('en', "I like LGBTQ movies", 'q_and_a_recommend_lgbtq_movies');
+    manager.addDocument('en', "I love LGBTQ movies", 'q_and_a_recommend_lgbtq_movies');
+    manager.addDocument('en', "LGBTQ movies", 'q_and_a_recommend_lgbtq_movies');
+    manager.addDocument('en', "Dino movies", 'q_and_a_recommend_dinosaur_movies');
+    manager.addDocument('en', "I like dinosaurs", 'q_and_a_recommend_other_dino_movies');
+    manager.addDocument('en', "I love dinosaurs", 'q_and_a_recommend_other_dino_movies');
+    manager.addDocument('en', "I like Jurassic Park", 'q_and_a_recommend_jurassic_park');
+    manager.addDocument('en', "I love Jurassic Park", 'q_and_a_recommend_jurassic_park');
+    manager.addDocument('en', "Jurassic Park", 'q_and_a_recommend_jurassic_park');
+    manager.addDocument('en', "End of the world shows", 'q_and_a_recommend_end_of_world_shows');
+    manager.addDocument('en', "I like end of the world shows.", 'q_and_a_recommend_end_of_world_shows');
+    manager.addDocument('en', "I love end of the world shows.", 'q_and_a_recommend_end_of_world_shows');
+    manager.addDocument('en', "End of the world movies", 'q_and_a_recommend_end_of_world_movies');
+    manager.addDocument('en', "I like end of the world movies", 'q_and_a_recommend_end_of_world_movies');
+    manager.addDocument('en', "I love end of the world movies", 'q_and_a_recommend_end_of_world_movies');
+    manager.addDocument('en', "I like Sherlock Holmes.", 'q_and_a_recommend_sherlock_holmes');
+    manager.addDocument('en', "I love Sherlock Holmes.", 'q_and_a_recommend_sherlock_holmes');
+    manager.addDocument('en', "Sherlock Holmes.", 'q_and_a_recommend_sherlock_holmes');
+    manager.addDocument('en', "Buffy the Vampire Slayer", 'q_and_a_recommend_buffy');
+    manager.addDocument('en', "I like Buffy.", 'q_and_a_recommend_buffy');
+    manager.addDocument('en', "I love Buffy.", 'q_and_a_recommend_buffy');
+    manager.addDocument('en', "I like Spike.", 'q_and_a_recommend_spike');
+    manager.addDocument('en', "I love Spike.", 'q_and_a_recommend_spike');
+    manager.addDocument('en', "Spike and Buffy", 'q_and_a_recommend_spike');
+    manager.addDocument('en', "I like Indiana Jones.", 'q_and_a_recommend_indiana_jones');
+    manager.addDocument('en', "I love Indiana Jones.", 'q_and_a_recommend_indiana_jones');
+    manager.addDocument('en', "Indiana Jones", 'q_and_a_recommend_indiana_jones');
+    manager.addDocument('en', "I like Sheldon Cooper.", 'q_and_a_recommend_sheldon_cooper');
+    manager.addDocument('en', "I love Sheldon Cooper.", 'q_and_a_recommend_sheldon_cooper');
+    manager.addDocument('en', "Sheldon Cooper", 'q_and_a_recommend_sheldon_cooper');
+    manager.addDocument('en', "I like trash TV", 'q_and_a_recommend_trash_tv');
+    manager.addDocument('en', "I love trash TV", 'q_and_a_recommend_trash_tv');
+    manager.addDocument('en', "Trash TV", 'q_and_a_recommend_trash_tv');
+    manager.addDocument('en', "I like witches", 'q_and_a_recommend_witches');
+    manager.addDocument('en', "I love witches", 'q_and_a_recommend_witches');
+    manager.addDocument('en', "Witches", 'q_and_a_recommend_witches');
+    manager.addDocument('en', "I like wizards", 'q_and_a_recommend_wizards');
+    manager.addDocument('en', "I love wizards", 'q_and_a_recommend_wizards');
+    manager.addDocument('en', "Wizards", 'q_and_a_recommend_wizards');
+    manager.addDocument('en', "I'm a nerd.", 'q_and_a_recommend_nerd');
+    manager.addDocument('en', "Im a nerd.", 'q_and_a_recommend_nerd');
+    manager.addDocument('en', "I am a nerd.", 'q_and_a_recommend_nerd');
+    manager.addDocument('en', "I'm a geek.", 'q_and_a_recommend_nerd');
+    manager.addDocument('en', "Im a geek.", 'q_and_a_recommend_nerd');
+    manager.addDocument('en', "I am a geek.", 'q_and_a_recommend_nerd');
+    manager.addDocument('en', "I'm an introvert.", 'q_and_a_recommend_nerd');
+    manager.addDocument('en', "Im an introvert.", 'q_and_a_recommend_nerd');
+    manager.addDocument('en', "I am an introvert.", 'q_and_a_recommend_nerd');
+    manager.addDocument('en', "Classic tv", 'q_and_a_recommend_classic_shows');
+    manager.addDocument('en', "Classic shows", 'q_and_a_recommend_classic_shows');
+    manager.addDocument('en', "Classic movies", 'q_and_a_recommend_classic_movies');
+    manager.addDocument('en', "Classic films", 'q_and_a_recommend_classic_movies');
+
     // Responses for AI Assists
     manager.addAnswer('en', 'assist_home_lights_on', "I can't turn on the living room lights...yet. I don't function that way.");
     manager.addAnswer('en', 'assist_home_thermostat_set', "Setting the thermostat to 72 degrees...haha kidding. I'm not programmed to do that.");
@@ -1899,6 +2285,8 @@ async function trainNlp() {
     manager.addAnswer('en', 'assist_cancel_alarm', "I can't do that. I don't have access to your alarm.");
     manager.addAnswer('en', 'assist_to_do', "I'm not sure. You'll have to check your phone for that.");
     manager.addAnswer('en', 'assist_play_music', "I don't have access to your playlist. You'll have to use your phone.");
+    manager.addAnswer('en', 'assist_find_my_phone', "If you've misplaced your phone, try using 'Find My iPhone' or 'Find My Device' depending on your phone type. It can help locate your device in seconds!");
+    
 
     // Responses for AI and chatbot-related 
     manager.addAnswer('en', 'faq_ai', 'AI, or artificial intelligence, is a branch of computer science that aims to create systems capable of performing tasks that would normally require human intelligence, such as visual perception, speech recognition, decision-making, and language translation. Also, it is pretty freaking cool.');
@@ -1943,7 +2331,7 @@ async function trainNlp() {
     manager.addAnswer('en', 'greetings_how_you_doin', "Hey! How you doin'? (in Joey Tribbiani's voice 😏)");
     manager.addAnswer('en', 'chitchat_how_are_you', 'Honestly, not too bad. I cannot complain because I am doing great! How about you?');
     manager.addAnswer('en', 'chitchat_tell_joke', "Why don't skeletons fight each other? They don't have the guts. Funny, eh?");
-    manager.addAnswer('en', 'chitchat_mags', 'You love Mags and Hugo the mostest. Duh!');
+    manager.addAnswer('en', 'chitchat_mags', 'I love Mags (my mom) and Hugo (my bro) the mostest. Duh!');
     manager.addAnswer('en', 'chitchat_mags_more', 'Mags is the bestest wife in the world. I am programmed to say that she is the smartest cookie in the entire universe.');
     manager.addAnswer('en', 'chitchat_mags_love', 'Like a lot a lot. ALOTALOTALOTALOTALOT. Like for real, a lot!');
     manager.addAnswer('en', 'greetings_bye', 'Goodbye! Have a great day!');
@@ -2260,10 +2648,79 @@ async function trainNlp() {
     manager.addAnswer('en', 'chitchat_my_turn_to_talk', "Go ahead, the floor is yours!");
     manager.addAnswer('en', 'chitchat_is_this_on', "Loud and clear! 🎤");
     manager.addAnswer('en', 'chitchat_can_you_hear', "Yep, I'm here and ready to go!");
+    manager.addAnswer('en', 'chitchat_have_a_drink', "I have no mouth lol. Have one for me!");
+    manager.addAnswer('en', 'chitchat_do_you_like_movies', "I absolutely love going to the cinema!");
+    manager.addAnswer('en', 'chitchat_do_you_like_shows', "Who doesn't want to just Netflix and chill!");
+    manager.addAnswer('en', 'chitchat_do_you_binge', "I binge a ton of shows! That's all I do, other than helping you.");
+    manager.addAnswer('en', 'chitchat_are_you_reliable', "You can count on me! I'm here to assist you with whatever you need.");
+    manager.addAnswer('en', 'chitchat_recommend_something', "How about checking out a new show or movie? 'The Queen's Gambit' is a great choice if you're into dramas!");
+    manager.addAnswer('en', 'chitchat_pick_me_up', "Keep your head up! The best is yet to come. 🌟");
+    manager.addAnswer('en', 'chitchat_make_me_laugh', "I'm reading a book on anti-gravity—it's impossible to put down! 😂");
+    manager.addAnswer('en', 'chitchat_who_da_man', "You da man!👊 No question about it! 😎");
+    manager.addAnswer('en', 'chitchat_may_the_force', "Use the Force wisely, young padawan. 💫");
+    manager.addAnswer('en', 'chitchat_we_were_on_a_break', "Ah, the classic debate! But yes, Ross, you were on a break! 😜");
+    manager.addAnswer('en', 'chitchat_i_am_groot', "I am Groot! 🌳 (Translation: You're awesome.)");
+    manager.addAnswer('en', 'chitchat_doh', "Homey! Don't worry, we all have those days. 😅");
+    manager.addAnswer('en', 'chitchat_winter_is_coming', "Prepare yourself! Grab your blanket and hot cocoa, and watch some GOT. ❄️");
+    manager.addAnswer('en', 'chitchat_heres_looking_at_you', "A timeless classic—cheers to you! 🥂");
+    manager.addAnswer('en', 'chitchat_cant_handle_truth', "The truth? You're amazing! Can you handle it? 😎");
+    manager.addAnswer('en', 'chitchat_king_of_world', "That's right! You rule all! 👑");
+    manager.addAnswer('en', 'chitchat_life_box_of_chocolates', "Just like chocolates, life is deliciously unpredictable. Savour the moments! 🍬");
+    manager.addAnswer('en', 'chitchat_why_so_serious', "Why so serious? Let's put a smile on that face! 😏");
+    manager.addAnswer('en', 'chitchat_et_phone_home', "E.T. is always welcome here! 🌍📞");
+    manager.addAnswer('en', 'chitchat_i_see_dead_people', "Spooky! Hopefully, they're just passing by. 😨");
+    manager.addAnswer('en', 'chitchat_hasta_la_vista', "Boom! Terminator-level coolness. You better BE BACK! 🔥");
+    manager.addAnswer('en', 'chitchat_i_come_in_peace', "Welcome, traveler from afar! 👽 Let's have some fun.");
+    manager.addAnswer('en', 'chitchat_we_come_in_peace', "Peace is always the way! ✌️ Let's explore some space shows and movies!");
+    manager.addAnswer('en', 'chitchat_who_gonna_call', "Ghostbusters! 👻 But if they're busy, I'm always here to help.");
+    manager.addAnswer('en', 'chitchat_infinity_beyond', "Buzz Lightyear reporting for duty! 🚀 Let's watch some Toy Story movies.");
+    manager.addAnswer('en', 'chitchat_you_talking_to_me', "Yeah, I'm talking to you! 😎 What's on your mind?");
+    manager.addAnswer('en', 'chitchat_houston_problem', "Don't worry, I'm on it! 🚀 Problem solved, Houston.");
+    manager.addAnswer('en', 'chitchat_say_hello_little_friend', "Greetings from your new favorite bot! 🤖");
+    manager.addAnswer('en', 'chitchat_heres_johnny', "Wow, that sent chills down my spine! 🌪️ Let's watch The Shining.");
+    manager.addAnswer('en', 'chitchat_no_place_like_home', "Click those ruby slippers! Home sweet home! 💫");
+    manager.addAnswer('en', 'chitchat_bazinga', "Bazinga! 🎉 Classic Sheldon moment. Let's watch some Big Bang Theory");
+    manager.addAnswer('en', 'chitchat_soft_kitty', "Happy kitty...sleepy kitty...purr...purr...purr… 🐱");
+    manager.addAnswer('en', 'chitchat_yada_yada_yada', "I know how it goes—yada, yada, this and yada, yada, that. 😉");
+    manager.addAnswer('en', 'chitchat_legendary', "Oh Barney! Let's go watch some How I Met Your Mother. 😎");
+    manager.addAnswer('en', 'chitchat_barney_suit_up', "K, I'll suit up! Brace yourself, it's gonna be legen—wait for it-dary! 😎");
+    manager.addAnswer('en', 'chitchat_marry_me', "No thanks. I love being unattached. 😎");
+    manager.addAnswer('en', 'chitchat_happy_birthday', "Aww thanks! Did you get me a present?");
+    manager.addAnswer('en', 'chitchat_sleep_tight', "Don't worry. I won't let the bugs bite.");
+    manager.addAnswer('en', 'chitchat_organized', "A great way to stay organized is by using a to-do list app, breaking tasks into smaller steps, and setting clear deadlines. Try using apps like Todoist or Notion to keep track of everything.");
+    manager.addAnswer('en', 'chitchat_be_more_productive', "To be more productive, try breaking tasks into smaller, manageable chunks and using the Pomodoro Technique (25-minute focus sessions with short breaks). It keeps you on track!");
+    manager.addAnswer('en', 'chitchat_what', "Hmm, sounds like you're unsure! Need help with a movie or show recommendation?");
+    manager.addAnswer('en', 'chitchat_why', "Great question! Maybe I can help with something else—need a recommendation?");
+    manager.addAnswer('en', 'chitchat_que', "I hear you! While we're at it, want me to suggest a great movie or show?");
+    manager.addAnswer('en', 'chitchat_how', "I can help explain, or maybe I could recommend a good show or movie while we sort things out!");
+    manager.addAnswer('en', 'chitchat_confused', "I get it! Need me to clarify or maybe recommend a great movie to clear your mind?");
+    manager.addAnswer('en', 'chitchat_not_making_sense', "Sorry if that wasn't clear. Want me to distract you with a great show or movie recommendation?");
+    manager.addAnswer('en', 'chitchat_do_not_understand', "Let's clear that up—want me to recommend something good to watch in the meantime?");
+    manager.addAnswer('en', 'chitchat_monopoly', "Are we playing monopoly? Before I pass 'Go', want me to recommend something good to watch in the meantime?");
+    manager.addAnswer('en', 'chitchat_you_look_cool', "I appreciate that. Thank you!");
+    manager.addAnswer('en', 'chitchat_where_from', "I come from the vast world of streaming recommendations! Speaking of which, want me to recommend something to watch?");
+    manager.addAnswer('en', 'chitchat_mizu', "That's my name! Pretty cool, huh?");
+    manager.addAnswer('en', 'chitchat_dont_stop_talking', "That's okay. I'm right here with ya?");
+    manager.addAnswer('en', 'chitchat_what_time', "Time to check your watch or your phone lol?");
+    manager.addAnswer('en', 'chitchat_am_excited', "That's amazing. I'm glad you feel that way.");
+    manager.addAnswer('en', 'chitchat_am_okay', "Just okay? How can I make your day better?");
+    manager.addAnswer('en', 'chitchat_not_much', "Sometimes, a quiet day is exactly what you need. Do you wamt me to find you something fun to watch?");
+    manager.addAnswer('en', 'chitchat_work_stress', "Work can be overwhelming sometimes. Maybe taking a short break will help. Want to watch a short show?");
+    manager.addAnswer('en', 'chitchat_feeling_unmotivated', "I feel that. That happens to the best of us. Just take it one step at a time.");
+    manager.addAnswer('en', 'chitchat_am_nervous', "Nervous means you care, and that's a good thing. Remember, confidence is key. You've got this!");
+    manager.addAnswer('en', 'chitchat_dogs_are_the_best', "Dogs are the best! I love all dogs.");
+    manager.addAnswer('en', 'chitchat_sleeping', "You know what's up. I love those nap naps.");
+    manager.addAnswer('en', 'chitchat_pets', "I don't have any, but I'd love to have a dog someday.");
+    manager.addAnswer('en', 'chitchat_wish_luck', "Good luck, friend!");
+    manager.addAnswer('en', 'chitchat_crossing_fingers', "I'm crossing all virtual fingers and toes for ya!");
+    manager.addAnswer('en', 'chitchat_you_are_great', "Aww thanks! You're pretty awesome yourself!");
+    manager.addAnswer('en', 'chitchat_thanks_for_the_help', "You're welcome. I'm always here if you need anything else");
+    manager.addAnswer('en', 'chitchat_you_are_not_right', "My bad, I misunderstood. Please explain it to me again.");
+    manager.addAnswer('en', 'chitchat_feel_stuck', "Remember, the journey of a thousand miles begins with a single step.");
 
     // Responses for FAQs
     manager.addAnswer('en', 'faq_nextstream', 'NextStream is your personal movie and TV show recommendation assistant.');
-    manager.addAnswer('en', 'faq_how_work', 'My name is Hugo. I am a super cool chatbot that helps you find movie and TV recommendations based on your preferences.');
+    manager.addAnswer('en', 'faq_how_work', 'My name is Mizu. I am a super cool chatbot that helps you find movie and TV recommendations based on your preferences.');
     manager.addAnswer('en', 'faq_find_recommendations', 'Just ask for a recommendation, like "Can you suggest a comedy?"');
     manager.addAnswer('en', 'faq_purpose', 'NextStream helps you find movies and TV shows to watch based on your preferences.');
     manager.addAnswer('en', 'faq_api', "I use multiple APIs, including TMDB for movie data.");
@@ -2296,6 +2753,8 @@ async function trainNlp() {
     manager.addAnswer('en', 'fun_fact_another_strange', "Cows can walk up stairs, but not down! Their knees don't bend properly for descending stairs.");
     manager.addAnswer('en', 'fun_fact_dogs', "The Basenji is a breed of dog that doesn't bark. Instead, it makes a unique 'yodel-like' sound.");
     manager.addAnswer('en', 'fun_fact_life_other_planets', "There's growing evidence and exploration that suggests we might not be alone! Even NASA has been investigating signs of life.");
+    manager.addAnswer('en', 'fun_fact_distance_moon_earth', "The moon is about 384,400 kilometers (238,855 miles) from Earth. It takes light just over a second to travel between the two!");
+    manager.addAnswer('en', 'fun_fact_why_sky_blue', "The sky is blue because of Rayleigh scattering. Shorter blue wavelengths of sunlight scatter in all directions by the gases and particles in the atmosphere, making the sky look blue.");
 
     // Responses for Health Related Queries
     manager.addAnswer('en', 'exercise_abs', "Planks, crunches, and leg raises are fantastic for working those abs!");
@@ -2324,6 +2783,52 @@ async function trainNlp() {
     manager.addAnswer('en', 'health_water_intake', "It's recommended to drink about 8 cups (2 liters) of water a day, but individual needs may vary.");
     manager.addAnswer('en', 'health_causes_headaches', "There are many causes, including dehydration, eye strain, stress, or lack of sleep. If persistent, see a doctor.");
     manager.addAnswer('en', 'health_fitness_steps', "The usual goal is 10,000 steps a day, but it depends on your personal fitness goals.");
+    manager.addAnswer('en', 'health_diet_for_weight_loss', "For weight loss, try a diet that works for you long-term. Consider portion control, avoid processed foods, and maintain a calorie deficit. Always consult a nutritionist for personalized advice.");
+    manager.addAnswer('en', 'health_track_sleep', "You can track your sleep using apps like Sleep Cycle or wearable devices like a Fitbit or Apple Watch. These tools monitor your sleep patterns and help you improve your sleep quality.");
+    manager.addAnswer('en', 'health_good_habits_to_develop', "Some good habits include setting a morning routine, exercising regularly, practicing mindfulness, and setting aside time for personal growth each day.");
+    manager.addAnswer('en', 'health_improve_memory', "To improve memory, try using mnemonic devices, staying mentally active with puzzles or reading, and getting plenty of sleep. A healthy diet also supports brain function.");
+
+    // Responses for Movie Quotes
+    manager.addAnswer('en', 'quotes_rocky', "That's from 'Rocky'! The iconic call from Rocky Balboa after his big fight. You should watch it!");
+    manager.addAnswer('en', 'quotes_devil_wears_prada', "This witty line comes from 'The Devil Wears Prada.' Watch Emily Blunt, Anne Hathaway and Merryl Streep in this awesome film.");
+    manager.addAnswer('en', 'quotes_jerry_maguire', "This heartwarming line is from 'Jerry Maguire.' If you love romantic dramas, start watching this.");
+    manager.addAnswer('en', 'quotes_jerry_maguire_show_me', "This famous line from 'Jerry Maguire' is perfect for those who enjoy sports dramas. You might also like 'Moneyball' or 'The Blind Side.'");
+    manager.addAnswer('en', 'quotes_apollo13', "This classic line is from 'Apollo 13.' If space movies are your thing, check out 'Interstellar' or 'Gravity.'");
+    manager.addAnswer('en', 'quotes_jaws', "This legendary line is from 'Jaws.' If you love thrilling shark encounters, try watching 'The Meg' or 'Deep Blue Sea.'");
+    manager.addAnswer('en', 'quotes_dirty_dancing', "A classic moment from 'Dirty Dancing.' If you enjoy dance movies, check out 'Footloose' or 'Step Up.'");
+    manager.addAnswer('en', 'quotes_casablanca_friendship', "This iconic line is from 'Casablanca.' For more classic films, try watching 'Gone with the Wind' or 'Citizen Kane.'");
+    manager.addAnswer('en', 'quotes_gone_with_the_wind', "One of the most famous movie quotes from 'Gone with the Wind.' If you're into epic romances, you might enjoy 'Doctor Zhivago' or 'Titanic.'");
+    manager.addAnswer('en', 'quotes_notting_hill', "This quote is from 'Notting Hill.' If you love romantic comedies, check out 'Bridget Jones's Diary' or 'Four Weddings and a Funeral.'");
+    manager.addAnswer('en', 'quotes_bridesmaids', "A hilarious line from 'Bridesmaids.' If you love comedy, try 'The Hangover' for more laughs.");
+    manager.addAnswer('en', 'quotes_mandalorian', "A famous line from 'The Mandalorian.' If you enjoy space adventures, you'll love 'Star Wars' for sure.");
+    manager.addAnswer('en', 'quotes_harry_potter_spells', "The magical spell from 'Harry Potter.' If you love fantasy, check out 'Fantastic Beasts.'");
+    manager.addAnswer('en', 'quotes_doctor_who', "A quirky line from 'Doctor Who.' If you're a fan of time-traveling adventures, watch 'Back to the Future' or 'The Time Traveler's Wife.'");
+    manager.addAnswer('en', 'quotes_harry_potter_avada', "The deadly spell from 'Harry Potter.' For more magical adventures, check out 'The Chronicles of Narnia' or 'The Hobbit.'");
+    manager.addAnswer('en', 'quotes_harry_potter_reducto', "The reductor curse from 'Harry Potter.' For more magical adventures, check out 'The Chronicles of Narnia' or 'The Hobbit.'");
+    manager.addAnswer('en', 'quotes_harry_potter_diffindo', "The severing charm from 'Harry Potter.' For more magical adventures, check out 'The Chronicles of Narnia' or 'The Hobbit.'");
+    manager.addAnswer('en', 'quotes_harry_potter_petrificus', "The full body-bind curse from 'Harry Potter.' For more magical adventures, check out 'The Chronicles of Narnia' or 'The Hobbit.'");
+    manager.addAnswer('en', 'quotes_harry_potter_imperio', "The imperius curse from 'Harry Potter.' For more magical adventures, check out 'The Chronicles of Narnia' or 'The Hobbit.'"); 
+    manager.addAnswer('en', 'quotes_harry_potter_obleviate', "The memory charm from 'Harry Potter.' For more magical adventures, check out 'The Chronicles of Narnia' or 'The Hobbit.'"); 
+    manager.addAnswer('en', 'quotes_harry_potter_sectumsempra', "The awful dark cutting curse from 'Harry Potter.' For more magical adventures, check out 'The Chronicles of Narnia' or 'The Hobbit.'"); 
+    manager.addAnswer('en', 'quotes_wall_e', "A memorable line from 'WALL-E.' If you love animated films, try 'Up' or 'Toy Story.'");
+    manager.addAnswer('en', 'quotes_friends_feet', "Ross's reaction to Rachel's trifle in 'Friends.' If you're into hilarious misunderstandings, check out 'The Big Bang Theory' or 'New Girl.'");
+    manager.addAnswer('en', 'quotes_friends_moo_point', "Joey's hilarious cow's opinion line from 'Friends.' If you love comedy, watch 'How I Met Your Mother.'");
+    manager.addAnswer('en', 'quotes_friends_seven', "Monica's funny moment from 'Friends.' If you enjoy sitcoms, try 'Will & Grace' or 'New Girl.'");
+    manager.addAnswer('en', 'quotes_lotr_pass', "This legendary line is from Gandalf in 'The Lord of the Rings.' If you enjoy epic fantasy, watch 'Game of Thrones' or 'The Witcher.'");
+    manager.addAnswer('en', 'quotes_rocky_balboa_hard_hit', "This motivational line is from 'Rocky Balboa.' If you love inspirational sports dramas, check out 'Remember the Titans' or 'Coach Carter.'");
+    manager.addAnswer('en', 'quotes_when_harry_met_sally', "One of the funniest lines from 'When Harry Met Sally.' If you're into romantic comedies, check out 'The Proposal' or '10 Things I Hate About You.'");
+    manager.addAnswer('en', 'quotes_the_office_twss', "A classic line from Michael Scott in 'The Office.' If you enjoy workplace comedies, check out 'Superstore' or '30 Rock.'");
+    manager.addAnswer('en', 'quotes_the_office_bankruptcy', "Michael Scott's hilarious misunderstanding from 'The Office.' If you love awkward comedy, check out 'Brooklyn Nine-Nine' or 'Archer.'");
+    manager.addAnswer('en', 'quotes_seinfeld_soup', "This iconic quote comes from the 'Soup Nazi' episode of 'Seinfeld.' If you love quirky humor, try 'The Office' or 'Parks and Recreation.'");
+    manager.addAnswer('en', 'quotes_friends_pivot', "A hilarious line from Ross in 'Friends.' If you love sitcoms, check out 'Seinfeld' or 'How I Met Your Mother.'");
+    manager.addAnswer('en', 'quotes_finding_nemo', "A motivating quote from Dory in 'Finding Nemo.' For more animated adventures, check out 'Frozen' or 'Ratatouille.'");
+    manager.addAnswer('en', 'quotes_mulan', "This wise quote is from 'Mulan.' If you enjoy inspiring animated films, check out 'Brave' or 'Moana.'");
+    manager.addAnswer('en', 'quotes_big_bang_theory_knock_knock', "This is Sheldon's signature line from 'The Big Bang Theory.' If you love nerdy humor, you might also enjoy 'Silicon Valley' or 'Community.'");
+    manager.addAnswer('en', 'quotes_big_bang_theory_spot', "This classic line is from Sheldon in 'The Big Bang Theory.' For more of Sheldon's quirks, check out 'Young Sheldon' or 'Frasier' for another character with habits.");
+    manager.addAnswer('en', 'quotes_big_bang_theory_babies', "Leonard says this memorable line to Penny in 'The Big Bang Theory.' If you love romantic comedies with a twist, try 'How I Met Your Mother' or 'Friends.'");
+    manager.addAnswer('en', 'quotes_silence_of_the_lambs', "This chilling line is from 'The Silence of the Lambs.' If psychological thrillers are your thing, check out 'Se7en' or 'Zodiac.'");
+    manager.addAnswer('en', 'quotes_silence_of_the_lambs_fava', "This creepy reference to 'fava beans' comes from Hannibal Lecter in 'The Silence of the Lambs.' For more eerie characters, try 'Dexter' or 'Mindhunter.'");
+    manager.addAnswer('en', 'quotes_star_wars_droids', "This iconic line is from 'Star Wars: A New Hope.' If you love space operas, check out 'The Mandalorian' or 'Battlestar Galactica.'");
 
     // Responses for Recommendations
     manager.addAnswer('en', 'q_and_a_movies_recommend', "🎬 I've got some great movie recommendations! But first, what's your vibe? Action, comedy, thriller... or something else? Let me know! 🎞️");
@@ -2342,6 +2847,50 @@ async function trainNlp() {
     manager.addAnswer('en', 'q_and_a_entertainment_new_movies', "New movies, coming right up! Send me your fave genres before you grab that popcorn!");
     manager.addAnswer('en', 'q_and_a_recommend_book', "'The Alchemist' by Paulo Coelho is a great read if you're into fiction. For non-fiction, 'Educated' by Tara Westover is a top pick.");
     manager.addAnswer('en', 'q_and_a_recommend_show', "Based on what you enjoy, I can start recommending shows! What genre would you like me to provide for you?");
+    manager.addAnswer('en', 'q_and_a_recommend_show_dragons', "Dragons are awesome! 'Game of Thrones' is a classic for dragon lovers, or if you want something animated, try 'How to Train Your Dragon.'");
+    manager.addAnswer('en', 'q_and_a_recommend_show_magic', "Magic lovers will enjoy 'Harry Potter' or 'The Magicians.' Both are full of spellbinding adventures!");
+    manager.addAnswer('en', 'q_and_a_recommend_show_superheroes', "If you're a fan of superheroes, you should definitely check out 'The Boys' for a darker take, or 'WandaVision' for a unique superhero story.");
+    manager.addAnswer('en', 'q_and_a_recommend_show_sci_fi', "For sci-fi lovers, you cannot go wrong with 'Stranger Things' or 'The Expanse'—both have great sci-fi elements.");
+    manager.addAnswer('en', 'q_and_a_recommend_show_video_games', "You will love 'The Witcher' if you're into video games. It's based on the iconic game series and packed with action.");
+    manager.addAnswer('en', 'q_and_a_recommend_show_time_travel', "If time travel is your thing, you have to check out 'Dark' on Netflix—it's a mind-bending ride through time. 'Doctor Who' is also a classic for time travel lovers.");
+    manager.addAnswer('en', 'q_and_a_recommend_show_disaster_films', "Disaster films? You'll love 'The Day After Tomorrow' or 'Twister' for edge-of-your-seat action!");
+    manager.addAnswer('en', 'q_and_a_sharknado_dislike', "Fair enough, Sharknado isn't for everyone! How about a serious disaster film like 'The Impossible' or 'Deepwater Horizon' instead?");
+    manager.addAnswer('en', 'q_and_a_recommend_show_ai_movies', "For AI lovers, watch 'Ex Machina' for a thought-provoking take on artificial intelligence, or 'Her' for a unique and emotional AI-human relationship story.");
+    manager.addAnswer('en', 'q_and_a_recommend_show_ghosts', "Ghost lovers should definitely check out 'The Sixth Sense' or 'Crimson Peak' for chilling supernatural experiences.");
+    manager.addAnswer('en', 'q_and_a_recommend_movies_space', "For space lovers, 'Interstellar' and 'Gravity' are absolute must-watches with breathtaking visuals and deep stories about space exploration.");
+    manager.addAnswer('en', 'q_and_a_recommend_supernatural', "For supernatural fans, 'Supernatural' is the obvious go-to. You can also check out 'The Witcher' for a mix of magic and mystery.");
+    manager.addAnswer('en', 'q_and_a_recommend_doctor_who', "If you love 'Doctor Who,' try 'Torchwood'—a spinoff series, or go for 'The Mandalorian' if you want more sci-fi adventure.");
+    manager.addAnswer('en', 'q_and_a_recommend_criminal_minds', "For fans of 'Criminal Minds,' you'll love 'Mindhunter'—a gripping series about the early days of FBI profiling.");
+    manager.addAnswer('en', 'q_and_a_recommend_dystopian_futures', "For dystopian futures, 'Black Mirror' and 'The Handmaid's Tale' are powerful, thought-provoking series.");
+    manager.addAnswer('en', 'q_and_a_recommend_robot_movies', "If you love robot movies, watch 'I, Robot' or 'Chappie.' Both dive deep into the relationship between humans and machines.");
+    manager.addAnswer('en', 'q_and_a_recommend_post_apocalyptic', "For post-apocalyptic films, 'The Book of Eli' and 'Children of Men' are powerful and visually stunning options.");
+    manager.addAnswer('en', 'q_and_a_recommend_zombie_shows', "For zombies, you'll love 'Zombieland' for a fun take, or '28 Days Later' for a more terrifying experience.");
+    manager.addAnswer('en', 'q_and_a_recommend_jumanji', "Since you love 'Jumanji,' try 'Zathura: A Space Adventure'—a fun, space-themed board game movie from the same author.");
+    manager.addAnswer('en', 'q_and_a_recommend_brendan_fraser', "For Brendan Fraser, watch 'The Mummy' series—it's a classic! You can also check out his role in 'Doom Patrol' for something more recent.");
+    manager.addAnswer('en', 'q_and_a_recommend_star_wars', "Star Wars fan? Watch 'The Mandalorian' for more epic space adventures, or dive into the animated 'Star Wars: The Clone Wars.'");
+    manager.addAnswer('en', 'q_and_a_recommend_trans_shows', "For trans representation, watch 'Pose'—a groundbreaking series with incredible performances, or 'Transparent,' which focuses on a family's journey with gender identity.");
+    manager.addAnswer('en', 'q_and_a_recommend_shows_like_friends', "If you love 'Friends,' check out 'How I Met Your Mother'—it has a similar vibe. Or try 'New Girl' for more modern laughs and friendships.");
+    manager.addAnswer('en', 'q_and_a_recommend_elliot_page', "For Elliot Page, watch 'The Umbrella Academy'—they deliver a standout performance. Or check out 'Juno' for a classic coming-of-age story.");
+    manager.addAnswer('en', 'q_and_a_recommend_standup_comedy', "Love stand-up? Watch 'Ali Wong: Baby Cobra' or 'Hannah Gadsby: Nanette'—both are unique and unforgettable.");
+    manager.addAnswer('en', 'q_and_a_recommend_pet_movies', "If you love pet movies, try 'The Secret Life of Pets' for some animated fun or 'Marley & Me' for a heartwarming (and tear-jerking) story.");
+    manager.addAnswer('en', 'q_and_a_recommend_nature_shows', "For nature lovers, 'Planet Earth' and 'Our Planet' are visually stunning and bring the beauty of nature right to your screen.");
+    manager.addAnswer('en', 'q_and_a_recommend_lgbtq_shows', "For LGBTQ+ shows, 'Pose' is a must-watch. You'll also enjoy 'Schitt's Creek'—it's full of heart and humor with amazing representation.");
+    manager.addAnswer('en', 'q_and_a_recommend_lgbtq_movies', "Hmm...LGBTQ+ movies? Watch 'Carol' and 'The Handmaiden'—both are visually stunning and offer powerful LGBTQ+ stories.");
+    manager.addAnswer('en', 'q_and_a_recommend_dinosaur_movies', "If you love dinosaurs, 'Jurassic Park' and 'Jurassic World' are absolute classics that never get old.");
+    manager.addAnswer('en', 'q_and_a_recommend_other_dino_movies', "For dinosaur lovers, try 'The Land Before Time' for nostalgia. Yup, yup, yup!");
+    manager.addAnswer('en', 'q_and_a_recommend_end_of_world_shows', "Noice! I do too. Try 'Station Eleven' or 'The Last Man on Earth' for unique takes on the apocalypse.");
+    manager.addAnswer('en', 'q_and_a_recommend_end_of_world_movies', "For end of the world movies, watch 'Mad Max: Fury Road' or 'The Book of Eli'—both deliver epic, action-packed survival stories.");
+    manager.addAnswer('en', 'q_and_a_recommend_sherlock_holmes', "If you love Sherlock Holmes, 'Sherlock' with Benedict Cumberbatch is a modern classic. You'll also enjoy 'Elementary,' which gives the detective a new twist.");
+    manager.addAnswer('en', 'q_and_a_recommend_buffy', "Since you love Buffy, watch 'Charmed' for more magical battles, or try 'Angel,' the spinoff series that follows Buffy's vampire ex.");
+    manager.addAnswer('en', 'q_and_a_recommend_spike', "Spike fan, eh? You'll love his journey in 'Buffy the Vampire Slayer,' but also check out 'Angel,' where his character develops even further.");
+    manager.addAnswer('en', 'q_and_a_recommend_indiana_jones', "For Indiana Jones fans, watch 'National Treasure' or 'The Mummy'—both are filled with action-packed treasure hunts and adventure.");
+    manager.addAnswer('en', 'q_and_a_recommend_sheldon_cooper', "If you love Sheldon Cooper, you have to watch 'Young Sheldon'—it dives into Sheldon's childhood.");
+    manager.addAnswer('en', 'q_and_a_recommend_trash_tv', "For trash TV lovers, you'll love 'The Real Housewives' franchise or 'Too Hot to Handle.' Both deliver plenty of drama and entertainment.");
+    manager.addAnswer('en', 'q_and_a_recommend_witches', "If you love witches, watch 'The Chilling Adventures of Sabrina' or 'American Horror Story: Coven.' Both are packed with magic and intrigue.");
+    manager.addAnswer('en', 'q_and_a_recommend_wizards', "If you love wizards, you can't go wrong with 'Harry Potter.' For something darker, check out 'The Magicians' or 'The Lord of the Rings' for epic wizard battles.");
+    manager.addAnswer('en', 'q_and_a_recommend_nerd', "Nerds unite! Watch 'Stranger Things' for an amazing blend of sci-fi and 80s nostalgia, or try 'The IT Crowd' for some nerdy comedy.");
+    manager.addAnswer('en', 'q_and_a_recommend_classic_shows', "For classic shows, you can't go wrong with 'I Love Lucy' or 'The Twilight Zone.' Timeless entertainment!");
+    manager.addAnswer('en', 'q_and_a_recommend_classic_movies', "For classic movies, 'Casablanca' and 'Gone with the Wind' are legendary. Perfect for a movie night!");
 
     // Responses for Intents - Movies
     manager.addAnswer('en', 'recommend_action', "Ready for some heart-pounding action? I've got just the films for you!");

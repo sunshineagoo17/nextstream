@@ -12,10 +12,10 @@ import api from '../../services/api';
 import Loader from '../../components/Loader/Loader';
 import ReelSVG from '../../assets/images/reel-svg.svg';
 import UserRating from '../TopPicksPage/sections/UserRating/UserRating';
-import './NextStreamGpt.scss';
+import './NextStreamBot.scss';
 import DefaultPoster from '../../assets/images/posternoimg-icon.png';
 
-const NextStreamGpt = () => {
+const NextStreamBot = () => {
   const { userId, isAuthenticated } = useContext(AuthContext);
   const [results, setResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -451,7 +451,7 @@ const handleSendMessage = async () => {
               <div className="nextstream-gpt__empty-chat">
                 <img src={ChatbotSvg} alt="Chatbot" className="nextstream-gpt__chatbot-svg" />
                 <p className='nextstream-gpt__empty-message'>
-                  Say hello to NextStream GPT to discover your next favourite stream.
+                  Say hello to Mizu (a.k.a. NextStream's cool bot) to discover your next favourite stream.
                 </p>
               </div>
             )}
@@ -655,4 +655,4 @@ const handleSendMessage = async () => {
   );  
 };
 
-export default NextStreamGpt;
+export default NextStreamBot;

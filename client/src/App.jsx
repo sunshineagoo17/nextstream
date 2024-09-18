@@ -31,7 +31,7 @@ import StreamBoard from './pages/StreamBoard/StreamBoard';
 import QuickstartGuide from './components/QuickStartGuide/QuickStartGuide'; 
 import FriendsPage from './pages/FriendsPage/FriendsPage';
 import UnsubscribePage from './pages/UnsubscribePage/UnsubscribePage';
-import NextStreamGpt from './pages/NextStreamGpt/NextStreamGpt';
+import NextStreamBot from './pages/NextStreamBot/NextStreamBot';
 import './styles/global.scss';
 
 // Firebase 
@@ -149,7 +149,7 @@ const App = () => {
         <Route path="/faves/:userId" element={isAuthenticated ? <FavouritesPage /> : <Navigate to="/login-required" />} /> 
         <Route path="/search" element={isAuthenticated ? <AuthSearchResultsPage openModal={openCalendarModal} userId={userId} /> : <SearchResultsPage />} />
         <Route path="/nextsearch/:userId" element={isAuthenticated ? <NextSearch userId={userId} /> : <Navigate to="/login-required" />} />
-        <Route path="/nextstream-gpt/:userId" element={isAuthenticated ? <NextStreamGpt userId={userId} /> : <Navigate to="/login-required" />} />
+        <Route path="/nextstream-bot/:userId" element={isAuthenticated ? <NextStreamBot userId={userId} /> : <Navigate to="/login-required" />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route path="/unsubscribe" element={<UnsubscribePage />} />
         <Route path="/login-required" element={<LoginRequired />} />

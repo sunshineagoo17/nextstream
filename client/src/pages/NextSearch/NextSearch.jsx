@@ -46,7 +46,7 @@ const NextSearch = () => {
 
   // Handler for the GPT button
   const handleGptSearch = () => {
-    navigate(`/nextstream-gpt/${userId}`);
+    navigate(`/nextstream-bot/${userId}`);
   };
 
   const showAlert = (message, type) => {
@@ -391,7 +391,7 @@ const NextSearch = () => {
      <div className="next-search__gpt-container">
         <button className="next-search__gpt-button" onClick={handleGptSearch}>
           <FontAwesomeIcon icon={faRobot} className="next-search__gpt-icon" />
-          <p className='next-search__gpt-txt'>Ask GPT</p>
+          <p className='next-search__gpt-txt'>Ask Mizu a.k.a. NextStream's Bot</p>
         </button>
       </div>
 
