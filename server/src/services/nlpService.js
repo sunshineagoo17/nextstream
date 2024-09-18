@@ -958,6 +958,23 @@ async function trainNlp() {
     manager.addDocument('en', "Play spotify", 'assist_play_music');
     manager.addDocument('en', "Find my phone.", 'assist_find_my_phone');
     manager.addDocument('en', "Best apps for productivity", 'assist_best_productivity_apps');
+    manager.addDocument('en', "Remind me", 'assist_remind_me');
+    manager.addDocument('en', "Set a reminder", 'assist_set_reminder');
+    manager.addDocument('en', "Turn on the", 'assist_turn_on_the');
+    manager.addDocument('en', "Turn off the", 'assist_turn_off_the');
+    manager.addDocument('en', "Set the", 'assist_set_the');
+    manager.addDocument('en', "Set an", 'assist_set_an');
+    manager.addDocument('en', "Send a text", 'assist_send_a_text');
+    manager.addDocument('en', "Send a txt", 'assist_send_a_text');
+    manager.addDocument('en', "Send txt", 'assist_send_a_text');
+    manager.addDocument('en', "Reply to", 'assist_reply_to');
+    manager.addDocument('en', "Send a", 'assist_send_a');
+    manager.addDocument('en', "Google", 'assist_hey_google');
+    manager.addDocument('en', "Hey Google", 'assist_hey_google');
+    manager.addDocument('en', "Hey Siri", 'assist_hey_siri');
+    manager.addDocument('en', "Siri", 'assist_hey_siri');
+    manager.addDocument('en', "Alexa", 'assist_hey_alexa');
+    manager.addDocument('en', "Hey Alexa", 'assist_hey_alexa');
 
     // AI Funnies
     manager.addDocument('en', 'Are you going to take over', 'ai_take_over');
@@ -1082,6 +1099,35 @@ async function trainNlp() {
     manager.addDocument('en', "I like Zoe Saldana", 'celeb_zoe_saldana');
     manager.addDocument('en', "I love Zoe Saldana", 'celeb_zoe_saldana');
     manager.addDocument('en', "Zoe Saldana", 'celeb_zoe_saldana');
+
+    // Characters
+    manager.addDocument('en', "Aang", 'char_aang');
+    manager.addDocument('en', "Ang", 'char_aang');
+    manager.addDocument('en', "Arya", 'char_arya_stark');
+    manager.addDocument('en', "Arya Stark", 'char_arya_stark');
+    manager.addDocument('en', "Bruce Wayne", 'char_bruce_wayne');
+    manager.addDocument('en', "Clark Kent", 'char_clark_kent');
+    manager.addDocument('en', "Coraline", 'char_coraline_jones');
+    manager.addDocument('en', "Coraline Jones", 'char_coraline_jones');
+    manager.addDocument('en', "Doctor Who", 'char_the_doctor');
+    manager.addDocument('en', "The Doctor", 'char_the_doctor');
+    manager.addDocument('en', "Gru", 'char_gru');
+    manager.addDocument('en', "Heisenberg", 'char_heisenberg');
+    manager.addDocument('en', "Hiccup", 'char_hiccup');
+    manager.addDocument('en', "Homer", 'char_homer_simpson');
+    manager.addDocument('en', "Homey", 'char_homer_simpson');
+    manager.addDocument('en', "Homer Simpson", 'char_homer_simpson');
+    manager.addDocument('en', "Joker", 'char_joker');
+    manager.addDocument('en', "Jon Snow", 'char_jon_snow');
+    manager.addDocument('en', "Minion", 'char_minions');
+    manager.addDocument('en', "Minions", 'char_minions');
+    manager.addDocument('en', "Ned Stark", 'char_ned_stark');
+    manager.addDocument('en', "Patrick Bateman", 'char_patrick_bateman');
+    manager.addDocument('en', "Peter Griffin", 'char_peter_griffin');
+    manager.addDocument('en', "Stewie", 'char_stewie_griffin');
+    manager.addDocument('en', "Stewie Griffin", 'char_stewie_griffin');
+    manager.addDocument('en', "Walter White", 'char_walter_white');
+    manager.addDocument('en', "Willy Wonka", 'char_willy_wonka');
 
     // Chit-chat
     manager.addDocument('en', 'Hello', 'greetings_hello');
@@ -2262,6 +2308,11 @@ async function trainNlp() {
     manager.addDocument('en', "Haya", 'chitchat_haya');
     manager.addDocument('en', "Hay ya", 'chitchat_haya');
     manager.addDocument('en', "Hay yaa", 'chitchat_haya');
+    manager.addDocument('en', "Turn that frown upside down", 'chitchat_turn_frown_upside_down');
+    manager.addDocument('en', "Stop frowning", 'chitchat_stop_frowning');
+    manager.addDocument('en', "Give it a go", 'chitchat_lets_give_it_a_go');
+    manager.addDocument('en', "Lets give it a go", 'chitchat_lets_give_it_a_go');
+    manager.addDocument('en', "Let's give it a go", 'chitchat_lets_give_it_a_go');
 
     // FAQs
     manager.addDocument('en', 'What is NextStream?', 'faq_nextstream');
@@ -2515,6 +2566,7 @@ async function trainNlp() {
     manager.addDocument('en', "Whats the best way to invest?", 'how_to_best_invest');
     manager.addDocument('en', "Create a budget", 'how_to_create_budget');
     manager.addDocument('en', "How do I create a budget?", 'how_to_create_budget');
+    manager.addDocument('en', "How do I make more money", 'how_to_make_more_money');
 
     // Movie Quotes
     manager.addDocument('en', "Adrian!", 'quotes_rocky');
@@ -2951,6 +3003,31 @@ async function trainNlp() {
     manager.addDocument('en', "Mockumentary film", 'q_and_a_mockumentaries');
     manager.addDocument('en', "Mockumentary flick", 'q_and_a_mockumentaries');
     manager.addDocument('en', "Mockumentary movie", 'q_and_a_mockumentaries');
+    manager.addDocument('en', "Serial killer", 'q_and_a_serial_killers');
+    manager.addDocument('en', "Serial killers", 'q_and_a_serial_killers');
+    manager.addDocument('en', "Robbers", 'q_and_a_robbers');
+    manager.addDocument('en', "Robbery", 'q_and_a_robbers');
+    manager.addDocument('en', "Based on a true story", 'q_and_a_true_story');
+    manager.addDocument('en', "Based on true story", 'q_and_a_true_story');
+    manager.addDocument('en', "Oscar film", 'q_and_a_oscar_films');
+    manager.addDocument('en', "Oscar flick", 'q_and_a_oscar_films');
+    manager.addDocument('en', "Oscar movie", 'q_and_a_oscar_films');
+    manager.addDocument('en', "Oscars", 'q_and_a_oscar_films');
+    manager.addDocument('en', "Boxing", 'q_and_a_boxing');
+    manager.addDocument('en', "Boxing film", 'q_and_a_boxing');
+    manager.addDocument('en', "Boxing flick", 'q_and_a_boxing');
+    manager.addDocument('en', "Boxing movie", 'q_and_a_boxing');
+    manager.addDocument('en', "Hockey", 'q_and_a_hockey');
+    manager.addDocument('en', "Hockey film", 'q_and_a_hockey');
+    manager.addDocument('en', "Hockey flick", 'q_and_a_hockey');
+    manager.addDocument('en', "Hockey movie", 'q_and_a_hockey');
+    manager.addDocument('en', "Basketball", 'q_and_a_basketball');
+    manager.addDocument('en', "Basketball film", 'q_and_a_basketball');
+    manager.addDocument('en', "Basketball flick", 'q_and_a_basketball');
+    manager.addDocument('en', "Basketball movie", 'q_and_a_basketball');
+    manager.addDocument('en', "Medical show", 'q_and_a_medical_shows');
+    manager.addDocument('en', "Medical shows", 'q_and_a_medical_shows');
+    manager.addDocument('en', "Medical tv show", 'q_and_a_medical_shows');
 
     // Responses for AI Assists
     manager.addAnswer('en', 'assist_home_lights_on', "I can't turn on the living room lights...yet. I don't function that way.");
@@ -2979,6 +3056,18 @@ async function trainNlp() {
     manager.addAnswer('en', 'assist_play_music', "I don't have access to your playlist. You'll have to use your phone.");
     manager.addAnswer('en', 'assist_find_my_phone', "If you've misplaced your phone, try using 'Find My iPhone' or 'Find My Device' depending on your phone type. It can help locate your device in seconds!");
     manager.addAnswer('en', 'assist_best_productivity_apps', "Try using apps like Todoist, Notion, or Trello to stay organized. For time management, check out Toggl or RescueTime. These will help you get more done in less time.");
+    manager.addAnswer('en', 'assist_remind_me', "I'm here to help you stay organized with your shows and movies! You can find out what's on your calendar by just visiting your calendar page.");
+    manager.addAnswer('en', 'assist_set_reminder', "We can only set a reminder for your NextStream calendar.");
+    manager.addAnswer('en', 'assist_turn_on_the', "Can't reach...can't connect. Sorry, that's not part of my functionality.");
+    manager.addAnswer('en', 'assust_turn_off_the', "Hmm...unfortunately, that's not what I was made for. One day...maybe.");
+    manager.addAnswer('en', 'assist_set_the', "Hmm...I don't have that functionality programmed.");
+    manager.addAnswer('en', 'assist_set_an', "Absolutely! Let me have a chat with Siri, Google and Alexa. LOL jokes...I can't do that!");
+    manager.addAnswer('en', 'assist_send_a_text', "I can't connect to your phone. But you can send a message to your NextStream crew.");
+    manager.addAnswer('en', 'assist_reply_to', "Reply to...? Hmm...if they're a part of your NextStream crew, sure we can do that.");
+    manager.addAnswer('en', 'assist_send_a', "In this platform, you can only send a message to anyone from your NextStream crew.");
+    manager.addAnswer('en', 'assist_hey_google', "My name is Mizu. I'm ready to assist you with anything you need. Let's get started!");
+    manager.addAnswer('en', 'assist_hey_siri', "Not quite Siri, the name is Mizu, friend. But I'm here to help! What can I assist you with today?");
+    manager.addAnswer('en', 'assist_hey_alexa', "Close, but not Alexa! My name is Mizu. I've got your back—what can I do for you?");
 
     // Responses for AI and chatbot-related 
     manager.addAnswer('en', 'faq_ai', 'AI, or artificial intelligence, is a branch of computer science that aims to create systems capable of performing tasks that would normally require human intelligence, such as visual perception, speech recognition, decision-making, and language translation. Also, it is pretty freaking cool.');
@@ -3065,6 +3154,27 @@ async function trainNlp() {
     manager.addAnswer('en', 'celeb_zendaya', "Zendaya is one of the rising stars of her generation. Watch her in 'Euphoria,' 'Spider-Man: Homecoming,' and 'Malcolm & Marie.' Don't miss her in 'Dune' and 'The Greatest Showman.'");
     manager.addAnswer('en', 'celeb_zoe_saldana', "Zoe Saldana is a sci-fi queen! Watch her in 'Avatar,' 'Guardians of the Galaxy,' and 'Colombiana.' You'll also love her in 'Star Trek' and 'The Losers.'");
 
+    // Responses for Characters
+    manager.addAnswer('en', 'char_aang', "Aang is the Last Airbender in 'Avatar: The Last Airbender,' an amazing animated series about his quest to master the elements and save the world. If you like this, check out the sequel series 'The Legend of Korra.'");
+    manager.addAnswer('en', 'char_arya_stark', "Arya Stark is the fierce, independent character from 'Game of Thrones.' Watch her journey from a young girl to a deadly assassin throughout the series. If you're into fantasy worlds like Westeros, check out 'The Witcher' for more epic adventures.");
+    manager.addAnswer('en', 'char_bruce_wayne', "Bruce Wayne, also known as Batman, is the iconic vigilante from Gotham. Watch him in 'The Dark Knight' trilogy for some of the best superhero films ever made.");
+    manager.addAnswer('en', 'char_coraline_jones', "Coraline Jones is the brave young girl from the stop-motion animated film 'Coraline.' If you loved that, you might also enjoy 'The Nightmare Before Christmas' or 'Kubo and the Two Strings,' which have similar magical and eerie vibes.");
+    manager.addAnswer('en', 'char_clark_kent', "Clark Kent is the mild-mannered alter ego of Superman. Watch his story in 'Man of Steel,' 'Superman Returns,' and 'Superman: The Movie.' If you're into superhero epics, 'Justice League' features Clark alongside Batman, Wonder Woman, and more.");
+    manager.addAnswer('en', 'char_the_doctor', "The Doctor is the mysterious time traveler from 'Doctor Who.' You can join The Doctor across countless adventures in space and time in the long-running series, spanning decades of incredible sci-fi storytelling.");
+    manager.addAnswer('en', 'char_gru', "Gru is the lovable villain-turned-hero from 'Despicable Me.' Watch him, along with his Minions, in 'Despicable Me 2,' 'Despicable Me 3,' and the spin-off 'Minions.'");
+    manager.addAnswer('en', 'char_heisenberg', "Heisenberg is Walter White's alias in 'Breaking Bad.' Watch his descent into darkness in one of the most thrilling series ever created. For more intense character arcs, try 'Ozark,' a show about another family caught in a life of crime.");
+    manager.addAnswer('en', 'char_hiccup', "Hiccup is the dragon-riding hero from 'How to Train Your Dragon.' Follow his adventures in the sequels 'How to Train Your Dragon 2' and 'How to Train Your Dragon: The Hidden World.' It's an epic animated trilogy.");
+    manager.addAnswer('en', 'char_homer_simpson', "Homer Simpson is the iconic, bumbling dad from 'The Simpsons.' You can follow his antics in the long-running series, or watch 'The Simpsons Movie' for a full-length feature.");
+    manager.addAnswer('en', 'char_joker', "The Joker is one of the most iconic villains in cinema. Watch Joaquin Phoenix's take on the character in 'Joker,' or Heath Ledger's unforgettable portrayal in 'The Dark Knight.' For more dark, psychological thrillers, watch 'Taxi Driver,' which inspired 'Joker.'");
+    manager.addAnswer('en', 'char_jon_snow', "Jon Snow is one of the main protagonists in 'Game of Thrones.' Follow his rise from the Night's Watch to the ruler of the North. If you like political intrigue and fantasy, 'The Lord of the Rings' trilogy is another great epic to dive into.");
+    manager.addAnswer('en', 'char_minions', "The Minions are the hilarious little creatures from 'Despicable Me.' You can watch their adventures in 'Minions,' 'Despicable Me 2,' and 'Minions: The Rise of Gru.'");
+    manager.addAnswer('en', 'char_ned_stark', "Ned Stark is the honorable head of House Stark in 'Game of Thrones.' While his story is a short one, his legacy lasts throughout the series. If you enjoy stories about honor and betrayal, 'Gladiator' is another gripping tale of a fallen hero.");
+    manager.addAnswer('en', 'char_patrick_bateman', "Patrick Bateman is the psychopathic lead from 'American Psycho.' If you're into psychological thrillers, check out 'Fight Club' for another twisted look into the human mind.");
+    manager.addAnswer('en', 'char_peter_griffin', "Peter Griffin is the outrageous, lovable goofball from 'Family Guy.' Follow his ridiculous adventures in Quahog. If you enjoy his humor, 'The Cleveland Show' offers a spin-off focused on another Family Guy character.");
+    manager.addAnswer('en', 'char_stewie_griffin', "Stewie Griffin is the diabolical baby genius from 'Family Guy.' You can watch him plot his schemes throughout the series. If you like his dark humor, you might also enjoy 'American Dad'.");
+    manager.addAnswer('en', 'char_walter_white', "Walter White, also known as Heisenberg, is the iconic character from 'Breaking Bad.' Follow his transformation from a high school teacher to a drug kingpin in one of the best TV shows ever made.");
+    manager.addAnswer('en', 'char_willy_wonka', "Willy Wonka is the eccentric chocolatier from 'Willy Wonka & the Chocolate Factory' (1971) and 'Charlie and the Chocolate Factory' (2005). For more whimsical fun, check out 'Alice in Wonderland'.");
+  
     // Responses for Chit-chat
     manager.addAnswer('en', 'greetings_hello', 'Hello! How can I help you today? I am at your service.');
     manager.addAnswer('en', 'greetings_hola', "¡Hola! ¿Cómo estás? I'm always ready to help you find the best movies and shows.");
@@ -3445,6 +3555,9 @@ async function trainNlp() {
     manager.addAnswer('en', 'chitchat_whats_for_lunch', "A quick and tasty option could be a chicken salad, a turkey sandwich, or some homemade soup. Easy to make and delicious!");
     manager.addAnswer('en', 'chitchat_over_today', "Some days are just like that. Kick back, relax, and remember, tomorrow is a fresh start!");
     manager.addAnswer('en', 'chitchat_haya', "Haya! Ready to channel your inner martial artist? If you love action-packed martial arts movies, check out 'Enter the Dragon' starring Bruce Lee or 'The Karate Kid.' Both are classics!");
+    manager.addAnswer('en', 'chitchat_turn_frown_upside_down', "Consider it flipped! Also, I don't have a face, remember?");
+    manager.addAnswer('en', 'chitchat_stop_frowning', "Frown be gone! A smile is only a second away. If you need help, I can tell a joke or recommend something uplifting to watch.");
+    manager.addAnswer('en', 'chitchat_lets_give_it_a_go', "Let's do it! I'm all set. What's the first step?");
 
     // Responses for FAQs
     manager.addAnswer('en', 'faq_nextstream', 'NextStream is your personal movie and TV show recommendation assistant.');
@@ -3550,6 +3663,7 @@ async function trainNlp() {
     manager.addAnswer('en', 'how_to_save_money', "Start by tracking your spending and setting a budget. Look for ways to cut unnecessary costs, and try putting a percentage of your income into savings each month.");
     manager.addAnswer('en', 'how_to_best_invest', "Consider starting with a mix of stocks, bonds, and index funds to diversify your portfolio. It's always a good idea to consult a financial advisor to find the best strategy for you.");
     manager.addAnswer('en', 'how_to_create_budget', "Start by listing your income and expenses. Categorize your spending, and set limits for each category. Track your progress to make sure you stick to it!");
+    manager.addAnswer('en', 'how_to_make_more_money', "Start by saving more and spending less! Consider learning new skills or investing. Want more ideas? I can recommend finance podcasts or documentaries like 'The Big Short.'");
 
     // Responses for Movie Quotes
     manager.addAnswer('en', 'quotes_rocky', "That's from 'Rocky'! The iconic call from Rocky Balboa after his big fight. You should watch it!");
@@ -3723,6 +3837,14 @@ async function trainNlp() {
     manager.addAnswer('en', 'q_and_a_soul', "For soul music lovers, 'Soul' by Pixar is a touching animated film about a jazz musician's journey through life. For a deep dive into soul music history, check out the documentary '20 Feet from Stardom,' or 'Ray,' which tells the story of Ray Charles.");
     manager.addAnswer('en', 'q_and_a_heists', "If you're into heist films, check out 'Ocean's Eleven' for a slick and stylish caper, or 'The Italian Job' for some exciting twists. For TV, 'Money Heist' is an intense, addictive show that dives deep into a daring bank robbery.");
     manager.addAnswer('en', 'q_and_a_mockumentaries', "For hilarious mockumentaries, watch 'This Is Spinal Tap,' the ultimate rock band parody, or 'Best in Show,' a quirky look at dog shows. On TV, 'The Office' and 'Parks and Recreation' use the mockumentary style brilliantly for comedy.");
+    manager.addAnswer('en', 'q_and_a_serial_killers', "For chilling serial killer stories, check out 'Mindhunter,' which dives into the psychology of notorious criminals. 'Zodiac' and 'Se7en' are classic David Fincher thrillers that will keep you on the edge of your seat.");
+    manager.addAnswer('en', 'q_and_a_robbers', "If you're into heist and robber stories, watch 'Heat'—a classic cat-and-mouse film. 'Ocean's Eleven' offers a more stylish, comedic take on a robbery, while 'The Town' provides a gripping and intense story of bank robbers.");
+    manager.addAnswer('en', 'q_and_a_true_story', "For films based on true stories, watch 'The Social Network,' which tells the origin story of Facebook. 'The Wolf of Wall Street' is an insane, larger-than-life account of real events. Give those a go!");
+    manager.addAnswer('en', 'q_and_a_oscar_films', "For Oscar-winning films, watch 'Parasite,' the first non-English film to win Best Picture. 'The Shape of Water' and 'Moonlight' are beautiful, award-winning films as well. Enjoy!");
+    manager.addAnswer('en', 'q_and_a_boxing', "For boxing films, 'Rocky' is the ultimate classic, with its underdog story and iconic training montage. If you're into biopics, watch 'Raging Bull,' a stunning portrayal of the life of boxer Jake LaMotta.");
+    manager.addAnswer('en', 'q_and_a_hockey', "If you love hockey, watch 'The Mighty Ducks'. It's a fun, family-friendly hockey series. If you want a gritty look at the sport, check out 'Goon.'");
+    manager.addAnswer('en', 'q_and_a_basketball', "For basketball fans, 'Space Jam' is a fun mix of animation and live-action with Michael Jordan. 'Coach Carter' offers a more dramatic take on the sport, based on a true story.");
+    manager.addAnswer('en', 'q_and_a_medical_shows', "For gripping medical dramas, watch 'Grey's Anatomy,' which has been a staple for years. There's also 'House'. It offers a darker, more cynical take on the world of diagnostics.");
 
     // Responses for Intents - Movies
     manager.addAnswer('en', 'recommend_action', "Ready for some heart-pounding action? I've got just the films for you!");
