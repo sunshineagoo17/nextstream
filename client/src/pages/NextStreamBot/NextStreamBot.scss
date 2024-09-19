@@ -35,7 +35,7 @@
   }
 }
 
-.nextstream-gpt {
+.nextstream-bot {
   @include frosted-glass2;
   border-radius: 1.25rem;
   box-shadow: $shadow-quaternary;
@@ -361,14 +361,14 @@
       inset 0 0 .5rem rgba($primary-medium-blue, .8);
     animation: pulse 2.5s infinite;
   
-    &:hover .nextstream-gpt__clear-chat-text,
-    &:hover .nextstream-gpt__clear-chat-icon {
+    &:hover .nextstream-bot__clear-chat-text,
+    &:hover .nextstream-bot__clear-chat-icon {
       animation: slide-out 1s forwards ease-out; 
       color: $primary-very-light-blue;
     }
   
-    &:active .nextstream-gpt__clear-chat-text,
-    &:active .nextstream-gpt__clear-chat-icon {
+    &:active .nextstream-bot__clear-chat-text,
+    &:active .nextstream-bot__clear-chat-icon {
       animation: disappear 0.5s forwards ease-in-out; 
       color: $neutral-white;
     }
@@ -420,7 +420,7 @@
     z-index: 1;
   }
   
-  .nextstream-gpt__clear-chat-text {
+  .nextstream-bot__clear-chat-text {
     position: relative;
     color: $primary-button-dark-blue;
     z-index: 1;
@@ -1186,7 +1186,7 @@
       width: 25rem;
     }
 
-    .nextstream-gpt__sub-tab {
+    .nextstream-bot__sub-tab {
       margin: 0 .5rem;
       padding: .4rem .75rem;
       color: $primary-medium-blue;
@@ -1291,7 +1291,7 @@
       width: 25rem;
     }
 
-    .nextstream-gpt__tab {
+    .nextstream-bot__tab {
       margin: 0 .5rem;
       padding: .25rem .5rem;
       background-color: $primary-very-light-blue;

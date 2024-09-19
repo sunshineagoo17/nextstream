@@ -411,27 +411,27 @@ const handleSendMessage = async () => {
   };
 
   return (
-    <div className='nextstream-gpt'>
+    <div className='nextstream-bot'>
       {isLoading && (
-        <div className='nextstream-gpt__loader-overlay'>
+        <div className='nextstream-bot__loader-overlay'>
           <Loader />
         </div>
       )}
   
       {alert.visible && (
-        <div className='nextstream-gpt__alert-wrapper'>
+        <div className='nextstream-bot__alert-wrapper'>
           <CustomAlerts message={alert.message} type={alert.type} onClose={() => setAlert({ ...alert, visible: false })} />
         </div>
       )}
   
-      <div className='nextstream-gpt__title'>
-        <h1 className='nextstream-gpt__header-text'>
-          NextStream GPT:
+      <div className='nextstream-bot__title'>
+        <h1 className='nextstream-bot__header-text'>
+          Mizu:
           <br /> Your Personal Entertainment Assistant
         </h1>
-        <p className='nextstream-gpt__copy'>
-          <span className='nextstream-gpt__gradient-subtitle'>
-            NextStream GPT
+        <p className='nextstream-bot__copy'>
+          <span className='nextstream-bot__gradient-subtitle'>
+            Mizu
           </span>{' '}
           combines AI-powered search with real-time streaming data, helping you
           find the perfect movies and shows based on your preferences. Ask
@@ -440,43 +440,43 @@ const handleSendMessage = async () => {
         </p>
       </div>
   
-      <button className='nextstream-gpt__gpt-button' onClick={() => navigate(`/nextsearch/${userId}`)}>
-        <FontAwesomeIcon icon={faSearch} className='nextstream-gpt__gpt-icon' /><span>Classic Search</span>
+      <button className='nextstream-bot__gpt-button' onClick={() => navigate(`/nextsearch/${userId}`)}>
+        <FontAwesomeIcon icon={faSearch} className='nextstream-bot__gpt-icon' /><span>Classic Search</span>
       </button>
   
-      <div className='nextstream-gpt__chat-block'>
-        <div className='nextstream-gpt__chat-container'>
-          <div className='nextstream-gpt__messages'>
+      <div className='nextstream-bot__chat-block'>
+        <div className='nextstream-bot__chat-container'>
+          <div className='nextstream-bot__messages'>
             {messages.length === 0 && (
-              <div className="nextstream-gpt__empty-chat">
-                <img src={ChatbotSvg} alt="Chatbot" className="nextstream-gpt__chatbot-svg" />
-                <p className='nextstream-gpt__empty-message'>
+              <div className="nextstream-bot__empty-chat">
+                <img src={ChatbotSvg} alt="Chatbot" className="nextstream-bot__chatbot-svg" />
+                <p className='nextstream-bot__empty-message'>
                   Say hello to Mizu (a.k.a. NextStream's cool bot) to discover your next favourite stream.
                 </p>
               </div>
             )}
   
             {messages.map((message, index) => (
-              <div key={index} className={`nextstream-gpt__message nextstream-gpt__message--${message.sender}`}>
+              <div key={index} className={`nextstream-bot__message nextstream-bot__message--${message.sender}`}>
                 {message.sender === 'bot' && (
-                  <div className='nextstream-gpt__bot-message'>
+                  <div className='nextstream-bot__bot-message'>
                     <p>{message.text}</p>
-                    <FontAwesomeIcon icon={faRobot} className='nextstream-gpt__gpt-icon-inline' />
+                    <FontAwesomeIcon icon={faRobot} className='nextstream-bot__gpt-icon-inline' />
                   </div>
                 )}
   
                 {message.sender === 'user' && (
-                  <div className='nextstream-gpt__user-message'>
+                  <div className='nextstream-bot__user-message'>
                     <p>{message.text}</p>
-                    <FontAwesomeIcon icon={faUser} className='nextstream-gpt__user-icon-inline' />
+                    <FontAwesomeIcon icon={faUser} className='nextstream-bot__user-icon-inline' />
                   </div>
                 )}
               </div>
             ))}
           </div>
   
-          <div className='nextstream-gpt__input-wrapper'>
-            <FontAwesomeIcon icon={faComment} className="nextstream-gpt__speech-icon" />
+          <div className='nextstream-bot__input-wrapper'>
+            <FontAwesomeIcon icon={faComment} className="nextstream-bot__speech-icon" />
             <input
               type='text'
               value={searchQuery}
@@ -485,27 +485,27 @@ const handleSendMessage = async () => {
                 setIsTyping(!!e.target.value.trim());
               }}
               onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
-              placeholder='Chat with NextStream GPT...'
-              className='nextstream-gpt__input'
+              placeholder='Chat with Mizu...'
+              className='nextstream-bot__input'
             />
             {isTyping && !isBotTyping && (
-              <div className="nextstream-gpt__typing-indicator">
-                <span className="nextstream-gpt__typing-indicator-bubble"></span>
-                <span className="nextstream-gpt__typing-indicator-bubble"></span>
-                <span className="nextstream-gpt__typing-indicator-bubble"></span>
+              <div className="nextstream-bot__typing-indicator">
+                <span className="nextstream-bot__typing-indicator-bubble"></span>
+                <span className="nextstream-bot__typing-indicator-bubble"></span>
+                <span className="nextstream-bot__typing-indicator-bubble"></span>
               </div>
             )}
             <button
-              className='nextstream-gpt__send-button'
+              className='nextstream-bot__send-button'
               onClick={handleSendMessage}
               disabled={!searchQuery.trim()}
             >
-              <FontAwesomeIcon icon={faPaperPlane} className='nextstream-gpt__gpt-plane-icon' />
+              <FontAwesomeIcon icon={faPaperPlane} className='nextstream-bot__gpt-plane-icon' />
             </button>
             {searchQuery && (
               <FontAwesomeIcon
                 icon={faTimes}
-                className='nextstream-gpt__clear-input'
+                className='nextstream-bot__clear-input'
                 onClick={() => {
                   setSearchQuery('');
                   setIsTyping(false);
@@ -515,27 +515,27 @@ const handleSendMessage = async () => {
           </div>
   
           {messages.length > 0 && (
-            <button className='nextstream-gpt__clear-chat-button' onClick={handleClearChat}>
-              <FontAwesomeIcon icon={faBroom} className='nextstream-gpt__clear-chat-icon' />
-              <p className="nextstream-gpt__clear-chat-text">Clear Chat</p>
+            <button className='nextstream-bot__clear-chat-button' onClick={handleClearChat}>
+              <FontAwesomeIcon icon={faBroom} className='nextstream-bot__clear-chat-icon' />
+              <p className="nextstream-bot__clear-chat-text">Clear Chat</p>
             </button>
           )}
         </div>
       </div>
   
       {results.length > 0 && (
-        <div className='nextstream-gpt__results-section'>
-          <div className='nextstream-gpt__carousel'>
+        <div className='nextstream-bot__results-section'>
+          <div className='nextstream-bot__carousel'>
             {showLeftArrowResults && (
-              <FontAwesomeIcon icon={faChevronLeft} className='nextstream-gpt__nav-arrow left' onClick={() => scrollLeft(searchScrollRef)} />
+              <FontAwesomeIcon icon={faChevronLeft} className='nextstream-bot__nav-arrow left' onClick={() => scrollLeft(searchScrollRef)} />
             )}
-            <div className='nextstream-gpt__scroll-container-results' ref={searchScrollRef}>
+            <div className='nextstream-bot__scroll-container-results' ref={searchScrollRef}>
               {results.map((result) => (
-                <div key={result.id} className='nextstream-gpt__card nextstream-gpt__card--results'>
-                  <h3 className='nextstream-gpt__title--results'>
+                <div key={result.id} className='nextstream-bot__card nextstream-bot__card--results'>
+                  <h3 className='nextstream-bot__title--results'>
                     {result.title || result.name}
                   </h3>
-                  <div className='nextstream-gpt__poster-container-results'>
+                  <div className='nextstream-bot__poster-container-results'>
                     <img
                       src={
                         result.media_type === 'person'
@@ -547,50 +547,50 @@ const handleSendMessage = async () => {
                           : DefaultPoster
                       }
                       alt={result.title || result.name}
-                      className='nextstream-gpt__poster nextstream-gpt__poster--results'
+                      className='nextstream-bot__poster nextstream-bot__poster--results'
                     />
 
                     {result.media_type !== 'person' && (
-                      <div className='nextstream-gpt__rating-container'>
+                      <div className='nextstream-bot__rating-container'>
                         <UserRating rating={(result.vote_average || 0) * 10} />
                       </div>
                     )}
   
                     {result.media_type !== 'person' && (
-                      <div className='nextstream-gpt__play-overlay' onClick={() => handlePlayTrailer(result.id, result.media_type)}>
-                        <FontAwesomeIcon icon={faPlay} className='nextstream-gpt__play-icon' />
+                      <div className='nextstream-bot__play-overlay' onClick={() => handlePlayTrailer(result.id, result.media_type)}>
+                        <FontAwesomeIcon icon={faPlay} className='nextstream-bot__play-icon' />
                       </div>
                     )}
                   </div>
   
-                  <div className='nextstream-gpt__icons-row'>
+                  <div className='nextstream-bot__icons-row'>
                     {result.media_type === 'person' ? (
                       <>
                         <Link to={`/spotlight/${userId}/${result.id}`}>
-                          <FontAwesomeIcon icon={faUser} className='nextstream-gpt__media-icon' title='Person Spotlight' />
+                          <FontAwesomeIcon icon={faUser} className='nextstream-bot__media-icon' title='Person Spotlight' />
                         </Link>
-                        <FontAwesomeIcon icon={faShareAlt} className='nextstream-gpt__share-icon' onClick={() => handleShare(result.name, result.id, result.media_type)} />
+                        <FontAwesomeIcon icon={faShareAlt} className='nextstream-bot__share-icon' onClick={() => handleShare(result.name, result.id, result.media_type)} />
                       </>
                     ) : (
                       <>
                         <Link to={`/nextview/${userId}/${result.media_type}/${result.id}`}>
-                          <FontAwesomeIcon icon={result.media_type === 'tv' ? faTv : faFilm} className='nextstream-gpt__media-icon' title={result.media_type === 'tv' ? 'TV Show' : 'Movie'} />
+                          <FontAwesomeIcon icon={result.media_type === 'tv' ? faTv : faFilm} className='nextstream-bot__media-icon' title={result.media_type === 'tv' ? 'TV Show' : 'Movie'} />
                         </Link>
   
-                        <FontAwesomeIcon icon={faCalendarPlus} className='nextstream-gpt__cal-icon' onClick={() => handleAddToCalendar(result.title, result.media_type, result.id)} />
+                        <FontAwesomeIcon icon={faCalendarPlus} className='nextstream-bot__cal-icon' onClick={() => handleAddToCalendar(result.title, result.media_type, result.id)} />
   
                         {likedStatus[result.id] === 1 ? (
-                          <FontAwesomeIcon icon={faThumbsUp} className='nextstream-gpt__like-icon active' onClick={() => handleDislike(result.id, result.media_type)} />
+                          <FontAwesomeIcon icon={faThumbsUp} className='nextstream-bot__like-icon active' onClick={() => handleDislike(result.id, result.media_type)} />
                         ) : likedStatus[result.id] === 0 ? (
-                          <FontAwesomeIcon icon={faThumbsDown} className='nextstream-gpt__dislike-icon active' onClick={() => handleLike(result.id, result.media_type)} />
+                          <FontAwesomeIcon icon={faThumbsDown} className='nextstream-bot__dislike-icon active' onClick={() => handleLike(result.id, result.media_type)} />
                         ) : (
                           <>
-                            <FontAwesomeIcon icon={faThumbsUp} className='nextstream-gpt__like-icon' onClick={() => handleLike(result.id, result.media_type)} />
-                            <FontAwesomeIcon icon={faThumbsDown} className='nextstream-gpt__dislike-icon' onClick={() => handleDislike(result.id, result.media_type)} />
+                            <FontAwesomeIcon icon={faThumbsUp} className='nextstream-bot__like-icon' onClick={() => handleLike(result.id, result.media_type)} />
+                            <FontAwesomeIcon icon={faThumbsDown} className='nextstream-bot__dislike-icon' onClick={() => handleDislike(result.id, result.media_type)} />
                           </>
                         )}
   
-                        <FontAwesomeIcon icon={faShareAlt} className='nextstream-gpt__share-icon' onClick={() => handleShare(result.title || result.name, result.id, result.media_type)} />
+                        <FontAwesomeIcon icon={faShareAlt} className='nextstream-bot__share-icon' onClick={() => handleShare(result.title || result.name, result.id, result.media_type)} />
                       </>
                     )}
                   </div>
@@ -598,23 +598,23 @@ const handleSendMessage = async () => {
               ))}
             </div>
             {showRightArrowResults && (
-              <FontAwesomeIcon icon={faChevronRight} className='nextstream-gpt__nav-arrow right' onClick={() => scrollRight(searchScrollRef)} />
+              <FontAwesomeIcon icon={faChevronRight} className='nextstream-bot__nav-arrow right' onClick={() => scrollRight(searchScrollRef)} />
             )}
           </div>
         </div>
       )}
   
       {isLoading && (
-        <div className='nextstream-gpt__loading-container'>
-          <img src={ReelSVG} alt='Loading...' className='nextstream-gpt__loading-svg' />
-          <p className='nextstream-gpt__text--center'>Media is currently loading...</p>
+        <div className='nextstream-bot__loading-container'>
+          <img src={ReelSVG} alt='Loading...' className='nextstream-bot__loading-svg' />
+          <p className='nextstream-bot__text--center'>Media is currently loading...</p>
         </div>
       )}
   
       {isModalOpen && (
-        <div className='nextstream-gpt__modal'>
-          <div className='nextstream-gpt__modal-content'>
-            <button className='nextstream-gpt__modal-content-close' onClick={closeModal}>
+        <div className='nextstream-bot__modal'>
+          <div className='nextstream-bot__modal-content'>
+            <button className='nextstream-bot__modal-content-close' onClick={closeModal}>
               <FontAwesomeIcon icon={faTimes} />
             </button>
             <iframe width='560' height='315' src={trailerUrl} title='YouTube video player' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowFullScreen></iframe>
@@ -623,9 +623,9 @@ const handleSendMessage = async () => {
       )}
   
       {showCalendar && (
-        <div className='nextstream-gpt__calendar-modal'>
-          <button className='nextstream-gpt__calendar-close-btn' onClick={handleCloseCalendar}>
-            <FontAwesomeIcon icon={faTimes} className='nextstream-gpt__cal-close-icon' />
+        <div className='nextstream-bot__calendar-modal'>
+          <button className='nextstream-bot__calendar-close-btn' onClick={handleCloseCalendar}>
+            <FontAwesomeIcon icon={faTimes} className='nextstream-bot__cal-close-icon' />
           </button>
           <Calendar userId={userId} eventTitle={eventTitle} mediaType={selectedMediaType} duration={duration} handleSave={handleSaveEvent} onClose={handleCloseCalendar} ref={calendarRef} />
         </div>
