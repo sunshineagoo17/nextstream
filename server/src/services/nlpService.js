@@ -7794,6 +7794,15 @@ async function trainNlp() {
     manager.addDocument('en', "I love after life films", 'recommend_afterlife_movies');
     manager.addDocument('en', "I love after life movies", 'recommend_afterlife_movies');
 
+    // Show Intro 
+    manager.addDocument('en', "I'll be there for you", 'song_intro_friends');
+    manager.addDocument('en', "Who's that girl", 'song_intro_new_girl');
+    manager.addDocument('en', "Everywhere you look", 'song_intro_full_house');
+    manager.addDocument('en', "Everywhere you go", 'song_intro_full_house');
+    manager.addDocument('en', "In West Philadelphia born and raised", 'song_intro_fresh_prince');
+    manager.addDocument('en', "Math, science, history, unraveling the mysteries", 'song_intro_big_bang_theory');
+    manager.addDocument('en', "Fighting evil by moonlight", 'song_intro_sailor_moon');
+    
     // Responses for AI Assists
     manager.addAnswer('en', 'assist_home_lights_on', "I can't turn on the living room lights...yet. I don't function that way.");
     manager.addAnswer('en', 'assist_home_thermostat_set', "Setting the thermostat to 72 degrees...haha kidding. I'm not programmed to do that.");
@@ -9064,6 +9073,14 @@ async function trainNlp() {
     manager.addAnswer('en', 'recommend_heaven_movies', "'What Dreams May Come' is a visually stunning film that explores the afterlife and the concept of heaven, as a man journeys through the afterlife to find his wife.");
     manager.addAnswer('en', 'recommend_afterlife_shows', "'Dead Like Me' is a dark comedy about a girl who becomes a grim reaper after her untimely death, providing a humorous take on the afterlife.");
     manager.addAnswer('en', 'recommend_afterlife_movies', "'Ghost' explores themes of love and unresolved issues in the afterlife, featuring a compelling story of a man trying to communicate with his partner.");
+
+    // Responses for Show Intro
+    manager.addAnswer('en', 'song_intro_sailor_moon', "*Sailor Moon* is an iconic gem! This enchanting theme celebrates heroism, friendship, and the magic of fighting evil under the moonlight. Prepare to join the ultimate battle for love and justice!");
+    manager.addAnswer('en', 'song_intro_friends', "This is the iconic theme song from *Friends*, a timeless anthem that perfectly captures the joys and trials of friendship in New York City. Get ready to reminisce about unforgettable moments shared among this lovable crew!");
+    manager.addAnswer('en', 'song_intro_new_girl', "It's Jess!!! This catchy intro from *New Girl* perfectly captures the spirit of friendship and the excitement of starting fresh in a new city. Get ready for some hilarious adventures!");
+    manager.addAnswer('en', 'song_intro_full_house', "'Everywhere You Look' is the memorable theme from *Full House*, showcasing family bonds and love.");
+    manager.addAnswer('en', 'song_intro_fresh_prince', "'In West Philadelphia Born and Raised' is the famous opening line from *The Fresh Prince of Bel-Air*, introducing Will's story.");
+    manager.addAnswer('en', 'song_intro_big_bang_theory', "'Math, Science, History, Unraveling the Mysteries' is from *Animaniacs*, celebrating learning in a fun way.");
 
     // Responses for Intents - Movies
     manager.addAnswer('en', 'recommend_action', "Ready for some heart-pounding action? I've got just the films for you!");
