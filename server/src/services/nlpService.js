@@ -1142,6 +1142,20 @@ async function trainNlp() {
 
     // Characters
     manager.addDocument('en', "Aang", 'char_aang');
+    manager.addDocument('en', "Alfred Pennyworth", 'char_alfred_pennyworth_movie');
+    manager.addDocument('en', "Alfred Pennyworth film", 'char_alfred_pennyworth_movie');
+    manager.addDocument('en', "Alfred Pennyworth films", 'char_alfred_pennyworth_movie');
+    manager.addDocument('en', "Alfred Pennyworth flick", 'char_alfred_pennyworth_movie');
+    manager.addDocument('en', "Alfred Pennyworth flicks", 'char_alfred_pennyworth_movie');
+    manager.addDocument('en', "Alfred Pennyworth movie", 'char_alfred_pennyworth_movie');
+    manager.addDocument('en', "Alfred Pennyworth movies", 'char_alfred_pennyworth_movie');
+    manager.addDocument('en', "Alfred Pennyworth series", 'char_alfred_pennyworth_show');
+    manager.addDocument('en', "Alfred Pennyworth show", 'char_alfred_pennyworth_show');
+    manager.addDocument('en', "Alfred Pennyworth shows", 'char_alfred_pennyworth_show');
+    manager.addDocument('en', "Alfred Pennyworth tv", 'char_alfred_pennyworth_show');
+    manager.addDocument('en', "Alfred Pennyworth tv series", 'char_alfred_pennyworth_show');
+    manager.addDocument('en', "Alfred Pennyworth tv show", 'char_alfred_pennyworth_show');
+    manager.addDocument('en', "Alfred Pennyworth tv shows", 'char_alfred_pennyworth_show');
     manager.addDocument('en', "Ang", 'char_aang');
     manager.addDocument('en', "Arya", 'char_arya_stark');
     manager.addDocument('en', "Arya Stark", 'char_arya_stark');
@@ -1149,6 +1163,8 @@ async function trainNlp() {
     manager.addDocument('en', "Clark Kent", 'char_clark_kent');
     manager.addDocument('en', "Coraline", 'char_coraline_jones');
     manager.addDocument('en', "Coraline Jones", 'char_coraline_jones');
+    manager.addDocument('en', "Darryl Dixon", 'char_daryl_dixon_show');
+    manager.addDocument('en', "Daryl Dixon", 'char_daryl_dixon_show');
     manager.addDocument('en', "Doctor Who", 'char_the_doctor');
     manager.addDocument('en', "The Doctor", 'char_the_doctor');
     manager.addDocument('en', "Gru", 'char_gru');
@@ -1159,18 +1175,20 @@ async function trainNlp() {
     manager.addDocument('en', "Homer Simpson", 'char_homer_simpson');
     manager.addDocument('en', "Joker", 'char_joker');
     manager.addDocument('en', "Jon Snow", 'char_jon_snow');
+    manager.addDocument('en', "Julia Child", 'char_julia_child_movies');
     manager.addDocument('en', "Minion", 'char_minions');
     manager.addDocument('en', "Minions", 'char_minions');
     manager.addDocument('en', "Ned Stark", 'char_ned_stark');
     manager.addDocument('en', "Patrick Bateman", 'char_patrick_bateman');
     manager.addDocument('en', "Peter Griffin", 'char_peter_griffin');
+    manager.addDocument('en', "Rick Grimes", 'char_rick_grimes_show');
     manager.addDocument('en', "Stewie", 'char_stewie_griffin');
     manager.addDocument('en', "Stewie Griffin", 'char_stewie_griffin');
     manager.addDocument('en', "Walter White", 'char_walter_white');
     manager.addDocument('en', "Willy Wonka", 'char_willy_wonka');
     manager.addDocument('en', "Regina George", 'char_regina_george');
     manager.addDocument('en', "William Wallace", 'char_william_wallace');
-
+ 
     // Chit-chat
     manager.addDocument('en', 'Hello', 'greetings_hello');
     manager.addDocument('en', "Hows it going?", 'greetings_sup');
@@ -3011,6 +3029,11 @@ async function trainNlp() {
     manager.addDocument('en', "Create a budget", 'how_to_create_budget');
     manager.addDocument('en', "How do I create a budget?", 'how_to_create_budget');
     manager.addDocument('en', "How do I make more money", 'how_to_make_more_money');
+
+    // Locations
+    manager.addDocument('en', "Movies set in Toronto", 'locations_movies_set_in_toronto');
+    manager.addDocument('en', "Movies set in Paris", 'locations_movies_set_in_paris');
+    manager.addDocument('en', "Movies set in New York", 'locations_movies_set_in_new_york');
 
     // Movie and Show Quotes
     manager.addDocument('en', "Adrian!", 'quotes_rocky');
@@ -5286,7 +5309,6 @@ async function trainNlp() {
     manager.addDocument('en', "What flicks should I watch with my family", 'recommend_movie_with_family');
     manager.addDocument('en', "What movie should I watch with my family", 'recommend_movie_with_family');
     manager.addDocument('en', "What movies should I watch with my family", 'recommend_movie_with_family');
-
     manager.addDocument('en', "Series with friends", 'recommend_shows_with_friends');
     manager.addDocument('en', "Show with friends", 'recommend_shows_with_friends');
     manager.addDocument('en', "Shows with friends", 'recommend_shows_with_friends');
@@ -5486,6 +5508,31 @@ async function trainNlp() {
     manager.addDocument('en', "Binge worthy sci-fi tv series", 'recommend_binge_worthy_science_fiction');
     manager.addDocument('en', "Binge worthy sci-fi tv show", 'recommend_binge_worthy_science_fiction');
     manager.addDocument('en', "Binge worthy sci-fi tv shows", 'recommend_binge_worthy_science_fiction');
+    manager.addDocument('en', "film based on a book", 'recommend_movies_based_on_a_book');
+    manager.addDocument('en', "films based on a book", 'recommend_movies_based_on_a_book');
+    manager.addDocument('en', "flick based on a book", 'recommend_movies_based_on_a_book');
+    manager.addDocument('en', "flicks based on a book", 'recommend_movies_based_on_a_book');
+    manager.addDocument('en', "Movie based on a book", 'recommend_movies_based_on_a_book');
+    manager.addDocument('en', "Movies based on a book", 'recommend_movies_based_on_a_book');
+    manager.addDocument('en', "Series based on a book", 'recommend_shows_based_on_a_book');
+    manager.addDocument('en', "Show based on a book", 'recommend_shows_based_on_a_book');
+    manager.addDocument('en', "Shows based on a book", 'recommend_shows_based_on_a_book');
+    manager.addDocument('en', "tv based on a book", 'recommend_shows_based_on_a_book');
+    manager.addDocument('en', "tv series based on a book", 'recommend_shows_based_on_a_book');
+    manager.addDocument('en', "tv show based on a book", 'recommend_shows_based_on_a_book');
+    manager.addDocument('en', "tv shows based on a book", 'recommend_shows_based_on_a_book');
+    manager.addDocument('en', "Prequel film", 'recommend_prequel_movies');
+    manager.addDocument('en', "Prequel films", 'recommend_prequel_movies');
+    manager.addDocument('en', "Prequel flick", 'recommend_prequel_movies');
+    manager.addDocument('en', "Prequel flicks", 'recommend_prequel_movies');
+    manager.addDocument('en', "Prequel movie", 'recommend_prequel_movies');
+    manager.addDocument('en', "Prequel movies", 'recommend_prequel_movies');
+    manager.addDocument('en', "Sequel film", 'recommend_sequel_movies');
+    manager.addDocument('en', "Sequel films", 'recommend_sequel_movies');
+    manager.addDocument('en', "Sequel flick", 'recommend_sequel_movies');
+    manager.addDocument('en', "Sequel flicks", 'recommend_sequel_movies');
+    manager.addDocument('en', "Sequel movie", 'recommend_sequel_movies');
+    manager.addDocument('en', "Sequel movies", 'recommend_sequel_movies');
 
     // Responses for AI Assists
     manager.addAnswer('en', 'assist_home_lights_on', "I can't turn on the living room lights...yet. I don't function that way.");
@@ -5636,6 +5683,11 @@ async function trainNlp() {
     manager.addAnswer('en', 'char_willy_wonka', "Willy Wonka is the eccentric chocolatier from 'Willy Wonka & the Chocolate Factory' (1971) and 'Charlie and the Chocolate Factory' (2005). For more whimsical fun, check out 'Alice in Wonderland'.");
     manager.addAnswer('en', 'char_william_wallace', "William Wallace is the heroic Scottish warrior from *Braveheart* (1995). If you're into epic battles for freedom, watch 'Gladiator' or 'Kingdom of Heaven' for more historical action and honor.");
     manager.addAnswer('en', 'char_regina_george', "Regina George is the queen of the Plastics in *Mean Girls* (2004). If you're a fan of teen comedies and high school drama, check out 'Legally Blonde' or '10 Things I Hate About You' for more iconic characters.");
+    manager.addAnswer('en', 'char_daryl_dixon_show', "'Daryl Dixon' is a prominent character in 'The Walking Dead,' a series about a post-apocalyptic world filled with zombies.");
+    manager.addAnswer('en', 'char_rick_grimes_show', "'Rick Grimes' is the main character in 'The Walking Dead,' navigating the challenges of survival in a zombie-infested world.");
+    manager.addAnswer('en', 'char_julia_child_movies', "'Julie & Julia' is a delightful film that interweaves the lives of Julia Child and a young blogger attempting to cook all her recipes.");
+    manager.addAnswer('en', 'char_alfred_pennyworth_show', "'Pennyworth' is a series that explores the early life of Alfred Pennyworth, the iconic butler to Bruce Wayne.");
+    manager.addAnswer('en', 'char_alfred_pennyworth_movie', "Alfred Pennyworth appears in various Batman films, including 'Batman Begins' and 'The Dark Knight,' where he is portrayed by Michael Caine.");
 
     // Responses for Chit-chat
     manager.addAnswer('en', 'greetings_hello', 'Hello! How can I help you today? I am at your service.');
@@ -6192,6 +6244,11 @@ async function trainNlp() {
     manager.addAnswer('en', 'how_to_create_budget', "Start by listing your income and expenses. Categorize your spending, and set limits for each category. Track your progress to make sure you stick to it!");
     manager.addAnswer('en', 'how_to_make_more_money', "Start by saving more and spending less! Consider learning new skills or investing. Want more ideas? I can recommend finance podcasts or documentaries like 'The Big Short.'");
 
+    // Responses for Locations
+    manager.addAnswer('en', 'locations_movies_set_in_toronto', "'Scott Pilgrim vs. The World' and 'The Shape of Water' are both films that showcase the beauty of Toronto.");
+    manager.addAnswer('en', 'locations_movies_set_in_paris', "'Midnight in Paris' and 'Amélie' are charming films that beautifully capture the essence of the city.");
+    manager.addAnswer('en', 'locations_movies_set_in_new_york', "'Inception' and 'The Great Gatsby' are both visually stunning films that take place in New York City.");
+
     // Responses for Movie and Show Quotes
     manager.addAnswer('en', 'quotes_rocky', "That's from 'Rocky'! The iconic call from Rocky Balboa after his big fight. You should watch it!");
     manager.addAnswer('en', 'quotes_devil_wears_prada', "This witty line comes from 'The Devil Wears Prada.' Watch Emily Blunt, Anne Hathaway and Merryl Streep in this awesome film.");
@@ -6577,7 +6634,11 @@ async function trainNlp() {
     manager.addAnswer('en', 'recommend_binge_worthy_adventure', "'Stranger Things' combines adventure with supernatural elements, while 'The Mandalorian' offers thrilling adventures in the Star Wars universe.");
     manager.addAnswer('en', 'recommend_binge_worthy_action', "'Daredevil' and 'The Witcher' are both packed with action and engaging storylines, perfect for binge-watching.");
     manager.addAnswer('en', 'recommend_binge_worthy_science_fiction', "'The Expanse' offers an epic space opera, while 'Black Mirror' explores the darker sides of technology in compelling standalone episodes.");
-
+    manager.addAnswer('en', 'recommend_movies_based_on_a_book', "'The Shawshank Redemption' and 'The Lord of the Rings' trilogy are exceptional adaptations of their respective novels.");
+    manager.addAnswer('en', 'recommend_shows_based_on_a_book', "'The Handmaid's Tale' and 'Big Little Lies' are critically acclaimed series adapted from bestselling novels.");
+    manager.addAnswer('en', 'recommend_prequel_movies', "'Rogue One: A Star Wars Story' and 'Fantastic Beasts and Where to Find Them' serve as engaging prequels to their respective franchises.");
+    manager.addAnswer('en', 'recommend_sequel_movies', "'Toy Story 3' and 'Mad Max: Fury Road' are both fantastic sequels that expand upon their original stories.");
+    
     // Responses for Intents - Movies
     manager.addAnswer('en', 'recommend_action', "Ready for some heart-pounding action? I've got just the films for you!");
     manager.addAnswer('en', 'recommend_adventure', 'Get ready to embark on an epic adventure! These films will take you on a wild ride.');
