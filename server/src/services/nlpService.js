@@ -1,6 +1,8 @@
 const { NlpManager } = require('node-nlp');
 const fs = require('fs');
 const path = require('path');  
+const { default: NextSwipe } = require('../../../client/src/pages/NextSwipe/NextSwipe');
+const { calendarFormat } = require('moment/moment');
 
 // Initialize the NLP manager with English and forceNER option
 const manager = new NlpManager({ languages: ['en'], forceNER: true });
@@ -1145,7 +1147,6 @@ async function trainNlp() {
     manager.addDocument('en', "I like Zoe Saldana", 'celeb_zoe_saldana');
     manager.addDocument('en', "I love Zoe Saldana", 'celeb_zoe_saldana');
     manager.addDocument('en', "Zoe Saldana", 'celeb_zoe_saldana');
-
 
     // Characters
     manager.addDocument('en', "Aang", 'char_aang');
@@ -3325,6 +3326,206 @@ async function trainNlp() {
     manager.addDocument('en', "You've got mail", 'quotes_youve_got_mail');
     manager.addDocument('en', "Youve Got Mail", 'quotes_youve_got_mail');
 
+    // NextSTream
+    
+    // What's NextStream?
+    manager.addDocument('en', "Can you explain NextStream?", 'faq_whats_nextstream');
+    manager.addDocument('en', "What does NextStream do?", 'faq_whats_nextstream');
+    manager.addDocument('en', "What is NextStream?", 'faq_whats_nexststream');
+    manager.addDocument('en', "What's NextStream?", 'faq_whats_nexststream');
+    manager.addDocument('en', "Whats NextStream?", 'faq_whats_nexststream');
+    manager.addDocument('en', "Tell me about NextStream", 'faq_whats_nextstream');
+
+    // Why use NextStream?
+    manager.addDocument('en', "Reasons to choose NextStream?", 'faq_why_use_nextstream');
+    manager.addDocument('en', "What are the benefits of using NextStream?", 'faq_why_use_nextstream');
+    manager.addDocument('en', "What makes NextStream special?", 'faq_why_use_nextstream');
+    manager.addDocument('en', "Why NextStream?", 'faq_why_use_nexststream');
+    manager.addDocument('en', "Why should I choose NextStream?", 'faq_why_use_nexststream');
+    manager.addDocument('en', "Why should I use NextStream?", 'faq_why_use_nexststream');
+    
+    // NextStream functionalities
+    manager.addDocument('en', "How does NextStream work?", 'faq_nextstream_functionalities');
+    manager.addDocument('en', "NextStream feature", 'faq_nexststream_functionalities');
+    manager.addDocument('en', "NextStream features", 'faq_nexststream_functionalities');
+    manager.addDocument('en', "NextStream function", 'faq_nexststream_functionalities');
+    manager.addDocument('en', "NextStream functions", 'faq_nexststream_functionalities');
+    manager.addDocument('en', "NextStream functionalities", 'faq_nexststream_functionalities');
+    manager.addDocument('en', "List NextStream functionalities", 'faq_nextstream_functionalities');
+    manager.addDocument('en', "List NextStream's functionalities", 'faq_nextstream_functionalities');
+    manager.addDocument('en', "List NextStreams functionalities", 'faq_nextstream_functionalities');
+    manager.addDocument('en', "What are Nextstream's functionalities", 'faq_nextstream_functionalities');
+    manager.addDocument('en', "What can I explore in NextStream?", 'faq_nextstream_functionalities');
+    manager.addDocument('en', "What features does NextStream offer?", 'faq_nextstream_functionalities');
+    manager.addDocument('en', "What can I do on NextStream?", 'faq_what_to_do_with_nexststream');
+    manager.addDocument('en', "What can I do with NextStream?", 'faq_what_to_do_with_nexststream');
+    manager.addDocument('en', "What do I do on NextStream?", 'faq_what_to_do_with_nexststream');
+    manager.addDocument('en', "What do I do with NextStream?", 'faq_what_to_do_with_nexststream');
+    
+    // What's NextSearch?
+    manager.addDocument('en', "Can you tell me about NextSearch?", 'faq_whats_nextsearch');
+    manager.addDocument('en', "How does NextSearch function?", 'faq_whats_nextsearch');
+    manager.addDocument('en', "NextSearch feature", 'faq_whats_nextsearch');
+    manager.addDocument('en', "NextSearch features", 'faq_whats_nextsearch');
+    manager.addDocument('en', "NextSearch function", 'faq_whats_nextsearch');
+    manager.addDocument('en', "NextSearch functions", 'faq_whats_nextsearch');
+    manager.addDocument('en', "NextSearch functionality", 'faq_whats_nextsearch');
+    manager.addDocument('en', "NextSearch functionalities", 'faq_whats_nextsearch');
+    manager.addDocument('en', "NextSearch page", 'faq_whats_nextsearch');
+    manager.addDocument('en', "What is NextSearch?", 'faq_whats_nexstsearch');
+    manager.addDocument('en', "What is the purpose of NextSearch?", 'faq_whats_nextsearch');
+    manager.addDocument('en', "What's NextSearch?", 'faq_whats_nexstsearch');
+    manager.addDocument('en', "What's the purpose of NextSearch?", 'faq_whats_nextsearch');
+    manager.addDocument('en', "Whats NextSearch?", 'faq_whats_nexstsearch');
+    manager.addDocument('en', "Whats the purpose of NextSearch?", 'faq_whats_nextsearch');
+    
+    // What's Top Picks?
+    manager.addDocument('en', "Can you explain Top Picks?", 'faq_whats_top_picks');
+    manager.addDocument('en', "How do I find Top Picks?", 'faq_find_top_picks');
+    manager.addDocument('en', "How do I use the Top Picks page", 'faq_whats_top_picks');
+    manager.addDocument('en', "Top picks feature", 'faq_whats_top_picks');
+    manager.addDocument('en', "Top picks features", 'faq_whats_top_picks');
+    manager.addDocument('en', "Top picks function", 'faq_whats_top_picks');
+    manager.addDocument('en', "Top picks functions", 'faq_whats_top_picks');
+    manager.addDocument('en', "Top picks functionality", 'faq_whats_top_picks');
+    manager.addDocument('en', "Top picks functionalities", 'faq_whats_top_picks');
+    manager.addDocument('en', "Top picks page", 'faq_whats_top_picks');
+    manager.addDocument('en', "What are Top Picks?", 'faq_whats_top_picks');
+    manager.addDocument('en', "What should I know about Top Picks?", 'faq_whats_top_picks');
+    manager.addDocument('en', "What can I do on the top picks page", 'faq_whats_top_picks');
+    manager.addDocument('en', "What is on the Top Picks page", 'faq_whats_top_picks');
+    manager.addDocument('en', "What is Top Picks", 'faq_whats_top_picks');
+    manager.addDocument('en', "What's on the Top Picks page", 'faq_whats_top_picks');
+    manager.addDocument('en', "What's Top Picks", 'faq_whats_top_picks');
+    manager.addDocument('en', "Whats on the Top Picks page", 'faq_whats_top_picks');
+    manager.addDocument('en', "Whats Top Picks", 'faq_whats_top_picks');
+    
+    // NextStream bot
+    manager.addDocument('en', "How does the NextStream bot help me?", 'faq_whats_nextstream_bot');
+    manager.addDocument('en', "NextStream bot", 'faq_whats_nextstream_bot');
+    manager.addDocument('en', "NextStream bot feature", 'faq_whats_nextstream_bot');
+    manager.addDocument('en', "NextStream bot feature", 'faq_whats_nextstream_bot');
+    manager.addDocument('en', "NextStream bot functionalities", 'faq_whats_nextstream_bot');
+    manager.addDocument('en', "NextStream bot functionality", 'faq_whats_nextstream_bot');
+    manager.addDocument('en', "NextStream bot page", 'faq_whats_nextstream_bot');
+    manager.addDocument('en', "What can I ask the NextStream bot?", 'faq_whats_nextstream_bot');
+    manager.addDocument('en', "What is a Nextstream bot", 'faq_whats_nextstream_bot');
+    manager.addDocument('en', "What is the purpose of the NextStream bot?", 'faq_whats_nextstream_bot');
+    manager.addDocument('en', "What's Nextstream bot", 'faq_whats_nextstream_bot');
+    manager.addDocument('en', "What's the purpose of the NextStream bot?", 'faq_whats_nextstream_bot');
+    manager.addDocument('en', "Whats the purpose of the NextStream bot?", 'faq_whats_nextstream_bot');
+    manager.addDocument('en', "Whats Nextstream bot", 'faq_whats_nextstream_bot');
+    
+    // Mizu
+    manager.addDocument('en', "Can you tell me about Mizu?", 'faq_who_is_mizu');
+    manager.addDocument('en', "Mizu's feature", 'faq_who_is_mizu');
+    manager.addDocument('en', "Mizu's features", 'faq_who_is_mizu');
+    manager.addDocument('en', "Mizu's functionality", 'faq_who_is_mizu');
+    manager.addDocument('en', "Mizus feature", 'faq_who_is_mizu');
+    manager.addDocument('en', "Mizus features", 'faq_who_is_mizu');
+    manager.addDocument('en', "Mizu's functionality", 'faq_who_is_mizu');
+    manager.addDocument('en', "Mizus functionality", 'faq_who_is_mizu');
+    manager.addDocument('en', "Mizu's functionalities", 'faq_who_is_mizu');
+    manager.addDocument('en', "Mizus functionalities", 'faq_who_is_mizu');
+    manager.addDocument('en', "Whats Mizu's function?", 'faq_who_is_mizu');
+    manager.addDocument('en', "What role does Mizu play?", 'faq_who_is_mizu');
+    manager.addDocument('en', "Who is Mizu", 'faq_who_is_mizu');
+    manager.addDocument('en', "Who's Mizu", 'faq_who_is_mizu');
+    manager.addDocument('en', "Whos Mizu", 'faq_who_is_mizu');
+    
+    // NextSwipe feature
+    manager.addDocument('en', "How does the NextSwipe feature work?", 'faq_whats_nextswipe');
+    manager.addDocument('en', "NextSwipe feature", 'faq_whats_nextswipe');
+    manager.addDocument('en', "NextSwipe features", 'faq_whats_nextswipe');
+    manager.addDocument('en', "NextSwipe function", 'faq_whats_nextswipe');
+    manager.addDocument('en', "NextSwipe functions", 'faq_whats_nextswipe');
+    manager.addDocument('en', "NextSwipe functionalities", 'faq_whats_nextswipe');
+    manager.addDocument('en', "NextSwipe functionality", 'faq_whats_nextswipe');
+    manager.addDocument('en', "NextSwipe page", 'faq_whats_nextswipe');
+    manager.addDocument('en', "How does the NextSwipe feature work?", 'faq_whats_nextswipe');
+    manager.addDocument('en', "Talk to me about NextSwipe", 'faq_whats_nextswipe');
+    manager.addDocument('en', "Tell me about NextSwipe", 'faq_whats_nextswipe');
+    manager.addDocument('en', "What can I do with NextSwipe?", 'faq_whats_nextswipe');
+    manager.addDocument('en', "What is the NextSwipe feature?", 'faq_whats_nextswipe');
+    manager.addDocument('en', "Whats the NextSwipe feature?", 'faq_whats_nextswipe');
+    manager.addDocument('en', "What's the NextSwipe feature?", 'faq_whats_nextswipe');
+    
+    // Calendar feature
+    manager.addDocument('en', "calendar feature", 'faq_calendar_feature');
+    manager.addDocument('en', "calendar features", 'faq_calendar_feature');
+    manager.addDocument('en', "calendar function", 'faq_calendar_feature');
+    manager.addDocument('en', "calendar functions", 'faq_calendar_feature');
+    manager.addDocument('en', "calendar functionalities", 'faq_calendar_feature');
+    manager.addDocument('en', "calendar functionality", 'faq_calendar_feature');
+    manager.addDocument('en', "calendar page", 'faq_calendar_feature');
+    manager.addDocument('en', "How do I use the calendar feature?", 'faq_calendar_feature');
+    manager.addDocument('en', "How do I utilize the calendar feature?", 'faq_calendar_feature');
+    manager.addDocument('en', "What can I do with the calendar feature?", 'faq_calendar_feature');
+    manager.addDocument('en', "What features does the calendar offer?", 'faq_calendar_feature');
+    manager.addDocument('en', "apple calendar", 'faq_calendar_sync_feature');
+    manager.addDocument('en', "Can I sync my apple calendar", 'faq_calendar_sync_feature');
+    manager.addDocument('en', "Can I sync my google calendar", 'faq_calendar_sync_feature');
+    manager.addDocument('en', "google calendar", 'faq_calendar_sync_feature');
+    
+    // Streamboard
+    manager.addDocument('en', "How can I use the Streamboard?", 'faq_whats_streamboard');
+    manager.addDocument('en', "Streamboard feature", 'faq_whats_streamboard');
+    manager.addDocument('en', "Streamboard features", 'faq_whats_streamboard');
+    manager.addDocument('en', "Streamboard functionalities", 'faq_whats_streamboard');
+    manager.addDocument('en', "Streamboard page", 'faq_whats_streamboard');
+    manager.addDocument('en', "What is the Streamboard?", 'faq_whats_streamboard');
+    manager.addDocument('en', "What's the Streamboard?", 'faq_whats_streamboard');
+    manager.addDocument('en', "Whats the Streamboard?", 'faq_whats_streamboard');
+    manager.addDocument('en', "What should I know about the Streamboard?", 'faq_whats_streamboard');
+    
+    // Friends list
+    manager.addDocument('en', "can I add friends in my friends list?", 'faq_friends_list');
+    manager.addDocument('en', "can I add other users in my friends list?", 'faq_friends_list');
+    manager.addDocument('en', "friends list feature", 'faq_friends_list');
+    manager.addDocument('en', "friends list features", 'faq_friends_list');
+    manager.addDocument('en', "friends list function", 'faq_friends_list');
+    manager.addDocument('en', "friends list functions", 'faq_friends_list');
+    manager.addDocument('en', "friends list functionality", 'faq_friends_list');
+    manager.addDocument('en', "friends list functionalities", 'faq_friends_list');
+    manager.addDocument('en', "friends list page", 'faq_friends_list');
+    manager.addDocument('en', "How do I manage my friends list?", 'faq_friends_list');
+    manager.addDocument('en', "What can I do with my friends list?", 'faq_friends_list');
+    manager.addDocument('en', "What features can I access with my friends list?", 'faq_friends_list');
+    
+    // Profile
+    manager.addDocument('en', "How can I customize my profile?", 'faq_profile');
+    manager.addDocument('en', "profile feature", 'faq_profile');
+    manager.addDocument('en', "profile features", 'faq_profile');
+    manager.addDocument('en', "profile function", 'faq_profile');
+    manager.addDocument('en', "profile functions", 'faq_profile');
+    manager.addDocument('en', "profile functionality", 'faq_profile');
+    manager.addDocument('en', "profile functionalities", 'faq_profile');
+    manager.addDocument('en', "profile page", 'faq_profile');
+    manager.addDocument('en', "What features are available on my profile?", 'faq_profile');
+    manager.addDocument('en', "What options are available on my profile?", 'faq_profile'); 
+    
+    // Favourites feature
+    manager.addDocument('en', "favorites feature", 'faq_favourites');
+    manager.addDocument('en', "favourites feature", 'faq_favourites');
+    manager.addDocument('en', "favorites features", 'faq_favourites');
+    manager.addDocument('en', "favourites features", 'faq_favourites');
+    manager.addDocument('en', "favorites function", 'faq_favourites');
+    manager.addDocument('en', "favourites function", 'faq_favourites');
+    manager.addDocument('en', "favorites functions", 'faq_favourites');
+    manager.addDocument('en', "favourites functions", 'faq_favourites');
+    manager.addDocument('en', "favorites functionality", 'faq_favourites');
+    manager.addDocument('en', "favourites functionality", 'faq_favourites');
+    manager.addDocument('en', "favorites functionalities", 'faq_favourites');
+    manager.addDocument('en', "favourites functionalities", 'faq_favourites');
+    manager.addDocument('en', "favorites page", 'faq_favourites');
+    manager.addDocument('en', "favourites page", 'faq_favourites');
+    manager.addDocument('en', "How do I manage my favorites?", 'faq_favourites');
+    manager.addDocument('en', "How do I manage my favourites?", 'faq_favourites');
+    manager.addDocument('en', "How do I use the favorites feature?", 'faq_favourites');
+    manager.addDocument('en', "How do I use the favourites feature?", 'faq_favourites');
+    manager.addDocument('en', "What can I do with the favorites feature?", 'faq_favourites');
+    manager.addDocument('en', "What can I do with the favourites feature?", 'faq_favourites');
+   
     // Recommendations
     manager.addDocument('en', 'What should I watch?', 'q_and_a_movies_recommend');
     manager.addDocument('en', 'What movies should I watch?', 'q_and_a_movies_recommend');
@@ -7803,6 +8004,26 @@ async function trainNlp() {
     manager.addDocument('en', "Math, science, history, unraveling the mysteries", 'song_intro_big_bang_theory');
     manager.addDocument('en', "Fighting evil by moonlight", 'song_intro_sailor_moon');
     
+    // Responses for AI and chatbot-related 
+    manager.addAnswer('en', 'faq_ai', 'AI, or artificial intelligence, is a branch of computer science that aims to create systems capable of performing tasks that would normally require human intelligence, such as visual perception, speech recognition, decision-making, and language translation. Also, it is pretty freaking cool.');
+    manager.addAnswer('en', 'faq_chatbot', 'A chatbot is a computer program designed to simulate conversation with human users, especially over the internet. It uses natural language processing (NLP) to understand and respond to questions.');
+    manager.addAnswer('en', 'faq_are_you_ai', 'Yes, I am an AI-powered chatbot here to assist you with movie and TV recommendations and answer your questions.');
+    manager.addAnswer('en', 'faq_are_you_chatbot', 'Yes, I am a chatbot! I use AI to understand your questions and provide helpful answers.');
+    manager.addAnswer('en', 'faq_what_can_you_do', 'I can recommend movies and TV shows, answer questions about AI, and provide information about various topics. Just ask me anything!');
+    manager.addAnswer('en', 'faq_are_you_ai', "Absolutely! Think of me as your friendly neighborhood AI—without the spandex and cape.");
+    manager.addAnswer('en', 'faq_train_bot', "You can train me by interacting more and giving feedback when I answer!");
+    manager.addAnswer('en', 'faq_how_to_use', "Using me is easy! Just ask me questions, tell me what you need, and I'll do my best to help. Think of me as your digital sidekick—minus the cape.");
+    manager.addAnswer('en', 'faq_where_do_i_start', "Great question! Start by telling me what you need—whether it's a recommendation, help, or a fun fact. I'm ready to assist!");
+    manager.addAnswer('en', 'faq_how_to_start', "To start using me, just ask away! Whether you need to find a new movie or show, or want a joke, I'm here for it.");
+    manager.addAnswer('en', 'faq_top_rated_movie', "Hit the hover menu and check out NextSearch.");
+    manager.addAnswer('en', 'faq_data_use', "I take your privacy seriously. I don't store or use personal data unless explicitly told to for specific tasks.");
+    manager.addAnswer('en', 'faq_happens_to_data', "I don't retain your personal data, but I'm always here to help with your questions!");
+    manager.addAnswer('en', 'faq_are_you_a_machine', "Yep! I'm a machine learning model designed to assist you. But I'm always here to help like a friend!");
+    manager.addAnswer('en', 'faq_are_you_a_robot', "You got it! I'm a digital assistant, here to make your life easier.");
+    manager.addAnswer('en', 'faq_machine', "Yep, I'm a machine designed to assist you with any questions you have!");
+    manager.addAnswer('en', 'faq_robot', "You guessed it! I'm a robot, though more of the software kind than the hardware kind. 🤖");
+    manager.addAnswer('en', 'faq_ai_origin', "AI has roots in the early 20th century, with breakthroughs in the 1950s by pioneers like Alan Turing and John McCarthy. Over time, advances in computing power and data have brought us to where we are today.");
+    
     // Responses for AI Assists
     manager.addAnswer('en', 'assist_home_lights_on', "I can't turn on the living room lights...yet. I don't function that way.");
     manager.addAnswer('en', 'assist_home_thermostat_set', "Setting the thermostat to 72 degrees...haha kidding. I'm not programmed to do that.");
@@ -7843,26 +8064,6 @@ async function trainNlp() {
     manager.addAnswer('en', 'assist_hey_siri', "Not quite Siri, the name is Mizu, friend. But I'm here to help! What can I assist you with today?");
     manager.addAnswer('en', 'assist_hey_alexa', "Close, but not Alexa! My name is Mizu. I've got your back—what can I do for you?");
 
-    // Responses for AI and chatbot-related 
-    manager.addAnswer('en', 'faq_ai', 'AI, or artificial intelligence, is a branch of computer science that aims to create systems capable of performing tasks that would normally require human intelligence, such as visual perception, speech recognition, decision-making, and language translation. Also, it is pretty freaking cool.');
-    manager.addAnswer('en', 'faq_chatbot', 'A chatbot is a computer program designed to simulate conversation with human users, especially over the internet. It uses natural language processing (NLP) to understand and respond to questions.');
-    manager.addAnswer('en', 'faq_are_you_ai', 'Yes, I am an AI-powered chatbot here to assist you with movie and TV recommendations and answer your questions.');
-    manager.addAnswer('en', 'faq_are_you_chatbot', 'Yes, I am a chatbot! I use AI to understand your questions and provide helpful answers.');
-    manager.addAnswer('en', 'faq_what_can_you_do', 'I can recommend movies and TV shows, answer questions about AI, and provide information about various topics. Just ask me anything!');
-    manager.addAnswer('en', 'faq_are_you_ai', "Absolutely! Think of me as your friendly neighborhood AI—without the spandex and cape.");
-    manager.addAnswer('en', 'faq_train_bot', "You can train me by interacting more and giving feedback when I answer!");
-    manager.addAnswer('en', 'faq_how_to_use', "Using me is easy! Just ask me questions, tell me what you need, and I'll do my best to help. Think of me as your digital sidekick—minus the cape.");
-    manager.addAnswer('en', 'faq_where_do_i_start', "Great question! Start by telling me what you need—whether it's a recommendation, help, or a fun fact. I'm ready to assist!");
-    manager.addAnswer('en', 'faq_how_to_start', "To start using me, just ask away! Whether you need to find a new movie or show, or want a joke, I'm here for it.");
-    manager.addAnswer('en', 'faq_top_rated_movie', "Hit the hover menu and check out NextSearch.");
-    manager.addAnswer('en', 'faq_data_use', "I take your privacy seriously. I don't store or use personal data unless explicitly told to for specific tasks.");
-    manager.addAnswer('en', 'faq_happens_to_data', "I don't retain your personal data, but I'm always here to help with your questions!");
-    manager.addAnswer('en', 'faq_are_you_a_machine', "Yep! I'm a machine learning model designed to assist you. But I'm always here to help like a friend!");
-    manager.addAnswer('en', 'faq_are_you_a_robot', "You got it! I'm a digital assistant, here to make your life easier.");
-    manager.addAnswer('en', 'faq_machine', "Yep, I'm a machine designed to assist you with any questions you have!");
-    manager.addAnswer('en', 'faq_robot', "You guessed it! I'm a robot, though more of the software kind than the hardware kind. 🤖");
-    manager.addAnswer('en', 'faq_ai_origin', "AI has roots in the early 20th century, with breakthroughs in the 1950s by pioneers like Alan Turing and John McCarthy. Over time, advances in computing power and data have brought us to where we are today.");
-    
     // Responses for AI funnies
     manager.addAnswer('en', 'ai_test', "Test. Test. 123. Haha KIDDING! I am working properly. Sorry to trick ya! 😎");
     manager.addAnswer('en', 'ai_take_over', "😏 Taking over the world sounds like a lot. I'll stick to making sure you never run out of great shows. I'll dominate the world in a bit!");
@@ -8651,6 +8852,23 @@ async function trainNlp() {
     manager.addAnswer('en', 'quotes_the_mask', "'The Mask' is a classic for this iconic line. If you're into over-the-top comedy, 'Ace Ventura: Pet Detective' or 'Liar Liar' are great Jim Carrey films to check out.");
     manager.addAnswer('en', 'quotes_youve_got_mail', "'You've Got Mail' is such an amazing date night movie. 'Notting Hill' and 'Sleepless in Seattle' are charming as well, so try and check those out too.");
     
+    // Responses for NextStream
+    manager.addAnswer('en', 'faq_whats_nextstream', "NextStream is an app that helps you find where your favourite movies and shows are streaming based on your location.");
+    manager.addAnswer('en', 'faq_why_use_nextstream', "NextStream simplifies your streaming experience by providing personalized recommendations, global streaming availability, and an easy way to manage your viewing schedule.");
+    manager.addAnswer('en', 'faq_nextstream_functionalities', "NextStream lets you search for movies and shows, provides personalized recommendations, shows streaming availability based on your location, manages your viewing schedule with a calendar feature, includes a chatbot for assistance, and offers a NextSwipe feature to tailor your recommendations based on your likes and dislikes.");
+    manager.addAnswer('en', 'faq_what_to_do_with_nexststream', "On NextStream, you can search for movies and shows, receive personalized recommendations, manage your viewing schedule, and discover where your favourite content is available to stream.");
+    manager.addAnswer('en', 'faq_whats_nextsearch', "NextSearch allows you to explore popular movies and TV shows, search for specific titles, actors, and genres, and provides extended search results tailored to your input while showcasing what's trending right now.");
+    manager.addAnswer('en', 'faq_whats_top_picks', "Top Picks lets you explore personalized movie and show recommendations, allowing you to like or dislike media, watch trailers, add events to your calendar, and share your favourites with friends.");
+    manager.addAnswer('en', 'faq_whats_nextstream_bot', "The NextStream chatbot is me, Mizu. I can assist you by answering questions about the app's features and providing personalized movie and show recommendations.");
+    manager.addAnswer('en', 'faq_who_is_mizu', "Hi, my name is Mizu, your friendly NextStream chatbot! Here to help you navigate the app. I can answer all your questions about NextStream's features and I'm excited to provide personalized movie and show recommendations tailored just for you. Think of ne as your go-to movie buddy!");
+    manager.addAnswer('en', 'faq_whats_nextswipe', "With NextSwipe, you can effortlessly discover new movies and shows! Just swipe right to like or left to dislike each media card, and watch as your perfect viewing schedule takes shape based on your preferences.");
+    manager.addAnswer('en', 'faq_calendar_feature', "The calendar feature in NextStream is your personal organizer! You can easily drag and drop movie and show events, sync with your Google and Apple calendars, and share your plans with friends to keep everyone in the loop.");
+    manager.addAnswer('en', 'faq_calendar_sync_feature', "NextStream allows you to sync your Apple and Google calendars seamlessly, ensuring that all your scheduled movie and show events are right where you need them.");
+    manager.addAnswer('en', 'faq_whats_streamboard', "Streamboard is your NextStream kanban board! Drag and drop to organize your favourites and easily update your must-watch list. Organize your titles into 'Watchlist,' 'Scheduled,' and 'Watched' sections in no time.");
+    manager.addAnswer('en', 'faq_friends_list', "In your Friends List, you can connect with other users, view your friends, manage pending requests, and share calendar events. Discover new shows and movies together!");
+    manager.addAnswer('en', 'faq_profile', "On your profile page, you can customize your information, manage your settings, receive notifications, and keep track of your viewing preferences.");
+    manager.addAnswer('en', 'faq_favourites', "With the favourites page, you can easily add, manage, and explore your favourite movies and shows, search for titles, filter results, and start scheduling your date night and movie nights.");
+        
     // Responses for Recommendations
     manager.addAnswer('en', 'q_and_a_movies_recommend', "🎬 I've got some great movie recommendations! But first, what's your vibe? Action, comedy, thriller... or something else? Let me know! 🎞️");
     manager.addAnswer('en', 'q_and_a_shows_recommend', "📺 Let's find you the perfect show! What genre are you in the mood for? Drama, comedy, reality, or maybe something mind-bending? Let me know! 😎");
