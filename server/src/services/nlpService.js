@@ -1068,6 +1068,9 @@ async function trainNlp() {
     manager.addDocument('en', "Bruce Lee", 'celeb_bruce_lee');
     manager.addDocument('en', "I like Bruce Lee", 'celeb_bruce_lee');
     manager.addDocument('en', "I love Bruce Lee", 'celeb_bruce_lee');
+    manager.addDocument('en', "Celine Dion", 'celeb_celine_dion');
+    manager.addDocument('en', "I like Celine Dion", 'celeb_celine_dion');
+    manager.addDocument('en', "I love Celine Dion", 'celeb_celine_dion');
     manager.addDocument('en', "Constance Wu", 'celeb_constance_wu');
     manager.addDocument('en', "I like Constance Wu", 'celeb_constance_wu');
     manager.addDocument('en', "I love Constance Wu", 'celeb_constance_wu');
@@ -1121,6 +1124,9 @@ async function trainNlp() {
     manager.addDocument('en', "I love Rosario Dawson", 'celeb_rosario_dawson');
     manager.addDocument('en', "Rosario Dawson", 'celeb_rosario_dawson');
     manager.addDocument('en', "Ruth Negga", 'celeb_ruth_negga');
+    manager.addDocument('en', "Shonda Rhimes", 'celeb_shonda_rhimes');
+    manager.addDocument('en', "I like Shonda Rhimes", 'celeb_shonda_rhimes');
+    manager.addDocument('en', "I love Shonda Rhimes", 'celeb_shonda_rhimes');
     manager.addDocument('en', "I like Tom Hanks", 'celeb_tom_hanks');
     manager.addDocument('en', "I love Tom Hanks", 'celeb_tom_hanks');
     manager.addDocument('en', "Tom Hanks", 'celeb_tom_hanks');
@@ -1139,6 +1145,7 @@ async function trainNlp() {
     manager.addDocument('en', "I like Zoe Saldana", 'celeb_zoe_saldana');
     manager.addDocument('en', "I love Zoe Saldana", 'celeb_zoe_saldana');
     manager.addDocument('en', "Zoe Saldana", 'celeb_zoe_saldana');
+
 
     // Characters
     manager.addDocument('en', "Aang", 'char_aang');
@@ -3314,6 +3321,9 @@ async function trainNlp() {
     manager.addDocument('en', "Dont be a cunt", 'quotes_the_boys');
     manager.addDocument('en', "Do not be a cunt", 'quotes_the_boys');
     manager.addDocument('en', "Somebody stop me", 'quotes_the_mask');
+    manager.addDocument('en', "You got mail", 'quotes_youve_got_mail');
+    manager.addDocument('en', "You've got mail", 'quotes_youve_got_mail');
+    manager.addDocument('en', "Youve Got Mail", 'quotes_youve_got_mail');
 
     // Recommendations
     manager.addDocument('en', 'What should I watch?', 'q_and_a_movies_recommend');
@@ -5609,6 +5619,36 @@ async function trainNlp() {
     manager.addDocument('en', "Sequel flicks", 'recommend_sequel_movies');
     manager.addDocument('en', "Sequel movie", 'recommend_sequel_movies');
     manager.addDocument('en', "Sequel movies", 'recommend_sequel_movies');
+    manager.addDocument('en', "dance and song film", 'recommend_song_and_dance_movies');
+    manager.addDocument('en', "and dance and song films", 'recommend_song_and_dance_movies');
+    manager.addDocument('en', "dance and song flick", 'recommend_song_and_dance_movies');
+    manager.addDocument('en', "dance and song flicks", 'recommend_song_and_dance_movies');
+    manager.addDocument('en', "dance and song movie", 'recommend_song_and_dance_movies');
+    manager.addDocument('en', "dance and song movies", 'recommend_song_and_dance_movies');
+    manager.addDocument('en', "dance & song film", 'recommend_song_and_dance_movies');
+    manager.addDocument('en', "dance & song films", 'recommend_song_and_dance_movies');
+    manager.addDocument('en', "dance & song flick", 'recommend_song_and_dance_movies');
+    manager.addDocument('en', "dance & song flicks", 'recommend_song_and_dance_movies');
+    manager.addDocument('en', "dance & song movie", 'recommend_song_and_dance_movies');
+    manager.addDocument('en', "dance & song movies", 'recommend_song_and_dance_movies');
+    manager.addDocument('en', "Song and dance film", 'recommend_song_and_dance_movies');
+    manager.addDocument('en', "Song and dance films", 'recommend_song_and_dance_movies');
+    manager.addDocument('en', "Song and dance flick", 'recommend_song_and_dance_movies');
+    manager.addDocument('en', "Song and dance flicks", 'recommend_song_and_dance_movies');
+    manager.addDocument('en', "Song and dance movie", 'recommend_song_and_dance_movies');
+    manager.addDocument('en', "Song and dance movies", 'recommend_song_and_dance_movies');
+    manager.addDocument('en', "Song & dance film", 'recommend_song_and_dance_movies');
+    manager.addDocument('en', "Song & dance films", 'recommend_song_and_dance_movies');
+    manager.addDocument('en', "Song & dance flick", 'recommend_song_and_dance_movies');
+    manager.addDocument('en', "Song & dance flicks", 'recommend_song_and_dance_movies');
+    manager.addDocument('en', "Song & dance movie", 'recommend_song_and_dance_movies');
+    manager.addDocument('en', "Song & dance movies", 'recommend_song_and_dance_movies');
+    manager.addDocument('en', "I'm singin' in the rain", ' recommend_singin_in_the_rain');
+    manager.addDocument('en', "I'm singing in the rain", ' recommend_singin_in_the_rain');
+    manager.addDocument('en', "Im singin in the rain", ' recommend_singin_in_the_rain');
+    manager.addDocument('en', "Im singing in the rain", ' recommend_singin_in_the_rain');
+    manager.addDocument('en', "Singin' in the rain", ' recommend_singin_in_the_rain');
+    manager.addDocument('en', "singing in the rain", ' recommend_singin_in_the_rain');
 
     // Responses for AI Assists
     manager.addAnswer('en', 'assist_home_lights_on', "I can't turn on the living room lights...yet. I don't function that way.");
@@ -5697,6 +5737,7 @@ async function trainNlp() {
     manager.addAnswer('en', 'celeb_brad_pitt', "Brad Pitt shines in everything he does! Check out 'Fight Club,' 'Once Upon a Time in Hollywood,' and 'Seven.' For more, watch 'Moneyball' and 'The Curious Case of Benjamin Button.'");
     manager.addAnswer('en', 'celeb_bruce_lee', "Bruce Lee is the ultimate martial arts legend! Watch 'Enter the Dragon,' 'The Way of the Dragon,' and 'Fist of Fury.' For more martial arts action, check out 'Ip Man' and 'The Raid.'");
     manager.addAnswer('en', 'celeb_cate_blanchett', "Cate Blanchett is brilliant. Watch her in 'The Lord of the Rings,' 'Blue Jasmine,' and 'Carol.' For more, try 'Thor: Ragnarok' and 'The Aviator.'");
+    manager.addAnswer('en', 'celeb_celine_dion', "'Titanic' features Celine Dion's iconic song 'My Heart Will Go On,' making it a timeless romantic film.");
     manager.addAnswer('en', 'celeb_charlize_theron', "Charlize Theron is an action star and a dramatic powerhouse. Watch her in 'Mad Max: Fury Road,' 'Monster,' and 'The Italian Job.' You'll also enjoy 'Atomic Blonde' and 'The Old Guard.'");
     manager.addAnswer('en', 'celeb_christopher_nolan', "Christopher Nolan's films are mind-bending! Watch 'Inception,' 'The Dark Knight,' and 'Interstellar.' If you're into complex storytelling, check out 'Memento' and 'Dunkirk.'");
     manager.addAnswer('en', 'celeb_constance_wu', "Constance Wu is a breakout star. Watch her in 'Crazy Rich Asians,' 'Hustlers,' and 'Fresh Off the Boat.' You'll also love her in 'The Terminal List' and 'Sound of My Voice.'");
@@ -5728,6 +5769,7 @@ async function trainNlp() {
     manager.addAnswer('en', 'celeb_rosario_dawson', "Rosario Dawson is incredibly versatile. Watch her in 'Sin City,' 'Rent,' and 'The Mandalorian.' You can also catch her in 'Daredevil' and 'Seven Pounds.'");
     manager.addAnswer('en', 'celeb_sandra_bullock', "Sandra Bullock is a fan favorite. Watch her in 'The Blind Side,' 'Gravity,' and 'Miss Congeniality.' For more, check out 'Bird Box' and 'The Proposal.'");
     manager.addAnswer('en', 'celeb_scarlett_johansson', "Scarlett Johansson delivers fantastic performances. Watch her in 'Black Widow,' 'Marriage Story,' and 'Lost in Translation.' For more, try 'Lucy' and 'Her.'");
+    manager.addAnswer('en', 'celeb_shonda_rhimes', "'Bridgerton' is a popular series created by Shonda Rhimes, known for its engaging storytelling and diverse cast.");
     manager.addAnswer('en', 'celeb_stanley_kubrick', "Stanley Kubrick's films are unique and visionary. Watch '2001: A Space Odyssey,' 'The Shining,' and 'A Clockwork Orange.' You'll also love 'Full Metal Jacket' and 'Dr. Strangelove.'");
     manager.addAnswer('en', 'celeb_steven_spielberg', "Steven Spielberg is a legendary filmmaker. Watch his classics like 'Jaws,' 'E.T.,' 'Schindler's List,' and 'Jurassic Park.' If you enjoy those, check out 'Raiders of the Lost Ark' and 'Saving Private Ryan.'");
     manager.addAnswer('en', 'celeb_tom_hanks', "Tom Hanks is one of Hollywood's best! Watch 'Forrest Gump,' 'Cast Away,' and 'Saving Private Ryan.' You'll also love him in 'Big' and 'The Terminal.'");
@@ -6454,7 +6496,8 @@ async function trainNlp() {
     manager.addAnswer('en', 'quotes_clueless_as_if', "Cher's iconic line from *Clueless*! For more 90s teen fun, watch '10 Things I Hate About You' or 'She's All That.'");
     manager.addAnswer('en', 'quotes_the_boys', "Whoa, easy there! Let's keep it civil, like Butcher would... well, maybe not! Start bingeing The Boys!");
     manager.addAnswer('en', 'quotes_the_mask', "'The Mask' is a classic for this iconic line. If you're into over-the-top comedy, 'Ace Ventura: Pet Detective' or 'Liar Liar' are great Jim Carrey films to check out.");
-   
+    manager.addAnswer('en', 'quotes_youve_got_mail', "'You've Got Mail' is such an amazing date night movie. 'Notting Hill' and 'Sleepless in Seattle' are charming as well, so try and check those out too.");
+    
     // Responses for Recommendations
     manager.addAnswer('en', 'q_and_a_movies_recommend', "🎬 I've got some great movie recommendations! But first, what's your vibe? Action, comedy, thriller... or something else? Let me know! 🎞️");
     manager.addAnswer('en', 'q_and_a_shows_recommend', "📺 Let's find you the perfect show! What genre are you in the mood for? Drama, comedy, reality, or maybe something mind-bending? Let me know! 😎");
@@ -6740,7 +6783,9 @@ async function trainNlp() {
     manager.addAnswer('en', 'recommend_shows_based_on_a_book', "'The Handmaid's Tale' and 'Big Little Lies' are critically acclaimed series adapted from bestselling novels.");
     manager.addAnswer('en', 'recommend_prequel_movies', "'Rogue One: A Star Wars Story' and 'Fantastic Beasts and Where to Find Them' serve as engaging prequels to their respective franchises.");
     manager.addAnswer('en', 'recommend_sequel_movies', "'Toy Story 3' and 'Mad Max: Fury Road' are both fantastic sequels that expand upon their original stories.");
-    
+    manager.addAnswer('en', 'recommend_song_and_dance_movies', "'The Greatest Showman' and 'Mamma Mia!' are both filled with catchy songs and impressive dance routines.");
+    manager.addAnswer('en', 'recommend_singin_in_the_rain', "'The 1952 musical romantic comedy film Singin' in the Rain is a fine pick. It offers a lighthearted depiction of Hollywood in the late 1920s.");
+
     // Responses for Intents - Movies
     manager.addAnswer('en', 'recommend_action', "Ready for some heart-pounding action? I've got just the films for you!");
     manager.addAnswer('en', 'recommend_adventure', 'Get ready to embark on an epic adventure! These films will take you on a wild ride.');
