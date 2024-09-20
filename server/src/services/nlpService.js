@@ -2911,6 +2911,20 @@ async function trainNlp() {
     manager.addDocument('en', "Can you do anything else?", 'chitchat_can_do_more');
     manager.addDocument('en', "What else can you do?", 'chitchat_can_do_more');
 
+    // Competition
+    manager.addDocument('en', "Are you better", 'chitchat_are_you_better');
+    manager.addDocument('en', "Are you better than just watch", 'chitchat_are_you_better_justwatch');
+    manager.addDocument('en', "Are you better than justwatch", 'chitchat_are_you_better_justwatch');
+    manager.addDocument('en', "Are you better than other apps", 'chitchat_are_you_better');
+    manager.addDocument('en', "better than just watch", 'chitchat_are_you_better_justwatch');
+    manager.addDocument('en', "better than justwatch", 'chitchat_are_you_better_justwatch');
+    manager.addDocument('en', "How are you better", 'chitchat_how_are_you_better');
+    manager.addDocument('en', "How are you different?", 'chitchat_what_sets_you_apart');
+    manager.addDocument('en', "What makes you different?", 'chitchat_what_sets_you_apart');
+    manager.addDocument('en', "What sets you apart?", 'chitchat_what_sets_you_apart');
+    manager.addDocument('en', "Why are you better", 'chitchat_how_are_you_better');
+    manager.addDocument('en', "Why are you different?", 'chitchat_what_sets_you_apart');
+
     // Eras
     manager.addDocument('en', "Best film from the 60s", 'recommend_60s_movies');
     manager.addDocument('en', "Best films from the 60s", 'recommend_60s_movies');
@@ -8896,6 +8910,12 @@ async function trainNlp() {
     manager.addAnswer('en', 'chitchat_find_more_movies', "That, I can do. What genre were you thinking of?");
     manager.addAnswer('en', 'chitchat_nice_animation', "I know, right? I'll let my dev know!");
     manager.addAnswer('en', 'chitchat_can_do_more', "I can do loads. I can recommend different genres, simple chit-chat. Try me.");
+
+    // Responses for Competition
+    manager.addAnswer('en', 'chitchat_are_you_better', "I don't like tooting my own horn, but my core features are quite cool and unique. Haha I'm a bit biased lol.");
+    manager.addAnswer('en', 'chitchat_are_you_better_justwatch', "I'm better than JustWatch because I'm prettier. I'm easy to navigate and less is more. I know I'm a bit biased lol.");
+    manager.addAnswer('en', 'chitchat_how_are_you_better', "I'm better than other apps because 1. Nobody has a Mizu. 2. My core features are quite cool.");
+    manager.addAnswer('en', 'chitchat_what_sets_you_apart', "Hmm...I've been told my core features are quite cool, so there's that. Also, who has a Mizu? Hmmm?");
 
     // Responses for Eras
     manager.addAnswer('en', 'recommend_60s_movies', "'Psycho,' 'The Graduate,' and 'Lawrence of Arabia' are iconic films that defined the era.");
