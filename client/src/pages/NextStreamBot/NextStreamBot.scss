@@ -724,6 +724,10 @@
     display: flex; 
     align-items: center;
     justify-content: center;
+
+    @include tablet {
+      width: 100%;
+    }
   }
 
   &__empty-chat {
@@ -740,12 +744,18 @@
     box-shadow: $shadow-primary;
     color: $primary-button-dark-blue;
     font-family: $primary-font;
-    font-size: .85rem;
-    font-weight: bold;
-    line-height: 1.25rem;
+    font-size: .75rem;
+    font-weight: normal;
+    line-height: .8rem;
     text-align: center;
     padding: .25rem;
-    width: 100%;    
+    width: 100%;  
+    
+    @include tablet {
+      font-size: .85rem;
+      line-height: 1.25rem;
+      font-weight: bold;
+    }
   }
 
   @keyframes bounce {
@@ -776,9 +786,10 @@
 
   &__input {
     flex-grow: 1;
-    padding-left: 3.25rem; 
-    padding-right: 2.5rem;
+    padding-left: .75rem; 
+    padding-right: 1.3rem;
     height: 2.5rem;
+    width: 9rem;
     border-radius: 2.5rem;
     background-color: $primary-very-light-blue;
     backdrop-filter: blur(.625rem);
@@ -788,6 +799,13 @@
     color: $primary-dark-blue;
     font-size: .85rem;
     font-family: $primary-font;
+
+    @include tablet {
+      padding-left: 3.25rem; 
+      padding-right: 2.5rem;
+      height: 2.5rem;
+      width: 100%;
+    }
 
     &::placeholder {
       color: $neutral-light-grey;
@@ -801,13 +819,13 @@
   }
 
   &__send-button {
-    margin-left: .5rem;
-    padding: .6rem 1.2rem;
+    margin-left: .35rem;
+    padding: .6rem;
     border: none;
-    border-radius: 2.5rem;
+    border-radius: 50%;
     background-color: $primary-button-blue;
     color: $neutral-white;
-    font-size: 1rem;
+    font-size: .85rem;
     cursor: pointer;
     transition: background-color .3s ease, transform .2s ease, box-shadow .2s ease;
 
@@ -824,6 +842,13 @@
       box-shadow: 0 .2rem .5rem rgba($neutral-black, .2),
         inset 0 .2rem .5rem rgba(255, 255, 255, .15);
     }
+    
+    @include tablet {
+      margin-left: .5rem;
+      padding: .6rem 1.2rem;
+      border-radius: 2.5rem;
+      font-size: 1rem;
+    }
   }
 
   &__typing-indicator {
@@ -838,13 +863,17 @@
   }
 
   &__typing-indicator-bubble {
-    display: inline-block;
+    display: none;
     width: 0.4rem;
     height: 0.4rem;
     margin: 0 0.15rem;
     background-color: $primary-button-blue;
     border-radius: 50%;
     animation: bounce 1.2s infinite;
+
+    @include tablet {
+       display: inline-block;
+    }
   }
   
   &__typing-indicator-bubble:nth-child(2) {
@@ -894,6 +923,7 @@
   &__speech-icon {
     position: relative;
     left: 2.5rem;
+    display: none;
     font-size: 2.25rem;
     background: $neutral-white;
     color: $primary-very-light-blue;
@@ -902,12 +932,16 @@
     border-radius: 1rem;
     padding: .1rem;
     z-index: 2;
+
+    @include tablet {
+      display: block;
+    }
   }
 
   &__clear-input {
     position: absolute;
-    right: 5rem;
-    top: 30%;
+    right: 3rem;
+    top: 35%;
     font-size: .85rem;
     color: $primary-dark-blue;
     cursor: pointer;
@@ -923,6 +957,11 @@
     &:active {
       color: $neutral-white;
       transform: scale(.9);
+    }
+
+    @include tablet {
+      right: 5rem;
+      top: 30%;
     }
   }
 
