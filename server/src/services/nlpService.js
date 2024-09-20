@@ -1,7 +1,7 @@
 const { NlpManager } = require('node-nlp');
 const fs = require('fs');
 const path = require('path');  
-const { default: NextSwipe } = require('../../../client/src/pages/NextSwipe/NextSwipe');
+// const { default: NextSwipe } = require('../../../client/src/pages/NextSwipe/NextSwipe');
 const { calendarFormat } = require('moment/moment');
 
 // Initialize the NLP manager with English and forceNER option
@@ -941,6 +941,12 @@ async function trainNlp() {
     manager.addDocument('en', "Machine", 'faq_machine');
     manager.addDocument('en', "Robot", 'faq_robot');
     manager.addDocument('en', "Where did AI come from?", 'faq_ai_origin');
+    manager.addDocument('en', "Hey Mizu", 'faq_hey_mizu');
+    manager.addDocument('en', "Hey, Mizu", 'faq_hey_mizu');
+    manager.addDocument('en', "Hi, Mizu", 'faq_hi_mizu');
+    manager.addDocument('en', "Hi Mizu", 'faq_hi_mizu');
+    manager.addDocument('en', "Hello, Mizu", 'faq_hello_mizu');
+    manager.addDocument('en', "Hello Mizu", 'faq_hello_mizu');
 
     // AI Assist
     manager.addDocument('en', "Turn on the living room lights.", 'assist_home_lights_on');
@@ -8023,7 +8029,10 @@ async function trainNlp() {
     manager.addAnswer('en', 'faq_machine', "Yep, I'm a machine designed to assist you with any questions you have!");
     manager.addAnswer('en', 'faq_robot', "You guessed it! I'm a robot, though more of the software kind than the hardware kind. 🤖");
     manager.addAnswer('en', 'faq_ai_origin', "AI has roots in the early 20th century, with breakthroughs in the 1950s by pioneers like Alan Turing and John McCarthy. Over time, advances in computing power and data have brought us to where we are today.");
-    
+    manager.addAnswer('en', 'faq_hey_mizu', "Hiya! What can I do for you today? 🤖");
+    manager.addAnswer('en', 'faq_hi_mizu', "That's my name! How can I help you? 🤖");
+    manager.addAnswer('en', 'faq_hello_mizu', "Hello, friend. 🤖 Let's get the day going with some recommendations. Shall we? What genre were you thinking of?");
+
     // Responses for AI Assists
     manager.addAnswer('en', 'assist_home_lights_on', "I can't turn on the living room lights...yet. I don't function that way.");
     manager.addAnswer('en', 'assist_home_thermostat_set', "Setting the thermostat to 72 degrees...haha kidding. I'm not programmed to do that.");
