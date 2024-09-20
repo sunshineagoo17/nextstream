@@ -514,9 +514,8 @@
 
   &__bot-message {
     display: flex;
-    flex-direction: row-reverse;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     gap: .5rem;
   }
 

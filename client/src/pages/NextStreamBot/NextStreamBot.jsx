@@ -182,7 +182,6 @@ const NextStreamBot = () => {
                 }));
                 return { ...result, knownFor };
               } else {
-                // For non-person media types (movie/tv)
                 const castResponse = await api.get(
                   `/api/tmdb/${result.media_type}/${result.id}/credits`
                 );
@@ -195,7 +194,7 @@ const NextStreamBot = () => {
                     : DefaultPoster,
                   media_type: result.media_type,
                   vote_average:
-                    result.vote_average !== undefined ? result.vote_average : 0, // Add the vote_average here
+                    result.vote_average !== undefined ? result.vote_average : 0, 
                 };
               }
             })
@@ -494,13 +493,25 @@ const NextStreamBot = () => {
               <div
                 key={index}
                 className={`nextstream-bot__message nextstream-bot__message--${message.sender}`}>
+                
                 {message.sender === 'bot' && (
-                  <div className='nextstream-bot__bot-message'>
-                    <p>{message.text}</p>
-                    <FontAwesomeIcon
-                      icon={faRobot}
-                      className='nextstream-bot__gpt-icon-inline'
-                    />
+                  <div className='nextstream-bot__bot-message-wrapper'> 
+                    <div className='nextstream-bot__bot-message'>
+                      <FontAwesomeIcon
+                        icon={faRobot}
+                        className='nextstream-bot__gpt-icon-inline'
+                      />
+                      <p>{message.text}</p>
+                    </div>
+
+                    {/* Typing indicator under the message but within the bubble */}
+                    {isBotTyping && (
+                      <div className='nextstream-bot__bot-typing-indicator'>
+                        <span className='nextstream-bot__bot-typing-indicator-bubble'></span>
+                        <span className='nextstream-bot__bot-typing-indicator-bubble'></span>
+                        <span className='nextstream-bot__bot-typing-indicator-bubble'></span>
+                      </div>
+                    )}
                   </div>
                 )}
 
