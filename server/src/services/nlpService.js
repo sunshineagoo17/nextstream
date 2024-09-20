@@ -1,7 +1,6 @@
 const { NlpManager } = require('node-nlp');
 const fs = require('fs');
 const path = require('path');  
-// const { default: NextSwipe } = require('../../../client/src/pages/NextSwipe/NextSwipe');
 const { calendarFormat } = require('moment/moment');
 
 // Initialize the NLP manager with English and forceNER option
