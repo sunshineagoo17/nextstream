@@ -960,6 +960,85 @@ async function trainNlp() {
     manager.addDocument('en', 'What are some good television movies?', 'recommend_tvmovie');
     manager.addDocument('en', 'What are some good tv movies?', 'recommend_tvmovie');
     
+    // Searching movies titles, TV show titles, and actors/actresses/cast 
+    manager.addDocument('en', 'can you find the film %title%', 'search_movie');
+    manager.addDocument('en', 'can you find the movie %title%', 'search_movie');
+    manager.addDocument('en', 'can you search for the film %title%', 'search_movie');
+    manager.addDocument('en', 'can you search for the movie %title%', 'search_movie');
+    manager.addDocument('en', 'fetch the film %title%', 'search_movie');
+    manager.addDocument('en', 'fetch the movie %title%', 'search_movie');
+    manager.addDocument('en', 'find the film %title%', 'search_movie');
+    manager.addDocument('en', 'find the movie %title%', 'search_movie');
+    manager.addDocument('en', 'get the film %title%', 'search_movie');
+    manager.addDocument('en', 'get the movie %title%', 'search_movie');
+    manager.addDocument('en', 'get details about the film %title%', 'search_movie');
+    manager.addDocument('en', 'get details about the movie %title%', 'search_movie');
+    manager.addDocument('en', 'I want to watch the film %title%', 'search_movie');
+    manager.addDocument('en', 'I want to watch the movie %title%', 'search_movie');
+    manager.addDocument('en', 'is the film %title% available', 'search_movie');
+    manager.addDocument('en', 'is the movie %title% available', 'search_movie');
+    manager.addDocument('en', 'look for the film %title%', 'search_movie');
+    manager.addDocument('en', 'look for the movie %title%', 'search_movie');
+    manager.addDocument('en', 'search for the film %title%', 'search_movie');
+    manager.addDocument('en', 'search for the movie %title%', 'search_movie');
+    manager.addDocument('en', 'send me the film %title%', 'search_movie');
+    manager.addDocument('en', 'send me the movie %title%', 'search_movie');
+    manager.addDocument('en', 'show me the film %title%', 'search_movie');
+    manager.addDocument('en', 'show me the movie %title%', 'search_movie');
+    manager.addDocument('en', 'what can you tell me about the film %title%', 'search_movie');
+    manager.addDocument('en', 'what can you tell me about the movie %title%', 'search_movie');
+    manager.addDocument('en', 'can you find the series %title%', 'search_tv');
+    manager.addDocument('en', 'can you find the show %title%', 'search_tv');
+    manager.addDocument('en', 'can you find the tv show %title%', 'search_tv');
+    manager.addDocument('en', 'fetch the series %title%', 'search_tv');
+    manager.addDocument('en', 'fetch the show %title%', 'search_tv');
+    manager.addDocument('en', 'fetch the tv show %title%', 'search_tv');
+    manager.addDocument('en', 'find info about the series %title%', 'search_tv');
+    manager.addDocument('en', 'find info about the show %title%', 'search_tv');
+    manager.addDocument('en', 'find info about the tv show %title%', 'search_tv');
+    manager.addDocument('en', 'find the series %title%', 'search_tv');
+    manager.addDocument('en', 'find the show %title%', 'search_tv');
+    manager.addDocument('en', 'find the TV show %title%', 'search_tv');
+    manager.addDocument('en', 'get the series %title%', 'search_tv');
+    manager.addDocument('en', 'get the show %title%', 'search_tv');
+    manager.addDocument('en', 'get the tv show %title%', 'search_tv');
+    manager.addDocument('en', 'is the series %title% available to stream', 'search_tv');
+    manager.addDocument('en', 'is the show %title% available to stream', 'search_tv');
+    manager.addDocument('en', 'is the tv show %title% available to stream', 'search_tv');
+    manager.addDocument('en', 'look for the series %title%', 'search_tv');
+    manager.addDocument('en', 'look for the show %title%', 'search_tv');
+    manager.addDocument('en', 'look for the tv show %title%', 'search_tv');
+    manager.addDocument('en', 'search for the series %title%', 'search_tv');
+    manager.addDocument('en', 'search for the show %title%', 'search_tv');
+    manager.addDocument('en', 'search for the tv show %title%', 'search_tv');
+    manager.addDocument('en', 'search the series %title%', 'search_tv');
+    manager.addDocument('en', 'search the show %title%', 'search_tv');
+    manager.addDocument('en', 'search the tv show %title%', 'search_tv');
+    manager.addDocument('en', 'show me the series %title%', 'search_tv');
+    manager.addDocument('en', 'show me the show %title%', 'search_tv');
+    manager.addDocument('en', 'show me the tv show %title%', 'search_tv');
+    manager.addDocument('en', 'tell me about the series %title%', 'search_tv');
+    manager.addDocument('en', 'tell me about the show %title%', 'search_tv');
+    manager.addDocument('en', 'tell me about the tv show %title%', 'search_tv');
+    manager.addDocument('en', 'can you find information about %actor%', 'search_actor');
+    manager.addDocument('en', 'fetch info about %actor%', 'search_actor');
+    manager.addDocument('en', 'fetch information about %actor%', 'search_actor');
+    manager.addDocument('en', 'find %actor%', 'search_actor');
+    manager.addDocument('en', 'find me %actor%', 'search_actor');
+    manager.addDocument('en', 'find movies or shows with %actor%', 'search_actor');
+    manager.addDocument('en', 'get details on %actor%', 'search_actor');
+    manager.addDocument('en', 'look for %actor%', 'search_actor');
+    manager.addDocument('en', 'look for details about %actor%', 'search_actor');
+    manager.addDocument('en', 'search for %actor%', 'search_actor');
+    manager.addDocument('en', 'search for the actor %actor%', 'search_actor');
+    manager.addDocument('en', 'search for the actress %actor%', 'search_actor');
+    manager.addDocument('en', 'tell me about the actor %actor%', 'search_actor');
+    manager.addDocument('en', 'tell me about the actress %actor%', 'search_actor');
+    manager.addDocument('en', 'what has %actor% starred in', 'search_actor');
+    manager.addDocument('en', 'who is the actor %actor%', 'search_actor');
+    manager.addDocument('en', 'who is the actress %actor%', 'search_actor');
+    manager.addDocument('en', 'who is %actor%', 'search_actor');
+
     // AI and chatbot-related intents
     manager.addDocument('en', 'What is AI?', 'faq_ai');
     manager.addDocument('en', 'Can you explain artificial intelligence?', 'faq_ai');
@@ -2798,6 +2877,39 @@ async function trainNlp() {
     manager.addDocument('en', "Fave ice cream", 'chitchat_fave_ice_cream');
     manager.addDocument('en', "Favorite ice cream", 'chitchat_ice_cream');
     manager.addDocument('en', "Favourite ice crea,", 'chitchat_ice_cream');
+    manager.addDocument('en', "Find more series,", 'chitchat_find_me_more_shows');
+    manager.addDocument('en', "Find more shows,", 'chitchat_find_more_shows');
+    manager.addDocument('en', "Find me more shows,", 'chitchat_find_more_shows');
+    manager.addDocument('en', "more shows,", 'chitchat_find_more_shows');
+    manager.addDocument('en', "Fetch me more shows,", 'chitchat_find_me_more_shows');
+    manager.addDocument('en', "more series", 'chitchat_find_me_more_shows');
+    manager.addDocument('en', "more tv shows", 'chitchat_find_me_more_shows');
+    manager.addDocument('en', "more tv", 'chitchat_find_more_shows');
+    manager.addDocument('en', "Look for more shows,", 'chitchat_find_more_shows');
+    manager.addDocument('en', "Recommend more shows,", 'chitchat_find_more_shows');
+    manager.addDocument('en', "Suggest more shows,", 'chitchat_find_more_shows');
+    manager.addDocument('en', "Show me more shows,", 'chitchat_find_me_more_shows');
+    manager.addDocument('en', "Find me more films,", 'chitchat_find_me_more_movies');
+    manager.addDocument('en', "Find me more movies,", 'chitchat_find_more_movies');
+    manager.addDocument('en', "more movies,", 'chitchat_find_more_movies');
+    manager.addDocument('en', "Fetch me more films,", 'chitchat_find_me_more_movies');
+    manager.addDocument('en', "Fetch me more movies,", 'chitchat_find_me_more_movies');
+    manager.addDocument('en', "more films", 'chitchat_find_me_more_movies');
+    manager.addDocument('en', "Look for more films,", 'chitchat_find_more_movies');
+    manager.addDocument('en', "Look for more movies,", 'chitchat_find_me_more_movies');
+    manager.addDocument('en', "Recommend more films,", 'chitchat_find_more_movies');
+    manager.addDocument('en', "Recommend more movies,", 'chitchat_find_me_more_movies');
+    manager.addDocument('en', "Suggest more shows,", 'chitchat_find_more_movies');
+    manager.addDocument('en', "Suggest more movies,", 'chitchat_find_me_more_movies');
+    manager.addDocument('en', "Show me more shows,", 'chitchat_find_more_movies');
+    manager.addDocument('en', "Show me more movies,", 'chitchat_find_me_more_movies');
+    manager.addDocument('en', "Awesome animation", 'chitchat_nice_animation');
+    manager.addDocument('en', "Cool animation", 'chitchat_nice_animation');
+    manager.addDocument('en', "Nice animation", 'chitchat_nice_animation');
+    manager.addDocument('en', "Very cool animation", 'chitchat_nice_animation');
+    manager.addDocument('en', "Can you do more?", 'chitchat_can_do_more');
+    manager.addDocument('en', "Can you do anything else?", 'chitchat_can_do_more');
+    manager.addDocument('en', "What else can you do?", 'chitchat_can_do_more');
 
     // Eras
     manager.addDocument('en', "Best film from the 60s", 'recommend_60s_movies');
@@ -8777,6 +8889,13 @@ async function trainNlp() {
     manager.addAnswer('en', 'chitchat_drool', "Haha that good? How about we watch some *Chef's Table*? It's a series showcasing world-class chefs and their culinary creations. 🍽️");
     manager.addAnswer('en', 'chitchat_fave_dessert', "Tough choice! Dessert is the best part of any meal! How about we watch 'Is It Cake' while we have some New York cheesecake?");
     manager.addAnswer('en', 'chitchat_fave_ice_cream', "Mmm, ice cream! 🍦 I love a good superkid ice cream cone. That reminds me of *It's Complicated*. There's an iconic ice cream scene lol.");
+    manager.addAnswer('en', 'chitchat_find_more_movies', "That, I can do. What genre were you thinking of?");
+    manager.addAnswer('en', 'chitchat_find_me_more_movies', "Your wish is my command. Let's start with a genre to narrow down what I should suggest.");
+    manager.addAnswer('en', 'chitchat_find_me_more_shows', "Ofc, friend. That's what I'm here for. What genre would you like me to recommend?");
+    manager.addAnswer('en', 'chitchat_find_more_shows', "I can definitely do that. Let's start with the genre and I can suggest a more accurate title for ya.");
+    manager.addAnswer('en', 'chitchat_find_more_movies', "That, I can do. What genre were you thinking of?");
+    manager.addAnswer('en', 'chitchat_nice_animation', "I know, right? I'll let my dev know!");
+    manager.addAnswer('en', 'chitchat_can_do_more', "I can do loads. I can recommend different genres, simple chit-chat. Try me.");
 
     // Responses for Eras
     manager.addAnswer('en', 'recommend_60s_movies', "'Psycho,' 'The Graduate,' and 'Lawrence of Arabia' are iconic films that defined the era.");
@@ -9473,6 +9592,11 @@ async function trainNlp() {
     manager.addAnswer('en', 'song_intro_fresh_prince', "'In West Philadelphia Born and Raised' is the famous opening line from *The Fresh Prince of Bel-Air*, introducing Will's story.");
     manager.addAnswer('en', 'song_intro_big_bang_theory', "'Math, Science, History, Unraveling the Mysteries' is from *Animaniacs*, celebrating learning in a fun way.");
 
+    // Responses for searching movies and TV show titles and actors/actresses/cast
+    manager.addAnswer('en', 'search_movie', "Searching for movies matching '%title%'...");
+    manager.addAnswer('en', 'search_tv', "Searching for TV shows matching '%title%'...");
+    manager.addAnswer('en', 'search_actor', "Looking for actors named '%actor%'...");
+
     // Responses for Intents - Movies
     manager.addAnswer('en', 'recommend_action', "Ready for some heart-pounding action? I've got just the films for you!");
     manager.addAnswer('en', 'recommend_adventure', 'Get ready to embark on an epic adventure! These films will take you on a wild ride.');
@@ -9520,19 +9644,28 @@ async function processInput(text) {
     // Use the NLP manager to process the input and get the response
     const response = await manager.process('en', text);
 
-     // Log the detected intent and confidence
-     console.log('Detected Intent:', response.intent);
-     console.log('Detected Confidence:', response.score);
-    
-    // Return the response containing the intent and answer
+    // Log the detected intent and confidence
+    console.log('Detected Intent:', response.intent);
+    console.log('Detected Confidence:', response.score);
+
+    // Extract the entity for title (if it exists)
+    let titleEntity = response.entities.find((entity) => entity.entity === 'title');
+    const title = titleEntity ? titleEntity.option : null;
+
+    // Log extracted entities
+    console.log('Extracted Title:', title);
+
+    // Return the response containing the intent, answer, and title (if any)
     return {
       intent: response.intent,
       answer: response.answer || "I didn't quite get that. Can you please rephrase?",
+      title: title || null  // Include the extracted title
     };
   } catch (error) {
     console.error('Error processing input:', error);
     throw new Error('Failed to process input');
   }
 }
+
 
 module.exports = { trainNlp, processInput };
