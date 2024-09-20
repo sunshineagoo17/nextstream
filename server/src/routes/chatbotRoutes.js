@@ -2,6 +2,8 @@ const express = require('express');
 const axios = require('axios');
 const { processInput } = require('../services/nlpService');
 const router = express.Router();
+const TMDB_API_KEY = process.env.TMDB_API_KEY;
+const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
 
 const genreMap = {
   // Movies
@@ -76,27 +78,54 @@ router.post('/', async (req, res) => {
 });
 
 // Function to fetch media (movies or shows) by genre
-async function getMediaByGenre(type, genreId) {
-  const tmdbApiKey = process.env.TMDB_API_KEY;
-  const mediaType = type === 'movie' ? 'movie' : 'tv'; // Ensure proper media type
-  let url = `https://api.themoviedb.org/3/discover/${mediaType}?api_key=${tmdbApiKey}&with_genres=${genreId}&sort_by=popularity.desc`;
+// async function getMediaByGenre(type, genreId) {
+//   const tmdbApiKey = process.env.TMDB_API_KEY;
+//   const mediaType = type === 'movie' ? 'movie' : 'tv'; // Ensure proper media type
+//   let url = `https://api.themoviedb.org/3/discover/${mediaType}?api_key=${tmdbApiKey}&with_genres=${genreId}&sort_by=popularity.desc`;
 
-  // Handle rom-com genre for both movies and TV shows
+//   // Handle rom-com genre for both movies and TV shows
+//   if (genreId === '10749,35') {
+//     url = `https://api.themoviedb.org/3/discover/${mediaType}?api_key=${tmdbApiKey}&with_genres=10749,35&sort_by=popularity.desc`;
+//   }
+
+//   try {
+//     const response = await axios.get(url);
+//     return response.data.results.map((item) => ({
+//       id: item.id,
+//       title: item.title || item.name, // Handle both movie and TV show titles
+//       poster_path: item.poster_path,
+//       media_type: mediaType, // Explicitly include media type in the response
+//       vote_average: item.vote_average != null ? item.vote_average : 0,
+//     }));
+//   } catch (error) {
+//     console.error(`Error fetching ${mediaType} from TMDB: ${error}`);
+//     throw new Error(`Failed to fetch ${mediaType}`);
+//   }
+// }
+
+// Function to fetch media (movies or shows) by genre
+async function getMediaByGenre(type, genreId) {
+  const mediaType = type === 'movie' ? 'movie' : 'tv';
+  let url = `${TMDB_BASE_URL}/discover/${mediaType}?api_key=${TMDB_API_KEY}&with_genres=${genreId}&sort_by=popularity.desc`;
+
+  // Handle special case for romcom genre
   if (genreId === '10749,35') {
-    url = `https://api.themoviedb.org/3/discover/${mediaType}?api_key=${tmdbApiKey}&with_genres=10749,35&sort_by=popularity.desc`;
+    url = `${TMDB_BASE_URL}/discover/${mediaType}?api_key=${TMDB_API_KEY}&with_genres=10749,35&sort_by=popularity.desc`;
   }
 
   try {
     const response = await axios.get(url);
+    
+    // Map over results, ensuring vote_average is handled correctly
     return response.data.results.map((item) => ({
       id: item.id,
       title: item.title || item.name, // Handle both movie and TV show titles
       poster_path: item.poster_path,
-      media_type: mediaType, // Explicitly include media type in the response
-      vote_average: item.vote_average != null ? item.vote_average : 0,
+      media_type: mediaType,
+      vote_average: item.vote_average !== undefined ? item.vote_average : 0, // Ensure vote_average is always present
     }));
   } catch (error) {
-    console.error(`Error fetching ${mediaType} from TMDB: ${error}`);
+    console.error(`Error fetching ${mediaType} from TMDB:`, error);
     throw new Error(`Failed to fetch ${mediaType}`);
   }
 }
