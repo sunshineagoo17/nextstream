@@ -2771,6 +2771,33 @@ async function trainNlp() {
     manager.addDocument('en', "Can you list streaming platform services in the United Kingdom?", 'chitchat_streaming_services_uk');
     manager.addDocument('en', "list streaming services in the UK", 'chitchat_streaming_services_uk');
     manager.addDocument('en', "list streaming services in the United Kingdom", 'chitchat_streaming_services_uk');
+    manager.addDocument('en', "Watcha doin", 'chitchat_watcha_doin');
+    manager.addDocument('en', "Watchu doin", 'chitchat_watcha_doin');
+    manager.addDocument('en', "Whatcha doin", 'chitchat_watcha_doin');
+    manager.addDocument('en', "Whatchu doin", 'chitchat_watcha_doin');
+    manager.addDocument('en', "yay!", 'chitchat_yay');
+    manager.addDocument('en', "wa hoo!", 'chitchat_wahoo');
+    manager.addDocument('en', "wahoo!", 'chitchat_wahoo');
+    manager.addDocument('en', "woohoo!", 'chitchat_woohoo');
+    manager.addDocument('en', "woot woot", 'chitchat_woot');
+    manager.addDocument('en', "woot! woot!", 'chitchat_woot_woot');
+    manager.addDocument('en', "sweet!", 'chitchat_sweet');
+    manager.addDocument('en', "heh!", 'chitchat_heh');
+    manager.addDocument('en', "eh?", 'chitchat_eh');
+    manager.addDocument('en', "come again?", 'chitchat_come_again');
+    manager.addDocument('en', "coffee?", 'chitchat_coffee');
+    manager.addDocument('en', "tea?", 'chitchat_tea');
+    manager.addDocument('en', "coffee or tea", 'chitchat_coffee_or_tea');
+    manager.addDocument('en', "candy", 'chitchat_candy');
+    manager.addDocument('en', "chocolate", 'chitchat_chocolate');
+    manager.addDocument('en', "hmm chocolate", 'chitchat_chocolate');
+    manager.addDocument('en', "drool", 'chitchat_drool');
+    manager.addDocument('en', "Fave dessert", 'chitchat_fave_dessert');
+    manager.addDocument('en', "Favorite dessert", 'chitchat_fave_dessert');
+    manager.addDocument('en', "Favourite dessert", 'chitchat_fave_dessert');
+    manager.addDocument('en', "Fave ice cream", 'chitchat_fave_ice_cream');
+    manager.addDocument('en', "Favorite ice cream", 'chitchat_ice_cream');
+    manager.addDocument('en', "Favourite ice crea,", 'chitchat_ice_cream');
 
     // Eras
     manager.addDocument('en', "Best film from the 60s", 'recommend_60s_movies');
