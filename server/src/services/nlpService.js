@@ -8760,6 +8760,23 @@ async function trainNlp() {
     manager.addAnswer('en', 'chitchat_streaming_services_canada', "In Canada, you can find streaming services like Netflix, Crave, and Amazon Prime Video, offering a variety of movies and shows to enjoy.");
     manager.addAnswer('en', 'chitchat_streaming_services_us', "In the US, popular streaming services include Netflix, Hulu, Amazon Prime Video, and Disney+, each with a rich selection of content.");
     manager.addAnswer('en', 'chitchat_streaming_services_uk', "In the UK, you can enjoy streaming on platforms like BBC iPlayer, Netflix, Amazon Prime Video, and Disney+.");
+    manager.addAnswer('en', 'chitchat_watcha_doin', "Just waiting to recommend some awesome shows and movies. What genre are you in the mood for?");
+    manager.addAnswer('en', 'chitchat_yay', "Yay! 🎉 Sounds like good news. Let's celebrate with a movie night!");
+    manager.addAnswer('en', 'chitchat_woohoo', "Woohoo indeed! 🙌 Let's celebrate and plan a movie night!");
+    manager.addAnswer('en', 'chitchat_woot', "Woot woot! Let's keep that energy up with a movie marathon! 🚀");
+    manager.addAnswer('en', 'chitchat_woot_woot', "Woot! Woot! 🎉 Double the excitement, double the fun! Should we start a movie marathon?");
+    manager.addAnswer('en', 'chitchat_sweet', "Sweet! 🍬 We should treat ourselves to some Halloween movies!");
+    manager.addAnswer('en', 'chitchat_heh', "Heh, I see what you did there! 😄 Now, what type of show should we find for you today?");
+    manager.addAnswer('en', 'chitchat_eh', "Eh? Did I miss something? 🤔 Help a brotha out. How may I help you?");
+    manager.addAnswer('en', 'chitchat_come_again', "That's what she said! Get it lol? Let's watch some Office!");
+    manager.addAnswer('en', 'chitchat_coffee', "Ooo, coffee sounds great! How about we watch some *Comedians in Cars Getting Coffee*?☕");
+    manager.addAnswer('en', 'chitchat_tea', "Tea? A nice cup of tea sounds delightful! Should we have a cuppa while we watch 'The Crown'? 🍵");
+    manager.addAnswer('en', 'chitchat_coffee_or_tea', "Coffee or tea? Why not both? ☕🍵 Now, I want to watch 'The Breakfast Club' because of it lol?");
+    manager.addAnswer('en', 'chitchat_candy', "I love candy! Sweet, sour, and anything in between. Should we watch 'Wonka'? 🍬");
+    manager.addAnswer('en', 'chitchat_chocolate', "Mmm, chocolate...I choose milk chocolate all the way! Let's watch *The Great Chocolate Showdown* while we're at it! 🍫");
+    manager.addAnswer('en', 'chitchat_drool', "Haha that good? How about we watch some *Chef's Table*? It's a series showcasing world-class chefs and their culinary creations. 🍽️");
+    manager.addAnswer('en', 'chitchat_fave_dessert', "Tough choice! Dessert is the best part of any meal! How about we watch 'Is It Cake' while we have some New York cheesecake?");
+    manager.addAnswer('en', 'chitchat_fave_ice_cream', "Mmm, ice cream! 🍦 I love a good superkid ice cream cone. That reminds me of *It's Complicated*. There's an iconic ice cream scene lol.");
 
     // Responses for Eras
     manager.addAnswer('en', 'recommend_60s_movies', "'Psycho,' 'The Graduate,' and 'Lawrence of Arabia' are iconic films that defined the era.");
