@@ -475,6 +475,7 @@ const NextStreamBot = () => {
       <div className='nextstream-bot__chat-block'>
         <div className='nextstream-bot__chat-container'>
           <div className='nextstream-bot__messages'>
+            {/* Show empty chat state */}
             {messages.length === 0 && (
               <div className='nextstream-bot__empty-chat'>
                 <img
@@ -483,17 +484,18 @@ const NextStreamBot = () => {
                   className='nextstream-bot__chatbot-svg'
                 />
                 <p className='nextstream-bot__empty-message'>
-                  Say hello to Mizu (a.k.a. NextStream's cool bot) to discover
-                  your next favourite stream.
+                  Say hello to Mizu (a.k.a. NextStream's cool bot) to discover your next favourite stream.
                 </p>
               </div>
             )}
 
+            {/* Loop through messages */}
             {messages.map((message, index) => (
               <div
                 key={index}
                 className={`nextstream-bot__message nextstream-bot__message--${message.sender}`}>
                 
+                {/* Bot message */}
                 {message.sender === 'bot' && (
                   <div className='nextstream-bot__bot-message-wrapper'> 
                     <div className='nextstream-bot__bot-message'>
@@ -504,7 +506,7 @@ const NextStreamBot = () => {
                       <p>{message.text}</p>
                     </div>
 
-                    {/* Typing indicator under the message but within the bubble */}
+                    {/* Typing indicator under the bot message */}
                     {isBotTyping && (
                       <div className='nextstream-bot__bot-typing-indicator'>
                         <span className='nextstream-bot__bot-typing-indicator-bubble'></span>
@@ -515,12 +517,13 @@ const NextStreamBot = () => {
                   </div>
                 )}
 
+                {/* User message */}
                 {message.sender === 'user' && (
-                  <div className='nextstream-bot__user-message'>
+                  <div className={`nextstream-bot__user-message ${isTyping && !isBotTyping ? 'typing' : ''}`}>
                     <p>{message.text}</p>
                     <FontAwesomeIcon
                       icon={faUser}
-                      className='nextstream-bot__user-icon-inline'
+                      className={`nextstream-bot__user-icon-inline ${isTyping && !isBotTyping ? 'typing-icon' : ''}`}
                     />
                   </div>
                 )}
@@ -528,6 +531,7 @@ const NextStreamBot = () => {
             ))}
           </div>
 
+          {/* Input section */}
           <div className='nextstream-bot__input-wrapper'>
             <FontAwesomeIcon
               icon={faComment}
@@ -572,6 +576,7 @@ const NextStreamBot = () => {
             )}
           </div>
 
+          {/* Clear chat button */}
           {messages.length > 0 && (
             <button
               className='nextstream-bot__clear-chat-button'

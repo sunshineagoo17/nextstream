@@ -333,10 +333,10 @@
     flex-direction: column;
   }
 
-  &__user-message {
-    display: flex;
-    flex-direction: row;
-  }
+  // &__user-message {
+  //   display: flex;
+  //   flex-direction: row;
+  // }
 
   &__clear-chat-button {
     background: linear-gradient(
@@ -554,29 +554,47 @@
 
   &__user-icon-inline {
     box-shadow: $shadow-primary;
-    padding: .25rem;
+    padding: 0.25rem;
     border-radius: 1.5rem;
     background: $feedback-dark-pink;
     color: $feedback-error-very-light-peach;
-
+  
+    // Default hover animation
     &:hover {
-        animation: tilt-head 3.5s infinite ease-in-out;
-        color: $neutral-white;
+      animation: tilt-head 3.5s infinite ease-in-out;
+      color: $neutral-white;
     }
- 
-    @keyframes tilt-head {
-        0%, 100% {
-          transform: rotate(0deg);
-        }
-        25% {
-          transform: rotate(-10deg);
-        }
-        50% {
-          transform: rotate(0deg); 
-        }
-        75% {
-          transform: rotate(10deg);
-        }
+  
+    // Icon animation when typing
+    &.typing-icon {
+      animation: pulseIcon 2.5s infinite ease-in-out;
+      color: $neutral-white;
+    }
+  }
+  
+  @keyframes pulseIcon {
+    0%, 100% {
+      transform: scale(1);
+      color: $feedback-error-light-peach;
+    }
+    50% {
+      transform: scale(1.2);
+      color: $neutral-white;
+    }
+  }
+  
+  @keyframes tilt-head {
+    0%, 100% {
+      transform: rotate(0deg);
+    }
+    25% {
+      transform: rotate(-10deg);
+    }
+    50% {
+      transform: rotate(0deg);
+    }
+    75% {
+      transform: rotate(10deg);
     }
   }
 
