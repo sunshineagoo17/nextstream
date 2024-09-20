@@ -379,20 +379,28 @@
     left: 1rem;
     color: $primary-dark-blue;
     font-size: 1rem;
-    transition: transform .3s ease;
-    transition: transform .6s ease-in-out;
+    transition: transform .75s ease-in-out; 
     z-index: 10;
     cursor: pointer;
-
+    text-shadow: none;
+    border: none;
+    box-shadow: none;
+  
     &:hover {
       transform: rotate(360deg);  
       text-shadow: $shadow-primary;
       color: $primary-button-blue;
     }
-
+  
     &:active {
-        color: $neutral-white;
-        transform: scale(.9);  
+      color: $neutral-white;
+      text-shadow: none;
+      transform: scale(.9);  
+      border: none; 
+    }
+
+    &:focus {
+      outline: none; 
     }
   }
 
@@ -413,6 +421,10 @@
     &:active {
         color: $neutral-white;
         transform: scale(.9);  
+    }
+
+    &:focus {
+      outline: none; 
     }
   }
 
