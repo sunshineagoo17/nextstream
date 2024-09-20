@@ -639,7 +639,65 @@ async function trainNlp() {
     manager.addDocument('en', "Date night", 'recommend_romance');
     manager.addDocument('en', "Date night movies", 'recommend_romance');
     manager.addDocument('en', "I need a movie for a date night.", 'recommend_romance');
-
+    manager.addDocument('en', "Could you recommend some movies for me?", 'recommend_movie');
+    manager.addDocument('en', "Can you suggest a movie?", 'recommend_movie');
+    manager.addDocument('en', "What movies would you recommend?", 'recommend_movie');
+    manager.addDocument('en', "Can you assist me in finding a good movie?", 'recommend_movie');
+    manager.addDocument('en', "I'm looking for a movie; can you help?", 'recommend_movie');
+    manager.addDocument('en', "Can you guide me to some good movies?", 'recommend_movie');
+    manager.addDocument('en', "Do you have any movie recommendations?", 'recommend_movie');
+    manager.addDocument('en', "Can you point me toward some great movies?", 'recommend_movie');
+    manager.addDocument('en', "What films do you suggest I watch?", 'recommend_movie');
+    manager.addDocument('en', "Can you help me pick a movie?", 'recommend_movie');
+    manager.addDocument('en', "Any good movie recommendations?", 'recommend_cinema');
+    manager.addDocument('en', "What should I watch tonight?", 'recommend_movie');
+    manager.addDocument('en', "Can you help me find a movie?", 'recommend_movie');
+    manager.addDocument('en', "Know any good movies?", 'recommend_movie');
+    manager.addDocument('en', "What's a good movie to watch?", 'recommend_cinema');
+    manager.addDocument('en', "Got any movie suggestions?", 'recommend_movies');
+    manager.addDocument('en', "What movie do you think I should watch?", 'recommend_movies');
+    manager.addDocument('en', "Can you recommend a movie?", 'recommend_movies');
+    manager.addDocument('en', "I need a movie to watch. Any ideas?", 'recommend_movies');
+    manager.addDocument('en', "Do you know any must-watch movies?", 'recommend_cinema');
+    manager.addDocument('en', "Can you help me find movies?", 'recommend_movies');
+    manager.addDocument('en', "Help me find a movie", 'recommend_movies');
+    manager.addDocument('en', "Help me find movies", 'recommend_cinema');
+    manager.addDocument('en', "Find me a movie", 'recommend_movies');
+    manager.addDocument('en', "Find me some movies", 'recommend_movies');
+    manager.addDocument('en', "Recommend a movie", 'recommend_movies');
+    manager.addDocument('en', "Recommend some movies", 'recommend_cinema');
+    manager.addDocument('en', "Suggest a movie", 'recommend_movies');
+    manager.addDocument('en', "Show me some movies", 'recommend_cinema');
+    manager.addDocument('en', "Could you recommend some shows for me?", 'recommend_tvshow');
+    manager.addDocument('en', "Can you suggest a show?", 'recommend_tvshow');
+    manager.addDocument('en', "What shows would you recommend?", 'recommend_tvshow');
+    manager.addDocument('en', "Can you assist me in finding a good show?", 'recommend_tvshow');
+    manager.addDocument('en', "I'm looking for a show; can you help?", 'recommend_tvshow');
+    manager.addDocument('en', "Can you guide me to some good shows?", 'recommend_tvshow');
+    manager.addDocument('en', "Do you have any show recommendations?", 'recommend_tvshow');
+    manager.addDocument('en', "Can you point me toward some great shows?", 'recommend_tvshow');
+    manager.addDocument('en', "What shows do you suggest I watch?", 'recommend_tvshow');
+    manager.addDocument('en', "Can you help me pick a show?", 'recommend_tvshow');
+    manager.addDocument('en', "Any good show recommendations?", 'recommend_tvshow');
+    manager.addDocument('en', "What should I watch tonight?", 'recommend_tvshow');
+    manager.addDocument('en', "Can you help me find a show?", 'recommend_tvshow');
+    manager.addDocument('en', "Know any good shows?", 'recommend_tvshow');
+    manager.addDocument('en', "What's a good show to watch?", 'recommend_tvshows');
+    manager.addDocument('en', "Got any show suggestions?", 'recommend_tvshows');
+    manager.addDocument('en', "What show do you think I should watch?", 'recommend_tvshows');
+    manager.addDocument('en', "Can you recommend a show?", 'recommend_tv_shows');
+    manager.addDocument('en', "I need a show to watch. Any ideas?", 'recommend_tv_shows');
+    manager.addDocument('en', "Do you know any must-watch shows?", 'recommend_tvshows');
+    manager.addDocument('en', "Can you help me find shows?", 'recommend_tvshows');
+    manager.addDocument('en', "Help me find a show", 'recommend_tvshows');
+    manager.addDocument('en', "Help me find shows", 'recommend_tv_shows');
+    manager.addDocument('en', "Find me a show", 'recommend_tvshows');
+    manager.addDocument('en', "Find me some shows", 'recommend_tvshows');
+    manager.addDocument('en', "Recommend a show", 'recommend_tv_shows');
+    manager.addDocument('en', "Recommend some shows", 'recommend_tvshows');
+    manager.addDocument('en', "Suggest a show", 'recommend_tv_shows');
+    manager.addDocument('en', "Show me some shows", 'recommend_tv_shows');
+   
     // Romance Shows
     manager.addDocument('en', 'Date night series', 'recommend_romance_tv');
     manager.addDocument('en', 'Date night show', 'recommend_romance_tv');
@@ -9356,7 +9414,13 @@ async function trainNlp() {
     manager.addAnswer('en', 'recommend_heaven_movies', "'What Dreams May Come' is a visually stunning film that explores the afterlife and the concept of heaven, as a man journeys through the afterlife to find his wife.");
     manager.addAnswer('en', 'recommend_afterlife_shows', "'Dead Like Me' is a dark comedy about a girl who becomes a grim reaper after her untimely death, providing a humorous take on the afterlife.");
     manager.addAnswer('en', 'recommend_afterlife_movies', "'Ghost' explores themes of love and unresolved issues in the afterlife, featuring a compelling story of a man trying to communicate with his partner.");
-
+    manager.addAnswer('en', 'recommend_movie', "I'd be happy to help! What genre are you in the mood for? Action, drama, comedy, or something else?");
+    manager.addAnswer('en', 'recommend_movies', "Sure! Let me know what type of movie you're looking for. Any specific genre in mind?");
+    manager.addAnswer('en', 'recommend_cinema', "Absolutely! What kind of movies are you interested in—maybe action-packed or heartwarming?");
+    manager.addAnswer('en', 'recommend_tvshow', "I can definitely help with that! What kind of show are you into—comedy, drama, sci-fi, or another genre?");
+    manager.addAnswer('en', 'recommend_tvshows', "Of course! Do you have a genre in mind? Maybe you're in the mood for something funny, thrilling, or dramatic?");
+    manager.addAnswer('en', 'recommend_tv_shows', "Let's find you a show! What genre are you thinking of? Comedy, mystery, or maybe something different?");
+    
     // Responses for Show Intro
     manager.addAnswer('en', 'song_intro_sailor_moon', "*Sailor Moon* is an iconic gem! This enchanting theme celebrates heroism, friendship, and the magic of fighting evil under the moonlight. Prepare to join the ultimate battle for love and justice!");
     manager.addAnswer('en', 'song_intro_friends', "This is the iconic theme song from *Friends*, a timeless anthem that perfectly captures the joys and trials of friendship in New York City. Get ready to reminisce about unforgettable moments shared among this lovable crew!");
