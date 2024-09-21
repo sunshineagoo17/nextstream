@@ -148,69 +148,56 @@ const NextStreamBot = () => {
   const handleSearch = useCallback(async () => {
     if (searchQuery.trim() && isAuthenticated) {
       setIsLoading(true);
+  
       try {
-        const response = await api.get('/api/tmdb/search', {
-          params: { query: searchQuery },
+        // Call the chatbot API for the search query
+        const response = await api.post('/api/chatbot', {
+          userInput: searchQuery,
+          userId,
         });
-
-        console.log(response.data.results);
-
-        const filteredResults = await Promise.all(
-          response.data.results
-            .filter(
-              (result) =>
-                result.media_type === 'movie' ||
-                result.media_type === 'tv' ||
-                result.media_type === 'person'
-            )
-            .map(async (result) => {
-              console.log(
-                'Vote Average for',
-                result.title || result.name,
-                'is:',
-                result.vote_average
-              );
-
-              if (result.media_type === 'person') {
-                const knownFor = result.known_for.map((item) => ({
-                  id: item.id,
-                  title: item.title || item.name,
-                  poster_path: item.poster_path
-                    ? `https://image.tmdb.org/t/p/w500${item.poster_path}`
-                    : DefaultPoster,
-                  media_type: item.media_type,
-                }));
-                return { ...result, knownFor };
-              } else {
-                const castResponse = await api.get(
-                  `/api/tmdb/${result.media_type}/${result.id}/credits`
-                );
-                return {
-                  ...result,
-                  cast: castResponse.data.cast.slice(0, 5),
-                  title: result.title || result.name,
-                  poster_path: result.poster_path
-                    ? `https://image.tmdb.org/t/p/w500${result.poster_path}`
-                    : DefaultPoster,
-                  media_type: result.media_type,
-                  vote_average:
-                    result.vote_average !== undefined ? result.vote_average : 0, 
-                };
-              }
-            })
-        );
-
-        setResults(filteredResults);
+  
+        const chatbotMessage = response.data.message;
+        const recommendedMedia = response.data.media || [];
+  
+        // Add the bot's message to the chat
+        setMessages((prevMessages) => [
+          ...prevMessages,
+          { sender: 'bot', text: chatbotMessage },
+        ]);
+  
+        if (recommendedMedia.length > 0) {
+          // Set the search results using the recommended media
+          const mediaResults = recommendedMedia.map((item) => ({
+            id: item.id,
+            title: item.title || item.name,
+            poster_path: item.poster_path,
+            media_type: item.media_type,
+            vote_average: item.vote_average,
+            trailerUrl: item.trailerUrl,  // Trailer URL from chatbot response
+            credits: item.credits,  // Credits from chatbot response
+          }));
+  
+          setResults(mediaResults);  // Display the results
+        } else {
+          // No results found case
+          setResults([]);
+          setMessages((prevMessages) => [
+            ...prevMessages,
+            { sender: 'bot', text: "Sorry, I couldn't find any matching results." },
+          ]);
+        }
       } catch (error) {
-        showAlert(
-          'Could not fetch search results. Please try again later.',
-          'error'
-        );
+        setMessages((prevMessages) => [
+          ...prevMessages,
+          { sender: 'bot', text: 'Error fetching the results. Please try again.' },
+        ]);
       } finally {
         setIsLoading(false);
       }
     }
-  }, [searchQuery, isAuthenticated]);
+  }, [searchQuery, isAuthenticated, userId]);
+  
+  
 
   // Simulate typing effect for the chatbot message
   const typeMessage = async (message, setMessages, setIsBotTyping) => {
@@ -245,52 +232,54 @@ const NextStreamBot = () => {
     if (searchQuery.trim()) {
       setIsTyping(true);
       setIsBotTyping(true);
-
+      
       // Add user's message to the chat
       setMessages((prevMessages) => [
         ...prevMessages,
         { sender: 'user', text: searchQuery },
       ]);
-
+  
       try {
+        // Send the search query to the chatbot API
         const response = await api.post('/api/chatbot', {
           userInput: searchQuery,
-          userId,
+          userId,  // Send the userId for personalized responses if needed
         });
-
+  
+        // Extract chatbot's message and recommended media
         const chatbotMessage = response.data.message;
         const recommendedMedia = response.data.media || [];
-
+  
         // Add a placeholder for the bot's message before typing
         setMessages((prevMessages) => [
           ...prevMessages,
           { sender: 'bot', text: '' },
         ]);
-
-        // Simulate typing effect for the chatbot message
+  
+        // Simulate typing effect for the chatbot's message
         await typeMessage(chatbotMessage, setMessages, setIsBotTyping);
-
+  
         if (recommendedMedia.length > 0) {
-          // Extract media results outside the map loop to avoid unsafe references
-          const mediaResults = recommendedMedia.map((item) => {
-            const id = item.id;
-            const title = item.title || item.name;
-            const poster_path = item.poster_path;
-            const media_type = item.media_type;
-            const vote_average = item.vote_average;
-
-            return { id, title, poster_path, media_type, vote_average };
-          });
-
-          setResults(mediaResults);
-          setIsLoading(false);
+          // Process media results and display trailers, credits, etc.
+          const mediaResults = recommendedMedia.map((item) => ({
+            id: item.id,
+            title: item.title || item.name,
+            poster_path: item.poster_path,
+            media_type: item.media_type,
+            vote_average: item.vote_average,
+            trailerUrl: item.trailerUrl, // Trailer URL from chatbot response
+            credits: item.credits,  // Credits from chatbot response
+          }));
+  
+          setResults(mediaResults);  // Display results
+          setIsLoading(false);  // Stop the loader
         } else if (!chatbotMessage || chatbotMessage.trim() === '') {
           setResults([]);
           setMessages((prevMessages) => [
             ...prevMessages,
             {
               sender: 'bot',
-              text: "Sorry, I came up with no answers. Let's try again.",
+              text: "Sorry, I couldn't find any results. Try again!",
             },
           ]);
         }
@@ -303,10 +292,10 @@ const NextStreamBot = () => {
           },
         ]);
       } finally {
-        setIsLoading(false);
+        setIsLoading(false);  // Stop the loader
         setIsTyping(false);
         setIsBotTyping(false);
-        setSearchQuery('');
+        setSearchQuery('');  // Clear the input field
       }
     }
   };

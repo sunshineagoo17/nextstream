@@ -5,6 +5,7 @@ const router = express.Router();
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
 const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
 
+// Map to handle genres by intent
 const genreMap = {
   // Movies
   'recommend_action': { type: 'movie', genreId: 28 },
@@ -50,42 +51,52 @@ router.post('/', async (req, res) => {
   try {
     // Process the user input through NLP
     const nlpResult = await processInput(userInput);
-    console.log('NLP Result:', nlpResult);
-    const intent = nlpResult.intent;
-    const answer = nlpResult.answer;
+    const { intent, title, actor } = nlpResult;
+
+    // Check if the intent is related to movie/TV/actor search
+    if (intent === 'search_movie' || intent === 'search_tv') {
+      const query = title || userInput;  // Use extracted title if available
+      const mediaResults = await searchMediaByTitle(query, intent);
+
+      if (mediaResults.length > 0) {
+        return res.json({
+          message: `Here are some ${intent === 'search_movie' ? 'movies' : 'TV shows'} matching "${query}":`,
+          media: mediaResults,
+        });
+      } else {
+        return res.json({
+          message: `Sorry, no ${intent === 'search_movie' ? 'movies' : 'TV shows'} found for "${query}".`,
+        });
+      }
+
+    } else if (intent === 'search_actor') {
+      const query = actor || userInput;  // Use extracted actor if available
+      const actorResults = await searchPersonByName(query);
+
+      if (actorResults.length > 0) {
+        return res.json({
+          message: `Here are some actors matching "${query}":`,
+          media: actorResults,
+        });
+      } else {
+        return res.json({
+          message: `Sorry, no actors found for "${query}".`,
+        });
+      }
 
     // Check if the intent is to recommend media by genre
-    if (intent in genreMap) {
+    } else if (intent in genreMap) {
       const { type, genreId } = genreMap[intent];
       const media = await getMediaByGenre(type, genreId);
 
-      res.json({
-        message: answer,
+      return res.json({
+        message: nlpResult.answer,
         media,
       });
-
-    // Check if the intent is movie or TV title search
-    } else if (intent === 'search_movie' || intent === 'search_tv') {
-      const mediaResults = await searchMediaByTitle(userInput, intent);
-      
-      res.json({
-        message: `Here are some ${intent === 'search_movie' ? 'movies' : 'TV shows'} matching "${userInput}":`,
-        media: mediaResults,
-      });
-
-    // Check if the intent is actor/people search
-    } else if (intent === 'search_actor') {
-      const actorResults = await searchPersonByName(userInput);
-
-      res.json({
-        message: `Here are some actors/people matching "${userInput}":`,
-        media: actorResults,
-      });
-
     } else {
       // General conversation or unhandled intent
-      res.json({
-        message: answer, 
+      return res.json({
+        message: nlpResult.answer,
       });
     }
   } catch (error) {
@@ -94,7 +105,7 @@ router.post('/', async (req, res) => {
   }
 });
 
-// Function to fetch media (movies or shows) by genre
+// Fetch movies or TV shows by genre from TMDB and include trailers and credits
 async function getMediaByGenre(type, genreId) {
   const mediaType = type === 'movie' ? 'movie' : 'tv';
   let url = `${TMDB_BASE_URL}/discover/${mediaType}?api_key=${TMDB_API_KEY}&with_genres=${genreId}&sort_by=popularity.desc`;
@@ -106,58 +117,154 @@ async function getMediaByGenre(type, genreId) {
 
   try {
     const response = await axios.get(url);
-    return response.data.results.map((item) => ({
-      id: item.id,
-      title: item.title || item.name,
-      poster_path: item.poster_path,
-      media_type: mediaType,
-      vote_average: item.vote_average !== undefined ? item.vote_average : 0,
-    }));
+
+    // If no results are found, return a user-friendly message
+    if (response.data.results.length === 0) {
+      return [{ message: `No ${mediaType} found in this genre.` }];
+    }
+
+    // Fetch trailer and credits for each media item
+    const mediaData = await Promise.all(
+      response.data.results.map(async (item) => {
+        const trailerUrl = await getMediaTrailer(item.id, mediaType);
+        const credits = await getMediaCredits(item.id, mediaType);
+        return {
+          id: item.id,
+          title: item.title || item.name,
+          poster_path: item.poster_path || 'default-poster.jpg',
+          media_type: mediaType,
+          vote_average: item.vote_average !== undefined ? item.vote_average : 0,
+          trailerUrl,
+          credits, // Include the credits in the result
+        };
+      })
+    );
+
+    return mediaData;
   } catch (error) {
     console.error(`Error fetching ${mediaType} from TMDB:`, error);
     throw new Error(`Failed to fetch ${mediaType}`);
   }
 }
 
-// Function to search for a movie or TV show by title
+// Function to search for movies or TV shows by title (also fetching trailers and credits)
 async function searchMediaByTitle(query, type) {
   const mediaType = type === 'search_movie' ? 'movie' : 'tv';
   const url = `${TMDB_BASE_URL}/search/${mediaType}?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(query)}`;
 
   try {
     const response = await axios.get(url);
-    return response.data.results.map((item) => ({
-      id: item.id,
-      title: item.title || item.name,
-      poster_path: item.poster_path,
-      media_type: mediaType,
-      vote_average: item.vote_average !== undefined ? item.vote_average : 0,
-    }));
+
+    // If no results are found, return a user-friendly message
+    if (response.data.results.length === 0) {
+      return [{ message: `No ${mediaType} found matching "${query}".` }];
+    }
+
+    // Fetch trailer and credits for each result
+    const mediaData = await Promise.all(
+      response.data.results.map(async (item) => {
+        const trailerUrl = await getMediaTrailer(item.id, mediaType);
+        const credits = await getMediaCredits(item.id, mediaType);
+        return {
+          id: item.id,
+          title: item.title || item.name,
+          poster_path: item.poster_path || 'default-poster.jpg',
+          media_type: mediaType,
+          vote_average: item.vote_average !== undefined ? item.vote_average : 0,
+          trailerUrl,
+          credits, // Include the credits in the result
+        };
+      })
+    );
+
+    return mediaData;
   } catch (error) {
     console.error(`Error searching ${mediaType} by title from TMDB:`, error);
     throw new Error(`Failed to search ${mediaType}`);
   }
 }
 
-// Function to search for a person (actor) by name
+// Function to search for an actor or person by name
 async function searchPersonByName(query) {
   const url = `${TMDB_BASE_URL}/search/person?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(query)}`;
 
   try {
     const response = await axios.get(url);
+
+    // If no results are found, return a user-friendly message
+    if (response.data.results.length === 0) {
+      return [{ message: `No actors found matching "${query}".` }];
+    }
+
     return response.data.results.map((person) => ({
       id: person.id,
       name: person.name,
-      profile_path: person.profile_path,
+      profile_path: person.profile_path 
+          ? `https://image.tmdb.org/t/p/w500${person.profile_path}` 
+          : 'default-profile.jpg',  // Fallback image for missing profile
       known_for: person.known_for.map((media) => ({
-        id: media.id,
-        title: media.title || media.name,
-        media_type: media.media_type,
+          id: media.id,
+          title: media.title || media.name,
+          media_type: media.media_type,
       })),
-    }));
+  }));
+  
   } catch (error) {
     console.error('Error fetching person from TMDB:', error);
     throw new Error('Failed to fetch person');
+  }
+}
+
+// Function to fetch trailers
+async function getMediaTrailer(media_id, media_type) {
+  try {
+    const url = `${TMDB_BASE_URL}/${media_type}/${media_id}/videos?api_key=${TMDB_API_KEY}`;
+    const response = await axios.get(url);
+
+    const videoTypesChecked = [];
+    let video = response.data.results.find(video => {
+      videoTypesChecked.push('YouTube Trailer');
+      return video.type === 'Trailer' && video.site === 'YouTube';
+    });
+
+    if (!video) {
+      video = response.data.results.find(video => {
+        videoTypesChecked.push('Featurette');
+        return video.type === 'Featurette' && (video.site === 'YouTube' || video.site === 'Vimeo');
+      });
+    }
+
+    if (!video) {
+      video = response.data.results.find(video => {
+        videoTypesChecked.push('Teaser');
+        return video.type === 'Teaser' && (video.site === 'YouTube' || video.site === 'Vimeo');
+      });
+    }
+
+    if (video) {
+      const embedUrl = video.site === 'YouTube'
+        ? `https://www.youtube.com/embed/${video.key}`
+        : `https://player.vimeo.com/video/${video.key}`;
+      return embedUrl;
+    } else {
+      console.log(`No video found. Types checked: ${videoTypesChecked.join(', ')}`);
+      return null;
+    }
+  } catch (error) {
+    console.error(`Error fetching video for ${media_type} ${media_id}:`, error);
+    return null;
+  }
+}
+
+// Function to fetch credits
+async function getMediaCredits(media_id, media_type) {
+  try {
+    const url = `${TMDB_BASE_URL}/${media_type}/${media_id}/credits?api_key=${TMDB_API_KEY}`;
+    const response = await axios.get(url);
+    return response.data.cast.slice(0, 10); // Return top 10 cast members
+  } catch (error) {
+    console.error(`Error fetching credits for ${media_type} ${media_id}:`, error.message);
+    return [];
   }
 }
 
