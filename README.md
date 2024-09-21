@@ -437,6 +437,7 @@ With the proliferation of streaming services, users often face the challenge of 
     - Node.js (v14 or later)
     - npm (v6 or later) or Yarn (v1.22 or later)
     - MySQL (v8 or later)
+    - Git LFS (Large File Storage) for handling large files in the repository
 
 ### Installing Node.js and npm
 - **You can download and install Node.js and npm from the official website**: 
@@ -469,9 +470,13 @@ With the proliferation of streaming services, users often face the challenge of 
 - **Download the MySQL installer from the official website**:
     - [MySQL's Website](https://dev.mysql.com/downloads/installer/)
 
+#### Project Setup:
 - **Clone the Repository**: 
     - git clone https://github.com/sunshineagoo17/nextstream.git
     - cd nextstream
+
+- **Pull Large Files Using Git LFS**:
+    - git lfs pull
 
 - **Install Dependencies**:
     - Install the server-side dependencies:
@@ -498,13 +503,32 @@ With the proliferation of streaming services, users often face the challenge of 
         - JWT_SECRET=your_jwt_secret
         - SENDGRID_API_KEY=your_sendgrid_api_key
         - TMDB_API_KEY=your_tmdb_api_key
+        - GOOGLE_CLIENT_ID=google_client_id
+        - GOOGLE_CLIENT_SECRET=google_client_secret
+        - IPINFO_TOKEN=your_ipinfo_token
+        - SESSION_SECRET=your_session_secret
+        - GOOGLE_APPLICATION_CREDENTIALS=path_to_google_creds.json
+        - FIREBASE_DATABASE_URL=your_nextstream_firebase_url
     
     - For the client (`client/.env`):
         - REACT_APP_API_URL=http://localhost:8080
+        - REACT_APP_IPINFO_TOKEN=your_app_ipinfo_token
+        - REACT_APP_GOOGLE_CLIENT_ID=your_google_client_id
+        - REACT_APP_FIREBASE_API_KEY=your_firebase_api_key
+        - REACT_APP_FIREBASE_AUTH_DOMAIN=your_nextstream_firebase_domain
+        - REACT_APP_FIREBASE_PROJECT_ID=your_firebase_project_id
+        - REACT_APP_FIREBASE_STORAGE_BUCKET=your_nextstream_storage_bucket
+        - REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your_firebase_messaging_sender_id
+        - REACT_APP_FIREBASE_APP_ID=your_firebase_app_id
+        - REACT_APP_FIREBASE_MEASUREMENT_ID=your_firebase_measurement_id
+        - REACT_APP_VAPID_KEY=your_firebase_vapid_key
 
-    - Note: You will need to sign up for SendGrid and TMDB to obtain your API keys. Visit the following links to sign up:
+    - Note: You will need to sign up for SendGrid and TMDB to obtain your API keys. For Google Client ID and Secret, set up a project on Google Cloud Console. For Firebase, create a Firebase project at Firebase Console.
+    Visit the following links to sign up:
         - [SendGrid](https://sendgrid.com/)
         - [TMDB](https://www.themoviedb.org/)
+        - [Google Cloud Console](https://console.cloud.google.com)
+        - [Firebase Console](https://console.firebase.google.com/)
 
 - **Set Up the Database**:
     - Start MySQL and create a database named `nextstream`:
