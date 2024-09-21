@@ -32,6 +32,7 @@ import QuickstartGuide from './components/QuickStartGuide/QuickStartGuide';
 import FriendsPage from './pages/FriendsPage/FriendsPage';
 import UnsubscribePage from './pages/UnsubscribePage/UnsubscribePage';
 import NextStreamBot from './pages/NextStreamBot/NextStreamBot';
+import AboutPage from './pages/AboutPage/AboutPage';
 import './styles/global.scss';
 
 // Firebase 
@@ -153,6 +154,7 @@ const App = () => {
         <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route path="/unsubscribe" element={<UnsubscribePage />} />
         <Route path="/login-required" element={<LoginRequired />} />
+        <Route path="/about" element={<AboutPage />} />
         <Route path="/nextview/:userId/:mediaType/:mediaId" element={isAuthenticated ? <NextViewPage /> : <Navigate to="/login-required" />} />
         <Route path="/top-picks/:userId" element={isGuest || isAuthenticated ? <TopPicksPage /> : <Navigate to="/login-required" />} />
         <Route path="/streamboard/:userId" element={isAuthenticated ? <StreamBoard /> : <Navigate to="/login-required" />} />

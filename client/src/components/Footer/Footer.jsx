@@ -12,13 +12,18 @@ export const Footer = ({ onContactClick }) => {
       </div>
 
       <div className="footer__copy-container">
-        <div className="footer__copyright">© 2024</div>
-        <Link to="/privacy-policy" className="footer__privacy-policy-link">
-          <div className="footer__privacy-policy">Privacy Policy</div>
-        </Link>
-        <Link to="/terms" className="footer__tac-link">
-          <div className="footer__tac">Terms and Conditions</div>
-        </Link>
+        <div className="footer__copyright">© 2024 NextSream</div>
+        <div className="footer__links-container">
+          <Link to="/about" className="footer__about-link">
+            <div className="footer__about">About</div>
+          </Link>
+          <Link to="/privacy-policy" className="footer__privacy-policy-link">
+            <div className="footer__privacy-policy">Privacy Policy</div>
+          </Link>
+          <Link to="/terms" className="footer__tac-link">
+            <div className="footer__tac">Terms and Conditions</div>
+          </Link>
+        </div>
       </div>
 
       <div className="footer__btn-container">

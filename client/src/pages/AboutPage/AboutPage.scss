@@ -1,0 +1,352 @@
+// Import partials
+@use "../../styles/partials/colors" as *;
+@use "../../styles/partials/fonts" as *;
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/global.scss" as *;
+
+.about {
+  position: relative;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__container {
+    position: relative;
+    z-index: 1;
+    max-width: 50rem;
+    width: 100%;
+  }
+
+  &__content-card {
+    @include bg-white;
+    padding: 2rem;
+  }
+
+  &__title {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: $primary-dark-blue;
+    text-align: center;
+    text-shadow: $shadow-primary;
+    line-height: 2.75rem;
+
+    @include tablet {
+        line-height: normal;
+    }
+  }
+
+  &__intro {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: $primary-medium-blue;
+    line-height: 1.65rem;
+
+    @include tablet {
+        line-height: normal;
+    }
+  }
+
+  &__text {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    color: $primary-dark-blue;
+    line-height: 1.4rem;
+
+    @include tablet {
+        line-height: normal;
+    }
+  }
+
+  &__subtitle {
+    font-size: 1.75rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: $primary-dark-blue;
+    line-height: 2.1rem;
+
+    @include tablet {
+        line-height: normal;
+    }
+  }
+
+  &__list {
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+    line-height: 1.5rem;
+
+    @include tablet {
+        line-height: normal;
+    }
+
+    &-item {
+      font-size: 1rem;
+      color: $primary-dark-blue;
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  &__icon {
+    color: $primary-button-blue;
+    padding: .25rem;
+    box-shadow: $shadow-quaternary;
+    padding: .25rem;
+    border-radius: .5rem;
+    width: 1rem;
+    margin-right: .2rem;
+    border: .0625rem solid $neutral-white;
+
+    @include tablet {
+        margin-right: .35rem;
+    }
+  }
+
+  &__map-icon,
+  &__calendar-icon {
+    &:hover {
+      animation: dropIcon 2.5s ease forwards;
+      box-shadow: $shadow-senary;
+    }
+  }
+
+  &__globe-icon,
+  &__heart-icon {
+    &:hover {
+      animation: growAndDisappear 1s ease forwards;
+      box-shadow: $shadow-senary;
+    }
+  }
+
+  &__check-icon,
+  &__film-icon,
+  &__hand-point-icon {
+    &:hover {
+      animation: moveSideToSide 1.5s ease-in-out infinite;
+      box-shadow: $shadow-senary;
+    }
+  }
+
+  &__bolt-icon,
+  &__star-icon,
+  &__couch-icon {
+    &:hover {
+      animation: pulseColor 2s ease-in-out infinite;
+      box-shadow: $shadow-senary;
+    }
+  }
+
+  &__tv-icon,
+  &__computer-icon,
+  &__search-icon {
+    &:hover {
+      animation: rotateIcon 2s linear infinite;
+      box-shadow: $shadow-senary;
+    }
+  }
+
+  &__briefcase-icon,
+  &__robot-icon,
+  &__message-icon {
+    &:hover {
+      animation: spinBounceScale 2s ease infinite;
+      box-shadow: $shadow-senary;
+    }
+  }
+
+  &__smile-icon {
+    &:hover {
+      animation: tiltIcon 1.5s ease-in-out infinite;
+      box-shadow: $shadow-senary;
+    }
+  }
+
+  &__bell-icon {
+    &:hover {
+      animation: wiggle 1s ease-in-out infinite;
+      box-shadow: $shadow-senary;
+    }
+  }
+
+  /* Keyframes for the animations */
+
+  /* Left to right and right to left */
+  @keyframes moveSideToSide {
+    0%, 100% {
+      transform: translateX(0);
+    }
+    25% {
+      transform: translateX(5px);
+    }
+    50% {
+      transform: translateX(-5px);
+    }
+    75% {
+      transform: translateX(5px);
+    }
+  }
+
+  /* Rotation */
+  @keyframes rotateIcon {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* Pulse and color change */
+  @keyframes pulseColor {
+    0%, 100% {
+      color: $primary-dark-blue;
+      transform: scale(1);
+    }
+    50% {
+      color: $primary-very-light-blue;
+      background: $primary-dark-blue;
+      transform: scale(1.1);
+    }
+  }
+
+  /* Grow and disappear */
+  @keyframes growAndDisappear {
+    0% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(1.5);
+    }
+  }
+
+  /* Tilt from left to right */
+  @keyframes tiltIcon {
+    0%, 100% {
+      transform: rotate(20deg);
+    }
+    50% {
+      transform: rotate(-20deg); 
+    }
+  }
+  
+  /* Wiggle effect */
+  @keyframes wiggle {
+    0%, 100% {
+      transform: rotate(0deg);
+    }
+    25% {
+      transform: rotate(-5deg);
+    }
+    75% {
+      transform: rotate(5deg);
+    }
+  }
+
+  /* Drop effect */
+  @keyframes dropIcon {
+    0% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    50% {
+      opacity: .5;
+      transform: translateY(10px) scale(1.1);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(30px) scale(0.9);
+    }
+  }
+
+  @keyframes spinBounceScale {
+    0% {
+      transform: scale(1) rotate(0deg) translateY(0); 
+      opacity: 1;
+    }
+    25% {
+      transform: scale(1.2) rotate(10deg) translateY(-5px); 
+      opacity: 0.9;
+    }
+    50% {
+      transform: scale(1.3) rotate(-10deg) translateY(5px); 
+      opacity: 0.8;
+    }
+    75% {
+      transform: scale(1.2) rotate(10deg) translateY(-5px); /* Bounce back up and rotate again */
+      opacity: 0.9;
+    }
+    100% {
+      transform: scale(1) rotate(0deg) translateY(0); /* Back to original state */
+      opacity: 1;
+    }
+  }
+  
+
+  &__link {
+    background: none;
+    border: none;
+    font: $primary-font;
+    color: $primary-medium-blue;
+    cursor: pointer;
+    text-decoration: none;
+    border: .0625rem solid $primary-medium-blue;
+    padding: .25rem .5rem;
+    border-radius: .25rem;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+
+    &:hover,
+    &:focus,
+    &:visited {
+      background-color: $primary-medium-blue;
+      border: .0625rem solid $primary-dark-blue;
+      color: $neutral-white;
+      text-decoration: none;
+      box-shadow: $shadow-primary;
+    }
+
+    &:active {
+      background-color: $primary-light-blue;
+      color: $neutral-white;
+      border: .125rem solid $neutral-light-grey;
+      border-radius: .25rem;
+      transform: scale(.9);
+      text-decoration: none;
+      font-weight: bold;
+    }
+  }
+
+  &__background {
+    @include block-item(100%, 8.4375rem);
+    position: absolute;
+    bottom: -2.1875rem;
+    left: 0;
+    overflow: hidden;
+    z-index: 0;
+
+    @include small-mobile {
+      bottom: -0.3125rem;
+      height: 8.4375rem;
+    }
+
+    @include large-mobile {
+      bottom: 0rem;
+      height: 9.375rem;
+    }
+
+    @include tablet {
+      bottom: 0rem;
+      height: 12.5rem;
+    }
+
+    @include desktop {
+      bottom: 0rem;
+      height: 15.625rem;
+    }
+
+    @include large-desktop {
+      bottom: 0rem;
+      height: 17.5rem;
+    }
+  }
+}

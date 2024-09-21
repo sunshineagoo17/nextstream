@@ -198,8 +198,6 @@ const NextStreamBot = () => {
     }
   }, [searchQuery, isAuthenticated, userId]);
   
-  
-
   // Simulate typing effect for the chatbot message
   const typeMessage = async (message, setMessages, setIsBotTyping) => {
     let displayedText = '';

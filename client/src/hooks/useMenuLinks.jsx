@@ -29,6 +29,7 @@ const useMenuLinks = () => {
   const unauthenticatedLinks = [
     { name: "Register", path: "/register" },
     { name: "Login", path: "/login" },
+    { name: "About", path: "/about" },
     { name: "Terms", path: "/terms" },
     { name: "Privacy Policy", path: "/privacy-policy" }
   ];

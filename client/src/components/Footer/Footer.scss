@@ -23,19 +23,24 @@
     padding: 0 3.375rem;
   }
 
+  &__links-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    @include block-item(16rem, 3.125rem);
+  }
+
   &__copy-container {
     @include block-item(16rem, 3.125rem);
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
 
     @include tablet {
-      @include block-item(16rem, 3.125rem);
+      @include block-item(18rem, 3.125rem);
       display: flex;
-      flex-direction: row;
       align-items: center;
-      justify-content: space-between;
+      justify-content: center;
 
       @include desktop {
         width: 20rem;
@@ -43,6 +48,7 @@
     }
   }
 
+  &__about-link,
   &__privacy-policy-link, 
   &__tac-link {
     @include animate-effect-footer;
@@ -60,6 +66,7 @@
   }
 
   &__copyright,
+  &__about,
   &__privacy-policy,
   &__tac {
     font-size: .725rem;
@@ -80,6 +87,7 @@
   }
 
   &__privacy-policy,
+  &__about,
   &__tac {
     color: $primary-very-light-blue;
 

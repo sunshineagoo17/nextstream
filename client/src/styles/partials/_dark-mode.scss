@@ -267,7 +267,8 @@
       background: $primary-darker-blue-gradient;
 
       &__privacy-policy,
-      &__tac {
+      &__tac,
+      &__about {
         &:hover {
           box-shadow: none;
         }
@@ -329,7 +330,8 @@
 
     // T&C and Privacy Policy
     .terms,
-    .privacy {
+    .privacy,
+    .about {
       background-color: $dark-mode-deep-blue;
 
       &__content-card {
@@ -344,6 +346,10 @@
           color: $neutral-white;
         }
       }
+    }
+
+    .about__icon {
+      background: $neutral-white;
     }
 
     // NextStream Bot
