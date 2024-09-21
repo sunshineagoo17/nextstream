@@ -1,4 +1,3 @@
-// tmdbService.js
 const axios = require('axios');
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
 const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
@@ -12,21 +11,22 @@ async function dynamicSearch(query) {
     const results = response.data.results;
 
     if (results.length > 0) {
-        return results.map((item) => ({
-            id: item.id,
-            title: item.title || item.name,  // Use title for movies/TV shows and name for actors
-            name: item.name || null,         // Explicitly use name for actors
-            media_type: item.media_type,     // 'movie', 'tv', or 'person'
-            poster_path: item.poster_path
-              ? `https://image.tmdb.org/t/p/w500${item.poster_path}`
-              : item.profile_path
-                ? `https://image.tmdb.org/t/p/w500${item.profile_path}`
-                : 'default-poster.jpg',  // Fallback for missing poster/profile
-          }));
-          
-          
+      // Map over the results to create a consistent response structure
+      return results.map((item) => ({
+        id: item.id,
+        title: item.title || item.name,  // Use title for movies/TV shows, name for actors
+        name: item.name || null,         // Explicitly use name for actors
+        media_type: item.media_type,     // 'movie', 'tv', or 'person'
+        poster_path: item.poster_path
+          ? `https://image.tmdb.org/t/p/w500${item.poster_path}`
+          : item.profile_path
+            ? `https://image.tmdb.org/t/p/w500${item.profile_path}`
+            : 'default-poster.jpg',      // Fallback for missing poster/profile
+        vote_average: item.vote_average || null,  // Ratings for movies/TV shows
+        // Optionally, you can fetch trailers or credits here if needed.
+      }));
     } else {
-      return null;  // No results found
+      return [];  // Return an empty array if no results are found (instead of null)
     }
   } catch (error) {
     console.error('Error fetching from TMDB:', error);

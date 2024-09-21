@@ -170,6 +170,7 @@ const NextStreamBot = () => {
           const mediaResults = recommendedMedia.map((item) => ({
             id: item.id,
             title: item.title || item.name,
+            actor: item.actor || '',  
             poster_path: item.poster_path,
             media_type: item.media_type,
             vote_average: item.vote_average,
@@ -264,14 +265,14 @@ const NextStreamBot = () => {
           const mediaResults = recommendedMedia.map((item) => ({
             id: item.id,
             title: item.title || item.name,
+            actor: item.actor || '', // Add actor if available
             poster_path: item.poster_path,
             media_type: item.media_type,
             vote_average: item.vote_average,
-            trailerUrl: item.trailerUrl, // Trailer URL from chatbot response
-            credits: item.credits,  // Credits from chatbot response
+            trailerUrl: item.trailerUrl,    // Trailer URL from chatbot response
+            credits: item.credits,          // Credits from chatbot response
           }));
-  
-          setResults(mediaResults);  // Display results
+          setResults(mediaResults);  // Set results for rendering
           setIsLoading(false);  // Stop the loader
         } else if (!chatbotMessage || chatbotMessage.trim() === '') {
           setResults([]);
@@ -598,8 +599,9 @@ const NextStreamBot = () => {
                   key={result.id}
                   className='nextstream-bot__card nextstream-bot__card--results'>
                   <h3 className='nextstream-bot__title--results'>
-                    {result.title || result.name}
+                    {result.title || result.name ? result.title || result.name : 'Title Unavailable'}
                   </h3>
+                  
                   <div className='nextstream-bot__poster-container-results'>
                     <img
                       src={

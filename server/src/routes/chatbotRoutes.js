@@ -49,43 +49,59 @@ router.post('/', async (req, res) => {
   console.log('Received user input:', userInput);
 
   try {
-    // Process the user input through NLP
+    // Process user input through NLP
     const nlpResult = await processInput(userInput);
+    console.log('NLP Result:', nlpResult);
+
     const { intent, title, actor } = nlpResult;
 
-    // Check if the intent is related to movie/TV/actor search
-    if (intent === 'search_movie' || intent === 'search_tv') {
-      const query = title || userInput;  // Use extracted title if available
-      const mediaResults = await searchMediaByTitle(query, intent);
+    // Handle the unified search intent for movies, TV shows, and actors
+    if (intent === 'search_movie_or_tv') {
+      // If there's a title, search for movies and TV shows
+      if (title) {
+        const query = title || userInput;  // Use extracted title if available
+        
+        // Search for both movies and TV shows
+        const movieResults = await searchMediaByTitle(query, 'search_movie');
+        const tvResults = await searchMediaByTitle(query, 'search_tv');
 
-      if (mediaResults.length > 0) {
-        return res.json({
-          message: `Here are some ${intent === 'search_movie' ? 'movies' : 'TV shows'} matching "${query}":`,
-          media: mediaResults,
-        });
-      } else {
-        return res.json({
-          message: `Sorry, no ${intent === 'search_movie' ? 'movies' : 'TV shows'} found for "${query}".`,
-        });
+        const mediaResults = [...movieResults, ...tvResults]; // Combine results
+
+        console.log('Combined movie and TV results:', mediaResults);
+
+        if (mediaResults.length > 0) {
+          return res.json({
+            message: `Here are some results matching "${query}":`,
+            media: mediaResults,
+          });
+        } else {
+          return res.json({
+            message: `Sorry, no movies or TV shows found for "${query}".`,
+          });
+        }
       }
+      // If there's an actor, search for actors
+      else if (actor) {
+        const query = actor || userInput;  // Use extracted actor if available
+        const actorResults = await searchPersonByName(query);
 
-    } else if (intent === 'search_actor') {
-      const query = actor || userInput;  // Use extracted actor if available
-      const actorResults = await searchPersonByName(query);
+        console.log('Actor results:', actorResults);
 
-      if (actorResults.length > 0) {
-        return res.json({
-          message: `Here are some actors matching "${query}":`,
-          media: actorResults,
-        });
-      } else {
-        return res.json({
-          message: `Sorry, no actors found for "${query}".`,
-        });
+        if (actorResults.length > 0) {
+          return res.json({
+            message: `Here are some actors matching "${query}":`,
+            media: actorResults,
+          });
+        } else {
+          return res.json({
+            message: `Sorry, no actors found for "${query}".`,
+          });
+        }
       }
+    } 
 
     // Check if the intent is to recommend media by genre
-    } else if (intent in genreMap) {
+    else if (intent in genreMap) {
       const { type, genreId } = genreMap[intent];
       const media = await getMediaByGenre(type, genreId);
 
@@ -154,9 +170,11 @@ async function searchMediaByTitle(query, type) {
 
   try {
     const response = await axios.get(url);
+    console.log(`TMDB response for ${query}:`, response.data);
 
     // If no results are found, return a user-friendly message
     if (response.data.results.length === 0) {
+      console.log(`No results found for ${query}`);
       return [{ message: `No ${mediaType} found matching "${query}".` }];
     }
 
