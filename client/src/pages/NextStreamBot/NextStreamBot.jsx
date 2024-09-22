@@ -283,6 +283,8 @@ const NextStreamBot = () => {
         const chatbotMessage = response.data.message;
         const recommendedMedia = response.data.media || []; 
 
+        let hasResponse = false;
+
         setMessages((prevMessages) => [
           ...prevMessages,
           { sender: 'bot', text: '' },
@@ -290,6 +292,12 @@ const NextStreamBot = () => {
 
         await typeMessage(chatbotMessage, setMessages, setIsBotTyping);
 
+        // If chatbot gives a valid message, mark it as a valid response
+        if (chatbotMessage && chatbotMessage.trim().length > 0) {
+          hasResponse = true;
+        }
+
+        // Handle TMDB media results
         if (recommendedMedia.length > 0) {
           const mediaResults = recommendedMedia.map((item) => {
             let mediaPath;
@@ -298,10 +306,7 @@ const NextStreamBot = () => {
               mediaPath = item.profile_path
                 ? `https://image.tmdb.org/t/p/w500${item.profile_path}`
                 : DefaultPoster;
-            } else if (
-              item.media_type === 'movie' ||
-              item.media_type === 'tv'
-            ) {
+            } else if (item.media_type === 'movie' || item.media_type === 'tv') {
               mediaPath = item.poster_path
                 ? `https://image.tmdb.org/t/p/w500${item.poster_path}`
                 : DefaultPoster;
@@ -321,22 +326,46 @@ const NextStreamBot = () => {
           });
 
           setResults(mediaResults);
-        } else {
-          setResults([]);
+          hasResponse = true;  
+        }
+
+        // If no chatbot message or media results, show the "no results" message
+        if (!hasResponse) {
+          const apologiesMessages = [
+            "I'm sorry, I didn't catch that. Could you please try again?",
+            "Oops! I missed that one. Could you rephrase it for me?",
+            "I didn't quite understand that. Can you say it differently?",
+            "Hmm, that didn't come through clearly. Could you give it another go?",
+            "Apologies, I couldn't understand. Mind rewording your request?",
+          ];
+
+          const randomApology = apologiesMessages[Math.floor(Math.random() * apologiesMessages.length)];
+
           setMessages((prevMessages) => [
             ...prevMessages,
             {
               sender: 'bot',
-              text: "Sorry, I couldn't find any results. Try again!",
+              text: randomApology,
             },
           ]);
         }
+
       } catch (error) {
+        const noResultsMessages = [
+          "Sorry, I couldn't find any results. Try again!",
+          "It seems I couldn't locate any results. How about giving it another shot?",
+          "No matches found this time. Please try rephrasing or searching again!",
+          "Oops! I came up empty. Could you try asking in a different way?",
+          "I couldn't fetch any results for that. Care to try again?",
+        ];
+
+        const randomNoResults = noResultsMessages[Math.floor(Math.random() * noResultsMessages.length)];
+
         setMessages((prevMessages) => [
           ...prevMessages,
           {
             sender: 'bot',
-            text: 'There was an error fetching the results. Please try again.',
+            text: randomNoResults,
           },
         ]);
       } finally {
