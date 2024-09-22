@@ -34,6 +34,7 @@ const genreMap = {
   'recommend_adventure_tv': { type: 'tv', genreId: 10759 },
   'recommend_animation_tv': { type: 'tv', genreId: 16 },
   'recommend_comedy_tv': { type: 'tv', genreId: 35 },
+  'recommend_crime_tv': { type: 'tv', genreId: 80 },
   'recommend_documentary_tv': { type: 'tv', genreId: 99 },
   'recommend_drama_tv': { type: 'tv', genreId: 18 },
   'recommend_family_tv': { type: 'tv', genreId: 10751 },
@@ -41,10 +42,15 @@ const genreMap = {
   'recommend_kids_tv': { type: 'tv', genreId: 10762 },
   'recommend_horror_tv': { type: 'tv', genreId: 27 },
   'recommend_mystery_tv': { type: 'tv', genreId: 9648 },
+  'recommend_news_tv': { type: 'tv', genreId: 10763 },
   'recommend_reality_tv': { type: 'tv', genreId: 10764 },
   'recommend_romance_tv': { type: 'tv', genreId: 10749 },
   'recommend_romcom_tv': { type: 'tv', genreId: '10749,35' },
   'recommend_scifi_tv': { type: 'tv', genreId: 10765 },
+  'recommend_soap_tv': { type: 'tv', genreId: 10766 },
+  'recommend_talk_tv': { type: 'tv', genreId: 10767 },
+  'recommend_war_and_politics_tv': { type: 'tv', genreId: 10768 },
+  'recommend_western_tv': { type: 'tv', genreId: 37 },
 };
 
 // Function to remove duplicates based on ID and media_type
