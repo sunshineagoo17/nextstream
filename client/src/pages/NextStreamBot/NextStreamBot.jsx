@@ -34,8 +34,9 @@ const NextStreamBot = () => {
   const calendarRef = useRef(null);
   const [isTyping, setIsTyping] = useState(false);
   const [isBotTyping, setIsBotTyping] = useState(false);
-  const messagesEndRef = useRef(null);
   const navigate = useNavigate();
+  const messagesContainerRef = useRef(null);
+  const messagesEndRef = useRef(null);
 
   const location = useLocation();
   const searchScrollRef = useRef(null);
@@ -46,18 +47,35 @@ const NextStreamBot = () => {
     setAlert({ message, type, visible: true });
   };
 
+  useEffect(() => {
+    const checkOverflow = () => {
+      if (messagesContainerRef.current) {
+        const { scrollHeight, clientHeight } = messagesContainerRef.current;
+        const isOverflow = scrollHeight > clientHeight;
+        console.log('Checking overflow:', scrollHeight, clientHeight, isOverflow);
+      }
+    };
+  
+    const handleNewMessages = () => {
+      if (messagesContainerRef.current) {
+        messagesContainerRef.current.scrollTo({
+          top: messagesContainerRef.current.scrollHeight,
+          behavior: 'smooth',
+        });
+      }
+      checkOverflow();
+    };
+    
+  
+    handleNewMessages();
+  }, [messages]);  
+  
   const handleClearChat = () => {
     setMessages([]);
     setResults([]);
     setSearchQuery('');
     setIsTyping(false);
   };
-
-  useEffect(() => {
-    if (messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
-  }, [messages]);
 
   const checkForOverflow = (scrollRef, setShowLeft, setShowRight) => {
     if (!scrollRef || !scrollRef.current) {
@@ -174,11 +192,11 @@ const NextStreamBot = () => {
             poster_path: item.poster_path,
             media_type: item.media_type,
             vote_average: item.vote_average,
-            trailerUrl: item.trailerUrl,  // Trailer URL from chatbot response
-            credits: item.credits,  // Credits from chatbot response
+            trailerUrl: item.trailerUrl,  
+            credits: item.credits, 
           }));
   
-          setResults(mediaResults);  // Display the results
+          setResults(mediaResults);  
         } else {
           // No results found case
           setResults([]);
@@ -242,7 +260,7 @@ const NextStreamBot = () => {
         // Send the search query to the chatbot API
         const response = await api.post('/api/chatbot', {
           userInput: searchQuery,
-          userId,  // Send the userId for personalized responses if needed
+          userId,  
         });
   
         // Extract chatbot's message and recommended media
@@ -263,15 +281,15 @@ const NextStreamBot = () => {
           const mediaResults = recommendedMedia.map((item) => ({
             id: item.id,
             title: item.title || item.name,
-            actor: item.actor || '', // Add actor if available
+            actor: item.actor || '',
             poster_path: item.poster_path,
             media_type: item.media_type,
             vote_average: item.vote_average,
-            trailerUrl: item.trailerUrl,    // Trailer URL from chatbot response
-            credits: item.credits,          // Credits from chatbot response
+            trailerUrl: item.trailerUrl,    
+            credits: item.credits,     
           }));
-          setResults(mediaResults);  // Set results for rendering
-          setIsLoading(false);  // Stop the loader
+          setResults(mediaResults); 
+          setIsLoading(false);  
         } else if (!chatbotMessage || chatbotMessage.trim() === '') {
           setResults([]);
           setMessages((prevMessages) => [
@@ -291,10 +309,10 @@ const NextStreamBot = () => {
           },
         ]);
       } finally {
-        setIsLoading(false);  // Stop the loader
+        setIsLoading(false); 
         setIsTyping(false);
         setIsBotTyping(false);
-        setSearchQuery('');  // Clear the input field
+        setSearchQuery(''); 
       }
     }
   };
@@ -421,163 +439,164 @@ const NextStreamBot = () => {
     }
   };
 
-  return (
-    <div className='nextstream-bot'>
-      {isLoading && (
-        <div className='nextstream-bot__loader-overlay'>
-          <Loader />
-        </div>
-      )}
-
-      {alert.visible && (
-        <div className='nextstream-bot__alert-wrapper'>
-          <CustomAlerts
-            message={alert.message}
-            type={alert.type}
-            onClose={() => setAlert({ ...alert, visible: false })}
-          />
-        </div>
-      )}
-
-      <div className='nextstream-bot__title'>
-        <h1 className='nextstream-bot__header-text'>
-          Mizu:
-          <br /> Your Personal Entertainment Assistant
-        </h1>
-        <p className='nextstream-bot__copy'>
-          <span className='nextstream-bot__gradient-subtitle'>Mizu</span>{' '}
-          combines AI-powered search with real-time streaming data, helping you
-          find the perfect movies and shows based on your preferences. Ask
-          questions, get tailored recommendations, and discover trending content
-          all in one place!
-        </p>
+return (
+  <div className='nextstream-bot'>
+    {isLoading && (
+      <div className='nextstream-bot__loader-overlay'>
+        <Loader />
       </div>
+    )}
 
-      <button
-        className='nextstream-bot__gpt-button'
-        onClick={() => navigate(`/nextsearch/${userId}`)}>
-        <FontAwesomeIcon icon={faSearch} className='nextstream-bot__gpt-icon' />
-        <span>Classic Search</span>
-      </button>
+    {alert.visible && (
+      <div className='nextstream-bot__alert-wrapper'>
+        <CustomAlerts
+          message={alert.message}
+          type={alert.type}
+          onClose={() => setAlert({ ...alert, visible: false })}
+        />
+      </div>
+    )}
 
-      <div className='nextstream-bot__chat-block'>
-        <div className='nextstream-bot__chat-container'>
-          <div className='nextstream-bot__messages'>
-            {/* Show empty chat state */}
-            {messages.length === 0 && (
-              <div className='nextstream-bot__empty-chat'>
-                <img
-                  src={ChatbotSvg}
-                  alt='Chatbot'
-                  className='nextstream-bot__chatbot-svg'
-                />
-                <p className='nextstream-bot__empty-message'>
-                  Say hello to Mizu (a.k.a. NextStream's cool bot) to discover your next favourite stream.
-                </p>
-              </div>
-            )}
+    <div className='nextstream-bot__title'>
+      <h1 className='nextstream-bot__header-text'>
+        Mizu:
+        <br /> Your Personal Entertainment Assistant
+      </h1>
+      <p className='nextstream-bot__copy'>
+        <span className='nextstream-bot__gradient-subtitle'>Mizu</span>{' '}
+        combines AI-powered search with real-time streaming data, helping you
+        find the perfect movies and shows based on your preferences. Ask
+        questions, get tailored recommendations, and discover trending content
+        all in one place!
+      </p>
+    </div>
 
-            {/* Loop through messages */}
-            {messages.map((message, index) => (
-              <div
-                key={index}
-                className={`nextstream-bot__message nextstream-bot__message--${message.sender}`}>
-                
-                {/* Bot message */}
-                {message.sender === 'bot' && (
-                  <div className='nextstream-bot__bot-message-wrapper'> 
-                    <div className='nextstream-bot__bot-message'>
-                      <FontAwesomeIcon
-                        icon={faRobot}
-                        className='nextstream-bot__gpt-icon-inline'
-                      />
-                      <p>{message.text}</p>
-                    </div>
+    <button
+      className='nextstream-bot__gpt-button'
+      onClick={() => navigate(`/nextsearch/${userId}`)}>
+      <FontAwesomeIcon icon={faSearch} className='nextstream-bot__gpt-icon' />
+      <span>Classic Search</span>
+    </button>
 
-                    {/* Typing indicator under the bot message */}
-                    {isBotTyping && (
-                      <div className='nextstream-bot__bot-typing-indicator'>
-                        <span className='nextstream-bot__bot-typing-indicator-bubble'></span>
-                        <span className='nextstream-bot__bot-typing-indicator-bubble'></span>
-                        <span className='nextstream-bot__bot-typing-indicator-bubble'></span>
-                      </div>
-                    )}
-                  </div>
-                )}
+    <div className='nextstream-bot__chat-block'>
+      <div className='nextstream-bot__chat-container'>
+        <div className='nextstream-bot__messages' ref={messagesContainerRef}>
+          {/* Show empty chat state */}
+          {messages.length === 0 && (
+            <div className='nextstream-bot__empty-chat'>
+              <img
+                src={ChatbotSvg}
+                alt='Chatbot'
+                className='nextstream-bot__chatbot-svg'
+              />
+              <p className='nextstream-bot__empty-message'>
+                Say hello to Mizu (a.k.a. NextStream's cool bot) to discover your next favourite stream.
+              </p>
+            </div>
+          )}
 
-                {/* User message */}
-                {message.sender === 'user' && (
-                  <div className={`nextstream-bot__user-message ${isTyping && !isBotTyping ? 'typing' : ''}`}>
-                    <p>{message.text}</p>
+          {/* Loop through messages */}
+          {messages.map((message, index) => (
+            <div
+              key={index}
+              className={`nextstream-bot__message nextstream-bot__message--${message.sender}`}>
+              
+              {/* Bot message */}
+              {message.sender === 'bot' && (
+                <div className='nextstream-bot__bot-message-wrapper'> 
+                  <div className='nextstream-bot__bot-message'>
                     <FontAwesomeIcon
-                      icon={faUser}
-                      className={`nextstream-bot__user-icon-inline ${isTyping && !isBotTyping ? 'typing-icon' : ''}`}
+                      icon={faRobot}
+                      className='nextstream-bot__gpt-icon-inline'
                     />
+                    <p>{message.text}</p>
                   </div>
-                )}
-              </div>
-            ))}
-          </div>
 
-          {/* Input section */}
-          <div className='nextstream-bot__input-wrapper'>
+                  {/* Typing indicator under the bot message */}
+                  {isBotTyping && (
+                    <div className='nextstream-bot__bot-typing-indicator'>
+                      <span className='nextstream-bot__bot-typing-indicator-bubble'></span>
+                      <span className='nextstream-bot__bot-typing-indicator-bubble'></span>
+                      <span className='nextstream-bot__bot-typing-indicator-bubble'></span>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* User message */}
+              {message.sender === 'user' && (
+                <div className={`nextstream-bot__user-message ${isTyping && !isBotTyping ? 'typing' : ''}`}>
+                  <p>{message.text}</p>
+                  <FontAwesomeIcon
+                    icon={faUser}
+                    className={`nextstream-bot__user-icon-inline ${isTyping && !isBotTyping ? 'typing-icon' : ''}`}
+                  />
+                </div>
+              )}
+            </div>
+          ))}
+           <div ref={messagesEndRef} />
+        </div>
+
+        {/* Input section */}
+        <div className='nextstream-bot__input-wrapper'>
+          <FontAwesomeIcon
+            icon={faComment}
+            className='nextstream-bot__speech-icon'
+          />
+          <input
+            type='text'
+            value={searchQuery}
+            onChange={(e) => {
+              setSearchQuery(e.target.value);
+              setIsTyping(!!e.target.value.trim());
+            }}
+            onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
+            placeholder='Chat with Mizu...'
+            className='nextstream-bot__input'
+          />
+          {isTyping && !isBotTyping && (
+            <div className='nextstream-bot__typing-indicator'>
+              <span className='nextstream-bot__typing-indicator-bubble'></span>
+              <span className='nextstream-bot__typing-indicator-bubble'></span>
+              <span className='nextstream-bot__typing-indicator-bubble'></span>
+            </div>
+          )}
+          <button
+            className='nextstream-bot__send-button'
+            onClick={handleSendMessage}
+            disabled={!searchQuery.trim()}>
             <FontAwesomeIcon
-              icon={faComment}
-              className='nextstream-bot__speech-icon'
+              icon={faPaperPlane}
+              className='nextstream-bot__gpt-plane-icon'
             />
-            <input
-              type='text'
-              value={searchQuery}
-              onChange={(e) => {
-                setSearchQuery(e.target.value);
-                setIsTyping(!!e.target.value.trim());
+          </button>
+          {searchQuery && (
+            <FontAwesomeIcon
+              icon={faTimes}
+              className='nextstream-bot__clear-input'
+              onClick={() => {
+                setSearchQuery('');
+                setIsTyping(false);
               }}
-              onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
-              placeholder='Chat with Mizu...'
-              className='nextstream-bot__input'
             />
-            {isTyping && !isBotTyping && (
-              <div className='nextstream-bot__typing-indicator'>
-                <span className='nextstream-bot__typing-indicator-bubble'></span>
-                <span className='nextstream-bot__typing-indicator-bubble'></span>
-                <span className='nextstream-bot__typing-indicator-bubble'></span>
-              </div>
-            )}
-            <button
-              className='nextstream-bot__send-button'
-              onClick={handleSendMessage}
-              disabled={!searchQuery.trim()}>
-              <FontAwesomeIcon
-                icon={faPaperPlane}
-                className='nextstream-bot__gpt-plane-icon'
-              />
-            </button>
-            {searchQuery && (
-              <FontAwesomeIcon
-                icon={faTimes}
-                className='nextstream-bot__clear-input'
-                onClick={() => {
-                  setSearchQuery('');
-                  setIsTyping(false);
-                }}
-              />
-            )}
-          </div>
-
-          {/* Clear chat button */}
-          {messages.length > 0 && (
-            <button
-              className='nextstream-bot__clear-chat-button'
-              onClick={handleClearChat}>
-              <FontAwesomeIcon
-                icon={faBroom}
-                className='nextstream-bot__clear-chat-icon'
-              />
-              <p className='nextstream-bot__clear-chat-text'>Clear Chat</p>
-            </button>
           )}
         </div>
+
+        {/* Clear chat button */}
+        {messages.length > 0 && (
+          <button
+            className='nextstream-bot__clear-chat-button'
+            onClick={handleClearChat}>
+            <FontAwesomeIcon
+              icon={faBroom}
+              className='nextstream-bot__clear-chat-icon'
+            />
+            <p className='nextstream-bot__clear-chat-text'>Clear Chat</p>
+          </button>
+        )}
       </div>
+    </div>
 
       {results.length > 0 && (
         <div className='nextstream-bot__results-section'>
