@@ -141,7 +141,6 @@ async function searchMediaByTitle(query, type) {
     const response = await axios.get(url);
     console.log(`TMDB response for ${query}:`, response.data);
 
-    // If no results are found, return a user-friendly message
     if (response.data.results.length === 0) {
       console.log(`No results found for ${query}`);
       return [{ message: `No ${mediaType} found matching "${query}".` }];
@@ -155,11 +154,11 @@ async function searchMediaByTitle(query, type) {
         return {
           id: item.id,
           title: item.title || item.name,
-          poster_path: item.poster_path || 'default-poster.jpg',
+          poster_path: item.poster_path,
           media_type: mediaType,
           vote_average: item.vote_average !== undefined ? item.vote_average : 0,
           trailerUrl,
-          credits, // Include the credits in the result
+          credits, 
         };
       })
     );
@@ -188,8 +187,8 @@ async function searchPersonByName(query) {
       name: person.name,
       media_type: 'person',
       profile_path: person.profile_path 
-          ? `https://image.tmdb.org/t/p/w500${person.profile_path}` 
-          : 'default-profile.jpg',  // Fallback image for missing profile
+          ? `https://image.tmdb.org/t/p/w500${person.profile_path}`
+          : null,
       known_for: person.known_for.map((media) => ({
           id: media.id,
           title: media.title || media.name,
@@ -250,7 +249,7 @@ async function getMediaCredits(media_id, media_type) {
   try {
     const url = `${TMDB_BASE_URL}/${media_type}/${media_id}/credits?api_key=${TMDB_API_KEY}`;
     const response = await axios.get(url);
-    return response.data.cast.slice(0, 10); // Return top 10 cast members
+    return response.data.cast.slice(0, 10); 
   } catch (error) {
     console.error(`Error fetching credits for ${media_type} ${media_id}:`, error.message);
     return [];
@@ -283,11 +282,11 @@ async function getMediaByGenre(type, genreId) {
         return {
           id: item.id,
           title: item.title || item.name,
-          poster_path: item.poster_path || 'default-poster.jpg',
+          poster_path: item.poster_path,
           media_type: mediaType,
           vote_average: item.vote_average !== undefined ? item.vote_average : 0,
           trailerUrl,
-          credits, // Include the credits in the result
+          credits,
         };
       })
     );
