@@ -176,6 +176,8 @@ const NextStreamBot = () => {
         const chatbotMessage = response.data.message;
         const recommendedMedia = response.data.media || [];
   
+        console.log('API Results:', recommendedMedia);
+        
         // Add the bot's message to the chat
         setMessages((prevMessages) => [
           ...prevMessages,
@@ -187,13 +189,19 @@ const NextStreamBot = () => {
           const mediaResults = recommendedMedia.map((item) => ({
             id: item.id,
             title: item.title || item.name,
-            actor: item.actor || '',  
-            poster_path: item.poster_path,
             media_type: item.media_type,
-            vote_average: item.vote_average,
-            trailerUrl: item.trailerUrl,  
-            credits: item.credits, 
+            poster_path: item.media_type === 'person'
+              ? item.profile_path   // Use profile_path for people
+                ? `https://image.tmdb.org/t/p/w500${item.profile_path}`
+                : DefaultPoster      // Fallback if no profile path
+              : item.poster_path      // Use poster_path for movies and shows
+                ? `https://image.tmdb.org/t/p/w500${item.poster_path}`
+                : DefaultPoster,     // Fallback if no poster path
+            vote_average: item.vote_average || null, // Ratings for movies/TV shows
+            trailerUrl: item.trailerUrl,
+            credits: item.credits,
           }));
+  
   
           setResults(mediaResults);  
         } else {
@@ -274,13 +282,20 @@ const NextStreamBot = () => {
           const mediaResults = recommendedMedia.map((item) => ({
             id: item.id,
             title: item.title || item.name,
-            actor: item.actor || '',
-            poster_path: item.poster_path,
+            person: item.person || '',  // Changed from actor to person
+            poster_path: item.media_type === 'person'
+              ? item.profile_path
+                ? `https://image.tmdb.org/t/p/w500${item.profile_path}`
+                : DefaultPoster
+              : item.poster_path
+                ? `https://image.tmdb.org/t/p/w500${item.poster_path}`
+                : DefaultPoster,  // Handle profile for person or poster for movie/tv
             media_type: item.media_type,
             vote_average: item.vote_average,
             trailerUrl: item.trailerUrl,    
             credits: item.credits,     
           }));
+          
           setResults(mediaResults); 
           setIsLoading(false);  
         } else if (!chatbotMessage || chatbotMessage.trim() === '') {
@@ -309,6 +324,7 @@ const NextStreamBot = () => {
       }
     }
   };
+  
 
   useEffect(() => {
     if (query && isAuthenticated) {
@@ -604,28 +620,29 @@ return (
             <div
               className='nextstream-bot__scroll-container-results'
               ref={searchScrollRef}>
-              {results.map((result) => (
-                <div
-                  key={result.id}
-                  className='nextstream-bot__card nextstream-bot__card--results'>
-                  <h3 className='nextstream-bot__title--results'>
-                    {result.title || result.name ? result.title || result.name : 'Title Unavailable'}
-                  </h3>
-                  
-                  <div className='nextstream-bot__poster-container-results'>
-                    <img
-                      src={
-                        result.media_type === 'person'
-                          ? result.profile_path
-                            ? `https://image.tmdb.org/t/p/w500${result.profile_path}`
-                            : DefaultPoster
-                          : result.poster_path
-                          ? `https://image.tmdb.org/t/p/w500${result.poster_path}`
-                          : DefaultPoster
-                      }
-                      alt={result.title || result.name}
-                      className='nextstream-bot__poster nextstream-bot__poster--results'
-                    />
+{results
+  .filter(result => result.title || result.name)  // Filter out items without title or name
+  .map((result) => (
+    <div key={result.id} className='nextstream-bot__card nextstream-bot__card--results'>
+      <h3 className='nextstream-bot__title--results'>
+        {result.title || result.name}
+      </h3>
+
+      <div className='nextstream-bot__poster-container-results'>
+        {/* Check if media_type is person to show profile path, otherwise show poster path */}
+        <img
+          src={
+            result.media_type === 'person'
+              ? result.profile_path // Display the profile image for a person
+                ? `https://image.tmdb.org/t/p/w500${result.profile_path}`
+                : DefaultPoster // Fallback if no profile path is available
+              : result.poster_path // For TV shows and movies
+                ? `https://image.tmdb.org/t/p/w500${result.poster_path}`
+                : DefaultPoster
+          }
+          alt={result.title || result.name}
+          className='nextstream-bot__poster nextstream-bot__poster--results'
+        />
 
                     {result.media_type !== 'person' && (
                       <div className='nextstream-bot__rating-container'>
@@ -648,39 +665,30 @@ return (
                   </div>
 
                   <div className='nextstream-bot__icons-row'>
-                    {result.media_type === 'person' ? (
-                      <>
-                        <Link to={`/spotlight/${userId}/${result.id}`}>
-                          <FontAwesomeIcon
-                            icon={faUser}
-                            className='nextstream-bot__media-icon'
-                            title='Person Spotlight'
-                          />
-                        </Link>
-                        <FontAwesomeIcon
-                          icon={faShareAlt}
-                          className='nextstream-bot__share-icon'
-                          onClick={() =>
-                            handleShare(
-                              result.name,
-                              result.id,
-                              result.media_type
-                            )
-                          }
-                        />
-                      </>
-                    ) : (
-                      <>
-                        <Link
-                          to={`/nextview/${userId}/${result.media_type}/${result.id}`}>
-                          <FontAwesomeIcon
-                            icon={result.media_type === 'tv' ? faTv : faFilm}
-                            className='nextstream-bot__media-icon'
-                            title={
-                              result.media_type === 'tv' ? 'TV Show' : 'Movie'
-                            }
-                          />
-                        </Link>
+                  {result.media_type === 'person' ? (
+        <>
+          <Link to={`/spotlight/${userId}/${result.id}`}>
+            <FontAwesomeIcon
+              icon={faUser}
+              className='nextstream-bot__media-icon'
+              title='Person Spotlight'
+            />
+          </Link>
+          <FontAwesomeIcon
+            icon={faShareAlt}
+            className='nextstream-bot__share-icon'
+            onClick={() => handleShare(result.name, result.id, result.media_type)}
+          />
+        </>
+      ) : (
+        <>
+          <Link to={`/nextview/${userId}/${result.media_type}/${result.id}`}>
+            <FontAwesomeIcon
+              icon={result.media_type === 'tv' ? faTv : faFilm}
+              className='nextstream-bot__media-icon'
+              title={result.media_type === 'tv' ? 'TV Show' : 'Movie'}
+            />
+          </Link>
 
                         <FontAwesomeIcon
                           icon={faCalendarPlus}
