@@ -53,6 +53,20 @@ const genreMap = {
   'recommend_western_tv': { type: 'tv', genreId: 37 },
 };
 
+const categoryMap = {
+  // Movies
+  'now_playing_movies': { type: 'movie', url: '/movie/now_playing' },
+  'popular_movies': { type: 'movie', url: '/movie/popular' },
+  'top_rated_movies': { type: 'movie', url: '/movie/top_rated' },
+  'upcoming_movies': { type: 'movie', url: '/movie/upcoming' },
+
+  // TV Shows
+  'airing_today_tv': { type: 'tv', url: '/tv/airing_today' },
+  'on_the_air_tv': { type: 'tv', url: '/tv/on_the_air' },
+  'popular_tv': { type: 'tv', url: '/tv/popular' },
+  'top_rated_tv': { type: 'tv', url: '/tv/top_rated' },
+};
+
 // Function to remove duplicates based on ID and media_type
 function removeDuplicates(mediaArray) {
   const uniqueResults = [];
@@ -126,13 +140,41 @@ router.post('/', async (req, res) => {
     else if (intent in genreMap) {
       const { type, genreId } = genreMap[intent];
       const media = await getMediaByGenre(type, genreId);
-
+      
       return res.json({
         message: nlpResult.answer,
         media,
       });
-    } else {
-      // General conversation or unhandled intent
+    }
+
+    // Handle category-based movie or TV requests (added here)
+    else if (intent in categoryMap) {
+      const { type, url } = categoryMap[intent];
+      const apiUrl = `${TMDB_BASE_URL}${url}?api_key=${TMDB_API_KEY}`;
+
+      const categoryResponse = await axios.get(apiUrl);
+      console.log(`TMDB ${intent} response:`, categoryResponse.data);
+
+      if (categoryResponse.data.results.length > 0) {
+        const mediaResults = categoryResponse.data.results.map((item) => ({
+          id: item.id,
+          title: item.title || item.name,
+          media_type: type,
+          poster_path: item.poster_path,
+          vote_average: item.vote_average,
+        }));
+
+        return res.json({
+          message: nlpResult.answer || `Here are the ${intent.replace('_', ' ')}:`,
+          media: mediaResults,
+        });
+      } else {
+        return res.json({ message: `No results found for ${intent.replace('_', ' ')}.` });
+      }
+    }
+
+    // General fallback if no intent or unhandled intent is found
+    else {
       return res.json({
         message: nlpResult.answer,
       });
