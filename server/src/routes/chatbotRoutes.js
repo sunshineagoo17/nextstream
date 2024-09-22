@@ -894,6 +894,685 @@ router.post('/', async (req, res) => {
       });
     }
 
+    // Handle Quotes Apollo 13 movie intent
+    else if (intent === 'quotes_apollo13') {
+      const quotesApollo13Movies = [
+        'Apollo 13',
+        'Gravity',
+        'The Martian',
+        'First Man',
+        'Interstellar',
+        'Hidden Figures',
+        'The Right Stuff',
+        'Armageddon',
+        'Ad Astra',
+      ];
+
+      const results = await Promise.all(
+        quotesApollo13Movies.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/movie`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const movie = response.data.results[0];
+
+            const trailerUrl = await getMediaTrailer(movie.id, 'movie');
+            const credits = await getMediaCredits(movie.id, 'movie');
+
+            return {
+              id: movie.id,
+              title: movie.title,
+              media_type: 'movie',
+              poster_path: movie.poster_path,
+              vote_average:
+                movie.vote_average !== undefined ? movie.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Handle Quotes Bridesmaids movie intent
+    else if (intent === 'quotes_bridesmaids') {
+      const quotesBridesmaidsMovies = [
+        'Bridesmaids',
+        'The Hangover',
+        'Mean Girls',
+        'The Heat',
+        'Pitch Perfect',
+        'Trainwreck',
+        'Superbad',
+        'Girls Trip',
+        '27 Dresses',
+        'Bad Moms',
+      ];
+
+      const results = await Promise.all(
+        quotesBridesmaidsMovies.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/movie`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const movie = response.data.results[0];
+
+            const trailerUrl = await getMediaTrailer(movie.id, 'movie');
+            const credits = await getMediaCredits(movie.id, 'movie');
+
+            return {
+              id: movie.id,
+              title: movie.title,
+              media_type: 'movie',
+              poster_path: movie.poster_path,
+              vote_average:
+                movie.vote_average !== undefined ? movie.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Handle Quotes Casablanca movie intent
+    else if (intent === 'quotes_casablanca') {
+      const quotesCasablancaMovies = [
+        'Casablanca',
+        'The Shawshank Redemption',
+        'Stand by Me',
+        'The Intouchables',
+        'Thelma & Louise',
+        'Dead Poets Society',
+        'Butch Cassidy and the Sundance Kid',
+        'A River Runs Through It',
+        'Good Will Hunting',
+        'Fried Green Tomatoes',
+      ];
+
+      const results = await Promise.all(
+        quotesCasablancaMovies.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/movie`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const movie = response.data.results[0];
+
+            const trailerUrl = await getMediaTrailer(movie.id, 'movie');
+            const credits = await getMediaCredits(movie.id, 'movie');
+
+            return {
+              id: movie.id,
+              title: movie.title,
+              media_type: 'movie',
+              poster_path: movie.poster_path,
+              vote_average:
+                movie.vote_average !== undefined ? movie.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Handle Quotes Devil Wears Prada movie intent
+    else if (intent === 'quotes_devil_wears_prada') {
+      const quotesDevilWearsPradaMovies = [
+        'The Devil Wears Prada',
+        'Confessions of a Shopaholic',
+        'Julie & Julia',
+        'Legally Blonde',
+        'Coco Before Chanel',
+        'Morning Glory',
+        'Working Girl',
+        'The Intern',
+      ];
+
+      const results = await Promise.all(
+        quotesDevilWearsPradaMovies.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/movie`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const movie = response.data.results[0];
+
+            const trailerUrl = await getMediaTrailer(movie.id, 'movie');
+            const credits = await getMediaCredits(movie.id, 'movie');
+
+            return {
+              id: movie.id,
+              title: movie.title,
+              media_type: 'movie',
+              poster_path: movie.poster_path,
+              vote_average:
+                movie.vote_average !== undefined ? movie.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Handle Quotes Dirty Dancing movie intent
+    else if (intent === 'quotes_dirty_dancing') {
+      const quotesDirtyDancingMovies = [
+        'Dirty Dancing',
+        'Footloose',
+        'Grease',
+        'Saturday Night Fever',
+        'Flashdance',
+        'Fame',
+        'Step Up',
+        'Save the Last Dance',
+        'Shall We Dance',
+        'Center Stage',
+      ];
+
+      const results = await Promise.all(
+        quotesDirtyDancingMovies.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/movie`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const movie = response.data.results[0];
+
+            const trailerUrl = await getMediaTrailer(movie.id, 'movie');
+            const credits = await getMediaCredits(movie.id, 'movie');
+
+            return {
+              id: movie.id,
+              title: movie.title,
+              media_type: 'movie',
+              poster_path: movie.poster_path,
+              vote_average:
+                movie.vote_average !== undefined ? movie.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Handle Quotes Doctor Who intent
+    else if (intent === 'quotes_doctor_who') {
+      const quotesDoctorWhoMovies = [
+        'Doctor Who',
+        'Torchwood',
+        'The Sarah Jane Adventures',
+        'The Time Machine',
+        'Star Trek',
+        "The Hitchhiker's Guide to the Galaxy",
+        'The Twilight Zone',
+        'Black Mirror',
+        'The Expanse',
+        'Rick and Morty',
+      ];
+
+      const results = await Promise.all(
+        quotesDoctorWhoMovies.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/tv`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const show = response.data.results[0];
+
+            const trailerUrl = await getMediaTrailer(show.id, 'tv');
+            const credits = await getMediaCredits(show.id, 'tv');
+
+            return {
+              id: show.id,
+              title: show.title || show.name,
+              media_type: 'tv',
+              poster_path: show.poster_path,
+              vote_average:
+                show.vote_average !== undefined ? show.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Handle Quotes Gone with the Wind movie intent
+    else if (intent === 'quotes_gone_with_the_wind') {
+      const quotesGoneWithTheWindMovies = [
+        'Gone with the Wind',
+        'Doctor Zhivago',
+        'Out of Africa',
+        'The Age of Innocence',
+        'Atonement',
+        'The English Patient',
+        'Cold Mountain',
+        'The Painted Veil',
+        'The Other Boleyn Girl',
+        'Anna Karenina',
+      ];
+
+      const results = await Promise.all(
+        quotesGoneWithTheWindMovies.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/movie`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const movie = response.data.results[0];
+
+            const trailerUrl = await getMediaTrailer(movie.id, 'movie');
+            const credits = await getMediaCredits(movie.id, 'movie');
+
+            return {
+              id: movie.id,
+              title: movie.title,
+              media_type: 'movie',
+              poster_path: movie.poster_path,
+              vote_average:
+                movie.vote_average !== undefined ? movie.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Handle Quotes Harry Potter Spells intent
+    else if (intent === 'quotes_harry_potter') {
+      const quotesHarryPotterMovies = [
+        "Harry Potter and the Philosopher's Stone",
+        'Harry Potter and the Chamber of Secrets',
+        'Harry Potter and the Prisoner of Azkaban',
+        'Fantastic Beasts and Where to Find Them',
+        'The Chronicles of Narnia',
+        'Percy Jackson & the Olympians',
+        "The Sorcerer's Apprentice",
+        'The Golden Compass',
+        'Doctor Strange',
+        'The Lord of the Rings: The Fellowship of the Ring',
+      ];
+
+      const results = await Promise.all(
+        quotesHarryPotterMovies.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/movie`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const movie = response.data.results[0];
+
+            const trailerUrl = await getMediaTrailer(movie.id, 'movie');
+            const credits = await getMediaCredits(movie.id, 'movie');
+
+            return {
+              id: movie.id,
+              title: movie.title || movie.name,
+              media_type: 'movie',
+              poster_path: movie.poster_path,
+              vote_average:
+                movie.vote_average !== undefined ? movie.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Handle Quotes Jaws movie intent
+    else if (intent === 'quotes_jaws') {
+      const quotesJawsMovies = [
+        'Jaws',
+        'The Meg',
+        'Deep Blue Sea',
+        'The Shallows',
+        '47 Meters Down',
+        'Open Water',
+        'Anaconda',
+        'Sharknado',
+        'Lake Placid',
+        'The Reef',
+      ];
+
+      const results = await Promise.all(
+        quotesJawsMovies.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/movie`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const movie = response.data.results[0];
+
+            const trailerUrl = await getMediaTrailer(movie.id, 'movie');
+            const credits = await getMediaCredits(movie.id, 'movie');
+
+            return {
+              id: movie.id,
+              title: movie.title,
+              media_type: 'movie',
+              poster_path: movie.poster_path,
+              vote_average:
+                movie.vote_average !== undefined ? movie.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Handle Jerry Maguire movie intent
+    else if (intent === 'quotes_jerry_maguire') {
+      const quotesJerryMaguireMovies = [
+        'Jerry Maguire',
+        'The Pursuit of Happyness',
+        'Moneyball',
+        'For Love of the Game',
+        'Up in the Air',
+        'Crazy, Stupid, Love',
+      ];
+
+      const results = await Promise.all(
+        quotesJerryMaguireMovies.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/movie`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const movie = response.data.results[0];
+
+            const trailerUrl = await getMediaTrailer(movie.id, 'movie');
+            const credits = await getMediaCredits(movie.id, 'movie');
+
+            return {
+              id: movie.id,
+              title: movie.title,
+              media_type: 'movie',
+              poster_path: movie.poster_path,
+              vote_average:
+                movie.vote_average !== undefined ? movie.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Handle Quotes Mandalorian movie intent
+    else if (intent === 'quotes_mandalorian') {
+      const quotesMandalorianMovies = [
+        'The Mandalorian',
+        'Star Wars: The Clone Wars',
+        'The Book of Boba Fett',
+        'The Bad Batch',
+        'Obi-Wan Kenobi',
+        'Andor',
+        'Rogue One: A Star Wars Story',
+        'The Expanse',
+        'Firefly',
+        'The Witcher',
+      ];
+
+      const results = await Promise.all(
+        quotesMandalorianMovies.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/tv`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const tvShow = response.data.results[0];
+
+            const trailerUrl = await getMediaTrailer(tvShow.id, 'tv');
+            const credits = await getMediaCredits(tvShow.id, 'tv');
+
+            return {
+              id: tvShow.id,
+              title: tvShow.title || tvShow.name,
+              media_type: 'tv',
+              poster_path: tvShow.poster_path,
+              vote_average:
+                tvShow.vote_average !== undefined ? tvShow.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Handle Quotes Notting Hill movie intent
+    else if (intent === 'quotes_notting_hill') {
+      const quotesNottingHillMovies = [
+        'Notting Hill',
+        'Love Actually',
+        'Four Weddings and a Funeral',
+        'The Holiday',
+        "Bridget Jones's Diary",
+        'About Time',
+        "You've Got Mail",
+        'Sleepless in Seattle',
+        '500 Days of Summer',
+        "My Best Friend's Wedding",
+      ];
+
+      const results = await Promise.all(
+        quotesNottingHillMovies.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/movie`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const movie = response.data.results[0];
+
+            const trailerUrl = await getMediaTrailer(movie.id, 'movie');
+            const credits = await getMediaCredits(movie.id, 'movie');
+
+            return {
+              id: movie.id,
+              title: movie.title,
+              media_type: 'movie',
+              poster_path: movie.poster_path,
+              vote_average:
+                movie.vote_average !== undefined ? movie.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Handle Quotes Rocky movie intent
+    else if (intent === 'quotes_rocky') {
+      const quotesRockyMovies = [
+        'Rocky',
+        'Rocky Balboa',
+        'Rocky II',
+        'Rocky III',
+        'Rocky IV',
+        'Rocky V',
+        'Rocky VI',
+      ];
+
+      const results = await Promise.all(
+        quotesRockyMovies.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/movie`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const movie = response.data.results[0];
+
+            const trailerUrl = await getMediaTrailer(movie.id, 'movie');
+            const credits = await getMediaCredits(movie.id, 'movie');
+
+            return {
+              id: movie.id,
+              title: movie.title,
+              media_type: 'movie',
+              poster_path: movie.poster_path,
+              vote_average:
+                movie.vote_average !== undefined ? movie.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
     // Handle the unified search intent for movies, TV shows, and persons
     else if (intent === 'search_movie_or_tv_or_person') {
       if (title && title.length > 0) {
@@ -1028,7 +1707,9 @@ async function searchMediaByTitle(query, type) {
 
 // Function to search for a person by name
 async function searchPersonByName(query) {
-  const url = `${TMDB_BASE_URL}/search/person?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(query)}`;
+  const url = `${TMDB_BASE_URL}/search/person?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(
+    query
+  )}`;
 
   try {
     const response = await axios.get(url);
@@ -1048,7 +1729,9 @@ async function searchPersonByName(query) {
         id: media.id,
         title: media.title || media.name,
         media_type: media.media_type,
-        poster_path: media.poster_path ? `https://image.tmdb.org/t/p/w500${media.poster_path}` : null,
+        poster_path: media.poster_path
+          ? `https://image.tmdb.org/t/p/w500${media.poster_path}`
+          : null,
         vote_average: media.vote_average !== undefined ? media.vote_average : 0,
       })),
     }));
