@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTv, faCouch, faFilm, faDesktopAlt, faMessage, faBriefcase, faGlobe, faSearch, faStar, faCalendarAlt, faSmile, faRobot, faHandPointer, faMapMarkerAlt, faBolt, faHeart, faBell, faCheckSquare } from '@fortawesome/free-solid-svg-icons'; 
+import { faTv, faCouch, faFilm, faDesktopAlt, faMicrochip, faBriefcase, faGlobe, faSearch, faStar, faCalendarAlt, faSmile, faRobot, faHandPointer, faMapMarkerAlt, faBolt, faHeart, faBell, faCheckSquare } from '@fortawesome/free-solid-svg-icons'; 
 import AnimatedBg from '../../components/AnimatedBg/AnimatedBg';
 import ContactModal from '../../components/ContactModal/ContactModal';
 import Loader from '../../components/Loader/Loader';
@@ -68,7 +68,7 @@ export const AboutPage = () => {
               <li className="about__list-item"><FontAwesomeIcon icon={faHeart} className='about__icon about__heart-icon' /> <strong>Tailored Recommendations</strong>: Personalized suggestions based on your viewing habits.</li>
               <li className="about__list-item"><FontAwesomeIcon icon={faBell} className='about__icon about__bell-icon' /> <strong>Watchlists & Reminders</strong>: Organize your watchlist and receive notifications for upcoming releases.</li>
               <li className="about__list-item"><FontAwesomeIcon icon={faDesktopAlt} className='about__icon about__computer-icon' /> <strong>Simple, Modern Interface</strong>: Navigate effortlessly with an intuitive design for a smooth experience.</li>
-              <li className="about__list-item"><FontAwesomeIcon icon={faMessage} className='about__icon about__message-icon' /> <strong>NextStream Bot</strong>: Your AI companion for discovering new content, Mizu, helps you find your next favourite show.</li>
+              <li className="about__list-item"><FontAwesomeIcon icon={faMicrochip} className='about__icon about__microchip-icon' /> <strong>NextStream Bot</strong>: Your AI companion for discovering new content, Mizu, helps you find your next favourite show.</li>
               <li className="about__list-item"><FontAwesomeIcon icon={faCheckSquare} className='about__icon about__check-icon' /> <strong>NextSwipe</strong>: Swipe through recommendations with ease and pick your favourites by swiping left or right.</li>
             </ul>
 

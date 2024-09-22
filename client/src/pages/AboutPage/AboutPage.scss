@@ -118,7 +118,6 @@
   }
 
   &__check-icon,
-  &__film-icon,
   &__hand-point-icon {
     &:hover {
       animation: moveSideToSide 1.5s ease-in-out infinite;
@@ -144,15 +143,16 @@
     }
   }
 
-  &__briefcase-icon,
+  &__film-icon,
   &__robot-icon,
-  &__message-icon {
+  &__microchip-icon {
     &:hover {
       animation: spinBounceScale 2s ease infinite;
       box-shadow: $shadow-senary;
     }
   }
 
+  &__briefcase-icon,
   &__smile-icon {
     &:hover {
       animation: tiltIcon 1.5s ease-in-out infinite;
