@@ -66,7 +66,6 @@ const NextStreamBot = () => {
       checkOverflow();
     };
     
-  
     handleNewMessages();
   }, [messages]);  
   
@@ -250,34 +249,28 @@ const NextStreamBot = () => {
       setIsTyping(true);
       setIsBotTyping(true);
       
-      // Add user's message to the chat
       setMessages((prevMessages) => [
         ...prevMessages,
         { sender: 'user', text: searchQuery },
       ]);
   
       try {
-        // Send the search query to the chatbot API
         const response = await api.post('/api/chatbot', {
           userInput: searchQuery,
           userId,  
         });
   
-        // Extract chatbot's message and recommended media
         const chatbotMessage = response.data.message;
         const recommendedMedia = response.data.media || [];
   
-        // Add a placeholder for the bot's message before typing
         setMessages((prevMessages) => [
           ...prevMessages,
           { sender: 'bot', text: '' },
         ]);
   
-        // Simulate typing effect for the chatbot's message
         await typeMessage(chatbotMessage, setMessages, setIsBotTyping);
   
         if (recommendedMedia.length > 0) {
-          // Process media results and display trailers, credits, etc.
           const mediaResults = recommendedMedia.map((item) => ({
             id: item.id,
             title: item.title || item.name,
