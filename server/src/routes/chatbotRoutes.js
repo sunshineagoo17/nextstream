@@ -1028,9 +1028,7 @@ async function searchMediaByTitle(query, type) {
 
 // Function to search for a person by name
 async function searchPersonByName(query) {
-  const url = `${TMDB_BASE_URL}/search/person?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(
-    query
-  )}`;
+  const url = `${TMDB_BASE_URL}/search/person?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(query)}`;
 
   try {
     const response = await axios.get(url);
@@ -1050,6 +1048,8 @@ async function searchPersonByName(query) {
         id: media.id,
         title: media.title || media.name,
         media_type: media.media_type,
+        poster_path: media.poster_path ? `https://image.tmdb.org/t/p/w500${media.poster_path}` : null,
+        vote_average: media.vote_average !== undefined ? media.vote_average : 0,
       })),
     }));
   } catch (error) {

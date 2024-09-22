@@ -268,68 +268,94 @@ const NextStreamBot = () => {
     if (searchQuery.trim()) {
       setIsTyping(true);
       setIsBotTyping(true);
-
+  
       setMessages((prevMessages) => [
         ...prevMessages,
         { sender: 'user', text: searchQuery },
       ]);
-
+  
       try {
         const response = await api.post('/api/chatbot', {
           userInput: searchQuery,
           userId, 
         });
-
+  
         const chatbotMessage = response.data.message;
         const recommendedMedia = response.data.media || []; 
-
+  
         let hasResponse = false;
-
+  
         setMessages((prevMessages) => [
           ...prevMessages,
           { sender: 'bot', text: '' },
         ]);
-
+  
         await typeMessage(chatbotMessage, setMessages, setIsBotTyping);
-
-        // If chatbot gives a valid message, mark it as a valid response
+  
         if (chatbotMessage && chatbotMessage.trim().length > 0) {
           hasResponse = true;
         }
-
-        // Handle TMDB media results
+  
         if (recommendedMedia.length > 0) {
-          const mediaResults = recommendedMedia.map((item) => {
+          const mediaResults = [];
+  
+          recommendedMedia.forEach((item) => {
             let mediaPath;
-
+  
             if (item.media_type === 'person') {
+              // Add the person to the results
               mediaPath = item.profile_path
                 ? `https://image.tmdb.org/t/p/w500${item.profile_path}`
                 : DefaultPoster;
-            } else if (item.media_type === 'movie' || item.media_type === 'tv') {
+  
+              mediaResults.push({
+                id: item.id,
+                title: item.name,
+                media_type: 'person',
+                poster_path: mediaPath,
+                vote_average: null, 
+                trailerUrl: null,
+                credits: item.credits,
+              });
+  
+              // Add all known_for media items to the results
+              if (item.known_for && item.known_for.length > 0) {
+                item.known_for.forEach((media) => {
+                  const mediaKnownPath = media.poster_path
+                    ? `https://image.tmdb.org/t/p/w500${media.poster_path}`
+                    : DefaultPoster;
+  
+                  mediaResults.push({
+                    id: media.id,
+                    title: media.title || media.name,
+                    media_type: media.media_type,
+                    poster_path: mediaKnownPath,
+                    vote_average: media.vote_average,
+                    trailerUrl: media.trailerUrl,
+                  });
+                });
+              }
+            } else {
+              // Handle normal media (movies and TV shows)
               mediaPath = item.poster_path
                 ? `https://image.tmdb.org/t/p/w500${item.poster_path}`
                 : DefaultPoster;
-            } else {
-              mediaPath = DefaultPoster;
+  
+              mediaResults.push({
+                id: item.id,
+                title: item.title || item.name,
+                media_type: item.media_type,
+                poster_path: mediaPath,
+                vote_average: item.vote_average,
+                trailerUrl: item.trailerUrl,
+              });
             }
-
-            return {
-              id: item.id,
-              title: item.title || item.name,
-              media_type: item.media_type,
-              poster_path: mediaPath,
-              vote_average: item.vote_average,
-              trailerUrl: item.trailerUrl,
-              credits: item.credits,
-            };
           });
-
+  
           setResults(mediaResults);
-          hasResponse = true;  
+          hasResponse = true;
         }
-
-        // If no chatbot message or media results, show the "no results" message
+  
         if (!hasResponse) {
           const apologiesMessages = [
             "I'm sorry, I didn't catch that. Could you please try again?",
@@ -338,9 +364,9 @@ const NextStreamBot = () => {
             "Hmm, that didn't come through clearly. Could you give it another go?",
             "Apologies, I couldn't understand. Mind rewording your request?",
           ];
-
+  
           const randomApology = apologiesMessages[Math.floor(Math.random() * apologiesMessages.length)];
-
+  
           setMessages((prevMessages) => [
             ...prevMessages,
             {
@@ -349,7 +375,7 @@ const NextStreamBot = () => {
             },
           ]);
         }
-
+  
       } catch (error) {
         const noResultsMessages = [
           "Sorry, I couldn't find any results. Try again!",
@@ -358,9 +384,9 @@ const NextStreamBot = () => {
           "Oops! I came up empty. Could you try asking in a different way?",
           "I couldn't fetch any results for that. Care to try again?",
         ];
-
+  
         const randomNoResults = noResultsMessages[Math.floor(Math.random() * noResultsMessages.length)];
-
+  
         setMessages((prevMessages) => [
           ...prevMessages,
           {
