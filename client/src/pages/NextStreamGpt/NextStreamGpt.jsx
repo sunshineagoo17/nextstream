@@ -13,6 +13,7 @@ import './NextStreamGpt.scss';
 import DefaultPoster from '../../assets/images/posternoimg-icon.png';
 import MizuLoader from '../../components/MizuLoader/MizuLoader';
 import ChatRobotAnimation from "../../assets/animation/chat-robot.webm";
+import HelloRobotAnimation from "../../assets/animation/hello-robot.webm";
 
 const NextStreamGpt = () => {
   const { userId, isAuthenticated } = useContext(AuthContext);
@@ -49,11 +50,9 @@ const NextStreamGpt = () => {
   const handleBotTyping = useCallback(async () => {
     setIsBotTyping(true);
     
-    // Simulate a delay to show the loader
     setTimeout(() => {
-      setShowLoader(false); // Hide the loader after a certain period
-    //   setIsBotTyping(false); // Simulate bot's response after loading
-    }, 2000); // Adjust the delay as needed
+      setShowLoader(false);
+       }, 2000);
   }, []);
 
   // Helper function to extract titles from the GPT response
@@ -75,7 +74,6 @@ const NextStreamGpt = () => {
       });
       const results = response.data.results;
 
-      // Prioritize movies, but fall back to TV shows and persons
       const movieOrTv = results.find(
         (result) => result.media_type === 'movie' || result.media_type === 'tv'
       );
@@ -84,7 +82,6 @@ const NextStreamGpt = () => {
         return movieOrTv;
       }
 
-      // If no movie or TV show found, return the first result
       return results[0] || null;
     } catch (error) {
       console.error(`Error fetching data for ${title}:`, error);
@@ -841,11 +838,11 @@ const NextStreamGpt = () => {
         </div>
       )}
       
-      {/* {showLoader && (
+      {showLoader && (
         <div className='nextstream-gpt__loading-container'>
           <video
             className='nextstream-gpt__chatbot-svg'
-            src={ChatRobotAnimation}
+            src={HelloRobotAnimation}
             alt='Chatbot'
             autoPlay
             loop
@@ -857,7 +854,7 @@ const NextStreamGpt = () => {
             Results are currently loading...
           </p>
         </div>
-      )} */}
+      )}
 
       {isModalOpen && (
         <div className='nextstream-gpt__modal'>

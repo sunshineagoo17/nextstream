@@ -47,8 +47,8 @@
   position: relative;
   background: linear-gradient(
     135deg,
-    rgba($primary-button-blue, .75),
-    rgba($primary-medium-blue, 1)
+    rgba($robot-tablet-screen, .75),
+    rgba($robot-blue, 1)
   );
   overflow: hidden;
 
@@ -125,43 +125,6 @@
     z-index: 1;
   }
 
-  &__typing-indicator {
-    position: absolute;
-    left: 70%; 
-    top: 20%; 
-    transform: translateY(-50%);
-    display: inline-block;
-    height: .5rem;
-    padding: 0.5rem;
-    z-index: 2;
-}
-  
-  &__typing-indicator-bubble {
-    width: 0.25rem;
-    height: 0.25rem;
-    margin: 0 0.15rem;
-    background-color: $primary-button-blue;
-    border-radius: 50%;
-    animation: bounce 1.2s infinite;
-  }
-  
-  &__typing-indicator-bubble:nth-child(2) {
-    animation-delay: 0.2s;
-  }
-  
-  &__typing-indicator-bubble:nth-child(3) {
-    animation-delay: 0.4s;
-  }
-  
-  @keyframes bounce {
-    0%, 100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-0.3rem);
-    }
-  }
-
   &__loader-overlay {
     @include block-item(100%, 100%);
     position: absolute;
@@ -205,37 +168,44 @@
 
   &__gpt-button--og,
   &__gpt-button {
-        border: none;
-        border-radius: .5rem;
-        padding: 0.5rem 1rem;
-        font-family: $primary-font;
-        font-size: 1rem;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.5rem;
-        transition: all 0.4s ease;
-        animation: glow 4s infinite alternate;
+    border: none;
+    padding: 0.5rem 1rem;
+    font-family: $primary-font;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    animation: glow 4s infinite alternate;
+    box-shadow: inset 4px 4px 8px rgba(0,0,0,0.2), inset -4px -4px 8px rgba(255,255,255,0.7);
+    border-radius: .75rem;
+    background: #e0e0e0;
+    transition: all 0.3s ease;
+    color: $robot-dark-blue;
 
-        &:hover{
-            background: $primary-dark-blue;
-            color: $primary-very-light-blue;
-            border-radius: 2rem;
-         
-            &:active{
-                background: $primary-medium-blue;
-                color: $neutral-white;
-                animation: none;
-            }
+    &:hover{
+        background: $robot-dark-tablet;
+        border-radius: 2rem;
+        transform: scale(1.05);
+        color: $neutral-white;
+        
+        &:active{
+            background: $robot-blue;
+            color: $neutral-white;
+            animation: none;
+            box-shadow: inset 6px 6px 12px rgba(0,0,0,0.2), inset -6px -6px 12px rgba(255,255,255,0.7);
+            transform: scale(0.95);
+            color: $robot-dark-blue;
         }
-      }
+    }
+}
 
   &__chat-container {
     @include block-item(100%, auto);
     display: flex;
     flex-direction: column;
-    background-color: $primary-dark-blue;
+    background-color: $robot-medium-blue;
     align-items: center;
     padding: 1rem;
     justify-content: center;
@@ -287,8 +257,8 @@
   &__clear-chat-button {
     background: linear-gradient(
       135deg,
-      $primary-very-light-blue,
-      $primary-light-blue
+      $robot-dark-tablet,
+      $robot-tablet
     );
     border: none;
     border-radius: .5rem;
@@ -323,8 +293,8 @@
       border-radius: 2.5rem;
       background: linear-gradient(
         135deg,
-        $primary-dark-blue,
-        $primary-medium-blue
+        $robot-tablet-screen,
+        $robot-tablet
       );
       transform: translateY(-.25rem) scale(1.05);
       box-shadow: 0 0 1.5rem rgba($primary-light-blue, .8),
@@ -335,8 +305,8 @@
       transform: scale(.95);
       background: linear-gradient(
         135deg,
-        $primary-very-light-blue,
-        $primary-button-blue
+        $robot-medium-blue,
+        $robot-very-light-blue
       );
       box-shadow: 0 0 1rem rgba($primary-very-light-blue, .6),
         inset 0 0 .5rem rgba($primary-button-blue, .8);
@@ -362,13 +332,13 @@
   
   &__clear-chat-icon {
     font-size: 1rem;
-    color: $primary-button-dark-blue;
+    color: $neutral-white;
     z-index: 1;
   }
   
-  .nextstream-gpt__clear-chat-text {
+  &__clear-chat-text {
     position: relative;
-    color: $primary-button-dark-blue;
+    color: $neutral-white;
     z-index: 1;
     transition: transform 0.5s ease, opacity 0.5s ease;
   }
@@ -479,13 +449,13 @@
 
     &:hover {
         text-shadow: $shadow-primary;
-        color: $primary-very-light-blue;
-      }
+        color: $robot-very-light-blue;
+    }
   
-      &:active {
+    &:active {
         color: $neutral-white;
         transform: scale(.9);
-      }
+    }
   }
 
   @keyframes pulse {
@@ -523,12 +493,14 @@
     box-shadow: $shadow-primary;
     padding: .25rem;
     border-radius: 1.5rem;
-    background: $feedback-dark-green;
-    color: $feedback-mint-light-green;
-    animation: tilt-head 3.5s infinite ease-in-out;
+    background: $robot-dark-blue;
+    color: $robot-tablet-msg;
 
         &:hover {
-            color: $neutral-white;
+            background: $robot-tablet-screen;
+            color: $robot-dark-tablet;
+            box-shadow: none;
+            animation: tilt-head 3.5s infinite ease-in-out;
         }
     }
  
@@ -548,29 +520,30 @@
   }
 
   &__user-icon-inline {
-    box-shadow: $shadow-primary;
     padding: 0.25rem;
     border-radius: 1.5rem;
-    background: $feedback-dark-pink;
-    color: $feedback-error-very-light-peach;
+    background: $robot-very-light-blue;
+    color: $robot-antenna;
   
     // Default hover animation
     &:hover {
       animation: tilt-head 3.5s infinite ease-in-out;
       color: $neutral-white;
+      background: $robot-antenna;
+      box-shadow: $shadow-primary;
     }
   
     // Icon animation when typing
     &.typing-icon {
-      animation: pulseIcon 2.5s infinite ease-in-out;
+      animation: pulseUserIcon 2.5s infinite ease-in-out;
       color: $neutral-white;
     }
   }
   
-  @keyframes pulseIcon {
+  @keyframes pulseUserIcon {
     0%, 100% {
       transform: scale(1);
-      color: $feedback-error-light-peach;
+      color: $robot-dark-blue;
     }
     50% {
       transform: scale(1.2);
@@ -594,16 +567,16 @@
   }
 
   &__copy {
-    color: $primary-pale-blue;
+    color: $robot-dark-blue;
     font-family: $primary-font;
     font-size: .85rem;
     line-height: 1.25rem;
     font-weight: normal;
-    background-color: $primary-medium-blue;
+    background-color: $neutral-white;
     padding: .25rem .75rem;
     border-radius: .5rem;
-    border: .1875rem solid $frosted-glass;
-    box-shadow: $shadow-senary;
+    border: .25rem solid $robot-tablet-screen-shadow;
+    box-shadow: $shadow-quaternary;
     margin-bottom: .5rem;
     text-align: center;
 
@@ -638,9 +611,9 @@
     font-weight: bold;
     background: linear-gradient(
       120deg,
-      $primary-light-blue,
-      $primary-medium-blue,
-      $primary-very-light-blue
+      $robot-antenna,
+      $robot-blue,
+      $robot-dark-blue
     );
     background-size: 600% 600%;
     -webkit-background-clip: text;
@@ -677,8 +650,8 @@
     overflow: hidden;
     background: linear-gradient(
       180deg,
-      $primary-medium-blue,
-      darken($primary-button-blue, 35%)
+      $robot-tablet,
+      darken($robot-tablet-msg, 35%)
     );
     flex-direction: column;
 
@@ -824,7 +797,7 @@
     }
 
     &:focus {
-      background-color: $primary-button-dark-blue;
+      background-color: $robot-dark-tablet;
       border: .25rem solid $pastel-blue;
       box-shadow: $shadow-senary;
       color: $neutral-white;
@@ -832,28 +805,31 @@
   }
 
   &__send-button {
+    background: #e0e0e0;
+    border: none;
+    border-radius: .75rem;
+    box-shadow: inset 4px 4px 8px rgba(0,0,0,0.2), inset -4px -4px 8px rgba(255,255,255,0.7);
+    color: $robot-dark-blue;
+    cursor: pointer;
+    font-size: .85rem;
     margin-left: .35rem;
     padding: .6rem;
-    border: none;
-    border-radius: 50%;
-    background-color: $primary-button-blue;
-    color: $neutral-white;
-    font-size: .85rem;
-    cursor: pointer;
     transition: background-color .3s ease, transform .2s ease, box-shadow .2s ease;
 
     &:hover {
-      background-color: $primary-dark-blue;
-      transform: scale(1.15);
+      background-color: $robot-dark-blue;
+      transform: scale(1.05);
+      color: $neutral-white;
       box-shadow: 0 .5rem 1rem rgba($neutral-black, .15),
         inset 0 .5rem 1rem rgba(255, 255, 255, .1);
     }
 
     &:active {
-      transform: scale(.95);
-      background-color: $primary-very-light-blue;
-      box-shadow: 0 .2rem .5rem rgba($neutral-black, .2),
-        inset 0 .2rem .5rem rgba(255, 255, 255, .15);
+        box-shadow: inset 6px 6px 12px rgba(0,0,0,0.2), inset -6px -6px 12px rgba(255,255,255,0.7);
+        transform: scale(0.95);
+        color: $robot-dark-blue;
+        transform: scale(.95);
+        background-color: $primary-very-light-blue;
     }
     
     @include tablet {
@@ -880,7 +856,7 @@
     width: 0.4rem;
     height: 0.4rem;
     margin: 0 0.15rem;
-    background-color: $primary-button-blue;
+    background: $robot-dark-blue;
     border-radius: 50%;
     animation: bounce 1.2s infinite;
 
@@ -911,7 +887,7 @@
     width: 0.4rem;
     height: 0.4rem;
     margin: 0 0.15rem;
-    background-color: $neutral-white;
+    background-color: $robot-dark-tablet;
     border-radius: .05rem;
     animation: bounce 1.2s infinite;
   }
@@ -938,8 +914,8 @@
     left: 2.5rem;
     display: none;
     font-size: 2.25rem;
-    background: $primary-button-dark-blue;
-    color: $pastel-blue;
+    background: $robot-dark-tablet;
+    color: $robot-tablet-screen;
     border: 1px solid $neutral-white;
     box-shadow: $shadow-septenary;
     border-radius: 1rem;
@@ -963,12 +939,12 @@
     transition: transform .3s ease;
 
     &:hover {
-      color: $primary-very-light-blue;
+      color: $robot-tablet;
       transform: scale(1.2);
     }
 
     &:active {
-      color: $neutral-white;
+      color: $robot-very-light-blue;
       transform: scale(.9);
     }
 
@@ -1861,23 +1837,22 @@
     margin-top: 2rem;
   }
 
-  &__gpt-button, &__gpt-button--og,
-  &__button, &__send-button {
+  &__button {
     box-shadow: inset 4px 4px 8px rgba(0,0,0,0.2), inset -4px -4px 8px rgba(255,255,255,0.7);
     border-radius: 12px;
     background: #e0e0e0;
     transition: all 0.3s ease;
-    color: $primary-button-blue;
+    color: $robot-dark-blue;
     
         &:hover {
-        transform: scale(1.05);
-        color: $neutral-white;
+            transform: scale(1.05);
+            color: $neutral-white;
         }
     
         &:active {
-        box-shadow: inset 6px 6px 12px rgba(0,0,0,0.2), inset -6px -6px 12px rgba(255,255,255,0.7);
-        transform: scale(0.95);
-        color: $primary-medium-blue;
+            box-shadow: inset 6px 6px 12px rgba(0,0,0,0.2), inset -6px -6px 12px rgba(255,255,255,0.7);
+            transform: scale(0.95);
+            color: $robot-dark-blue;
         }
     } 
 }

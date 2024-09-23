@@ -275,6 +275,313 @@
       }
     }
 
+    // NextStream GPT
+    .nextstream-gpt {
+      background: $base-darker-blue;
+
+      &__chat-container {
+        background-color: $primary-dark-blue;
+      }
+
+      &__copy {
+        color: $primary-pale-blue;
+        background-color: $primary-medium-blue;
+        box-shadow: $shadow-senary;
+      }    
+
+      &__gpt-icon-inline {
+        box-shadow: $shadow-primary;
+        background: $feedback-dark-green;
+        color: $feedback-mint-light-green;
+    
+          &:hover {
+            color: $neutral-white;
+            animation: tilt-head 3.5s infinite ease-in-out;
+          }
+        }
+     
+        @keyframes tilt-head {
+          0%, 100% {
+            transform: rotate(0deg);
+          }
+          25% {
+            transform: rotate(-10deg);
+          }
+          50% {
+            transform: rotate(0deg); 
+          }
+          75% {
+            transform: rotate(10deg);
+          }
+      }
+    
+      &__user-icon-inline {
+        box-shadow: $shadow-primary;
+        background: $feedback-dark-pink;
+        color: $feedback-error-very-light-peach;
+      
+        &:hover {
+          animation: tilt-head 3.5s infinite ease-in-out;
+          color: $neutral-white;
+        }
+      
+        &.typing-icon {
+          animation: pulseIcon 2.5s infinite ease-in-out;
+          color: $neutral-white;
+        }
+      }
+      
+      @keyframes pulseIcon {
+        0%, 100% {
+          transform: scale(1);
+          color: $feedback-error-light-peach;
+        }
+        50% {
+          transform: scale(1.2);
+          color: $neutral-white;
+        }
+      }
+      
+      @keyframes tilt-head {
+        0%, 100% {
+          transform: rotate(0deg);
+        }
+        25% {
+          transform: rotate(-10deg);
+        }
+        50% {
+          transform: rotate(0deg);
+        }
+        75% {
+          transform: rotate(10deg);
+        }
+      }
+
+      &__speech-icon {
+        background: $primary-button-dark-blue;
+        color: $pastel-blue;
+        box-shadow: $shadow-septenary;
+      }
+
+      &__input {
+        background-color: $frosted-glass;
+        color: $primary-dark-blue;
+
+        &::placeholder {
+          color: $neutral-light-grey;
+        }
+    
+        &:focus {
+          background-color: $primary-button-dark-blue;
+          border: .25rem solid $pastel-blue;
+          box-shadow: $shadow-senary;
+          color: $neutral-white;
+        }
+      }
+
+      &__bot-typing-indicator-bubble {
+        background-color: $neutral-white;
+      }
+
+      &__typing-indicator-bubble {
+        background-color: $primary-button-blue;
+      }
+
+      &__clear-chat-button {
+        background: linear-gradient(
+          135deg,
+          $primary-very-light-blue,
+          $primary-light-blue
+        );
+        color: $neutral-white;
+        transition: all .4s ease;
+        box-shadow: 0 0 1rem rgba($primary-light-blue, .4),
+          inset 0 0 .5rem rgba($primary-medium-blue, .8);
+        animation: pulse 2.5s infinite;
+      
+        &:hover .nextstream-gpt__clear-chat-text,
+        &:hover .nextstream-gpt__clear-chat-icon {
+          animation: slide-out 1s forwards ease-out; 
+          color: $primary-very-light-blue;
+        }
+      
+        &:active .nextstream-gpt__clear-chat-text,
+        &:active .nextstream-gpt__clear-chat-icon {
+          animation: disappear 0.5s forwards ease-in-out; 
+          color: $neutral-white;
+        }
+      
+        &:hover {
+          border-radius: 2.5rem;
+          background: linear-gradient(
+            135deg,
+            $primary-dark-blue,
+            $primary-medium-blue
+          );
+          transform: translateY(-.25rem) scale(1.05);
+          box-shadow: 0 0 1.5rem rgba($primary-light-blue, .8),
+            inset 0 0 .75rem rgba($primary-dark-blue, .9);
+        }
+      
+        &:active {
+          transform: scale(.95);
+          background: linear-gradient(
+            135deg,
+            $primary-very-light-blue,
+            $primary-button-blue
+          );
+          box-shadow: 0 0 1rem rgba($primary-very-light-blue, .6),
+            inset 0 0 .5rem rgba($primary-button-blue, .8);
+        }
+      
+        &::before {
+          content: '';
+          @include block-item(100%, 100%);
+          background: rgba($primary-light-blue, .6);
+          filter: blur(1.25rem);
+        }
+      
+        &:hover::before {
+          opacity: 1;
+        }
+      }
+      
+      &__clear-chat-icon {
+        color: $primary-button-dark-blue;
+        z-index: 1;
+      }
+      
+      &__clear-chat-text {
+        position: relative;
+        color: $primary-button-dark-blue;
+        z-index: 1;
+        color: $neutral-white;
+        transition: transform 0.5s ease, opacity 0.5s ease;
+      }
+      
+      @keyframes slide-out {
+        0% {
+          transform: translateX(0);
+          opacity: 1;
+        }
+        100% {
+          transform: translateX(150%);
+          opacity: 0;
+        }
+      }
+      
+      @keyframes disappear {
+        0% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+        }
+      }
+      
+      @keyframes pulse {
+        0% {
+          box-shadow: 0 0 1rem rgba($primary-light-blue, .4),
+            inset 0 0 .5rem rgba($primary-medium-blue, .8);
+        }
+        50% {
+          box-shadow: 0 0 1.5rem rgba($primary-light-blue, .8),
+            inset 0 0 .75rem rgba($primary-dark-blue, .9);
+        }
+        100% {
+          box-shadow: 0 0 1rem rgba($primary-light-blue, .4),
+            inset 0 0 .5rem rgba($primary-medium-blue, .8);
+        }
+      }
+
+      &__gpt-button--og,
+      &__gpt-button {
+        align-items: center;
+        animation: glow 4s infinite alternate;
+        background: #e0e0e0;
+        border: none;
+        border-radius: .75rem;
+        box-shadow: inset 4px 4px 8px rgba(0,0,0,0.2), inset -4px -4px 8px rgba(255,255,255,0.7);
+        color: $primary-button-blue;
+        display: flex;
+        gap: 0.5rem;
+        justify-content: center;
+        padding: 0.5rem 1rem;
+        transition: all 0.3s ease;
+    
+        &:hover{
+          background: $primary-dark-blue;
+          border-radius: 2rem;
+          transform: scale(1.05);
+          color: $neutral-white;
+          
+        &:active{
+          background: $primary-very-light-blue;
+          color: $neutral-white;
+          animation: none;
+          box-shadow: inset 6px 6px 12px rgba(0,0,0,0.2), inset -6px -6px 12px rgba(255,255,255,0.7);
+          transform: scale(0.95);
+          color: $primary-medium-blue;
+        }
+      }
+    }
+
+      &__gradient-subtitle {
+        background: linear-gradient(
+          120deg,
+          $primary-light-blue,
+          $primary-medium-blue,
+          $primary-very-light-blue
+        );
+        background-size: 600% 600%;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: GradientAnimation 10s ease infinite;
+      }
+    
+      @keyframes GradientAnimation {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      &__title {
+        box-shadow: .3125rem .3125rem .9375rem rgba($neutral-black, .2),
+          -.3125rem -.3125rem .9375rem rgba(255, 255, 255, .1);
+        border: .1875rem solid $neutral-white;
+        position: relative;
+        overflow: hidden;
+        background: linear-gradient(
+          180deg,
+          $primary-medium-blue,
+          darken($primary-button-blue, 35%)
+        );
+    
+        &::before {
+          @include block-item(100%, 100%);
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, .4) 50%, rgba(255, 255, 255, 0) 100%);
+          transform: skewX(-25deg);
+          transition: left 1s;
+        }
+    
+        &:hover::before {
+          left: 100%;
+          transition: left 1s;
+        }
+      }
+    }
+
     // Forgot Password Modal
     .modal-forgot-password__input {
       color: $neutral-white;
