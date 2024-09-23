@@ -14,6 +14,7 @@ import DefaultPoster from '../../assets/images/posternoimg-icon.png';
 import MizuLoader from '../../components/MizuLoader/MizuLoader';
 import ChatRobotAnimation from "../../assets/animation/chat-robot.webm";
 import HelloRobotAnimation from "../../assets/animation/hello-robot.webm";
+import SearchRobotAnimation from "../../assets/animation/search-robot.webm";
 
 const NextStreamGpt = () => {
   const { userId, isAuthenticated } = useContext(AuthContext);
@@ -37,6 +38,7 @@ const NextStreamGpt = () => {
   const messagesContainerRef = useRef(null);
   const messagesEndRef = useRef(null);
   const [showLoader, setShowLoader] = useState(false);
+  const [showDisclaimer, setShowDisclaimer] = useState(false);
 
   const location = useLocation();
   const searchScrollRef = useRef(null);
@@ -45,6 +47,18 @@ const NextStreamGpt = () => {
 
   const showAlert = (message, type) => {
     setAlert({ message, type, visible: true });
+  };
+
+  useEffect(() => {
+    const hasSeenDisclaimer = localStorage.getItem('hasSeenDisclaimer');
+    if (!hasSeenDisclaimer) {
+      setShowDisclaimer(true);
+    }
+  }, []);
+
+  const closeDisclaimer = () => {
+    setShowDisclaimer(false);
+    localStorage.setItem('hasSeenDisclaimer', 'true');
   };
 
   const handleBotTyping = useCallback(async () => {
@@ -576,6 +590,38 @@ const NextStreamGpt = () => {
 
   return (
     <div className='nextstream-gpt'>
+          {/* Disclaimer Modal */}
+      {showDisclaimer && (
+        <div className="disclaimer-modal">
+          <div className="disclaimer-modal-content">
+            <button className="close-modal-btn" onClick={closeDisclaimer}>
+              <FontAwesomeIcon icon={faTimes} />
+            </button>
+            <p className='disclaimer-modal-content__header'>
+                Welcome to Mizu 2.0!
+            </p>
+            <video
+                  className='nextstream-gpt__chatbot-svg'
+                  src={HelloRobotAnimation}
+                  alt='Chatbot'
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  style={{ width: '150px', height: 'auto' }}
+                />
+            <p>
+                Mizu is an AI-powered assistant designed to help you discover
+                movies and shows. While it's a smart assistant, it might not
+                always be accurate. Please verify information when needed.
+            </p>
+            <button className="close-modal-btn" onClick={closeDisclaimer}>
+              Got it!
+            </button>
+          </div>
+        </div>
+      )}
+
       {showLoader && (
         <div className='nextstream-gpt__loader-overlay'>
           <MizuLoader />
@@ -910,7 +956,7 @@ const NextStreamGpt = () => {
         <div className='nextstream-gpt__loading-container'>
           <video
             className='nextstream-gpt__chatbot-svg'
-            src={HelloRobotAnimation}
+            src={SearchRobotAnimation}
             alt='Chatbot'
             autoPlay
             loop

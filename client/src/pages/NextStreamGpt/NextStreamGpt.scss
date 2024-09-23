@@ -1856,3 +1856,90 @@
         }
     } 
 }
+
+.disclaimer-modal-content__header {
+    color: $robot-tablet-msg;
+    text-shadow: $shadow-primary;
+    // color: $primary-button-blue;
+    margin-top: .5rem;
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    background: $frosted-glass;
+    border-radius: 1rem;
+    border: .25rem solid $robot-medium-blue;
+    box-shadow: $shadow-primary;
+  }
+
+.disclaimer-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
+    z-index: 1000;
+  }
+  
+  .disclaimer-modal-content {
+    background: rgba(255, 255, 255, 0.25); /* Glass effect */
+    backdrop-filter: blur(15px);
+    padding: 2.5rem;
+    border-radius: 20px;
+    max-width: 600px;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37); /* Glassmorphism shadow */
+    border: 1px solid rgba(255, 255, 255, 0.18); /* Glassmorphism border */
+    
+    /* Neumorphic shadow for a subtle pop-out effect */
+    box-shadow: 
+      8px 8px 15px rgba(0, 0, 0, 0.1),
+      -8px -8px 15px rgba(255, 255, 255, 0.7);
+  }
+
+  p {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 1.5rem;
+  }
+  
+  .close-modal-btn {
+    background: #ffffff;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    color: #555;
+    border-radius: 30px;
+    box-shadow: 
+      4px 4px 8px rgba(0, 0, 0, 0.1),
+      -4px -4px 8px rgba(255, 255, 255, 0.6);
+    transition: all 0.2s ease;
+    
+    &:hover {
+        color: $robot-tablet-msg;
+      background: rgba(255, 255, 255, 0.85);
+      box-shadow: 
+        6px 6px 12px rgba(0, 0, 0, 0.2),
+        -6px -6px 12px rgba(255, 255, 255, 0.5);
+      transform: translateY(-2px);
+    }
+  
+    &:active {
+        color: $robot-medium-blue;
+      background: #e0e0e0;
+      box-shadow: 
+        inset 4px 4px 8px rgba(0, 0, 0, 0.2),
+        inset -4px -4px 8px rgba(255, 255, 255, 0.5);
+      transform: translateY(2px);
+    }
+  
+    &:focus {
+      outline: none;
+    }
+  }
+  
