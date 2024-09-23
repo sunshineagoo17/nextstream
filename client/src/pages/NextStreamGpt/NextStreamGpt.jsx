@@ -4,7 +4,7 @@ import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import { Tooltip } from 'react-tooltip';
-import { faChevronLeft, faBroom, faRobot, faChevronRight, faPlay, faTimes, faComment, faTv, faFilm, faCalendarPlus, faThumbsUp, faThumbsDown, faShareAlt, faUser, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faStopCircle, faBroom, faRobot, faChevronRight, faPlay, faTimes, faComment, faTv, faFilm, faCalendarPlus, faThumbsUp, faThumbsDown, faShareAlt, faUser, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
 import Calendar from '../CalendarPage/sections/Calendar';
 import api from '../../services/api';
@@ -39,6 +39,7 @@ const NextStreamGpt = () => {
   const messagesEndRef = useRef(null);
   const [showLoader, setShowLoader] = useState(false);
   const [showDisclaimer, setShowDisclaimer] = useState(false);
+  const isInterrupted = useRef(false); 
 
   const location = useLocation();
   const searchScrollRef = useRef(null);
@@ -141,6 +142,14 @@ const NextStreamGpt = () => {
       return null;
     }
   };
+
+  const controller = new AbortController();
+const handleInterrupt = () => {
+  controller.abort(); 
+  setIsBotTyping(false);
+  setShowLoader(false);
+  isInterrupted.current = true;
+};
 
   // Fetch movies for multiple titles
   const fetchMoviesForTitles = async (titles) => {
@@ -590,37 +599,39 @@ const NextStreamGpt = () => {
 
   return (
     <div className='nextstream-gpt'>
-          {/* Disclaimer Modal */}
-      {showDisclaimer && (
-        <div className="disclaimer-modal">
-          <div className="disclaimer-modal-content">
-            <button className="close-modal-btn" onClick={closeDisclaimer}>
-              <FontAwesomeIcon icon={faTimes} />
-            </button>
-            <p className='disclaimer-modal-content__header'>
-                Welcome to Mizu 2.0!
-            </p>
-            <video
-                  className='nextstream-gpt__chatbot-svg'
-                  src={HelloRobotAnimation}
-                  alt='Chatbot'
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  style={{ width: '150px', height: 'auto' }}
-                />
-            <p>
-                Mizu is an AI-powered assistant designed to help you discover
-                movies and shows. While it's a smart assistant, it might not
-                always be accurate. Please verify information when needed.
-            </p>
-            <button className="close-modal-btn" onClick={closeDisclaimer}>
-              Got it!
-            </button>
-          </div>
+        {/* Disclaimer Modal */}
+        {showDisclaimer && (
+            <div className="nextstream-gpt__disclaimer-modal">
+            <div className="nextstream-gpt__disclaimer-content">
+                <button className="nextstream-gpt__disclaimer-close" onClick={closeDisclaimer}>
+                <FontAwesomeIcon icon={faTimes} />
+                </button>
+                <p className='nextstream-gpt__disclaimer-header'>
+                    Say "Hi!" to Mizu 2.0!
+                </p>
+                <video
+                    className='nextstream-gpt__chatbot-svg'
+                    src={HelloRobotAnimation}
+                    alt='Chatbot'
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    style={{ width: '150px', height: 'auto' }}
+                    />
+                <p className="nextstream-gpt__disclaimer-copy">
+                    Meet Mizu, your AI-powered guide to discovering hidden gems in the world of movies and shows! Whether you're in the mood for a blockbuster or a binge-worthy series, Mizu's got you covered. 
+                    <br />
+                    <p className="nextstream-gpt__disclaimer-note">
+                         *Note: As smart as Mizu is, it's not always 100% accurate. Please double-check details when needed.*
+                    </p>
+                </p>
+                <button className="nextstream-gpt__disclaimer-close" onClick={closeDisclaimer}>
+                    Got it!
+                </button>
+            </div>
         </div>
-      )}
+    )}
 
       {showLoader && (
         <div className='nextstream-gpt__loader-overlay'>
@@ -776,17 +787,30 @@ const NextStreamGpt = () => {
           </div>
 
           {/* Clear chat button */}
-          {messages.length > 0 && (
-            <button
-              className='nextstream-gpt__clear-chat-button'
-              onClick={handleClearChat}>
-              <FontAwesomeIcon
-                icon={faBroom}
-                className='nextstream-gpt__clear-chat-icon'
-              />
-              <p className='nextstream-gpt__clear-chat-text'>Clear Chat</p>
-            </button>
-          )}
+{/* Clear chat and Interrupt Mizu buttons */}
+{messages.length > 0 && (
+  <div className='nextstream-gpt__stop-actions'>
+   
+
+    <button
+      className='nextstream-gpt__interrupt-btn'
+      onClick={handleInterrupt}>
+      <FontAwesomeIcon icon={faStopCircle} className='nextstream-gpt__interrupt-icon' />
+      Interrupt Mizu
+    </button>
+
+    <button
+      className='nextstream-gpt__clear-chat-button'
+      onClick={handleClearChat}>
+      <FontAwesomeIcon
+        icon={faBroom}
+        className='nextstream-gpt__clear-chat-icon'
+      />
+      <p className='nextstream-gpt__clear-chat-text'>Clear Chat</p>
+    </button>
+  </div>
+)}
+
         </div>
       </div>
 

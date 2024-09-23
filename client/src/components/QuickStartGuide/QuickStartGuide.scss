@@ -46,13 +46,13 @@
 
   &__arrow {
     position: absolute;
-    animation: bounce 1.5s infinite ease-in-out;
+    animation: arrowBounce 1.5s infinite ease-in-out;
 
     &--menu {
         @include block-item(5rem, 5rem);
         top: -2.1875rem; 
         left: 3.125rem; 
-        animation: bounce 1.5s infinite ease-in-out;
+        animation: arrowBounce 1.5s infinite ease-in-out;
         stroke: $primary-button-blue;
 
       @include tablet {
@@ -101,7 +101,7 @@
     }
   }
 
-  @keyframes bounce {
+  @keyframes arrowBounce {
     0%, 100% {
       transform: translateY(0);
     }
