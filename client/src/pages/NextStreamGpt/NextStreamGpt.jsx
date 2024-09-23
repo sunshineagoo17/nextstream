@@ -49,56 +49,68 @@ const NextStreamGpt = () => {
 
   const handleBotTyping = useCallback(async () => {
     setIsBotTyping(true);
-    
+
     setTimeout(() => {
       setShowLoader(false);
-       }, 2000);
+    }, 2000);
   }, []);
 
   // Helper function to extract titles from the GPT response
   const extractTitlesFromResponse = (responseText) => {
-    const regex = /"([^"]+)"/g;
+    const quotesRegex = /"([^"]+)"/g;
+    const numberedRegex = /\d+\.\s*([^\n]+)/g;
+
     const matches = [];
     let match;
-    while ((match = regex.exec(responseText)) !== null) {
-      matches.push(match[1]);
+
+    // First, extract titles inside quotes
+    while ((match = quotesRegex.exec(responseText)) !== null) {
+      matches.push(match[1].trim());
     }
+
+    // If no matches from quotes, try extracting numbered list items
+    if (matches.length === 0) {
+      while ((match = numberedRegex.exec(responseText)) !== null) {
+        matches.push(match[1].trim());
+      }
+    }
+
     return matches;
   };
 
   // Helper function to fetch movie data by title from TMDB
   const fetchMovieDataByTitle = async (title) => {
     try {
-      // Call TMDB search API
       const response = await api.get(`/api/tmdb/search`, {
         params: { query: title },
       });
       const results = response.data.results;
-  
+
       // Look for a movie, TV show, or person
       const movieOrTvOrPerson = results.find(
-        (result) => 
-          result.media_type === 'movie' || 
-          result.media_type === 'tv' || 
+        (result) =>
+          result.media_type === 'movie' ||
+          result.media_type === 'tv' ||
           result.media_type === 'person'
       );
-  
+
       // If it's a person, extract profile_path instead of poster_path
       if (movieOrTvOrPerson) {
-        const mediaPath = movieOrTvOrPerson.media_type === 'person'
-          ? movieOrTvOrPerson.profile_path
-            ? `https://image.tmdb.org/t/p/w500${movieOrTvOrPerson.profile_path}`
-            : DefaultPoster
-          : movieOrTvOrPerson.poster_path
+        const mediaPath =
+          movieOrTvOrPerson.media_type === 'person'
+            ? movieOrTvOrPerson.profile_path
+              ? `https://image.tmdb.org/t/p/w500${movieOrTvOrPerson.profile_path}`
+              : DefaultPoster
+            : movieOrTvOrPerson.poster_path
             ? `https://image.tmdb.org/t/p/w500${movieOrTvOrPerson.poster_path}`
             : DefaultPoster;
-  
+
         return {
           ...movieOrTvOrPerson,
           poster_path: mediaPath,
         };
       }
-  
+
       if (results[0]) {
         // Handle case where first result doesn't match movie, TV, or person
         return {
@@ -108,14 +120,13 @@ const NextStreamGpt = () => {
             : DefaultPoster,
         };
       }
-  
+
       return null;
     } catch (error) {
       console.error(`Error fetching data for ${title}:`, error);
       return null;
     }
   };
-  
 
   // Fetch movies for multiple titles
   const fetchMoviesForTitles = async (titles) => {
@@ -254,7 +265,7 @@ const NextStreamGpt = () => {
   const handleSearch = useCallback(async () => {
     if (searchQuery.trim() && isAuthenticated) {
       setShowLoader(true);
-  
+
       try {
         // Send search query to GPT API
         const response = await api.post('/api/gpt', {
@@ -264,32 +275,18 @@ const NextStreamGpt = () => {
         console.log('Response:', response.data);
         const chatbotMessage = response.data.message;
         const recommendedMedia = response.data.media || [];
-  
+
         console.log('API Results:', recommendedMedia);
-  
+
         // Display the GPT chatbot message
         setMessages((prevMessages) => [
           ...prevMessages,
           { sender: 'bot', text: chatbotMessage },
         ]);
-  
+
         // If there are recommended media items
         if (recommendedMedia.length > 0) {
           const mediaResults = recommendedMedia.map((item) => {
-            // let mediaPath;
-  
-            // // Handle person (actor/director) with profile_path
-            // if (item.media_type === 'person') {
-            //   mediaPath = item.profile_path
-            //     ? `https://image.tmdb.org/t/p/w500${item.profile_path}`
-            //     : DefaultPoster;
-            // } else if (item.media_type === 'movie' || item.media_type === 'tv') {
-            //   // Handle movie or TV show with poster_path
-            //   mediaPath = item.poster_path
-            //     ? `https://image.tmdb.org/t/p/w500${item.poster_path}`
-            //     : DefaultPoster;
-            // }
-  
             return {
               id: item.id,
               title: item.title || item.name,
@@ -300,10 +297,9 @@ const NextStreamGpt = () => {
               credits: item.credits,
             };
           });
-  
+
           setResults(mediaResults);
         } else {
-          // If no results, show a message to the user
           setResults([]);
           setMessages((prevMessages) => [
             ...prevMessages,
@@ -314,7 +310,6 @@ const NextStreamGpt = () => {
           ]);
         }
       } catch (error) {
-        // Handle any errors that occur during the search
         setMessages((prevMessages) => [
           ...prevMessages,
           {
@@ -323,10 +318,10 @@ const NextStreamGpt = () => {
           },
         ]);
       } finally {
-        setShowLoader(false); // Hide the loader when done
+        setShowLoader(false);
       }
     }
-  }, [searchQuery, isAuthenticated, userId]);  
+  }, [searchQuery, isAuthenticated, userId]);
 
   const typeMessage = async (message, setMessages, setIsBotTyping) => {
     let displayedText = '';
@@ -357,36 +352,35 @@ const NextStreamGpt = () => {
       setIsTyping(true);
       setIsBotTyping(true);
       setShowLoader(true);
-  
+
       // Display the user message in the chat
       setMessages((prevMessages) => [
         ...prevMessages,
         { sender: 'user', text: searchQuery },
       ]);
-  
+
       await handleBotTyping();
-  
+
       try {
-        // Call GPT to get the response
         const response = await api.post('/api/gpt', {
           userInput: searchQuery,
           userId,
         });
-  
+
         console.log('GPT Response:', response.data);
-  
+
         const chatbotMessage = response.data.response;
         setMessages((prevMessages) => [
           ...prevMessages,
           { sender: 'bot', text: chatbotMessage },
         ]);
-  
+
         await typeMessage(chatbotMessage, setMessages, setIsBotTyping);
-  
+
         // Extract titles from the GPT response
         const titles = extractTitlesFromResponse(chatbotMessage);
         console.log('Extracted Titles:', titles);
-  
+
         if (titles.length === 0) {
           setMessages((prevMessages) => [...prevMessages]);
           setShowLoader(false);
@@ -394,23 +388,20 @@ const NextStreamGpt = () => {
           setIsBotTyping(false);
           return;
         }
-  
-        // Fetch media based on extracted titles
+
         const mediaResults = await fetchMoviesForTitles(titles);
-  
-        // Fetch person based on the search query
+
         const personResponse = await api.get(`/api/tmdb/search`, {
           params: { query: searchQuery },
         });
         const personResult = personResponse.data.results.find(
           (result) => result.media_type === 'person'
         );
-  
+
         console.log('Person Result:', personResult);
-  
+
         let personData = null;
-  
-        // If the person is found, create a person data object
+
         if (personResult) {
           personData = {
             id: personResult.id,
@@ -420,31 +411,37 @@ const NextStreamGpt = () => {
               ? `https://image.tmdb.org/t/p/w500${personResult.profile_path}`
               : DefaultPoster,
           };
-  
+
           console.log('Person Data:', personData);
         }
-  
+
         // Combine the media and person results
         const combinedResults = [
-          ...(personData ? [personData] : []), 
+          ...(personData ? [personData] : []),
           ...mediaResults,
         ];
-  
+
         console.log('Combined Results:', combinedResults);
-  
+
         if (combinedResults.length > 0) {
           setResults(combinedResults);
         } else {
           setMessages((prevMessages) => [
             ...prevMessages,
-            { sender: 'bot', text: "Sorry, I couldn't find any matching results." },
+            {
+              sender: 'bot',
+              text: "Sorry, I couldn't find any matching results.",
+            },
           ]);
         }
       } catch (error) {
         console.error('Error fetching results:', error);
         setMessages((prevMessages) => [
           ...prevMessages,
-          { sender: 'bot', text: 'Error fetching the results. Please try again.' },
+          {
+            sender: 'bot',
+            text: 'Error fetching the results. Please try again.',
+          },
         ]);
       } finally {
         setIsTyping(false);
@@ -454,7 +451,7 @@ const NextStreamGpt = () => {
       }
     }
   };
-  
+
   useEffect(() => {
     if (query && isAuthenticated) {
       setSearchQuery(query);
@@ -579,7 +576,7 @@ const NextStreamGpt = () => {
 
   return (
     <div className='nextstream-gpt'>
-       {showLoader && (
+      {showLoader && (
         <div className='nextstream-gpt__loader-overlay'>
           <MizuLoader />
         </div>
@@ -634,7 +631,8 @@ const NextStreamGpt = () => {
                   style={{ width: '200px', height: 'auto' }}
                 />
                 <p className='nextstream-gpt__empty-message'>
-                  Meet Mizu, your smart bot. Let it guide you to your next stream.
+                  Meet Mizu, your smart bot. Let it guide you to your next
+                  stream.
                 </p>
               </div>
             )}
@@ -907,7 +905,7 @@ const NextStreamGpt = () => {
           </div>
         </div>
       )}
-      
+
       {showLoader && (
         <div className='nextstream-gpt__loading-container'>
           <video
