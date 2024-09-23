@@ -276,25 +276,25 @@ const NextStreamGpt = () => {
         // If there are recommended media items
         if (recommendedMedia.length > 0) {
           const mediaResults = recommendedMedia.map((item) => {
-            let mediaPath;
+            // let mediaPath;
   
-            // Handle person (actor/director) with profile_path
-            if (item.media_type === 'person') {
-              mediaPath = item.profile_path
-                ? `https://image.tmdb.org/t/p/w500${item.profile_path}`
-                : DefaultPoster;
-            } else if (item.media_type === 'movie' || item.media_type === 'tv') {
-              // Handle movie or TV show with poster_path
-              mediaPath = item.poster_path
-                ? `https://image.tmdb.org/t/p/w500${item.poster_path}`
-                : DefaultPoster;
-            }
+            // // Handle person (actor/director) with profile_path
+            // if (item.media_type === 'person') {
+            //   mediaPath = item.profile_path
+            //     ? `https://image.tmdb.org/t/p/w500${item.profile_path}`
+            //     : DefaultPoster;
+            // } else if (item.media_type === 'movie' || item.media_type === 'tv') {
+            //   // Handle movie or TV show with poster_path
+            //   mediaPath = item.poster_path
+            //     ? `https://image.tmdb.org/t/p/w500${item.poster_path}`
+            //     : DefaultPoster;
+            // }
   
             return {
               id: item.id,
               title: item.title || item.name,
               media_type: item.media_type,
-              poster_path: mediaPath,
+              poster_path: item.poster_path,
               vote_average: item.vote_average || null,
               trailerUrl: item.trailerUrl,
               credits: item.credits,
@@ -373,6 +373,8 @@ const NextStreamGpt = () => {
           userId,
         });
   
+        console.log('GPT Response:', response.data);
+  
         const chatbotMessage = response.data.response;
         setMessages((prevMessages) => [
           ...prevMessages,
@@ -383,6 +385,7 @@ const NextStreamGpt = () => {
   
         // Extract titles from the GPT response
         const titles = extractTitlesFromResponse(chatbotMessage);
+        console.log('Extracted Titles:', titles);
   
         if (titles.length === 0) {
           setMessages((prevMessages) => [...prevMessages]);
@@ -403,31 +406,31 @@ const NextStreamGpt = () => {
           (result) => result.media_type === 'person'
         );
   
+        console.log('Person Result:', personResult);
+  
         let personData = null;
+  
+        // If the person is found, create a person data object
         if (personResult) {
           personData = {
             id: personResult.id,
-            name: personResult.name,
+            title: personResult.name,
             media_type: 'person',
-            profile_path: personResult.profile_path
+            poster_path: personResult.profile_path
               ? `https://image.tmdb.org/t/p/w500${personResult.profile_path}`
               : DefaultPoster,
-            known_for: personResult.known_for.map((item) => ({
-              id: item.id,
-              title: item.title || item.name,
-              media_type: item.media_type,
-              poster_path: item.poster_path
-                ? `https://image.tmdb.org/t/p/w500${item.poster_path}`
-                : DefaultPoster,
-            })),
           };
+  
+          console.log('Person Data:', personData);
         }
   
         // Combine the media and person results
         const combinedResults = [
+          ...(personData ? [personData] : []), 
           ...mediaResults,
-          ...(personData ? [personData] : []),
         ];
+  
+        console.log('Combined Results:', combinedResults);
   
         if (combinedResults.length > 0) {
           setResults(combinedResults);
@@ -438,6 +441,7 @@ const NextStreamGpt = () => {
           ]);
         }
       } catch (error) {
+        console.error('Error fetching results:', error);
         setMessages((prevMessages) => [
           ...prevMessages,
           { sender: 'bot', text: 'Error fetching the results. Please try again.' },
@@ -450,7 +454,7 @@ const NextStreamGpt = () => {
       }
     }
   };
-
+  
   useEffect(() => {
     if (query && isAuthenticated) {
       setSearchQuery(query);
