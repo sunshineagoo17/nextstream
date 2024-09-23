@@ -40,6 +40,7 @@ const userRoutes = require('./src/routes/userRoutes');
 const unsubscribeRoutes = require('./src/routes/unsubscribeRoutes');
 const chatbotRoutes = require('./src/routes/chatbotRoutes');
 const trainRoutes = require('./src/routes/trainRoutes');
+const gptRoutes = require('./src/routes/gptRoutes');
 
 const authenticate = require('./src/middleware/authenticate');
 const guestAuthenticate = require('./src/middleware/guestAuthenticate');
@@ -216,6 +217,7 @@ app.use('/api/tmdb', tmdbRoutes);
 app.use('/api/external-cal', eventDownloadRoutes);
 app.use('/api/chatbot', chatbotRoutes);
 app.use('/api/train', authenticate, trainRoutes); 
+app.use('/api/gpt', gptRoutes);
 
 // Spotlight Routes for person details
 app.use('/api/spotlight', authenticate, spotlightRoutes);
