@@ -5,13 +5,13 @@ const knexConfig = require('../../knexfile');
 const db = require('knex')(knexConfig.development);
 const authenticate = require('../middleware/authenticate');
 const guestAuthenticate = require('../middleware/guestAuthenticate');
+const { loadModel, trainModel, predictUserPreference } = require('../models/recommendationModel')
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
 const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
 
 // Middleware to handle authentication for both users and guests
 const handleAuthentication = (req, res, next) => {
   const token = req.cookies.token || req.cookies.guestToken;
-
   if (token) {
     if (req.cookies.token) {
       authenticate(req, res, next);
@@ -31,7 +31,6 @@ const getMediaDetails = async (media_id, media_type) => {
       console.warn(`Skipping media type 'person' for id ${media_id}`);
       return null; 
     }
-
     const url = `${TMDB_BASE_URL}/${media_type}/${media_id}?api_key=${TMDB_API_KEY}`;
     const response = await axios.get(url);
 
@@ -126,7 +125,6 @@ router.post('/', handleAuthentication, async (req, res) => {
       await db('interactions')
         .where({ userId, media_id, media_type })
         .update({ interaction });
-
       console.log('Interaction updated');
     } else {
       // Insert a new interaction
@@ -136,7 +134,6 @@ router.post('/', handleAuthentication, async (req, res) => {
         interaction,
         media_type
       });
-
       console.log('Interaction inserted');
     }
 
@@ -148,7 +145,8 @@ router.post('/', handleAuthentication, async (req, res) => {
       viewed_at: db.fn.now()
     });
 
-    res.status(200).json({ message: 'Interaction recorded' });
+    await trainModel(userId);
+    res.status(200).json({ message: 'Interaction recorded and model trained' });
   } catch (error) {
     console.error('Error recording interaction:', error);
     res.status(500).json({ error: 'Internal server error' });
@@ -255,35 +253,36 @@ router.get('/toppicks/:userId', handleAuthentication, async (req, res) => {
   }
 });
 
+// Function to make TensorFlow predictions on user preferences
+const makePrediction = async (model, media) => {
+  const preference = await predictUserPreference(model, media.media_id, media.media_type);
+  return { ...media, preference };
+};
+
 // Fetch user's liked, viewed, and sent media to avoid recommending them again
 router.get('/recommendations/:userId', handleAuthentication, async (req, res) => {
   const userId = req.user.userId;
 
   try {
-    // Fetch user's liked media
-    const likedMedia = await db('interactions')
-      .select('media_id', 'media_type')
-      .where('userId', userId)
-      .andWhere('interaction', 1);
+    const likedMedia = await db('interactions').select('media_id', 'media_type').where('userId', userId).andWhere('interaction', 1);
+    const viewedMedia = await db('viewed_media').select('media_id', 'media_type').where('userId', userId);
+    const sentRecommendations = await db('sent_recommendations').select('recommendationId').where('userId', userId);
 
-    // Fetch user's viewed media
-    const viewedMedia = await db('viewed_media')
-      .select('media_id', 'media_type')
-      .where('userId', userId);
-
-    // Fetch media sent via email
-    const sentRecommendations = await db('sent_recommendations')
-      .select('recommendationId')
-      .where('userId', userId);
-
-    // Combine all interacted media IDs to filter them out from recommendations
     const interactedMediaIds = likedMedia.map(media => media.media_id)
       .concat(viewedMedia.map(media => media.media_id))
       .concat(sentRecommendations.map(rec => rec.recommendationId));
 
+    let model = await loadModel(userId);
+    if (!model) {
+      model = await trainModel(userId);
+      if (!model) {
+        return res.status(500).json({ message: 'Failed to train and load the TensorFlow model.' });
+      }
+    }
+  
     let recommendations = [];
 
-    // Content-based filtering: Recursive function to fetch recommendations based on liked media
+    // Recursive function to fetch similar media from TMDB based on liked media
     const fetchRecommendations = async (page = 1) => {
       let movieRecommendations = [];
       let showRecommendations = [];
@@ -291,23 +290,18 @@ router.get('/recommendations/:userId', handleAuthentication, async (req, res) =>
       // For each liked media, fetch similar media from TMDB
       for (let media of likedMedia) {
         if (!media.media_type) {
-          console.error(`Skipping media with null media type for media ID: ${media.media_id}`);
           continue;
         }
-
-        // Fetch detailed media information, including genres
         const details = await getMediaDetails(media.media_id, media.media_type);
         if (details) {
           const similarMedia = await axios.get(`${TMDB_BASE_URL}/${media.media_type}/${media.media_id}/similar`, {
             params: { api_key: TMDB_API_KEY, language: 'en-US' }
           });
           const similarItems = similarMedia.data.results.map(item => ({
-            ...item,
-            media_type: media.media_type,
-            genres: details.genres
+            ...item, media_type: media.media_type, genres: details.genres
           }));
 
-          // Separate recommendations by media type
+          // Separate by media type
           if (media.media_type === 'movie') {
             movieRecommendations.push(...similarItems);
           } else if (media.media_type === 'tv') {
@@ -316,36 +310,31 @@ router.get('/recommendations/:userId', handleAuthentication, async (req, res) =>
         }
       }
 
-      // Remove duplicates and already interacted media from recommendations
-      movieRecommendations = movieRecommendations.filter((item, index, self) =>
-        index === self.findIndex(t => t.id === item.id) && !interactedMediaIds.includes(item.id)
-      );
+      // Remove duplicates and already interacted media
+      movieRecommendations = movieRecommendations.filter(item => !interactedMediaIds.includes(item.id));
+      showRecommendations = showRecommendations.filter(item => !interactedMediaIds.includes(item.id));
 
-      showRecommendations = showRecommendations.filter((item, index, self) =>
-        index === self.findIndex(t => t.id === item.id) && !interactedMediaIds.includes(item.id)
-      );
-
-      // Balance the recommendations with equal movies and shows
+      // Balance between movies and shows
       const recommendationsCount = Math.min(2, movieRecommendations.length, showRecommendations.length);
-      const finalRecommendations = [
-        ...movieRecommendations.slice(0, recommendationsCount),
-        ...showRecommendations.slice(0, recommendationsCount)
-      ];
+      recommendations = [...movieRecommendations.slice(0, recommendationsCount), ...showRecommendations.slice(0, recommendationsCount)];
 
-      // If not enough recommendations, fetch the next page
-      if (finalRecommendations.length < 4 && page <= 2) {
-        return await fetchRecommendations(page + 1);
+      // If not enough recommendations, fetch next page
+      if (recommendations.length < 4 && page <= 2) {
+        await fetchRecommendations(page + 1);
       }
 
-      return finalRecommendations;
+      return recommendations;
     };
 
+    // Fetch recommendations from TMDB
     let finalRecommendations = await fetchRecommendations();
 
-    // Fallback to popular media if no recommendations were found
+    // Apply TensorFlow predictions to each recommended media item
+    finalRecommendations = await Promise.all(finalRecommendations.map(async (media) => await makePrediction(model, media)));
+
+    // Fallback to popular media if no recommendations found
     if (finalRecommendations.length === 0) {
       console.log('No recommendations found. Falling back to popular media.');
-
       const fetchFallbackMedia = async () => {
         const popularMoviesResponse = await axios.get(`${TMDB_BASE_URL}/movie/popular`, {
           params: { api_key: TMDB_API_KEY, language: 'en-US', page: 1 }
@@ -353,27 +342,16 @@ router.get('/recommendations/:userId', handleAuthentication, async (req, res) =>
         const popularShowsResponse = await axios.get(`${TMDB_BASE_URL}/tv/popular`, {
           params: { api_key: TMDB_API_KEY, language: 'en-US', page: 1 }
         });
-
-        const popularMovies = popularMoviesResponse.data.results
-          .filter(media => !interactedMediaIds.includes(media.id))
-          .map(item => ({ ...item, media_type: 'movie' }));
-
-        const popularShows = popularShowsResponse.data.results
-          .filter(media => !interactedMediaIds.includes(media.id))
-          .map(item => ({ ...item, media_type: 'tv' }));
-
         return [
-          ...popularMovies.slice(0, 2),
-          ...popularShows.slice(0, 2)
+          ...popularMoviesResponse.data.results.slice(0, 2).map(item => ({ ...item, media_type: 'movie' })),
+          ...popularShowsResponse.data.results.slice(0, 2).map(item => ({ ...item, media_type: 'tv' }))
         ];
       };
 
       finalRecommendations = await fetchFallbackMedia();
     }
 
-    res.status(200).json({
-      recommendations: finalRecommendations
-    });
+    res.status(200).json({ recommendations: finalRecommendations });
   } catch (error) {
     console.error('Error fetching recommendations:', error);
     res.status(500).json({ error: 'Internal server error' });

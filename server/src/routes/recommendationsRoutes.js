@@ -5,6 +5,22 @@ const knexConfig = require('../../knexfile');
 const db = require('knex')(knexConfig.development);
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
 const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
+const { trainModel, loadModel, predictUserPreference } = require('../models/recommendationModel');
+
+// Function to ensure model is trained before making predictions
+const ensureModelTrained = async (userId) => {
+  const model = await loadModel();
+  if (!model) {
+    console.log('Model not found, training new model...');
+    const trainedModel = await trainModel(userId);
+    if (!trainedModel) {
+      console.error('Error: Model could not be trained.');
+      throw new Error('Model training failed.');
+    }
+    return trainedModel;
+  }
+  return model;
+};
 
 // Middleware to initialize session data if it doesn't exist
 router.use((req, res, next) => {
@@ -29,6 +45,20 @@ const getMediaDetails = async (media_id, media_type) => {
     console.error(`Error fetching details for ${media_type} ${media_id}:`, error.response ? error.response.data : error.message);
     return null;
   }
+};
+
+// Function to apply TensorFlow predictions to media items
+const applyTensorFlowPredictions = async (model, mediaItems) => {
+  const predictedMedia = await Promise.all(mediaItems.map(async (media) => {
+    try {
+      const preference = await predictUserPreference(model, media.id, media.media_type);
+      return { ...media, preference }; 
+    } catch (error) {
+      console.error(`Error predicting preference for media ID: ${media.id}`, error);
+      return { ...media, preference: null }; 
+    }
+  }));
+  return predictedMedia;
 };
 
 // Route to fetch unique recommendations for a user
@@ -59,6 +89,9 @@ router.get('/:userId', async (req, res) => {
     const exclusionList = [...interactedMediaIds, ...req.session.displayedMedia];
 
     let recommendations = [];
+
+    // Ensure the model is trained before making predictions
+    const model = await ensureModelTrained(userId);
 
     // Content-based filtering: Recursive function to fetch recommendations based on liked media
     const fetchRecommendations = async (page = 1) => {
@@ -155,11 +188,14 @@ router.get('/:userId', async (req, res) => {
       finalRecommendations = await fetchFallbackMedia();
     }
 
+    // Apply TensorFlow predictions to the final recommendations
+    const predictedRecommendations = await applyTensorFlowPredictions(model, finalRecommendations);
+
     // Store the IDs of the recommendations in the session
     req.session.displayedMedia.push(...finalRecommendations.map(item => item.id));
 
     res.status(200).json({
-      recommendations: finalRecommendations
+      recommendations: predictedRecommendations
     });
   } catch (error) {
     console.error('Error fetching recommendations:', error);
