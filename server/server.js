@@ -8,8 +8,9 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const admin = require('firebase-admin');
 const knex = require('../server/src/config/db');
-const { trainNlp, processInput } = require('./src/services/nlpService');
 require('dotenv').config();
+
+const { loadNlpModel } = require('./src/services/nlpService'); 
 
 // Initialize Firebase Admin SDK
 if (!admin.apps.length) {
@@ -205,9 +206,6 @@ io.on('connection', (socket) => {
   });
 });
 
-// Start scheduled jobs
-cronJobs.scheduleJobs();
-
 // API Routes
 app.use('/api/email', emailRoutes);
 app.use('/api/auth', authRoutes);
@@ -253,13 +251,6 @@ app.use('/api/friends', authenticate, friendsRoutes);
 app.use('/api/messages', authenticate, friendsMsgsRoutes);
 app.use('/api/users', authenticate, userRoutes);
 
-// Train the NLP model when the server starts
-trainNlp().then(() => {
-  console.log('NLP training complete');
-}).catch(err => {
-  console.error('Error during NLP training:', err);
-});
-
 // Serve static files from the React app if needed
 app.use(express.static(path.join(__dirname, 'client/build')));
 
@@ -275,8 +266,21 @@ app.use((err, req, res, next) => {
   res.status(500).send('Wait! Something broke!');
 });
 
-// Start the server
-const PORT = process.env.PORT || 8080;
-server.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+// Load the NLP model during server startup
+loadNlpModel()
+  .then(() => {
+    console.log('NLP model successfully loaded');
+
+    // Start scheduled jobs
+    cronJobs.scheduleJobs();
+
+    // Start the server
+    const PORT = process.env.PORT || 8080;
+    server.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+    });
+  })
+  .catch((error) => {
+    console.error('Error loading NLP model:', error);
+    process.exit(1); 
+  });
