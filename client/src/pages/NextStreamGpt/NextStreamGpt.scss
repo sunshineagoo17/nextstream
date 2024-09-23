@@ -169,37 +169,39 @@
   &__gpt-button--og,
   &__gpt-button {
     border: none;
-    padding: 0.5rem 1rem;
+    padding: .5rem 1rem;
     font-family: $primary-font;
     font-size: 1rem;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
+    gap: .5rem;
     animation: glow 4s infinite alternate;
-    box-shadow: inset 4px 4px 8px rgba(0,0,0,0.2), inset -4px -4px 8px rgba(255,255,255,0.7);
+    box-shadow: inset .25rem .25rem .5rem rgba($neutral-black, .2),
+      inset -.25rem -.25rem .5rem rgba(255, 255, 255, .7);
     border-radius: .75rem;
     background: #e0e0e0;
-    transition: all 0.3s ease;
+    transition: all .3s ease;
     color: $robot-dark-blue;
 
-    &:hover{
-        background: $robot-dark-tablet;
-        border-radius: 2rem;
-        transform: scale(1.05);
+    &:hover {
+      background: $robot-dark-tablet;
+      border-radius: 2rem;
+      transform: scale(1.05);
+      color: $neutral-white;
+
+      &:active {
+        background: $robot-blue;
         color: $neutral-white;
-        
-        &:active{
-            background: $robot-blue;
-            color: $neutral-white;
-            animation: none;
-            box-shadow: inset 6px 6px 12px rgba(0,0,0,0.2), inset -6px -6px 12px rgba(255,255,255,0.7);
-            transform: scale(0.95);
-            color: $robot-dark-blue;
-        }
+        animation: none;
+        box-shadow: inset .375rem .375rem .75rem rgba($neutral-black, .2),
+          inset -.375rem -.375rem .75rem rgba(255, 255, 255, .7);
+        transform: scale(.95);
+        color: $robot-dark-blue;
+      }
     }
-}
+  }
 
   &__chat-container {
     @include block-item(100%, auto);
@@ -211,19 +213,19 @@
     justify-content: center;
     border-radius: .75rem;
     box-shadow: $shadow-tertiary;
-    overflow-y: auto; 
+    overflow-y: auto;
   }
 
   &__messages {
-    flex-grow: 1; 
+    flex-grow: 1;
     overflow-y: auto;
     margin-bottom: 1rem;
     width: 100%;
-    max-height: 30.125rem;
+    max-height: 3.125rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 4px solid $primary-very-light-blue;
+    border: .25rem solid $primary-very-light-blue;
     box-shadow: $shadow-tertiary;
     border-radius: 1rem;
     padding: 1rem .5rem;
@@ -235,31 +237,27 @@
 
     /* For WebKit-based browsers (Chrome, Safari, Edge) */
     &::-webkit-scrollbar {
-      width: .75rem; 
+      width: .75rem;
       height: .75rem;
     }
 
     &::-webkit-scrollbar-track {
-      background: $neutral-white; 
+      background: $neutral-white;
     }
 
     &::-webkit-scrollbar-thumb {
-      background-color: $robot-dark-blue; 
-      border-radius: .625rem; 
-      border: .1875rem solid $neutral-white; 
+      background-color: $robot-dark-blue;
+      border-radius: .625rem;
+      border: .1875rem solid $neutral-white;
     }
 
     &::-webkit-scrollbar-thumb:hover {
-      background-color: darken($robot-dark-blue, 10%); 
+      background-color: darken($robot-dark-blue, 10%);
     }
   }
 
   &__clear-chat-button {
-    background: linear-gradient(
-      135deg,
-      $robot-dark-tablet,
-      $robot-tablet
-    );
+    background: linear-gradient(135deg, $robot-dark-tablet, $robot-tablet);
     border: none;
     border-radius: .5rem;
     padding: .5rem 1rem;
@@ -276,31 +274,27 @@
     box-shadow: 0 0 1rem rgba($primary-light-blue, .4),
       inset 0 0 .5rem rgba($primary-medium-blue, .8);
     animation: pulse 2.5s infinite;
-  
+
     &:hover .nextstream-gpt__clear-chat-text,
     &:hover .nextstream-gpt__clear-chat-icon {
-      animation: slide-out 1s forwards ease-out; 
+      animation: slide-out 1s forwards ease-out;
       color: $primary-very-light-blue;
     }
-  
+
     &:active .nextstream-gpt__clear-chat-text,
     &:active .nextstream-gpt__clear-chat-icon {
-      animation: disappear 0.5s forwards ease-in-out; 
+      animation: disappear .5s forwards ease-in-out;
       color: $neutral-white;
     }
-  
+
     &:hover {
       border-radius: 2.5rem;
-      background: linear-gradient(
-        135deg,
-        $robot-tablet-screen,
-        $robot-tablet
-      );
+      background: linear-gradient(135deg, $robot-tablet-screen, $robot-tablet);
       transform: translateY(-.25rem) scale(1.05);
       box-shadow: 0 0 1.5rem rgba($primary-light-blue, .8),
         inset 0 0 .75rem rgba($primary-dark-blue, .9);
     }
-  
+
     &:active {
       transform: scale(.95);
       background: linear-gradient(
@@ -311,7 +305,7 @@
       box-shadow: 0 0 1rem rgba($primary-very-light-blue, .6),
         inset 0 0 .5rem rgba($primary-button-blue, .8);
     }
-  
+
     &::before {
       content: '';
       @include block-item(100%, 100%);
@@ -324,25 +318,25 @@
       z-index: 0;
       opacity: .75;
     }
-  
+
     &:hover::before {
       opacity: 1;
     }
   }
-  
+
   &__clear-chat-icon {
     font-size: 1rem;
     color: $neutral-white;
     z-index: 1;
   }
-  
+
   &__clear-chat-text {
     position: relative;
     color: $neutral-white;
     z-index: 1;
-    transition: transform 0.5s ease, opacity 0.5s ease;
+    transition: transform .5s ease, opacity .5s ease;
   }
-  
+
   @keyframes slide-out {
     0% {
       transform: translateX(0);
@@ -353,7 +347,7 @@
       opacity: 0;
     }
   }
-  
+
   @keyframes disappear {
     0% {
       opacity: 1;
@@ -362,7 +356,7 @@
       opacity: 0;
     }
   }
-  
+
   @keyframes pulse {
     0% {
       box-shadow: 0 0 1rem rgba($primary-light-blue, .4),
@@ -395,26 +389,39 @@
       align-self: flex-end;
       border-radius: 2.5rem 2.5rem 0 2.5rem;
       line-height: 1.25rem;
-      background: linear-gradient(145deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.2));
-      backdrop-filter: blur(10px);
-      box-shadow: inset 4px 4px 8px rgba(0,0,0,0.1), inset -4px -4px 8px rgba(255,255,255,0.5);
+      background: linear-gradient(
+        145deg,
+        rgba(255, 255, 255, .5),
+        rgba(255, 255, 255, .2)
+      );
+      backdrop-filter: blur(.625rem);
+      box-shadow: inset .25rem .25rem .5rem rgba($neutral-black, .1),
+        inset -.25rem -.25rem .5rem rgba(255, 255, 255, .5);
     }
 
     &--bot {
-        color: $neutral-white;
-        text-align: left;
-        align-self: flex-start;
-        justify-content: flex-start;
-        border-radius: 2.5rem 2.5rem 2.5rem 0;
-        line-height: 1.25rem;
-        text-shadow: $shadow-primary;
-        background: linear-gradient(145deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.15));
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      color: $neutral-white;
+      text-align: left;
+      align-self: flex-start;
+      justify-content: flex-start;
+      border-radius: 2.5rem 2.5rem 2.5rem 0;
+      line-height: 1.25rem;
+      text-shadow: $shadow-primary;
+      background: linear-gradient(
+        145deg,
+        rgba(255, 255, 255, .3),
+        rgba(255, 255, 255, .15)
+      );
+      border: .0625rem solid rgba(255, 255, 255, .2);
+      box-shadow: 0 .25rem .75rem rgba($neutral-black, .1);
     }
 
     &--gpt {
-      background: linear-gradient( 135deg, $primary-light-blue, $primary-medium-blue);
+      background: linear-gradient(
+        135deg,
+        $primary-light-blue,
+        $primary-medium-blue
+      );
       color: $neutral-white;
       justify-content: flex-start;
       align-self: flex-start;
@@ -448,13 +455,13 @@
     animation: tilt-head 3.5s infinite ease-in-out;
 
     &:hover {
-        text-shadow: $shadow-primary;
-        color: $robot-very-light-blue;
+      text-shadow: $shadow-primary;
+      color: $robot-very-light-blue;
     }
-  
+
     &:active {
-        color: $neutral-white;
-        transform: scale(.9);
+      color: $neutral-white;
+      transform: scale(.9);
     }
   }
 
@@ -496,52 +503,52 @@
     background: $robot-dark-blue;
     color: $robot-tablet-msg;
 
-        &:hover {
-            background: $robot-tablet-screen;
-            color: $robot-dark-tablet;
-            box-shadow: none;
-            animation: tilt-head 3.5s infinite ease-in-out;
-        }
+    &:hover {
+      background: $robot-tablet-screen;
+      color: $robot-dark-tablet;
+      box-shadow: none;
+      animation: tilt-head 3.5s infinite ease-in-out;
     }
- 
-    @keyframes tilt-head {
-      0%, 100% {
-        transform: rotate(0deg);
-      }
-      25% {
-        transform: rotate(-10deg);
-      }
-      50% {
-        transform: rotate(0deg); 
-      }
-      75% {
-        transform: rotate(10deg);
-      }
+  }
+
+  @keyframes tilt-head {
+    0%,
+    100% {
+      transform: rotate(0deg);
+    }
+    25% {
+      transform: rotate(-10deg);
+    }
+    50% {
+      transform: rotate(0deg);
+    }
+    75% {
+      transform: rotate(10deg);
+    }
   }
 
   &__user-icon-inline {
-    padding: 0.25rem;
+    padding: .25rem;
     border-radius: 1.5rem;
     background: $robot-very-light-blue;
     color: $robot-antenna;
-  
-    // Default hover animation
+
     &:hover {
       animation: tilt-head 3.5s infinite ease-in-out;
       color: $neutral-white;
       background: $robot-antenna;
       box-shadow: $shadow-primary;
     }
-  
-    // Icon animation when typing
+
     &.typing-icon {
       animation: pulseUserIcon 2.5s infinite ease-in-out;
       color: $neutral-white;
     }
   }
-  
+
   @keyframes pulseUserIcon {
-    0%, 100% {
+    0%,
+    100% {
       transform: scale(1);
       color: $robot-dark-blue;
     }
@@ -550,9 +557,10 @@
       color: $neutral-white;
     }
   }
-  
+
   @keyframes tilt-head {
-    0%, 100% {
+    0%,
+    100% {
       transform: rotate(0deg);
     }
     25% {
@@ -661,7 +669,12 @@
       position: absolute;
       top: 0;
       left: -100%;
-      background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, .4) 50%, rgba(255, 255, 255, 0) 100%);
+      background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, .4) 50%,
+        rgba(255, 255, 255, 0) 100%
+      );
       transform: skewX(-25deg);
       transition: left 1s;
     }
@@ -706,7 +719,7 @@
     width: 100%;
     height: auto;
     margin-bottom: 1rem;
-    display: flex; 
+    display: flex;
     align-items: center;
     justify-content: center;
 
@@ -723,7 +736,8 @@
   }
 
   &__empty-message {
-    animation: bounce 6s infinite ease-in-out, colorShift 3s infinite ease-in-out;
+    animation: bounce 6s infinite ease-in-out,
+      colorShift 3s infinite ease-in-out;
     border: .1875rem solid $primary-very-light-blue;
     border-radius: .5rem;
     box-shadow: $shadow-primary;
@@ -734,8 +748,8 @@
     line-height: .8rem;
     text-align: center;
     padding: .25rem;
-    width: 100%;  
-    
+    width: 100%;
+
     @include tablet {
       font-size: .85rem;
       line-height: 1.25rem;
@@ -744,34 +758,35 @@
   }
 
   @keyframes bounce {
-      0%, 100% {
-          transform: scale(1);
-          box-shadow: $shadow-primary;
-      }
-      50% {
-          transform: scale(1.01);
-          box-shadow: 0 .5rem 1.5rem rgba($neutral-black, .2);
-      }
+    0%,
+    100% {
+      transform: scale(1);
+      box-shadow: $shadow-primary;
+    }
+    50% {
+      transform: scale(1.01);
+      box-shadow: 0 .5rem 1.5rem rgba($neutral-black, .2);
+    }
   }
 
   @keyframes colorShift {
-      0% {
-          border-color: $primary-very-light-blue;
-          background: $neutral-white;
-      }
-      50% {
-          border-color: $primary-medium-blue;
-          background: lighten($primary-light-blue, 15%);
-      }
-      100% {
-          border-color: $primary-very-light-blue;
-          background: $neutral-white;
-      }
+    0% {
+      border-color: $primary-very-light-blue;
+      background: $neutral-white;
+    }
+    50% {
+      border-color: $primary-medium-blue;
+      background: lighten($primary-light-blue, 15%);
+    }
+    100% {
+      border-color: $primary-very-light-blue;
+      background: $neutral-white;
+    }
   }
 
   &__input {
     flex-grow: 1;
-    padding-left: .75rem; 
+    padding-left: .75rem;
     padding-right: 1.3rem;
     height: 2.5rem;
     width: 9rem;
@@ -786,7 +801,7 @@
     font-family: $primary-font;
 
     @include tablet {
-      padding-left: 3.25rem; 
+      padding-left: 3.25rem;
       padding-right: 2.5rem;
       height: 2.5rem;
       width: 100%;
@@ -813,13 +828,15 @@
     background: #e0e0e0;
     border: none;
     border-radius: .75rem;
-    box-shadow: inset 4px 4px 8px rgba(0,0,0,0.2), inset -4px -4px 8px rgba(255,255,255,0.7);
+    box-shadow: inset .25rem .25rem .5rem rgba($neutral-black, .2),
+      inset -.25rem -.25rem .5rem rgba(255, 255, 255, .7);
     color: $robot-dark-blue;
     cursor: pointer;
     font-size: .85rem;
     margin-left: .35rem;
     padding: .6rem;
-    transition: background-color .3s ease, transform .2s ease, box-shadow .2s ease;
+    transition: background-color .3s ease, transform .2s ease,
+      box-shadow .2s ease;
 
     &:hover {
       background-color: $robot-dark-blue;
@@ -830,13 +847,14 @@
     }
 
     &:active {
-        box-shadow: inset 6px 6px 12px rgba(0,0,0,0.2), inset -6px -6px 12px rgba(255,255,255,0.7);
-        transform: scale(0.95);
-        color: $robot-dark-blue;
-        transform: scale(.95);
-        background-color: $primary-very-light-blue;
+      box-shadow: inset .375rem .375rem .75rem rgba($neutral-black, .2),
+        inset -.375rem -.375rem .75rem rgba(255, 255, 255, .7);
+      transform: scale(.95);
+      color: $robot-dark-blue;
+      transform: scale(.95);
+      background-color: $primary-very-light-blue;
     }
-    
+
     @include tablet {
       margin-left: .5rem;
       padding: .6rem 1.2rem;
@@ -844,77 +862,79 @@
       font-size: 1rem;
     }
   }
-&__interrupt-btn {
-  border-radius: .75rem;
-  font-family: $primary-font;
-}
+  &__interrupt-btn {
+    border-radius: .75rem;
+    font-family: $primary-font;
+  }
 
   &__typing-indicator {
     position: absolute;
-    left: 2.25rem; 
+    left: 2.25rem;
     top: 5%;
     transform: translateY(-50%);
     display: inline-block;
     height: 1rem;
-    padding: 0.5rem;
+    padding: .5rem;
     z-index: 2;
   }
 
   &__typing-indicator-bubble {
     display: none;
-    width: 0.4rem;
-    height: 0.4rem;
-    margin: 0 0.15rem;
+    width: .4rem;
+    height: .4rem;
+    margin: 0 .15rem;
     background: $robot-dark-blue;
     border-radius: 50%;
     animation: bounce 1.2s infinite;
 
     @include tablet {
-       display: inline-block;
+      display: inline-block;
     }
   }
-  
+
   &__typing-indicator-bubble:nth-child(2) {
-    animation-delay: 0.2s;
+    animation-delay: .2s;
   }
-  
+
   &__typing-indicator-bubble:nth-child(3) {
-    animation-delay: 0.4s;
+    animation-delay: .4s;
   }
 
   @keyframes bounce {
-    0%, 100% {
+    0%,
+    100% {
       transform: translateY(0);
     }
     50% {
-      transform: translateY(-0.3rem);
+      transform: translateY(-.3rem);
     }
   }
 
   &__bot-typing-indicator-bubble {
     display: inline-block;
-    width: 0.4rem;
-    height: 0.4rem;
-    margin: 0 0.15rem;
+    width: .4rem;
+    height: .4rem;
+    margin: 0 .15rem;
     background-color: $robot-dark-tablet;
     border-radius: .05rem;
     animation: bounce 1.2s infinite;
   }
-  
+
   &__bot-typing-indicator-bubble:nth-child(2) {
-    animation-delay: 0.2s;
+    animation-delay: .2s;
   }
-  
+
   &__bot-typing-indicator-bubble:nth-child(3) {
-    animation-delay: 0.4s;
+    animation-delay: .4s;
   }
 
   @keyframes bounce {
-    0%, 100% {
+    0%,
+    100% {
       transform: translateY(0);
     }
     50% {
-      transform: translateY(-0.3rem);
+      transform: translateY(-.3rem);
     }
   }
 
@@ -925,7 +945,7 @@
     font-size: 2.25rem;
     background: $robot-dark-tablet;
     color: $robot-tablet-screen;
-    border: 1px solid $neutral-white;
+    border: .0625rem solid $neutral-white;
     box-shadow: $shadow-septenary;
     border-radius: 1rem;
     padding: .1rem;
@@ -1364,7 +1384,8 @@
     box-shadow: $shadow-primary;
     font-size: .85rem;
     line-height: 1.25rem;
-    animation: bounce 3s infinite ease-in-out, colorShift 3s infinite ease-in-out;
+    animation: bounce 3s infinite ease-in-out,
+      colorShift 3s infinite ease-in-out;
 
     @include tablet {
       margin-bottom: .5rem;
@@ -1451,7 +1472,8 @@
     box-shadow: $shadow-primary;
     font-size: .85rem;
     line-height: 1.25rem;
-    animation: bounce 3s infinite ease-in-out, colorShift 3s infinite ease-in-out;
+    animation: bounce 3s infinite ease-in-out,
+      colorShift 3s infinite ease-in-out;
 
     @include tablet {
       margin-bottom: .5rem;
@@ -1497,17 +1519,17 @@
 
   &__scroll-button {
     position: absolute;
-    right: 1rem; 
-    bottom: 1rem; 
+    right: 1rem;
+    bottom: 1rem;
     background: rgba($primary-button-blue, 1);
     border: none;
     color: $frosted-glass;
-    padding: 10px;
+    padding: .625rem;
     box-shadow: $shadow-septenary;
     border-radius: 50%;
     cursor: pointer;
     z-index: 2000;
-    
+
     &:hover {
       background: $feedback-mint-light-green;
       color: $feedback-dark-green;
@@ -1520,7 +1542,7 @@
   &__scroll-container-results {
     display: flex;
     overflow-x: scroll;
-    scrollbar-width: thin; 
+    scrollbar-width: thin;
     -ms-overflow-style: none;
     scroll-behavior: smooth;
     background: $primary-pale-blue;
@@ -1832,37 +1854,36 @@
     box-shadow: $shadow-primary;
 
     @include tablet {
-        line-height: normal;
+      line-height: normal;
     }
   }
 
   &__disclaimer-content {
-    background: rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(15px);
+    background: rgba(255, 255, 255, .25);
+    backdrop-filter: blur(.9375rem);
     padding: 2.5rem;
-    border-radius: 20px;
-    max-width: 600px;
+    border-radius: 1.25rem;
+    max-width: 37.5rem;
     text-align: center;
-    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37); 
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    
-    box-shadow: 
-      8px 8px 15px rgba(0, 0, 0, 0.1),
-      -8px -8px 15px rgba(255, 255, 255, 0.7);
+    box-shadow: 0 .5rem 2rem rgba(31, 38, 135, .37);
+    border: .0625rem solid rgba(255, 255, 255, .18);
+
+    box-shadow: .5rem .5rem .9375rem rgba($neutral-black, .1),
+      -.5rem -.5rem .9375rem rgba(255, 255, 255, .7);
   }
 
   &__disclaimer-copy {
     line-height: 1.1rem;
     font-size: .85rem;
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, .8);
     margin-bottom: 1.5rem;
 
     @include tablet {
-        line-height: 1.5rem;
-        font-size: 1.2rem;
+      line-height: 1.5rem;
+      font-size: 1.2rem;
     }
   }
-  
+
   &__disclaimer-note {
     color: $robot-medium-blue;
     margin-top: .75rem;
@@ -1870,48 +1891,45 @@
     line-height: .85rem;
 
     @include tablet {
-        font-size: .75rem;
-        line-height: 1rem;
+      font-size: .75rem;
+      line-height: 1rem;
     }
   }
 
   &__disclaimer-close {
-    background: #ffffff;
+    background: $neutral-white;
     border: none;
     font-size: 1rem;
     cursor: pointer;
-    padding: 0.5rem 1rem;
+    padding: .5rem 1rem;
     color: #555;
-    border-radius: 30px;
-    box-shadow: 
-      4px 4px 8px rgba(0, 0, 0, 0.1),
-      -4px -4px 8px rgba(255, 255, 255, 0.6);
-    transition: all 0.2s ease;
-    
+    border-radius: 1.875rem;
+    box-shadow: .25rem .25rem .5rem rgba($neutral-black, .1),
+      -.25rem -.25rem .5rem rgba(255, 255, 255, .6);
+    transition: all .2s ease;
+
     &:hover {
-        color: $robot-tablet-msg;
-      background: rgba(255, 255, 255, 0.85);
-      box-shadow: 
-        6px 6px 12px rgba(0, 0, 0, 0.2),
-        -6px -6px 12px rgba(255, 255, 255, 0.5);
-      transform: translateY(-2px);
+      color: $robot-tablet-msg;
+      background: rgba(255, 255, 255, .85);
+      box-shadow: .375rem .375rem .75rem rgba($neutral-black, .2),
+        -.375rem -.375rem .75rem rgba(255, 255, 255, .5);
+      transform: translateY(-.125rem);
     }
-  
+
     &:active {
-        color: $robot-medium-blue;
+      color: $robot-medium-blue;
       background: #e0e0e0;
-      box-shadow: 
-        inset 4px 4px 8px rgba(0, 0, 0, 0.2),
-        inset -4px -4px 8px rgba(255, 255, 255, 0.5);
-      transform: translateY(2px);
+      box-shadow: inset .25rem .25rem .5rem rgba($neutral-black, .2),
+        inset -.25rem -.25rem .5rem rgba(255, 255, 255, .5);
+      transform: translateY(.125rem);
     }
-  
+
     &:focus {
       outline: none;
     }
-  }  
+  }
 
-&__disclaimer-modal {
+  &__disclaimer-modal {
     position: fixed;
     top: 0;
     left: 0;
@@ -1920,8 +1938,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(8px);
+    background: rgba($neutral-black, .5);
+    backdrop-filter: blur(.5rem);
     z-index: 1000;
   }
 
@@ -1930,7 +1948,7 @@
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
-  } 
+  }
 
   &__more-button {
     margin-top: 2rem;
@@ -1961,21 +1979,23 @@
   }
 
   &__button {
-    box-shadow: inset 4px 4px 8px rgba(0,0,0,0.2), inset -4px -4px 8px rgba(255,255,255,0.7);
-    border-radius: 12px;
+    box-shadow: inset .25rem .25rem .5rem rgba($neutral-black, .2),
+      inset -.25rem -.25rem .5rem rgba(255, 255, 255, .7);
+    border-radius: .75rem;
     background: #e0e0e0;
-    transition: all 0.3s ease;
+    transition: all .3s ease;
     color: $robot-dark-blue;
-    
-        &:hover {
-            transform: scale(1.05);
-            color: $neutral-white;
-        }
-    
-        &:active {
-            box-shadow: inset 6px 6px 12px rgba(0,0,0,0.2), inset -6px -6px 12px rgba(255,255,255,0.7);
-            transform: scale(0.95);
-            color: $robot-dark-blue;
-        }
-    } 
+
+    &:hover {
+      transform: scale(1.05);
+      color: $neutral-white;
+    }
+
+    &:active {
+      box-shadow: inset .375rem .375rem .75rem rgba($neutral-black, .2),
+        inset -.375rem -.375rem .75rem rgba(255, 255, 255, .7);
+      transform: scale(.95);
+      color: $robot-dark-blue;
+    }
+  }
 }

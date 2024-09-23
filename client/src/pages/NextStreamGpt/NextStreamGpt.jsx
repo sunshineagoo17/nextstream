@@ -9,12 +9,12 @@ import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
 import Calendar from '../CalendarPage/sections/Calendar';
 import api from '../../services/api';
 import UserRating from '../TopPicksPage/sections/UserRating/UserRating';
-import './NextStreamGpt.scss';
 import DefaultPoster from '../../assets/images/posternoimg-icon.png';
 import MizuLoader from '../../components/MizuLoader/MizuLoader';
 import ChatRobotAnimation from "../../assets/animation/chat-robot.webm";
 import HelloRobotAnimation from "../../assets/animation/hello-robot.webm";
 import SearchRobotAnimation from "../../assets/animation/search-robot.webm";
+import './NextStreamGpt.scss';
 
 const NextStreamGpt = () => {
   const { userId, isAuthenticated } = useContext(AuthContext);
@@ -39,7 +39,7 @@ const NextStreamGpt = () => {
   const messagesEndRef = useRef(null);
   const [showLoader, setShowLoader] = useState(false);
   const [showDisclaimer, setShowDisclaimer] = useState(false);
-  const isInterrupted = useRef(false); 
+  const isInterrupted = useRef(false);
 
   const location = useLocation();
   const searchScrollRef = useRef(null);
@@ -78,12 +78,10 @@ const NextStreamGpt = () => {
     const matches = [];
     let match;
 
-    // First, extract titles inside quotes
     while ((match = quotesRegex.exec(responseText)) !== null) {
       matches.push(match[1].trim());
     }
 
-    // If no matches from quotes, try extracting numbered list items
     if (matches.length === 0) {
       while ((match = numberedRegex.exec(responseText)) !== null) {
         matches.push(match[1].trim());
@@ -101,7 +99,6 @@ const NextStreamGpt = () => {
       });
       const results = response.data.results;
 
-      // Look for a movie, TV show, or person
       const movieOrTvOrPerson = results.find(
         (result) =>
           result.media_type === 'movie' ||
@@ -109,7 +106,6 @@ const NextStreamGpt = () => {
           result.media_type === 'person'
       );
 
-      // If it's a person, extract profile_path instead of poster_path
       if (movieOrTvOrPerson) {
         const mediaPath =
           movieOrTvOrPerson.media_type === 'person'
@@ -127,7 +123,6 @@ const NextStreamGpt = () => {
       }
 
       if (results[0]) {
-        // Handle case where first result doesn't match movie, TV, or person
         return {
           ...results[0],
           poster_path: results[0].poster_path
@@ -144,14 +139,13 @@ const NextStreamGpt = () => {
   };
 
   const controller = new AbortController();
-const handleInterrupt = () => {
-  controller.abort(); 
-  setIsBotTyping(false);
-  setShowLoader(false);
-  isInterrupted.current = true;
-};
+  const handleInterrupt = () => {
+    controller.abort();
+    setIsBotTyping(false);
+    setShowLoader(false);
+    isInterrupted.current = true;
+  };
 
-  // Fetch movies for multiple titles
   const fetchMoviesForTitles = async (titles) => {
     const movieDataPromises = titles.map((title) =>
       fetchMovieDataByTitle(title)
@@ -290,7 +284,6 @@ const handleInterrupt = () => {
       setShowLoader(true);
 
       try {
-        // Send search query to GPT API
         const response = await api.post('/api/gpt', {
           userInput: searchQuery,
           userId,
@@ -301,13 +294,11 @@ const handleInterrupt = () => {
 
         console.log('API Results:', recommendedMedia);
 
-        // Display the GPT chatbot message
         setMessages((prevMessages) => [
           ...prevMessages,
           { sender: 'bot', text: chatbotMessage },
         ]);
 
-        // If there are recommended media items
         if (recommendedMedia.length > 0) {
           const mediaResults = recommendedMedia.map((item) => {
             return {
@@ -376,7 +367,6 @@ const handleInterrupt = () => {
       setIsBotTyping(true);
       setShowLoader(true);
 
-      // Display the user message in the chat
       setMessages((prevMessages) => [
         ...prevMessages,
         { sender: 'user', text: searchQuery },
@@ -400,7 +390,6 @@ const handleInterrupt = () => {
 
         await typeMessage(chatbotMessage, setMessages, setIsBotTyping);
 
-        // Extract titles from the GPT response
         const titles = extractTitlesFromResponse(chatbotMessage);
         console.log('Extracted Titles:', titles);
 
@@ -438,7 +427,6 @@ const handleInterrupt = () => {
           console.log('Person Data:', personData);
         }
 
-        // Combine the media and person results
         const combinedResults = [
           ...(personData ? [personData] : []),
           ...mediaResults,
@@ -599,39 +587,47 @@ const handleInterrupt = () => {
 
   return (
     <div className='nextstream-gpt'>
-        {/* Disclaimer Modal */}
-        {showDisclaimer && (
-            <div className="nextstream-gpt__disclaimer-modal">
-            <div className="nextstream-gpt__disclaimer-content">
-                <button className="nextstream-gpt__disclaimer-close" onClick={closeDisclaimer}>
-                <FontAwesomeIcon icon={faTimes} />
-                </button>
-                <p className='nextstream-gpt__disclaimer-header'>
-                    Say "Hi!" to Mizu 2.0!
-                </p>
-                <video
-                    className='nextstream-gpt__chatbot-svg'
-                    src={HelloRobotAnimation}
-                    alt='Chatbot'
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    style={{ width: '150px', height: 'auto' }}
-                    />
-                <p className="nextstream-gpt__disclaimer-copy">
-                    Meet Mizu, your AI-powered guide to discovering hidden gems in the world of movies and shows! Whether you're in the mood for a blockbuster or a binge-worthy series, Mizu's got you covered. 
-                    <br />
-                    <p className="nextstream-gpt__disclaimer-note">
-                         *Note: As smart as Mizu is, it's not always 100% accurate. Please double-check details when needed.*
-                    </p>
-                </p>
-                <button className="nextstream-gpt__disclaimer-close" onClick={closeDisclaimer}>
-                    Got it!
-                </button>
-            </div>
+
+      {/* Disclaimer Modal */}
+      {showDisclaimer && (
+        <div className='nextstream-gpt__disclaimer-modal'>
+          <div className='nextstream-gpt__disclaimer-content'>
+            <button
+              className='nextstream-gpt__disclaimer-close'
+              onClick={closeDisclaimer}>
+              <FontAwesomeIcon icon={faTimes} />
+            </button>
+            <p className='nextstream-gpt__disclaimer-header'>
+              Say "Hi!" to Mizu 2.0!
+            </p>
+            <video
+              className='nextstream-gpt__chatbot-svg'
+              src={HelloRobotAnimation}
+              alt='Chatbot'
+              autoPlay
+              loop
+              muted
+              playsInline
+              style={{ width: '150px', height: 'auto' }}
+            />
+            <p className='nextstream-gpt__disclaimer-copy'>
+              Meet Mizu, your AI-powered guide to discovering hidden gems in the
+              world of movies and shows! Whether you're in the mood for a
+              blockbuster or a binge-worthy series, Mizu's got you covered.
+              <br />
+              <p className='nextstream-gpt__disclaimer-note'>
+                *Note: As smart as Mizu is, it's not always 100% accurate.
+                Please double-check details when needed.*
+              </p>
+            </p>
+            <button
+              className='nextstream-gpt__disclaimer-close'
+              onClick={closeDisclaimer}>
+              Got it!
+            </button>
+          </div>
         </div>
-    )}
+      )}
 
       {showLoader && (
         <div className='nextstream-gpt__loader-overlay'>
@@ -786,31 +782,30 @@ const handleInterrupt = () => {
             )}
           </div>
 
-          {/* Clear chat button */}
-{/* Clear chat and Interrupt Mizu buttons */}
-{messages.length > 0 && (
-  <div className='nextstream-gpt__stop-actions'>
-   
+          {/* Clear Chat and Interrupt Mizu buttons */}
+          {messages.length > 0 && (
+            <div className='nextstream-gpt__stop-actions'>
+              <button
+                className='nextstream-gpt__interrupt-btn'
+                onClick={handleInterrupt}>
+                <FontAwesomeIcon
+                  icon={faStopCircle}
+                  className='nextstream-gpt__interrupt-icon'
+                />
+                Interrupt Mizu
+              </button>
 
-    <button
-      className='nextstream-gpt__interrupt-btn'
-      onClick={handleInterrupt}>
-      <FontAwesomeIcon icon={faStopCircle} className='nextstream-gpt__interrupt-icon' />
-      Interrupt Mizu
-    </button>
-
-    <button
-      className='nextstream-gpt__clear-chat-button'
-      onClick={handleClearChat}>
-      <FontAwesomeIcon
-        icon={faBroom}
-        className='nextstream-gpt__clear-chat-icon'
-      />
-      <p className='nextstream-gpt__clear-chat-text'>Clear Chat</p>
-    </button>
-  </div>
-)}
-
+              <button
+                className='nextstream-gpt__clear-chat-button'
+                onClick={handleClearChat}>
+                <FontAwesomeIcon
+                  icon={faBroom}
+                  className='nextstream-gpt__clear-chat-icon'
+                />
+                <p className='nextstream-gpt__clear-chat-text'>Clear Chat</p>
+              </button>
+            </div>
+          )}
         </div>
       </div>
 
