@@ -12,10 +12,10 @@ import api from '../../services/api';
 import Loader from '../../components/Loader/Loader';
 import ReelSVG from '../../assets/images/reel-svg.svg';
 import UserRating from '../TopPicksPage/sections/UserRating/UserRating';
-import './NextStreamBot.scss';
+import './NextStreamGpt.scss';
 import DefaultPoster from '../../assets/images/posternoimg-icon.png';
 
-const NextStreamBot = () => {
+const NextStreamGpt = () => {
   const { userId, isAuthenticated } = useContext(AuthContext);
   const [results, setResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -45,6 +45,56 @@ const NextStreamBot = () => {
 
   const showAlert = (message, type) => {
     setAlert({ message, type, visible: true });
+  };
+
+  // Helper function to extract titles from the GPT response
+  const extractTitlesFromResponse = (responseText) => {
+    const regex = /"([^"]+)"/g;
+    const matches = [];
+    let match;
+    while ((match = regex.exec(responseText)) !== null) {
+      matches.push(match[1]);
+    }
+    return matches;
+  };
+
+  // Helper function to fetch movie data by title from TMDB
+  const fetchMovieDataByTitle = async (title) => {
+    try {
+      const response = await api.get(`/api/tmdb/search`, {
+        params: { query: title },
+      });
+      const results = response.data.results;
+
+      // Prioritize movies, but fall back to TV shows and persons
+      const movieOrTv = results.find(
+        (result) => result.media_type === 'movie' || result.media_type === 'tv'
+      );
+
+      if (movieOrTv) {
+        return movieOrTv;
+      }
+
+      // If no movie or TV show found, return the first result
+      return results[0] || null;
+    } catch (error) {
+      console.error(`Error fetching data for ${title}:`, error);
+      return null;
+    }
+  };
+
+  // Fetch movies for multiple titles
+  const fetchMoviesForTitles = async (titles) => {
+    const movieDataPromises = titles.map((title) =>
+      fetchMovieDataByTitle(title)
+    );
+    try {
+      const movieResults = await Promise.all(movieDataPromises);
+      return movieResults;
+    } catch (error) {
+      console.error('Error fetching movie data:', error);
+      return [];
+    }
   };
 
   useEffect(() => {
@@ -172,11 +222,11 @@ const NextStreamBot = () => {
       setIsLoading(true);
 
       try {
-        const response = await api.post('/api/chatbot', {
+        const response = await api.post('/api/gpt', {
           userInput: searchQuery,
           userId,
         });
-
+        console.log('Response:', response.data);
         const chatbotMessage = response.data.message;
         const recommendedMedia = response.data.media || [];
 
@@ -194,21 +244,21 @@ const NextStreamBot = () => {
             if (item.media_type === 'person') {
               mediaPath = item.profile_path
                 ? `https://image.tmdb.org/t/p/w500${item.profile_path}`
-                : DefaultPoster; 
+                : DefaultPoster;
             } else if (
               item.media_type === 'movie' ||
               item.media_type === 'tv'
             ) {
               mediaPath = item.poster_path
                 ? `https://image.tmdb.org/t/p/w500${item.poster_path}`
-                : DefaultPoster; 
+                : DefaultPoster;
             }
 
             return {
               id: item.id,
               title: item.title || item.name,
               media_type: item.media_type,
-              poster_path: mediaPath, 
+              poster_path: mediaPath,
               vote_average: item.vote_average || null,
               trailerUrl: item.trailerUrl,
               credits: item.credits,
@@ -242,7 +292,7 @@ const NextStreamBot = () => {
 
   const typeMessage = async (message, setMessages, setIsBotTyping) => {
     let displayedText = '';
-    const typingSpeed = 50; 
+    const typingSpeed = 50;
 
     for (let i = 0; i < message.length; i++) {
       const currentText = displayedText + message[i];
@@ -268,131 +318,54 @@ const NextStreamBot = () => {
     if (searchQuery.trim()) {
       setIsTyping(true);
       setIsBotTyping(true);
-  
+
+      // Display the user message in the chat
       setMessages((prevMessages) => [
         ...prevMessages,
         { sender: 'user', text: searchQuery },
       ]);
-  
+
       try {
-        const response = await api.post('/api/chatbot', {
+        // Call GPT to get the response
+        const response = await api.post('/api/gpt', {
           userInput: searchQuery,
-          userId, 
+          userId,
         });
-  
-        const chatbotMessage = response.data.message;
-        const recommendedMedia = response.data.media || []; 
-  
-        let hasResponse = false;
-  
+
+        const chatbotMessage = response.data.response;
         setMessages((prevMessages) => [
           ...prevMessages,
-          { sender: 'bot', text: '' },
+          { sender: 'bot', text: chatbotMessage },
         ]);
-  
+
         await typeMessage(chatbotMessage, setMessages, setIsBotTyping);
-  
-        if (chatbotMessage && chatbotMessage.trim().length > 0) {
-          hasResponse = true;
+
+        // Extract titles from the GPT response
+        const titles = extractTitlesFromResponse(chatbotMessage);
+        if (titles.length === 0) {
+          setMessages((prevMessages) => [...prevMessages]);
+          setIsLoading(false);
+          setIsTyping(false);
+          setIsBotTyping(false);
+          return;
         }
-  
-        if (recommendedMedia.length > 0) {
-          const mediaResults = [];
-  
-          recommendedMedia.forEach((item) => {
-            let mediaPath;
-  
-            if (item.media_type === 'person') {
-              // Add the person to the results
-              mediaPath = item.profile_path
-                ? `https://image.tmdb.org/t/p/w500${item.profile_path}`
-                : DefaultPoster;
-  
-              mediaResults.push({
-                id: item.id,
-                title: item.name,
-                media_type: 'person',
-                poster_path: mediaPath,
-                vote_average: null, 
-                trailerUrl: null,
-                credits: item.credits,
-              });
-  
-              // Add all known_for media items to the results
-              if (item.known_for && item.known_for.length > 0) {
-                item.known_for.forEach((media) => {
-                  const mediaKnownPath = media.poster_path
-                    ? `https://image.tmdb.org/t/p/w500${media.poster_path}`
-                    : DefaultPoster;
-  
-                  mediaResults.push({
-                    id: media.id,
-                    title: media.title || media.name,
-                    media_type: media.media_type,
-                    poster_path: mediaKnownPath,
-                    vote_average: media.vote_average,
-                    trailerUrl: media.trailerUrl,
-                  });
-                });
-              }
-            } else {
-              // Handle normal media (movies and TV shows)
-              mediaPath = item.poster_path
-                ? `https://image.tmdb.org/t/p/w500${item.poster_path}`
-                : DefaultPoster;
-  
-              mediaResults.push({
-                id: item.id,
-                title: item.title || item.name,
-                media_type: item.media_type,
-                poster_path: mediaPath,
-                vote_average: item.vote_average,
-                trailerUrl: item.trailerUrl,
-              });
-            }
-          });
-  
-          setResults(mediaResults);
-          hasResponse = true;
-        }
-  
-        if (!hasResponse) {
-          const apologiesMessages = [
-            "I'm sorry, I didn't catch that. Could you please try again?",
-            "Oops! I missed that one. Could you rephrase it for me?",
-            "I didn't quite understand that. Can you say it differently?",
-            "Hmm, that didn't come through clearly. Could you give it another go?",
-            "Apologies, I couldn't understand. Mind rewording your request?",
-          ];
-  
-          const randomApology = apologiesMessages[Math.floor(Math.random() * apologiesMessages.length)];
-  
+
+        // Fetch movies based on extracted titles
+        const movieResults = await fetchMoviesForTitles(titles);
+        const filteredResults = movieResults.filter((movie) => movie !== null);
+
+        if (filteredResults.length > 0) {
+          setResults(filteredResults);
+        } else {
           setMessages((prevMessages) => [
             ...prevMessages,
-            {
-              sender: 'bot',
-              text: randomApology,
-            },
+            { sender: 'bot', text: 'Sorry, no matching movies found.' },
           ]);
         }
-  
       } catch (error) {
-        const noResultsMessages = [
-          "Sorry, I couldn't find any results. Try again!",
-          "It seems I couldn't locate any results. How about giving it another shot?",
-          "No matches found this time. Please try rephrasing or searching again!",
-          "Oops! I came up empty. Could you try asking in a different way?",
-          "I couldn't fetch any results for that. Care to try again?",
-        ];
-  
-        const randomNoResults = noResultsMessages[Math.floor(Math.random() * noResultsMessages.length)];
-  
         setMessages((prevMessages) => [
           ...prevMessages,
-          {
-            sender: 'bot',
-            text: randomNoResults,
-          },
+          { sender: 'bot', text: 'Error fetching results. Please try again.' },
         ]);
       } finally {
         setIsLoading(false);
@@ -526,15 +499,15 @@ const NextStreamBot = () => {
   };
 
   return (
-    <div className='nextstream-bot'>
+    <div className='nextstream-gpt'>
       {isLoading && (
-        <div className='nextstream-bot__loader-overlay'>
+        <div className='nextstream-gpt__loader-overlay'>
           <Loader />
         </div>
       )}
 
       {alert.visible && (
-        <div className='nextstream-bot__alert-wrapper'>
+        <div className='nextstream-gpt__alert-wrapper'>
           <CustomAlerts
             message={alert.message}
             type={alert.type}
@@ -543,41 +516,42 @@ const NextStreamBot = () => {
         </div>
       )}
 
-      <div className='nextstream-bot__title'>
-        <h1 className='nextstream-bot__header-text'>
-          Mizu:
-          <br /> Your Personal Entertainment Assistant
+      <div className='nextstream-gpt__title'>
+        <h1 className='nextstream-gpt__header-text'>
+          Mizu 2.0:
+          <br />
+          Your AI-Powered Assistant
         </h1>
-        <p className='nextstream-bot__copy'>
-          <span className='nextstream-bot__gradient-subtitle'>Mizu</span>{' '}
-          combines AI-powered search with real-time streaming data, helping you
-          find the perfect movies and shows based on your preferences. Ask
-          questions, get tailored recommendations, and discover trending content
-          all in one place!
+        <p className='nextstream-gpt__copy'>
+          <span className='nextstream-gpt__gradient-subtitle'>Mizu 2.0</span>{' '}
+          combines the power of GPT with real-time streaming data to help you
+          discover the perfect movies and shows. Ask questions, get personalized
+          recommendations, and explore trending content – all tailored to your
+          tastes!
         </p>
       </div>
 
       <button
-        className='nextstream-bot__gpt-button'
+        className='nextstream-gpt__gpt-button'
         onClick={() => navigate(`/nextsearch/${userId}`)}>
-        <FontAwesomeIcon icon={faSearch} className='nextstream-bot__gpt-icon' />
+        <FontAwesomeIcon icon={faSearch} className='nextstream-gpt__gpt-icon' />
         <span>Classic Search</span>
       </button>
 
-      <div className='nextstream-bot__chat-block'>
-        <div className='nextstream-bot__chat-container'>
-          <div className='nextstream-bot__messages' ref={messagesContainerRef}>
+      <div className='nextstream-gpt__chat-block'>
+        <div className='nextstream-gpt__chat-container'>
+          <div className='nextstream-gpt__messages' ref={messagesContainerRef}>
             {/* Show empty chat state */}
             {messages.length === 0 && (
-              <div className='nextstream-bot__empty-chat'>
+              <div className='nextstream-gpt__empty-chat'>
                 <img
                   src={ChatbotSvg}
                   alt='Chatbot'
-                  className='nextstream-bot__chatbot-svg'
+                  className='nextstream-gpt__chatbot-svg'
                 />
-                <p className='nextstream-bot__empty-message'>
-                  Say hello to Mizu (a.k.a. NextStream's cool bot) to discover
-                  your next favourite stream.
+                <p className='nextstream-gpt__empty-message'>
+                  Meet Mizu, NextStream's smart entertainment bot, and let it
+                  guide you to your next favourite stream.
                 </p>
               </div>
             )}
@@ -586,24 +560,24 @@ const NextStreamBot = () => {
             {messages.map((message, index) => (
               <div
                 key={index}
-                className={`nextstream-bot__message nextstream-bot__message--${message.sender}`}>
+                className={`nextstream-gpt__message nextstream-gpt__message--${message.sender}`}>
                 {/* Bot message */}
                 {message.sender === 'bot' && (
-                  <div className='nextstream-bot__bot-message-wrapper'>
-                    <div className='nextstream-bot__bot-message'>
+                  <div className='nextstream-gpt__bot-message-wrapper'>
+                    <div className='nextstream-gpt__bot-message'>
                       <FontAwesomeIcon
                         icon={faRobot}
-                        className='nextstream-bot__gpt-icon-inline'
+                        className='nextstream-gpt__gpt-icon-inline'
                       />
                       <p>{message.text}</p>
                     </div>
 
                     {/* Typing indicator under the bot message */}
                     {isBotTyping && (
-                      <div className='nextstream-bot__bot-typing-indicator'>
-                        <span className='nextstream-bot__bot-typing-indicator-bubble'></span>
-                        <span className='nextstream-bot__bot-typing-indicator-bubble'></span>
-                        <span className='nextstream-bot__bot-typing-indicator-bubble'></span>
+                      <div className='nextstream-gpt__bot-typing-indicator'>
+                        <span className='nextstream-gpt__bot-typing-indicator-bubble'></span>
+                        <span className='nextstream-gpt__bot-typing-indicator-bubble'></span>
+                        <span className='nextstream-gpt__bot-typing-indicator-bubble'></span>
                       </div>
                     )}
                   </div>
@@ -612,13 +586,13 @@ const NextStreamBot = () => {
                 {/* User message */}
                 {message.sender === 'user' && (
                   <div
-                    className={`nextstream-bot__user-message ${
+                    className={`nextstream-gpt__user-message ${
                       isTyping && !isBotTyping ? 'typing' : ''
                     }`}>
                     <p>{message.text}</p>
                     <FontAwesomeIcon
                       icon={faUser}
-                      className={`nextstream-bot__user-icon-inline ${
+                      className={`nextstream-gpt__user-icon-inline ${
                         isTyping && !isBotTyping ? 'typing-icon' : ''
                       }`}
                     />
@@ -630,10 +604,10 @@ const NextStreamBot = () => {
           </div>
 
           {/* Input section */}
-          <div className='nextstream-bot__input-wrapper'>
+          <div className='nextstream-gpt__input-wrapper'>
             <FontAwesomeIcon
               icon={faComment}
-              className='nextstream-bot__speech-icon'
+              className='nextstream-gpt__speech-icon'
             />
             <input
               type='text'
@@ -644,28 +618,28 @@ const NextStreamBot = () => {
               }}
               onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
               placeholder='Chat with Mizu...'
-              className='nextstream-bot__input'
+              className='nextstream-gpt__input'
             />
             {isTyping && !isBotTyping && (
-              <div className='nextstream-bot__typing-indicator'>
-                <span className='nextstream-bot__typing-indicator-bubble'></span>
-                <span className='nextstream-bot__typing-indicator-bubble'></span>
-                <span className='nextstream-bot__typing-indicator-bubble'></span>
+              <div className='nextstream-gpt__typing-indicator'>
+                <span className='nextstream-gpt__typing-indicator-bubble'></span>
+                <span className='nextstream-gpt__typing-indicator-bubble'></span>
+                <span className='nextstream-gpt__typing-indicator-bubble'></span>
               </div>
             )}
             <button
-              className='nextstream-bot__send-button'
+              className='nextstream-gpt__send-button'
               onClick={handleSendMessage}
               disabled={!searchQuery.trim()}>
               <FontAwesomeIcon
                 icon={faPaperPlane}
-                className='nextstream-bot__gpt-plane-icon'
+                className='nextstream-gpt__gpt-plane-icon'
               />
             </button>
             {searchQuery && (
               <FontAwesomeIcon
                 icon={faTimes}
-                className='nextstream-bot__clear-input'
+                className='nextstream-gpt__clear-input'
                 onClick={() => {
                   setSearchQuery('');
                   setIsTyping(false);
@@ -677,50 +651,50 @@ const NextStreamBot = () => {
           {/* Clear chat button */}
           {messages.length > 0 && (
             <button
-              className='nextstream-bot__clear-chat-button'
+              className='nextstream-gpt__clear-chat-button'
               onClick={handleClearChat}>
               <FontAwesomeIcon
                 icon={faBroom}
-                className='nextstream-bot__clear-chat-icon'
+                className='nextstream-gpt__clear-chat-icon'
               />
-              <p className='nextstream-bot__clear-chat-text'>Clear Chat</p>
+              <p className='nextstream-gpt__clear-chat-text'>Clear Chat</p>
             </button>
           )}
         </div>
       </div>
 
       {results.length > 0 && (
-        <div className='nextstream-bot__results-section'>
-          <div className='nextstream-bot__carousel'>
+        <div className='nextstream-gpt__results-section'>
+          <div className='nextstream-gpt__carousel'>
             {showLeftArrowResults && (
               <FontAwesomeIcon
                 icon={faChevronLeft}
-                className='nextstream-bot__nav-arrow left'
+                className='nextstream-gpt__nav-arrow left'
                 onClick={() => scrollLeft(searchScrollRef)}
               />
             )}
             <div
-              className='nextstream-bot__scroll-container-results'
+              className='nextstream-gpt__scroll-container-results'
               ref={searchScrollRef}>
               {results
-                .filter((result) => result.title || result.name) 
+                .filter((result) => result.title || result.name)
                 .map((result) => (
                   <div
                     key={result.id}
-                    className='nextstream-bot__card nextstream-bot__card--results'>
-                    <h3 className='nextstream-bot__title--results'>
+                    className='nextstream-gpt__card nextstream-gpt__card--results'>
+                    <h3 className='nextstream-gpt__title--results'>
                       {result.title || result.name}
                     </h3>
 
-                    <div className='nextstream-bot__poster-container-results'>
+                    <div className='nextstream-gpt__poster-container-results'>
                       <img
                         src={result.poster_path}
                         alt={result.title || result.name}
-                        className='nextstream-bot__poster nextstream-bot__poster--results'
+                        className='nextstream-gpt__poster nextstream-gpt__poster--results'
                       />
 
                       {result.media_type !== 'person' && (
-                        <div className='nextstream-bot__rating-container'>
+                        <div className='nextstream-gpt__rating-container'>
                           <UserRating
                             rating={(result.vote_average || 0) * 10}
                           />
@@ -729,31 +703,31 @@ const NextStreamBot = () => {
 
                       {result.media_type !== 'person' && (
                         <div
-                          className='nextstream-bot__play-overlay'
+                          className='nextstream-gpt__play-overlay'
                           onClick={() =>
                             handlePlayTrailer(result.id, result.media_type)
                           }>
                           <FontAwesomeIcon
                             icon={faPlay}
-                            className='nextstream-bot__play-icon'
+                            className='nextstream-gpt__play-icon'
                           />
                         </div>
                       )}
                     </div>
 
-                    <div className='nextstream-bot__icons-row'>
+                    <div className='nextstream-gpt__icons-row'>
                       {result.media_type === 'person' ? (
                         <>
                           <Link to={`/spotlight/${userId}/${result.id}`}>
                             <FontAwesomeIcon
                               icon={faUser}
-                              className='nextstream-bot__media-icon'
+                              className='nextstream-gpt__media-icon'
                               title='Person Spotlight'
                             />
                           </Link>
                           <FontAwesomeIcon
                             icon={faShareAlt}
-                            className='nextstream-bot__share-icon'
+                            className='nextstream-gpt__share-icon'
                             onClick={() =>
                               handleShare(
                                 result.name,
@@ -769,7 +743,7 @@ const NextStreamBot = () => {
                             to={`/nextview/${userId}/${result.media_type}/${result.id}`}>
                             <FontAwesomeIcon
                               icon={result.media_type === 'tv' ? faTv : faFilm}
-                              className='nextstream-bot__media-icon'
+                              className='nextstream-gpt__media-icon'
                               title={
                                 result.media_type === 'tv' ? 'TV Show' : 'Movie'
                               }
@@ -778,7 +752,7 @@ const NextStreamBot = () => {
 
                           <FontAwesomeIcon
                             icon={faCalendarPlus}
-                            className='nextstream-bot__cal-icon'
+                            className='nextstream-gpt__cal-icon'
                             onClick={() =>
                               handleAddToCalendar(
                                 result.title,
@@ -791,7 +765,7 @@ const NextStreamBot = () => {
                           {likedStatus[result.id] === 1 ? (
                             <FontAwesomeIcon
                               icon={faThumbsUp}
-                              className='nextstream-bot__like-icon active'
+                              className='nextstream-gpt__like-icon active'
                               onClick={() =>
                                 handleDislike(result.id, result.media_type)
                               }
@@ -799,7 +773,7 @@ const NextStreamBot = () => {
                           ) : likedStatus[result.id] === 0 ? (
                             <FontAwesomeIcon
                               icon={faThumbsDown}
-                              className='nextstream-bot__dislike-icon active'
+                              className='nextstream-gpt__dislike-icon active'
                               onClick={() =>
                                 handleLike(result.id, result.media_type)
                               }
@@ -808,14 +782,14 @@ const NextStreamBot = () => {
                             <>
                               <FontAwesomeIcon
                                 icon={faThumbsUp}
-                                className='nextstream-bot__like-icon'
+                                className='nextstream-gpt__like-icon'
                                 onClick={() =>
                                   handleLike(result.id, result.media_type)
                                 }
                               />
                               <FontAwesomeIcon
                                 icon={faThumbsDown}
-                                className='nextstream-bot__dislike-icon'
+                                className='nextstream-gpt__dislike-icon'
                                 onClick={() =>
                                   handleDislike(result.id, result.media_type)
                                 }
@@ -825,7 +799,7 @@ const NextStreamBot = () => {
 
                           <FontAwesomeIcon
                             icon={faShareAlt}
-                            className='nextstream-bot__share-icon'
+                            className='nextstream-gpt__share-icon'
                             onClick={() =>
                               handleShare(
                                 result.title || result.name,
@@ -843,7 +817,7 @@ const NextStreamBot = () => {
             {showRightArrowResults && (
               <FontAwesomeIcon
                 icon={faChevronRight}
-                className='nextstream-bot__nav-arrow right'
+                className='nextstream-gpt__nav-arrow right'
                 onClick={() => scrollRight(searchScrollRef)}
               />
             )}
@@ -852,13 +826,13 @@ const NextStreamBot = () => {
       )}
 
       {isLoading && (
-        <div className='nextstream-bot__loading-container'>
+        <div className='nextstream-gpt__loading-container'>
           <img
             src={ReelSVG}
             alt='Loading...'
-            className='nextstream-bot__loading-svg'
+            className='nextstream-gpt__loading-svg'
           />
-          <p className='nextstream-bot__text--center'>
+          <p className='nextstream-gpt__text--center'>
             Media is currently loading...
           </p>
         </div>
@@ -866,16 +840,16 @@ const NextStreamBot = () => {
 
       <button
         className='nextstream-bot__gpt-button'
-        onClick={() => navigate(`/nextstream-gpt/${userId}`)}>
+        onClick={() => navigate(`/nextstream-bot/${userId}`)}>
         <FontAwesomeIcon icon={faRobot} className='nextstream-bot__gpt-icon' />
-        <span>Chat with Mizu v2.0</span>
+        <span>Chat with Mizu O.G.</span>
       </button>
 
       {isModalOpen && (
-        <div className='nextstream-bot__modal'>
-          <div className='nextstream-bot__modal-content'>
+        <div className='nextstream-gpt__modal'>
+          <div className='nextstream-gpt__modal-content'>
             <button
-              className='nextstream-bot__modal-content-close'
+              className='nextstream-gpt__modal-content-close'
               onClick={closeModal}>
               <FontAwesomeIcon icon={faTimes} />
             </button>
@@ -891,13 +865,13 @@ const NextStreamBot = () => {
       )}
 
       {showCalendar && (
-        <div className='nextstream-bot__calendar-modal'>
+        <div className='nextstream-gpt__calendar-modal'>
           <button
-            className='nextstream-bot__calendar-close-btn'
+            className='nextstream-gpt__calendar-close-btn'
             onClick={handleCloseCalendar}>
             <FontAwesomeIcon
               icon={faTimes}
-              className='nextstream-bot__cal-close-icon'
+              className='nextstream-gpt__cal-close-icon'
             />
           </button>
           <Calendar
@@ -936,4 +910,4 @@ const NextStreamBot = () => {
   );
 };
 
-export default NextStreamBot;
+export default NextStreamGpt;

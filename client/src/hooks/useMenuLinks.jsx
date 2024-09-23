@@ -9,6 +9,7 @@ const useMenuLinks = () => {
   const authenticatedLinks = [
     { name: "NextSearch", path: `/nextsearch/${authUserId}` },
     { name: "NextStream Bot", path: `/nextstream-bot/${authUserId}` },
+    { name: "NextStream Gpt", path: `/nextstream-gpt/${authUserId}` },
     { name: "Top Picks", path: `/top-picks/${authUserId}` },
     { name: "NextSwipe", path: `/nextswipe/${authUserId}` },
     { name: "Favourites", path: `/faves/${authUserId}` },
