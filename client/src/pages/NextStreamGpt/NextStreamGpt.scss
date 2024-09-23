@@ -36,7 +36,6 @@
 }
 
 .nextstream-gpt {
-  @include frosted-glass2;
   border-radius: 1.25rem;
   box-shadow: $shadow-quaternary;
   margin: 1.5rem;
@@ -48,8 +47,8 @@
   position: relative;
   background: linear-gradient(
     135deg,
-    rgba($frosted-glass, .75),
-    rgba($primary-button-blue, 1)
+    rgba($primary-button-blue, .75),
+    rgba($primary-medium-blue, 1)
   );
   overflow: hidden;
 
@@ -199,117 +198,48 @@
     align-items: center;
     background: linear-gradient(
       135deg,
-      rgba($frosted-glass, .75),
-      rgba($primary-button-blue, 1)
+      rgba($primary-button-blue, .75),
+      rgba($primary-medium-blue, 1)
     );
   }
   
+  &__gpt-button--og {
+    margin-bottom: 1.5rem;
+  }
+
+  &__gpt-button--og,
   &__gpt-button {
-    background: linear-gradient(
-      135deg,
-      $primary-light-blue,
-      $primary-medium-blue
-    );
-    border: none;
-    border-radius: .5rem;
-    padding: .5rem 1rem;
-    color: $neutral-white;
-    font-family: $primary-font;
-    font-size: 1rem;
-    cursor: help;
-    display: flex;
-    align-items: center;
-    gap: .5rem;
-    position: relative;
-    overflow: hidden;
-    transition: all .4s ease;
-    box-shadow: 0 0 1rem rgba($primary-light-blue, .4),
-      inset 0 0 .5rem rgba($primary-medium-blue, .8);
-    animation: pulse 2.5s infinite;
+        border: none;
+        border-radius: .5rem;
+        padding: 0.5rem 1rem;
+        font-family: $primary-font;
+        font-size: 1rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        transition: all 0.4s ease;
+        animation: glow 4s infinite alternate;
 
-    &:hover {
-      border-radius: 2.5rem;
-      background: linear-gradient(
-        135deg,
-        $primary-dark-blue,
-        $primary-medium-blue
-      );
-      transform: translateY(-.25rem) scale(1.05);
-      box-shadow: 0 0 1.5rem rgba($primary-light-blue, .8),
-        inset 0 0 .75rem rgba($primary-dark-blue, .9);
-    }
-
-    &:active {
-      transform: scale(.95);
-      background: linear-gradient(
-        135deg,
-        $primary-very-light-blue,
-        $primary-button-blue
-      );
-      box-shadow: 0 0 1rem rgba($primary-very-light-blue, .6),
-        inset 0 0 .5rem rgba($primary-button-blue, .8);
-    }
-
-    &::before {
-      content: '';
-      @include block-item(100%, 100%);
-      position: absolute;
-      top: 0;
-      left: 0;
-      background: rgba($primary-light-blue, .6);
-      filter: blur(1.25rem);
-      transition: opacity .5s ease;
-      z-index: 0;
-      opacity: .75;
-    }
-
-    &:hover::before {
-      opacity: 1;
-    }
-  }
-
-  &__gpt-icon {
-    font-size: 1rem;
-    z-index: 1;
-    animation: tilt-head 3.5s infinite ease-in-out;
-  }
-
-  @keyframes pulse {
-    0% {
-      box-shadow: 0 0 1rem rgba($primary-light-blue, .4),
-        inset 0 0 .5rem rgba($primary-medium-blue, .8);
-    }
-    50% {
-      box-shadow: 0 0 1.5rem rgba($primary-light-blue, .8),
-        inset 0 0 .75rem rgba($primary-dark-blue, .9);
-    }
-    100% {
-      box-shadow: 0 0 1rem rgba($primary-light-blue, .4),
-        inset 0 0 .5rem rgba($primary-medium-blue, .8);
-    }
-  }
-
-  @keyframes tilt-head {
-    0%,
-    100% {
-      transform: rotate(0deg);
-    }
-    25% {
-      transform: rotate(-10deg);
-    }
-    50% {
-      transform: rotate(0deg);
-    }
-    75% {
-      transform: rotate(10deg);
-    }
-  }
+        &:hover{
+            background: $primary-dark-blue;
+            color: $primary-very-light-blue;
+            border-radius: 2rem;
+         
+            &:active{
+                background: $primary-medium-blue;
+                color: $neutral-white;
+                animation: none;
+            }
+        }
+      }
 
   &__chat-container {
     @include block-item(100%, auto);
     display: flex;
     flex-direction: column;
-    background-color: $primary-pale-blue;
+    background-color: $primary-dark-blue;
     align-items: center;
     padding: 1rem;
     justify-content: center;
@@ -493,27 +423,28 @@
     max-width: 100%;
 
     &--user {
-      background-color: $feedback-error-peach;
       color: $neutral-white;
       text-align: right;
       justify-content: flex-end;
       align-self: flex-end;
-      text-shadow: $shadow-primary;
       border-radius: 2.5rem 2.5rem 0 2.5rem;
       line-height: 1.25rem;
-      border: .125rem solid $feedback-error-very-light-peach;
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.2));
+      backdrop-filter: blur(10px);
+      box-shadow: inset 4px 4px 8px rgba(0,0,0,0.1), inset -4px -4px 8px rgba(255,255,255,0.5);
     }
 
     &--bot {
-      background-color: $feedback-medium-green;
-      color: $neutral-white;
-      text-align: left;
-      align-self: flex-start;
-      justify-content: flex-start;
-      border-radius: 2.5rem 2.5rem 2.5rem 0;
-      line-height: 1.25rem;
-      text-shadow: $shadow-primary;
-      border: .125rem solid $feedback-very-light-mint-green;
+        color: $neutral-white;
+        text-align: left;
+        align-self: flex-start;
+        justify-content: flex-start;
+        border-radius: 2.5rem 2.5rem 2.5rem 0;
+        line-height: 1.25rem;
+        text-shadow: $shadow-primary;
+        background: linear-gradient(145deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.15));
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
 
     &--gpt {
@@ -542,6 +473,54 @@
   &__user-message {
     display: flex;
     gap: .5rem;
+  }
+
+  &__search-icon,
+  &__gpt-icon {
+    font-size: 1rem;
+    z-index: 1;
+    animation: tilt-head 3.5s infinite ease-in-out;
+
+    &:hover {
+        text-shadow: $shadow-primary;
+        color: $primary-very-light-blue;
+      }
+  
+      &:active {
+        color: $neutral-white;
+        transform: scale(.9);
+      }
+  }
+
+  @keyframes pulse {
+    0% {
+      box-shadow: 0 0 1rem rgba($primary-light-blue, .4),
+        inset 0 0 .5rem rgba($primary-medium-blue, .8);
+    }
+    50% {
+      box-shadow: 0 0 1.5rem rgba($primary-light-blue, .8),
+        inset 0 0 .75rem rgba($primary-dark-blue, .9);
+    }
+    100% {
+      box-shadow: 0 0 1rem rgba($primary-light-blue, .4),
+        inset 0 0 .5rem rgba($primary-medium-blue, .8);
+    }
+  }
+
+  @keyframes tilt-head {
+    0%,
+    100% {
+      transform: rotate(0deg);
+    }
+    25% {
+      transform: rotate(-10deg);
+    }
+    50% {
+      transform: rotate(0deg);
+    }
+    75% {
+      transform: rotate(10deg);
+    }
   }
 
   &__gpt-icon-inline {
@@ -624,7 +603,7 @@
     font-size: .85rem;
     line-height: 1.25rem;
     font-weight: normal;
-    background-color: $primary-light-blue;
+    background-color: $primary-medium-blue;
     padding: .25rem .75rem;
     border-radius: .5rem;
     border: .1875rem solid $frosted-glass;
@@ -702,8 +681,8 @@
     overflow: hidden;
     background: linear-gradient(
       180deg,
-      $primary-gradient-blue,
-      darken($primary-gradient-blue, 15%)
+      $primary-medium-blue,
+      darken($primary-button-blue, 35%)
     );
     flex-direction: column;
 
@@ -828,7 +807,7 @@
     height: 2.5rem;
     width: 9rem;
     border-radius: 2.5rem;
-    background-color: $primary-very-light-blue;
+    background-color: $frosted-glass;
     backdrop-filter: blur(.625rem);
     box-shadow: $shadow-quaternary;
     border: .25rem solid rgba(255, 255, 255, .7);
@@ -849,9 +828,10 @@
     }
 
     &:focus {
-      background-color: $neutral-white;
+      background-color: $primary-button-dark-blue;
       border: .25rem solid $pastel-blue;
       box-shadow: $shadow-senary;
+      color: $neutral-white;
     }
   }
 
@@ -962,8 +942,8 @@
     left: 2.5rem;
     display: none;
     font-size: 2.25rem;
-    background: $neutral-white;
-    color: $primary-very-light-blue;
+    background: $primary-button-dark-blue;
+    color: $pastel-blue;
     border: 1px solid $neutral-white;
     box-shadow: $shadow-septenary;
     border-radius: 1rem;
@@ -980,14 +960,14 @@
     right: 3rem;
     top: 35%;
     font-size: .85rem;
-    color: $primary-dark-blue;
+    color: $neutral-white;
     cursor: pointer;
     z-index: 3;
 
     transition: transform .3s ease;
 
     &:hover {
-      color: $primary-button-blue;
+      color: $primary-very-light-blue;
       transform: scale(1.2);
     }
 
@@ -999,28 +979,6 @@
     @include tablet {
       right: 5rem;
       top: 30%;
-    }
-  }
-
-  &__search-icon {
-    position: absolute;
-    left: 1rem;
-    color: $primary-dark-blue;
-    font-size: 1rem;
-    transition: transform .3s ease;
-    transition: transform .6s ease-in-out;
-    z-index: 10;
-    cursor: pointer;
-
-    &:hover {
-      transform: rotate(360deg);
-      text-shadow: $shadow-primary;
-      color: $primary-button-blue;
-    }
-
-    &:active {
-      color: $neutral-white;
-      transform: scale(.9);
     }
   }
 
@@ -1219,31 +1177,6 @@
       box-shadow: $shadow-senary;
       background: $primary-very-light-blue;
       color: $primary-dark-blue;
-    }
-  }
-
-  &__button {
-    margin-left: .5rem;
-    padding: .5rem 1rem;
-    background-color: $primary-button-blue;
-    color: $neutral-white;
-    border-radius: 2.5rem;
-    border: none;
-    cursor: pointer;
-    transition: background-color .3s, transform .3s;
-
-    &:hover {
-      background-color: $primary-medium-blue;
-      transform: scale(1.05);
-    }
-
-    &:active {
-      background-color: $primary-dark-blue;
-      transform: scale(.95);
-    }
-
-    @include tablet {
-      padding: .75rem 1.5rem;
     }
   }
 
@@ -1931,4 +1864,24 @@
     text-align: center;
     margin-top: 2rem;
   }
+
+  &__gpt-button, &__gpt-button--og,
+  &__button, &__send-button {
+    box-shadow: inset 4px 4px 8px rgba(0,0,0,0.2), inset -4px -4px 8px rgba(255,255,255,0.7);
+    border-radius: 12px;
+    background: #e0e0e0;
+    transition: all 0.3s ease;
+    color: $primary-button-blue;
+    
+        &:hover {
+        transform: scale(1.05);
+        color: $neutral-white;
+        }
+    
+        &:active {
+        box-shadow: inset 6px 6px 12px rgba(0,0,0,0.2), inset -6px -6px 12px rgba(255,255,255,0.7);
+        transform: scale(0.95);
+        color: $primary-medium-blue;
+        }
+    } 
 }

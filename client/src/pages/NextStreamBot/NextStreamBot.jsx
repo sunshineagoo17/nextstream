@@ -558,7 +558,7 @@ const NextStreamBot = () => {
       </div>
 
       <button
-        className='nextstream-bot__gpt-button'
+        className='nextstream-bot__search-button'
         onClick={() => navigate(`/nextsearch/${userId}`)}>
         <FontAwesomeIcon icon={faSearch} className='nextstream-bot__gpt-icon' />
         <span>Classic Search</span>

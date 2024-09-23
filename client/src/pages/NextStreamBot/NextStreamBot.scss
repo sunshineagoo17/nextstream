@@ -205,6 +205,11 @@
   }
   
   &__gpt-button {
+    margin-bottom: 1rem;
+  }
+  
+  &__search-button,
+  &__gpt-button {
     background: linear-gradient(
       135deg,
       $primary-light-blue,

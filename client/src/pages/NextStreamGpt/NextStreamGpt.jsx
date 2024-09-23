@@ -534,7 +534,7 @@ const NextStreamGpt = () => {
       <button
         className='nextstream-gpt__gpt-button'
         onClick={() => navigate(`/nextsearch/${userId}`)}>
-        <FontAwesomeIcon icon={faSearch} className='nextstream-gpt__gpt-icon' />
+        <FontAwesomeIcon icon={faSearch} className='nextstream-gpt__search-icon' />
         <span>Classic Search</span>
       </button>
 
@@ -550,8 +550,7 @@ const NextStreamGpt = () => {
                   className='nextstream-gpt__chatbot-svg'
                 />
                 <p className='nextstream-gpt__empty-message'>
-                  Meet Mizu, NextStream's smart entertainment bot, and let it
-                  guide you to your next favourite stream.
+                  Meet Mizu, your smart bot. Let it guide you to your next stream.
                 </p>
               </div>
             )}
@@ -839,9 +838,9 @@ const NextStreamGpt = () => {
       )}
 
       <button
-        className='nextstream-bot__gpt-button'
+        className='nextstream-gpt__gpt-button--og'
         onClick={() => navigate(`/nextstream-bot/${userId}`)}>
-        <FontAwesomeIcon icon={faRobot} className='nextstream-bot__gpt-icon' />
+        <FontAwesomeIcon icon={faRobot} className='nextstream-gpt__gpt-icon' />
         <span>Chat with Mizu O.G.</span>
       </button>
 
