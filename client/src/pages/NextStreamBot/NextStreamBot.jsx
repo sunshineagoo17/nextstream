@@ -4,12 +4,12 @@ import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import { Tooltip } from 'react-tooltip';
-import { faChevronLeft, faBroom, faRobot, faChevronRight, faPlay, faTimes, faSearch, faComment, faTv, faFilm, faCalendarPlus, faThumbsUp, faThumbsDown, faShareAlt, faUser, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faBroom, faRobot, faChevronRight, faPlay, faTimes, faComment, faTv, faFilm, faCalendarPlus, faThumbsUp, faThumbsDown, faShareAlt, faUser, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
 import ChatbotSvg from "../../assets/images/chat-bot.svg";
 import Calendar from '../CalendarPage/sections/Calendar';
 import api from '../../services/api';
-import Loader from '../../components/Loader/Loader';
+import RobotLoader from '../../components/RobotLoader/RobotLoader';
 import ReelSVG from '../../assets/images/reel-svg.svg';
 import UserRating from '../TopPicksPage/sections/UserRating/UserRating';
 import './NextStreamBot.scss';
@@ -268,6 +268,7 @@ const NextStreamBot = () => {
     if (searchQuery.trim()) {
       setIsTyping(true);
       setIsBotTyping(true);
+      setIsLoading(true);
   
       setMessages((prevMessages) => [
         ...prevMessages,
@@ -529,7 +530,7 @@ const NextStreamBot = () => {
     <div className='nextstream-bot'>
       {isLoading && (
         <div className='nextstream-bot__loader-overlay'>
-          <Loader />
+          <RobotLoader />  
         </div>
       )}
 
@@ -558,10 +559,10 @@ const NextStreamBot = () => {
       </div>
 
       <button
-        className='nextstream-bot__search-button'
-        onClick={() => navigate(`/nextsearch/${userId}`)}>
-        <FontAwesomeIcon icon={faSearch} className='nextstream-bot__gpt-icon' />
-        <span>Classic Search</span>
+        className='nextstream-bot__gpt-button'
+        onClick={() => navigate(`/nextstream-gpt/${userId}`)}>
+        <FontAwesomeIcon icon={faRobot} className='nextstream-bot__gpt-icon' />
+        <span>Chat with Mizu 2.0</span>
       </button>
 
       <div className='nextstream-bot__chat-block'>
@@ -859,17 +860,10 @@ const NextStreamBot = () => {
             className='nextstream-bot__loading-svg'
           />
           <p className='nextstream-bot__text--center'>
-            Media is currently loading...
+            Results are currently loading...
           </p>
         </div>
       )}
-
-      <button
-        className='nextstream-bot__gpt-button'
-        onClick={() => navigate(`/nextstream-gpt/${userId}`)}>
-        <FontAwesomeIcon icon={faRobot} className='nextstream-bot__gpt-icon' />
-        <span>Chat with Mizu v2.0</span>
-      </button>
 
       {isModalOpen && (
         <div className='nextstream-bot__modal'>

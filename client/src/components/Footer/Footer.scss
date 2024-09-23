@@ -28,6 +28,11 @@
     flex-direction: row;
     justify-content: space-between;
     @include block-item(16rem, 3.125rem);
+
+    @include desktop {
+      width: 25rem;
+      justify-content: space-evenly;
+    }
   }
 
   &__copy-container {
@@ -43,7 +48,7 @@
       justify-content: center;
 
       @include desktop {
-        width: 20rem;
+        width: 30rem;
       }
     }
   }

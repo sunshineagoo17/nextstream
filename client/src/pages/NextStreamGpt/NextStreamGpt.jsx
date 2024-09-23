@@ -4,21 +4,19 @@ import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import { Tooltip } from 'react-tooltip';
-import { faChevronLeft, faBroom, faRobot, faChevronRight, faPlay, faTimes, faSearch, faComment, faTv, faFilm, faCalendarPlus, faThumbsUp, faThumbsDown, faShareAlt, faUser, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faBroom, faRobot, faChevronRight, faPlay, faTimes, faComment, faTv, faFilm, faCalendarPlus, faThumbsUp, faThumbsDown, faShareAlt, faUser, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
-import ChatbotSvg from "../../assets/images/chat-bot.svg";
 import Calendar from '../CalendarPage/sections/Calendar';
 import api from '../../services/api';
-import Loader from '../../components/Loader/Loader';
-import ReelSVG from '../../assets/images/reel-svg.svg';
 import UserRating from '../TopPicksPage/sections/UserRating/UserRating';
 import './NextStreamGpt.scss';
 import DefaultPoster from '../../assets/images/posternoimg-icon.png';
+import MizuLoader from '../../components/MizuLoader/MizuLoader';
+import ChatRobotAnimation from "../../assets/animation/chat-robot.webm";
 
 const NextStreamGpt = () => {
   const { userId, isAuthenticated } = useContext(AuthContext);
   const [results, setResults] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [trailerUrl, setTrailerUrl] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -37,6 +35,7 @@ const NextStreamGpt = () => {
   const navigate = useNavigate();
   const messagesContainerRef = useRef(null);
   const messagesEndRef = useRef(null);
+  const [showLoader, setShowLoader] = useState(false);
 
   const location = useLocation();
   const searchScrollRef = useRef(null);
@@ -46,6 +45,16 @@ const NextStreamGpt = () => {
   const showAlert = (message, type) => {
     setAlert({ message, type, visible: true });
   };
+
+  const handleBotTyping = useCallback(async () => {
+    setIsBotTyping(true);
+    
+    // Simulate a delay to show the loader
+    setTimeout(() => {
+      setShowLoader(false); // Hide the loader after a certain period
+    //   setIsBotTyping(false); // Simulate bot's response after loading
+    }, 2000); // Adjust the delay as needed
+  }, []);
 
   // Helper function to extract titles from the GPT response
   const extractTitlesFromResponse = (responseText) => {
@@ -219,7 +228,7 @@ const NextStreamGpt = () => {
 
   const handleSearch = useCallback(async () => {
     if (searchQuery.trim() && isAuthenticated) {
-      setIsLoading(true);
+      setShowLoader(true);
 
       try {
         const response = await api.post('/api/gpt', {
@@ -285,7 +294,7 @@ const NextStreamGpt = () => {
           },
         ]);
       } finally {
-        setIsLoading(false);
+        setShowLoader(false);
       }
     }
   }, [searchQuery, isAuthenticated, userId]);
@@ -318,12 +327,15 @@ const NextStreamGpt = () => {
     if (searchQuery.trim()) {
       setIsTyping(true);
       setIsBotTyping(true);
+      setShowLoader(true);
 
       // Display the user message in the chat
       setMessages((prevMessages) => [
         ...prevMessages,
         { sender: 'user', text: searchQuery },
       ]);
+
+      await handleBotTyping();
 
       try {
         // Call GPT to get the response
@@ -344,7 +356,7 @@ const NextStreamGpt = () => {
         const titles = extractTitlesFromResponse(chatbotMessage);
         if (titles.length === 0) {
           setMessages((prevMessages) => [...prevMessages]);
-          setIsLoading(false);
+          setShowLoader(false);
           setIsTyping(false);
           setIsBotTyping(false);
           return;
@@ -368,9 +380,9 @@ const NextStreamGpt = () => {
           { sender: 'bot', text: 'Error fetching results. Please try again.' },
         ]);
       } finally {
-        setIsLoading(false);
         setIsTyping(false);
         setIsBotTyping(false);
+        setShowLoader(false);
         setSearchQuery('');
       }
     }
@@ -500,9 +512,9 @@ const NextStreamGpt = () => {
 
   return (
     <div className='nextstream-gpt'>
-      {isLoading && (
+       {showLoader && (
         <div className='nextstream-gpt__loader-overlay'>
-          <Loader />
+          <MizuLoader />
         </div>
       )}
 
@@ -532,10 +544,10 @@ const NextStreamGpt = () => {
       </div>
 
       <button
-        className='nextstream-gpt__gpt-button'
-        onClick={() => navigate(`/nextsearch/${userId}`)}>
-        <FontAwesomeIcon icon={faSearch} className='nextstream-gpt__search-icon' />
-        <span>Classic Search</span>
+        className='nextstream-gpt__gpt-button--og'
+        onClick={() => navigate(`/nextstream-bot/${userId}`)}>
+        <FontAwesomeIcon icon={faRobot} className='nextstream-gpt__gpt-icon' />
+        <span>Chat with Mizu O.G.</span>
       </button>
 
       <div className='nextstream-gpt__chat-block'>
@@ -544,10 +556,15 @@ const NextStreamGpt = () => {
             {/* Show empty chat state */}
             {messages.length === 0 && (
               <div className='nextstream-gpt__empty-chat'>
-                <img
-                  src={ChatbotSvg}
-                  alt='Chatbot'
+                <video
                   className='nextstream-gpt__chatbot-svg'
+                  src={ChatRobotAnimation}
+                  alt='Chatbot'
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  style={{ width: '200px', height: 'auto' }}
                 />
                 <p className='nextstream-gpt__empty-message'>
                   Meet Mizu, your smart bot. Let it guide you to your next stream.
@@ -823,26 +840,24 @@ const NextStreamGpt = () => {
           </div>
         </div>
       )}
-
-      {isLoading && (
+      
+      {/* {showLoader && (
         <div className='nextstream-gpt__loading-container'>
-          <img
-            src={ReelSVG}
-            alt='Loading...'
-            className='nextstream-gpt__loading-svg'
+          <video
+            className='nextstream-gpt__chatbot-svg'
+            src={ChatRobotAnimation}
+            alt='Chatbot'
+            autoPlay
+            loop
+            muted
+            playsInline
+            style={{ width: '200px', height: 'auto' }}
           />
           <p className='nextstream-gpt__text--center'>
-            Media is currently loading...
+            Results are currently loading...
           </p>
         </div>
-      )}
-
-      <button
-        className='nextstream-gpt__gpt-button--og'
-        onClick={() => navigate(`/nextstream-bot/${userId}`)}>
-        <FontAwesomeIcon icon={faRobot} className='nextstream-gpt__gpt-icon' />
-        <span>Chat with Mizu O.G.</span>
-      </button>
+      )} */}
 
       {isModalOpen && (
         <div className='nextstream-gpt__modal'>
