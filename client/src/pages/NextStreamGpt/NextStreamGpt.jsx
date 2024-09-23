@@ -73,16 +73,32 @@ const NextStreamGpt = () => {
         params: { query: title },
       });
       const results = response.data.results;
-
+  
       const movieOrTv = results.find(
         (result) => result.media_type === 'movie' || result.media_type === 'tv'
       );
-
+  
       if (movieOrTv) {
-        return movieOrTv;
+        // Ensure the poster_path is set, or fall back to DefaultPoster
+        return {
+          ...movieOrTv,
+          poster_path: movieOrTv.poster_path
+            ? `https://image.tmdb.org/t/p/w500${movieOrTv.poster_path}`
+            : DefaultPoster,
+        };
       }
-
-      return results[0] || null;
+  
+      if (results[0]) {
+        // Return first result if media type check fails and ensure poster is handled
+        return {
+          ...results[0],
+          poster_path: results[0].poster_path
+            ? `https://image.tmdb.org/t/p/w500${results[0].poster_path}`
+            : DefaultPoster,
+        };
+      }
+  
+      return null;
     } catch (error) {
       console.error(`Error fetching data for ${title}:`, error);
       return null;
