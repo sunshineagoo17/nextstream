@@ -69,27 +69,38 @@ const NextStreamGpt = () => {
   // Helper function to fetch movie data by title from TMDB
   const fetchMovieDataByTitle = async (title) => {
     try {
+      // Call TMDB search API
       const response = await api.get(`/api/tmdb/search`, {
         params: { query: title },
       });
       const results = response.data.results;
   
-      const movieOrTv = results.find(
-        (result) => result.media_type === 'movie' || result.media_type === 'tv'
+      // Look for a movie, TV show, or person
+      const movieOrTvOrPerson = results.find(
+        (result) => 
+          result.media_type === 'movie' || 
+          result.media_type === 'tv' || 
+          result.media_type === 'person'
       );
   
-      if (movieOrTv) {
-        // Ensure the poster_path is set, or fall back to DefaultPoster
+      // If it's a person, extract profile_path instead of poster_path
+      if (movieOrTvOrPerson) {
+        const mediaPath = movieOrTvOrPerson.media_type === 'person'
+          ? movieOrTvOrPerson.profile_path
+            ? `https://image.tmdb.org/t/p/w500${movieOrTvOrPerson.profile_path}`
+            : DefaultPoster
+          : movieOrTvOrPerson.poster_path
+            ? `https://image.tmdb.org/t/p/w500${movieOrTvOrPerson.poster_path}`
+            : DefaultPoster;
+  
         return {
-          ...movieOrTv,
-          poster_path: movieOrTv.poster_path
-            ? `https://image.tmdb.org/t/p/w500${movieOrTv.poster_path}`
-            : DefaultPoster,
+          ...movieOrTvOrPerson,
+          poster_path: mediaPath,
         };
       }
   
       if (results[0]) {
-        // Return first result if media type check fails and ensure poster is handled
+        // Handle case where first result doesn't match movie, TV, or person
         return {
           ...results[0],
           poster_path: results[0].poster_path
@@ -104,6 +115,7 @@ const NextStreamGpt = () => {
       return null;
     }
   };
+  
 
   // Fetch movies for multiple titles
   const fetchMoviesForTitles = async (titles) => {
@@ -242,8 +254,9 @@ const NextStreamGpt = () => {
   const handleSearch = useCallback(async () => {
     if (searchQuery.trim() && isAuthenticated) {
       setShowLoader(true);
-
+  
       try {
+        // Send search query to GPT API
         const response = await api.post('/api/gpt', {
           userInput: searchQuery,
           userId,
@@ -251,31 +264,32 @@ const NextStreamGpt = () => {
         console.log('Response:', response.data);
         const chatbotMessage = response.data.message;
         const recommendedMedia = response.data.media || [];
-
+  
         console.log('API Results:', recommendedMedia);
-
+  
+        // Display the GPT chatbot message
         setMessages((prevMessages) => [
           ...prevMessages,
           { sender: 'bot', text: chatbotMessage },
         ]);
-
+  
+        // If there are recommended media items
         if (recommendedMedia.length > 0) {
           const mediaResults = recommendedMedia.map((item) => {
             let mediaPath;
-
+  
+            // Handle person (actor/director) with profile_path
             if (item.media_type === 'person') {
               mediaPath = item.profile_path
                 ? `https://image.tmdb.org/t/p/w500${item.profile_path}`
                 : DefaultPoster;
-            } else if (
-              item.media_type === 'movie' ||
-              item.media_type === 'tv'
-            ) {
+            } else if (item.media_type === 'movie' || item.media_type === 'tv') {
+              // Handle movie or TV show with poster_path
               mediaPath = item.poster_path
                 ? `https://image.tmdb.org/t/p/w500${item.poster_path}`
                 : DefaultPoster;
             }
-
+  
             return {
               id: item.id,
               title: item.title || item.name,
@@ -286,9 +300,10 @@ const NextStreamGpt = () => {
               credits: item.credits,
             };
           });
-
+  
           setResults(mediaResults);
         } else {
+          // If no results, show a message to the user
           setResults([]);
           setMessages((prevMessages) => [
             ...prevMessages,
@@ -299,6 +314,7 @@ const NextStreamGpt = () => {
           ]);
         }
       } catch (error) {
+        // Handle any errors that occur during the search
         setMessages((prevMessages) => [
           ...prevMessages,
           {
@@ -307,10 +323,10 @@ const NextStreamGpt = () => {
           },
         ]);
       } finally {
-        setShowLoader(false);
+        setShowLoader(false); // Hide the loader when done
       }
     }
-  }, [searchQuery, isAuthenticated, userId]);
+  }, [searchQuery, isAuthenticated, userId]);  
 
   const typeMessage = async (message, setMessages, setIsBotTyping) => {
     let displayedText = '';
@@ -341,32 +357,33 @@ const NextStreamGpt = () => {
       setIsTyping(true);
       setIsBotTyping(true);
       setShowLoader(true);
-
+  
       // Display the user message in the chat
       setMessages((prevMessages) => [
         ...prevMessages,
         { sender: 'user', text: searchQuery },
       ]);
-
+  
       await handleBotTyping();
-
+  
       try {
         // Call GPT to get the response
         const response = await api.post('/api/gpt', {
           userInput: searchQuery,
           userId,
         });
-
+  
         const chatbotMessage = response.data.response;
         setMessages((prevMessages) => [
           ...prevMessages,
           { sender: 'bot', text: chatbotMessage },
         ]);
-
+  
         await typeMessage(chatbotMessage, setMessages, setIsBotTyping);
-
+  
         // Extract titles from the GPT response
         const titles = extractTitlesFromResponse(chatbotMessage);
+  
         if (titles.length === 0) {
           setMessages((prevMessages) => [...prevMessages]);
           setShowLoader(false);
@@ -374,23 +391,56 @@ const NextStreamGpt = () => {
           setIsBotTyping(false);
           return;
         }
-
-        // Fetch movies based on extracted titles
-        const movieResults = await fetchMoviesForTitles(titles);
-        const filteredResults = movieResults.filter((movie) => movie !== null);
-
-        if (filteredResults.length > 0) {
-          setResults(filteredResults);
+  
+        // Fetch media based on extracted titles
+        const mediaResults = await fetchMoviesForTitles(titles);
+  
+        // Fetch person based on the search query
+        const personResponse = await api.get(`/api/tmdb/search`, {
+          params: { query: searchQuery },
+        });
+        const personResult = personResponse.data.results.find(
+          (result) => result.media_type === 'person'
+        );
+  
+        let personData = null;
+        if (personResult) {
+          personData = {
+            id: personResult.id,
+            name: personResult.name,
+            media_type: 'person',
+            profile_path: personResult.profile_path
+              ? `https://image.tmdb.org/t/p/w500${personResult.profile_path}`
+              : DefaultPoster,
+            known_for: personResult.known_for.map((item) => ({
+              id: item.id,
+              title: item.title || item.name,
+              media_type: item.media_type,
+              poster_path: item.poster_path
+                ? `https://image.tmdb.org/t/p/w500${item.poster_path}`
+                : DefaultPoster,
+            })),
+          };
+        }
+  
+        // Combine the media and person results
+        const combinedResults = [
+          ...mediaResults,
+          ...(personData ? [personData] : []),
+        ];
+  
+        if (combinedResults.length > 0) {
+          setResults(combinedResults);
         } else {
           setMessages((prevMessages) => [
             ...prevMessages,
-            { sender: 'bot', text: 'Sorry, no matching movies found.' },
+            { sender: 'bot', text: "Sorry, I couldn't find any matching results." },
           ]);
         }
       } catch (error) {
         setMessages((prevMessages) => [
           ...prevMessages,
-          { sender: 'bot', text: 'Error fetching results. Please try again.' },
+          { sender: 'bot', text: 'Error fetching the results. Please try again.' },
         ]);
       } finally {
         setIsTyping(false);
