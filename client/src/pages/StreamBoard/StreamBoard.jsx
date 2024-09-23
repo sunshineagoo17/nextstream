@@ -76,7 +76,7 @@ const MediaItem = ({ item, index, status, moveMediaItem, handleAddToCalendar, ha
 
       <h3 className="streamboard__media-item-title">{item.title}</h3>
       <div className="streamboard__media-item-icon">
-        <p className="streamboard__media-item-duration">Duration: {item.duration ? `${item.duration} min` : 'Duration N/A'}</p>
+        <p className="streamboard__media-item-duration">Duration: {item.duration ? `${item.duration} min` : 'N/A'}</p>
       </div>
 
       <div className="streamboard__media-item-details">
