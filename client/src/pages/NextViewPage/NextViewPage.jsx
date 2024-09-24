@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext, useRef, useCallback } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faPlay, faCalendarPlus, faStar, faThumbsUp, faThumbsDown, faClose, faTv, faFilm, faChevronRight, faChevronLeft,
@@ -51,7 +51,7 @@ const genreIconMapping = {
 const NextViewPage = () => {
     const { mediaId, mediaType } = useParams();
     const navigate = useNavigate();  
-    const { userId } = useContext(AuthContext); 
+    const { userId, isGuest } = useContext(AuthContext); 
     const [mediaData, setMediaData] = useState(null);
     const [certification, setCertification] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
@@ -141,20 +141,30 @@ const NextViewPage = () => {
     };
 
     const handleAddToCalendar = () => {
+        if (isGuest) {
+            showAlert('Guests cannot add events to the calendar. Please register to use this feature.', 'info');
+            return;
+        }
+    
         if (!userId) {
             showAlert('Please log in to add this to your calendar.', 'error');
             return;
         }
-
+    
         showAlert(`You can now add ${mediaData.title || mediaData.name} to your calendar!`, 'success');
         setShowCalendar(true);
     };
-
+    
     const handleCloseCalendar = () => {
         setShowCalendar(false);
     };
-
+    
     const handleToggleInteraction = async (newInteraction) => {
+        if (isGuest) {
+            showAlert('Guests cannot interact with media. Please register to access these features.', 'info');
+            return;
+        }
+
         try {
             await api.post(`${process.env.REACT_APP_BASE_URL}/api/interactions`, {
                 userId,
@@ -178,6 +188,11 @@ const NextViewPage = () => {
     };
 
     const handleShare = () => {
+        if (isGuest) {
+            showAlert('Guests cannot share media. Please register to access this feature.', 'info');
+            return;
+        }
+
         const url = `${window.location.origin}/nextview/${userId}/${mediaType}/${mediaId}`;
         
         if (navigator.share) {
@@ -424,25 +439,34 @@ const NextViewPage = () => {
                                         <ul className="nextview-page__cast-list">
                                             {cast.map(member => (
                                                 <li key={member.id} className="nextview-page__cast-item"> 
-                                                    <Link to={`/spotlight/${userId}/${member.id}`}> 
-                                                        <div className="nextview-page__cast-card">
-                                                            {member.profile_path ? (
-                                                                <img
-                                                                    src={`https://image.tmdb.org/t/p/w185${member.profile_path}`}
-                                                                    alt={member.name}
-                                                                    className="nextview-page__cast-img"
-                                                                />
-                                                            ) : (
-                                                                <FontAwesomeIcon icon={faUser} className="nextview-page__cast-img-placeholder" />
-                                                            )}
-                                                            <div className="nextview-page__cast-name">{member.name}</div>
-                                                            <div className="nextview-page__cast-character">as {member.character}</div>
-                                                        </div>
-                                                    </Link>
+                                                    <div
+                                                        className="nextview-page__cast-card"
+                                                        onClick={(e) => {
+                                                            if (isGuest) {
+                                                                e.preventDefault(); 
+                                                                showAlert('Guests cannot access cast details. Please register for full access.', 'info');
+                                                            } else {
+                                                                navigate(`/spotlight/${userId}/${member.id}`); 
+                                                            }
+                                                        }}
+                                                    >
+                                                        {member.profile_path ? (
+                                                            <img
+                                                                src={`https://image.tmdb.org/t/p/w185${member.profile_path}`}
+                                                                alt={member.name}
+                                                                className="nextview-page__cast-img"
+                                                            />
+                                                        ) : (
+                                                            <FontAwesomeIcon icon={faUser} className="nextview-page__cast-img-placeholder" />
+                                                        )}
+                                                        <div className="nextview-page__cast-name">{member.name}</div>
+                                                        <div className="nextview-page__cast-character">as {member.character}</div>
+                                                    </div>
                                                 </li>
                                             ))}
                                         </ul> 
                                     </div>
+
                                     {cast.length > 3 && (
                                         <button className="nextview-page__cast-arrow nextview-page__cast-arrow-right" onClick={handleScrollRight}>
                                             <FontAwesomeIcon icon={faChevronRight} />

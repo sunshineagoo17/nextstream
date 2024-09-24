@@ -154,6 +154,7 @@ const handleOAuthLogin = async (providerLogin, provider) => {
 
       Cookies.set('guestToken', guestToken, { expires: 1, secure: true, sameSite: 'strict', path: '/' });
       localStorage.setItem('guestToken', guestToken);
+      console.log('Guest Token set:', guestToken);
       setIsGuest(true);
       setIsAuthenticated(false);
       setIsLoading(false);

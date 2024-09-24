@@ -157,7 +157,7 @@ const App = () => {
         <Route path="/unsubscribe" element={<UnsubscribePage />} />
         <Route path="/login-required" element={<LoginRequired />} />
         <Route path="/about" element={<AboutPage />} />
-        <Route path="/nextview/:userId/:mediaType/:mediaId" element={isAuthenticated ? <NextViewPage /> : <Navigate to="/login-required" />} />
+        <Route path="/nextview/:userId/:mediaType/:mediaId" element={isAuthenticated || isGuest ? <NextViewPage /> : <Navigate to="/login-required" />} />
         <Route path="/top-picks/:userId" element={isGuest || isAuthenticated ? <TopPicksPage /> : <Navigate to="/login-required" />} />
         <Route path="/streamboard/:userId" element={isAuthenticated ? <StreamBoard /> : <Navigate to="/login-required" />} />
         <Route path="/spotlight/:userId/:personId" element={isAuthenticated ? <SpotlightPage /> : <Navigate to="/login-required" />} />

@@ -71,14 +71,24 @@ export const Content = () => {
   };
 
   const handleCardClick = (release) => {
+    const mediaType = release.media_type;
+    const mediaId = release.id;
+
+    console.log('isAuthenticated:', isAuthenticated);
+    console.log('isGuest:', isGuest);
+  
     if (isAuthenticated) {
-      const mediaType = release.media_type;
-      const mediaId = release.id;
+      // Navigate to the authenticated NextView page
       navigate(`/nextview/${userId}/${mediaType}/${mediaId}`);
+    } else if (isGuest) {
+      // Navigate to the guest NextView page
+      navigate(`/nextview/guest/${mediaType}/${mediaId}`);
     } else {
+      // Navigate to login if neither authenticated nor guest
       navigate('/login-required');
     }
   };
+  
 
   const handleNavigateToCalendar = () => {
     if (isGuest) {

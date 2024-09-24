@@ -691,6 +691,7 @@
     box-shadow: $shadow-primary;
     background: rgba($neutral-white, .9);
     padding: .5rem;
+    cursor: pointer;
 
     &:hover {
       transform: scale(1.05);
