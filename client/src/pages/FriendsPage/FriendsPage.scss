@@ -471,6 +471,22 @@
     gap: .5rem;
   }
 
+  &__video-container {
+    border: .35rem solid $primary-light-blue;
+    border-radius: 1rem;
+    margin-bottom: 1rem;
+    background: $primary-button-blue;
+    box-shadow: $shadow-senary;
+  }
+
+  &__friends-video {
+    @include block-item(15.5rem, auto);
+
+    @include tablet {
+      @include block-item(31.25rem, auto);
+    }
+  }
+  
   &__accept-friend {
     background: $feedback-mint-light-green;
     color: $feedback-dark-green;

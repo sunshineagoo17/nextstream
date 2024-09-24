@@ -546,14 +546,13 @@ const FriendsPage = () => {
 
       <div className='friends-page__video-container'>
         <video
-          className='nextstream-gpt__chatbot-svg'
+          className='friends-page__friends-video'
           src={FriendsVideo}
-          alt='Chatbot'
+          alt='Adding Friends to Friends List'
           autoPlay
           loop
           muted
           playsInline
-          style={{ width: '500px', height: 'auto' }}
         />
       </div>
       <div className='friends-page__main-content'>

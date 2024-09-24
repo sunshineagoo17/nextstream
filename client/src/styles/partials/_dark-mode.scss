@@ -89,6 +89,12 @@
       color: $neutral-white;
     }
 
+    &__video-container {
+      border: .35rem solid $frosted-glass;
+      background: $dark-mode-royal-blue;
+      box-shadow: $shadow-senary;
+    }
+
     &__heading-container {
       background: $frosted-glass;
     }
