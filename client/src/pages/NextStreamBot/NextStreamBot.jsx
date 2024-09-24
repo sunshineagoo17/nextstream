@@ -550,7 +550,7 @@ const NextStreamBot = () => {
           <br /> Your Personal Entertainment Assistant
         </h1>
         <p className='nextstream-bot__copy'>
-          <span className='nextstream-bot__gradient-subtitle'>Mizu</span>{' '}
+          <span className='nextstream-bot__gradient-subtitle'>Mizu Bot</span>{' '}
           combines AI-powered search with real-time streaming data, helping you
           find the perfect movies and shows based on your preferences. Ask
           questions, get tailored recommendations, and discover trending content
@@ -562,7 +562,7 @@ const NextStreamBot = () => {
         className='nextstream-bot__gpt-button'
         onClick={() => navigate(`/nextstream-gpt/${userId}`)}>
         <FontAwesomeIcon icon={faRobot} className='nextstream-bot__gpt-icon' />
-        <span>Chat with Mizu 2.0</span>
+        <span>Chat with Mizu AI</span>
       </button>
 
       <div className='nextstream-bot__chat-block'>

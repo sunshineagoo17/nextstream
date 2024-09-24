@@ -632,7 +632,7 @@ const NextStreamGpt = () => {
               <FontAwesomeIcon icon={faTimes} />
             </button>
             <p className='nextstream-gpt__disclaimer-header'>
-              Say "Hi!" to Mizu 2.0!
+              Say "Hi!" to Mizu AI!
             </p>
             <video
               className='nextstream-gpt__chatbot-svg'
@@ -686,11 +686,8 @@ const NextStreamGpt = () => {
           Your AI-Powered Assistant
         </h1>
         <p className='nextstream-gpt__copy'>
-          <span className='nextstream-gpt__gradient-subtitle'>Mizu 2.0</span>{' '}
-          combines the power of GPT with real-time streaming data to help you
-          discover the perfect movies and shows. Ask questions, get personalized
-          recommendations, and explore trending content – all tailored to your
-          tastes!
+        <span className='nextstream-gpt__gradient-subtitle'>Mizu AI</span>{' '}
+          combines the advanced power of GPT with real-time streaming data, offering an upgraded experience to help you discover the perfect movies and shows. Ask questions, get personalized recommendations, and explore trending content – all tailored to your tastes!
         </p>
       </div>
 
@@ -698,7 +695,7 @@ const NextStreamGpt = () => {
         className='nextstream-gpt__gpt-button--og'
         onClick={() => navigate(`/nextstream-bot/${userId}`)}>
         <FontAwesomeIcon icon={faRobot} className='nextstream-gpt__gpt-icon' />
-        <span>Chat with Mizu O.G.</span>
+        <span>Chat with Mizu Bot (the O.G.)</span>
       </button>
 
       <div className='nextstream-gpt__chat-block'>

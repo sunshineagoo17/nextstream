@@ -360,11 +360,16 @@ router.get('/recommendations/:userId', handleAuthentication, async (req, res) =>
 
 // Route to fetch all interactions for a specific user, optionally filtered by interaction type
 router.get('/:userId', handleAuthentication, async (req, res) => {
-  const userId = req.user.userId;
+  const userId = req.user.role === 'guest' ? null : req.user.userId;  // Handle guest users
   const { interactionType } = req.query;
 
   try {
-    // Build the query to fetch interactions based on userId and optional interactionType
+    // If the user is a guest, return an empty array since they don't have interactions
+    if (!userId) {
+      return res.status(200).json([]);  // Guests should not have interactions
+    }
+
+    // Build the query to fetch interactions based on userId and optional interactionType for authenticated users
     let query = db('interactions').where('userId', userId);
 
     if (interactionType !== undefined) {

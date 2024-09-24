@@ -8,8 +8,8 @@ const useMenuLinks = () => {
 
   const authenticatedLinks = [
     { name: "NextSearch", path: `/nextsearch/${authUserId}` },
-    { name: "NextStream Bot", path: `/nextstream-bot/${authUserId}` },
-    { name: "NextStream Gpt", path: `/nextstream-gpt/${authUserId}` },
+    { name: "Mizu Bot", path: `/nextstream-bot/${authUserId}` },
+    { name: "Mizu AI", path: `/nextstream-gpt/${authUserId}` },
     { name: "Top Picks", path: `/top-picks/${authUserId}` },
     { name: "NextSwipe", path: `/nextswipe/${authUserId}` },
     { name: "Favourites", path: `/faves/${authUserId}` },
@@ -23,6 +23,7 @@ const useMenuLinks = () => {
     { name: "Top Picks", path: `/top-picks/guest` },
     { name: "Calendar", path: `/calendar/guest` },
     { name: "Register", path: "/register" },
+    { name: "About", path: "/about" },
     { name: "Terms", path: "/terms" },
     { name: "Privacy Policy", path: "/privacy-policy" }
   ];
