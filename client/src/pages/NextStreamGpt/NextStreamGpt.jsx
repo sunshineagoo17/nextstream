@@ -40,6 +40,7 @@ const NextStreamGpt = () => {
   const [showLoader, setShowLoader] = useState(false);
   const [showDisclaimer, setShowDisclaimer] = useState(false);
   const isInterrupted = useRef(false);
+  const controllerRef = useRef(null); 
 
   const location = useLocation();
   const searchScrollRef = useRef(null);
@@ -138,13 +139,21 @@ const NextStreamGpt = () => {
     }
   };
 
-  const controller = new AbortController();
-  const handleInterrupt = () => {
-    controller.abort();
-    setIsBotTyping(false);
-    setShowLoader(false);
-    isInterrupted.current = true;
-  };
+    const handleInterrupt = () => {
+        if (controllerRef.current) {
+            controllerRef.current.abort(); 
+        }
+
+        isInterrupted.current = true; 
+        setIsBotTyping(false); 
+        setShowLoader(false); 
+
+        setMessages((prevMessages) =>
+            prevMessages.map((msg) =>
+            msg.sender === 'bot' ? { ...msg, text: '[Typing interrupted]' } : msg
+            )
+        );
+    };
 
   const fetchMoviesForTitles = async (titles) => {
     const movieDataPromises = titles.map((title) =>
@@ -337,27 +346,36 @@ const NextStreamGpt = () => {
     }
   }, [searchQuery, isAuthenticated, userId]);
 
-  const typeMessage = async (message, setMessages, setIsBotTyping) => {
+  const typeMessage = async (message, setMessages, setIsBotTyping, isInterrupted) => {
     let displayedText = '';
     const typingSpeed = 50;
-
+  
     for (let i = 0; i < message.length; i++) {
+      if (isInterrupted.current) {
+        setIsBotTyping(false);
+        return; 
+      }
+  
       const currentText = displayedText + message[i];
-
+  
       await new Promise((resolve) => setTimeout(resolve, typingSpeed));
-
+  
       displayedText = currentText;
-
+  
       setMessages((prevMessages) => {
         const updatedMessages = [...prevMessages];
         const lastMessage = updatedMessages[updatedMessages.length - 1];
 
         if (lastMessage && lastMessage.sender === 'bot') {
           lastMessage.text = currentText;
+        } else {
+          updatedMessages.push({ sender: 'bot', text: currentText });
         }
+  
         return updatedMessages;
       });
     }
+  
     setIsBotTyping(false);
   };
 
@@ -366,41 +384,43 @@ const NextStreamGpt = () => {
       setIsTyping(true);
       setIsBotTyping(true);
       setShowLoader(true);
-
+      isInterrupted.current = false; 
+  
       setMessages((prevMessages) => [
         ...prevMessages,
         { sender: 'user', text: searchQuery },
       ]);
-
-      await handleBotTyping();
-
+  
+      await handleBotTyping(); 
+  
       try {
         const response = await api.post('/api/gpt', {
           userInput: searchQuery,
           userId,
         });
-
+  
         console.log('GPT Response:', response.data);
-
+  
         const chatbotMessage = response.data.response;
+  
         setMessages((prevMessages) => [
           ...prevMessages,
           { sender: 'bot', text: chatbotMessage },
         ]);
-
-        await typeMessage(chatbotMessage, setMessages, setIsBotTyping);
-
+  
+        await typeMessage(chatbotMessage, setMessages, setIsBotTyping, isInterrupted);
+  
         const titles = extractTitlesFromResponse(chatbotMessage);
         console.log('Extracted Titles:', titles);
-
+  
         if (titles.length === 0) {
           setMessages((prevMessages) => [...prevMessages]);
           setShowLoader(false);
           setIsTyping(false);
           setIsBotTyping(false);
-          return;
+          return; 
         }
-
+  
         const mediaResults = await fetchMoviesForTitles(titles);
 
         const personResponse = await api.get(`/api/tmdb/search`, {
@@ -409,11 +429,11 @@ const NextStreamGpt = () => {
         const personResult = personResponse.data.results.find(
           (result) => result.media_type === 'person'
         );
-
+  
         console.log('Person Result:', personResult);
-
+  
         let personData = null;
-
+  
         if (personResult) {
           personData = {
             id: personResult.id,
@@ -423,17 +443,17 @@ const NextStreamGpt = () => {
               ? `https://image.tmdb.org/t/p/w500${personResult.profile_path}`
               : DefaultPoster,
           };
-
+  
           console.log('Person Data:', personData);
         }
-
+  
         const combinedResults = [
           ...(personData ? [personData] : []),
           ...mediaResults,
         ];
-
+  
         console.log('Combined Results:', combinedResults);
-
+  
         if (combinedResults.length > 0) {
           setResults(combinedResults);
         } else {
@@ -461,7 +481,7 @@ const NextStreamGpt = () => {
         setSearchQuery('');
       }
     }
-  };
+  };  
 
   useEffect(() => {
     if (query && isAuthenticated) {

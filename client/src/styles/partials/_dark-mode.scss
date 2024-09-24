@@ -282,9 +282,13 @@
   // NextStream GPT
   .nextstream-gpt {
     background: $base-darker-blue;
-
+    
     &__chat-container {
       background-color: $primary-dark-blue;
+    }
+
+    &__empty-message {
+      color: $robot-tablet-msg;
     }
 
     &__copy {
@@ -607,6 +611,10 @@
       100% {
         background-position: 0% 50%;
       }
+    }
+
+    &__clear-chat-icon {
+      color: $neutral-white;
     }
 
     &__title {

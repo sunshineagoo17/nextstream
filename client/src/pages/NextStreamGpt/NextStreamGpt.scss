@@ -736,53 +736,68 @@
   }
 
   &__empty-message {
-    animation: bounce 6s infinite ease-in-out,
-      colorShift 3s infinite ease-in-out;
-    border: .1875rem solid $primary-very-light-blue;
-    border-radius: .5rem;
-    box-shadow: $shadow-primary;
-    color: $primary-button-dark-blue;
+    animation: bounce 8s infinite ease-in-out,
+               glassGlow 6s infinite alternate ease-in-out;
+    border: .1875rem solid rgba(255, 255, 255, 0.3);
+    border-radius: .75rem;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2), 
+                0 6px 8px rgba(0, 0, 0, 0.15), 
+                inset 0 3px 6px rgba(255, 255, 255, 0.2);
+    color: $robot-antenna;
     font-family: $primary-font;
     font-size: .75rem;
     font-weight: normal;
-    line-height: .8rem;
+    line-height: 1.1rem;
     text-align: center;
     padding: .25rem;
     width: 100%;
-
+    backdrop-filter: blur(12px);
+    background: rgba(255, 255, 255, 0.15);
+    transition: all 0.4s ease-in-out;
+  
+    &:hover {
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.5),
+                  0 8px 14px rgba(0, 0, 0, 0.2),
+                  inset 0 4px 10px rgba(255, 255, 255, 0.3);
+      transform: translateY(-5px);
+    }
+  
     @include tablet {
       font-size: .85rem;
       line-height: 1.25rem;
+      padding: .5rem;
       font-weight: bold;
     }
-  }
 
+    @include desktop {
+        padding: .75rem;
+    }
+  }
+  
   @keyframes bounce {
-    0%,
-    100% {
+    0%, 100% {
       transform: scale(1);
-      box-shadow: $shadow-primary;
     }
     50% {
-      transform: scale(1.01);
-      box-shadow: 0 .5rem 1.5rem rgba($neutral-black, .2);
+      transform: scale(1.03);
     }
   }
-
-  @keyframes colorShift {
-    0% {
-      border-color: $primary-very-light-blue;
-      background: $neutral-white;
+  
+  @keyframes glassGlow {
+    0%, 100% {
+      border-color: rgba(255, 255, 255, 0.3);
+      background: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.3),
+                  inset 0 3px 6px rgba(255, 255, 255, 0.2);
     }
     50% {
-      border-color: $primary-medium-blue;
-      background: lighten($primary-light-blue, 15%);
-    }
-    100% {
-      border-color: $primary-very-light-blue;
-      background: $neutral-white;
+      border-color: rgba(255, 255, 255, 0.8);
+      background: rgba(255, 255, 255, 0.4);
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.8),
+                  inset 0 5px 10px rgba(255, 255, 255, 0.4);
     }
   }
+  
 
   &__input {
     flex-grow: 1;
