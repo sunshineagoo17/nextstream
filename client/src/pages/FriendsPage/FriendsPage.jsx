@@ -8,6 +8,7 @@ import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
 import TypingIndicator from '../../components/TypingIndicator/TypingIndicator';
 import Calendar from '../CalendarPage/sections/Calendar';
 import io from 'socket.io-client';
+import FriendsVideo from "../../assets/animation/add-friends.webm";
 import './FriendsPage.scss';
 
 const socket = io('http://localhost:8080');
@@ -543,6 +544,18 @@ const FriendsPage = () => {
         </p>
       </div>
 
+      <div className='friends-page__video-container'>
+        <video
+          className='nextstream-gpt__chatbot-svg'
+          src={FriendsVideo}
+          alt='Chatbot'
+          autoPlay
+          loop
+          muted
+          playsInline
+          style={{ width: '500px', height: 'auto' }}
+        />
+      </div>
       <div className='friends-page__main-content'>
         <div className='friends-page__container friends-page__container--friends-cards'>
           {/* Search Users to Send Friend Requests */}
