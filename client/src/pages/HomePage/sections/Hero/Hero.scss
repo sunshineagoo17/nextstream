@@ -28,6 +28,35 @@
     justify-content: center;
   }
 
+  &__subtitle--tagline {
+    text-shadow: $shadow-primary;
+    font-family: $secondary-font;
+    font-size: 1rem;
+    background: $frosted-glass;
+    border: 3px solid $neutral-white;
+    color: $primary-medium-blue;
+    padding: .25rem;
+    width: 16.8rem;
+    border-radius: .5rem;
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+    box-shadow: $shadow-quinary;
+
+    @include tablet {
+      margin-top: .75rem;
+      margin-bottom: 0;
+      font-size: 1.25rem;
+      padding: .25rem;
+      width: 20.8rem;
+    }
+
+    @include desktop { 
+      padding: .25rem;
+      font-size: 1.35rem;
+      width: 22.35rem;
+    }
+  }
+
   &__top-container {
     display: flex;
     margin-top: 1.25rem;
@@ -184,7 +213,7 @@
     @include btn-mobile;
     margin-top: .5rem;
     margin-bottom: 1rem;
-    transition: transform .3s ease-in-out;
+    transition: background .3s ease, transform .5s ease;
 
     &:hover {
       transform: scale(1.04);

@@ -909,6 +909,13 @@
     );
     border-bottom: 0.1875rem solid $neutral-light-grey;
 
+    &__subtitle--tagline {
+      background: $primary-darker-blue;
+      color: $primary-very-light-blue;
+      box-shadow: $shadow-senary;
+      border: 3px solid $primary-button-dark-blue;  
+    }
+
     &__title {
       color: $primary-very-light-blue;
     }

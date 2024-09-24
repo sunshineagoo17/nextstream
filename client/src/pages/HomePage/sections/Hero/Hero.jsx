@@ -14,14 +14,14 @@ export const Hero = () => {
             </div>
           </div>
           <div className="hero__title">
-            Can’t Stream?
-            Try NextStream!
+            Stream Smarter with NextStream.
           </div>
         </div>
         
         <p className="hero__subtitle regular">
             Discover where your favourite movies and shows are streaming, all in one place. Enjoy personalized
-            recommendations and easy scheduling to enhance your viewing experience.
+            recommendations and easy scheduling to enhance your viewing experience. 
+            <br /><p className="hero__subtitle--tagline">Explore what the world is watching.</p>
         </p>
         <Link to="/register" aria-label="Register">
           <button className="hero__btn-container">
