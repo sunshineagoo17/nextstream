@@ -75,7 +75,9 @@ const ContactModal = ({ onClose }) => {
   return (
     <div className="modal-contact">
       <div className="modal-contact__container">
-        <span className="modal-contact__close" onClick={onClose}>&times;</span>
+        <button className="modal-contact__close" onClick={onClose}>
+          &times;
+        </button>
         <div className="modal-contact__label-container">
           <div className="modal-contact__label">Contact Us</div>
         </div>

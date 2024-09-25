@@ -85,9 +85,12 @@
   }
 
   &__forgot-password-link {
-    cursor: pointer;
     color: $primary-very-light-blue;
     border-radius: .25rem;
+    border: none;
+    font-size: 1rem;
+    font-family: $primary-font;
+    background: none;
     transition: transform .1s ease, background-color .1s ease, color .1s ease;
 
     &:visited {
