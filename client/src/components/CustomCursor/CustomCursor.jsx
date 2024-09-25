@@ -19,13 +19,11 @@ const CustomCursor = () => {
   };
 
   const isDarkBackground = () => {
-  
     return document.documentElement.getAttribute('data-theme') === 'dark' || 
            document.querySelector('.dark-background') !== null;
   };
 
   const isActionableImage = (element) => {
-    
     return (
       element.tagName === 'IMG' &&
       (element.closest('a, button, [role="button"], nav') !== null || 
@@ -66,6 +64,10 @@ const CustomCursor = () => {
       setCursorType(isDarkBackground() ? PenCursorVariant : PenCursor);
     };
 
+    const handleMouseEnterPointer = () => {
+      setCursorType(isDarkBackground() ? PointerCursorVariant : PointerCursor);
+    };
+
     const handleMouseEnterImage = (e) => {
       if (isActionableImage(e.target)) {
         setCursorType(isDarkBackground() ? PointerCursorVariant : PointerCursor);
@@ -83,10 +85,13 @@ const CustomCursor = () => {
           const inputElements = document.querySelectorAll('input, textarea');
           applyCursorListeners(inputElements, handleMouseEnterInput, handleMouseLeaveClickable);
 
+          const pointerElements = document.querySelectorAll('input[type="checkbox"], input[type="radio"], select, [role="switch"], [role="menu"]');
+          applyCursorListeners(pointerElements, handleMouseEnterPointer, handleMouseLeaveClickable);
+
           const imageElements = document.querySelectorAll('img');
           applyCursorListeners(imageElements, handleMouseEnterImage, handleMouseLeaveClickable);
 
-          removeInlineCursorStyles(); // Ensure inline styles are cleared for new elements
+          removeInlineCursorStyles();
         }
       });
     };
@@ -102,6 +107,9 @@ const CustomCursor = () => {
     const inputElements = document.querySelectorAll('input, textarea');
     applyCursorListeners(inputElements, handleMouseEnterInput, handleMouseLeaveClickable);
 
+    const pointerElements = document.querySelectorAll('input[type="checkbox"], input[type="radio"], select, [role="switch"], [role="menu"]');
+    applyCursorListeners(pointerElements, handleMouseEnterPointer, handleMouseLeaveClickable);
+
     const imageElements = document.querySelectorAll('img');
     applyCursorListeners(imageElements, handleMouseEnterImage, handleMouseLeaveClickable);
 
@@ -111,7 +119,7 @@ const CustomCursor = () => {
     // Cleanup on component unmount
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
-      observer.disconnect(); 
+      observer.disconnect();
     };
   }, []);
 
