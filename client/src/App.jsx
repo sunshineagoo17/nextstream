@@ -34,6 +34,7 @@ import UnsubscribePage from './pages/UnsubscribePage/UnsubscribePage';
 import NextStreamBot from './pages/NextStreamBot/NextStreamBot';
 import NextStreamGpt from './pages/NextStreamGpt/NextStreamGpt';
 import AboutPage from './pages/AboutPage/AboutPage';
+import CustomCursor from './components/CustomCursor/CustomCursor';
 import './styles/global.scss';
 
 // Firebase 
@@ -137,6 +138,7 @@ const App = () => {
 
   return (
     <div className={location.pathname === '/login' || location.pathname === '/register' ? 'login-page register-page' : ''}>
+      <CustomCursor />
       <Header />
       <HoverMenu />
       <Routes>
