@@ -894,6 +894,100 @@ router.post('/', async (req, res) => {
       });
     }
 
+    // Songs
+
+    // Friends
+    else if (intent === 'song_intro_friends' || intent === 'q_and_a_recommend_shows_like_friends' || intent === 'quotes_friends_feet' || intent === 'chitchat_friends_char' || intent === 'quotes_friends_moo_point' || intent === 'quotes_friends_seven' || intent === 'quotes_friends_pivot') {
+      const friendsMedia = [
+        'Friends',
+      ];
+    
+      const results = await Promise.all(
+        friendsMedia.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+    
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+    
+            const mediaType = media.media_type; 
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+    
+            return {
+              id: media.id,
+              title: media.title || media.name, 
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average: media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Sailor Moon
+    else if (intent === 'song_intro_sailor_moon') {
+      const sailorMoonMedia = [
+        'Sailor Moon',
+        'Pretty Guardian Sailor Moon',
+        'Sailor Moon Crystal',
+        'Sailor Moon Musical',
+      ];
+    
+      const results = await Promise.all(
+        sailorMoonMedia.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+    
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+    
+            const mediaType = media.media_type; 
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+    
+            return {
+              id: media.id,
+              title: media.title || media.name, 
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average: media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Quotes
     // Handle Quotes Apollo 13 movie intent
     else if (intent === 'quotes_apollo13') {
       const quotesApollo13Movies = [
