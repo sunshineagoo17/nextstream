@@ -105,9 +105,9 @@ router.post('/', async (req, res) => {
         'The Last Airbender',
         'Avatar: The Last Airbender',
         'Avatar the Last Airbender',
-        'Aang: The Last Airbender'
+        'Aang: The Last Airbender',
       ];
-    
+
       const results = await Promise.all(
         theLastAirbenderMedia.map(async (title) => {
           const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
@@ -116,20 +116,21 @@ router.post('/', async (req, res) => {
               query: title,
             },
           });
-    
+
           if (response.data.results && response.data.results.length > 0) {
             const media = response.data.results[0];
-    
-            const mediaType = media.media_type; 
+
+            const mediaType = media.media_type;
             const trailerUrl = await getMediaTrailer(media.id, mediaType);
             const credits = await getMediaCredits(media.id, mediaType);
-    
+
             return {
               id: media.id,
-              title: media.title || media.name, 
+              title: media.title || media.name,
               media_type: mediaType,
               poster_path: media.poster_path,
-              vote_average: media.vote_average !== undefined ? media.vote_average : 0,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
               trailerUrl,
               credits,
             };
@@ -147,11 +148,12 @@ router.post('/', async (req, res) => {
     }
 
     // Alfred Pennyworth
-    else if (intent === 'char_alfred_pennyworth_movie' || intent === 'char_alfred_pennyworth_show') {
-      const alfredShows = [
-        "Pennyworth: The Origin of Batman's Butler"
-      ];
-    
+    else if (
+      intent === 'char_alfred_pennyworth_movie' ||
+      intent === 'char_alfred_pennyworth_show'
+    ) {
+      const alfredShows = ["Pennyworth: The Origin of Batman's Butler"];
+
       const results = await Promise.all(
         alfredShows.map(async (title) => {
           const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
@@ -160,20 +162,21 @@ router.post('/', async (req, res) => {
               query: title,
             },
           });
-    
+
           if (response.data.results && response.data.results.length > 0) {
             const media = response.data.results[0];
-    
-            const mediaType = media.media_type; 
+
+            const mediaType = media.media_type;
             const trailerUrl = await getMediaTrailer(media.id, mediaType);
             const credits = await getMediaCredits(media.id, mediaType);
-    
+
             return {
               id: media.id,
-              title: media.title || media.name, 
+              title: media.title || media.name,
               media_type: mediaType,
               poster_path: media.poster_path,
-              vote_average: media.vote_average !== undefined ? media.vote_average : 0,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
               trailerUrl,
               credits,
             };
@@ -190,8 +193,69 @@ router.post('/', async (req, res) => {
       });
     }
 
-     // Bruce Wayne
-     else if (intent === 'char_bruce_wayne') {
+    // Arya, Ned Stark and Jon Snow
+    else if (
+      intent === 'char_arya_stark' ||
+      intent === 'char_jon_snow' ||
+      intent === 'char_ned_stark' ||
+      intent === 'chitchat_fave_tv_show_character'
+    ) {
+      const gameOfThronesMedia = [
+        'Game of Thrones',
+        'House of the Dragon',
+        "The Game of Thrones Reunion Hosted by Conan O'Brien",
+        'Game of Thrones - Conquest & Rebellion: An Animated History of the Seven Kingdoms',
+        'Game of Thrones: The Last Watch',
+        'Game of Thrones: The Story So Far',
+        'Game of Thrones: A Day in the Life',
+        'Game of Thrones The IMAX Experience',
+        'Game of Thrones Live Concert Experience 2018',
+        "Coldplay's Game of Thrones: The Musical",
+        'Purge of Kingdoms',
+        'A Knight of the Seven Kingdoms: The Hedge Knight',
+      ];
+
+      const results = await Promise.all(
+        gameOfThronesMedia.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Bruce Wayne
+    else if (intent === 'char_bruce_wayne') {
       const batmanMedia = [
         'The Dark Knight',
         'The Dark Knight Rises',
@@ -228,7 +292,7 @@ router.post('/', async (req, res) => {
         'Batman Adventures: Mad Love',
         'The Bat Man of Shanghai',
       ];
-    
+
       const results = await Promise.all(
         batmanMedia.map(async (title) => {
           const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
@@ -237,20 +301,21 @@ router.post('/', async (req, res) => {
               query: title,
             },
           });
-    
+
           if (response.data.results && response.data.results.length > 0) {
             const media = response.data.results[0];
-    
-            const mediaType = media.media_type; 
+
+            const mediaType = media.media_type;
             const trailerUrl = await getMediaTrailer(media.id, mediaType);
             const credits = await getMediaCredits(media.id, mediaType);
-    
+
             return {
               id: media.id,
-              title: media.title || media.name, 
+              title: media.title || media.name,
               media_type: mediaType,
               poster_path: media.poster_path,
-              vote_average: media.vote_average !== undefined ? media.vote_average : 0,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
               trailerUrl,
               credits,
             };
@@ -267,16 +332,274 @@ router.post('/', async (req, res) => {
       });
     }
 
-     // Joker
-     else if (intent === 'char_joker') {
+    // Clark Kent
+    else if (intent === 'char_clark_kent') {
+      const supermanMedia = [
+        'Man of Steel',
+        'Lois & Clark: The New Adventures of Superman',
+        'Superman',
+        'Superman IV: The Quest for Peace',
+        'Superman II',
+        'Batman v Superman: Dawn of Justice',
+        'Superman Returns',
+        'Superman: Doomsday',
+        'The Death and Return of Superman',
+        'My Adventures with Superman',
+        'Superman & Lois',
+        'Superman: The Animated Series',
+        'Adventures of Superman',
+        'Christopher Reeve, Superman Forever',
+        'Justice League',
+        "Zack Snyder's Justice League",
+        'Justice League: Crisis on Infinite Earths Part One',
+        'Justice League: Crisis on Infinite Earths Part Two',
+        'Justice League: Warworld',
+        'Justice League Dark: Apokolips War',
+        'Justice League: War',
+        'Justice League: The Flashpoint Paradox',
+        'Justice League: Throne of Atlantis',
+        'Justice League vs. Teen Titans',
+        'Justice League: Crisis on Two Earths',
+        'Justice League: Gods and Monsters',
+        'Justice League: The New Frontier',
+        'Justice League: Doom',
+        'Justice League: Secret Origins',
+        'Justice League Dark',
+        'Justice League vs. the Fatal Five',
+        'Justice League x RWBY: Super Heroes & Huntsmen, Part One',
+        'Justice League x RWBY: Super Heroes & Huntsmen, Part Two',
+        'Justice League Unlimited',
+        'Justice League: Crisis on Infinite Earths Part Three',
+        'Justice League Action',
+        'Justice League: Gods and Monsters Chronicles',
+        'Superman: Red Son',
+        'Supermansion',
+        'The Superman/Aquaman Hour of Adventure',
+        'A Man Who Was Superman',
+        'The Superman Age',
+      ];
+
+      const results = await Promise.all(
+        supermanMedia.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Coraline
+    else if (intent === 'char_coraline_jones') {
+      const coralineMedia = [
+        'Coraline',
+        'Rebuilding Coraline',
+        'Coraline: Creepy Coraline',
+        "Coraline: The Making of 'Coraline'",
+        'The Nightmare Before Christmas',
+        'The Nightmare Before Christmas: The Original Poem',
+        'Kubo and the Two Strings',
+      ];
+
+      const results = await Promise.all(
+        coralineMedia.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Doctor Who
+    else if (intent === 'char_the_doctor' || intent === 'quotes_doctor_who') {
+      const doctorWhoMedia = [
+        'Doctor Who',
+        'Doctor Who Confidential',
+        'Doctor Who: The Day of the Doctor',
+        'Doctor Who Extra',
+        'Doctor Who: The Doctors Revisited',
+        'Doctor Who Greatest Moments',
+        'Doctor Who: Unleashed',
+        'Doctor Who: Lost in Time',
+        'Doctor Who: Dreamland',
+        'Doctor Who: Real Time',
+        'Doctor Who: Video Commentaries',
+        'Doctor Who Monster Files',
+        'Doctor Who: Fury from the Deep',
+        'Doctor Who: Scream of the Shalka',
+        "Doctor Who's Who's Who",
+        'Doctor Who Then & Now',
+        'Totally Doctor Who',
+      ];
+
+      const results = await Promise.all(
+        doctorWhoMedia.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Daryl Dixon, Glenn, Maggie, Michonne, and Rick Grimes
+    else if (intent === 'char_daryl_dixon_show' || intent === 'char_michonne_show' || intent === 'char_rick_grimes_show' || intent === 'char_glenn_show' || intent === 'char_maggie_show') {
+      const theWalkingDeadMedia = [
+        'The Walking Dead',
+        'The Walking Dead: Daryl Dixon',
+        'The Walking Dead: Dead City',
+        'The Walking Dead: Origins',
+        'The Walking Dead: The Ones Who Live',
+        'The Walking Dead: The Return',
+        'The Walking Dead: World Beyond',
+        'The Walking Dead - Webisodes',
+        'The Last Drive-in: The Walking Dead',
+        'The Making of The Walking Dead',
+        'Talking Dead',
+        'The Walking Dead: Best of Rick',
+        'Tales of the Walking Dead',
+        'Fear the Walking Dead',
+        'Fear the Walking Dead: Passage',
+        'Fear the Walking Dead: Dead in the Water',
+      ];
+
+      const results = await Promise.all(
+        theWalkingDeadMedia.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Joker
+    else if (intent === 'char_joker') {
       const jokerMedia = [
         'Joker',
         'Joker: Folie à Deux',
         'The Dark Knight',
         'Batman',
-        'Batman Unlimited'
+        'Batman Unlimited',
       ];
-    
+
       const results = await Promise.all(
         jokerMedia.map(async (title) => {
           const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
@@ -285,20 +608,21 @@ router.post('/', async (req, res) => {
               query: title,
             },
           });
-    
+
           if (response.data.results && response.data.results.length > 0) {
             const media = response.data.results[0];
-    
-            const mediaType = media.media_type; 
+
+            const mediaType = media.media_type;
             const trailerUrl = await getMediaTrailer(media.id, mediaType);
             const credits = await getMediaCredits(media.id, mediaType);
-    
+
             return {
               id: media.id,
-              title: media.title || media.name, 
+              title: media.title || media.name,
               media_type: mediaType,
               poster_path: media.poster_path,
-              vote_average: media.vote_average !== undefined ? media.vote_average : 0,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
               trailerUrl,
               credits,
             };
@@ -1116,146 +1440,145 @@ router.post('/', async (req, res) => {
     // Locations
     // Handle Toronto movie intent
     else if (intent === 'locations_movies_set_in_toronto') {
-    const torontoMovies = [
-      "Scott Pilgrim vs. the World",
-      "The Shape of Water"
-    ];
+      const torontoMovies = [
+        'Scott Pilgrim vs. the World',
+        'The Shape of Water',
+      ];
 
-    const results = await Promise.all(
-      torontoMovies.map(async (title) => {
-        const response = await axios.get(`${TMDB_BASE_URL}/search/movie`, {
-          params: {
-            api_key: TMDB_API_KEY,
-            query: title,
-          },
-        });
+      const results = await Promise.all(
+        torontoMovies.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/movie`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
 
-        if (response.data.results && response.data.results.length > 0) {
-          const movie = response.data.results[0];
+          if (response.data.results && response.data.results.length > 0) {
+            const movie = response.data.results[0];
 
-          const trailerUrl = await getMediaTrailer(movie.id, 'movie');
-          const credits = await getMediaCredits(movie.id, 'movie');
+            const trailerUrl = await getMediaTrailer(movie.id, 'movie');
+            const credits = await getMediaCredits(movie.id, 'movie');
 
-          return {
-            id: movie.id,
-            title: movie.title,
-            media_type: 'movie',
-            poster_path: movie.poster_path,
-            vote_average:
-              movie.vote_average !== undefined ? movie.vote_average : 0,
-            trailerUrl,
-            credits,
-          };
-        }
-        return null;
-      })
-    );
+            return {
+              id: movie.id,
+              title: movie.title,
+              media_type: 'movie',
+              poster_path: movie.poster_path,
+              vote_average:
+                movie.vote_average !== undefined ? movie.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
 
-    const filteredResults = results.filter((result) => result !== null);
+      const filteredResults = results.filter((result) => result !== null);
 
-    return res.json({
-      message: nlpResult.answer,
-      media: filteredResults,
-    });
-  }
-   // Handle New York movie intent
-   else if (intent === 'locations_movies_set_in_new_york') {
-    const newYorkMovies = [
-      "The Great Gatsby",
-      "Inception"
-    ];
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+    // Handle New York movie intent
+    else if (intent === 'locations_movies_set_in_new_york') {
+      const newYorkMovies = ['The Great Gatsby', 'Inception'];
 
-    const results = await Promise.all(
-      newYorkMovies.map(async (title) => {
-        const response = await axios.get(`${TMDB_BASE_URL}/search/movie`, {
-          params: {
-            api_key: TMDB_API_KEY,
-            query: title,
-          },
-        });
+      const results = await Promise.all(
+        newYorkMovies.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/movie`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
 
-        if (response.data.results && response.data.results.length > 0) {
-          const movie = response.data.results[0];
+          if (response.data.results && response.data.results.length > 0) {
+            const movie = response.data.results[0];
 
-          const trailerUrl = await getMediaTrailer(movie.id, 'movie');
-          const credits = await getMediaCredits(movie.id, 'movie');
+            const trailerUrl = await getMediaTrailer(movie.id, 'movie');
+            const credits = await getMediaCredits(movie.id, 'movie');
 
-          return {
-            id: movie.id,
-            title: movie.title,
-            media_type: 'movie',
-            poster_path: movie.poster_path,
-            vote_average:
-              movie.vote_average !== undefined ? movie.vote_average : 0,
-            trailerUrl,
-            credits,
-          };
-        }
-        return null;
-      })
-    );
+            return {
+              id: movie.id,
+              title: movie.title,
+              media_type: 'movie',
+              poster_path: movie.poster_path,
+              vote_average:
+                movie.vote_average !== undefined ? movie.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
 
-    const filteredResults = results.filter((result) => result !== null);
+      const filteredResults = results.filter((result) => result !== null);
 
-    return res.json({
-      message: nlpResult.answer,
-      media: filteredResults,
-    });
-  }
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
 
-   // Handle Paris movie intent
-   else if (intent === 'locations_movies_set_in_paris') {
-    const parisMovies = [
-      "Amélie",
-      "Midnight in Paris"
-    ];
+    // Handle Paris movie intent
+    else if (intent === 'locations_movies_set_in_paris') {
+      const parisMovies = ['Amélie', 'Midnight in Paris'];
 
-    const results = await Promise.all(
-      parisMovies.map(async (title) => {
-        const response = await axios.get(`${TMDB_BASE_URL}/search/movie`, {
-          params: {
-            api_key: TMDB_API_KEY,
-            query: title,
-          },
-        });
+      const results = await Promise.all(
+        parisMovies.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/movie`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
 
-        if (response.data.results && response.data.results.length > 0) {
-          const movie = response.data.results[0];
+          if (response.data.results && response.data.results.length > 0) {
+            const movie = response.data.results[0];
 
-          const trailerUrl = await getMediaTrailer(movie.id, 'movie');
-          const credits = await getMediaCredits(movie.id, 'movie');
+            const trailerUrl = await getMediaTrailer(movie.id, 'movie');
+            const credits = await getMediaCredits(movie.id, 'movie');
 
-          return {
-            id: movie.id,
-            title: movie.title,
-            media_type: 'movie',
-            poster_path: movie.poster_path,
-            vote_average:
-              movie.vote_average !== undefined ? movie.vote_average : 0,
-            trailerUrl,
-            credits,
-          };
-        }
-        return null;
-      })
-    );
+            return {
+              id: movie.id,
+              title: movie.title,
+              media_type: 'movie',
+              poster_path: movie.poster_path,
+              vote_average:
+                movie.vote_average !== undefined ? movie.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
 
-    const filteredResults = results.filter((result) => result !== null);
+      const filteredResults = results.filter((result) => result !== null);
 
-    return res.json({
-      message: nlpResult.answer,
-      media: filteredResults,
-    });
-  }
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
 
     // Shows
 
     // Big Bang Theory
-    else if (intent === 'song_intro_big_bang_theory' || intent === 'quotes_soft_kitty' || intent === 'quotes_big_bang_theory_knock_knock' || intent === 'quotes_big_bang_theory_spot' || intent === 'quotes_big_bang_theory_babies' || intent === 'quotes_bazinga') {
-      const bigBangTheoryShow = [
-        'The Big Bang Theory',
-      ];
-    
+    else if (
+      intent === 'song_intro_big_bang_theory' ||
+      intent === 'quotes_soft_kitty' ||
+      intent === 'quotes_big_bang_theory_knock_knock' ||
+      intent === 'quotes_big_bang_theory_spot' ||
+      intent === 'quotes_big_bang_theory_babies' ||
+      intent === 'quotes_bazinga'
+    ) {
+      const bigBangTheoryShow = ['The Big Bang Theory'];
+
       const results = await Promise.all(
         bigBangTheoryShow.map(async (title) => {
           const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
@@ -1264,20 +1587,21 @@ router.post('/', async (req, res) => {
               query: title,
             },
           });
-    
+
           if (response.data.results && response.data.results.length > 0) {
             const media = response.data.results[0];
-    
-            const mediaType = media.media_type; 
+
+            const mediaType = media.media_type;
             const trailerUrl = await getMediaTrailer(media.id, mediaType);
             const credits = await getMediaCredits(media.id, mediaType);
-    
+
             return {
               id: media.id,
-              title: media.title || media.name, 
+              title: media.title || media.name,
               media_type: mediaType,
               poster_path: media.poster_path,
-              vote_average: media.vote_average !== undefined ? media.vote_average : 0,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
               trailerUrl,
               credits,
             };
@@ -1295,11 +1619,19 @@ router.post('/', async (req, res) => {
     }
 
     // Friends
-    else if (intent === 'song_intro_friends' || intent === 'quotes_my_sandwich' || intent === 'quotes_we_were_on_a_break' || intent === 'q_and_a_recommend_shows_like_friends' || intent === 'quotes_friends_feet' || intent === 'chitchat_friends_char' || intent === 'quotes_friends_moo_point' || intent === 'quotes_friends_seven' || intent === 'quotes_friends_pivot') {
-      const friendsShow = [
-        'Friends',
-      ];
-    
+    else if (
+      intent === 'song_intro_friends' ||
+      intent === 'quotes_my_sandwich' ||
+      intent === 'quotes_we_were_on_a_break' ||
+      intent === 'q_and_a_recommend_shows_like_friends' ||
+      intent === 'quotes_friends_feet' ||
+      intent === 'chitchat_friends_char' ||
+      intent === 'quotes_friends_moo_point' ||
+      intent === 'quotes_friends_seven' ||
+      intent === 'quotes_friends_pivot'
+    ) {
+      const friendsShow = ['Friends'];
+
       const results = await Promise.all(
         friendsShow.map(async (title) => {
           const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
@@ -1308,20 +1640,21 @@ router.post('/', async (req, res) => {
               query: title,
             },
           });
-    
+
           if (response.data.results && response.data.results.length > 0) {
             const media = response.data.results[0];
-    
-            const mediaType = media.media_type; 
+
+            const mediaType = media.media_type;
             const trailerUrl = await getMediaTrailer(media.id, mediaType);
             const credits = await getMediaCredits(media.id, mediaType);
-    
+
             return {
               id: media.id,
-              title: media.title || media.name, 
+              title: media.title || media.name,
               media_type: mediaType,
               poster_path: media.poster_path,
-              vote_average: media.vote_average !== undefined ? media.vote_average : 0,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
               trailerUrl,
               credits,
             };
@@ -1342,9 +1675,9 @@ router.post('/', async (req, res) => {
     else if (intent === 'song_intro_fresh_prince') {
       const freshPrinceShow = [
         'The Fresh Prince of Bel-Air',
-        'The Fresh Prince of Bel-Air Reunion'
+        'The Fresh Prince of Bel-Air Reunion',
       ];
-    
+
       const results = await Promise.all(
         freshPrinceShow.map(async (title) => {
           const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
@@ -1353,20 +1686,21 @@ router.post('/', async (req, res) => {
               query: title,
             },
           });
-    
+
           if (response.data.results && response.data.results.length > 0) {
             const media = response.data.results[0];
-    
-            const mediaType = media.media_type; 
+
+            const mediaType = media.media_type;
             const trailerUrl = await getMediaTrailer(media.id, mediaType);
             const credits = await getMediaCredits(media.id, mediaType);
-    
+
             return {
               id: media.id,
-              title: media.title || media.name, 
+              title: media.title || media.name,
               media_type: mediaType,
               poster_path: media.poster_path,
-              vote_average: media.vote_average !== undefined ? media.vote_average : 0,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
               trailerUrl,
               credits,
             };
@@ -1385,11 +1719,8 @@ router.post('/', async (req, res) => {
 
     // Full House
     else if (intent === 'song_intro_full_house') {
-      const fullHouseShow = [
-        'Full House',
-        'Fuller House'
-      ];
-    
+      const fullHouseShow = ['Full House', 'Fuller House'];
+
       const results = await Promise.all(
         fullHouseShow.map(async (title) => {
           const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
@@ -1398,20 +1729,21 @@ router.post('/', async (req, res) => {
               query: title,
             },
           });
-    
+
           if (response.data.results && response.data.results.length > 0) {
             const media = response.data.results[0];
-    
-            const mediaType = media.media_type; 
+
+            const mediaType = media.media_type;
             const trailerUrl = await getMediaTrailer(media.id, mediaType);
             const credits = await getMediaCredits(media.id, mediaType);
-    
+
             return {
               id: media.id,
-              title: media.title || media.name, 
+              title: media.title || media.name,
               media_type: mediaType,
               poster_path: media.poster_path,
-              vote_average: media.vote_average !== undefined ? media.vote_average : 0,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
               trailerUrl,
               credits,
             };
@@ -1430,10 +1762,8 @@ router.post('/', async (req, res) => {
 
     // New Girl
     else if (intent === 'song_intro_new_girl') {
-      const newGirlShow = [
-        'New Girl',
-      ];
-    
+      const newGirlShow = ['New Girl'];
+
       const results = await Promise.all(
         newGirlShow.map(async (title) => {
           const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
@@ -1442,20 +1772,21 @@ router.post('/', async (req, res) => {
               query: title,
             },
           });
-    
+
           if (response.data.results && response.data.results.length > 0) {
             const media = response.data.results[0];
-    
-            const mediaType = media.media_type; 
+
+            const mediaType = media.media_type;
             const trailerUrl = await getMediaTrailer(media.id, mediaType);
             const credits = await getMediaCredits(media.id, mediaType);
-    
+
             return {
               id: media.id,
-              title: media.title || media.name, 
+              title: media.title || media.name,
               media_type: mediaType,
               poster_path: media.poster_path,
-              vote_average: media.vote_average !== undefined ? media.vote_average : 0,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
               trailerUrl,
               credits,
             };
@@ -1480,7 +1811,7 @@ router.post('/', async (req, res) => {
         'Sailor Moon Crystal',
         'Sailor Moon Musical',
       ];
-    
+
       const results = await Promise.all(
         sailorMoonMedia.map(async (title) => {
           const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
@@ -1489,20 +1820,21 @@ router.post('/', async (req, res) => {
               query: title,
             },
           });
-    
+
           if (response.data.results && response.data.results.length > 0) {
             const media = response.data.results[0];
-    
-            const mediaType = media.media_type; 
+
+            const mediaType = media.media_type;
             const trailerUrl = await getMediaTrailer(media.id, mediaType);
             const credits = await getMediaCredits(media.id, mediaType);
-    
+
             return {
               id: media.id,
-              title: media.title || media.name, 
+              title: media.title || media.name,
               media_type: mediaType,
               poster_path: media.poster_path,
-              vote_average: media.vote_average !== undefined ? media.vote_average : 0,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
               trailerUrl,
               credits,
             };
@@ -1889,7 +2221,11 @@ router.post('/', async (req, res) => {
     }
 
     // Handle Quotes Harry Potter Spells intent
-    else if (intent === 'quotes_harry_potter' || intent === 'chitchat_hp_movies' || intent === 'chitchat_hp_books') {
+    else if (
+      intent === 'quotes_harry_potter' ||
+      intent === 'chitchat_hp_movies' ||
+      intent === 'chitchat_hp_books'
+    ) {
       const quotesHarryPotterMovies = [
         "Harry Potter and the Philosopher's Stone",
         'Harry Potter and the Chamber of Secrets',
