@@ -293,9 +293,20 @@ const NextStreamGpt = () => {
     }
   }, [isAuthenticated, fetchInteractions]);
 
+  // Scroll to the beginning of the scrollable results section
+  const resetScrollPosition = () => {
+    if (searchScrollRef.current) {
+      searchScrollRef.current.scrollLeft = 0; 
+    }
+  };
+
   const handleSearch = useCallback(async () => {
     if (searchQuery.trim() && isAuthenticated) {
       setShowLoader(true);
+
+      // Clear previous results and reset scroll position
+      setResults([]);
+      resetScrollPosition();
 
       try {
         const response = await api.post('/api/gpt', {
