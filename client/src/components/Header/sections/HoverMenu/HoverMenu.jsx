@@ -63,13 +63,13 @@ const HoverMenu = () => {
 
   return (
     <div ref={menuRef} className={`hover-menu__container ${getBackgroundClass()}`}>
-      <div className="hover-menu__button" onClick={handleMenuClick}>
+      <button className="hover-menu__button" onClick={handleMenuClick}>
         <div className={`hover-menu__lines ${menuOpen ? 'open' : ''}`}>
           <span></span>
           <span></span>
           <span></span>
         </div>
-      </div>
+      </button>
       {menuOpen && (
         <div className="hover-menu__content">
           {links.map(link => (

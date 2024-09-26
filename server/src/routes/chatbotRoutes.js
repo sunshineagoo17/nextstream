@@ -894,10 +894,145 @@ router.post('/', async (req, res) => {
       });
     }
 
+    // Locations
+    // Handle Toronto movie intent
+    else if (intent === 'locations_movies_set_in_toronto') {
+    const torontoMovies = [
+      "Scott Pilgrim vs. the World",
+      "The Shape of Water"
+    ];
+
+    const results = await Promise.all(
+      torontoMovies.map(async (title) => {
+        const response = await axios.get(`${TMDB_BASE_URL}/search/movie`, {
+          params: {
+            api_key: TMDB_API_KEY,
+            query: title,
+          },
+        });
+
+        if (response.data.results && response.data.results.length > 0) {
+          const movie = response.data.results[0];
+
+          const trailerUrl = await getMediaTrailer(movie.id, 'movie');
+          const credits = await getMediaCredits(movie.id, 'movie');
+
+          return {
+            id: movie.id,
+            title: movie.title,
+            media_type: 'movie',
+            poster_path: movie.poster_path,
+            vote_average:
+              movie.vote_average !== undefined ? movie.vote_average : 0,
+            trailerUrl,
+            credits,
+          };
+        }
+        return null;
+      })
+    );
+
+    const filteredResults = results.filter((result) => result !== null);
+
+    return res.json({
+      message: nlpResult.answer,
+      media: filteredResults,
+    });
+  }
+   // Handle New York movie intent
+   else if (intent === 'locations_movies_set_in_new_york') {
+    const newYorkMovies = [
+      "The Great Gatsby",
+      "Inception"
+    ];
+
+    const results = await Promise.all(
+      newYorkMovies.map(async (title) => {
+        const response = await axios.get(`${TMDB_BASE_URL}/search/movie`, {
+          params: {
+            api_key: TMDB_API_KEY,
+            query: title,
+          },
+        });
+
+        if (response.data.results && response.data.results.length > 0) {
+          const movie = response.data.results[0];
+
+          const trailerUrl = await getMediaTrailer(movie.id, 'movie');
+          const credits = await getMediaCredits(movie.id, 'movie');
+
+          return {
+            id: movie.id,
+            title: movie.title,
+            media_type: 'movie',
+            poster_path: movie.poster_path,
+            vote_average:
+              movie.vote_average !== undefined ? movie.vote_average : 0,
+            trailerUrl,
+            credits,
+          };
+        }
+        return null;
+      })
+    );
+
+    const filteredResults = results.filter((result) => result !== null);
+
+    return res.json({
+      message: nlpResult.answer,
+      media: filteredResults,
+    });
+  }
+
+   // Handle Paris movie intent
+   else if (intent === 'locations_movies_set_in_paris') {
+    const parisMovies = [
+      "Amélie",
+      "Midnight in Paris"
+    ];
+
+    const results = await Promise.all(
+      parisMovies.map(async (title) => {
+        const response = await axios.get(`${TMDB_BASE_URL}/search/movie`, {
+          params: {
+            api_key: TMDB_API_KEY,
+            query: title,
+          },
+        });
+
+        if (response.data.results && response.data.results.length > 0) {
+          const movie = response.data.results[0];
+
+          const trailerUrl = await getMediaTrailer(movie.id, 'movie');
+          const credits = await getMediaCredits(movie.id, 'movie');
+
+          return {
+            id: movie.id,
+            title: movie.title,
+            media_type: 'movie',
+            poster_path: movie.poster_path,
+            vote_average:
+              movie.vote_average !== undefined ? movie.vote_average : 0,
+            trailerUrl,
+            credits,
+          };
+        }
+        return null;
+      })
+    );
+
+    const filteredResults = results.filter((result) => result !== null);
+
+    return res.json({
+      message: nlpResult.answer,
+      media: filteredResults,
+    });
+  }
+
     // Shows
 
     // Big Bang Theory
-    else if (intent === 'song_intro_big_bang_theory' || intent === 'quotes_big_bang_theory_knock_knock' || intent === 'quotes_big_bang_theory_spot' || intent === 'quotes_big_bang_theory_babies' || intent === 'quotes_bazinga') {
+    else if (intent === 'song_intro_big_bang_theory' || intent === 'quotes_soft_kitty' || intent === 'quotes_big_bang_theory_knock_knock' || intent === 'quotes_big_bang_theory_spot' || intent === 'quotes_big_bang_theory_babies' || intent === 'quotes_bazinga') {
       const bigBangTheoryShow = [
         'The Big Bang Theory',
       ];
@@ -941,7 +1076,7 @@ router.post('/', async (req, res) => {
     }
 
     // Friends
-    else if (intent === 'song_intro_friends' || intent === 'q_and_a_recommend_shows_like_friends' || intent === 'quotes_friends_feet' || intent === 'chitchat_friends_char' || intent === 'quotes_friends_moo_point' || intent === 'quotes_friends_seven' || intent === 'quotes_friends_pivot') {
+    else if (intent === 'song_intro_friends' || intent === 'quotes_my_sandwich' || intent === 'quotes_we_were_on_a_break' || intent === 'q_and_a_recommend_shows_like_friends' || intent === 'quotes_friends_feet' || intent === 'chitchat_friends_char' || intent === 'quotes_friends_moo_point' || intent === 'quotes_friends_seven' || intent === 'quotes_friends_pivot') {
       const friendsShow = [
         'Friends',
       ];
