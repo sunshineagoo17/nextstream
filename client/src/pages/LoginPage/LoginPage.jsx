@@ -207,7 +207,9 @@ export const LoginPage = () => {
                 />
                 <p className="login__remember-txt">Remember Me</p>
               </label>
-              <p className="login__forgot-password-link" onClick={openForgotPasswordModal}>Forgot Password?</p>
+              <button className="login__forgot-password-link" onClick={openForgotPasswordModal}>
+                Forgot Password?
+              </button>
               <div className="login__button-group">
                 <button className="login__button login__button--previous" onClick={goToPreviousPage}>
                   <img src={ArrowIcon} className="previous__button-icon" alt="Arrow Icon" />

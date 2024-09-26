@@ -115,6 +115,12 @@
     }
   }
 
+  &__card-features__feature__label--stream-locator,
+  &__card-features__feature__label--schedule-planner,
+  &__card-features__feature__label--custom-recommendations {
+    border: none;
+  }
+
   &__card-media-container {
     overflow: hidden;
     @include block-item(auto, 100%);
@@ -590,6 +596,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        border: none;
         background: $primary-icon-bg;
         box-shadow: $shadow-primary;
         border-top-left-radius: .25rem;
@@ -733,4 +740,8 @@
   color: $primary-pale-blue;
   font-family: $primary-font;
   padding: 1rem;
+}
+
+[class^="content__card"] {
+  border: none;
 }

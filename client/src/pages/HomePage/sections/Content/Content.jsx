@@ -128,36 +128,36 @@ export const Content = () => {
                 data-tooltip="Find where your fave shows/movies are being streamed."
                 onClick={scrollToSearchBar}
               >
-                <div className="content__card-features__feature__icon-bg">
+                <button className="content__card-features__feature__icon-bg">
                   <img className="content__card-features__feature__search-icon" src={SearchIcon} alt="Search icon" />
-                </div>
-                <div className="content__card-features__feature__label content__card-features__feature__label--stream-locator">
+                </button>
+                <button className="content__card-features__feature__label content__card-features__feature__label--stream-locator">
                   Stream Locator
-                </div>
+                </button>
               </div>
               <div
                 className="content__card-features__feature content__card-features__feature--2"
                 data-tooltip="Personalized recommendations based on your history."
                 onClick={handleNavigateToTopPicks}
               >
-                <div className="content__card-features__feature__icon-bg">
+                <button className="content__card-features__feature__icon-bg">
                   <img className="content__card-features__feature__favourites-icon" src={Favourites} alt="Favourites icon" />
-                </div>
-                <div className="content__card-features__feature__label content__card-features__feature__label--custom-recommendations">
+                </button>
+                <button className="content__card-features__feature__label content__card-features__feature__label--custom-recommendations">
                   Custom Recommendations
-                </div>
+                </button>
               </div>
               <div
                 className="content__card-features__feature content__card-features__feature--3"
                 data-tooltip="Plan your schedule and never miss a show/movie."
                 onClick={handleNavigateToCalendar}
               >
-                <div className="content__card-features__feature__icon-bg">
+                <button className="content__card-features__feature__icon-bg">
                   <img className="content__card-features__feature__calendar-icon" src={CalendarIcon} alt="Calendar icon" />
-                </div>
-                <div className="content__card-features__feature__label content__card-features__feature__label--schedule-planner">
+                </button>
+                <button className="content__card-features__feature__label content__card-features__feature__label--schedule-planner">
                   Schedule Planner
-                </div>
+                </button>
               </div>
             </div>
           </div>
@@ -178,7 +178,7 @@ export const Content = () => {
               <div className="content__card-media">
                 {newReleases.slice(currentIndex, currentIndex + 3).map((release, index) => (
                   <div key={index} className={`content__card${index + 1}-container ${animationClass}`}>
-                    <div 
+                    <button 
                       className={`content__card${index + 1}`}
                       onClick={() => handleCardClick(release)}
                     >
@@ -188,7 +188,7 @@ export const Content = () => {
                         src={`https://image.tmdb.org/t/p/w500${release.poster_path}`}
                         onError={handleError}
                       />
-                    </div>
+                    </button>
                     <div className={`content__icon-bg-${release.media_type === 'tv' ? 'tv' : 'video'}`}>
                       <img className={`content__${release.media_type === 'tv' ? 'tv' : 'video'}-icon`} alt="Media icon" src={release.media_type === 'tv' ? TvIcon : VideoCamera} />
                     </div>
@@ -198,23 +198,23 @@ export const Content = () => {
             </div>
 
             <div className="content__pagination-container">
-              <div className="content__page-nav-wrapper-previous" onClick={handlePrevious}>
+              <button className="content__page-nav-wrapper-previous" onClick={handlePrevious}>
                 <img src={PreviousIcon} className="content__previous-icon" alt="Previous" />
-              </div>
+              </button>
               <div className="content__nav-circles">
                 {newReleases.slice(0, Math.ceil(newReleases.length / 3)).map((_, index) => (
-                  <div
+                  <button
                     key={index}
                     className={`content__nav-circle ${
                       currentIndex / 3 === index ? 'content__nav-circle--active' : ''
                     }`}
                     onClick={() => setCurrentIndex(index * 3)}
-                  ></div>
+                  ></button>
                 ))}
               </div>
-              <div className="content__page-nav-wrapper-next" onClick={handleNext}>
+              <button className="content__page-nav-wrapper-next" onClick={handleNext}>
                 <img src={NextIcon} className="content__next-icon" alt="Next" />
-              </div>
+              </button>
             </div>
           </div>
         </div>
