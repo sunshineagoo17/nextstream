@@ -894,16 +894,194 @@ router.post('/', async (req, res) => {
       });
     }
 
-    // Songs
+    // Shows
+
+    // Big Bang Theory
+    else if (intent === 'song_intro_big_bang_theory' || intent === 'quotes_big_bang_theory_knock_knock' || intent === 'quotes_big_bang_theory_spot' || intent === 'quotes_big_bang_theory_babies' || intent === 'quotes_bazinga') {
+      const bigBangTheoryShow = [
+        'The Big Bang Theory',
+      ];
+    
+      const results = await Promise.all(
+        bigBangTheoryShow.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+    
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+    
+            const mediaType = media.media_type; 
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+    
+            return {
+              id: media.id,
+              title: media.title || media.name, 
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average: media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
 
     // Friends
     else if (intent === 'song_intro_friends' || intent === 'q_and_a_recommend_shows_like_friends' || intent === 'quotes_friends_feet' || intent === 'chitchat_friends_char' || intent === 'quotes_friends_moo_point' || intent === 'quotes_friends_seven' || intent === 'quotes_friends_pivot') {
-      const friendsMedia = [
+      const friendsShow = [
         'Friends',
       ];
     
       const results = await Promise.all(
-        friendsMedia.map(async (title) => {
+        friendsShow.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+    
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+    
+            const mediaType = media.media_type; 
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+    
+            return {
+              id: media.id,
+              title: media.title || media.name, 
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average: media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // The Fresh Prince of Bel-Air
+    else if (intent === 'song_intro_fresh_prince') {
+      const freshPrinceShow = [
+        'The Fresh Prince of Bel-Air',
+        'The Fresh Prince of Bel-Air Reunion'
+      ];
+    
+      const results = await Promise.all(
+        freshPrinceShow.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+    
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+    
+            const mediaType = media.media_type; 
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+    
+            return {
+              id: media.id,
+              title: media.title || media.name, 
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average: media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Full House
+    else if (intent === 'song_intro_full_house') {
+      const fullHouseShow = [
+        'Full House',
+        'Fuller House'
+      ];
+    
+      const results = await Promise.all(
+        fullHouseShow.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+    
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+    
+            const mediaType = media.media_type; 
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+    
+            return {
+              id: media.id,
+              title: media.title || media.name, 
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average: media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // New Girl
+    else if (intent === 'song_intro_new_girl') {
+      const newGirlShow = [
+        'New Girl',
+      ];
+    
+      const results = await Promise.all(
+        newGirlShow.map(async (title) => {
           const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
             params: {
               api_key: TMDB_API_KEY,
