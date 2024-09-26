@@ -97,8 +97,227 @@ router.post('/', async (req, res) => {
 
     let combinedResults = [];
 
+    // Characters
+
+    // Aang
+    if (intent === 'char_aang') {
+      const theLastAirbenderMedia = [
+        'The Last Airbender',
+        'Avatar: The Last Airbender',
+        'Avatar the Last Airbender',
+        'Aang: The Last Airbender'
+      ];
+    
+      const results = await Promise.all(
+        theLastAirbenderMedia.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+    
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+    
+            const mediaType = media.media_type; 
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+    
+            return {
+              id: media.id,
+              title: media.title || media.name, 
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average: media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Alfred Pennyworth
+    else if (intent === 'char_alfred_pennyworth_movie' || intent === 'char_alfred_pennyworth_show') {
+      const alfredShows = [
+        "Pennyworth: The Origin of Batman's Butler"
+      ];
+    
+      const results = await Promise.all(
+        alfredShows.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+    
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+    
+            const mediaType = media.media_type; 
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+    
+            return {
+              id: media.id,
+              title: media.title || media.name, 
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average: media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+     // Bruce Wayne
+     else if (intent === 'char_bruce_wayne') {
+      const batmanMedia = [
+        'The Dark Knight',
+        'The Dark Knight Rises',
+        'Batman Begins',
+        'Batman Returns',
+        'Batman Forever',
+        'Batman & Robin',
+        'The Lego Batman Movie',
+        'Batman: Mask of the Phantasm',
+        'Batman: Year One',
+        'Batman: The Dark Knight Returns, Part 1',
+        'Batman: The Dark Knight Returns, Part 2',
+        'Batman vs Teenage Mutant Ninja Turtles',
+        'Batman: Hush',
+        'Batman Ninja',
+        'Batman',
+        'The Batman',
+        'Batman v Superman: Dawn of Justice',
+        'Batman: The Long Halloween, Part Two',
+        'Batman: Death in the Family',
+        "Pennyworth: The Origin of Batman's Butler",
+        'Batman: The Animated Series',
+        'Batman: The Doom That Came to Gotham',
+        'Batman Unlimited',
+        'Batman: The Brave and the Bold',
+        'Batman Beyond',
+        'Beware the Batman',
+        'Batman: Caped Crusader',
+        'The New Batman Adventures',
+        'Batman: Black and White Motion Comics',
+        'The New Adventures of Batman',
+        'The Adventures of Batman',
+        'Icons Unearthed: Batman',
+        'Batman Adventures: Mad Love',
+        'The Bat Man of Shanghai',
+      ];
+    
+      const results = await Promise.all(
+        batmanMedia.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+    
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+    
+            const mediaType = media.media_type; 
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+    
+            return {
+              id: media.id,
+              title: media.title || media.name, 
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average: media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+     // Joker
+     else if (intent === 'char_joker') {
+      const jokerMedia = [
+        'Joker',
+        'Joker: Folie à Deux',
+        'The Dark Knight',
+        'Batman',
+        'Batman Unlimited'
+      ];
+    
+      const results = await Promise.all(
+        jokerMedia.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+    
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+    
+            const mediaType = media.media_type; 
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+    
+            return {
+              id: media.id,
+              title: media.title || media.name, 
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average: media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Handle Holidays
     // Handle April Fools movie intent
-    if (intent === 'celebrate_april_fools') {
+    else if (intent === 'celebrate_april_fools') {
       const aprilFoolsMovies = [
         'Dumb and Dumber',
         "Ferris Bueller's Day Off",
@@ -1670,7 +1889,7 @@ router.post('/', async (req, res) => {
     }
 
     // Handle Quotes Harry Potter Spells intent
-    else if (intent === 'quotes_harry_potter') {
+    else if (intent === 'quotes_harry_potter' || intent === 'chitchat_hp_movies' || intent === 'chitchat_hp_books') {
       const quotesHarryPotterMovies = [
         "Harry Potter and the Philosopher's Stone",
         'Harry Potter and the Chamber of Secrets',
