@@ -590,6 +590,241 @@ router.post('/', async (req, res) => {
       });
     }
 
+    // Gru and Minions
+    else if (intent === 'char_gru' || intent === 'char_minions') {
+      const despicableMeMedia = [
+        'Despicable Me',
+        'Despicable Me 2',
+        'Despicable Me 3',
+        'Depicable Me 4',
+        'Minions',
+        'Minions: The Rise of Gru',
+        'Minions 3',
+        'Minions: 3 Mini-Movie Collection',
+        'Minions: Holiday Special',
+        'Minions: Home Makeover',
+        'Minions: Orientation Day',
+        'Minions: Training Wheels',
+        'Minions & Monsters',
+        'Minions & More 1',
+        'Minions & More Volume 2',
+        'The Minion Olympics',
+        'Minions Jingle Bells',
+        'Mower Minions',
+        'Despicable Me: Minion Mayhem',
+        'Despicable Me 2: 3 Mini-Movie Collection',
+        'Despicable Me 2: Gadgets Galore',
+        'Despicable Me Presents: Minion Madness',
+      ];
+
+      const results = await Promise.all(
+        despicableMeMedia.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Heisenberg / Walter White, Jesse Pinkman, and Saul Goodman
+    else if (intent === 'char_heisenberg' || intent === 'char_walter_white' || intent === 'char_jesse_pinkman' || intent === "char_saul_goodman") {
+      const breakingBadMedia = [
+        'Breaking Bad',
+        'El Camino: A Breaking Bad Movie',
+        'Better Caul Saul',
+        'The Road to El Camino: Behind the Scenes of El Camino: A Breaking Bad Movie',
+        'No Half Measures: Creating the Final Season of Breaking Bad',
+        'Better Call Saul Employee Training',
+        "Better Call Saul Presents: Slippin' Jimmy"
+      ];
+
+      const results = await Promise.all(
+        breakingBadMedia.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Hiccup
+    else if (intent === 'char_hiccup') {
+      const howToTrainYourDragonMedia = [
+        'How to Train Your Dragon',
+        'How to Train Your Dragon 2',
+        'How to Train Your Dragon: Homecoming',
+        'How to Train Your Dragon: The Hidden World',
+        'How to Train Your Dragon: Snoggletog Log',
+        'How To Train Your Dragon: The Short Film Collection',
+        'How to Train Your Dragon - Legends',
+        'Book of Dragons',
+        'Dragons: Gift of the Night Fury',
+        "Legend of the BoneKnapper Dragon",
+        'Where No One Goes: The Making of How to Train Your Dragon 2'
+      ];
+
+      const results = await Promise.all(
+        howToTrainYourDragonMedia.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Homer Simpson
+    else if (intent === 'char_homer_simpson' || intent === 'quotes_doh') {
+      const simpsonsMedia = [
+        'The Simpsons',
+        "The Simpsons Meet the Bocellis in “Feliz Navidad”",
+        'The Simpsons in Plusaversary',
+        'The Simpsons 20th Anniversary Special - In 3D! On Ice',
+        'The Simpsons: Christmas 2',
+        'The Simpsons: Christmas',
+        'The Simpsons: Treehouse of Horror',
+        'The Simpsons Movie 2',
+        'The Simpsons: Treehouse of Horror',
+        '20 years of Simpsons',
+        "The Simpsons - On Your Marks, Get Set, D'oh!",
+        'The Simpsons - Kiss and Tell: The Story of Their Love',
+        'The Simpsons: The Dark Secrets of The Simpsons',
+        'The Simpsons & Bad Bunny: Te deseo lo mejor',
+        'May the 12th Be with You',
+        'The Simpsons: Christmas 2',
+        'Icons Unearthed: The Simpsons',
+        'The Simpsons: Viva Los Simpsons',
+        'The Simpsons: Too Hot For TV'
+      ];
+
+      const results = await Promise.all(
+        simpsonsMedia.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
     // Joker
     else if (intent === 'char_joker') {
       const jokerMedia = [
@@ -602,6 +837,258 @@ router.post('/', async (req, res) => {
 
       const results = await Promise.all(
         jokerMedia.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+     // Julia Child
+     else if (intent === 'char_julia_child_movies') {
+      const juliaChildMedia = [
+        'Julie & Julia',
+        "The Way to Cook",
+        "Julia Child! America's Favorite Chef",
+        "Julia Child: An Appetite for Life",
+        "Julia Child & Company",
+        "The Julia Child Challenge",
+        "Dishing with Julia Child",
+        "Julia",
+        "In Julia's Kitchen with Master Chefs",
+        "The French Chef"
+      ];
+
+      const results = await Promise.all(
+        juliaChildMedia.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Patrick Bateman
+    else if (intent === 'char_patrick_bateman') {
+      const americanPsychoMedia = [
+        'American Psycho',
+        "American Psycho II: All American Girl"
+      ];
+
+      const results = await Promise.all(
+        americanPsychoMedia.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Peter Griffin and Stewie Griffin
+    else if (intent === 'char_peter_griffin' || intent === 'char_stewie_griffin') {
+      const familyGuyMedia = [
+        'Family Guy',
+        "Family Guy Presents: It's a Trap!",
+        'Family Guy Presents... Stewie Griffin: The Untold Story',
+        'Family Guy Presents: Blue Harvest',
+        'Family Guy Presents: Something, Something, Something, Dark Side',
+        "A Very Special Family Guy Freakin' Christmas",
+        'Family Guy Presents: Stewie Kills Lois and Lois Kills Stewie',
+        'Family Guy: Creating the Chaos',
+        "Family Guy Presents: Seth & Alex's Almost Live Comedy Show",
+        "Family Guy COVID-19 Vaccine Awareness PSA",
+        "America Dad!",
+        'The Cleveland Show',
+        'Ted',
+        'Ted 2'
+      ];
+
+      const results = await Promise.all(
+        familyGuyMedia.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Regina George
+    else if (intent === 'char_regina_george') {
+      const meanGirlsMedia = [
+        'Mean Girls',
+        'Mean Girls 2'
+      ];
+
+      const results = await Promise.all(
+        meanGirlsMedia.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Willy Wonka
+    else if (intent === 'char_willy_wonka') {
+      const willyWonkaMedia = [
+        'Willy Wonka & the Chocolate Factory',
+        'Wonka',
+        "Pure Imagination: The Story of 'Willy Wonka & the Chocolate Factory'",
+        'Tom and Jerry: Willy Wonka and the Chocolate Factory'
+      ];
+
+      const results = await Promise.all(
+        willyWonkaMedia.map(async (title) => {
           const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
             params: {
               api_key: TMDB_API_KEY,
