@@ -34,6 +34,8 @@ import UnsubscribePage from './pages/UnsubscribePage/UnsubscribePage';
 import NextStreamBot from './pages/NextStreamBot/NextStreamBot';
 import NextStreamGpt from './pages/NextStreamGpt/NextStreamGpt';
 import AboutPage from './pages/AboutPage/AboutPage';
+import PageTransition from './components/PageTransition/PageTransition';
+import './components/PageTransition/PageTransition.scss';
 import './styles/global.scss';
 
 // Firebase 
@@ -136,38 +138,46 @@ const App = () => {
   };
 
   return (
-    <div className={location.pathname === '/login' || location.pathname === '/register' ? 'login-page register-page' : ''}>
-      <Header />
+    <div className={`layout ${location.pathname === '/login' || location.pathname === '/register' ? 'login-page register-page' : ''}`}>
+      <Header className="layout__header" />
       <HoverMenu />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/terms" element={<TermsAndConditions />} />
-        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/profile/:userId" element={isAuthenticated ? <ProfilePage /> : <Navigate to="/login-required" />} />
-        <Route path="/nextswipe/:userId" element={isAuthenticated ? <NextSwipePage openModal={openCalendarModal} /> : <Navigate to="/login-required" />} />
-        <Route path="/calendar/:userId" element={isAuthenticated || isGuest ? <CalendarPage openModal={openCalendarModal} /> : <Navigate to="/login-required" />} />
-        <Route path="/faves/:userId" element={isAuthenticated ? <FavouritesPage /> : <Navigate to="/login-required" />} /> 
-        <Route path="/search" element={isAuthenticated ? <AuthSearchResultsPage openModal={openCalendarModal} userId={userId} /> : <SearchResultsPage />} />
-        <Route path="/nextsearch/:userId" element={isAuthenticated ? <NextSearch userId={userId} /> : <Navigate to="/login-required" />} />
-        <Route path="/nextstream-bot/:userId" element={isAuthenticated ? <NextStreamBot userId={userId} /> : <Navigate to="/login-required" />} />
-        <Route path="/nextstream-gpt/:userId" element={isAuthenticated ? <NextStreamGpt userId={userId} /> : <Navigate to="/login-required" />} />
-        <Route path="/reset-password" element={<ResetPasswordPage />} />
-        <Route path="/unsubscribe" element={<UnsubscribePage />} />
-        <Route path="/login-required" element={<LoginRequired />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/nextview/:userId/:mediaType/:mediaId" element={isAuthenticated || isGuest ? <NextViewPage /> : <Navigate to="/login-required" />} />
-        <Route path="/top-picks/:userId" element={isGuest || isAuthenticated ? <TopPicksPage /> : <Navigate to="/login-required" />} />
-        <Route path="/streamboard/:userId" element={isAuthenticated ? <StreamBoard /> : <Navigate to="/login-required" />} />
-        <Route path="/spotlight/:userId/:personId" element={isAuthenticated ? <SpotlightPage /> : <Navigate to="/login-required" />} />
-        <Route path="/friends/:userId" element={isAuthenticated ? <FriendsPage /> : <Navigate to="/login-required" />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-      <Footer onContactClick={handleContactClick} />
+  
+      <main className="layout__main">
+        <PageTransition>
+          <Routes location={location} key={location.key || location.pathname}> 
+            <Route path="/" element={<HomePage />} />
+            <Route path="/terms" element={<TermsAndConditions />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/profile/:userId" element={isAuthenticated ? <ProfilePage /> : <Navigate to="/login-required" />} />
+            <Route path="/nextswipe/:userId" element={isAuthenticated ? <NextSwipePage openModal={openCalendarModal} /> : <Navigate to="/login-required" />} />
+            <Route path="/calendar/:userId" element={isAuthenticated || isGuest ? <CalendarPage openModal={openCalendarModal} /> : <Navigate to="/login-required" />} />
+            <Route path="/faves/:userId" element={isAuthenticated ? <FavouritesPage /> : <Navigate to="/login-required" />} />
+            <Route path="/search" element={isAuthenticated ? <AuthSearchResultsPage openModal={openCalendarModal} userId={userId} /> : <SearchResultsPage />} />
+            <Route path="/nextsearch/:userId" element={isAuthenticated ? <NextSearch userId={userId} /> : <Navigate to="/login-required" />} />
+            <Route path="/nextstream-bot/:userId" element={isAuthenticated ? <NextStreamBot userId={userId} /> : <Navigate to="/login-required" />} />
+            <Route path="/nextstream-gpt/:userId" element={isAuthenticated ? <NextStreamGpt userId={userId} /> : <Navigate to="/login-required" />} />
+            <Route path="/reset-password" element={<ResetPasswordPage />} />
+            <Route path="/unsubscribe" element={<UnsubscribePage />} />
+            <Route path="/login-required" element={<LoginRequired />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/nextview/:userId/:mediaType/:mediaId" element={isAuthenticated || isGuest ? <NextViewPage /> : <Navigate to="/login-required" />} />
+            <Route path="/top-picks/:userId" element={isGuest || isAuthenticated ? <TopPicksPage /> : <Navigate to="/login-required" />} />
+            <Route path="/streamboard/:userId" element={isAuthenticated ? <StreamBoard /> : <Navigate to="/login-required" />} />
+            <Route path="/spotlight/:userId/:personId" element={isAuthenticated ? <SpotlightPage /> : <Navigate to="/login-required" />} />
+            <Route path="/friends/:userId" element={isAuthenticated ? <FriendsPage /> : <Navigate to="/login-required" />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </PageTransition>
+      </main>
+  
+      <Footer className="layout__footer" onContactClick={handleContactClick} />
+  
+      {/* Modals */}
       {isContactModalOpen && <ContactModal onClose={handleCloseContactModal} />}
       {isCalendarModalOpen && <CalendarModal onClose={closeCalendarModal} eventTitle={eventTitle} />}
-
+  
       {/* Quickstart Guide */}
       {showQuickstart && (
         <QuickstartGuide

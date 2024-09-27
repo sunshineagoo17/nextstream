@@ -17,8 +17,7 @@
   align-items: center;
   z-index: 1000;
   box-shadow: 0 -.125rem .3125rem rgba($neutral-black, .2);
-  transition: opacity .5s ease-in-out;
-
+  transition: opacity .5s ease-in-out; 
   &__message {
     margin: 0;
     font-size: .875rem;
@@ -99,18 +98,8 @@
     }
   }
 
-  &.slide-out {
-    animation: slide-out .5s forwards;
-  }
-
-  @keyframes slide-out {
-    from {
-      transform: translateY(0);
-      opacity: 1;
-    }
-    to {
-      transform: translateY(100%);
-      opacity: 0;
-    }
+  &.fade-out {
+    opacity: 0; 
+    transition: opacity .5s ease-in-out; 
   }
 }

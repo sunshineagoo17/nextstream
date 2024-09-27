@@ -18,7 +18,7 @@ const CookieNotification = () => {
   }, []);
 
   const handleClose = () => {
-    setAnimationClass('slide-out');
+    setAnimationClass('fade-out');
     setTimeout(() => {
       setVisible(false);
     }, 500);
@@ -32,7 +32,7 @@ const CookieNotification = () => {
     if (token && userId) {
       login(token, userId); 
     }
-    setAnimationClass('slide-out');
+    setAnimationClass('fade-out');
     setTimeout(() => {
       setVisible(false);
     }, 500);
@@ -44,7 +44,7 @@ const CookieNotification = () => {
     logout();  
     localStorage.removeItem('token');  
     localStorage.removeItem('userId');
-    setAnimationClass('slide-out');
+    setAnimationClass('fade-out');
     setTimeout(() => {
       setVisible(false);
     }, 500);
