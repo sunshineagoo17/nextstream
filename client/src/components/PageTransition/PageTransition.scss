@@ -6,7 +6,7 @@
 .page-transition {
     &__fade-enter {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(1.25rem);
     }
 
     &__fade-enter-active {
@@ -22,7 +22,7 @@
 
     &__fade-exit-active {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(1.25rem);
         transition: opacity 300ms, transform 300ms;
     }
 }
