@@ -246,7 +246,7 @@ router.post('/', async (req, res) => {
     }
 
     // Arya, Ned Stark and Jon Snow
-    else if (intent === 'char_arya_stark' || intent === 'char_jon_snow' || intent === 'char_ned_stark' || intent === 'chitchat_fave_tv_show_character') {
+    else if (intent === 'char_arya_stark' || intent === 'char_jon_snow' || intent === 'char_ned_stark' || intent === 'chitchat_fave_tv_show_character' || intent === 'quotes_winter_is_coming') {
       const gameOfThronesMedia = [
         'Game of Thrones',
         'House of the Dragon',
@@ -3696,14 +3696,7 @@ router.post('/', async (req, res) => {
     // Shows
 
     // Big Bang Theory
-    else if (
-      intent === 'song_intro_big_bang_theory' ||
-      intent === 'quotes_soft_kitty' ||
-      intent === 'quotes_big_bang_theory_knock_knock' ||
-      intent === 'quotes_big_bang_theory_spot' ||
-      intent === 'quotes_big_bang_theory_babies' ||
-      intent === 'quotes_bazinga'
-    ) {
+    else if (intent === 'song_intro_big_bang_theory' || intent === 'quotes_soft_kitty' || intent === 'quotes_big_bang_theory_knock_knock' || intent === 'quotes_big_bang_theory_spot' || intent === 'quotes_big_bang_theory_babies' || intent === 'quotes_bazinga') {
       const bigBangTheoryShow = ['The Big Bang Theory'];
 
       const results = await Promise.all(
@@ -3746,17 +3739,7 @@ router.post('/', async (req, res) => {
     }
 
     // Friends
-    else if (
-      intent === 'song_intro_friends' ||
-      intent === 'quotes_my_sandwich' ||
-      intent === 'quotes_we_were_on_a_break' ||
-      intent === 'q_and_a_recommend_shows_like_friends' ||
-      intent === 'quotes_friends_feet' ||
-      intent === 'chitchat_friends_char' ||
-      intent === 'quotes_friends_moo_point' ||
-      intent === 'quotes_friends_seven' ||
-      intent === 'quotes_friends_pivot'
-    ) {
+    else if (intent === 'song_intro_friends' || intent === 'quotes_my_sandwich' || intent === 'quotes_we_were_on_a_break' || intent === 'q_and_a_recommend_shows_like_friends' || intent === 'quotes_friends_feet' || intent === 'chitchat_friends_char' || intent === 'quotes_friends_moo_point' || intent === 'quotes_friends_seven' || intent === 'quotes_friends_pivot') {
       const friendsShow = ['Friends'];
 
       const results = await Promise.all(
