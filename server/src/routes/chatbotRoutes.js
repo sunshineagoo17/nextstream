@@ -1126,6 +1126,68 @@ router.post('/', async (req, res) => {
       });
     }
 
+    // Chitchat
+    // LGBTQ
+    if (intent === 'chitchat_lgbtq') {
+      const lgbtqMedia = [
+        "Schitt's Creek",
+        'The Birdcage',
+        'Pose',
+        'Euphoria',
+        'Sort Of',
+        'Good Omens',
+        'The Boys in the Band',
+        'The Half of It',
+        'Lingua Franca',
+        'Love, Simon',
+        'Heartstopper',
+        "The Death and Life of Marsha P. Johnson",
+        'The Prom',
+        'Queer Eye',
+        'Sex Education',
+        'The Umbrella Academy',
+        'Queer Eye for the Straight Guy'
+      ];
+
+      const results = await Promise.all(
+        lgbtqMedia.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
     // Handle Holidays
     // Handle April Fools movie intent
     else if (intent === 'celebrate_april_fools') {
