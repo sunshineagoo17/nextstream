@@ -2557,6 +2557,58 @@ router.post('/', async (req, res) => {
       });
     }
 
+    // Boxing Day Shows
+    else if (intent === 'celebrate_boxing_day_shows') {
+      const boxingDayShows = [
+        "The Great British Bake Off",
+        "The Crown",
+        "Downton Abbey",
+        "Call the Midwife",
+        "Father Ted",
+        "The Vicar of Dibley",
+        "Merry Christmas, Mr. Bean",
+        "Big Fat Quiz"
+      ];
+
+      const results = await Promise.all(
+        boxingDayShows.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }  
+
     // Handle Christmas movie intent
     else if (intent === 'celebrate_merry_christmas') {
       const christmasMovies = [
@@ -2659,6 +2711,58 @@ router.post('/', async (req, res) => {
       });
     }
 
+    // Day of the Dead Shows
+    else if (intent === 'celebrate_day_of_the_dead_shows') {
+      const dayOfTheDeadShows = [
+        "Maya and the Three",
+        "Selena: The Series",
+        "La Casa de las Flores",
+        "Monarca",
+        "El Día de los Muertos",
+        "The Haunting of Hill House",
+        "Maya and Miguel",
+        "Day of the Dead"
+      ];
+
+      const results = await Promise.all(
+        dayOfTheDeadShows.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }  
+
     // Handle Diwali movie intent
     else if (intent === 'celebrate_diwali_movies') {
       const diwaliMovies = [
@@ -2708,6 +2812,56 @@ router.post('/', async (req, res) => {
       });
     }
 
+    // Diwali Shows
+    else if (intent === 'celebrate_diwali_shows') {
+      const diwaliShows = [
+        "Mismatched",
+        "Made in Heaven",
+        "Delhi Crime",
+        "The Big Day",
+        "Yeh Meri Family",
+        "Mighty Little Bheem: Diwali"
+      ];
+
+      const results = await Promise.all(
+        diwaliShows.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }  
+
     // Handle Eid movie intent
     else if (intent === 'celebrate_eid_movies') {
       const eidMovies = [
@@ -2755,6 +2909,57 @@ router.post('/', async (req, res) => {
         media: filteredResults,
       });
     }
+
+    // Eid Shows
+    else if (intent === 'celebrate_eid_shows') {
+      const eidShows = [
+        "Kaisi Yeh Yaariyan",
+        "Suno Chanda",
+        "Churails",
+        "Mann Mayal",
+        "Crashing Eid",
+        "One Day Eid Match",
+        "Eid together"
+      ];
+
+      const results = await Promise.all(
+        eidShows.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }  
 
     // Handle Halloween movie intent
     else if (intent === 'celebrate_halloween') {
@@ -2905,6 +3110,57 @@ router.post('/', async (req, res) => {
       });
     }
 
+
+    // Independence Day Shows
+    else if (intent === 'celebrate_independence_day_shows') {
+      const independenceDayShows = [
+        "The Last Dance",
+        "Band of Brothers",
+        "Turn: Washington's Spies",
+        "John Adams",
+        "The Plot Against America",
+        "A Capitol Fourth"
+      ];
+
+      const results = await Promise.all(
+        independenceDayShows.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }  
+
     // Handle Mardi Gras movie intent
     else if (intent === 'celebrate_mardi_gras_movies') {
       const mardiGrasMovies = [
@@ -2955,6 +3211,56 @@ router.post('/', async (req, res) => {
         media: filteredResults,
       });
     }
+
+    // Mardi Gras Shows
+    else if (intent === 'celebrate_mardi_gras_shows') {
+      const mardiGrasShows = [
+        "Treme",
+        "The Originals",
+        "NCIS: New Orleans",
+        "American Horror Story",
+        "Mardi Gras: Spring Break",
+        "Southern Charm New Orleans"
+      ];
+
+      const results = await Promise.all(
+        mardiGrasShows.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }  
 
     // Handle Mother's Day movie intent
     else if (intent === 'celebrate_mothers_day') {
@@ -3104,6 +3410,57 @@ router.post('/', async (req, res) => {
         media: filteredResults,
       });
     }
+
+    // Oktoberfest Shows
+    else if (intent === 'celebrate_oktoberfest_shows') {
+      const oktoberfestShows = [
+        "Oktoberfest: Beer & Blood",
+        "Das Boot",
+        "Dark",
+        "Bizarre Foods with Andrew Zimmern",
+        "Babylon Berlin",
+        "Tatort",
+        "No Reservations"
+      ];
+
+      const results = await Promise.all(
+        oktoberfestShows.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }  
 
     // Handle Thanksgiving Day movie intent
     else if (intent === 'celebrate_thanksgiving') {
