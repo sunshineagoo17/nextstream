@@ -122,3 +122,10 @@
     border-radius: 1rem;
     box-shadow: 0 .25rem .375rem rgba($neutral-black, .1);
 }
+
+// Frosted Glass
+@mixin dark-frosted-glass {
+    @each $property, $value in $dark-frosted-glass {
+      #{$property}: #{$value};
+    }
+}  

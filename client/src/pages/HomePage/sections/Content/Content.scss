@@ -119,6 +119,7 @@
   &__card-features__feature__label--schedule-planner,
   &__card-features__feature__label--custom-recommendations {
     border: none;
+    cursor: pointer;
   }
 
   &__card-media-container {
@@ -237,6 +238,7 @@
     position: relative;
     width: auto;
     border-radius: 1.6rem;
+    cursor: pointer;
     box-shadow: $shadow-quaternary;
     transition: transform .2s ease, background-color .2s ease, border-color .2s ease;
 
@@ -299,6 +301,7 @@
   .content__poster6 {
     @include block-item(auto, 11rem);
     border-radius: .5rem;
+    cursor: pointer;
 
     @include large-mobile {
       @include block-item(auto, 9rem);

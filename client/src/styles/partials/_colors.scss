@@ -105,6 +105,16 @@ $frosted-glass: rgba(255, 255, 255, 0.1);
     overflow: hidden;
 }
 
+$dark-frosted-glass: (
+  backdrop-filter: blur(10px),
+  background: rgba(28, 28, 28, 0.7), 
+  border: 1px solid rgba(255, 255, 255, 0.2), 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5), 
+  border-radius: 15px, 
+  padding: 20px,
+  color: white
+);
+
 // Robot 
 $robot-very-light-blue: #BEEBEC;
 $robot-medium-blue: #73ACDA;

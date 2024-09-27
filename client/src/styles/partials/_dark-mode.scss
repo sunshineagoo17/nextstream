@@ -964,6 +964,28 @@
       text-shadow: $shadow-primary;
       box-shadow: $shadow-tertiary;
     }
+
+    &__card-features__feature__label--stream-locator,
+    &__card-features__feature__label--schedule-planner,
+    &__card-features__feature__label--custom-recommendations {
+      @include dark-frosted-glass;
+      border: .125rem solid $primary-button-blue;
+      color: $neutral-white;
+
+      &:hover {
+        background: $primary-button-blue;
+        color: $neutral-white;
+        border: .125rem solid $neutral-white;
+      }
+
+      &:active {
+        box-shadow: $shadow-senary;
+        background: $primary-button-dark-blue;
+        color: $primary-very-light-blue;
+        font-weight: bold;
+        border: .125rem solid $frosted-glass;
+      }
+    }
   }
 
   // Button styles
