@@ -3084,6 +3084,354 @@ router.post('/', async (req, res) => {
       });
     }
 
+    // Recommendations
+
+     // LGBTQ Movies
+     if (intent === 'q_and_a_recommend_lgbtq_movies') {
+      const lgbtqMoviesMedia = [
+        'All of Us Strangers',
+        'The Birdcage',
+        'Booksmart',
+        'Bottoms',
+        'The Boys in the Band',
+        'Brokeback Mountain',
+        "But I'm a Cheerleader",
+        'Call Me by Your Name',
+        'The Danish Girl',
+        "The Death and Life of Marsha P. Johnson",
+        'A Fantastic Woman',
+        'Fire Island',
+        'The Half of It',
+        'The Handmaiden',
+        'Happiest Season',
+        'The Kids Are All Right',
+        'Lingua Franca',
+        'Love, Simon',
+        'The Miseducation of Cameron Post',
+        'Moonlight',
+        'Paris Is Burning',
+        'Pride',
+        'The Prom',
+        'Rotting in the Sun',
+        'The Way He Looks'
+      ];
+
+      const results = await Promise.all(
+        lgbtqMoviesMedia.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // LGBTQ Shows
+    if (intent === 'q_and_a_recommend_lgbtq_shows') {
+      const lgbtqShowsMedia = [
+        'AJ and the Queen',
+        'Feel Good',
+        'The Fosters',
+        'Gentleman Jack',
+        'Heartstopper',
+        'The L Word',
+        'The L Word: Generation Q',
+        'Love, Victor',
+        'One Day at a Time',
+        'Pose',
+        'Queer Eye',
+        'Queer Eye for the Straight Guy',
+        "Schitt's Creek",
+        'Sex Education',
+        'The Umbrella Academy'
+      ];
+
+      const results = await Promise.all(
+        lgbtqShowsMedia.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Poly Movies
+    if (intent === 'recommend_polyamory_movies') {
+      const polyMoviesMedia = [
+        "Bandits",
+        "The Dreamers",
+        "The Freebie",
+        "The Last",
+        "Professor Marston and the Wonder Women",
+        "Savages",
+        "The Secret Lives of Dentists",
+        "Shortbus",
+        "Three",
+        "The Unicorn",
+        "Vicky Cristina Barcelona"
+      ];
+
+      const results = await Promise.all(
+        polyMoviesMedia.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Poly Shows
+    if (intent === 'recommend_polyamory_shows') {
+      const polyShowsMedia = [
+        "Big Love",
+        "Easy",
+        "House of Cards",
+        "Polyamory",
+        "Sense8",
+        "Sister Wives",
+        "Trigonometry",
+        "Wanderlust",
+        "You Me Her",    
+      ];
+
+      const results = await Promise.all(
+        polyShowsMedia.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Trans Movies
+    if (intent === 'recommend_transman_movies' || intent === 'recommend_trans_woman_movies' || intent === 'recommend_transphobia_movies' || intent === 'recommend_trans_actor_movies') {
+      const transMoviesMedia = [
+        "Boys Don't Cry",
+        "By Hook or by Crook",
+        "Cowboys",
+        'The Danish Girl',
+        'Disclosure',
+        'A Fantastic Woman',
+        'The Garden Left Behind',
+        'Lingua Franca',
+        'Paris is Burning',
+        'Something Must Break',
+        'Tangerine',
+        'Transamerica',
+      ];
+
+      const results = await Promise.all(
+        transMoviesMedia.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Trans Shows
+    if (intent === 'recommend_transman_shows' || intent === 'recommend_trans_woman_shows' || intent === 'q_and_a_recommend_trans_shows' || intent === 'recommend_trans_actor_shows' || intent === 'recommend_transphobia_shows') {
+      const transShowsMedia = [
+        "Euphoria",
+        "First Day",
+        "Her Story",
+        "The L Word: Generation Q",
+        "Orange is the New Black",
+        "Pose",
+        "Star Trek: Discovery",
+        "Transparent",
+        "Veneno",
+        "Work in Progress",
+      ];
+
+      const results = await Promise.all(
+        transShowsMedia.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
     // Handle the unified search intent for movies, TV shows, and persons
     else if (intent === 'search_movie_or_tv_or_person') {
       if (title && title.length > 0) {
