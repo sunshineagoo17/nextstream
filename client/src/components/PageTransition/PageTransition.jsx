@@ -8,11 +8,13 @@ const PageTransition = ({ children }) => {
   return (
     <TransitionGroup className="page-transition">
       <CSSTransition
-        key={location.pathname}
+        key={location.key || location.pathname}
         classNames="page-transition__fade"
         timeout={300}
       >
-        {children}
+        <div>
+          {children}
+        </div>
       </CSSTransition>
     </TransitionGroup>
   );
