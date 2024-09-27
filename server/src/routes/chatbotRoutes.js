@@ -193,13 +193,60 @@ router.post('/', async (req, res) => {
       });
     }
 
+    // Ariel
+    else if (intent === 'chitchat_fave_disney_princess') {
+      const littleMermaidMedia = [
+        'The Little Mermaid',
+        "The Little Mermaid: Ariel's Beginning",
+        "The Little Mermaid II: Return to the Sea",
+        "The Little Mermaid Live!",
+        "Adventures of the Little Mermaid",
+        "Little Mermaid's Island",
+        "The Mermaid Princess",
+        "Shirley Temple's Storybook: The Little Mermaid"
+      ];
+
+      const results = await Promise.all(
+        littleMermaidMedia.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
     // Arya, Ned Stark and Jon Snow
-    else if (
-      intent === 'char_arya_stark' ||
-      intent === 'char_jon_snow' ||
-      intent === 'char_ned_stark' ||
-      intent === 'chitchat_fave_tv_show_character'
-    ) {
+    else if (intent === 'char_arya_stark' || intent === 'char_jon_snow' || intent === 'char_ned_stark' || intent === 'chitchat_fave_tv_show_character') {
       const gameOfThronesMedia = [
         'Game of Thrones',
         'House of the Dragon',
@@ -825,6 +872,57 @@ router.post('/', async (req, res) => {
       });
     }
 
+    // Indiana Jones
+    else if (intent === 'chitchat_fave_movie_character' || intent === 'q_and_a_recommend_indiana_jones') {
+      const indianaJonesMedia = [
+        'Indiana Jones and the Dial of Destiny',
+        'Indiana Jones and the Last Crusade',
+        'Indiana Jones and the Kingdom of the Crystal Skull',
+        "Indiana Jones: The Search for the Lost Golden Age",
+        'Indiana Jones and the Temple of Doom',
+        'The Young Indiana Jones Chronicles',
+        'The Adventures of Young Indiana Jones',
+      ];
+
+      const results = await Promise.all(
+        indianaJonesMedia.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
     // Joker
     else if (intent === 'char_joker') {
       const jokerMedia = [
@@ -1078,6 +1176,60 @@ router.post('/', async (req, res) => {
       });
     }
 
+    // Shrek
+    else if (intent === 'chitchat_fave_animated_character') {
+      const shrekMedia = [
+        'Shrek',
+        'Shrek 2',
+        'Shrek Forever After',
+        "Shrek the Third",
+        'Shrek 5',
+        'Shrek the Halls',
+        'Shrek the Musical',
+        "Donkey's Christmas Shrektacular",
+        "Scared Shrekless",
+        "Shrek's Thrilling Tales"
+      ];
+
+      const results = await Promise.all(
+        shrekMedia.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
     // Willy Wonka
     else if (intent === 'char_willy_wonka') {
       const willyWonkaMedia = [
@@ -1127,6 +1279,232 @@ router.post('/', async (req, res) => {
     }
 
     // Chitchat
+
+    // Fave Actress - Cate Blanchett
+    else if (intent === 'chitchat_fave_actress') {
+      const cateBlanchettMedia = [
+        'The Lord of the Rings: The Fellowship of the Ring',
+        'Tár',
+        'The Curious Case of Benjamin Button',
+        'How to Train Your Dragon 2',
+        "Ocean's Eight",
+        "Thor: Ragnarok",
+        "Carol",
+        "The Aviator",
+        "Indiana Jones and the Kingdom of the Crystal Skull"
+      ];
+
+      const results = await Promise.all(
+        cateBlanchettMedia.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Fave Celeb - Hugh Jackman
+    else if (intent === 'chitchat_fave_celeb' || intent === 'chitchat_fave_actor') {
+      const hughJackmanMedia = [
+        'The Greatest Showman',
+        "Logan",
+        "The Prestige",
+        "Prisoners",
+        "Real Steel",
+        "The Fountain",
+        "Chappie",
+        "Kate & Leopold",
+        "Van Helsing",
+        "The Wolverine",
+        "Deadpool & Wolverine",
+        "X-Men: Days of Future Past"
+      ];
+
+      const results = await Promise.all(
+        hughJackmanMedia.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Fave Director
+    else if (intent === 'chitchat_fave_director') {
+      const christopherNolanMedia = [
+        'Memento',
+        "Insomnia",
+        "The Prestige",
+        "Inception",
+        "The Dark Knight Rises",
+        "Batman Begins",
+        "The Dark Knight",
+        "Interstellar",
+        "Dunkirk",
+        "Tenet",
+        "Oppenheimer"
+      ];
+
+      const results = await Promise.all(
+        christopherNolanMedia.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Fave Movie - AI-related
+    else if (intent === 'chitchat_fave_movie') {
+      const aiMoviesMedia = [
+        'Blade Runner',
+        "Ex Machina",
+        "Her",
+        "The Matrix",
+        "The Terminator",
+        "I, Robot",
+        "Ghost in the Shell",
+        "Transcendence",
+        "WarGames",
+        "The Bicentennial Man",
+        "Chappie",
+        "Upgrade",
+        "Humans",
+        "Westworld",
+        "Black Mirror",
+        "Devs",
+        "Person of Interest",
+        "Altered Carbon"
+      ];
+
+      const results = await Promise.all(
+        aiMoviesMedia.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
     
     // Fave Movie Quote
     if (intent === 'chitchat_fave_movie_quote' || intent === 'quotes_hasta_la_vista') {
@@ -1180,6 +1558,60 @@ router.post('/', async (req, res) => {
         media: filteredResults,
       });
     }  
+
+    // Fave Show 
+    else if (intent === 'chitchat_fave_show') {
+      const siliconValleyMedia = [
+        "Silicon Valley",
+        'Breaking the Code',
+        "The Imitation Game",
+        "A Beautiful Mind",
+        "The Theory of Everything",
+        "Good Will Hunting",
+        "The Man Who Knew Infinity",
+        "The Social Network",
+        "The Prestige",
+        "Hidden Figures"
+      ];
+
+      const results = await Promise.all(
+        siliconValleyMedia.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
 
     // Fave Superhero
     if (intent === 'chitchat_fave_super') {
@@ -1408,6 +1840,132 @@ router.post('/', async (req, res) => {
         media: filteredResults,
       });
     }
+
+    // Marvel or DC
+    if (intent === 'chitchat_marvel_dc') {
+      const marvelOrDCMedia = [
+        "Avengers: Endgame",
+        "Spider-Man: Into the Spider-Verse",
+        "Black Panther",
+        "Iron Man",
+        "Captain America: The First Avenger",
+        "Guardians of the Galaxy",
+        "Logan",
+        "Deadpool",
+        "X-Men '97",
+        "X-Men: Days of Future Past",
+        "The Dark Knight",
+        "Wonder Woman",
+        "Man of Steel",
+        "Shazam!",
+        "Joker",
+        "Aquaman",
+        "The Suicide Squad",
+        "Zack Snyder's Justice League",
+        "The Flash",
+        "Smallville"
+      ];
+
+      const results = await Promise.all(
+        marvelOrDCMedia.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }  
+
+    // Star Wars
+    if (intent === 'chitchat_star_wars' || intent === 'quotes_star_wars_droids' || intent === 'quotes_star_wars_father' || intent === 'quotes_may_the_force' || intent === 'q_and_a_recommend_star_wars' || intent === 'chitchat_random_fact') {
+      const starWarsMedia = [
+        "The Mandalorian",
+        "Star Wars",
+        "Star Wars: Andor",
+        "Obi-Wan Kenobi",
+        "Star Wars: Episode I - The Phantom Menace",
+        "Star Wars: Episode II - Attack of the Clones",
+        "Star Wars: Episode III - Revenge of the Sith",
+        "Star Wars: The Force Awakens",
+        "Star Wars: The Last Jedi",
+        "Star Wars: The Rise of Skywalker",
+        "Star Wars Rebels",
+        "Ahsoka",
+        "LEGO Star Wars: All-Stars",
+        "LEGO Star Wars Terrifying Tales",
+        "Solo: A Star Wars Story",
+        "Star Wars: The Clone Wars",
+        "Rogue One: A Star Wars Story",
+        "Robot Chicken: Star Wars",
+      ];
+
+      const results = await Promise.all(
+        starWarsMedia.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }  
 
     // Handle Holidays
     // Handle April Fools movie intent
