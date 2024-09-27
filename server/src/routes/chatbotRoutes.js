@@ -1507,7 +1507,7 @@ router.post('/', async (req, res) => {
     }
     
     // Fave Movie Quote
-    if (intent === 'chitchat_fave_movie_quote' || intent === 'quotes_hasta_la_vista') {
+    else if (intent === 'chitchat_fave_movie_quote' || intent === 'quotes_hasta_la_vista') {
       const faveMovieQuoteMedia = [
         "The Terminator",
         "Terminator 2: Judgment Day",
@@ -1614,7 +1614,7 @@ router.post('/', async (req, res) => {
     }
 
     // Fave Superhero
-    if (intent === 'chitchat_fave_super') {
+    else if (intent === 'chitchat_fave_super') {
       const faveSuperheroMedia = [
         "Iron Man",
         "Iron Man: Armored Adventures",
@@ -1664,7 +1664,7 @@ router.post('/', async (req, res) => {
     }
 
     // In Movies
-    if (intent === 'chitchat_in_movie') {
+    else if (intent === 'chitchat_in_movie') {
       const theMatrixMoviesMedia = [
         "The Matrix",
         "The Matrix Reloaded",
@@ -1726,7 +1726,7 @@ router.post('/', async (req, res) => {
     }  
 
     // In TV Shows
-    if (intent === 'chitchat_in_tv_show' || intent === 'recommend_viral_shows' || intent === 'recommend_social_media_shows') {
+    else if (intent === 'chitchat_in_tv_show' || intent === 'recommend_viral_shows' || intent === 'recommend_social_media_shows') {
       const blackMirrorShowsMedia = [
         "Black Mirror",
         "3%",
@@ -1781,7 +1781,7 @@ router.post('/', async (req, res) => {
     }  
 
     // LGBTQ
-    if (intent === 'chitchat_lgbtq') {
+    else if (intent === 'chitchat_lgbtq') {
       const lgbtqMedia = [
         "Schitt's Creek",
         'The Birdcage',
@@ -1842,7 +1842,7 @@ router.post('/', async (req, res) => {
     }
 
     // Marvel or DC
-    if (intent === 'chitchat_marvel_dc') {
+    else if (intent === 'chitchat_marvel_dc') {
       const marvelOrDCMedia = [
         "Avengers: Endgame",
         "Spider-Man: Into the Spider-Verse",
@@ -1906,7 +1906,7 @@ router.post('/', async (req, res) => {
     }  
 
     // Star Wars
-    if (intent === 'chitchat_star_wars' || intent === 'quotes_star_wars_droids' || intent === 'quotes_star_wars_father' || intent === 'quotes_may_the_force' || intent === 'q_and_a_recommend_star_wars' || intent === 'chitchat_random_fact') {
+    else if (intent === 'chitchat_star_wars' || intent === 'quotes_star_wars_droids' || intent === 'quotes_star_wars_father' || intent === 'quotes_may_the_force' || intent === 'q_and_a_recommend_star_wars' || intent === 'chitchat_random_fact') {
       const starWarsMedia = [
         "The Mandalorian",
         "Star Wars",
@@ -1930,6 +1930,448 @@ router.post('/', async (req, res) => {
 
       const results = await Promise.all(
         starWarsMedia.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }  
+
+    // Eras
+    // 60s Films
+    else if (intent === 'recommend_60s_movies') {
+      const sixtiesMovies = [
+        'Psycho',
+        "Lawrence of Arabia",
+        "2001: A Space Odyssey",
+        "The Graduate",
+        "To Kill a Mockingbird",
+        "West Side Story",
+        "Dr. Strangelove",
+        "Bonnie and Clyde",
+        "Breakfast at Tiffany's",
+        "The Good, the Bad, and the Ugly"
+      ];
+
+      const results = await Promise.all(
+        sixtiesMovies.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/movie`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const movie = response.data.results[0];
+
+            const trailerUrl = await getMediaTrailer(movie.id, 'movie');
+            const credits = await getMediaCredits(movie.id, 'movie');
+
+            return {
+              id: movie.id,
+              title: movie.title,
+              media_type: 'movie',
+              poster_path: movie.poster_path,
+              vote_average:
+                movie.vote_average !== undefined ? movie.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // 60s Shows
+    else if (intent === 'recommend_60s_shows') {
+      const sixtiesShows = [
+        "Star Trek",
+        "The Beverly Hillbillies",
+        "The Twilight Zone",
+        "Hogan's Heroes",
+        "Petticoat Junction",
+        "Bewitched",
+        "The Andy Griffith Show",
+        "Gilligan's Island",
+        "I Dream of Jeannie",
+        "Doctor Who",
+        "The Outer Limits",
+        "Green Acres"
+      ];
+
+      const results = await Promise.all(
+        sixtiesShows.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }  
+
+    // 70s Films
+    else if (intent === 'recommend_70s_movies') {
+      const seventiesMovies = [
+        'The Godfather',
+        "Rocky",
+        "Jaws",
+        "Apocalypse Now",
+        "Taxi Driver",
+        "Star Wars",
+        "A Clockwork Orange",
+        "One Flew Over the Cuckoo's Nest",
+        "Chinatown"
+      ];
+
+      const results = await Promise.all(
+        seventiesMovies.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/movie`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const movie = response.data.results[0];
+
+            const trailerUrl = await getMediaTrailer(movie.id, 'movie');
+            const credits = await getMediaCredits(movie.id, 'movie');
+
+            return {
+              id: movie.id,
+              title: movie.title,
+              media_type: 'movie',
+              poster_path: movie.poster_path,
+              vote_average:
+                movie.vote_average !== undefined ? movie.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // 70s Shows
+    else if (intent === 'recommend_70s_shows') {
+      const seventiesShows = [
+        'M*A*S*H',
+        "Sanford and Son",
+        "All in the Family",
+        "The Mary Tyler Moore Show",
+        "Happy Days",
+        "Columbo",
+        "Little House on the Prairie",
+        "Three's Company",
+        "The Jeffersons",
+        "The Six Million Dollar Man",
+        "Charlie's Angels",
+        "Laverne & Shirley",
+        "Kojak",
+        "The Brady Bunch"
+      ];
+
+      const results = await Promise.all(
+        seventiesShows.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }  
+
+    // 80s Films
+    else if (intent === 'recommend_80s_movies') {
+      const eightiesMovies = [
+        "The Empire Strikes Back",
+        "Back to the Future",
+        "The Breakfast Club",
+        "E.T. the Extra-Terrestrial",
+        "Raiders of the Lost Ark",
+        "The Shining",
+        "Die Hard",
+        "The Terminator",
+        "Ghostbusters",
+        "Raging Bull"
+      ];
+
+      const results = await Promise.all(
+        eightiesMovies.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/movie`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const movie = response.data.results[0];
+
+            const trailerUrl = await getMediaTrailer(movie.id, 'movie');
+            const credits = await getMediaCredits(movie.id, 'movie');
+
+            return {
+              id: movie.id,
+              title: movie.title,
+              media_type: 'movie',
+              poster_path: movie.poster_path,
+              vote_average:
+                movie.vote_average !== undefined ? movie.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // 80s Shows
+    else if (intent === 'recommend_80s_shows') {
+      const eightiesShows = [
+        'The Simpsons',
+        "Cheers",
+        "Miami Vice",
+        "The A-Team",
+        "Knight Rider",
+        "Magnum, P.I.",
+        "Family Ties",
+        "Hill Street Blues",
+        "Dallas",
+        "The Wonder Years"
+      ];
+
+      const results = await Promise.all(
+        eightiesShows.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }  
+
+    // 90s Films
+    else if (intent === 'recommend_90s_movies') {
+      const ninetiesMovies = [
+        'Pulp Fiction',
+        "The Shawshank Redemption",
+        "The Matrix",
+        "Fight Club",
+        "Schindler's List",
+        "Jurassic Park",
+        "Goodfellas",
+        "Forrest Gump",
+        "Titanic",
+        "Saving Private Ryan"
+      ];
+
+      const results = await Promise.all(
+        ninetiesMovies.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/movie`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const movie = response.data.results[0];
+
+            const trailerUrl = await getMediaTrailer(movie.id, 'movie');
+            const credits = await getMediaCredits(movie.id, 'movie');
+
+            return {
+              id: movie.id,
+              title: movie.title,
+              media_type: 'movie',
+              poster_path: movie.poster_path,
+              vote_average:
+                movie.vote_average !== undefined ? movie.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // 90s Shows
+    else if (intent === 'recommend_90s_shows') {
+      const ninetiesShows = [
+        "Friends",
+        "The X-Files",
+        "Seinfeld",
+        "Buffy the Vampire Slayer",
+        "ER",
+        "The Fresh Prince of Bel-Air",
+        "The Sopranos",
+        "Frasier",
+        "Dawson's Creek",
+        "Twin Peaks",
+        "Charmed",
+        "Will & Grace",
+        "Boy Meets World",
+        "Xena: Warrior Princess",
+        "Daria",
+        "Third Rock from the Sun",
+        "Party of Five",
+        "7th Heaven"
+      ];
+
+      const results = await Promise.all(
+        ninetiesShows.map(async (title) => {
           const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
             params: {
               api_key: TMDB_API_KEY,
@@ -3865,8 +4307,8 @@ router.post('/', async (req, res) => {
 
     // Recommendations
 
-     // LGBTQ Movies
-     if (intent === 'q_and_a_recommend_lgbtq_movies') {
+    // LGBTQ Movies
+    else if (intent === 'q_and_a_recommend_lgbtq_movies') {
       const lgbtqMoviesMedia = [
         'All of Us Strangers',
         'The Birdcage',
@@ -3935,7 +4377,7 @@ router.post('/', async (req, res) => {
     }
 
     // LGBTQ Shows
-    if (intent === 'q_and_a_recommend_lgbtq_shows') {
+    else if (intent === 'q_and_a_recommend_lgbtq_shows') {
       const lgbtqShowsMedia = [
         'AJ and the Queen',
         'Feel Good',
@@ -3994,7 +4436,7 @@ router.post('/', async (req, res) => {
     }
 
     // Poly Movies
-    if (intent === 'recommend_polyamory_movies') {
+    else if (intent === 'recommend_polyamory_movies') {
       const polyMoviesMedia = [
         "Bandits",
         "The Dreamers",
@@ -4049,7 +4491,7 @@ router.post('/', async (req, res) => {
     }
 
     // Poly Shows
-    if (intent === 'recommend_polyamory_shows') {
+    else if (intent === 'recommend_polyamory_shows') {
       const polyShowsMedia = [
         "Big Love",
         "Easy",
@@ -4102,7 +4544,7 @@ router.post('/', async (req, res) => {
     }
 
     // Trans Movies
-    if (intent === 'recommend_transman_movies' || intent === 'recommend_trans_woman_movies' || intent === 'recommend_transphobia_movies' || intent === 'recommend_trans_actor_movies') {
+    else if (intent === 'recommend_transman_movies' || intent === 'recommend_trans_woman_movies' || intent === 'recommend_transphobia_movies' || intent === 'recommend_trans_actor_movies') {
       const transMoviesMedia = [
         "Boys Don't Cry",
         "By Hook or by Crook",
@@ -4158,7 +4600,7 @@ router.post('/', async (req, res) => {
     }
 
     // Trans Shows
-    if (intent === 'recommend_transman_shows' || intent === 'recommend_trans_woman_shows' || intent === 'q_and_a_recommend_trans_shows' || intent === 'recommend_trans_actor_shows' || intent === 'recommend_transphobia_shows') {
+    else if (intent === 'recommend_transman_shows' || intent === 'recommend_trans_woman_shows' || intent === 'q_and_a_recommend_trans_shows' || intent === 'recommend_trans_actor_shows' || intent === 'recommend_transphobia_shows') {
       const transShowsMedia = [
         "Euphoria",
         "First Day",
