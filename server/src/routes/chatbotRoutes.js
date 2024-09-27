@@ -1127,6 +1127,227 @@ router.post('/', async (req, res) => {
     }
 
     // Chitchat
+    
+    // Fave Movie Quote
+    if (intent === 'chitchat_fave_movie_quote' || intent === 'quotes_hasta_la_vista') {
+      const faveMovieQuoteMedia = [
+        "The Terminator",
+        "Terminator 2: Judgment Day",
+        "Terminator 3: Rise of the Machines",
+        "Terminator Salvation",
+        "Terminator Salvation: The Machinima Series",
+        "Terminator Genisys",
+        "Terminator: Dark Fate",
+        "Terminator: The Sarah Connor Chronicles",
+        "Terminator Zero",
+      ];
+
+      const results = await Promise.all(
+        faveMovieQuoteMedia.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }  
+
+    // Fave Superhero
+    if (intent === 'chitchat_fave_super') {
+      const faveSuperheroMedia = [
+        "Iron Man",
+        "Iron Man: Armored Adventures",
+        "Iron Man: Extremis",
+        "Iron Man 2",
+        "Iron Man 3",
+        "Iron Man: Rise of Technovore",
+      ];
+
+      const results = await Promise.all(
+        faveSuperheroMedia.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // In Movies
+    if (intent === 'chitchat_in_movie') {
+      const theMatrixMoviesMedia = [
+        "The Matrix",
+        "The Matrix Reloaded",
+        "The Matrix Resurrections",
+        "The Matrix Revolutions",
+        "The Matrix Revisited",
+        "The Matrix Recalibrated",
+        "The Matrix Revolutions Revisited",
+        "The Animatrix",
+        "A Glitch in the Matrix",
+        "Making 'Enter the Matrix'",
+        "Making 'The Matrix'",
+        "The Matrix Reloaded Revisited",
+        "The Matrix Reloaded: Car Chase",
+        "The Matrix Revolutions: Neo Realism - Evolution of Bullet Time",
+        "The Matrix Revolutions: Double Agent Smith",
+        "The Matrix: What Is Bullet-Time?",
+        "Return to Source: The Philosophy of The Matrix",
+        "The Matrix Revolutions: Super Big Mini Models",
+      ];
+
+      const results = await Promise.all(
+        theMatrixMoviesMedia.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }  
+
+    // In TV Shows
+    if (intent === 'chitchat_in_tv_show' || intent === 'recommend_viral_shows' || intent === 'recommend_social_media_shows') {
+      const blackMirrorShowsMedia = [
+        "Black Mirror",
+        "3%",
+        "Altered Carbon",
+        "Devs",
+        "Electric Dreams",
+        "Humans",
+        "Love, Death & Robots",
+        "Maniac",
+        "The Twilight Zone",
+        "Westworld",
+        "Years and Years"
+      ];
+
+      const results = await Promise.all(
+        blackMirrorShowsMedia.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }  
+
     // LGBTQ
     if (intent === 'chitchat_lgbtq') {
       const lgbtqMedia = [
