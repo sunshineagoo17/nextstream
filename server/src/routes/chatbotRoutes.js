@@ -379,6 +379,59 @@ router.post('/', async (req, res) => {
       });
     }
 
+    // Buzz Lightyear
+    else if (intent === 'quotes_infinity_beyond') {
+      const toyStoryMovies = [
+        'Toy Story',
+        'Toy Story 2',
+        'Toy Story 3',
+        'Toy Story 4',
+        'Toy Story 5',
+        'Lightyear',
+        'Toy Story Treats',
+        'Buzz Lightyear of Star Command',
+        'Beyond Infinity: Buzz and the Journey to Lightyear'
+      ];
+
+      const results = await Promise.all(
+        toyStoryMovies.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
     // Clark Kent
     else if (intent === 'char_clark_kent') {
       const supermanMedia = [
@@ -600,6 +653,114 @@ router.post('/', async (req, res) => {
 
       const results = await Promise.all(
         theWalkingDeadMedia.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // E.T.
+    else if (intent === 'quotes_et_phone_home') {
+      const ETPhoneHomeMedia = [
+        'E.T. the Extra-Terrestrial',
+        "The Making of 'E.T. the Extra-Terrestrial'",
+        'E.T. the Extra-Terrestrial 20th Anniversary Special',
+        'The Iron Giant',
+        'Super 8',
+        'Close Encounters of the Third Kind',
+        'The Goonies',
+        'Bumblebee',
+        'Explorers',
+        'Paul',
+        'A Wrinkle in Time',
+        'Earth to Echo'
+      ];
+
+      const results = await Promise.all(
+        ETPhoneHomeMedia.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Ghostbusters
+    else if (intent === 'quotes_who_gonna_call') {
+      const ghostbustersMovies = [
+        'Ghostbusters',
+        'The Real Ghostbusters',
+        'Ghostbusters: Frozen Empire',
+        'Ghostbusters: Afterlife',
+        'Ghostbusters II',
+        'The Real Ghostbusters: Slimefighters',
+        'Slimer! and the Real Ghostbusters',
+        'Extreme Ghostbusters'
+      ];
+
+      const results = await Promise.all(
+        ghostbustersMovies.map(async (title) => {
           const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
             params: {
               api_key: TMDB_API_KEY,
@@ -924,7 +1085,7 @@ router.post('/', async (req, res) => {
     }
 
     // Joker
-    else if (intent === 'char_joker') {
+    else if (intent === 'char_joker' || intent === 'quotes_why_so_serious') {
       const jokerMedia = [
         'Joker',
         'Joker: Folie à Deux',
@@ -1507,6 +1668,683 @@ router.post('/', async (req, res) => {
     }
     
     // Fave Movie Quote
+
+    // Citizen Kane
+    else if (intent === 'quotes_citizen_kane') {
+      const citizenKaneMovies = [
+        'Citizen Kane',
+        'Casablanca',
+        'The Godfather',
+        'There Will Be Blood',
+        'Raging Bull',
+        'The Social Network',
+        "All the King's Men",
+        'Chinatown',
+        'The Great Gatsby',
+        'A Face in the Crowd',
+        'The Aviator',
+        'Lawrence of Arabia'
+      ];
+
+      const results = await Promise.all(
+        citizenKaneMovies.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Elf
+    else if (intent === 'quotes_elf') {
+      const elfMovies = [
+        'Elf',
+        'Home Alone',
+        'The Santa Clause',
+        'How the Grinch Stole Christmas',
+        'The Polar Express',
+        'A Christmas Story',
+        "Jingle All the Way",
+        'The Nightmare Before Christmas',
+        'Fred Claus',
+        'Noelle',
+        'Arthur Christmas',
+        'A Christmas Carol'
+      ];
+
+      const results = await Promise.all(
+        elfMovies.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Field of Dreams
+    else if (intent === 'quotes_field_of_dreams') {
+      const fieldOfDreamsMovies = [
+        'Field of Dreams',
+        'The Natural',
+        'Moneyball',
+        'A League of Their Own',
+        'The Rookie',
+        'Angels in the Outfield',
+        'Miracle',
+        "Mr. Holland's Opus",
+        'October Sky',
+        'For Love of the Game',
+        'The Blind Side',
+        'The Pursuit of Happyness'
+      ];
+
+      const results = await Promise.all(
+        fieldOfDreamsMovies.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // James Bond
+    else if (intent === 'quotes_james_bond_shaken') {
+      const jamesBondMovies = [
+        'Dr. No',
+        'Diamonds Are Forever',
+        "For Your Eyes Only",
+        'From Russia with Love',
+        'Goldfinger',
+        "Licence to Kill",
+        "Live and Let Die",
+        "Moonraker",
+        "Octopussy",
+        "On Her Majesty's Secret Service",
+        "The Spy Who Loved Me",
+        'Thunderball',
+        "A View to a Kill",
+        'You Only Live Twice',
+      ];
+
+      const results = await Promise.all(
+        jamesBondMovies.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // King Kong
+    else if (intent === 'quotes_king_kong') {
+      const kingKongMovies = [
+        'King Kong',
+        'Godzilla',
+        'Jurassic Park',
+        'Pacific Rim',
+        'Cloverfield',
+        'Kong: Skull Island',
+        'Mighty Joe Young',
+        'Rampage',
+        'The Mummy',
+        'Jaws'
+      ];
+
+      const results = await Promise.all(
+        kingKongMovies.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Maltese Falcon
+    else if (intent === 'quotes_maltese_falcon') {
+      const malteseFalconMovies = [
+        'The Maltese Falcon',
+        'Double Indemnity',
+        'Sunset Boulevard',
+        'The Big Sleep',
+        'Chinatown',
+        'The Third Man',
+        'Out of the Past',
+        'Laura',
+        'Kiss Me Deadly',
+        'The Lady from Shanghai',
+        'Touch of Evil',
+        'Body Heat'
+      ];
+
+      const results = await Promise.all(
+        malteseFalconMovies.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Planet of the Apes
+    else if (intent === 'quotes_planet_of_the_apes') {
+      const planetOfTheApesMovies = [
+        'Kingdom of the Planet of the Apes',
+        'Rise of the Planet of the Apes',
+        'Dawn of the Planet of the Apes',
+        'War of the Planet of the Apes',
+        'Blade Runner',
+        '2001: A Space Odyssey'
+      ];
+
+      const results = await Promise.all(
+        planetOfTheApesMovies.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+    
+    // Scarface
+    else if (intent === 'quotes_say_hello_little_friend') {
+      const scarfaceMovies = [
+        'Scarface',
+        'The Godfather',
+        'The Godfather Part II',
+        'The Godfather Part III',
+        'Goodfellas',
+        'Casino',
+        "Carlito's Way",
+        'Heat',
+        'Blow',
+        'The Departed',
+        'City of God',
+        'Once Upon a Time in America',
+        'American Gangster',
+        'The Untouchables',
+        'Donnie Brasco',
+        'Public Enemies'
+      ];
+
+      const results = await Promise.all(
+        scarfaceMovies.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Sherlock Holmes
+    else if (intent === 'quotes_sherlock_holmes') {
+      const sherlockHolmesMovies = [
+        'Sherlock Holmes',
+        'Sherlock Holmes: A Game of Shadows',
+        'Mr. Holmes',
+        'The Adventures of Sherlock Holmes',
+        'Young Sherlock Holmes',
+        'Sherlock',
+        'Poirot',
+        'The Private Life of Sherlock Holmes',
+        'The Hound of the Baskervilles',
+        'Elementary',
+        'The Case of the Silk Stocking'
+      ];
+
+      const results = await Promise.all(
+        sherlockHolmesMovies.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // The Shining
+    else if (intent === 'quotes_heres_johnny') {
+      const theShiningMovies = [
+        'The Shining',
+        'Hereditary',
+        'The Witch',
+        "Rosemary's Baby",
+        'The Lighthouse',
+        'Black Swan',
+        'The Babadook',
+        "Jacob's Ladder",
+        'Doctor Sleep',
+        'It Follows',
+        'Session 9',
+        'The Ring',
+        'Midsommar',
+        'The Exorcist',
+        'The Silence of the Lambs'
+      ];
+
+      const results = await Promise.all(
+        theShiningMovies.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Sudden Impact
+    else if (intent === 'quotes_sudden_impact') {
+      const suddenImpactMovies = [
+        'Sudden Impact',
+        'Gran Torino',
+        'Dirty Harry',
+        'Magnum Force',
+        'Death Wish',
+        'Cobra',
+        'The Punisher',
+        'Point Blank',
+        'The Enforcer',
+        'Hard to Kill',
+        'Lethal Weapon',
+        'Man on Fire',
+        'A History of Violence'
+      ];
+
+      const results = await Promise.all(
+        suddenImpactMovies.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Taxi Driver
+    else if (intent === 'quotes_you_talking_to_me') {
+      const taxiDriverMovies = [
+        'Taxi Driver',
+        'Joker',
+        'Drive',
+        'American Psycho',
+        'Falling Down',
+        'Nightcrawler',
+        'Requiem for a Dream',
+        'A Clockwork Orange',
+        'Fight Club',
+        'Raging Bull',
+        'You Were Never Really Here',
+        'Blue Velvet',
+        'The King of Comedy',
+        'Mean Streets',
+        'Collateral'
+      ];
+
+      const results = await Promise.all(
+        taxiDriverMovies.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
     else if (intent === 'chitchat_fave_movie_quote' || intent === 'quotes_hasta_la_vista') {
       const faveMovieQuoteMedia = [
         "The Terminator",
@@ -3693,6 +4531,997 @@ router.post('/', async (req, res) => {
       });
     }
 
+    // Movies
+
+    // Alien Movies
+    else if (intent === 'quotes_i_come_in_peace' || intent === 'quotes_we_come_in_peace') {
+      const aliensMedia = ['Alien', 'Aliens', 'The Lord of the Rings: The Two Towers', 'Independence Day', 'E.T. the Extra-Terrestrial', 'The Thing', 'Mars Attacks!', 'District 9', 'Predator', 'War of the Worlds', 'Signs', 'Edge of Tomorrow', 'Species', 'The Faculty', 'Contact'];
+
+      const results = await Promise.all(
+        aliensMedia.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Babe Movies
+    else if (intent === 'quotes_babe_thatll_do') {
+      const babeMovies = ['Babe', "Charlotte's Web", "The Secret Life of Pets", 'Paddington', 'Stuart Little', 'Ratatouille', 'Zootopia', 'The Lion King', 'Bolt'];
+
+      const results = await Promise.all(
+        babeMovies.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Back to the Future Movies
+    else if (intent === 'quotes_back_to_the_future_roads') {
+      const backToTheFutureMovies = ['Back to the Future', 'Back to the Future Part II', 'Back to the Future Part III', "Bill & Ted's Excellent Adventure", 'The Terminator', 'Looper', 'The Time Machine'];
+
+      const results = await Promise.all(
+        backToTheFutureMovies.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Casablanca Movies
+    else if (intent === 'quotes_heres_looking_at_you' || intent === 'q_and_a_recommend_classic_movies') {
+      const casablancaMovies = ['Casablanca', 'Gone with the Wind', 'The African Queen', 'The English Patient ', 'Out of Africa', 'A Farewell to Arms', 'Doctor Zhivago', 'The Remains of the Day'];
+
+      const results = await Promise.all(
+        casablancaMovies.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Clueless Movies
+    else if (intent === 'quotes_clueless_as_if') {
+      const cluelessMovies = ['Clueless', '10 Things I Hate About You', 'Legally Blonde', 'Mean Girls', "She's All That", 'Easy A', "The Devil Wears Prada", "Confessions of a Shopaholic", "Legally Blonde"];
+
+      const results = await Promise.all(
+        cluelessMovies.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Cool Hand Luke Movies
+    else if (intent === 'quotes_cool_hand_luke_failure') {
+      const coolHandLukeMovies = ['Cool Hand Luke', 'The Shawshank Redemption', 'Escape from Alcatraz', "One Flew Over the Cuckoo's Nest", 'Papillon', 'The Great Escape', 'Brubaker', 'Badlands', 'Midnight Cowboy'];
+
+      const results = await Promise.all(
+        coolHandLukeMovies.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // A Few Good Men Movies
+    else if (intent === 'quotes_cant_handle_truth') {
+      const aFewGoodMenMovies = ['A Few Good Men', "The Verdict", '12 Angry Men', 'Primal Fear', 'The Firm', 'Philadelphia', 'Anatomy of a Murder', 'The Rainmaker', "My Cousin Vinny", 'Scent of a Woman', 'Runaway Jury', 'Erin Brockovich'];
+
+      const results = await Promise.all(
+        aFewGoodMenMovies.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Finding Nemo Movies
+    else if (intent === 'quotes_finding_nemo' || intent === 'recommend_movie_with_family') {
+      const findingNemoMovies = ['Finding Nemo', "Finding Dory", 'The Lion King', 'Moana', 'The Little Mermaid', 'Frozen', 'Ratatouille', 'The Secret Life of Pets', "A Bug's Life", 'Over the Hedge', 'The Good Dinosaur'];
+
+      const results = await Promise.all(
+        findingNemoMovies.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Forrest Gump Movies
+    else if (intent === 'quotes_life_box_of_chocolates' || intent === 'chitchat_im_glad') {
+      const forrestGumpMovies = ['Forrest Gump', 'The Curious Case of Benjamin Button', 'Rain Man', 'The Green Mile', 'Cast Away', 'Big Fish', 'Life Is Beautiful', 'The Pursuit of Happyness', 'Slumdog Millionaire', 'Julie & Julia', 'The Secret Life of Walter Mitty', 'Good Will Hunting'];
+
+      const results = await Promise.all(
+        forrestGumpMovies.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Frankenstein Movies
+    else if (intent === 'quotes_frankenstein_alive') {
+      const frankensteinMovies = ['Frankenstein', 'Dracula', 'The Wolf Man', 'Bride of Frankenstein', 'Frankenweenie', 'Dracula Untold', 'Hotel Transylvania', 'Victor Frankenstein'];
+
+      const results = await Promise.all(
+        frankensteinMovies.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Godfather Movies
+    else if (intent === 'quotes_godfather_friends_enemies' || intent === 'quotes_godfather_offer') {
+      const godfatherMovies = ['The Godfather', 'The Godfather Part II', 'The Godfather Part III', 'Goodfellas', 'Scarface', 'The Sopranos'];
+
+      const results = await Promise.all(
+        godfatherMovies.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Guardians of the Galaxy
+    else if (intent === 'quotes_i_am_groot') {
+      const guardiansOfTheGalaxyMovie = ['Guardians of the Galaxy', 'Guardians of the Galaxy Vol. 3', 'Guardians of the Galaxy Vol. 2', 'The Guardians of the Galaxy Holiday Special', 'LEGO Marvel Super Heroes: Guardians of the Galaxy - The Thanos Threat', "Marvel's Guardians of the Galaxy"];
+
+      const results = await Promise.all(
+        guardiansOfTheGalaxyMovie.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // The Help Movies
+    else if (intent === 'quotes_the_help_kind') {
+      const theHelpMovies = ['The Help', '12 Years a Slave', 'Hidden Figures', 'The Color Purple', 'Selma', 'Fried Green Tomatoes', 'The Butler', 'The Secret Life of Bees', 'The Joy Luck Club'];
+
+      const results = await Promise.all(
+        theHelpMovies.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // LOTR Movies
+    else if (intent === 'quotes_lotr_pass' || intent === 'quotes_lotr_precious') {
+      const lotrMedia = ['The Lord of the Rings: The Fellowship of the Ring', 'The Lord of the Rings: The Return of the King', 'The Lord of the Rings: The Two Towers', 'The Lord of the Rings: The Rings of Power', 'Game of Thrones', 'The Witcher'];
+
+      const results = await Promise.all(
+        lotrMedia.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // The Mask
+    else if (intent === 'quotes_the_mask') {
+      const theMaskMovies = ['The Mask', 'Liar Liar', "Ace Ventura: Pet Detective", "Bruce Almighty", "The Addams Family", "Shazam!", "Ghostbusters", "The Mask of Zorro", "Beetlejuice", "The Nutty Professor"];
+
+      const results = await Promise.all(
+        theMaskMovies.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Midnight Cowboy Movies
+    else if (intent === 'quotes_midnight_cowboy_walking') {
+      const midnightCowboyMovies = ['Midnight Cowboy', "Taxi Driver", 'Requiem for a Dream', 'The Panic in Needle Park', 'The Wrestler', 'Paris, Texas', 'Dog Day Afternoon', 'Serpico'];
+
+      const results = await Promise.all(
+        midnightCowboyMovies.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Mulan Movies
+    else if (intent === 'quotes_mulan') {
+      const mulanMovies = ['Mulan', "Mulan II", 'Brave', 'Moana', 'The Princess and the Frog', 'Aladdin', 'The Hunger Games', 'Frozen II', "Raya and the Last Dragon", 'Pocahontas', 'The Legend of Hua Mulan'];
+
+      const results = await Promise.all(
+        mulanMovies.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Silence of the Lambs
+    else if (intent === 'quotes_silence_of_the_lambs' || intent === 'quotes_silence_of_the_lambs_fava') {
+      const silenceOfTheLambsMovie = ['The Silence of the Lambs', 'Manhunter', 'Hannibal', 'Red Dragon', 'Hannibal Rising', 'Se7en', 'Dexter', 'Dexter: New Blood', 'Zodiac', 'Mindhunter'];
+
+      const results = await Promise.all(
+        silenceOfTheLambsMovie.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Snow White Movies
+    else if (intent === 'quotes_snow_white_mirror') {
+      const snowWhiteMovies = ['Snow White and the Huntsman', "The Huntsman: Winter's War", 'Once Upon A Time', 'Cinderella', 'Sleeping Beauty'];
+
+      const results = await Promise.all(
+        snowWhiteMovies.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Titanic Movies
+    else if (intent === 'quotes_king_of_world') {
+      const titanicMovies = ['Titanic', 'The Notebook', 'Atonement', 'Pearl Harbor', 'The Great Gatsby', 'Cold Mountain', 'Legends of the Fall', 'The English Patient', 'Moulin Rouge!', "The Time Traveler's Wife", 'Australia', 'Ghost'];
+
+      const results = await Promise.all(
+        titanicMovies.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // When Harry Met Sally Movies
+    else if (intent === 'quotes_when_harry_met_sally' || intent === 'chitchat_sweater_weather') {
+      const whenHarryMetSallyMovies = ['When Harry Met Sally', "You've Got Mail", 'Sleepless in Seattle', 'Annie Hall', 'The Holiday', '500 Days of Summer', 'Before Sunrise', 'Love Actually'];
+
+      const results = await Promise.all(
+        whenHarryMetSallyMovies.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Wizard of Oz Movies
+    else if (intent === 'quotes_wizard_of_oz' || intent === 'quotes_wizard_of_oz_pretty' || intent === 'quotes_no_place_like_home') {
+      const wizardOfOzMovies = ['The Wizard of Oz', 'Alice in Wonderland', 'The Chronicles of Narnia: The Lion, the Witch and the Wardrobe', 'The Chronicles of Narnia: Prince Caspian', 'The Chronicles of Narnia: The Voyage of the Dawn Treader', 'Labyrinth', 'Stardust'];
+
+      const results = await Promise.all(
+        wizardOfOzMovies.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // You've Got Mail Movies
+    else if (intent === 'quotes_youve_got_mail') {
+      const youveGotMailMovies = ["You've Got Mail", 'Sleepless in Seattle', "When Harry Met Sally", "Notting Hill", "The Holiday", "Love Actually", "One Fine Day", "Letters to Juliet", "Serendipity", "The Shop Around the Corner", "While You Were Sleeping"];
+
+      const results = await Promise.all(
+        youveGotMailMovies.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
     // Shows
 
     // Big Bang Theory
@@ -3701,6 +5530,49 @@ router.post('/', async (req, res) => {
 
       const results = await Promise.all(
         bigBangTheoryShow.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // The Boys Shows
+    else if (intent === 'quotes_the_boys') {
+      const theBoysShows = ['The Boys', 'Doom Patrol', "Invincible", "Preacher", "Umbrella Academy", "Titans", "Powers", "Suicide Squad"];
+
+      const results = await Promise.all(
+        theBoysShows.map(async (title) => {
           const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
             params: {
               api_key: TMDB_API_KEY,
@@ -3870,12 +5742,203 @@ router.post('/', async (req, res) => {
       });
     }
 
+    // How I Met Your Mother
+    else if (intent === 'quotes_legendary' || intent === 'quotes_barney_suit_up') {
+      const howIMetYourMotherShow = ['How I Met Your Mother', 'Friends', 'New Girl', 'Happy Endings', 'The Office', "Parks and Recreation", "Cougar Town", "Scrubs", "The Mindy Project", "That '70s Show"];
+
+      const results = await Promise.all(
+        howIMetYourMotherShow.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // The IT Crowd
+    else if (intent === 'quotes_it_crowd_off_and_on') {
+      const theITCrowdShows = [
+        'The IT Crowd',
+        'Silicon Valley',
+        'Parks and Recreation',
+        'The Office',
+        'Community',
+        'The Big Bang Theory',
+        'Black Books',
+        'Brooklyn Nine-Nine'
+      ];
+
+      const results = await Promise.all(
+        theITCrowdShows.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
     // New Girl
     else if (intent === 'song_intro_new_girl') {
       const newGirlShow = ['New Girl'];
 
       const results = await Promise.all(
         newGirlShow.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // The Office
+    else if (intent === 'quotes_the_office_twss' || intent === 'quotes_the_office_bankruptcy') {
+      const theOfficeShow = ['The Office', 'Superstore', '30 Rock', 'Brooklyn Nine-Nine', 'Archer'];
+
+      const results = await Promise.all(
+        theOfficeShow.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Rick and Morty
+    else if (intent === 'quotes_rick_and_morty_pickle') {
+      const rickAndMortyShows = [
+        'Rick and Morty',
+        'Rick and Morty: The Anime',
+        'Bojack Horseman',
+        'Futurama',
+        'Solar Opposites',
+        'Final Space',
+        'Disenchantment',
+        'Archer',
+        'The Venture Bros.'
+      ];
+
+      const results = await Promise.all(
+        rickAndMortyShows.map(async (title) => {
           const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
             params: {
               api_key: TMDB_API_KEY,
@@ -3924,6 +5987,101 @@ router.post('/', async (req, res) => {
 
       const results = await Promise.all(
         sailorMoonMedia.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Seinfeld
+    else if (intent === 'quotes_yada_yada_yada' || intent === 'quotes_seinfeld_pretzels' || intent === 'quotes_seinfeld_cant_stand_ya' || intent === 'quotes_seinfeld_bisque' || intent === 'quotes_seinfeld_pretzels_repeat' || intent === 'quotes_seinfeld_soup') {
+      const seinfeldShow = ['Seinfeld', 'Friends', 'How I Met Your Mother', 'Curb Your Enthusiasm', 'Arrested Development', 'Parks and Recreation'];
+
+      const results = await Promise.all(
+        seinfeldShow.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // South Park
+    else if (intent === 'quotes_south_park_kenny') {
+      const southParkShows = [
+        'South Park',
+        'Family Guy',
+        'The Simpsons',
+        'American Dad!',
+        'F Is for Family',
+        'Archer',
+        'BoJack Horseman',
+        'Robot Chicken'
+      ];
+
+      const results = await Promise.all(
+        southParkShows.map(async (title) => {
           const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
             params: {
               api_key: TMDB_API_KEY,
