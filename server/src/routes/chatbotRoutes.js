@@ -2116,7 +2116,7 @@ router.post('/', async (req, res) => {
     }
 
     // Sherlock Holmes
-    else if (intent === 'quotes_sherlock_holmes') {
+    else if (intent === 'quotes_sherlock_holmes' || intent === 'q_and_a_recommend_sherlock_holmes') {
       const sherlockHolmesMovies = [
         'Sherlock Holmes',
         'Sherlock Holmes: A Game of Shadows',
@@ -5525,8 +5525,8 @@ router.post('/', async (req, res) => {
     // Shows
 
     // Big Bang Theory
-    else if (intent === 'song_intro_big_bang_theory' || intent === 'quotes_soft_kitty' || intent === 'quotes_big_bang_theory_knock_knock' || intent === 'quotes_big_bang_theory_spot' || intent === 'quotes_big_bang_theory_babies' || intent === 'quotes_bazinga') {
-      const bigBangTheoryShow = ['The Big Bang Theory'];
+    else if (intent === 'song_intro_big_bang_theory' || intent === 'q_and_a_recommend_sheldon_cooper' || intent === 'quotes_soft_kitty' || intent === 'quotes_big_bang_theory_knock_knock' || intent === 'quotes_big_bang_theory_spot' || intent === 'quotes_big_bang_theory_babies' || intent === 'quotes_bazinga') {
+      const bigBangTheoryShow = ['The Big Bang Theory', 'Young Sheldon'];
 
       const results = await Promise.all(
         bigBangTheoryShow.map(async (title) => {
@@ -5786,8 +5786,9 @@ router.post('/', async (req, res) => {
     }
 
     // The IT Crowd
-    else if (intent === 'quotes_it_crowd_off_and_on') {
+    else if (intent === 'quotes_it_crowd_off_and_on' || intent === 'q_and_a_recommend_nerd') {
       const theITCrowdShows = [
+        'Stranger Things',
         'The IT Crowd',
         'Silicon Valley',
         'Parks and Recreation',
@@ -6805,6 +6806,122 @@ router.post('/', async (req, res) => {
 
     // Recommendations
 
+    // Dragons 
+    else if (intent === 'q_and_a_recommend_show_dragons') {
+      const dragonsMedia = [
+        'How to Train Your Dragon',
+        'Game of Thrones',
+        'The Hobbit',
+        'Dragonheart',
+        'Eragon',
+        'Reign of Fire',
+        "Pete's Dragon",
+        "The NeverEnding Story",
+        "House of the Dragon",
+        "Dragon Ball Z",
+        "Dragon Ball Z Kai",
+        "Merlin",
+        "American Dragon: Jake Long",
+        "Wizards: Tales of Arcadia"
+      ];
+
+      const results = await Promise.all(
+        dragonsMedia.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Inception 
+    else if (intent === 'q_and_a_recent_movies') {
+      const inceptionLikeMovies = [
+        'Inception',
+        'Interstellar',
+        'The Matrix',
+        'Shutter Island',
+        'Memento',
+        'The Prestige',
+        'Donnie Darko',
+        'Coherence',
+        'The Thirteenth Floor',
+        'Paprika',
+        'Source Code',
+        'Eternal Sunshine of the Spotless Mind',
+        'Predestination',
+        'Dark City'
+      ];
+
+      const results = await Promise.all(
+        inceptionLikeMovies.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
     // LGBTQ Movies
     else if (intent === 'q_and_a_recommend_lgbtq_movies') {
       const lgbtqMoviesMedia = [
@@ -6933,6 +7050,71 @@ router.post('/', async (req, res) => {
       });
     }
 
+    // Magic
+    else if (intent === 'q_and_a_recommend_show_magic') {
+      const magicMedia = [
+        "Doctor Strange",
+        "Stardust",
+        "Maleficent",
+        "The Illusionist",
+        "The Craft",
+        'The Magicians',
+        'The Lord of the Rings: The Rings of Power',
+        "The Lord of the Rings: The Return of the King",
+        "The Lord of the Rings: The Fellowship of the Ring",
+        "The Lord of the Rings: The Two Towers",
+        "Harry Potter and the Philosopher's Stone",
+        "Harry Potter and the Prisoner of Azkaban",
+        "Harry Potter and the Chamber of Secrets",
+        "Harry Potter and the Half-Blood Prince",
+        "Harry Potter and the Goblet of Fire",
+        "Harry Potter and the Deathly Hallows: Part 2",
+        "Harry Potter and the Order of the Phoenix",
+        "Harry Potter and the Deathly Hallows: Part 1",
+        "Fantastic Beasts: The Secrets of Dumbledore",
+        "Fantastic Beasts and Where to Find Them",
+        "Fantastic Beasts: The Crimes of Grindelwald"
+      ];
+
+      const results = await Promise.all(
+        magicMedia.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
     // Poly Movies
     else if (intent === 'recommend_polyamory_movies') {
       const polyMoviesMedia = [
@@ -7004,6 +7186,74 @@ router.post('/', async (req, res) => {
 
       const results = await Promise.all(
         polyShowsMedia.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
+    // Superheroes
+    else if (intent === 'q_and_a_recommend_show_superheroes') {
+      const superheroesMedia = [
+        "The Avengers",
+        "The Dark Knight",
+        "Man of Steel",
+        "Wonder Woman",
+        "Deadpool",
+        "Shazam!",
+        "Black Panther",
+        "The Incredibles",
+        "The Boys",
+        "Kick-Ass",
+        "Watchmen",
+        "The Suicide Squad",
+        "Doctor Strange",
+        "WandaVision",
+        "Daredevil",
+        "The Flash",
+        "Jessica Jones",
+        "Supergirl",
+        "Titans",
+        "Legends of Tomorrow",
+        "Loki",
+        "The Umbrella Academy",
+        "Smallville",
+        "Gotham"
+      ];
+
+      const results = await Promise.all(
+        superheroesMedia.map(async (title) => {
           const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
             params: {
               api_key: TMDB_API_KEY,
