@@ -1787,8 +1787,6 @@ router.post('/', async (req, res) => {
         'Field of Dreams',
         'The Natural',
         'Moneyball',
-        'A League of Their Own',
-        'The Rookie',
         'Angels in the Outfield',
         'Miracle',
         "Mr. Holland's Opus",
@@ -4997,7 +4995,6 @@ router.post('/', async (req, res) => {
       const archaeologyMovieMedia = [
         "Indiana Jones",
         "The Mummy",
-        "National Treasure",
         "Lara Croft: Tomb Raider",
         "The Lost City of Z",
         "The Adventures of Tintin",
@@ -5100,7 +5097,6 @@ router.post('/', async (req, res) => {
         "Loving Vincent",
         "Girl with a Pearl Earring",
         "Pollock",
-        "Loving Vincent",
         "The Danish Girl",
         "At Eternity's Gate",
         "Pablo Picasso: The Legacy of a Genius",
@@ -5394,7 +5390,6 @@ router.post('/', async (req, res) => {
         "Whiplash",
         "School of Rock",
         "Bohemian Rhapsody",
-        "Almost Famous",
         "The Dirt",
         "A Star is Born",
         "Sing Street",
@@ -5446,12 +5441,11 @@ router.post('/', async (req, res) => {
         "Moneyball",
         "Field of Dreams",
         "The Sandlot",
-        "A League of Their Own",
         "The Natural",
         "42",
-        "The Rookie",
         "Major League",
         "Bull Durham",
+        "Angels in the Outfield",
         "For Love of the Game"
       ];
     
@@ -6375,7 +6369,6 @@ router.post('/', async (req, res) => {
     else if (intent === 'recommend_canadian_movies') {
       const canadianMoviesMedia = [
         "Room",
-        "The F Word",
         "Scott Pilgrim vs. the World",
         "Brooklyn",
         "Away from Her",
@@ -7508,6 +7501,74 @@ router.post('/', async (req, res) => {
       });
     }    
 
+    // Dystopian Movies and Shows
+    else if (intent === 'q_and_a_recommend_dystopian_futures') {
+      const dystopianMedia = [
+        "The Hunger Games",
+        "Mad Max: Fury Road",
+        "Blade Runner 2049",
+        "The Matrix",
+        "Children of Men",
+        "V for Vendetta",
+        "Divergent",
+        "The Maze Runner",
+        "Black Mirror",
+        "The Handmaid's Tale",
+        "The Last of Us",
+        "Westworld",
+        "The 100",
+        "Altered Carbon",
+        "Snowpiercer",
+        "The Man in the High Castle",
+        "Station Eleven",
+        "Humans",
+        "Falling Skies",
+        "Years and Years",
+        "The Leftovers",
+        "Westworld",
+        "Humans",
+        "Futurama",
+        "Black Mirror",
+        "Terminator: The Sarah Connor Chronicles"
+      ];
+    
+      const results = await Promise.all(
+        dystopianMedia.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+    
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+    
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average: media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+    
+      const filteredResults = results.filter((result) => result !== null);
+    
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
     // Emmy Winners
     else if (intent === 'recommend_emmy_winners') {
       const emmyWinnerMedia = [
@@ -7568,7 +7629,6 @@ router.post('/', async (req, res) => {
         "The Day After Tomorrow",
         "2012",
         "Children of Men",
-        "The Road",
         "I Am Legend",
         "Contagion",
         "War of the Worlds",
@@ -8359,6 +8419,72 @@ router.post('/', async (req, res) => {
       });
     }    
 
+    // Genres - Various
+    else if (intent === 'q_and_a_recommend_genres') {
+      const genresMedia = [
+        "The Dark Knight",
+        "Inception",
+        "The Avengers",
+        "Harry Potter and the Sorcerer's Stone",
+        "The Godfather",
+        "The Matrix",
+        "Pulp Fiction",
+        "The Lord of the Rings: The Fellowship of the Ring",
+        "The Exorcist",
+        "Interstellar",
+        "Titanic",
+        "La La Land",
+        "The Silence of the Lambs",
+        "Schindler's List",
+        "The Hangover",
+        "Superbad",
+        "Bridesmaids",
+        "Dumb and Dumber",
+        "The Notebook",
+        "Love Actually",
+        "Eternal Sunshine of the Spotless Mind",
+        "Pride and Prejudice"
+      ];
+
+      const results = await Promise.all(
+        genresMedia.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average:
+                media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+
+      const filteredResults = results.filter((result) => result !== null);
+
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
     // Ghosts Movies and Shows
     else if (intent === 'q_and_a_recommend_media_ghosts' || intent === 'chitchat_believe_ghosts') {
       const ghostsMedia = [
@@ -8366,7 +8492,6 @@ router.post('/', async (req, res) => {
         "Crimson Peak",
         "Insidious",
         "Ghost",
-        "The Ring",
         "Poltergeist",
         "The Conjuring",
         "The Changeling",
@@ -8432,7 +8557,6 @@ router.post('/', async (req, res) => {
         "Erin Brockovich",
         "Legally Blonde",
         "Brave",
-        "A League of Their Own",
         "Thelma & Louise",
         "The Devil Wears Prada"
       ];
@@ -9434,49 +9558,6 @@ router.post('/', async (req, res) => {
       });
     }    
 
-    // Jumanji Movies
-    else if (intent === 'q_and_a_recommend_jumanji') {
-      const jumanjiMovies = ['Jumanji', 'Zathura', "Night at the Museum", "Journey to the Center of the Earth", "The Mummy", "National Treasure", "The Spiderwick Chronicles", "Goosebumps", "Hook", "The Goonies", "Ready Player One", "The Chronicles of Narnia: The Lion, the Witch and the Wardrobe"];
-
-      const results = await Promise.all(
-        jumanjiMovies.map(async (title) => {
-          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
-            params: {
-              api_key: TMDB_API_KEY,
-              query: title,
-            },
-          });
-
-          if (response.data.results && response.data.results.length > 0) {
-            const media = response.data.results[0];
-
-            const mediaType = media.media_type;
-            const trailerUrl = await getMediaTrailer(media.id, mediaType);
-            const credits = await getMediaCredits(media.id, mediaType);
-
-            return {
-              id: media.id,
-              title: media.title || media.name,
-              media_type: mediaType,
-              poster_path: media.poster_path,
-              vote_average:
-                media.vote_average !== undefined ? media.vote_average : 0,
-              trailerUrl,
-              credits,
-            };
-          }
-          return null;
-        })
-      );
-
-      const filteredResults = results.filter((result) => result !== null);
-
-      return res.json({
-        message: nlpResult.answer,
-        media: filteredResults,
-      });
-    }
-
     // Korean Movies
     else if (intent === 'recommend_korean_films') {
       const koreanFilmsMedia = [
@@ -9836,7 +9917,6 @@ router.post('/', async (req, res) => {
         "Fury",
         "Black Hawk Down",
         "Tears of the Sun",
-        "Safe House",
         "The Losers"
       ];
     
@@ -10027,7 +10107,7 @@ router.post('/', async (req, res) => {
     }    
 
     // Movies Based on a Book
-    else if (intent === 'recommend_movies_based_on_a_book') {
+    else if (intent === 'recommend_movies_based_on_a_book' || intent === 'q_and_a_recommend_book') {
       const moviesBasedOnBookMedia = [
         "The Shawshank Redemption",
         "The Lord of the Rings: The Fellowship of the Ring",
@@ -10862,60 +10942,6 @@ router.post('/', async (req, res) => {
       });
     }    
 
-    // Musicals Movies and Shows
-    else if (intent === 'q_and_a_musicals') {
-      const musicalMedia = [
-        "La La Land",
-        "The Greatest Showman",
-        "West Side Story",
-        "The Sound of Music",
-        "Chicago",
-        "Les Misérables",
-        "Moulin Rouge!",
-        "Hairspray",
-        "Mary Poppins",
-        "Grease"
-      ];
-    
-      const results = await Promise.all(
-        musicalMedia.map(async (title) => {
-          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
-            params: {
-              api_key: TMDB_API_KEY,
-              query: title,
-            },
-          });
-    
-          if (response.data.results && response.data.results.length > 0) {
-            const media = response.data.results[0];
-    
-            const mediaType = media.media_type;
-            const trailerUrl = await getMediaTrailer(media.id, mediaType);
-            const credits = await getMediaCredits(media.id, mediaType);
-    
-            return {
-              id: media.id,
-              title: media.title || media.name,
-              media_type: mediaType,
-              poster_path: media.poster_path,
-              vote_average:
-                media.vote_average !== undefined ? media.vote_average : 0,
-              trailerUrl,
-              credits,
-            };
-          }
-          return null;
-        })
-      );
-    
-      const filteredResults = results.filter((result) => result !== null);
-    
-      return res.json({
-        message: nlpResult.answer,
-        media: filteredResults,
-      });
-    }    
-
     // Nature Movies and Shows
     else if (intent === 'q_and_a_recommend_nature_media') {
       const natureMedia = ['Planet Earth II', "Our Planet", "The Cove", "An Inconvenient Truth", "Blue Planet II", "Frozen Planet", "The Green Planet", "The Blue Planet", "Cosmos", "March of the Penguins", "The Secret Life of Trees", "Life", "Chasing Ice",];
@@ -11526,6 +11552,64 @@ router.post('/', async (req, res) => {
       });
     }
 
+    // Podcast Movies and Shows
+    else if (intent === 'q_and_a_podcast_recommendation') {
+      const podcastMedia = [
+        "A Prairie Home Companion",
+        "Late Night",
+        "Truth",
+        "The Interview",
+        "The Front Runner",
+        "Radio Days",
+        "Talk Radio",
+        "Private Parts",
+        "Corporate Animals",
+        "Pump Up the Volume",
+        "Limetown",
+        "Dirty John",
+        "StartUp",
+        "Song Exploder",
+        "Alex, Inc.",
+        "The Truth Podcast"
+      ];
+    
+      const results = await Promise.all(
+        podcastMedia.map(async (title) => {
+          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+            params: {
+              api_key: TMDB_API_KEY,
+              query: title,
+            },
+          });
+    
+          if (response.data.results && response.data.results.length > 0) {
+            const media = response.data.results[0];
+            const mediaType = media.media_type;
+            const trailerUrl = await getMediaTrailer(media.id, mediaType);
+            const credits = await getMediaCredits(media.id, mediaType);
+    
+            return {
+              id: media.id,
+              title: media.title || media.name,
+              media_type: mediaType,
+              poster_path: media.poster_path,
+              vote_average: media.vote_average !== undefined ? media.vote_average : 0,
+              trailerUrl,
+              credits,
+            };
+          }
+          return null;
+        })
+      );
+    
+      const filteredResults = results.filter((result) => result !== null);
+    
+      return res.json({
+        message: nlpResult.answer,
+        media: filteredResults,
+      });
+    }
+
     // Polyamory Movies
     else if (intent === 'recommend_polyamory_movies') {
       const polyamoryMoviesMedia = [
@@ -11580,7 +11664,7 @@ router.post('/', async (req, res) => {
     
     // Post-apocalyptic Movies
     else if (intent === 'q_and_a_recommend_post_apocalyptic') {
-      const postApocalypticMovies = ["The Book of Eli", 'Children of Men', "The Road", "Furiosa: A Mad Max Saga", "Mad Max: Fury Road", "I Am Legend", "28 Days Later", "A Boy and His Dog", "Oblivion", "12 Monkeys", "Cloverfield", "Reign of Fire"];
+      const postApocalypticMovies = ["The Book of Eli", 'Children of Men', "Furiosa: A Mad Max Saga", "Mad Max: Fury Road", "I Am Legend", "28 Days Later", "A Boy and His Dog", "Oblivion", "12 Monkeys", "Cloverfield", "Reign of Fire"];
 
       const results = await Promise.all(
         postApocalypticMovies.map(async (title) => {
@@ -11950,7 +12034,7 @@ router.post('/', async (req, res) => {
         "Le Mans",
         "The Art of Racing in the Rain",
         "Senna",
-        "Driven"
+        "The Fast and the Furious"
       ];
     
       const results = await Promise.all(
@@ -12048,7 +12132,7 @@ router.post('/', async (req, res) => {
         "Superbad",
         "The Hangover",
         "American Pie",
-        "Borat",
+        "Borat: Cultural Learnings of America for Make Benefit Glorious Nation of Kazakhstan",
         "Old School",
         "Pineapple Express",
         "Neighbors",
@@ -12557,8 +12641,7 @@ router.post('/', async (req, res) => {
         "American Psycho",
         "The Girl with the Dragon Tattoo",
         "Hannibal",
-        "Nightcrawler",
-        "The Fall"
+        "Nightcrawler"
       ];
     
       const results = await Promise.all(
@@ -12705,7 +12788,7 @@ router.post('/', async (req, res) => {
     }
     
     // Sharknado Movies - dislike
-    else if (intent === 'q_and_a_recommend_q_and_a_sharknado_dislike') {
+    else if (intent === 'q_and_a_sharknado_dislike') {
       const dislikeSharnadoMovies = [
         "The Impossible",
         "Deepwater Horizon",
@@ -13052,10 +13135,8 @@ router.post('/', async (req, res) => {
         "Dreamgirls",
         "The Commitments",
         "Get on Up",
-        "Whitney",
         "Respect",
         "Cadillac Records",
-        "Amazing Grace"
       ];
     
       const results = await Promise.all(
@@ -13161,7 +13242,6 @@ router.post('/', async (req, res) => {
         "Moon",
         "Contact",
         "Total Recall",
-        "Sunshine",
         "Event Horizon",
         "For All Mankind",
         "Space Force",
@@ -13263,7 +13343,6 @@ router.post('/', async (req, res) => {
     // Spy Movies and Shows
     else if (intent === 'q_and_a_spy' || intent === "recommend_spy_movies") {
       const spyMedia = [
-        "James Bond",
         "Tinker Tailor Soldier Spy",
         "Casino Royale",
         "Mission: Impossible",
@@ -13474,7 +13553,6 @@ router.post('/', async (req, res) => {
         "The Others",
         "Hereditary",
         "The Conjuring",
-        "The Witch",
         "A Ghost Story",
         "Crimson Peak",
         "The Ring",
@@ -14253,7 +14331,6 @@ router.post('/', async (req, res) => {
         "Enron: The Smartest Guys in the Room",
         "Boiler Room",
         "Rogue Trader",
-        "The Informant!",
         "Margin Call"
       ];
     
@@ -14597,7 +14674,6 @@ router.post('/', async (req, res) => {
         "The Blacklist",
         "Gone",
         "Without a Trace",
-        "The Fall",
         "Mindhunter",
         "Criminal Minds",
         "Safe"
@@ -14806,7 +14882,6 @@ router.post('/', async (req, res) => {
         "Red Sonja",
         "Amazon Women on the Moon",
         "Zena the Warrior",
-        "The Amazons",
         "Atlantis",
         "Legend of the Seeker"
       ];
@@ -15427,7 +15502,6 @@ router.post('/', async (req, res) => {
         "Brockmire",
         "The League",
         "Ken Burns: Baseball",
-        "A League of Their Own",
         "Catching Hell",
         "Prime 9",
         "Cubs: The Heart and Soul of Chicago"
@@ -16599,7 +16673,6 @@ router.post('/', async (req, res) => {
     // Broadway Shows
     else if (intent === 'recommend_broadway_shows') {
       const broadwayShowsMedia = [
-        "Hamilton",
         "Wicked",
         "The Phantom of the Opera",
         "Les Misérables",
@@ -17580,64 +17653,6 @@ router.post('/', async (req, res) => {
         media: filteredResults,
       });
     }    
-    
-    // Dystopian Shows
-    else if (intent === 'q_and_a_recommend_dystopian_futures') {
-      const dystopianShows = [
-        "Black Mirror",
-        "The Handmaid's Tale",
-        "The Last of Us",
-        "Westworld",
-        "The 100",
-        "Altered Carbon",
-        "Snowpiercer",
-        "The Man in the High Castle",
-        "Station Eleven",
-        "3%",
-        "Humans",
-        "Falling Skies",
-        "Years and Years",
-        "The Leftovers"
-      ];
-
-      const results = await Promise.all(
-        dystopianShows.map(async (title) => {
-          const response = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
-            params: {
-              api_key: TMDB_API_KEY,
-              query: title,
-            },
-          });
-
-          if (response.data.results && response.data.results.length > 0) {
-            const media = response.data.results[0];
-
-            const mediaType = media.media_type;
-            const trailerUrl = await getMediaTrailer(media.id, mediaType);
-            const credits = await getMediaCredits(media.id, mediaType);
-
-            return {
-              id: media.id,
-              title: media.title || media.name,
-              media_type: mediaType,
-              poster_path: media.poster_path,
-              vote_average:
-                media.vote_average !== undefined ? media.vote_average : 0,
-              trailerUrl,
-              credits,
-            };
-          }
-          return null;
-        })
-      );
-
-      const filteredResults = results.filter((result) => result !== null);
-
-      return res.json({
-        message: nlpResult.answer,
-        media: filteredResults,
-      });
-    }
 
     // Emmy Winners Shows
     else if (intent === 'recommend_emmy_winners_tv') {
@@ -18505,7 +18520,6 @@ router.post('/', async (req, res) => {
         "Godzilla Island",
         "Ultraman",
         "Pacific Rim: The Black",
-        "Monster Planet",
         "King Kong vs. Godzilla"
       ];
     
@@ -19272,7 +19286,6 @@ router.post('/', async (req, res) => {
         "Law & Order",
         "Better Call Saul",
         "The Practice",
-        "For the People",
         "Damages",
         "Rake"
       ];
@@ -19530,7 +19543,7 @@ router.post('/', async (req, res) => {
         "Strike Back",
         "The Punisher",
         "The A-Team",
-        "Soldier of Fortune, Inc.",
+        "The Expendables",
         "Burn Notice",
         "The Unit",
         "Hanna",
@@ -19686,7 +19699,6 @@ router.post('/', async (req, res) => {
         "True Detective",
         "Broadchurch",
         "Mindhunter",
-        "The Fall",
         "Sherlock",
         "The Killing",
         "Criminal Minds",
@@ -19742,7 +19754,6 @@ router.post('/', async (req, res) => {
         "The Enemy Within",
         "Valor",
         "Six",
-        "The Brave",
         "Hunter Killer",
         "Greyhound"
       ];
@@ -20349,7 +20360,6 @@ router.post('/', async (req, res) => {
         "Jonathan Creek",
         "Lupin",
         "Escape the Night",
-        "The Genius",
         "Taskmaster"
       ];
     
@@ -20901,6 +20911,7 @@ router.post('/', async (req, res) => {
     // Samurai Shows
     else if (intent === 'recommend_samurai_tv') {
       const samuraiTvMedia = [
+        "BLUE EYE SAMURAI",
         "Samurai Champloo",
         "Yasuke",
         "Rurouni Kenshin",
@@ -21264,14 +21275,15 @@ router.post('/', async (req, res) => {
     // Shaolin Shows
     else if (intent === 'recommend_shaolin_tv') {
       const shaolinTvMedia = [
-        "Kung Fu (1970s)",
+        "Kung Fu: The Legend Continues",
         "Kung Fu (2021 reboot)",
         "Into the Badlands",
         "Wu Assassins",
         "The Legend of Bruce Lee",
         "Iron Fist",
-        "Shaolin Chronicles",
+        "Kung Fu Panda",
         "Cobra Kai",
+        "Karate Kid",
         "The Warrior's Way",
         "Rurouni Kenshin"
       ];
@@ -22124,8 +22136,7 @@ router.post('/', async (req, res) => {
         "Empire",
         "Nashville",
         "Zoey's Extraordinary Playlist",
-        "Sing On!",
-        "The Singing Bee"
+        "Sing On!"
       ];
     
       const results = await Promise.all(
@@ -22429,7 +22440,6 @@ router.post('/', async (req, res) => {
     else if (intent === 'recommend_stalker_shows') {
       const stalkerShowsMedia = [
         "You",
-        "The Fall",
         "Bates Motel",
         "Dexter",
         "Killing Eve",
@@ -23207,7 +23217,7 @@ router.post('/', async (req, res) => {
     }
     
     // Video Game Shows and Movies
-    else if (intent === 'q_and_a_recommend_show_video_games' || intent === 'chitchat_are_you_a_gamer' || intent === 'q_and_a_video_games' || intent === 'recommend_games' || intent === 'recommend_games_tv') {
+    else if (intent === 'q_and_a_recommend_show_video_games' || intent === 'chitchat_are_you_a_gamer' || intent === 'q_and_a_video_games' || intent === 'recommend_games' || intent === 'recommend_games_tv' || intent === 'chitchat_play_game') {
       const videoGameShows = [
         "Super Mario World",
         "Fallout",
@@ -23224,9 +23234,7 @@ router.post('/', async (req, res) => {
         "The Story of Nintendo",
         "Dragon's Dogma",
         "Resident Evil",
-        "The Super Mario Bros. Movie",
         "Super Mario Bros.",
-        "Street Fighter",
         "Mortal Kombat"
       ];
 
@@ -24693,17 +24701,17 @@ router.post('/', async (req, res) => {
     // Magic
     else if (intent === 'q_and_a_recommend_show_magic') {
       const magicMedia = [
+        "Harry Potter and the Philosopher's Stone",
+        'The Magicians',
         "Doctor Strange",
         "Stardust",
         "Maleficent",
         "The Illusionist",
         "The Craft",
-        'The Magicians',
         'The Lord of the Rings: The Rings of Power',
         "The Lord of the Rings: The Return of the King",
         "The Lord of the Rings: The Fellowship of the Ring",
         "The Lord of the Rings: The Two Towers",
-        "Harry Potter and the Philosopher's Stone",
         "Harry Potter and the Prisoner of Azkaban",
         "Harry Potter and the Chamber of Secrets",
         "Harry Potter and the Half-Blood Prince",
