@@ -624,10 +624,11 @@ const NextWatchPage = () => {
                                 className='nextwatch-page__recommendations-img'
                               />
                             ) : (
-                              <FontAwesomeIcon
-                                icon={faFilm}
-                                className='nextwatch-page__recommendations-img-placeholder'
-                              />
+                                <img
+                                    src={DefaultPosterImg}
+                                    alt='Placeholder Default Poster'
+                                    className='nextwatch-page__recommendations-default-placeholder'
+                                />
                             )}
                             <div className='nextwatch-page__recommendations-copy-container'>
                               <div className='nextwatch-page__recommendations-name'>
@@ -703,10 +704,11 @@ const NextWatchPage = () => {
                                 className='nextwatch-page__similar-img'
                               />
                             ) : (
-                              <FontAwesomeIcon
-                                icon={faFilm}
-                                className='nextwatch-page__similar-img-placeholder'
-                              />
+                            <img
+                                src={DefaultPosterImg}
+                                alt='Placeholder Default Poster'
+                                className='nextwatch-page__similar-default-placeholder'
+                            />
                             )}
                             <div className='nextwatch-page__similar-copy-container'>
                               <div className='nextwatch-page__similar-name'>
