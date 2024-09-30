@@ -62,7 +62,6 @@ const NextWatchPage = () => {
     const [interaction, setInteraction] = useState(null); 
     const [showCalendar, setShowCalendar] = useState(false);
     const [alert, setAlert] = useState({ show: false, message: '', type: '' });
-    const [providers, setProviders] = useState([]);
     const [scrollPosition, setScrollPosition] = useState(0);
 
     const similarMediaRef = useRef(null);
@@ -86,7 +85,6 @@ const NextWatchPage = () => {
                 if (response.data) {
                     setMediaData(response.data);
                     setInteraction(response.data.interaction);
-                    setProviders(response.data.providers || []);
 
                     // Fetch certification data based on media type
                     if (mediaType === 'movie') {
@@ -327,150 +325,136 @@ const NextWatchPage = () => {
                     <p className="nextwatch-page__description">
                         {mediaData.overview || "Description: Unavailable"}
                     </p>
+
+                    <div className="nextwatch-page__genre">
+                        {mediaData.genres.map(genre => (
+                          <span key={genre.id} className="nextwatch-page__genre-item">
+                              <FontAwesomeIcon
+                                  icon={genreIconMapping[genre.name] || faFilm}
+                                  className="nextwatch-page__genre-icon"
+                              /> {genre.name}
+                          </span>
+                        ))}
+                    </div>
                 </div>
 
                 <div className="nextwatch-page__media-info">
-                    <div className="nextwatch-page__left-media-container">
-                        <div className="nextwatch-page__poster-container">
-                            <img 
-                                src={mediaData.poster_path 
-                                        ? `https://image.tmdb.org/t/p/w500${mediaData.poster_path}` 
-                                        : DefaultPosterImg}  
-                                alt={mediaData.title || mediaData.name || "No Poster Available"} 
-                                className="nextwatch-page__poster"
-                            />
-                            <div className="nextwatch-page__play-overlay" onClick={handlePlayTrailer}>
-                                <FontAwesomeIcon icon={faPlay} className="nextwatch-page__play-icon" />
-                            </div>
-                        </div> 
 
-                        <div className="nextwatch-page__actions">
-                            <div className="nextwatch-page__media-type">
-                                <FontAwesomeIcon
-                                    className="nextwatch-page__media-icon"
-                                    icon={mediaType === 'tv' ? faTv : faFilm}
-                                    data-tooltip-id={`mediaTypeTooltip-${mediaId}`}
-                                    data-tooltip-content={`${mediaType === 'tv' ? 'TV Show' : 'Movie'}`}
-                                />
-                                <Tooltip id={`mediaTypeTooltip-${mediaId}`} place="top" className="custom-tooltip" />
-                            </div>
-                            <button
-                                className="nextwatch-page__calendar-button"
-                                onClick={handleAddToCalendar}
-                                data-tooltip-id={`calendarTooltip-${mediaId}`}
-                                data-tooltip-content="Add to Calendar"
-                            >
-                                <FontAwesomeIcon icon={faCalendarPlus} />
-                            </button>
-                            <Tooltip id={`calendarTooltip-${mediaId}`} place="top" className="custom-tooltip" />
-                            
-                            <button
-                                className="nextwatch-page__share-button"
-                                onClick={handleShare}
-                                data-tooltip-id={`shareTooltip-${mediaId}`}
-                                data-tooltip-content="Share"
-                            >
-                                <FontAwesomeIcon icon={faShareAlt} />
-                            </button>
-                            <Tooltip id={`shareTooltip-${mediaId}`} place="top" className="custom-tooltip" />
+                  
 
-                            <div className="nextwatch-page__interaction-buttons">
-                                {getInteractionIcon()}
-                            </div>
-                        </div> 
+                  <div className="nextwatch-page__left-media-container">
+
+                    <div className="nextwatch-page__details-container">
+                      <div className="nextwatch-page__rating">
+                          <FontAwesomeIcon icon={faStar} className="nextwatch-page__star-icon" /> {mediaData.vote_average} / 10
+                      </div>
+
+                      <div className="nextwatch-page__duration">
+                          {mediaType === 'movie' 
+                              ? `${mediaData.runtime} minutes` 
+                              : mediaData.episode_run_time[0] 
+                                  ? `${mediaData.episode_run_time[0]} minutes per episode`
+                                  : 'Duration: Unavailable'}
+                      </div>
                     </div>
-
-                    <div className="nextwatch-page__details">
-                        <div className="nextwatch-page__genre">
-                            {mediaData.genres.map(genre => (
-                                <span key={genre.id} className="nextwatch-page__genre-item">
-                                    <FontAwesomeIcon
-                                        icon={genreIconMapping[genre.name] || faFilm}
-                                        className="nextwatch-page__genre-icon"
-                                    /> {genre.name}
-                                </span>
-                            ))}
+                    <div className="nextwatch-page__poster-container">
+                        <img 
+                            src={mediaData.poster_path 
+                                    ? `https://image.tmdb.org/t/p/w500${mediaData.poster_path}` 
+                                    : DefaultPosterImg}  
+                            alt={mediaData.title || mediaData.name || "No Poster Available"} 
+                            className="nextwatch-page__poster"
+                        />
+                        <div className="nextwatch-page__play-overlay" onClick={handlePlayTrailer}>
+                            <FontAwesomeIcon icon={faPlay} className="nextwatch-page__play-icon" />
                         </div>
+                    </div> 
 
-                        <div className="nextwatch-page__details-container">
-                            <div className="nextwatch-page__rating">
-                                <FontAwesomeIcon icon={faStar} className="nextwatch-page__star-icon" /> {mediaData.vote_average} / 10
-                            </div>
-
-                            <div className="nextwatch-page__duration">
-                                {mediaType === 'movie' 
-                                    ? `${mediaData.runtime} minutes` 
-                                    : mediaData.episode_run_time[0] 
-                                        ? `${mediaData.episode_run_time[0]} minutes per episode`
-                                        : 'Duration: Unavailable'}
-                            </div>
+                    <div className="nextwatch-page__actions">
+                        <div className="nextwatch-page__media-type">
+                            <FontAwesomeIcon
+                                className="nextwatch-page__media-icon"
+                                icon={mediaType === 'tv' ? faTv : faFilm}
+                                data-tooltip-id={`mediaTypeTooltip-${mediaId}`}
+                                data-tooltip-content={`${mediaType === 'tv' ? 'TV Show' : 'Movie'}`}
+                            />
+                            <Tooltip id={`mediaTypeTooltip-${mediaId}`} place="top" className="custom-tooltip" />
                         </div>
+                        <button
+                            className="nextwatch-page__calendar-button"
+                            onClick={handleAddToCalendar}
+                            data-tooltip-id={`calendarTooltip-${mediaId}`}
+                            data-tooltip-content="Add to Calendar"
+                        >
+                            <FontAwesomeIcon icon={faCalendarPlus} />
+                        </button>
+                        <Tooltip id={`calendarTooltip-${mediaId}`} place="top" className="custom-tooltip" />
+                        
+                        <button
+                            className="nextwatch-page__share-button"
+                            onClick={handleShare}
+                            data-tooltip-id={`shareTooltip-${mediaId}`}
+                            data-tooltip-content="Share"
+                        >
+                            <FontAwesomeIcon icon={faShareAlt} />
+                        </button>
+                        <Tooltip id={`shareTooltip-${mediaId}`} place="top" className="custom-tooltip" />
 
-                        <div className="nextwatch-page__streaming">
-                            <p className="nextwatch-page__streaming-copy">Available on:</p>
-                            <div className="nextwatch-page__streaming-services">
-                                {providers.length > 0 ? (
-                                    providers.map(provider => (
-                                        <img
-                                            key={provider.provider_id}
-                                            src={`https://image.tmdb.org/t/p/original${provider.logo_path}`}
-                                            alt={provider.provider_name}
-                                            className="nextwatch-page__streaming-provider-logo"
-                                        />
-                                    ))
-                                ) : (
-                                    <p className="nextwatch-page__no-streaming-services">No streaming services available.</p>
-                                )}
-                            </div>
+                        <div className="nextwatch-page__interaction-buttons">
+                            {getInteractionIcon()}
                         </div>
+                    </div> 
+                  </div>
 
-                        {/* Similar Media Section */}
-                        <div className={`nextwatch-page__similar-container ${similarMedia.length <= 3 ? 'no-scroll' : ''}`}>
-                            <p className="nextwatch-page__media-copy">Similar Media:</p>
-                            {similarMedia.length === 0 ? (
-                                <p className="nextwatch-page__no-similar-media">Similar media info unavailable.</p>
-                            ) : (
-                                <>
-                                    {similarMedia.length > 3 && (
-                                        <button className="nextwatch-page__similar-arrow nextwatch-page__similar-arrow-left" onClick={handleScrollLeft}>
-                                            <FontAwesomeIcon icon={faChevronLeft} />
-                                        </button>
-                                    )}
-                                    <div className="nextwatch-page__similar-scroll" ref={similarMediaRef}>
-                                        <ul className="nextwatch-page__similar-list">
-                                            {similarMedia.map(item => (
-                                                <li key={item.id} className="nextwatch-page__similar-item"> 
-                                                    <div
-                                                        className="nextwatch-page__similar-card"
-                                                        onClick={() => navigate(`/nextview/${userId}/${item.id}/${item.media_type}`)}
-                                                    >
-                                                        {item.poster_path ? (
-                                                            <img
-                                                                src={`https://image.tmdb.org/t/p/w185${item.poster_path}`}
-                                                                alt={item.title || item.name}
-                                                                className="nextwatch-page__similar-img"
-                                                            />
-                                                        ) : (
-                                                            <FontAwesomeIcon icon={faFilm} className="nextwatch-page__similar-img-placeholder" />
-                                                        )}
-                                                        <div className="nextwatch-page__similar-copy-container">
-                                                          <div className="nextwatch-page__similar-name">{item.title || item.name}</div>
-                                                          <div className="nextwatch-page__similar-rating">
-                                                              <FontAwesomeIcon icon={faStar} /> {item.vote_average} / 10
-                                                          </div>
+                  <div className="nextwatch-page__details">
+
+                      {/* Similar Media Section */}
+                      <div className={`nextwatch-page__similar-container ${similarMedia.length <= 3 ? 'no-scroll' : ''}`}>
+                          <p className="nextwatch-page__media-copy">Similar Media:</p>
+                          {similarMedia.length === 0 ? (
+                              <p className="nextwatch-page__no-similar-media">Similar media info unavailable.</p>
+                          ) : (
+                              <>
+                                  {similarMedia.length > 3 && (
+                                      <button className="nextwatch-page__similar-arrow nextwatch-page__similar-arrow-left" onClick={handleScrollLeft}>
+                                          <FontAwesomeIcon icon={faChevronLeft} />
+                                      </button>
+                                  )}
+                                  <div className="nextwatch-page__similar-scroll" ref={similarMediaRef}>
+                                      <ul className="nextwatch-page__similar-list">
+                                          {similarMedia.map(item => (
+                                              <li key={item.id} className="nextwatch-page__similar-item"> 
+                                                  <div
+                                                      className="nextwatch-page__similar-card"
+                                                      onClick={() => navigate(`/nextview/${userId}/${item.id}/${item.media_type}`)}
+                                                  >
+                                                      {item.poster_path ? (
+                                                          <img
+                                                              src={`https://image.tmdb.org/t/p/w185${item.poster_path}`}
+                                                              alt={item.title || item.name}
+                                                              className="nextwatch-page__similar-img"
+                                                          />
+                                                      ) : (
+                                                          <FontAwesomeIcon icon={faFilm} className="nextwatch-page__similar-img-placeholder" />
+                                                      )}
+                                                      <div className="nextwatch-page__similar-copy-container">
+                                                        <div className="nextwatch-page__similar-name">{item.title || item.name}</div>
+                                                        <div className="nextwatch-page__similar-rating">
+                                                            <FontAwesomeIcon icon={faStar} /> {item.vote_average} / 10
                                                         </div>
-                                                    </div>
-                                                </li>
-                                            ))}
-                                        </ul> 
-                                    </div>
+                                                      </div>
+                                                  </div>
+                                              </li>
+                                          ))}
+                                      </ul> 
+                                  </div>
 
-                                    {similarMedia.length > 3 && (
-                                        <button className="nextwatch-page__similar-arrow nextwatch-page__similar-arrow-right" onClick={handleScrollRight}>
-                                            <FontAwesomeIcon icon={faChevronRight} />
-                                        </button>
-                                    )}
-                                </>
+                                  {similarMedia.length > 3 && (
+                                      <button className="nextwatch-page__similar-arrow nextwatch-page__similar-arrow-right" onClick={handleScrollRight}>
+                                          <FontAwesomeIcon icon={faChevronRight} />
+                                      </button>
+                                  )}
+                              </>
                             )}
                         </div>
                     </div>

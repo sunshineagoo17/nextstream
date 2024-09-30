@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 const sharedConfig = {
-    client: 'mysql',
+    client: 'mysql2',
     migrations: {
         tableName: 'knex_migrations',
         directory: './migrations',

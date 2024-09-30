@@ -244,7 +244,7 @@ const TopPicksPage = () => {
 
     try {
       await api.post('/api/interactions', { userId, media_id, interaction: 0, media_type });
-      showAlert('You disliked this media!', 'info');
+      showAlert('You disliked this media!', 'success');
       
       const updatedMedia = media.map(item => item.id === media_id ? { ...item, interaction: 0 } : item);
       const nonInteractedMedia = updatedMedia.filter(item => item.interaction === null || item.interaction === undefined);
