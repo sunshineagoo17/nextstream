@@ -535,6 +535,10 @@
       transform: scale(1.05);
     }
 
+    &:active {
+      transform: scale(.9);
+    }
+
     @include tablet {
       width: 8rem;
     }
@@ -544,15 +548,38 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background-color: $primary-dark-blue;
+    background-color: $primary-medium-blue;
     color: $neutral-white;
+    border: 2px solid $primary-very-light-blue;
     padding: 0.5rem;
     border-radius: 0.5rem;
     cursor: pointer;
-
+    transition: transform 0.3s ease; 
+    
     &:hover {
-      background-color: $primary-button-blue;
-    }
+      background: $primary-very-light-blue;
+      border: 2px solid $neutral-white;
+  
+      // Move left or right depending on the arrow direction
+      &.nextwatch-page__recommendations-arrow-left {
+        transform: translateY(-50%) translateX(-5px); 
+      }
+  
+      &.nextwatch-page__recommendations-arrow-right {
+        transform: translateY(-50%) translateX(5px); 
+      }
+  
+      &:active {
+        background-color: $primary-button-blue;
+        border: 2px solid $neutral-white;
+  
+        // Reset to original position on active
+        &.nextwatch-page__recommendations-arrow-left,
+        &.nextwatch-page__recommendations-arrow-right {
+          transform: translateY(-50%) translateX(0); 
+        }
+      }
+    } 
 
     &-left {
       left: -1rem;
@@ -955,6 +982,10 @@
 
     &:hover {
       transform: scale(1.05);
+
+      &:active {
+        transform: scale(.9);
+      }
     }
 
     @include tablet {
@@ -966,16 +997,37 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background-color: $primary-dark-blue;
+    border: 2px solid $primary-very-light-blue;
+    background-color: $primary-medium-blue;
     color: $neutral-white;
     padding: 0.5rem;
     border-radius: 0.5rem;
     cursor: pointer;
-
+    transition: transform 0.3s ease; 
+  
     &:hover {
-      background-color: $primary-button-blue;
+      background: $primary-very-light-blue;
+      border: 2px solid $neutral-white;
+  
+      &.nextwatch-page__similar-arrow-left {
+        transform: translateY(-50%) translateX(-5px); 
+      }
+  
+      &.nextwatch-page__similar-arrow-right {
+        transform: translateY(-50%) translateX(5px); 
+      }
+  
+      &:active {
+        background-color: $primary-button-blue;
+        border: 2px solid $neutral-white;
+  
+        &.nextwatch-page__similar-arrow-left,
+        &.nextwatch-page__similar-arrow-right {
+          transform: translateY(-50%) translateX(0); 
+        }
+      }
     }
-
+  
     &-left {
       left: -1rem;
     }

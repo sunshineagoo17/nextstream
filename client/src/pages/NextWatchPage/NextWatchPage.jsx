@@ -104,7 +104,7 @@ const NextWatchPage = () => {
           }
         }
 
-     
+
         // Fetch similar media
         const similarResponse = await api.get(
             `${process.env.REACT_APP_BASE_URL}/api/tmdb/${mediaType}/${mediaId}/similar`
@@ -205,7 +205,7 @@ const NextWatchPage = () => {
       if (newInteraction === 1) {
         showAlert('You liked this media!', 'success');
       } else if (newInteraction === 0) {
-        showAlert('You disliked this media!', 'info');
+        showAlert('You disliked this media!', 'success');
       } else {
         showAlert('Interaction removed.', 'info');
       }
