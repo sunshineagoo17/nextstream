@@ -201,10 +201,22 @@
     }
   }
 
+  &__share-button-container,
+  &__calendar-button-container {
+    border: none;
+    background: none;
+  }
+
+  &__nextwatch-icon {
+    color: $primary-button-blue;
+  }
+  
+  &__nextwatch-link,
   &__calendar-button,
   &__share-button,
   &__thumbs-up,
   &__thumbs-down {
+    @include block-item(1rem, 1rem);
     padding: .25rem;
     border-radius: .5rem;
     font-size: 1rem;
@@ -227,7 +239,7 @@
       background: $neutral-white;
       color: $primary-button-blue;
       box-shadow: $shadow-primary;
-      border: .1875rem solid $primary-dark-blue;
+      border: .1875rem solid $primary-medium-blue;
     }
 
     @include tablet {
@@ -236,20 +248,15 @@
     }
   }
 
-  &__calendar-button,
-  &__share-button {
-    @include block-item(2.375rem, 2.375rem);
-  }
-
-  &__thumbs-up,
-  &__thumbs-down {
-    @include block-item(1rem, 1rem);
-    padding: .65rem;
-
-    @include tablet {
-      @include block-item(1.375rem, 1.375rem);
-      padding: .5rem;
-    }
+  &__nextwatch-link {
+    @include block-item(auto, 2rem);
+    margin-bottom: 1.5rem;
+    gap: .5rem;
+    font-size: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: .15rem;
   }
 
   &__interaction-buttons {

@@ -79,7 +79,7 @@
     color: $primary-pale-blue;
     padding: 1.5rem;
     width: 100%;
-    background: linear-gradient(145deg, $primary-dark-blue, darken($primary-button-blue, 5%));
+    background: $primary-medium-blue;
     border-radius: .75rem;
     box-shadow: .3125rem .3125rem .9375rem rgba(0, 0, 0, .2), -.3125rem -3125rem .9375rem rgba(255, 255, 255, .1);
     border: .3125rem solid $primary-very-light-blue;
@@ -132,11 +132,11 @@
   &__copy {
     background: $frosted-glass;
     border-radius: .75rem;
-    color: $primary-very-light-blue;
+    color: $neutral-white;
     text-shadow: none;
     font-size: .85rem;
     margin-bottom: .5rem;
-    box-shadow: $shadow-primary;
+    box-shadow: $shadow-senary;
     border: .3125rem solid $frosted-glass;
     line-height: 1.25rem;
     min-width: 13.5rem;

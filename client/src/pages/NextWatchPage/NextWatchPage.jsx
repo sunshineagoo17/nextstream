@@ -53,7 +53,7 @@ const NextWatchPage = () => {
     const navigate = useNavigate();  
     const { userId, isGuest } = useContext(AuthContext); 
     const [mediaData, setMediaData] = useState(null);
-    const [similarMedia, setSimilarMedia] = useState([]); // For similar media
+    const [similarMedia, setSimilarMedia] = useState([]); 
     const [certification, setCertification] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [isTrailerLoading, setIsTrailerLoading] = useState(false);
@@ -301,7 +301,7 @@ const NextWatchPage = () => {
                 <h1 className="nextwatch-page__header">NextWatch</h1>
                 <p className="nextwatch-page__copy">
                     <span className="nextwatch-page__gradient-subtitle">NextWatch</span>
-                    lets you explore a world of similar media based on your selected title. Dive into these recommendations, check out more details, and decide what's next on your watchlist. Click on the media card now for your next watch.
+                    lets you explore a world of similar media based on the title you've selected. Dive into recommendations, discover more details, and decide what's next on your watchlist. Click on a media card to start your next watch.
                 </p>
             </div>
             <div className="nextwatch-page__content-container">

@@ -1,12 +1,12 @@
 import { useState, useEffect, useContext, useRef, useCallback } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faPlay, faCalendarPlus, faStar, faThumbsUp, faThumbsDown, faClose, faTv, faFilm, faChevronRight, faChevronLeft,
   faMap, faBomb, faPalette, faLaugh, faFingerprint, faClapperboard, faTheaterMasks, faQuidditch, faGhost, faUserSecret,
   faVideoCamera, faFaceKissWinkHeart, faMusic, faHandSpock, faMask, faChildren, faShareAlt,
   faFighterJet, faScroll, faHatCowboy, faChild, faTelevision,
-  faBalanceScale, faHeartBroken, faBolt, faExplosion, faMeteor, faUser, faMicrophone
+  faBalanceScale, faHeartBroken, faBolt, faExplosion, faMeteor, faUser, faMicrophone, faListCheck
 } from '@fortawesome/free-solid-svg-icons';
 import { AuthContext } from '../../context/AuthContext/AuthContext'; 
 import { Tooltip } from 'react-tooltip';
@@ -330,6 +330,10 @@ const NextViewPage = () => {
 
                 <div className="nextview-page__media-info">
                     <div className="nextview-page__left-media-container">
+                        <Link to={`/nextwatch/${userId}/${mediaType}/${mediaId}`} className="nextview-page__nextwatch-link">
+                            <FontAwesomeIcon icon={faListCheck} className="nextview-page__nextwatch-icon" />
+                            Find Similar Media
+                        </Link>
                         <div className="nextview-page__poster-container">
                             <img 
                                 src={mediaData.poster_path 
@@ -354,22 +358,22 @@ const NextViewPage = () => {
                                 <Tooltip id={`mediaTypeTooltip-${mediaId}`} place="top" className="custom-tooltip" />
                             </div>
                             <button
-                                className="nextview-page__calendar-button"
+                                className='nextview-page__calendar-button-container'
                                 onClick={handleAddToCalendar}
                                 data-tooltip-id={`calendarTooltip-${mediaId}`}
                                 data-tooltip-content="Add to Calendar"
                             >
-                                <FontAwesomeIcon icon={faCalendarPlus} />
+                                <FontAwesomeIcon icon={faCalendarPlus} className="nextview-page__calendar-button"/>
                             </button>
                             <Tooltip id={`calendarTooltip-${mediaId}`} place="top" className="custom-tooltip" />
                             
                             <button
-                                className="nextview-page__share-button"
+                                className='nextview-page__share-button-container'
                                 onClick={handleShare}
                                 data-tooltip-id={`shareTooltip-${mediaId}`}
                                 data-tooltip-content="Share"
                             >
-                                <FontAwesomeIcon icon={faShareAlt} />
+                                <FontAwesomeIcon icon={faShareAlt} className="nextview-page__share-button" />
                             </button>
                             <Tooltip id={`shareTooltip-${mediaId}`} place="top" className="custom-tooltip" />
 
