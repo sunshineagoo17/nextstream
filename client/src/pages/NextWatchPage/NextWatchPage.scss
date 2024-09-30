@@ -201,6 +201,7 @@
     }
   }
 
+  &__media-type,
   &__calendar-button,
   &__share-button,
   &__thumbs-up,
@@ -229,18 +230,10 @@
       box-shadow: $shadow-primary;
       border: .1875rem solid $primary-dark-blue;
     }
-
-    @include tablet {
-      padding: .5rem;
-      font-size: 1.25rem;
-    }
   }
 
   &__calendar-button,
-  &__share-button {
-    @include block-item(2.375rem, 2.375rem);
-  }
-
+  &__share-button,
   &__thumbs-up,
   &__thumbs-down {
     @include block-item(1rem, 1rem);
@@ -265,11 +258,6 @@
     border-radius: .5rem;
     font-size: 1rem;
     background-color: $frosted-glass;
-    box-shadow: $shadow-septenary;
-
-    svg {
-      color: $primary-button-blue;
-    }
 
     @include tablet {
       padding: .5rem;
@@ -495,6 +483,12 @@
   &__recommendations-icon, 
   &__similar-media-icon {
     color: $pastel-blue;
+  }
+
+  &__share-button-container,
+  &__calendar-button-container {
+    border: none;
+    background: none;
   }
 
   &__media-copy {

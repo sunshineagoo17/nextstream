@@ -209,6 +209,10 @@ const NextWatchPage = () => {
     }
   };
 
+  const handleMediaTypeClick = () => {
+    navigate(`/nextview/${userId}/${mediaType}/${mediaId}`);
+  };
+
   const handleShare = () => {
     if (isGuest) {
       showAlert(
@@ -522,6 +526,7 @@ const NextWatchPage = () => {
                 <FontAwesomeIcon
                   className='nextwatch-page__media-icon'
                   icon={mediaType === 'tv' ? faTv : faFilm}
+                  onClick={handleMediaTypeClick} 
                   data-tooltip-id={`mediaTypeTooltip-${mediaId}`}
                   data-tooltip-content={`${
                     mediaType === 'tv' ? 'TV Show' : 'Movie'
@@ -534,11 +539,11 @@ const NextWatchPage = () => {
                 />
               </div>
               <button
-                className='nextwatch-page__calendar-button'
+                className='nextwatch-page__calendar-button-container'
                 onClick={handleAddToCalendar}
                 data-tooltip-id={`calendarTooltip-${mediaId}`}
                 data-tooltip-content='Add to Calendar'>
-                <FontAwesomeIcon icon={faCalendarPlus} />
+                <FontAwesomeIcon icon={faCalendarPlus} className='nextwatch-page__calendar-button'/>
               </button>
               <Tooltip
                 id={`calendarTooltip-${mediaId}`}
@@ -547,11 +552,11 @@ const NextWatchPage = () => {
               />
 
               <button
-                className='nextwatch-page__share-button'
+                className='nextwatch-page__share-button-container'
                 onClick={handleShare}
                 data-tooltip-id={`shareTooltip-${mediaId}`}
                 data-tooltip-content='Share'>
-                <FontAwesomeIcon icon={faShareAlt} />
+                <FontAwesomeIcon icon={faShareAlt} className='nextwatch-page__share-button'/>
               </button>
               <Tooltip
                 id={`shareTooltip-${mediaId}`}
