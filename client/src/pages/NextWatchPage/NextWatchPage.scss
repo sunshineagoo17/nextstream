@@ -1,0 +1,1078 @@
+// Import partials
+@use "../../styles/partials/colors" as *;
+@use "../../styles/partials/fonts" as *;
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/global.scss" as *;
+
+.custom-tooltip {
+  background-color: $primary-dark-blue !important;
+  color: $neutral-white !important;
+  padding: .25rem !important;
+  border-radius: 1rem;
+  font-family: $primary-font !important;
+  text-shadow: none;
+  font-size: .75rem !important;
+  line-height: 1.25rem;
+  font-weight: bold;
+  z-index: 9999;
+
+  @include tablet {
+    font-size: .95rem !important;
+    padding: .75rem !important;
+  }
+
+  &::after {
+    border-color: $primary-button-blue transparent transparent transparent;
+  }
+}
+
+.nextwatch-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: $frosted-glass;
+  padding: 1.55rem;
+  min-height: 100vh;
+  position: relative;
+
+  @include tablet {
+    padding: 3rem;
+  }
+
+  @include desktop {
+    padding: 3.25rem;
+  }
+
+  &__gradient-subtitle {
+    font-weight: bold;
+    background: linear-gradient(270deg, $neutral-white, $primary-gradient-blue, $primary-medium-blue);
+    background-size: 600% 600%;
+    margin-right: .35rem;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: GradientAnimation 10s ease infinite;
+  }
+  
+  @keyframes GradientAnimation {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  &__heading-container {
+    text-align: center;
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: .25rem;
+    margin-bottom: 1.25rem;
+    text-shadow: .125rem .125rem .3125rem rgba(0, 0, 0, .2);
+    color: $primary-pale-blue;
+    padding: 1.5rem;
+    width: 100%;
+    background: linear-gradient(145deg, $primary-dark-blue, darken($primary-button-blue, 5%));
+    border-radius: .75rem;
+    box-shadow: .3125rem .3125rem .9375rem rgba(0, 0, 0, .2), -.3125rem -3125rem .9375rem rgba(255, 255, 255, .1);
+    border: .3125rem solid $primary-very-light-blue;
+    position: relative;
+    overflow: hidden;
+    line-height: 2.15rem;
+
+      @include tablet {
+        padding: 1.5rem 1.75rem;
+      }
+  
+      @include desktop {
+        padding: 2rem 6rem;
+        max-width: 155rem;
+      }
+    
+    &::before {
+      content: "";
+      @include block-item(100%, 100%);
+      position: absolute;
+      top: 0;
+      left: -100%;
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, .4) 50%, rgba(255, 255, 255, 0) 100%);
+      transform: skewX(-25deg);
+      transition: left 1s;
+    }
+
+    &:hover::before {
+      left: 100%;
+      transition: left 1s;
+    }
+  }
+
+  &__header {
+    text-shadow: $shadow-primary;
+    margin-bottom: .5rem;
+    display: flex;
+    align-items: center;
+    color: $neutral-white;
+    font-family: $primary-font;
+    font-size: 1.5rem;
+    font-weight: bold;
+
+    @include tablet {
+      margin-bottom: 1rem;
+      font-size: 2.5rem;
+    }
+  }
+
+  &__copy {
+    background: $frosted-glass;
+    border-radius: .75rem;
+    color: $primary-very-light-blue;
+    text-shadow: none;
+    font-size: .85rem;
+    margin-bottom: .5rem;
+    box-shadow: $shadow-primary;
+    border: .3125rem solid $frosted-glass;
+    line-height: 1.25rem;
+    min-width: 13.5rem;
+    padding: .75rem;
+
+    @include tablet {
+      font-size: 1.35rem;
+      line-height: 1.75rem;
+      min-width: 35rem;
+      padding: 1.5rem;
+    }
+  }
+
+  &__streaming-services {
+    display: flex;
+    gap: .5rem;
+  }
+
+  &__streaming-provider-logo {
+    width: 3.5rem;
+    padding: .25rem;
+    height: auto;
+    border-radius: .5rem;
+    transition: transform .3s ease;
+    background-color: $neutral-white;
+    box-shadow: $shadow-secondary;
+
+    &:hover {
+      transform: scale(1.1);
+      background: $primary-gradient-blue;
+      border-radius: 2.5rem;
+    }
+
+    @include tablet {
+      width: 3.5rem;
+    }
+  }
+
+  &__streaming {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: auto;
+    background: $frosted-glass;
+    border-radius: 1rem;
+    padding: 1rem;
+    border: .3125rem solid $primary-very-light-blue;
+    box-shadow: $shadow-tertiary;
+
+    h3 {
+      color: $primary-button-blue;
+      margin-bottom: .5rem;
+      font-size: 1.25rem;
+
+      @include tablet {
+        font-size: 1.5rem;
+      }
+
+      @include desktop {
+        font-size: 1.75rem;
+      }
+    }
+  }
+
+  &__calendar-button,
+  &__share-button,
+  &__thumbs-up,
+  &__thumbs-down {
+    padding: .25rem;
+    border-radius: .5rem;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    color: $primary-medium-blue;
+    background-color: $frosted-glass;
+    box-shadow: $shadow-secondary;
+    transition: transform .3s ease, background .3s ease;
+
+    &:hover {
+      background: $primary-dark-blue;
+      transform: scale(1.1);
+      color: $neutral-white;
+      border: .125rem solid $primary-button-blue;
+    }
+
+    &:active {
+      transform: scale(.95);
+      background: $neutral-white;
+      color: $primary-button-blue;
+      box-shadow: $shadow-primary;
+      border: .1875rem solid $primary-dark-blue;
+    }
+
+    @include tablet {
+      padding: .5rem;
+      font-size: 1.25rem;
+    }
+  }
+
+  &__calendar-button,
+  &__share-button {
+    @include block-item(2.375rem, 2.375rem);
+  }
+
+  &__thumbs-up,
+  &__thumbs-down {
+    @include block-item(1rem, 1rem);
+    padding: .65rem;
+
+    @include tablet {
+      @include block-item(1.375rem, 1.375rem);
+      padding: .5rem;
+    }
+  }
+
+  &__interaction-buttons {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__media-type {
+    display: flex;
+    align-items: center;
+    border: .0625rem solid $frosted-glass;
+    padding: .65rem;
+    border-radius: .5rem;
+    font-size: 1rem;
+    background-color: $frosted-glass;
+    box-shadow: $shadow-septenary;
+
+    svg {
+      color: $primary-button-blue;
+    }
+
+    @include tablet {
+      padding: .5rem;
+      font-size: 1.25rem;
+    }
+  }
+
+  &__content-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: $frosted-glass;
+    backdrop-filter: blur(.5rem);
+    border-radius: 1.25rem;
+    box-shadow: $shadow-quaternary;
+    border: .3125rem solid $neutral-light-grey;
+    padding: 1.5rem;
+    width: 100%;
+
+    @include tablet {
+      padding: 1.5rem;
+    }
+
+    @include desktop {
+      padding: 2rem 6rem;
+      max-width: 155rem;
+    }
+  }
+
+  &__details-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: .5rem;
+    background-color: $frosted-glass;
+    gap: .5rem;
+    border: .3125rem solid $primary-very-light-blue;
+    border-radius: .75rem;
+    box-shadow: $shadow-tertiary;
+  }
+
+  &__title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    font-family: $secondary-font;
+    font-weight: bold;
+    font-size: 1rem;
+    gap: .25rem;
+    font-size: 1.5rem;
+    color: $primary-button-blue;
+    text-shadow: 0 .125rem .25rem rgba(0, 0, 0, .2);
+    margin-bottom: .25rem;
+
+    @include tablet {
+      gap: .5rem;
+      font-size: 1.5rem;
+    }
+  }
+
+  &__neutral-interactions {
+    display: flex; 
+    flex-direction: row;
+    gap: .25rem;
+  }
+
+  &__certification {
+    font-size: .75rem;
+    padding: .25rem .5rem;
+    background-color: $primary-medium-blue;
+    border-radius: .35rem;
+    color: $neutral-white;
+    box-shadow: $shadow-primary;
+  }
+
+  &__media-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    width: 100%;
+
+    @include tablet {
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: center;
+      gap: .9rem;
+      width: 60%;
+    }
+
+    @include desktop {
+      gap: 4rem;
+      display: flex;
+      align-items: center;
+      width: 50%;
+    }
+
+    @include large-desktop {
+      gap: 3rem;
+    }
+  }
+
+  &__poster-container {
+    position: relative;
+    width: 100%;
+    max-width: 20rem;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: $shadow-quaternary;
+    transition: transform .3s ease;
+    border-radius: 1.5rem;
+    border: .3125rem solid $primary-very-light-blue;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+
+    @include tablet {
+      max-width: 25rem;
+    }
+
+    @include desktop {
+      max-width: 30rem;
+    }
+  }
+
+  &__poster {
+    @include block-item(100%, auto);
+    border-radius: 1rem;
+  }
+
+  &__play-overlay {
+    @include block-item(100%, 100%);
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba($neutral-black, .5);
+    opacity: 0;
+    transition: opacity .3s ease;
+
+    &:hover {
+      opacity: 1;
+      cursor: pointer;
+    }
+  }
+
+  &__play-icon {
+    color: $neutral-white;
+    font-size: 2rem;
+
+    @include tablet {
+      font-size: 2.5rem;
+    }
+
+    @include desktop {
+      font-size: 3rem;
+    }
+  }
+
+  &__details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+
+    @include tablet {
+      align-items: flex-start;
+      gap: 1.5rem;
+    }
+
+    @include desktop {
+      align-items: center;
+      border: .3125rem solid $frosted-glass;
+      padding: 1.5rem;
+      gap: 2rem;
+      border-radius: 1rem;
+      box-shadow: $shadow-secondary;
+    }
+  }
+
+  &__streaming-copy,
+  &__media-copy {
+    font-family: $primary-font;
+    font-size: 1rem;
+    color: $primary-button-blue;
+    margin-bottom: .25rem;
+    text-align: center;
+
+    @include tablet {
+      font-size: 1.15rem;
+    }
+  }
+
+  &__genre {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: .5rem;
+
+    @include tablet {
+      justify-content: flex-start;
+
+      @include desktop {
+        justify-content: center;
+      }
+    }
+
+    &-icon {
+      color: $primary-button-blue;
+    }
+
+    &-item {
+      background: $frosted-glass;
+      color: $primary-medium-blue;
+      padding: .25rem .5rem;
+      border-radius: .5rem;
+      font-size: .85rem;
+      box-shadow: $shadow-septenary;
+      border: .0625rem solid $frosted-glass;
+
+      @include tablet {
+        padding: .5rem 1rem;
+        font-size: 1rem;
+      }
+    }
+  }
+
+  &__description {
+    text-align: center;
+    font-family: $secondary-font;
+    color: $primary-dark-blue;
+    background-color: $primary-pale-blue;
+    border-radius: .5rem;
+    padding: .5rem;
+    font-size: .75rem;
+    line-height: 1rem;
+    box-shadow: $shadow-secondary;
+    border: .1875rem solid $neutral-white;
+
+    @include large-mobile {
+      font-size: .8rem;
+    }
+
+    @include tablet {
+      font-size: 1rem;
+      line-height: 1.25rem;
+    }
+
+    @include desktop {
+      line-height: 1.5rem;
+    }
+  }
+
+  &__content {
+    background-color: $frosted-glass;
+    box-shadow: $shadow-primary;
+    border-radius: 1rem;
+    padding: .75rem;
+    border: .3125rem solid $primary-very-light-blue;
+    margin-bottom: 1.5rem;
+
+    @include tablet {
+      margin-bottom: 2.5rem;
+      min-width: 31.5rem;
+      padding: .65rem;
+    }
+
+    @include desktop {
+      width: 60.5rem;
+      padding: 1rem;
+    }
+  }
+
+  &__rating {
+    display: flex;
+    align-items: center;
+    font-size: .85rem;
+    color: $primary-medium-blue;
+    padding: .25rem .5rem;
+    background-color: $primary-pale-blue;
+    box-shadow: $shadow-secondary;
+    border-radius: .5rem;
+    border: .125rem solid $neutral-white;
+    line-height: 1rem;
+
+    @include tablet {
+      line-height: 1.25rem;
+      font-size: 1rem;
+      padding: .5rem;
+    }
+
+    svg {
+      margin-right: .5rem;
+      color: $primary-button-blue;
+    }
+  }
+
+  &__duration {
+    font-size: .85rem;
+    color: $primary-medium-blue;
+    padding: .25rem .5rem;
+    background-color: $primary-pale-blue;
+    box-shadow: $shadow-secondary;
+    border-radius: .5rem;
+    border: .125rem solid $neutral-white;
+    line-height: 1rem;
+
+    @include tablet {
+      line-height: 1.25rem;
+      font-size: 1rem;
+      padding: .5rem;
+    }
+  }
+
+  &__m-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 39.6875rem;
+    border-radius: 1rem;
+    padding: 1.1rem;
+    background: $frosted-glass;
+    box-shadow: $shadow-tertiary;
+    border: .3125rem solid $primary-very-light-blue;
+    position: relative;
+
+    @include tablet {
+      min-width: 22.5rem;
+      width: 100%;
+      max-width: 22.5rem;
+    }
+
+    @include desktop {
+      width: 100%;
+      max-width: 32rem;
+    }
+
+    &.no-scroll .nextwatch-page__cast-scroll {
+      overflow: hidden;
+    }
+
+    h3 {
+      color: $primary-dark-blue;
+      margin-bottom: .5rem;
+      font-size: 1rem;
+
+      @include tablet {
+        font-size: 1.25rem;
+      }
+
+      @include desktop {
+        font-size: 1.5rem;
+      }
+    }
+  }
+
+  &__cast-scroll {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding-bottom: .5rem;
+    gap: .5rem;
+
+    &::-webkit-scrollbar {
+      height: .375rem;
+      border-radius: .1875rem;
+      background-color: $frosted-glass;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: $primary-button-blue;
+      border-radius: .1875rem;
+    }
+  }
+
+  &__cast-list {
+    display: flex;
+    gap: .5rem;
+
+    @include tablet {
+      gap: 1rem;
+    }
+  }
+
+  &__cast-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 6rem;
+    max-width: 7rem;
+    transition: transform .3s ease;
+
+    &:active {
+      transform: scale(.9);
+    }
+
+    @include tablet {
+      width: 7rem;
+    }
+
+    @include desktop {
+      width: 8rem;
+    }
+  }
+
+  &__cast-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    border-radius: .5rem;
+    box-shadow: $shadow-primary;
+    background: rgba($neutral-white, .9);
+    padding: .5rem;
+    cursor: pointer;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+
+    transition: transform .3s ease;
+  }
+
+  &__cast-img {
+    width: 100%;
+    border-radius: .5rem;
+    margin-bottom: .25rem;
+  }
+
+  &__cast-img-placeholder {
+    width: 100%;
+    border-radius: .5rem;
+    margin-bottom: .25rem;
+    color: $primary-button-blue;
+  }
+
+  &__cast-name {
+    font-size: .85rem;
+    color: $primary-medium-blue;
+    font-family: $secondary-font;
+
+    @include tablet {
+      font-size: 1rem;
+    }
+  }
+
+  &__cast-character {
+    color: $primary-gradient-blue;
+    font-size: .65rem;
+    font-family: $secondary-font;
+
+    @include tablet {
+      font-size: .75rem;
+    }
+  }
+
+  &__cast-name,
+  &__cast-character {
+    margin-top: .25rem;
+    line-height: 1rem;
+  }
+
+  &__cast-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: $primary-dark-blue;
+    color: $neutral-white;
+    border: .125rem solid $primary-very-light-blue;
+    box-shadow: $shadow-septenary;
+    border-radius: .5rem;
+    padding: .5rem;
+    font-size: 1.25rem;
+    cursor: pointer;
+    
+    &:hover {
+      background: $primary-button-blue;
+      color: $primary-very-light-blue;
+      box-shadow: $shadow-primary;
+      border: .1875rem solid $primary-medium-blue;
+    }
+
+    &:active {
+      background: $primary-very-light-blue;
+      color: $primary-button-blue;
+      border: .1875rem solid $primary-dark-blue;
+    }
+  }
+  
+  &__cast-arrow-left {
+    left: -1rem;
+    right: unset;
+    transition: transform .3s ease, background .3s ease, left .3s ease, right .3s ease;
+  
+    &:hover {
+      left: -1.5rem;
+    }
+
+    &:active {
+      left: -1rem;
+    }
+  }
+  
+  &__cast-arrow-right {
+    right: -1rem;
+    left: unset;
+    transition: transform .3s ease, background .3s ease, left .3s ease, right .3s ease;
+  
+    &:hover {
+      right: -1.5rem; 
+    }
+
+    &:active {
+      right: -1rem;
+    }
+  }  
+
+  &__actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    width: 100%;
+
+    @include tablet {
+      gap: 1.5rem;
+    }
+
+    @include desktop {
+      gap: 2.5rem;
+    }
+  }
+
+  &__calendar-modal {
+    @include block-item(100%, 100%);
+    position: fixed;
+    top: 0;
+    flex-direction: column;
+    left: 0;
+    background-color: $primary-darker-blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__cal-close-btn {
+    @include block-item(1.75rem, 1.75rem);
+    transform: translateX(-50%);
+    background-color: transparent;
+    color: $neutral-white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: .0625rem solid $neutral-white;
+    padding: .25rem;
+    font-size: 1rem;
+    box-shadow: $shadow-senary;
+    cursor: pointer;
+    z-index: 1001;
+    border-radius: .2rem;
+    transition: all .3s ease; 
+
+    &:hover {
+      background-color: $primary-dark-blue;
+      color: $neutral-white;
+      padding: 1rem; 
+      border-radius: .5rem; 
+      transform: translateX(-50%) scale(1.25); 
+    }
+
+    &:active {
+      transform: translateX(-50%) scale(1);
+      box-shadow: $shadow-senary;
+    }
+  }
+
+  &__modal {
+    @include block-item(100%, 100%);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba($neutral-black, .8);
+    z-index: 1000;
+  
+    &-content {
+      background: rgba(255, 255, 255, .7);
+      backdrop-filter: blur(.625rem);
+      border-radius: .9375rem;
+      padding: 1.25rem;
+      box-shadow: 0 .25rem .75rem rgba($neutral-black, .2);
+      position: relative;
+  
+      @include tablet {
+        @include block-item(90%, 25rem);
+      }
+  
+      @include desktop {
+        @include block-item(68%, 30rem);
+      }
+
+      @include large-desktop {
+        width: 40%; 
+      }
+
+      @include extra-large-desktop {
+        width: 37.5%; 
+      }
+  
+      iframe {
+        @include block-item(100%, 100%);
+        border-radius: inherit;
+      }
+
+      &-close {
+        position: absolute;
+        top: .5rem;
+        right: .5rem;
+        background: none;
+        border: none;
+        font-size: 1.25rem;
+        cursor: pointer;
+        color: $neutral-black;
+        transition: transform .3s ease-in-out;
+
+        &:hover {
+          color: $primary-dark-blue;
+          transform: scale(1.125);
+        }
+
+        &:active {
+          color: $primary-medium-blue;
+          transform: scale(.9);
+        }
+      }
+    }
+  }
+
+  &__similar-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    background: $frosted-glass;
+    padding: 1rem;
+    border-radius: 1rem;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
+
+    @include tablet {
+      width: 100%;
+    }
+  }
+
+  &__similar-scroll {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    gap: 1rem;
+    padding: 0.5rem;
+    width: 100%;
+
+    &::-webkit-scrollbar {
+      height: 0.375rem;
+      background-color: $frosted-glass;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: $primary-button-blue;
+      border-radius: 0.5rem;
+    }
+  }
+
+  &__similar-name {
+    color: $primary-dark-blue;
+    text-align: center;
+    font-family: $secondary-font;
+    font-size: .85rem;
+  }
+
+  &__similar-list {
+    display: flex;
+    gap: 1rem;
+  }
+
+  &__similar-copy-container {
+    background: $primary-pale-blue;
+    border: 2px solid $neutral-white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: .5rem;
+    padding: .25rem;
+    box-shadow: $shadow-quinary;
+  }
+
+  &__similar-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 6rem;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+
+    @include tablet {
+      width: 8rem;
+    }
+  }
+
+  &__similar-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: $primary-dark-blue;
+    color: $neutral-white;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $primary-button-blue;
+    }
+
+    &-left {
+      left: -1rem;
+    }
+
+    &-right {
+      right: -1rem;
+    }
+  }
+
+  &__similar-img {
+    width: 100%;
+    border-radius: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  &__similar-rating {
+    font-size: .85rem;
+    color: $primary-medium-blue;
+    display: flex;
+    align-items: center;
+
+    svg {
+      margin-right: 0.25rem;
+      color: $primary-button-blue;
+    }
+  }
+
+  &__no-streaming-services,
+  &__no-similar-media {
+    color: $primary-medium-blue;
+    font-size: .85rem;
+    text-align: center;
+    line-height: 1.25rem;
+
+    @include tablet {
+      font-size: 1rem;
+      line-height: 1.5rem;
+    }
+  }
+
+  &__background {
+    @include block-item(100%, 15rem);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    z-index: -1;
+
+    @include tablet {
+      height: 20rem;
+    }
+
+    @include desktop {
+      height: 25rem;
+    }
+  }
+  
+  .loader-overlay {
+    @include block-item(100%, 100%);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba($neutral-black, .5);
+    z-index: 1100;
+  }
+}

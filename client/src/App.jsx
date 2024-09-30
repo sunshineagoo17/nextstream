@@ -33,6 +33,7 @@ import FriendsPage from './pages/FriendsPage/FriendsPage';
 import UnsubscribePage from './pages/UnsubscribePage/UnsubscribePage';
 import NextStreamBot from './pages/NextStreamBot/NextStreamBot';
 import NextStreamGpt from './pages/NextStreamGpt/NextStreamGpt';
+import NextWatchPage from './pages/NextWatchPage/NextWatchPage'; 
 import AboutPage from './pages/AboutPage/AboutPage';
 import PageTransition from './components/PageTransition/PageTransition';
 import './components/PageTransition/PageTransition.scss';
@@ -163,6 +164,7 @@ const App = () => {
             <Route path="/login-required" element={<LoginRequired />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/nextview/:userId/:mediaType/:mediaId" element={isAuthenticated || isGuest ? <NextViewPage /> : <Navigate to="/login-required" />} />
+            <Route path="/nextwatch/:userId/:mediaType/:mediaId" element={isAuthenticated || isGuest ? <NextWatchPage /> : <Navigate to="/login-required" />} /> 
             <Route path="/top-picks/:userId" element={isGuest || isAuthenticated ? <TopPicksPage /> : <Navigate to="/login-required" />} />
             <Route path="/streamboard/:userId" element={isAuthenticated ? <StreamBoard /> : <Navigate to="/login-required" />} />
             <Route path="/spotlight/:userId/:personId" element={isAuthenticated ? <SpotlightPage /> : <Navigate to="/login-required" />} />

@@ -294,6 +294,26 @@ router.get('/:mediaType/:mediaId/videos', async (req, res) => {
   }
 });
 
+// Endpoint to fetch similar titles for a movie or TV show
+router.get('/:mediaType/:mediaId/similar', async (req, res) => {
+  const { mediaType, mediaId } = req.params;
+  
+  try {
+    const response = await axios.get(`${TMDB_BASE_URL}/${mediaType}/${mediaId}/similar`, {
+      params: {
+        api_key: TMDB_API_KEY,
+        language: 'en-US'
+      }
+    });
+    
+    const similarTitles = response.data.results;
+    res.json({ results: similarTitles });
+  } catch (error) {
+    console.error(`Error fetching similar titles for ${mediaType} ${mediaId}:`, error.message);
+    res.status(500).json({ message: 'Error fetching similar titles' });
+  }
+});
+
 // Endpoint to get details for a movie
 router.get('/movie/:id', async (req, res) => {
   const { id } = req.params;

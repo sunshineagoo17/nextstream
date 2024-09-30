@@ -6,7 +6,7 @@ import {
   faMap, faBomb, faPalette, faLaugh, faFingerprint, faClapperboard, faTheaterMasks, faQuidditch, faGhost, faUserSecret,
   faVideoCamera, faFaceKissWinkHeart, faMusic, faHandSpock, faMask, faChildren, faShareAlt,
   faFighterJet, faScroll, faHatCowboy, faChild, faTelevision,
-  faBalanceScale, faHeartBroken, faBolt, faExplosion, faMeteor, faUser, faMicrophone
+  faBalanceScale, faHeartBroken, faBolt, faExplosion, faMeteor, faMicrophone
 } from '@fortawesome/free-solid-svg-icons';
 import { AuthContext } from '../../context/AuthContext/AuthContext'; 
 import { Tooltip } from 'react-tooltip';
@@ -16,7 +16,7 @@ import Loader from '../../components/Loader/Loader';
 import Calendar from '../CalendarPage/sections/Calendar';
 import DefaultPosterImg from '../../assets/images/posternoimg-icon.png';
 import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
-import './NextViewPage.scss';
+import './NextWatchPage.scss';
 
 const genreIconMapping = {
   Adventure: faMap,
@@ -48,11 +48,12 @@ const genreIconMapping = {
   'Sci-Fi & Fantasy': faMeteor
 };
 
-const NextViewPage = () => {
+const NextWatchPage = () => {
     const { mediaId, mediaType } = useParams();
     const navigate = useNavigate();  
     const { userId, isGuest } = useContext(AuthContext); 
     const [mediaData, setMediaData] = useState(null);
+    const [similarMedia, setSimilarMedia] = useState([]); // For similar media
     const [certification, setCertification] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [isTrailerLoading, setIsTrailerLoading] = useState(false);
@@ -62,10 +63,9 @@ const NextViewPage = () => {
     const [showCalendar, setShowCalendar] = useState(false);
     const [alert, setAlert] = useState({ show: false, message: '', type: '' });
     const [providers, setProviders] = useState([]);
-    const [cast, setCast] = useState([]);
     const [scrollPosition, setScrollPosition] = useState(0);
 
-    const castContainerRef = useRef(null);
+    const similarMediaRef = useRef(null);
 
     const showAlert = useCallback((message, type) => {
         setAlert({ show: true, message, type });
@@ -79,6 +79,7 @@ const NextViewPage = () => {
             return;
         }
 
+        // Fetch media data
         const fetchMediaData = async () => {
             try {
                 const response = await api.get(`${process.env.REACT_APP_BASE_URL}/api/tmdb/nextview/${userId}/${mediaId}/${mediaType}`);
@@ -87,7 +88,7 @@ const NextViewPage = () => {
                     setInteraction(response.data.interaction);
                     setProviders(response.data.providers || []);
 
-                    // Fetch the certification data based on media type
+                    // Fetch certification data based on media type
                     if (mediaType === 'movie') {
                         const releaseInfo = response.data.release_dates.results.find(r => r.iso_3166_1 === 'US');
                         if (releaseInfo && releaseInfo.release_dates.length > 0) {
@@ -101,9 +102,9 @@ const NextViewPage = () => {
                         }
                     }
 
-                    // Fetch the cast information
-                    const castResponse = await api.get(`${process.env.REACT_APP_BASE_URL}/api/tmdb/${mediaType}/${mediaId}/credits`);
-                    setCast(castResponse.data.cast);
+                    // Fetch similar media
+                    const similarResponse = await api.get(`${process.env.REACT_APP_BASE_URL}/api/tmdb/${mediaType}/${mediaId}/similar`);
+                    setSimilarMedia(similarResponse.data.results);
                 } else {
                     console.error('No media data found');
                     navigate('/not-found');
@@ -177,7 +178,7 @@ const NextViewPage = () => {
             if (newInteraction === 1) {
                 showAlert('You liked this media!', 'success');
             } else if (newInteraction === 0) {
-                showAlert('You disliked this media!', 'success');
+                showAlert('You disliked this media!', 'info');
             } else {
                 showAlert('Interaction removed.', 'info');
             }
@@ -214,17 +215,17 @@ const NextViewPage = () => {
     };
 
     const handleScrollRight = () => {
-        if (castContainerRef.current) {
-            const newPosition = scrollPosition + castContainerRef.current.clientWidth;
-            castContainerRef.current.scrollTo({ left: newPosition, behavior: 'smooth' });
+        if (similarMediaRef.current) {
+            const newPosition = scrollPosition + similarMediaRef.current.clientWidth;
+            similarMediaRef.current.scrollTo({ left: newPosition, behavior: 'smooth' });
             setScrollPosition(newPosition);
         }
     };
 
     const handleScrollLeft = () => {
-        if (castContainerRef.current) {
-            const newPosition = scrollPosition - castContainerRef.current.clientWidth;
-            castContainerRef.current.scrollTo({ left: newPosition, behavior: 'smooth' });
+        if (similarMediaRef.current) {
+            const newPosition = scrollPosition - similarMediaRef.current.clientWidth;
+            similarMediaRef.current.scrollTo({ left: newPosition, behavior: 'smooth' });
             setScrollPosition(newPosition);
         }
     };
@@ -243,7 +244,7 @@ const NextViewPage = () => {
                 <>
                     <FontAwesomeIcon
                         icon={faThumbsUp}
-                        className="nextview-page__thumbs-up active"
+                        className="nextwatch-page__thumbs-up active"
                         onClick={() => handleToggleInteraction(0)}
                         data-tooltip-id={`thumbsUpTooltip-${mediaId}`}
                         data-tooltip-content="LIKED"
@@ -256,7 +257,7 @@ const NextViewPage = () => {
                 <>
                     <FontAwesomeIcon
                         icon={faThumbsDown}
-                        className="nextview-page__thumbs-down active"
+                        className="nextwatch-page__thumbs-down active"
                         onClick={() => handleToggleInteraction(1)}
                         data-tooltip-id={`thumbsDownTooltip-${mediaId}`}
                         data-tooltip-content="DISLIKED"
@@ -267,17 +268,17 @@ const NextViewPage = () => {
         } else {
             return (
                 <>
-                    <div className="nextview-page__neutral-interactions">
+                    <div className="nextwatch-page__neutral-interactions">
                         <FontAwesomeIcon
                             icon={faThumbsUp}
-                            className="nextview-page__thumbs-up"
+                            className="nextwatch-page__thumbs-up"
                             onClick={() => handleToggleInteraction(1)}
                             data-tooltip-id={`interactionTooltip-${mediaId}`}
                             data-tooltip-content="LIKE"
                         />
                         <FontAwesomeIcon
                             icon={faThumbsDown}
-                            className="nextview-page__thumbs-down"
+                            className="nextwatch-page__thumbs-down"
                             onClick={() => handleToggleInteraction(0)}
                             data-tooltip-id={`interactionTooltip-${mediaId}`}
                             data-tooltip-content="DISLIKE"
@@ -290,7 +291,7 @@ const NextViewPage = () => {
     };
 
     return (
-        <div className="nextview-page">
+        <div className="nextwatch-page">
             {alert.show && (
                 <CustomAlerts
                     message={alert.message}
@@ -298,22 +299,22 @@ const NextViewPage = () => {
                     onClose={closeAlert}
                 />
             )}
-            <div className="nextview-page__heading-container">
-                <h1 className="nextview-page__header">NextView</h1>
-                <p className="nextview-page__copy">
-                    <span className="nextview-page__gradient-subtitle">NextView</span>
-                    is a detailed media display page in your app. It shows all the essential information about a selected movie or TV show, including its title, description, rating, genres, and available streaming services. You can watch a trailer, add the media to your calendar, and interact by liking or disliking it. The page is designed to give users a comprehensive and interactive experience with their chosen media.
+            <div className="nextwatch-page__heading-container">
+                <h1 className="nextwatch-page__header">NextWatch</h1>
+                <p className="nextwatch-page__copy">
+                    <span className="nextwatch-page__gradient-subtitle">NextWatch</span>
+                    lets you explore a world of similar media based on your selected title. Dive into these recommendations, check out more details, and decide what's next on your watchlist. Click on the media card now for your next watch.
                 </p>
             </div>
-            <div className="nextview-page__content-container">
-                <div className="nextview-page__content">
-                    <h1 className="nextview-page__title">
+            <div className="nextwatch-page__content-container">
+                <div className="nextwatch-page__content">
+                    <h1 className="nextwatch-page__title">
                         {mediaData.title || mediaData.name || "Title: N/A"}
-                        {mediaData.release_date && <span className="nextview-page__release-date"> ({new Date(mediaData.release_date).getFullYear()})</span>}
+                        {mediaData.release_date && <span className="nextwatch-page__release-date"> ({new Date(mediaData.release_date).getFullYear()})</span>}
                         {certification && (
                             <>
                                 <span
-                                    className="nextview-page__certification"
+                                    className="nextwatch-page__certification"
                                     data-tooltip-id={`certificationTooltip-${mediaId}`}
                                     data-tooltip-content={`Rating`}
                                 >
@@ -323,30 +324,30 @@ const NextViewPage = () => {
                             </>
                         )}
                     </h1>
-                    <p className="nextview-page__description">
+                    <p className="nextwatch-page__description">
                         {mediaData.overview || "Description: Unavailable"}
                     </p>
                 </div>
 
-                <div className="nextview-page__media-info">
-                    <div className="nextview-page__left-media-container">
-                        <div className="nextview-page__poster-container">
+                <div className="nextwatch-page__media-info">
+                    <div className="nextwatch-page__left-media-container">
+                        <div className="nextwatch-page__poster-container">
                             <img 
                                 src={mediaData.poster_path 
                                         ? `https://image.tmdb.org/t/p/w500${mediaData.poster_path}` 
                                         : DefaultPosterImg}  
                                 alt={mediaData.title || mediaData.name || "No Poster Available"} 
-                                className="nextview-page__poster"
+                                className="nextwatch-page__poster"
                             />
-                            <div className="nextview-page__play-overlay" onClick={handlePlayTrailer}>
-                                <FontAwesomeIcon icon={faPlay} className="nextview-page__play-icon" />
+                            <div className="nextwatch-page__play-overlay" onClick={handlePlayTrailer}>
+                                <FontAwesomeIcon icon={faPlay} className="nextwatch-page__play-icon" />
                             </div>
                         </div> 
 
-                        <div className="nextview-page__actions">
-                            <div className="nextview-page__media-type">
+                        <div className="nextwatch-page__actions">
+                            <div className="nextwatch-page__media-type">
                                 <FontAwesomeIcon
-                                    className="nextview-page__media-icon"
+                                    className="nextwatch-page__media-icon"
                                     icon={mediaType === 'tv' ? faTv : faFilm}
                                     data-tooltip-id={`mediaTypeTooltip-${mediaId}`}
                                     data-tooltip-content={`${mediaType === 'tv' ? 'TV Show' : 'Movie'}`}
@@ -354,7 +355,7 @@ const NextViewPage = () => {
                                 <Tooltip id={`mediaTypeTooltip-${mediaId}`} place="top" className="custom-tooltip" />
                             </div>
                             <button
-                                className="nextview-page__calendar-button"
+                                className="nextwatch-page__calendar-button"
                                 onClick={handleAddToCalendar}
                                 data-tooltip-id={`calendarTooltip-${mediaId}`}
                                 data-tooltip-content="Add to Calendar"
@@ -364,7 +365,7 @@ const NextViewPage = () => {
                             <Tooltip id={`calendarTooltip-${mediaId}`} place="top" className="custom-tooltip" />
                             
                             <button
-                                className="nextview-page__share-button"
+                                className="nextwatch-page__share-button"
                                 onClick={handleShare}
                                 data-tooltip-id={`shareTooltip-${mediaId}`}
                                 data-tooltip-content="Share"
@@ -373,30 +374,30 @@ const NextViewPage = () => {
                             </button>
                             <Tooltip id={`shareTooltip-${mediaId}`} place="top" className="custom-tooltip" />
 
-                            <div className="nextview-page__interaction-buttons">
+                            <div className="nextwatch-page__interaction-buttons">
                                 {getInteractionIcon()}
                             </div>
                         </div> 
                     </div>
 
-                    <div className="nextview-page__details">
-                        <div className="nextview-page__genre">
+                    <div className="nextwatch-page__details">
+                        <div className="nextwatch-page__genre">
                             {mediaData.genres.map(genre => (
-                                <span key={genre.id} className="nextview-page__genre-item">
+                                <span key={genre.id} className="nextwatch-page__genre-item">
                                     <FontAwesomeIcon
                                         icon={genreIconMapping[genre.name] || faFilm}
-                                        className="nextview-page__genre-icon"
+                                        className="nextwatch-page__genre-icon"
                                     /> {genre.name}
                                 </span>
                             ))}
                         </div>
 
-                        <div className="nextview-page__details-container">
-                            <div className="nextview-page__rating">
-                                <FontAwesomeIcon icon={faStar} className="nextview-page__star-icon" /> {mediaData.vote_average} / 10
+                        <div className="nextwatch-page__details-container">
+                            <div className="nextwatch-page__rating">
+                                <FontAwesomeIcon icon={faStar} className="nextwatch-page__star-icon" /> {mediaData.vote_average} / 10
                             </div>
 
-                            <div className="nextview-page__duration">
+                            <div className="nextwatch-page__duration">
                                 {mediaType === 'movie' 
                                     ? `${mediaData.runtime} minutes` 
                                     : mediaData.episode_run_time[0] 
@@ -405,70 +406,67 @@ const NextViewPage = () => {
                             </div>
                         </div>
 
-                        <div className="nextview-page__streaming">
-                            <p className="nextview-page__streaming-copy">Available on:</p>
-                            <div className="nextview-page__streaming-services">
+                        <div className="nextwatch-page__streaming">
+                            <p className="nextwatch-page__streaming-copy">Available on:</p>
+                            <div className="nextwatch-page__streaming-services">
                                 {providers.length > 0 ? (
                                     providers.map(provider => (
                                         <img
                                             key={provider.provider_id}
                                             src={`https://image.tmdb.org/t/p/original${provider.logo_path}`}
                                             alt={provider.provider_name}
-                                            className="nextview-page__streaming-provider-logo"
+                                            className="nextwatch-page__streaming-provider-logo"
                                         />
                                     ))
                                 ) : (
-                                    <p className="nextview-page__no-streaming-services">No streaming services available.</p>
+                                    <p className="nextwatch-page__no-streaming-services">No streaming services available.</p>
                                 )}
                             </div>
                         </div>
 
-                        {/* Cast Section */}
-                        <div className={`nextview-page__cast-container ${cast.length <= 3 ? 'no-scroll' : ''}`}>
-                            <p className="nextview-page__cast-copy">Cast:</p>
-                            {cast.length === 0 ? (
-                                <p className="nextview-page__no-cast-copy">Cast information unavailable.</p>
+                        {/* Similar Media Section */}
+                        <div className={`nextwatch-page__similar-container ${similarMedia.length <= 3 ? 'no-scroll' : ''}`}>
+                            <p className="nextwatch-page__media-copy">Similar Media:</p>
+                            {similarMedia.length === 0 ? (
+                                <p className="nextwatch-page__no-similar-media">Similar media info unavailable.</p>
                             ) : (
                                 <>
-                                    {cast.length > 3 && (
-                                        <button className="nextview-page__cast-arrow nextview-page__cast-arrow-left" onClick={handleScrollLeft}>
+                                    {similarMedia.length > 3 && (
+                                        <button className="nextwatch-page__similar-arrow nextwatch-page__similar-arrow-left" onClick={handleScrollLeft}>
                                             <FontAwesomeIcon icon={faChevronLeft} />
                                         </button>
                                     )}
-                                    <div className="nextview-page__cast-scroll" ref={castContainerRef}>
-                                        <ul className="nextview-page__cast-list">
-                                            {cast.map(member => (
-                                                <li key={member.id} className="nextview-page__cast-item"> 
+                                    <div className="nextwatch-page__similar-scroll" ref={similarMediaRef}>
+                                        <ul className="nextwatch-page__similar-list">
+                                            {similarMedia.map(item => (
+                                                <li key={item.id} className="nextwatch-page__similar-item"> 
                                                     <div
-                                                        className="nextview-page__cast-card"
-                                                        onClick={(e) => {
-                                                            if (isGuest) {
-                                                                e.preventDefault(); 
-                                                                showAlert('Guests cannot access cast details. Please register for full access.', 'info');
-                                                            } else {
-                                                                navigate(`/spotlight/${userId}/${member.id}`); 
-                                                            }
-                                                        }}
+                                                        className="nextwatch-page__similar-card"
+                                                        onClick={() => navigate(`/nextview/${userId}/${item.id}/${item.media_type}`)}
                                                     >
-                                                        {member.profile_path ? (
+                                                        {item.poster_path ? (
                                                             <img
-                                                                src={`https://image.tmdb.org/t/p/w185${member.profile_path}`}
-                                                                alt={member.name}
-                                                                className="nextview-page__cast-img"
+                                                                src={`https://image.tmdb.org/t/p/w185${item.poster_path}`}
+                                                                alt={item.title || item.name}
+                                                                className="nextwatch-page__similar-img"
                                                             />
                                                         ) : (
-                                                            <FontAwesomeIcon icon={faUser} className="nextview-page__cast-img-placeholder" />
+                                                            <FontAwesomeIcon icon={faFilm} className="nextwatch-page__similar-img-placeholder" />
                                                         )}
-                                                        <div className="nextview-page__cast-name">{member.name}</div>
-                                                        <div className="nextview-page__cast-character">as {member.character}</div>
+                                                        <div className="nextwatch-page__similar-copy-container">
+                                                          <div className="nextwatch-page__similar-name">{item.title || item.name}</div>
+                                                          <div className="nextwatch-page__similar-rating">
+                                                              <FontAwesomeIcon icon={faStar} /> {item.vote_average} / 10
+                                                          </div>
+                                                        </div>
                                                     </div>
                                                 </li>
                                             ))}
                                         </ul> 
                                     </div>
 
-                                    {cast.length > 3 && (
-                                        <button className="nextview-page__cast-arrow nextview-page__cast-arrow-right" onClick={handleScrollRight}>
+                                    {similarMedia.length > 3 && (
+                                        <button className="nextwatch-page__similar-arrow nextwatch-page__similar-arrow-right" onClick={handleScrollRight}>
                                             <FontAwesomeIcon icon={faChevronRight} />
                                         </button>
                                     )}
@@ -480,9 +478,9 @@ const NextViewPage = () => {
             </div>
 
             {showTrailer && (
-                <div className="nextview-page__modal">
-                    <div className="nextview-page__modal-content">
-                        <button className="nextview-page__modal-content-close" onClick={() => setShowTrailer(false)}>
+                <div className="nextwatch-page__modal">
+                    <div className="nextwatch-page__modal-content">
+                        <button className="nextwatch-page__modal-content-close" onClick={() => setShowTrailer(false)}>
                             <FontAwesomeIcon icon={faClose} />
                         </button>
                         {isTrailerLoading ? (
@@ -496,21 +494,21 @@ const NextViewPage = () => {
                                 frameBorder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                 allowFullScreen
-                                className="nextview-page__trailer"
+                                className="nextwatch-page__trailer"
                             ></iframe>
                         )}
                     </div>
                 </div>
             )}
 
-            <div className="nextview-page__background">
+            <div className="nextwatch-page__background">
                 <WavesBg />
             </div>
 
             {showCalendar && (
-                <div className="nextview-page__calendar-modal">
-                    <button className="nextview-page__cal-close-btn" onClick={handleCloseCalendar}>
-                        <FontAwesomeIcon icon={faClose} className='nextview-page__close-icon' />
+                <div className="nextwatch-page__calendar-modal">
+                    <button className="nextwatch-page__cal-close-btn" onClick={handleCloseCalendar}>
+                        <FontAwesomeIcon icon={faClose} className='nextwatch-page__close-icon' />
                     </button>
                     <Calendar
                         userId={userId}
@@ -525,4 +523,4 @@ const NextViewPage = () => {
     );
 };
 
-export default NextViewPage;
+export default NextWatchPage;
