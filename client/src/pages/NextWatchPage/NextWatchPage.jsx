@@ -104,11 +104,17 @@ const NextWatchPage = () => {
           }
         }
 
+     
         // Fetch similar media
         const similarResponse = await api.get(
-          `${process.env.REACT_APP_BASE_URL}/api/tmdb/${mediaType}/${mediaId}/similar`
+            `${process.env.REACT_APP_BASE_URL}/api/tmdb/${mediaType}/${mediaId}/similar`
         );
-        setSimilarMedia(similarResponse.data.results);
+        
+        if (similarResponse.data && similarResponse.data.results) {
+            setSimilarMedia(similarResponse.data.results);
+        } else {
+            setSimilarMedia([]);  
+        }
 
         // Fetch recommendations
         const recommendationsResponse = await api.get(
