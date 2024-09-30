@@ -327,6 +327,10 @@ router.get('/:mediaType/:mediaId/recommendations', async (req, res) => {
 router.get('/:mediaType/:mediaId/similar', async (req, res) => {
   const { mediaType, mediaId } = req.params;
   
+  if (!mediaType || !mediaId) {
+    return res.status(400).json({ message: 'Invalid media type or media ID' });
+  }
+  
   try {
     const response = await axios.get(`${TMDB_BASE_URL}/${mediaType}/${mediaId}/similar`, {
       params: {

@@ -360,6 +360,62 @@ const NextWatchPage = () => {
     }
   };
 
+  const handleMediaClick = async (newMediaId, newMediaType) => {
+    setIsLoading(true);
+    try {
+      const response = await api.get(
+        `${process.env.REACT_APP_BASE_URL}/api/tmdb/nextview/${userId}/${newMediaId}/${newMediaType}`
+      );
+      setMediaData(response.data);
+
+      if (response.data) {
+        if (newMediaType === 'movie') {
+          const releaseInfo = response.data.release_dates.results.find(
+            (r) => r.iso_3166_1 === 'US'
+          );
+          setCertification(
+            releaseInfo?.release_dates[0]?.certification || 'NR'
+          );
+        } else if (newMediaType === 'tv') {
+          const contentRating = response.data.content_ratings.results.find(
+            (r) => r.iso_3166_1 === 'US'
+          );
+          setCertification(contentRating?.rating || 'NR');
+        }
+      }
+
+      // Fetch similar media
+      const similarResponse = await api.get(
+        `${process.env.REACT_APP_BASE_URL}/api/tmdb/${newMediaType}/${newMediaId}/similar`
+      );
+      setSimilarMedia(similarResponse.data.results);
+
+      // Fetch recommendations
+      const recommendationsResponse = await api.get(
+        `${process.env.REACT_APP_BASE_URL}/api/tmdb/${newMediaType}/${newMediaId}/recommendations`
+      );
+      setRecommendations(recommendationsResponse.data.results);
+
+      // Fetch the trailer
+      const trailerResponse = await api.get(
+        `${process.env.REACT_APP_BASE_URL}/api/tmdb/${newMediaType}/${newMediaId}/videos`
+      );
+      if (trailerResponse.data && trailerResponse.data.trailerUrl) {
+        setTrailerUrl(trailerResponse.data.trailerUrl);
+      } else {
+        showAlert('Apologies, no video is available.', 'info');
+      }
+
+      // Update the URL format to `/nextwatch/:userId/:mediaType/:mediaId`
+      navigate(`/nextwatch/${userId}/${newMediaType}/${newMediaId}`);
+    } catch (error) {
+      console.error('Error fetching media data:', error);
+      showAlert('Error loading data. Please try again later.', 'error');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className='nextwatch-page'>
       {alert.show && (
@@ -548,9 +604,7 @@ const NextWatchPage = () => {
                           <div
                             className='nextwatch-page__recommendations-card'
                             onClick={() =>
-                              navigate(
-                                `/nextview/${userId}/${item.id}/${item.media_type}`
-                              )
+                              handleMediaClick(item.id, item.media_type)
                             }>
                             {item.poster_path ? (
                               <img
@@ -626,8 +680,9 @@ const NextWatchPage = () => {
                           <div
                             className='nextwatch-page__similar-card'
                             onClick={() =>
-                              navigate(
-                                `/nextview/${userId}/${item.id}/${item.media_type}`
+                              handleMediaClick(
+                                item.id,
+                                item.media_type || mediaType
                               )
                             }>
                             {item.poster_path ? (
