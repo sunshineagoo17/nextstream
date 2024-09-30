@@ -294,6 +294,35 @@ router.get('/:mediaType/:mediaId/videos', async (req, res) => {
   }
 });
 
+// Endpoint to fetch recommendations for a movie or TV show
+router.get('/:mediaType/:mediaId/recommendations', async (req, res) => {
+  const { mediaType, mediaId } = req.params;
+
+  if (!['movie', 'tv'].includes(mediaType)) {
+    return res.status(400).json({ error: 'Invalid media type. Use "movie" or "tv".' });
+  }
+
+  try {
+    const response = await axios.get(`${TMDB_BASE_URL}/${mediaType}/${mediaId}/recommendations`, {
+      params: {
+        api_key: TMDB_API_KEY,
+        language: 'en-US',
+      },
+    });
+
+    const recommendations = response.data.results;
+
+    if (recommendations.length === 0) {
+      return res.status(404).json({ message: 'No recommendations found.' });
+    }
+
+    res.json({ results: recommendations });
+  } catch (error) {
+    console.error(`Error fetching recommendations for ${mediaType} ${mediaId}:`, error.message);
+    res.status(500).json({ message: 'Error fetching recommendations' });
+  }
+});
+
 // Endpoint to fetch similar titles for a movie or TV show
 router.get('/:mediaType/:mediaId/similar', async (req, res) => {
   const { mediaType, mediaId } = req.params;

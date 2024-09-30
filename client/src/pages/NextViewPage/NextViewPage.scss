@@ -210,14 +210,14 @@
   &__nextwatch-icon {
     color: $primary-button-blue;
   }
-  
+
   &__nextwatch-link,
   &__calendar-button,
   &__share-button,
   &__thumbs-up,
   &__thumbs-down {
     @include block-item(1rem, 1rem);
-    padding: .25rem;
+    padding: .5rem;
     border-radius: .5rem;
     font-size: 1rem;
     border: none;
@@ -268,7 +268,7 @@
     display: flex;
     align-items: center;
     border: .0625rem solid $frosted-glass;
-    padding: .65rem;
+    padding: .35rem;
     border-radius: .5rem;
     font-size: 1rem;
     background-color: $frosted-glass;
@@ -276,11 +276,6 @@
 
     svg {
       color: $primary-button-blue;
-    }
-
-    @include tablet {
-      padding: .5rem;
-      font-size: 1.25rem;
     }
   }
 
@@ -365,7 +360,7 @@
       flex-direction: row;
       align-items: flex-start;
       justify-content: center;
-      gap: .9rem;
+      gap: 2.5rem;
       width: 60%;
     }
 
