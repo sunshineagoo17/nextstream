@@ -802,6 +802,40 @@
     }
   }
 
+  // NextWatch
+  .nextwatch-page {
+  
+    &__title {
+      color: $neutral-white;
+    }
+
+    &__heading-container {
+      background: $dark-mode-royal-blue;
+      border-color: $frosted-glass;
+    }
+
+    &__media-type,
+    &__calendar-button,
+    &__share-button,
+    &__thumbs-up,
+    &__thumbs-down {
+      color: $neutral-white;
+      background-color: $frosted-glass;
+
+      &:hover {
+        background: $primary-dark-blue;
+        color: $primary-very-light-blue;
+        border: .125rem solid $primary-button-blue;
+      }
+
+      &:active {
+        background: $neutral-white;
+        color: $primary-button-blue;
+        border: .1875rem solid $primary-button-blue;
+      }
+    }
+  }
+
   // Top Picks
   .recommendations-page {
     background: $primary-darker-blue;
