@@ -16,7 +16,7 @@ const EmojiMessages = ({ newMessage, setNewMessage }) => {
   return (
     <div className="emoji-container">
       <button onClick={() => setShowEmojiPicker(!showEmojiPicker)} className="emoji-btn">
-        😎 Add Emoji
+        {showEmojiPicker ? "😶‍🌫️ Hide Emojis" : "😎 Add Emoji"}
       </button>
       {showEmojiPicker && (
         <div className="emoji-picker">
