@@ -73,28 +73,29 @@
     &__review-button {
         padding: 0.5rem 1rem;
         border-radius: 0.75rem;
-        background-color: $frosted-glass;  
+        background-color: $neutral-white;  
         color: $primary-medium-blue;                 
         font-family: $primary-font;            
         font-size: 0.85rem;           
         line-height: .95rem; 
-        box-shadow: $shadow-primary;          
+        box-shadow: $shadow-secondary;          
         border: .1875rem solid $neutral-white; 
+        text-shadow: $shadow-primary;
         cursor: pointer;
         transition: background-color 0.3s ease, transform 0.3s ease;
 
         &:hover {
-            background-color: $primary-medium-blue; 
+            background-color: $primary-dark-blue; 
             transform: scale(1.05);       
             color: $neutral-white;       
-            border: .1875rem solid $primary-button-blue; 
+            border: 2px solid $primary-button-blue; 
             border-radius: 1rem;
         }
 
         &:active {
             transform: scale(0.95);         
-            background-color: $primary-very-light-blue; 
-            color: $primary-medium-blue;
+            background-color: $primary-button-blue; 
+            color: $neutral-white;
             border: .1875rem solid $neutral-white; 
             border-radius: 1.5rem;
         }
@@ -192,8 +193,8 @@
         box-shadow: $shadow-secondary;
         text-shadow: $shadow-primary;
         border: 2px solid $frosted-glass;
-        background-color: $primary-light-blue;
-        color: $neutral-white;
+        background-color: $neutral-white;
+        color: $primary-medium-blue;
         cursor: pointer;
         font-family: $primary-font;
         font-size: .85rem;
@@ -201,7 +202,7 @@
         margin-left: .5rem;
 
         &:hover {
-            background-color: $primary-medium-blue;
+            background-color: $primary-dark-blue;
             border: 2px solid $primary-light-blue;
             color: $neutral-white;
             transform: scale(1.05);
@@ -209,9 +210,9 @@
 
         &:active {
             transform: scale(.95);
-            color: $primary-medium-blue;
+            color: $neutral-white;
             border: 2px solid $neutral-white;
-            background-color: $primary-very-light-blue;
+            background-color: $primary-light-blue;
         }
     }
 
@@ -224,8 +225,9 @@
 
     &__season-episode-inputs {
         display: flex;
-        background: $primary-button-blue;
+        background: $primary-very-light-blue;
         border-radius: .5rem;
+        box-shadow: $shadow-primary;
         border: 2px solid $frosted-glass;
         flex-direction: column;
         justify-content: center;

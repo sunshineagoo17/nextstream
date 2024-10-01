@@ -1,21 +1,36 @@
 import { useState, useEffect } from 'react';
 import './TagModal.scss';
+import api from '../../../../services/api'; 
 
-const TagModal = ({ show, onClose, onSave, tags }) => {
+const TagModal = ({ show, onClose, onSave, tags, mediaId, setAlert }) => {
   const [newTag, setNewTag] = useState('');
 
-  // Pre-fill the input with the existing tags, joined by commas (if any)
   useEffect(() => {
     if (tags && tags.length > 0) {
-      setNewTag(tags.join(', ')); // Join tags with commas
+      setNewTag(tags.join(', ')); 
     }
-  }, [tags]);
+    console.log('mediaId in TagModal:', mediaId); 
+  }, [tags, mediaId]);
 
   const handleSave = () => {
     if (newTag.trim()) {
-      const tagArray = newTag.split(',').map(tag => tag.trim()); // Convert back to an array of tags
+      const tagArray = newTag.split(',').map(tag => tag.trim()); 
       onSave(tagArray);
-      setNewTag(''); // Clear input after saving
+      setNewTag(''); 
+      setAlert({ type: 'success', message: 'Tags saved successfully!' }); 
+      onClose(); 
+    }
+  };
+
+  const handleDelete = async () => {
+    try {
+      await api.delete(`/api/media-status/${mediaId}/tags`); 
+      setNewTag('');  
+      setAlert({ type: 'success', message: 'Tags deleted successfully!' }); 
+      onClose();
+    } catch (error) {
+      console.error('Error deleting tags:', error);
+      setAlert({ type: 'error', message: 'Failed to delete tags.' }); 
     }
   };
 
@@ -34,7 +49,10 @@ const TagModal = ({ show, onClose, onSave, tags }) => {
         />
         <div className="tag-modal__actions">
           <button className="tag-modal__button tag-modal__button--save" onClick={handleSave}>
-            Save Tag
+            Save
+          </button>
+          <button className="tag-modal__button tag-modal__button--delete" onClick={handleDelete}>
+            Delete
           </button>
           <button className="tag-modal__button tag-modal__button--close" onClick={onClose}>
             Close

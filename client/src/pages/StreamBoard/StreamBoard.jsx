@@ -63,17 +63,15 @@ const MediaItem = ({ item, index, status, moveMediaItem, handleAddToCalendar, ha
     }),
   }));
 
-  const handleOpenTagModal = () => {
-    console.log('Opening Tag Modal');
+  const handleOpenTagModal = (mediaId) => {
     setTags(item.tags || []);
-    setSelectedMediaId(item.media_id);
+    setSelectedMediaId(item.media_id); 
     setShowTagModal(true);
   };
-
+  
   const handleOpenReviewModal = () => {
-    console.log('Opening Review Modal');
     setReview(item.review || '');
-    setSelectedMediaId(item.media_id);
+    setSelectedMediaId(item.media_id); 
     setShowReviewModal(true);
   };
 
@@ -255,7 +253,7 @@ const MediaItem = ({ item, index, status, moveMediaItem, handleAddToCalendar, ha
             className="streamboard__tag-button"
             onClick={handleOpenTagModal}
           >
-            Create Tag
+            Tag
           </button>
 
           {/* Add Review Button */}
@@ -263,7 +261,7 @@ const MediaItem = ({ item, index, status, moveMediaItem, handleAddToCalendar, ha
             className="streamboard__review-button"
             onClick={handleOpenReviewModal}
           >
-            Add Review
+            Review
           </button>
         </div>
 
@@ -768,6 +766,8 @@ const StreamBoard = () => {
         onClose={() => setShowTagModal(false)}
         onSave={handleSaveTags}
         tags={tags}
+        mediaId={selectedMediaId} 
+        setAlert={setAlert}
       />
     </div>
   </div>
@@ -785,6 +785,7 @@ const StreamBoard = () => {
         onClose={() => setShowReviewModal(false)}
         onSave={handleSaveReview}
         review={review}
+        mediaId={selectedMediaId} // Pass mediaId correctly
       />
     </div>
   </div>

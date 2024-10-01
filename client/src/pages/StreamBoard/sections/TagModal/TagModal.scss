@@ -108,4 +108,10 @@
     color: $primary-button-blue;
     border: 2px solid $primary-very-light-blue;
   }
+
+  &__button--delete {
+    background-color: $frosted-glass;
+    color: $neutral-white;
+    border: 2px solid $primary-very-light-blue;
+  }
 }
