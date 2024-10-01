@@ -8,7 +8,7 @@ import {
   faFilm, faTv, faMap, faBomb, faPalette, faLaugh, faFingerprint, faClapperboard, faTheaterMasks, faQuidditch, faGhost,
   faUserSecret, faVideoCamera, faFaceKissWinkHeart, faMusic, faHandSpock, faMask, faChildren, faFighterJet, faScroll,
   faHatCowboy, faChild, faTelevision, faBalanceScale, faHeartBroken, faBolt, faExplosion, faMeteor, faMicrophone,
-  faCalendarPlus, faTrash, faClose, faSearch, faLightbulb, faSave, faRedo
+  faCalendarPlus, faTrash, faClose, faSearch, faLightbulb, faSave, faRedo, faTag
 } from '@fortawesome/free-solid-svg-icons';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import TagModal from './sections/TagModal/TagModal';
@@ -271,13 +271,18 @@ const MediaItem = ({ item, index, status, moveMediaItem, handleAddToCalendar, ha
         {tags && tags.length > 0 && (
           <div className="streamboard__media-item-tags">
             {tags.map((tag, index) => (
-              <span key={index} className="tag">
+              <span
+                key={index}
+                className="streamboard__tag"
+                onClick={handleOpenTagModal} 
+                style={{ cursor: 'pointer' }}  
+              >
+                <FontAwesomeIcon icon={faTag} className="streamboard__tag-icon" />
                 {tag}
               </span>
             ))}
           </div>
         )}
-        
       </div>
     </div>
   );
