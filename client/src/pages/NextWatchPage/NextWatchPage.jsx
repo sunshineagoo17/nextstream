@@ -670,7 +670,7 @@ const NextWatchPage = () => {
               </div>
               {similarMedia.length === 0 ? (
                 <p className='nextwatch-page__no-similar-media'>
-                  Similar media info unavailable.
+                  Info unavailable.
                 </p>
               ) : (
                 <>

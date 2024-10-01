@@ -21,6 +21,7 @@
 #closeTooltip,
 #shareIconTooltip,
 #likeTooltip,
+#lightbulbTooltip,
 #dislikeTooltip {
   background-color: $primary-dark-blue;
   color: $neutral-white;
@@ -537,6 +538,7 @@
     border-radius: .5rem;
   }
 
+  &__lightbulb-icon,
   &__media-icon,
   &__cal-icon,
   &__share-icon,

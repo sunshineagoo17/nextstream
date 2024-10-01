@@ -4,7 +4,7 @@ import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import { Tooltip } from 'react-tooltip';
-import { faRobot, faChevronLeft, faChevronRight, faPlay, faTimes, faSearch, faTv, faFilm, faCalendarPlus, faThumbsUp, faThumbsDown, faShareAlt, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faRobot, faChevronLeft, faChevronRight, faPlay, faTimes, faSearch, faTv, faFilm, faCalendarPlus, faThumbsUp, faThumbsDown, faShareAlt, faUser, faLightbulb } from '@fortawesome/free-solid-svg-icons';
 import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
 import Calendar from '../CalendarPage/sections/Calendar';
 import api from '../../services/api';
@@ -488,6 +488,16 @@ const NextSearch = () => {
                           />
                         </Link>
 
+                        <Link to={`/nextwatch/${userId}/${result.media_type}/${result.id}`}>
+                          <FontAwesomeIcon
+                            icon={faLightbulb}
+                            className="next-search__lightbulb-icon"
+                            title="Discover More"
+                            data-tooltip-id="lightbulbTooltip"
+                            data-tooltip-content="Dicover More"
+                          />
+                        </Link>
+
                         <FontAwesomeIcon
                           icon={faCalendarPlus}
                           className="next-search__cal-icon"
@@ -742,6 +752,15 @@ const NextSearch = () => {
                         data-tooltip-content="More Info"
                       />
                     </Link>
+                    <Link to={`/nextwatch/${userId}/${media.media_type}/${media.id}`}>
+                      <FontAwesomeIcon
+                        icon={faLightbulb}
+                        className="next-search__lightbulb-icon"
+                        title="Discover More"
+                        data-tooltip-id="lightbulbTooltip"
+                        data-tooltip-content="Dicover More"
+                      />
+                    </Link>
                     <FontAwesomeIcon
                       icon={faCalendarPlus}
                       className="next-search__cal-icon"
@@ -851,6 +870,7 @@ const NextSearch = () => {
       )}
         {/* Tooltip components */}
         <Tooltip id="personTooltip" place="top" />
+        <Tooltip id="lightbulbTooltip" place="top" />
         <Tooltip id="trendingTvTooltip" place="top" />
         <Tooltip id="trendingMoviesTooltip" place="top" />
         <Tooltip id="trendingAllTooltip" place="top" />

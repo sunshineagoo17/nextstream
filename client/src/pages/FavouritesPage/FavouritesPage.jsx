@@ -8,7 +8,8 @@ import {
   faHandSpock, faQuidditch, faClapperboard, faMask, faFingerprint, faChevronDown, faChevronCircleDown,
   faChevronCircleUp, faVideoCamera, faHeart, faMinus, faPlay, faTimes, faCalendarPlus, faSearch,
   faBomb, faStar, faUserSecret, faRedo, faGhost, faLaugh, faTheaterMasks, faBolt, faMap, faGlobe, faTrophy,
-  faLock, faUnlock, faTrash, faShareAlt, faClock, faEye, faBookmark
+  faLock, faUnlock, faTrash, faShareAlt, faClock, faEye, faBookmark,
+  faLightbulb
 } from '@fortawesome/free-solid-svg-icons';
 import HomeCinemaSVG from "../../assets/images/home-cinema.svg";
 import LikesSVG from "../../assets/images/like-faves.svg";
@@ -340,6 +341,10 @@ const FavouritesPage = () => {
       setIsSearching(false);
     }
   };
+
+  const handleMediaRecommendationsClick = (media_id, media_type) => {
+    navigate(`/nextwatch/${userId}/${media_type}/${media_id}`);
+  };  
 
   const handleSearchEnter = (e) => {
     if (e.key === 'Enter') {
@@ -710,6 +715,13 @@ const FavouritesPage = () => {
                         onClick={() => handleSearchClick(fave.media_id, fave.media_type)}
                       />
                       <FontAwesomeIcon 
+                        icon={faLightbulb} 
+                        className="faves-page__lightbulb-icon" 
+                        onClick={() => handleMediaRecommendationsClick(fave.media_id, fave.media_type)}
+                        data-tooltip-id="lightbulbTooltip"
+                        data-tooltip-content="Discover More"
+                      />
+                      <FontAwesomeIcon 
                         icon={faCalendarPlus} 
                         onClick={() => handleAddToCalendar(fave.title, fave.media_type, fave.media_id)} 
                         className="faves-page__cal-icon" 
@@ -756,7 +768,7 @@ const FavouritesPage = () => {
                         onClick={() => handleShare(fave.title, fave.media_id, fave.media_type)} 
                         className="faves-page__share-icon" 
                         data-tooltip-id="shareTooltip" 
-                        data-tooltip-content="Share this title" 
+                        data-tooltip-content="Share this Title" 
                       />
                       <FontAwesomeIcon 
                         icon={lockedMedia[`${fave.media_id}-${fave.media_type}`] ? faLock : faUnlock} 
@@ -772,6 +784,7 @@ const FavouritesPage = () => {
                         data-tooltip-id="trashTooltip" 
                         data-tooltip-content="Delete from Favourites" 
                       />
+                      <Tooltip id="lightbulbTooltip" place="top" />
                       <Tooltip id="watchlistStatusTooltip" place="top" />
                       <Tooltip id="calendarTooltip" place="top" />
                       <Tooltip id="searchTooltip" place="top" />

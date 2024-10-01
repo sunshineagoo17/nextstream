@@ -7,7 +7,7 @@ import {
   faFilm, faTv, faMap, faBomb, faPalette, faLaugh, faFingerprint, faClapperboard, faTheaterMasks, faQuidditch, faGhost,
   faUserSecret, faVideoCamera, faFaceKissWinkHeart, faMusic, faHandSpock, faMask, faChildren, faFighterJet, faScroll,
   faHatCowboy, faChild, faTelevision, faBalanceScale, faHeartBroken, faBolt, faExplosion, faMeteor, faMicrophone,
-  faCalendarPlus, faTrash, faClose, faSearch
+  faCalendarPlus, faTrash, faClose, faSearch, faLightbulb
 } from '@fortawesome/free-solid-svg-icons';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import Loader from '../../components/Loader/Loader';
@@ -96,6 +96,9 @@ const MediaItem = ({ item, index, status, moveMediaItem, handleAddToCalendar, ha
       <div className="streamboard__media-actions">
         <Link to={`/nextview/${item.userId}/${item.media_type}/${item.media_id}`}>
           <FontAwesomeIcon className="streamboard__media-type-icon" icon={item.media_type === 'movie' ? faFilm : faTv} />
+        </Link>
+        <Link to={`/nextwatch/${item.userId}/${item.media_type}/${item.media_id}`}>
+          <FontAwesomeIcon className="streamboard__lightbulb-icon" icon={faLightbulb} />
         </Link>
         <FontAwesomeIcon
           icon={faCalendarPlus}
@@ -421,9 +424,16 @@ const StreamBoard = () => {
   const handleSearch = (query) => {
     const allItems = [...mediaItems.to_watch, ...mediaItems.scheduled, ...mediaItems.watched];
     const result = allItems.find((item) => item.title.toLowerCase().includes(query.toLowerCase()));
-    setSearchResult(result || null);
+  
+    if (result) {
+      setSearchResult(result);
+      setAlert({ type: '', message: '' }); 
+    } else {
+      setSearchResult(null);
+      setAlert({ type: 'error', message: `No results found for "${query}". Try a different title.` });
+    }
   };
-
+  
   const handleClearSearch = () => {
     setSearchResult(null);
   };

@@ -1,6 +1,6 @@
 import { useState, useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFilm, faTv, faImage, faShareAlt } from '@fortawesome/free-solid-svg-icons';
+import { faFilm, faTv, faImage, faShareAlt, faLightbulb } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import { Tooltip } from 'react-tooltip';
 import { AuthContext } from '../../../../context/AuthContext/AuthContext';
@@ -28,6 +28,12 @@ const MediaCard = ({ media = {}, handlers }) => {
     }
   };
 
+  const handleMediaRecommendationsClick = () => {
+    if (media_type === 'tv' || media_type === 'movie') {
+      navigate(`/nextwatch/${userId}/${media_type}/${id}`);
+    }
+  };
+
   const handleShare = () => {
     const url = `${window.location.origin}/nextview/${userId}/${media_type}/${id}`;
 
@@ -45,15 +51,9 @@ const MediaCard = ({ media = {}, handlers }) => {
     }
   };
 
-  const icon = media_type === 'tv'
-    ? faTv
-    : media_type === 'movie'
-    ? faFilm
-    : faImage;
+  const icon = media_type === 'tv' ? faTv : media_type === 'movie' ? faFilm : faImage;
 
-  const posterUrl = poster_path
-    ? `https://image.tmdb.org/t/p/w500${poster_path}`
-    : DefaultPoster;
+  const posterUrl = poster_path ? `https://image.tmdb.org/t/p/w500${poster_path}` : DefaultPoster;
 
   return (
     <>
@@ -68,15 +68,22 @@ const MediaCard = ({ media = {}, handlers }) => {
         <img src={posterUrl} alt={title || name} className="media-card__image" />
         <div className="media-card__details">
           <h2 className="media-card__title">
-              {title || name}
-              <span onClick={handleMediaTypeClick} className="media-card__type-link" data-tooltip-id={`mediaTypeTooltip-${id}`} data-tooltip-content="View Details">
-                <FontAwesomeIcon icon={icon} className="media-card__type-icon" />
-              </span>
-              <Tooltip id={`mediaTypeTooltip-${id}`} place="top" className="details-tooltip" /> 
-              <span onClick={handleShare} className="media-card__share-link" data-tooltip-id={`shareTooltip-${id}`} data-tooltip-content="Share">
-                <FontAwesomeIcon icon={faShareAlt} className="media-card__share-icon" />
-              </span>
-              <Tooltip id={`shareTooltip-${id}`} place="top" className="details-tooltip" />
+            {title || name}
+            <span onClick={handleMediaTypeClick} className="media-card__type-link" data-tooltip-id={`mediaTypeTooltip-${id}`} data-tooltip-content="View Details">
+              <FontAwesomeIcon icon={icon} className="media-card__type-icon" />
+            </span>
+            <Tooltip id={`mediaTypeTooltip-${id}`} place="top" className="details-tooltip" />
+            <span onClick={handleMediaRecommendationsClick} className="media-card__recommendations-link" data-tooltip-id={`lightbulbTooltip-${id}`} data-tooltip-content="Discover More">
+              <FontAwesomeIcon
+                icon={faLightbulb}
+                className="media-card__lightbulb-icon"
+              />
+            </span>
+            <Tooltip id={`lightbulbTooltip-${id}`} place="top" className="details-tooltip" />
+            <span onClick={handleShare} className="media-card__share-link" data-tooltip-id={`shareTooltip-${id}`} data-tooltip-content="Share">
+              <FontAwesomeIcon icon={faShareAlt} className="media-card__share-icon" />
+            </span>
+            <Tooltip id={`shareTooltip-${id}`} place="top" className="details-tooltip" />
           </h2>
           <CircleRating rating={validRating} />
           <p className="media-card__overview">{overview}</p>

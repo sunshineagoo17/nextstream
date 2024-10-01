@@ -8,6 +8,7 @@
 #calTooltip,
 #shareIconTooltip,
 #likeTooltip,
+#lightbulbTooltip,
 #dislikeTooltip {
   background-color: $primary-dark-blue;
   color: $neutral-white;
@@ -423,6 +424,7 @@
     justify-content: center;
   }
 
+  &__lightbulb-icon,
   &__media-icon-link,
   &__search-icon,
   &__cal-icon,

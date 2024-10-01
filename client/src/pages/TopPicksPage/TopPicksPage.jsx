@@ -2,7 +2,7 @@ import { useState, useEffect, useContext, useRef } from 'react';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faPlay, faCalendarPlus, faPlus, faChevronDown, faChevronUp, faFilm, faTv, faChevronCircleDown, faChevronCircleUp, faTimes, faThumbsUp, faThumbsDown, faShareAlt
+  faPlay, faCalendarPlus, faPlus, faChevronDown, faChevronUp, faFilm, faTv, faChevronCircleDown, faChevronCircleUp, faTimes, faThumbsUp, faThumbsDown, faShareAlt, faLightbulb
 } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { Tooltip } from 'react-tooltip';
@@ -333,6 +333,18 @@ const TopPicksPage = () => {
                         data-tooltip-content="More Info"
                       />
                     </Link>
+                    <Link 
+                      to={`/nextwatch/${userId}/${item.media_type}/${item.id}`} 
+                      onClick={handleClick}
+                      aria-disabled={isGuest ? "true" : "false"}
+                    >
+                      <FontAwesomeIcon
+                        icon={faLightbulb}
+                        className="recommendations-page__lightbulb-icon"
+                        data-tooltip-id="lightbulbTooltip"
+                        data-tooltip-content="Discover More"
+                      />
+                    </Link>
                     <FontAwesomeIcon
                       icon={faCalendarPlus}
                       onClick={() => handleAddToCalendar(item.title, item.media_type, item.id)}
@@ -433,6 +445,7 @@ const TopPicksPage = () => {
           </div>
         )}
         {/* Tooltip components */}
+        <Tooltip id="lightbulbTooltip" place="top" />
         <Tooltip id="mediaTooltip" place="top" />
         <Tooltip id="calTooltip" place="top" />
         <Tooltip id="likeTooltip" place="top" />

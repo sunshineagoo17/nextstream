@@ -9,6 +9,7 @@
 #searchTooltip,
 #shareTooltip,
 #lockTooltip,
+#lightbulbTooltip,
 #trashTooltip {
   background-color: $primary-dark-blue;
   color: $neutral-white;
@@ -724,6 +725,7 @@
     justify-content: center;
   }
 
+  &__lightbulb-icon,
   &__status-icon,
   &__media-icon-link,
   &__search-icon,
