@@ -237,7 +237,15 @@ router.delete('/:userId/delete/:media_id/:media_type', async (req, res) => {
       .where({ userId, media_id, media_type })
       .update({ interaction: 0 });
 
-    res.json({ message: 'Media interaction updated to 0 (removed from favorites)' });
+    // Update the `media_statuses` table to reflect that the media is no longer "to_watch"
+    await db('media_statuses')
+      .where({ user_id: userId, media_id, media_type })
+      .update({ status: 'removed' }) // or null or any other value that indicates it was disliked/removed
+      .catch(error => {
+        console.error('Error updating media_statuses:', error);
+      });
+
+    res.json({ message: 'Media interaction updated to 0 (removed from favorites) and media_statuses updated.' });
   } catch (error) {
     console.error('Error updating media interaction:', error);
     res.status(500).json({ error: 'Error updating media interaction' });

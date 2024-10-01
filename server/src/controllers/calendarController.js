@@ -148,7 +148,7 @@ exports.searchEvents = async (req, res) => {
 
 // Add a new event
 exports.addEvent = async (req, res) => {
-  const { title, start, end, eventType, timezone } = req.body;
+  const { title, start, end, eventType, timezone, media_id, media_type } = req.body;
 
   // Validate eventType
   if (!['movie', 'tv', 'unknown'].includes(eventType)) {
@@ -171,6 +171,7 @@ exports.addEvent = async (req, res) => {
       userIdentifier = req.params.userId;
     }
 
+    // Insert the new event into the calendar
     const [eventId] = await knex('events').insert({
       user_id: userIdentifier,
       title,
@@ -178,6 +179,19 @@ exports.addEvent = async (req, res) => {
       end: formattedEnd,
       eventType,
     });
+
+    // Add the media to `media_statuses` with status 'scheduled'
+    if (media_id && media_type) {
+      await knex('media_statuses')
+        .insert({
+          user_id: userIdentifier,
+          media_id,
+          media_type,
+          status: 'scheduled',
+        })
+        .onConflict(['user_id', 'media_id']) 
+        .merge({ status: 'scheduled' }); 
+    }
 
     // Send push notifications only for authenticated users
     if (userIdentifier !== 'guest') {
@@ -196,15 +210,13 @@ exports.addEvent = async (req, res) => {
       await sendPushNotifications(user, events);
     }
 
-    res
-      .status(201)
-      .json({
-        eventId,
-        title,
-        start: formattedStart,
-        end: formattedEnd,
-        eventType,
-      });
+    res.status(201).json({
+      eventId,
+      title,
+      start: formattedStart,
+      end: formattedEnd,
+      eventType,
+    });
   } catch (error) {
     console.error('Error adding event:', error);
     res.status(500).json({ message: 'Error adding event' });
@@ -214,7 +226,7 @@ exports.addEvent = async (req, res) => {
 // Update an existing event
 exports.updateEvent = async (req, res) => {
   const { eventId } = req.params;
-  const { title, start, end, eventType, timezone } = req.body;
+  const { title, start, end, eventType, timezone, media_id, media_type } = req.body;
 
   if (eventType && !['movie', 'tv', 'unknown'].includes(eventType)) {
     return res.status(400).json({ message: 'Invalid eventType' });
@@ -236,9 +248,17 @@ exports.updateEvent = async (req, res) => {
       userIdentifier = req.params.userId;
     }
 
+    // Update the event in the `events` table
     await knex('events')
       .where({ id: eventId, user_id: userIdentifier })
       .update({ title, start: formattedStart, end: formattedEnd, eventType });
+
+    // If media is associated with the event, update the status in the `media_statuses`
+    if (media_id && media_type) {
+      await knex('media_statuses')
+        .where({ user_id: userIdentifier, media_id, media_type })
+        .update({ status: 'scheduled' });
+    }
 
     // Send push notifications only for authenticated users
     if (userIdentifier !== 'guest') {
@@ -291,13 +311,20 @@ exports.deleteEvent = async (req, res) => {
       return res.status(404).json({ message: 'Event not found or not owned by you.' });
     }
 
-    // Delete the event if the user is the owner
+    // Remove the event from the `events` table
     await knex('events').where({ id: eventId, user_id: userId }).del();
 
     // Additionally, delete any shared references to the event
     await knex('calendar_events').where({ event_id: eventId }).del();
 
-    res.status(200).json({ message: 'Event deleted successfully.' });
+    // Update the `media_statuses` to remove the 'scheduled' status for the media associated with the event
+    if (event.media_id && event.media_type) {
+      await knex('media_statuses')
+        .where({ user_id: userId, media_id: event.media_id, media_type: event.media_type })
+        .update({ status: null });  // Set status to null or a different value indicating it is no longer scheduled
+    }
+
+    res.status(200).json({ message: 'Event and associated media status removed successfully.' });
   } catch (error) {
     console.error('Error deleting event:', error);
     res.status(500).json({ message: 'Error deleting event.' });

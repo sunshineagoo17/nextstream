@@ -5,7 +5,7 @@ const knexConfig = require('../../knexfile');
 const db = require('knex')(knexConfig.development);
 const authenticate = require('../middleware/authenticate');
 const guestAuthenticate = require('../middleware/guestAuthenticate');
-const { loadModel, trainModel, predictUserPreference } = require('../models/recommendationModel')
+const { loadModel, trainModel, predictUserPreference } = require('../models/recommendationModel');
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
 const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
 
@@ -36,7 +36,6 @@ const getMediaDetails = async (media_id, media_type) => {
 
     // Ensure genres exist and are an array, otherwise return an empty array
     const { genres = [], ...otherData } = response.data;
-
     return {
       ...otherData,
       genres: genres.map(genre => genre.name)
@@ -137,7 +136,31 @@ router.post('/', handleAuthentication, async (req, res) => {
       console.log('Interaction inserted');
     }
 
-    // Record the viewed media in the 'viewed_media' table if necessary
+    // If the interaction is a like (1), update or insert into `media_statuses`
+    if (interaction === 1) {
+      const mediaDetails = await getMediaDetails(media_id, media_type);
+      if (!mediaDetails) {
+        return res.status(500).json({ message: 'Failed to fetch media details.' });
+      }
+      const { title, poster_path, overview, release_date, genres } = mediaDetails;
+
+      await db('media_statuses')
+        .insert({
+          userId,
+          media_id,
+          status: 'to_watch',
+          title,  
+          poster_path,
+          overview,
+          release_date,
+          genre: genres.join(', '),
+          media_type
+        })
+        .onConflict(['userId', 'media_id'])  
+        .merge({ status: 'to_watch' });  
+      console.log('Media added to media_statuses as to_watch');
+    }
+
     await db('viewed_media').insert({
       userId,
       media_id,
@@ -146,7 +169,7 @@ router.post('/', handleAuthentication, async (req, res) => {
     });
 
     await trainModel(userId);
-    res.status(200).json({ message: 'Interaction recorded and model trained' });
+    res.status(200).json({ message: 'Interaction recorded and media status updated' });
   } catch (error) {
     console.error('Error recording interaction:', error);
     res.status(500).json({ error: 'Internal server error' });
@@ -155,7 +178,7 @@ router.post('/', handleAuthentication, async (req, res) => {
 
 // Fetch initial top picks for a user or guest
 router.get('/toppicks/:userId', handleAuthentication, async (req, res) => {
-  const userId = req.user.role === 'guest' ? null : req.user.userId; 
+  const userId = req.user.role === 'guest' ? null : req.user.userId;
 
   try {
     // For guests, simply fetch popular movies and shows
@@ -244,9 +267,7 @@ router.get('/toppicks/:userId', handleAuthentication, async (req, res) => {
       })
     );
 
-    res.status(200).json({
-      topPicks: detailedTopPicks
-    });
+    res.status(200).json({ topPicks: detailedTopPicks });
   } catch (error) {
     console.error('Error fetching top picks:', error);
     res.status(500).json({ error: 'Internal server error' });
@@ -279,7 +300,7 @@ router.get('/recommendations/:userId', handleAuthentication, async (req, res) =>
         return res.status(500).json({ message: 'Failed to train and load the TensorFlow model.' });
       }
     }
-  
+
     let recommendations = [];
 
     // Recursive function to fetch similar media from TMDB based on liked media
@@ -360,13 +381,13 @@ router.get('/recommendations/:userId', handleAuthentication, async (req, res) =>
 
 // Route to fetch all interactions for a specific user, optionally filtered by interaction type
 router.get('/:userId', handleAuthentication, async (req, res) => {
-  const userId = req.user.role === 'guest' ? null : req.user.userId;  // Handle guest users
+  const userId = req.user.role === 'guest' ? null : req.user.userId;
   const { interactionType } = req.query;
 
   try {
     // If the user is a guest, return an empty array since they don't have interactions
     if (!userId) {
-      return res.status(200).json([]);  // Guests should not have interactions
+      return res.status(200).json([]);
     }
 
     // Build the query to fetch interactions based on userId and optional interactionType for authenticated users
