@@ -8,7 +8,7 @@ import {
   faFilm, faTv, faMap, faBomb, faPalette, faLaugh, faFingerprint, faClapperboard, faTheaterMasks, faQuidditch, faGhost,
   faUserSecret, faVideoCamera, faFaceKissWinkHeart, faMusic, faHandSpock, faMask, faChildren, faFighterJet, faScroll,
   faHatCowboy, faChild, faTelevision, faBalanceScale, faHeartBroken, faBolt, faExplosion, faMeteor, faMicrophone,
-  faCalendarPlus, faTrash, faClose, faSearch, faLightbulb
+  faCalendarPlus, faTrash, faClose, faSearch, faLightbulb, faSave, faRedo
 } from '@fortawesome/free-solid-svg-icons';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import Loader from '../../components/Loader/Loader';
@@ -51,7 +51,7 @@ const genreIconMapping = {
   'Sci-Fi & Fantasy': faMeteor
 };
 
-const MediaItem = ({ item, index, status, moveMediaItem, handleAddToCalendar, handleDeleteMedia, isSearchResult }) => {
+const MediaItem = ({ item, index, status, moveMediaItem, handleAddToCalendar, handleDeleteMedia, isSearchResult, setAlert }) => {
   const [{ isDragging }, drag] = useDrag(() => ({
     type: ItemTypes.MEDIA,
     item: { id: item.media_id, index, currentStatus: status },
@@ -64,32 +64,61 @@ const MediaItem = ({ item, index, status, moveMediaItem, handleAddToCalendar, ha
   const [season, setSeason] = useState(item.season || 1);
   const [episode, setEpisode] = useState(item.episode || 1);
 
+  // Update season and episode via API
+  const updateSeasonEpisode = async (mediaId, season, episode) => {
+    try {
+      const response = await api.put(`/api/media-status/${mediaId}`, {
+        season,
+        episode,
+      });
+      console.log('Season and episode updated:', response.data);
+
+      // Use setAlert for success message
+      setAlert({ type: 'success', message: 'Season and episode saved successfully!' });
+    } catch (error) {
+      console.error('Error updating season and episode:', error);
+      
+      // Use setAlert for error message
+      setAlert({ type: 'error', message: 'Failed to save season and episode.' });
+    }
+  };
+
+  const resetSeasonEpisode = async (mediaId) => {
+    try {
+      // Reset the season and episode to 1
+      await api.put(`/api/media-status/${mediaId}`, {
+        season: 1,
+        episode: 1,
+      });
+
+      // Reset the state values
+      setSeason(1);
+      setEpisode(1);
+
+      // Show success alert
+      setAlert({ type: 'success', message: 'Season and episode reset successfully!' });
+    } catch (error) {
+      console.error('Error resetting season and episode:', error);
+      
+      // Show error alert
+      setAlert({ type: 'error', message: 'Failed to reset season and episode.' });
+    }
+  };
+
+  const handleSaveSeasonEpisode = () => {
+    updateSeasonEpisode(item.media_id, season, episode);
+  };
+
+  const handleResetSeasonEpisode = () => {
+    resetSeasonEpisode(item.media_id);
+  };
+
   const handleSeasonChange = (e) => {
     setSeason(e.target.value);
   };
 
   const handleEpisodeChange = (e) => {
     setEpisode(e.target.value);
-  };
-
-  const updateSeasonEpisode = async (mediaId, season, episode) => {
-    try {
-        const response = await api.put(`/api/media/${mediaId}/season-episode`, {
-            season,
-            episode,
-        });
-        console.log('Season and episode updated:', response.data);
-        alert('Season and episode saved!');
-    } catch (error) {
-        console.error('Error updating season and episode:', error);
-        alert('Failed to save season and episode');
-    }
-};
-
-  const handleSaveSeasonEpisode = () => {
-    // Logic to save the season and episode data
-    updateSeasonEpisode(item.media_id, season, episode); // or make an API call
-    alert('Season and episode saved!');
   };
 
   return (
@@ -133,9 +162,14 @@ const MediaItem = ({ item, index, status, moveMediaItem, handleAddToCalendar, ha
                 />
             </label>
           </div>
-          <button className="streamboard__save-button" onClick={handleSaveSeasonEpisode}>
-              Save
-          </button>
+          <div className='streamboard__season-buttons'>
+            <button className="streamboard__save-button" onClick={handleSaveSeasonEpisode}>
+              <FontAwesomeIcon icon={faSave} />
+            </button>
+            <button className="streamboard__reset-button" onClick={handleResetSeasonEpisode}>
+              <FontAwesomeIcon icon={faRedo} />
+            </button>
+          </div>
       </div>
       )}
 
@@ -209,7 +243,7 @@ const MediaItem = ({ item, index, status, moveMediaItem, handleAddToCalendar, ha
   );
 };
 
-const MediaColumn = ({ status, mediaItems, moveMediaItem, handleAddToCalendar, handleDeleteMedia, showPagination, onPageChange }) => {
+const MediaColumn = ({ status, mediaItems, moveMediaItem, handleAddToCalendar, handleDeleteMedia, setAlert, showPagination, onPageChange }) => {
   const [, drop] = useDrop(() => ({
     accept: ItemTypes.MEDIA,
     drop: (draggedItem) => {
@@ -231,6 +265,7 @@ const MediaColumn = ({ status, mediaItems, moveMediaItem, handleAddToCalendar, h
             moveMediaItem={moveMediaItem}
             handleAddToCalendar={handleAddToCalendar}
             handleDeleteMedia={handleDeleteMedia}
+            setAlert={setAlert}  
           />
         ))}
       </div>
@@ -546,6 +581,7 @@ const StreamBoard = () => {
           </p>
         </div>
         {loading && <Loader />}
+        {/* Alert Display */}
         {alert.message && (
           <CustomAlerts
             type={alert.type}
@@ -574,6 +610,7 @@ const StreamBoard = () => {
             moveMediaItem={moveMediaItem}
             handleAddToCalendar={handleAddToCalendar}
             handleDeleteMedia={handleDeleteMedia}
+            setAlert={setAlert}
             showPagination={mediaItems.to_watch.length > itemsPerPage}
             onPageChange={(direction) => handlePageChange('to_watch', direction)}
           />
@@ -583,6 +620,7 @@ const StreamBoard = () => {
             moveMediaItem={moveMediaItem}
             handleAddToCalendar={handleAddToCalendar}
             handleDeleteMedia={handleDeleteMedia}
+            setAlert={setAlert}
             showPagination={mediaItems.scheduled.length > itemsPerPage}
             onPageChange={(direction) => handlePageChange('scheduled', direction)}
           />
@@ -592,6 +630,7 @@ const StreamBoard = () => {
             moveMediaItem={moveMediaItem}
             handleAddToCalendar={handleAddToCalendar}
             handleDeleteMedia={handleDeleteMedia}
+            setAlert={setAlert}
             showPagination={mediaItems.watched.length > itemsPerPage}
             onPageChange={(direction) => handlePageChange('watched', direction)}
           />
