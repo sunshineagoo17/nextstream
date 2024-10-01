@@ -406,15 +406,23 @@ const StreamBoard = () => {
   const [scheduledPage, setScheduledPage] = useState(1);
   const [watchedPage, setWatchedPage] = useState(1);
 
-
   const handleSaveTags = async (newTags) => {
     try {
-   
       const tagsArray = Array.isArray(newTags) ? newTags : [newTags];
   
-      await api.put(`/api/media-status/${selectedMediaId}/tags`, { tags: tagsArray.join(', ') }); 
+      await api.put(`/api/media-status/${selectedMediaId}/tags`, { tags: tagsArray.join(', ') });
   
-      setTags(tagsArray);  
+      setMediaItems((prevItems) => {
+        const updatedItems = { ...prevItems };
+        Object.keys(updatedItems).forEach((status) => {
+          updatedItems[status] = updatedItems[status].map((item) =>
+            item.media_id === selectedMediaId ? { ...item, tags: tagsArray } : item
+          );
+        });
+  
+        return updatedItems;
+      });
+  
       setShowTagModal(false);
       setAlert({ type: 'success', message: 'Tags updated successfully.' });
     } catch (error) {
@@ -425,7 +433,19 @@ const StreamBoard = () => {
   
   const handleSaveReview = async (newReview) => {
     try {
-      await api.put(`/api/media-status/${selectedMediaId}/review`, { review: newReview });  
+      await api.put(`/api/media-status/${selectedMediaId}/review`, { review: newReview });
+  
+      setMediaItems((prevItems) => {
+        const updatedItems = { ...prevItems };
+        Object.keys(updatedItems).forEach((status) => {
+          updatedItems[status] = updatedItems[status].map((item) =>
+            item.media_id === selectedMediaId ? { ...item, review: newReview } : item
+          );
+        });
+  
+        return updatedItems;
+      });
+  
       setReview(newReview);
       setShowReviewModal(false);
       setAlert({ type: 'success', message: 'Review saved successfully.' });
@@ -434,6 +454,52 @@ const StreamBoard = () => {
       setAlert({ type: 'error', message: 'Failed to save review.' });
     }
   };
+
+  const handleDeleteTags = async () => {
+    try {
+      await api.delete(`/api/media-status/${selectedMediaId}/tags`);
+  
+      setMediaItems((prevItems) => {
+        const updatedItems = { ...prevItems };
+        Object.keys(updatedItems).forEach((status) => {
+          updatedItems[status] = updatedItems[status].map((item) =>
+            item.media_id === selectedMediaId ? { ...item, tags: [] } : item
+          );
+        });
+  
+        return updatedItems;
+      });
+  
+      setShowTagModal(false);
+      setAlert({ type: 'success', message: 'Tags deleted successfully.' });
+    } catch (error) {
+      console.error('Error deleting tags:', error);
+      setAlert({ type: 'error', message: 'Failed to delete tags.' });
+    }
+  };
+  
+  const handleDeleteReview = async () => {
+    try {
+      await api.delete(`/api/media-status/${selectedMediaId}/review`);
+  
+      setMediaItems((prevItems) => {
+        const updatedItems = { ...prevItems };
+        Object.keys(updatedItems).forEach((status) => {
+          updatedItems[status] = updatedItems[status].map((item) =>
+            item.media_id === selectedMediaId ? { ...item, review: null } : item
+          );
+        });
+  
+        return updatedItems;
+      });
+  
+      setShowReviewModal(false);
+      setAlert({ type: 'success', message: 'Review deleted successfully.' });
+    } catch (error) {
+      console.error('Error deleting review:', error);
+      setAlert({ type: 'error', message: 'Failed to delete review.' });
+    }
+  };  
   
   useEffect(() => {
     const updateScreenSize = () => {
@@ -754,42 +820,45 @@ const StreamBoard = () => {
           </div>
         )}
 
-{showTagModal && (
-  <div>
-    {/* Overlay that covers the entire screen */}
-    <div className="streamboard__modal-overlay" />
+        {showTagModal && (
+          <div>
+            {/* Overlay that covers the entire screen */}
+            <div className="streamboard__modal-overlay" />
 
-    {/* Modal content centered on the screen */}
-    <div className="streamboard__modal">
-      <TagModal
-        show={showTagModal}
-        onClose={() => setShowTagModal(false)}
-        onSave={handleSaveTags}
-        tags={tags}
-        mediaId={selectedMediaId} 
-        setAlert={setAlert}
-      />
-    </div>
-  </div>
-)}
+            {/* Modal content centered on the screen */}
+            <div className="streamboard__modal">
+              <TagModal
+                show={showTagModal}
+                onClose={() => setShowTagModal(false)}
+                onSave={handleSaveTags}
+                onDelete={handleDeleteTags} 
+                tags={tags}
+                mediaId={selectedMediaId} 
+                setAlert={setAlert}
+              />
+            </div>
+          </div>
+        )}
 
-{showReviewModal && (
-  <div>
-    {/* Overlay that covers the entire screen */}
-    <div className="streamboard__modal-overlay" />
+        {showReviewModal && (
+          <div>
+            {/* Overlay that covers the entire screen */}
+            <div className="streamboard__modal-overlay" />
 
-    {/* Modal content centered on the screen */}
-    <div className="streamboard__modal">
-      <ReviewModal
-        show={showReviewModal}
-        onClose={() => setShowReviewModal(false)}
-        onSave={handleSaveReview}
-        review={review}
-        mediaId={selectedMediaId} // Pass mediaId correctly
-      />
-    </div>
-  </div>
-)}
+            {/* Modal content centered on the screen */}
+            <div className="streamboard__modal">
+              <ReviewModal
+                show={showReviewModal}
+                onClose={() => setShowReviewModal(false)}
+                onSave={handleSaveReview}  
+                review={review}
+                onDelete={handleDeleteReview} 
+                mediaId={selectedMediaId}  
+                setAlert={setAlert} 
+              />
+            </div>
+          </div>
+        )}
       </div>
     </DndProvider>
   );

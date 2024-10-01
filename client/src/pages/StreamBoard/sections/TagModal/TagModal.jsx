@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react';
 import './TagModal.scss';
-import api from '../../../../services/api'; 
 
-const TagModal = ({ show, onClose, onSave, tags, mediaId, setAlert }) => {
+const TagModal = ({ show, onClose, onSave, tags, mediaId, setAlert, onDelete }) => {
   const [newTag, setNewTag] = useState('');
 
   useEffect(() => {
     if (tags && tags.length > 0) {
       setNewTag(tags.join(', ')); 
+    } else {
+      setNewTag(''); 
     }
     console.log('mediaId in TagModal:', mediaId); 
   }, [tags, mediaId]);
@@ -15,22 +16,25 @@ const TagModal = ({ show, onClose, onSave, tags, mediaId, setAlert }) => {
   const handleSave = () => {
     if (newTag.trim()) {
       const tagArray = newTag.split(',').map(tag => tag.trim()); 
-      onSave(tagArray);
+      onSave(tagArray); 
       setNewTag(''); 
-      setAlert({ type: 'success', message: 'Tags saved successfully!' }); 
-      onClose(); 
+      setAlert({ type: 'success', message: 'Tags saved successfully!' });
+      onClose();
     }
   };
 
-  const handleDelete = async () => {
-    try {
-      await api.delete(`/api/media-status/${mediaId}/tags`); 
-      setNewTag('');  
-      setAlert({ type: 'success', message: 'Tags deleted successfully!' }); 
+  const handleDelete = () => {
+    if (onDelete && mediaId) {
+      onDelete(mediaId);  
+      setNewTag('');
+      setAlert({ type: 'success', message: 'Tags deleted successfully!' });
       onClose();
-    } catch (error) {
-      console.error('Error deleting tags:', error);
-      setAlert({ type: 'error', message: 'Failed to delete tags.' }); 
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      handleSave();
     }
   };
 
@@ -45,6 +49,7 @@ const TagModal = ({ show, onClose, onSave, tags, mediaId, setAlert }) => {
           type="text"
           value={newTag}
           onChange={(e) => setNewTag(e.target.value)}
+          onKeyDown={handleKeyDown} 
           placeholder="Enter new tag"
         />
         <div className="tag-modal__actions">
