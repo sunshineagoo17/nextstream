@@ -29,16 +29,21 @@ const getMediaDetails = async (media_id, media_type) => {
     // Check if media_type is not 'person' since 'person' doesn't have genres
     if (media_type === 'person') {
       console.warn(`Skipping media type 'person' for id ${media_id}`);
-      return null; 
+      return null;
     }
+
     const url = `${TMDB_BASE_URL}/${media_type}/${media_id}?api_key=${TMDB_API_KEY}`;
     const response = await axios.get(url);
 
-    // Ensure genres exist and are an array, otherwise return an empty array
-    const { genres = [], ...otherData } = response.data;
+    const { genres = [], runtime, episode_run_time = [], ...otherData } = response.data;
+
+    // Calculate duration based on media type (runtime for movies, episode_run_time for TV shows)
+    const duration = media_type === 'movie' ? runtime : (episode_run_time.length > 0 ? episode_run_time[0] : null);
+
     return {
       ...otherData,
-      genres: genres.map(genre => genre.name)
+      genres: genres.map(genre => genre.name),
+      duration,  
     };
   } catch (error) {
     console.error(`Error fetching media details for ${media_type} ${media_id}:`, error);
@@ -142,22 +147,42 @@ router.post('/', handleAuthentication, async (req, res) => {
       if (!mediaDetails) {
         return res.status(500).json({ message: 'Failed to fetch media details.' });
       }
-      const { title, poster_path, overview, release_date, genres } = mediaDetails;
+      
+      // Destructure fields from the API response
+      const { title, name, poster_path, overview, release_date, genres, duration } = mediaDetails;
+      
+      // Handle media title depending on whether it's a movie or a TV show
+      const mediaTitle = title || name || 'Untitled'; // 'title' for movies, 'name' for TV shows
+
+      console.log({
+        userId,
+        media_id,
+        status: 'to_watch',
+        title: mediaTitle,
+        poster_path,
+        overview,
+        release_date: release_date || 'Unknown', 
+        genre: genres.join(', '),
+        duration: duration || 'Unknown',  
+        media_type
+      });
 
       await db('media_statuses')
         .insert({
           userId,
           media_id,
           status: 'to_watch',
-          title,  
+          title: mediaTitle, 
           poster_path,
           overview,
-          release_date,
+          release_date: release_date || null,  
           genre: genres.join(', '),
+          duration: duration || null,  
           media_type
         })
         .onConflict(['userId', 'media_id'])  
-        .merge({ status: 'to_watch' });  
+        .merge({ status: 'to_watch' });
+        
       console.log('Media added to media_statuses as to_watch');
     }
 
