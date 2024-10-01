@@ -5,6 +5,7 @@ import { fetchMessages, sendMessage, deleteMessage, markAllMessagesAsRead } from
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faTimes, faTrash, faBell, faClose, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
 import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
+import EmojiMessages from '../../components/EmojiMessages/EmojiMessages';
 import TypingIndicator from '../../components/TypingIndicator/TypingIndicator';
 import Calendar from '../CalendarPage/sections/Calendar';
 import io from 'socket.io-client';
@@ -970,6 +971,7 @@ const FriendsPage = () => {
                   Send
                 </button>
               </div>
+              <EmojiMessages newMessage={newMessage} setNewMessage={setNewMessage} className="friends-page__emoji-button"/>
               {typing && (
                 <div className='friends-page__typing'>
                   <TypingIndicator />
