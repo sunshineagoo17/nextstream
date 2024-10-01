@@ -16,6 +16,23 @@
     }
 }
 
+#streamboardMediaTooltip,
+#lightbulbTooltip,
+#calTooltip,
+#trashTooltip {
+  background-color: $primary-dark-blue;
+  color: $neutral-white;
+  padding: .5rem 1rem;
+  border-radius: .5rem;
+  font-family: $primary-font;
+  font-size: .85rem;
+  line-height: 1.25rem;
+
+  &::after {
+    border: $primary-button-blue transparent transparent transparent;
+  }
+}
+
 .streamboard {
     display: flex;
     background: linear-gradient(135deg, $primary-button-blue, $primary-very-light-blue, $primary-pale-blue, $neutral-white);

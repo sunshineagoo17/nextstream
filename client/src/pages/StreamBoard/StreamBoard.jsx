@@ -3,6 +3,7 @@ import { useDrag, useDrop, DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
+import { Tooltip } from 'react-tooltip';
 import {
   faFilm, faTv, faMap, faBomb, faPalette, faLaugh, faFingerprint, faClapperboard, faTheaterMasks, faQuidditch, faGhost,
   faUserSecret, faVideoCamera, faFaceKissWinkHeart, faMusic, faHandSpock, faMask, faChildren, faFighterJet, faScroll,
@@ -94,22 +95,47 @@ const MediaItem = ({ item, index, status, moveMediaItem, handleAddToCalendar, ha
       </div>
 
       <div className="streamboard__media-actions">
+        {/* Media Type Icon with Tooltip */}
         <Link to={`/nextview/${item.userId}/${item.media_type}/${item.media_id}`}>
-          <FontAwesomeIcon className="streamboard__media-type-icon" icon={item.media_type === 'movie' ? faFilm : faTv} />
+          <FontAwesomeIcon
+            className="streamboard__media-type-icon"
+            icon={item.media_type === 'movie' ? faFilm : faTv}
+            data-tooltip-id="streamboardMediaTooltip"
+            data-tooltip-content="View Info"
+          />
+          <Tooltip id="streamboardMediaTooltip" place="top" />
         </Link>
+
+        {/* Lightbulb Icon for Recommendations with Tooltip */}
         <Link to={`/nextwatch/${item.userId}/${item.media_type}/${item.media_id}`}>
-          <FontAwesomeIcon className="streamboard__lightbulb-icon" icon={faLightbulb} />
+          <FontAwesomeIcon
+            className="streamboard__lightbulb-icon"
+            icon={faLightbulb}
+            data-tooltip-id="lightbulbTooltip"
+            data-tooltip-content="Find Similar"
+          />
+          <Tooltip id="lightbulbTooltip" place="top" />
         </Link>
+
+        {/* Calendar Icon with Tooltip */}
         <FontAwesomeIcon
           icon={faCalendarPlus}
           className="streamboard__calendar-icon"
-          onClick={() => handleAddToCalendar(item.title, item.media_type, item.media_id, () => moveMediaItem(item.media_id, 'scheduled'))} 
+          onClick={() => handleAddToCalendar(item.title, item.media_type, item.media_id, () => moveMediaItem(item.media_id, 'scheduled'))}
+          data-tooltip-id="calendarTooltip"
+          data-tooltip-content="Add to Calendar"
         />
+        <Tooltip id="calendarTooltip" place="top" />
+
+        {/* Trash Icon with Tooltip */}
         <FontAwesomeIcon
           icon={faTrash}
           className="streamboard__trash-icon"
-          onClick={() => handleDeleteMedia(item.media_id, item.media_type)} 
+          onClick={() => handleDeleteMedia(item.media_id, item.media_type)}
+          data-tooltip-id="trashTooltip"
+          data-tooltip-content="Delete from List"
         />
+        <Tooltip id="trashTooltip" place="top" />
       </div>
     </div>
   );
