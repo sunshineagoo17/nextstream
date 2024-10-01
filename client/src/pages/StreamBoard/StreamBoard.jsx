@@ -60,6 +60,38 @@ const MediaItem = ({ item, index, status, moveMediaItem, handleAddToCalendar, ha
     }),
   }));
 
+  // State for season and episode for TV shows
+  const [season, setSeason] = useState(item.season || 1);
+  const [episode, setEpisode] = useState(item.episode || 1);
+
+  const handleSeasonChange = (e) => {
+    setSeason(e.target.value);
+  };
+
+  const handleEpisodeChange = (e) => {
+    setEpisode(e.target.value);
+  };
+
+  const updateSeasonEpisode = async (mediaId, season, episode) => {
+    try {
+        const response = await api.put(`/api/media/${mediaId}/season-episode`, {
+            season,
+            episode,
+        });
+        console.log('Season and episode updated:', response.data);
+        alert('Season and episode saved!');
+    } catch (error) {
+        console.error('Error updating season and episode:', error);
+        alert('Failed to save season and episode');
+    }
+};
+
+  const handleSaveSeasonEpisode = () => {
+    // Logic to save the season and episode data
+    updateSeasonEpisode(item.media_id, season, episode); // or make an API call
+    alert('Season and episode saved!');
+  };
+
   return (
     <div
       ref={drag}
@@ -75,11 +107,46 @@ const MediaItem = ({ item, index, status, moveMediaItem, handleAddToCalendar, ha
         </div>
       )}
 
+      {/* Media Title */}
       <h3 className="streamboard__media-item-title">{item.title}</h3>
+
+      {/* TV Show Only: Season and Episode Inputs */}
+      {item.media_type === 'tv' && (
+        <div className="streamboard__season-episode-inputs">
+          <div className="streamboard__inputs-container">
+            <label>
+                Season
+                <input 
+                    type="number" 
+                    min="1" 
+                    value={season} 
+                    onChange={handleSeasonChange} 
+                />
+            </label>
+            <label>
+                Episode
+                <input 
+                    type="number" 
+                    min="1" 
+                    value={episode} 
+                    onChange={handleEpisodeChange} 
+                />
+            </label>
+          </div>
+          <button className="streamboard__save-button" onClick={handleSaveSeasonEpisode}>
+              Save
+          </button>
+      </div>
+      )}
+
+      {/* Duration */}
       <div className="streamboard__media-item-icon">
-        <p className="streamboard__media-item-duration">Duration: {item.duration ? `${item.duration} min` : 'N/A'}</p>
+        <p className="streamboard__media-item-duration">
+          Duration: {item.duration ? `${item.duration} min` : 'N/A'}
+        </p>
       </div>
 
+      {/* Genres */}
       <div className="streamboard__media-item-details">
         <div className="streamboard__media-item-genre">
           {item.genre && item.genre.split(', ').map((genreName, i) => (
@@ -94,6 +161,7 @@ const MediaItem = ({ item, index, status, moveMediaItem, handleAddToCalendar, ha
         </div>
       </div>
 
+      {/* Media Actions */}
       <div className="streamboard__media-actions">
         {/* Media Type Icon with Tooltip */}
         <Link to={`/nextview/${item.userId}/${item.media_type}/${item.media_id}`}>

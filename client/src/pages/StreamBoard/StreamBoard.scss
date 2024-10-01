@@ -49,6 +49,99 @@
         flex-wrap: nowrap;
     }
 
+
+    &__save-button {
+        padding: .5rem 1rem;
+        border-radius: .5rem;
+        box-shadow: $shadow-secondary;
+        text-shadow: $shadow-primary;
+        border: 2px solid $frosted-glass;
+        background-color: $primary-light-blue;
+        color: $neutral-white;
+        cursor: pointer;
+        font-family: $primary-font;
+        font-size: .85rem;
+        transition: background-color .3s ease, transform .3s ease;
+        margin-left: .5rem;
+
+        &:hover {
+            background-color: $primary-medium-blue;
+            border: 2px solid $primary-light-blue;
+            color: $neutral-white;
+            transform: scale(1.05);
+        }
+
+        &:active {
+            transform: scale(.95);
+            color: $primary-medium-blue;
+            border: 2px solid $neutral-white;
+            background-color: $primary-very-light-blue;
+        }
+    }
+
+    &__inputs-container {
+        display: flex;
+        flex-direction: row;
+        gap: .5rem;
+        margin-bottom: .25rem;
+    }
+
+    &__season-episode-inputs {
+        display: flex;
+        background: $primary-button-blue;
+        border-radius: .5rem;
+        border: 2px solid $frosted-glass;
+        flex-direction: column;
+        justify-content: center;
+        padding: .25rem;
+        align-items: center;
+        margin-bottom: .5rem;
+
+        @include tablet {
+            flex-direction: row;
+        }
+        
+        label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: $primary-font;
+            font-size: .85rem;
+            color: $primary-medium-blue;
+            background-color: $neutral-white;
+            padding: .5rem;
+            border-radius: .5rem;
+            box-shadow: .25rem .25rem .5rem rgba($neutral-black, .1),
+                        -.25rem -.25rem .5rem rgba(255, 255, 255, .7);
+            
+            input {
+                margin-top: .25rem;
+                padding: .5rem;
+                border-radius: .5rem;
+                background: $primary-pale-blue;
+                border: .1875rem solid $neutral-white;
+                box-shadow: $shadow-quaternary;
+                font-family: $secondary-font;
+                font-size: .85rem;
+                color: $primary-medium-blue;
+                text-align: center;
+                outline: none;
+                width: 3rem;
+
+                &:focus {
+                    box-shadow: 0 0 0 .2rem $primary-light-blue;
+                    border-color: $primary-medium-blue;
+                }
+
+                &::-webkit-outer-spin-button,
+                &::-webkit-inner-spin-button {
+                    -webkit-appearance: none;
+                    margin: 0;
+                }
+            }
+        }
+    }
+
     // Search Bar Styling
     &__search-bar {
         display: flex;
@@ -570,6 +663,7 @@
     &__media-item-genre {
         display: flex;
         flex-wrap: wrap; 
+        justify-content: center;
         gap: .15rem;
         margin-top: .3rem;
     }
