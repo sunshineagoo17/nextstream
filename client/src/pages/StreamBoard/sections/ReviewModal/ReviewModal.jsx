@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import './ReviewModal.scss';
 
 const ReviewModal = ({ show, onClose, onSave, review }) => {
   const [newReview, setNewReview] = useState(review || '');
@@ -13,16 +14,23 @@ const ReviewModal = ({ show, onClose, onSave, review }) => {
   if (!show) return null;
 
   return (
-    <div className="modal">
-      <div className="modal-content">
-        <h3>Write a Review</h3>
+    <div className="review-modal">
+      <div className="review-modal__content">
+        <h3 className="review-modal__title">Write a Review</h3>
         <textarea
+          className="review-modal__textarea"
           value={newReview}
           onChange={(e) => setNewReview(e.target.value)}
           placeholder="Enter your review"
         />
-        <button onClick={handleSave}>Save Review</button>
-        <button onClick={onClose}>Close</button>
+        <div className="review-modal__actions">
+          <button className="review-modal__button review-modal__button--save" onClick={handleSave}>
+            Save
+          </button>
+          <button className="review-modal__button review-modal__button--close" onClick={onClose}>
+            Close
+          </button>
+        </div>
       </div>
     </div>
   );

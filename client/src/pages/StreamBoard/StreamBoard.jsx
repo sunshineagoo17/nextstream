@@ -52,12 +52,8 @@ const genreIconMapping = {
   'War & Politics': faExplosion,
   'Sci-Fi & Fantasy': faMeteor
 };
-
-const MediaItem = ({ item, index, status, moveMediaItem, handleAddToCalendar, handleDeleteMedia, isSearchResult, setAlert }) => {
-  const [showTagModal, setShowTagModal] = useState(false);
-  const [showReviewModal, setShowReviewModal] = useState(false);
-  const [tags, setTags] = useState(item.tags || []);
-  const [review, setReview] = useState(item.review || '');
+const MediaItem = ({ item, index, status, moveMediaItem, handleAddToCalendar, handleDeleteMedia, isSearchResult, setAlert, setTags, setSelectedMediaId, setShowTagModal, setReview, setShowReviewModal, tags }) => {
+  
 
   const [{ isDragging }, drag] = useDrag(() => ({
     type: ItemTypes.MEDIA,
@@ -67,29 +63,19 @@ const MediaItem = ({ item, index, status, moveMediaItem, handleAddToCalendar, ha
     }),
   }));
 
-  const handleSaveTags = async (newTags) => {
-    try {
-      await api.put(`/api/media-status/${item.media_id}/tags`, { tags: newTags });
-      setTags(newTags);
-      setShowTagModal(false);
-      setAlert({ type: 'success', message: 'Tags updated successfully.' });
-    } catch (error) {
-      console.error('Error saving tags:', error);
-      setAlert({ type: 'error', message: 'Failed to update tags.' });
-    }
+  const handleOpenTagModal = () => {
+    console.log('Opening Tag Modal');
+    setTags(item.tags || []);
+    setSelectedMediaId(item.media_id);
+    setShowTagModal(true);
   };
-  
-  const handleSaveReview = async (newReview) => {
-    try {
-      await api.put(`/api/media-status/${item.media_id}/review`, { review: newReview });
-      setReview(newReview);
-      setShowReviewModal(false);
-      setAlert({ type: 'success', message: 'Review saved successfully.' });
-    } catch (error) {
-      console.error('Error saving review:', error);
-      setAlert({ type: 'error', message: 'Failed to save review.' });
-    }
-  };  
+
+  const handleOpenReviewModal = () => {
+    console.log('Opening Review Modal');
+    setReview(item.review || '');
+    setSelectedMediaId(item.media_id);
+    setShowReviewModal(true);
+  };
 
   const [season, setSeason] = useState(item.season || 1);
   const [episode, setEpisode] = useState(item.episode || 1);
@@ -267,41 +253,37 @@ const MediaItem = ({ item, index, status, moveMediaItem, handleAddToCalendar, ha
           {/* Add Tag Button */}
           <button
             className="streamboard__tag-button"
-            onClick={() => setShowTagModal(true)}
+            onClick={handleOpenTagModal}
           >
-            Add/Edit Tags
+            Create Tag
           </button>
 
           {/* Add Review Button */}
           <button
             className="streamboard__review-button"
-            onClick={() => setShowReviewModal(true)}
+            onClick={handleOpenReviewModal}
           >
             Add Review
           </button>
         </div>
 
-        {/* Tag Modal */}
-        <TagModal
-          show={showTagModal}
-          onClose={() => setShowTagModal(false)}
-          onSave={handleSaveTags}
-          tags={tags}
-        />
-
-        {/* Review Modal */}
-        <ReviewModal
-          show={showReviewModal}
-          onClose={() => setShowReviewModal(false)}
-          onSave={handleSaveReview}
-          review={review}
-        />
-        </div>
+        {/* Tags display */}
+        {tags && tags.length > 0 && (
+          <div className="streamboard__media-item-tags">
+            {tags.map((tag, index) => (
+              <span key={index} className="tag">
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
+        
+      </div>
     </div>
   );
 };
 
-const MediaColumn = ({ status, mediaItems, moveMediaItem, handleAddToCalendar, handleDeleteMedia, setAlert, showPagination, onPageChange }) => {
+const MediaColumn = ({ status, mediaItems, moveMediaItem, handleAddToCalendar, handleDeleteMedia, setAlert, setTags, setSelectedMediaId, setShowTagModal, setReview, setShowReviewModal, showPagination, onPageChange }) => {
   const [, drop] = useDrop(() => ({
     accept: ItemTypes.MEDIA,
     drop: (draggedItem) => {
@@ -314,16 +296,22 @@ const MediaColumn = ({ status, mediaItems, moveMediaItem, handleAddToCalendar, h
   return (
     <div ref={drop} className={`streamboard__media-column streamboard__media-column--${status.toLowerCase()}`}>
       <div className="streamboard__media-column-content">
-        {mediaItems.map((item, index) => (
+        {mediaItems.map((item, index) => (  
           <MediaItem
-            key={item.media_id}
-            item={item}
-            index={index}
-            status={status}
-            moveMediaItem={moveMediaItem}
-            handleAddToCalendar={handleAddToCalendar}
-            handleDeleteMedia={handleDeleteMedia}
-            setAlert={setAlert}  
+          key={item.media_id}
+          item={item}
+          index={index}
+          status={status}
+          setTags={setTags}
+          tags={item.tags}
+          moveMediaItem={moveMediaItem}
+          handleAddToCalendar={handleAddToCalendar}
+          handleDeleteMedia={handleDeleteMedia}
+          setAlert={setAlert}
+          setSelectedMediaId={setSelectedMediaId}
+          setShowTagModal={setShowTagModal}
+          setReview={setReview} 
+          setShowReviewModal={setShowReviewModal}
           />
         ))}
       </div>
@@ -337,7 +325,6 @@ const MediaColumn = ({ status, mediaItems, moveMediaItem, handleAddToCalendar, h
   );
 };
 
-// New Search Bar and Result Display
 const SearchBar = ({ onSearch, onClearSearch }) => {
   const [query, setQuery] = useState('');
 
@@ -397,12 +384,13 @@ const SearchResult = ({ result, moveMediaItem, handleAddToCalendar, handleDelete
 );
 
 const StreamBoard = () => {
+  const [tags, setTags] = useState([]); 
+  const [review, setReview] = useState(''); 
+  const [selectedMediaId, setSelectedMediaId] = useState(null);  
+  const [showTagModal, setShowTagModal] = useState(false);  
+  const [showReviewModal, setShowReviewModal] = useState(false);  
+  const [mediaItems, setMediaItems] = useState({ to_watch: [], scheduled: [], watched: [] }); 
   const { userId, name } = useContext(AuthContext);
-  const [mediaItems, setMediaItems] = useState({
-    to_watch: [],
-    scheduled: [],
-    watched: [],
-  });
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState({ type: '', message: '' });
   const [searchResult, setSearchResult] = useState(null);
@@ -410,13 +398,40 @@ const StreamBoard = () => {
   const [showCalendar, setShowCalendar] = useState(false);
   const [eventTitle, setEventTitle] = useState('');
   const [duration, setDuration] = useState(0);
-  const [selectedMediaId, setSelectedMediaId] = useState(null);
   const [selectedMediaType, setSelectedMediaType] = useState('');
-
   const [toWatchPage, setToWatchPage] = useState(1);
   const [scheduledPage, setScheduledPage] = useState(1);
   const [watchedPage, setWatchedPage] = useState(1);
 
+
+  const handleSaveTags = async (newTags) => {
+    try {
+   
+      const tagsArray = Array.isArray(newTags) ? newTags : [newTags];
+  
+      await api.put(`/api/media-status/${selectedMediaId}/tags`, { tags: tagsArray.join(', ') }); 
+  
+      setTags(tagsArray);  
+      setShowTagModal(false);
+      setAlert({ type: 'success', message: 'Tags updated successfully.' });
+    } catch (error) {
+      console.error('Error saving tags:', error);
+      setAlert({ type: 'error', message: 'Failed to update tags.' });
+    }
+  };
+  
+  const handleSaveReview = async (newReview) => {
+    try {
+      await api.put(`/api/media-status/${selectedMediaId}/review`, { review: newReview });  
+      setReview(newReview);
+      setShowReviewModal(false);
+      setAlert({ type: 'success', message: 'Review saved successfully.' });
+    } catch (error) {
+      console.error('Error saving review:', error);
+      setAlert({ type: 'error', message: 'Failed to save review.' });
+    }
+  };
+  
   useEffect(() => {
     const updateScreenSize = () => {
       if (window.innerWidth <= 768) {
@@ -681,6 +696,11 @@ const StreamBoard = () => {
             handleAddToCalendar={handleAddToCalendar}
             handleDeleteMedia={handleDeleteMedia}
             setAlert={setAlert}
+            setReview={setReview}
+            setTags={setTags} 
+            setShowTagModal={setShowTagModal}
+            setSelectedMediaId={setSelectedMediaId}
+            setShowReviewModal={setShowReviewModal}
             showPagination={mediaItems.to_watch.length > itemsPerPage}
             onPageChange={(direction) => handlePageChange('to_watch', direction)}
           />
@@ -691,6 +711,11 @@ const StreamBoard = () => {
             handleAddToCalendar={handleAddToCalendar}
             handleDeleteMedia={handleDeleteMedia}
             setAlert={setAlert}
+            setReview={setReview}
+            setTags={setTags} 
+            setShowTagModal={setShowTagModal}
+            setShowReviewModal={setShowReviewModal}
+            setSelectedMediaId={setSelectedMediaId}
             showPagination={mediaItems.scheduled.length > itemsPerPage}
             onPageChange={(direction) => handlePageChange('scheduled', direction)}
           />
@@ -701,6 +726,11 @@ const StreamBoard = () => {
             handleAddToCalendar={handleAddToCalendar}
             handleDeleteMedia={handleDeleteMedia}
             setAlert={setAlert}
+            setReview={setReview}
+            setTags={setTags} 
+            setShowTagModal={setShowTagModal}
+            setShowReviewModal={setShowReviewModal}
+            setSelectedMediaId={setSelectedMediaId}
             showPagination={mediaItems.watched.length > itemsPerPage}
             onPageChange={(direction) => handlePageChange('watched', direction)}
           />
@@ -720,6 +750,40 @@ const StreamBoard = () => {
             />
           </div>
         )}
+
+{showTagModal && (
+  <div>
+    {/* Overlay that covers the entire screen */}
+    <div className="streamboard__modal-overlay" />
+
+    {/* Modal content centered on the screen */}
+    <div className="streamboard__modal">
+      <TagModal
+        show={showTagModal}
+        onClose={() => setShowTagModal(false)}
+        onSave={handleSaveTags}
+        tags={tags}
+      />
+    </div>
+  </div>
+)}
+
+{showReviewModal && (
+  <div>
+    {/* Overlay that covers the entire screen */}
+    <div className="streamboard__modal-overlay" />
+
+    {/* Modal content centered on the screen */}
+    <div className="streamboard__modal">
+      <ReviewModal
+        show={showReviewModal}
+        onClose={() => setShowReviewModal(false)}
+        onSave={handleSaveReview}
+        review={review}
+      />
+    </div>
+  </div>
+)}
       </div>
     </DndProvider>
   );
