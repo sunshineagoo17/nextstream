@@ -11,6 +11,8 @@ import {
   faCalendarPlus, faTrash, faClose, faSearch, faLightbulb, faSave, faRedo
 } from '@fortawesome/free-solid-svg-icons';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
+import TagModal from './sections/TagModal/TagModal';
+import ReviewModal from './sections/ReviewModal/ReviewModal';
 import Loader from '../../components/Loader/Loader';
 import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
 import Calendar from '../CalendarPage/sections/Calendar'; 
@@ -52,6 +54,11 @@ const genreIconMapping = {
 };
 
 const MediaItem = ({ item, index, status, moveMediaItem, handleAddToCalendar, handleDeleteMedia, isSearchResult, setAlert }) => {
+  const [showTagModal, setShowTagModal] = useState(false);
+  const [showReviewModal, setShowReviewModal] = useState(false);
+  const [tags, setTags] = useState(item.tags || []);
+  const [review, setReview] = useState(item.review || '');
+
   const [{ isDragging }, drag] = useDrag(() => ({
     type: ItemTypes.MEDIA,
     item: { id: item.media_id, index, currentStatus: status },
@@ -60,11 +67,33 @@ const MediaItem = ({ item, index, status, moveMediaItem, handleAddToCalendar, ha
     }),
   }));
 
-  // State for season and episode for TV shows
+  const handleSaveTags = async (newTags) => {
+    try {
+      await api.put(`/api/media-status/${item.media_id}/tags`, { tags: newTags });
+      setTags(newTags);
+      setShowTagModal(false);
+      setAlert({ type: 'success', message: 'Tags updated successfully.' });
+    } catch (error) {
+      console.error('Error saving tags:', error);
+      setAlert({ type: 'error', message: 'Failed to update tags.' });
+    }
+  };
+  
+  const handleSaveReview = async (newReview) => {
+    try {
+      await api.put(`/api/media-status/${item.media_id}/review`, { review: newReview });
+      setReview(newReview);
+      setShowReviewModal(false);
+      setAlert({ type: 'success', message: 'Review saved successfully.' });
+    } catch (error) {
+      console.error('Error saving review:', error);
+      setAlert({ type: 'error', message: 'Failed to save review.' });
+    }
+  };  
+
   const [season, setSeason] = useState(item.season || 1);
   const [episode, setEpisode] = useState(item.episode || 1);
 
-  // Update season and episode via API
   const updateSeasonEpisode = async (mediaId, season, episode) => {
     try {
       const response = await api.put(`/api/media-status/${mediaId}`, {
@@ -73,34 +102,28 @@ const MediaItem = ({ item, index, status, moveMediaItem, handleAddToCalendar, ha
       });
       console.log('Season and episode updated:', response.data);
 
-      // Use setAlert for success message
       setAlert({ type: 'success', message: 'Season and episode saved successfully!' });
     } catch (error) {
       console.error('Error updating season and episode:', error);
       
-      // Use setAlert for error message
       setAlert({ type: 'error', message: 'Failed to save season and episode.' });
     }
   };
 
   const resetSeasonEpisode = async (mediaId) => {
     try {
-      // Reset the season and episode to 1
       await api.put(`/api/media-status/${mediaId}`, {
         season: 1,
         episode: 1,
       });
 
-      // Reset the state values
       setSeason(1);
       setEpisode(1);
 
-      // Show success alert
       setAlert({ type: 'success', message: 'Season and episode reset successfully!' });
     } catch (error) {
       console.error('Error resetting season and episode:', error);
-      
-      // Show error alert
+  
       setAlert({ type: 'error', message: 'Failed to reset season and episode.' });
     }
   };
@@ -196,6 +219,7 @@ const MediaItem = ({ item, index, status, moveMediaItem, handleAddToCalendar, ha
       </div>
 
       {/* Media Actions */}
+      <div className="streamboard__media-actions-container">
       <div className="streamboard__media-actions">
         {/* Media Type Icon with Tooltip */}
         <Link to={`/nextview/${item.userId}/${item.media_type}/${item.media_id}`}>
@@ -238,7 +262,41 @@ const MediaItem = ({ item, index, status, moveMediaItem, handleAddToCalendar, ha
           data-tooltip-content="Delete from List"
         />
         <Tooltip id="trashTooltip" place="top" />
-      </div>
+        </div>
+        <div className='streamboard__tags-reviews-container'>
+          {/* Add Tag Button */}
+          <button
+            className="streamboard__tag-button"
+            onClick={() => setShowTagModal(true)}
+          >
+            Add/Edit Tags
+          </button>
+
+          {/* Add Review Button */}
+          <button
+            className="streamboard__review-button"
+            onClick={() => setShowReviewModal(true)}
+          >
+            Add Review
+          </button>
+        </div>
+
+        {/* Tag Modal */}
+        <TagModal
+          show={showTagModal}
+          onClose={() => setShowTagModal(false)}
+          onSave={handleSaveTags}
+          tags={tags}
+        />
+
+        {/* Review Modal */}
+        <ReviewModal
+          show={showReviewModal}
+          onClose={() => setShowReviewModal(false)}
+          onSave={handleSaveReview}
+          review={review}
+        />
+        </div>
     </div>
   );
 };
@@ -383,24 +441,36 @@ const StreamBoard = () => {
       const toWatchResponse = await api.get(`/api/media-status/to_watch`);
       const scheduledResponse = await api.get(`/api/media-status/scheduled`);
       const watchedResponse = await api.get(`/api/media-status/watched`);
-
+  
+      const parseTags = (items) =>
+        items.map((item) => ({
+          ...item,
+          tags: item.tags ? item.tags.split(', ').map((tag) => tag.trim()) : [],
+        }));
+  
       setMediaItems({
-        to_watch: toWatchResponse.data,
-        scheduled: scheduledResponse.data,
-        watched: watchedResponse.data,
+        to_watch: parseTags(toWatchResponse.data),
+        scheduled: parseTags(scheduledResponse.data),
+        watched: parseTags(watchedResponse.data),
       });
-
-      const allItems = [...toWatchResponse.data, ...scheduledResponse.data, ...watchedResponse.data];
-      const duplicates = allItems.filter((item, index, self) => self.findIndex(i => i.media_id === item.media_id) !== index);
+  
+      const allItems = [
+        ...parseTags(toWatchResponse.data),
+        ...parseTags(scheduledResponse.data),
+        ...parseTags(watchedResponse.data),
+      ];
+  
+      const duplicates = allItems.filter(
+        (item, index, self) => self.findIndex((i) => i.media_id === item.media_id) !== index
+      );
       if (duplicates.length > 0) {
         console.warn('Duplicate items found:', duplicates);
       }
-
     } catch (error) {
       console.error('Error fetching media items:', error);
       setAlert({ type: 'error', message: 'Failed to load media items.' });
     }
-  };
+  };  
 
   useEffect(() => {
     fetchMediaItems();
@@ -520,7 +590,7 @@ const StreamBoard = () => {
       setDuration(duration);
       setShowCalendar(true);
 
-      if (callback) callback(); // Moves the media item to scheduled
+      if (callback) callback(); 
     } catch (error) {
       console.error('Error fetching duration data:', error);
       setAlert({ type: 'error', message: 'Failed to fetch media duration.' });

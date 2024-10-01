@@ -49,6 +49,116 @@
         flex-wrap: nowrap;
     }
 
+    &__tag-button,
+    &__review-button {
+        padding: 0.5rem 1rem;
+        border-radius: 0.75rem;
+        background-color: $frosted-glass;  
+        color: $primary-medium-blue;                 
+        font-family: $primary-font;            
+        font-size: 0.85rem;             
+        box-shadow: $shadow-primary;          
+        border: .1875rem solid $neutral-white; 
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+
+        &:hover {
+            background-color: $primary-medium-blue; 
+            transform: scale(1.05);       
+            color: $neutral-white;       
+            border: .1875rem solid $primary-button-blue; 
+            border-radius: 1rem;
+        }
+
+        &:active {
+            transform: scale(0.95);         
+            background-color: $primary-very-light-blue; 
+            color: $primary-medium-blue;
+            border: .1875rem solid $neutral-white; 
+            border-radius: 1.5rem;
+        }
+    }
+
+    &__media-actions-container {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    &__tags-reviews-container {
+        display: flex;
+        gap: .5rem;
+        margin-top: .25rem;
+    }
+
+    &__modal {
+        background-color: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);            
+        border-radius: 1rem;                      
+        padding: 2rem;
+        box-shadow: $shadow-quaternary;          
+        border: 0.125rem solid $frosted-glass;
+        font-family: $primary-font;
+        width: 90%;
+        max-width: 500px;         
+    }
+
+    &__modal-save {
+        background-color: $primary-button-blue;
+        color: $neutral-white;
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        font-family: $primary-font;
+        box-shadow: $shadow-primary;
+        border: none;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    
+        &:hover {
+          background-color: $primary-medium-blue;
+          transform: scale(1.05);
+        }
+    
+        &:active {
+          background-color: $primary-light-blue;
+          transform: scale(0.95);
+        }
+      }
+
+    &__modal-close {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background-color: transparent;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: $primary-dark-blue;
+    
+        &:hover {
+          color: $primary-medium-blue;
+        }
+      }
+
+    &__modal-input {
+        width: 100%;
+        padding: 0.75rem;
+        margin-bottom: 1.5rem;
+        border-radius: 0.5rem;
+        background-color: $primary-pale-blue;   
+        border: 0.125rem solid $neutral-white;
+        font-family: $primary-font;
+        color: $primary-dark-blue;
+        box-shadow: $shadow-tertiary;
+        font-size: 1rem;
+
+        &:focus {
+            border-color: $primary-light-blue;
+            box-shadow: 0 0 0 0.2rem $primary-light-blue;
+        }
+    }
+
     &__season-buttons {
         display: flex;
         flex-direction: column;

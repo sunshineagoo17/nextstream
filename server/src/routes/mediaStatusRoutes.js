@@ -27,24 +27,33 @@ router.get('/:status', async (req, res) => {
 // PUT /media-status/:media_id
 router.put('/:media_id', async (req, res) => {
   const { media_id } = req.params;
-  const { status, season, episode } = req.body;
+  const { status, season, episode, tags, review } = req.body;
 
-  // Log to verify that req.user is available
-  console.log('Inside media status update, req.user:', req.user);
+  console.log('Received data:', { status, season, episode, tags, review });
 
   if (!req.user || !req.user.userId) {
     return res.status(401).json({ error: 'Unauthorized' });
   }
 
   try {
+    const updateData = {
+      status,
+      season: season || null,
+      episode: episode || null,
+    };
+
+    if (tags) {
+      updateData.tags = tags.join(', ');
+    }
+
+    if (review !== undefined) {
+      updateData.review = review;
+    }
+
     await db('media_statuses')
       .where('media_id', media_id)
       .andWhere('userId', req.user.userId)
-      .update({
-        status,
-        season: season || null, 
-        episode: episode || null, 
-      });
+      .update(updateData);
 
     res.json({ success: true });
   } catch (error) {
@@ -130,6 +139,102 @@ router.delete('/:media_id', async (req, res) => {
   } catch (error) {
     console.error('Error deleting media item:', error);
     res.status(500).json({ error: 'Failed to delete media item' });
+  }
+});
+
+// PUT /media-status/:media_id/tags
+router.put('/:media_id/tags', async (req, res) => {
+  const { media_id } = req.params;
+  const { tags } = req.body;
+
+  console.log('Received tags:', tags);
+  console.log('Type of tags:', typeof tags);
+
+  if (!req.user || !req.user.userId) {
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
+
+  try {
+    await db('media_statuses')
+    .where('media_id', media_id)
+    .andWhere('userId', req.user.userId)
+    .update({
+      tags: JSON.stringify(tags)
+    });
+
+    res.json({ success: true, message: 'Tags updated successfully' });
+  } catch (error) {
+    console.error('Error updating tags:', error);
+    res.status(500).json({ error: 'Failed to update tags' });
+  }
+});
+
+
+// PUT /media-status/:media_id/review
+router.put('/:media_id/review', async (req, res) => {
+  const { media_id } = req.params;
+  const { review } = req.body;
+
+  console.log('Received review:', review);
+
+  if (!req.user || !req.user.userId) {
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
+
+  try {
+    await db('media_statuses')
+      .where('media_id', media_id)
+      .andWhere('userId', req.user.userId)
+      .update({
+        review
+      });
+
+    res.json({ success: true, message: 'Review updated successfully' });
+  } catch (error) {
+    console.error('Error updating review:', error);
+    res.status(500).json({ error: 'Failed to update review' });
+  }
+});
+
+// DELETE /media-status/:media_id/tags
+router.delete('/:media_id/tags', async (req, res) => {
+  const { media_id } = req.params;
+
+  if (!req.user || !req.user.userId) {
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
+
+  try {
+    await db('media_statuses')
+      .where('media_id', media_id)
+      .andWhere('userId', req.user.userId)
+      .update({ tags: null });
+
+    res.json({ success: true, message: 'Tags deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting tags:', error);
+    res.status(500).json({ error: 'Failed to delete tags' });
+  }
+});
+
+// DELETE /media-status/:media_id/review
+router.delete('/:media_id/review', async (req, res) => {
+  const { media_id } = req.params;
+
+  if (!req.user || !req.user.userId) {
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
+
+  try {
+    await db('media_statuses')
+      .where('media_id', media_id)
+      .andWhere('userId', req.user.userId)
+      .update({ review: null });
+
+    res.json({ success: true, message: 'Review deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting review:', error);
+    res.status(500).json({ error: 'Failed to delete review' });
   }
 });
 
