@@ -416,7 +416,7 @@ const NextSearch = () => {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-            placeholder="Search for movies, shows, or actors..."
+            placeholder="Search for titles or actors..."
             className="next-search__input"
             disabled={!isAuthenticated}
           />

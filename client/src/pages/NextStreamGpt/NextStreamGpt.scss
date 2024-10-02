@@ -263,13 +263,15 @@
     padding: .5rem 1rem;
     color: $neutral-white;
     font-family: $primary-font;
-    font-size: 1rem;
+    font-size: .85rem;
     cursor: grab;
     display: flex;
     align-items: center;
-    gap: .5rem;
+    flex-direction: column;
+    justify-content: center;
     position: relative;
     overflow: hidden;
+    line-height: 1rem;
     transition: all .4s ease;
     box-shadow: 0 0 1rem rgba($primary-light-blue, .4),
       inset 0 0 .5rem rgba($primary-medium-blue, .8);
@@ -321,6 +323,11 @@
 
     &:hover::before {
       opacity: 1;
+    }
+
+    @include large-mobile {
+      display: flex;
+      flex-direction: row;
     }
   }
 
@@ -798,8 +805,8 @@
     }
   }
   
-
   &__input {
+    margin-left: .15rem;
     flex-grow: 1;
     padding-left: .75rem;
     padding-right: 1.3rem;
@@ -820,6 +827,7 @@
       padding-right: 2.5rem;
       height: 2.5rem;
       width: 100%;
+      margin-left: 0;
     }
 
     &::placeholder {
@@ -835,7 +843,7 @@
   }
 
   &__interrupt-icon {
-    margin-right: .5rem;
+    margin-right: .15rem;
   }
 
   &__interrupt-btn,
@@ -843,12 +851,15 @@
     background: #e0e0e0;
     border: none;
     border-radius: .75rem;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    display: flex;
     box-shadow: inset .25rem .25rem .5rem rgba($neutral-black, .2),
       inset -.25rem -.25rem .5rem rgba(255, 255, 255, .7);
     color: $robot-dark-blue;
     cursor: pointer;
     font-size: .85rem;
-    margin-left: .35rem;
     padding: .6rem;
     transition: background-color .3s ease, transform .2s ease,
       box-shadow .2s ease;
@@ -870,6 +881,9 @@
       background-color: $primary-very-light-blue;
     }
 
+    @include large-mobile {
+      flex-direction: row;
+    }
     @include tablet {
       margin-left: .5rem;
       padding: .6rem 1.2rem;
@@ -877,9 +891,23 @@
       font-size: 1rem;
     }
   }
+
+  &__send-button {
+    padding: .25rem;
+    margin-left: .25rem;
+
+    @include tablet {
+    margin-left: .5rem;
+    padding: .6rem 1.2rem;
+    border-radius: 2.5rem;
+    font-size: 1rem;
+    }
+  }
+
   &__interrupt-btn {
     border-radius: .75rem;
     font-family: $primary-font;
+    line-height: 1rem;
   }
 
   &__typing-indicator {
@@ -973,7 +1001,7 @@
 
   &__clear-input {
     position: absolute;
-    right: 3rem;
+    right: 3.2rem;
     top: 35%;
     font-size: .85rem;
     color: $neutral-white;
@@ -992,8 +1020,12 @@
       transform: scale(.9);
     }
 
+    @include large-mobile {
+      right: 3.5rem;
+    }
+
     @include tablet {
-      right: 5rem;
+      right: 8.5rem;
       top: 30%;
     }
   }
@@ -1964,6 +1996,11 @@
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
+    gap: .5rem;
+
+    @include tablet {
+      gap: 0;
+    }
   }
 
   &__more-button {

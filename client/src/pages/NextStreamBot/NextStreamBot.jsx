@@ -13,6 +13,7 @@ import RobotLoader from '../../components/RobotLoader/RobotLoader';
 import ReelSVG from '../../assets/images/reel-svg.svg';
 import UserRating from '../TopPicksPage/sections/UserRating/UserRating';
 import './NextStreamBot.scss';
+import VoiceMessage from '../../components/VoiceMessage/VoiceMessage';
 import DefaultPoster from '../../assets/images/posternoimg-icon.png';
 
 const NextStreamBot = () => {
@@ -275,20 +276,22 @@ const NextStreamBot = () => {
     setIsBotTyping(false);
   };
 
-  const handleSendMessage = async () => {
-    if (searchQuery.trim()) {
+  const handleSendMessage = async (message) => {
+    const finalMessage = message || searchQuery;  
+  
+    if (finalMessage.trim()) {
       setIsTyping(true);
       setIsBotTyping(true);
       setIsLoading(true);
   
       setMessages((prevMessages) => [
         ...prevMessages,
-        { sender: 'user', text: searchQuery },
+        { sender: 'user', text: finalMessage },
       ]);
   
       try {
         const response = await api.post('/api/chatbot', {
-          userInput: searchQuery,
+          userInput: finalMessage,
           userId, 
         });
   
@@ -410,10 +413,10 @@ const NextStreamBot = () => {
         setIsLoading(false);
         setIsTyping(false);
         setIsBotTyping(false);
-        setSearchQuery('');
+        setSearchQuery('');  // Clear the search query if it was typed
       }
     }
-  };
+  };  
 
   useEffect(() => {
     if (query && isAuthenticated) {
@@ -665,6 +668,10 @@ const NextStreamBot = () => {
                 <span className='nextstream-bot__typing-indicator-bubble'></span>
               </div>
             )}
+
+            {/* Voice Message*/}
+            <VoiceMessage handleSendMessage={handleSendMessage} />
+
             <button
               className='nextstream-bot__send-button'
               onClick={handleSendMessage}

@@ -14,6 +14,7 @@ import MizuLoader from '../../components/MizuLoader/MizuLoader';
 import ChatRobotAnimation from "../../assets/animation/chat-robot.webm";
 import HelloRobotAnimation from "../../assets/animation/hello-robot.webm";
 import SearchRobotAnimation from "../../assets/animation/search-robot.webm";
+import VoiceMessageMizu from '../../components/VoiceMessageMizu/VoiceMessageMizu';
 import './NextStreamGpt.scss';
 
 const NextStreamGpt = () => {
@@ -400,45 +401,48 @@ const NextStreamGpt = () => {
     setIsBotTyping(false);
   };
 
-  const handleSendMessage = async () => {
-    if (searchQuery.trim()) {
+  const handleSendMessage = async (message = '') => {
+    const finalMessage = message || searchQuery;  
+  
+    if (finalMessage.trim()) {
       setIsTyping(true);
       setIsBotTyping(true);
       setShowLoader(true);
       isInterrupted.current = false;
-
+  
+      // Add the user's message to the messages array
       setMessages((prevMessages) => [
         ...prevMessages,
-        { sender: 'user', text: searchQuery },
+        { sender: 'user', text: finalMessage },
       ]);
-
+  
       await handleBotTyping();
-
+  
       try {
         const response = await api.post('/api/gpt', {
-          userInput: searchQuery,
+          userInput: finalMessage, 
           userId,
         });
-
+  
         console.log('GPT Response:', response.data);
-
+  
         const chatbotMessage = response.data.response;
-
+  
         setMessages((prevMessages) => [
           ...prevMessages,
           { sender: 'bot', text: chatbotMessage },
         ]);
-
+  
         await typeMessage(
           chatbotMessage,
           setMessages,
           setIsBotTyping,
           isInterrupted
         );
-
+  
         const titles = extractTitlesFromResponse(chatbotMessage);
         console.log('Extracted Titles:', titles);
-
+  
         if (titles.length === 0) {
           setMessages((prevMessages) => [...prevMessages]);
           setShowLoader(false);
@@ -446,20 +450,20 @@ const NextStreamGpt = () => {
           setIsBotTyping(false);
           return;
         }
-
+  
         const mediaResults = await fetchMoviesForTitles(titles);
-
+  
         const personResponse = await api.get(`/api/tmdb/search`, {
-          params: { query: searchQuery },
+          params: { query: finalMessage },
         });
         const personResult = personResponse.data.results.find(
           (result) => result.media_type === 'person'
         );
-
+  
         console.log('Person Result:', personResult);
-
+  
         let personData = null;
-
+  
         if (personResult) {
           personData = {
             id: personResult.id,
@@ -469,17 +473,17 @@ const NextStreamGpt = () => {
               ? `https://image.tmdb.org/t/p/w500${personResult.profile_path}`
               : DefaultPoster,
           };
-
+  
           console.log('Person Data:', personData);
         }
-
+  
         const combinedResults = [
           ...(personData ? [personData] : []),
           ...mediaResults,
         ];
-
+  
         console.log('Combined Results:', combinedResults);
-
+  
         if (combinedResults.length > 0) {
           setResults(combinedResults);
         } else {
@@ -504,10 +508,10 @@ const NextStreamGpt = () => {
         setIsTyping(false);
         setIsBotTyping(false);
         setShowLoader(false);
-        setSearchQuery('');
+        setSearchQuery('');  
       }
     }
-  };
+  };  
 
   useEffect(() => {
     if (query && isAuthenticated) {
@@ -706,7 +710,7 @@ const NextStreamGpt = () => {
         className='nextstream-gpt__gpt-button--og'
         onClick={() => navigate(`/nextstream-bot/${userId}`)}>
         <FontAwesomeIcon icon={faRobot} className='nextstream-gpt__gpt-icon' />
-        <span>Chat with Mizu Bot (the O.G.)</span>
+        <span>Chat with Mizu Bot</span>
       </button>
 
       <div className='nextstream-gpt__chat-block'>
@@ -803,6 +807,7 @@ const NextStreamGpt = () => {
                 <span className='nextstream-gpt__typing-indicator-bubble'></span>
               </div>
             )}
+
             <button
               className='nextstream-gpt__send-button'
               onClick={handleSendMessage}
@@ -812,6 +817,10 @@ const NextStreamGpt = () => {
                 className='nextstream-gpt__gpt-plane-icon'
               />
             </button>
+
+            {/* Voice Message*/}
+            <VoiceMessageMizu handleSendMessage={handleSendMessage} />
+
             {searchQuery && (
               <FontAwesomeIcon
                 icon={faTimes}

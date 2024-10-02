@@ -370,7 +370,7 @@
 
   &__input {
     flex-grow: 1;
-    padding: .5rem 3rem; 
+    padding: .5rem 2rem; 
     border-radius: 2.5rem;
     background-color: $primary-very-light-blue;
     backdrop-filter: blur(.625rem);
@@ -393,6 +393,7 @@
 
     @include tablet {
       font-size: 1rem;
+      padding: .5rem 3rem; 
     }
   }
 
