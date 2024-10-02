@@ -70,24 +70,36 @@ const App = () => {
         const permission = await Notification.requestPermission();
         if (permission === 'granted') {
           console.log('Notification permission granted.');
-
+    
           const registration = await navigator.serviceWorker.ready;
-
+    
           const currentToken = await getToken(messaging, {
             vapidKey: process.env.REACT_APP_VAPID_KEY,
             serviceWorkerRegistration: registration,
           });
-
+    
           if (currentToken) {
             console.log('FCM Token:', currentToken);
+    
             await sendTokenToServer(currentToken);
+    
+            messaging.onTokenRefresh(async () => {
+              console.log('FCM Token refreshed');
+              const newToken = await getToken(messaging, {
+                vapidKey: process.env.REACT_APP_VAPID_KEY,
+                serviceWorkerRegistration: registration,
+              });
+              
+              if (newToken) {
+                console.log('New FCM Token:', newToken);
+                await sendTokenToServer(newToken); 
+              }
+            });
           } else {
             console.log('No registration token available. Request permission to generate one.');
           }
-        } else if (permission === 'denied') {
-          console.warn('Notification permission denied by the user.');
         } else {
-          console.warn('Notification permission request was dismissed.');
+          console.warn('Notification permission denied by the user.');
         }
       } catch (err) {
         console.error('An error occurred while retrieving token. ', err);
