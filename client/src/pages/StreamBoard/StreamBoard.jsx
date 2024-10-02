@@ -8,7 +8,7 @@ import {
   faFilm, faTv, faMap, faBomb, faPalette, faLaugh, faFingerprint, faClapperboard, faTheaterMasks, faQuidditch, faGhost,
   faUserSecret, faVideoCamera, faFaceKissWinkHeart, faMusic, faHandSpock, faMask, faChildren, faFighterJet, faScroll,
   faHatCowboy, faChild, faTelevision, faBalanceScale, faHeartBroken, faBolt, faExplosion, faMeteor, faMicrophone,
-  faCalendarPlus, faTrash, faClose, faSearch, faLightbulb, faSave, faRedo, faTag
+  faCalendarPlus, faTrash, faClose, faSearch, faLightbulb, faSave, faRedo, faTag, faPizzaSlice
 } from '@fortawesome/free-solid-svg-icons';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import TagModal from './sections/TagModal/TagModal';
@@ -52,9 +52,9 @@ const genreIconMapping = {
   'War & Politics': faExplosion,
   'Sci-Fi & Fantasy': faMeteor
 };
-const MediaItem = ({ item, index, status, moveMediaItem, handleAddToCalendar, handleDeleteMedia, isSearchResult, setAlert, setTags, setSelectedMediaId, setShowTagModal, setReview, setShowReviewModal, tags }) => {
-  
 
+const MediaItem = ({ item, index, status, moveMediaItem, handleAddToCalendar, handleDeleteMedia, isSearchResult, setAlert, setTags, setSelectedMediaId, setShowTagModal, setReview, setShowReviewModal, tags, isShared }) => {
+  
   const [{ isDragging }, drag] = useDrag(() => ({
     type: ItemTypes.MEDIA,
     item: { id: item.media_id, index, currentStatus: status },
@@ -144,7 +144,19 @@ const MediaItem = ({ item, index, status, moveMediaItem, handleAddToCalendar, ha
       )}
 
       {/* Media Title */}
-      <h3 className="streamboard__media-item-title">{item.title}</h3>
+      <div className='streamboard__media-title-container'>
+        <h3 className="streamboard__media-item-title">{item.title}</h3>
+        {/* Shared Icon with Tooltip */}
+        {isShared && (
+          <FontAwesomeIcon
+            icon={faPizzaSlice}
+            className="streamboard__pizza-icon"
+            data-tooltip-id="friendTooltip"
+            data-tooltip-content="Shared with Friends"
+          />
+        )}
+        <Tooltip id="friendTooltip" place="top" />
+      </div>
 
       {/* TV Show Only: Season and Episode Inputs */}
       {item.media_type === 'tv' && (
@@ -301,20 +313,21 @@ const MediaColumn = ({ status, mediaItems, moveMediaItem, handleAddToCalendar, h
       <div className="streamboard__media-column-content">
         {mediaItems.map((item, index) => (  
           <MediaItem
-          key={item.media_id}
-          item={item}
-          index={index}
-          status={status}
-          setTags={setTags}
-          tags={item.tags}
-          moveMediaItem={moveMediaItem}
-          handleAddToCalendar={handleAddToCalendar}
-          handleDeleteMedia={handleDeleteMedia}
-          setAlert={setAlert}
-          setSelectedMediaId={setSelectedMediaId}
-          setShowTagModal={setShowTagModal}
-          setReview={setReview} 
-          setShowReviewModal={setShowReviewModal}
+            key={item.media_id}
+            item={item}
+            index={index}
+            status={status}
+            setTags={setTags}
+            tags={item.tags}
+            moveMediaItem={moveMediaItem}
+            handleAddToCalendar={handleAddToCalendar}
+            handleDeleteMedia={handleDeleteMedia}
+            setAlert={setAlert}
+            setSelectedMediaId={setSelectedMediaId}
+            setShowTagModal={setShowTagModal}
+            setReview={setReview} 
+            setShowReviewModal={setShowReviewModal}
+            isShared={item.isShared} 
           />
         ))}
       </div>
@@ -523,40 +536,58 @@ const StreamBoard = () => {
   const fetchMediaItems = useCallback(async () => {
     setLoading(true);
     try {
+      // Fetch media statuses
       const toWatchResponse = await api.get(`/api/media-status/to_watch`);
       const scheduledResponse = await api.get(`/api/media-status/scheduled`);
       const watchedResponse = await api.get(`/api/media-status/watched`);
   
-      const parseTags = (items) =>
-        items.map((item) => ({
-          ...item,
-          tags: item.tags ? item.tags.split(', ').map((tag) => tag.trim()) : [],
-        }));
+      // Fetch shared events
+      const sharedEventsResponse = await api.get(`/api/calendar/${userId}/shared-events`);
   
+      console.log(toWatchResponse.data);
+      console.log(scheduledResponse.data);
+      console.log(watchedResponse.data);
+      console.log(sharedEventsResponse.data);  // Log shared events
+  
+      // Create a lookup object for shared events by mediaId
+      const sharedEventsByMediaId = sharedEventsResponse.data.reduce((acc, event) => {
+        acc[event.mediaId] = event;
+        return acc;
+      }, {});
+  
+      // Merge shared events into media items
+      const mergeSharedEvents = (mediaItems) => {
+        return mediaItems.map((item) => {
+          const sharedEvent = sharedEventsByMediaId[item.media_id];
+          return {
+            ...item,
+            isShared: sharedEvent ? !!sharedEvent.isShared : false,  // Set isShared based on shared events
+          };
+        });
+      };
+  
+      // Parse tags and merge shared events
+      const parseAndMergeItems = (items) =>
+        mergeSharedEvents(
+          items.map((item) => ({
+            ...item,
+            tags: item.tags ? item.tags.split(', ').map((tag) => tag.trim()) : [],
+          }))
+        );
+  
+      // Update state with parsed and merged media items
       setMediaItems({
-        to_watch: parseTags(toWatchResponse.data),
-        scheduled: parseTags(scheduledResponse.data),  
-        watched: parseTags(watchedResponse.data),
+        to_watch: parseAndMergeItems(toWatchResponse.data),
+        scheduled: parseAndMergeItems(scheduledResponse.data),
+        watched: parseAndMergeItems(watchedResponse.data),
       });
   
-      // Check for duplicates across all items
-      const allItems = [
-        ...parseTags(toWatchResponse.data),
-        ...parseTags(scheduledResponse.data),
-        ...parseTags(watchedResponse.data),
-      ];
-      const duplicates = allItems.filter(
-        (item, index, self) => self.findIndex((i) => i.media_id === item.media_id) !== index
-      );
-      if (duplicates.length > 0) {
-        console.warn('Duplicate items found:', duplicates);
-      }
     } catch (error) {
       setAlert({ type: 'error', message: 'Failed to load media items.' });
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [userId]);  
   
   useEffect(() => {
     fetchMediaItems(); 

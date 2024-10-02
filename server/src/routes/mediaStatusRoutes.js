@@ -24,7 +24,7 @@ router.get('/:status', async (req, res) => {
       .join('events', 'calendar_events.event_id', '=', 'events.id')
       .where('calendar_events.friend_id', userId)
       .andWhere('calendar_events.isAccepted', true)
-      .select('events.media_id', 'events.title', 'events.media_type', 'events.start');
+      .select('events.media_id', 'events.title', 'events.media_type', 'events.start', 'calendar_events.isShared');
 
     // Check if any of the shared events are not yet in `media_statuses`
     for (const event of sharedEvents) {
@@ -51,12 +51,20 @@ router.get('/:status', async (req, res) => {
       }
     }
 
+    // Fetch updated media items
     const updatedMediaItems = await db('media_statuses')
       .where('status', status)
-      .andWhere('userId', userId);
+      .andWhere('userId', userId)
+      .select('*'); 
 
-    // Combine the user's own media items with the shared media items
-    res.json(updatedMediaItems);
+    // Add isShared flag to the media items
+    const finalMediaItems = updatedMediaItems.map(item => {
+      const sharedEvent = sharedEvents.find(event => event.media_id === item.media_id);
+      return { ...item, isShared: !!sharedEvent };  
+    });
+
+    // Return the combined result of user's own media items and shared items
+    res.json(finalMediaItems);
   } catch (error) {
     console.error('Error fetching media by status:', error);
     res.status(500).json({ error: 'Failed to fetch media by status' });
