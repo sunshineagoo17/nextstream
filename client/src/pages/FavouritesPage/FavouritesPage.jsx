@@ -19,6 +19,7 @@ import BlobBg from '../../components/BlobBg/BlobBg';
 import Loader from '../../components/Loader/Loader';
 import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
 import Calendar from '../CalendarPage/sections/Calendar';
+import VoiceSearchFaves from '../../components/VoiceSearchFaves/VoiceSearchFaves';
 import './FavouritesPage.scss';
 
 const FavouritesPage = () => {
@@ -560,6 +561,7 @@ const FavouritesPage = () => {
               <FontAwesomeIcon icon={faTimes} onClick={clearSearchQuery} className="faves-page__clear-icon" />
             )}
           </div>
+          <VoiceSearchFaves setSearchQuery={setSearchQuery} handleSearch={handleSearchQuery} />
         </div>
 
         <div className="faves-page__search-actions">
