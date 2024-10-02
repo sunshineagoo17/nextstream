@@ -12,6 +12,7 @@ import Loader from '../../components/Loader/Loader';
 import ReelSVG from "../../assets/images/reel-svg.svg";
 import WindowsSVG from "../../assets/images/windows-svg.svg";
 import UserRating from '../TopPicksPage/sections/UserRating/UserRating'; 
+import VoiceSearch from '../../components/VoiceSearch/VoiceSearch';
 import './NextSearch.scss';
 import DefaultPoster from "../../assets/images/posternoimg-icon.png";
 
@@ -173,6 +174,12 @@ const NextSearch = () => {
       }
     }
   }, [searchQuery, isAuthenticated]);
+
+  useEffect(() => {
+    if (searchQuery.trim()) {
+      handleSearch(); 
+    }
+  }, [searchQuery, handleSearch]);
 
   const fetchPopularMedia = useCallback(async (type, subType) => {
     setIsLoading(true);
@@ -391,34 +398,37 @@ const NextSearch = () => {
      <div className="next-search__gpt-container">
         <button className="next-search__gpt-button" onClick={handleGptSearch}>
           <FontAwesomeIcon icon={faRobot} className="next-search__gpt-icon" />
-          <p className='next-search__gpt-txt'>Ask Mizu a.k.a. NextStream's Bot</p>
+          <p className='next-search__gpt-txt'>Ask Mizu</p>
         </button>
       </div>
 
-      <div className="next-search__input-container">
-        <FontAwesomeIcon 
-          icon={faSearch}
-          className="next-search__search-icon"
-          onClick={handleSearch} 
-          data-tooltip-id="searchTooltip"
-          data-tooltip-content="Search" 
-        />
-        <input
-          type="text"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-          placeholder="Search for movies, shows, or actors..."
-          className="next-search__input"
-          disabled={!isAuthenticated}
-        />
-        <FontAwesomeIcon
-          icon={faTimes}
-          className="next-search__close-icon"
-          onClick={clearSearch}
-          data-tooltip-id="closeTooltip"
-          data-tooltip-content="Clear Search" 
-        />
+      <div className="next-search__input-block">
+        <div className="next-search__input-container">
+          <FontAwesomeIcon 
+            icon={faSearch}
+            className="next-search__search-icon"
+            onClick={handleSearch} 
+            data-tooltip-id="searchTooltip"
+            data-tooltip-content="Search" 
+          />
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+            placeholder="Search for movies, shows, or actors..."
+            className="next-search__input"
+            disabled={!isAuthenticated}
+          />
+          <FontAwesomeIcon
+            icon={faTimes}
+            className="next-search__close-icon"
+            onClick={clearSearch}
+            data-tooltip-id="closeTooltip"
+            data-tooltip-content="Clear Search" 
+          />
+        </div>
+         <VoiceSearch setSearchQuery={setSearchQuery} handleSearch={handleSearch} />
       </div>
 
       {results.length > 0 && (
