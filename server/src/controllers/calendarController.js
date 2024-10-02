@@ -1,5 +1,6 @@
 const knex = require('../config/db');
 const moment = require('moment-timezone');
+const { getMediaDetailsByTitle } = require('../utils/tmdbUtils');
 const { sendPushNotifications } = require('../services/pushNotificationService');
 
 // Get all events for a user
@@ -9,11 +10,21 @@ exports.getEvents = async (req, res) => {
 
   try {
     // Differentiate between authenticated users and guests
-    const userIdentifier =
-      req.user && req.user.role === 'guest' ? 'guest' : userId;
+    const userIdentifier = req.user && req.user.role === 'guest' ? 'guest' : userId;
 
     // Fetch the user's own events
-    const userEvents = await knex('events').where({ user_id: userIdentifier });
+    const userEvents = await knex('events')
+      .where({ user_id: userIdentifier })
+      .select(
+        'id', 
+        'title', 
+        'start', 
+        'end', 
+        'eventType', 
+        'media_id', 
+        'media_type', 
+        'user_id as createdBy'
+      );
     console.log("Fetched user's own events:", userEvents);
 
     // Fetch shared events (including both accepted and pending invites)
@@ -24,6 +35,8 @@ exports.getEvents = async (req, res) => {
         'events.*',
         'calendar_events.isShared',
         'calendar_events.isAccepted',
+        'events.media_id', 
+        'events.media_type',
         'events.user_id as createdBy'
       );
 
@@ -60,9 +73,7 @@ exports.shareEventWithFriends = async (req, res) => {
 
     await knex('calendar_events').insert(sharedEventsData);
 
-    res
-      .status(200)
-      .json({ message: 'Event shared successfully with friends.' });
+    res.status(200).json({ message: 'Event shared successfully with friends.' });
   } catch (error) {
     console.error('Error sharing event with friends:', error);
     res.status(500).json({ message: 'Error sharing event with friends.' });
@@ -87,21 +98,65 @@ exports.respondToSharedEvent = async (req, res) => {
       await knex('calendar_events')
         .where({ id: calendarEventId, friend_id: userId })
         .update({ isAccepted: true });
+
+      // Fetch the event details
+      const event = await knex('events')
+        .where({ id: sharedEvent.event_id })
+        .first();
+
+      if (event && event.media_id && event.media_type) {
+        // Fetch media details by title (or other logic)
+        const mediaDetails = await getMediaDetailsByTitle(event.title, event.media_type);
+        if (!mediaDetails) {
+          throw new Error('Media details not found');
+        }
+
+        const mediaTitle = mediaDetails.title;
+        const genre = mediaDetails.genres.join(', '); 
+        const duration = mediaDetails.duration;
+
+        // Update the media status for both the invitee (userId) and the inviter (sharedEvent.user_id)
+        const updateMediaStatus = async (userIdToUpdate) => {
+          await knex('media_statuses')
+            .insert({
+              userId: userIdToUpdate,
+              media_id: event.media_id,
+              media_type: event.media_type,
+              status: 'scheduled',
+              title: mediaTitle,
+              genre: genre,
+              duration: duration,
+            })
+            .onConflict(['user_id', 'media_id'])
+            .merge({
+              status: 'scheduled',
+              title: mediaTitle,
+              genre: genre,
+              duration: duration
+            });
+        };
+
+        await updateMediaStatus(userId); 
+        await updateMediaStatus(sharedEvent.user_id); 
+      }
     } else {
       await knex('calendar_events')
         .where({ id: calendarEventId, friend_id: userId })
         .del();
     }
 
-    // Fetch the updated list of events
     const updatedEvents = await knex('calendar_events')
       .join('events', 'calendar_events.event_id', '=', 'events.id')
       .where({ 'calendar_events.friend_id': userId })
-      .select('events.*');
+      .select(
+        'events.*',
+        'calendar_events.isShared',
+        'calendar_events.isAccepted'
+      );
 
     res.status(200).json({
       message: isAccepted
-        ? 'Shared event accepted successfully.'
+        ? 'Shared event accepted successfully and media status updated.'
         : 'Shared event declined and removed.',
       updatedEvents,
     });
@@ -128,14 +183,27 @@ exports.searchEvents = async (req, res) => {
     // Search user's own events
     const events = await knex('events')
       .where({ user_id: userIdentifier })
-      .andWhere('title', 'like', `%${query}%`);
+      .andWhere('title', 'like', `%${query}%`)
+      .select(
+        'id',
+        'title',
+        'start',
+        'end',
+        'eventType',
+        'media_id',
+        'media_type'
+      );
 
-    // Search shared events for this user
     const sharedEvents = await knex('calendar_events')
       .join('events', 'calendar_events.event_id', '=', 'events.id')
       .where({ friend_id: userIdentifier, isAccepted: true })
       .andWhere('events.title', 'like', `%${query}%`)
-      .select('events.*', 'calendar_events.isShared');
+      .select(
+        'events.*',
+        'calendar_events.isShared',
+        'events.media_id',
+        'events.media_type'
+      );
 
     const allEvents = [...events, ...sharedEvents];
 
@@ -150,7 +218,8 @@ exports.searchEvents = async (req, res) => {
 exports.addEvent = async (req, res) => {
   const { title, start, end, eventType, timezone, media_id, media_type } = req.body;
 
-  // Validate eventType
+  console.log('Add Event Request Body:', req.body); 
+
   if (!['movie', 'tv', 'unknown'].includes(eventType)) {
     return res.status(400).json({ message: 'Invalid eventType' });
   }
@@ -171,26 +240,64 @@ exports.addEvent = async (req, res) => {
       userIdentifier = req.params.userId;
     }
 
-    // Insert the new event into the calendar
+    let mediaId = media_id;
+    let mediaType = media_type;
+    let duration;
+    let genres;
+
+    if (!mediaId || !mediaType) {
+      const mediaDetails = await getMediaDetailsByTitle(title, eventType === 'movie' ? 'movie' : 'tv');
+      if (mediaDetails) {
+        mediaId = mediaDetails.id; // TMDB ID
+        mediaType = eventType === 'movie' ? 'movie' : 'tv';
+        duration = mediaDetails.duration;
+        genres = mediaDetails.genres;
+      } else {
+        console.error(`Could not find media for title: ${title}`);
+        return res.status(400).json({ message: `Media not found for title: ${title}` });
+      }
+    }
+
     const [eventId] = await knex('events').insert({
       user_id: userIdentifier,
       title,
       start: formattedStart,
       end: formattedEnd,
       eventType,
+      media_id: mediaId, 
+      media_type: mediaType,
     });
 
-    // Add the media to `media_statuses` with status 'scheduled'
-    if (media_id && media_type) {
-      await knex('media_statuses')
+    if (mediaId && mediaType) {
+      const mediaDetails = await getMediaDetailsByTitle(title, eventType === 'movie' ? 'movie' : 'tv');
+      
+      if (mediaDetails) {
+        const { id: mediaId, title: mediaTitle, duration, genres } = mediaDetails; 
+        const genreString = Array.isArray(genres) ? genres.join(', ') : genres || null;
+
+        await knex('media_statuses')
+          .insert({
+            userId: userIdentifier,
+            media_id: mediaId,
+            media_type: mediaType,
+            status: 'scheduled',
+            title: mediaTitle, 
+            duration: duration || null,
+            genre: genreString,
+          })
+          .onConflict(['userId', 'media_id'])
+          .merge({ status: 'scheduled', title: mediaTitle });
+        }
+      
+      await knex('interactions')
         .insert({
-          user_id: userIdentifier,
-          media_id,
-          media_type,
-          status: 'scheduled',
+          userId: userIdentifier,
+          media_id: mediaId,
+          media_type: mediaType,
+          interaction: 1 
         })
-        .onConflict(['user_id', 'media_id']) 
-        .merge({ status: 'scheduled' }); 
+        .onConflict(['userId', 'media_id', 'media_type'])
+        .merge({ interaction: 1 });
     }
 
     // Send push notifications only for authenticated users
@@ -216,6 +323,10 @@ exports.addEvent = async (req, res) => {
       start: formattedStart,
       end: formattedEnd,
       eventType,
+      media_id: mediaId, 
+      media_type: mediaType, 
+      duration: duration || null,
+      genre: genres || null,
     });
   } catch (error) {
     console.error('Error adding event:', error);
@@ -253,10 +364,9 @@ exports.updateEvent = async (req, res) => {
       .where({ id: eventId, user_id: userIdentifier })
       .update({ title, start: formattedStart, end: formattedEnd, eventType });
 
-    // If media is associated with the event, update the status in the `media_statuses`
     if (media_id && media_type) {
       await knex('media_statuses')
-        .where({ user_id: userIdentifier, media_id, media_type })
+        .where({ userId: userId, media_id, media_type })
         .update({ status: 'scheduled' });
     }
 
@@ -287,22 +397,19 @@ exports.updateEvent = async (req, res) => {
 // Delete an event
 exports.deleteEvent = async (req, res) => {
   const { eventId } = req.params;
-  const { userId } = req.user; // Get the authenticated user's ID
+  const { userId } = req.user; 
 
   try {
-    // Check if the event is shared with the current user but not owned by them
     const sharedEvent = await knex('calendar_events')
       .where({ event_id: eventId, friend_id: userId })
       .first();
 
     if (sharedEvent) {
-      // If the event is shared and the user is not the owner, block the deletion
       return res.status(403).json({
         message: "You cannot delete a shared event that was not created by you.",
       });
     }
 
-    // Check if the event is owned by the user and proceed with deletion
     const event = await knex('events')
       .where({ id: eventId, user_id: userId })
       .first();
@@ -311,17 +418,14 @@ exports.deleteEvent = async (req, res) => {
       return res.status(404).json({ message: 'Event not found or not owned by you.' });
     }
 
-    // Remove the event from the `events` table
     await knex('events').where({ id: eventId, user_id: userId }).del();
 
-    // Additionally, delete any shared references to the event
     await knex('calendar_events').where({ event_id: eventId }).del();
 
-    // Update the `media_statuses` to remove the 'scheduled' status for the media associated with the event
     if (event.media_id && event.media_type) {
       await knex('media_statuses')
-        .where({ user_id: userId, media_id: event.media_id, media_type: event.media_type })
-        .update({ status: null });  // Set status to null or a different value indicating it is no longer scheduled
+        .where({ userId: userId, media_id: event.media_id, media_type: event.media_type }) 
+        .del(); 
     }
 
     res.status(200).json({ message: 'Event and associated media status removed successfully.' });
@@ -418,7 +522,6 @@ exports.getSharedFriendsForEvent = async (req, res) => {
   const { eventId, userId } = req.params;
 
   try {
-    // Fetch friends with whom the event has already been shared
     const sharedFriends = await knex('calendar_events')
       .where({ event_id: eventId, user_id: userId, isShared: true })
       .select('friend_id');
@@ -427,7 +530,6 @@ exports.getSharedFriendsForEvent = async (req, res) => {
       return res.status(200).json({ sharedFriendIds: [] });
     }
 
-    // Return the list of shared friend IDs
     const sharedFriendIds = sharedFriends.map((friend) => friend.friend_id);
     res.status(200).json({ sharedFriendIds });
   } catch (error) {
@@ -441,7 +543,27 @@ exports.getSharedEvents = async (req, res) => {
   const { userId } = req.params;
 
   try {
-    const sharedEvents = await knex('calendar_events')
+    const createdSharedEvents = await knex('calendar_events')
+      .join('events', 'calendar_events.event_id', '=', 'events.id')
+      .join('users', 'calendar_events.friend_id', '=', 'users.id')
+      .where({
+        'calendar_events.user_id': userId,
+        'calendar_events.isAccepted': true,
+      })
+      .select(
+        'calendar_events.id as inviteId',
+        'events.title as eventTitle',
+        'events.start',
+        'events.end',
+        'events.eventType',
+        'events.media_id',
+        'events.media_type',
+        'users.name as invitedFriendName',
+        'calendar_events.isAccepted',
+        'calendar_events.isShared'
+      );
+
+    const invitedSharedEvents = await knex('calendar_events')
       .join('events', 'calendar_events.event_id', '=', 'events.id')
       .join('users', 'calendar_events.user_id', '=', 'users.id')
       .where({
@@ -454,10 +576,14 @@ exports.getSharedEvents = async (req, res) => {
         'events.start',
         'events.end',
         'events.eventType',
+        'events.media_id',
+        'events.media_type',
         'users.name as invitedByName',
         'calendar_events.isAccepted',
         'calendar_events.isShared'
       );
+
+    const sharedEvents = [...createdSharedEvents, ...invitedSharedEvents];
 
     if (sharedEvents.length === 0) {
       return res.status(200).json([]);
@@ -467,12 +593,12 @@ exports.getSharedEvents = async (req, res) => {
     const formattedEvents = sharedEvents.map((event) => ({
       inviteId: event.inviteId,
       eventTitle: event.eventTitle,
-      start: event.start
-        ? moment(event.start).format('YYYY-MM-DD HH:mm:ss')
-        : null,
+      start: event.start ? moment(event.start).format('YYYY-MM-DD HH:mm:ss') : null,
       end: event.end ? moment(event.end).format('YYYY-MM-DD HH:mm:ss') : null,
       eventType: event.eventType,
-      invitedByName: event.invitedByName,
+      mediaId: event.media_id,
+      mediaType: event.media_type,
+      inviterOrInvitedFriend: event.invitedByName || event.invitedFriendName,
       isAccepted: event.isAccepted,
       isShared: event.isShared,
     }));

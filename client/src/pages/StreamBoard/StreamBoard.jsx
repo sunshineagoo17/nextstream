@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext, useCallback } from 'react';
 import { useDrag, useDrop, DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -520,7 +520,8 @@ const StreamBoard = () => {
 
   const itemsPerPage = currentScreen === 'mobile' ? 4 : 8;
 
-  const fetchMediaItems = async () => {
+  const fetchMediaItems = useCallback(async () => {
+    setLoading(true);
     try {
       const toWatchResponse = await api.get(`/api/media-status/to_watch`);
       const scheduledResponse = await api.get(`/api/media-status/scheduled`);
@@ -534,16 +535,16 @@ const StreamBoard = () => {
   
       setMediaItems({
         to_watch: parseTags(toWatchResponse.data),
-        scheduled: parseTags(scheduledResponse.data),
+        scheduled: parseTags(scheduledResponse.data),  
         watched: parseTags(watchedResponse.data),
       });
   
+      // Check for duplicates across all items
       const allItems = [
         ...parseTags(toWatchResponse.data),
         ...parseTags(scheduledResponse.data),
         ...parseTags(watchedResponse.data),
       ];
-  
       const duplicates = allItems.filter(
         (item, index, self) => self.findIndex((i) => i.media_id === item.media_id) !== index
       );
@@ -551,15 +552,16 @@ const StreamBoard = () => {
         console.warn('Duplicate items found:', duplicates);
       }
     } catch (error) {
-      console.error('Error fetching media items:', error);
       setAlert({ type: 'error', message: 'Failed to load media items.' });
+    } finally {
+      setLoading(false);
     }
-  };  
-
+  }, []);
+  
   useEffect(() => {
-    fetchMediaItems();
-  }, [userId]);
-
+    fetchMediaItems(); 
+  }, [fetchMediaItems]); 
+  
   const moveMediaItem = async (media_id, newStatus) => {
     setLoading(true);
 
@@ -600,10 +602,8 @@ const StreamBoard = () => {
     setLoading(true);
 
     try {
-      // Removes the media item from the media status database
       await api.delete(`/api/media-status/${media_id}`);
 
-      // Changes the interaction value from 1 to 0
       await api.post('/api/interactions', {
         userId,
         media_id,
@@ -611,7 +611,6 @@ const StreamBoard = () => {
         media_type,
       });
 
-      // Updates the UI after successful deletion and interaction update
       setMediaItems((prevItems) => {
         const updatedItems = { ...prevItems };
 

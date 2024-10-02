@@ -329,6 +329,10 @@ router.post('/update-fcm-token', authenticate, async (req, res) => {
   const { fcmToken } = req.body;
   const userId = req.user.userId; 
 
+  if (!fcmToken) {
+    return res.status(400).json({ message: 'FCM token is required.' });
+  }
+  
   console.log('Updating FCM token for user ID:', userId);  
   try {
     await knex('users')

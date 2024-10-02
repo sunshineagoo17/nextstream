@@ -12,12 +12,51 @@ router.get('/:status', async (req, res) => {
   }
 
   try {
-    const mediaItems = await db('media_statuses')
-      .where('status', status)
-      .andWhere('userId', req.user.userId);
+    const userId = req.user.userId;
 
-    console.log('Fetched media items:', mediaItems); 
-    res.json(mediaItems);
+    // Fetch the user's own media items with the given status
+    const userMediaItems = await db('media_statuses')
+      .where('status', status)
+      .andWhere('userId', userId);
+
+    // Fetch shared events that are scheduled
+    const sharedEvents = await db('calendar_events')
+      .join('events', 'calendar_events.event_id', '=', 'events.id')
+      .where('calendar_events.friend_id', userId)
+      .andWhere('calendar_events.isAccepted', true)
+      .select('events.media_id', 'events.title', 'events.media_type', 'events.start');
+
+    // Check if any of the shared events are not yet in `media_statuses`
+    for (const event of sharedEvents) {
+      if (event.media_id && event.media_type) {
+        const mediaStatusExists = await db('media_statuses')
+          .where('media_id', event.media_id)
+          .andWhere('userId', userId)
+          .first();
+
+        if (!mediaStatusExists) {
+          await db('media_statuses').insert({
+            userId,
+            media_id: event.media_id,
+            title: event.title,
+            media_type: event.media_type,
+            status: 'scheduled',
+            season: event.media_type === 'tv' ? 1 : null, 
+            episode: event.media_type === 'tv' ? 1 : null,
+            timestamp: db.fn.now(),
+          });
+        }
+      } else {
+        console.warn(`Skipping event with null media_id or media_type: ${event.title}`);
+      }
+    }
+
+    const updatedMediaItems = await db('media_statuses')
+      .where('status', status)
+      .andWhere('userId', userId);
+
+    // Combine the user's own media items with the shared media items
+    res.json(updatedMediaItems);
   } catch (error) {
     console.error('Error fetching media by status:', error);
     res.status(500).json({ error: 'Failed to fetch media by status' });
@@ -71,7 +110,6 @@ router.put('/:media_id/reset', async (req, res) => {
   }
 
   try {
-    // Reset season and episode to 1
     await db('media_statuses')
       .where('media_id', media_id)
       .andWhere('userId', req.user.userId)
@@ -91,7 +129,6 @@ router.put('/:media_id/reset', async (req, res) => {
 router.post('/', async (req, res) => {
   const { media_id, status, title, poster_path, overview, media_type, release_date, genre, season, episode } = req.body; 
 
-  // Log to verify that req.user is available
   console.log('Inside media status creation, req.user:', req.user);
 
   if (!req.user || !req.user.userId) {
@@ -130,15 +167,34 @@ router.delete('/:media_id', async (req, res) => {
   }
 
   try {
+    const userId = req.user.userId;
+
     await db('media_statuses')
       .where('media_id', media_id)
-      .andWhere('userId', req.user.userId)
+      .andWhere('userId', userId)
       .del();
 
-    res.json({ success: true, message: 'Media item deleted successfully' });
+    await db('interactions')
+      .where({ media_id, userId })
+      .update({ interaction: 0 });
+      
+    await db('calendar_events')
+      .whereIn('event_id', function () {
+        this.select('id').from('events')
+          .where('media_id', media_id)
+          .andWhere('user_id', userId);
+      })
+      .del();
+
+    await db('events')
+      .where('media_id', media_id)
+      .andWhere('user_id', userId)
+      .del();
+
+    res.json({ success: true, message: 'Media item, interaction, and associated events deleted successfully' });
   } catch (error) {
-    console.error('Error deleting media item:', error);
-    res.status(500).json({ error: 'Failed to delete media item' });
+    console.error('Error deleting media item, interaction, and associated events:', error);
+    res.status(500).json({ error: 'Failed to delete media item, interaction, and associated events' });
   }
 });
 
