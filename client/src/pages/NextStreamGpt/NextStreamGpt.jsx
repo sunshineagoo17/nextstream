@@ -4,7 +4,7 @@ import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import { Tooltip } from 'react-tooltip';
-import { faChevronLeft, faStopCircle, faBroom, faRobot, faChevronRight, faPlay, faTimes, faComment, faTv, faFilm, faCalendarPlus, faThumbsUp, faThumbsDown, faShareAlt, faUser, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faLightbulb, faStopCircle, faBroom, faRobot, faChevronRight, faPlay, faTimes, faComment, faTv, faFilm, faCalendarPlus, faThumbsUp, faThumbsDown, faShareAlt, faUser, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
 import Calendar from '../CalendarPage/sections/Calendar';
 import api from '../../services/api';
@@ -943,8 +943,17 @@ const NextStreamGpt = () => {
                               />
                             </Link>
 
+                            <Link to={`/nextwatch/${userId}/${result.media_type}/${result.id}`}>
+                              <FontAwesomeIcon
+                                icon={faLightbulb}
+                                className='nextstream-gpt__lightbulb-icon'
+                                title='Find Similar Shows/Movies'
+                              />
+                            </Link>
+
                             <FontAwesomeIcon
                               icon={faCalendarPlus}
+                              title='Add to Calendar'
                               className='nextstream-gpt__cal-icon'
                               onClick={() =>
                                 handleAddToCalendar(
@@ -958,6 +967,7 @@ const NextStreamGpt = () => {
                             {likedStatus[result.id] === 1 ? (
                               <FontAwesomeIcon
                                 icon={faThumbsUp}
+                                title='Like Title'
                                 className='nextstream-gpt__like-icon active'
                                 onClick={() =>
                                   handleDislike(result.id, result.media_type)
@@ -966,6 +976,7 @@ const NextStreamGpt = () => {
                             ) : likedStatus[result.id] === 0 ? (
                               <FontAwesomeIcon
                                 icon={faThumbsDown}
+                                title='Dislike Title'
                                 className='nextstream-gpt__dislike-icon active'
                                 onClick={() =>
                                   handleLike(result.id, result.media_type)
@@ -975,6 +986,7 @@ const NextStreamGpt = () => {
                               <>
                                 <FontAwesomeIcon
                                   icon={faThumbsUp}
+                                  title='Like Title'
                                   className='nextstream-gpt__like-icon'
                                   onClick={() =>
                                     handleLike(result.id, result.media_type)
@@ -982,6 +994,7 @@ const NextStreamGpt = () => {
                                 />
                                 <FontAwesomeIcon
                                   icon={faThumbsDown}
+                                  title='Dislike Title'
                                   className='nextstream-gpt__dislike-icon'
                                   onClick={() =>
                                     handleDislike(result.id, result.media_type)
@@ -992,6 +1005,7 @@ const NextStreamGpt = () => {
 
                             <FontAwesomeIcon
                               icon={faShareAlt}
+                              title='Share Title'
                               className='nextstream-gpt__share-icon'
                               onClick={() =>
                                 handleShare(

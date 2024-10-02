@@ -4,7 +4,7 @@ import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import { Tooltip } from 'react-tooltip';
-import { faChevronLeft, faBroom, faRobot, faChevronRight, faPlay, faTimes, faComment, faTv, faFilm, faCalendarPlus, faThumbsUp, faThumbsDown, faShareAlt, faUser, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faBroom, faRobot, faLightbulb, faChevronRight, faPlay, faTimes, faComment, faTv, faFilm, faCalendarPlus, faThumbsUp, faThumbsDown, faShareAlt, faUser, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
 import ChatbotSvg from "../../assets/images/chat-bot.svg";
 import Calendar from '../CalendarPage/sections/Calendar';
@@ -788,9 +788,19 @@ const NextStreamBot = () => {
                             />
                           </Link>
 
+                          <Link
+                            to={`/nextwatch/${userId}/${result.media_type}/${result.id}`}>
+                            <FontAwesomeIcon
+                              icon={faLightbulb}
+                              className='nextstream-bot__lightbulb-icon'
+                              title='Find Similar Shows/Movies'
+                            />
+                          </Link>
+
                           <FontAwesomeIcon
                             icon={faCalendarPlus}
                             className='nextstream-bot__cal-icon'
+                            title='Add to Calendar'
                             onClick={() =>
                               handleAddToCalendar(
                                 result.title,
@@ -804,6 +814,7 @@ const NextStreamBot = () => {
                             <FontAwesomeIcon
                               icon={faThumbsUp}
                               className='nextstream-bot__like-icon active'
+                              title='Like Title'
                               onClick={() =>
                                 handleDislike(result.id, result.media_type)
                               }
@@ -812,6 +823,7 @@ const NextStreamBot = () => {
                             <FontAwesomeIcon
                               icon={faThumbsDown}
                               className='nextstream-bot__dislike-icon active'
+                              title='Dislike Title'
                               onClick={() =>
                                 handleLike(result.id, result.media_type)
                               }
@@ -821,6 +833,7 @@ const NextStreamBot = () => {
                               <FontAwesomeIcon
                                 icon={faThumbsUp}
                                 className='nextstream-bot__like-icon'
+                                title='Like Title'
                                 onClick={() =>
                                   handleLike(result.id, result.media_type)
                                 }
@@ -828,6 +841,7 @@ const NextStreamBot = () => {
                               <FontAwesomeIcon
                                 icon={faThumbsDown}
                                 className='nextstream-bot__dislike-icon'
+                                title='Dislike Title'
                                 onClick={() =>
                                   handleDislike(result.id, result.media_type)
                                 }
@@ -838,6 +852,7 @@ const NextStreamBot = () => {
                           <FontAwesomeIcon
                             icon={faShareAlt}
                             className='nextstream-bot__share-icon'
+                            title='Share Title'
                             onClick={() =>
                               handleShare(
                                 result.title || result.name,
