@@ -55,7 +55,6 @@ const FriendsPage = () => {
       console.error('Error fetching events:', error);
     }
   }, [userId]);
-  
 
   // Fetch friends list
   const fetchFriends = useCallback(async () => {
