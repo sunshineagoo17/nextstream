@@ -17,6 +17,7 @@ import Loader from '../../components/Loader/Loader';
 import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
 import Calendar from '../CalendarPage/sections/Calendar'; 
 import api from '../../services/api';
+import VoiceSearchStreamboard from '../../components/VoiceSearchStreamboard/VoiceSearchStreamboard'; 
 import './StreamBoard.scss';
 
 const ItemTypes = {
@@ -345,6 +346,7 @@ const SearchBar = ({ onSearch, onClearSearch }) => {
   const [query, setQuery] = useState('');
 
   const handleSearch = () => {
+    console.log('Searching for:', query);
     onSearch(query);
   };
 
@@ -377,6 +379,7 @@ const SearchBar = ({ onSearch, onClearSearch }) => {
       <button onClick={handleSearch} className="streamboard__search-bar-button-search">
         <FontAwesomeIcon icon={faSearch} className="streamboard__search-bar-search-icon" />
       </button>
+      <VoiceSearchStreamboard setQuery={setQuery} handleSearch={handleSearch} />
     </div>
   );
 };
