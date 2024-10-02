@@ -558,14 +558,14 @@ exports.getSharedEvents = async (req, res) => {
         'events.eventType',
         'events.media_id',
         'events.media_type',
-        'users.name as invitedFriendName',
+        'users.name as invitedFriendName', 
         'calendar_events.isAccepted',
         'calendar_events.isShared'
       );
 
     const invitedSharedEvents = await knex('calendar_events')
       .join('events', 'calendar_events.event_id', '=', 'events.id')
-      .join('users', 'calendar_events.user_id', '=', 'users.id')
+      .join('users', 'calendar_events.user_id', '=', 'users.id') 
       .where({
         'calendar_events.friend_id': userId,
         'calendar_events.isAccepted': true,
@@ -578,18 +578,19 @@ exports.getSharedEvents = async (req, res) => {
         'events.eventType',
         'events.media_id',
         'events.media_type',
-        'users.name as invitedByName',
+        'users.name as inviterName', 
         'calendar_events.isAccepted',
         'calendar_events.isShared'
       );
 
+    // Combine both created and invited events
     const sharedEvents = [...createdSharedEvents, ...invitedSharedEvents];
 
     if (sharedEvents.length === 0) {
       return res.status(200).json([]);
     }
 
-    // Format dates and return
+    // Format dates and return the combined event list
     const formattedEvents = sharedEvents.map((event) => ({
       inviteId: event.inviteId,
       eventTitle: event.eventTitle,
@@ -598,7 +599,7 @@ exports.getSharedEvents = async (req, res) => {
       eventType: event.eventType,
       mediaId: event.media_id,
       mediaType: event.media_type,
-      inviterOrInvitedFriend: event.invitedByName || event.invitedFriendName,
+      inviterOrInvitedFriend: event.inviterName || event.invitedFriendName, 
       isAccepted: event.isAccepted,
       isShared: event.isShared,
     }));

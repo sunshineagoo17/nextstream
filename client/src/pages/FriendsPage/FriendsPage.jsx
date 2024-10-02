@@ -843,9 +843,9 @@ const FriendsPage = () => {
                       <p>
                         <strong>Event Title:</strong> {event.eventTitle}
                       </p>
-                      {/* Inviter */}
+                      {/* Friend */}
                       <p>
-                        <strong>Invited By:</strong> {event.inviterName}
+                        <strong>Friend:</strong> {event.inviterOrInvitedFriend || 'Unknown'}
                       </p>
                       {/* Date and Time */}
                       <p>
