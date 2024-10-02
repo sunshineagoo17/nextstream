@@ -875,6 +875,15 @@
       background-color: $primary-very-light-blue;
     }
 
+    &__pizza-icon {
+      background-color: $frosted-glass;
+    }
+
+    &__reset-button,
+    &__save-button,
+    &__tag-button,
+    &__review-button,
+    &__lightbulb-icon,
     &__calendar-icon,
     &__trash-icon,
     &__media-type-icon {
@@ -898,6 +907,35 @@
 
     &__media-column--watched {
       background-color: $dark-mode-deep-blue;
+    }
+
+    &__season-episode-inputs {
+      background: $primary-button-dark-blue;
+      border-radius: .5rem;
+      border: 2px solid $frosted-glass;
+
+      label {
+        color: $neutral-white;
+        background-color: $primary-medium-blue;
+        box-shadow: $shadow-septenary;
+
+        input {
+          background: $primary-very-light-blue;
+        }
+      }
+    }
+
+    &__tag-button,
+    &__review-button {
+      border: none;
+
+      &:hover {
+        border: 1px solid $primary-button-blue;
+      }
+
+      &:active {
+        border: 1px solid $primary-dark-blue;
+      }
     }
   }
 

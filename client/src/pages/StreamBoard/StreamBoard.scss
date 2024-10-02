@@ -193,6 +193,7 @@
         flex-direction: column;
         gap: .15rem;
     }
+    
     &__reset-button,
     &__save-button {
         padding: .25rem .5rem;
@@ -704,7 +705,6 @@
 
     &__pizza-icon {
         color: $primary-button-blue;
-        font-family: $secondary-font;
         background-color: $primary-pale-blue;
         box-shadow: $shadow-secondary;
         padding: .25rem;
