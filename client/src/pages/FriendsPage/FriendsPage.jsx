@@ -41,24 +41,21 @@ const FriendsPage = () => {
   const getEvents = useCallback(async () => {
     try {
       const response = await fetch(`/api/calendar/${userId}/events`);
-      const data = await response.json();
-
-      if (response.ok) {
-        if (data.length === 0) {
-          console.log('No events found.');
-          setSharedCalendarEvents([]);
-        } else {
+  
+      // Check if the response's content-type is JSON
+      const contentType = response.headers.get('content-type');
+      
+      if (contentType && contentType.includes('application/json')) {
+        const data = await response.json();
+        if (response.ok) {
           setSharedCalendarEvents(data);
         }
-      } else {
-        console.error('Error fetching events:', data);
-        setSharedCalendarEvents([]);
       }
     } catch (error) {
       console.error('Error fetching events:', error);
-      setSharedCalendarEvents([]);
     }
   }, [userId]);
+  
 
   // Fetch friends list
   const fetchFriends = useCallback(async () => {
