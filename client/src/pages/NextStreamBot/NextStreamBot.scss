@@ -857,13 +857,13 @@
   }
 
   &__send-button {
-    margin-left: .35rem;
-    padding: .6rem;
-    border: none;
-    border-radius: 50%;
+    padding: .25rem;
+    margin-left: .25rem;
+    border: 1px solid $neutral-white;
+    border-radius: .5rem;
     background-color: $primary-button-blue;
     color: $neutral-white;
-    font-size: .85rem;
+    font-size: .75rem;
     cursor: pointer;
     transition: background-color .3s ease, transform .2s ease, box-shadow .2s ease;
 
@@ -883,8 +883,9 @@
     
     @include tablet {
       margin-left: .5rem;
+      font-size: .85rem;
       padding: .6rem 1.2rem;
-      border-radius: 2.5rem;
+      border-radius: .75rem;
       font-size: 1rem;
     }
   }

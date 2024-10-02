@@ -668,10 +668,7 @@ const NextStreamBot = () => {
                 <span className='nextstream-bot__typing-indicator-bubble'></span>
               </div>
             )}
-
-            {/* Voice Message*/}
-            <VoiceMessage handleSendMessage={handleSendMessage} />
-
+            
             <button
               className='nextstream-bot__send-button'
               onClick={handleSendMessage}
@@ -681,6 +678,10 @@ const NextStreamBot = () => {
                 className='nextstream-bot__gpt-plane-icon'
               />
             </button>
+            
+            {/* Voice Message*/}
+            <VoiceMessage handleSendMessage={handleSendMessage} />
+            
             {searchQuery && (
               <FontAwesomeIcon
                 icon={faTimes}
