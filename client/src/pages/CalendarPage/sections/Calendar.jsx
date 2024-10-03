@@ -633,6 +633,7 @@ const Calendar = forwardRef(
     };
 
     const clearSearchInput = () => {
+      console.log("Clearing search query");
       setSearchQuery('');
       setFilteredEvents(events);
     };
@@ -662,7 +663,7 @@ const Calendar = forwardRef(
               onKeyDown={handleKeyDown}
             />
             {searchQuery && (
-              <button>
+              <button className='calendar__clear-btn-container' onClick={clearSearchInput}>
                 <FontAwesomeIcon
                   icon={faTimes}
                   className='calendar__clear-icon'

@@ -36,13 +36,13 @@ const SubscriptionStatus = ({ isSubscribed, onSubscriptionChange, onDeleteAccoun
       </div>
         <div className="subscription-status__active">
           <div className="subscription-status__select" onClick={toggleActiveStatus}>
-            <div className={`subscription-status__checkbox ${isActive ? 'subscription-status__checkbox--active' : 'subscription-status__checkbox--inactive'}`}>
+            <button className={`subscription-status__checkbox ${isActive ? 'subscription-status__checkbox--active' : 'subscription-status__checkbox--inactive'}`}>
               {isActive ? (
                 <img src={checkmarkIcon} alt="Checkmark" className="subscription-status__check" />
               ) : (
                 <span className="subscription-status__x">x</span>
               )}
-            </div>
+            </button>
           </div>
           <div className={`subscription-status__box ${isActive ? '' : 'subscription-status__box--inactive'}`}>
             <div className="subscription-status__input">{isActive ? 'Active' : 'Inactive'}</div>
@@ -50,12 +50,12 @@ const SubscriptionStatus = ({ isSubscribed, onSubscriptionChange, onDeleteAccoun
         </div>
       </div>
       {isAuthenticated && (
-        <div
+        <button
           className={`subscription-status__delete-account ${deleteAccount ? 'subscription-status__delete-account--delete' : ''}`}
           onClick={handleDeleteAccount}
         >
-          <button className="subscription-status__delete-txt">Delete Account</button>
-        </div>
+          <div className="subscription-status__delete-txt">Delete Account</div>
+        </button>
       )}
     </div>
   );

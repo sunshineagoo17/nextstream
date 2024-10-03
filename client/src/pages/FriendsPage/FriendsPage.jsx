@@ -154,7 +154,7 @@ const FriendsPage = () => {
         message: isAccepted
           ? 'Event accepted successfully!'
           : 'Event declined and removed.',
-        type: isAccepted ? 'success' : 'info',
+        type: isAccepted ? 'success' : 'success',
       });
     } catch (error) {
       console.error('Error responding to event:', error);
@@ -341,13 +341,13 @@ const FriendsPage = () => {
   }, []);
 
   const handleSendMessage = async (messageText = newMessage) => {
-    console.log('Selected Friend:', selectedFriend);
+    const textToSend = typeof messageText === 'string' ? messageText.trim() : '';  
   
-    if (messageText.trim() && selectedFriend?.id) {
+    if (textToSend && selectedFriend?.id) {
       const newMessageObj = {
         senderId: userId,
         receiverId: selectedFriend.id,
-        message: messageText,  
+        message: textToSend,
         timestamp: new Date().toISOString(),
         is_read: false,
       };
@@ -355,13 +355,16 @@ const FriendsPage = () => {
       setMessages((prevMessages) => [...prevMessages, newMessageObj]);
   
       try {
-        await sendMessage(selectedFriend.id, messageText);
-        setNewMessage(''); 
+        socket.emit('send_message', newMessageObj); 
+  
+        await sendMessage(selectedFriend.id, textToSend);
+
+        setNewMessage('');
       } catch (error) {
         console.log('Error sending message:', error);
       }
     }
-  };
+  };  
   
   const handleDeleteMessage = async (messageId) => {
     try {
@@ -921,11 +924,13 @@ const FriendsPage = () => {
         {selectedFriend && (
           <div className='friends-page__container friends-page__container--chat'>
             <div className='friends-page__chat glassmorphic-card'>
-              <FontAwesomeIcon
-                icon={faTimes}
-                className='friends-page__chat-close'
-                onClick={handleCloseChat}
-              />
+              <button>
+                <FontAwesomeIcon
+                  icon={faTimes}
+                  className='friends-page__chat-close'
+                  onClick={handleCloseChat}
+                />
+              </button>
               <div className='friends-page__chat-header'>
                 <span className='friends-page__chat-header-title'>
                   Chat with: {selectedFriend.name}
@@ -944,11 +949,13 @@ const FriendsPage = () => {
                       ${message.senderId === userId ? 'me' : 'sender'} 
                       ${message.is_read ? 'read' : 'unread'}`}>
                       {message.message}
-                      <FontAwesomeIcon
-                        icon={faTrash}
-                        className='friends-page__delete-icon'
-                        onClick={() => handleDeleteMessage(message.id)}
-                      />
+                      <button>
+                        <FontAwesomeIcon
+                          icon={faTrash}
+                          className='friends-page__delete-icon'
+                          onClick={() => handleDeleteMessage(message.id)}
+                        />
+                      </button>
                     </div>
                   ))
                 )}
@@ -971,17 +978,17 @@ const FriendsPage = () => {
                   </button>
                   <button
                     className='friends-page__send-btn'
-                    onClick={handleSendMessage}>
+                    onClick={() => handleSendMessage(newMessage)}>
                       <FontAwesomeIcon icon={faPaperPlane} />
                   </button>   
                 </div>
               </div>
               <div className='friends-page__chat-action-btns'>
-                <EmojiMessages newMessage={newMessage} setNewMessage={setNewMessage} className="friends-page__emoji-button"/>
                 <VoiceMessageFriends
                   setNewMessage={setNewMessage}
                   handleSendMessage={handleSendMessage}
                 />
+                <EmojiMessages newMessage={newMessage} setNewMessage={setNewMessage} className="emoji-btn"/>
               </div>
               {typing && (
                 <div className='friends-page__typing'>

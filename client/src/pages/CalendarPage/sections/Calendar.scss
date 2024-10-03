@@ -133,11 +133,26 @@
   &__clear-icon {
     position: absolute;
     right: .85rem;
-    top: 35%;
-    color: $primary-light-blue;
+    top: 28%;
+    background: $primary-medium-blue;
+    color: $neutral-white;
+    padding: .25rem;
+    border-radius: .35rem;
+    box-shadow: $shadow-primary;
+    transition: all 0.3s ease-in-out;
 
     &:hover {
+      background: $frosted-glass;
       color: $primary-medium-blue;
+      border: 1px solid $neutral-white;
+      transform: scale(1.05);
+    }
+
+    &:active {
+      background: $primary-button-blue;
+      color: $neutral-white;
+      border: none;
+      transform: scale(0.95);
     }
   }
 

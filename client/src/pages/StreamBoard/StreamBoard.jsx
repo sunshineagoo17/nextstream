@@ -241,25 +241,29 @@ const MediaItem = ({ item, index, status, moveMediaItem, handleAddToCalendar, ha
         </Link>
 
         {/* Calendar Icon with Tooltip */}
-        <FontAwesomeIcon
-          icon={faCalendarPlus}
-          className="streamboard__calendar-icon"
-          onClick={() => handleAddToCalendar(item.title, item.media_type, item.media_id, () => moveMediaItem(item.media_id, 'scheduled'))}
-          data-tooltip-id="calendarTooltip"
-          data-tooltip-content="Add to Calendar"
-        />
-        <Tooltip id="calendarTooltip" place="top" />
+        <button>
+          <FontAwesomeIcon
+            icon={faCalendarPlus}
+            className="streamboard__calendar-icon"
+            onClick={() => handleAddToCalendar(item.title, item.media_type, item.media_id, () => moveMediaItem(item.media_id, 'scheduled'))}
+            data-tooltip-id="calendarTooltip"
+            data-tooltip-content="Add to Calendar"
+          />
+          <Tooltip id="calendarTooltip" place="top" />
+        </button>
 
         {/* Trash Icon with Tooltip */}
-        <FontAwesomeIcon
-          icon={faTrash}
-          className="streamboard__trash-icon"
-          onClick={() => handleDeleteMedia(item.media_id, item.media_type)}
-          data-tooltip-id="trashTooltip"
-          data-tooltip-content="Delete from List"
-        />
-        <Tooltip id="trashTooltip" place="top" />
-        </div>
+        <button>
+          <FontAwesomeIcon
+            icon={faTrash}
+            className="streamboard__trash-icon"
+            onClick={() => handleDeleteMedia(item.media_id, item.media_type)}
+            data-tooltip-id="trashTooltip"
+            data-tooltip-content="Delete from List"
+          />
+          <Tooltip id="trashTooltip" place="top" />
+        </button>
+      </div>
         <div className='streamboard__tags-reviews-container'>
           {/* Add Tag Button */}
           <button

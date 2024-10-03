@@ -106,9 +106,8 @@ io.on('connection', (socket) => {
   // Listen for the send_message event
   socket.on('send_message', async (data) => {
     const { senderId, receiverId, message } = data;
-
+  
     try {
-      // Insert the message into the database
       const savedMessage = await knex('messages').insert({
         sender_id: senderId,
         receiver_id: receiverId,
@@ -116,15 +115,14 @@ io.on('connection', (socket) => {
         is_read: false,
         created_at: knex.fn.now(),
       });
-
-      // Emit the message to the recipient's room
+  
       io.to(receiverId).emit('receive_message', {
         senderId,
         receiverId,
         message,
         created_at: new Date(),
       });
-
+  
       console.log('Message saved and sent:', savedMessage);
     } catch (error) {
       console.error('Error saving message:', error);
@@ -132,6 +130,10 @@ io.on('connection', (socket) => {
         message: 'Error sending message. Please try again.',
       });
     }
+  });
+  
+  socket.on('send_message', (message) => {
+    socket.to(message.receiverId).emit('receive_message', message);
   });
 
   // Listen for new calendar invites

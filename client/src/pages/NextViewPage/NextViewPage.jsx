@@ -240,7 +240,7 @@ const NextViewPage = () => {
     const getInteractionIcon = () => {
         if (interaction === 1) {
             return (
-                <>
+                <button>
                     <FontAwesomeIcon
                         icon={faThumbsUp}
                         className="nextview-page__thumbs-up active"
@@ -249,11 +249,11 @@ const NextViewPage = () => {
                         data-tooltip-content="LIKED"
                     />
                     <Tooltip id={`thumbsUpTooltip-${mediaId}`} place="top" className="custom-tooltip" />
-                </>
+                </button>
             );
         } else if (interaction === 0) {
             return (
-                <>
+                <button>
                     <FontAwesomeIcon
                         icon={faThumbsDown}
                         className="nextview-page__thumbs-down active"
@@ -262,26 +262,30 @@ const NextViewPage = () => {
                         data-tooltip-content="DISLIKED"
                     />
                     <Tooltip id={`thumbsDownTooltip-${mediaId}`} place="top" className="custom-tooltip" />
-                </>
+                </button>
             );
         } else {
             return (
                 <>
                     <div className="nextview-page__neutral-interactions">
-                        <FontAwesomeIcon
-                            icon={faThumbsUp}
-                            className="nextview-page__thumbs-up"
-                            onClick={() => handleToggleInteraction(1)}
-                            data-tooltip-id={`interactionTooltip-${mediaId}`}
-                            data-tooltip-content="LIKE"
-                        />
-                        <FontAwesomeIcon
-                            icon={faThumbsDown}
-                            className="nextview-page__thumbs-down"
-                            onClick={() => handleToggleInteraction(0)}
-                            data-tooltip-id={`interactionTooltip-${mediaId}`}
-                            data-tooltip-content="DISLIKE"
-                        />
+                        <button>
+                            <FontAwesomeIcon
+                                icon={faThumbsUp}
+                                className="nextview-page__thumbs-up"
+                                onClick={() => handleToggleInteraction(1)}
+                                data-tooltip-id={`interactionTooltip-${mediaId}`}
+                                data-tooltip-content="LIKE"
+                            />
+                        </button>
+                        <button>
+                            <FontAwesomeIcon
+                                icon={faThumbsDown}
+                                className="nextview-page__thumbs-down"
+                                onClick={() => handleToggleInteraction(0)}
+                                data-tooltip-id={`interactionTooltip-${mediaId}`}
+                                data-tooltip-content="DISLIKE"
+                            />
+                        </button>
                     </div>
                     <Tooltip id={`interactionTooltip-${mediaId}`} place="top" className="custom-tooltip" />
                 </>
@@ -335,16 +339,18 @@ const NextViewPage = () => {
                             Find Similar Media
                         </Link>
                         <div className="nextview-page__poster-container">
-                            <img 
-                                src={mediaData.poster_path 
-                                        ? `https://image.tmdb.org/t/p/w500${mediaData.poster_path}` 
-                                        : DefaultPosterImg}  
-                                alt={mediaData.title || mediaData.name || "No Poster Available"} 
-                                className="nextview-page__poster"
-                            />
-                            <div className="nextview-page__play-overlay" onClick={handlePlayTrailer}>
+                            <button>
+                                <img 
+                                    src={mediaData.poster_path 
+                                            ? `https://image.tmdb.org/t/p/w500${mediaData.poster_path}` 
+                                            : DefaultPosterImg}  
+                                    alt={mediaData.title || mediaData.name || "No Poster Available"} 
+                                    className="nextview-page__poster"
+                                />
+                            </button>
+                            <button className="nextview-page__play-overlay" onClick={handlePlayTrailer}>
                                 <FontAwesomeIcon icon={faPlay} className="nextview-page__play-icon" />
-                            </div>
+                            </button>
                         </div> 
 
                         <div className="nextview-page__actions">
