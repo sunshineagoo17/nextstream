@@ -413,7 +413,7 @@ const NextStreamBot = () => {
         setIsLoading(false);
         setIsTyping(false);
         setIsBotTyping(false);
-        setSearchQuery('');  // Clear the search query if it was typed
+        setSearchQuery(''); 
       }
     }
   };  

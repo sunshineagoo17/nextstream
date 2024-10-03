@@ -1623,6 +1623,9 @@
     transition: transform .3s;
     margin-right: 1rem;
     flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 
     @include tablet {
       max-width: 12rem;
