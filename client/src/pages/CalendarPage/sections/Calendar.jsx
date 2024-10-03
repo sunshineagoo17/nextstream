@@ -734,7 +734,7 @@ const Calendar = forwardRef(
           <div className='modal'>
             <div className='modal-content' ref={modalRef}>
               <button className='modal-close-btn' onClick={handleCloseModal}>
-                <FontAwesomeIcon icon={faTimes} />
+                <FontAwesomeIcon icon={faTimes} onClick={handleCloseModal} className='modal-close-btn-icon'/>
               </button>
               <h2>{selectedEvent ? 'Edit Event' : 'Add Event'}</h2>
               <div className='modal-input-container'>
@@ -753,11 +753,12 @@ const Calendar = forwardRef(
                   onKeyDown={handleEventTitleKeyDown}
                 />
                 {(selectedEvent ? selectedEvent.title : newEventTitle) && (
-                  <FontAwesomeIcon
-                    icon={faTimes}
-                    className='modal-clear-icon'
-                    onClick={clearEventTitleInput}
-                  />
+                  <button className='modal-clear-icon' onClick={clearEventTitleInput}>
+                    <FontAwesomeIcon
+                      icon={faTimes}
+                      onClick={clearEventTitleInput}
+                    />
+                </button>
                 )}
               </div>
               <input
