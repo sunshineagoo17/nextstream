@@ -172,7 +172,6 @@
     padding: .5rem 1rem;
     font-family: $primary-font;
     font-size: 1rem;
-    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -264,7 +263,6 @@
     color: $neutral-white;
     font-family: $primary-font;
     font-size: .85rem;
-    cursor: grab;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -858,7 +856,6 @@
     box-shadow: inset .25rem .25rem .5rem rgba($neutral-black, .2),
       inset -.25rem -.25rem .5rem rgba(255, 255, 255, .7);
     color: $robot-dark-blue;
-    cursor: pointer;
     font-size: .85rem;
     padding: .6rem;
     transition: background-color .3s ease, transform .2s ease,
@@ -1005,7 +1002,6 @@
     top: 35%;
     font-size: .85rem;
     color: $neutral-white;
-    cursor: pointer;
     z-index: 3;
 
     transition: transform .3s ease;
@@ -1035,7 +1031,6 @@
     right: 1rem;
     color: $primary-dark-blue;
     font-size: 1rem;
-    cursor: pointer;
     transition: transform .3s ease;
 
     &:hover {
@@ -1059,7 +1054,6 @@
     justify-content: center;
     border-radius: .5rem;
     align-items: center;
-    cursor: pointer;
     background: linear-gradient(
       145deg,
       rgba($pastel-blue, .75),
@@ -1120,7 +1114,6 @@
         background: none;
         border: none;
         font-size: 1.25rem;
-        cursor: pointer;
         color: $neutral-black;
         transition: transform .3s ease-in-out;
 
@@ -1174,7 +1167,6 @@
   &__like-icon,
   &__dislike-icon {
     color: $primary-button-blue;
-    cursor: pointer;
     transition: transform .3s ease-in-out;
 
     &:hover {
@@ -1208,7 +1200,6 @@
     padding: .25rem;
     font-size: 1rem;
     box-shadow: $shadow-senary;
-    cursor: pointer;
     z-index: 1001;
     border-radius: .2rem;
     transition: all .3s ease;
@@ -1252,7 +1243,6 @@
       border: .125rem solid $neutral-white;
       border: none;
       background: $frosted-glass;
-      cursor: pointer;
       transition: background-color .3s, transform .3s;
       font-size: .7rem;
       font-weight: normal;
@@ -1357,7 +1347,6 @@
       border-radius: .5rem;
       border: none;
       text-shadow: $shadow-primary;
-      cursor: pointer;
       box-shadow: $shadow-tertiary;
       transition: background-color .3s, transform .3s;
 
@@ -1401,7 +1390,6 @@
     padding: 1rem;
     box-shadow: $shadow-primary;
     @include hover-raise-effect;
-    cursor: crosshair;
 
     @include tablet {
       @include block-item(100%, 35vh);
@@ -1489,7 +1477,6 @@
     box-shadow: $shadow-primary;
     transform: .3s ease-in;
     @include hover-raise-effect;
-    cursor: crosshair;
 
     @include tablet {
       @include block-item(100%, 35vh);
@@ -1575,7 +1562,6 @@
     padding: .625rem;
     box-shadow: $shadow-septenary;
     border-radius: 50%;
-    cursor: pointer;
     z-index: 2000;
 
     &:hover {
@@ -1663,7 +1649,6 @@
     padding: .25rem;
     background: $primary-darker-blue;
     border-radius: .5rem;
-    cursor: pointer;
     transition: transform .3s;
     z-index: 2;
 
@@ -1948,7 +1933,6 @@
     background: $neutral-white;
     border: none;
     font-size: 1rem;
-    cursor: pointer;
     padding: .5rem 1rem;
     color: #555;
     border-radius: 1.875rem;
@@ -2010,7 +1994,6 @@
     color: $neutral-white;
     border-radius: 2rem;
     border: none;
-    cursor: pointer;
     transition: background-color .3s, transform .3s;
 
     &:hover {

@@ -70,18 +70,24 @@ const MediaCard = ({ media = {}, handlers }) => {
           <h2 className="media-card__title">
             {title || name}
             <span onClick={handleMediaTypeClick} className="media-card__type-link" data-tooltip-id={`mediaTypeTooltip-${id}`} data-tooltip-content="View Details">
-              <FontAwesomeIcon icon={icon} className="media-card__type-icon" />
+              <button>
+                <FontAwesomeIcon icon={icon} className="media-card__type-icon" />
+              </button>
             </span>
             <Tooltip id={`mediaTypeTooltip-${id}`} place="top" className="details-tooltip" />
             <span onClick={handleMediaRecommendationsClick} className="media-card__recommendations-link" data-tooltip-id={`lightbulbTooltip-${id}`} data-tooltip-content="Discover More">
-              <FontAwesomeIcon
-                icon={faLightbulb}
-                className="media-card__lightbulb-icon"
-              />
+              <button>
+                <FontAwesomeIcon
+                  icon={faLightbulb}
+                  className="media-card__lightbulb-icon"
+                />
+              </button>
             </span>
             <Tooltip id={`lightbulbTooltip-${id}`} place="top" className="details-tooltip" />
             <span onClick={handleShare} className="media-card__share-link" data-tooltip-id={`shareTooltip-${id}`} data-tooltip-content="Share">
-              <FontAwesomeIcon icon={faShareAlt} className="media-card__share-icon" />
+              <button>
+                <FontAwesomeIcon icon={faShareAlt} className="media-card__share-icon" />
+              </button>
             </span>
             <Tooltip id={`shareTooltip-${id}`} place="top" className="details-tooltip" />
           </h2>

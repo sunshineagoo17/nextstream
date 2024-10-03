@@ -22,7 +22,6 @@
     box-shadow: $shadow-tertiary;
     border: .0625rem solid $frosted-glass;
     margin-right: .5rem;
-    cursor: pointer;
     padding: .25rem;
     border-radius: .5rem;
     transition: transform .3s ease;
@@ -174,7 +173,6 @@
     border-radius: .8rem;
     border: none;
     color: $neutral-white;
-    cursor: pointer;
     font-family: $secondary-font;
     font-size: .85rem;
     font-weight: bold;
@@ -213,7 +211,6 @@
     border-radius: .8rem;
     border: none;
     padding: .8rem 1.5rem;
-    cursor: pointer;
     transition: all .3s ease;
     margin-bottom: 1rem;
 

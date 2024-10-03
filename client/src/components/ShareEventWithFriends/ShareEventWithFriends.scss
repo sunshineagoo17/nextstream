@@ -72,7 +72,6 @@
     background: rgba(255, 255, 255, .2);
     box-shadow: inset .03125rem .03125rem .0625rem rgba($neutral-black, .1),
       inset -.03125rem -.03125rem .0625rem rgba(255, 255, 255, .7);
-    cursor: pointer;
     transition: background .3s ease;
 
     &:checked {
@@ -98,7 +97,6 @@
     font-size: .85rem !important;
     font-family: $secondary-font;
     border-radius: .375rem;
-    cursor: pointer;
     background: linear-gradient(145deg, rgba(255, 255, 255, .15), rgba(255, 255, 255, .25));
     box-shadow: .0625rem .0625rem .125rem rgba($neutral-black, .1),
       -.0625rem -.0625rem .125rem rgba(255, 255, 255, .9);

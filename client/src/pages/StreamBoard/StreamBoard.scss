@@ -88,7 +88,6 @@
         box-shadow: $shadow-secondary;          
         border: .1875rem solid $neutral-white; 
         text-shadow: $shadow-primary;
-        cursor: pointer;
         transition: background-color 0.3s ease, transform 0.3s ease;
 
         &:hover {
@@ -138,7 +137,6 @@
         color: $neutral-white;
         padding: 0.75rem 1.5rem;
         border-radius: 0.5rem;
-        cursor: pointer;
         font-family: $primary-font;
         box-shadow: $shadow-primary;
         border: none;
@@ -162,7 +160,6 @@
         background-color: transparent;
         border: none;
         font-size: 1.5rem;
-        cursor: pointer;
         color: $primary-dark-blue;
     
         &:hover {
@@ -203,7 +200,6 @@
         border: 2px solid $frosted-glass;
         background-color: $neutral-white;
         color: $primary-medium-blue;
-        cursor: pointer;
         font-family: $primary-font;
         font-size: .85rem;
         transition: background-color .3s ease, transform .3s ease;
@@ -341,7 +337,6 @@
         border-radius: .5rem;
         box-shadow: $shadow-primary;
         border: none;
-        cursor: pointer;
         margin-left: .25rem;
         transition: background-color .3s ease, transform .3s ease;
 
@@ -372,7 +367,6 @@
         border-radius: .5rem;
         box-shadow: $shadow-primary;
         border: none;
-        cursor: pointer;
         transition: background-color .3s ease, transform .3s ease;
 
         &:hover {
@@ -524,7 +518,6 @@
         padding: .25rem;
         font-size: 1rem;
         box-shadow: $shadow-senary;
-        cursor: pointer;
         z-index: 1001;
         border-radius: .2rem;
         transition: all .3s ease; 
@@ -697,7 +690,6 @@
 
     &__pagination-button {
         padding: .3125rem .625rem;
-        cursor: pointer;
         background-color: $primary-button-blue;
         color: $neutral-white;
         font-family: $primary-font;
@@ -771,7 +763,6 @@
         font-family: $primary-font;
         font-size: 0.875rem;
         text-shadow: $shadow-primary;
-        cursor: pointer;
         transition: transform .3s ease, color .3s ease;
         box-shadow: $shadow-secondary;
     
@@ -819,7 +810,6 @@
         color: $primary-medium-blue;
         box-shadow: $shadow-primary;
         border: .0625rem solid $frosted-glass;
-        cursor: pointer;
         transition: transform .3s ease, color .3s ease;
 
         &:hover {

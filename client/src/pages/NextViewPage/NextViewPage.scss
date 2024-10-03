@@ -221,7 +221,6 @@
     border-radius: .5rem;
     font-size: 1rem;
     border: none;
-    cursor: pointer;
     color: $primary-medium-blue;
     background-color: $frosted-glass;
     box-shadow: $shadow-secondary;
@@ -419,7 +418,6 @@
 
     &:hover {
       opacity: 1;
-      cursor: pointer;
     }
   }
 
@@ -693,7 +691,6 @@
     box-shadow: $shadow-primary;
     background: rgba($neutral-white, .9);
     padding: .5rem;
-    cursor: pointer;
 
     &:hover {
       transform: scale(1.05);
@@ -752,7 +749,6 @@
     border-radius: .5rem;
     padding: .5rem;
     font-size: 1.25rem;
-    cursor: pointer;
     
     &:hover {
       background: $primary-button-blue;
@@ -837,7 +833,6 @@
     padding: .25rem;
     font-size: 1rem;
     box-shadow: $shadow-senary;
-    cursor: pointer;
     z-index: 1001;
     border-radius: .2rem;
     transition: all .3s ease; 
@@ -903,7 +898,6 @@
         background: none;
         border: none;
         font-size: 1.25rem;
-        cursor: pointer;
         color: $neutral-black;
         transition: transform .3s ease-in-out;
 

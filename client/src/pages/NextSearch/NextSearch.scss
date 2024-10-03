@@ -894,7 +894,6 @@
     box-shadow: $shadow-primary;
     transform: .3s ease-in;
     @include hover-raise-effect;
-    cursor: crosshair;
   
     @include tablet {
       @include block-item(100%, 35vh);

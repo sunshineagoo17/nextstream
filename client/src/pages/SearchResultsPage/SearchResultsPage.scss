@@ -197,7 +197,6 @@
     font: $primary-font;
     font-size: 1rem;
     color: $primary-medium-blue;
-    cursor: pointer;
     text-decoration: none;
     border: .0625rem solid $primary-medium-blue;
     padding: .25rem .5rem;
@@ -376,7 +375,6 @@
     border: .15rem solid $primary-light-blue;
     border-radius: .85rem;
     box-shadow: $shadow-quaternary;
-    cursor: pointer;
     transition: transform .2s ease, background-color .2s ease, border-color .2s ease;
     
     &:active {
@@ -414,7 +412,6 @@
     border: .0938rem solid $primary-very-light-blue;
     backdrop-filter: blur(.5rem);
     border-radius: 50%;
-    cursor: pointer;
     transition: transform .3s ease, background-color .3s, box-shadow .3s;
     box-shadow: $shadow-quaternary;
 

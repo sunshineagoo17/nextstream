@@ -314,9 +314,9 @@ const TopPicksPage = () => {
                       alt={item.title}
                       className="recommendations-page__poster"
                     />
-                    <div className="recommendations-page__play-overlay" onClick={() => handlePlayTrailer(item.id, item.media_type)}>
+                    <button className="recommendations-page__play-overlay" onClick={() => handlePlayTrailer(item.id, item.media_type)}>
                       <FontAwesomeIcon icon={faPlay} className="recommendations-page__play-icon" />
-                    </div>
+                    </button>
                   </div>
                   <h2 className="recommendations-page__subtitle">{item.title || item.name || 'Title: N/A'}</h2>
                   <UserRating rating={(item.vote_average || 0) * 10} className="recommendations-page__rating-icon" />
@@ -345,38 +345,46 @@ const TopPicksPage = () => {
                         data-tooltip-content="Discover More"
                       />
                     </Link>
-                    <FontAwesomeIcon
-                      icon={faCalendarPlus}
-                      onClick={() => handleAddToCalendar(item.title, item.media_type, item.id)}
-                      className="recommendations-page__cal-icon"
-                      data-tooltip-id="calTooltip"
-                      data-tooltip-content="Add to Calendar"
-                    />
-                    <FontAwesomeIcon
-                      icon={faThumbsUp}
-                      className={`recommendations-page__like-icon ${likedStatus[item.id] === 'liked' ? 'active' : ''}`}
-                      data-tooltip-id="likeTooltip"
-                      data-tooltip-content="Like"
-                      onClick={() => handleLike(item.id, item.media_type)}
-                      style={{ display: likedStatus[item.id] === 'disliked' ? 'none' : 'inline' }} 
-                    />
-                    {likedStatus[item.id] !== 'liked' && (
+                    <button>
                       <FontAwesomeIcon
-                        icon={faThumbsDown}
-                        className={`recommendations-page__dislike-icon ${likedStatus[item.id] === 'disliked' ? 'active' : ''}`}
-                        data-tooltip-id="dislikeTooltip"
-                        data-tooltip-content="Dislike"
-                        onClick={() => handleDislike(item.id, item.media_type)}
-                        style={{ display: likedStatus[item.id] === 'liked' ? 'none' : 'inline' }}
+                        icon={faCalendarPlus}
+                        onClick={() => handleAddToCalendar(item.title, item.media_type, item.id)}
+                        className="recommendations-page__cal-icon"
+                        data-tooltip-id="calTooltip"
+                        data-tooltip-content="Add to Calendar"
                       />
+                    </button>
+                    <button>
+                      <FontAwesomeIcon
+                        icon={faThumbsUp}
+                        className={`recommendations-page__like-icon ${likedStatus[item.id] === 'liked' ? 'active' : ''}`}
+                        data-tooltip-id="likeTooltip"
+                        data-tooltip-content="Like"
+                        onClick={() => handleLike(item.id, item.media_type)}
+                        style={{ display: likedStatus[item.id] === 'disliked' ? 'none' : 'inline' }} 
+                      />
+                    </button>
+                    {likedStatus[item.id] !== 'liked' && (
+                      <button>
+                        <FontAwesomeIcon
+                          icon={faThumbsDown}
+                          className={`recommendations-page__dislike-icon ${likedStatus[item.id] === 'disliked' ? 'active' : ''}`}
+                          data-tooltip-id="dislikeTooltip"
+                          data-tooltip-content="Dislike"
+                          onClick={() => handleDislike(item.id, item.media_type)}
+                          style={{ display: likedStatus[item.id] === 'liked' ? 'none' : 'inline' }}
+                        />
+                      </button>
                     )}
-                    <FontAwesomeIcon
-                        icon={faShareAlt}
-                        className="recommendations-page__share-icon"
-                        data-tooltip-id="shareIconTooltip"
-                        data-tooltip-content="Share"
-                        onClick={() => handleShare(item.title || item.name, item.id, item.media_type)}
-                    />
+                    <button>
+                      <FontAwesomeIcon
+                          icon={faShareAlt}
+                          className="recommendations-page__share-icon"
+                          data-tooltip-id="shareIconTooltip"
+                          data-tooltip-content="Share"
+                          onClick={() => handleShare(item.title || item.name, item.id, item.media_type)}
+                      />
+                    </button>
                   </p>
                   <p className="recommendations-page__text">
                     Genre: {Array.isArray(item.genres) && item.genres.length > 0 ? item.genres.map((genre) => genre.name || genre).join(', ') : 'N/A'}

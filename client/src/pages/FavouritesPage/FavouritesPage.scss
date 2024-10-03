@@ -61,7 +61,6 @@
     background: $primary-gradient-blue;
     font: $primary-font;
     color: $neutral-white;
-    cursor: help;
     text-decoration: none;
     border: .0625rem solid $primary-dark-blue;
     padding-left: .25rem;
@@ -250,7 +249,6 @@
     font-size: .7rem;
     font-family: $primary-font;
     line-height: .75rem;
-    cursor: pointer;
     transition: background .3s ease, transform .3s ease, box-shadow .3s ease;
 
     &:hover {
@@ -345,7 +343,6 @@
   &__magnifying-glass-icon {
     @include block-item(.65rem, auto);
     color: $primary-dark-blue;
-    cursor: pointer;
     transition: transform 1s ease;
 
     &:hover {
@@ -398,7 +395,6 @@
     padding: .25rem;
     font-size: 1rem;
     box-shadow: $shadow-senary;
-    cursor: pointer;
     z-index: 1001;
     border-radius: .2rem;
     transition: all .3s ease; 
@@ -472,7 +468,6 @@
   &__clear-icon {
     @include block-item(.6rem, auto);
     color: $primary-dark-blue;
-    cursor: pointer;
     margin-left: .35rem;
     transition: transform .3s ease-in-out;
 
@@ -670,7 +665,6 @@
 
     &:hover {
       opacity: 1;
-      cursor: pointer;
     }
   }
 
@@ -737,7 +731,6 @@
   &__lock-icon,
   &__trash-icon {
     color: $primary-button-blue;
-    cursor: pointer;
     transition: transform .3s ease-in-out;
 
     &:hover{
@@ -804,7 +797,6 @@
     background: none;
     border: none;
     color: $primary-dark-blue;
-    cursor: pointer;
     font-size: .875rem;
     display: flex;
     align-items: center;
@@ -828,7 +820,6 @@
     font-family: $primary-font;
     line-height: .75rem;
     width: 5.25rem;
-    cursor: pointer;
     font-weight: bold;
     transition: background .3s ease, transform .3s ease, box-shadow .3s ease;
     box-shadow: 0 .25rem .375rem rgba($neutral-black, .1);
@@ -871,7 +862,6 @@
     margin-left: .5rem;
     line-height: .75rem;
     width: 5.25rem;
-    cursor: pointer;
     font-weight: bold;
     transition: background .3s ease, transform .3s ease, box-shadow .3s ease;
 
@@ -914,7 +904,6 @@
     line-height: .75rem;
     margin-left: .5rem;
     width: 5.25rem;
-    cursor: pointer;
     font-weight: bold;
     transition: background .3s ease, transform .3s ease, box-shadow .3s ease;
 
@@ -977,7 +966,6 @@
         background: none;
         border: none;
         font-size: 1.25rem;
-        cursor: pointer;
         color: $neutral-black;
         transition: transform .3s ease-in-out;
 
@@ -1062,7 +1050,6 @@
     border: .15rem solid rgba(255, 255, 255, .7);
     border-bottom: .3rem solid rgba(255, 255, 255, .7);
     transition: transform .5s ease-in-out, box-shadow .5s ease-in-out;
-    cursor: pointer;
     text-align: center;
     width: 100%; 
     aspect-ratio: 1 / 1; 

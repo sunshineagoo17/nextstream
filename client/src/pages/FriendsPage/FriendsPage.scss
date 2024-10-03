@@ -57,7 +57,6 @@
     border-radius: .75rem;
     box-shadow: 0 5px 15px rgba(0, 255, 127, 0.4);
     border: 3px solid $feedback-mint-light-green;
-    cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     animation: popBounce 0.9s cubic-bezier(0.25, 0.8, 0.25, 1), pulseGlow 3s infinite alternate ease-in-out;
 
@@ -127,7 +126,6 @@
     background: $primary-button-blue;
     border-radius: .75rem;
     border: 3px solid $primary-light-blue;
-    cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     animation: popBounce 0.9s cubic-bezier(0.25, 0.8, 0.25, 1), pulsingGlow 3s infinite alternate ease-in-out;
 
@@ -241,7 +239,6 @@
   }
 
   &__chat-close {
-    cursor: pointer;
     background: $neutral-white;
     color: $primary-cyan;
     position: absolute;
@@ -293,7 +290,6 @@
     border: none;
     color: $neutral-white;
     border-radius: .5rem;
-    cursor: pointer;
     box-shadow: $shadow-senary;
     backdrop-filter: blur(.625rem);
     transition: background .3s ease, transform .3s ease-in-out;
@@ -515,7 +511,6 @@
     padding: .5rem 1.5rem;
     border: none;
     border-radius: .5rem;
-    cursor: pointer;
     box-shadow: $shadow-secondary;
     transition: transform .3s ease, box-shadow .3s ease, background-color .3s ease;
   
@@ -549,7 +544,6 @@
     padding: .5rem 1.5rem;
     border: none;
     border-radius: .5rem;
-    cursor: pointer;
     box-shadow: $shadow-secondary;
     transition: transform .3s ease, box-shadow .3s ease, background-color .3s ease;
   
@@ -585,7 +579,6 @@
     border: none;
     border-radius: .5rem;
     margin-left: .5rem;
-    cursor: pointer;
     box-shadow: $shadow-secondary;
     backdrop-filter: blur(.625rem);
     transition: background .3s ease, transform .2s ease;
@@ -636,7 +629,6 @@
     border: none;
     color: $neutral-white;
     border-radius: .5rem;
-    cursor: pointer;
     box-shadow: $shadow-secondary;
     transition: background .3s ease, transform .2s ease;
 
@@ -664,7 +656,6 @@
     border-radius: .5rem;
     margin-top: .25rem;
     margin-bottom: .5rem;
-    cursor: pointer;
     box-shadow: $shadow-secondary;
     backdrop-filter: blur(.625rem);
     transition: background .3s ease, transform .2s ease;
@@ -772,7 +763,6 @@
   &__bell-icon {
     color: $neutral-white;
     font-size: 1.25rem;
-    cursor: pointer;
     transition: color 0.3s ease, transform 0.3s ease;
   
     &:hover {
@@ -824,7 +814,6 @@
     border: none;
     font-size: 1.25rem;
     color: $primary-dark-blue;
-    cursor: pointer;
     transition: transform .2s ease;
   
     &:hover {
@@ -918,7 +907,6 @@
       align-items: center;
       padding: .9375rem;
       margin-bottom: .625rem;
-      cursor: pointer;
       background-color: $primary-pale-cyan;
       border-radius: .75rem;
       transition: background .3s ease, box-shadow .3s ease;
@@ -940,7 +928,6 @@
     border-radius: .5rem;
     margin-top: .25rem;
     margin-bottom: .5rem;
-    cursor: pointer;
     position: relative;
     box-shadow: $shadow-senary;
     backdrop-filter: blur(.625rem);
@@ -1152,7 +1139,6 @@
       animation: wiggle .6s ease-in-out, backgroundSlide .9s forwards;
       background: $neutral-white;
       color: $feedback-error-peach;
-      cursor: pointer;  
       box-shadow: $shadow-primary;
     }
   
@@ -1220,7 +1206,6 @@
       border: none;
       color: $neutral-white;
       border-radius: .5rem;
-      cursor: pointer;
       box-shadow: $shadow-secondary;
       transition: background .3s ease;
 
@@ -1255,7 +1240,6 @@
     color: $neutral-white;
     border: none;
     border-radius: .5rem;
-    cursor: pointer;
     transition: background .3s ease, transform .2s ease;
   
     &:hover {
@@ -1282,7 +1266,6 @@
     background: $feedback-error-light-peach;
     border-radius: .5rem;
     border: none;
-    cursor: pointer;
     box-shadow: $shadow-secondary;
     transition: background .3s ease, transform .2s ease;
 
@@ -1359,7 +1342,6 @@
           color: $neutral-white;
           border-radius: .5rem;
           border: none;
-          cursor: pointer;
           box-shadow: $shadow-secondary;
           transition: background .3s ease, transform .2s ease;
 

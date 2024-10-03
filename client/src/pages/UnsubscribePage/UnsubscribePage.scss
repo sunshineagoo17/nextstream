@@ -50,7 +50,6 @@
     padding: .5rem 1.075rem;
     border: none;
     border-radius: .5rem;
-    cursor: pointer;
     transition: transform .3s ease-in-out;
     background: $button-dark-gradient;
     color: $neutral-white;
@@ -97,7 +96,6 @@
   }
 
   &__graphic {
-    cursor: pointer;
     max-width: 100%;
     height: auto;
     border-radius: .5rem;

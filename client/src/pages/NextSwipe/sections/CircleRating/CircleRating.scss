@@ -8,7 +8,6 @@
   @include block-item(2.2rem, 2.2rem);
   position: relative;
   display: inline-block;
-  cursor: pointer;
   margin-top: .5rem;
 
   @include tablet {

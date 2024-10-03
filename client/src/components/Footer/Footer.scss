@@ -194,13 +194,11 @@
   &__logo-wordmark {
     @include block-item(8.4375rem, 1.0625rem);
     transition: transform .2s ease;
-    cursor: pointer;
     font-size: .875rem;
 
     @include tablet {
       @include block-item(8.4375rem, 1.0625rem);
       transition: transform .2s ease;
-      cursor: pointer;
       font-size: .875rem;
     }
   }

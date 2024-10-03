@@ -7,7 +7,6 @@
 .user-rating-container {
   @include block-item(2.75rem, 2.75rem);
   position: relative;
-  cursor: pointer;
   margin-bottom: .5rem;
 
   &:hover .tooltip-text {

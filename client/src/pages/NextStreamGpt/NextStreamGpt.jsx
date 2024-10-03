@@ -822,14 +822,16 @@ const NextStreamGpt = () => {
             <VoiceMessageMizu handleSendMessage={handleSendMessage} />
 
             {searchQuery && (
-              <FontAwesomeIcon
-                icon={faTimes}
-                className='nextstream-gpt__clear-input'
-                onClick={() => {
-                  setSearchQuery('');
-                  setIsTyping(false);
-                }}
-              />
+              <button>
+                <FontAwesomeIcon
+                  icon={faTimes}
+                  className='nextstream-gpt__clear-input'
+                  onClick={() => {
+                    setSearchQuery('');
+                    setIsTyping(false);
+                  }}
+                />
+              </button>
             )}
           </div>
 
@@ -885,11 +887,13 @@ const NextStreamGpt = () => {
                       </h3>
 
                       <div className='nextstream-gpt__poster-container-results'>
-                        <img
-                          src={result.poster_path}
-                          alt={result.title || result.name}
-                          className='nextstream-gpt__poster nextstream-gpt__poster--results'
-                        />
+                        <button>
+                          <img
+                            src={result.poster_path}
+                            alt={result.title || result.name}
+                            className='nextstream-gpt__poster nextstream-gpt__poster--results'
+                          />
+                        </button>
 
                         {result.media_type !== 'person' && (
                           <div className='nextstream-gpt__rating-container'>
@@ -905,10 +909,12 @@ const NextStreamGpt = () => {
                             onClick={() =>
                               handlePlayTrailer(result.id, result.media_type)
                             }>
-                            <FontAwesomeIcon
-                              icon={faPlay}
-                              className='nextstream-gpt__play-icon'
-                            />
+                            <button>
+                              <FontAwesomeIcon
+                                icon={faPlay}
+                                className='nextstream-gpt__play-icon'
+                              />
+                            </button>
                           </div>
                         )}
                       </div>
@@ -960,6 +966,7 @@ const NextStreamGpt = () => {
                               />
                             </Link>
 
+                          <button>
                             <FontAwesomeIcon
                               icon={faCalendarPlus}
                               title='Add to Calendar'
@@ -972,8 +979,10 @@ const NextStreamGpt = () => {
                                 )
                               }
                             />
+                          </button>
 
                             {likedStatus[result.id] === 1 ? (
+                            <button>
                               <FontAwesomeIcon
                                 icon={faThumbsUp}
                                 title='Like Title'
@@ -982,7 +991,9 @@ const NextStreamGpt = () => {
                                   handleDislike(result.id, result.media_type)
                                 }
                               />
+                            </button>
                             ) : likedStatus[result.id] === 0 ? (
+                            <button>
                               <FontAwesomeIcon
                                 icon={faThumbsDown}
                                 title='Dislike Title'
@@ -991,39 +1002,45 @@ const NextStreamGpt = () => {
                                   handleLike(result.id, result.media_type)
                                 }
                               />
+                            </button>
                             ) : (
                               <>
-                                <FontAwesomeIcon
-                                  icon={faThumbsUp}
-                                  title='Like Title'
-                                  className='nextstream-gpt__like-icon'
-                                  onClick={() =>
-                                    handleLike(result.id, result.media_type)
-                                  }
-                                />
-                                <FontAwesomeIcon
-                                  icon={faThumbsDown}
-                                  title='Dislike Title'
-                                  className='nextstream-gpt__dislike-icon'
-                                  onClick={() =>
-                                    handleDislike(result.id, result.media_type)
-                                  }
-                                />
+                                <button>
+                                  <FontAwesomeIcon
+                                    icon={faThumbsUp}
+                                    title='Like Title'
+                                    className='nextstream-gpt__like-icon'
+                                    onClick={() =>
+                                      handleLike(result.id, result.media_type)
+                                    }
+                                  />
+                                </button>
+                                <button>
+                                  <FontAwesomeIcon
+                                    icon={faThumbsDown}
+                                    title='Dislike Title'
+                                    className='nextstream-gpt__dislike-icon'
+                                    onClick={() =>
+                                      handleDislike(result.id, result.media_type)
+                                    }
+                                  />
+                                </button>
                               </>
                             )}
-
-                            <FontAwesomeIcon
-                              icon={faShareAlt}
-                              title='Share Title'
-                              className='nextstream-gpt__share-icon'
-                              onClick={() =>
-                                handleShare(
-                                  result.title || result.name,
-                                  result.id,
-                                  result.media_type
-                                )
-                              }
-                            />
+                            <button>
+                              <FontAwesomeIcon
+                                icon={faShareAlt}
+                                title='Share Title'
+                                className='nextstream-gpt__share-icon'
+                                onClick={() =>
+                                  handleShare(
+                                    result.title || result.name,
+                                    result.id,
+                                    result.media_type
+                                  )
+                                }
+                              />
+                            </button>
                           </>
                         )}
                       </div>
@@ -1032,11 +1049,13 @@ const NextStreamGpt = () => {
               )}
             </div>
             {showRightArrowResults && (
-              <FontAwesomeIcon
-                icon={faChevronRight}
-                className='nextstream-gpt__nav-arrow right'
-                onClick={() => scrollRight(searchScrollRef)}
-              />
+              <button>
+                <FontAwesomeIcon
+                  icon={faChevronRight}
+                  className='nextstream-gpt__nav-arrow right'
+                  onClick={() => scrollRight(searchScrollRef)}
+                />
+              </button>
             )}
           </div>
         ) : null}

@@ -237,7 +237,6 @@
     border: none;
     border-radius: .25rem;
     color: $primary-button-blue;
-    cursor: pointer;
     font-size: .85rem;
     margin-top: .5rem;
     padding: 0;
@@ -482,7 +481,6 @@
         border-radius: .5rem;
         padding: .5rem;
         font-size: 1.25rem;
-        cursor: pointer;
         
         &:hover {
             background: $primary-button-blue;
@@ -595,7 +593,6 @@
 
   &__chevron-icon {
     font-size: 1.2rem;
-    cursor: pointer;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);

@@ -371,7 +371,6 @@
 
     &:hover {
       opacity: 1;
-      cursor: pointer;
     }
   }
 
@@ -432,7 +431,6 @@
   &__like-icon,
   &__dislike-icon {
     color: $primary-button-blue;
-    cursor: pointer;
     transition: transform .3s ease-in-out;
 
     &:hover{
@@ -499,7 +497,6 @@
     background: none;
     border: none;
     color: $primary-dark-blue;
-    cursor: pointer;
     font-size: .875rem;
     display: flex;
     align-items: center;
@@ -517,7 +514,6 @@
     font-family: $primary-font;
     line-height: .75rem;
     width: 5.25rem;
-    cursor: pointer;
     font-weight: bold;
     transition: background .3s ease, transform .3s ease, box-shadow .3s ease;
     box-shadow: 0 .25rem .375rem rgba($neutral-black, .1);
@@ -594,7 +590,6 @@
         background: none;
         border: none;
         font-size: 1.25rem;
-        cursor: pointer;
         color: $neutral-black;
         transition: transform .3s ease-in-out;
 
@@ -638,7 +633,6 @@
     padding: .25rem;
     font-size: 1rem;
     box-shadow: $shadow-senary;
-    cursor: pointer;
     z-index: 1001;
     border-radius: .2rem;
     transition: all .3s ease; 

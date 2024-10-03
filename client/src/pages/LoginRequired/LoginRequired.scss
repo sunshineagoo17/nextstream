@@ -79,7 +79,6 @@
     font: $primary-font;
     font-size: 1rem;
     color: $primary-medium-blue;
-    cursor: pointer;
     text-decoration: none;
     border: .0625rem solid $primary-medium-blue;
     padding: .25rem .5rem;
@@ -122,7 +121,6 @@
 
   &__graphic {
     @include hover-raise-effect;
-    cursor: pointer;
     max-width: 100%;
     height: auto;
     border-radius: .5rem;
@@ -131,7 +129,7 @@
     transform-origin: center; 
 
     &:active {
-      transform: scale(.9); // Scale down when clicked
+      transform: scale(.9); 
       box-shadow: 0 0 .625rem rgba($neutral-black, .3); 
     }
   }

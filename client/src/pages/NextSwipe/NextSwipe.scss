@@ -40,7 +40,6 @@
     padding: .25rem;
     font-size: 1rem;
     box-shadow: $shadow-senary;
-    cursor: pointer;
     z-index: 1001;
     border-radius: .2rem;
     transition: all .3s ease; 
@@ -70,7 +69,6 @@
 
   &__graphic {
     @include hover-raise-effect;
-    cursor: crosshair;
     max-width: 100%;
     height: auto;
     border-radius: .5rem;
@@ -279,7 +277,6 @@
     border: none;
     color: $primary-medium-blue;
     font-size: 1.5rem;
-    cursor: pointer;
     padding: 1rem;
     border-radius: 50%;
     transition: all .3s ease;
@@ -330,7 +327,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    cursor: pointer;
     transition: transform .3s ease-in-out;
 
       @include tablet {
@@ -382,7 +378,6 @@
     font-family: $primary-font;
     box-shadow: $shadow-senary;
     border-radius: 1rem;
-    cursor: pointer;
     transition: background-color .3s, color .3s, border-color .3s, box-shadow .3s;
     
     &:hover,
