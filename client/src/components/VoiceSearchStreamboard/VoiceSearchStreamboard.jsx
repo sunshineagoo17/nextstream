@@ -46,7 +46,7 @@ const VoiceSearchStreamboard = ({ setQuery, handleSearch }) => {
 
   return (
     <button className="voice-search-streamboard__voice-button" onClick={handleVoiceSearch} disabled={isVoiceSearching}>
-      <FontAwesomeIcon icon={faMicrophone} />
+      <FontAwesomeIcon icon={faMicrophone} className='voice-search-streamboard__mic-icon'/>
     </button>
   );
 };
