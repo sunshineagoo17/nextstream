@@ -188,7 +188,6 @@
       color: $neutral-white;
       font-family: $primary-font;
       font-size: 1rem;
-      cursor: help;
       display: flex;
       align-items: center;
       gap: .5rem;
@@ -404,7 +403,6 @@
     font-size: 1rem;
     transition: transform .75s ease-in-out; 
     z-index: 10;
-    cursor: pointer;
     text-shadow: none;
     border: none;
     box-shadow: none;
@@ -432,7 +430,6 @@
     right: 1rem;
     color: $primary-dark-blue;
     font-size: 1rem;
-    cursor: pointer;
     transition: transform .3s ease;
 
     &:hover {
@@ -460,7 +457,6 @@
     justify-content: center;
     border-radius: .5rem;
     align-items: center;
-    cursor: pointer;
     background: linear-gradient(145deg, rgba($pastel-blue, .75), rgba($primary-button-blue, .75));
     opacity: 0;
     transition: opacity .3s ease;
@@ -513,7 +509,6 @@
         background: none;
         border: none;
         font-size: 1.25rem;
-        cursor: pointer;
         color: $neutral-black;
         transition: transform .3s ease-in-out;
 
@@ -567,7 +562,6 @@
   &__like-icon,
   &__dislike-icon {
     color: $primary-button-blue;
-    cursor: pointer;
     transition: transform .3s ease-in-out;
 
     &:hover{
@@ -601,7 +595,6 @@
     padding: .25rem;
     font-size: 1rem;
     box-shadow: $shadow-senary;
-    cursor: pointer;
     z-index: 1001;
     border-radius: .2rem;
     transition: all .3s ease; 
@@ -629,7 +622,6 @@
     color: $neutral-white;
     border-radius: 2.5rem;
     border: none;
-    cursor: pointer;
     transition: background-color .3s, transform .3s;
 
     &:hover {
@@ -670,7 +662,6 @@
       border: .125rem solid $neutral-white;
       border: none;
       background: $frosted-glass;
-      cursor: pointer;
       transition: background-color .3s, transform .3s;
       font-size: .7rem;
       font-weight: normal;
@@ -775,7 +766,6 @@
       border-radius: .5rem;
       border: none;
       text-shadow: $shadow-primary;
-      cursor: pointer;
       box-shadow: $shadow-tertiary;
       transition: background-color .3s, transform .3s;
 
@@ -819,7 +809,6 @@
     padding: 1rem;  
     box-shadow: $shadow-primary;
     @include hover-raise-effect;
-    cursor: crosshair;
 
     @include tablet {
       @include block-item(100%, 35vh);
@@ -1056,9 +1045,9 @@
     padding: .25rem;
     background: $primary-darker-blue;
     border-radius: .5rem;
-    cursor: pointer;
     transition: transform .3s;
     z-index: 2;
+    cursor: url('../../assets/cursors/cursor-pointer-wh.svg'), pointer;
 
     &.left {
       left: .5rem;
@@ -1289,7 +1278,6 @@
     color: $neutral-white;
     border-radius: 2rem;
     border: none;
-    cursor: pointer;
     transition: background-color .3s, transform .3s;
 
     &:hover {

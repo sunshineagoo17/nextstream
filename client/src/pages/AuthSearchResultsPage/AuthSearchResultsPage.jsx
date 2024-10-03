@@ -236,7 +236,7 @@ const AuthSearchResultsPage = ({ userId }) => {
     return (
       <>
         {interaction === 1 ? (
-          <>
+          <button>
             <FontAwesomeIcon
               icon={faThumbsUp}
               className="auth-search-results__thumbs-up"
@@ -245,9 +245,9 @@ const AuthSearchResultsPage = ({ userId }) => {
               data-tooltip-content="LIKED"
             />
             <Tooltip id={`thumbsUpTooltip-${mediaId}`} place="top" className="tooltip-custom" />
-          </>
+          </button>
         ) : interaction === 0 ? (
-          <>
+          <button>
             <FontAwesomeIcon
               icon={faThumbsDown}
               className="auth-search-results__thumbs-down"
@@ -256,9 +256,9 @@ const AuthSearchResultsPage = ({ userId }) => {
               data-tooltip-content="DISLIKED"
             />
             <Tooltip id={`thumbsDownTooltip-${mediaId}`} place="top" className="tooltip-custom" />
-          </>
+          </button>
         ) : (
-          <>
+          <button>
             <div className="auth-search-results__neutral-interactions">
               <FontAwesomeIcon
                 icon={faThumbsUp}
@@ -276,16 +276,18 @@ const AuthSearchResultsPage = ({ userId }) => {
               />
             </div>
             <Tooltip id={`interactionTooltip-${mediaId}`} place="top" className="tooltip-custom" />
-          </>
+          </button>
         )}
-        <FontAwesomeIcon
-          icon={faShareAlt}
-          className="auth-search-results__share-icon"
-          onClick={() => handleShare(title, mediaType, mediaId)}
-          data-tooltip-id={`shareTooltip-${mediaId}`}
-          data-tooltip-content="SHARE"
-        />
-        <Tooltip id={`shareTooltip-${mediaId}`} place="top" className="tooltip-custom" />
+        <button>
+          <FontAwesomeIcon
+            icon={faShareAlt}
+            className="auth-search-results__share-icon"
+            onClick={() => handleShare(title, mediaType, mediaId)}
+            data-tooltip-id={`shareTooltip-${mediaId}`}
+            data-tooltip-content="SHARE"
+          />
+          <Tooltip id={`shareTooltip-${mediaId}`} place="top" className="tooltip-custom" />
+        </button>
       </>
     );
   };  
@@ -407,13 +409,13 @@ const AuthSearchResultsPage = ({ userId }) => {
           </div>
           {results.length > 3 && (
             <div className="auth-search-results__pagination-container">
-              <div className="auth-search-results__page-nav-wrapper" onClick={handlePrevious}>
+              <button className="auth-search-results__page-nav-wrapper" onClick={handlePrevious}>
                 <img src={PreviousIcon} className="auth-search-results__previous-icon" alt="Previous" />
-              </div>
+              </button>
               {renderPaginationCircles()}
-              <div className="auth-search-results__page-nav-wrapper" onClick={handleNext}>
+              <button className="auth-search-results__page-nav-wrapper" onClick={handleNext}>
                 <img src={NextIcon} className="auth-search-results__next-icon" alt="Next" />
-              </div>
+              </button>
             </div>
           )}
         </div>

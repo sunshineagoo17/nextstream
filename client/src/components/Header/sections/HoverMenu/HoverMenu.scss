@@ -10,7 +10,6 @@
   left: 1.5rem; 
   transform: translateY(-50%);
   z-index: 1000;
-  cursor: pointer;
 
   @include tablet {
     top: 2.25rem;
@@ -29,7 +28,6 @@
     border: .125rem solid $neutral-white;
     box-shadow: $shadow-primary;
     border-radius: .35rem;
-    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -98,7 +96,6 @@
       padding: .5rem 1rem;
       text-decoration: none;
       width: 100%;
-      cursor: pointer;
       color: $primary-dark-blue;
       border-radius: .25rem;
       transition: background .3s ease;

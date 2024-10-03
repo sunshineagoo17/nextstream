@@ -683,14 +683,16 @@ const NextStreamBot = () => {
             <VoiceMessage handleSendMessage={handleSendMessage} />
             
             {searchQuery && (
-              <FontAwesomeIcon
-                icon={faTimes}
-                className='nextstream-bot__clear-input'
-                onClick={() => {
-                  setSearchQuery('');
-                  setIsTyping(false);
-                }}
-              />
+              <button>
+                <FontAwesomeIcon
+                  icon={faTimes}
+                  className='nextstream-bot__clear-input'
+                  onClick={() => {
+                    setSearchQuery('');
+                    setIsTyping(false);
+                  }}
+                />
+              </button>
             )}
           </div>
 
@@ -713,11 +715,13 @@ const NextStreamBot = () => {
         <div className='nextstream-bot__results-section'>
           <div className='nextstream-bot__carousel'>
             {showLeftArrowResults && (
-              <FontAwesomeIcon
-                icon={faChevronLeft}
-                className='nextstream-bot__nav-arrow left'
-                onClick={() => scrollLeft(searchScrollRef)}
-              />
+              <button>
+                <FontAwesomeIcon
+                  icon={faChevronLeft}
+                  className='nextstream-bot__nav-arrow left'
+                  onClick={() => scrollLeft(searchScrollRef)}
+                />
+              </button>
             )}
             <div
               className='nextstream-bot__scroll-container-results'
@@ -748,7 +752,7 @@ const NextStreamBot = () => {
                       )}
 
                       {result.media_type !== 'person' && (
-                        <div
+                        <button
                           className='nextstream-bot__play-overlay'
                           onClick={() =>
                             handlePlayTrailer(result.id, result.media_type)
@@ -757,7 +761,7 @@ const NextStreamBot = () => {
                             icon={faPlay}
                             className='nextstream-bot__play-icon'
                           />
-                        </div>
+                        </button>
                       )}
                     </div>
 
@@ -771,17 +775,19 @@ const NextStreamBot = () => {
                               title='Person Spotlight'
                             />
                           </Link>
-                          <FontAwesomeIcon
-                            icon={faShareAlt}
-                            className='nextstream-bot__share-icon'
-                            onClick={() =>
-                              handleShare(
-                                result.name,
-                                result.id,
-                                result.media_type
-                              )
-                            }
-                          />
+                          <button>
+                            <FontAwesomeIcon
+                              icon={faShareAlt}
+                              className='nextstream-bot__share-icon'
+                              onClick={() =>
+                                handleShare(
+                                  result.name,
+                                  result.id,
+                                  result.media_type
+                                )
+                              }
+                            />
+                          </button>
                         </>
                       ) : (
                         <>
@@ -805,70 +811,81 @@ const NextStreamBot = () => {
                             />
                           </Link>
 
-                          <FontAwesomeIcon
-                            icon={faCalendarPlus}
-                            className='nextstream-bot__cal-icon'
-                            title='Add to Calendar'
-                            onClick={() =>
-                              handleAddToCalendar(
-                                result.title,
-                                result.media_type,
-                                result.id
-                              )
-                            }
-                          />
+                          <button>
+                            <FontAwesomeIcon
+                              icon={faCalendarPlus}
+                              className='nextstream-bot__cal-icon'
+                              title='Add to Calendar'
+                              onClick={() =>
+                                handleAddToCalendar(
+                                  result.title,
+                                  result.media_type,
+                                  result.id
+                                )
+                              }
+                            />
+                          </button>
 
                           {likedStatus[result.id] === 1 ? (
-                            <FontAwesomeIcon
-                              icon={faThumbsUp}
-                              className='nextstream-bot__like-icon active'
-                              title='Like Title'
-                              onClick={() =>
-                                handleDislike(result.id, result.media_type)
-                              }
-                            />
-                          ) : likedStatus[result.id] === 0 ? (
-                            <FontAwesomeIcon
-                              icon={faThumbsDown}
-                              className='nextstream-bot__dislike-icon active'
-                              title='Dislike Title'
-                              onClick={() =>
-                                handleLike(result.id, result.media_type)
-                              }
-                            />
-                          ) : (
-                            <>
+                            <button>
                               <FontAwesomeIcon
                                 icon={faThumbsUp}
-                                className='nextstream-bot__like-icon'
+                                className='nextstream-bot__like-icon active'
                                 title='Like Title'
-                                onClick={() =>
-                                  handleLike(result.id, result.media_type)
-                                }
-                              />
-                              <FontAwesomeIcon
-                                icon={faThumbsDown}
-                                className='nextstream-bot__dislike-icon'
-                                title='Dislike Title'
                                 onClick={() =>
                                   handleDislike(result.id, result.media_type)
                                 }
                               />
+                            </button>
+                          ) : likedStatus[result.id] === 0 ? (
+                            <button>
+                              <FontAwesomeIcon
+                                icon={faThumbsDown}
+                                className='nextstream-bot__dislike-icon active'
+                                title='Dislike Title'
+                                onClick={() =>
+                                  handleLike(result.id, result.media_type)
+                                }
+                              />
+                            </button>
+                          ) : (
+                            <>
+                              <button>
+                                <FontAwesomeIcon
+                                  icon={faThumbsUp}
+                                  className='nextstream-bot__like-icon'
+                                  title='Like Title'
+                                  onClick={() =>
+                                    handleLike(result.id, result.media_type)
+                                  }
+                                />
+                              </button>
+                              <button>
+                                <FontAwesomeIcon
+                                  icon={faThumbsDown}
+                                  className='nextstream-bot__dislike-icon'
+                                  title='Dislike Title'
+                                  onClick={() =>
+                                    handleDislike(result.id, result.media_type)
+                                  }
+                                />
+                              </button>
                             </>
                           )}
-
-                          <FontAwesomeIcon
-                            icon={faShareAlt}
-                            className='nextstream-bot__share-icon'
-                            title='Share Title'
-                            onClick={() =>
-                              handleShare(
-                                result.title || result.name,
-                                result.id,
-                                result.media_type
-                              )
-                            }
-                          />
+                          <button>
+                            <FontAwesomeIcon
+                              icon={faShareAlt}
+                              className='nextstream-bot__share-icon'
+                              title='Share Title'
+                              onClick={() =>
+                                handleShare(
+                                  result.title || result.name,
+                                  result.id,
+                                  result.media_type
+                                )
+                              }
+                            />
+                          </button>
                         </>
                       )}
                     </div>
@@ -876,11 +893,13 @@ const NextStreamBot = () => {
                 ))}
             </div>
             {showRightArrowResults && (
-              <FontAwesomeIcon
-                icon={faChevronRight}
-                className='nextstream-bot__nav-arrow right'
-                onClick={() => scrollRight(searchScrollRef)}
-              />
+              <button>
+                <FontAwesomeIcon
+                  icon={faChevronRight}
+                  className='nextstream-bot__nav-arrow right'
+                  onClick={() => scrollRight(searchScrollRef)}
+                />
+              </button>
             )}
           </div>
         </div>

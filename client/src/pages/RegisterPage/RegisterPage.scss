@@ -43,7 +43,6 @@
     font-size: .75rem;
     font-family: $primary-font;
     text-shadow: $shadow-primary;
-    cursor: pointer;
     margin-top: 1rem;
     line-height: .85rem;
     transition: background .3s ease, transform .3s ease, box-shadow .3s ease;
@@ -127,7 +126,6 @@
     border: none;
     font: $primary-font;
     color: $primary-light-blue;
-    cursor: pointer;
     text-decoration: none;
     padding: 0;
     border-radius: .25rem;
@@ -231,7 +229,6 @@
 
     @include tablet {
       @include hover-raise-effect;
-      cursor: crosshair;
       height: auto;
       border-radius: .5rem;
       display: block;
@@ -341,7 +338,6 @@
     right: 1rem;
     background: none;
     border: none;
-    cursor: pointer;
 
     .register__password-toggle-icon {
       @include block-item(1.5rem, 1.5rem);
@@ -374,7 +370,6 @@
     color: $primary-medium-blue;
 
     .register__checkbox-box {
-      cursor: pointer;
       box-shadow: $shadow-primary;
       border-radius: .25rem;
       border: .0625rem solid $primary-medium-blue;
@@ -398,7 +393,6 @@
 
     &-link {
       font-weight: bold;
-      cursor: pointer;
       color: $primary-medium-blue;
       transition: background-color .3s ease, color .3s ease;
 
@@ -427,7 +421,6 @@
 
   &__signin-link,
   &__guest-signin-link {
-    cursor: pointer;
     color: $primary-light-blue;
     font-weight: bold;
     text-decoration: none;
@@ -480,7 +473,6 @@
     border: none;
     border-radius: .5rem;
     font-size: 1rem;
-    cursor: pointer;
     display: flex;
     align-items: center;
     justify-items: center;

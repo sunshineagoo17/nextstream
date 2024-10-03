@@ -37,7 +37,6 @@
     color: $primary-dark-blue;
     font-size: 1.5rem;
     margin-left: 1rem;
-    cursor: pointer;
     transition: transform .1s ease;
 
     &:hover {
@@ -59,7 +58,6 @@
     font-size: .85rem;
     font-family: $primary-font;
     margin-left: .5rem;
-    cursor: pointer;
     transition: background .3s ease, transform .3s ease, box-shadow .3s ease;
     box-shadow: 0 .25rem .375rem rgba($neutral-black, .1);
 

@@ -299,3 +299,32 @@
     height: $height-1921px;
   }
 }
+
+body, label {
+  cursor: url('../assets/cursors/cursor-arrow-wh.svg'), auto;
+}
+
+/* Custom cursor for interactive elements */
+button, a, .Link, img, [role="button"], [data-tooltip], [tabindex], input[type="checkbox"], input[type="text"], input[type="radio"], input[type="range"], input[type="button"], input[type="submit"], select, textarea {
+  cursor: url('../assets/cursors/cursor-pointer-wh.svg'), pointer;
+}
+
+/* Ensure cursor changes on hover and active states */
+button:hover, a:hover, .Link:hover, img:hover, [role="button"]:hover, [data-tooltip]:hover, [tabindex]:hover, input[type="checkbox"]:hover, input[type="text"]:hover, input[type="radio"]:hover, input[type="range"]:hover, input[type="button"]:hover, input[type="submit"]:hover, label:hover, select:hover, textarea:hover {
+  cursor: url('../assets/cursors/cursor-pointer-wh.svg'), pointer;
+}
+
+/* Add for focus state if required */
+button:focus, a:focus, .Link:focus, img:focus, [role="button"]:focus, [data-tooltip]:focus, [tabindex]:focus, input[type="checkbox"]:focus, input[type="text"]:focus, input[type="radio"]:focus, input[type="range"]:focus, input[type="button"]:focus, input[type="submit"]:focus, label:focus, select:focus, textarea:focus {
+  cursor: url('../assets/cursors/cursor-pointer-wh.svg'), pointer;
+}
+
+/* Add for focus state if required */
+input[type="text"]:active, input[type="text"]:valid, input[type="text"]:required, input[type="text"]:enabled {
+  cursor: url('../assets/cursors/cursor-pointer-wh.svg'), pointer;
+}
+
+/* Dropdowns */
+select, .dropdown, .ui-autocomplete, .browser-suggestion-list {
+  cursor: url('../assets/cursors/cursor-pointer-wh.svg'), pointer;
+}

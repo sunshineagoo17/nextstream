@@ -98,7 +98,7 @@ const ContactModal = ({ onClose }) => {
           </div>
         )}
         <form className="modal-contact__form" onSubmit={handleSubmit} noValidate>
-          <label className="modal-contact__label-input">
+          <div className="modal-contact__label-input">
             <div className="modal-contact__label-txt">Name:</div>
             <input
               className="modal-contact__input"
@@ -108,8 +108,8 @@ const ContactModal = ({ onClose }) => {
               required
               data-required-msg="Please enter your name."
             />
-          </label>
-          <label className="modal-contact__label-input modal-contact__label-input-email">
+          </div>
+          <div className="modal-contact__label-input modal-contact__label-input-email">
             <div className="modal-contact__label-txt">Email:</div>
             <input
               className="modal-contact__input"
@@ -120,8 +120,8 @@ const ContactModal = ({ onClose }) => {
               data-required-msg="Please enter your email."
               data-type-mismatch-msg="Please include a valid email address."
             />
-          </label>
-          <label className="modal-contact__label-txtarea">
+          </div>
+          <div className="modal-contact__label-txtarea">
             <div className="modal-contact__label-txtarea-txt">Message:</div>
             <textarea
               className="modal-contact__txtarea"
@@ -130,7 +130,7 @@ const ContactModal = ({ onClose }) => {
               required
               data-required-msg="Please enter your message."
             />
-          </label>
+          </div>
           <button type="submit" disabled={loading} className='modal-contact__submit-text'>
             {loading ? 'Sending...' : 'Send'}
           </button>

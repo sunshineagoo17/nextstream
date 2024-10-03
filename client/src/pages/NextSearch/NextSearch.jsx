@@ -459,9 +459,9 @@ const NextSearch = () => {
 
                     {/* Play overlay only for non-person media types */}
                     {result.media_type !== 'person' && (
-                      <div className="next-search__play-overlay" onClick={() => handlePlayTrailer(result.id, result.media_type)}>
+                      <button className="next-search__play-overlay" onClick={() => handlePlayTrailer(result.id, result.media_type)}>
                         <FontAwesomeIcon icon={faPlay} className="next-search__play-icon" />
-                      </div>
+                      </button>
                     )}
                   </div>
 
@@ -508,62 +508,73 @@ const NextSearch = () => {
                           />
                         </Link>
 
-                        <FontAwesomeIcon
-                          icon={faCalendarPlus}
-                          className="next-search__cal-icon"
-                          onClick={() => handleAddToCalendar(result.title, result.media_type, result.id)}
-                          title="Add to Calendar"
-                          data-tooltip-id="calTooltip"
-                          data-tooltip-content="Add to Calendar"
-                        />
+                        <button>
+                          <FontAwesomeIcon
+                            icon={faCalendarPlus}
+                            className="next-search__cal-icon"
+                            onClick={() => handleAddToCalendar(result.title, result.media_type, result.id)}
+                            title="Add to Calendar"
+                            data-tooltip-id="calTooltip"
+                            data-tooltip-content="Add to Calendar"
+                          />
+                        </button>
 
                         {likedStatus[result.id] === 1 ? (
-                          <FontAwesomeIcon
-                            icon={faThumbsUp}
-                            className="next-search__like-icon active"
-                            onClick={() => handleDislike(result.id, result.media_type)}
-                            title="Liked"
-                            data-tooltip-id="likeTooltip"
-                            data-tooltip-content="Like"
-                          />
-                        ) : likedStatus[result.id] === 0 ? (
-                          <FontAwesomeIcon
-                            icon={faThumbsDown}
-                            className="next-search__dislike-icon active"
-                            onClick={() => handleLike(result.id, result.media_type)}
-                            title="Disliked"
-                            data-tooltip-id="dislikeTooltip"
-                            data-tooltip-content="Dislike"
-                          />
-                        ) : (
-                          <>
+                          <button>
                             <FontAwesomeIcon
                               icon={faThumbsUp}
-                              className="next-search__like-icon"
-                              onClick={() => handleLike(result.id, result.media_type)}
-                              title="Like"
+                              className="next-search__like-icon active"
+                              onClick={() => handleDislike(result.id, result.media_type)}
+                              title="Liked"
                               data-tooltip-id="likeTooltip"
                               data-tooltip-content="Like"
                             />
+                          </button>
+                        ) : likedStatus[result.id] === 0 ? (
+                          <button>
                             <FontAwesomeIcon
                               icon={faThumbsDown}
-                              className="next-search__dislike-icon"
-                              onClick={() => handleDislike(result.id, result.media_type)}
-                              title="Dislike"
+                              className="next-search__dislike-icon active"
+                              onClick={() => handleLike(result.id, result.media_type)}
+                              title="Disliked"
                               data-tooltip-id="dislikeTooltip"
                               data-tooltip-content="Dislike"
                             />
+                          </button>
+                        ) : (
+                          <>
+                            <button>
+                              <FontAwesomeIcon
+                                icon={faThumbsUp}
+                                className="next-search__like-icon"
+                                onClick={() => handleLike(result.id, result.media_type)}
+                                title="Like"
+                                data-tooltip-id="likeTooltip"
+                                data-tooltip-content="Like"
+                              />
+                            </button>
+                            <button>
+                              <FontAwesomeIcon
+                                icon={faThumbsDown}
+                                className="next-search__dislike-icon"
+                                onClick={() => handleDislike(result.id, result.media_type)}
+                                title="Dislike"
+                                data-tooltip-id="dislikeTooltip"
+                                data-tooltip-content="Dislike"
+                              />
+                            </button>
                           </>
                         )}
-
-                        <FontAwesomeIcon
-                          icon={faShareAlt}
-                          className="next-search__share-icon"
-                          onClick={() => handleShare(result.title || result.name, result.id, result.media_type)}
-                          title="Share"
-                          data-tooltip-id="shareIconTooltip"
-                          data-tooltip-content="Share"
-                        />
+                        <button>
+                          <FontAwesomeIcon
+                            icon={faShareAlt}
+                            className="next-search__share-icon"
+                            onClick={() => handleShare(result.title || result.name, result.id, result.media_type)}
+                            title="Share"
+                            data-tooltip-id="shareIconTooltip"
+                            data-tooltip-content="Share"
+                          />
+                        </button>
                       </>
                     )}
                   </div>
@@ -730,7 +741,7 @@ const NextSearch = () => {
 
       <div className="next-search__popular-section">
         <div className="next-search__carousel">
-          {showLeftArrowPopular && <FontAwesomeIcon icon={faChevronLeft} className="next-search__nav-arrow left" onClick={() => scrollLeft(popularScrollRef)} />}
+          {showLeftArrowPopular && <button className="next-search__nav-arrow left" onClick={() => scrollLeft(popularScrollRef)} ><FontAwesomeIcon icon={faChevronLeft} className='next-search__nav-chevron-icon'/></button>}
           <div className="next-search__scroll-container-popular" ref={popularScrollRef}>
             {popularMedia.length > 0 ? (
               popularMedia.map((media) => (
@@ -746,9 +757,9 @@ const NextSearch = () => {
                       <UserRating rating={(media.vote_average || 0) * 10} />
                     </div>
                     {media.media_type !== 'person' && (
-                      <div className="next-search__play-overlay" onClick={() => handlePlayTrailer(media.id, media.media_type)}>
+                      <button className="next-search__play-overlay" onClick={() => handlePlayTrailer(media.id, media.media_type)}>
                         <FontAwesomeIcon icon={faPlay} className="next-search__play-icon" />
-                      </div>
+                      </button>
                     )}
                   </div>
 
@@ -771,60 +782,72 @@ const NextSearch = () => {
                         data-tooltip-content="Dicover More"
                       />
                     </Link>
-                    <FontAwesomeIcon
-                      icon={faCalendarPlus}
-                      className="next-search__cal-icon"
-                      onClick={() => handleAddToCalendar(media.title, media.media_type, media.id)}
-                      title="Add to Calendar"
-                      data-tooltip-id="calTooltip"
-                      data-tooltip-content="Add to Calendar"
-                    />
+                    <button>
+                      <FontAwesomeIcon
+                        icon={faCalendarPlus}
+                        className="next-search__cal-icon"
+                        onClick={() => handleAddToCalendar(media.title, media.media_type, media.id)}
+                        title="Add to Calendar"
+                        data-tooltip-id="calTooltip"
+                        data-tooltip-content="Add to Calendar"
+                      />
+                    </button>
                     {likedStatus[media.id] === 1 ? (
-                      <FontAwesomeIcon
-                        icon={faThumbsUp}
-                        className="next-search__like-icon active"
-                        onClick={() => handleDislike(media.id, media.media_type)}
-                        title="Liked"
-                        data-tooltip-id="likeTooltip"
-                        data-tooltip-content="Like"
-                      />
-                    ) : likedStatus[media.id] === 0 ? (
-                      <FontAwesomeIcon
-                        icon={faThumbsDown}
-                        className="next-search__dislike-icon active"
-                        onClick={() => handleLike(media.id, media.media_type)}
-                        title="Disliked"
-                        data-tooltip-id="dislikeTooltip"
-                        data-tooltip-content="Dislike"
-                      />
-                    ) : (
-                      <>
+                      <button>
                         <FontAwesomeIcon
                           icon={faThumbsUp}
-                          className="next-search__like-icon"
-                          onClick={() => handleLike(media.id, media.media_type)}
-                          title="Like"
+                          className="next-search__like-icon active"
+                          onClick={() => handleDislike(media.id, media.media_type)}
+                          title="Liked"
                           data-tooltip-id="likeTooltip"
                           data-tooltip-content="Like"
                         />
+                      </button>
+                    ) : likedStatus[media.id] === 0 ? (
+                      <button>
                         <FontAwesomeIcon
                           icon={faThumbsDown}
-                          className="next-search__dislike-icon"
-                          onClick={() => handleDislike(media.id, media.media_type)}
-                          title="Dislike"
+                          className="next-search__dislike-icon active"
+                          onClick={() => handleLike(media.id, media.media_type)}
+                          title="Disliked"
                           data-tooltip-id="dislikeTooltip"
                           data-tooltip-content="Dislike"
                         />
+                      </button>
+                    ) : (
+                      <>
+                        <button>
+                          <FontAwesomeIcon
+                            icon={faThumbsUp}
+                            className="next-search__like-icon"
+                            onClick={() => handleLike(media.id, media.media_type)}
+                            title="Like"
+                            data-tooltip-id="likeTooltip"
+                            data-tooltip-content="Like"
+                          />
+                        </button>
+                        <button>
+                          <FontAwesomeIcon
+                            icon={faThumbsDown}
+                            className="next-search__dislike-icon"
+                            onClick={() => handleDislike(media.id, media.media_type)}
+                            title="Dislike"
+                            data-tooltip-id="dislikeTooltip"
+                            data-tooltip-content="Dislike"
+                          />
+                        </button>
                       </>
                     )}
-                    <FontAwesomeIcon
-                      icon={faShareAlt}
-                      className="next-search__share-icon"
-                      onClick={() => handleShare(media.title || media.name, media.id, media.media_type)}
-                      title="Share"
-                      data-tooltip-id="shareIconTooltip"
-                      data-tooltip-content="Share"
-                    />
+                    <button>
+                      <FontAwesomeIcon
+                        icon={faShareAlt}
+                        className="next-search__share-icon"
+                        onClick={() => handleShare(media.title || media.name, media.id, media.media_type)}
+                        title="Share"
+                        data-tooltip-id="shareIconTooltip"
+                        data-tooltip-content="Share"
+                      />
+                    </button>
                   </div>
                 </div>
               ))

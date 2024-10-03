@@ -66,8 +66,8 @@
       align-items: center;
       justify-content: center;
       border-radius: .85rem;
+      cursor: url('../../../../assets/cursors/cursor-pointer-wh.svg'), pointer;
       box-shadow: $shadow-quaternary;
-      cursor: pointer;
       transition: transform .2s ease, background-color .2s ease, border-color .2s ease;
 
       &:active {
@@ -93,7 +93,6 @@
         border: .0938rem solid $primary-very-light-blue;
         backdrop-filter: blur(.5rem);
         border-radius: 50%;
-        cursor: pointer;
         transition: transform .3s ease, background-color .3s, box-shadow .3s;
         box-shadow: $shadow-quaternary;
 
@@ -119,7 +118,6 @@
   &__card-features__feature__label--schedule-planner,
   &__card-features__feature__label--custom-recommendations {
     border: none;
-    cursor: pointer;
   }
 
   &__card-media-container {
@@ -238,7 +236,7 @@
     position: relative;
     width: auto;
     border-radius: 1.6rem;
-    cursor: pointer;
+    cursor: url('../../../../assets/cursors/cursor-pointer-wh.svg'), pointer;
     box-shadow: $shadow-quaternary;
     transition: transform .2s ease, background-color .2s ease, border-color .2s ease;
 
@@ -301,7 +299,7 @@
   .content__poster6 {
     @include block-item(auto, 11rem);
     border-radius: .5rem;
-    cursor: pointer;
+    cursor: url('../../../../assets/cursors/cursor-pointer-wh.svg'), pointer;
 
     @include large-mobile {
       @include block-item(auto, 9rem);
@@ -699,7 +697,6 @@
   border: none;
   font: $primary-font;
   color: $primary-dark-blue;
-  cursor: pointer;
   text-decoration: none;
   padding: 0;
   border-radius: .25rem;

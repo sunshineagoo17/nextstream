@@ -12,9 +12,9 @@
       position: relative;
       background-color: $primary-light-blue;
       border-radius: 1.25rem;
-      cursor: pointer;
       transition: background-color .3s ease;
       box-shadow: $shadow-primary;
+      cursor: url('../../assets/cursors/cursor-pointer-wh.svg'), pointer;
   
       &.checked {
         background-color: $primary-medium-blue;

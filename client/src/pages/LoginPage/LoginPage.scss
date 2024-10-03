@@ -171,7 +171,6 @@
       color: $primary-dark-blue;
       font-size: .65rem;
       font-family: $primary-font;
-      cursor: pointer;
       margin-top: 1rem;
       line-height: .85rem;
       transition: background .3s ease, transform .3s ease, box-shadow .3s ease;
@@ -215,7 +214,6 @@
     font-size: .65rem;
     font-family: $primary-font;
     text-shadow: $shadow-primary;
-    cursor: pointer;
     margin-top: 1rem;
     line-height: .85rem;
     transition: background .3s ease, transform .3s ease, box-shadow .3s ease;
@@ -284,7 +282,6 @@
 
     @include tablet {
       @include hover-raise-effect;
-      cursor: crosshair;
       height: auto;
       border-radius: .5rem;
       box-shadow: $shadow-tertiary;
@@ -398,7 +395,6 @@
     right: 1rem;
     background: none;
     border: none;
-    cursor: pointer;
 
     .login__password-toggle-icon {
       @include block-item(1.5rem, 1.5rem);
@@ -426,7 +422,6 @@
     color: $primary-medium-blue;
 
     .login__checkbox-box {
-      cursor: pointer;
       box-shadow: $shadow-primary;
       border-radius: .25rem;
       border: .0625rem solid $primary-medium-blue;
@@ -449,7 +444,6 @@
     border: none;
     border-radius: .5rem;
     font-size: 1rem;
-    cursor: pointer;
     display: flex;
     align-items: center;
     gap: .5rem;

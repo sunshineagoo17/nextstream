@@ -662,11 +662,13 @@ const Calendar = forwardRef(
               onKeyDown={handleKeyDown}
             />
             {searchQuery && (
-              <FontAwesomeIcon
-                icon={faTimes}
-                className='calendar__clear-icon'
-                onClick={clearSearchInput}
-              />
+              <button>
+                <FontAwesomeIcon
+                  icon={faTimes}
+                  className='calendar__clear-icon'
+                  onClick={clearSearchInput}
+                />
+              </button>
             )}
           </div>
           {isAuthenticated && (

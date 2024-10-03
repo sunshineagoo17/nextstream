@@ -54,7 +54,7 @@ const SubscriptionStatus = ({ isSubscribed, onSubscriptionChange, onDeleteAccoun
           className={`subscription-status__delete-account ${deleteAccount ? 'subscription-status__delete-account--delete' : ''}`}
           onClick={handleDeleteAccount}
         >
-          <div className="subscription-status__delete-txt">Delete Account</div>
+          <button className="subscription-status__delete-txt">Delete Account</button>
         </div>
       )}
     </div>
