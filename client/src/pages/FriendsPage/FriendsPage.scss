@@ -277,14 +277,24 @@
     align-items: center;
   }
 
+  &__input-btns-container {
+    display: flex;
+    gap: .25rem;
+  }
+
+  &__clear-btn,
   &__send-btn {
-    padding: .3125rem .625rem;
+    @include block-item (1.5rem, 2.25rem);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: .25rem .5rem;
     background: $primary-light-blue;
     border: none;
     color: $neutral-white;
     border-radius: .5rem;
     cursor: pointer;
-    box-shadow: $shadow-secondary;
+    box-shadow: $shadow-senary;
     backdrop-filter: blur(.625rem);
     transition: background .3s ease, transform .3s ease-in-out;
 
@@ -298,12 +308,17 @@
       }
   
     &:active {
-        transform: translateY(.0625rem); 
+      transform: scale(.95);
         box-shadow: $shadow-septenary;
         color: $primary-medium-blue !important;
         background: $primary-light-cyan !important;
     }
-}
+
+    @include tablet {
+      padding: .3125rem .625rem;
+
+    }
+  }
 
   &__heading-container {
     text-align: center;

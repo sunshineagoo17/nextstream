@@ -6,7 +6,7 @@
 .voice-message-friends__voice-button {
     @include block-item(2.5rem, 2.5rem);
     padding: .3125rem .625rem;
-    background: $primary-light-blue;
+    background: $primary-medium-blue;
     border: none;
     color: $primary-pale-cyan;
     border-radius: .5rem;
@@ -17,7 +17,7 @@
 
     &:hover {
         background: $primary-very-light-blue;
-        color: #7CFC00;
+        color: $feedback-mint-green;
         transform: translateY(-.125rem);
         text-shadow: $shadow-primary;
         border: .0625rem solid $neutral-white;

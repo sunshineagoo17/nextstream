@@ -3,7 +3,7 @@ import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { getFriends, rejectFriendRequest, fetchSharedCalendarEvents, respondToSharedEvent, fetchPendingCalendarInvitesService, sendFriendRequest, acceptFriendRequest, removeFriend, searchUsers, fetchPendingRequests as fetchPendingRequestsService } from '../../services/friendsService';
 import { fetchMessages, sendMessage, deleteMessage, markAllMessagesAsRead } from '../../services/messageService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faTimes, faTrash, faBell, faClose, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faTimes, faTrash, faBell, faClose, faCalendarAlt, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
 import EmojiMessages from '../../components/EmojiMessages/EmojiMessages';
 import TypingIndicator from '../../components/TypingIndicator/TypingIndicator';
@@ -962,11 +962,19 @@ const FriendsPage = () => {
                   onKeyDown={handleKeyDown}
                   placeholder='Type a message...'
                 />
-                <button
-                  className='friends-page__send-btn'
-                  onClick={handleSendMessage}>
-                  Send
-                </button>
+                <div className='friends-page__input-btns-container'>
+                  <button 
+                    className="friends-page__clear-btn"
+                    onClick={() => setNewMessage('')}
+                  >
+                    <FontAwesomeIcon icon={faTimes} />
+                  </button>
+                  <button
+                    className='friends-page__send-btn'
+                    onClick={handleSendMessage}>
+                      <FontAwesomeIcon icon={faPaperPlane} />
+                  </button>   
+                </div>
               </div>
               <div className='friends-page__chat-action-btns'>
                 <EmojiMessages newMessage={newMessage} setNewMessage={setNewMessage} className="friends-page__emoji-button"/>

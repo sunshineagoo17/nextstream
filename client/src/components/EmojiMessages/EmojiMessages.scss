@@ -30,7 +30,7 @@
   .emoji-btn {
     height: 2.5rem;
     margin-bottom: .5rem;
-    background-color: $primary-light-blue; 
+    background-color: $primary-medium-blue; 
     border: none;
     border-radius: .5rem;
     color: $neutral-white;
@@ -53,7 +53,7 @@
     &:active {
       transform: scale(0.95) rotate(-2deg);
       background-color: $primary-dark-blue;
-      color: $primary-button-blue;
+      color: $primary-medium-blue;
       background: rgba(255, 223, 0);
       box-shadow: 0 0 10px rgba(255, 223, 0, 0.9);
     }
