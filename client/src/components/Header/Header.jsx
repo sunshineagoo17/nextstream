@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { useSearchBar } from '../../context/SearchBarContext/SearchBarContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faEraser } from '@fortawesome/free-solid-svg-icons';
 import nextStreamLogo from "../../assets/images/nextstream-wordmark.png";
 import searchVector from "../../assets/images/search-vector-handle.svg";
 import UserIcon from "../../assets/images/user-icon.svg";
@@ -92,7 +92,7 @@ const Header = () => {
                     className="header__clear-btn" 
                     onClick={handleClearInput}
                   >
-                    <FontAwesomeIcon icon={faTimes} />
+                    <FontAwesomeIcon icon={faEraser} />
                   </button>
                 )}
               </form>
@@ -149,7 +149,7 @@ const Header = () => {
                 className="header__clear-btn--mobile" 
                 onClick={handleClearInput}
               >
-                <FontAwesomeIcon icon={faTimes} />
+                <FontAwesomeIcon icon={faEraser} />
               </button>
             )}
           </form>

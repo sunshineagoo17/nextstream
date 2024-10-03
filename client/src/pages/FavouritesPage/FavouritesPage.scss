@@ -466,7 +466,7 @@
   }
 
   &__clear-icon {
-    @include block-item(.6rem, auto);
+    @include block-item(.65rem, auto);
     color: $primary-dark-blue;
     margin-left: .35rem;
     transition: transform .3s ease-in-out;
@@ -486,7 +486,7 @@
       @include block-item(1rem, auto);
     }
   }
-
+  
   &__search-bar-container {
     display: flex;
     justify-content: center;

@@ -8,7 +8,8 @@ import {
   faFilm, faTv, faMap, faBomb, faPalette, faLaugh, faFingerprint, faClapperboard, faTheaterMasks, faQuidditch, faGhost,
   faUserSecret, faVideoCamera, faFaceKissWinkHeart, faMusic, faHandSpock, faMask, faChildren, faFighterJet, faScroll,
   faHatCowboy, faChild, faTelevision, faBalanceScale, faHeartBroken, faBolt, faExplosion, faMeteor, faMicrophone,
-  faCalendarPlus, faTrash, faClose, faSearch, faLightbulb, faSave, faRedo, faTag, faPizzaSlice
+  faCalendarPlus, faTrash, faClose, faSearch, faLightbulb, faSave, faRedo, faTag, faPizzaSlice,
+  faEraser
 } from '@fortawesome/free-solid-svg-icons';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import TagModal from './sections/TagModal/TagModal';
@@ -377,7 +378,7 @@ const SearchBar = ({ onSearch, onClearSearch }) => {
       />
       {query && (
         <button onClick={handleClear} className="streamboard__search-bar-button-clear">
-          <FontAwesomeIcon icon={faClose} className="streamboard__search-bar-clear-icon" />
+          <FontAwesomeIcon icon={faEraser} className="streamboard__search-bar-clear-icon" />
         </button>
       )}
       <button onClick={handleSearch} className="streamboard__search-bar-button-search">

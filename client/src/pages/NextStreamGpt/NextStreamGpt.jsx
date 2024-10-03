@@ -4,7 +4,7 @@ import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import { Tooltip } from 'react-tooltip';
-import { faChevronLeft, faLightbulb, faStopCircle, faBroom, faRobot, faChevronRight, faPlay, faTimes, faComment, faTv, faFilm, faCalendarPlus, faThumbsUp, faThumbsDown, faShareAlt, faUser, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faLightbulb, faStopCircle, faBroom, faRobot, faChevronRight, faPlay, faTimes, faEraser, faComment, faTv, faFilm, faCalendarPlus, faThumbsUp, faThumbsDown, faShareAlt, faUser, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
 import Calendar from '../CalendarPage/sections/Calendar';
 import api from '../../services/api';
@@ -829,7 +829,7 @@ const NextStreamGpt = () => {
                 }}
               >
                 <FontAwesomeIcon
-                  icon={faTimes}
+                  icon={faEraser}
                   className='nextstream-gpt__clear-input'
                   onClick={() => {
                     setSearchQuery('');

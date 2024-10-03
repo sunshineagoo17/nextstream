@@ -280,6 +280,29 @@
     gap: .25rem;
   }
 
+  &__clear-friends-search {
+    @include block-item(1rem, 1rem);
+    padding: .25rem;
+    background: $frosted-glass;
+    color: $primary-button-blue;
+    border-radius: .25rem;
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+
+    &:hover {
+      background: $primary-button-blue;
+      color: $neutral-white;
+      transform: scale(1.05); 
+      box-shadow: 0 .25rem .5rem rgba($neutral-black, .2); 
+    }
+
+    &:active {
+      background: $primary-dark-blue;
+      color: $neutral-white;
+      box-shadow: $shadow-senary;
+      transform: scale(0.95); 
+    }
+  }
+
   &__clear-btn,
   &__send-btn {
     @include block-item (1.5rem, 2.25rem);

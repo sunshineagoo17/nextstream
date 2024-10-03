@@ -3,7 +3,7 @@ import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { getFriends, rejectFriendRequest, fetchSharedCalendarEvents, respondToSharedEvent, fetchPendingCalendarInvitesService, sendFriendRequest, acceptFriendRequest, removeFriend, searchUsers, fetchPendingRequests as fetchPendingRequestsService } from '../../services/friendsService';
 import { fetchMessages, sendMessage, deleteMessage, markAllMessagesAsRead } from '../../services/messageService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faTimes, faTrash, faBell, faClose, faCalendarAlt, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faTimes, faTrash, faBell, faClose, faCalendarAlt, faPaperPlane, faEraser } from '@fortawesome/free-solid-svg-icons';
 import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
 import EmojiMessages from '../../components/EmojiMessages/EmojiMessages';
 import TypingIndicator from '../../components/TypingIndicator/TypingIndicator';
@@ -578,7 +578,10 @@ const FriendsPage = () => {
                 <button
                   className='friends-page__clear-button'
                   onClick={clearSearch}>
-                  &times;
+                  <FontAwesomeIcon
+                    icon={faEraser}
+                    className='friends-page__clear-friends-search'
+                  />
                 </button>
               )}
             </div>
@@ -974,7 +977,7 @@ const FriendsPage = () => {
                     className="friends-page__clear-btn"
                     onClick={() => setNewMessage('')}
                   >
-                    <FontAwesomeIcon icon={faTimes} />
+                    <FontAwesomeIcon icon={faEraser} />
                   </button>
                   <button
                     className='friends-page__send-btn'

@@ -4,7 +4,7 @@ import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import { Tooltip } from 'react-tooltip';
-import { faRobot, faChevronLeft, faChevronRight, faPlay, faTimes, faSearch, faTv, faFilm, faCalendarPlus, faThumbsUp, faThumbsDown, faShareAlt, faUser, faLightbulb } from '@fortawesome/free-solid-svg-icons';
+import { faRobot, faChevronLeft, faChevronRight, faPlay, faTimes, faEraser, faSearch, faTv, faFilm, faCalendarPlus, faThumbsUp, faThumbsDown, faShareAlt, faUser, faLightbulb } from '@fortawesome/free-solid-svg-icons';
 import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
 import Calendar from '../CalendarPage/sections/Calendar';
 import api from '../../services/api';
@@ -422,7 +422,7 @@ const NextSearch = () => {
           />
           <button className="next-search__close-icon" onClick={clearSearch}>
             <FontAwesomeIcon
-              icon={faTimes}
+              icon={faEraser}
               onClick={clearSearch}
               data-tooltip-id="closeTooltip"
               data-tooltip-content="Clear Search" 

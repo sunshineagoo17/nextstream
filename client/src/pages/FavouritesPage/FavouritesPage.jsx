@@ -9,7 +9,9 @@ import {
   faChevronCircleUp, faVideoCamera, faHeart, faMinus, faPlay, faTimes, faCalendarPlus, faSearch,
   faBomb, faStar, faUserSecret, faRedo, faGhost, faLaugh, faTheaterMasks, faBolt, faMap, faGlobe, faTrophy,
   faLock, faUnlock, faTrash, faShareAlt, faClock, faEye, faBookmark,
-  faLightbulb
+  faLightbulb,
+  faEraser,
+  faBackspace
 } from '@fortawesome/free-solid-svg-icons';
 import HomeCinemaSVG from "../../assets/images/home-cinema.svg";
 import LikesSVG from "../../assets/images/like-faves.svg";
@@ -556,9 +558,13 @@ const FavouritesPage = () => {
               onKeyDown={handleSearchEnter}
               className="faves-page__search-input"
             />
-            <FontAwesomeIcon icon={faSearch} onClick={handleSearchQuery} className="faves-page__magnifying-glass-icon" />
+            <button>
+              <FontAwesomeIcon icon={faSearch} onClick={handleSearchQuery} className="faves-page__magnifying-glass-icon" />
+            </button>
             {searchQuery && (
-              <FontAwesomeIcon icon={faTimes} onClick={clearSearchQuery} className="faves-page__clear-icon" />
+            <button>
+              <FontAwesomeIcon icon={faEraser} onClick={clearSearchQuery} className="faves-page__clear-icon" />
+            </button>
             )}
           </div>
           <VoiceSearchFaves setSearchQuery={setSearchQuery} handleSearch={handleSearchQuery} />
@@ -566,7 +572,7 @@ const FavouritesPage = () => {
 
         <div className="faves-page__search-actions">
           <button className="faves-page__clear-search" onClick={clearSearchQuery}>
-            <FontAwesomeIcon icon={faTimes} /> Clear Search
+            <FontAwesomeIcon icon={faBackspace} /> Clear Search
           </button>
           <button className="faves-page__reset-filters" onClick={() => applyFilter('')}>
             <FontAwesomeIcon icon={faRedo} /> Reset Filters

@@ -2,7 +2,7 @@ import { useState, useEffect, useContext, useCallback, forwardRef, useImperative
 import { AuthContext } from '../../../context/AuthContext/AuthContext';
 import { Tooltip } from 'react-tooltip';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faFilm, faTv, faTimes, faTrash, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faFilm, faTv, faTimes, faTrash, faCalendarAlt, faEraser } from '@fortawesome/free-solid-svg-icons';
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import PropTypes from 'prop-types';
 import FullCalendar from '@fullcalendar/react';
@@ -665,7 +665,7 @@ const Calendar = forwardRef(
             {searchQuery && (
               <button className='calendar__clear-btn-container' onClick={clearSearchInput}>
                 <FontAwesomeIcon
-                  icon={faTimes}
+                  icon={faEraser}
                   className='calendar__clear-icon'
                   onClick={clearSearchInput}
                 />
@@ -753,9 +753,9 @@ const Calendar = forwardRef(
                   onKeyDown={handleEventTitleKeyDown}
                 />
                 {(selectedEvent ? selectedEvent.title : newEventTitle) && (
-                  <button className='modal-clear-icon' onClick={clearEventTitleInput}>
+                  <button className='modal-clear-button' onClick={clearEventTitleInput}>
                     <FontAwesomeIcon
-                      icon={faTimes}
+                      icon={faEraser}
                       onClick={clearEventTitleInput}
                     />
                 </button>

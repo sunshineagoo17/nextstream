@@ -433,13 +433,17 @@
     transition: transform .3s ease;
 
     &:hover {
-        color: $primary-button-blue;
-        transform: scale(1.2);  
-        text-shadow: $shadow-primary;
+      background: $neutral-white;
+      color: $primary-button-blue;
+      transform: scale(1.2);  
+      text-shadow: $shadow-primary;
+      border-radius: .25rem;
+      border: 1px solid $primary-button-blue;
     }
 
     &:active {
         color: $neutral-white;
+        background: $primary-dark-blue;
         transform: scale(.9);  
     }
 
