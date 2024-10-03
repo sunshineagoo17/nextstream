@@ -1007,12 +1007,12 @@
     transition: transform .3s ease;
 
     &:hover {
-      color: $robot-tablet;
+      color: $primary-dark-blue;
       transform: scale(1.2);
     }
 
     &:active {
-      color: $robot-very-light-blue;
+      color: $primary-light-cyan;
       transform: scale(.9);
     }
 

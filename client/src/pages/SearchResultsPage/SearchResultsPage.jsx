@@ -98,11 +98,11 @@ const SearchResultsPage = ({ isAuthenticated, userId }) => {
     return (
       <div className="search-results__pagination-circles">
         {Array.from({ length: totalPages }).map((_, index) => (
-          <div
+          <button
             key={index}
             className={`search-results__pagination-circle ${index === currentPage ? 'active' : ''}`}
             onClick={() => setCurrentIndex(index * 3)}
-          ></div>
+          ></button>
         ))}
       </div>
     );
@@ -178,13 +178,13 @@ const SearchResultsPage = ({ isAuthenticated, userId }) => {
           </div>
           {results.length > 3 && (
             <div className="search-results__pagination-container">
-              <div className="search-results__page-nav-wrapper" onClick={handlePrevious}>
+              <button className="search-results__page-nav-wrapper" onClick={handlePrevious}>
                 <img src={PreviousIcon} className="search-results__previous-icon" alt="Previous" />
-              </div>
+              </button>
               {renderPaginationCircles()}
-              <div className="search-results__page-nav-wrapper" onClick={handleNext}>
+              <button className="search-results__page-nav-wrapper" onClick={handleNext}>
                 <img src={NextIcon} className="search-results__next-icon" alt="Next" />
-              </div>
+              </button>
             </div>
           )}
         </div>

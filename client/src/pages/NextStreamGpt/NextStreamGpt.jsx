@@ -822,7 +822,12 @@ const NextStreamGpt = () => {
             <VoiceMessageMizu handleSendMessage={handleSendMessage} />
 
             {searchQuery && (
-              <button>
+              <button
+                onClick={() => {
+                  setSearchQuery('');
+                  setIsTyping(false);
+                }}
+              >
                 <FontAwesomeIcon
                   icon={faTimes}
                   className='nextstream-gpt__clear-input'

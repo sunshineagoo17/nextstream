@@ -420,13 +420,14 @@ const NextSearch = () => {
             className="next-search__input"
             disabled={!isAuthenticated}
           />
-          <FontAwesomeIcon
-            icon={faTimes}
-            className="next-search__close-icon"
-            onClick={clearSearch}
-            data-tooltip-id="closeTooltip"
-            data-tooltip-content="Clear Search" 
-          />
+          <button className="next-search__close-icon" onClick={clearSearch}>
+            <FontAwesomeIcon
+              icon={faTimes}
+              onClick={clearSearch}
+              data-tooltip-id="closeTooltip"
+              data-tooltip-content="Clear Search" 
+            />
+          </button>
         </div>
          <VoiceSearch setSearchQuery={setSearchQuery} handleSearch={handleSearch} />
       </div>

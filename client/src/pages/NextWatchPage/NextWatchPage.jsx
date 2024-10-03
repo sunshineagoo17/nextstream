@@ -309,7 +309,7 @@ const NextWatchPage = () => {
   const getInteractionIcon = () => {
     if (interaction === 1) {
       return (
-        <>
+        <button>
           <FontAwesomeIcon
             icon={faThumbsUp}
             className='nextwatch-page__thumbs-up active'
@@ -322,11 +322,11 @@ const NextWatchPage = () => {
             place='top'
             className='custom-tooltip'
           />
-        </>
+        </button>
       );
     } else if (interaction === 0) {
       return (
-        <>
+        <button>
           <FontAwesomeIcon
             icon={faThumbsDown}
             className='nextwatch-page__thumbs-down active'
@@ -339,26 +339,30 @@ const NextWatchPage = () => {
             place='top'
             className='custom-tooltip'
           />
-        </>
+        </button>
       );
     } else {
       return (
         <>
           <div className='nextwatch-page__neutral-interactions'>
-            <FontAwesomeIcon
-              icon={faThumbsUp}
-              className='nextwatch-page__thumbs-up'
-              onClick={() => handleToggleInteraction(1)}
-              data-tooltip-id={`interactionTooltip-${mediaId}`}
-              data-tooltip-content='LIKE'
-            />
-            <FontAwesomeIcon
-              icon={faThumbsDown}
-              className='nextwatch-page__thumbs-down'
-              onClick={() => handleToggleInteraction(0)}
-              data-tooltip-id={`interactionTooltip-${mediaId}`}
-              data-tooltip-content='DISLIKE'
-            />
+            <button>
+                <FontAwesomeIcon
+                icon={faThumbsUp}
+                className='nextwatch-page__thumbs-up'
+                onClick={() => handleToggleInteraction(1)}
+                data-tooltip-id={`interactionTooltip-${mediaId}`}
+                data-tooltip-content='LIKE'
+                />
+            </button>
+            <button>
+                <FontAwesomeIcon
+                icon={faThumbsDown}
+                className='nextwatch-page__thumbs-down'
+                onClick={() => handleToggleInteraction(0)}
+                data-tooltip-id={`interactionTooltip-${mediaId}`}
+                data-tooltip-content='DISLIKE'
+                />
+            </button>
           </div>
           <Tooltip
             id={`interactionTooltip-${mediaId}`}
@@ -528,7 +532,7 @@ const NextWatchPage = () => {
             </div>
 
             <div className='nextwatch-page__actions'>
-              <div className='nextwatch-page__media-type'>
+              <button className='nextwatch-page__media-type'>
                 <FontAwesomeIcon
                   className='nextwatch-page__media-icon'
                   icon={mediaType === 'tv' ? faTv : faFilm}
@@ -543,7 +547,7 @@ const NextWatchPage = () => {
                   place='top'
                   className='custom-tooltip'
                 />
-              </div>
+              </button>
               <button
                 className='nextwatch-page__calendar-button-container'
                 onClick={handleAddToCalendar}

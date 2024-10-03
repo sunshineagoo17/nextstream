@@ -683,7 +683,12 @@ const NextStreamBot = () => {
             <VoiceMessage handleSendMessage={handleSendMessage} />
             
             {searchQuery && (
-              <button>
+              <button
+              onClick={() => {
+                setSearchQuery('');
+                setIsTyping(false);
+              }}
+              >
                 <FontAwesomeIcon
                   icon={faTimes}
                   className='nextstream-bot__clear-input'
