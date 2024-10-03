@@ -10,6 +10,7 @@ import TypingIndicator from '../../components/TypingIndicator/TypingIndicator';
 import Calendar from '../CalendarPage/sections/Calendar';
 import io from 'socket.io-client';
 import FriendsVideo from "../../assets/animation/add-friends.webm";
+import VoiceMessageFriends from '../../components/VoiceMessageFriends/VoiceMessageFriends';
 import './FriendsPage.scss';
 
 const socket = io('http://localhost:8080');
@@ -339,29 +340,29 @@ const FriendsPage = () => {
     };
   }, []);
 
-  const handleSendMessage = async () => {
+  const handleSendMessage = async (messageText = newMessage) => {
     console.log('Selected Friend:', selectedFriend);
-
-    if (newMessage.trim() && selectedFriend?.id) {
+  
+    if (messageText.trim() && selectedFriend?.id) {
       const newMessageObj = {
         senderId: userId,
         receiverId: selectedFriend.id,
-        message: newMessage,
+        message: messageText,  // Use the passed messageText or the typed newMessage
         timestamp: new Date().toISOString(),
         is_read: false,
       };
-
+  
       setMessages((prevMessages) => [...prevMessages, newMessageObj]);
-
+  
       try {
-        await sendMessage(selectedFriend.id, newMessage);
-        setNewMessage('');
+        await sendMessage(selectedFriend.id, messageText);
+        setNewMessage('');  // Clear the input after sending
       } catch (error) {
         console.log('Error sending message:', error);
       }
     }
   };
-
+  
   const handleDeleteMessage = async (messageId) => {
     try {
       await deleteMessage(messageId);
@@ -968,6 +969,10 @@ const FriendsPage = () => {
                 </button>
               </div>
               <EmojiMessages newMessage={newMessage} setNewMessage={setNewMessage} className="friends-page__emoji-button"/>
+              <VoiceMessageFriends
+                setNewMessage={setNewMessage}
+                handleSendMessage={handleSendMessage}
+              />
               {typing && (
                 <div className='friends-page__typing'>
                   <TypingIndicator />
