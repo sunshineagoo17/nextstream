@@ -1075,48 +1075,6 @@ input[type="datetime-local"]:focus {
   cursor: url('../../../assets/cursors/cursor-pointer-wh.svg'), pointer;
 }
 
-// /* Custom pointer for the datetime-local input */
-// input[type='datetime-local'] {
-//   cursor: url('../../../assets/cursors/cursor-pointer-wh.svg'), pointer;
-// }
-
-// /* Hide default arrows (appearance) */
-// input[type='datetime-local']::-webkit-calendar-picker-indicator {
-//   opacity: 0; /* Hides the default calendar icon */
-//   cursor: url('../../../assets/cursors/cursor-pointer-wh.svg'), pointer; /* Custom pointer for calendar */
-// }
-
-// input[type='datetime-local']::-webkit-clear-button {
-//   display: none; /* Hide the clear button */
-// }
-
-// input[type='datetime-local']::-webkit-inner-spin-button {
-//   display: none; /* Hides the spin buttons for time selection */
-// }
-
 input[type='datetime-local']::-webkit-calendar-picker-indicator {
   cursor: url('../../../assets/cursors/cursor-pointer-wh.svg'), pointer;
-  color: transparent;
 }
-
-/* General styling for the input */
-// input[type='datetime-local'] {
-//   padding-right: 2.5rem; /* Ensure space for the custom icon */
-//   border-radius: 0.5rem;
-//   border: 1px solid $primary-medium-blue;
-//   background: rgba(255, 255, 255, 0.6);
-//   box-shadow: 0 0.25rem 0.375rem rgba($neutral-black, 0.1);
-//   font-family: $primary-font;
-//   color: $primary-dark-blue;
-
-//   &:hover {
-//     background-color: lighten($primary-light-blue, 10%);
-//     cursor: url('../../../assets/cursors/cursor-pointer-wh.svg'), pointer;
-//   }
-
-//   &:focus {
-//     border-color: $primary-button-blue;
-//     background-color: lighten($primary-light-blue, 15%);
-//     outline: none;
-//   }
-// }
