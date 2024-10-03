@@ -347,7 +347,7 @@ const FriendsPage = () => {
       const newMessageObj = {
         senderId: userId,
         receiverId: selectedFriend.id,
-        message: messageText,  // Use the passed messageText or the typed newMessage
+        message: messageText,  
         timestamp: new Date().toISOString(),
         is_read: false,
       };
@@ -356,7 +356,7 @@ const FriendsPage = () => {
   
       try {
         await sendMessage(selectedFriend.id, messageText);
-        setNewMessage('');  // Clear the input after sending
+        setNewMessage(''); 
       } catch (error) {
         console.log('Error sending message:', error);
       }
@@ -968,11 +968,13 @@ const FriendsPage = () => {
                   Send
                 </button>
               </div>
-              <EmojiMessages newMessage={newMessage} setNewMessage={setNewMessage} className="friends-page__emoji-button"/>
-              <VoiceMessageFriends
-                setNewMessage={setNewMessage}
-                handleSendMessage={handleSendMessage}
-              />
+              <div className='friends-page__chat-action-btns'>
+                <EmojiMessages newMessage={newMessage} setNewMessage={setNewMessage} className="friends-page__emoji-button"/>
+                <VoiceMessageFriends
+                  setNewMessage={setNewMessage}
+                  handleSendMessage={handleSendMessage}
+                />
+              </div>
               {typing && (
                 <div className='friends-page__typing'>
                   <TypingIndicator />

@@ -11,61 +11,6 @@
   border: .0625rem solid rgba(255, 255, 255, .18);
 }
 
-.emoji-picker {
-  width: 85%;
-  padding: .5rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 1rem;
-  border: 2px solid $neutral-white;
-  background: $primary-pale-blue;
-  box-shadow: $shadow-quinary;
-
-  @include large-mobile {
-    width: 50%;
-  }
-  @include tablet {
-    width: 30%;
-  }
-
-  @include desktop {
-    width: 30%;
-  }
-}
-
-.emoji-btn {
-  height: 2.5rem;
-  margin-bottom: .5rem;
-  background-color: $primary-light-blue; 
-  border: none;
-  border-radius: .5rem;
-  color: $neutral-white;
-  font-size: .85rem;
-  font-family: $primary-font;
-  text-shadow: $shadow-primary;
-  margin-top: .5rem;
-  padding: 0.15rem .5rem;
-  cursor: pointer;
-  box-shadow: $shadow-primary;
-  transition: transform 0.3s ease, background-color 0.3s ease;
-
-  &:hover {
-    background: $frosted-glass;
-    color: $primary-button-blue;
-    transform: scale(1.1) rotate(2deg);
-    box-shadow: 0 0 15px rgba(0, 153, 255, 0.6); 
-  }
-
-  &:active {
-    transform: scale(0.95) rotate(-2deg);
-    background-color: $primary-dark-blue;
-    color: $primary-button-blue;
-    background: rgba(255, 223, 0);
-    box-shadow: 0 0 10px rgba(255, 223, 0, 0.9);
-  }
-}
-
 .friends-page {
     display: flex;
     align-items: center;
@@ -325,6 +270,13 @@
     }
   }
   
+  &__chat-action-btns {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
   &__send-btn {
     padding: .3125rem .625rem;
     background: $primary-light-blue;
@@ -1222,19 +1174,27 @@
   }
 
   &__message-input {
+    width: 100%;
     display: flex;
     align-items: center;
+    justify-content: center;
+    flex-direction: column;
     background: $primary-very-light-blue;
     padding: .625rem;
     border-radius: .625rem;
+    gap: .5rem;
     box-shadow: $shadow-tertiary;
+
+    @include large-mobile {
+      flex-direction: row;
+    }
 
     input {
       flex: 1;
       border: none;
+      width: 100%;
       padding: .625rem;
       border-radius: .5rem;
-      margin-right: .625rem;
       background: $primary-light-cyan;
       box-shadow: $shadow-senary;
     }

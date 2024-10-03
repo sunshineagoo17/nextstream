@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import EmojiPicker from 'emoji-picker-react';
+import "./EmojiMessages.scss";
 
 const EmojiMessages = ({ newMessage, setNewMessage }) => {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
