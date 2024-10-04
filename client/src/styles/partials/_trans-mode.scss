@@ -1,168 +1,268 @@
 @use 'colors' as *;
 @use 'mixins' as *;
 
-// Global Dark Mode Styles
-[data-theme='dark'] {
+[data-theme='trans-mode'] {
   // Background and text colors
   background-color: $primary-darker-blue;
   color: $neutral-white;
-  body, label {
-    cursor: url('../../assets/cursors/cursor-arrow-bl.svg'), auto;
+  body,
+  label {
+    cursor: url('../../assets/cursors/cursor-arrow-tm.svg'), auto;
   }
 
   /* Custom cursor for interactive elements */
-  button, a, .Link, img, [role="button"], [data-tooltip], [tabindex], input[type="checkbox"], input[type="text"], input[type="radio"], input[type="range"], input[type="button"], input[type="submit"], select, textarea {
-    cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
+  button,
+  a,
+  .Link,
+  img,
+  [role='button'],
+  [data-tooltip],
+  [tabindex],
+  input[type='checkbox'],
+  input[type='text'],
+  input[type='radio'],
+  input[type='range'],
+  input[type='button'],
+  input[type='submit'],
+  select,
+  textarea {
+    cursor: url('../../assets/cursors/cursor-pointer-tm.svg'), pointer;
   }
 
   /* Ensure cursor changes on hover and active states */
-  button:hover, a:hover, .Link:hover, img:hover, [role="button"]:hover, [data-tooltip]:hover, [tabindex]:hover, input[type="checkbox"]:hover, input[type="text"]:hover, input[type="radio"]:hover, input[type="range"]:hover, input[type="button"]:hover, input[type="submit"]:hover, label:hover, select:hover, textarea:hover {
-    cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
+  button:hover,
+  a:hover,
+  .Link:hover,
+  img:hover,
+  [role='button']:hover,
+  [data-tooltip]:hover,
+  [tabindex]:hover,
+  input[type='checkbox']:hover,
+  input[type='text']:hover,
+  input[type='radio']:hover,
+  input[type='range']:hover,
+  input[type='button']:hover,
+  input[type='submit']:hover,
+  label:hover,
+  select:hover,
+  textarea:hover {
+    cursor: url('../../assets/cursors/cursor-pointer-tm.svg'), pointer;
   }
 
   /* Add for focus state if required */
-  button:focus, a:focus, .Link:focus, img:focus, [role="button"]:focus, [data-tooltip]:focus, [tabindex]:focus, input[type="checkbox"]:focus, input[type="text"]:focus, input[type="radio"]:focus, input[type="range"]:focus, input[type="button"]:focus, input[type="submit"]:focus, label:focus, select:focus, textarea:focus {
-    cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
+  button:focus,
+  a:focus,
+  .Link:focus,
+  img:focus,
+  [role='button']:focus,
+  [data-tooltip]:focus,
+  [tabindex]:focus,
+  input[type='checkbox']:focus,
+  input[type='text']:focus,
+  input[type='radio']:focus,
+  input[type='range']:focus,
+  input[type='button']:focus,
+  input[type='submit']:focus,
+  label:focus,
+  select:focus,
+  textarea:focus {
+    cursor: url('../../assets/cursors/cursor-pointer-tm.svg'), pointer;
   }
 
   /* Add for focus state if required */
-  input[type="text"]:active, input[type="text"]:valid, input[type="text"]:required, input[type="text"]:enabled {
-    cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
+  input[type='text']:active,
+  input[type='text']:valid,
+  input[type='text']:required,
+  input[type='text']:enabled {
+    cursor: url('../../assets/cursors/cursor-pointer-tm.svg'), pointer;
   }
 
   /* Dropdowns */
-  select, .dropdown, .ui-autocomplete, .browser-suggestion-list {
-    cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
+  select,
+  .dropdown,
+  .ui-autocomplete,
+  .browser-suggestion-list {
+    cursor: url('../../assets/cursors/cursor-pointer-tm.svg'), pointer;
   }
 
-// Header styles
-.header {
-  background-color: $primary-dark-navy-blue;
-  color: $primary-very-light-blue;
+  // Header styles
+  .header {
+    background-color: $neutral-black;
+    color: $trans-candy-pink;
 
+    &__logo {
+      filter: invert(100%) sepia(100%) saturate(0%) brightness(1000%);
+    }
 
-  &__logo {
-    filter: invert(100%) sepia(100%) saturate(0%) brightness(1000%);
-  }
+    &__logo-wrapper {
+      &:hover {
+        @include transmodeBorderGlow();
+      }
+    }
 
-  &__search-bar,
-  &__search-input--mobile,
-  &__search-bar--mobile,
-  &__search-input {
-    background-color: $primary-darker-blue;
-  }
+    &__search-bar,
+    &__search-input--mobile,
+    &__search-bar--mobile,
+    &__search-input {
+      background-color: $neutral-black;
+      color: $trans-light-pink;
+    }
 
-  &__search-input--mobile,
-  &__search-input {
-    border-radius: 0.25rem;
-  }
-}
+    &__search-bar--mobile,
+    &__search-bar {
+      border: 0.125rem solid $neutral-white;
+    }
 
-  a {
-    color: $neutral-white;
-    text-shadow: $shadow-primary;
+    &__search-input--mobile,
+    &__search-input {
+      &::placeholder {
+        color: $trans-pastel-blue;
+      }
+    }
+
+    &__btn,
+    &__sign-in-txt {
+      text-shadow: $shadow-primary;
+      color: $trans-electric-blue;
+    }
+
+    &__btn-container,
+    &__login-container {
+      background: $trans-white;
+
+      &:hover {
+        background: $trans-soft-pink;
+      }
+
+      &:active {
+        background: $trans-gradient-pastel;
+      }
+    }
+
+    &__search-icon--mobile,
+    &__icon-container,
+    &__search-icon {
+      background: $trans-soft-pink;
+    }
+
+    &__search-input--mobile,
+    &__search-input {
+      border-radius: 0.25rem;
+    }
+
+    &__sign-in-icon {
+      color: $trans-electric-blue;
+    }
+
+    a {
+      color: $neutral-white;
+      text-shadow: $shadow-primary;
+    }
   }
 
   .modal-contact__submit-text {
-    color: $primary-dark-blue;
+    color: $neutral-black;
+  }
+
+  .hover-menu__button {
+    background: $trans-soft-pink;
   }
 
   input,
   textarea {
-    background-color: $primary-medium-blue;
+    background-color: $neutral-black;
+    color: $trans-light-pink;
 
     &:focus {
-      background-color: $primary-dark-blue;
-      color: $neutral-white;
+      background-color: $neutral-black;
+      color: $trans-light-pink;
     }
   }
 
-// Toggle Button Component
-.toggle-button {
-
-  &__switch {
-    cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
-  }
-}
-
-// Auth Search Results Page
-.auth-search-results {
-
-  &__pagination-circles { 
-    cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
+  // Toggle Button Component
+  .toggle-button {
+    &__switch {
+      cursor: url('../../assets/cursors/cursor-pointer-tm.svg'), pointer;
+    }
   }
 
-  &__card {
-    cursor: url('../../assets/cursors/cursor-arrow-bl.svg'), auto;
-  }
-}
+  // Auth Search Results Page
+  .auth-search-results {
+    &__pagination-circles {
+      cursor: url('../../assets/cursors/cursor-pointer-tm.svg'), pointer;
+    }
 
-// Calendar Page 
-.share-event__title.neumorphic-text {
-  color: $neutral-white;
-}
-
-.modal {
-  .modal-input {
-    cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
-  }
-}
-
-.calendar__clear-icon {
-  &:hover {
-    color: $neutral-black;
+    &__card {
+      cursor: url('../../assets/cursors/cursor-arrow-tm.svg'), auto;
+    }
   }
 
-  &:active {
-    background: $primary-very-light-blue;
-    color: $primary-dark-blue;
+  // Calendar Page
+  .share-event__title.neumorphic-text {
+    color: $neutral-white;
   }
-}
 
-.fc {
-  .fc-toolbar {
-    .fc-button-group {
-      .fc-button {
-        cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
-      }
+  .modal {
+    .modal-input {
+      cursor: url('../../assets/cursors/cursor-pointer-tm.svg'), pointer;
+    }
+  }
 
-      &.fc-button-active {
-        cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
+  .calendar__clear-icon {
+    &:hover {
+      color: $neutral-black;
+    }
 
-        &:hover {
-          cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
+    &:active {
+      background: $primary-very-light-blue;
+      color: $primary-dark-blue;
+    }
+  }
+
+  .fc {
+    .fc-toolbar {
+      .fc-button-group {
+        .fc-button {
+          cursor: url('../../assets/cursors/cursor-pointer-tm.svg'), pointer;
         }
 
-        &:active {
-          cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
+        &.fc-button-active {
+          cursor: url('../../assets/cursors/cursor-pointer-tm.svg'), pointer;
+
+          &:hover {
+            cursor: url('../../assets/cursors/cursor-pointer-tm.svg'), pointer;
+          }
+
+          &:active {
+            cursor: url('../../assets/cursors/cursor-pointer-tm.svg'), pointer;
+          }
         }
       }
     }
   }
-}
 
   input {
-    cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
-  
+    cursor: url('../../assets/cursors/cursor-pointer-tm.svg'), pointer;
+
     svg {
-      cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
+      cursor: url('../../assets/cursors/cursor-pointer-tm.svg'), pointer;
     }
   }
-  
+
   input:hover {
-    cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
-  }
-  
-  input[type="datetime-local"] {
-    cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
+    cursor: url('../../assets/cursors/cursor-pointer-tm.svg'), pointer;
   }
 
-  input[type="datetime-local"]:focus {
-    cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
+  input[type='datetime-local'] {
+    cursor: url('../../assets/cursors/cursor-pointer-tm.svg'), pointer;
   }
-  
+
+  input[type='datetime-local']:focus {
+    cursor: url('../../assets/cursors/cursor-pointer-tm.svg'), pointer;
+  }
+
   input[type='datetime-local']::-webkit-calendar-picker-indicator {
-    cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
+    cursor: url('../../assets/cursors/cursor-pointer-tm.svg'), pointer;
   }
 
   // Friends List
@@ -222,7 +322,7 @@
     }
 
     &__video-container {
-      border: .35rem solid $frosted-glass;
+      border: 0.35rem solid $frosted-glass;
       background: $dark-mode-royal-blue;
       box-shadow: $shadow-senary;
     }
@@ -330,7 +430,7 @@
     }
 
     &__nav-arrow {
-      cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
+      cursor: url('../../assets/cursors/cursor-pointer-tm.svg'), pointer;
     }
 
     &__copy {
@@ -431,21 +531,63 @@
 
   // Footer
   .footer {
-    background: $primary-darker-blue-gradient;
+    background: $neutral-black;
 
     &__privacy-policy,
     &__tac,
     &__about {
+      color: $trans-light-pink;
+
       &:hover {
         box-shadow: none;
       }
+    }
+
+    &__logo-container {
+      &:hover {
+        @include transmodeBorderGlow();
+      }
+    }
+
+    &__btn-register {
+      background: $neutral-white;
+
+      &:hover {
+        background: $trans-soft-pink;
+      }
+
+      &:active {
+        background: $trans-gradient-pastel;
+      }
+    }
+
+    &__register {
+      text-shadow: $shadow-primary;
+      color: $trans-electric-blue;
+    }
+
+    &__btn-contact {
+      background: $trans-electric-blue;
+
+      &:hover {
+        background: $trans-pale-blue;
+      }
+
+      &:active {
+        background: $trans-frosted-glass-pink;
+      }
+    }
+
+    &__contact {
+      color: $neutral-white;
+      text-shadow: $shadow-primary;
     }
   }
 
   // NextStream GPT
   .nextstream-gpt {
     background: $base-darker-blue;
-    
+
     &__chat-container {
       background-color: $primary-dark-blue;
     }
@@ -981,7 +1123,6 @@
 
   // NextWatch
   .nextwatch-page {
-  
     &__title {
       color: $neutral-white;
     }
@@ -1002,13 +1143,13 @@
       &:hover {
         background: $primary-dark-blue;
         color: $primary-very-light-blue;
-        border: .125rem solid $primary-button-blue;
+        border: 0.125rem solid $primary-button-blue;
       }
 
       &:active {
         background: $neutral-white;
         color: $primary-button-blue;
-        border: .1875rem solid $primary-button-blue;
+        border: 0.1875rem solid $primary-button-blue;
       }
     }
   }
@@ -1088,7 +1229,7 @@
 
     &__season-episode-inputs {
       background: $primary-button-dark-blue;
-      border-radius: .5rem;
+      border-radius: 0.5rem;
       border: 2px solid $frosted-glass;
 
       label {
@@ -1153,7 +1294,7 @@
   }
 
   .faves-page__magnifying-glass-icon {
-    margin-left: .25rem;
+    margin-left: 0.25rem;
   }
 
   // Recommendations
@@ -1175,62 +1316,85 @@
     border-radius: 0.5rem 0.5rem 0 0;
   }
 
-  // Homepage
+  // Trans Mode Homepage
   .hero {
-    background: linear-gradient(
-      180deg,
-      $primary-medium-blue 0%,
-      $dark-mode-royal-blue 50%,
-      $base-darker-blue 100%
-    );
-    border-bottom: 0.1875rem solid $neutral-light-grey;
+    background: $neutral-black;
+    border-bottom: 0.1875rem solid $trans-light-pink;
 
     &__subtitle--tagline {
-      background: $primary-darker-blue;
-      color: $primary-very-light-blue;
+      background: $trans-black;
+      color: $trans-pale-blue;
       box-shadow: $shadow-senary;
-      border: 3px solid $primary-button-dark-blue;  
+      border: 3px solid $trans-pink;
+    }
+
+    &__btn-container {
+      background: $trans-electric-blue;
+
+      &:hover {
+        background: $trans-candy-pink;
+      }
+
+      &:active {
+        background: $trans-gradient-electricblue-candypink;
+      }
     }
 
     &__title {
-      color: $primary-very-light-blue;
+      color: $trans-light-pink;
     }
 
     &__subtitle {
-      color: $neutral-white;
+      color: $trans-white;
+    }
+
+    &__logo {
+      border-radius: 3rem;
+    }
+
+    &__logo-border--mobile,
+    &__logo-border {
+      background: $trans-gradient-darkpink-paleblue;
+      @include transBorderAnimation;
+      @include transAnimateBorder;
     }
   }
 
+  // Trans Mode Content
   .content {
-    background-color: $base-darker-blue;
+    background-color: $trans-black;
 
     &__new-releases-subtitle {
-      color: $neutral-white;
+      color: $trans-white;
     }
 
     &__new-releases {
-      border-top: 0.1875rem solid $neutral-light-grey;
+      border-top: 0.1875rem solid $trans-soft-pink;
     }
 
     &__label-header-container,
     &__label-header-new-container {
-      background: $primary-gradient-blue;
+      background: $trans-gradient-blue-pink;
     }
 
     &__card-features__feature__icon-bg {
-      background: $primary-medium-blue-gradient;
+      background: $trans-gradient-black-blue;
+    }
+
+    &__card-media-container {
+      background: $trans-gradient-deepblue-softpink;
     }
 
     &__label-features,
     &__label-header-new-releases {
-      color: $neutral-white;
+      color: $trans-white;
       text-shadow: $shadow-primary;
     }
 
     &__card-features__feature__label {
-      background-color: $neutral-light-grey;
-      border: 0.1875rem solid $primary-very-light-blue;
-      color: $primary-medium-blue;
+      background: $trans-blue;
+      border: 0.1875rem solid $trans-pale-blue;
+      color: $trans-blue;
       text-shadow: $shadow-primary;
       box-shadow: $shadow-tertiary;
     }
@@ -1238,29 +1402,41 @@
     &__card-features__feature__label--stream-locator,
     &__card-features__feature__label--schedule-planner,
     &__card-features__feature__label--custom-recommendations {
-      @include dark-frosted-glass;
-      border: .125rem solid $primary-button-blue;
-      color: $neutral-white;
+      @include trans-frosted-glass-blue;
+      border: 0.125rem solid $trans-blue;
+      background: $neutral-black;
+      color: $trans-white;
 
       &:hover {
-        background: $primary-button-blue;
-        color: $neutral-white;
-        border: .125rem solid $neutral-white;
+        background: $primary-dark-blue;
+        color: $trans-soft-pink;
+        border: 0.125rem solid $trans-pink;
       }
 
       &:active {
         box-shadow: $shadow-senary;
-        background: $primary-button-dark-blue;
-        color: $primary-very-light-blue;
+        background: $trans-deep-blue;
+        color: $neutral-white;
         font-weight: bold;
-        border: .125rem solid $frosted-glass;
+        border: 0.125rem solid $neutral-white;
       }
     }
   }
 
+  .content-new-releases__register-btn {
+    color: $neutral-white;
+
+    &:hover {
+      background: $trans-pink;
+    }
+
+    &:active {
+      background: $trans-blue;
+    }
+  }
   .content__page-nav-wrapper-next,
   .content__page-nav-wrapper-previous {
-    cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
+    cursor: url('../../assets/cursors/cursor-pointer-tm.svg'), pointer;
   }
 
   .content__card1-container,
@@ -1269,7 +1445,7 @@
   .content__card4-container,
   .content__card5-container,
   .content__card6-container {
-    cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
+    cursor: url('../../assets/cursors/cursor-pointer-tm.svg'), pointer;
   }
 
   .content__poster1,
@@ -1278,23 +1454,38 @@
   .content__poster4,
   .content__poster5,
   .content__poster6 {
-    cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
+    cursor: url('../../assets/cursors/cursor-pointer-tm.svg'), pointer;
   }
 
-  // Button styles
+  // Button styles for Trans Mode
   .btn {
-    background-color: $primary-medium-blue;
-    color: $neutral-white;
+    background-color: $trans-blue;
+    color: $trans-white;
 
     &:hover {
-      background-color: $primary-light-blue;
+      background-color: $trans-pink;
+      box-shadow: $shadow-senary;
+    }
+
+    &:active {
+      background-color: $trans-soft-pink;
+      color: $trans-black;
+      border: 1px solid $trans-light-pink;
     }
   }
 
-  // Card styles
+  // Card styles for Trans Mode
   .card {
-    background-color: $primary-dark-blue;
-    color: $neutral-white;
+    background-color: $trans-deep-blue;
+    color: $trans-white;
     box-shadow: $shadow-secondary;
+
+    // Add frosted glass effect
+    @include trans-frosted-glass-blue;
+
+    &:hover {
+      background-color: $trans-electric-blue;
+      box-shadow: $shadow-senary;
+    }
   }
 }

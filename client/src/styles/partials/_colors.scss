@@ -156,3 +156,51 @@ $dark-mode-ice-blue: #A3D4FF;
   @mixin dark-mode-gradient-bg {
     background: linear-gradient(180deg, $dark-mode-deep-blue 0%, $dark-mode-royal-blue 50%, $dark-mode-sky-blue 100%);
   }
+
+// Trans-mode colours
+$trans-white: #F8F9FA;             
+$trans-black: #0D0D0D;       
+$trans-dark-gray: #333333;         
+$trans-medium-gray: #4D4D4D;      
+
+// Pinks
+$trans-pink: #EC4899;             
+$trans-soft-pink: #F472B6;        
+$trans-light-pink: #F9A8D4;       
+$trans-candy-pink: #FF99CC;    
+
+// Blues
+$trans-blue: #3B82F6;              
+$trans-deep-blue: #1D4ED8;   
+$trans-light-blue: #55CDFC;    
+$trans-electric-blue: #2563EB;     
+$trans-pale-blue: #93C5FD;     
+
+// Additional Pinks and Blues for Frosted Effects
+$trans-pastel-blue: #DAEFFE;     
+$trans-frosted-blue: rgba(219, 234, 254, 0.75); 
+$trans-frosted-pink: rgba(255, 153, 204, 0.75); 
+$trans-pastel-pink: #F9A8D4;      
+
+// Gradients
+$trans-gradient-blue-pink: linear-gradient(135deg, $trans-blue, $trans-pink);
+$trans-gradient-deepblue-softpink: linear-gradient(135deg, $trans-deep-blue, $trans-soft-pink);
+$trans-gradient-paleblue-candypink: linear-gradient(135deg, $trans-pale-blue, $trans-candy-pink);
+$trans-frosted-glass-blue: rgba(219, 234, 254, 0.75); 
+$trans-frosted-glass-pink: rgba(255, 153, 204, 0.75); 
+$trans-gradient-pastel: linear-gradient(135deg, $trans-pastel-blue, $trans-pastel-pink);
+$trans-gradient-black-blue: linear-gradient(135deg, $trans-black, $trans-deep-blue);
+$trans-gradient-lightblue-darkpink: linear-gradient(135deg, $trans-pale-blue, $trans-pink);
+$trans-gradient-black-softpink: linear-gradient(135deg, $trans-black, $trans-soft-pink);
+$trans-gradient-electricblue-candypink: linear-gradient(135deg, $trans-electric-blue, $trans-candy-pink);
+$trans-gradient-darkpink-paleblue: linear-gradient(135deg, $trans-pink, $trans-pale-blue);
+$trans-gradient-white-deepblue: linear-gradient(135deg, $trans-white, $trans-deep-blue);
+$trans-gradient-softpink-black: linear-gradient(135deg, $trans-soft-pink, $trans-black);
+$trans-gradient-pastelblue-lightpink: linear-gradient(135deg, $trans-pastel-blue, $trans-light-pink);
+$trans-gradient-paleblue-electricblue: linear-gradient(135deg, $trans-pale-blue, $trans-electric-blue);
+$trans-gradient-black-pastelpink: linear-gradient(135deg, $trans-black, $trans-pastel-pink);
+$trans-gradient-darkblue-lightpink: linear-gradient(135deg, $trans-deep-blue, $trans-light-pink);
+
+// Frosted Glass Effects
+$trans-frosted-glass-blue: rgba(219, 234, 254, 0.75); 
+$trans-frosted-glass-pink: rgba(255, 153, 204, 0.75);

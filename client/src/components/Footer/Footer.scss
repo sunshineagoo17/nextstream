@@ -180,14 +180,14 @@
   }
 
   &__contact {
-    font-size: .875rem;
     @include btn-secondary-txt;
     white-space: nowrap;
+    font-size: .875rem;
 
     @include tablet {
-      font-size: .875rem;
       @include btn-secondary-txt;
       white-space: nowrap;
+      font-size: .875rem;
     }
   }
 

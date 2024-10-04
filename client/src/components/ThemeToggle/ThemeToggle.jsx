@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMoon, faSun} from '@fortawesome/free-solid-svg-icons'; 
-import './DarkModeToggle.scss';
+import { faMoon, faSun, faRainbow } from '@fortawesome/free-solid-svg-icons'; 
+import './ThemeToggle.scss';
 
-const DarkModeToggle = () => {
+const ThemeToggle = () => {
   const [theme, setTheme] = useState('light');
 
   useEffect(() => {
@@ -12,17 +12,19 @@ const DarkModeToggle = () => {
     setTheme(savedTheme);
   }, []);
 
-  const toggleDarkMode = () => {
-    const newTheme = theme === 'dark' ? 'light' : 'dark';
+  const toggleTheme = () => {
+    const newTheme = theme === 'light' ? 'dark' : theme === 'dark' ? 'trans-mode' : 'light';
     document.documentElement.setAttribute('data-theme', newTheme);
     setTheme(newTheme);
     localStorage.setItem('theme', newTheme);
   };
 
   return (
-    <button onClick={toggleDarkMode} className={`dark-mode-toggle ${theme}`}>
+    <button onClick={toggleTheme} className={`dark-mode-toggle ${theme}`}>
       {theme === 'dark' ? (
         <FontAwesomeIcon icon={faMoon} className="icon moon" />
+      ) : theme === 'trans-mode' ? (
+        <FontAwesomeIcon icon={faRainbow} className="icon rainbow" />
       ) : (
         <FontAwesomeIcon icon={faSun} className="icon sun" />
       )}
@@ -31,4 +33,4 @@ const DarkModeToggle = () => {
   );
 };
 
-export default DarkModeToggle;
+export default ThemeToggle;

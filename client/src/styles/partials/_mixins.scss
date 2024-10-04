@@ -129,3 +129,99 @@
       #{$property}: #{$value};
     }
 }  
+
+// Trans-Mode Frosted Glass Effects and Graidents
+
+// Trans Mode Glass Effect - Blue
+@mixin trans-frosted-glass-blue {
+    background-color: $trans-frosted-glass-blue;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  // Trans Mode Glass Effect - Pink
+  @mixin trans-frosted-glass-pink {
+    background-color: $trans-frosted-glass-pink;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  // Trans Mode Gradient Backgrounds
+  @mixin trans-gradient-blue-pink {
+    background: $trans-gradient-blue-pink;
+  }
+  
+  @mixin trans-gradient-deepblue-softpink {
+    background: $trans-gradient-deepblue-softpink;
+  }
+  
+  @mixin trans-gradient-paleblue-candypink {
+    background: $trans-gradient-paleblue-candypink;
+  }
+  
+  @mixin trans-gradient-pastel {
+    background: $trans-gradient-pastel;
+  }
+  
+  @mixin trans-gradient-black-blue {
+    background: $trans-gradient-black-blue;
+  }  
+
+  // Animation for trans-mode
+@mixin transAnimateBorder() {
+    @keyframes transAnimateBorder {
+      0% {
+        border-color: $trans-deep-blue;
+      }
+      25% {
+        border-color: $trans-blue;
+      }
+      35% {
+        border-color: $trans-pale-blue;
+      }
+      50% {
+        border-color: $trans-light-pink;
+      }
+      75% {
+        border-color: $trans-candy-pink;
+      }
+      85% {
+        border-color: $trans-soft-pink;
+      }
+      100% {
+        border-color: $trans-pink;
+      }
+    }
+  }
+  
+  @mixin transBorderAnimation {
+    animation: transAnimateBorder 10s infinite alternate;
+  }
+
+@mixin transmodeBorderGlow() {
+    @keyframes transmodeBorderGlow {
+        0% {
+        border-color: $trans-light-blue;
+        }
+        25% {
+        border-color: $trans-light-pink;
+        }
+        50% {
+        border-color: $trans-white;
+        }
+        75% {
+        border-color: $trans-light-pink;
+        }
+        100% {
+        border-color: $trans-light-blue;
+        }
+    }
+
+    animation: transmodeBorderGlow 3s infinite alternate;
+}

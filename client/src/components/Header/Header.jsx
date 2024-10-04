@@ -3,12 +3,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { useSearchBar } from '../../context/SearchBarContext/SearchBarContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEraser } from '@fortawesome/free-solid-svg-icons';
+import { faEraser, faSignInAlt, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import nextStreamLogo from "../../assets/images/nextstream-wordmark.png";
 import searchVector from "../../assets/images/search-vector-handle.svg";
-import UserIcon from "../../assets/images/user-icon.svg";
-import LogoutIcon from "../../assets/images/logout-icon.svg";
-import DarkModeToggle from '../DarkModeToggle/DarkModeToggle';
+import ThemeToggle from '../ThemeToggle/ThemeToggle';
 import "./Header.scss";
 
 const Header = () => {
@@ -105,12 +103,12 @@ const Header = () => {
           </Link>
         </div>
         <div className="header__right-container">
-          <DarkModeToggle />
+          {/* <ThemeToggle /> */}
           {(isAuthenticated || isGuest) ? (
             <button className="header__login-container" onClick={handleLogout}>
               <div className="header__login">
                 <div className="header__sign-in-txt">Logout</div>
-                <img className="header__sign-in-icon" src={LogoutIcon} alt="Logout Icon" />
+                <FontAwesomeIcon icon={faSignOutAlt} className="header__sign-in-icon" alt="Logout Icon" />
               </div>
             </button>
           ) : (
@@ -118,7 +116,7 @@ const Header = () => {
               <button className="header__login-container">
                 <div className="header__login">
                   <div className="header__sign-in-txt">Sign In</div>
-                  <img className="header__sign-in-icon" src={UserIcon} alt="User Icon" />
+                  <FontAwesomeIcon icon={faSignInAlt} className="header__sign-in-icon" alt="User Icon" />
                 </div>
               </button>
             </Link>
@@ -155,6 +153,7 @@ const Header = () => {
           </form>
         </div>
       </div>
+      <ThemeToggle className="header__theme-toggle--mobile"/>
     </div>
   );
 };
