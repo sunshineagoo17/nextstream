@@ -196,7 +196,7 @@
       cursor: url('../../assets/cursors/cursor-arrow-tm.svg'), auto;
     }
   }
-
+  
   // Calendar Page
   .share-event__title.neumorphic-text {
     color: $neutral-white;
@@ -1020,10 +1020,10 @@
   .terms,
   .privacy,
   .about {
-    background-color: $dark-mode-deep-blue;
+    background-color: $neutral-black;
 
     &__content-card {
-      background-color: $primary-very-light-blue;
+      background-color: $trans-frosted-blue;
     }
 
     &__nextstream-link {
@@ -1034,10 +1034,53 @@
         color: $neutral-white;
       }
     }
+
+    &__link {
+        border: .0625rem solid $neutral-white;
+        color: $trans-deep-blue;
+
+        &:hover {
+            background: $trans-pastel-pink;
+            color: $neutral-white;
+            border: .0625rem solid $neutral-white;
+        }
+
+        &:visited,
+        &:focus,
+        &:active {
+            color: $trans-pink;
+            background: $frosted-glass;
+            border: .0625rem solid $neutral-white;
+        }
+    }
+
+    &__subtitle,
+    &__title {
+        color: $trans-deep-blue;
+    }
+  }
+
+  .terms__nextstream-link {
+    &:hover {
+        background: $trans-pastel-pink;
+        color: $neutral-white;
+        border: .0625rem solid $neutral-white;
+        text-shadow: none;
+    }
+
+    &:visited,
+    &:focus,
+    &:active {
+        color: $trans-deep-blue;
+        background: $frosted-glass;
+        border: .0625rem solid $trans-pink;
+        text-shadow: none;
+    }
   }
 
   .about__icon {
-    background: $neutral-white;
+    background: $trans-pastel-pink;
+    color: $neutral-white;
   }
 
   // NextStream Bot

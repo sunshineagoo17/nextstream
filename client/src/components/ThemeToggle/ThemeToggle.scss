@@ -10,12 +10,8 @@
   outline: none;
   padding: .625rem;
   border-radius: 50%;
-  // display: none;
   transition: transform .3s ease-in-out;
-
-  // @include large-mobile {
-  //   display: block;
-  // }
+  z-index: 9999;
 
   .icon {
     @include block-item(1rem, 1rem);
