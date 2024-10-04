@@ -375,18 +375,39 @@
     color: $neutral-white;
   }
 
-  // Login Required
-  .login-required__content-card {
-    background: $primary-very-light-blue;
-  }
-
-  // Login Page
-  .login {
+  // Login and Register Page
+  .login, 
+  .register {
     background-color: $primary-darker-blue;
 
     &__title {
       color: $neutral-white;
     }
+
+    &__content-card {
+        @include transAnimateBorder;
+        @include transBorderAnimation;
+        background: $trans-gradient-deepblue-softpink;
+    }
+
+    &__image-card {
+        img {
+            border: .25rem solid $trans-frosted-glass-pink;
+        }
+    }
+  }
+
+  .register__signin-link,
+  .register__guest-signin-link {
+    background: $frosted-glass;
+    color: $trans-deep-blue;
+  }
+
+  .register__terms-link {
+    border: .0625rem solid $frosted-glass;
+    color: $neutral-white;
+    box-shadow: $shadow-primary;
+    padding: 0 .125rem 0 .125rem;
   }
 
   // NextSwipe
@@ -1016,7 +1037,8 @@
     }
   }
 
-  // 404, About, Login Required, Privacy Policy, T&C, Reset, Unsubscribe
+  // 404, About, Login Required, Privacy Policy, T&C, Reset, Search Results, Unsubscribe
+  .search-results,
   .reset-password,
   .unsubscribe-page,
   .login-required,
@@ -1076,6 +1098,18 @@
     }
   }
 
+  .auth-search-results {
+    &__content-card {
+        border: .375rem solid $trans-candy-pink;
+        background: $trans-gradient-darkblue-lightpink;
+    }
+
+    &__no-providers {
+        background: $trans-pastel-pink;
+        color: $neutral-black;
+    }
+  }
+
   .reset-password__label {
     background: $trans-candy-pink;
     color: $trans-deep-blue;
@@ -1084,6 +1118,30 @@
   .about__icon {
     background: $trans-pastel-pink;
     color: $neutral-white;
+  }
+
+  .search-results__pagination-circle {
+    background: rgba($trans-candy-pink, .7);
+    border: .0938rem solid $neutral-white;
+
+    &:hover {
+        background: $neutral-white;
+        color: trans-pink;
+    }
+
+    &.active {
+        background-color: $trans-blue;
+        box-shadow: 0 0 .25rem $trans-candy-pink;
+    }
+  }
+
+  .search-results__poster,
+  .search-results__link {
+    border-radius: 1rem;
+  }
+
+  .search-results__card-media-container {
+    background: $trans-gradient-electricblue-candypink;
   }
 
   .terms__nextstream-link {
