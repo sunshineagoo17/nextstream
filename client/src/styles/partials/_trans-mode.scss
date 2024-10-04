@@ -1016,7 +1016,11 @@
     }
   }
 
-  // T&C and Privacy Policy
+  // 404, About, Login Required, Privacy Policy, T&C, Reset, Unsubscribe
+  .reset-password,
+  .unsubscribe-page,
+  .login-required,
+  .not-found,
   .terms,
   .privacy,
   .about {
@@ -1035,6 +1039,9 @@
       }
     }
 
+    &__register-link,
+    &__login-link,
+    &__guest-link,
     &__link {
         border: .0625rem solid $neutral-white;
         color: $trans-deep-blue;
@@ -1060,6 +1067,25 @@
     }
   }
 
+  .login-required,
+  .reset-password,
+  .unsubscribe-page,
+  .not-found {
+    &__graphic {
+        border: .25rem solid $trans-frosted-glass-pink;
+    }
+  }
+
+  .reset-password__label {
+    background: $trans-candy-pink;
+    color: $trans-deep-blue;
+  }
+
+  .about__icon {
+    background: $trans-pastel-pink;
+    color: $neutral-white;
+  }
+
   .terms__nextstream-link {
     &:hover {
         background: $trans-pastel-pink;
@@ -1078,9 +1104,17 @@
     }
   }
 
-  .about__icon {
-    background: $trans-pastel-pink;
-    color: $neutral-white;
+  .reset-password__button,
+  .unsubscribe-page__button {
+    &:hover {
+        border: .125rem solid $trans-candy-pink;
+        color: $trans-candy-pink;
+    }
+
+    &:active {
+        color: $neutral-white;
+        border: .125rem solid $neutral-white;
+    }
   }
 
   // NextStream Bot

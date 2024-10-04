@@ -107,7 +107,7 @@ export const NotFound = () => {
                         <p className="not-found__intro">Looks like we've hit a snag!</p>
                         <p className="not-found__text">
                             {currentOption?.copy} Don't worry, you can find plenty of other awesome things to check out on our{" "}
-                            <button className="not-found__homepage-link" onClick={handleNextOptionClick} aria-label="Go back to Homepage">
+                            <button className="not-found__link" onClick={handleNextOptionClick} aria-label="Go back to Homepage">
                                 homepage.
                             </button>
                         </p>

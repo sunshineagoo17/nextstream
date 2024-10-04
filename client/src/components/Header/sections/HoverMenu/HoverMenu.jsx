@@ -55,12 +55,18 @@ const HoverMenu = () => {
       // Added regular expression to match the Spotlight page with dynamic segments
       new RegExp(`^/spotlight/${userId}/\\d+$`).test(location.pathname);
   
-    // Checks if dark mode is enabled by reading the 'data-theme' attribute
+    // Check if trans mode is enabled
+    const isTransModeEnabled = document.documentElement.getAttribute('data-theme') === 'trans-mode'; 
+    
     const isDarkModeEnabled = document.documentElement.getAttribute('data-theme') === 'dark';
-
+  
+    if (isTransModeEnabled) {
+      return 'trans-mode-background';
+    }
+  
     return isDarkBackgroundPage || isDarkModeEnabled ? 'dark-background' : '';
   };
-
+  
   return (
     <div ref={menuRef} className={`hover-menu__container ${getBackgroundClass()}`}>
       <button className="hover-menu__button" onClick={handleMenuClick}>

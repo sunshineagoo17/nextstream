@@ -7,7 +7,7 @@
 .hover-menu__container {
   position: absolute;
   top: 2.5rem;
-  left: 1.5rem; 
+  left: 1.5rem;
   transform: translateY(-50%);
   z-index: 1000;
 
@@ -140,6 +140,34 @@
 
       .hover-menu__lines span {
         background-color: $neutral-white;
+      }
+    }
+  }
+
+  // Trans Mode Background
+  &.trans-mode-background {
+    .hover-menu__content {
+      background: linear-gradient(45deg, $trans-light-blue, $trans-light-pink, $trans-white);
+      color: $primary-dark-blue;
+
+      .hover-menu__item {
+        color: $trans-deep-blue;
+
+        &:hover {
+          background: $trans-candy-pink;
+          border: .0625rem solid $trans-light-pink;
+          color: $trans-deep-blue;
+        }
+
+        &:active {
+          background: $trans-deep-blue;
+          color: $neutral-white;
+          border: .1875rem solid $trans-light-blue;
+        }
+      }
+
+      .hover-menu__lines span {
+        background-color: $trans-white;
       }
     }
   }
