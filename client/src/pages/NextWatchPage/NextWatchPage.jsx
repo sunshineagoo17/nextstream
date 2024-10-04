@@ -521,14 +521,14 @@ const NextWatchPage = () => {
                 alt={mediaData.title || mediaData.name || 'No Poster Available'}
                 className='nextwatch-page__poster'
               />
-              <div
+              <button
                 className='nextwatch-page__play-overlay'
                 onClick={handlePlayTrailer}>
                 <FontAwesomeIcon
                   icon={faPlay}
                   className='nextwatch-page__play-icon'
                 />
-              </div>
+              </button>
             </div>
 
             <div className='nextwatch-page__actions'>

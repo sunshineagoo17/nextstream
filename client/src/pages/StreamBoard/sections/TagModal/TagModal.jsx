@@ -18,7 +18,7 @@ const TagModal = ({ show, onClose, onSave, tags, mediaId, setAlert, onDelete }) 
       const tagArray = newTag.split(',').map(tag => tag.trim()); 
       onSave(tagArray); 
       setNewTag(''); 
-      setAlert({ type: 'success', message: 'Tags saved successfully!' });
+      setAlert({ type: 'success', message: 'Tag saved successfully!' });
       onClose();
     }
   };
@@ -27,7 +27,7 @@ const TagModal = ({ show, onClose, onSave, tags, mediaId, setAlert, onDelete }) 
     if (onDelete && mediaId) {
       onDelete(mediaId);  
       setNewTag('');
-      setAlert({ type: 'success', message: 'Tags deleted successfully!' });
+      setAlert({ type: 'success', message: 'Tag deleted successfully!' });
       onClose();
     }
   };

@@ -6,6 +6,34 @@
   // Background and text colors
   background-color: $primary-darker-blue;
   color: $neutral-white;
+  body, label {
+    cursor: url('../../assets/cursors/cursor-arrow-bl.svg'), auto;
+  }
+
+  /* Custom cursor for interactive elements */
+  button, a, .Link, img, [role="button"], [data-tooltip], [tabindex], input[type="checkbox"], input[type="text"], input[type="radio"], input[type="range"], input[type="button"], input[type="submit"], select, textarea {
+    cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
+  }
+
+  /* Ensure cursor changes on hover and active states */
+  button:hover, a:hover, .Link:hover, img:hover, [role="button"]:hover, [data-tooltip]:hover, [tabindex]:hover, input[type="checkbox"]:hover, input[type="text"]:hover, input[type="radio"]:hover, input[type="range"]:hover, input[type="button"]:hover, input[type="submit"]:hover, label:hover, select:hover, textarea:hover {
+    cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
+  }
+
+  /* Add for focus state if required */
+  button:focus, a:focus, .Link:focus, img:focus, [role="button"]:focus, [data-tooltip]:focus, [tabindex]:focus, input[type="checkbox"]:focus, input[type="text"]:focus, input[type="radio"]:focus, input[type="range"]:focus, input[type="button"]:focus, input[type="submit"]:focus, label:focus, select:focus, textarea:focus {
+    cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
+  }
+
+  /* Add for focus state if required */
+  input[type="text"]:active, input[type="text"]:valid, input[type="text"]:required, input[type="text"]:enabled {
+    cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
+  }
+
+  /* Dropdowns */
+  select, .dropdown, .ui-autocomplete, .browser-suggestion-list {
+    cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
+  }
 
   // Header styles
   .header {
@@ -48,12 +76,115 @@
     }
   }
 
+// Toggle Button Component
+.toggle-button {
+
+  &__switch {
+    cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
+  }
+}
+
+// Auth Search Results Page
+.auth-search-results {
+
+  &__pagination-circles { 
+    cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
+  }
+
+  &__card {
+    cursor: url('../../assets/cursors/cursor-arrow-bl.svg'), auto;
+  }
+}
+
+// Calendar Page 
+.share-event__title.neumorphic-text {
+  color: $neutral-white;
+}
+
+.modal {
+  .modal-input {
+    cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
+  }
+}
+
+.calendar__clear-icon {
+  &:hover {
+    color: $neutral-black;
+  }
+
+  &:active {
+    background: $primary-very-light-blue;
+    color: $primary-dark-blue;
+  }
+}
+
+.fc {
+  .fc-toolbar {
+    .fc-button-group {
+      .fc-button {
+        cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
+      }
+
+      &.fc-button-active {
+        cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
+
+        &:hover {
+          cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
+        }
+
+        &:active {
+          cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
+        }
+      }
+    }
+  }
+}
+
+  input {
+    cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
+  
+    svg {
+      cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
+    }
+  }
+  
+  input:hover {
+    cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
+  }
+  
+  input[type="datetime-local"] {
+    cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
+  }
+
+  input[type="datetime-local"]:focus {
+    cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
+  }
+  
+  input[type='datetime-local']::-webkit-calendar-picker-indicator {
+    cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
+  }
+
   // Friends List
   .friends-page {
     background: $primary-darker-blue-gradient;
 
     &__search-section {
       background: $container-purple;
+    }
+
+    &__chat-close {
+      background: $primary-medium-blue;
+      color: $neutral-white;
+
+      &:hover {
+        background: $neutral-white;
+        color: $primary-medium-blue;
+      }
+
+      &:active {
+        background: $frosted-glass;
+        color: $primary-cyan;
+      }
     }
 
     &__search {
@@ -166,6 +297,24 @@
     }
   }
 
+  // NextSwipe
+  .media-card__lightbulb-icon,
+  .media-card__type-icon,
+  .media-card__share-icon {
+    background: $primary-button-blue;
+    color: $neutral-white;
+
+    &:hover {
+      background: $neutral-white;
+      color: $primary-button-blue;
+    }
+
+    &:active {
+      background: $primary-dark-blue;
+      color: $neutral-white;
+    }
+  }
+
   // NextSearch
   .next-search {
     background: linear-gradient(
@@ -176,6 +325,20 @@
 
     &__title {
       background: $dark-mode-royal-blue;
+    }
+
+    &__eraser-icon {
+      &:hover {
+        color: $primary-button-blue;
+      }
+
+      &:active {
+        color: $neutral-white;
+      }
+    }
+
+    &__nav-arrow {
+      cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
     }
 
     &__copy {
@@ -293,6 +456,14 @@
     
     &__chat-container {
       background-color: $primary-dark-blue;
+    }
+
+    &__title--results {
+      color: $pastel-blue;
+    }
+
+    &__card {
+      background: $primary-dark-blue;
     }
 
     &__empty-message {
@@ -751,6 +922,18 @@
       background: $frosted-glass;
     }
 
+    &__clear-input {
+      color: $neutral-white;
+
+      &:hover {
+        color: $primary-button-blue;
+      }
+
+      &:active {
+        color: $primary-very-light-blue;
+      }
+    }
+
     &__empty-message {
       font-size: 0.65rem;
       font-weight: normal;
@@ -960,6 +1143,27 @@
     background: $frosted-glass;
   }
 
+  .faves-page__search-input {
+    background: $primary-very-light-blue;
+
+    &:hover {
+      background: none;
+    }
+
+    &:active {
+      background: $neutral-white;
+    }
+
+    &:focus {
+      background: $neutral-white;
+      color: $primary-dark-blue;
+    }
+  }
+
+  .faves-page__magnifying-glass-icon {
+    margin-left: .25rem;
+  }
+
   // Recommendations
   .top-picks-page__container {
     background: $dark-mode-deep-blue;
@@ -1060,6 +1264,29 @@
         border: .125rem solid $frosted-glass;
       }
     }
+  }
+
+  .content__page-nav-wrapper-next,
+  .content__page-nav-wrapper-previous {
+    cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
+  }
+
+  .content__card1-container,
+  .content__card2-container,
+  .content__card3-container,
+  .content__card4-container,
+  .content__card5-container,
+  .content__card6-container {
+    cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
+  }
+
+  .content__poster1,
+  .content__poster2,
+  .content__poster3,
+  .content__poster4,
+  .content__poster5,
+  .content__poster6 {
+    cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
   }
 
   // Button styles

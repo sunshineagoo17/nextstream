@@ -426,6 +426,7 @@ const NextSearch = () => {
               onClick={clearSearch}
               data-tooltip-id="closeTooltip"
               data-tooltip-content="Clear Search" 
+              className='next-search__eraser-icon'
             />
           </button>
         </div>
