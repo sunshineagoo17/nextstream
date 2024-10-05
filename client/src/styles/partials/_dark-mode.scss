@@ -373,8 +373,15 @@
     }
 
     &__cast,
+    &__known-for,
     &__title--popular {
       color: $primary-very-light-blue;
+
+      h4,
+      ul,
+      li {
+        color: $primary-very-light-blue;
+      }
     }
 
     &__sub-tabs {

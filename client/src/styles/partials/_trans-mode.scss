@@ -448,14 +448,12 @@
 
   // NextSearch
   .next-search {
-    background: linear-gradient(
-      135deg,
-      rgba($primary-button-dark-blue, 0.75),
-      rgba($base-darker-blue, 1)
-    );
+    border: .3125rem solid $trans-candy-pink;
+    background: $trans-black;
 
     &__title {
-      background: $dark-mode-royal-blue;
+      background: $trans-gradient-deepblue-softpink;
+      border: .1875rem solid $trans-candy-pink;
     }
 
     &__eraser-icon {
@@ -472,8 +470,9 @@
       cursor: url('../../assets/cursors/cursor-pointer-tm.svg'), pointer;
     }
 
+    &__sub-tabs,
     &__copy {
-      background: $frosted-glass;
+      background: $trans-black;
     }
 
     &__lightbulb-icon,
@@ -511,13 +510,20 @@
       background: $frosted-glass;
     }
 
+    &__scroll-container-popular {
+        border: .5rem solid $trans-electric-blue;
+    }
+
+    &__known-for,
     &__cast,
     &__title--popular {
       color: $primary-very-light-blue;
-    }
 
-    &__sub-tabs {
-      background: $primary-button-blue;
+      h4,
+      ul,
+      li {
+        color: $primary-very-light-blue;
+      }
     }
 
     &__sub-tab {
@@ -533,16 +539,55 @@
     }
 
     &__card {
-      background: $primary-medium-blue;
       border-color: $frosted-glass;
     }
 
     &__card--popular {
-      background: $primary-dark-blue;
+        background: $neutral-black;
+    }
+
+    &__card--results {
+        background: $neutral-black;
+        border: .1875rem solid $trans-frosted-pink;
     }
 
     &__tabs-container {
       background: $base-darker-blue;
+    }
+
+    &__popular-section {
+        border: .5rem solid $trans-black;
+    }
+
+    &__scroll-container-results {
+        border: .5rem solid $trans-black;
+    }
+
+    &__results-section {
+        &::before {
+            background: $trans-white;
+            color: $trans-electric-blue;
+            border: .15rem solid $trans-electric-blue;
+            border-bottom: .3rem solid $trans-electric-blue;
+        }
+    }
+
+    &__nav-arrow {
+        color: $trans-pastel-blue;
+        background: $trans-black;
+        border: .1875rem solid $trans-electric-blue;
+
+        &:hover {
+            background: $trans-pastel-blue;
+            color: $trans-electric-blue;
+            border: .1875rem solid $trans-black;
+        }
+
+        &:active {
+            background: $trans-candy-pink;
+            color: $trans-electric-blue;
+            border: .1875rem solid $trans-white;
+        }
     }
   }
 
@@ -1269,8 +1314,8 @@
     }
 
     &__text-wrapper {
-        background: $trans-pale-blue;
-        color: $trans-deep-blue;
+        background: $trans-black;
+        color: $trans-pastel-pink;
     }
 
     &__region-content,
