@@ -160,8 +160,40 @@
     }
   }
 
-  .modal-contact__submit-text {
-    color: $neutral-black;
+  // Modal Contact
+  .modal-contact {
+    &__submit-text {
+        color: $frosted-glass;
+    }
+
+    &__label-txtarea-txt,
+    &__label-txt {
+        background: $trans-black;
+        color: $trans-white;
+    }
+
+    &__label-container,
+    &__label-input,
+    &__label-txtarea {
+        border: .1875rem solid $trans-candy-pink;
+    }
+
+    &__submit-text,
+    &__close {
+        background: $trans-light-pink;
+        color: $trans-black;
+
+        &:hover {
+            background: $trans-black;
+            color: $trans-light-pink;
+            border: .125rem solid $trans-white;
+        }
+
+        &:active {
+            color: $trans-pastel-blue;
+            border: .125rem solid $trans-electric-blue;
+        }
+    }
   }
 
   .hover-menu__button {
