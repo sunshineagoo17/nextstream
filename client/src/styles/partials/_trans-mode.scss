@@ -162,15 +162,30 @@
 
 // Modal Contact
 .modal-contact {
+
+    &__container {
+        background: $trans-frosted-glass-blue;
+    }
+
     &__submit-text {
         color: $frosted-glass;
     }
 
+    &__label {
+        color: $trans-black;
+    }
+
     &__label-txtarea-txt,
     &__label-txt {
-        background: $trans-black;
-        color: $trans-light-pink;
+        background: $trans-frosted-glass-pink;
+        color: $trans-black;
         border: .1875rem solid $trans-white;
+    }
+
+    &__input,
+    &__txtarea {
+        background: $trans-frosted-blue;
+        box-shadow: $shadow-quaternary;
     }
 
     &__submit-text,
@@ -193,15 +208,25 @@
 
 // Forgot Password
 .modal-forgot-password {
+    &__container {
+        background: $trans-frosted-glass-blue;
+    }
 
     &__label {
         border: none;
+        box-shadow: none;
+        color: $trans-black;
     }
 
     &__label-txt {
-        background: $trans-black;
-        color: $trans-light-pink;
+        background: $trans-light-pink;
+        color: $trans-black;
         border: .1875rem solid $trans-white;
+    }
+
+    &__input {
+        background: $trans-frosted-blue;
+        box-shadow: $shadow-quaternary;
     }
 
     &__reset,
@@ -729,7 +754,12 @@
 
   // NextStream GPT
   .nextstream-gpt {
-    background: $base-darker-blue;
+    background: $trans-black;
+    border: .3125rem solid $trans-candy-pink;
+
+    &__title {
+        background: $trans-gradient-electricblue-candypink;
+    }
 
     &__chat-container {
       background-color: $primary-dark-blue;
@@ -737,6 +767,24 @@
 
     &__title--results {
       color: $pastel-blue;
+    }
+
+    &__nav-arrow {
+        color: $trans-pastel-blue;
+        background: $trans-black;
+        border: .1875rem solid $trans-candy-pink;
+
+        &:hover {
+            background: $trans-pastel-blue;
+            color: $trans-electric-blue;
+            border: .1875rem solid $trans-black;
+        }
+
+        &:active {
+            background: $trans-candy-pink;
+            color: $trans-electric-blue;
+            border: .1875rem solid $trans-white;
+        }
     }
 
     &__card {
@@ -747,10 +795,23 @@
       color: $robot-tablet-msg;
     }
 
+    &__chat-block,
+    &__chat-container {
+        background: $trans-black;
+    }
+
+    &__messages {
+        border: .25rem solid $robot-very-light-blue;
+    }
+
     &__copy {
       color: $primary-pale-blue;
-      background-color: $primary-medium-blue;
+      background-color: $trans-black;
       box-shadow: $shadow-senary;
+    }
+
+    &__card {
+        background: $trans-black;
     }
 
     &__gpt-icon-inline {
@@ -832,7 +893,7 @@
 
     &__input {
       background-color: $frosted-glass;
-      color: $primary-dark-blue;
+      color: $trans-soft-pink;
 
       &::placeholder {
         color: $neutral-light-grey;
@@ -851,7 +912,7 @@
     }
 
     &__typing-indicator-bubble {
-      background-color: $primary-button-blue;
+      background-color: $trans-soft-pink;
     }
 
     &__clear-chat-button {
@@ -987,6 +1048,10 @@
       }
     }
 
+    &__icons-row {
+        background: $trans-black;
+    }
+
     &__results-section {
       border: 0.5rem solid $frosted-glass;
       box-shadow: $shadow-quaternary;
@@ -997,7 +1062,7 @@
         font-size: 0.95rem;
         left: 50%;
         transform: translateX(-50%);
-        background: $primary-gradient-blue;
+        background: $trans-gradient-electricblue-candypink;
         color: $primary-pale-blue;
         box-shadow: $shadow-secondary;
         border: 0.15rem solid $neutral-white;
@@ -1005,9 +1070,28 @@
       }
     }
 
+    &__lightbulb-icon,
+    &__media-icon,
+    &__cal-icon,
+    &__share-icon,
+    &__like-icon,
+    &__dislike-icon {
+        color: $trans-frosted-blue;
+
+        &:hover {
+            background: $neutral-white;
+            color: $trans-candy-pink;
+        }
+
+        &:active {
+            background: $trans-soft-pink;
+            color: $trans-black;
+        }
+    }
+
     &__scroll-container-popular,
     &__scroll-container-results {
-      background: $primary-pale-blue;
+      background: $trans-black;
       scrollbar-color: $primary-medium-blue $primary-light-blue;
 
       /* Custom Scrollbar for WebKit Browsers */
@@ -1039,8 +1123,8 @@
     }
 
     &__scroll-container-results {
-      border: 0.5rem solid $primary-button-blue;
-      border-bottom: 1rem solid $primary-button-blue;
+      border: 0.5rem solid $trans-frosted-glass-blue;
+      border-bottom: 1rem solid $trans-frosted-glass-blue;
     }
 
     &__gradient-subtitle {
@@ -1071,38 +1155,6 @@
 
     &__clear-chat-icon {
       color: $neutral-white;
-    }
-
-    &__title {
-      box-shadow: 0.3125rem 0.3125rem 0.9375rem rgba($neutral-black, 0.2),
-        -0.3125rem -0.3125rem 0.9375rem rgba(255, 255, 255, 0.1);
-      border: 0.1875rem solid $neutral-white;
-      background: linear-gradient(
-        180deg,
-        $primary-medium-blue,
-        darken($primary-button-blue, 35%)
-      );
-
-      &::before {
-        @include block-item(100%, 100%);
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        background: linear-gradient(
-          90deg,
-          rgba(255, 255, 255, 0) 0%,
-          rgba(255, 255, 255, 0.4) 50%,
-          rgba(255, 255, 255, 0) 100%
-        );
-        transform: skewX(-25deg);
-        transition: left 1s;
-      }
-
-      &:hover::before {
-        left: 100%;
-        transition: left 1s;
-      }
     }
   }
 
@@ -1291,18 +1343,54 @@
 
   // NextStream Bot
   .nextstream-bot {
-    background: $base-darker-blue;
+    background: $trans-black;
+    border: .3125rem solid $trans-candy-pink;
 
     &__title {
-      background: $primary-dark-blue;
+        background: $trans-gradient-deepblue-softpink;
+        border: .1875rem solid $trans-candy-pink;
     }
 
     &__chat-block {
       background: $base-darker-blue;
     }
 
+    &__nav-arrow {
+        color: $trans-pastel-blue;
+        background: $trans-black;
+        border: .1875rem solid $trans-candy-pink;
+
+        &:hover {
+            background: $trans-pastel-blue;
+            color: $trans-electric-blue;
+            border: .1875rem solid $trans-black;
+        }
+
+        &:active {
+            background: $trans-candy-pink;
+            color: $trans-electric-blue;
+            border: .1875rem solid $trans-white;
+        }
+    }
+
+    &__copy,
+    &__card--results,
+    &__scroll-container-results {
+        background: $trans-black;
+    }
+
+    &__title--results {
+        background: $primary-pale-blue;
+        color: $primary-button-blue;
+    }
+
     &__chat-container {
       background: $frosted-glass;
+    }
+
+    &__messages {
+        background: $trans-black;
+        border: .25rem solid $trans-electric-blue;
     }
 
     &__clear-input {

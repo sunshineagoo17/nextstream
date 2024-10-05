@@ -1220,6 +1220,9 @@
       background: $neutral-white;
       border: .1875rem solid $primary-gradient-blue;
       box-shadow: $shadow-senary;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
     &--results {
