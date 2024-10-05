@@ -322,7 +322,6 @@
     font-weight: bold;
     font-size: 1rem;
     gap: .25rem;
-    font-size: 1.5rem;
     color: $primary-button-blue;
     text-shadow: 0 .125rem .25rem rgba(0, 0, 0, .2);
     margin-bottom: .25rem;
@@ -345,6 +344,7 @@
     background-color: $primary-medium-blue;
     border-radius: .35rem;
     color: $neutral-white;
+    margin-left: .25rem;
     box-shadow: $shadow-primary;
   }
 

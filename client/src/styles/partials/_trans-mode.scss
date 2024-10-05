@@ -1418,13 +1418,76 @@
     }
   }
 
-  // NextView Page
-  .nextview-page__title,
-  .nextview-page__genre-icon,
-  .nextview-page__streaming-copy,
-  .nextview-page__cast-copy {
-    color: $neutral-white;
-  }
+// NextView Page
+.nextview-page {
+background: $trans-black;
+
+    &__media-icon {
+        color: $trans-candy-pink;
+    }
+
+    &__cast-character,
+    &__no-streaming-services,
+    &__genre-item {
+        color: $trans-pastel-pink;
+    }
+
+    &__nextwatch-link,
+    &__calendar-button,
+    &__share-button,
+    &__thumbs-up,
+    &__thumbs-down {
+        color: $trans-pastel-pink;
+
+        &:active {
+            background: $trans-black;
+            border: .1875rem solid $trans-white;
+        }
+    }
+
+    &__cast-container,
+    &__streaming,
+    &__details-container,
+    &__poster-container,
+    &__content {
+        border: .3125rem solid $trans-soft-pink;
+    }
+
+    &__certification {
+        background: $trans-pastel-pink;
+        color: $trans-black;
+    }
+
+    &__heading-container {
+        background: $trans-gradient-electricblue-candypink;
+    }
+
+    &__copy {
+        background: $trans-frosted-blue;
+        color: $trans-deep-blue;
+    }
+
+    &__cast-name,
+    &__title,
+    &__genre-icon,
+    &__streaming-copy,
+    &__cast-copy {
+        color: $neutral-white;
+    }
+
+    &__cast-card {
+        background: $trans-black;
+    }
+
+    &__nextwatch-link {
+        color: $trans-white;
+    }
+
+    &__nextwatch-icon {
+        color: $trans-candy-pink;
+    }
+    
+}
 
   // Profile
   .profile-img {
