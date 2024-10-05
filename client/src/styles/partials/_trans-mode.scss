@@ -676,24 +676,78 @@
   }
 
   // Spotlight
-  .spotlight-page__person-name {
-    color: $primary-medium-blue;
-  }
+  .spotlight-page {
+    background: $trans-black;
+  
+    &__heading-container {
+        background: $trans-gradient-electricblue-candypink;
+    }
 
-  .spotlight-page__person-bio {
-    color: $primary-very-light-blue;
-    background: $primary-medium-blue;
-  }
+    &__person-name {
+        color: $primary-medium-blue;
+    }
 
-  .spotlight-page__info-txt {
-    color: $dark-mode-royal-blue;
-  }
+    &__copy {
+        background: $trans-frosted-blue;
+        color: $trans-deep-blue;
+    }
 
-  .spotlight-page__personal-info-icon {
-    color: $primary-very-light-blue;
+    &__image-container,
+    &__content {
+        border: .3125rem solid $trans-candy-pink;
+    }
 
-    &:hover {
-      color: $neutral-white;
+    &__filmography-title {
+        color: $trans-pastel-pink;
+    }
+
+    &__credit-title {
+        background: $trans-black;
+    }
+
+    &__person-bio {
+        color: $primary-very-light-blue;
+        background: $primary-medium-blue;
+    }
+
+    &__info-txt,
+    &__person-name {
+        color: $neutral-white;
+    }
+
+    &__person-bio {
+        background: $trans-black;
+        color: $trans-pastel-pink;
+    }
+    
+    &__filmography-container,
+    &__info-container {
+        background: $trans-soft-pink;
+    }
+
+    &__read-more {
+        color: $trans-white;
+
+        &:hover,
+        &:focus {
+            background-color: $trans-soft-pink;
+            border: .0625rem solid $primary-dark-blue;
+            color: $trans-black;
+        }
+    
+        &:active {
+          background-color: $trans-pastel-pink;
+          border: .125rem solid $neutral-white;
+        }
+    
+    }
+
+    &__personal-info-icon {
+        color: $primary-very-light-blue;
+
+        &:hover {
+            color: $neutral-white;
+        }
     }
   }
 

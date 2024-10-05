@@ -221,7 +221,7 @@ const SpotlightPage = () => {
                                                     className="spotlight-page__credit-poster"
                                                 />
                                                 <div className="spotlight-page__credit-title">
-                                                    <span>{credit.title || credit.name}</span>
+                                                    <span className='spotlight-page__filmography-title'>{credit.title || credit.name}</span>
                                                 </div>
                                             </Link>
                                         </div>
