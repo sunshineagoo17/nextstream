@@ -947,11 +947,18 @@
   }
 
   // NextView Page
-  .nextview-page__title,
-  .nextview-page__genre-icon,
-  .nextview-page__streaming-copy,
-  .nextview-page__cast-copy {
-    color: $neutral-white;
+  .nextview-page {
+
+    &__genre-icon,
+    &__cast-copy,
+    &__streaming-copy,
+    &__title {
+      color: $neutral-white;
+    }
+
+    &__cast-item {
+      cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
+    }
   }
 
   // Profile
@@ -996,6 +1003,13 @@
     &__heading-container {
       background: $dark-mode-royal-blue;
       border-color: $frosted-glass;
+    }
+
+    &__similar-card,
+    &__recommendations-card,
+    &__recommendations-rating,
+    &__similar-rating {
+        cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
     }
 
     &__media-type,

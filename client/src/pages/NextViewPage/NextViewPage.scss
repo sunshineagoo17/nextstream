@@ -668,6 +668,7 @@
     width: 6rem;
     max-width: 7rem;
     transition: transform .3s ease;
+    cursor: url('../../assets/cursors/cursor-pointer-wh.svg'), pointer;
 
     &:active {
       transform: scale(.9);

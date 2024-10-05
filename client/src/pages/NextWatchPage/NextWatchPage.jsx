@@ -639,7 +639,7 @@ const NextWatchPage = () => {
                                 {item.title || item.name}
                               </div>
                               <div className='nextwatch-page__recommendations-rating'>
-                                <FontAwesomeIcon icon={faStar} />{' '}
+                                <FontAwesomeIcon icon={faStar} className='nextwatch-page__star-rating-icon' />{' '}
                                 {item.vote_average} / 10
                               </div>
                             </div>
@@ -719,7 +719,7 @@ const NextWatchPage = () => {
                                 {item.title || item.name}
                               </div>
                               <div className='nextwatch-page__similar-rating'>
-                                <FontAwesomeIcon icon={faStar} />{' '}
+                                <FontAwesomeIcon icon={faStar} className='nextwatch-page__star-rating-icon' />{' '}
                                 {item.vote_average} / 10
                               </div>
                             </div>

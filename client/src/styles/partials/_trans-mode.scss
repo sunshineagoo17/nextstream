@@ -1480,6 +1480,10 @@ background: $trans-black;
         color: $trans-candy-pink;
     }
 
+    &__cast-item {
+        cursor: url('../../assets/cursors/cursor-pointer-tm.svg'), pointer;
+    }
+
     &__cast-character,
     &__no-streaming-services,
     &__genre-item {
@@ -1620,13 +1624,71 @@ background: $trans-black;
 
   // NextWatch
   .nextwatch-page {
+    background: $trans-black;
+
     &__title {
       color: $neutral-white;
     }
 
+    &__duration,
+    &__rating,
+    &__genre-item {
+        background: $trans-black;
+        color: $neutral-white;
+    }
+
+    &__copy {
+        background: $trans-frosted-glass-blue;
+        color: $trans-deep-blue;
+    }
+
+    &__media-copy {
+        background: $trans-black;
+    }
+
+    &__similar-rating,
+    &__recommendations-rating {
+        color: $trans-pastel-blue;
+    }
+
+    &__star-icon,
+    &__star-rating-icon,
+    &__genre-icon {
+        color: $trans-soft-pink;
+    }
+
+    &__similar-name,
+    &__recommendations-name {
+        color: $neutral-white;
+    }
+
+    &__similar-copy-container,
+    &__recommendations-copy-container {
+        background: $trans-black;
+    }
+
     &__heading-container {
-      background: $dark-mode-royal-blue;
+      background: $trans-gradient-electricblue-candypink;
       border-color: $frosted-glass;
+    }
+
+    &__poster-container,
+    &__recommendations-container,
+    &__similar-container,
+    &__details-container,
+    &__content {
+        border: .3125rem solid $trans-candy-pink;
+    }
+
+    &__similar-card,
+    &__recommendations-card,
+    &__recommendations-rating,
+    &__similar-rating {
+        cursor: url('../../assets/cursors/cursor-pointer-tm.svg'), pointer;
+    }
+
+    &__no-similar-media {
+        color: $trans-white;
     }
 
     &__media-type,
