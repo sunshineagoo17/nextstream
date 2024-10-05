@@ -167,6 +167,11 @@
     margin-bottom: 1.5rem;
   }
 
+  &__label {
+    display: flex;
+    justify-content: center;
+  }
+
   &__form {
     display: flex;
     flex-direction: column;

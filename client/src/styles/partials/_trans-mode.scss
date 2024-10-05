@@ -160,8 +160,8 @@
     }
   }
 
-  // Modal Contact
-  .modal-contact {
+// Modal Contact
+.modal-contact {
     &__submit-text {
         color: $frosted-glass;
     }
@@ -169,13 +169,8 @@
     &__label-txtarea-txt,
     &__label-txt {
         background: $trans-black;
-        color: $trans-white;
-    }
-
-    &__label-container,
-    &__label-input,
-    &__label-txtarea {
-        border: .1875rem solid $trans-candy-pink;
+        color: $trans-light-pink;
+        border: .1875rem solid $trans-white;
     }
 
     &__submit-text,
@@ -194,11 +189,43 @@
             border: .125rem solid $trans-electric-blue;
         }
     }
-  }
+}
 
-  .hover-menu__button {
+// Forgot Password
+.modal-forgot-password {
+
+    &__label {
+        border: none;
+    }
+
+    &__label-txt {
+        background: $trans-black;
+        color: $trans-light-pink;
+        border: .1875rem solid $trans-white;
+    }
+
+    &__reset,
+    &__close {
+        background: $trans-light-pink;
+        color: $trans-black;
+
+        &:hover {
+            background: $trans-black;
+            color: $trans-light-pink;
+            border: .125rem solid $trans-white;
+        }
+
+        &:active {
+            color: $trans-pastel-blue;
+            border: .125rem solid $trans-electric-blue;
+        }
+    }
+}
+
+// Hover Menu
+.hover-menu__button {
     background: $trans-soft-pink;
-  }
+}
 
   input,
   textarea {
@@ -1077,15 +1104,6 @@
         transition: left 1s;
       }
     }
-  }
-
-  // Forgot Password Modal
-  .modal-forgot-password__input {
-    color: $neutral-white;
-  }
-
-  .modal-forgot-password__reset {
-    color: $primary-dark-blue;
   }
 
   // Register Page
