@@ -378,7 +378,24 @@
 
   // Friends List
   .friends-page {
-    background: $primary-darker-blue-gradient;
+    background: $trans-black;
+
+    &__heading-container {
+        border: .3125rem solid $trans-candy-pink;
+    }
+
+    &__copy {
+        background: $trans-gradient-electricblue-candypink;
+        color: $trans-white;
+    }
+
+    &__video-container {
+        background: $trans-black;
+    }
+
+    &__messages {
+        background: $trans-black;
+    }
 
     &__search-section {
       background: $container-purple;
@@ -407,6 +424,11 @@
       background: $container-pink;
     }
 
+    &__container--bottom,
+    &__container {
+        border: .25rem solid $trans-candy-pink;
+    }
+
     &__list {
       background: $container-teal;
     }
@@ -417,11 +439,6 @@
 
     &__shared-calendar {
       background: $container-green;
-    }
-
-    &__copy {
-      color: $neutral-white;
-      background: $primary-button-dark-blue;
     }
 
     &__chat {
@@ -454,6 +471,10 @@
     &__pending-calendar__pending-item {
       background: $primary-light-blue;
     }
+  }
+
+  .emoji-picker {
+    background: $trans-black;
   }
 
   // Calendar Page
@@ -1715,7 +1736,7 @@ background: $trans-black;
 
   // Top Picks
   .recommendations-page {
-    background: $primary-darker-blue;
+    background: $trans-black;
     margin: 0;
 
     @include desktop {
@@ -1856,23 +1877,55 @@ background: $trans-black;
     margin-left: 0.25rem;
   }
 
-  // Recommendations
-  .top-picks-page__container {
-    background: $dark-mode-deep-blue;
-  }
+// NextSwipe
+.top-picks-page {
+  
+    &__container {
+        background: $trans-black;
+        border: .35rem solid $trans-candy-pink;
+    }
 
-  .top-picks-page__media-card {
-    background: $frosted-glass;
-  }
+    &__media-card {
+        background: $frosted-glass;
+    }
 
-  .media-card__details {
-    background: $primary-very-light-blue;
-    border-radius: 0 0 0.5rem 0.5rem;
-  }
+    &__title-container {
+        background: $trans-gradient-electricblue-candypink;
+    }
 
-  .media-card__image {
-    background: $primary-very-light-blue;
-    border-radius: 0.5rem 0.5rem 0 0;
+    &__nav-button {
+        background: $trans-black;
+        color: $neutral-white;
+
+        &:hover {
+            color: $neutral-white;
+            background: $trans-candy-pink;
+        }
+
+        &:active {
+            color: $neutral-black;
+            background: $trans-soft-pink;
+        }
+    }
+}
+
+  .media-card {
+    &__details {
+        background: $trans-frosted-glass-blue;
+        border-radius: 0 0 0.5rem 0.5rem;
+    }
+
+    &__lightbulb-icon,
+    &__share-icon,
+    &__type-icon {
+        background: $trans-pastel-pink;
+        color: $trans-black;
+    }
+
+    &__image {
+        background: $primary-very-light-blue;
+        border-radius: 0.5rem 0.5rem 0 0;
+    }
   }
 
   // Trans Mode Homepage
