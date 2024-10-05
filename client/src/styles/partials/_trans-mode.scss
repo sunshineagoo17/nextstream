@@ -194,9 +194,36 @@
 
     &__card {
       cursor: url('../../assets/cursors/cursor-arrow-tm.svg'), auto;
+      background: $trans-black;
+    }
+
+    &__content-card {
+        border: .375rem solid $trans-candy-pink;
+        background: $trans-gradient-darkblue-lightpink;
+    }
+
+    &__page-nav-wrapper {
+        background: $trans-electric-blue;
+        border: .125rem solid $neutral-white;
+
+        &:hover {
+            background: $trans-candy-pink;
+            border: none;
+        }
+
+        &:focus,
+        &:visited,
+        &:active {
+            border: .125rem solid $neutral-white;
+        }
+    }
+
+    &__no-providers {
+        background: $trans-electric-blue;
+        color: $neutral-white;
     }
   }
-  
+
   // Calendar Page
   .share-event__title.neumorphic-text {
     color: $neutral-white;
@@ -381,7 +408,7 @@
     background-color: $primary-darker-blue;
 
     &__title {
-      color: $neutral-white;
+      color: $trans-candy-pink;
     }
 
     &__content-card {
@@ -395,19 +422,10 @@
             border: .25rem solid $trans-frosted-glass-pink;
         }
     }
-  }
 
-  .register__signin-link,
-  .register__guest-signin-link {
-    background: $frosted-glass;
-    color: $trans-deep-blue;
-  }
-
-  .register__terms-link {
-    border: .0625rem solid $frosted-glass;
-    color: $neutral-white;
-    box-shadow: $shadow-primary;
-    padding: 0 .125rem 0 .125rem;
+    &__container {
+        background: $trans-black;
+    }
   }
 
   // NextSwipe
@@ -1001,14 +1019,14 @@
       background-image: none;
     }
 
+    &__terms-txt,
     &__account-available,
     &__guest-text {
       color: $primary-very-light-blue;
     }
 
-    &__title,
-    &__terms-txt {
-      color: $neutral-white;
+    &__title {
+        color: $trans-candy-pink;
     }
 
     &__oauth-btn-google,
@@ -1033,10 +1051,23 @@
     }
 
     &__container {
-      background: $primary-dark-blue;
+        background: $trans-black;
+      }
+    
+    &__signin-link,
+    &__guest-signin-link {
+        background: $frosted-glass;
+        color: $neutral-white;
+      }
+    
+    &__terms-link {
+        border: .0625rem solid $frosted-glass;
+        color: $neutral-white;
+        box-shadow: $shadow-primary;
+        padding: 0 .125rem 0 .125rem;
     }
   }
-
+  
   // 404, About, Login Required, Privacy Policy, T&C, Reset, Search Results, Unsubscribe
   .search-results,
   .reset-password,
@@ -1046,7 +1077,7 @@
   .terms,
   .privacy,
   .about {
-    background-color: $neutral-black;
+    background-color: $trans-black;
 
     &__content-card {
       background-color: $trans-frosted-blue;
@@ -1095,18 +1126,6 @@
   .not-found {
     &__graphic {
         border: .25rem solid $trans-frosted-glass-pink;
-    }
-  }
-
-  .auth-search-results {
-    &__content-card {
-        border: .375rem solid $trans-candy-pink;
-        background: $trans-gradient-darkblue-lightpink;
-    }
-
-    &__no-providers {
-        background: $trans-pastel-pink;
-        color: $neutral-black;
     }
   }
 
@@ -1226,34 +1245,77 @@
 
   // Profile
   .profile-img {
+    border: .25rem solid $trans-pastel-pink;
+
     &::before {
       background: none;
+    }
+
+    &__button {
+        background: $trans-candy-pink;
     }
   }
 
   .profile {
-    background: $primary-darker-blue;
+    background: $trans-black;
 
     &__main {
-      background: $primary-dark-blue;
+        background: $neutral-black;
+        border: none;
     }
 
     &__title {
-      color: $primary-pale-blue;
+      color: $trans-pastel-pink;
+    }
+
+    &__text-wrapper {
+        background: $trans-pale-blue;
+        color: $trans-deep-blue;
+    }
+
+    &__region-content,
+    &__subscription-status-wrapper,
+    &__notifications-content,
+    &__password-content,
+    &__details-content {
+        background: $trans-frosted-blue;
     }
 
     &__content-details,
     &__content-password,
     &__content-notifications,
     &__content-subscription-container,
-    &__content-region,
-    &__dropdown {
-      background-color: $primary-button-dark-blue;
+    &__content-region {
+      background: $trans-gradient-darkblue-lightpink;
     }
 
     &__dropdown {
-      color: $neutral-white;
+        background: $trans-electric-blue;
+        color: $trans-pastel-pink;
     }
+
+    &__btn-save-account {
+        background: $trans-pastel-pink;
+
+        &:active {
+            background: $trans-pastel-blue;
+        }
+    }
+
+    &__btn-save-account-txt {
+        color: $trans-deep-blue;
+    }
+
+    &__input {
+        &:valid {
+            background: $frosted-glass;
+            color: $trans-electric-blue;
+        }
+    }
+  }
+
+  .subscription-status {
+    background: none;
   }
 
   // NextWatch
