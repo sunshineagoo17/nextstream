@@ -1866,43 +1866,104 @@ background: $trans-black;
   }
 
   // Faves
-  .faves-page__title,
-  .faves-page__search-bar-container {
-    background: $primary-darker-blue-gradient;
-  }
+  .faves-page {
+  background: $trans-black;
 
-  .faves-page__search-input {
-    border-radius: 1.25rem;
-    color: $neutral-white;
-  }
-
-  .faves-page__copy-container {
-    background: $dark-mode-royal-blue;
-  }
-
-  .faves-page__filters-container {
-    background: $frosted-glass;
-  }
-
-  .faves-page__search-input {
-    background: $primary-very-light-blue;
-
-    &:hover {
-      background: none;
+    &__title,
+    &__search-bar-container {
+        background: $trans-gradient-electricblue-candypink;
     }
 
-    &:active {
-      background: $neutral-white;
+    &__search-input {
+        border-radius: 1.25rem;
+        color: $neutral-white;
     }
 
-    &:focus {
-      background: $neutral-white;
-      color: $primary-dark-blue;
+    &__copy-container {
+        background: $trans-black;
+        border: .3125rem solid $trans-electric-blue;
     }
-  }
 
-  .faves-page__magnifying-glass-icon {
-    margin-left: 0.25rem;
+    &__copy-header {
+        color: $trans-soft-pink;
+    }
+
+    &__card {
+        background: $trans-frosted-glass-blue;
+    }
+
+    &__filter-card {
+        background: $trans-frosted-glass-blue;
+        border: .15rem solid $trans-electric-blue;
+        border-bottom: .3rem solid $trans-electric-blue;
+    }
+
+    &__filter-label {
+        border: .0325rem solid $trans-candy-pink;
+        border-bottom: .15rem solid $trans-candy-pink
+    }
+
+    &__play-icon,
+    &__load-descript,
+    &__lightbulb-icon,
+    &__status-icon,
+    &__media-icon-link,
+    &__search-icon,
+    &__share-icon,
+    &__cal-icon,
+    &__lock-icon,
+    &__trash-icon {
+      color: $trans-pink;
+    }
+
+    &__copy {
+        color: $trans-white;
+    }
+
+    &__no-faves-container,
+    &__filters-container {
+        background: $frosted-glass;
+        border: .3125rem solid $trans-frosted-glass-pink;
+    }
+
+    &__filter-icon {
+        background: $trans-black;
+        color: $trans-candy-pink;
+    }
+
+    &__search-bar,
+    &__search-input {
+        background: $trans-black;
+
+        &:hover {
+        background: none;
+        }
+
+        &:focus {
+        color: $primary-dark-blue;
+        }
+    }
+
+    &__search-bar {
+        border: .25rem solid $trans-candy-pink;
+    }
+
+    &__magnifying-glass-icon {
+        margin-left: 0.25rem;
+    }
+
+    &__magnifying-glass-icon,
+    &__clear-icon {
+        color: $trans-soft-pink;
+
+        &:hover {
+            color: $trans-deep-blue;
+        }
+
+        &:active {
+            color: $neutral-white;
+        }
+    }
   }
 
 // NextSwipe
