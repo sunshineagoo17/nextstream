@@ -285,42 +285,42 @@ const TopPicksPage = () => {
   };
 
   return (
-    <div className="recommendations-page">
+    <div className="top-picks-page">
       <LightBlobBg />
-      <div className="recommendations-page__header-container">
-        <h1 className="recommendations-page__title">
+      <div className="top-picks-page__header-container">
+        <h1 className="top-picks-page__title">
             {name ? `${name}'s Top Picks` : 'Your Top Picks'}
         </h1>
-        <h2 className="recommendations-page__copy">
+        <h2 className="top-picks-page__copy">
           Explore personalized movie and show picks. Like or dislike media, watch trailers, add events to your calendar, and share your favourites with friends!
         </h2>
       </div>
-      <div className="recommendations-page__content">
+      <div className="top-picks-page__content">
         {alert && <CustomAlerts message={alert.message} type={alert.type} onClose={() => setAlert(null)} />}
         {isLoading && media.length === 0 ? (
-          <div className="recommendations-page__loading-container">
-            <img src={ProgressSVG} alt="Loading..." className="recommendations-page__loading-svg" />
-            <p className="recommendations-page__text--center">Media is currently loading...</p>
+          <div className="top-picks-page__loading-container">
+            <img src={ProgressSVG} alt="Loading..." className="top-picks-page__loading-svg" />
+            <p className="top-picks-page__text--center">Media is currently loading...</p>
             <Loader />
           </div>
         ) : (
           <>
-            <div className="recommendations-page__grid">
+            <div className="top-picks-page__grid">
               {media.slice(0, isExpanded ? media.length : 8).map((item) => (
-                <div key={`${item.id}-${item.media_type}`} className="recommendations-page__card">
-                  <div className="recommendations-page__poster-container">
+                <div key={`${item.id}-${item.media_type}`} className="top-picks-page__card">
+                  <div className="top-picks-page__poster-container">
                     <img
                       src={item.poster_path ? `https://image.tmdb.org/t/p/w500${item.poster_path}` : DefaultPoster}
                       alt={item.title}
-                      className="recommendations-page__poster"
+                      className="top-picks-page__poster"
                     />
-                    <button className="recommendations-page__play-overlay" onClick={() => handlePlayTrailer(item.id, item.media_type)}>
-                      <FontAwesomeIcon icon={faPlay} className="recommendations-page__play-icon" />
+                    <button className="top-picks-page__play-overlay" onClick={() => handlePlayTrailer(item.id, item.media_type)}>
+                      <FontAwesomeIcon icon={faPlay} className="top-picks-page__play-icon" />
                     </button>
                   </div>
-                  <h2 className="recommendations-page__subtitle">{item.title || item.name || 'Title: N/A'}</h2>
-                  <UserRating rating={(item.vote_average || 0) * 10} className="recommendations-page__rating-icon" />
-                  <p className="recommendations-page__media-icon">
+                  <h2 className="top-picks-page__subtitle">{item.title || item.name || 'Title: N/A'}</h2>
+                  <UserRating rating={(item.vote_average || 0) * 10} className="top-picks-page__rating-icon" />
+                  <p className="top-picks-page__media-icon">
                   <Link 
                       to={`/nextview/${userId}/${item.media_type}/${item.id}`} 
                       onClick={handleClick}
@@ -328,7 +328,7 @@ const TopPicksPage = () => {
                     >
                       <FontAwesomeIcon
                         icon={item.media_type === 'tv' ? faTv : faFilm}
-                        className="recommendations-page__media-icon-link"
+                        className="top-picks-page__media-icon-link"
                         data-tooltip-id="mediaTooltip"
                         data-tooltip-content="More Info"
                       />
@@ -340,7 +340,7 @@ const TopPicksPage = () => {
                     >
                       <FontAwesomeIcon
                         icon={faLightbulb}
-                        className="recommendations-page__lightbulb-icon"
+                        className="top-picks-page__lightbulb-icon"
                         data-tooltip-id="lightbulbTooltip"
                         data-tooltip-content="Discover More"
                       />
@@ -349,7 +349,7 @@ const TopPicksPage = () => {
                       <FontAwesomeIcon
                         icon={faCalendarPlus}
                         onClick={() => handleAddToCalendar(item.title, item.media_type, item.id)}
-                        className="recommendations-page__cal-icon"
+                        className="top-picks-page__cal-icon"
                         data-tooltip-id="calTooltip"
                         data-tooltip-content="Add to Calendar"
                       />
@@ -357,7 +357,7 @@ const TopPicksPage = () => {
                     <button>
                       <FontAwesomeIcon
                         icon={faThumbsUp}
-                        className={`recommendations-page__like-icon ${likedStatus[item.id] === 'liked' ? 'active' : ''}`}
+                        className={`top-picks-page__like-icon ${likedStatus[item.id] === 'liked' ? 'active' : ''}`}
                         data-tooltip-id="likeTooltip"
                         data-tooltip-content="Like"
                         onClick={() => handleLike(item.id, item.media_type)}
@@ -368,7 +368,7 @@ const TopPicksPage = () => {
                       <button>
                         <FontAwesomeIcon
                           icon={faThumbsDown}
-                          className={`recommendations-page__dislike-icon ${likedStatus[item.id] === 'disliked' ? 'active' : ''}`}
+                          className={`top-picks-page__dislike-icon ${likedStatus[item.id] === 'disliked' ? 'active' : ''}`}
                           data-tooltip-id="dislikeTooltip"
                           data-tooltip-content="Dislike"
                           onClick={() => handleDislike(item.id, item.media_type)}
@@ -379,31 +379,31 @@ const TopPicksPage = () => {
                     <button>
                       <FontAwesomeIcon
                           icon={faShareAlt}
-                          className="recommendations-page__share-icon"
+                          className="top-picks-page__share-icon"
                           data-tooltip-id="shareIconTooltip"
                           data-tooltip-content="Share"
                           onClick={() => handleShare(item.title || item.name, item.id, item.media_type)}
                       />
                     </button>
                   </p>
-                  <p className="recommendations-page__text">
+                  <p className="top-picks-page__text">
                     Genre: {Array.isArray(item.genres) && item.genres.length > 0 ? item.genres.map((genre) => genre.name || genre).join(', ') : 'N/A'}
                   </p>
-                  <p className={`recommendations-page__description ${showFullDescription[item.id] ? 'recommendations-page__description--expanded' : ''}`}>
+                  <p className={`top-picks-page__description ${showFullDescription[item.id] ? 'top-picks-page__description--expanded' : ''}`}>
                     Description: {item.overview || 'Unavailable'}
                   </p>
-                  <button className="recommendations-page__more-button" onClick={() => handleShowMore(item.id)}>
-                    <FontAwesomeIcon icon={showFullDescription[item.id] ? faChevronCircleUp : faChevronCircleDown} className="recommendations-page__load-descript" />
+                  <button className="top-picks-page__more-button" onClick={() => handleShowMore(item.id)}>
+                    <FontAwesomeIcon icon={showFullDescription[item.id] ? faChevronCircleUp : faChevronCircleDown} className="top-picks-page__load-descript" />
                   </button>
                 </div>
               ))}
             </div>
-            <div className="recommendations-page__action-buttons">
-              <button className="recommendations-page__fetch-more" onClick={fetchRecommendations}>
+            <div className="top-picks-page__action-buttons">
+              <button className="top-picks-page__fetch-more" onClick={fetchRecommendations}>
                 <FontAwesomeIcon icon={faPlus} /> Fetch More
               </button>
               {hasFetched && (
-                <button className="recommendations-page__toggle" onClick={toggleRecommendations}>
+                <button className="top-picks-page__toggle" onClick={toggleRecommendations}>
                   <FontAwesomeIcon icon={isExpanded ? faChevronUp : faChevronDown} /> {isExpanded ? 'Hide Cards' : 'Show Cards'}
                 </button>
               )}
@@ -411,14 +411,14 @@ const TopPicksPage = () => {
           </>
         )}
         {isFetchingMore && (
-          <div className="recommendations-page__loading-overlay">
+          <div className="top-picks-page__loading-overlay">
             <Loader />
           </div>
         )}
         {isModalOpen && (
-          <div className="recommendations-page__modal">
-            <div className="recommendations-page__modal-content">
-              <button className="recommendations-page__modal-content-close" onClick={closeModal}>
+          <div className="top-picks-page__modal">
+            <div className="top-picks-page__modal-content">
+              <button className="top-picks-page__modal-content-close" onClick={closeModal}>
                 <FontAwesomeIcon icon={faTimes} />
               </button>
               {isLoading ? (
@@ -437,9 +437,9 @@ const TopPicksPage = () => {
           </div>
         )}
         {showCalendar && (
-          <div className="recommendations-page__calendar-modal">
-            <button className="recommendations-page__calendar-close-btn" onClick={handleCloseCalendar}>
-              <FontAwesomeIcon icon={faTimes} className="recommendations-page__close-icon" />
+          <div className="top-picks-page__calendar-modal">
+            <button className="top-picks-page__calendar-close-btn" onClick={handleCloseCalendar}>
+              <FontAwesomeIcon icon={faTimes} className="top-picks-page__close-icon" />
             </button>
             <Calendar
               userId={userId}

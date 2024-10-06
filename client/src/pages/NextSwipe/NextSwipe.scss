@@ -4,7 +4,7 @@
 @use "../../styles/partials/mixins" as *;
 @use "../../styles/global.scss" as *;
 
-.top-picks-page {
+.nextswipe-page {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -84,7 +84,7 @@
     animation: swipeAnimation 7s ease-in-out infinite;
     opacity: .8;
 
-    & .top-picks-page__swipe-icon {
+    & .nextswipe-page__swipe-icon {
       font-size: 2.5rem;
       color: $neutral-white;
     }
@@ -295,11 +295,11 @@
         color: $primary-very-light-blue;
       }
 
-      &.top-picks-page__nav-button--left {
+      &.nextswipe-page__nav-button--left {
         left: 1rem;
       }
 
-      &.top-picks-page__nav-button--right {
+      &.nextswipe-page__nav-button--right {
         right: 1rem;
       }
     }

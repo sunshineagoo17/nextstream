@@ -1034,8 +1034,21 @@
     }
   }
 
-  // Top Picks
-  .recommendations-page {
+  // Top Picks Page 
+  .top-picks-page {
+
+    &__header-container {
+      background: $primary-medium-blue;
+      border: .3125rem solid $frosted-glass;
+    }
+
+    &__copy {
+      color: $neutral-white;
+    }
+  }
+
+  // NextSwipe Page
+  .nextswipe-page {
     background: $primary-darker-blue;
     margin: 0;
 
@@ -1177,12 +1190,12 @@
     margin-left: .25rem;
   }
 
-  // Recommendations
-  .top-picks-page__container {
+  // NextSwipe Page
+  .nextswipe-page__container {
     background: $dark-mode-deep-blue;
   }
 
-  .top-picks-page__media-card {
+  .nextswipe-page__media-card {
     background: $frosted-glass;
   }
 

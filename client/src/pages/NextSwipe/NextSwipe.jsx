@@ -308,49 +308,49 @@ const NextSwipe = () => {
           onClose={closeAlert}
         />
       )}
-      <div className="top-picks-page">
-        <div className="top-picks-page__container">
-          <div className="top-picks-page__title-container">
-            <h1 className="top-picks-page__title">{name}'s Recommendations</h1>
-            <p className="top-picks-page__intro">
-              Use <span className="top-picks-page__gradient-subtitle">NextSwipe</span> to discover new movies and shows. Swipe right to like and left to dislike each media card, tailoring your perfect viewing schedule. For desktop users, you can click and drag left or right, or simply click on the arrows. Add your favourites to your calendar today!
+      <div className="nextswipe-page">
+        <div className="nextswipe-page__container">
+          <div className="nextswipe-page__title-container">
+            <h1 className="nextswipe-page__title">{name}'s Recommendations</h1>
+            <p className="nextswipe-page__intro">
+              Use <span className="nextswipe-page__gradient-subtitle">NextSwipe</span> to discover new movies and shows. Swipe right to like and left to dislike each media card, tailoring your perfect viewing schedule. For desktop users, you can click and drag left or right, or simply click on the arrows. Add your favourites to your calendar today!
             </p>
           </div>
           {isLoading && (
-            <div className="top-picks-page__graphic-container">
-              <img src={ShowMedia} alt="Woman waiting for media" className="top-picks-page__graphic" />
+            <div className="nextswipe-page__graphic-container">
+              <img src={ShowMedia} alt="Woman waiting for media" className="nextswipe-page__graphic" />
             </div>
           )}
           {isLoading && <LogoLoader />}
           {!isLoading && media.length > 0 && currentIndex < media.length && (
-            <div className="top-picks-page__media-card">
+            <div className="nextswipe-page__media-card">
               {isFirstSession && showSwipeGuide && (
-                <div className="top-picks-page__swipe-guide">
-                  <FontAwesomeIcon icon={faHandPointer} className="top-picks-page__swipe-icon" />
+                <div className="nextswipe-page__swipe-guide">
+                  <FontAwesomeIcon icon={faHandPointer} className="nextswipe-page__swipe-icon" />
                 </div>
               )}
-              <button className="top-picks-page__nav-button top-picks-page__nav-button--left" onClick={() => handleSwipe('Left')}>
+              <button className="nextswipe-page__nav-button nextswipe-page__nav-button--left" onClick={() => handleSwipe('Left')}>
                 <FontAwesomeIcon icon={faArrowLeft} />
               </button>
               <MediaCard media={media[currentIndex]} handlers={handlers} onAddToCalendar={handleAddToCalendar} />
               <button
-                className="top-picks-page__calendar-button"
+                className="nextswipe-page__calendar-button"
                 onClick={() => handleAddToCalendar(media[currentIndex].title || media[currentIndex].name, media[currentIndex].media_type, media[currentIndex].id)}
               >
-                <FontAwesomeIcon icon={faCalendarPlus} /> <p className="top-picks-page__calendar-copy">Add to Calendar</p>
+                <FontAwesomeIcon icon={faCalendarPlus} /> <p className="nextswipe-page__calendar-copy">Add to Calendar</p>
               </button>
-              <button className="top-picks-page__nav-button top-picks-page__nav-button--right" onClick={() => handleSwipe('Right')}>
+              <button className="nextswipe-page__nav-button nextswipe-page__nav-button--right" onClick={() => handleSwipe('Right')}>
                 <FontAwesomeIcon icon={faArrowRight} />
               </button>
             </div>
           )}
           {!isLoading && noMoreMedia && (
-            <div className="top-picks-page__no-more-media-container">
-              <img src={NoMoreMedia} alt="No more media" className="top-picks-page__no-more-media-image" />
-              <div className="top-picks-page__no-more-media">
-                <p className="top-picks-page__swipes">All swipes have been recorded!</p>
+            <div className="nextswipe-page__no-more-media-container">
+              <img src={NoMoreMedia} alt="No more media" className="nextswipe-page__no-more-media-image" />
+              <div className="nextswipe-page__no-more-media">
+                <p className="nextswipe-page__swipes">All swipes have been recorded!</p>
                 <button
-                  className="top-picks-page__recommendations-button"
+                  className="nextswipe-page__recommendations-button"
                   onClick={fetchRecommendations}
                 >
                   Get Recommendations
@@ -359,8 +359,8 @@ const NextSwipe = () => {
             </div>
           )}
           {showCalendar && (
-            <div className="top-picks-page__calendar-modal">
-              <button className="top-picks-page__calendar-close-btn" onClick={handleCloseCalendar}>
+            <div className="nextswipe-page__calendar-modal">
+              <button className="nextswipe-page__calendar-close-btn" onClick={handleCloseCalendar}>
                 <FontAwesomeIcon icon={faClose} className='auth-search-results__close-icon' />
               </button>
               <Calendar
@@ -374,7 +374,7 @@ const NextSwipe = () => {
               />
             </div>
           )}
-          <div className="top-picks-page__background">
+          <div className="nextswipe-page__background">
             <AnimatedBg />
           </div>
         </div>

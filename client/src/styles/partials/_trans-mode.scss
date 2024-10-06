@@ -1735,7 +1735,7 @@ background: $trans-black;
   }
 
   // Top Picks
-  .recommendations-page {
+  .top-picks-page {
     background: $trans-black;
     margin: 0;
 
@@ -1743,12 +1743,40 @@ background: $trans-black;
       padding: 2rem 3.5rem;
     }
 
+    &__content {
+        border: .125rem solid $trans-soft-pink;
+
+        @include tablet {
+            border: .625rem solid $trans-soft-pink;
+        }
+    }
+
+    &__play-icon,
+    &__load-descript,
+    &__lightbulb-icon,
+    &__media-icon-link,
+    &__search-icon,
+    &__cal-icon,
+    &__share-icon,
+    &__like-icon,
+    &__dislike-icon {
+      color: $trans-pink;
+    }
+
+    &__subtitle {
+        background-color: $trans-electric-blue;
+    }
+
+    &__card {
+        background: $trans-frosted-glass-blue;
+    }
+
     &__copy {
       color: $neutral-white;
     }
 
     &__title {
-      background: $primary-medium-blue;
+      background: $trans-gradient-electricblue-candypink;
       color: $neutral-white;
     }
   }
@@ -1878,7 +1906,7 @@ background: $trans-black;
   }
 
 // NextSwipe
-.top-picks-page {
+.nextswipe-page {
   
     &__container {
         background: $trans-black;
