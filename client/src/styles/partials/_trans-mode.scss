@@ -309,13 +309,78 @@
   }
 
   // Calendar Page
+  .calendar {
+    background: $trans-black;
+
+    &__header {
+        background: $trans-frosted-glass-blue;
+    }
+
+    &__toggle-sidebar-btn {
+        background: $trans-candy-pink;
+        color: $trans-black;
+    }
+
+    &__delete-events-btn {
+        background: $trans-pink;
+    }
+  }
+
+  .calendar-page {
+    background: $trans-black;
+
+    &__title {
+        background: $trans-electric-blue;
+        border: .1875rem solid $trans-candy-pink;
+    }
+
+    &__hero {
+        background: $trans-frosted-glass-blue;
+    }
+
+    &__hero-text {
+        background: $trans-gradient-electricblue-candypink;
+    }
+  }
+
+  .fc-header-toolbar {
+    background: $trans-frosted-glass-pink;
+  }
+
   .share-event__title.neumorphic-text {
     color: $neutral-white;
   }
 
   .modal {
-    .modal-input {
-      cursor: url('../../assets/cursors/cursor-pointer-tm.svg'), pointer;
+    .modal-content {
+        .modal-close-btn {
+            background: $trans-candy-pink;
+            color: $primary-dark-blue;
+
+            &:hover {
+                background: $trans-electric-blue;
+                color: $trans-soft-pink;
+            }
+
+            &:active {
+                background: $trans-black;
+                color: $trans-candy-pink;
+            }
+        }
+
+        .modal-input {
+            background: $trans-frosted-glass-blue;
+            color: $primary-dark-blue;
+
+        .modal-input-container {
+            .modal-input {
+                background: $trans-frosted-glass-blue;
+                cursor: url('../../assets/cursors/cursor-pointer-tm.svg'), pointer;
+            }
+       
+          }
+    
+        }
     }
   }
 
@@ -334,11 +399,13 @@
     .fc-toolbar {
       .fc-button-group {
         .fc-button {
-          cursor: url('../../assets/cursors/cursor-pointer-tm.svg'), pointer;
+            background: $trans-soft-pink;
+            color: $trans-black;
+            cursor: url('../../assets/cursors/cursor-pointer-tm.svg'), pointer;
         }
 
         &.fc-button-active {
-          cursor: url('../../assets/cursors/cursor-pointer-tm.svg'), pointer;
+            cursor: url('../../assets/cursors/cursor-pointer-tm.svg'), pointer;
 
           &:hover {
             cursor: url('../../assets/cursors/cursor-pointer-tm.svg'), pointer;
@@ -374,6 +441,44 @@
 
   input[type='datetime-local']::-webkit-calendar-picker-indicator {
     cursor: url('../../assets/cursors/cursor-pointer-tm.svg'), pointer;
+  }
+
+  .add-to-cal {
+    &__link {
+        &--google {
+            background: $trans-gradient-electricblue-candypink;
+            color: $neutral-white;
+            
+            &:hover {
+                background: $trans-soft-pink;
+                color: $trans-black;
+                transform: scale(1.05); 
+            }
+    
+            &:active {
+                background: $trans-electric-blue; 
+                color: $neutral-white;
+                border: .125rem solid $neutral-white;
+            }
+        }
+    
+        &--apple {
+            background: $trans-gradient-electricblue-candypink;
+            color: $neutral-white;
+            
+            &:hover {
+                background: $trans-soft-pink;
+                color: $trans-black;
+                transform: scale(1.05);
+            }
+    
+            &:active {
+                background: $trans-electric-blue; 
+                color: $neutral-white;
+                border: .125rem solid $neutral-white;
+            }
+        }
+    }
   }
 
   // Friends List
