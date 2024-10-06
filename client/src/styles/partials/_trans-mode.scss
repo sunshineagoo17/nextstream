@@ -1890,14 +1890,40 @@ background: $trans-black;
 
   // Streamboard
   .streamboard {
-    background: $frosted-glass;
+    background: $trans-black;
+    border: .3125rem solid $trans-candy-pink;
 
     &__title {
-      background: $primary-darker-blue-gradient;
+      background: $trans-gradient-electricblue-candypink;
     }
 
-    &__media-column--to_watch {
-      background-color: $primary-medium-blue;
+    &__search-bar-input {
+        &:focus {
+            box-shadow: 0 0 0 .2rem $trans-candy-pink;
+        }
+    }
+
+    &__search-bar {
+        background: $trans-frosted-glass-blue;
+    }
+
+    &__copy {
+        background: $trans-frosted-glass-blue;
+        color: $trans-deep-blue;
+    }
+
+    &__link {
+        color: $trans-electric-blue;
+
+        &:hover {
+            background: $trans-candy-pink;
+            color: $trans-black;
+        }
+
+        &:active {
+            background: $trans-black;
+            color: $trans-pastel-pink;
+        }
     }
 
     &__media-item {
@@ -1930,12 +1956,49 @@ background: $trans-black;
       }
     }
 
+    &__media-column--to_watch {
+        background-color: $trans-white;
+    }
+
     &__media-column--scheduled {
-      background-color: $dark-mode-royal-blue;
+      background-color: $trans-frosted-glass-blue;
     }
 
     &__media-column--watched {
-      background-color: $dark-mode-deep-blue;
+      background-color: $trans-black;
+    }
+
+    &__media-column {
+        &--to_watch::before,
+        &--scheduled::before,
+        &--watched::before {
+            background-color: $trans-pastel-pink;
+            color: $trans-black;
+        }
+    }
+
+    &__media-item {
+        background: $trans-frosted-glass-blue;
+    }
+
+    &__tag-button,
+    &__review-button,
+    &__lightbulb-icon,
+    &__media-type-icon,
+    &__calendar-icon,
+    &__trash-icon {
+        background-color: $trans-black;
+        color: $trans-pastel-pink;
+
+        &:hover {
+            background-color: $trans-pastel-pink;
+            color: $trans-black;
+        }
+
+        &:active {
+            background-color: $trans-deep-blue;
+            color: $trans-pastel-pink;
+        }
     }
 
     &__season-episode-inputs {
@@ -1965,6 +2028,57 @@ background: $trans-black;
       &:active {
         border: 1px solid $primary-dark-blue;
       }
+    }
+  }
+
+  .review-modal,
+  .tag-modal {
+    &__title {
+        color: $trans-candy-pink;
+        text-shadow: $shadow-primary;
+    }
+
+    &__button--save {
+        background: $trans-pink;
+
+        &:hover {
+            background: $trans-black;
+            color: $trans-pastel-pink
+        }
+
+        &:focus,
+        &:active {
+            color: $trans-candy-pink;
+        }
+    }
+
+    &__button--delete {
+        background: $trans-soft-pink;
+
+        &:hover {
+            background: $trans-black;
+            color: $trans-pastel-pink
+        }
+
+        &:focus,
+        &:active {
+            color: $trans-candy-pink;
+        }
+    }
+
+    &__button--close {
+        background: $trans-pastel-pink;
+        color: $trans-black;
+
+        &:hover {
+            background: $trans-black;
+            color: $trans-pastel-pink
+        }
+
+        &:focus,
+        &:active {
+            color: $trans-candy-pink;
+        }
     }
   }
 
