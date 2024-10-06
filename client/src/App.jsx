@@ -19,7 +19,7 @@ import SearchResultsPage from './pages/SearchResultsPage/SearchResultsPage';
 import AuthSearchResultsPage from './pages/AuthSearchResultsPage/AuthSearchResultsPage';
 import NextSearch from './pages/NextSearch/NextSearch';
 import ContactModal from './components/ContactModal/ContactModal';
-import CalendarModal from './pages/CalendarPage/sections/Calendar';
+import CalendarModal from './pages/CalendarPage/sections/Calendar/Calendar';
 import Header from './components/Header/Header';
 import HoverMenu from './components/Header/sections/HoverMenu/HoverMenu';
 import LoginRequired from './pages/LoginRequired/LoginRequired';

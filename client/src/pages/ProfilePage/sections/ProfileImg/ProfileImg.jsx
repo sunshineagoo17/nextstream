@@ -4,7 +4,7 @@ import api from "../../../../services/api";
 import ProfileUploadBtn from "../../../../assets/images/profile-upload.svg";
 import DeleteIcon from "../../../../assets/images/delete-icon.svg";
 import DefaultAvatar from "../../../../assets/images/default-avatar.svg";
-import Loader from "../../../../components/Loader/Loader";
+import Loader from "../../../../components/Loaders/Loader/Loader";
 import CustomAlerts from "../../../../components/CustomAlerts/CustomAlerts";
 import './ProfileImg.scss';
 

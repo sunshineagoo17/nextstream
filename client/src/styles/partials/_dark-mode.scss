@@ -6,57 +6,107 @@
   // Background and text colors
   background-color: $primary-darker-blue;
   color: $neutral-white;
-  body, label {
+  body,
+  label {
     cursor: url('../../assets/cursors/cursor-arrow-bl.svg'), auto;
   }
 
   /* Custom cursor for interactive elements */
-  button, a, .Link, img, [role="button"], [data-tooltip], [tabindex], input[type="checkbox"], input[type="text"], input[type="radio"], input[type="range"], input[type="button"], input[type="submit"], select, textarea {
+  button,
+  a,
+  .Link,
+  img,
+  [role='button'],
+  [data-tooltip],
+  [tabindex],
+  input[type='checkbox'],
+  input[type='text'],
+  input[type='radio'],
+  input[type='range'],
+  input[type='button'],
+  input[type='submit'],
+  select,
+  textarea {
     cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
   }
 
   /* Ensure cursor changes on hover and active states */
-  button:hover, a:hover, .Link:hover, img:hover, [role="button"]:hover, [data-tooltip]:hover, [tabindex]:hover, input[type="checkbox"]:hover, input[type="text"]:hover, input[type="radio"]:hover, input[type="range"]:hover, input[type="button"]:hover, input[type="submit"]:hover, label:hover, select:hover, textarea:hover {
+  button:hover,
+  a:hover,
+  .Link:hover,
+  img:hover,
+  [role='button']:hover,
+  [data-tooltip]:hover,
+  [tabindex]:hover,
+  input[type='checkbox']:hover,
+  input[type='text']:hover,
+  input[type='radio']:hover,
+  input[type='range']:hover,
+  input[type='button']:hover,
+  input[type='submit']:hover,
+  label:hover,
+  select:hover,
+  textarea:hover {
     cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
   }
 
   /* Add for focus state if required */
-  button:focus, a:focus, .Link:focus, img:focus, [role="button"]:focus, [data-tooltip]:focus, [tabindex]:focus, input[type="checkbox"]:focus, input[type="text"]:focus, input[type="radio"]:focus, input[type="range"]:focus, input[type="button"]:focus, input[type="submit"]:focus, label:focus, select:focus, textarea:focus {
+  button:focus,
+  a:focus,
+  .Link:focus,
+  img:focus,
+  [role='button']:focus,
+  [data-tooltip]:focus,
+  [tabindex]:focus,
+  input[type='checkbox']:focus,
+  input[type='text']:focus,
+  input[type='radio']:focus,
+  input[type='range']:focus,
+  input[type='button']:focus,
+  input[type='submit']:focus,
+  label:focus,
+  select:focus,
+  textarea:focus {
     cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
   }
 
   /* Add for focus state if required */
-  input[type="text"]:active, input[type="text"]:valid, input[type="text"]:required, input[type="text"]:enabled {
+  input[type='text']:active,
+  input[type='text']:valid,
+  input[type='text']:required,
+  input[type='text']:enabled {
     cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
   }
 
   /* Dropdowns */
-  select, .dropdown, .ui-autocomplete, .browser-suggestion-list {
+  select,
+  .dropdown,
+  .ui-autocomplete,
+  .browser-suggestion-list {
     cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
   }
 
-// Header styles
-.header {
-  background-color: $primary-dark-navy-blue;
-  color: $primary-very-light-blue;
+  // Header styles
+  .header {
+    background-color: $primary-dark-navy-blue;
+    color: $primary-very-light-blue;
 
+    &__logo {
+      filter: invert(100%) sepia(100%) saturate(0%) brightness(1000%);
+    }
 
-  &__logo {
-    filter: invert(100%) sepia(100%) saturate(0%) brightness(1000%);
+    &__search-bar,
+    &__search-input--mobile,
+    &__search-bar--mobile,
+    &__search-input {
+      background-color: $primary-darker-blue;
+    }
+
+    &__search-input--mobile,
+    &__search-input {
+      border-radius: 0.25rem;
+    }
   }
-
-  &__search-bar,
-  &__search-input--mobile,
-  &__search-bar--mobile,
-  &__search-input {
-    background-color: $primary-darker-blue;
-  }
-
-  &__search-input--mobile,
-  &__search-input {
-    border-radius: 0.25rem;
-  }
-}
 
   a {
     color: $neutral-white;
@@ -77,90 +127,88 @@
     }
   }
 
-// Toggle Button Component
-.toggle-button {
-
-  &__switch {
-    cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
-  }
-}
-
-// Auth Search Results Page
-.auth-search-results {
-
-  &__pagination-circles { 
-    cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
+  // Toggle Button Component
+  .toggle-button {
+    &__switch {
+      cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
+    }
   }
 
-  &__card {
-    cursor: url('../../assets/cursors/cursor-arrow-bl.svg'), auto;
-  }
-}
+  // Auth Search Results Page
+  .auth-search-results {
+    &__pagination-circles {
+      cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
+    }
 
-// Calendar Page 
-.share-event__title.neumorphic-text {
-  color: $neutral-white;
-}
-
-.modal {
-  .modal-input {
-    cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
-  }
-}
-
-.calendar__clear-icon {
-  &:hover {
-    color: $neutral-black;
+    &__card {
+      cursor: url('../../assets/cursors/cursor-arrow-bl.svg'), auto;
+    }
   }
 
-  &:active {
-    background: $primary-very-light-blue;
-    color: $primary-dark-blue;
+  // Calendar Page
+  .share-event__title.neumorphic-text {
+    color: $neutral-white;
   }
-}
 
-.fc {
-  .fc-toolbar {
-    .fc-button-group {
-      .fc-button {
-        cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
-      }
+  .modal {
+    .modal-input {
+      cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
+    }
+  }
 
-      &.fc-button-active {
-        cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
+  .calendar__clear-icon {
+    &:hover {
+      color: $neutral-black;
+    }
 
-        &:hover {
+    &:active {
+      background: $primary-very-light-blue;
+      color: $primary-dark-blue;
+    }
+  }
+
+  .fc {
+    .fc-toolbar {
+      .fc-button-group {
+        .fc-button {
           cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
         }
 
-        &:active {
+        &.fc-button-active {
           cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
+
+          &:hover {
+            cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
+          }
+
+          &:active {
+            cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
+          }
         }
       }
     }
   }
-}
 
   input {
     cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
-  
+
     svg {
       cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
     }
   }
-  
+
   input:hover {
     cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
   }
-  
-  input[type="datetime-local"] {
+
+  input[type='datetime-local'] {
     cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
   }
 
-  input[type="datetime-local"]:focus {
+  input[type='datetime-local']:focus {
     cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
   }
-  
+
   input[type='datetime-local']::-webkit-calendar-picker-indicator {
     cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
   }
@@ -222,7 +270,7 @@
     }
 
     &__video-container {
-      border: .35rem solid $frosted-glass;
+      border: 0.35rem solid $frosted-glass;
       background: $dark-mode-royal-blue;
       box-shadow: $shadow-senary;
     }
@@ -452,7 +500,7 @@
   // NextStream GPT
   .nextstream-gpt {
     background: $base-darker-blue;
-    
+
     &__chat-container {
       background-color: $primary-dark-blue;
     }
@@ -948,7 +996,6 @@
 
   // NextView Page
   .nextview-page {
-
     &__genre-icon,
     &__cast-copy,
     &__streaming-copy,
@@ -995,7 +1042,6 @@
 
   // NextWatch
   .nextwatch-page {
-  
     &__title {
       color: $neutral-white;
     }
@@ -1009,7 +1055,7 @@
     &__recommendations-card,
     &__recommendations-rating,
     &__similar-rating {
-        cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
+      cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
     }
 
     &__media-type,
@@ -1023,23 +1069,22 @@
       &:hover {
         background: $primary-dark-blue;
         color: $primary-very-light-blue;
-        border: .125rem solid $primary-button-blue;
+        border: 0.125rem solid $primary-button-blue;
       }
 
       &:active {
         background: $neutral-white;
         color: $primary-button-blue;
-        border: .1875rem solid $primary-button-blue;
+        border: 0.1875rem solid $primary-button-blue;
       }
     }
   }
 
-  // Top Picks Page 
+  // Top Picks Page
   .top-picks-page {
-
     &__header-container {
       background: $primary-medium-blue;
-      border: .3125rem solid $frosted-glass;
+      border: 0.3125rem solid $frosted-glass;
     }
 
     &__copy {
@@ -1122,7 +1167,7 @@
 
     &__season-episode-inputs {
       background: $primary-button-dark-blue;
-      border-radius: .5rem;
+      border-radius: 0.5rem;
       border: 2px solid $frosted-glass;
 
       label {
@@ -1159,15 +1204,15 @@
       color: $primary-very-light-blue;
       cursor: url(../../assets/cursors/cursor-pointer-bl.svg), pointer;
       transition: color 0.3s ease, transform 0.3s ease;
-  
+
       &:hover {
         color: $primary-light-blue;
-        transform: scale(1.1); 
+        transform: scale(1.1);
       }
-  
+
       &:active {
         color: $trans-white;
-        transform: scale(0.9); 
+        transform: scale(0.9);
       }
     }
   }
@@ -1182,15 +1227,15 @@
       color: $primary-very-light-blue;
       cursor: url(../../assets/cursors/cursor-pointer-bl.svg), pointer;
       transition: color 0.3s ease, transform 0.3s ease;
-    
+
       &:hover {
         color: $primary-light-blue;
         transform: translateY(-50%) scale(1.2);
       }
-    
+
       &:active {
         color: $trans-white;
-        transform: translateY(-50%) scale(0.9); 
+        transform: translateY(-50%) scale(0.9);
       }
     }
   }
@@ -1232,7 +1277,7 @@
   }
 
   .faves-page__magnifying-glass-icon {
-    margin-left: .25rem;
+    margin-left: 0.25rem;
   }
 
   // NextSwipe Page
@@ -1268,7 +1313,7 @@
       background: $primary-darker-blue;
       color: $primary-very-light-blue;
       box-shadow: $shadow-senary;
-      border: 3px solid $primary-button-dark-blue;  
+      border: 3px solid $primary-button-dark-blue;
     }
 
     &__title {
@@ -1318,13 +1363,13 @@
     &__card-features__feature__label--schedule-planner,
     &__card-features__feature__label--custom-recommendations {
       @include dark-frosted-glass;
-      border: .125rem solid $primary-button-blue;
+      border: 0.125rem solid $primary-button-blue;
       color: $neutral-white;
 
       &:hover {
         background: $primary-button-blue;
         color: $neutral-white;
-        border: .125rem solid $neutral-white;
+        border: 0.125rem solid $neutral-white;
       }
 
       &:active {
@@ -1332,7 +1377,7 @@
         background: $primary-button-dark-blue;
         color: $primary-very-light-blue;
         font-weight: bold;
-        border: .125rem solid $frosted-glass;
+        border: 0.125rem solid $frosted-glass;
       }
     }
   }

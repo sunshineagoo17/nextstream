@@ -1,9 +1,0 @@
-@use "../../styles/partials/colors" as *;
-@use "../../styles/partials/fonts" as *;
-@use "../../styles/partials/mixins" as *;
-@use "../../styles/global.scss" as *;
-
-.animated-bg {
-  @include animated-bg(100%, 100px, 150px, 200px, 250px, 300px);
-  z-index: -999;
-}

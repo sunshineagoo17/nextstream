@@ -4,10 +4,9 @@ import { useSwipeable } from 'react-swipeable';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarPlus, faClose, faArrowLeft, faArrowRight, faHandPointer } from '@fortawesome/free-solid-svg-icons';
 import MediaCard from './sections/MediaCard/MediaCard';
-import Calendar from '../CalendarPage/sections/Calendar';
-import AnimatedBg from '../../components/AnimatedBg/AnimatedBg';
-import LogoLoader from '../../components/LogoLoader/LogoLoader';
-// import Loader from '../../components/Loader/Loader'; // Optional default loader
+import Calendar from '../CalendarPage/sections/Calendar/Calendar';
+import AnimatedBg from '../../components/Backgrounds/AnimatedBg/AnimatedBg';
+import LogoLoader from '../../components/Loaders/LogoLoader/LogoLoader';
 import NoMoreMedia from "../../assets/images/no-more-media.svg";
 import ShowMedia from "../../assets/images/show-media.svg";
 import api from '../../services/api';

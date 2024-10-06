@@ -6,13 +6,13 @@ import { Link } from 'react-router-dom';
 import { Tooltip } from 'react-tooltip';
 import { faRobot, faChevronLeft, faChevronRight, faPlay, faTimes, faEraser, faSearch, faTv, faFilm, faCalendarPlus, faThumbsUp, faThumbsDown, faShareAlt, faUser, faLightbulb } from '@fortawesome/free-solid-svg-icons';
 import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
-import Calendar from '../CalendarPage/sections/Calendar';
+import Calendar from '../CalendarPage/sections/Calendar/Calendar';
 import api from '../../services/api';
-import Loader from '../../components/Loader/Loader'; 
+import Loader from '../../components/Loaders/Loader/Loader'; 
 import ReelSVG from "../../assets/images/reel-svg.svg";
 import WindowsSVG from "../../assets/images/windows-svg.svg";
 import UserRating from '../TopPicksPage/sections/UserRating/UserRating'; 
-import VoiceSearch from '../../components/VoiceSearch/VoiceSearch';
+import VoiceSearch from '../../components/VoiceInteraction/VoiceSearch/VoiceSearch';
 import './NextSearch.scss';
 import DefaultPoster from "../../assets/images/posternoimg-icon.png";
 

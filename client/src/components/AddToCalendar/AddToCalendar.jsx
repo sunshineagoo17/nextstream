@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle, faApple } from '@fortawesome/free-brands-svg-icons';
-import Loader from '../Loader/Loader';
+import Loader from '../Loaders/Loader/Loader';
 import './AddToCalendar.scss';
 
 // Function to format dates for .ics and Google Calendar

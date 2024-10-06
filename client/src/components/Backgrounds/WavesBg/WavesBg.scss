@@ -1,0 +1,44 @@
+// Import partials
+@use "../../../styles/partials/colors" as *;
+@use "../../../styles/partials/fonts" as *;
+@use "../../../styles/partials/mixins" as *;
+@use "../../../styles/global.scss" as *;
+
+.waves-bg {
+  @include block-item(100%, 15rem);
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  z-index: -1;
+
+  @include tablet {
+    height: 20rem;
+  }
+
+  @include desktop {
+    height: 25rem;
+  }
+
+  svg {
+    @include block-item(100%, 100%);
+    fill: none;
+
+    path {
+      fill: url(#neonGradient);
+      animation: waveAnimation 15s ease-in-out infinite;
+    }
+
+    @keyframes waveAnimation {
+      0% {
+        transform: translateX(0%);
+      }
+      50% {
+        transform: translateX(-25%);
+      }
+      100% {
+        transform: translateX(0%);
+      }
+    }
+  }
+}

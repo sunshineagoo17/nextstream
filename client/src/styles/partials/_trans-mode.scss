@@ -160,97 +160,96 @@
     }
   }
 
-// Modal Contact
-.modal-contact {
-
+  // Modal Contact
+  .modal-contact {
     &__container {
-        background: $trans-frosted-glass-blue;
+      background: $trans-frosted-glass-blue;
     }
 
     &__submit-text {
-        color: $frosted-glass;
+      color: $frosted-glass;
     }
 
     &__label {
-        color: $trans-black;
+      color: $trans-black;
     }
 
     &__label-txtarea-txt,
     &__label-txt {
-        background: $trans-frosted-glass-pink;
-        color: $trans-black;
-        border: .1875rem solid $trans-white;
+      background: $trans-frosted-glass-pink;
+      color: $trans-black;
+      border: 0.1875rem solid $trans-white;
     }
 
     &__input,
     &__txtarea {
-        background: $trans-frosted-blue;
-        box-shadow: $shadow-quaternary;
+      background: $trans-frosted-blue;
+      box-shadow: $shadow-quaternary;
     }
 
     &__submit-text,
     &__close {
-        background: $trans-light-pink;
-        color: $trans-black;
+      background: $trans-light-pink;
+      color: $trans-black;
 
-        &:hover {
-            background: $trans-black;
-            color: $trans-light-pink;
-            border: .125rem solid $trans-white;
-        }
+      &:hover {
+        background: $trans-black;
+        color: $trans-light-pink;
+        border: 0.125rem solid $trans-white;
+      }
 
-        &:active {
-            color: $trans-pastel-blue;
-            border: .125rem solid $trans-electric-blue;
-        }
+      &:active {
+        color: $trans-pastel-blue;
+        border: 0.125rem solid $trans-electric-blue;
+      }
     }
-}
+  }
 
-// Forgot Password
-.modal-forgot-password {
+  // Forgot Password
+  .modal-forgot-password {
     &__container {
-        background: $trans-frosted-glass-blue;
+      background: $trans-frosted-glass-blue;
     }
 
     &__label {
-        border: none;
-        box-shadow: none;
-        color: $trans-black;
+      border: none;
+      box-shadow: none;
+      color: $trans-black;
     }
 
     &__label-txt {
-        background: $trans-light-pink;
-        color: $trans-black;
-        border: .1875rem solid $trans-white;
+      background: $trans-light-pink;
+      color: $trans-black;
+      border: 0.1875rem solid $trans-white;
     }
 
     &__input {
-        background: $trans-frosted-blue;
-        box-shadow: $shadow-quaternary;
+      background: $trans-frosted-blue;
+      box-shadow: $shadow-quaternary;
     }
 
     &__reset,
     &__close {
-        background: $trans-light-pink;
-        color: $trans-black;
+      background: $trans-light-pink;
+      color: $trans-black;
 
-        &:hover {
-            background: $trans-black;
-            color: $trans-light-pink;
-            border: .125rem solid $trans-white;
-        }
+      &:hover {
+        background: $trans-black;
+        color: $trans-light-pink;
+        border: 0.125rem solid $trans-white;
+      }
 
-        &:active {
-            color: $trans-pastel-blue;
-            border: .125rem solid $trans-electric-blue;
-        }
+      &:active {
+        color: $trans-pastel-blue;
+        border: 0.125rem solid $trans-electric-blue;
+      }
     }
-}
+  }
 
-// Hover Menu
-.hover-menu__button {
+  // Hover Menu
+  .hover-menu__button {
     background: $trans-soft-pink;
-}
+  }
 
   input,
   textarea {
@@ -282,29 +281,29 @@
     }
 
     &__content-card {
-        border: .375rem solid $trans-candy-pink;
-        background: $trans-gradient-darkblue-lightpink;
+      border: 0.375rem solid $trans-candy-pink;
+      background: $trans-gradient-darkblue-lightpink;
     }
 
     &__page-nav-wrapper {
-        background: $trans-electric-blue;
-        border: .125rem solid $neutral-white;
+      background: $trans-electric-blue;
+      border: 0.125rem solid $neutral-white;
 
-        &:hover {
-            background: $trans-candy-pink;
-            border: none;
-        }
+      &:hover {
+        background: $trans-candy-pink;
+        border: none;
+      }
 
-        &:focus,
-        &:visited,
-        &:active {
-            border: .125rem solid $neutral-white;
-        }
+      &:focus,
+      &:visited,
+      &:active {
+        border: 0.125rem solid $neutral-white;
+      }
     }
 
     &__no-providers {
-        background: $trans-electric-blue;
-        color: $neutral-white;
+      background: $trans-electric-blue;
+      color: $neutral-white;
     }
   }
 
@@ -313,16 +312,16 @@
     background: $trans-black;
 
     &__header {
-        background: $trans-frosted-glass-blue;
+      background: $trans-frosted-glass-blue;
     }
 
     &__toggle-sidebar-btn {
-        background: $trans-candy-pink;
-        color: $trans-black;
+      background: $trans-candy-pink;
+      color: $trans-black;
     }
 
     &__delete-events-btn {
-        background: $trans-pink;
+      background: $trans-pink;
     }
   }
 
@@ -330,16 +329,16 @@
     background: $trans-black;
 
     &__title {
-        background: $trans-electric-blue;
-        border: .1875rem solid $trans-candy-pink;
+      background: $trans-electric-blue;
+      border: 0.1875rem solid $trans-candy-pink;
     }
 
     &__hero {
-        background: $trans-frosted-glass-blue;
+      background: $trans-frosted-glass-blue;
     }
 
     &__hero-text {
-        background: $trans-gradient-electricblue-candypink;
+      background: $trans-gradient-electricblue-candypink;
     }
   }
 
@@ -353,32 +352,32 @@
 
   .modal {
     .modal-content {
-        .modal-close-btn {
-            background: $trans-candy-pink;
-            color: $primary-dark-blue;
+      .modal-close-btn {
+        background: $trans-candy-pink;
+        color: $primary-dark-blue;
 
-            &:hover {
-                background: $trans-electric-blue;
-                color: $trans-soft-pink;
-            }
-
-            &:active {
-                background: $trans-black;
-                color: $trans-candy-pink;
-            }
+        &:hover {
+          background: $trans-electric-blue;
+          color: $trans-soft-pink;
         }
 
-        .modal-input {
-            background: $trans-frosted-glass-blue;
-            color: $primary-dark-blue;
+        &:active {
+          background: $trans-black;
+          color: $trans-candy-pink;
+        }
+      }
+
+      .modal-input {
+        background: $trans-frosted-glass-blue;
+        color: $primary-dark-blue;
 
         .modal-input-container {
-            .modal-input {
-                background: $trans-frosted-glass-blue;
-                cursor: url('../../assets/cursors/cursor-pointer-tm.svg'), pointer;
-            }
+          .modal-input {
+            background: $trans-frosted-glass-blue;
+            cursor: url('../../assets/cursors/cursor-pointer-tm.svg'), pointer;
           }
         }
+      }
     }
   }
 
@@ -397,13 +396,13 @@
     .fc-toolbar {
       .fc-button-group {
         .fc-button {
-            background: $trans-soft-pink;
-            color: $trans-black;
-            cursor: url('../../assets/cursors/cursor-pointer-tm.svg'), pointer;
+          background: $trans-soft-pink;
+          color: $trans-black;
+          cursor: url('../../assets/cursors/cursor-pointer-tm.svg'), pointer;
         }
 
         &.fc-button-active {
-            cursor: url('../../assets/cursors/cursor-pointer-tm.svg'), pointer;
+          cursor: url('../../assets/cursors/cursor-pointer-tm.svg'), pointer;
 
           &:hover {
             cursor: url('../../assets/cursors/cursor-pointer-tm.svg'), pointer;
@@ -443,39 +442,39 @@
 
   .add-to-cal {
     &__link {
-        &--google {
-            background: $trans-gradient-electricblue-candypink;
-            color: $neutral-white;
-            
-            &:hover {
-                background: $trans-soft-pink;
-                color: $trans-black;
-                transform: scale(1.05); 
-            }
-    
-            &:active {
-                background: $trans-electric-blue; 
-                color: $neutral-white;
-                border: .125rem solid $neutral-white;
-            }
+      &--google {
+        background: $trans-gradient-electricblue-candypink;
+        color: $neutral-white;
+
+        &:hover {
+          background: $trans-soft-pink;
+          color: $trans-black;
+          transform: scale(1.05);
         }
-    
-        &--apple {
-            background: $trans-gradient-electricblue-candypink;
-            color: $neutral-white;
-            
-            &:hover {
-                background: $trans-soft-pink;
-                color: $trans-black;
-                transform: scale(1.05);
-            }
-    
-            &:active {
-                background: $trans-electric-blue; 
-                color: $neutral-white;
-                border: .125rem solid $neutral-white;
-            }
+
+        &:active {
+          background: $trans-electric-blue;
+          color: $neutral-white;
+          border: 0.125rem solid $neutral-white;
         }
+      }
+
+      &--apple {
+        background: $trans-gradient-electricblue-candypink;
+        color: $neutral-white;
+
+        &:hover {
+          background: $trans-soft-pink;
+          color: $trans-black;
+          transform: scale(1.05);
+        }
+
+        &:active {
+          background: $trans-electric-blue;
+          color: $neutral-white;
+          border: 0.125rem solid $neutral-white;
+        }
+      }
     }
   }
 
@@ -484,20 +483,20 @@
     background: $trans-black;
 
     &__heading-container {
-        border: .3125rem solid $trans-candy-pink;
+      border: 0.3125rem solid $trans-candy-pink;
     }
 
     &__copy {
-        background: $trans-gradient-electricblue-candypink;
-        color: $trans-white;
+      background: $trans-gradient-electricblue-candypink;
+      color: $trans-white;
     }
 
     &__video-container {
-        background: $trans-black;
+      background: $trans-black;
     }
 
     &__messages {
-        background: $trans-black;
+      background: $trans-black;
     }
 
     &__search-section {
@@ -529,7 +528,7 @@
 
     &__container--bottom,
     &__container {
-        border: .25rem solid $trans-candy-pink;
+      border: 0.25rem solid $trans-candy-pink;
     }
 
     &__list {
@@ -611,7 +610,7 @@
   }
 
   // Login and Register Page
-  .login, 
+  .login,
   .register {
     background-color: $primary-darker-blue;
 
@@ -620,19 +619,19 @@
     }
 
     &__content-card {
-        @include transAnimateBorder;
-        @include transBorderAnimation;
-        background: $trans-gradient-deepblue-softpink;
+      @include transAnimateBorder;
+      @include transBorderAnimation;
+      background: $trans-gradient-deepblue-softpink;
     }
 
     &__image-card {
-        img {
-            border: .25rem solid $trans-frosted-glass-pink;
-        }
+      img {
+        border: 0.25rem solid $trans-frosted-glass-pink;
+      }
     }
 
     &__container {
-        background: $trans-black;
+      background: $trans-black;
     }
   }
 
@@ -656,12 +655,12 @@
 
   // NextSearch
   .next-search {
-    border: .3125rem solid $trans-candy-pink;
+    border: 0.3125rem solid $trans-candy-pink;
     background: $trans-black;
 
     &__title {
       background: $trans-gradient-deepblue-softpink;
-      border: .1875rem solid $trans-candy-pink;
+      border: 0.1875rem solid $trans-candy-pink;
     }
 
     &__eraser-icon {
@@ -719,7 +718,7 @@
     }
 
     &__scroll-container-popular {
-        border: .5rem solid $trans-electric-blue;
+      border: 0.5rem solid $trans-electric-blue;
     }
 
     &__known-for,
@@ -751,12 +750,12 @@
     }
 
     &__card--popular {
-        background: $neutral-black;
+      background: $neutral-black;
     }
 
     &__card--results {
-        background: $neutral-black;
-        border: .1875rem solid $trans-frosted-pink;
+      background: $neutral-black;
+      border: 0.1875rem solid $trans-frosted-pink;
     }
 
     &__tabs-container {
@@ -764,114 +763,113 @@
     }
 
     &__popular-section {
-        border: .5rem solid $trans-black;
+      border: 0.5rem solid $trans-black;
     }
 
     &__scroll-container-results {
-        border: .5rem solid $trans-black;
+      border: 0.5rem solid $trans-black;
     }
 
     &__results-section {
-        &::before {
-            background: $trans-white;
-            color: $trans-electric-blue;
-            border: .15rem solid $trans-electric-blue;
-            border-bottom: .3rem solid $trans-electric-blue;
-        }
+      &::before {
+        background: $trans-white;
+        color: $trans-electric-blue;
+        border: 0.15rem solid $trans-electric-blue;
+        border-bottom: 0.3rem solid $trans-electric-blue;
+      }
     }
 
     &__nav-arrow {
-        color: $trans-pastel-blue;
-        background: $trans-black;
-        border: .1875rem solid $trans-electric-blue;
+      color: $trans-pastel-blue;
+      background: $trans-black;
+      border: 0.1875rem solid $trans-electric-blue;
 
-        &:hover {
-            background: $trans-pastel-blue;
-            color: $trans-electric-blue;
-            border: .1875rem solid $trans-black;
-        }
+      &:hover {
+        background: $trans-pastel-blue;
+        color: $trans-electric-blue;
+        border: 0.1875rem solid $trans-black;
+      }
 
-        &:active {
-            background: $trans-candy-pink;
-            color: $trans-electric-blue;
-            border: .1875rem solid $trans-white;
-        }
+      &:active {
+        background: $trans-candy-pink;
+        color: $trans-electric-blue;
+        border: 0.1875rem solid $trans-white;
+      }
     }
   }
 
   // Spotlight
   .spotlight-page {
     background: $trans-black;
-  
+
     &__heading-container {
-        background: $trans-gradient-electricblue-candypink;
+      background: $trans-gradient-electricblue-candypink;
     }
 
     &__person-name {
-        color: $primary-medium-blue;
+      color: $primary-medium-blue;
     }
 
     &__copy {
-        background: $trans-frosted-blue;
-        color: $trans-deep-blue;
+      background: $trans-frosted-blue;
+      color: $trans-deep-blue;
     }
 
     &__image-container,
     &__content {
-        border: .3125rem solid $trans-candy-pink;
+      border: 0.3125rem solid $trans-candy-pink;
     }
 
     &__filmography-title {
-        color: $trans-pastel-pink;
+      color: $trans-pastel-pink;
     }
 
     &__credit-title {
-        background: $trans-black;
+      background: $trans-black;
     }
 
     &__person-bio {
-        color: $primary-very-light-blue;
-        background: $primary-medium-blue;
+      color: $primary-very-light-blue;
+      background: $primary-medium-blue;
     }
 
     &__info-txt,
     &__person-name {
-        color: $neutral-white;
+      color: $neutral-white;
     }
 
     &__person-bio {
-        background: $trans-black;
-        color: $trans-pastel-pink;
+      background: $trans-black;
+      color: $trans-pastel-pink;
     }
-    
+
     &__filmography-container,
     &__info-container {
-        background: $trans-soft-pink;
+      background: $trans-soft-pink;
     }
 
     &__read-more {
-        color: $trans-white;
+      color: $trans-white;
 
-        &:hover,
-        &:focus {
-            background-color: $trans-soft-pink;
-            border: .0625rem solid $primary-dark-blue;
-            color: $trans-black;
-        }
-    
-        &:active {
-          background-color: $trans-pastel-pink;
-          border: .125rem solid $neutral-white;
-        }
-    
+      &:hover,
+      &:focus {
+        background-color: $trans-soft-pink;
+        border: 0.0625rem solid $primary-dark-blue;
+        color: $trans-black;
+      }
+
+      &:active {
+        background-color: $trans-pastel-pink;
+        border: 0.125rem solid $neutral-white;
+      }
     }
 
     &__personal-info-icon {
-        color: $primary-very-light-blue;
+      color: $primary-very-light-blue;
 
-        &:hover {
-            color: $neutral-white;
-        }
+      &:hover {
+        color: $neutral-white;
+      }
     }
   }
 
@@ -933,10 +931,10 @@
   // NextStream GPT
   .nextstream-gpt {
     background: $trans-black;
-    border: .3125rem solid $trans-candy-pink;
+    border: 0.3125rem solid $trans-candy-pink;
 
     &__title {
-        background: $trans-gradient-electricblue-candypink;
+      background: $trans-gradient-electricblue-candypink;
     }
 
     &__chat-container {
@@ -948,21 +946,21 @@
     }
 
     &__nav-arrow {
-        color: $trans-pastel-blue;
-        background: $trans-black;
-        border: .1875rem solid $trans-candy-pink;
+      color: $trans-pastel-blue;
+      background: $trans-black;
+      border: 0.1875rem solid $trans-candy-pink;
 
-        &:hover {
-            background: $trans-pastel-blue;
-            color: $trans-electric-blue;
-            border: .1875rem solid $trans-black;
-        }
+      &:hover {
+        background: $trans-pastel-blue;
+        color: $trans-electric-blue;
+        border: 0.1875rem solid $trans-black;
+      }
 
-        &:active {
-            background: $trans-candy-pink;
-            color: $trans-electric-blue;
-            border: .1875rem solid $trans-white;
-        }
+      &:active {
+        background: $trans-candy-pink;
+        color: $trans-electric-blue;
+        border: 0.1875rem solid $trans-white;
+      }
     }
 
     &__card {
@@ -975,11 +973,11 @@
 
     &__chat-block,
     &__chat-container {
-        background: $trans-black;
+      background: $trans-black;
     }
 
     &__messages {
-        border: .25rem solid $robot-very-light-blue;
+      border: 0.25rem solid $robot-very-light-blue;
     }
 
     &__copy {
@@ -989,7 +987,7 @@
     }
 
     &__card {
-        background: $trans-black;
+      background: $trans-black;
     }
 
     &__gpt-icon-inline {
@@ -1227,7 +1225,7 @@
     }
 
     &__icons-row {
-        background: $trans-black;
+      background: $trans-black;
     }
 
     &__results-section {
@@ -1254,17 +1252,17 @@
     &__share-icon,
     &__like-icon,
     &__dislike-icon {
-        color: $trans-frosted-blue;
+      color: $trans-frosted-blue;
 
-        &:hover {
-            background: $neutral-white;
-            color: $trans-candy-pink;
-        }
+      &:hover {
+        background: $neutral-white;
+        color: $trans-candy-pink;
+      }
 
-        &:active {
-            background: $trans-soft-pink;
-            color: $trans-black;
-        }
+      &:active {
+        background: $trans-soft-pink;
+        color: $trans-black;
+      }
     }
 
     &__scroll-container-popular,
@@ -1351,7 +1349,7 @@
     }
 
     &__title {
-        color: $trans-candy-pink;
+      color: $trans-candy-pink;
     }
 
     &__oauth-btn-google,
@@ -1376,23 +1374,23 @@
     }
 
     &__container {
-        background: $trans-black;
-      }
-    
+      background: $trans-black;
+    }
+
     &__signin-link,
     &__guest-signin-link {
-        background: $frosted-glass;
-        color: $neutral-white;
-      }
-    
+      background: $frosted-glass;
+      color: $neutral-white;
+    }
+
     &__terms-link {
-        border: .0625rem solid $frosted-glass;
-        color: $neutral-white;
-        box-shadow: $shadow-primary;
-        padding: 0 .125rem 0 .125rem;
+      border: 0.0625rem solid $frosted-glass;
+      color: $neutral-white;
+      box-shadow: $shadow-primary;
+      padding: 0 0.125rem 0 0.125rem;
     }
   }
-  
+
   // 404, About, Login Required, Privacy Policy, T&C, Reset, Search Results, Unsubscribe
   .search-results,
   .reset-password,
@@ -1421,27 +1419,27 @@
     &__login-link,
     &__guest-link,
     &__link {
-        border: .0625rem solid $neutral-white;
-        color: $trans-deep-blue;
+      border: 0.0625rem solid $neutral-white;
+      color: $trans-deep-blue;
 
-        &:hover {
-            background: $trans-pastel-pink;
-            color: $neutral-white;
-            border: .0625rem solid $neutral-white;
-        }
+      &:hover {
+        background: $trans-pastel-pink;
+        color: $neutral-white;
+        border: 0.0625rem solid $neutral-white;
+      }
 
-        &:visited,
-        &:focus,
-        &:active {
-            color: $trans-pink;
-            background: $frosted-glass;
-            border: .0625rem solid $neutral-white;
-        }
+      &:visited,
+      &:focus,
+      &:active {
+        color: $trans-pink;
+        background: $frosted-glass;
+        border: 0.0625rem solid $neutral-white;
+      }
     }
 
     &__subtitle,
     &__title {
-        color: $trans-deep-blue;
+      color: $trans-deep-blue;
     }
   }
 
@@ -1450,7 +1448,7 @@
   .unsubscribe-page,
   .not-found {
     &__graphic {
-        border: .25rem solid $trans-frosted-glass-pink;
+      border: 0.25rem solid $trans-frosted-glass-pink;
     }
   }
 
@@ -1465,17 +1463,17 @@
   }
 
   .search-results__pagination-circle {
-    background: rgba($trans-candy-pink, .7);
-    border: .0938rem solid $neutral-white;
+    background: rgba($trans-candy-pink, 0.7);
+    border: 0.0938rem solid $neutral-white;
 
     &:hover {
-        background: $neutral-white;
-        color: trans-pink;
+      background: $neutral-white;
+      color: trans-pink;
     }
 
     &.active {
-        background-color: $trans-blue;
-        box-shadow: 0 0 .25rem $trans-candy-pink;
+      background-color: $trans-blue;
+      box-shadow: 0 0 0.25rem $trans-candy-pink;
     }
   }
 
@@ -1490,43 +1488,43 @@
 
   .terms__nextstream-link {
     &:hover {
-        background: $trans-pastel-pink;
-        color: $neutral-white;
-        border: .0625rem solid $neutral-white;
-        text-shadow: none;
+      background: $trans-pastel-pink;
+      color: $neutral-white;
+      border: 0.0625rem solid $neutral-white;
+      text-shadow: none;
     }
 
     &:visited,
     &:focus,
     &:active {
-        color: $trans-deep-blue;
-        background: $frosted-glass;
-        border: .0625rem solid $trans-pink;
-        text-shadow: none;
+      color: $trans-deep-blue;
+      background: $frosted-glass;
+      border: 0.0625rem solid $trans-pink;
+      text-shadow: none;
     }
   }
 
   .reset-password__button,
   .unsubscribe-page__button {
     &:hover {
-        border: .125rem solid $trans-candy-pink;
-        color: $trans-candy-pink;
+      border: 0.125rem solid $trans-candy-pink;
+      color: $trans-candy-pink;
     }
 
     &:active {
-        color: $neutral-white;
-        border: .125rem solid $neutral-white;
+      color: $neutral-white;
+      border: 0.125rem solid $neutral-white;
     }
   }
 
   // NextStream Bot
   .nextstream-bot {
     background: $trans-black;
-    border: .3125rem solid $trans-candy-pink;
+    border: 0.3125rem solid $trans-candy-pink;
 
     &__title {
-        background: $trans-gradient-deepblue-softpink;
-        border: .1875rem solid $trans-candy-pink;
+      background: $trans-gradient-deepblue-softpink;
+      border: 0.1875rem solid $trans-candy-pink;
     }
 
     &__chat-block {
@@ -1534,32 +1532,32 @@
     }
 
     &__nav-arrow {
-        color: $trans-pastel-blue;
-        background: $trans-black;
-        border: .1875rem solid $trans-candy-pink;
+      color: $trans-pastel-blue;
+      background: $trans-black;
+      border: 0.1875rem solid $trans-candy-pink;
 
-        &:hover {
-            background: $trans-pastel-blue;
-            color: $trans-electric-blue;
-            border: .1875rem solid $trans-black;
-        }
+      &:hover {
+        background: $trans-pastel-blue;
+        color: $trans-electric-blue;
+        border: 0.1875rem solid $trans-black;
+      }
 
-        &:active {
-            background: $trans-candy-pink;
-            color: $trans-electric-blue;
-            border: .1875rem solid $trans-white;
-        }
+      &:active {
+        background: $trans-candy-pink;
+        color: $trans-electric-blue;
+        border: 0.1875rem solid $trans-white;
+      }
     }
 
     &__copy,
     &__card--results,
     &__scroll-container-results {
-        background: $trans-black;
+      background: $trans-black;
     }
 
     &__title--results {
-        background: $primary-pale-blue;
-        color: $primary-button-blue;
+      background: $primary-pale-blue;
+      color: $primary-button-blue;
     }
 
     &__chat-container {
@@ -1567,8 +1565,8 @@
     }
 
     &__messages {
-        background: $trans-black;
-        border: .25rem solid $trans-electric-blue;
+      background: $trans-black;
+      border: 0.25rem solid $trans-electric-blue;
     }
 
     &__clear-input {
@@ -1596,22 +1594,22 @@
     }
   }
 
-// NextView Page
-.nextview-page {
-background: $trans-black;
+  // NextView Page
+  .nextview-page {
+    background: $trans-black;
 
     &__media-icon {
-        color: $trans-candy-pink;
+      color: $trans-candy-pink;
     }
 
     &__cast-item {
-        cursor: url('../../assets/cursors/cursor-pointer-tm.svg'), pointer;
+      cursor: url('../../assets/cursors/cursor-pointer-tm.svg'), pointer;
     }
 
     &__cast-character,
     &__no-streaming-services,
     &__genre-item {
-        color: $trans-pastel-pink;
+      color: $trans-pastel-pink;
     }
 
     &__nextwatch-link,
@@ -1619,12 +1617,12 @@ background: $trans-black;
     &__share-button,
     &__thumbs-up,
     &__thumbs-down {
-        color: $trans-pastel-pink;
+      color: $trans-pastel-pink;
 
-        &:active {
-            background: $trans-black;
-            border: .1875rem solid $trans-white;
-        }
+      &:active {
+        background: $trans-black;
+        border: 0.1875rem solid $trans-white;
+      }
     }
 
     &__cast-container,
@@ -1632,21 +1630,21 @@ background: $trans-black;
     &__details-container,
     &__poster-container,
     &__content {
-        border: .3125rem solid $trans-soft-pink;
+      border: 0.3125rem solid $trans-soft-pink;
     }
 
     &__certification {
-        background: $trans-pastel-pink;
-        color: $trans-black;
+      background: $trans-pastel-pink;
+      color: $trans-black;
     }
 
     &__heading-container {
-        background: $trans-gradient-electricblue-candypink;
+      background: $trans-gradient-electricblue-candypink;
     }
 
     &__copy {
-        background: $trans-frosted-blue;
-        color: $trans-deep-blue;
+      background: $trans-frosted-blue;
+      color: $trans-deep-blue;
     }
 
     &__cast-name,
@@ -1654,33 +1652,32 @@ background: $trans-black;
     &__genre-icon,
     &__streaming-copy,
     &__cast-copy {
-        color: $neutral-white;
+      color: $neutral-white;
     }
 
     &__cast-card {
-        background: $trans-black;
+      background: $trans-black;
     }
 
     &__nextwatch-link {
-        color: $trans-white;
+      color: $trans-white;
     }
 
     &__nextwatch-icon {
-        color: $trans-candy-pink;
+      color: $trans-candy-pink;
     }
-    
-}
+  }
 
   // Profile
   .profile-img {
-    border: .25rem solid $trans-pastel-pink;
+    border: 0.25rem solid $trans-pastel-pink;
 
     &::before {
       background: none;
     }
 
     &__button {
-        background: $trans-candy-pink;
+      background: $trans-candy-pink;
     }
   }
 
@@ -1688,8 +1685,8 @@ background: $trans-black;
     background: $trans-black;
 
     &__main {
-        background: $neutral-black;
-        border: none;
+      background: $neutral-black;
+      border: none;
     }
 
     &__title {
@@ -1697,8 +1694,8 @@ background: $trans-black;
     }
 
     &__text-wrapper {
-        background: $trans-black;
-        color: $trans-pastel-pink;
+      background: $trans-black;
+      color: $trans-pastel-pink;
     }
 
     &__region-content,
@@ -1706,7 +1703,7 @@ background: $trans-black;
     &__notifications-content,
     &__password-content,
     &__details-content {
-        background: $trans-frosted-blue;
+      background: $trans-frosted-blue;
     }
 
     &__content-details,
@@ -1718,27 +1715,27 @@ background: $trans-black;
     }
 
     &__dropdown {
-        background: $trans-electric-blue;
-        color: $trans-pastel-pink;
+      background: $trans-electric-blue;
+      color: $trans-pastel-pink;
     }
 
     &__btn-save-account {
-        background: $trans-pastel-pink;
+      background: $trans-pastel-pink;
 
-        &:active {
-            background: $trans-pastel-blue;
-        }
+      &:active {
+        background: $trans-pastel-blue;
+      }
     }
 
     &__btn-save-account-txt {
-        color: $trans-deep-blue;
+      color: $trans-deep-blue;
     }
 
     &__input {
-        &:valid {
-            background: $frosted-glass;
-            color: $trans-electric-blue;
-        }
+      &:valid {
+        background: $frosted-glass;
+        color: $trans-electric-blue;
+      }
     }
   }
 
@@ -1757,38 +1754,38 @@ background: $trans-black;
     &__duration,
     &__rating,
     &__genre-item {
-        background: $trans-black;
-        color: $neutral-white;
+      background: $trans-black;
+      color: $neutral-white;
     }
 
     &__copy {
-        background: $trans-frosted-glass-blue;
-        color: $trans-deep-blue;
+      background: $trans-frosted-glass-blue;
+      color: $trans-deep-blue;
     }
 
     &__media-copy {
-        background: $trans-black;
+      background: $trans-black;
     }
 
     &__similar-rating,
     &__recommendations-rating {
-        color: $trans-pastel-blue;
+      color: $trans-pastel-blue;
     }
 
     &__star-icon,
     &__star-rating-icon,
     &__genre-icon {
-        color: $trans-soft-pink;
+      color: $trans-soft-pink;
     }
 
     &__similar-name,
     &__recommendations-name {
-        color: $neutral-white;
+      color: $neutral-white;
     }
 
     &__similar-copy-container,
     &__recommendations-copy-container {
-        background: $trans-black;
+      background: $trans-black;
     }
 
     &__heading-container {
@@ -1801,18 +1798,18 @@ background: $trans-black;
     &__similar-container,
     &__details-container,
     &__content {
-        border: .3125rem solid $trans-candy-pink;
+      border: 0.3125rem solid $trans-candy-pink;
     }
 
     &__similar-card,
     &__recommendations-card,
     &__recommendations-rating,
     &__similar-rating {
-        cursor: url('../../assets/cursors/cursor-pointer-tm.svg'), pointer;
+      cursor: url('../../assets/cursors/cursor-pointer-tm.svg'), pointer;
     }
 
     &__no-similar-media {
-        color: $trans-white;
+      color: $trans-white;
     }
 
     &__media-type,
@@ -1847,11 +1844,11 @@ background: $trans-black;
     }
 
     &__content {
-        border: .125rem solid $trans-soft-pink;
+      border: 0.125rem solid $trans-soft-pink;
 
-        @include tablet {
-            border: .625rem solid $trans-soft-pink;
-        }
+      @include tablet {
+        border: 0.625rem solid $trans-soft-pink;
+      }
     }
 
     &__play-icon,
@@ -1867,11 +1864,11 @@ background: $trans-black;
     }
 
     &__subtitle {
-        background-color: $trans-electric-blue;
+      background-color: $trans-electric-blue;
     }
 
     &__card {
-        background: $trans-frosted-glass-blue;
+      background: $trans-frosted-glass-blue;
     }
 
     &__copy {
@@ -1891,39 +1888,39 @@ background: $trans-black;
   // Streamboard
   .streamboard {
     background: $trans-black;
-    border: .3125rem solid $trans-candy-pink;
+    border: 0.3125rem solid $trans-candy-pink;
 
     &__title {
       background: $trans-gradient-electricblue-candypink;
     }
 
     &__search-bar-input {
-        &:focus {
-            box-shadow: 0 0 0 .2rem $trans-candy-pink;
-        }
+      &:focus {
+        box-shadow: 0 0 0 0.2rem $trans-candy-pink;
+      }
     }
 
     &__search-bar {
-        background: $trans-frosted-glass-blue;
+      background: $trans-frosted-glass-blue;
     }
 
     &__copy {
-        background: $trans-frosted-glass-blue;
-        color: $trans-deep-blue;
+      background: $trans-frosted-glass-blue;
+      color: $trans-deep-blue;
     }
 
     &__link {
-        color: $trans-electric-blue;
+      color: $trans-electric-blue;
 
-        &:hover {
-            background: $trans-candy-pink;
-            color: $trans-black;
-        }
+      &:hover {
+        background: $trans-candy-pink;
+        color: $trans-black;
+      }
 
-        &:active {
-            background: $trans-black;
-            color: $trans-pastel-pink;
-        }
+      &:active {
+        background: $trans-black;
+        color: $trans-pastel-pink;
+      }
     }
 
     &__media-item {
@@ -1957,7 +1954,7 @@ background: $trans-black;
     }
 
     &__media-column--to_watch {
-        background-color: $trans-white;
+      background-color: $trans-white;
     }
 
     &__media-column--scheduled {
@@ -1969,16 +1966,16 @@ background: $trans-black;
     }
 
     &__media-column {
-        &--to_watch::before,
-        &--scheduled::before,
-        &--watched::before {
-            background-color: $trans-pastel-pink;
-            color: $trans-black;
-        }
+      &--to_watch::before,
+      &--scheduled::before,
+      &--watched::before {
+        background-color: $trans-pastel-pink;
+        color: $trans-black;
+      }
     }
 
     &__media-item {
-        background: $trans-frosted-glass-blue;
+      background: $trans-frosted-glass-blue;
     }
 
     &__tag-button,
@@ -1987,18 +1984,18 @@ background: $trans-black;
     &__media-type-icon,
     &__calendar-icon,
     &__trash-icon {
-        background-color: $trans-black;
+      background-color: $trans-black;
+      color: $trans-pastel-pink;
+
+      &:hover {
+        background-color: $trans-pastel-pink;
+        color: $trans-black;
+      }
+
+      &:active {
+        background-color: $trans-deep-blue;
         color: $trans-pastel-pink;
-
-        &:hover {
-            background-color: $trans-pastel-pink;
-            color: $trans-black;
-        }
-
-        &:active {
-            background-color: $trans-deep-blue;
-            color: $trans-pastel-pink;
-        }
+      }
     }
 
     &__season-episode-inputs {
@@ -2034,66 +2031,66 @@ background: $trans-black;
   .review-modal,
   .tag-modal {
     &__title {
-        color: $trans-candy-pink;
-        text-shadow: $shadow-primary;
+      color: $trans-candy-pink;
+      text-shadow: $shadow-primary;
     }
 
     &__button--save {
-        background: $trans-pink;
+      background: $trans-pink;
 
-        &:hover {
-            background: $trans-black;
-            color: $trans-pastel-pink
-        }
+      &:hover {
+        background: $trans-black;
+        color: $trans-pastel-pink;
+      }
 
-        &:focus,
-        &:active {
-            color: $trans-candy-pink;
-        }
+      &:focus,
+      &:active {
+        color: $trans-candy-pink;
+      }
     }
 
     &__button--delete {
-        background: $trans-soft-pink;
+      background: $trans-soft-pink;
 
-        &:hover {
-            background: $trans-black;
-            color: $trans-pastel-pink
-        }
+      &:hover {
+        background: $trans-black;
+        color: $trans-pastel-pink;
+      }
 
-        &:focus,
-        &:active {
-            color: $trans-candy-pink;
-        }
+      &:focus,
+      &:active {
+        color: $trans-candy-pink;
+      }
     }
 
     &__button--close {
-        background: $trans-pastel-pink;
-        color: $trans-black;
+      background: $trans-pastel-pink;
+      color: $trans-black;
 
-        &:hover {
-            background: $trans-black;
-            color: $trans-pastel-pink
-        }
+      &:hover {
+        background: $trans-black;
+        color: $trans-pastel-pink;
+      }
 
-        &:focus,
-        &:active {
-            color: $trans-candy-pink;
-        }
+      &:focus,
+      &:active {
+        color: $trans-candy-pink;
+      }
     }
   }
 
   .tag-modal {
     &__eraser-icon {
-        color: $trans-pastel-pink;
-        cursor: url(../../assets/cursors/cursor-pointer-tm.svg), pointer;
-    
-        &:hover {
+      color: $trans-pastel-pink;
+      cursor: url(../../assets/cursors/cursor-pointer-tm.svg), pointer;
+
+      &:hover {
         color: $primary-light-blue;
-        }
-    
-        &:active {
+      }
+
+      &:active {
         color: $trans-white;
-        }
+      }
     }
   }
 
@@ -2106,55 +2103,55 @@ background: $trans-black;
       color: $trans-soft-pink;
       cursor: url(../../assets/cursors/cursor-pointer-tm.svg), pointer;
       transition: color 0.3s ease, transform 0.3s ease;
-  
+
       &:hover {
         color: $trans-pastel-pink;
-        transform: scale(1.1); 
+        transform: scale(1.1);
       }
-  
+
       &:active {
         color: $trans-white;
-        transform: scale(0.9); 
+        transform: scale(0.9);
       }
     }
   }
 
   // Faves
   .faves-page {
-  background: $trans-black;
+    background: $trans-black;
 
     &__title,
     &__search-bar-container {
-        background: $trans-gradient-electricblue-candypink;
+      background: $trans-gradient-electricblue-candypink;
     }
 
     &__search-input {
-        border-radius: 1.25rem;
-        color: $neutral-white;
+      border-radius: 1.25rem;
+      color: $neutral-white;
     }
 
     &__copy-container {
-        background: $trans-black;
-        border: .3125rem solid $trans-electric-blue;
+      background: $trans-black;
+      border: 0.3125rem solid $trans-electric-blue;
     }
 
     &__copy-header {
-        color: $trans-soft-pink;
+      color: $trans-soft-pink;
     }
 
     &__card {
-        background: $trans-frosted-glass-blue;
+      background: $trans-frosted-glass-blue;
     }
 
     &__filter-card {
-        background: $trans-frosted-glass-blue;
-        border: .15rem solid $trans-electric-blue;
-        border-bottom: .3rem solid $trans-electric-blue;
+      background: $trans-frosted-glass-blue;
+      border: 0.15rem solid $trans-electric-blue;
+      border-bottom: 0.3rem solid $trans-electric-blue;
     }
 
     &__filter-label {
-        border: .0325rem solid $trans-candy-pink;
-        border-bottom: .15rem solid $trans-candy-pink
+      border: 0.0325rem solid $trans-candy-pink;
+      border-bottom: 0.15rem solid $trans-candy-pink;
     }
 
     &__play-icon,
@@ -2171,103 +2168,102 @@ background: $trans-black;
     }
 
     &__copy {
-        color: $trans-white;
+      color: $trans-white;
     }
 
     &__no-faves-container,
     &__filters-container {
-        background: $frosted-glass;
-        border: .3125rem solid $trans-frosted-glass-pink;
+      background: $frosted-glass;
+      border: 0.3125rem solid $trans-frosted-glass-pink;
     }
 
     &__filter-icon {
-        background: $trans-black;
-        color: $trans-candy-pink;
+      background: $trans-black;
+      color: $trans-candy-pink;
     }
 
     &__search-bar,
     &__search-input {
-        background: $trans-black;
+      background: $trans-black;
 
-        &:hover {
+      &:hover {
         background: none;
-        }
+      }
 
-        &:focus {
+      &:focus {
         color: $primary-dark-blue;
-        }
+      }
     }
 
     &__search-bar {
-        border: .25rem solid $trans-candy-pink;
+      border: 0.25rem solid $trans-candy-pink;
     }
 
     &__magnifying-glass-icon {
-        margin-left: 0.25rem;
+      margin-left: 0.25rem;
     }
 
     &__magnifying-glass-icon,
     &__clear-icon {
-        color: $trans-soft-pink;
+      color: $trans-soft-pink;
 
-        &:hover {
-            color: $trans-deep-blue;
-        }
+      &:hover {
+        color: $trans-deep-blue;
+      }
 
-        &:active {
-            color: $neutral-white;
-        }
+      &:active {
+        color: $neutral-white;
+      }
     }
   }
 
-// NextSwipe
-.nextswipe-page {
-  
+  // NextSwipe
+  .nextswipe-page {
     &__container {
-        background: $trans-black;
-        border: .35rem solid $trans-candy-pink;
+      background: $trans-black;
+      border: 0.35rem solid $trans-candy-pink;
     }
 
     &__media-card {
-        background: $frosted-glass;
+      background: $frosted-glass;
     }
 
     &__title-container {
-        background: $trans-gradient-electricblue-candypink;
+      background: $trans-gradient-electricblue-candypink;
     }
 
     &__nav-button {
-        background: $trans-black;
+      background: $trans-black;
+      color: $neutral-white;
+
+      &:hover {
         color: $neutral-white;
+        background: $trans-candy-pink;
+      }
 
-        &:hover {
-            color: $neutral-white;
-            background: $trans-candy-pink;
-        }
-
-        &:active {
-            color: $neutral-black;
-            background: $trans-soft-pink;
-        }
+      &:active {
+        color: $neutral-black;
+        background: $trans-soft-pink;
+      }
     }
-}
+  }
 
   .media-card {
     &__details {
-        background: $trans-frosted-glass-blue;
-        border-radius: 0 0 0.5rem 0.5rem;
+      background: $trans-frosted-glass-blue;
+      border-radius: 0 0 0.5rem 0.5rem;
     }
 
     &__lightbulb-icon,
     &__share-icon,
     &__type-icon {
-        background: $trans-pastel-pink;
-        color: $trans-black;
+      background: $trans-pastel-pink;
+      color: $trans-black;
     }
 
     &__image {
-        background: $primary-very-light-blue;
-        border-radius: 0.5rem 0.5rem 0 0;
+      background: $primary-very-light-blue;
+      border-radius: 0.5rem 0.5rem 0 0;
     }
   }
 

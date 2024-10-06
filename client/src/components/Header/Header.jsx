@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEraser, faSignInAlt, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import nextStreamLogo from "../../assets/images/nextstream-wordmark.png";
 import searchVector from "../../assets/images/search-vector-handle.svg";
-import ThemeToggle from '../ThemeToggle/ThemeToggle';
+import ThemeToggle from './sections/ThemeToggle/ThemeToggle';
 import "./Header.scss";
 
 const Header = () => {

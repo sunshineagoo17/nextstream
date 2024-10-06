@@ -6,15 +6,15 @@ import { Link } from 'react-router-dom';
 import { Tooltip } from 'react-tooltip';
 import { faChevronLeft, faLightbulb, faStopCircle, faBroom, faRobot, faChevronRight, faPlay, faTimes, faEraser, faComment, faTv, faFilm, faCalendarPlus, faThumbsUp, faThumbsDown, faShareAlt, faUser, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
-import Calendar from '../CalendarPage/sections/Calendar';
+import Calendar from '../CalendarPage/sections/Calendar/Calendar';
 import api from '../../services/api';
 import UserRating from '../TopPicksPage/sections/UserRating/UserRating';
 import DefaultPoster from '../../assets/images/posternoimg-icon.png';
-import MizuLoader from '../../components/MizuLoader/MizuLoader';
+import MizuLoader from '../../components/Loaders/MizuLoader/MizuLoader';
 import ChatRobotAnimation from "../../assets/animation/chat-robot.webm";
 import HelloRobotAnimation from "../../assets/animation/hello-robot.webm";
 import SearchRobotAnimation from "../../assets/animation/search-robot.webm";
-import VoiceMessageMizu from '../../components/VoiceMessageMizu/VoiceMessageMizu';
+import VoiceMessageMizu from '../../components/VoiceInteraction/VoiceMessageMizu/VoiceMessageMizu';
 import './NextStreamGpt.scss';
 
 const NextStreamGpt = () => {

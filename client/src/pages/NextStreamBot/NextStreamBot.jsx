@@ -7,13 +7,13 @@ import { Tooltip } from 'react-tooltip';
 import { faChevronLeft, faBroom, faRobot, faLightbulb, faChevronRight, faPlay, faTimes, faComment, faTv, faFilm, faCalendarPlus, faThumbsUp, faThumbsDown, faShareAlt, faUser, faPaperPlane, faEraser } from '@fortawesome/free-solid-svg-icons';
 import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
 import ChatbotSvg from "../../assets/images/chat-bot.svg";
-import Calendar from '../CalendarPage/sections/Calendar';
+import Calendar from '../CalendarPage/sections/Calendar/Calendar';
 import api from '../../services/api';
-import RobotLoader from '../../components/RobotLoader/RobotLoader';
+import RobotLoader from '../../components/Loaders/RobotLoader/RobotLoader';
 import ReelSVG from '../../assets/images/reel-svg.svg';
 import UserRating from '../TopPicksPage/sections/UserRating/UserRating';
 import './NextStreamBot.scss';
-import VoiceMessage from '../../components/VoiceMessage/VoiceMessage';
+import VoiceMessage from '../../components/VoiceInteraction/VoiceMessage/VoiceMessage';
 import DefaultPoster from '../../assets/images/posternoimg-icon.png';
 
 const NextStreamBot = () => {

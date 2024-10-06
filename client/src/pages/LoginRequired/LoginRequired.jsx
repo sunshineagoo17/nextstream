@@ -1,9 +1,9 @@
 import { useContext, useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
-import AnimatedBg from '../../components/AnimatedBg/AnimatedBg';
+import AnimatedBg from '../../components/Backgrounds/AnimatedBg/AnimatedBg';
 import './LoginRequired.scss';
-import Loader from '../../components/Loader/Loader';
+import Loader from '../../components/Loaders/Loader/Loader';
 import LoginImg from "../../assets/images/login-required.svg";
 
 export const LoginRequired = () => {

@@ -1,8 +1,8 @@
 import { useContext, useState, useEffect, useRef } from 'react';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { ToastContainer, Slide } from 'react-toastify';
-import Calendar from './sections/Calendar';
-import Loader from '../../components/Loader/Loader';
+import Calendar from './sections/Calendar/Calendar';
+import Loader from '../../components/Loaders/Loader/Loader';
 import api from '../../services/api';
 import './CalendarPage.scss';
 import 'react-toastify/dist/ReactToastify.css';

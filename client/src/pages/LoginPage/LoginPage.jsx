@@ -11,7 +11,7 @@ import SignUpIcon from '../../assets/images/register-sign-up-icon.svg';
 import SignInCouple from '../../assets/images/login-hero-couple-watching.svg';
 import ForgotPasswordModal from '../../components/ForgotPasswordModal/ForgotPasswordModal';
 import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
-import Loader from '../../components/Loader/Loader';
+import Loader from '../../components/Loaders/Loader/Loader';
 import Cookies from 'js-cookie';
 import './LoginPage.scss';
 

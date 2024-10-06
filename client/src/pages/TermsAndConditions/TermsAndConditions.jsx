@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import AnimatedBg from '../../components/AnimatedBg/AnimatedBg';
+import AnimatedBg from '../../components/Backgrounds/AnimatedBg/AnimatedBg';
 import ContactModal from '../../components/ContactModal/ContactModal';
-import Loader from '../../components/Loader/Loader';
+import Loader from '../../components/Loaders/Loader/Loader';
 import './TermsAndConditions.scss';
 
 export const TermsAndConditions = () => {

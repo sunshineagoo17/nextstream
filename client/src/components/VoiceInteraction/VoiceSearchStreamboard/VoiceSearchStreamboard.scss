@@ -1,0 +1,56 @@
+// Import partials
+@use "../../../styles/partials/colors" as *;
+@use "../../../styles/partials/fonts" as *;
+@use "../../../styles/partials/mixins" as *;
+@use "../../../styles/global.scss" as *;
+
+.voice-search-streamboard__voice-button {
+    @include block-item(1.5rem, 3rem);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $primary-medium-blue;
+    color: $primary-very-light-blue;
+    padding: .25rem .95rem;
+    border-radius: .5rem;
+    box-shadow: $shadow-primary;
+    border: none;
+    transition: background-color .3s ease, transform .3s ease;
+  
+    &:hover {
+        background-color: $primary-button-blue;
+        transform: scale(1.05);
+        box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+        transform: translateY(-3px);
+        text-shadow: $shadow-primary;
+        color: #7CFC00;
+    }
+  
+    &:active {
+        transform: scale(.95);
+        background: $feedback-mint-light-green;
+        color: $primary-dark-blue;
+    }
+  
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+    }
+
+    @include tablet {
+        padding: .75rem 1.25rem;
+    }
+  }
+
+
+.voice-search-streamboard__mic-icon {
+  transition: transform 1.5s ease;
+
+    &:hover {
+        transform: rotate(360deg);
+    }
+
+    &:active {
+        transform: scale(.9);
+    }
+}

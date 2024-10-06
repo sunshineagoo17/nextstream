@@ -11,7 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell } from '@fortawesome/free-solid-svg-icons';
 import ToggleButton from '../../components/ToggleButton/ToggleButton';
 import SubscriptionStatus from './sections/SubscriptionStatus/SubscriptionStatus';
-import Loader from '../../components/Loader/Loader';
+import Loader from '../../components/Loaders/Loader/Loader';
 import ProfileImg from './sections/ProfileImg/ProfileImg';
 import 'react-toastify/dist/ReactToastify.css';
 import './ProfilePage.scss';

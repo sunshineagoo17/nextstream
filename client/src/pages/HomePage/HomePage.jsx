@@ -3,7 +3,7 @@ import { Content } from "./sections/Content/Content";
 import { Hero } from "./sections/Hero/Hero";
 import Cookies from "js-cookie";
 import CookieNotification from "./sections/CookieNotification/CookieNotification";
-import Loader from '../../components/Loader/Loader';
+import Loader from '../../components/Loaders/Loader/Loader';
 import "./HomePage.scss";
 
 export const HomePage = () => {

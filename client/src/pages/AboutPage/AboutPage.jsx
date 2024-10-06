@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTv, faCouch, faFilm, faDesktopAlt, faMicrochip, faBriefcase, faGlobe, faSearch, faStar, faCalendarAlt, faSmile, faRobot, faHandPointer, faMapMarkerAlt, faBolt, faHeart, faBell, faCheckSquare } from '@fortawesome/free-solid-svg-icons'; 
-import AnimatedBg from '../../components/AnimatedBg/AnimatedBg';
+import AnimatedBg from '../../components/Backgrounds/AnimatedBg/AnimatedBg';
 import ContactModal from '../../components/ContactModal/ContactModal';
-import Loader from '../../components/Loader/Loader';
+import Loader from '../../components/Loaders/Loader/Loader';
 import './AboutPage.scss';
 
 export const AboutPage = () => {

@@ -1,0 +1,206 @@
+// Import partials
+@use "../../../../styles/partials/colors" as *;
+@use "../../../../styles/partials/fonts" as *;
+@use "../../../../styles/partials/mixins" as *;
+@use "../../../../styles/global.scss" as *;
+
+.dark-mode-toggle {
+  position: relative;
+  background: none;
+  border: none;
+  outline: none;
+  padding: .625rem;
+  border-radius: 50%;
+  transition: transform .3s ease-in-out;
+  z-index: 9999;
+
+  .icon {
+    @include block-item(1rem, 1rem);
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    transition: color .3s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @include tablet {
+      @include block-item(1.5rem, 1.5rem);
+    }
+  }
+
+  .sun {
+    color: $neutral-white; 
+    padding: .6rem;
+    background: $primary-light-blue;
+    box-shadow: $shadow-secondary;
+    border-radius: .5rem;
+    border: .125rem solid $neutral-white;
+    transition: background .5s, clip-path .5s ease-in-out;
+
+    &:hover {
+      border: .125rem solid #fee100;
+      background: #fee100;
+      color: $neutral-white;
+      box-shadow: 0 0 .625rem .1875rem rgba(254, 225, 0, .7), 0 0 1.25rem .3125rem rgba(254, 225, 0, .4);
+      animation: morph-bg 5s infinite;
+    }
+
+    &:active {
+      opacity: 1;
+      color: #FFA000;
+      background: radial-gradient(circle, #FFD700 50%, #FFC107 70%, #FFA000 100%);
+      box-shadow: $shadow-secondary;
+      border: .125rem solid $neutral-white;
+      border-radius: 1.5rem;
+    }
+  }
+
+  .moon {
+    color: $neutral-white;
+    animation: moonlight 1s infinite alternate;
+  }
+
+  // Rainbow button for Trans Mode
+  .rainbow {
+    color: transparent;
+    padding: .5rem; // Slightly larger padding for better balance
+    background: linear-gradient(145deg, $trans-blue 0%, $trans-pink 25%, $trans-candy-pink 50%, $trans-deep-blue 75%, $trans-pale-blue 100%);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), 0 6px 25px rgba(255, 153, 204, 0.4), inset 0 0 8px rgba(119, 153, 255, 0.3);
+    border-radius: .875rem; // More rounded for a softer, modern look
+    border: .125rem solid rgba(255, 255, 255, 0.25); // Slightly translucent border for subtlety
+    transition: background 0.6s ease-in-out, transform 0.3s ease-in-out, box-shadow 0.5s ease-in-out, color 0.4s ease-in-out;
+  
+
+  &:hover {
+    border: .125rem solid $trans-pink; // Pink border on hover
+    background-position: 200%;
+    transform: scale(1.1); 
+    color: $trans-electric-blue; // Matching the hover text color to trans-theme
+    background-clip: text;
+    transition: transform 0.4s, color 0.6s ease-out;
+    box-shadow: 0 0 .625rem .1875rem rgba(255, 99, 199, .7), 0 0 1.25rem .3125rem rgba(255, 99, 199, .4);
+    border-radius: 2.5rem 2.5rem .75rem .75rem;
+  }
+
+  &:active {
+    background-position: 100%;
+    border-radius: 50%;
+    background: linear-gradient(135deg, $trans-pink, $trans-deep-blue, $trans-candy-pink, $trans-pale-blue); // Darker trans-mode gradient on click
+    transform: scale(0.85); // Sharper shrink effect on click
+    box-shadow: inset 0 0 2rem rgba(255, 99, 199, 0.6), // Deeper inner glow for focus
+                0 0 1.75rem rgba(119, 153, 255, 0.8), // Stronger outer glow for pop
+                0 0 3rem rgba(119, 255, 153, 0.6); // Extended range outer glow
+    color: $neutral-white;
+    border: .125rem solid $trans-pale-blue;
+    transition: transform 0.15s ease, background 0.3s ease, box-shadow 0.15s ease;
+  
+    // Ripple effect radiating from the center
+    &:before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 120%;
+      height: 120%;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.7), rgba(119, 153, 255, 0));
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+      animation: rippleEffect 0.4s ease-out forwards;
+    }
+    }
+  }
+
+  .light-effect {
+    @include block-item(0, 0);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 50%;
+    opacity: 0;
+    transform: translate(-50%, -50%);
+    transition: all .3s ease-in-out;
+  }
+
+  &.light .light-effect {
+    opacity: .5;
+    animation: sun-glow 4s infinite alternate;
+  }
+
+  &.dark .light-effect {
+    @include block-item(2.25rem, 2.25rem);
+    background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, $primary-dark-navy-blue 70%);
+    opacity: .7;
+    animation: flashlight 1.5s infinite alternate;
+
+    &:hover {
+      background: radial-gradient(circle, rgba(255, 235, 59, 1) 0%, $primary-dark-navy-blue 70%);
+    }
+
+    &:active {
+      background: radial-gradient(circle, rgba(176, 196, 222, 1) 0%, $primary-dark-navy-blue 55%);
+    }
+  }
+}
+
+// Keyframe Animations
+@keyframes sun-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes sun-glow {
+  0% {
+    transform: scale(1);
+    opacity: .7;
+  }
+  100% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+}
+
+@keyframes moonlight {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes flashlight {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+}
+
+@keyframes morph-bg {
+  0% {
+    clip-path: circle(50%);
+    transition: clip-path .5s cubic-bezier(.68, -.55, .27, 1.55);
+  }
+  20% {
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    transition: clip-path 1s cubic-bezier(.68, -.55, .27, 1.55);
+  }
+  50% {
+    clip-path: ellipse(50% 35% at 50% 50%);
+    transition: clip-path 1.2s ease-in-out;
+  }
+  80% {
+    clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+    transition: clip-path 1s ease-in-out;
+  }
+  100% {
+    clip-path: circle(50%);
+    transition: clip-path .5s cubic-bezier(.68, -.55, .27, 1.55);
+  }
+}

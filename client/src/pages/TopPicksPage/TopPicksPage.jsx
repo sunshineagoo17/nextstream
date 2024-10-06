@@ -6,11 +6,11 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { Tooltip } from 'react-tooltip';
-import LightBlobBg from '../../components/LightBlobBg/LightBlobBg';
+import LightBlobBg from '../../components/Backgrounds/LightBlobBg/LightBlobBg';
 import DefaultPoster from "../../assets/images/posternoimg-icon.png";
-import Loader from '../../components/Loader/Loader';
+import Loader from '../../components/Loaders/Loader/Loader';
 import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
-import Calendar from '../CalendarPage/sections/Calendar';
+import Calendar from '../CalendarPage/sections/Calendar/Calendar';
 import UserRating from './sections/UserRating/UserRating';
 import ProgressSVG from '../../assets/images/progress-img.svg';
 import './TopPicksPage.scss';

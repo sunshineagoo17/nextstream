@@ -11,9 +11,9 @@ import {
 import { AuthContext } from '../../context/AuthContext/AuthContext'; 
 import { Tooltip } from 'react-tooltip';
 import api from '../../services/api';
-import WavesBg from '../../components/WavesBg/WavesBg';
-import Loader from '../../components/Loader/Loader';
-import Calendar from '../CalendarPage/sections/Calendar';
+import WavesBg from '../../components/Backgrounds/WavesBg/WavesBg';
+import Loader from '../../components/Loaders/Loader/Loader';
+import Calendar from '../CalendarPage/sections/Calendar/Calendar';
 import DefaultPosterImg from '../../assets/images/posternoimg-icon.png';
 import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
 import './NextViewPage.scss';

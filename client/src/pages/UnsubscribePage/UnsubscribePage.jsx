@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import api from '../../services/api';
-import AnimatedBg from '../../components/AnimatedBg/AnimatedBg';
-import Loader from '../../components/Loader/Loader';
+import AnimatedBg from '../../components/Backgrounds/AnimatedBg/AnimatedBg';
+import Loader from '../../components/Loaders/Loader/Loader';
 import UnsubscribeImg from "../../assets/images/email-magnet.svg";
 import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
 import './UnsubscribePage.scss';

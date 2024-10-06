@@ -1,0 +1,1080 @@
+// Import partials
+@use "../../../../styles/partials/colors" as *;
+@use "../../../../styles/partials/fonts" as *;
+@use "../../../../styles/partials/mixins" as *;
+@use "../../../../styles/global.scss" as *;
+
+@import url('https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.10.1/main.min.css');
+
+// Override FullCalendar event styles 
+:root {
+  --fc-event-bg-color: transparent;
+  --fc-event-border-color: transparent;
+}
+
+#deleteDisabledTooltip {
+  background-color: $primary-dark-blue;
+  color: $neutral-white;
+  padding: .5rem 1rem;
+  border-radius: .5rem;
+  box-shadow: 0 .5rem 1rem rgba($neutral-black, .1);
+  font-family: $primary-font;
+  font-size: .85rem;
+  line-height: 1.25rem;
+
+  &::after {
+    border: $primary-button-blue transparent transparent transparent;
+  }
+}
+
+.calendar {
+  background: $frosted-glass;
+  border-radius: 1rem;
+  padding: 1.25rem;
+  margin: 1.25rem auto;
+  max-width: 75rem;
+  box-shadow: $shadow-tertiary;
+
+  @include tablet {
+    padding: .625rem;
+    margin: .625rem auto;
+  }
+
+  @include desktop {
+    max-width: 110rem;
+  }
+
+  @include large-desktop {
+    max-width: 120rem;
+  }
+
+  &__radio {
+    margin-right: .5rem;
+  }
+
+  &__event-movie {
+    background-color: $primary-very-light-blue;
+    color: $primary-dark-blue;
+    border: .095rem solid $primary-pale-blue;
+    border-radius: 1rem;
+    box-shadow: $shadow-tertiary;
+    padding: .15rem;
+
+    @include tablet {
+      border: .2rem solid $primary-pale-blue;
+    }
+  }
+
+  &__event-tv {
+    background-color: $primary-pale-cyan;
+    border: .095rem solid $primary-very-light-blue;
+    border-radius: 1rem;
+    padding: .15rem;
+    box-shadow: $shadow-tertiary;
+
+    @include tablet {
+      border: .2rem solid $primary-very-light-blue;
+    }
+  }
+
+  &__event-time {
+    max-width: 100%;
+  }
+
+  &__event-icon {
+    @include tablet {
+      @include block-item(.6rem, .6rem);
+    }
+
+    @include desktop {
+      @include block-item(.85rem, .85rem);
+    }
+  }
+
+  &__header {
+    align-items: center;
+    margin-bottom: 1.25rem;
+    background: $primary-very-light-blue;
+    padding: .625rem 1.25rem;
+    border-radius: .75rem;
+    box-shadow: 0 .25rem .375rem rgba($neutral-black, .1);
+
+    @include tablet {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+
+  &__search-container {
+    position: relative;
+    flex: 1;
+    border-radius: .75rem;
+    box-shadow: $shadow-tertiary;
+
+    @include tablet {
+      width: 100%;
+      margin-bottom: 1rem;
+      margin-right: 0;
+    }
+  }
+
+  &__search-icon {
+    position: absolute;
+    left: .85rem;
+    top: 35%;
+    transition: transform 1s ease;
+    color: $primary-light-blue;
+
+    &:hover {
+      transform: rotate(360deg);
+    }
+  }
+
+  &__clear-icon {
+    position: absolute;
+    right: .85rem;
+    top: 28%;
+    background: $primary-medium-blue;
+    color: $neutral-white;
+    padding: .25rem;
+    border-radius: .35rem;
+    box-shadow: $shadow-primary;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+      background: $frosted-glass;
+      color: $primary-medium-blue;
+      border: 1px solid $neutral-white;
+      transform: scale(1.05);
+    }
+
+    &:active {
+      background: $primary-button-blue;
+      color: $neutral-white;
+      border: none;
+      transform: scale(0.95);
+    }
+  }
+
+  &__search-bar {
+    width: 100%;
+    padding: .625rem 1.75rem .625rem 2.25rem;
+    border-radius: .75rem;
+    border: .125rem solid $primary-medium-blue;
+    background: rgba(255, 255, 255, .6);
+    box-shadow: 0 .25rem .375rem rgba($neutral-black, .1);
+    font-size: 1rem;
+    font-family: $primary-font;
+    color: $primary-dark-blue;
+
+    &::placeholder {
+      font-family: $primary-font;
+      color: $primary-light-blue;
+      opacity: 1;
+    }
+
+    &:-ms-input-placeholder {
+      color: $primary-light-blue;
+    }
+
+    &::-ms-input-placeholder {
+      color: $primary-light-blue;
+    }
+
+    @include tablet {
+      padding-right: .625rem;
+    }
+
+    @include desktop {
+      padding-right: 1.75rem;
+    }
+  }
+
+  &__actions {
+    padding-top: .5rem;
+    display: flex;
+    gap: .25rem;
+    justify-content: space-between;
+  }
+
+  &__calendar-icon {
+    margin-left: .25rem;
+
+    @include tablet {
+      margin-left: .5rem;
+    }
+  }
+
+  &__toggle-sidebar-btn {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+    padding: .35rem;
+    border-radius: .75rem;
+    font-size: .7rem;
+    border: none;
+    background: $primary-light-blue;
+    color: $neutral-white;
+    line-height: .95rem;
+    font-family: $primary-font;
+    box-shadow: $shadow-primary;
+    transition: transform .3s ease;
+    overflow: hidden;
+  
+    span {
+      white-space: nowrap;
+    }
+  
+    .calendar__calendar-icon {
+      margin-left: .5rem;
+      transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+    }
+
+    &:hover {
+      background-color: $primary-very-light-blue;
+      border: .125rem solid $neutral-white;
+      color: $primary-dark-blue;
+    }
+  
+    &:hover .calendar__calendar-icon {
+      animation: move-in-out 1s ease-in-out;
+    }
+  
+    &:active {
+      background-color: $primary-medium-blue;
+      transform: scale(.95);
+      color: $neutral-white;
+      border: none;
+      font-weight: bold;
+    }
+  
+    @include tablet {
+      margin-top: -1rem;
+      padding: .625rem 1.25rem;
+      font-size: 1rem;
+    }
+  }
+  
+  @keyframes move-in-out {
+    0% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    50% {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    51% {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }   
+  
+  &__trash-icon {
+    margin-left: .25rem;
+
+    @include tablet {
+      margin-left: .5rem;
+    }
+  }
+
+  &__delete-events-btn {
+    padding: .35rem;
+    border-radius: .75rem;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    background: $primary-medium-blue;
+    color: $neutral-white;
+    line-height: .95rem;
+    font-size: .7rem;
+    font-family: $primary-font;
+    box-shadow: $shadow-primary;
+    transition: background-color .3s, transform .5s;
+
+    @keyframes wiggle {
+      0%, 100% {
+        transform: rotate(0deg);
+      }
+      25% {
+        transform: rotate(-5deg);
+      }
+      50% {
+        transform: rotate(5deg);
+      }
+      75% {
+        transform: rotate(-5deg);
+      }
+    }
+  
+    @keyframes backgroundSlide {
+      100% {
+        background-position: -100%;
+      }
+      0% {
+        background-position: 0%;
+      }
+    }
+  
+    @keyframes contentSlide {
+      100% {
+        transform: translateX(-100%);
+        opacity: 0;
+      }
+      0% {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+  
+    &:hover {
+      animation: wiggle .9s ease-in-out, backgroundSlide .9s forwards;
+      background: $feedback-error-peach;
+      color: $base-darker-blue;
+  
+      & > * {
+        animation: contentSlide .9s forwards;
+      }
+    }
+
+    &:active {
+      background-color: $feedback-error-light-peach;
+      font-weight: bold;
+      transform: scale(.95);
+    }
+
+    @include tablet {
+      margin-top: -1rem;
+      font-size: 1rem;
+      padding: .625rem 1.25rem;
+    }
+  }
+
+  &__content {
+    display: flex;
+    position: relative;
+    height: 37rem;
+    font-size: .5rem;
+
+    @include tablet {
+      flex-direction: column;
+      height: 40.5rem;
+    }
+
+    @include desktop {
+      height: 48.05rem;
+    }
+  }
+
+  &__main {
+    flex: 3;
+    border: .25rem solid $primary-pale-blue;
+    box-shadow: $shadow-senary;
+  }
+
+  &__overlay {
+    @include block-item(100%, 100%);
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba($primary-pale-blue, .8);
+    z-index: 500;
+
+    @media (max-width: 320rem) {
+      display: block;
+    }
+  }
+}
+
+.mini-calendar {
+  flex: 1;
+  margin-right: 1.25rem;
+  backdrop-filter: blur(.625rem);
+  border-radius: .75rem;
+  padding: .625rem;
+  max-height: 60%;
+  box-shadow: $shadow-primary;
+  border: .3125rem solid $neutral-white;
+
+  @include mobile {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    margin-right: 0;
+    border-radius: .75rem;
+  }
+
+  @include desktop {
+    height: 20.5rem;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: .625rem;
+  }
+
+  &__title {
+    font-size: 1.2rem;
+    font-weight: normal;
+    color: $primary-medium-blue;
+    background-color: $neutral-white;
+    padding: .15rem .5rem;
+    border-radius: .5rem;
+    border: .15rem solid $primary-very-light-blue;
+    text-shadow: $shadow-primary;
+  }
+
+  &__nav-btn {
+    background: $primary-light-blue;
+    color: $neutral-white;
+    border: none;
+    border-radius: .35rem;
+    padding: .3125rem;
+    box-shadow: 0 .25rem .375rem rgba($neutral-black, .1);
+    transition: background-color .3s, transform .3s;
+
+    &:hover {
+      background-color: darken($primary-light-blue, 10%);
+      transform: scale(1.1);
+    }
+
+    &:active {
+      background-color: darken($primary-light-blue, 20%);
+      transform: scale(.95);
+    }
+  }
+
+  &__body {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: .3125rem;
+  }
+
+  &__day-names {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: .3125rem;
+    color: $neutral-white;
+    background-color: $primary-medium-blue;
+    border-radius: .5rem;
+    padding: .5rem;
+  }
+
+  &__days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+  }
+
+  &__day-name {
+    font-weight: normal;
+    background-color: $primary-very-light-blue;
+    color: $primary-dark-blue;
+    border-radius: .25rem;
+    border: .05rem solid $neutral-light-grey;
+  }
+
+  &__day {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: .625rem;
+    color: $primary-dark-blue;
+    border-radius: .5rem;
+    background: rgba(255, 255, 255, .6);
+    box-shadow: 0 .25rem .375rem rgba($neutral-black, .1);
+    transition: transform .3s, box-shadow .3s;
+
+    &:hover {
+      transform: scale(1.1);
+      box-shadow: 0 .5rem .75rem rgba($neutral-black, .2);
+    }
+
+    &:active {
+      transform: scale(.95);
+    }
+
+    &--empty {
+      background: transparent;
+      box-shadow: none;
+    }
+  }
+
+  &__close-btn {
+    margin-top: .5rem;
+    background: $primary-light-blue;
+    color: $neutral-white;
+    border: none;
+    font-family: $primary-font;
+    border-radius: .35rem;
+    padding: .3125rem;
+    box-shadow: $shadow-primary;
+    transition: background-color .3s, transform .3s;
+
+    &:hover {
+      background-color: darken($primary-light-blue, 10%);
+      transform: scale(1.1);
+    }
+
+    &:active {
+      background-color: darken($primary-light-blue, 20%);
+      transform: scale(.95);
+    }
+  }
+}
+
+// FullCalendar customizations
+.fc {
+  --fc-today-bg-color: $primary-pale-blue;
+  --fc-page-bg-color: transparent;
+
+  .fc-toolbar {
+    background: $primary-light-blue-gradient-bg;
+    border-radius: .75rem;
+    padding: .625rem;
+    margin-bottom: 1.25rem;
+    box-shadow: $shadow-tertiary;
+
+    .fc-toolbar-title {
+      width: 12rem;
+      font-size: 1.5rem;
+      color: $primary-dark-blue;
+      background-color: $neutral-white;
+      padding: .5rem 1rem;
+      border-radius: 1rem;
+      border: .3rem solid $primary-very-light-blue;
+      box-shadow: $shadow-tertiary;
+      text-shadow: $shadow-primary;
+      text-align: center;
+      margin-bottom: .75rem;
+
+      @include tablet {
+        margin-bottom: 0;
+      }
+    }
+
+    .fc-button-group {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: .5rem;
+
+      .fc-button {
+        @include block-item(4rem, 2.5rem);
+        background-color: $primary-light-blue;
+        color: $neutral-white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: $shadow-primary;
+        border-radius: .75rem;
+        font-size: 1rem;
+        border: .125rem solid $neutral-white;
+        transition: background-color .3s, transform .3s;
+        cursor: url('../../../../assets/cursors/cursor-pointer-wh.svg'), pointer;
+
+        &.fc-button-active {
+          background-color: $primary-medium-blue;
+          color: $neutral-white;
+          cursor: url('../../../../assets/cursors/cursor-pointer-wh.svg'), pointer;
+        }
+
+        &:hover {
+          background-color: darken($primary-light-blue, 10%);
+          transform: scale(1.1);
+          cursor: url('../../../../assets/cursors/cursor-pointer-wh.svg'), pointer;
+        }
+
+        &:active {
+          background-color: darken($primary-light-blue, 20%);
+          transform: scale(.95);
+          cursor: url('../../../../assets/cursors/cursor-pointer-wh.svg'), pointer;
+        }
+
+        &:disabled {
+          background-color: $primary-medium-blue;
+          opacity: 1;
+          border-radius: .75rem;
+          border: .125rem solid $neutral-white;
+          box-shadow: $shadow-primary;
+        }
+
+        &:not(:disabled).fc-button-active,
+        &:not(:disabled):active {
+          width: 4rem;
+          color: $primary-dark-blue;
+          background-color: $primary-very-light-blue;
+          border-radius: .75rem;
+          border: .125rem solid $neutral-white;
+          transition: transform .3s ease;
+
+          &:hover {
+            background-color: $primary-dark-blue;
+            color: $neutral-white;
+            border-color: $neutral-white;
+            transform: scale(1.1);
+          }
+
+          &:active {
+            border: .125rem solid $primary-pale-blue;
+            color: $primary-medium-blue;
+            background-color: $neutral-white;
+            transform: scale(.95);
+          }
+        }
+      }
+    }
+
+    .fc-prev-button,
+    .fc-next-button {
+      margin-top: 1rem;
+    }
+  }
+
+  .fc-timeGridDay-button.fc-button.fc-button-primary,
+  .fc-timeGridWeek-button.fc-button.fc-button-primary {
+    width: 4rem;
+    border-radius: .75rem;
+  }
+
+  .fc-prev-button.fc-button.fc-button-primary,
+  .fc-next-button.fc-button-primary {
+    margin-top: 0;
+  }
+
+  .fc-daygrid-day {
+    background: rgba(255, 255, 255, .6);
+    border: .0625rem solid $primary-medium-blue;
+    box-shadow: 0 .25rem .375rem rgba($neutral-black, .1);
+    border-radius: .75rem;
+    margin-bottom: .3125rem;
+    padding: .625rem;
+    transition: transform .3s, box-shadow .3s;
+
+    &:hover {
+      border: .15rem solid $primary-light-blue;
+      transform: scale(1.05);
+      box-shadow: $shadow-quinary;
+    }
+
+    &:active {
+      transform: scale(.95);
+    }
+
+    &__number {
+      font-size: 1rem;
+      color: $primary-dark-blue;
+    }
+  }
+
+  .fc-day-today {
+    background-color: $primary-medium-blue !important;
+    border-color: $primary-pale-blue !important;
+    color: $primary-dark-blue;
+  }
+
+  .fc-col-header-cell {
+    background-color: $primary-dark-blue;
+    color: $neutral-white;
+    text-align: center;
+    padding: .5rem;
+    border-radius: .75rem;
+    box-shadow: $shadow-tertiary;
+  }
+
+  .fc-button-primary:disabled {
+    background-color: $primary-pale-blue;
+    color: $primary-medium-blue;
+    border: .0625rem solid $neutral-white;
+    opacity: 1;
+  }
+
+  .fc-header-toolbar.fc-toolbar.fc-toolbar-ltr {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: .5rem;
+
+    @include tablet {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+
+  .fc-toolbar-chunk {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.fc-col-header-cell {
+  font-weight: normal;
+  font-size: .6rem;
+  padding: 0;
+
+  @include tablet {
+    font-size: 1rem;
+  }
+
+  @include desktop {
+    font-size: 1.25rem;
+  }
+}
+
+.fc .fc-col-header-cell-cushion {
+  padding: 0;
+  color: $neutral-white;
+  font-weight: bold;
+
+  @include tablet {
+    padding: .125rem .25rem;
+  }
+}
+
+.fc .fc-daygrid-day {
+  padding: 0;
+}
+
+.fc.fc-media-screen.fc-direction-ltr.fc-theme-standard {
+  height: 37rem;
+
+  @include tablet {
+    height: 40rem;
+  }
+
+  @include desktop {
+    height: 48rem;
+  }
+}
+
+.fc .fc-timegrid-axis-frame {
+  display: flex;
+  justify-content: center;
+  width: 4.5rem;
+  align-items: center;
+}
+
+.event-icons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: .3125rem;
+}
+
+.edit-icon,
+.delete-icon {
+  margin-left: .3125rem;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba($neutral-black, .5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+
+  .modal-content {
+    background: rgba(255, 255, 255, .9);
+    backdrop-filter: blur(.625rem);
+    border-radius: .5rem;
+    padding: 1.25rem;
+    width: 80%;
+    max-width: 31.25rem;
+    box-shadow: 0 .25rem .5rem rgba($neutral-black, .1);
+    text-align: center;
+
+    h2 {
+      margin-bottom: 1.25rem;
+    }
+
+    .modal-input-container {
+      position: relative;
+    }
+
+    .modal-input {
+      width: calc(100% - 1.25rem);
+      padding: .625rem;
+      margin-bottom: 1.25rem;
+      border: none;
+      border-radius: .25rem;
+      font-size: 1rem;
+      font-family: $primary-font;
+      cursor: url('../../../../assets/cursors/cursor-pointer-wh.svg'), pointer;
+    }
+
+    .modal-clear-button {
+      position: absolute;
+      right: .75rem;
+      color: $primary-light-blue;
+
+      &:hover {
+        color: $primary-medium-blue;
+      }
+    }
+
+    button {
+      margin: .3125rem;
+      padding: .625rem 1.25rem;
+      border: none;
+      border-radius: .25rem;
+      font-size: 1rem;
+      background-color: $primary-button-blue;
+      color: $neutral-white;
+      transition: transform .3s ease;
+
+      &:hover {
+        background-color: $primary-button-dark-blue;
+        transform: scale(1.1);
+      }
+
+      &:active {
+        transform: scale(.95);
+      }
+
+      &:nth-child(2) {
+        background-color: $frosted-glass;
+        box-shadow: $shadow-senary;
+        transition: transform .3s ease;
+        border-radius: .5rem;
+
+        &:hover {
+          background-color: $primary-button-blue;
+          transform: scale(1.1);
+          color: $primary-very-light-blue;
+        }
+
+        &:active {
+          background: $primary-medium-blue;
+          color: $neutral-white;
+          transform: scale(.95);
+          border-radius: .25rem;
+        }
+      }
+
+      &:nth-child(3) {
+        background-color: $primary-very-light-blue;
+        transition: transform .3s ease;
+
+        &:hover {
+          background-color: $primary-pale-blue;
+          transform: scale(1.1);
+        }
+
+        &:active {
+          transform: scale(.95);
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 37.5rem) {
+  .modal .modal-content {
+    width: 90%;
+    max-width: 18.75rem;
+  }
+}
+
+.calendar__event-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .0625rem;
+
+  &:hover {
+    border-radius: .5rem;
+    box-shadow: $shadow-senary;
+    background-color: $neutral-white;
+  }
+
+  @include tablet {
+    padding-left: .25rem;
+    padding-right: .25rem;
+    flex-direction: row;
+    align-items: center;
+    gap: .15rem;
+  }
+
+  @include desktop {
+    padding-left: .5rem;
+    padding-right: .5rem;
+    flex-direction: row;
+    align-items: center;
+    gap: .25rem;
+  }
+
+  .calendar__event-icon {
+    display: none;
+
+    @include tablet {
+      display: block;
+    }
+  }
+
+  .calendar__event-time,
+  .calendar__event-title {
+    color: $primary-dark-blue;
+    font-size: .45rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+
+    @include tablet {
+      font-size: .75rem;
+      width: 100%;
+    }
+
+    @include desktop {
+      font-size: .9rem;
+    }
+  }
+}
+
+.event-type-options {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.mini-calendar__day--selected {
+  background-color: $primary-dark-blue;
+  color: $neutral-white;
+
+  &:hover {
+    background-color: $primary-medium-blue;
+  }
+
+  &:active {
+    background-color: $primary-very-light-blue;
+    color: $primary-dark-blue;
+  }
+}
+
+.fc-today-button.fc-button.fc-button-primary {
+  font-size: .75rem;
+  font-weight: normal;
+  text-transform: uppercase;
+  color: $neutral-white;
+  background: $button-dark-gradient;
+  box-shadow: $shadow-primary;
+  position: relative;
+  overflow: hidden;
+
+  &:hover {
+    background: $primary-dark-blue;
+    color: $neutral-white;
+    border: .125rem solid $primary-medium-blue;
+    box-shadow: $shadow-primary;
+  }
+
+  &::before {
+    @include block-item(200%, 100%);
+    content: "";
+    position: absolute;
+    top: 0;
+    right: -100%;
+    background: linear-gradient(to left, transparent, rgba(255, 255, 255, .2), transparent);
+    transition: right .5s;
+  }
+
+  &:hover::before {
+    right: 100%;
+  }
+}
+
+.fc-today-button.fc-button.fc-button-primary:disabled {
+  font-size: .925rem;
+  font-weight: bold;
+  background: $neutral-light-grey;
+  color: $primary-very-light-blue;
+  border: .0938rem solid $neutral-white;
+  box-shadow: $shadow-primary;
+  position: relative;
+  overflow: hidden;
+
+  &:hover {
+    background: $neutral-white;
+    color: $primary-medium-blue;
+  }
+}
+
+.fc-timegrid-axis-cushion.fc-scrollgrid-shrink-cushion.fc-scrollgrid-sync-inner {
+  font-size: .5rem;
+}
+
+.fc-timegrid-axis-frame.fc-scrollgrid-shrink-frame.fc-timegrid-axis-frame-liquid {
+  margin-left: -1.4rem;
+}
+
+.fc-daygrid-day-number {
+  font-size: 1rem;
+}
+
+.fc-col-header-cell-cushion {
+  font-size: .6rem;
+
+  @include tablet {
+    font-size: 1rem;
+  }
+}
+
+.frosted-toast-cal {
+  backdrop-filter: blur(.25rem);
+  background: rgba($primary-dark-blue, .75);
+  border: .1875rem solid rgba($primary-light-blue, .75);
+  border-radius: .625rem;
+  box-shadow: $shadow-primary;
+  color: $primary-pale-blue;
+  font-family: $primary-font;
+  padding: 1rem;
+}
+
+/* Apply custom cursor for all input fields */
+input {
+  cursor: url('../../../../assets/cursors/cursor-pointer-wh.svg'), pointer;
+
+  svg {
+    cursor: url('../../../../assets/cursors/cursor-pointer-wh.svg'), pointer;
+  }
+}
+
+/* Ensure the custom cursor appears when hovering on the input, including the calendar icon */
+input:hover {
+  cursor: url('../../../../assets/cursors/cursor-pointer-wh.svg'), pointer;
+}
+
+/* Target specific input types like datetime-local */
+input[type="datetime-local"] {
+  cursor: url('../../../../assets/cursors/cursor-pointer-wh.svg'), pointer;
+}
+
+/* Ensure cursor changes on focus */
+input[type="datetime-local"]:focus {
+  cursor: url('../../../../assets/cursors/cursor-pointer-wh.svg'), pointer;
+}
+
+input[type='datetime-local']::-webkit-calendar-picker-indicator {
+  cursor: url('../../../../assets/cursors/cursor-pointer-wh.svg'), pointer;
+}

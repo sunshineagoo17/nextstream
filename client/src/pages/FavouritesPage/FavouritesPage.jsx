@@ -17,11 +17,11 @@ import HomeCinemaSVG from "../../assets/images/home-cinema.svg";
 import LikesSVG from "../../assets/images/like-faves.svg";
 import NoResultsSVG from "../../assets/images/search-faves.svg";
 import api from '../../services/api';
-import BlobBg from '../../components/BlobBg/BlobBg';
-import Loader from '../../components/Loader/Loader';
+import BlobBg from '../../components/Backgrounds/BlobBg/BlobBg';
+import Loader from '../../components/Loaders/Loader/Loader';
 import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
-import Calendar from '../CalendarPage/sections/Calendar';
-import VoiceSearchFaves from '../../components/VoiceSearchFaves/VoiceSearchFaves';
+import Calendar from '../CalendarPage/sections/Calendar/Calendar';
+import VoiceSearchFaves from '../../components/VoiceInteraction/VoiceSearchFaves/VoiceSearchFaves';
 import './FavouritesPage.scss';
 
 const FavouritesPage = () => {

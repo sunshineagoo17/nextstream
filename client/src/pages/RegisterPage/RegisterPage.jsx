@@ -11,7 +11,7 @@ import ShowIcon from '../../assets/images/register-visible-icon.svg';
 import HideIcon from '../../assets/images/register-invisible-icon.svg';
 import NextStreamBg from '../../assets/images/nextstream-bg.jpg';
 import RegisterCouple from '../../assets/images/register-couple-logging-in.svg';
-import Loader from '../../components/Loader/Loader';
+import Loader from '../../components/Loaders/Loader/Loader';
 import Cookies from 'js-cookie';
 import './RegisterPage.scss';
 import 'react-toastify/dist/ReactToastify.css';

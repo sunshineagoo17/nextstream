@@ -14,11 +14,11 @@ import {
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import TagModal from './sections/TagModal/TagModal';
 import ReviewModal from './sections/ReviewModal/ReviewModal';
-import Loader from '../../components/Loader/Loader';
+import Loader from '../../components/Loaders/Loader/Loader';
 import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
-import Calendar from '../CalendarPage/sections/Calendar'; 
+import Calendar from '../CalendarPage/sections/Calendar/Calendar'; 
 import api from '../../services/api';
-import VoiceSearchStreamboard from '../../components/VoiceSearchStreamboard/VoiceSearchStreamboard'; 
+import VoiceSearchStreamboard from '../../components/VoiceInteraction/VoiceSearchStreamboard/VoiceSearchStreamboard'; 
 import './StreamBoard.scss';
 
 const ItemTypes = {

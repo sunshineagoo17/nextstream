@@ -4,8 +4,8 @@ import { ToastContainer, toast, Slide } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faImage } from '@fortawesome/free-solid-svg-icons'; 
 import api from '../../services/api'; 
-import AnimatedBg from '../../components/AnimatedBg/AnimatedBg';
-import Loader from '../../components/Loader/Loader';
+import AnimatedBg from '../../components/Backgrounds/AnimatedBg/AnimatedBg';
+import Loader from '../../components/Loaders/Loader/Loader';
 import DefaultVideoImg from '../../assets/images/video-img-default.png';
 import NoDataImg from '../../assets/images/no-data.svg';
 import MovieIcon from '../../assets/images/videocamera-1.png';
@@ -64,7 +64,6 @@ const SearchResultsPage = ({ isAuthenticated, userId }) => {
           }
         });
 
-        // Filter results to include only movies and TV shows
         const filteredResults = response.data.results.filter(result => result.media_type === 'movie' || result.media_type === 'tv');
         setResults(filteredResults);
 

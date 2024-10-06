@@ -1,0 +1,43 @@
+// Import partials
+@use "../../../styles/partials/colors" as *;
+@use "../../../styles/partials/fonts" as *;
+@use "../../../styles/partials/mixins" as *;
+@use "../../../styles/global.scss" as *;
+
+.voice-message-mizu__voice-button {
+    background: #e0e0e0;
+    border: none;
+    border-radius: .75rem;
+    box-shadow: inset .25rem .25rem .5rem rgba($neutral-black, .2),
+        inset -.25rem -.25rem .5rem rgba(255, 255, 255, .7);
+    color: $robot-dark-blue;
+    font-size: .75rem;
+    margin-left: .25rem;
+    padding: .25rem;
+    transition: background-color .3s ease, transform .2s ease,
+        box-shadow .2s ease;
+
+    &:hover {
+        background-color: $robot-dark-blue;
+        transform: scale(1.05);
+        color: #7CFC00;
+        box-shadow: 0 .5rem 1rem rgba($neutral-black, .15),
+        inset 0 .5rem 1rem rgba(255, 255, 255, .1);
+    }
+
+    &:active {
+        box-shadow: inset .375rem .375rem .75rem rgba($neutral-black, .2),
+        inset -.375rem -.375rem .75rem rgba(255, 255, 255, .7);
+        transform: scale(.95);
+        color: $robot-dark-blue;
+        transform: scale(.95);
+        background: $feedback-mint-light-green;
+    }
+
+    @include tablet {
+        margin-left: .5rem;
+        padding: .6rem 1.2rem;
+        border-radius: 2.5rem;
+        font-size: 1rem;
+    }
+}

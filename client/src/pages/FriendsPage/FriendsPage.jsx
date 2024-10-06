@@ -7,10 +7,10 @@ import { faUser, faTimes, faTrash, faBell, faClose, faCalendarAlt, faPaperPlane,
 import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
 import EmojiMessages from '../../components/EmojiMessages/EmojiMessages';
 import TypingIndicator from '../../components/TypingIndicator/TypingIndicator';
-import Calendar from '../CalendarPage/sections/Calendar';
+import Calendar from '../CalendarPage/sections/Calendar/Calendar';
 import io from 'socket.io-client';
 import FriendsVideo from "../../assets/animation/add-friends.webm";
-import VoiceMessageFriends from '../../components/VoiceMessageFriends/VoiceMessageFriends';
+import VoiceMessageFriends from '../../components/VoiceInteraction/VoiceMessageFriends/VoiceMessageFriends';
 import './FriendsPage.scss';
 
 const socket = io('http://localhost:8080');

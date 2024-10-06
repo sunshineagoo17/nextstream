@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import AnimatedBg from '../../components/AnimatedBg/AnimatedBg';
-import Loader from '../../components/Loader/Loader';
+import AnimatedBg from '../../components/Backgrounds/AnimatedBg/AnimatedBg';
+import Loader from '../../components/Loaders/Loader/Loader';
 import MonsterImg from "../../assets/images/404-monster.svg";
 import DevErrors from "../../assets/images/404-error-devs.svg";
 import TvError from "../../assets/images/404-error-tv.svg";

@@ -3,7 +3,7 @@ import { signInAndRegisterWithGoogle, signInWithGoogle, logOut } from '../../ser
 import { useNavigate } from 'react-router-dom';
 import CustomAlert from '../../components/CustomAlerts/CustomAlerts';
 import Cookies from 'js-cookie';
-import Loader from '../../components/Loader/Loader';
+import Loader from '../../components/Loaders/Loader/Loader';
 import api from '../../services/api';
 
 export const AuthContext = createContext();
