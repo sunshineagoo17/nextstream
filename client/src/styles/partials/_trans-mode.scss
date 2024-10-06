@@ -2082,6 +2082,43 @@ background: $trans-black;
     }
   }
 
+  .tag-modal {
+    &__eraser-icon {
+        color: $trans-pastel-pink;
+        cursor: url(../../assets/cursors/cursor-pointer-tm.svg), pointer;
+    
+        &:hover {
+        color: $primary-light-blue;
+        }
+    
+        &:active {
+        color: $trans-white;
+        }
+    }
+  }
+
+  .review-modal {
+    &__eraser-icon {
+      position: absolute;
+      right: 0.75rem;
+      top: 35%;
+      font-size: 1.25rem;
+      color: $trans-soft-pink;
+      cursor: url(../../assets/cursors/cursor-pointer-tm.svg), pointer;
+      transition: color 0.3s ease, transform 0.3s ease;
+  
+      &:hover {
+        color: $trans-pastel-pink;
+        transform: scale(1.1); 
+      }
+  
+      &:active {
+        color: $trans-white;
+        transform: scale(0.9); 
+      }
+    }
+  }
+
   // Faves
   .faves-page {
   background: $trans-black;

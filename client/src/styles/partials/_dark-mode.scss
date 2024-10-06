@@ -1150,6 +1150,51 @@
     }
   }
 
+  .review-modal {
+    &__eraser-icon {
+      position: absolute;
+      right: 0.75rem;
+      top: 35%;
+      font-size: 1.25rem;
+      color: $primary-very-light-blue;
+      cursor: url(../../assets/cursors/cursor-pointer-bl.svg), pointer;
+      transition: color 0.3s ease, transform 0.3s ease;
+  
+      &:hover {
+        color: $primary-light-blue;
+        transform: scale(1.1); 
+      }
+  
+      &:active {
+        color: $trans-white;
+        transform: scale(0.9); 
+      }
+    }
+  }
+
+  .tag-modal {
+    &__eraser-icon {
+      position: absolute;
+      right: 0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.25rem;
+      color: $primary-very-light-blue;
+      cursor: url(../../assets/cursors/cursor-pointer-bl.svg), pointer;
+      transition: color 0.3s ease, transform 0.3s ease;
+    
+      &:hover {
+        color: $primary-light-blue;
+        transform: translateY(-50%) scale(1.2);
+      }
+    
+      &:active {
+        color: $trans-white;
+        transform: translateY(-50%) scale(0.9); 
+      }
+    }
+  }
+
   // Faves
   .faves-page__title,
   .faves-page__search-bar-container {

@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEraser } from '@fortawesome/free-solid-svg-icons';
 import './ReviewModal.scss';
 
 const ReviewModal = ({ show, onDelete, onClose, onSave, review, mediaId, setAlert }) => {
@@ -10,20 +12,24 @@ const ReviewModal = ({ show, onDelete, onClose, onSave, review, mediaId, setAler
 
   const handleSave = () => {
     if (newReview.trim()) {
-      onSave(newReview);  
-      setNewReview(''); 
-      setAlert({ type: 'success', message: 'Review saved successfully!' }); 
-      onClose(); 
+      onSave(newReview);
+      setNewReview('');
+      setAlert({ type: 'success', message: 'Review saved successfully!' });
+      onClose();
     }
   };
 
   const handleDelete = () => {
     if (onDelete && mediaId) {
-      onDelete(mediaId); 
+      onDelete(mediaId);
       setNewReview('');
       setAlert({ type: 'success', message: 'Review deleted successfully!' });
       onClose();
     }
+  };
+
+  const handleClearInput = () => {
+    setNewReview('');
   };
 
   const handleKeyDown = (e) => {
@@ -38,13 +44,20 @@ const ReviewModal = ({ show, onDelete, onClose, onSave, review, mediaId, setAler
     <div className="review-modal">
       <div className="review-modal__content">
         <h3 className="review-modal__title">Write a Review</h3>
-        <textarea
-          className="review-modal__textarea"
-          value={newReview}
-          onChange={(e) => setNewReview(e.target.value)}
-          onKeyDown={handleKeyDown}
-          placeholder="Enter your review"
-        />
+        <div className="review-modal__textarea-container">
+          <textarea
+            className="review-modal__textarea"
+            value={newReview}
+            onChange={(e) => setNewReview(e.target.value)}
+            onKeyDown={handleKeyDown}
+            placeholder="Enter your review"
+          />
+          <FontAwesomeIcon 
+            icon={faEraser} 
+            className="review-modal__eraser-icon" 
+            onClick={handleClearInput} 
+          />
+        </div>
         <div className="review-modal__actions">
           <button className="review-modal__button review-modal__button--save" onClick={handleSave}>
             Save

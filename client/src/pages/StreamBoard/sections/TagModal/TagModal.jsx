@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEraser } from '@fortawesome/free-solid-svg-icons';
 import './TagModal.scss';
 
 const TagModal = ({ show, onClose, onSave, tags, mediaId, setAlert, onDelete }) => {
@@ -32,6 +34,10 @@ const TagModal = ({ show, onClose, onSave, tags, mediaId, setAlert, onDelete }) 
     }
   };
 
+  const handleClearInput = () => {
+    setNewTag(''); 
+  };
+
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
       handleSave();
@@ -44,14 +50,21 @@ const TagModal = ({ show, onClose, onSave, tags, mediaId, setAlert, onDelete }) 
     <div className="tag-modal">
       <div className="tag-modal__content">
         <h3 className="tag-modal__title">Edit Tags</h3>
-        <input
-          className="tag-modal__input"
-          type="text"
-          value={newTag}
-          onChange={(e) => setNewTag(e.target.value)}
-          onKeyDown={handleKeyDown} 
-          placeholder="Enter new tag"
-        />
+        <div className="tag-modal__input-container">
+          <input
+            className="tag-modal__input"
+            type="text"
+            value={newTag}
+            onChange={(e) => setNewTag(e.target.value)}
+            onKeyDown={handleKeyDown} 
+            placeholder="Enter new tag"
+          />
+          <FontAwesomeIcon 
+            icon={faEraser} 
+            className="tag-modal__eraser-icon" 
+            onClick={handleClearInput} 
+          />
+        </div>
         <div className="tag-modal__actions">
           <button className="tag-modal__button tag-modal__button--save" onClick={handleSave}>
             Save
