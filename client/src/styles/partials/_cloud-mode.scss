@@ -242,6 +242,71 @@
       color: $cloud-very-deep-gray;
     }
 
+    &__poster1,
+    &__poster2,
+    &__poster3,
+    &__poster4,
+    &__poster5,
+    &__poster6 {
+      filter: grayscale(100%);
+
+      &:hover {
+        filter: none; 
+        border: .15rem solid $cloud-light-gray;
+      }
+    }
+
+    &__card1,
+    &__card2,
+    &__card3,
+    &__card4,
+    &__card5,
+    &__card6 {
+      background: $cloud-frosted-light-gray;
+    }
+
+    .content__nav-circles {
+      .content__nav-circle {
+        border: .0938rem solid $cloud-medium-gray;
+  
+        &:hover {
+          background-color: rgba($cloud-medium-gray, .8);
+        }
+  
+        &--active {
+          background-color: $cloud-dark-gray;
+          box-shadow: 0 0 .25rem $cloud-deep-gray;
+        }
+      }
+    }
+
+    &__page-nav-wrapper-next,
+    &__page-nav-wrapper-previous {
+      background-color: $neutral-grey-gradient;
+      border: .15rem solid $cloud-dark-gray;
+      color: $neutral-white;
+
+      &:hover {
+        background: $cloud-frosted-dark-gray;
+      }
+
+      &:active {
+        background: $neutral-black;
+        border: .15rem solid $neutral-white;
+      }
+
+      .content__previous-icon,
+      .content__next-icon {
+        color: $neutral-white;
+      }
+    }
+
+    &__icon-bg-video,
+    &__icon-bg-tv {
+      color: $neutral-white;
+      background: $cloud-dark-gray;
+    }
+
     &__card-media-container {
       background: linear-gradient(135deg, rgba(100, 100, 100, 0.4), rgba(220, 220, 220, 0.6));
       backdrop-filter: blur(20px);
@@ -262,6 +327,119 @@
       }
       100% {
         box-shadow: 0 0 30px rgba(255, 255, 255, 0.8), 0 0 60px rgba(150, 150, 150, 0.8);
+      }
+    }
+  }
+
+  .content__card-features__feature {
+    &::after {
+      content: attr(data-tooltip);
+      color: $neutral-white;
+      background: $cloud-deep-gray;
+    }
+  }
+
+  .content-new-releases__register-btn {
+    color: $neutral-black;
+
+    &:hover {
+      background: $cloud-dark-gray;
+      color: $neutral-white;
+    }
+
+    &:focus,
+    &:visited,
+    &:active {
+      background: $cloud-very-deep-gray;
+      color: $cloud-light-gray;
+    }
+  }
+
+  // Footer 
+  .footer {
+  background: $cloud-frosted-dark-gray;
+
+    &__btn-register {
+      background: $cloud-dark-gray;
+
+      &:hover {
+        background: $cloud-medium-gray;
+        color: $neutral-white;
+        box-shadow: none;
+      }
+
+      &:active {
+        background: $cloud-deep-gray;
+        box-shadow: none;
+      }
+    }
+
+    &__btn-contact {
+      background: $neutral-white;
+
+      &:hover {
+        background: $neutral-white;
+        color: $cloud-medium-gray;
+        box-shadow: none;
+      }
+
+      &:active {
+        color: $cloud-deep-gray;
+        background: $neutral-white;
+        box-shadow: $shadow-cloud-primary;
+        border: .125rem solid $cloud-light-gray;
+      }
+    }
+
+    &__logo-wordmark {
+      filter: grayscale(100%) brightness(0%) contrast(1);
+    
+      &:hover {
+        filter: grayscale(100%) brightness(20%) contrast(1.2);
+      }
+    }
+
+    &__copyright {
+      color: $neutral-black;
+    }
+
+    &__about,
+    &__privacy-policy,
+    &__tac {
+      border: none;
+      box-shadow: none;
+      color: $cloud-deep-gray;
+
+      &:hover {
+        color: $cloud-very-deep-gray;
+      }
+
+      &:active {
+        color: $neutral-black;
+      }
+    }
+
+    &__logo-container {
+      &:hover {
+        @include cloudBorderGlowLogo();
+      }
+    }
+
+    &__about-link,
+    &__privacy-policy-link, 
+    &__tac-link {
+      color: $cloud-deep-gray;
+
+      &:hover {
+        border: .0625rem solid $cloud-deep-gray;
+        box-shadow: none;
+        border-radius: .5rem;
+        padding: .25rem;
+      }
+
+      &:active {
+        border: .125rem solid $neutral-white;
+        border-radius: 1rem;
       }
     }
   }

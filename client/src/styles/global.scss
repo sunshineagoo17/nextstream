@@ -3,8 +3,8 @@
 @use "./partials/fonts" as *;
 @use "./partials/mixins" as *;
 @use "./partials/dark-mode" as *;
-@use "./partials/cloud-mode" as *;
 @use "./partials/trans-mode" as *;
+@use "./partials/cloud-mode" as *;
 
 @mixin borderGlowLogo() {
   @keyframes borderGlowLogo {
