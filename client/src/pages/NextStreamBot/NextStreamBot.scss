@@ -1575,11 +1575,11 @@
 
   &__scroll-button {
     position: absolute;
-    right: 1rem; // or `left` for the left arrow
-    bottom: 1rem; // Adjust this to control the placement below the container
+    right: 1rem; 
+    bottom: 1rem; 
     background: rgba($primary-button-blue, 1);
     border: none;
-    color: white;
+    color: $neutral-white;
     padding: 10px;
     box-shadow: $shadow-septenary;
     border-radius: 50%;

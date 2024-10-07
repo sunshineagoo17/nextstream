@@ -772,28 +772,35 @@
 
     &__results-section {
       &::before {
-        background: $trans-white;
-        color: $trans-electric-blue;
+        background: $trans-gradient-pastelblue-lightpink;
+        color: $trans-deep-blue;
         border: 0.15rem solid $trans-electric-blue;
         border-bottom: 0.3rem solid $trans-electric-blue;
       }
     }
 
+    &__popular-section {
+        &::before {
+          background: $trans-gradient-pastel;
+          color: $trans-deep-blue;
+        }
+    }
+
     &__nav-arrow {
-      color: $trans-pastel-blue;
-      background: $trans-black;
-      border: 0.1875rem solid $trans-electric-blue;
+      color: $trans-deep-blue;
+      background: $trans-soft-pink;
+      border: 0.1875rem solid $trans-white;
 
       &:hover {
-        background: $trans-pastel-blue;
-        color: $trans-electric-blue;
-        border: 0.1875rem solid $trans-black;
+        color: $trans-soft-pink;
+        background: $trans-deep-blue;
+        border: 0.1875rem solid $trans-pastel-pink;
       }
 
       &:active {
         background: $trans-candy-pink;
-        color: $trans-electric-blue;
-        border: 0.1875rem solid $trans-white;
+        color: $trans-white;
+        border: 0.1875rem solid $trans-electric-blue;
       }
     }
   }
@@ -1591,6 +1598,49 @@
         line-height: 1.25rem;
         padding: 0.5rem;
       }
+    }
+
+    &__send-button {
+        background: $trans-pink;
+
+        &:hover {
+            background: $trans-white;
+            color: $trans-pink;
+        }
+    
+        &:active {
+            background: $trans-black;
+            color: $trans-soft-pink;
+        }
+    }
+
+    &__scroll-container-results {
+        border: .5rem solid $trans-frosted-glass-pink;
+        border-bottom: 1rem solid $trans-frosted-glass-pink;
+      }
+
+    &__typing-indicator-bubble {
+        background: $trans-pink;
+    }
+
+    &__results-section {
+        &::before {
+            background: $trans-gradient-electricblue-candypink;
+        }
+    }
+  }
+
+  .voice-message__voice-button {
+    background: $trans-pink;
+
+    &:hover {
+        background: $trans-white;
+        color: $trans-pink;
+    }
+
+    &:active {
+        background: $trans-black;
+        color: $trans-soft-pink;
     }
   }
 
