@@ -25,6 +25,7 @@
 
   &__card {
     position: relative;
+    cursor: url(../../assets/cursors/cursor-pointer-wh.svg), pointer;
   }
   
   &__media-icon {
@@ -39,7 +40,7 @@
     color: $primary-light-blue;
 
     @include tablet {
-      @include block-item(2rem, 2rem);
+      @include block-item(1.5rem, 1.5rem);
       padding: .25rem;
       border-radius: .5rem;
       bottom: 1.5rem;
@@ -144,6 +145,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      cursor: url(../../assets/cursors/cursor-pointer-wh.svg), pointer;
   }
 
   &__poster {
@@ -385,6 +387,7 @@
   &__previous-icon,
   &__next-icon {
     @include block-item(1.1rem, 1.1rem);
+    color: $primary-very-light-blue;
   }
 
   &__pagination-circles {

@@ -271,6 +271,7 @@
 
   // Auth Search Results Page
   .auth-search-results {
+
     &__pagination-circles {
       cursor: url('../../assets/cursors/cursor-pointer-tm.svg'), pointer;
     }
@@ -278,6 +279,23 @@
     &__card {
       cursor: url('../../assets/cursors/cursor-arrow-tm.svg'), auto;
       background: $trans-black;
+    }
+
+    &__calendar-button,
+    &__calendar-icon,
+    &__media-icon {
+        color: $trans-pink;
+        cursor: url('../../assets/cursors/cursor-pointer-tm.svg'), pointer;
+
+        &:hover {
+            background: $trans-pink;
+            color: $trans-pastel-blue;
+        }
+
+        &:active {
+            color: $trans-soft-pink;
+            background: $trans-electric-blue;
+        }
     }
 
     &__content-card {
@@ -1467,14 +1485,13 @@
 
     &__register-link,
     &__login-link,
-    &__guest-link,
-    &__link {
+    &__guest-link {
       border: 0.0625rem solid $neutral-white;
       color: $trans-deep-blue;
 
       &:hover {
         background: $trans-pastel-pink;
-        color: $neutral-white;
+        color: $trans-deep-blue;
         border: 0.0625rem solid $neutral-white;
       }
 
@@ -1512,30 +1529,6 @@
     color: $neutral-white;
   }
 
-  .search-results__pagination-circle {
-    background: rgba($trans-candy-pink, 0.7);
-    border: 0.0938rem solid $neutral-white;
-
-    &:hover {
-      background: $neutral-white;
-      color: trans-pink;
-    }
-
-    &.active {
-      background-color: $trans-blue;
-      box-shadow: 0 0 0.25rem $trans-candy-pink;
-    }
-  }
-
-  .search-results__poster,
-  .search-results__link {
-    border-radius: 1rem;
-  }
-
-  .search-results__card-media-container {
-    background: $trans-gradient-electricblue-candypink;
-  }
-
   .terms__nextstream-link {
     &:hover {
       background: $trans-pastel-pink;
@@ -1566,6 +1559,42 @@
       border: 0.125rem solid $neutral-white;
     }
   }
+
+  .search-results {
+  
+    &__pagination-circle {
+        background: rgba($trans-candy-pink, 0.7);
+        border: 0.0938rem solid $neutral-white;
+
+        &:hover {
+            background: $neutral-white;
+            color: trans-pink;
+        }
+
+        &.active {
+            background-color: $trans-blue;
+            box-shadow: 0 0 0.25rem $trans-candy-pink;
+        }
+    }
+
+    &__card,
+    &__link {
+        cursor: url(../../assets/cursors/cursor-pointer-tm.svg), pointer;
+    }
+
+    &__media-icon {
+        color: $trans-pastel-pink;
+    }
+
+    &__poster,
+    &__link {
+        border-radius: 1rem;
+    }
+
+    &__card-media-container {
+        background: $trans-gradient-electricblue-candypink;
+    }
+}
 
   // NextStream Bot
   .nextstream-bot {
@@ -2351,7 +2380,7 @@
     }
   }
 
-  // Trans Mode Homepage
+  // Homepage
   .hero {
     background: $neutral-black;
     border-bottom: 0.1875rem solid $trans-light-pink;
@@ -2395,7 +2424,7 @@
     }
   }
 
-  // Trans Mode Content
+  // Content
   .content {
     background-color: $trans-black;
 
@@ -2432,6 +2461,11 @@
       color: $trans-blue;
       text-shadow: $shadow-primary;
       box-shadow: $shadow-tertiary;
+    }
+
+    &__icon-bg-video,
+    &__icon-bg-tv {
+        color: $trans-electric-blue;
     }
 
     &__card-features__feature__label--stream-locator,
@@ -2472,6 +2506,11 @@
   .content__page-nav-wrapper-next,
   .content__page-nav-wrapper-previous {
     cursor: url('../../assets/cursors/cursor-pointer-tm.svg'), pointer;
+
+    .content__previous-icon,
+    .content__next-icon {
+      color: $trans-soft-pink;
+    }
   }
 
   .content__card1-container,

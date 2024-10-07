@@ -1,17 +1,13 @@
 import { useState, useEffect, useContext, useRef, useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCalendarPlus, faClose, faChevronRight, faChevronLeft, faThumbsUp, faThumbsDown, faImage, faShareAlt } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarPlus, faClose, faChevronRight, faChevronLeft, faThumbsUp, faThumbsDown, faImage, faShareAlt, faTv, faVideo } from '@fortawesome/free-solid-svg-icons';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { Tooltip } from 'react-tooltip'; 
 import AnimatedBg from '../../components/Backgrounds/AnimatedBg/AnimatedBg';
 import Loader from '../../components/Loaders/Loader/Loader';
 import DefaultVideoImg from '../../assets/images/video-img-default.png';
-import VideoCamera from "../../assets/images/videocamera-1.png";
-import TvIcon from "../../assets/images/tv-icon.png";
 import NoDataImg from '../../assets/images/no-data.svg';
-import PreviousIcon from '../../assets/images/previous-icon.svg';
-import NextIcon from '../../assets/images/next-icon.svg';
 import Calendar from '../../pages/CalendarPage/sections/Calendar/Calendar';
 import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
 import './AuthSearchResultsPage.scss';
@@ -225,9 +221,9 @@ const AuthSearchResultsPage = ({ userId }) => {
 
   const getMediaTypeIcon = (mediaType) => {
     if (mediaType === 'movie') {
-      return <img src={VideoCamera} alt="Movie" className="auth-search-results__media-icon" />;
+      return <FontAwesomeIcon icon={faVideo} alt="Movie" className="auth-search-results__media-icon" />;
     } else if (mediaType === 'tv') {
-      return <img src={TvIcon} alt="TV Show" className="auth-search-results__media-icon" />;
+      return <FontAwesomeIcon icon={faTv} alt="TV Show" className="auth-search-results__media-icon" />;
     }
     return <FontAwesomeIcon icon={faImage} className="auth-search-results__media-icon auth-search-results__media-none-icon" alt="No Media Type Available" />;
   };
@@ -410,11 +406,11 @@ const AuthSearchResultsPage = ({ userId }) => {
           {results.length > 3 && (
             <div className="auth-search-results__pagination-container">
               <button className="auth-search-results__page-nav-wrapper" onClick={handlePrevious}>
-                <img src={PreviousIcon} className="auth-search-results__previous-icon" alt="Previous" />
+                <FontAwesomeIcon icon={faChevronLeft} className="auth-search-results__previous-icon" />
               </button>
               {renderPaginationCircles()}
               <button className="auth-search-results__page-nav-wrapper" onClick={handleNext}>
-                <img src={NextIcon} className="auth-search-results__next-icon" alt="Next" />
+                <FontAwesomeIcon icon={faChevronRight} className="auth-search-results__next-icon" />
               </button>
             </div>
           )}

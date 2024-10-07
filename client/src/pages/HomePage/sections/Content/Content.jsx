@@ -5,13 +5,11 @@ import { useSearchBar } from '../../../../context/SearchBarContext/SearchBarCont
 import { ToastContainer, Slide, toast } from 'react-toastify'; 
 import 'react-toastify/dist/ReactToastify.css';
 import api from "../../../../services/api"; 
-import VideoCamera from "../../../../assets/images/videocamera-1.png";
-import TvIcon from "../../../../assets/images/tv-icon.png";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faVideo, faTv, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import CalendarIcon from "../../../../assets/images/calendar-icon.svg";
 import Favourites from "../../../../assets/images/favourites-icon.svg";
 import SearchIcon from "../../../../assets/images/search-icon.svg";
-import PreviousIcon from "../../../../assets/images/previous-icon.svg";
-import NextIcon from "../../../../assets/images/next-icon.svg";
 import DefaultPoster from "../../../../assets/images/posternoimg-icon.png";
 import "./Content.scss";
 
@@ -78,17 +76,13 @@ export const Content = () => {
     console.log('isGuest:', isGuest);
   
     if (isAuthenticated) {
-      // Navigate to the authenticated NextView page
       navigate(`/nextview/${userId}/${mediaType}/${mediaId}`);
     } else if (isGuest) {
-      // Navigate to the guest NextView page
       navigate(`/nextview/guest/${mediaType}/${mediaId}`);
     } else {
-      // Navigate to login if neither authenticated nor guest
       navigate('/login-required');
     }
   };
-  
 
   const handleNavigateToCalendar = () => {
     if (isGuest) {
@@ -190,7 +184,10 @@ export const Content = () => {
                       />
                     </button>
                     <div className={`content__icon-bg-${release.media_type === 'tv' ? 'tv' : 'video'}`}>
-                      <img className={`content__${release.media_type === 'tv' ? 'tv' : 'video'}-icon`} alt="Media icon" src={release.media_type === 'tv' ? TvIcon : VideoCamera} />
+                      <FontAwesomeIcon 
+                        icon={release.media_type === 'tv' ? faTv : faVideo} 
+                        className={`content__${release.media_type === 'tv' ? 'tv' : 'video'}-icon`} 
+                      />
                     </div>
                   </div>
                 ))}
@@ -199,7 +196,7 @@ export const Content = () => {
 
             <div className="content__pagination-container">
               <button className="content__page-nav-wrapper-previous" onClick={handlePrevious}>
-                <img src={PreviousIcon} className="content__previous-icon" alt="Previous" />
+                <FontAwesomeIcon icon={faChevronLeft} className="content__previous-icon" />
               </button>
               <div className="content__nav-circles">
                 {newReleases.slice(0, Math.ceil(newReleases.length / 3)).map((_, index) => (
@@ -213,7 +210,7 @@ export const Content = () => {
                 ))}
               </div>
               <button className="content__page-nav-wrapper-next" onClick={handleNext}>
-                <img src={NextIcon} className="content__next-icon" alt="Next" />
+                <FontAwesomeIcon icon={faChevronRight} className="content__next-icon" />
               </button>
             </div>
           </div>

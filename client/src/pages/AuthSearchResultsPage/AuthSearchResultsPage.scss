@@ -134,7 +134,7 @@
   
     &:active {
       transform: scale(.9);
-      color: $primary-dark-blue;
+      color: $neutral-white;
     }
   }
   
@@ -241,15 +241,19 @@
   }
   
   &__media-icon {
-    display: none;
+    @include block-item(.85rem, .85rem);
+    position: absolute;
+    color: $primary-medium-blue;
+    background-color: rgba(255, 255, 255, .8);
+    padding: .15rem;
+    bottom: .9375rem;
+    right: .2rem;
+    border-radius: 50%;
 
     @include tablet {
-      @include block-item(1.875rem, 1.875rem);
-      display: block;
+      @include block-item(1.5rem, 1.5rem);
       position: absolute;
-      bottom: .9375rem;
       right: .625rem;
-      background-color: rgba(255, 255, 255, .8);
       border-radius: 15%;
       box-shadow: $shadow-tertiary;
       padding: .25rem;
@@ -257,7 +261,9 @@
 
       &:hover {
         transform: scale(1.05);
+        color: $neutral-white;
         background: $primary-medium-blue;
+        cursor: url(../../assets/cursors/cursor-pointer-wh.svg), pointer;
       }
 
       &:active {

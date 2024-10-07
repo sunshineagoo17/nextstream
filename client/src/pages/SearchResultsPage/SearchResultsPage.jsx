@@ -2,16 +2,12 @@ import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faImage } from '@fortawesome/free-solid-svg-icons'; 
+import { faVideo, faTv, faChevronLeft, faChevronRight, faImage } from '@fortawesome/free-solid-svg-icons'; 
 import api from '../../services/api'; 
 import AnimatedBg from '../../components/Backgrounds/AnimatedBg/AnimatedBg';
 import Loader from '../../components/Loaders/Loader/Loader';
 import DefaultVideoImg from '../../assets/images/video-img-default.png';
 import NoDataImg from '../../assets/images/no-data.svg';
-import MovieIcon from '../../assets/images/videocamera-1.png';
-import TvIcon from '../../assets/images/tv-icon.png'; 
-import PreviousIcon from '../../assets/images/previous-icon.svg';
-import NextIcon from '../../assets/images/next-icon.svg';
 import 'react-toastify/dist/ReactToastify.css';
 import './SearchResultsPage.scss';
 
@@ -42,9 +38,9 @@ const SearchResultsPage = ({ isAuthenticated, userId }) => {
 
   const getMediaTypeIcon = (mediaType) => {
     if (mediaType === 'movie') {
-      return <img src={MovieIcon} alt="Movie" className="search-results__media-icon" />;
+      return <FontAwesomeIcon icon={faVideo} alt="Movie" className="search-results__media-icon" />;
     } else if (mediaType === 'tv') {
-      return <img src={TvIcon} alt="TV Show" className="search-results__media-icon" />;
+      return <FontAwesomeIcon icon={faTv} alt="TV Show" className="search-results__media-icon" />;
     }
     return <FontAwesomeIcon icon={faImage} className="search-results__media-icon search-results__media-none-icon" alt="No Media Type Available" />;
   };
@@ -178,11 +174,11 @@ const SearchResultsPage = ({ isAuthenticated, userId }) => {
           {results.length > 3 && (
             <div className="search-results__pagination-container">
               <button className="search-results__page-nav-wrapper" onClick={handlePrevious}>
-                <img src={PreviousIcon} className="search-results__previous-icon" alt="Previous" />
+                <FontAwesomeIcon icon={faChevronLeft} className="search-results__previous-icon" />
               </button>
               {renderPaginationCircles()}
               <button className="search-results__page-nav-wrapper" onClick={handleNext}>
-                <img src={NextIcon} className="search-results__next-icon" alt="Next" />
+                <FontAwesomeIcon icon={faChevronRight} className="search-results__next-icon" />
               </button>
             </div>
           )}

@@ -134,8 +134,17 @@
     }
   }
 
+  // Search Results Page 
+  .search-results {
+    &__card,
+    &__link {
+        cursor: url(../../assets/cursors/cursor-pointer-bl.svg), pointer;
+    }
+  }
+
   // Auth Search Results Page
   .auth-search-results {
+    &__media-icon,
     &__pagination-circles {
       cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
     }

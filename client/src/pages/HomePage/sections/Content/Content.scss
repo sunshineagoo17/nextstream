@@ -80,6 +80,7 @@
       .content__previous-icon,
       .content__next-icon {
         @include block-item(1.1rem, 1.1rem);
+        color: $primary-very-light-blue;
       }
     }
 
@@ -333,7 +334,8 @@
   .content__icon-bg-video,
   .content__icon-bg-tv {
     @include block-item(1.5rem, 1.5rem);
-    background-color: $base-darker-blue;
+    color: $primary-light-blue;
+    background: $neutral-black;
     box-shadow: $shadow-quaternary;
     border-radius: .35rem;
     display: flex;
