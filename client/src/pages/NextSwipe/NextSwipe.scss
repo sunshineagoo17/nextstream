@@ -159,6 +159,7 @@
   }
 
   &__container {
+    width: 130%;
     @include frosted-glass2;
     border-radius: 1.25rem;
     box-shadow: $shadow-quaternary;
@@ -168,6 +169,14 @@
     justify-content: center;
     flex-direction: column;
     align-items: center;
+
+    @include large-mobile {
+      width: 110%;
+    }
+
+    @include tablet {
+      width: 100%;
+    }
   }
   
   &__no-more-media-container {
@@ -249,29 +258,26 @@
     align-items: center;
     border: .875rem solid;
     flex-direction: column;
-    padding: 2rem;
+    padding: 1.5rem .5rem .5rem .5rem;
     width: 100%;
     max-width: 31.25rem;
     margin-top: 2rem;
 
-    @include small-mobile {
-      padding: 1rem;
+    @include large-mobile {
+      padding: 2rem;
+      width: 100%;
     }
 
     img {
       width: 100%;
       height: auto;
       border-radius: .5rem;
-
-      @include small-mobile {
-        width: 100%;
-      }
     }
   }
 
   &__nav-button {
     position: absolute;
-    top: 50%;
+    top: 45%;
     transform: translateY(-50%);
     background-color: rgba($neutral-black, .1);
     border: none;
@@ -296,11 +302,15 @@
       }
 
       &.nextswipe-page__nav-button--left {
-        left: 1rem;
+        left: 0;
       }
 
       &.nextswipe-page__nav-button--right {
-        right: 1rem;
+        right: 0;
+      }
+
+      @include large-mobile {
+        top: 50%;
       }
     }
 
@@ -330,7 +340,7 @@
     transition: transform .3s ease-in-out;
 
       @include tablet {
-        @include block-item (11rem, 4.5rem);
+        @include block-item (11.5rem, 4.5rem);
         font-size: 1rem;
         display: inline-flex;
       }
@@ -363,6 +373,9 @@
       svg {
         @include tablet {
         margin-right: .5rem;
+        border: .125rem solid $primary-very-light-blue;
+        padding: .15rem .15rem .3rem .15rem;
+        border-radius: .5rem;
       }
     }
   }

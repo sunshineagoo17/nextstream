@@ -329,7 +329,7 @@
     background: $trans-black;
 
     &__title {
-      background: $trans-electric-blue;
+      background: $frosted-glass;
       border: 0.1875rem solid $trans-candy-pink;
     }
 
@@ -483,7 +483,7 @@
     background: $trans-black;
 
     &__heading-container {
-      border: 0.3125rem solid $trans-candy-pink;
+      border: 0.3125rem solid $trans-candy-pink;    
     }
 
     &__copy {
@@ -504,18 +504,25 @@
     }
 
     &__chat-close {
-      background: $primary-medium-blue;
-      color: $neutral-white;
+      background: $trans-candy-pink;
+      color: $trans-deep-blue;
+      border: .125rem solid $trans-deep-blue;
 
       &:hover {
-        background: $neutral-white;
-        color: $primary-medium-blue;
+        background: $trans-deep-blue;
+        color: $trans-candy-pink;
+        border: .125rem solid $trans-candy-pink;
       }
 
       &:active {
-        background: $frosted-glass;
-        color: $primary-cyan;
+        background: $trans-frosted-glass-pink;
+        color: $trans-deep-pink;
+        box-shadow: $shadow-septenary;
       }
+    }
+
+    &__message-input {
+        background: $trans-frosted-glass-blue;
     }
 
     &__search {
@@ -552,8 +559,8 @@
     }
 
     &__video-container {
-      border: 0.35rem solid $frosted-glass;
-      background: $dark-mode-royal-blue;
+      border: 0.35rem solid $trans-pink;
+      background: $trans-frosted-glass-pink;
       box-shadow: $shadow-senary;
     }
 
@@ -575,8 +582,44 @@
     }
   }
 
+  .emoji-btn {
+    background: $trans-candy-pink;
+    color: $trans-deep-blue;
+    border: .125rem solid $trans-deep-blue;
+
+    &:hover {
+        background: $trans-deep-blue;
+        color: $trans-candy-pink;
+        border: .125rem solid $trans-candy-pink;
+    }
+
+    &:active {
+        background: $trans-frosted-glass-pink;
+        color: $trans-deep-pink;
+        box-shadow: $shadow-septenary;
+    }
+  }
+
   .emoji-picker {
     background: $trans-black;
+  }
+
+  .voice-message-friends__voice-button {
+    background: $trans-candy-pink;
+    color: $trans-deep-blue;
+    border: .125rem solid $trans-deep-blue;
+
+    &:hover {
+        background: $trans-deep-blue;
+        color: $trans-candy-pink;
+        border: .125rem solid $trans-candy-pink;
+    }
+
+    &:active {
+        background: $trans-frosted-glass-pink;
+        color: $trans-deep-pink;
+        box-shadow: $shadow-septenary;
+    }
   }
 
   // Calendar Page
@@ -2283,19 +2326,43 @@
     }
 
     &__nav-button {
-      background: $trans-black;
-      color: $neutral-white;
+        background-color: rgba($trans-black, .25);
+        color: $trans-candy-pink;
 
       &:hover {
         color: $neutral-white;
-        background: $trans-candy-pink;
+        background: rgba($trans-candy-pink, .65);
       }
 
       &:active {
         color: $neutral-black;
-        background: $trans-soft-pink;
+        background: rgba($trans-soft-pink, .85);
       }
     }
+
+    &__calendar-button {
+        border: .0625rem solid $trans-deep-pink;
+        background: $trans-gradient-deepblue-softpink;
+        color: $neutral-white;
+        box-shadow: $shadow-primary;
+    
+          &:hover {
+            background: $trans-candy-pink;
+            color: $neutral-white;
+            border: .0625rem solid $neutral-white;
+          }
+    
+          &::before {
+            content: "";
+            background: linear-gradient(to left, transparent, rgba(255, 255, 255, .2), transparent);
+          }
+       
+          svg {
+            @include tablet {
+            border: .125rem solid $trans-deep-pink;
+          }
+        }
+      }
   }
 
   .media-card {
