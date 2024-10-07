@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMoon, faSun, faRainbow } from '@fortawesome/free-solid-svg-icons'; 
+import { faMoon, faSun, faRainbow, faCloud } from '@fortawesome/free-solid-svg-icons';
 import './ThemeToggle.scss';
 
 const ThemeToggle = () => {
@@ -13,7 +13,14 @@ const ThemeToggle = () => {
   }, []);
 
   const toggleTheme = () => {
-    const newTheme = theme === 'light' ? 'dark' : theme === 'dark' ? 'trans-mode' : 'light';
+    const newTheme = theme === 'light' 
+      ? 'dark' 
+      : theme === 'dark' 
+      ? 'trans-mode' 
+      : theme === 'trans-mode' 
+      ? 'cloud-mode'
+      : 'light';
+      
     document.documentElement.setAttribute('data-theme', newTheme);
     setTheme(newTheme);
     localStorage.setItem('theme', newTheme);
@@ -25,6 +32,8 @@ const ThemeToggle = () => {
         <FontAwesomeIcon icon={faMoon} className="icon moon" />
       ) : theme === 'trans-mode' ? (
         <FontAwesomeIcon icon={faRainbow} className="icon rainbow" />
+      ) : theme === 'cloud-mode' ? (  
+        <FontAwesomeIcon icon={faCloud} className="icon cloud" />
       ) : (
         <FontAwesomeIcon icon={faSun} className="icon sun" />
       )}
