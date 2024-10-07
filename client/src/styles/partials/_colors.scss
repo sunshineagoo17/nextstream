@@ -335,3 +335,42 @@ $trans-frosted-glass-blue: rgba(219, 234, 254, 0.75);
 $trans-frosted-glass-pink: rgba(255, 153, 204, 0.75);
 $trans-frosted-blue: rgba(184, 220, 248, 0.65); 
 $trans-frosted-pink: rgba(246, 173, 202, 0.7);
+
+// Cloud Mode Colours
+// Whites and Grays:
+$cloud-off-white: #F8FAFC;
+$cloud-pale-gray: #EDEEF0;
+$cloud-light-gray: #DADCE0;
+$cloud-medium-gray: #B4B8BC;
+$cloud-dark-gray: #8D9095;
+$cloud-deep-gray: #5F6164;
+
+// Subtle Light Blues (Cloud-Appropriate):
+$cloud-soft-blue: #F5FBFF;
+$cloud-light-blue: #E2F0FA;
+$cloud-very-light-blue: #DDEEFF;
+
+// Frosted Glass and Soft Effects:
+$cloud-frosted-white: rgba(255, 255, 255, 0.7);
+$cloud-frosted-light-gray: rgba(240, 240, 240, 0.7);
+$cloud-frosted-dark-gray: rgba(180, 180, 180, 0.5);
+$cloud-frosted-light-blue: rgba(230, 240, 250, 0.4);
+// Neumorphic Colors (Soft Shadows and Highlights):
+$cloud-neumorph-shadow-light: rgba(0, 0, 0, 0.1);
+$cloud-neumorph-highlight-light: rgba(255, 255, 255, 0.7);
+$cloud-neumorph-base: #F4F6F8;
+$cloud-neumorph-deep-shadow: rgba(0, 0, 0, 0.15);
+
+// Gradients (Soft Transitions):
+$cloud-gradient-white-gray: linear-gradient(135deg, #FFFFFF, #EDEEF0);
+$cloud-gradient-light-gray: linear-gradient(135deg, #EDEEF0, #DADCE0);
+$cloud-gradient-pale-blue: linear-gradient(135deg, #FFFFFF, #F0F8FF);
+
+// Shadows (For Neumorphism and Soft Depth):
+$cloud-shadow-primary: 5px 5px 10px rgba(0, 0, 0, 0.1), -5px -5px 10px rgba(255, 255, 255, 0.7);
+$cloud-shadow-secondary: 3px 3px 6px rgba(0, 0, 0, 0.08), -3px -3px 6px rgba(255, 255, 255, 0.5);
+
+// Text Colors:
+$cloud-text-dark: #2B2E33;
+$cloud-text-gray: #5F6164;
+$cloud-text-light: #9DA1A6;
