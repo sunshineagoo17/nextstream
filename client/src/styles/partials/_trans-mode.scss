@@ -338,6 +338,14 @@
       color: $trans-black;
     }
 
+    &__search-bar {
+      color: $neutral-white;
+    }
+
+    &__overlay {
+      background: $frosted-glass;
+    }
+
     &__delete-events-btn {
       background: $trans-pink;
     }
@@ -368,8 +376,17 @@
     color: $neutral-white;
   }
 
+  tbody {
+    background: $primary-dark-blue;
+  }
+
+  .share-event__label {
+    color: $neutral-white;
+  }
+
   .modal {
     .modal-content {
+      background: $primary-darker-blue;
       .modal-close-btn {
         background: $trans-candy-pink;
         color: $primary-dark-blue;
@@ -638,36 +655,6 @@
         color: $trans-deep-pink;
         box-shadow: $shadow-septenary;
     }
-  }
-
-  // Calendar Page
-  .calendar-page {
-    background-color: $primary-darker-blue;
-  }
-
-  tbody {
-    background: $primary-dark-blue;
-  }
-
-  .calendar__search-bar {
-    color: $neutral-white;
-  }
-
-  .calendar__overlay {
-    background: $frosted-glass;
-  }
-
-  .modal-content {
-    background: $primary-darker-blue;
-  }
-
-  .modal-input {
-    color: $primary-dark-blue;
-    background-color: $primary-very-light-blue;
-  }
-
-  .share-event__label {
-    color: $neutral-white;
   }
 
   // Login and Register Page
