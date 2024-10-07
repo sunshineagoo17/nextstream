@@ -629,4 +629,49 @@
       box-shadow: none;
     }
   }
+
+  // Emoji Modal
+  .emoji-btn {
+    background: $cloud-frosted-dark-gray;
+    color: $cloud-very-deep-gray;
+    border: .125rem solid $cloud-medium-gray;
+
+    &:hover {
+        background: $neutral-white;
+        color: $cloud-very-deep-gray;
+        border: .125rem solid $neutral-white;
+    }
+
+    &:active {
+        background: $cloud-frosted-white;
+        color: $cloud-deep-gray;
+        box-shadow: $shadow-cloud-primary;
+    }
+  }
+
+  .emoji-picker {
+    background: $cloud-frosted-light-gray;
+  }
+
+  // Voice Messages - Friends Page
+  .voice-message-friends__voice-button {
+    background: $cloud-frosted-dark-gray;
+    color: $cloud-very-deep-gray;
+    border: .125rem solid $cloud-medium-gray;
+
+    &:hover {
+      background: $neutral-white;
+      color: $cloud-very-deep-gray;
+      border: .125rem solid $neutral-white;
+    }
+
+    &:active {
+      background: $cloud-frosted-white;
+      color: $cloud-deep-gray;
+      box-shadow: $shadow-cloud-primary;
+    }
+  }
+
+  // Calendar
+  // Calendar Modal
 }
