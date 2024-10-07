@@ -412,9 +412,15 @@
 
       &:hover {
         color: $cloud-very-deep-gray;
+        border: none;
+        box-shadow: none;
       }
 
+      &:focus,
+      &:visited,
       &:active {
+        border: none;
+        box-shadow: none;
         color: $neutral-black;
       }
     }
@@ -431,15 +437,16 @@
       color: $cloud-deep-gray;
 
       &:hover {
-        border: .0625rem solid $cloud-deep-gray;
+        border: .0625rem solid $neutral-white;
         box-shadow: none;
         border-radius: .5rem;
         padding: .25rem;
       }
 
       &:active {
-        border: .125rem solid $neutral-white;
         border-radius: 1rem;
+        background: $neutral-white;
+        box-shadow: $shadow-tertiary;
       }
     }
   }
