@@ -96,6 +96,36 @@ $shadow-quinary: 0px 28px 84px 0px rgba(0, 0, 0, 0.18);
 $shadow-senary: 0 0 8px rgba(0, 123, 255, 0.5); // for Input boxes
 $shadow-septenary: 0 0 0 .1875rem rgba(64, 146, 255, 0.5);
 
+// Soft Shadows for Light and Cloudy Effects
+$shadow-light-primary: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 2px rgba(0, 0, 0, 0.24);
+$shadow-light-secondary: 0px 2px 4px rgba(0, 0, 0, 0.08), 0px 2px 4px rgba(0, 0, 0, 0.06);
+$shadow-light-tertiary: 0px 4px 6px rgba(50, 50, 93, 0.08), 0px 1px 3px rgba(50, 50, 93, 0.12);
+$shadow-light-quaternary: 0px 6px 12px rgba(0, 0, 0, 0.10), 0px 3px 6px rgba(0, 0, 0, 0.08);
+
+// Cool, Subtle Shadows with Bluish Tones
+$shadow-cool-primary: 0px 3px 6px rgba(64, 146, 255, 0.1), 0px 1px 3px rgba(64, 146, 255, 0.2);
+$shadow-cool-secondary: 0px 5px 10px rgba(0, 123, 255, 0.12), 0px 2px 4px rgba(0, 123, 255, 0.08);
+$shadow-cool-tertiary: 0px 8px 16px rgba(0, 123, 255, 0.16), 0px 4px 8px rgba(64, 146, 255, 0.1);
+$shadow-cool-quaternary: 0px 12px 24px rgba(64, 146, 255, 0.18), 0px 6px 12px rgba(0, 123, 255, 0.12);
+
+// Soft Depth Shadows for Neumorphism
+$shadow-soft-primary: inset 3px 3px 6px rgba(0, 0, 0, 0.1), inset -3px -3px 6px rgba(255, 255, 255, 0.7);
+$shadow-soft-secondary: 0px 4px 8px rgba(0, 0, 0, 0.12), -4px -4px 8px rgba(255, 255, 255, 0.6);
+$shadow-soft-tertiary: 6px 6px 12px rgba(0, 0, 0, 0.08), -6px -6px 12px rgba(255, 255, 255, 0.7);
+
+// Frosted Shadows (for Glass Effect with Depth)
+$shadow-frosted-primary: 0px 3px 6px rgba(255, 255, 255, 0.4), 0px 1px 3px rgba(200, 200, 200, 0.6);
+$shadow-frosted-secondary: 0px 6px 12px rgba(255, 255, 255, 0.3), 0px 3px 6px rgba(200, 200, 200, 0.5);
+
+// Soft and Faint Glows (For Highlighted Components)
+$shadow-glow-primary: 0px 0px 8px rgba(0, 123, 255, 0.2);
+$shadow-glow-secondary: 0px 0px 12px rgba(64, 146, 255, 0.15);
+$shadow-glow-tertiary: 0px 0px 6px rgba(255, 255, 255, 0.4);
+
+// Cloudy and Soft Shadows with Blur
+$shadow-cloud-primary: 0px 2px 4px rgba(200, 200, 200, 0.1), 0px 4px 8px rgba(240, 240, 240, 0.6);
+$shadow-cloud-secondary: 0px 1px 3px rgba(180, 180, 180, 0.15), 0px 3px 6px rgba(255, 255, 255, 0.5);
+
 // Frosted Glass
 $frosted-glass: rgba(255, 255, 255, 0.1);
 @mixin frosted-glass2 {
@@ -114,6 +144,104 @@ $dark-frosted-glass: (
   padding: 20px,
   color: white
 );
+
+// Subtle Frosted Glass - Ideal for light elements with soft backgrounds
+$frosted-glass-subtle: rgba(255, 255, 255, 0.05);
+@mixin frosted-glass-subtle {
+  background-color: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(0.4rem); 
+  -webkit-backdrop-filter: blur(0.4rem);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+}
+
+// Frosted Glass with Light Blue Tint - Great for cloud-like light blues
+$frosted-glass-light-blue: rgba(230, 240, 250, 0.6);
+@mixin frosted-glass-light-blue {
+  background-color: rgba(230, 240, 250, 0.6);
+  backdrop-filter: blur(0.7rem); 
+  -webkit-backdrop-filter: blur(0.7rem);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+}
+
+// Frosted Glass with Warm Tint - For soft, warm visual elements
+$frosted-glass-warm: rgba(255, 250, 240, 0.5);
+@mixin frosted-glass-warm {
+  background-color: rgba(255, 250, 240, 0.5);
+  backdrop-filter: blur(0.8rem); 
+  -webkit-backdrop-filter: blur(0.8rem);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+}
+
+// Frosted Glass with Dark Blue Tint - Perfect for darker backgrounds
+$frosted-glass-dark-blue: rgba(14, 28, 48, 0.6);
+@mixin frosted-glass-dark-blue {
+  background-color: rgba(14, 28, 48, 0.6);
+  backdrop-filter: blur(1rem); 
+  -webkit-backdrop-filter: blur(1rem);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 15px;
+}
+
+// Frosted Glass with High Blur - For maximum glass effect
+$frosted-glass-heavy-blur: rgba(255, 255, 255, 0.15);
+@mixin frosted-glass-heavy-blur {
+  background-color: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(1.5rem); 
+  -webkit-backdrop-filter: blur(1.5rem);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+}
+
+// Frosted Glass with Gradient Background - Combining frosted effect and gradient
+@mixin frosted-glass-gradient {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(240, 240, 240, 0.4));
+  backdrop-filter: blur(0.6rem); 
+  -webkit-backdrop-filter: blur(0.6rem);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 12px;
+}
+
+// Frosted Glass with Cool Shadow - Adding shadow for neumorphic effect
+@mixin frosted-glass-neumorph {
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(0.5rem); 
+  -webkit-backdrop-filter: blur(0.5rem);
+  border-radius: 10px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1), -5px -5px 10px rgba(255, 255, 255, 0.7);
+}
+
+// Frosted Glass for Inputs - Special design for text boxes and inputs
+@mixin frosted-glass-input {
+  background-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(0.7rem); 
+  -webkit-backdrop-filter: blur(0.7rem);
+  border: 1px solid rgba(200, 200, 200, 0.2);
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+
+// Frosted Glass with Transparent Border - Minimalist frosted glass for subtle elements
+@mixin frosted-glass-transparent-border {
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(0.5rem); 
+  -webkit-backdrop-filter: blur(0.5rem);
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+// Frosted Glass with Inset Shadows - For inner glass effects
+@mixin frosted-glass-inset {
+  background-color: rgba(240, 240, 240, 0.4);
+  backdrop-filter: blur(0.8rem); 
+  -webkit-backdrop-filter: blur(0.8rem);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  box-shadow: inset 5px 5px 15px rgba(0, 0, 0, 0.1), inset -5px -5px 15px rgba(255, 255, 255, 0.5);
+}
 
 // Robot 
 $robot-very-light-blue: #BEEBEC;
