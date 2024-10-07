@@ -94,7 +94,7 @@
             background-color: $primary-dark-blue; 
             transform: scale(1.05);       
             color: $neutral-white;       
-            border: 2px solid $primary-button-blue; 
+            border: .125rem solid $primary-button-blue; 
             border-radius: 1rem;
         }
 
@@ -187,8 +187,12 @@
 
     &__season-buttons {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         gap: .15rem;
+
+        @include tablet {
+            flex-direction: column;
+        }
     }
     
     &__reset-button,
