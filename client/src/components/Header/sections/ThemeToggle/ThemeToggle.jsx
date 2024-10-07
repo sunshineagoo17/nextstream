@@ -16,9 +16,9 @@ const ThemeToggle = () => {
     const newTheme = theme === 'light' 
       ? 'dark' 
       : theme === 'dark' 
-      ? 'trans-mode' 
-      : theme === 'trans-mode' 
       ? 'cloud-mode'
+      : theme === 'cloud-mode'
+      ? 'trans-mode' 
       : 'light';
       
     document.documentElement.setAttribute('data-theme', newTheme);

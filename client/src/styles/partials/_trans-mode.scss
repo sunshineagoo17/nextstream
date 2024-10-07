@@ -2412,8 +2412,13 @@
       color: $trans-white;
     }
 
+    &__logo--mobile,
     &__logo {
-      border-radius: 3rem;
+        content: url('../../assets/images/logo-brand-mark-pink.svg');
+    }
+
+    &__logo {
+        border-radius: 3.25rem;
     }
 
     &__logo-border--mobile,

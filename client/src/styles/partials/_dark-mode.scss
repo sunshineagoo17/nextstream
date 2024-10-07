@@ -1329,6 +1329,11 @@
       color: $primary-very-light-blue;
     }
 
+    &__logo--mobile,
+    &__logo {
+      content: url('../../assets/images/logo-brand-mark-dark.svg');
+    }
+
     &__subtitle {
       color: $neutral-white;
     }
