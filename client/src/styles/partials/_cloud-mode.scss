@@ -868,6 +868,244 @@
     }
   }
 
+  // NextStream Bot
+  .nextstream-bot {
+    @include frosted-glass2;
+    border-radius: 1.25rem;
+    box-shadow: $cloud-shadow-primary;
+    margin: 1.5rem;
+    border: .3125rem solid $cloud-off-white;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    background: linear-gradient(
+      135deg,
+      rgba($cloud-frosted-light-gray, .75),
+      rgba($cloud-dark-gray, 1)
+    );
+    overflow: hidden;
+  
+    &__typing-indicator-bubble {
+      background-color: $cloud-dark-gray;
+    }
+  
+    &__title {
+      background: $cloud-dark-frosted-dark-gray;
+    }
+
+    &__loader-overlay {
+      background-color: $cloud-dark-frosted-dark-gray;
+    }
+
+    &__copy {
+      background: $frosted-glass;
+    }
+  
+    &__gpt-container {
+      background-color: $cloud-pale-gray;
+      color: $cloud-text-dark;
+    }
+
+    &__chatbot-svg {
+      filter: grayscale(100%) brightness(0.9); 
+    }
+
+    &__empty-message {
+      color: $cloud-deep-gray;
+      border: .1875rem solid $cloud-very-deep-gray;
+      animation: bounce 4s infinite ease-in-out, colorShift 5s infinite ease-in-out;
+
+      @keyframes bounce {
+        0%, 100% {
+          transform: scale(1);
+          box-shadow: 0 0 .75rem rgba($cloud-very-deep-gray, .3);
+        }
+        50% {
+          transform: scale(1.05);
+          box-shadow: 0 .75rem 2rem rgba($cloud-very-deep-gray, .4);
+        }
+      }
+    
+      @keyframes colorShift {
+        0% {
+          border-color: $cloud-light-gray;
+          background: $cloud-off-white;
+        }
+        25% {
+          border-color: $cloud-medium-gray;
+          background: lighten($cloud-light-gray, 10%);
+        }
+        50% {
+          border-color: $cloud-dark-gray;
+          background: lighten($cloud-light-gray, 20%);
+        }
+        75% {
+          border-color: $cloud-medium-gray;
+          background: lighten($cloud-light-gray, 10%);
+        }
+        100% {
+          border-color: $cloud-light-gray;
+          background: $cloud-off-white;
+        }
+      }
+    }
+
+    &__messages {
+      border: .25rem solid $neutral-white;
+
+      /* Scrollbar width */
+      scrollbar-width: thin;
+      scrollbar-color: $cloud-dark-gray $neutral-white;
+    }
+  
+    &__chat-block {
+      background: linear-gradient(
+        135deg,
+        rgba($cloud-frosted-light-gray, .75),
+        rgba($cloud-light-gray, 1)
+      );
+      border: .3125rem solid $cloud-pale-gray;
+      box-shadow: $cloud-shadow-secondary;
+    }
+
+    &__message--user {
+      background-color: $cloud-light-gray;
+      color: $cloud-very-deep-gray;
+      border: .125rem solid $neutral-white;
+    }
+
+    &__message--bot {
+      background-color: $cloud-dark-gray;
+      color: $neutral-white;
+      box-shadow: $shadow-cloud-primary;
+      border: .125rem solid $neutral-white;
+    }
+  
+    &__speech-icon {
+      color: $cloud-light-gray;
+    }
+
+    &__send-button {
+      background: $cloud-medium-gray;
+    }
+
+    &__gpt-icon-inline {
+      background: $cloud-very-deep-gray;
+      color: $neutral-white;
+
+      &:hover {
+        color: $cloud-very-deep-gray;
+        background: $neutral-white;
+      }
+    }
+
+    &__user-icon-inline {
+      background: $neutral-white;
+      color: $cloud-very-deep-gray;
+
+      &:hover {
+        background: $cloud-very-deep-gray;
+        color: $neutral-white;
+      }
+    }
+
+    &__clear-chat-button,
+    &__gpt-button {
+      background: linear-gradient(
+        135deg,
+        $cloud-soft-sky-blue,
+        $cloud-dawn-blue
+      );
+      border: none;
+      border-radius: .5rem;
+      padding: .5rem 1rem;
+      color: $neutral-white;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      position: relative;
+      overflow: hidden;
+      transition: all .4s ease;
+      box-shadow: 0 0 1rem rgba($cloud-soft-sky-blue, .4),
+        inset 0 0 .5rem rgba($cloud-dawn-blue, .8);
+      animation: pulse 2.5s infinite;
+    
+      &:hover {
+        border-radius: 2.5rem;
+        background: linear-gradient(
+          135deg,
+          $cloud-midnight-blue,
+          $cloud-dusk-blue
+        );
+        transform: translateY(-.25rem) scale(1.05);
+        box-shadow: 0 0 1.5rem rgba($cloud-soft-sky-blue, .8),
+          inset 0 0 .75rem rgba($cloud-midnight-blue, .9);
+      }
+    
+      &:active {
+        transform: scale(.95);
+        background: linear-gradient(
+          135deg,
+          $cloud-light-blue,
+          $cloud-overcast-blue
+        );
+        box-shadow: 0 0 1rem rgba($cloud-light-blue, .6),
+          inset 0 0 .5rem rgba($cloud-overcast-blue, .8);
+      }
+    
+      &::before {
+        content: '';
+        @include block-item(100%, 100%);
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: rgba($cloud-soft-sky-blue, .6);
+        filter: blur(1.25rem);
+        transition: opacity .5s ease;
+        z-index: 0;
+        opacity: .75;
+      }
+    
+      &:hover::before {
+        opacity: 1;
+      }
+    }
+    
+    // Pulse animation
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 1rem rgba($cloud-soft-sky-blue, .4),
+          inset 0 0 .5rem rgba($cloud-dawn-blue, .8);
+      }
+      50% {
+        box-shadow: 0 0 1.5rem rgba($cloud-soft-sky-blue, .8),
+          inset 0 0 .75rem rgba($cloud-midnight-blue, .9);
+      }
+      100% {
+        box-shadow: 0 0 1rem rgba($cloud-soft-sky-blue, .4),
+          inset 0 0 .5rem rgba($cloud-dawn-blue, .8);
+      }
+    }
+    
+    &__clear-input,
+    &__search-icon,
+    &__close-icon {
+      color: $cloud-dark-gray;
+    }
+  
+    &__calendar-close-btn {
+      background: $cloud-light-blue;
+      color: $cloud-dark-gray;
+    }
+  }
+
+  .voice-message__voice-button {
+    background: $cloud-medium-gray;
+  }
+
   // About, Privacy, Terms, Unsubscribe, 404, Login Required, Reset Password
   .reset-password,
   .login-required,

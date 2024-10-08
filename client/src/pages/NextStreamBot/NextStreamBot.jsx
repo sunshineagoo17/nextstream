@@ -591,7 +591,7 @@ const NextStreamBot = () => {
                   className='nextstream-bot__chatbot-svg'
                 />
                 <p className='nextstream-bot__empty-message'>
-                  Say hello to Mizu (a.k.a. NextStream's cool bot) to discover
+                  Say hello to Mizu to discover
                   your next favourite stream.
                 </p>
               </div>
