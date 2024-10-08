@@ -210,6 +210,16 @@
     border: .125rem solid transparent;
     transition: border .3s ease, padding .3s ease, border-radius .3s ease, transform .2s ease;
 
+    &:hover {
+      @include borderGlowLogo();
+      padding: 1rem;
+      border-radius: 1rem;
+    }
+
+    &:active {
+      transform: scale(.95);
+    }
+
     @include tablet {
       display: flex;
       justify-content: center;
@@ -219,17 +229,7 @@
 
       @include desktop {
         padding-right: 9.0081rem;
-      }
-
-      &:hover {
-        @include borderGlowLogo();
-        padding: 1rem;
-        border-radius: 1rem;
-      }
-
-      &:active {
-        transform: scale(.95);
-      }
+      }  
     }
   }
 }

@@ -3,11 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import api from '../../services/api';
 import ErrorIcon from '../../assets/images/error-icon.svg';
-import ShowIcon from '../../assets/images/register-visible-icon.svg';
-import HideIcon from '../../assets/images/register-invisible-icon.svg';
 import NextStreamBg from '../../assets/images/nextstream-bg.jpg';
-import ArrowIcon from '../../assets/images/register-arrow-icon.svg';
-import SignUpIcon from '../../assets/images/register-sign-up-icon.svg';
 import SignInCouple from '../../assets/images/login-hero-couple-watching.svg';
 import ForgotPasswordModal from '../../components/ForgotPasswordModal/ForgotPasswordModal';
 import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
@@ -18,6 +14,7 @@ import './LoginPage.scss';
 // FontAwesome Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
+import { faEye, faEyeSlash, faArrowRight, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 
 export const LoginPage = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -193,7 +190,10 @@ export const LoginPage = () => {
                     onClick={togglePasswordVisibility}
                     aria-label={passwordVisible ? 'Hide password' : 'Show password'}
                   >
-                    <img src={passwordVisible ? HideIcon : ShowIcon} alt="Toggle visibility" className="login__password-toggle-icon" />
+                    <FontAwesomeIcon
+                      icon={passwordVisible ? faEyeSlash : faEye}
+                      className="login__password-toggle-icon"
+                    />
                   </button>
                   {errors.password && <p className="error">{errors.password}</p>}
                 </div>
@@ -212,7 +212,7 @@ export const LoginPage = () => {
               </button>
               <div className="login__button-group">
                 <button className="login__button login__button--previous" onClick={goToPreviousPage}>
-                  <img src={ArrowIcon} className="previous__button-icon" alt="Arrow Icon" />
+                  <FontAwesomeIcon icon={faArrowRight} className="previous__button-icon" alt="Arrow Icon" />
                   <span>Previous</span>
                 </button>
                 <button className="login__button login__button--signin" onClick={handleSignIn} disabled={isLoading}>
@@ -220,7 +220,7 @@ export const LoginPage = () => {
                     <div className="login__loader-circle"></div>
                   ) : (
                     <div className="login__btn-wrapper">
-                      <img src={SignUpIcon} className="login__button-icon" alt="Sign In Icon" />
+                      <FontAwesomeIcon icon={faSignInAlt} className="login__button-icon" alt="Sign In Icon" />
                       <span>Sign In</span>
                     </div>
                   )}

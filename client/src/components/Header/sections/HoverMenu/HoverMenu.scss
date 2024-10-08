@@ -171,4 +171,32 @@
       }
     }
   }
+
+  // Cloud Mode Background
+  &.cloud-mode-background {
+    .hover-menu__content {
+      background: $cloud-frosted-light-gray; 
+      color: $cloud-text-dark;
+
+      .hover-menu__item {
+        color: $cloud-text-gray;
+
+        &:hover {
+          background: $cloud-haze-blue; 
+          border: .0625rem solid $cloud-soft-blue;
+          color: $primary-medium-blue;
+        }
+
+        &:active {
+          background: $cloud-stormy-blue;
+          color: $neutral-white;
+          border: .1875rem solid $neutral-white;
+        }
+      }
+
+      .hover-menu__lines span {
+        background-color: $cloud-light-blue; 
+      }
+    }
+  }
 }

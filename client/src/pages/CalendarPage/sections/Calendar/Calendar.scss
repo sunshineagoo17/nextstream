@@ -793,6 +793,10 @@
   align-items: center;
   z-index: 1000;
 
+  button {
+    font-family: $primary-font;
+  }
+
   .modal-content {
     background: rgba(255, 255, 255, .9);
     backdrop-filter: blur(.625rem);
@@ -834,10 +838,10 @@
 
     button {
       margin: .3125rem;
-      padding: .625rem 1.25rem;
+      padding: .35rem 1rem;
       border: none;
       border-radius: .25rem;
-      font-size: 1rem;
+      font-size: .85rem;
       background-color: $primary-button-blue;
       color: $neutral-white;
       transition: transform .3s ease;

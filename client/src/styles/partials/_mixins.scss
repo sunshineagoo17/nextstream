@@ -173,7 +173,7 @@
     background: $trans-gradient-black-blue;
   }  
 
-  // Animation for trans-mode
+// Animation for trans-mode
 @mixin transAnimateBorder() {
     @keyframes transAnimateBorder {
       0% {
@@ -225,3 +225,56 @@
 
     animation: transmodeBorderGlow 3s infinite alternate;
 }
+
+// Animation for cloud mode 
+@mixin cloudAnimateBorder() {
+    @keyframes cloudAnimateBorder {
+      0% {
+        border-color: $neutral-dark-grey; 
+      }
+      25% {
+        border-color: $cloud-medium-gray; 
+      }
+      35% {
+        border-color: $neutral-light-grey; 
+      }
+      50% {
+        border-color: $cloud-light-gray; 
+      }
+      75% {
+        border-color: $cloud-pale-gray; 
+      }
+      85% {
+        border-color: $cloud-dark-gray; 
+      }
+      100% {
+        border-color: $cloud-deep-gray; 
+      }
+    }
+  }
+  
+  @mixin cloudBorderAnimation() {
+    animation: cloudAnimateBorder 10s infinite alternate;
+  }
+  
+  @mixin cloudBorderGlowLogo() {
+    @keyframes cloudBorderGlowLogo {
+      0% {
+        border-color: $cloud-pale-gray; 
+      }
+      25% {
+        border-color: $cloud-light-gray; 
+      }
+      50% {
+        border-color: $cloud-medium-gray; 
+      }
+      75% {
+        border-color: $cloud-dark-gray; 
+      }
+      100% {
+        border-color: $cloud-deep-gray; 
+      }
+    }
+  
+    animation: cloudBorderGlowLogo 3s infinite alternate;
+  }  

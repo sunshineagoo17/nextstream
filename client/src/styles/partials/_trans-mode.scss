@@ -338,6 +338,14 @@
       color: $trans-black;
     }
 
+    &__search-bar {
+      color: $neutral-white;
+    }
+
+    &__overlay {
+      background: $frosted-glass;
+    }
+
     &__delete-events-btn {
       background: $trans-pink;
     }
@@ -368,8 +376,22 @@
     color: $neutral-white;
   }
 
+  tbody {
+    background: $primary-dark-blue;
+  }
+
+  .share-event__label {
+    color: $neutral-white;
+  }
+
   .modal {
     .modal-content {
+      background: $primary-darker-blue;
+      button {
+        background: $trans-candy-pink;
+        color: $trans-deep-blue;
+        border: .125rem solid $neutral-white;
+      }
       .modal-close-btn {
         background: $trans-candy-pink;
         color: $primary-dark-blue;
@@ -638,36 +660,6 @@
         color: $trans-deep-pink;
         box-shadow: $shadow-septenary;
     }
-  }
-
-  // Calendar Page
-  .calendar-page {
-    background-color: $primary-darker-blue;
-  }
-
-  tbody {
-    background: $primary-dark-blue;
-  }
-
-  .calendar__search-bar {
-    color: $neutral-white;
-  }
-
-  .calendar__overlay {
-    background: $frosted-glass;
-  }
-
-  .modal-content {
-    background: $primary-darker-blue;
-  }
-
-  .modal-input {
-    color: $primary-dark-blue;
-    background-color: $primary-very-light-blue;
-  }
-
-  .share-event__label {
-    color: $neutral-white;
   }
 
   // Login and Register Page
@@ -1011,6 +1003,24 @@
 
     &__title--results {
       color: $pastel-blue;
+    }
+
+    &__disclaimer-content {
+      background: $trans-frosted-blue;
+    }
+
+    &__disclaimer-header {
+      border: .25rem solid $trans-candy-pink;
+      color: $trans-deep-blue;
+      text-shadow: none;
+    }
+
+    &__disclaimer-copy {
+      color: $primary-dark-blue;
+    }
+
+    &__disclaimer-note {
+      color: $trans-deep-blue;
     }
 
     &__nav-arrow {
@@ -2205,9 +2215,38 @@
     }
   }
 
+  // Quickstart Guide 
+  .quickstart-guide {
+    &__fave-icon {
+      color: $trans-candy-pink;
+    }
+
+    &__title {
+      color: $trans-deep-pink;
+    }
+
+    &__close {
+      color: $trans-deep-pink;
+
+      &:hover {
+        background: $trans-candy-pink;
+        color: $neutral-white;
+      }
+
+      &:active {
+        color: $neutral-white;
+        background: $trans-pink;
+      }
+    }
+  }
+
   // Faves
   .faves-page {
     background: $trans-black;
+
+    &__reset {
+      background: $trans-gradient-blue-pink;
+    }
 
     &__title,
     &__search-bar-container {
@@ -2412,8 +2451,13 @@
       color: $trans-white;
     }
 
+    &__logo--mobile,
     &__logo {
-      border-radius: 3rem;
+        content: url('../../assets/images/logo-brand-mark-pink.svg');
+    }
+
+    &__logo {
+        border-radius: 3.25rem;
     }
 
     &__logo-border--mobile,
