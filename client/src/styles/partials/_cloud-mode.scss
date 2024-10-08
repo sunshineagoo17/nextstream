@@ -510,6 +510,62 @@
     }
   }
 
+  // Login
+  .login {
+    &__title {
+      color: $cloud-deep-gray;
+    }
+
+    &__container {
+      background: $cloud-frosted-white;
+    }
+
+    &__image-card {
+      filter: grayscale(100%) brightness(0.9); 
+    }
+
+    &__content-card {
+      background-color: $cloud-frosted-light-gray;
+      border: .85rem solid;
+      @include cloudAnimateBorder;
+      @include cloudBorderAnimation;
+    }
+    
+    &__input {
+      border: .125rem solid $neutral-light-grey;
+      box-shadow: $shadow-primary;
+      background: $neutral-white;
+      color: $neutral-black;
+  
+      &:focus,
+      &:not(:placeholder-shown) {
+        background-color: $cloud-light-gray;
+        color: $neutral-black;
+  
+        & + .login__label {
+          background-color: $neutral-white;
+          border: .125rem solid $neutral-light-grey;
+          color: $cloud-very-deep-gray;
+        }
+  
+        &::placeholder {
+          color: $neutral-light-grey;
+        }
+      }
+  
+      &:not(:focus):placeholder-shown {
+        &::placeholder {
+          color: transparent;
+        }
+      }
+    }
+
+    &__label {
+      background: $cloud-light-gray;
+      color: $neutral-black;
+    }
+  }
+
   // About, Privacy, Terms, Unsubscribe, 404, Login Required, Reset Password
   .reset-password,
   .login-required,
