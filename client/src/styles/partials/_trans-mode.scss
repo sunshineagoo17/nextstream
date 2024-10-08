@@ -1005,6 +1005,24 @@
       color: $pastel-blue;
     }
 
+    &__disclaimer-content {
+      background: $trans-frosted-blue;
+    }
+
+    &__disclaimer-header {
+      border: .25rem solid $trans-candy-pink;
+      color: $trans-deep-blue;
+      text-shadow: none;
+    }
+
+    &__disclaimer-copy {
+      color: $primary-dark-blue;
+    }
+
+    &__disclaimer-note {
+      color: $trans-deep-blue;
+    }
+
     &__nav-arrow {
       color: $trans-pastel-blue;
       background: $trans-black;

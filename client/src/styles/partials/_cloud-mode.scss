@@ -533,7 +533,7 @@
         align-items: center;
         max-width: 25rem;
         width: 100%;
-        border: .25rem solid $cloud-overcast-blue;
+        border: .25rem solid $neutral-white;
       }
       
       img {
@@ -549,7 +549,7 @@
     }
 
     &__forgot-password-link {
-      color: $cloud-overcast-blue;
+      color: $cloud-deep-gray;
 
       &:hover,
       &:focus {
@@ -620,7 +620,7 @@
 
     &__btn-create-account {
       background: linear-gradient(120deg, $cloud-off-white, $neutral-white); 
-      border: .125rem solid $cloud-breeze-blue;
+      border: .125rem solid $cloud-medium-gray;
       border-radius: .3125rem;
       color: $cloud-very-deep-gray;
       padding: .625rem 2.5rem;
@@ -865,6 +865,27 @@
       &:hover {
         filter: none;
       }
+    }
+  }
+
+  // NextStream Gpt 
+  .nextstream-gpt {
+    &__disclaimer-content {
+      background: $cloud-frosted-white;
+    }
+
+    &__disclaimer-header {
+      border: .25rem solid $neutral-white;
+      color: $neutral-black;
+      text-shadow: none;
+    }
+
+    &__disclaimer-copy {
+      color: $cloud-very-deep-gray;
+    }
+
+    &__disclaimer-note {
+      color: $cloud-stormy-blue;
     }
   }
 
