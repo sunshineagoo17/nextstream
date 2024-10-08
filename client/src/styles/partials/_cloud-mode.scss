@@ -1501,6 +1501,10 @@
       box-shadow: none;
       color: $neutral-white;
       border: .0625rem solid $neutral-white;
+
+      &:hover {
+        color: $cloud-medium-gray;
+      }
     }
 
     &__card {
