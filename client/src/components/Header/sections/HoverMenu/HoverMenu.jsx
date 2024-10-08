@@ -55,10 +55,14 @@ const HoverMenu = () => {
       // Added regular expression to match the Spotlight page with dynamic segments
       new RegExp(`^/spotlight/${userId}/\\d+$`).test(location.pathname);
   
-    // Check if trans mode is enabled
+    // Check if cloud, trans, or dark mode is enabled
+    const isCloudModeEnabled = document.documentElement.getAttribute('data-theme') === 'cloud-mode'; 
     const isTransModeEnabled = document.documentElement.getAttribute('data-theme') === 'trans-mode'; 
-    
     const isDarkModeEnabled = document.documentElement.getAttribute('data-theme') === 'dark';
+  
+    if (isCloudModeEnabled) {
+      return 'cloud-mode-background'; 
+    }
   
     if (isTransModeEnabled) {
       return 'trans-mode-background';
