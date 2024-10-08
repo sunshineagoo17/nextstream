@@ -1306,8 +1306,20 @@
       }
     }
 
+    &__nextwatch-link {
+      &:hover {
+        background: $cloud-frosted-light-gray;
+        color: $cloud-very-deep-gray;
+      }
+
+      &:active {
+        background: $cloud-breeze-blue;
+        color: $primary-dark-blue;
+      }
+    }
+
     &__nextwatch-icon {
-      color: $cloud-deep-gray;
+      color: $neutral-black;
     }
 
     &__star-icon,
