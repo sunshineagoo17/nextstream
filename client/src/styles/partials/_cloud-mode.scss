@@ -521,7 +521,23 @@
     }
 
     &__image-card {
-      filter: grayscale(100%) brightness(0.9); 
+      display: none;
+
+      @include tablet {
+        height: auto;
+        border-radius: 1.25rem;
+        box-shadow: $shadow-tertiary;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        max-width: 25rem;
+        width: 100%;
+        border: .25rem solid $cloud-overcast-blue;
+      }
+      
+      img {
+        filter: grayscale(100%) brightness(0.9); 
+      }
     }
 
     &__content-card {
@@ -532,7 +548,30 @@
     }
 
     &__forgot-password-link {
-      color: $cloud-dark-gray;
+      color: $cloud-overcast-blue;
+
+      &:hover,
+      &:focus {
+        padding-left: .25rem;
+        padding-right: .25rem;
+        background-color: $cloud-dusk-blue;
+        border: .0938rem solid $primary-pale-blue;
+        color: $neutral-white;
+        text-decoration: none;
+        box-shadow: $shadow-primary;
+    }
+
+      &:active {
+        padding-left: .25rem;
+        padding-right: .25rem;
+        background-color: $cloud-dusk-blue;
+        color: $neutral-white;
+        border: .125rem solid $neutral-light-grey;
+        border-radius: .25rem;
+        transform: scale(.9);
+        text-decoration: none;
+        font-weight: bold;
+      }
     }
 
     &__password-toggle-icon {
@@ -574,6 +613,81 @@
     
       &:hover::before {
         right: 100%;
+      }
+    }
+
+    &__btn-create-account {
+      background: linear-gradient(120deg, $cloud-off-white, $neutral-white); 
+      border: .125rem solid $cloud-breeze-blue;
+      border-radius: .3125rem;
+      color: $cloud-very-deep-gray;
+      padding: .625rem 2.5rem;
+      font-size: .65rem;
+      text-shadow: $cloud-shadow-primary;
+      margin-top: 1rem;
+      line-height: .85rem;
+      transition: background .3s ease, transform .3s ease, box-shadow .3s ease;
+      box-shadow: $cloud-shadow-secondary;
+    
+      &:hover {
+        transform: scale(1.05);
+        box-shadow: 0 .375rem .5rem rgba($cloud-very-deep-gray, .15);
+        border: none;
+        text-shadow: none;
+        color: $neutral-white;
+        background: linear-gradient(60deg, $cloud-haze-blue, $cloud-stormy-blue); 
+      }
+    
+      &:active {
+        transform: scale(.95);
+        color: $cloud-text-dark;
+        box-shadow: 0 .125rem .25rem rgba($cloud-deep-gray, .2);
+        background: linear-gradient(360deg, $cloud-stormy-blue, $primary-dark-blue); 
+        border: none;
+        color: $cloud-clear-blue;
+        text-shadow: $cloud-shadow-primary;
+      }
+    
+      &:focus { 
+        outline: none;
+        box-shadow: $cloud-shadow-primary; 
+      }
+    
+      @include tablet {
+        padding: .625rem 1rem;
+        font-size: .85rem;
+      }
+    }
+    
+    &__social-button--google {
+      background: linear-gradient(45deg, $cloud-light-gray, $cloud-medium-gray); 
+      color: $neutral-black;
+    
+      &:hover {
+        background: linear-gradient(45deg, $cloud-clear-blue, $cloud-light-blue); 
+        color: $cloud-text-dark;
+        text-shadow: $cloud-shadow-primary;
+      }
+    
+      &:active {
+        background: $cloud-off-white; 
+        color: $cloud-midnight-blue;
+      }
+    }
+    
+    &__guest-link {
+      background: linear-gradient(45deg, $cloud-light-gray, $cloud-medium-gray); 
+      color: $neutral-black;
+    
+      &:hover {
+        background: linear-gradient(45deg, $cloud-light-blue, $cloud-clear-blue); 
+        color: $cloud-text-dark;
+        text-shadow: $cloud-shadow-primary;
+      }
+    
+      &:active {
+        background: $cloud-off-white; 
+        color: $cloud-midnight-blue;
       }
     }
     
