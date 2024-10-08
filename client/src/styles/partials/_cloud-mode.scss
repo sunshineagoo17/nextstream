@@ -576,13 +576,14 @@
     }
 
     &__password-toggle-icon {
-      color: $neutral-white;
+      color: $cloud-dawn-blue;
     }
 
     &__remember-txt {
       color: $neutral-black;
     }
 
+    &__button--signup,
     &__button--signin {
       @include block-item(6.8119rem, 3.5rem);
       background: $cloud-dark-gray;
@@ -660,6 +661,7 @@
       }
     }
     
+    &__oauth-btn-google,
     &__social-button--google {
       background: linear-gradient(45deg, $cloud-light-gray, $cloud-medium-gray); 
       color: $neutral-black;
@@ -724,6 +726,33 @@
     &__label {
       background: $cloud-light-gray;
       color: $neutral-black;
+    }
+
+    &__account-available,
+    &__guest-text,
+    &__terms-txt {
+      color: $cloud-deep-gray;
+    }
+
+    &__terms-link,
+    &__signin-link,
+    &__guest-signin-link {
+      color: $cloud-very-deep-gray;
+      font-weight: bold;
+
+      &:visited,
+      &:focus,
+      &:hover {
+        font-weight: normal;
+        background: $cloud-dusk-blue;
+        color: $neutral-white;
+        border: .0625rem solid $neutral-white;
+      }
+
+      &:active {
+        background: $cloud-stormy-blue;
+        color: $neutral-white;
+      }
     }
   }
 

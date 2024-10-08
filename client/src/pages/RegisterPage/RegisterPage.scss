@@ -345,6 +345,7 @@
       display: flex;
       align-items: center;
       margin-top: 1rem;
+      color: $primary-very-light-blue;
       justify-content: center;
       transition: transform .1s ease;
 
@@ -488,7 +489,7 @@
     }
 
     &--previous {
-      @include block-item (6.8119rem, 3.5rem);
+      @include block-item(6.8119rem, 3.5rem);
       background: $neutral-light-grey;
       color: $primary-darker-blue;
       border: .0938rem solid $neutral-white;
@@ -498,45 +499,45 @@
       font-size: .85rem;
 
       @include tablet {
-        font-size: 1rem;
-        @include block-item (9rem, 4.5rem);
+          font-size: 1rem;
+          @include block-item(9rem, 4.5rem);
       }
 
       &:hover {
-        background: $primary-medium-blue;
-        color: $neutral-white;
+          background: $primary-medium-blue;
+          color: $neutral-white;
 
-        .register__button-icon {
-          filter: invert(100%);
-        }
+          .register__button-icon {
+              color: $neutral-white; 
+          }
       }
 
       &:active {
-        .register__button-icon {
-          filter: invert(100%);
-        }
+          .register__button-icon {
+              color: $neutral-white;  
+          }
       }
 
       &::before {
-        @include block-item(200%, 100%);
-        content: "";
-        position: absolute;
-        top: 0;
-        left: -100%;
-        background: linear-gradient(to right, transparent, rgba(255, 255, 255, .2), transparent);
-        transition: left .5s;
+          @include block-item(200%, 100%);
+          content: "";
+          position: absolute;
+          top: 0;
+          left: -100%;
+          background: linear-gradient(to right, transparent, rgba(255, 255, 255, .2), transparent);
+          transition: left .5s;
       }
 
       &:hover::before {
-        left: 100%;
+          left: 100%;
       }
 
       .register__button-icon {
-        @include block-item(.75rem, .75rem);
+          @include block-item(.75rem, .75rem);
 
-        @include tablet {
-          @include block-item(1rem, 1rem);
-        }
+          @include tablet {
+              @include block-item(1rem, 1rem);
+          }
       }
     }
 
@@ -575,10 +576,10 @@
       }
 
       .register__button-icon {
-        @include block-item(1rem, 1rem);
+        @include block-item(.75rem, .75rem);
 
         @include tablet {
-          @include block-item(1.5rem, 1.5rem);
+          @include block-item(1.15rem, 1.15rem);
         }
       }
     }

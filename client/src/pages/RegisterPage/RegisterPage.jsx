@@ -4,11 +4,8 @@ import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
+import { faUserPlus, faArrowLeft, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import api from '../../services/api'; 
-import SignUpIcon from '../../assets/images/register-sign-up-icon.svg';
-import ArrowIcon from '../../assets/images/register-arrow-icon.svg';
-import ShowIcon from '../../assets/images/register-visible-icon.svg';
-import HideIcon from '../../assets/images/register-invisible-icon.svg';
 import NextStreamBg from '../../assets/images/nextstream-bg.jpg';
 import RegisterCouple from '../../assets/images/register-couple-logging-in.svg';
 import Loader from '../../components/Loaders/Loader/Loader';
@@ -143,10 +140,9 @@ export const RegisterPage = () => {
     }
   };
 
-  // Handle OAuth registration for Google
   const handleOAuthRegister = async (providerLogin) => {
     try {
-      setIsLoading(true);  // Start loader
+      setIsLoading(true);  
       const result = await providerLogin();
       
       if (result && result.user) {
@@ -274,7 +270,10 @@ export const RegisterPage = () => {
                     onClick={togglePasswordVisibility}
                     aria-label={passwordVisible ? "Hide password" : "Show password"}
                   >
-                    <img src={passwordVisible ? HideIcon : ShowIcon} alt="Toggle visibility" className="register__password-toggle-icon" />
+                    <FontAwesomeIcon
+                      icon={passwordVisible ? faEyeSlash : faEye}
+                      className="register__password-toggle-icon"
+                    />
                   </button>
                 </div>
               </div>
@@ -295,7 +294,7 @@ export const RegisterPage = () => {
               </div>
               <div className="register__button-group">
                 <button className="register__button register__button--previous" onClick={goToPreviousPage}>
-                  <img src={ArrowIcon} className="register__button-icon" alt="Arrow Icon" />
+                  <FontAwesomeIcon icon={faArrowLeft} className="register__button-icon" />
                   <span>Previous</span>
                 </button>
                 <button className="register__button register__button--signup" onClick={handleSignUp} disabled={isLoading}>
@@ -303,7 +302,7 @@ export const RegisterPage = () => {
                     <div className="register__loader-circle"></div>
                   ) : (
                     <div className="register__btn-wrapper">
-                      <img src={SignUpIcon} className="register__button-icon" alt="Sign Up Icon" />
+                      <FontAwesomeIcon icon={faUserPlus} className="register__button-icon" />
                       <span>Sign Up</span>
                     </div>
                   )}
