@@ -756,6 +756,118 @@
     }
   }
 
+  // NextSwipe 
+  .nextswipe-page {
+    &__container {
+      background: $cloud-off-white;
+    }
+
+    &__title-container {
+      background: $cloud-dark-gradient-white-gray;
+    }
+
+    &__background {
+      filter: grayscale(100%) brightness(0.9); 
+    }
+
+    &__media-card {
+      @include cloudAnimateBorder;
+      @include cloudBorderAnimation;
+    }
+
+    &__nav-button {
+      background-color: rgba($neutral-black, .1);
+      color: $cloud-dusk-blue;
+    }
+
+    &__calendar-button {
+      @include block-item(5rem, 3rem);
+      border: .0625rem solid $cloud-off-white;
+      padding: .5rem 1rem;
+      background: $cloud-gradient-light-gray;
+      color: $cloud-text-dark;
+      box-shadow: $cloud-shadow-primary;
+      position: relative;
+      margin-top: 1rem;
+      overflow: hidden;
+      font-size: .85rem;
+      border-radius: 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: transform .3s ease-in-out;
+    
+      @include tablet {
+        @include block-item(11.5rem, 4.5rem);
+        font-size: 1rem;
+        display: inline-flex;
+      }
+    
+      &:hover {
+        background: $cloud-dusk-blue;
+        color: $cloud-off-white;
+        border: .0625rem solid $cloud-soft-sky-blue;
+        transform: scale(1.03);
+      }
+    
+      &::before {
+        content: "";
+        @include block-item(200%, 100%);
+        position: absolute;
+        top: 0;
+        right: -100%;
+        background: linear-gradient(to left, transparent, rgba(255, 255, 255, .2), transparent);
+        transition: right .5s;
+      }
+    
+      &:hover::before {
+        right: 100%;
+      }
+    
+      &:active {
+        transform: scale(.95);
+      }
+    
+      svg {
+        @include tablet {
+          margin-right: .5rem;
+          border: .125rem solid $cloud-light-blue;
+          padding: .15rem .15rem .3rem .15rem;
+          border-radius: .5rem;
+        }
+      }
+    }
+  }
+
+  .circle-rating {
+    filter: grayscale(100%) brightness(0.9); 
+  }
+  
+  .media-card {
+    &__type-icon,
+    &__lightbulb-icon,
+    &__share-icon {
+      color: $cloud-dark-gray;
+
+      &:hover {
+        color: $neutral-white;
+      }
+    }
+
+    &__overview,
+    &__title {
+      color: $neutral-black;
+    }
+
+    &__image {
+      filter: grayscale(100%) brightness(0.9); 
+
+      &:hover {
+        filter: none;
+      }
+    }
+  }
+
   // About, Privacy, Terms, Unsubscribe, 404, Login Required, Reset Password
   .reset-password,
   .login-required,
