@@ -1277,6 +1277,148 @@
     }
   }
 
+  // NextView
+  .nextview-page {
+
+    &__background {
+      filter: grayscale(100%) brightness(0.9); 
+    }
+
+    &__nextwatch-link,
+    &__calendar-button,
+    &__share-button,
+    &__thumbs-up,
+    &__thumbs-down {
+      color: $cloud-deep-gray;
+      background-color: $frosted-glass;
+     
+      &:hover {
+        background: $primary-dark-blue; 
+        color: $neutral-white;
+        border: .125rem solid $primary-button-blue;
+      }
+
+      &:active {
+        background: $neutral-white;
+        color: $primary-button-blue;
+        box-shadow: $shadow-primary;
+        border: .1875rem solid $primary-medium-blue;
+      }
+    }
+
+    &__nextwatch-icon {
+      color: $cloud-deep-gray;
+    }
+
+    &__star-icon,
+    &__genre-icon,
+    &__media-icon {
+      color: $cloud-light-gray;
+    }
+
+    &__cast-name,
+    &__cast-copy,
+    &__streaming-copy {
+      color: $neutral-black;
+    }
+
+
+    &__poster-container,
+    &__cast-img {
+      filter: grayscale(100%) brightness(0.9); 
+
+      &:hover {
+        filter: none;
+      }
+    }
+
+    &__cast-arrow {
+      box-shadow: none;
+      background: $neutral-white;
+      color: $cloud-dark-gray;
+      border: .125rem solid $cloud-medium-gray;
+
+      &:hover {
+        background: $cloud-stormy-blue;
+        color: $neutral-white;
+        border: .125rem solid $neutral-white;
+      }
+
+      &:active {
+        background: $cloud-breeze-blue;
+        color: $primary-dark-blue;
+        border: .125rem solid $cloud-midnight-blue;
+      }
+    }
+
+    &__cast-scroll {
+      &::-webkit-scrollbar {
+        background-color: $cloud-light-gray;
+      }
+  
+      &::-webkit-scrollbar-thumb {
+        background-color: $cloud-dark-gray;
+      }
+    }
+
+    &__cast-character,
+    &__no-streaming-services,
+    &__duration,
+    &__rating {
+      color: $cloud-dark-gray;
+    }
+
+    &__genre-item {
+      border: .1875rem solid $cloud-medium-gray;
+      box-shadow: none;
+      color: $cloud-dark-gray;
+    }
+
+    &__cast-container,
+    &__streaming,
+    &__details-container {
+      border: .3125rem solid $cloud-medium-gray;
+      box-shadow: none;
+    }
+
+    &__media-type {
+      border: .1875rem solid $cloud-medium-gray;
+      box-shadow: none;
+    }
+
+    &__poster-container {
+      border: .3125rem solid $cloud-pale-gray;
+    }
+
+    &__heading-container {
+      background: $cloud-dark-neumorph-deep-shadow;
+      border: .3125rem solid $frosted-glass;
+    }
+
+    &__certification {
+      background: $cloud-light-gray;
+      color: $neutral-black;
+    }
+
+    &__description {
+      background: $cloud-pale-gray;
+      color: $cloud-very-deep-gray;
+    }
+
+    &__release-date,
+    &__title {
+      color: $neutral-black;
+    }
+
+    &__copy {
+      color: $neutral-white;
+    }
+
+    &__content {
+      border: .3125rem solid $neutral-light-grey;
+    }
+  }
+
   // About, Privacy, Terms, Unsubscribe, 404, Login Required, Reset Password
   .reset-password,
   .login-required,

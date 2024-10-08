@@ -385,15 +385,19 @@
     transition: transform .3s ease;
     border-radius: 1.5rem;
     border: .3125rem solid $primary-very-light-blue;
-
+  
     &:hover {
-      transform: scale(1.05);
+      transform: scale(1.05) rotate(3deg);
     }
-
+  
+    &:active {
+      transform: scale(.9);
+    }
+  
     @include tablet {
       max-width: 25rem;
     }
-
+  
     @include desktop {
       max-width: 30rem;
     }
