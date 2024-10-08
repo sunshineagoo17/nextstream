@@ -1106,6 +1106,23 @@
     background: $cloud-medium-gray;
   }
 
+  // Cookies
+  .cookie-notification {
+    &__message {
+      color: $neutral-black;
+    }
+
+    &__enable-btn {
+      background: $cloud-off-white;
+      color: $neutral-black;
+      border: .125rem solid $neutral-white;
+    }
+
+    &__close-btn {
+      color: $neutral-black;
+    }
+  }
+
   // About, Privacy, Terms, Unsubscribe, 404, Login Required, Reset Password
   .reset-password,
   .login-required,
