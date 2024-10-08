@@ -576,7 +576,7 @@ const NextStreamBot = () => {
         className='nextstream-bot__gpt-button'
         onClick={() => navigate(`/nextstream-gpt/${userId}`)}>
         <FontAwesomeIcon icon={faRobot} className='nextstream-bot__gpt-icon' />
-        <span>Chat with Mizu AI</span>
+        <span className='nextstream-bot__btn-txt'>Chat with Mizu AI</span>
       </button>
 
       <div className='nextstream-bot__chat-block'>

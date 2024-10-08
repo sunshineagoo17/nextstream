@@ -922,6 +922,7 @@
 
     &__copy {
       background: $frosted-glass;
+      box-shadow: none;
     }
   
     &__gpt-container {
@@ -973,6 +974,12 @@
       }
     }
 
+    &__input {
+      &::placeholder {
+        color: $cloud-medium-gray;
+      }
+    }
+
     &__messages {
       border: .25rem solid $neutral-white;
 
@@ -1006,10 +1013,90 @@
   
     &__speech-icon {
       color: $cloud-light-gray;
+      border: .125rem solid $cloud-medium-gray;
+      box-shadow: $shadow-cloud-primary;
     }
 
     &__send-button {
       background: $cloud-medium-gray;
+    }
+
+    &__results-section {
+      background: $cloud-gradient-light-gray;
+      color: $neutral-black;
+
+      &::before {
+        background: $cloud-gradient-light-gray;
+        color: $neutral-black;
+      }
+    }
+
+    &__card--results {
+      background: $frosted-glass;
+    }
+
+    &__rating-container {
+      filter: grayscale(100%); 
+    }
+
+    &__scroll-container-results {
+      display: flex;
+      overflow-x: scroll;
+      scrollbar-width: thin; 
+      -ms-overflow-style: none;
+      scroll-behavior: smooth;
+      background: $neutral-white;
+      width: 100%;
+      border-radius: 1.05rem;
+      scrollbar-color: $neutral-black $cloud-medium-gray;
+      cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), cursor;
+    }
+
+    &__nav-arrow {
+      color: $neutral-white;
+      border: .1875rem solid $neutral-white;
+      background: $primary-darker-blue;
+
+      &:hover {
+        transform: scale(1.1);
+        border: .0625rem solid $neutral-black;
+        color: $neutral-black;
+        background: $neutral-light-grey;
+      }
+
+      &:active {
+        transform: scale(.9);
+        border: .1875rem solid $neutral-light-grey;
+        color: $neutral-black;
+        background: $neutral-white;
+      }
+    }
+
+    &__lightbulb-icon,
+    &__media-icon,
+    &__cal-icon,
+    &__share-icon,
+    &__like-icon,
+    &__dislike-icon {
+      color: $cloud-dark-gray;
+
+      &:active {
+        color: $neutral-white;
+      }
+    }
+
+    &__title--results {
+      color: $neutral-black;
+    }
+
+    &__poster {
+      border-bottom: .25rem solid $neutral-white;
+      border-top: .25rem solid $neutral-white;
+    }
+
+    &__scroll-container-results {
+      border: .5rem solid $neutral-white;
+      border-bottom: 1rem solid $neutral-white;
     }
 
     &__gpt-icon-inline {
@@ -1030,6 +1117,14 @@
         background: $cloud-very-deep-gray;
         color: $neutral-white;
       }
+    }
+
+    &__clear-chat-text {
+      color: $primary-pale-blue;
+    }
+
+    &__clear-chat-icon {
+      color: $neutral-white;
     }
 
     &__clear-chat-button,
