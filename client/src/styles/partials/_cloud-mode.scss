@@ -530,6 +530,52 @@
       @include cloudAnimateBorder;
       @include cloudBorderAnimation;
     }
+
+    &__forgot-password-link {
+      color: $cloud-dark-gray;
+    }
+
+    &__password-toggle-icon {
+      color: $neutral-white;
+    }
+
+    &__remember-txt {
+      color: $neutral-black;
+    }
+
+    &__button--signin {
+      @include block-item(6.8119rem, 3.5rem);
+      background: $cloud-dark-gray;
+      color: $neutral-white;
+      box-shadow: $cloud-shadow-primary;
+      position: relative;
+      overflow: hidden;
+      font-size: .85rem;
+    
+      @include tablet {
+        @include block-item(9rem, 4.5rem);
+        font-size: 1rem;
+      }
+    
+      &:hover {
+        background: $cloud-dawn-blue;
+        border: .0625rem solid $cloud-haze-blue;
+      }
+    
+      &::before {
+        @include block-item(200%, 100%);
+        content: "";
+        position: absolute;
+        top: 0;
+        right: -100%;
+        background: linear-gradient(to left, transparent, rgba(255, 255, 255, .2), transparent);
+        transition: right .5s;
+      }
+    
+      &:hover::before {
+        right: 100%;
+      }
+    }
     
     &__input {
       border: .125rem solid $neutral-light-grey;

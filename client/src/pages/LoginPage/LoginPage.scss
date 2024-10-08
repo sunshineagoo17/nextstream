@@ -400,6 +400,7 @@
       @include block-item(1.5rem, 1.5rem);
       border-radius: 50%;
       display: flex;
+      color: $primary-light-blue;
       align-items: center;
       justify-content: center;
       transition: transform .1s ease;
@@ -473,7 +474,7 @@
       }
 
       &:hover {
-        background: $primary-medium-blue;
+        background: $primary-button-blue;
         color: $neutral-white;
 
         .login__button-icon {
@@ -545,10 +546,10 @@
       }
 
       .login__button-icon {
-         @include block-item(1rem, 1rem);
+        @include block-item(.85rem, .85rem);
 
             @include tablet {
-                @include block-item(1.5rem, 1.5rem);
+              @include block-item(1rem, 1rem);
             }
         }
     }
