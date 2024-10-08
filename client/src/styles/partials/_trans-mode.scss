@@ -387,6 +387,11 @@
   .modal {
     .modal-content {
       background: $primary-darker-blue;
+      button {
+        background: $trans-candy-pink;
+        color: $trans-deep-blue;
+        border: .125rem solid $neutral-white;
+      }
       .modal-close-btn {
         background: $trans-candy-pink;
         color: $primary-dark-blue;

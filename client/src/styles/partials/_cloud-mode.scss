@@ -29,6 +29,65 @@
     cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
   }
 
+  input[type='radio'],
+  input[type='checkbox'] {
+    appearance: none;
+    background-color: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.15), -4px -4px 6px rgba(255, 255, 255, 0.5);
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    position: relative;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+  
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+      box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.2), -6px -6px 12px rgba(255, 255, 255, 0.6);
+    }
+  
+    &:checked {
+      background-color: rgba(64, 146, 255, 0.6);
+      border-color: rgba(64, 146, 255, 0.8);
+      box-shadow: inset 3px 3px 6px rgba(0, 0, 0, 0.2), inset -3px -3px 6px rgba(255, 255, 255, 0.5);
+    }
+  
+    &:after {
+      content: '';
+      display: block;
+      width: 0.8rem;
+      height: 0.8rem;
+      background-color: #ffffff;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      transition: transform 0.3s ease-in-out;
+    }
+  
+    &:checked:after {
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+  
+  input[type='checkbox'] {
+    border-radius: 0.25rem;
+  
+    &:after {
+      width: 0.6rem;
+      height: 0.6rem;
+      border-radius: 0;
+    }
+  
+    &:checked {
+      background-color: rgba(64, 146, 255, 0.6);
+    }
+  }  
+  
   /* Ensure cursor changes on hover and active states */
   button:hover,
   a:hover,
@@ -672,6 +731,305 @@
     }
   }
 
-  // Calendar
-  // Calendar Modal
+  // Calendar Page
+  .calendar {
+    background: $cloud-frosted-light-gray;
+
+    &__header {
+      background: $frosted-glass-warm;
+    }
+
+    &__radio {
+      color: $cloud-very-deep-gray;
+      background: $cloud-very-deep-gray;
+    }
+
+    &__main {
+      border: none;
+      box-shadow: $shadow-cloud-primary;
+    }
+
+    &__clear-icon {
+      background: $cloud-deep-gray;
+      color: $neutral-white;
+      padding: .1rem;
+      top: 30%;
+  
+      &:hover {
+        background: $neutral-black;
+        color: $neutral-white;
+      }
+  
+      &:active {
+        background: $primary-very-light-blue;
+        color: $primary-dark-blue;
+      }
+    }
+
+    &__toggle-sidebar-btn {
+      background: $frosted-glass;
+      color: $neutral-black;
+
+      &:hover {
+        background: $cloud-very-deep-gray;
+        color: $neutral-white;
+      }
+
+      &:active {
+        background: $neutral-black;
+        color: $neutral-white;
+      }
+    }
+
+    &__search-bar {
+      color: $neutral-dark-grey;
+      background: $neutral-white;
+      border: .125rem solid $cloud-frosted-light-gray;
+
+      &::placeholder {
+        color: $cloud-dark-gray;
+      }
+
+      &:active,
+      &:focus {
+        color: $neutral-black;
+        border: .125rem solid $cloud-medium-gray;
+      }
+
+      &:-ms-input-placeholder {
+        color: $neutral-black;
+      }
+  
+      &::-ms-input-placeholder {
+        color: $neutral-black;
+      }  
+    }
+
+    &__search-icon {
+      color: $neutral-black;
+    }
+
+    &__search-container {
+      border: none;
+      box-shadow: none;
+    }
+
+    &__overlay {
+      background: $frosted-glass;
+    }
+
+    &__delete-events-btn {
+      background: $frosted-glass;
+      color: $neutral-black;
+
+      &:hover {
+        background: $cloud-very-deep-gray;
+        color: $neutral-white;
+        border: .125rem solid $neutral-white;
+      }
+
+      &:active {
+        background: $neutral-black;
+        color: $neutral-white;
+        border: none;
+      }
+    }
+  }
+
+  .calendar-page {
+    background: $cloud-frosted-light-gray;
+
+    &__title {
+      background: $cloud-frosted-white;
+      color: $cloud-very-deep-gray;
+      border: 0.1875rem solid $cloud-pale-gray;
+    }
+
+    &__subtitle {
+      color: $cloud-deep-gray;
+    }
+
+    &__hero {
+      background: $cloud-frosted-white;
+    }
+
+    &__hero-text {
+      background: $cloud-gradient-light-gray;
+      box-shadow: $shadow-cloud-primary;
+    }
+  }
+
+  .fc .fc-toolbar .fc-button-group .fc-button:not(:disabled).fc-button-active, .fc .fc-toolbar .fc-button-group .fc-button:not(:disabled):active {
+    background: $cloud-very-deep-gray;
+    color: $neutral-white;
+  }
+  
+  .fc-toolbar {
+    .fc-toolbar-title {
+      border: .125rem solid $cloud-pale-gray;
+      box-shadow: $shadow-glow-primary;
+      color: $neutral-black;
+    }
+  }
+
+  .fc-daygrid-day {
+    border: .0625rem solid $cloud-dark-gray;
+  }
+
+  .fc-header-toolbar {
+    background: $cloud-frosted-white;
+  }
+
+  .fc-day-today {
+    background-color: $cloud-very-light-blue !important;
+    border-color: $cloud-very-deep-gray !important;
+    color: $cloud-stormy-blue;
+  }
+
+  .share-event__title.neumorphic-text {
+    color: $cloud-very-deep-gray;
+    border: .125rem solid $neutral-white;
+  }
+
+  .fc-col-header-cell {
+    background: $cloud-very-deep-gray;
+  }
+
+  tbody {
+    background: $neutral-white;
+  }
+
+  .share-event__label {
+    color: $cloud-dark-gray;
+  }
+
+  .modal {
+    .modal-content {
+      background: $cloud-frosted-white;
+      button {
+        background: $neutral-white;
+        color: $neutral-black;
+        border: .125rem solid $cloud-pale-gray;
+      }
+      .modal-close-btn {
+        background: $cloud-frosted-white;
+        color: $neutral-black;
+
+        &:hover {
+          background: $cloud-breeze-blue;
+          color: $neutral-dark-grey;
+        }
+
+        &:active {
+          background: $cloud-stormy-blue;
+          color: $neutral-white;
+        }
+      }
+
+      .modal-input {
+        background: $frosted-glass;
+        box-shadow: $shadow-cloud-primary;
+        border: .125rem solid $neutral-white;
+
+        .modal-input-container {
+          .modal-input {
+            background: $frosted-glass;
+            cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
+          }
+        }
+      }
+    }
+  }
+
+  /* Apply custom cursor for all input fields */
+  input {
+    cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
+
+    svg {
+      cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
+    }
+  }
+
+  /* Ensure the custom cursor appears when hovering on the input, including the calendar icon */
+  input:hover {
+    cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
+  }
+
+  /* Target specific input types like datetime-local */
+  input[type="datetime-local"] {
+    cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
+  }
+
+  /* Ensure cursor changes on focus */
+  input[type="datetime-local"]:focus {
+    cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
+  }
+
+  input[type='datetime-local']::-webkit-calendar-picker-indicator {
+    cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
+  }
+
+  .fc {
+    .fc-toolbar {
+      .fc-button-group {
+        .fc-button {
+          background: $cloud-frosted-light-gray;
+          color: $neutral-black;
+          cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
+        }
+
+        &.fc-button-active {
+          background: $neutral-white;
+          color: $cloud-very-deep-gray;
+          cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
+
+          &:hover {
+            cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
+          }
+
+          &:active {
+            cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
+          }
+        }
+      }
+    }
+  }
+
+  .add-to-cal {
+    &__link {
+      &--google {
+        background: $cloud-frosted-white;
+        color: $neutral-black;
+
+        &:hover {
+          background: $cloud-dark-gray;
+          color: $neutral-white;
+          transform: scale(1.05);
+        }
+
+        &:active {
+          background: $trans-electric-blue;
+          color: $neutral-white;
+          border: 0.125rem solid $neutral-white;
+        }
+      }
+
+      &--apple {
+        background: $cloud-frosted-white;
+        color: $neutral-black;
+
+        &:hover {
+          background: $cloud-dark-gray;
+          color: $neutral-white;
+          transform: scale(1.05);
+        }
+
+        &:active {
+          background: $trans-electric-blue;
+          color: $neutral-white;
+          border: 0.125rem solid $neutral-white;
+        }
+      }
+    }
+  }
 }
