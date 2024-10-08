@@ -1431,6 +1431,104 @@
     }
   }
 
+  // Search Results
+  .search-results {
+    &__background {
+      filter: grayscale(100%);
+    }
+
+    &__intro,
+    &__title {
+      color: $neutral-black;
+    }
+
+    &__text--bottom,
+    &__text--top {
+      color: $cloud-deep-gray;
+    }
+
+    &__card-media-container {
+      background: $cloud-frosted-white;
+    }
+
+    &__media-icon {
+      color: $neutral-white;
+    }
+
+    &__poster--default,
+    &__no-image {
+      box-shadow: none;
+    }
+
+    &__error-no-img-txt {
+      color: $neutral-white;
+    }
+
+    &__link {
+      border: .125rem solid $neutral-white;
+      border-radius: 1rem;
+    }
+
+    &__page-nav-wrapper {
+      background-color: $cloud-medium-gray;
+      border: .15rem solid $neutral-white;
+
+      &:hover {
+        background: $cloud-light-gray;
+      }
+
+      &:active {
+        background: $cloud-very-deep-gray;
+      }
+    }
+
+    &__next-icon,
+    &__previous-icon {
+      color: $neutral-white;
+    }
+
+    &__pagination-circle {
+      border: .125rem solid $cloud-pale-gray;
+      background: rgba($neutral-white, .7);
+
+      &.active {
+        background-color: $cloud-light-gray;
+        box-shadow: 0 0 .25rem $cloud-medium-gray;
+      }
+    }
+
+    &__error-no-img-title {
+      box-shadow: none;
+      color: $neutral-white;
+      border: .0625rem solid $neutral-white;
+    }
+
+    &__card {
+      background: $cloud-gradient-light-gray;
+    }
+
+    &__login-link,
+    &__register-link {
+      color: $neutral-black;
+      text-decoration: none;
+      border: .0625rem solid $cloud-deep-gray;
+
+      &:hover,
+      &:focus,
+      &:visited {
+        background-color: $primary-button-blue;
+        border: .0625rem solid $neutral-white;
+        color: $neutral-white;
+    
+        &:active {
+          background-color: $neutral-black;
+          color: $neutral-white;
+          border: .125rem solid $neutral-white;
+        }
+      }
+    }
+  }
+
   // About, Privacy, Terms, Unsubscribe, 404, Login Required, Reset Password
   .reset-password,
   .login-required,
