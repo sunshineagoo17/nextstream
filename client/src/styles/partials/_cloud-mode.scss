@@ -775,6 +775,10 @@
       border-radius: 1rem;
     }
 
+    &__background {
+      filter: grayscale(100%);
+    }
+
     &__list-item,
     &__subtitle,
     &__text,
