@@ -1239,6 +1239,44 @@
     }
   }
 
+  // Quickstart Guide 
+  .quickstart-guide {
+    &__fave-icon {
+      color: $cloud-dawn-blue;
+
+      &:active {
+        color: $cloud-stormy-blue;
+      }
+    }
+
+    &__title {
+      color: $neutral-black;
+    }
+
+    &__button {
+      background: $cloud-dark-frosted-dark-gray;
+
+      &:focus,
+      &:visited,
+      &:hover {
+        background: $neutral-white;
+        color: $cloud-deep-gray;
+      }
+
+      &:active {
+        color: $neutral-black;
+      }
+    }
+
+    &__close {
+      color: $neutral-black;
+
+      &:active {
+        color: $neutral-white;
+      }
+    }
+  }
+
   // About, Privacy, Terms, Unsubscribe, 404, Login Required, Reset Password
   .reset-password,
   .login-required,

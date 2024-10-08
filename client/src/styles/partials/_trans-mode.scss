@@ -2215,9 +2215,38 @@
     }
   }
 
+  // Quickstart Guide 
+  .quickstart-guide {
+    &__fave-icon {
+      color: $trans-candy-pink;
+    }
+
+    &__title {
+      color: $trans-deep-pink;
+    }
+
+    &__close {
+      color: $trans-deep-pink;
+
+      &:hover {
+        background: $trans-candy-pink;
+        color: $neutral-white;
+      }
+
+      &:active {
+        color: $neutral-white;
+        background: $trans-pink;
+      }
+    }
+  }
+
   // Faves
   .faves-page {
     background: $trans-black;
+
+    &__reset {
+      background: $trans-gradient-blue-pink;
+    }
 
     &__title,
     &__search-bar-container {
