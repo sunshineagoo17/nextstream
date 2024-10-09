@@ -1118,6 +1118,135 @@
     }
   }
 
+  // Streamboard
+  .streamboard {
+    background: $cloud-frosted-white;
+    border: .3125rem solid $cloud-pale-gray;
+
+    &__title {
+      background: $cloud-dark-neumorph-base;
+    }
+
+    &__copy {
+      color: $neutral-white;
+    }
+
+    &__search-bar-button-search {
+      background: $cloud-dark-gray;
+    }
+
+    &__media-column--to_watch {
+      background: $cloud-frosted-light-gray;
+    }
+
+    &__media-item-title {
+      background: $cloud-frosted-dark-gray;
+      color: $cloud-very-deep-gray;
+      text-shadow: none;
+    }
+
+    &__tag-button,
+    &__review-button,
+    &__lightbulb-icon,
+    &__media-type-icon,
+    &__calendar-icon,
+    &__trash-icon {
+      color: $neutral-black;
+
+      &:hover {
+        color: $neutral-white;
+      }
+    }
+
+    &__genre-icon {
+      color: $cloud-medium-gray;
+    }
+
+    &__genre-text,
+    &__media-item-duration {
+      color: $neutral-black;
+    }
+
+    &__media-column--scheduled {
+      background: $cloud-pale-gray;
+    }
+
+    &__media-column--watched {
+      background: $cloud-light-gray;
+    }
+
+    &__media-column--watched::before,
+    &__media-column--scheduled::before,
+    &__media-column--to_watch::before {
+      background: $cloud-very-deep-gray;
+    }
+  }
+
+  .tag-modal {
+    background: $cloud-dark-neumorph-shadow-light;
+
+    &__eraser-icon {
+      color: $cloud-medium-gray;
+    }
+
+    &__input {
+      border: .125rem solid $neutral-white;
+    }
+
+    &__button--save {
+      background: $neutral-black;
+      border: .125rem solid $neutral-white;
+
+      &:focus,
+      &:hover {
+        color: $neutral-black;
+        background: $neutral-white;
+      }
+
+      &:active {
+        border: .125rem solid $neutral-black;
+      }
+    }
+
+    &__button--delete {
+      color: $neutral-black;
+      border: .125rem solid $cloud-light-gray;
+
+      &:focus,
+      &:hover {
+        border: none;
+        background: $frosted-glass;
+        color: $neutral-white;
+      }
+
+      &:active {
+        color: $neutral-white;
+        background: $frosted-glass;
+        border: .125rem solid $neutral-white;
+      }
+    }
+
+    &__button--close {
+      color: $neutral-black;
+      border: .125rem solid $neutral-black;
+
+      &:focus,
+      &:hover {
+        background: $neutral-black;
+        color: $neutral-white;
+      }
+
+      &:active {
+        border: .125rem solid $neutral-white;
+      }
+    }
+  }
+
+  .voice-search-streamboard__voice-button {
+    background: $cloud-light-gray;
+    color: $neutral-white;
+  }
+
   // NextStream Bot
   .nextstream-bot {
     @include frosted-glass2;
