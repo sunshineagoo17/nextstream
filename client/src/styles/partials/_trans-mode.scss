@@ -325,6 +325,49 @@
     }
   }
 
+  // Cookie Notifications
+  .cookie-notification {
+    background: rgba($trans-black, .85);
+    
+    &__message {
+      color: $neutral-white;
+    }
+
+    &__disable-btn,
+    &__enable-btn {
+      background: $trans-gradient-electricblue-candypink;
+      color: $neutral-white;
+
+      &:focus,
+      &:hover {
+        background: $trans-electric-pink;
+        color: $neutral-white;
+        box-shadow: none;
+      }
+
+      &:active {
+        background: $trans-electric-blue;
+        color: $neutral-white;
+        box-shadow: none;
+      }
+    }
+
+    &__close-btn {
+      color: $trans-pink;
+      transition: background-color .3s ease, transform .3s ease;
+
+      &:hover {
+        color: $trans-electric-blue;
+        transform: scale(1.05);
+      }
+
+      &:active {
+        color: $neutral-white;
+        transform: scale(.95);
+      }
+    }
+  }
+
   // Calendar Page
   .calendar {
     background: $trans-black;
