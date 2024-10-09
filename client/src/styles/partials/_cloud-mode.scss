@@ -1232,20 +1232,40 @@
     }
 
     &__pagination-button {
-      background: $cloud-medium-gray;
+      background: $cloud-dark-gray;
       color: $neutral-white;
       transition: background-color .3s ease, transform .3s ease;
     
       &:hover {
-        color: $cloud-medium-gray;
+        color: $cloud-midnight-blue;
         background: $neutral-white;
         transform: scale(1.1); 
       }
     
       &:active {
         color: $neutral-white;
-        background: $cloud-deep-gray;
+        background: $primary-button-blue;
         transform: scale(0.95); 
+      }
+    }
+
+    &__link {
+      font-weight: normal;
+      color: $neutral-white;
+      border: .125rem solid $cloud-very-light-blue;
+      transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease; 
+    
+      &:hover {
+        background-color: $cloud-dusk-blue;
+        transform: scale(1.1); 
+      }
+    
+      &:active {
+        border: none;
+        box-shadow: none;
+        background-color: $cloud-stormy-blue;
+        color: $cloud-light-blue;
+        transform: scale(0.95);
       }
     }
 
@@ -1272,7 +1292,7 @@
     &__media-type-icon,
     &__calendar-icon,
     &__trash-icon {
-      color: $neutral-black;
+      color: $cloud-midnight-blue;
 
       &:hover {
         color: $neutral-white;
@@ -1300,7 +1320,7 @@
     &__media-column--watched::before,
     &__media-column--scheduled::before,
     &__media-column--to_watch::before {
-      background: $cloud-very-deep-gray;
+      background: $cloud-midnight-blue;
     }
   }
 
