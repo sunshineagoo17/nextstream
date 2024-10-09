@@ -32,35 +32,34 @@
   input[type='radio'],
   input[type='checkbox'] {
     appearance: none;
-    background-color: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.15), -4px -4px 6px rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, .15);
+    backdrop-filter: blur(.5rem);
+    border: .0625rem solid rgba(255, 255, 255, .4);
+    box-shadow: .25rem .25rem .375rem rgba($neutral-black, .15), -.25rem -.25rem .375rem rgba(255, 255, 255, .5);
     width: 1.5rem;
     height: 1.5rem;
     border-radius: 50%;
     position: relative;
     cursor: pointer;
     outline: none;
-    transition: all 0.3s ease-in-out;
+    transition: all .3s ease-in-out;
   
     &:hover {
       background-color: rgba(255, 255, 255, 0.3);
-      box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.2), -6px -6px 12px rgba(255, 255, 255, 0.6);
+      box-shadow: .375rem .375rem .75rem rgba($neutral-black, .2), -.375rem -.375rem .75rem rgba(255, 255, 255, 0.6);
     }
   
     &:checked {
       background-color: rgba(64, 146, 255, 0.6);
       border-color: rgba(64, 146, 255, 0.8);
-      box-shadow: inset 3px 3px 6px rgba(0, 0, 0, 0.2), inset -3px -3px 6px rgba(255, 255, 255, 0.5);
+      box-shadow: inset .1875rem .1875rem .375rem rgba($neutral-black, .2), inset -.1875rem -.1875rem .375rem rgba(255, 255, 255, 0.5);
     }
   
     &:after {
       content: '';
       display: block;
-      width: 0.8rem;
-      height: 0.8rem;
-      background-color: #ffffff;
+      @include block-item(.8rem, .8rem);
+      background-color: $neutral-white;
       border-radius: 50%;
       position: absolute;
       top: 50%;
@@ -246,9 +245,17 @@
       color: $cloud-deep-gray;
     }
 
+    &__subtitle--tagline {
+      border: .1875rem solid $cloud-breeze-blue;
+    }
+
     &__logo--mobile,
     &__logo {
       content: url('../../assets/images/logo-brand-mark-gray.svg');
+
+      &:hover {
+        content: url('../../assets/images/logo-brand-mark-white.svg');
+      }
     }
 
     &__logo {
@@ -299,10 +306,28 @@
 
     &__card-features__feature__icon-bg {
       background: $cloud-deep-gray;
+
+      &:hover {
+        background: $cloud-stormy-blue;
+      }
+
+      &:active {
+        background: $cloud-midnight-blue;
+      }
     }
 
     &__card-features__feature__label {
       color: $cloud-deep-gray;
+
+      &:hover {
+        background: $cloud-breeze-blue;
+        color: $primary-dark-blue;
+      }
+
+      &:active {
+        background: $cloud-clear-blue;
+        color: $primary-button-blue;
+      }
     }
 
     &__new-releases-subtitle {
@@ -338,12 +363,14 @@
         border: .0938rem solid $cloud-medium-gray;
   
         &:hover {
-          background-color: rgba($cloud-medium-gray, .8);
+          background-color: rgba($cloud-breeze-blue, .8);
+          border: .0938rem solid $cloud-stormy-blue;
         }
   
         &--active {
-          background-color: $cloud-dark-gray;
-          box-shadow: 0 0 .25rem $cloud-deep-gray;
+          background-color: $cloud-medium-gray;
+          box-shadow: 0 0 .25rem $cloud-breeze-blue;
+          border: .125rem solid $cloud-dawn-blue;
         }
       }
     }
@@ -355,11 +382,12 @@
       color: $neutral-white;
 
       &:hover {
-        background: $cloud-frosted-dark-gray;
+        background: $cloud-stormy-blue;
+        border: .15rem solid $cloud-breeze-blue;
       }
 
       &:active {
-        background: $neutral-black;
+        background: $cloud-dusk-blue;
         border: .15rem solid $neutral-white;
       }
 
@@ -373,37 +401,38 @@
     &__icon-bg-tv {
       color: $neutral-white;
       background: $cloud-dark-gray;
+      transition: background 0.3s ease;
+
+      &:hover {
+        background: $cloud-stormy-blue;
+      }
+
+      &:active {
+        background: $cloud-dusk-blue;
+      }
     }
 
     &__card-media-container {
       background: linear-gradient(135deg, rgba(100, 100, 100, 0.4), rgba(220, 220, 220, 0.6));
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      box-shadow: 0 12px 24px rgba(100, 100, 100, 0.6), 0 12px 24px rgba(240, 240, 240, 0.5);
-      border-radius: 20px;
-      border: 2px solid rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(1.25rem);
+      -webkit-backdrop-filter: blur(1.25rem);
+      box-shadow: 0 .75rem 1.5rem rgba(100, 100, 100, 0.6), 0 .75rem 1.5rem rgba(240, 240, 240, 0.5);
+      border-radius: 1.25rem;
+      border: .125rem solid rgba(255, 255, 255, 0.4);
     
       animation: pulse-strong-grey-glow 5s infinite alternate ease-in-out;
     }
     
     @keyframes pulse-strong-grey-glow {
       0% {
-        box-shadow: 0 0 30px rgba(255, 255, 255, 0.8), 0 0 60px rgba(150, 150, 150, 0.8);
+        box-shadow: 0 0 1.875rem rgba(255, 255, 255, 0.8), 0 0 3.75rem rgba(150, 150, 150, 0.8);
       }
       50% {
-        box-shadow: 0 0 50px rgba(255, 255, 255, 0.9), 0 0 80px rgba(200, 200, 200, 1);
+        box-shadow: 0 0 3.125rem rgba(255, 255, 255, 0.9), 0 0 5rem rgba(200, 200, 200, 1);
       }
       100% {
-        box-shadow: 0 0 30px rgba(255, 255, 255, 0.8), 0 0 60px rgba(150, 150, 150, 0.8);
+        box-shadow: 0 0 1.875rem rgba(255, 255, 255, 0.8), 0 0 3.75rem rgba(150, 150, 150, 0.8);
       }
-    }
-  }
-
-  .content__card-features__feature {
-    &::after {
-      content: attr(data-tooltip);
-      color: $neutral-white;
-      background: $cloud-deep-gray;
     }
   }
 
@@ -411,15 +440,15 @@
     color: $neutral-black;
 
     &:hover {
-      background: $cloud-dark-gray;
+      background: $cloud-stormy-blue;
       color: $neutral-white;
     }
 
     &:focus,
     &:visited,
     &:active {
-      background: $cloud-very-deep-gray;
-      color: $cloud-light-gray;
+      background: $cloud-breeze-blue;
+      color: $primary-dark-blue;
     }
   }
 
@@ -2284,13 +2313,13 @@
   .terms,
   .about {
     background: rgba(255, 255, 255, 0.95); 
-    backdrop-filter: blur(20px); 
-    -webkit-backdrop-filter: blur(20px); 
+    backdrop-filter: blur(1.25rem); 
+    -webkit-backdrop-filter: blur(1.25rem); 
   
     &__container {
       background: rgba(220, 220, 220, 0.8); 
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(.625rem);
+      -webkit-backdrop-filter: blur(.625rem);
       border-radius: 1rem;
     }
 

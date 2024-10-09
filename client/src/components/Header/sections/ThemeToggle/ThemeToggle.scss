@@ -62,9 +62,9 @@
 
   // Cloud button for Cloud Mode
   .cloud {
-    color: $cloud-light-gray;
+    color: $neutral-white;
     padding: .6rem;
-    background: $neutral-white;
+    background: $cloud-breeze-blue;
     box-shadow: $cloud-shadow-secondary;
     border-radius: .5rem;
     border: .125rem solid $neutral-white;
@@ -85,12 +85,12 @@
     }
 
     &:hover {
-      background: $cloud-gradient-light-gray;
-      color: $neutral-white;
+      background: $cloud-frosted-white;
+      color: $cloud-breeze-blue;
       box-shadow: 0 0 .75rem rgba(255, 255, 255, 0.7), 0 0 1.5rem rgba(255, 255, 255, 0.4);
       transform: translateY(-4px);
       animation: cloud-hover 2s infinite ease-in-out;
-      border: .125rem solid $neutral-white;
+      border: .125rem solid $cloud-breeze-blue;
       
       &:before {
         transform: translate(-50%, -50%) scale(1.3);
@@ -99,12 +99,12 @@
     }
 
     &:active {
-      background: $cloud-gradient-light-gray;
-      color: $cloud-deep-gray;
+      background: $primary-button-blue;
+      color: $cloud-haze-blue;
       box-shadow: 0 0 2rem rgba(255, 255, 255, 0.7), inset 0 0 1.5rem rgba(255, 255, 255, 0.7);
       transform: scale(1.1);
       animation: cloud-fade-out 1s ease forwards;
-      border: .125rem solid $cloud-medium-gray;
+      border: .125rem solid $cloud-haze-blue;
       border-radius: 50%;
       
       &:before {
