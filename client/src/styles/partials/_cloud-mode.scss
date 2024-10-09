@@ -1468,6 +1468,109 @@
     }
   }
 
+  // Spotlight
+  .spotlight-page {
+    &__heading-container {
+      background: $cloud-dark-gradient-light-gray;
+      border: .3125rem solid $neutral-white;
+    }
+
+    &__background {
+      filter: grayscale(100%) brightness(0.9); 
+    }
+
+    &__info-txt {
+      color: $cloud-very-deep-gray;
+    }
+
+    &__credit-poster {
+      filter: grayscale(100%) brightness(0.9); 
+
+      &:hover {
+        filter: none;
+      }
+    }
+
+    &__image-container {
+      filter: grayscale(100%) brightness(0.9); 
+      border: .5rem solid $neutral-white;
+      
+      &:hover {
+        filter: none;
+      }
+    }
+
+    &__filmography-title {
+      color: $neutral-black;
+    }
+
+    &__personal-info-icon {
+      color: $cloud-dusk-blue;
+
+      &:hover {
+        background: $cloud-dusk-blue;
+        color: $neutral-white;
+      }
+    }
+
+    &__nav-arrow {
+      background: $neutral-white;
+      color: $cloud-dark-gray;
+      box-shadow: none;
+      border: .125rem solid $cloud-dark-gray;
+
+      &:hover {
+        background: $cloud-light-gray;
+        color: $cloud-deep-gray;
+        border: .125rem solid $neutral-white;
+      }
+
+      &:active {
+        background: $neutral-black;
+        color: $neutral-white;
+        border: .125rem solid $cloud-light-gray;
+      }
+    }
+
+    &__credits-container,
+    &__text-container {
+      border: .1875rem solid $neutral-white;
+    }
+
+    &__filmography-container,
+    &__info-container {
+      background: $cloud-dark-gradient-white-gray;
+      color: $neutral-white;
+    }
+
+    &__copy {
+      color: $cloud-off-white;
+    }
+
+    &__content {
+      background: $cloud-pale-gray;
+      border: .3125rem solid $cloud-light-gray;
+    }
+
+    &__person-bio {
+      color: $cloud-deep-gray;
+    }
+
+    &__person-name {
+      color: $neutral-black;
+    }
+
+    &__read-more {
+      color: $neutral-black;
+
+      &:focus,
+      &:visited,
+      &:hover {
+        color: $neutral-white;
+      }
+    }
+  }
+
   // Quickstart Guide 
   .quickstart-guide {
     &__fave-icon {
