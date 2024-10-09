@@ -870,8 +870,10 @@
 
   // NextStream Gpt 
   .nextstream-gpt {
+    background: $cloud-frosted-white;
+
     &__disclaimer-content {
-      background: $cloud-frosted-white;
+      background: $cloud-frosted-light-gray;
     }
 
     &__disclaimer-header {
@@ -886,6 +888,233 @@
 
     &__disclaimer-note {
       color: $cloud-stormy-blue;
+    }
+
+    &__empty-message {
+      color: $cloud-deep-gray;
+    }
+
+    &__message--user {
+      color: $neutral-white;
+      background: $primary-button-blue;
+      border: .0625rem solid $cloud-dawn-blue;
+    }
+
+    &__message--bot {
+      color: $neutral-white;
+      background: $primary-dark-blue;
+      text-shadow: none;
+      border: .0625rem solid $cloud-stormy-blue;
+    }
+
+    &__user-icon-inline {
+      color: $primary-button-blue;
+      background: $neutral-white;
+
+      &:hover {
+        background: $primary-medium-blue;
+        color: $neutral-white;
+      }
+    }
+
+    &__input {
+      &::placeholder {
+        color: $cloud-medium-gray;
+      }
+
+      &:focus {
+        background: $cloud-medium-gray;
+        border: .25rem solid $cloud-very-deep-gray;
+      }
+    }
+
+    &__gpt-icon-inline {
+      color: $primary-medium-blue;
+      background: $neutral-white;
+
+      &:hover {
+        background: $primary-button-blue;
+        color: $neutral-white;
+      }
+    }
+
+    &__chat-container {
+      background: $cloud-neumorph-base;
+    }
+
+    &__speech-icon {
+      background: $cloud-medium-gray;
+      color: $neutral-white;
+      border: .125rem solid $neutral-white;
+      box-shadow: none;
+    }
+
+    &__typing-indicator-bubble {
+      background: $cloud-stormy-blue;
+    }
+
+    &__scroll-container-results {
+      border: .5rem solid $neutral-black;
+      border-bottom: 1rem solid $neutral-black;
+    }
+
+    &__poster {
+      cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
+      filter: grayscale(100%) brightness(0.9); 
+
+      &:hover {
+        cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
+        filter: none;
+      }
+    }
+
+    &__rating-container {
+      filter: grayscale(100%); 
+
+      &:hover {
+        filter: none;
+      }
+    }
+
+    &__icons-row {
+      background: $frosted-glass;
+    }
+
+    &__card {
+      background: $cloud-frosted-white;
+    }
+
+    &__nav-arrow {
+      cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
+      color: $neutral-white;
+      border: .1875rem solid $neutral-white;
+      background: $primary-darker-blue;
+
+      &:hover {
+        background: $neutral-white;
+        color: $cloud-stormy-blue;
+      }
+
+      &:active {
+        background: $cloud-dark-frosted-dark-gray;
+        color: $cloud-clear-blue;
+        border: .1875rem solid $neutral-black;
+      }
+    }
+
+    &__lightbulb-icon,
+    &__media-icon,
+    &__cal-icon,
+    &__share-icon,
+    &__like-icon,
+    &__dislike-icon {
+      color: $neutral-black;
+
+      &:hover {
+        background: $cloud-stormy-blue;
+        color: $neutral-white;
+      }
+
+      &:active {
+        background: $cloud-clear-blue;
+        color: $primary-dark-blue;
+      }
+    }
+
+    &__results-section {
+      &::before {
+        background: $neutral-black;
+        color: $neutral-white;
+      }
+    }
+
+    &__messages {
+      background: $cloud-light-gray;
+      border: .25rem solid $cloud-light-gray;
+
+      /* Scrollbar width */
+      scrollbar-width: thin;
+      scrollbar-color: $cloud-deep-gray $frosted-glass;
+
+      /* For WebKit-based browsers (Chrome, Safari, Edge) */
+      &::-webkit-scrollbar {
+        width: .75rem;
+        height: .75rem;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: $neutral-white;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: $cloud-deep-gray;
+        border-radius: .625rem;
+        border: .1875rem solid $neutral-white;
+      }
+
+      &::-webkit-scrollbar-thumb:hover {
+        background-color: darken($cloud-deep-gray, 10%);
+      }
+    }
+
+    &__chatbot-svg {
+      filter: grayscale(100%) brightness(0.9); 
+
+      &:hover {
+        filter: none;
+      }
+    }
+
+    &__title {
+      background: linear-gradient(
+        180deg,
+        $neutral-black,
+        lighten($neutral-white, 50%)
+      );
+    }
+
+    /* For webkit browsers */
+    &__scroll-container-popular,
+    &__scroll-container-results {
+      display: flex;
+      overflow-x: scroll;
+      scrollbar-width: thin;
+      -ms-overflow-style: none;
+      scroll-behavior: smooth;
+      background: $cloud-dark-gray;
+      width: 100%;
+      border-radius: 1.05rem;
+      scrollbar-color: $cloud-dark-gray $cloud-light-gray;
+
+      /* Custom Scrollbar for WebKit Browsers */
+      &::-webkit-scrollbar {
+        height: .5rem;
+        color: $cloud-light-gray;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: $cloud-dark-gray;
+        border-radius: .625rem;
+      }
+
+      &::-webkit-scrollbar-thumb:hover {
+        background-color: $cloud-dark-gray;
+      }
+
+      &::-webkit-scrollbar-track {
+        background-color: $cloud-light-gray;
+      }
+
+      &::-webkit-scrollbar-corner {
+        background-color: $cloud-light-gray;
+      }
+    }
+
+    /* For Firefox */
+    .scroll-container-popular,
+    .scroll-container-results {
+      scrollbar-color: $cloud-dark-gray $cloud-light-gray;
+      scrollbar-width: thin;
     }
   }
 
