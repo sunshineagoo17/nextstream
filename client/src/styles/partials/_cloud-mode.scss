@@ -1431,12 +1431,158 @@
     }
   }
 
+  // Auth Search Results 
+  .auth-search-results {
+
+    &__background {
+      filter: grayscale(100%);
+    }
+
+    &__content-card {
+      border: .375rem solid $neutral-white;
+      background: $cloud-frosted-white;
+    }
+
+    &__card {
+      background: $cloud-gradient-white-gray;
+      border: .0625rem solid $cloud-light-gray;
+    }
+
+    &__streaming-services,
+    &__poster {
+      filter: grayscale(100%);
+
+      &:hover {
+        filter: none;
+      }
+    }
+
+    &__no-data-img {
+      filter: grayscale(100%);
+
+      &:hover {
+        filter: none;
+      }
+    }
+
+    &__no-results-copy {
+      background: $cloud-deep-gray;
+    }
+
+    &__intro,
+    &__title {
+      color: $neutral-black;
+    }
+
+    &__chevron-icon {
+      color: $neutral-black;
+    }
+
+    &__page-nav-wrapper {
+      background-color: $cloud-medium-gray;
+      border: .15rem solid $neutral-white;
+
+      &:hover {
+        background: $cloud-stormy-blue;
+      }
+
+      &:active {
+        background: $neutral-black;
+      }
+    }
+
+    &__error-no-img-title {
+      color: $cloud-medium-gray;
+      border: .0625rem solid $neutral-white;
+    }
+
+    &__error-no-img-txt {
+      color: $cloud-dark-gray;
+    }
+
+    &__no-image {
+      box-shadow: none;
+      border: .125rem solid $neutral-white;
+    }
+
+    &__thumbs-up,
+    &__thumbs-down,
+    &__share-icon {
+      box-shadow: none;
+      color: $cloud-medium-gray;
+      border: .125rem solid $neutral-white;
+
+      &:focus,
+      &:hover {
+        background: $cloud-stormy-blue;
+        color: $neutral-white;
+      }
+
+      &:active {
+        background: $neutral-black;
+        color: $neutral-white;
+        border: .125rem solid $neutral-black;
+        box-shadow: none;
+      }
+    }
+
+    &__calendar-icon,
+    &__media-icon {
+      color: $cloud-dark-gray;
+
+      &:focus,
+      &:hover {
+        color: $neutral-white;
+      }
+
+      &:active {
+        background: $neutral-white;
+        color: $neutral-black;
+      }
+    }
+
+    &__next-icon,
+    &__previous-icon {
+      color: $neutral-white;
+    }
+
+    &__pagination-circle {
+      border: .125rem solid $cloud-pale-gray;
+      background: rgba($neutral-white, .7);
+
+      &.active {
+        background-color: $cloud-dusk-blue;
+        box-shadow: 0 0 .25rem $cloud-stormy-blue;
+      }
+    }
+
+    &__card-media-container {
+      background: $cloud-frosted-light-gray;
+    }
+  }
   // Search Results
   .search-results {
     &__background {
       filter: grayscale(100%);
     }
 
+    &__poster {
+      filter: grayscale(100%);
+
+      &:hover {
+        filter: none;
+      }
+    }
+
+    &__no-data-img {
+      filter: grayscale(100%);
+
+      &:hover {
+        filter: none;
+      }
+    }
+
+    &__no-results-copy,
     &__intro,
     &__title {
       color: $neutral-black;

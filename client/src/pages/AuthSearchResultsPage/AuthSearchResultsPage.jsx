@@ -398,7 +398,7 @@ const AuthSearchResultsPage = ({ userId }) => {
               ))
             ) : (
               <div className="auth-search-results__no-results">
-                <img src={NoDataImg} alt="No results found" />
+                <img src={NoDataImg} alt="No results found" className='auth-search-results__no-data-img' />
                 <p className="auth-search-results__no-results-copy">No results found for your search. Try a different title!</p>
               </div>
             )}
