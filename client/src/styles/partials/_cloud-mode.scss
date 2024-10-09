@@ -2391,7 +2391,8 @@
 
   .reset-password {
     &__label {
-      background: $cloud-deep-gray;
+      background: $cloud-gradient-light-gray;
+      color: $cloud-stormy-blue;
     }
 
     &__input {
