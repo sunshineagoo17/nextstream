@@ -2401,17 +2401,17 @@
 
   .reset-password__button,
   .unsubscribe-page__button {
-    background: $cloud-frosted-dark-gray;
-    color: $neutral-black;
+    background: $cloud-gradient-pale-blue;
+    color: $cloud-stormy-blue;
 
     &:hover {
-      color: $cloud-very-deep-gray;
-      background: $neutral-white;
+      background: $cloud-stormy-blue;
+      color: $neutral-white;
     }
 
     &:active {
-      background: $cloud-very-deep-gray;
-      color: $neutral-white;
+      background: $cloud-breeze-blue;
+      color: $primary-dark-blue;
     }
   }
 
@@ -2449,12 +2449,13 @@
     &__reset,
     &__submit-text,
     &__close {
-      background: $cloud-pale-gray;
-      color: $cloud-very-deep-gray;
+      background: $cloud-clear-blue;
+      color: $primary-dark-blue;
 
+      &:focus,
       &:hover {
         background: $neutral-white;
-        color: $cloud-dark-gray;
+        color: $cloud-stormy-blue;
       }
     }
 
