@@ -1886,8 +1886,13 @@
 
     &__filmography-container,
     &__info-container {
-      background: $cloud-dusk-blue;
-      color: $neutral-white;
+      background: $cloud-frosted-white;
+      color: $cloud-midnight-blue;
+    }
+
+    &__text-container,
+    &__credits-container {
+      box-shadow: $shadow-senary;
     }
 
     &__copy {
