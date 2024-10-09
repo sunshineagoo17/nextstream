@@ -938,6 +938,30 @@
     }
   }
 
+  // Cookie Notifications
+  .cookie-notification {
+    background: $base-darker-blue;
+    
+    &__message {
+      color: $neutral-white;
+    }
+
+    &__close-btn {
+      color: $primary-button-blue;
+      transition: background-color .3s ease, transform .3s ease;
+
+      &:hover {
+        color: $primary-very-light-blue;
+        transform: scale(1.05);
+      }
+
+      &:active {
+        color: $neutral-white;
+        transform: scale(.95);
+      }
+    }
+  }
+
   // Reset Password 
   .reset-password {
     &__password-toggle-icon {
