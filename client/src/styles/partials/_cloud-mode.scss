@@ -1320,7 +1320,7 @@
     &__media-column--watched::before,
     &__media-column--scheduled::before,
     &__media-column--to_watch::before {
-      background: $cloud-midnight-blue;
+      background: $cloud-dark-gray;
     }
   }
 
@@ -1341,7 +1341,7 @@
     }
 
     &__title {
-      color: $cloud-stormy-blue;
+      color: $neutral-white;
     }
 
     &__textarea,    
@@ -2672,7 +2672,7 @@
     background: $cloud-frosted-light-gray;
 
     &__header {
-      background: $frosted-glass-warm;
+      background: $cloud-frosted-light-blue;
     }
 
     &__radio {
@@ -2707,13 +2707,13 @@
       color: $neutral-black;
 
       &:hover {
-        background: $cloud-very-deep-gray;
+        background: $cloud-stormy-blue;
         color: $neutral-white;
       }
 
       &:active {
-        background: $neutral-black;
-        color: $neutral-white;
+        background: $neutral-white;
+        color: $cloud-stormy-blue;
       }
     }
 
@@ -2759,14 +2759,14 @@
       color: $neutral-black;
 
       &:hover {
-        background: $cloud-very-deep-gray;
+        background: $primary-dark-blue; 
         color: $neutral-white;
         border: .125rem solid $neutral-white;
       }
 
       &:active {
-        background: $neutral-black;
-        color: $neutral-white;
+        background: $neutral-white;
+        color: $primary-dark-blue;
         border: none;
       }
     }
@@ -2786,7 +2786,7 @@
     }
 
     &__hero {
-      background: $cloud-frosted-white;
+      background: $cloud-dawn-blue;
     }
 
     &__hero-text {
