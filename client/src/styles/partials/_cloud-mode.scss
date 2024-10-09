@@ -1150,6 +1150,41 @@
       text-shadow: none;
     }
 
+    &__pagination-button {
+      background: $cloud-medium-gray;
+      color: $neutral-white;
+      transition: background-color .3s ease, transform .3s ease;
+    
+      &:hover {
+        color: $cloud-medium-gray;
+        background: $neutral-white;
+        transform: scale(1.1); 
+      }
+    
+      &:active {
+        color: $neutral-white;
+        background: $cloud-deep-gray;
+        transform: scale(0.95); 
+      }
+    }
+
+    &__season-input, 
+    &__episode-input {
+      background: $cloud-pale-gray;
+      color: $neutral-black;
+    }
+
+    &__episode-label,
+    &__season-label {
+      color: $cloud-very-deep-gray;
+    }
+
+    &__season-episode-inputs {
+      background: $cloud-pale-gray;
+    }
+
+    &__reset-button,
+    &__save-button,
     &__tag-button,
     &__review-button,
     &__lightbulb-icon,
@@ -1163,6 +1198,7 @@
       }
     }
 
+    &__pizza-icon,
     &__genre-icon {
       color: $cloud-medium-gray;
     }
