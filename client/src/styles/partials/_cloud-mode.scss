@@ -1861,21 +1861,21 @@
     }
 
     &__nav-arrow {
-      background: $neutral-white;
-      color: $cloud-dark-gray;
       box-shadow: none;
-      border: .125rem solid $cloud-dark-gray;
+      background: $neutral-white;
+      color: $cloud-dusk-blue;
+      border: .125rem solid $cloud-dusk-blue;
 
       &:hover {
-        background: $cloud-light-gray;
-        color: $cloud-deep-gray;
+        background: $cloud-stormy-blue;
+        color: $neutral-white;
         border: .125rem solid $neutral-white;
       }
 
       &:active {
-        background: $neutral-black;
-        color: $neutral-white;
-        border: .125rem solid $cloud-light-gray;
+        background: $cloud-breeze-blue;
+        color: $primary-dark-blue;
+        border: .125rem solid $cloud-midnight-blue;
       }
     }
 
@@ -1886,7 +1886,7 @@
 
     &__filmography-container,
     &__info-container {
-      background: $cloud-dark-gradient-white-gray;
+      background: $cloud-dusk-blue;
       color: $neutral-white;
     }
 
