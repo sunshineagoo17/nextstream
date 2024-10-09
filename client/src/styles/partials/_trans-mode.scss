@@ -391,7 +391,20 @@
         background: $trans-candy-pink;
         color: $trans-deep-blue;
         border: .125rem solid $neutral-white;
+
+        &:hover {
+          background: $trans-deep-blue;
+          color: $neutral-white;
+          border: .125rem solid $trans-pastel-pink;
+        }
+
+        &:active {
+          background: $trans-pale-blue;
+          color: $trans-deep-blue;
+          border: .125rem solid $neutral-white;
+        }
       }
+      
       .modal-close-btn {
         background: $trans-candy-pink;
         color: $primary-dark-blue;
@@ -485,6 +498,7 @@
       &--google {
         background: $trans-gradient-electricblue-candypink;
         color: $neutral-white;
+        transition: transform .3s ease, background .3s ease, color .3s ease; 
 
         &:hover {
           background: $trans-soft-pink;
@@ -496,12 +510,14 @@
           background: $trans-electric-blue;
           color: $neutral-white;
           border: 0.125rem solid $neutral-white;
+          transform: scale(.9);
         }
       }
 
       &--apple {
         background: $trans-gradient-electricblue-candypink;
         color: $neutral-white;
+        transition: transform .3s ease, background .3s ease, color .3s ease; 
 
         &:hover {
           background: $trans-soft-pink;
@@ -513,6 +529,7 @@
           background: $trans-electric-blue;
           color: $neutral-white;
           border: 0.125rem solid $neutral-white;
+          transform: scale(.9);
         }
       }
     }

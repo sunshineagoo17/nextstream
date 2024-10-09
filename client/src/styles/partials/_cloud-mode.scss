@@ -2720,18 +2720,31 @@
   .modal {
     .modal-content {
       background: $cloud-frosted-white;
+      
       button {
-        background: $neutral-white;
-        color: $neutral-black;
-        border: .125rem solid $cloud-pale-gray;
+        background: $cloud-breeze-blue;
+        color: $primary-medium-blue;
+        border: .125rem solid $neutral-white;
+
+        &:hover {
+          background: $primary-button-blue;
+          color: $neutral-white;
+          border: .125rem solid $neutral-white;
+        }
+
+        &:active {
+          background: $neutral-white;
+          color: $primary-medium-blue;
+        }
       }
+
       .modal-close-btn {
         background: $cloud-frosted-white;
         color: $neutral-black;
 
         &:hover {
           background: $cloud-breeze-blue;
-          color: $neutral-dark-grey;
+          color: $primary-dark-blue;
         }
 
         &:active {
@@ -2757,6 +2770,7 @@
 
   /* Apply custom cursor for all input fields */
   input {
+    color: $primary-dark-blue;
     cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
 
     svg {
@@ -2814,34 +2828,38 @@
       &--google {
         background: $cloud-frosted-white;
         color: $neutral-black;
-
+        transition: transform .3s ease, background .3s ease, color .3s ease; 
+      
         &:hover {
-          background: $cloud-dark-gray;
-          color: $neutral-white;
+          background: $cloud-gradient-pale-blue;
+          color: $primary-dark-blue;
           transform: scale(1.05);
         }
-
+      
         &:active {
           background: $trans-electric-blue;
           color: $neutral-white;
-          border: 0.125rem solid $neutral-white;
+          border: .125rem solid $neutral-white;
+          transform: scale(.95); 
         }
       }
-
+      
       &--apple {
         background: $cloud-frosted-white;
         color: $neutral-black;
-
+        transition: transform .3s ease, background .3s ease, color .3s ease; 
+      
         &:hover {
-          background: $cloud-dark-gray;
-          color: $neutral-white;
+          background: $cloud-gradient-pale-blue;
+          color: $primary-dark-blue;
           transform: scale(1.05);
         }
-
+      
         &:active {
           background: $trans-electric-blue;
           color: $neutral-white;
-          border: 0.125rem solid $neutral-white;
+          border: .125rem solid $neutral-white;
+          transform: scale(.95);
         }
       }
     }
