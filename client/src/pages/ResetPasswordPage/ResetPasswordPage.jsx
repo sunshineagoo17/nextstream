@@ -2,13 +2,13 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { toast, ToastContainer, Slide } from 'react-toastify';
 import api from '../../services/api';
-import Cookies from 'js-cookie'; 
+import Cookies from 'js-cookie';
 import AnimatedBg from '../../components/Backgrounds/AnimatedBg/AnimatedBg';
-import ShowIcon from "../../assets/images/register-visible-icon.svg";
-import HideIcon from "../../assets/images/register-invisible-icon.svg";
 import Loader from '../../components/Loaders/Loader/Loader';
 import ResetPasswordImg from "../../assets/images/reset-password.svg";
-import 'react-toastify/dist/ReactToastify.css'; 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import 'react-toastify/dist/ReactToastify.css';
 import './ResetPasswordPage.scss';
 
 export const ResetPasswordPage = () => {
@@ -23,7 +23,7 @@ export const ResetPasswordPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const token = new URLSearchParams(location.search).get('token');
-  const graphicRef = useRef(null); 
+  const graphicRef = useRef(null);
 
   useEffect(() => {
     setIsLoading(false);
@@ -33,7 +33,7 @@ export const ResetPasswordPage = () => {
   useEffect(() => {
     const graphicContainer = document.querySelector('.reset-password__graphic-container');
     
-    if (graphicContainer) { 
+    if (graphicContainer) {
         const handleMouseMove = (e) => {
             const graphic = graphicRef.current;
             if (graphic) {
@@ -60,10 +60,10 @@ export const ResetPasswordPage = () => {
 const handleClick = () => {
     const graphic = graphicRef.current;
     if (graphic) {
-        graphic.style.transform = 'scale(0.9)'; 
+        graphic.style.transform = 'scale(0.9)';
         setTimeout(() => {
             navigate('/');
-        }, 150);  
+        }, 150);
     }
 };
 
@@ -101,12 +101,12 @@ const handleClick = () => {
       return;
     }
     try {
-      setIsLoading(true); 
-      const response = await api.post('/api/password-reset/reset-password', { token, newPassword }); 
+      setIsLoading(true);
+      const response = await api.post('/api/password-reset/reset-password', { token, newPassword });
       setMessage(response.data.message);
       setMessageType(response.data.success ? 'success' : 'error');
       if (response.data.success) {
-        Cookies.set('resetPasswordMessage', response.data.message, { expires: 1 }); 
+        Cookies.set('resetPasswordMessage', response.data.message, { expires: 1 });
         toast.success(response.data.message, {
           className: 'frosted-toast-reset',
         });
@@ -115,22 +115,22 @@ const handleClick = () => {
     } catch (error) {
       toast.error('Error resetting password. Please try again.', {
         className: 'frosted-toast-reset',
-      }); 
+      });
     } finally {
-      setIsLoading(false); 
+      setIsLoading(false);
     }
   };
 
   return (
     <>
       <ToastContainer
-          position="top-center"
-          autoClose={3000}
-          hideProgressBar={true}
-          transition={Slide}
-          closeOnClick
-          pauseOnHover
-        />
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={true}
+        transition={Slide}
+        closeOnClick
+        pauseOnHover
+      />
       {isLoading ? <Loader /> : (
         <div className="reset-password">
           <div className="reset-password__container">
@@ -138,7 +138,7 @@ const handleClick = () => {
               <h1 className="reset-password__title">Reset Password</h1>
               <p className="reset-password__intro">Keep your account secure.</p>
               <p className="reset-password__text">
-                Please enter a new password below. This will replace your current password and ensure your account remains secure.   
+                Please enter a new password below. This will replace your current password and ensure your account remains secure.
               </p>
               <form className="reset-password__form" onSubmit={handleSubmit}>
                 <div className="reset-password__input-group reset-password__input-group--password">
@@ -158,7 +158,10 @@ const handleClick = () => {
                     onClick={togglePasswordVisibility}
                     aria-label={passwordVisible ? "Hide password" : "Show password"}
                   >
-                    <img src={passwordVisible ? HideIcon : ShowIcon} alt="Toggle visibility" className="reset-password__password-toggle-icon" />
+                    <FontAwesomeIcon
+                      icon={passwordVisible ? faEyeSlash : faEye}
+                      className="reset-password__password-toggle-icon"
+                    />
                   </button>
                 </div>
                 {validationError.newPassword && (
@@ -181,7 +184,10 @@ const handleClick = () => {
                     onClick={toggleConfirmPasswordVisibility}
                     aria-label={confirmPasswordVisible ? "Hide password" : "Show password"}
                   >
-                    <img src={confirmPasswordVisible ? HideIcon : ShowIcon} alt="Toggle visibility" className="reset-password__password-toggle-icon" />
+                    <FontAwesomeIcon
+                      icon={confirmPasswordVisible ? faEyeSlash : faEye}
+                      className="reset-password__password-toggle-icon"
+                    />
                   </button>
                 </div>
                 {validationError.confirmPassword && (
@@ -190,11 +196,11 @@ const handleClick = () => {
                 <button type="submit" className="reset-password__button">Reset Password</button>
               </form>
               <div className="reset-password__graphic-container" onClick={handleClick}>
-                <img 
-                  src={ResetPasswordImg} 
-                  alt="reset password graphic" 
-                  className="reset-password__graphic" 
-                  ref={graphicRef}  
+                <img
+                  src={ResetPasswordImg}
+                  alt="reset password graphic"
+                  className="reset-password__graphic"
+                  ref={graphicRef}
                 />
               </div>
               {message && (
