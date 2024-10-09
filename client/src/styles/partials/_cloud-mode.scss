@@ -1135,6 +1135,11 @@
       background: $cloud-dark-gray;
     }
 
+    &__search-bar-button-clear {
+      background: $cloud-very-deep-gray;
+      color: $neutral-white;
+    }
+
     &__media-column--to_watch {
       background: $cloud-frosted-light-gray;
     }
@@ -1246,7 +1251,7 @@
 
   .voice-search-streamboard__voice-button {
     background: $cloud-light-gray;
-    color: $neutral-white;
+    color: $neutral-black;
   }
 
   // NextStream Bot
