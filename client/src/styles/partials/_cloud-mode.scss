@@ -1391,9 +1391,22 @@
     overflow: hidden;
   
     &__typing-indicator-bubble {
-      background-color: $cloud-dark-gray;
+      background-color: $neutral-white;
     }
   
+    &__poster--results {
+      filter: grayscale(100%) brightness(0.9); 
+      transition: filter .3s ease, transform .3s ease;
+    
+      &:hover {
+        filter: grayscale(0%) brightness(1); 
+      }
+    }
+
+    &__loading-svg {
+      filter: grayscale(100%) brightness(0.9);
+    }
+
     &__title {
       background: $cloud-dark-frosted-dark-gray;
     }
@@ -1462,7 +1475,11 @@
     }
 
     &__input {
-      &::placeholder {
+      &:focus {
+        border: .25rem solid $cloud-haze-blue;
+      }    
+        
+        &::placeholder {
         color: $cloud-medium-gray;
       }
     }
@@ -1499,13 +1516,23 @@
     }
   
     &__speech-icon {
-      color: $cloud-light-gray;
-      border: .125rem solid $cloud-medium-gray;
+      color: $cloud-haze-blue;
+      border: .125rem solid $cloud-overcast-blue;
       box-shadow: $shadow-cloud-primary;
     }
 
     &__send-button {
-      background: $cloud-medium-gray;
+      background: $cloud-haze-blue;
+
+      &:hover {
+        background: $neutral-white;
+        color: $cloud-haze-blue;
+      }
+
+      &:active {
+        background: $cloud-dusk-blue;
+        color: $neutral-white;
+      }
     }
 
     &__results-section {
@@ -1545,21 +1572,21 @@
     }
 
     &__nav-arrow {
-      color: $neutral-white;
-      border: .1875rem solid $neutral-white;
+      color: $cloud-very-light-blue;
+      border: .1875rem solid $cloud-very-light-blue;
       background: $primary-darker-blue;
 
       &:hover {
         transform: scale(1.1);
-        border: .0625rem solid $neutral-black;
-        color: $neutral-black;
-        background: $neutral-light-grey;
+        border: .1875rem solid $neutral-white;
+        color: $neutral-white;
+        background: $cloud-stormy-blue;
       }
 
       &:active {
         transform: scale(.9);
-        border: .1875rem solid $neutral-light-grey;
-        color: $neutral-black;
+        border: .1875rem solid $cloud-stormy-blue;
+        color: $cloud-stormy-blue;
         background: $neutral-white;
       }
     }
@@ -1570,7 +1597,12 @@
     &__share-icon,
     &__like-icon,
     &__dislike-icon {
-      color: $cloud-dark-gray;
+      color: $cloud-dusk-blue;
+
+      &:focus,
+      &:hover {
+        color: $cloud-stormy-blue;
+      }
 
       &:active {
         color: $neutral-white;
@@ -1578,7 +1610,7 @@
     }
 
     &__title--results {
-      color: $neutral-black;
+      color: $cloud-stormy-blue;
     }
 
     &__poster {
@@ -1698,10 +1730,21 @@
       }
     }
     
-    &__clear-input,
     &__search-icon,
     &__close-icon {
       color: $cloud-dark-gray;
+    }
+
+    &__clear-input {
+      color: $cloud-overcast-blue;
+
+      &:hover {
+        color: $cloud-stormy-blue;
+      }
+
+      &:active {
+        color: $cloud-dark-gray;
+      }
     }
   
     &__calendar-close-btn {
@@ -1711,7 +1754,17 @@
   }
 
   .voice-message__voice-button {
-    background: $cloud-medium-gray;
+    background: $cloud-haze-blue;
+
+    &:hover {
+      background: $neutral-white;
+      color: $cloud-haze-blue;
+    }
+
+    &:active {
+      background: $cloud-dusk-blue;
+      color: $neutral-white;
+    }
   }
 
   // Cookies
@@ -2246,6 +2299,16 @@
 
     &__media-icon {
       color: $neutral-white;
+
+      &:hover {
+        background: $neutral-white;
+        color: $cloud-stormy-blue;
+      }
+
+      &:active {
+        background: $cloud-stormy-blue;
+        color: $neutral-white;
+      }
     }
 
     &__poster--default,
@@ -2263,15 +2326,15 @@
     }
 
     &__page-nav-wrapper {
-      background-color: $cloud-medium-gray;
+      background-color: $cloud-overcast-blue;
       border: .15rem solid $neutral-white;
 
       &:hover {
-        background: $cloud-light-gray;
+        background: $cloud-stormy-blue;
       }
 
       &:active {
-        background: $cloud-very-deep-gray;
+        background: $cloud-dusk-blue;
       }
     }
 
@@ -2281,12 +2344,12 @@
     }
 
     &__pagination-circle {
-      border: .125rem solid $cloud-pale-gray;
+      border: .125rem solid $cloud-clear-blue;
       background: rgba($neutral-white, .7);
 
       &.active {
-        background-color: $cloud-light-gray;
-        box-shadow: 0 0 .25rem $cloud-medium-gray;
+        background-color: $cloud-dawn-blue;
+        box-shadow: 0 0 .25rem $cloud-stormy-blue;
       }
     }
 
