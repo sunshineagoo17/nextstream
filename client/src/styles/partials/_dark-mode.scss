@@ -537,6 +537,24 @@
   .nextstream-gpt {
     background: $base-darker-blue;
 
+    &__disclaimer-content {
+      background: rgba($neutral-black, .85);
+    }
+
+    &__disclaimer-header {
+      border: .25rem solid $primary-button-blue;
+      color: $primary-very-light-blue;
+      text-shadow: none;
+    }
+
+    &__disclaimer-copy {
+      color: $neutral-white;
+    }
+
+    &__disclaimer-note {
+      color: $primary-very-light-blue;
+    }
+
     &__chat-container {
       background-color: $primary-dark-blue;
     }
