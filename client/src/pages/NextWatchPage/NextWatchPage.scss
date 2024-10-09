@@ -933,6 +933,8 @@
     gap: 1rem;
     padding: 0.5rem;
     width: 100%;
+    scrollbar-width: thin;
+    scrollbar-color: $primary-button-blue $primary-very-light-blue;
 
     &::-webkit-scrollbar {
       height: 0.375rem;
