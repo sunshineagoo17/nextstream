@@ -201,7 +201,7 @@
         border-radius: .5rem;
         box-shadow: $shadow-secondary;
         text-shadow: $shadow-primary;
-        border: 2px solid $frosted-glass;
+        border: .125rem solid $frosted-glass;
         background-color: $neutral-white;
         color: $primary-medium-blue;
         font-family: $primary-font;
@@ -211,7 +211,7 @@
 
         &:hover {
             background-color: $primary-dark-blue;
-            border: 2px solid $primary-light-blue;
+            border: .125rem solid $primary-light-blue;
             color: $neutral-white;
             transform: scale(1.05);
         }
@@ -219,7 +219,7 @@
         &:active {
             transform: scale(.95);
             color: $neutral-white;
-            border: 2px solid $neutral-white;
+            border: .125rem solid $neutral-white;
             background-color: $primary-light-blue;
         }
     }
@@ -236,7 +236,7 @@
         background: $primary-very-light-blue;
         border-radius: .5rem;
         box-shadow: $shadow-primary;
-        border: 2px solid $frosted-glass;
+        border: .125rem solid $frosted-glass;
         flex-direction: column;
         justify-content: center;
         padding: .25rem;
