@@ -368,6 +368,46 @@
     }
   }
 
+  // Mini Calendar
+  .mini-calendar {
+    background: $trans-black;
+    border: .3125rem solid $trans-candy-pink;
+
+    &__day-names {
+      background: $trans-pastel-blue;
+      box-shadow: $shadow-cloud-primary;
+    }
+
+    &__day {
+      background: $neutral-white;
+    }
+
+    &__day--selected {
+      background: $trans-pink;
+      color: $neutral-white;
+    }
+
+    &__day-name {
+      background: $neutral-white;
+    }
+
+    &__close-btn,
+    &__nav-btn {
+      background: $trans-electric-blue;
+      color: $neutral-white;
+
+      &:hover {
+        background: $cloud-breeze-blue;
+        color: $primary-dark-blue;
+      }
+
+      &:active {
+        background: $primary-dark-blue;
+        color: $cloud-breeze-blue;
+      }
+    }
+  }
+
   // Calendar Page
   .calendar {
     background: $trans-black;
@@ -391,6 +431,11 @@
 
     &__delete-events-btn {
       background: $trans-pink;
+    }
+
+    &__overlay {
+      background: rgba($trans-black, .7);
+      z-index: 500;
     }
   }
 
