@@ -1329,7 +1329,19 @@
     background: $cloud-dark-neumorph-shadow-light;
 
     &__eraser-icon {
-      color: $cloud-medium-gray;
+      color: $cloud-dawn-blue;
+
+      &:hover {
+        color: $cloud-dusk-blue;
+      }
+
+      &:active {
+        color: $cloud-stormy-blue;
+      }
+    }
+
+    &__title {
+      color: $cloud-stormy-blue;
     }
 
     &__textarea,    
@@ -1343,12 +1355,12 @@
 
       &:focus,
       &:hover {
-        color: $neutral-black;
+        color: $cloud-stormy-blue;
         background: $neutral-white;
       }
 
       &:active {
-        border: .125rem solid $neutral-black;
+        border: .125rem solid $cloud-stormy-blue;
       }
     }
 
@@ -1360,7 +1372,7 @@
       &:hover {
         border: none;
         background: $frosted-glass;
-        color: $neutral-white;
+        color: $cloud-stormy-blue;
       }
 
       &:active {
@@ -1376,8 +1388,9 @@
 
       &:focus,
       &:hover {
-        background: $neutral-black;
-        color: $neutral-white;
+        background: $cloud-stormy-blue;
+        color: $neutral-white;   
+        border: none;
       }
 
       &:active {
