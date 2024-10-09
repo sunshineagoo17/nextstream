@@ -1394,6 +1394,10 @@
       background-color: $cloud-dark-gray;
     }
   
+    &__loading-svg {
+      filter: grayscale(100%) brightness(0.9);
+    }
+
     &__title {
       background: $cloud-dark-frosted-dark-gray;
     }
@@ -2246,6 +2250,16 @@
 
     &__media-icon {
       color: $neutral-white;
+
+      &:hover {
+        background: $neutral-white;
+        color: $cloud-stormy-blue;
+      }
+
+      &:active {
+        background: $cloud-stormy-blue;
+        color: $neutral-white;
+      }
     }
 
     &__poster--default,
@@ -2263,15 +2277,15 @@
     }
 
     &__page-nav-wrapper {
-      background-color: $cloud-medium-gray;
+      background-color: $cloud-overcast-blue;
       border: .15rem solid $neutral-white;
 
       &:hover {
-        background: $cloud-light-gray;
+        background: $cloud-stormy-blue;
       }
 
       &:active {
-        background: $cloud-very-deep-gray;
+        background: $cloud-dusk-blue;
       }
     }
 
@@ -2281,12 +2295,12 @@
     }
 
     &__pagination-circle {
-      border: .125rem solid $cloud-pale-gray;
+      border: .125rem solid $cloud-clear-blue;
       background: rgba($neutral-white, .7);
 
       &.active {
-        background-color: $cloud-light-gray;
-        box-shadow: 0 0 .25rem $cloud-medium-gray;
+        background-color: $cloud-dawn-blue;
+        box-shadow: 0 0 .25rem $cloud-stormy-blue;
       }
     }
 
