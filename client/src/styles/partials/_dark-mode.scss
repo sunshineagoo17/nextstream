@@ -938,6 +938,13 @@
     }
   }
 
+  // Reset Password 
+  .reset-password__password-toggle-icon {
+    &:active {
+      color: $neutral-white;
+    }
+  }
+  
   // T&C and Privacy Policy
   .terms,
   .privacy,
