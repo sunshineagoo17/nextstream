@@ -343,7 +343,8 @@
   }
 
   .calendar__overlay {
-    background: $frosted-glass;
+    background: rgba($neutral-black, .7);
+    z-index: 500;
   }
 
   .modal-content {
