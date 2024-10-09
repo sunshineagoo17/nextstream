@@ -127,6 +127,33 @@
     }
   }
 
+
+  // Quickstart Guide 
+  .quickstart-guide {
+    &__container {
+      background: rgba($base-darker-blue, .85);
+    }
+
+    &__fave-icon {
+      background: $frosted-glass;
+      box-shadow: $shadow-cool-primary;
+      border: .125rem solid $neutral-white;
+
+      &:hover {
+        border: .0625rem solid $primary-button-blue;
+      }
+
+      &:active {
+        color: $primary-very-light-blue;
+        border: .0625rem solid $neutral-white;
+      }
+    }
+
+    &__title {
+      color: $neutral-white;
+    }
+  }
+
   // Toggle Button Component
   .toggle-button {
     &__switch {

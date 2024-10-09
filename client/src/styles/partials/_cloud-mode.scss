@@ -1861,22 +1861,24 @@
     }
 
     &__button {
-      background: $cloud-dark-frosted-dark-gray;
+      background: $cloud-gradient-pale-blue;
+      color: $cloud-stormy-blue;
 
       &:focus,
       &:visited,
       &:hover {
-        background: $neutral-white;
-        color: $cloud-deep-gray;
+        background: $cloud-stormy-blue;
+        color: $neutral-white;
       }
 
       &:active {
-        color: $neutral-black;
+        background: $cloud-breeze-blue;
+        color: $cloud-stormy-blue;
       }
     }
 
     &__close {
-      color: $neutral-black;
+      color: $cloud-stormy-blue;
 
       &:active {
         color: $neutral-white;
