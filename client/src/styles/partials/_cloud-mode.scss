@@ -1975,7 +1975,7 @@
     &__share-button,
     &__thumbs-up,
     &__thumbs-down {
-      color: $cloud-deep-gray;
+      color: $cloud-stormy-blue;
       background-color: $frosted-glass;
      
       &:hover {
@@ -2005,13 +2005,13 @@
     }
 
     &__nextwatch-icon {
-      color: $neutral-black;
+      color: $cloud-dusk-blue;
     }
 
     &__star-icon,
     &__genre-icon,
     &__media-icon {
-      color: $cloud-light-gray;
+      color: $cloud-dawn-blue;
     }
 
     &__cast-name,
@@ -2033,8 +2033,8 @@
     &__cast-arrow {
       box-shadow: none;
       background: $neutral-white;
-      color: $cloud-dark-gray;
-      border: .125rem solid $cloud-medium-gray;
+      color: $cloud-dusk-blue;
+      border: .125rem solid $cloud-dusk-blue;
 
       &:hover {
         background: $cloud-stormy-blue;
@@ -2063,13 +2063,13 @@
     &__no-streaming-services,
     &__duration,
     &__rating {
-      color: $cloud-dark-gray;
+      color: $cloud-stormy-blue;
     }
 
     &__genre-item {
       border: .1875rem solid $cloud-medium-gray;
       box-shadow: none;
-      color: $cloud-dark-gray;
+      color: $cloud-stormy-blue;
     }
 
     &__cast-container,
@@ -2094,8 +2094,8 @@
     }
 
     &__certification {
-      background: $cloud-light-gray;
-      color: $neutral-black;
+      background: $cloud-dawn-blue;
+      color: $primary-dark-blue;
     }
 
     &__description {
