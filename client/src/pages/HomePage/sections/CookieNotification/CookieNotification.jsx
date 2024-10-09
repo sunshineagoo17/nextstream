@@ -1,17 +1,19 @@
 import { useState, useEffect, useContext } from 'react';
-import { AuthContext } from '../../../../context/AuthContext/AuthContext';  
+import { AuthContext } from '../../../../context/AuthContext/AuthContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import './CookieNotification.scss';
 
 const CookieNotification = () => {
   const [visible, setVisible] = useState(false);
   const [cookiesEnabled, setCookiesEnabled] = useState(false);
   const [animationClass, setAnimationClass] = useState('');
-  const { login, logout } = useContext(AuthContext); 
+  const { login, logout } = useContext(AuthContext);
 
   useEffect(() => {
     const cookieConsent = localStorage.getItem('cookieConsent');
     if (!cookieConsent) {
-      setVisible(true); 
+      setVisible(true);
     } else {
       setCookiesEnabled(cookieConsent === 'enabled');
     }
@@ -30,7 +32,7 @@ const CookieNotification = () => {
     const token = localStorage.getItem('token');
     const userId = localStorage.getItem('userId');
     if (token && userId) {
-      login(token, userId); 
+      login(token, userId);
     }
     setAnimationClass('fade-out');
     setTimeout(() => {
@@ -41,8 +43,8 @@ const CookieNotification = () => {
   const handleDisableCookies = () => {
     setCookiesEnabled(false);
     localStorage.setItem('cookieConsent', 'disabled');
-    logout();  
-    localStorage.removeItem('token');  
+    logout();
+    localStorage.removeItem('token');
     localStorage.removeItem('userId');
     setAnimationClass('fade-out');
     setTimeout(() => {
@@ -71,7 +73,7 @@ const CookieNotification = () => {
           </button>
         )}
         <button className="cookie-notification__close-btn" onClick={handleClose} aria-label="Close notification">
-          &times;
+          <FontAwesomeIcon icon={faTimes} />
         </button>
       </div>
     </div>
