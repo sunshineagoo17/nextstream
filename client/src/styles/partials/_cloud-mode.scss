@@ -1703,8 +1703,8 @@
 
     &__enable-btn {
       background: $cloud-off-white;
-      color: $neutral-black;
-      border: .125rem solid $neutral-white;
+      color: $primary-dark-blue;
+      border: .125rem solid $cloud-clear-blue;
 
       &:focus,
       &:hover {
@@ -1720,7 +1720,7 @@
     }
 
     &__close-btn {
-      color: $neutral-black;
+      color: $cloud-stormy-blue;
       transition: background-color .3s ease, transform .3s ease;
 
       &:hover {
