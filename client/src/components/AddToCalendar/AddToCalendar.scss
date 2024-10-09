@@ -50,6 +50,7 @@
     &--google {
       background: linear-gradient(145deg, #90caf9, $primary-button-blue);
       color: $neutral-white;
+      transition: transform .3s ease, background .3s ease, color .3s ease; 
       
       &:hover {
         background: linear-gradient(145deg, $primary-button-blue, #64b5f6);
@@ -69,6 +70,7 @@
     &--apple {
       background: linear-gradient(145deg, $primary-button-blue, #90caf9);
       color: $neutral-white;
+      transition: transform .3s ease, background .3s ease, color .3s ease; 
       
       &:hover {
         background: linear-gradient(145deg, #90caf9, $primary-button-blue);  

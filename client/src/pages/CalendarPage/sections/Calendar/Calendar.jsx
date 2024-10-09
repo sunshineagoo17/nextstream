@@ -846,6 +846,7 @@ const Calendar = forwardRef(
               />
 
               <button
+                className='calendar__add-btn'
                 onClick={selectedEvent ? handleEditEvent : handleAddEvent}>
                 {selectedEvent ? 'Save' : 'Add'}
               </button>
@@ -858,7 +859,7 @@ const Calendar = forwardRef(
                   Delete
                 </button>
               )}
-              <button onClick={() => setModalVisible(false)}>Cancel</button>
+              <button className='calendar__cancel-btn' onClick={() => setModalVisible(false)}>Cancel</button>
 
               <Tooltip id="deleteDisabledTooltip" place="top" />
               
