@@ -166,7 +166,7 @@ const SearchResultsPage = ({ isAuthenticated, userId }) => {
               ))
             ) : (
               <div className="search-results__no-results">
-                <img src={NoDataImg} alt="No results found" />
+                <img src={NoDataImg} alt="No results found" className='search-results__no-data-img'/>
                 <p className="search-results__no-results-copy">No results found for your search. Try a different title!</p>
               </div>
             )}
