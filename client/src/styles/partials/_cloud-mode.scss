@@ -162,12 +162,12 @@
     background: $cloud-dark-gray;
 
     &:hover {
-      background: $cloud-medium-gray;
+      background: $cloud-stormy-blue;
       box-shadow: $shadow-cool-primary;
     }
 
     &:active {
-      background: $cloud-deep-gray;
+      background: $cloud-dusk-blue;
     }
   }
 
@@ -189,9 +189,10 @@
 
   &__logo {
     filter: grayscale(100%) brightness(80%);
-
+    transition: filter .3s ease, transform .3s ease;
+    
     &:hover {
-      filter: grayscale(100%) brightness(90%) contrast(1.2);
+      filter: grayscale(0%) brightness(1); 
     }
   }   
 
@@ -231,6 +232,10 @@
 // Hover Menu
 .hover-menu__button {
   background: $cloud-dark-gray;
+
+  &:hover {
+    background: $primary-button-blue;
+  }
 }
 
   // Hero
@@ -265,14 +270,17 @@
   
     &__btn-container {
       background: $cloud-dark-gray;
+      transition: background-color .3s ease, transform .3s ease;
 
       &:hover {
-        background: $cloud-medium-gray;
+        background: $cloud-stormy-blue;
         box-shadow: $shadow-cool-primary;
+        transform: scale(1.05);
       }
 
       &:active {
-        background: $cloud-deep-gray;
+        background: $cloud-dusk-blue;
+        transform: scale(.95);
       }
     }
   }
@@ -308,9 +316,10 @@
     &__poster5,
     &__poster6 {
       filter: grayscale(100%);
+      transition: filter .3s ease, transform .3s ease;
 
       &:hover {
-        filter: none; 
+        filter: grayscale(0%) brightness(1); 
         border: .15rem solid $cloud-light-gray;
       }
     }
@@ -420,41 +429,42 @@
 
     &__btn-register {
       background: $cloud-dark-gray;
+      transition: background-color .3s ease, transform .3s ease;
 
       &:hover {
-        background: $cloud-medium-gray;
-        color: $neutral-white;
-        box-shadow: none;
+        background: $cloud-stormy-blue;
+        box-shadow: $shadow-cool-primary;
+        transform: scale(1.05);
       }
 
       &:active {
-        background: $cloud-deep-gray;
-        box-shadow: none;
+        background: $cloud-dusk-blue;
+        transform: scale(.95);
       }
     }
 
     &__btn-contact {
       background: $neutral-white;
+      transition: background-color .3s ease, transform .3s ease;
 
       &:hover {
-        background: $neutral-white;
-        color: $cloud-medium-gray;
-        box-shadow: none;
-      }
+        background: $cloud-dawn-blue;
+        box-shadow: $shadow-cool-primary;
+        transform: scale(1.05);
+      }    
 
       &:active {
-        color: $cloud-deep-gray;
-        background: $neutral-white;
-        box-shadow: $shadow-cloud-primary;
-        border: .125rem solid $cloud-light-gray;
+        background: $cloud-breeze-blue;
+        transform: scale(.95);
       }
     }
 
     &__logo-wordmark {
       filter: grayscale(100%) brightness(0%) contrast(1);
+      transition: filter .3s ease, transform .3s ease;
     
       &:hover {
-        filter: grayscale(100%) brightness(20%) contrast(1.2);
+        filter: grayscale(0%) brightness(1); 
       }
     }
 
@@ -468,7 +478,7 @@
       border: none;
       box-shadow: none;
       color: $cloud-deep-gray;
-
+    
       &:hover {
         color: $cloud-very-deep-gray;
         border: none;
@@ -494,8 +504,11 @@
     &__privacy-policy-link, 
     &__tac-link {
       color: $cloud-deep-gray;
+      transition: background-color .3s ease, transform .3s ease;
 
       &:hover {
+        background: $cloud-breeze-blue;
+        transform: scale(1.05);
         border: .0625rem solid $neutral-white;
         box-shadow: none;
         border-radius: .5rem;
@@ -504,7 +517,8 @@
 
       &:active {
         border-radius: 1rem;
-        background: $neutral-white;
+        background: $cloud-light-blue;
+        transform: scale(.95);
         box-shadow: $shadow-tertiary;
       }
     }
@@ -538,6 +552,11 @@
       
       img {
         filter: grayscale(100%) brightness(0.9); 
+        transition: filter .3s ease, transform .3s ease;
+    
+        &:hover {
+          filter: grayscale(0%) brightness(1); 
+        }
       }
     }
 
@@ -768,6 +787,11 @@
 
     &__background {
       filter: grayscale(100%) brightness(0.9); 
+      transition: filter .3s ease, transform .3s ease;
+    
+      &:hover {
+        filter: grayscale(0%) brightness(1); 
+      }
     }
 
     &__media-card {
@@ -841,6 +865,11 @@
 
   .circle-rating {
     filter: grayscale(100%) brightness(0.9); 
+    transition: filter .3s ease, transform .3s ease;
+    
+    &:hover {
+      filter: grayscale(0%) brightness(1); 
+    }
   }
   
   .media-card {
@@ -861,9 +890,10 @@
 
     &__image {
       filter: grayscale(100%) brightness(0.9); 
-
+      transition: filter .3s ease, transform .3s ease;
+    
       &:hover {
-        filter: none;
+        filter: grayscale(0%) brightness(1); 
       }
     }
   }
@@ -957,22 +987,24 @@
       border: .5rem solid $neutral-black;
       border-bottom: 1rem solid $neutral-black;
     }
-
+   
     &__poster {
       cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
       filter: grayscale(100%) brightness(0.9); 
+      transition: filter .3s ease, transform .3s ease;
 
       &:hover {
         cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
-        filter: none;
+        filter: grayscale(0%) brightness(1); 
       }
     }
 
     &__rating-container {
       filter: grayscale(100%); 
+      transition: filter .3s ease, transform .3s ease;
 
       &:hover {
-        filter: none;
+        filter: grayscale(0%) brightness(1); 
       }
     }
 
@@ -1059,9 +1091,10 @@
 
     &__chatbot-svg {
       filter: grayscale(100%) brightness(0.9); 
-
+      transition: filter .3s ease, transform .3s ease;
+    
       &:hover {
-        filter: none;
+        filter: grayscale(0%) brightness(1); 
       }
     }
 
@@ -1332,7 +1365,12 @@
     }
 
     &__chatbot-svg {
-      filter: grayscale(100%) brightness(0.9); 
+      filter: grayscale(100%) brightness(0.9);
+      transition: filter .3s ease, transform .3s ease;
+    
+      &:hover {
+        filter: grayscale(0%) brightness(1); 
+      }
     }
 
     &__empty-message {
@@ -1438,6 +1476,11 @@
 
     &__rating-container {
       filter: grayscale(100%); 
+      transition: filter .3s ease, transform .3s ease;
+    
+      &:hover {
+        filter: grayscale(0%) brightness(1); 
+      }
     }
 
     &__scroll-container-results {
@@ -1633,10 +1676,33 @@
       background: $cloud-off-white;
       color: $neutral-black;
       border: .125rem solid $neutral-white;
+
+      &:focus,
+      &:hover {
+        background: $cloud-stormy-blue;
+        color: $neutral-white;
+      }
+
+      &:active {
+        background: $cloud-dawn-blue;
+        color: $primary-dark-blue;
+        box-shadow: none;
+      }
     }
 
     &__close-btn {
       color: $neutral-black;
+      transition: background-color .3s ease, transform .3s ease;
+
+      &:hover {
+        color: $cloud-dusk-blue;
+        transform: scale(1.05);
+      }
+
+      &:active {
+        color: $primary-dark-blue;
+        transform: scale(.95);
+      }
     }
   }
 
@@ -1649,6 +1715,11 @@
 
     &__background {
       filter: grayscale(100%) brightness(0.9); 
+      transition: filter .3s ease, transform .3s ease;
+    
+      &:hover {
+        filter: grayscale(0%) brightness(1); 
+      }
     }
 
     &__info-txt {
@@ -1657,18 +1728,20 @@
 
     &__credit-poster {
       filter: grayscale(100%) brightness(0.9); 
-
+      transition: filter .3s ease, transform .3s ease;
+    
       &:hover {
-        filter: none;
+        filter: grayscale(0%) brightness(1); 
       }
     }
 
     &__image-container {
       filter: grayscale(100%) brightness(0.9); 
       border: .5rem solid $neutral-white;
+      transition: filter .3s ease, transform .3s ease;
       
       &:hover {
-        filter: none;
+        filter: grayscale(0%) brightness(1); 
       }
     }
 
@@ -1786,6 +1859,11 @@
 
     &__background {
       filter: grayscale(100%) brightness(0.9); 
+      transition: filter .3s ease, transform .3s ease;
+    
+      &:hover {
+        filter: grayscale(0%) brightness(1); 
+      }
     }
 
     &__nextwatch-link,
@@ -1838,13 +1916,13 @@
       color: $neutral-black;
     }
 
-
     &__poster-container,
     &__cast-img {
       filter: grayscale(100%) brightness(0.9); 
-
+      transition: filter .3s ease, transform .3s ease;
+    
       &:hover {
-        filter: none;
+        filter: grayscale(0%) brightness(1); 
       }
     }
 
@@ -1940,6 +2018,11 @@
 
     &__background {
       filter: grayscale(100%);
+      transition: filter .3s ease, transform .3s ease;
+    
+      &:hover {
+        filter: grayscale(0%) brightness(1); 
+      }
     }
 
     &__content-card {
@@ -1955,17 +2038,19 @@
     &__streaming-services,
     &__poster {
       filter: grayscale(100%);
-
+      transition: filter .3s ease, transform .3s ease;
+    
       &:hover {
-        filter: none;
+        filter: grayscale(0%) brightness(1); 
       }
     }
 
     &__no-data-img {
       filter: grayscale(100%);
-
+      transition: filter .3s ease, transform .3s ease;
+    
       &:hover {
-        filter: none;
+        filter: grayscale(0%) brightness(1); 
       }
     }
 
@@ -2068,21 +2153,28 @@
   .search-results {
     &__background {
       filter: grayscale(100%);
+      transition: filter .3s ease, transform .3s ease;
+    
+      &:hover {
+        filter: grayscale(0%) brightness(1); 
+      }
     }
 
     &__poster {
       filter: grayscale(100%);
-
+      transition: filter .3s ease, transform .3s ease;
+    
       &:hover {
-        filter: none;
+        filter: grayscale(0%) brightness(1); 
       }
     }
 
     &__no-data-img {
       filter: grayscale(100%);
-
+      transition: filter .3s ease, transform .3s ease;
+    
       &:hover {
-        filter: none;
+        filter: grayscale(0%) brightness(1); 
       }
     }
 
@@ -2204,6 +2296,11 @@
 
     &__background {
       filter: grayscale(100%);
+      transition: filter .3s ease, transform .3s ease;
+    
+      &:hover {
+        filter: grayscale(0%) brightness(1); 
+      }
     }
 
     &__list-item,
@@ -2215,6 +2312,11 @@
 
     &__graphic {
       filter: grayscale(100%) brightness(0.9); 
+      transition: filter .3s ease, transform .3s ease;
+    
+      &:hover {
+        filter: grayscale(0%) brightness(1); 
+      }
     }
 
     &__login-link,
