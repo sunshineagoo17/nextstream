@@ -164,19 +164,21 @@ const MediaItem = ({ item, index, status, moveMediaItem, handleAddToCalendar, ha
       {item.media_type === 'tv' && (
         <div className="streamboard__season-episode-inputs">
           <div className="streamboard__inputs-container">
-            <label>
+            <label className='streamboard__season-label'>
                 Season
                 <input 
                     type="number" 
                     min="1" 
+                    className='streamboard__season-input'
                     value={season} 
                     onChange={handleSeasonChange} 
                 />
             </label>
-            <label>
+            <label className='streamboard__episode-label'>
                 Episode
                 <input 
                     type="number" 
+                    className='streamboard__episode-input'
                     min="1" 
                     value={episode} 
                     onChange={handleEpisodeChange} 
