@@ -2355,7 +2355,8 @@
     &__link {
       color: $neutral-black;
       text-decoration: none;
-      border: .0625rem solid $cloud-deep-gray;
+      border: .125rem solid $cloud-breeze-blue;
+      transition: transform .3s ease;
 
       &:hover,
       &:focus,
@@ -2363,20 +2364,23 @@
         background-color: $primary-button-blue;
         border: .0625rem solid $neutral-white;
         color: $neutral-white;
+        transform: scale(1.05);
     
         &:active {
-          background-color: $neutral-black;
+          background-color: $cloud-stormy-blue;
           color: $neutral-white;
           border: .125rem solid $neutral-white;
+          transform: scale(.9);
         }
       }
     }
 
     &__icon {
-      color: $cloud-deep-gray;
+      color: $cloud-soft-sky-blue;
 
       &:hover {
-        color: $primary-button-blue;
+        background: $cloud-soft-sky-blue;
+        color: $neutral-white;
       }
     }
 
@@ -2412,25 +2416,24 @@
   }
 
   .terms__nextstream-link {
-    color: $neutral-black;
+    color: $cloud-stormy-blue;
     text-decoration: none;
-    transition: background-color 0.3s, color 0.3s, border-color 0.3s, transform 0.3s ease-in-out; 
+    transition: transform 0.3s ease, background-color 0.3s ease, border 0.3s ease, color 0.3s ease; // Smooth transitions for multiple properties
   
     &:hover,
     &:focus,
     &:visited {
       background-color: $primary-button-blue;
-      border: 0.0625rem solid $neutral-white;
+      border: .0625rem solid $neutral-white;
       color: $neutral-white;
       transform: scale(1.1); 
+    }
   
-      &:active {
-        background-color: $neutral-black;
-        color: $neutral-white;
-        border: 0.125rem solid $neutral-white;
-        transform: scale(0.9); 
-        transition: transform 0.2s ease-in-out; 
-      }
+    &:active {
+      background-color: $cloud-stormy-blue;
+      color: $neutral-white;
+      border: .125rem solid $neutral-white;
+      transform: scale(0.95); 
     }
   }
 
