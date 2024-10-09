@@ -939,9 +939,11 @@
   }
 
   // Reset Password 
-  .reset-password__password-toggle-icon {
-    &:active {
-      color: $neutral-white;
+  .reset-password {
+    &__password-toggle-icon {
+      &:active {
+        color: $neutral-white;
+      }
     }
   }
   
