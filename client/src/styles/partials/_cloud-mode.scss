@@ -1182,6 +1182,7 @@
     }
   }
 
+  .review-modal,
   .tag-modal {
     background: $cloud-dark-neumorph-shadow-light;
 
@@ -1189,6 +1190,7 @@
       color: $cloud-medium-gray;
     }
 
+    &__textarea,    
     &__input {
       border: .125rem solid $neutral-white;
     }
