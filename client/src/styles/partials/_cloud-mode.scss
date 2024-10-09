@@ -831,6 +831,18 @@
     &__nav-button {
       background-color: rgba($neutral-black, .1);
       color: $cloud-dusk-blue;
+
+      &:hover {
+        background-color: rgba($cloud-stormy-blue, .7);
+        color: $neutral-white;
+      }
+
+      &:active {
+        background-color: rgba($neutral-white, .6);
+        color: $cloud-stormy-blue;
+        border: .125rem solid $cloud-very-light-blue;
+        box-shadow: none;
+      }
     }
 
     &__calendar-button {
@@ -856,6 +868,7 @@
         display: inline-flex;
       }
     
+      &:focus,
       &:hover {
         background: $cloud-dusk-blue;
         color: $cloud-off-white;
@@ -879,6 +892,7 @@
     
       &:active {
         transform: scale(.95);
+        background: $cloud-stormy-blue;
       }
     
       svg {
@@ -949,6 +963,10 @@
       color: $cloud-stormy-blue;
     }
 
+    &__bot-typing-indicator-bubble {
+      background-color: $cloud-breeze-blue;
+    }
+
     &__empty-message {
       color: $cloud-deep-gray;
     }
@@ -984,6 +1002,7 @@
       &:focus {
         background: $cloud-medium-gray;
         border: .25rem solid $cloud-very-deep-gray;
+        color: $neutral-black;
       }
     }
 
