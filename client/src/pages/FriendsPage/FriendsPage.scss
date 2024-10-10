@@ -874,13 +874,20 @@
 
   &__pending-item {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
     padding: .625rem;
     background: $feedback-error-very-light-peach;
     border-radius: .625rem;
+    gap: .5rem;
     box-shadow: $shadow-quinary;
     margin-bottom: .625rem;
+
+    @include tablet {
+      flex-direction: row;
+      gap: 0;
+    }
   }
 
   &__pending-section {
@@ -1160,10 +1167,14 @@
     }
   
     &:hover {
-      animation: wiggle .6s ease-in-out, backgroundSlide .9s forwards;
+      animation: wiggle .6s ease-in-out infinite, backgroundSlide .9s forwards;
       background: $neutral-white;
       color: $feedback-error-peach;
       box-shadow: $shadow-primary;
+    }
+
+    &:not(:hover) {
+      animation-play-state: paused; 
     }
   
     &:active {

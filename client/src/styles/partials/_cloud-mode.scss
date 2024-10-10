@@ -397,6 +397,112 @@
       }
     }
 
+    &__username--pending {
+      background: $cloud-deep-gray;
+      color: $neutral-white;
+      border: .125rem solid $neutral-white;
+    }
+
+    &__decline-friend {
+      background: $cloud-deep-gray;
+      color: $neutral-white;
+      transition: background .3s ease, transform .2s ease;
+
+      &:hover {
+        background: $feedback-error-peach;
+        color: $neutral-white;
+        transform: scale(1.05);
+      }
+
+      &:active {
+        background: darken($feedback-error-peach, 10%);
+        transform: scale(.95);
+      }
+    }
+
+    &__delete-icon {
+      color: $neutral-white;
+      transition: background-color .3s ease, transform .5s ease; 
+
+      &:hover {
+        color: $feedback-error-peach;
+      }
+
+      &:active {
+        color: $neutral-black;
+      }
+    }
+    &__message { 
+      &.me {
+        &.unread {
+          opacity: 1;
+          font-weight: bold;
+          background: $cloud-very-deep-gray;
+          color: $neutral-white;
+          border: .125rem solid $cloud-light-gray;
+        }
+    
+        &.read {
+          opacity: .9;
+          border: .0625rem solid $cloud-light-gray;
+          background: $cloud-dark-frosted-dark-gray;
+          color: $neutral-white;
+        }
+      }
+    
+      &.sender {
+        &.unread {
+          opacity: 1;
+          font-weight: bold;
+          color: $neutral-black;
+          background: $cloud-pale-gray;
+          border: .125rem solid $cloud-very-deep-gray;
+          box-shadow: $shadow-quaternary;
+          text-shadow: $shadow-primary;
+        }
+    
+        &.read {
+          opacity: .9;
+          background: $cloud-light-gray;
+          color: $neutral-black;
+          border: .0625rem solid $cloud-very-deep-gray;
+        }
+      }
+    }
+
+    &__accept-friend {
+      background: $neutral-white;
+      color: $neutral-black;
+      transition: transform .3s ease, box-shadow .3s ease, background-color .3s ease;
+      
+      &:hover {
+        background: $feedback-mint-light-green;
+        color: $feedback-dark-green;
+      }
+    }
+
+    &__pending-item {
+      background: $cloud-off-white;
+    }
+
+    &__username--search {
+      background: $neutral-white;
+      color: $neutral-black;
+      text-shadow: none;
+      font-weight: normal;
+    }
+
+    &__add-friend {
+      background: $neutral-white;
+      color: $cloud-very-deep-gray;
+      transition: background .3s ease, transform .3s ease;
+
+      &:hover {
+        background: $feedback-mint-light-green; 
+        color: $pastel-dark-green;
+      }
+    }
+
     &__clear-btn,
     &__send-btn {
       background: $cloud-dawn-blue;
