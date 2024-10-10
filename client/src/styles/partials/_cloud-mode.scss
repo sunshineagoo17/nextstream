@@ -2771,7 +2771,7 @@
 
     &__box {
       background: $cloud-overcast-blue;
-      color: $neutral-white;
+      border: .1875rem solid $neutral-white;
 
       &:hover {
         background-color: $feedback-very-light-mint-green;
@@ -2780,13 +2780,15 @@
     }
 
     &__delete-account {
-      background: $cloud-overcast-blue;
-      color: $neutral-white;
+      background: $cloud-dawn-blue;
+      color: $neutral-black;
+      border: .1875rem solid $neutral-black;
 
       &:hover {
         backdrop-filter: blur(.25rem);
         box-shadow: 0 0 .625rem rgba(255, 0, 0, .5);
         background: $feedback-error-light-peach;
+        border: .1875rem solid $feedback-error-peach;
       }
 
       &:active {
@@ -2796,6 +2798,10 @@
       }
     }
 
+    &__delete-txt {
+      color: $neutral-black;
+    }
+
     &__title {
       color: $neutral-black;
     }
@@ -2803,10 +2809,12 @@
     &__checkbox--active {
       background: $cloud-overcast-blue;
       color: $neutral-white;
+      border: .1875rem solid $neutral-white;
 
       &:hover {
         background-color: $feedback-very-light-mint-green;
         border: .1875rem solid $feedback-mint-green;
+        color: $neutral-white;
       }
 
       &:active {
