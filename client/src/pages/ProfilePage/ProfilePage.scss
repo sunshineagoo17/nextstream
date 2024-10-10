@@ -435,12 +435,16 @@
     padding: .1rem;
     border-radius: .5rem;
     border: .125rem solid $primary-pale-blue;
-    transition: box-shadow .3s ease transform .3s ease-in-out;
+    transition: transform .3s ease, background .3s ease, color .3s ease;
 
     &:hover {
       background-color: $neutral-white;
       box-shadow: $shadow-secondary;
-      transform: scale(1.15);
+      transform: scale(1.05);
+    }
+
+    &:active {
+      transform: scale(.95);
     }
   }
 
@@ -538,6 +542,7 @@
   }
 
   &__password-toggle-icon {
+    color: $primary-button-blue;
     @include block-item(.85rem, .85rem);
     border-radius: 50%;
     display: flex;
@@ -565,11 +570,20 @@
   }
 
   &__location-icon {
-    @include block-item(1.25rem, 1.25rem);
-    margin-top: -.15rem;
+    @include block-item(.85rem, .85rem);
+    transition: transform .3s ease, background .3s ease, color .3s ease;
 
-    @include tablet {
-      margin-top: -.1.25rem;
+    &:hover {
+      cursor: url('../../assets/cursors/cursor-pointer-wh.svg'), pointer;
+      background: $neutral-white;
+      color: $primary-button-blue;
+      transform: scale(1.05);
+    }
+
+    &:active {
+      color: $neutral-white;
+      background: $primary-button-blue;
+      transform: scale(.95);
     }
   }
 

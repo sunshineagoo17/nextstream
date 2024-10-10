@@ -164,9 +164,11 @@
         align-items: center;
         justify-content: center;
         margin-top: .5rem;
+        transition: background .3s ease, color .3s ease, transform .3s ease; 
 
         &:hover {
             background-color: $primary-medium-blue;
+            transform: scale(1.05);
         }
 
         &:active {

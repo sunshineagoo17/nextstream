@@ -2571,7 +2571,20 @@
 
     &__button {
       background: $cloud-dark-frosted-dark-gray;
-    }
+      transition: background .3s ease, color .3s ease, transform .3s ease; 
+    
+      &:hover {
+        color: $neutral-white;
+        background: $cloud-dawn-blue;
+        transform: scale(1.05);
+      }
+    
+      &:active {
+        color: $cloud-dawn-blue;
+        background: $neutral-white;
+        transform: scale(.95); 
+      }
+    }    
   }
   
   .profile {
@@ -2612,10 +2625,6 @@
       }
     }
 
-    &__notifications-alerts-icon {
-      color: $cloud-dawn-blue;
-    }
-
     &__notification-text {
       color: $neutral-black;
     }
@@ -2628,6 +2637,56 @@
     &__text-wrapper {
       background: $neutral-white;
       color: $cloud-very-deep-gray;
+    }
+
+    &__password-toggle-icon {
+      color: $cloud-light-gray;
+      transition: transform .3s ease, background .3s ease, color .3s ease; 
+
+      &:hover {
+        color: $cloud-dawn-blue;
+        transform: scale(1.05); 
+      }
+
+      &:active {
+        color: $cloud-stormy-blue;
+        transform: scale(.95); 
+      }
+    }
+
+    &__notifications-alerts-icon {
+      color: $cloud-dawn-blue;
+      transition: transform .3s ease, background .3s ease, color .3s ease;
+
+      &:hover {
+        background: $cloud-overcast-blue;
+        color: $neutral-white;
+        transform: scale(1.05);
+      }
+
+      &:active {
+        background: $neutral-white;
+        color: $cloud-stormy-blue;
+        transform: scale(.95);
+      }
+    }
+
+    &__location-icon {
+      color: $cloud-dawn-blue;
+      transition: transform .3s ease, background .3s ease, color .3s ease;
+
+      &:hover {
+        cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
+        background: $cloud-overcast-blue;
+        color: $neutral-white;
+        transform: scale(1.05);
+      }
+
+      &:active {
+        background: $neutral-white;
+        color: $cloud-stormy-blue;
+        transform: scale(.95);
+      }
     }
 
     &__details-header,
@@ -2652,6 +2711,19 @@
 
     &__icon {
       color: $cloud-dawn-blue;
+      transition: transform .3s ease, background .3s ease, color .3s ease; 
+  
+      &:hover {
+        background: $cloud-overcast-blue;
+        color: $neutral-white;
+        transform: scale(1.05); 
+      }
+  
+      &:active {
+        background: $neutral-white;
+        color: $cloud-stormy-blue;
+        transform: scale(.95); 
+      }
     }
 
     &__title {
