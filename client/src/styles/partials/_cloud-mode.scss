@@ -2467,6 +2467,103 @@
     }
   }
 
+  // Top Picks
+  .user-rating-container {
+    filter: grayscale(100%) brightness(0.9); 
+    transition: filter .3s ease, transform .3s ease;
+  
+    &:hover {
+      filter: grayscale(0%) brightness(1); 
+    }
+  }
+
+  .top-picks-page {
+    &__description,
+    &__text,
+    &__copy {
+      color: $neutral-black;
+    }
+
+    &__card {
+      &:focus,
+      &:hover {
+        background: $neutral-white;
+      }
+
+      &:active {
+        background: $cloud-soft-blue;
+        box-shadow: 0 0 .25rem $cloud-breeze-blue;
+      }
+    }
+
+    &__description {
+      &::-webkit-scrollbar-thumb {
+        background: $cloud-medium-gray;
+        border-radius: .625rem;
+      }
+  
+      &::-webkit-scrollbar-track {
+        background: $frosted-glass;
+      }
+    }
+
+    &__title {
+      background: $neutral-white;
+      color: $neutral-black;
+      border: .3125rem solid $cloud-breeze-blue;
+    }
+
+    &__subtitle {
+      background: $cloud-pale-gray;
+      color: $neutral-black;
+    }
+
+    &__header-container {
+      background: $cloud-light-gray;
+    }
+
+    &__load-descript {
+      color: $cloud-medium-gray;
+    }
+
+    &__text--center {
+      color: $neutral-black;
+      border: .1875rem solid $cloud-breeze-blue;
+    }
+
+    &__lightbulb-icon,
+    &__media-icon-link,
+    &__search-icon,
+    &__cal-icon,
+    &__share-icon,
+    &__like-icon,
+    &__dislike-icon {
+      color: $cloud-overcast-blue;
+    }
+    
+    &__loading-svg {
+      filter: grayscale(100%) brightness(0.9); 
+    }
+
+    &__poster-container {
+      filter: grayscale(100%) brightness(0.9); 
+      transition: filter .3s ease, transform .3s ease;
+    
+      &:hover {
+        filter: grayscale(0%) brightness(1); 
+        border: .2188rem solid $neutral-white;
+      }
+    }
+
+    &__content {
+      background: $cloud-light-gray;
+
+      @include tablet {
+        border: .625rem solid $neutral-white;
+      }
+    }
+  }
+
   // Auth Search Results 
   .auth-search-results {
 
