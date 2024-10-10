@@ -334,12 +334,22 @@
       color: $cloud-very-deep-gray;
     }
 
+    &__card1-container,
+    &__card2-container,
+    &__card3-container,
+    &__card4-container,
+    &__card5-container,
+    &__card6-container {
+      cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
+    }
+
     &__poster1,
     &__poster2,
     &__poster3,
     &__poster4,
     &__poster5,
     &__poster6 {
+      cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
       filter: grayscale(100%);
       transition: filter .3s ease, transform .3s ease;
 
@@ -377,6 +387,7 @@
 
     &__page-nav-wrapper-next,
     &__page-nav-wrapper-previous {
+      cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
       background-color: $neutral-grey-gradient;
       border: .15rem solid $cloud-dark-gray;
       color: $neutral-white;
@@ -1330,6 +1341,7 @@
 
     &__eraser-icon {
       color: $cloud-dawn-blue;
+      cursor: url(../../assets/cursors/cursor-pointer-cl.svg), pointer;
 
       &:hover {
         color: $cloud-dusk-blue;
@@ -1996,6 +2008,16 @@
     }
   }
 
+  // NextWatch
+  .nextwatch-page {
+    &__similar-card,
+    &__recommendations-card,
+    &__recommendations-rating,
+    &__similar-rating {
+      cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
+    }
+  }
+
   // NextView
   .nextview-page {
 
@@ -2006,6 +2028,10 @@
       &:hover {
         filter: grayscale(0%) brightness(1); 
       }
+    }
+
+    &__cast-item {
+      cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
     }
 
     &__nextwatch-link,
@@ -2157,6 +2183,20 @@
 
   // Auth Search Results 
   .auth-search-results {
+
+    &__pagination-circles {
+      cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
+    }
+
+    &__card {
+      cursor: url('../../assets/cursors/cursor-arrow-cl.svg'), auto;
+    }
+
+    &__calendar-button,
+    &__calendar-icon,
+    &__media-icon {
+        cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
+    }
 
     &__background {
       filter: grayscale(100%);
@@ -2359,6 +2399,7 @@
     }
 
     &__link {
+      cursor: url(../../assets/cursors/cursor-pointer-cl.svg), pointer;
       border: .125rem solid $neutral-white;
       border-radius: 1rem;
     }
@@ -2403,6 +2444,7 @@
 
     &__card {
       background: $cloud-gradient-light-gray;
+      cursor: url(../../assets/cursors/cursor-pointer-cl.svg), pointer;
     }
 
     &__login-link,
@@ -2771,7 +2813,7 @@
 
     &__box {
       background: $cloud-overcast-blue;
-      color: $neutral-white;
+      border: .1875rem solid $neutral-white;
 
       &:hover {
         background-color: $feedback-very-light-mint-green;
@@ -2780,13 +2822,15 @@
     }
 
     &__delete-account {
-      background: $cloud-overcast-blue;
-      color: $neutral-white;
+      background: $cloud-dawn-blue;
+      color: $neutral-black;
+      border: .1875rem solid $neutral-black;
 
       &:hover {
         backdrop-filter: blur(.25rem);
         box-shadow: 0 0 .625rem rgba(255, 0, 0, .5);
         background: $feedback-error-light-peach;
+        border: .1875rem solid $feedback-error-peach;
       }
 
       &:active {
@@ -2796,6 +2840,10 @@
       }
     }
 
+    &__delete-txt {
+      color: $neutral-black;
+    }
+
     &__title {
       color: $neutral-black;
     }
@@ -2803,10 +2851,12 @@
     &__checkbox--active {
       background: $cloud-overcast-blue;
       color: $neutral-white;
+      border: .1875rem solid $neutral-white;
 
       &:hover {
         background-color: $feedback-very-light-mint-green;
         border: .1875rem solid $feedback-mint-green;
+        color: $neutral-white;
       }
 
       &:active {
@@ -2975,6 +3025,7 @@
     }
 
     &__nav-arrow {
+      cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
       color: $neutral-white;
       border: .125rem solid $neutral-white;
 
