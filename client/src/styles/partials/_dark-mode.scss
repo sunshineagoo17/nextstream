@@ -499,6 +499,20 @@
     }
   }
 
+  .voice-search__voice-button {
+    background: linear-gradient(135deg, lighten($primary-dark-blue, 10%) 0%, lighten($primary-medium-blue, 5%) 100%);
+    
+    &:hover {
+      background: $neutral-black;
+      color: $primary-very-light-blue;
+    }
+
+    &:active {
+      background: $neutral-white;
+      color: $primary-button-dark-blue;
+    }
+  }
+
   // Spotlight
   .spotlight-page__person-name {
     color: $primary-medium-blue;

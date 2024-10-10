@@ -963,6 +963,18 @@
     }
   }
 
+  .voice-search__voice-button {
+    &:hover {
+      background: linear-gradient(135deg, lighten($trans-candy-pink, 10%) 0%, lighten($trans-electric-blue, 5%) 100%);
+      color: $neutral-white;
+    }
+
+    &:active {
+      background: $neutral-white;
+      color: $trans-pink;
+    }
+  }
+
   // Spotlight
   .spotlight-page {
     background: $trans-black;
