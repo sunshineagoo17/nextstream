@@ -1,8 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../../../../context/AuthContext/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
-import checkmarkIcon from '../../../../assets/images/checkmark-icon.svg'; 
+import { faUserShield, faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 import './SubscriptionStatus.scss';
 
 const SubscriptionStatus = ({ isSubscribed, onSubscriptionChange, onDeleteAccount }) => {
@@ -30,17 +29,17 @@ const SubscriptionStatus = ({ isSubscribed, onSubscriptionChange, onDeleteAccoun
   return (
     <div className="subscription-status">
       <div className="subscription-status__container">
-      <div className="subscription-status__title">
-        <FontAwesomeIcon icon={faCircleCheck} className="subscription-status__icon" />
-        Subscription Status
-      </div>
+        <div className="subscription-status__title">
+          <FontAwesomeIcon icon={faUserShield} className="subscription-status__icon" />
+          Subscription Status
+        </div>
         <div className="subscription-status__active">
           <div className="subscription-status__select" onClick={toggleActiveStatus}>
             <button className={`subscription-status__checkbox ${isActive ? 'subscription-status__checkbox--active' : 'subscription-status__checkbox--inactive'}`}>
               {isActive ? (
-                <img src={checkmarkIcon} alt="Checkmark" className="subscription-status__check" />
+                <FontAwesomeIcon icon={faCheck} className="subscription-status__check" />
               ) : (
-                <span className="subscription-status__x">x</span>
+                <FontAwesomeIcon icon={faTimes} className="subscription-status__x" />
               )}
             </button>
           </div>
