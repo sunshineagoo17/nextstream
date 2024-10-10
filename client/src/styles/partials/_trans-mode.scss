@@ -725,6 +725,27 @@
     &__pending-calendar__pending-item {
       background: $primary-light-blue;
     }
+
+    &__no-msgs {
+      color: $trans-pastel-pink;
+    }
+
+    &__clear-btn,
+    &__send-btn {
+      transition: background .3s ease, transform .3s ease-in-out;
+
+      &:hover {
+        background: $trans-candy-pink !important;
+        color: $neutral-white !important;
+        transform: scale(1.05);
+      }
+
+      &:active {  
+        background: $neutral-white !important;
+        color: $trans-deep-pink !important;
+        transform: scale(.95);
+      }
+    }
   }
 
   .emoji-btn {
