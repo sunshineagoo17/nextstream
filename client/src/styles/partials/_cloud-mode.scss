@@ -2467,6 +2467,314 @@
     }
   }
 
+  // Faves Page
+  .faves-page {
+    &__title {
+      background: $cloud-pale-gray;
+      color: $neutral-black;
+    }
+
+    &__heart-icon {
+      box-shadow: none;
+      background: $neutral-white;
+      color: $cloud-breeze-blue;
+      border: .25rem solid $cloud-dawn-blue;
+    }
+
+    &__search-bar-container {
+      background: $cloud-frosted-white;
+    }
+
+    &__filter-card-title {
+      color: $cloud-very-deep-gray;
+    }
+
+    &__filter-label {
+      border: .0325rem solid $cloud-breeze-blue;
+      border-bottom: .15rem solid $cloud-breeze-blue;
+    }
+
+    &__label-featured {
+      background: $cloud-off-white;
+      color: $neutral-black; 
+    }
+
+    &__label-audiences {
+      background: $cloud-pale-gray;
+      color: $neutral-black; 
+    }
+
+    &__label-cultural {
+      background: $cloud-light-gray;
+      color: $neutral-black; 
+    }
+
+    &__label-genres {
+      background: $cloud-dark-gray;
+      color: $neutral-white;
+    }
+
+    &__filter-icon {
+      background: $neutral-white;
+      color: $cloud-haze-blue;
+    }
+
+    &__content {
+      background: $cloud-frosted-white;
+      box-shadow: none;
+      border: .125rem solid $cloud-dawn-blue;
+
+      @include tablet {
+        border: .3rem solid $cloud-dawn-blue;
+      }
+    }
+
+    &__clear-icon,
+    &__magnifying-glass-icon {
+      color: $cloud-dusk-blue;
+    }
+
+    &__copy-container {
+      background: $cloud-frosted-white;
+      border: .3125rem solid $cloud-pale-gray;
+    }
+
+    &__copy,
+    &__copy-header {
+      color: $neutral-black;
+    }
+
+    &__filters-container {
+      background: $cloud-frosted-white;
+      border: .3125rem solid $cloud-pale-gray;
+      box-shadow: none;
+    }
+
+    &__svg-text {
+      color: $neutral-black;
+      border: .1875rem solid $cloud-light-gray;
+    }
+
+    &__text-link {
+      background: $cloud-light-gray;
+      color: $neutral-black;
+      transition: background .3s, color .3s, border-color .3s;
+
+      &:hover,
+      &:focus,
+      &:visited {
+        background: $neutral-white;
+        border: .0625rem solid $cloud-stormy-blue;
+        color: $cloud-stormy-blue;
+      }
+
+      &:active {
+        background-color: $cloud-breeze-blue;
+        color: $primary-dark-blue;
+        border: .125rem solid $cloud-pale-gray;
+        transform: scale(.9);
+      }
+    }
+
+    &__card {
+      &:hover {
+        background-color: $neutral-white;
+      }
+
+      &:active {
+        background-color: $cloud-pale-gray;
+        box-shadow: 0 0 .25rem $cloud-pale-gray;
+      }
+    }
+
+    &__subtitle {
+      background: $cloud-frosted-white;
+      color: $neutral-black;
+    }
+
+    &__show-more {
+      background: linear-gradient(45deg, $neutral-white, $cloud-pale-gray);
+      color: $neutral-black;
+
+      &:hover {
+        background: linear-gradient(45deg, $cloud-soft-blue, $cloud-very-light-blue);
+        color: $primary-dark-blue;
+      }
+
+      &:active {
+        background: $cloud-stormy-blue;
+        color: $neutral-white;
+      }
+    }
+
+    &__reset {
+      background: linear-gradient(45deg, $frosted-glass, $neutral-white);
+      color: $neutral-black;
+
+      &:hover {
+        background: linear-gradient(45deg, $cloud-soft-blue, $cloud-very-light-blue);
+        color: $primary-dark-blue;
+      }
+
+      &:active {
+        background: $cloud-stormy-blue;
+        color: $neutral-white;
+      }
+    }
+
+    &__fetch-faves {
+      background: linear-gradient(45deg, $cloud-pale-gray, $neutral-white);
+      color: $neutral-black;
+
+      &:hover {
+        background: linear-gradient(45deg, $cloud-soft-blue, $cloud-very-light-blue);
+        color: $primary-dark-blue;
+      }
+
+      &:active {
+        background: $cloud-stormy-blue;
+        color: $neutral-white;
+      }
+    }
+
+    &__lightbulb-icon,
+    &__status-icon,
+    &__media-icon-link,
+    &__search-icon,
+    &__share-icon,
+    &__cal-icon,
+    &__lock-icon,
+    &__trash-icon {
+      color: $cloud-deep-gray;
+      transition: color .3s, background .3s, transform .3s ease-in-out;
+
+      &:hover {
+        background: $primary-dark-blue;
+        color: $cloud-clear-blue;
+        transform: scale(1.1);
+      }
+
+      &:focus,
+      &:active {
+        background: none;
+        color: $cloud-stormy-blue;
+        border: none;
+        transform: scale(.9);
+      }
+    }
+
+    &__load-descript {
+      color: $cloud-deep-gray;
+      transition: color .3s, background .3s, transform .3s ease-in-out;
+
+      &:hover {
+        color: $cloud-dawn-blue;
+        transform: scale(1.1);
+      }
+
+      &:active {
+        color: $cloud-stormy-blue;
+        border: none;
+        transform: scale(.9);
+      }
+    }
+
+    &__description,
+    &__text {
+      color: $neutral-black;
+    }
+
+    &__poster-container {
+      filter: grayscale(100%) brightness(.9); 
+      transition: filter .3s ease, transform .3s ease;
+    
+      &:hover {
+        filter: grayscale(0%) brightness(1); 
+        border: .2188rem solid $cloud-breeze-blue;
+      }
+    }
+
+    &__no-faves-svg {
+      filter: grayscale(100%) brightness(1.5); 
+      transition: filter .3s ease, transform .3s ease;
+    
+      &:hover {
+        filter: grayscale(0%) brightness(1); 
+      }
+    }
+
+    &__clear-search,
+    &__reset-filters {
+      background: $neutral-white;
+      color: $cloud-deep-gray;
+
+      &:focus,
+      &:active {
+        box-shadow: none;
+      }
+    }
+
+    &__search-bar {
+      background-color: $cloud-breeze-blue;
+      backdrop-filter: blur(.625rem);
+      box-shadow: $shadow-quaternary;
+      border: .25rem solid rgba(255, 255, 255, .7);
+      transition: all .3s ease-in-out;
+  
+      & input {
+        border: none;
+        outline: none;
+        background: transparent;
+        color: $primary-dark-blue;
+      
+        &::placeholder {
+          color: $neutral-white;
+          text-shadow: $shadow-senary;
+        }
+  
+        &:hover::placeholder {
+          text-shadow: none;
+        }
+      }
+  
+      &:hover {
+        background: rgba(255, 255, 255, .8);
+        box-shadow: 0 .5rem 1rem rgba($neutral-black, .2), 0 -.5rem 1rem rgba(255, 255, 255, .7);
+        border: .0625rem solid rgba(255, 255, 255, .4);
+        transform: scale(1.025);
+      }
+  
+      &:focus-within {
+        background: $neutral-white;
+        border: .25rem solid rgba(255, 255, 255, .5);
+        transform: scale(1.05);
+        box-shadow: $shadow-septenary;
+      }
+    }
+  }
+
+  .voice-search-faves__voice-button {
+    background: $neutral-white;
+    color: $cloud-medium-gray;
+
+    &:hover {
+      background: linear-gradient(135deg, lighten($cloud-breeze-blue, 10%) 0%, lighten($cloud-breeze-blue, 5%) 100%);
+      color: $cloud-stormy-blue;
+    }
+
+    &:active { 
+      background: linear-gradient(135deg, lighten($cloud-stormy-blue, 10%) 0%, lighten($cloud-stormy-blue, 5%) 100%);
+      color: $neutral-white;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .blob-container {
+    filter: grayscale(100%) brightness(0.9); 
+  }
   // Top Picks
   .user-rating-container {
     filter: grayscale(100%) brightness(0.9); 
