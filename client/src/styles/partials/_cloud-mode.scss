@@ -2302,6 +2302,163 @@
     &__similar-rating {
       cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
     }
+
+    &__media-title,
+    &__recommendations-title,
+    &__duration,
+    &__rating,
+    &__genre-item,
+    &__title {
+      color: $cloud-very-deep-gray;
+    }
+
+    &__certification {
+      background: $cloud-pale-gray;
+      color: $neutral-black;
+    }
+
+    &__description {
+      color: $neutral-black;
+      background: $cloud-off-white;
+    }
+
+    &__media-copy {
+      background: $cloud-frosted-white;
+      border: .125rem solid $cloud-pale-gray;
+    }
+
+    &__similar-scroll {
+      scrollbar-width: thin;
+      scrollbar-color: $cloud-medium-gray $frosted-glass;
+  
+      &::-webkit-scrollbar {
+        background-color: $frosted-glass;
+      }
+  
+      &::-webkit-scrollbar-thumb {
+        background-color: $cloud-medium-gray;
+      }
+    }
+
+    &__recommendations-scroll {
+      &::-webkit-scrollbar {
+        background-color: $frosted-glass;
+      }
+  
+      &::-webkit-scrollbar-thumb {
+        background-color: $cloud-medium-gray;
+      }
+    }
+
+    &__recommendations-arrow,
+    &__similar-arrow {
+      border: .125rem solid $cloud-overcast-blue;
+      background: $neutral-white;
+      color: $cloud-overcast-blue;
+
+      &:hover {
+        border: .125rem solid $neutral-white;
+        background: $cloud-dawn-blue;
+        color: $neutral-white;
+      }
+
+      &:active {
+        border: .125rem solid $cloud-clear-blue;
+        background: $cloud-stormy-blue;
+        color: $neutral-white;
+      }
+    }
+
+    &__similar-name,
+    &__recommendations-name {
+      color: $neutral-black;
+    }
+
+    &__similar-rating,
+    &__recommendations-rating {
+      color: $cloud-very-deep-gray;
+    }
+
+    &__genre-item,
+    &__duration,
+    &__rating {
+      background: $cloud-pale-gray;
+    }
+
+    &__media-type,
+    &__calendar-button,
+    &__share-button,
+    &__thumbs-up,
+    &__thumbs-down {
+      background: $neutral-white;
+      color: $cloud-overcast-blue;
+      transition: transform .3s ease, background .3s ease;
+
+      &:hover {
+        background: $cloud-stormy-blue;
+        transform: scale(1.05);
+        color: $neutral-white;
+        border: .125rem solid $neutral-white;
+      }
+  
+      &:active {
+        transform: scale(.95);
+        background: $neutral-white;
+        color: $cloud-stormy-blue;
+        border: .1875rem solid $cloud-stormy-blue;
+      }
+    }
+
+    &__star-rating-icon,
+    &__similar-media-icon,
+    &__recommendations-icon,
+    &__star-icon,
+    &__genre-icon {
+      color: $cloud-medium-gray;
+    }
+
+    &__heading-container {
+      background: $cloud-frosted-white;
+    }
+
+    &__poster-container,
+    &__similar-default-placeholder,
+    &__recommendations-default-placeholder,
+    &__recommendations-img,
+    &__similar-img {
+      filter: grayscale(100%) brightness(0.9); 
+      transition: filter .3s ease, transform .3s ease;
+    
+      &:hover {
+        filter: grayscale(0%) brightness(1); 
+      }
+    }
+
+    &__header {
+      color: $neutral-black;
+    }
+
+    &__copy {
+      color: $neutral-black;
+      background: $cloud-light-gray;
+      box-shadow: $shadow-cloud-primary;
+    }
+
+    &__similar-container,
+    &__recommendations-container, 
+    &__details-container,
+    &__content {
+      border: .3125rem solid $cloud-medium-gray;
+    }
+
+    &__background {
+      filter: grayscale(100%) brightness(0.9); 
+      transition: filter .3s ease, transform .3s ease;
+    
+      &:hover {
+        filter: grayscale(0%) brightness(1); 
+      }
+    }
   }
 
   // NextView
