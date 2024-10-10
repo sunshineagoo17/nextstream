@@ -1,11 +1,11 @@
 import { useState, useEffect, useContext } from "react";
 import { AuthContext } from '../../../../context/AuthContext/AuthContext';
 import api from "../../../../services/api"; 
-import ProfileUploadBtn from "../../../../assets/images/profile-upload.svg";
-import DeleteIcon from "../../../../assets/images/delete-icon.svg";
 import DefaultAvatar from "../../../../assets/images/default-avatar.svg";
 import Loader from "../../../../components/Loaders/Loader/Loader";
 import CustomAlerts from "../../../../components/CustomAlerts/CustomAlerts";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUpload, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import './ProfileImg.scss';
 
 const ProfileImg = ({ userId, username, isActive, onStatusToggle }) => {
@@ -135,10 +135,10 @@ const ProfileImg = ({ userId, username, isActive, onStatusToggle }) => {
               onClick={() => document.getElementById("file-input").click()}
               data-tooltip="Upload new Avatar"
             >
-              <img src={ProfileUploadBtn} alt="Upload" className="profile-img__upload-icon" />
+              <FontAwesomeIcon icon={faUpload} className="profile-img__upload-icon" />
             </button>
             <button className="profile-img__button profile-img__button--delete" onClick={handleImageDelete} data-tooltip="Delete Avatar">
-              <img src={DeleteIcon} alt="Delete" className="profile-img__delete-icon" />
+              <FontAwesomeIcon icon={faTrashAlt} className="profile-img__delete-icon" />
             </button>
           </div>
         </div>

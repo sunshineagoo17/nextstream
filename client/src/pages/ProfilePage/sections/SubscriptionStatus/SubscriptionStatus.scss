@@ -43,12 +43,16 @@
     padding: .1rem;
     border-radius: .5rem;
     border: .125rem solid $primary-pale-blue;
-    transition: box-shadow .3s ease, transform .3s ease-in-out;
+    transition: transform .3s ease, background .3s ease, color .3s ease;
 
     &:hover {
       background-color: $neutral-white;
       box-shadow: $shadow-secondary;
-      transform: scale(1.15);
+      transform: scale(1.05);
+    }
+
+    &:active {
+      transform: scale(.95);
     }
   }
 

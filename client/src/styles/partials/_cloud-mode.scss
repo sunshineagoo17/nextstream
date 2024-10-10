@@ -2560,6 +2560,209 @@
     }
   }
 
+  // Profile
+  .profile-img {
+    background: $cloud-frosted-dark-gray;
+
+    &__username,
+    &__status {
+      color: $neutral-black;
+    }
+
+    &__button {
+      background: $cloud-dark-frosted-dark-gray;
+      transition: background .3s ease, color .3s ease, transform .3s ease; 
+    
+      &:hover {
+        color: $neutral-white;
+        background: $cloud-dawn-blue;
+        transform: scale(1.05);
+      }
+    
+      &:active {
+        color: $cloud-dawn-blue;
+        background: $neutral-white;
+        transform: scale(.95); 
+      }
+    }    
+  }
+  
+  .profile {
+    background: $cloud-frosted-white;
+
+    &__main {
+      background: $frosted-glass;
+    }
+
+    &__title {
+      color: $cloud-deep-gray;
+    }
+
+    &__input {
+      border: .125rem solid $cloud-light-gray;
+      box-shadow: none;
+
+      &:focus,
+      &:not(:placeholder-shown) {
+        background-color: $cloud-pale-gray;
+        color: $neutral-black;
+        border-color: $cloud-deep-gray;
+        padding-left: .85rem;
+        font-size: 1rem;
+  
+        & + .profile__label {
+          top: -.85rem;
+          font-size: 1rem;
+          background-color: $cloud-light-gray;
+          border: .0625rem solid $cloud-light-gray;
+          color: $neutral-black;
+        }
+  
+        &::placeholder {
+          color: $cloud-stormy-blue;
+          font-size: .85rem;
+        }
+      }
+    }
+
+    &__notification-text {
+      color: $neutral-black;
+    }
+
+    &__label {
+      background: $cloud-dark-gray;
+      color: $neutral-white;
+    }
+
+    &__text-wrapper {
+      background: $neutral-white;
+      color: $cloud-very-deep-gray;
+    }
+
+    &__password-toggle-icon {
+      color: $cloud-light-gray;
+      transition: transform .3s ease, background .3s ease, color .3s ease; 
+
+      &:hover {
+        color: $cloud-dawn-blue;
+        transform: scale(1.05); 
+      }
+
+      &:active {
+        color: $cloud-stormy-blue;
+        transform: scale(.95); 
+      }
+    }
+
+    &__notifications-alerts-icon {
+      color: $cloud-dawn-blue;
+      transition: transform .3s ease, background .3s ease, color .3s ease;
+
+      &:hover {
+        background: $cloud-overcast-blue;
+        color: $neutral-white;
+        transform: scale(1.05);
+      }
+
+      &:active {
+        background: $neutral-white;
+        color: $cloud-stormy-blue;
+        transform: scale(.95);
+      }
+    }
+
+    &__location-icon {
+      color: $cloud-dawn-blue;
+      transition: transform .3s ease, background .3s ease, color .3s ease;
+
+      &:hover {
+        cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
+        background: $cloud-overcast-blue;
+        color: $neutral-white;
+        transform: scale(1.05);
+      }
+
+      &:active {
+        background: $neutral-white;
+        color: $cloud-stormy-blue;
+        transform: scale(.95);
+      }
+    }
+
+    &__details-header,
+    &__password-header,
+    &__subscription-header,
+    &__notifications-header,
+    &__region-header {
+      background: $neutral-white;
+    }
+
+    &__details-content,
+    &__password-content,
+    &__notifications-content,
+    &__subscription-status-wrapper,
+    &__region-content {
+      background: $neutral-white;
+    }
+  }
+
+  .subscription-status {
+    background: $neutral-white;
+
+    &__icon {
+      color: $cloud-dawn-blue;
+      transition: transform .3s ease, background .3s ease, color .3s ease; 
+  
+      &:hover {
+        background: $cloud-overcast-blue;
+        color: $neutral-white;
+        transform: scale(1.05); 
+      }
+  
+      &:active {
+        background: $neutral-white;
+        color: $cloud-stormy-blue;
+        transform: scale(.95); 
+      }
+    }
+
+    &__title {
+      color: $neutral-black;
+    }
+
+    &__checkbox--active {
+      background: $cloud-dawn-blue;
+      border: .1875rem solid $neutral-white;
+      color: $neutral-white;
+    }
+
+    &__checkbox--inactive {
+      background: $cloud-stormy-blue;
+      border: .1875rem solid $cloud-light-blue;
+      color: $cloud-light-blue;
+    }
+  }
+
+  // Toggle Button Component
+  .toggle-button {
+    &__switch {
+      cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
+      background-color: $cloud-pale-gray;
+      transition: background-color .3s ease;
+      box-shadow: $shadow-primary;
+  
+      &.checked {
+        background-color: $cloud-dawn-blue;
+      }
+  
+      &::before {
+        content: '';
+        background-color: $cloud-dawn-blue;
+        transition: transform .3s ease;
+      }
+    }
+  }
+
   // Contact Us Modal
   .modal-forgot-password,
   .modal-contact {

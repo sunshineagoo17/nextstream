@@ -4,11 +4,8 @@ import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { toast, ToastContainer, Slide } from 'react-toastify';
 import { Tooltip } from 'react-tooltip';
 import api from '../../services/api';
-import LocationIcon from '../../assets/images/profile-location.svg';
-import ShowIcon from '../../assets/images/register-visible-icon.svg';
-import HideIcon from '../../assets/images/register-invisible-icon.svg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBell } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faEyeSlash, faMapMarkerAlt, faBell } from '@fortawesome/free-solid-svg-icons';
 import ToggleButton from '../../components/ToggleButton/ToggleButton';
 import SubscriptionStatus from './sections/SubscriptionStatus/SubscriptionStatus';
 import Loader from '../../components/Loaders/Loader/Loader';
@@ -371,7 +368,10 @@ export const ProfilePage = () => {
                       onClick={togglePasswordVisibility}
                       aria-label={passwordVisible ? 'Hide password' : 'Show password'}
                     >
-                      <img src={passwordVisible ? HideIcon : ShowIcon} alt="Toggle visibility" className="profile__password-toggle-icon" />
+                      <FontAwesomeIcon
+                      icon={passwordVisible ? faEyeSlash : faEye}
+                      className="profile__password-toggle-icon"
+                    />
                     </button>
                   </div>
                   <div className="profile__input-group">
@@ -506,10 +506,9 @@ export const ProfilePage = () => {
               <div className="profile__region-content">
                 <div className="profile__select-your-region">
                   <div className="profile__region-heading">
-                    <img
-                      src={LocationIcon}
+                    <FontAwesomeIcon
+                      icon={faMapMarkerAlt}
                       className="profile__location-icon"
-                      alt="Location Icon"
                       onClick={fetchLocation}
                       data-tooltip-id="locationTooltip"
                       data-tooltip-content="Update location"
