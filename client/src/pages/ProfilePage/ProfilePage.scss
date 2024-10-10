@@ -103,10 +103,10 @@
     justify-content: center;
     padding: .75rem 2rem;
     position: absolute;
-    transition: background .3s ease;
+    transition: background .3s ease, color .3s ease, transform .3s ease; 
 
-    &:hover .profile__btn-save-account-txt {
-      color: $primary-darker-blue;
+    &:hover {
+      transform: scale(1.05);
     }
     
     &:active {
@@ -119,24 +119,25 @@
     font-size: 1rem;
     letter-spacing: -.05rem;
     position: relative;
+    color: $primary-dark-blue;
     white-space: nowrap;
 
     &:hover {
-      color: $primary-darker-blue;
+      color: $primary-dark-blue;
     }
 
     &:focus,
     &:active {
-      color: $primary-darker-blue;
+      color: $primary-dark-blue;
     }
 
     &:visited {
-      color: $primary-darker-blue;
+      color: $primary-dark-blue;
     }
   }
 
  &__btn-save-account-container:visited {
-    color: $primary-darker-blue;
+    color: $primary-dark-blue;
   }
   
   @keyframes shimmer {
@@ -717,12 +718,10 @@
     transition: transform .2s ease, color .2s ease;
 
     &:hover {
-      color: $neutral-light-grey;
       transform: scale(1.2);
     }
 
     &:active {
-      color: $primary-dark-blue;
       transform: scale(.9);
     }
   }

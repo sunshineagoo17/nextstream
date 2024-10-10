@@ -2570,7 +2570,8 @@
     }
 
     &__button {
-      background: $cloud-dark-frosted-dark-gray;
+      background: $neutral-white;
+      color: $cloud-overcast-blue;
       transition: background .3s ease, color .3s ease, transform .3s ease; 
     
       &:hover {
@@ -2580,7 +2581,7 @@
       }
     
       &:active {
-        color: $cloud-dawn-blue;
+        color: $cloud-stormy-blue;
         background: $neutral-white;
         transform: scale(.95); 
       }
@@ -2596,6 +2597,15 @@
 
     &__title {
       color: $cloud-deep-gray;
+    }
+
+    &__region-title {
+      color: $neutral-black;
+    }
+
+    &__dropdown {
+      border: .125rem solid $cloud-medium-gray;
+      color: $neutral-black;
     }
 
     &__input {
@@ -2671,6 +2681,39 @@
       }
     }
 
+    &__btn-save-account {
+      background: linear-gradient(
+        180deg,
+        $cloud-off-white 0%,
+        $cloud-medium-gray 100%
+      );
+      animation: shimmer .5s linear infinite;
+    
+      &:hover {
+        background: linear-gradient(
+          180deg,
+          $cloud-soft-blue 0%,
+          $cloud-dawn-blue 100%
+        );
+      }
+    
+      &:active {
+        background: linear-gradient(
+          180deg,
+          $cloud-clear-blue 0%,
+          $cloud-soft-blue 100%
+        );
+      }
+    }
+    
+    &__btn-save-account-bg {
+      background: linear-gradient(
+        180deg,
+        $cloud-off-white 0%,
+        $cloud-light-blue 100%
+      );
+    }
+    
     &__location-icon {
       color: $cloud-dawn-blue;
       transition: transform .3s ease, background .3s ease, color .3s ease;
@@ -2726,19 +2769,55 @@
       }
     }
 
+    &__box {
+      background: $cloud-overcast-blue;
+      color: $neutral-white;
+
+      &:hover {
+        background-color: $feedback-very-light-mint-green;
+        border: .1875rem solid $feedback-mint-green;
+      }
+    }
+
+    &__delete-account {
+      background: $cloud-overcast-blue;
+      color: $neutral-white;
+
+      &:hover {
+        backdrop-filter: blur(.25rem);
+        box-shadow: 0 0 .625rem rgba(255, 0, 0, .5);
+        background: $feedback-error-light-peach;
+      }
+
+      &:active {
+        background-color: $feedback-error-peach;
+        border-color: $feedback-error-peach;
+        box-shadow: 0 0 .625rem rgba(255, 0, 0, .3);
+      }
+    }
+
     &__title {
       color: $neutral-black;
     }
 
     &__checkbox--active {
-      background: $cloud-dawn-blue;
-      border: .1875rem solid $neutral-white;
+      background: $cloud-overcast-blue;
       color: $neutral-white;
+
+      &:hover {
+        background-color: $feedback-very-light-mint-green;
+        border: .1875rem solid $feedback-mint-green;
+      }
+
+      &:active {
+        background-color: lighten($feedback-mint-light-green, 10%);
+        border-color: lighten($feedback-mint-light-green, 10%);
+        color: $cloud-stormy-blue;
+      }
     }
 
     &__checkbox--inactive {
       background: $cloud-stormy-blue;
-      border: .1875rem solid $cloud-light-blue;
       color: $cloud-light-blue;
     }
   }
