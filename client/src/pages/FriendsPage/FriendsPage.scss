@@ -329,9 +329,9 @@
   
     &:active {
       transform: scale(.95);
-        box-shadow: $shadow-septenary;
-        color: $primary-medium-blue !important;
-        background: $primary-light-cyan !important;
+      box-shadow: $shadow-septenary;
+      color: $primary-medium-blue !important;
+      background: $primary-light-cyan !important;
     }
 
     @include tablet {

@@ -257,6 +257,23 @@
       background: $container-purple;
     }
 
+    &__clear-btn,
+    &__send-btn {
+      transition: background .3s ease, transform .3s ease-in-out;
+
+      &:hover {
+        background: $primary-dark-blue !important;
+        color: $neutral-white !important;
+        transform: scale(1.05);
+      }
+
+      &:active {  
+        background: $neutral-white !important;
+        color: $primary-button-blue !important;
+        transform: scale(.95);
+      }
+    }
+
     &__chat-close {
       background: $primary-medium-blue;
       color: $neutral-white;

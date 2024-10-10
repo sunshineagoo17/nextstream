@@ -592,7 +592,7 @@ const FriendsPage = () => {
             </button>
             <div className='friends-page__search-results'>
               {searchResults.length === 0 ? (
-                <p>No users found for your search.</p>
+                <p className='friends-page__no-users-txt'>No users found for your search.</p>
               ) : (
                 searchResults.map((user) => (
                   <div key={user.id} className='friends-page__search-item'>
@@ -616,7 +616,7 @@ const FriendsPage = () => {
               Incoming Friend Requests
             </h3>
             {pendingRequests.length === 0 ? (
-              <p>No pending friend requests.</p>
+              <p className='friends-page__no-pending-txt'>No pending friend requests.</p>
             ) : (
               pendingRequests.map((request) => (
                 <div key={request.id} className='friends-page__pending-item'>
@@ -647,7 +647,7 @@ const FriendsPage = () => {
             </h3>
             <div className='friend-page__friend-info-container'>
               {friends.length === 0 ? (
-                <p>No friends added yet.</p>
+                <p className='friends-page__empty-friends-list'>No friends added yet.</p>
               ) : (
                 friends.map((friend) => {
                   const unreadMessages = messages.filter(
@@ -742,7 +742,7 @@ const FriendsPage = () => {
                 </h3>
               </div>
               {pendingCalendarInvites.length === 0 ? (
-                <p>No pending calendar invites.</p>
+                <p className='friends-page__no-pending-cal-txt'>No pending calendar invites.</p>
               ) : (
                 pendingCalendarInvites.map((invite) => (
                   <div
@@ -835,7 +835,7 @@ const FriendsPage = () => {
                 </button>
               </div>
               {sharedCalendarEvents.length === 0 ? (
-                <p>No shared calendar events.</p>
+                <p className='friends-page__no-shared-cal-txt'>No shared calendar events.</p>
               ) : (
                 sharedCalendarEvents.map((event) => (
                   <div
