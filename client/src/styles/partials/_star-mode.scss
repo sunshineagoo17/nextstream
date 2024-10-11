@@ -1082,10 +1082,15 @@ textarea {
         background: $star-dark-gray;
         color: $neutral-white;
 
+        &:active {
+          box-shadow: none;
+        }
+
         &:focus,
         &:not(:placeholder-shown) {
             background-color: $star-medium-gray;
             color: $neutral-white;
+            box-shadow: none;
 
             & + .register__label,
             & + .login__label {
@@ -1102,6 +1107,7 @@ textarea {
         &:not(:focus):placeholder-shown {
             &::placeholder {
                 color: transparent;
+                box-shadow: none;
             }
         }
     }
