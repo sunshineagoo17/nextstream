@@ -1720,9 +1720,19 @@ textarea {
     }
   }
 
-  &__pizza-icon,
   &__genre-icon {
     color: $star-silver-gray;
+  }
+
+  &__pizza-icon {
+    color: $star-silver-gray;
+    border: .125rem solid $star-light-gray;
+    background: $star-light-gray;
+  }
+
+  &__media-genre-item {
+    border: .125rem solid $star-light-gray;
+    background: $star-light-gray;
   }
 
   &__media-item-duration {
