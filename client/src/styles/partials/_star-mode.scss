@@ -3373,136 +3373,144 @@ textarea {
   // Search Results
   .search-results {
     &__background {
-      filter: grayscale(100%);
-      transition: filter .3s ease, transform .3s ease;
-    
+      filter: grayscale(100%) brightness(0.8);
+      transition: filter 0.3s ease, transform 0.3s ease;
+      
       &:hover {
-        filter: grayscale(0%) brightness(1); 
+        filter: grayscale(0%) brightness(1.2);
       }
     }
-
+  
     &__poster {
-      filter: grayscale(100%);
-      transition: filter .3s ease, transform .3s ease;
-    
+      filter: grayscale(100%) brightness(0.8);
+      transition: filter 0.3s ease, transform 0.3s ease;
+      
       &:hover {
-        filter: grayscale(0%) brightness(1); 
+        filter: grayscale(0%) brightness(1.2);
       }
     }
-
+  
     &__no-data-img {
-      filter: grayscale(100%);
-      transition: filter .3s ease, transform .3s ease;
-    
+      filter: grayscale(100%) brightness(0.8);
+      transition: filter 0.3s ease, transform 0.3s ease;
+      
       &:hover {
-        filter: grayscale(0%) brightness(1); 
+        filter: grayscale(0%) brightness(1.2);
       }
+    }
+  
+    &__content-card {
+      background: $star-black;
     }
 
     &__no-results-copy,
     &__intro,
     &__title {
-      color: $neutral-black;
+      color: $star-text-light;
     }
-
+  
     &__text--bottom,
     &__text--top {
-      color: $cloud-deep-gray;
+      color: $star-ash-gray;
     }
-
+  
     &__card-media-container {
-      background: $cloud-frosted-white;
+      background: $star-frosted-dark-gray;
     }
-
+  
     &__media-icon {
-      color: $neutral-white;
-
+      color: $star-text-light;
+  
       &:hover {
         background: $neutral-white;
-        color: $cloud-stormy-blue;
+        color: $star-deep-topaz;
       }
-
+  
       &:active {
-        background: $cloud-stormy-blue;
+        background: $star-deep-topaz;
         color: $neutral-white;
       }
     }
-
+  
     &__poster--default,
     &__no-image {
       box-shadow: none;
     }
-
+  
     &__error-no-img-txt {
-      color: $neutral-white;
+      color: $star-text-gray;
     }
-
+  
     &__link {
       cursor: url(../../assets/cursors/cursor-pointer-cl.svg), pointer;
-      border: .125rem solid $neutral-white;
+      border: 0.125rem solid $star-text-light;
       border-radius: 1rem;
+      color: $star-text-light;
     }
-
+  
     &__page-nav-wrapper {
-      background-color: $cloud-overcast-blue;
-      border: .15rem solid $neutral-white;
-
+      background-color: $star-dark-gray;
+      border: 0.15rem solid $star-light-gray;
+  
       &:hover {
-        background: $cloud-stormy-blue;
+        background: $star-deep-topaz;
+        border: none;
       }
-
+  
       &:active {
-        background: $cloud-dusk-blue;
+        background: $neutral-black;
+        border: 0.15rem solid $star-deep-topaz;
       }
     }
-
+  
     &__next-icon,
     &__previous-icon {
       color: $neutral-white;
     }
-
+  
     &__pagination-circle {
-      border: .125rem solid $cloud-clear-blue;
-      background: rgba($neutral-white, .7);
-
+      border: 0.125rem solid $star-glowing-amber;
+      background: rgba($star-text-light, 0.7);
+  
       &.active {
-        background-color: $cloud-dawn-blue;
-        box-shadow: 0 0 .25rem $cloud-stormy-blue;
+        background-color: $star-starlight-yellow;
+        box-shadow: 0 0 0.25rem $star-glowing-amber;
       }
     }
-
+  
     &__error-no-img-title {
       box-shadow: none;
-      color: $neutral-white;
-      border: .0625rem solid $neutral-white;
-
+      color: $star-text-light;
+      border: 0.0625rem solid $star-light-gray;
+  
       &:hover {
-        color: $cloud-medium-gray;
+        color: $star-medium-gray;
       }
     }
-
+  
     &__card {
-      background: $cloud-gradient-light-gray;
+      background: $star-gradient-gray-silver;
       cursor: url(../../assets/cursors/cursor-pointer-cl.svg), pointer;
+      color: $star-text-light;
     }
-
+  
     &__login-link,
     &__register-link {
-      color: $neutral-black;
+      color: $neutral-white;
       text-decoration: none;
-      border: .0625rem solid $cloud-deep-gray;
-
+      border: 0.0625rem solid $star-dark-gray;
+  
       &:hover,
       &:focus,
       &:visited {
-        background-color: $primary-button-blue;
-        border: .0625rem solid $neutral-white;
-        color: $neutral-white;
-    
+        background-color: $star-bright-citrine;
+        border: 0.0625rem solid $neutral-white;
+        color: $neutral-black;
+      
         &:active {
           background-color: $neutral-black;
-          color: $neutral-white;
-          border: .125rem solid $neutral-white;
+          color: $star-deep-topaz;
+          border: 0.125rem solid $star-starlight-yellow;
         }
       }
     }
