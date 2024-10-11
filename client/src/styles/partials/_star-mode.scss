@@ -7,7 +7,7 @@
   color: $neutral-white;
   body,
   label {
-    cursor: url('../../assets/cursors/cursor-arrow-cl.svg'), auto;
+    cursor: url('../../assets/cursors/cursor-arrow-st.svg'), auto;
   }
 
 /* Custom cursor for interactive elements */
@@ -26,7 +26,7 @@ input[type='button'],
 input[type='submit'],
 select,
 textarea {
-  cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
+  cursor: url('../../assets/cursors/cursor-pointer-st.svg'), pointer;
 }
 
 input[type='radio'],
@@ -103,7 +103,7 @@ input[type='submit']:hover,
 label:hover,
 select:hover,
 textarea:hover {
-  cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
+  cursor: url('../../assets/cursors/cursor-pointer-st.svg'), pointer;
 }
 
 button:focus,
@@ -122,21 +122,21 @@ input[type='submit']:focus,
 label:focus,
 select:focus,
 textarea:focus {
-  cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
+  cursor: url('../../assets/cursors/cursor-pointer-st.svg'), pointer;
 }
 
 input[type='text']:active,
 input[type='text']:valid,
 input[type='text']:required,
 input[type='text']:enabled {
-  cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
+  cursor: url('../../assets/cursors/cursor-pointer-st.svg'), pointer;
 }
 
 select,
 .dropdown,
 .ui-autocomplete,
 .browser-suggestion-list {
-  cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
+  cursor: url('../../assets/cursors/cursor-pointer-st.svg'), pointer;
 }
 
 input,
@@ -630,7 +630,7 @@ textarea {
     &__card4-container,
     &__card5-container,
     &__card6-container {
-      cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
+      cursor: url('../../assets/cursors/cursor-pointer-st.svg'), pointer;
     }
   
     &__poster1,
@@ -639,7 +639,7 @@ textarea {
     &__poster4,
     &__poster5,
     &__poster6 {
-      cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
+      cursor: url('../../assets/cursors/cursor-pointer-st.svg'), pointer;
       filter: grayscale(100%);
       transition: filter .3s ease, transform .3s ease;
   
@@ -677,7 +677,7 @@ textarea {
   
     &__page-nav-wrapper-next,
     &__page-nav-wrapper-previous {
-      cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
+      cursor: url('../../assets/cursors/cursor-pointer-st.svg'), pointer;
       background-color: $star-gradient-gray-silver;
       border: .15rem solid $star-dark-gray;
       color: $star-text-light;
@@ -1173,7 +1173,6 @@ textarea {
     }
   
     &__media-card {
-      // border: 0.125rem solid $star-neumorph-base;
       background: $star-frosted-dark-gray;
       @include cloudAnimateBorder;
       @include cloudBorderAnimation;
@@ -1189,8 +1188,8 @@ textarea {
       }
   
       &:active {
-        background-color: rgba($star-light-gray, 0.6);
-        color: $star-starlight-yellow;
+        background-color: rgba($neutral-white, 0.8);
+        color: $star-deep-topaz;
         border: 0.125rem solid $star-frosted-gold;
         box-shadow: none;
       }
@@ -1246,6 +1245,8 @@ textarea {
   }
   
   .circle-rating {
+    background: $neutral-white;
+    border-radius: 50%;
     filter: grayscale(100%) brightness(0.8);
     transition: filter 0.3s ease, transform 0.3s ease;
     
@@ -1255,9 +1256,22 @@ textarea {
   }
   
   .media-card {
+    background: $neutral-black;
+
+    &__details {
+      background: $neutral-black;
+      border-bottom-left-radius: .5rem;
+      border-bottom-right-radius: .5rem;
+    }
+
+    &__image {
+      background: $neutral-black;
+    }
+
     &__type-icon,
     &__lightbulb-icon,
     &__share-icon {
+      background: none;
       color: $star-silver-gray;
   
       &:hover {
@@ -1273,7 +1287,7 @@ textarea {
   
     &__overview,
     &__title {
-      color: $neutral-black;
+      color: $neutral-white;
     }
   
     &__image {
@@ -1382,12 +1396,12 @@ textarea {
     }
    
     &__poster {
-      cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
+      cursor: url('../../assets/cursors/cursor-pointer-st.svg'), pointer;
       filter: grayscale(100%) brightness(0.9); 
       transition: filter .3s ease, transform .3s ease;
 
       &:hover {
-        cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
+        cursor: url('../../assets/cursors/cursor-pointer-st.svg'), pointer;
         filter: grayscale(0%) brightness(1); 
       }
     }
@@ -1413,7 +1427,7 @@ textarea {
     }
 
     &__nav-arrow {
-      cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
+      cursor: url('../../assets/cursors/cursor-pointer-st.svg'), pointer;
       color: $neutral-white;
       border: .1875rem solid $neutral-white;
       background: $primary-darker-blue;
@@ -1678,7 +1692,7 @@ textarea {
 
     &__eraser-icon {
       color: $cloud-dawn-blue;
-      cursor: url(../../assets/cursors/cursor-pointer-cl.svg), pointer;
+      cursor: url(../../assets/cursors/cursor-pointer-st.svg), pointer;
 
       &:hover {
         color: $cloud-dusk-blue;
@@ -1951,7 +1965,7 @@ textarea {
       width: 100%;
       border-radius: 1.05rem;
       scrollbar-color: $neutral-black $cloud-medium-gray;
-      cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), cursor;
+      cursor: url('../../assets/cursors/cursor-pointer-st.svg'), cursor;
     }
 
     &__nav-arrow {
@@ -2377,7 +2391,7 @@ textarea {
     &__recommendations-card,
     &__recommendations-rating,
     &__similar-rating {
-      cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
+      cursor: url('../../assets/cursors/cursor-pointer-st.svg'), pointer;
     }
 
     &__media-title,
@@ -2556,7 +2570,7 @@ textarea {
     }
 
     &__cast-item {  
-        cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
+        cursor: url('../../assets/cursors/cursor-pointer-st.svg'), pointer;
     }
   
     &__nextwatch-link,
@@ -3214,17 +3228,17 @@ textarea {
   .auth-search-results {
   
     &__pagination-circles {
-      cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
+      cursor: url('../../assets/cursors/cursor-pointer-st.svg'), pointer;
     }
   
     &__card {
-      cursor: url('../../assets/cursors/cursor-arrow-cl.svg'), auto;
+      cursor: url('../../assets/cursors/cursor-arrow-st.svg'), auto;
     }
   
     &__calendar-button,
     &__calendar-icon,
     &__media-icon {
-      cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
+      cursor: url('../../assets/cursors/cursor-pointer-st.svg'), pointer;
     }
   
     &__background {
@@ -3438,7 +3452,7 @@ textarea {
     }
   
     &__link {
-      cursor: url(../../assets/cursors/cursor-pointer-cl.svg), pointer;
+      cursor: url(../../assets/cursors/cursor-pointer-st.svg), pointer;
       border: 0.125rem solid $star-text-light;
       border-radius: 1rem;
       color: $star-text-light;
@@ -3486,7 +3500,7 @@ textarea {
   
     &__card {
       background: $star-gradient-gray-silver;
-      cursor: url(../../assets/cursors/cursor-pointer-cl.svg), pointer;
+      cursor: url(../../assets/cursors/cursor-pointer-st.svg), pointer;
       color: $star-text-light;
     }
   
@@ -3831,7 +3845,7 @@ textarea {
       transition: transform .3s ease, background .3s ease, color .3s ease;
 
       &:hover {
-        cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
+        cursor: url('../../assets/cursors/cursor-pointer-st.svg'), pointer;
         background: $cloud-overcast-blue;
         color: $neutral-white;
         transform: scale(1.05);
@@ -3945,7 +3959,7 @@ textarea {
   // Toggle Button Component
   .toggle-button {
     &__switch {
-      cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
+      cursor: url('../../assets/cursors/cursor-pointer-st.svg'), pointer;
       background-color: $cloud-pale-gray;
       transition: background-color .3s ease;
       box-shadow: $shadow-primary;
@@ -4138,7 +4152,7 @@ textarea {
     }
   
     &__nav-arrow {
-      cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
+      cursor: url('../../assets/cursors/cursor-pointer-st.svg'), pointer;
       color: $neutral-white;
       border: .125rem solid $neutral-white;
   
@@ -4557,7 +4571,7 @@ textarea {
         .modal-input-container {
           .modal-input {
             background: $frosted-glass;
-            cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
+            cursor: url('../../assets/cursors/cursor-pointer-st.svg'), pointer;
           }
         }
       }
@@ -4567,30 +4581,30 @@ textarea {
   /* Apply custom cursor for all input fields */
   input {
     color: $primary-dark-blue;
-    cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
+    cursor: url('../../assets/cursors/cursor-pointer-st.svg'), pointer;
 
     svg {
-      cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
+      cursor: url('../../assets/cursors/cursor-pointer-st.svg'), pointer;
     }
   }
 
   /* Ensure the custom cursor appears when hovering on the input, including the calendar icon */
   input:hover {
-    cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
+    cursor: url('../../assets/cursors/cursor-pointer-st.svg'), pointer;
   }
 
   /* Target specific input types like datetime-local */
   input[type="datetime-local"] {
-    cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
+    cursor: url('../../assets/cursors/cursor-pointer-st.svg'), pointer;
   }
 
   /* Ensure cursor changes on focus */
   input[type="datetime-local"]:focus {
-    cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
+    cursor: url('../../assets/cursors/cursor-pointer-st.svg'), pointer;
   }
 
   input[type='datetime-local']::-webkit-calendar-picker-indicator {
-    cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
+    cursor: url('../../assets/cursors/cursor-pointer-st.svg'), pointer;
   }
 
   .fc {
@@ -4599,20 +4613,20 @@ textarea {
         .fc-button {
           background: $cloud-frosted-light-gray;
           color: $neutral-black;
-          cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
+          cursor: url('../../assets/cursors/cursor-pointer-st.svg'), pointer;
         }
 
         &.fc-button-active {
           background: $neutral-white;
           color: $cloud-very-deep-gray;
-          cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
+          cursor: url('../../assets/cursors/cursor-pointer-st.svg'), pointer;
 
           &:hover {
-            cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
+            cursor: url('../../assets/cursors/cursor-pointer-st.svg'), pointer;
           }
 
           &:active {
-            cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
+            cursor: url('../../assets/cursors/cursor-pointer-st.svg'), pointer;
           }
         }
       }
