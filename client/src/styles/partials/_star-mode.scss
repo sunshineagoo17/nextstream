@@ -2600,12 +2600,17 @@ textarea {
     }
   
     &__recommendations-scroll {
+      scrollbar-width: thin;
+      scrollbar-color: $star-deep-topaz $star-ash-gray;
+  
       &::-webkit-scrollbar {
+        height: 0.375rem;
         background-color: $star-ash-gray;
       }
-    
+  
       &::-webkit-scrollbar-thumb {
         background-color: $star-deep-topaz;
+        border-radius: 0.5rem;
       }
     }
   
@@ -2709,21 +2714,6 @@ textarea {
     &__similar-copy-container,
     &__recommendations-copy-container {
       background: $neutral-black;
-    }
-
-    &__similar-scroll {
-      scrollbar-width: thin;
-      scrollbar-color: $star-deep-topaz $star-ash-gray;
-  
-      &::-webkit-scrollbar {
-        height: 0.375rem;
-        background-color: $star-ash-gray;
-      }
-  
-      &::-webkit-scrollbar-thumb {
-        background-color: $star-deep-topaz;
-        border-radius: 0.5rem;
-      }
     }
 
     &__copy {
