@@ -2321,114 +2321,169 @@ textarea {
   // Spotlight
   .spotlight-page {
     &__heading-container {
-      background: $cloud-dark-gradient-light-gray;
-      border: .3125rem solid $neutral-white;
+      background: $star-gradient-gray-silver;
+      border: 0.3125rem solid $star-text-light;
+    }
+  
+    &__background {
+      filter: grayscale(100%) brightness(0.8);
+      transition: filter 0.3s ease, transform 0.3s ease;
+  
+      &:hover {
+        filter: grayscale(0%) brightness(1);
+      }
+    }
+  
+    &__info-txt {
+      color: $star-text-gray;
+    }
+  
+    &__credit-poster {
+      filter: grayscale(100%) brightness(0.8);
+      transition: filter 0.3s ease, transform 0.3s ease;
+  
+      &:hover {
+        filter: grayscale(0%) brightness(1);
+      }
+    }
+  
+    &__image-container {
+      filter: grayscale(100%) brightness(0.8);
+      border: 0.5rem solid $neutral-black;
+      transition: filter 0.3s ease, transform 0.3s ease;
+  
+      &:hover {
+        filter: grayscale(0%) brightness(1);
+      }
+    }
+  
+    &__filmography-title {
+      color: $star-light-gray;
+    }
+  
+    &__personal-info-icon {
+      color: $star-bright-citrine;
+  
+      &:hover {
+        background: $star-iridescent-gold;
+        color: $star-black;
+      }
+    }
+  
+    &__nav-arrow {
+      box-shadow: none;
+      background: $star-black;
+      color: $star-glowing-amber;
+      border: 0.125rem solid $star-glowing-amber;
+  
+      &:hover {
+        background: $star-bright-citrine;
+        color: $star-black;
+        border: 0.125rem solid $star-text-light;
+      }
+  
+      &:active {
+        background: $star-honey-glow;
+        color: $star-black;
+        border: 0.125rem solid $star-deep-topaz;
+      }
+    }
+  
+    &__credits-container {
+      border: 0.1875rem solid $star-text-light;
+      scrollbar-width: thin; 
+      scrollbar-color: $star-deep-topaz $star-frosted-lemon;
+  
+        /* WebKit Scrollbar Styles */
+        &::-webkit-scrollbar {
+            background-color: $star-frosted-lemon;
+            height: .75rem; 
+            box-shadow: $shadow-primary;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: $star-deep-topaz;
+            box-shadow: $shadow-tertiary;
+            border-radius: 1rem;
+        }
+
+        &::-webkit-scrollbar-track {
+            background-color: $star-frosted-lemon;
+            box-shadow: $shadow-primary;
+        }
     }
 
-    &__background {
-      filter: grayscale(100%) brightness(0.9); 
-      transition: filter .3s ease, transform .3s ease;
-    
-      &:hover {
-        filter: grayscale(0%) brightness(1); 
-      }
+    &__text-container {
+      border: 0.1875rem solid $star-text-light;
+    }
+  
+    &__filmography-container,
+    &__info-container {
+      background: $star-frosted-dark-gray;
+      color: $star-text-dark;
+    }
+  
+    &__text-container,
+    &__credits-container {
+      box-shadow: $star-shadow-secondary;
+      background: $neutral-black;
+      border: .1875rem solid $star-medium-gray;
+    }
+  
+    &__copy {
+      color: $star-text-light;
+    }
+  
+    &__content {
+      background: $neutral-black;
+      border: 0.3125rem solid $star-light-gray;
+    }
+
+    &__content-container {
+      border: .3125rem solid $star-black;
+    }
+  
+    &__person-bio {
+      background: $star-charcoal;
+      border: .1875rem solid $star-black;
+      color: $neutral-white;
     }
 
     &__info-txt {
-      color: $cloud-very-deep-gray;
+      color: $neutral-white;
     }
-
-    &__credit-poster {
-      filter: grayscale(100%) brightness(0.9); 
-      transition: filter .3s ease, transform .3s ease;
-    
-      &:hover {
-        filter: grayscale(0%) brightness(1); 
-      }
-    }
-
-    &__image-container {
-      filter: grayscale(100%) brightness(0.9); 
-      border: .5rem solid $neutral-white;
-      transition: filter .3s ease, transform .3s ease;
-      
-      &:hover {
-        filter: grayscale(0%) brightness(1); 
-      }
-    }
-
-    &__filmography-title {
-      color: $neutral-black;
-    }
-
-    &__personal-info-icon {
-      color: $cloud-dusk-blue;
-
-      &:hover {
-        background: $cloud-dusk-blue;
-        color: $neutral-white;
-      }
-    }
-
-    &__nav-arrow {
-      box-shadow: none;
-      background: $neutral-white;
-      color: $cloud-dusk-blue;
-      border: .125rem solid $cloud-dusk-blue;
-
-      &:hover {
-        background: $cloud-stormy-blue;
-        color: $neutral-white;
-        border: .125rem solid $neutral-white;
-      }
-
-      &:active {
-        background: $cloud-breeze-blue;
-        color: $primary-dark-blue;
-        border: .125rem solid $cloud-midnight-blue;
-      }
-    }
-
-    &__credits-container,
-    &__text-container {
-      border: .1875rem solid $neutral-white;
+  
+    &__person-name {
+      color: $star-ash-gray;
     }
 
     &__filmography-container,
     &__info-container {
-      background: $cloud-frosted-white;
-      color: $cloud-midnight-blue;
+      background: $neutral-black;
+    }
+  
+    &__credit-title {
+      background: $star-charcoal;
+      border: .125rem solid $star-medium-gray;
     }
 
-    &__text-container,
-    &__credits-container {
-      box-shadow: $shadow-senary;
-    }
-
-    &__copy {
-      color: $cloud-off-white;
-    }
-
-    &__content {
-      background: $cloud-pale-gray;
-      border: .3125rem solid $cloud-light-gray;
-    }
-
-    &__person-bio {
-      color: $cloud-deep-gray;
-    }
-
-    &__person-name {
-      color: $neutral-black;
+    &__filmography-title {
+      color: $neutral-white;
     }
 
     &__read-more {
-      color: $neutral-black;
-
+      color: $star-honey-glow;
+  
       &:focus,
       &:visited,
       &:hover {
-        color: $neutral-white;
+        color: $star-ash-gray;
+        background: $neutral-black;
+      }
+
+      &:active {
+        color: $star-deep-topaz;
+        background: $neutral-black;
       }
     }
   }
