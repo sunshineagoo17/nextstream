@@ -1084,17 +1084,31 @@ textarea {
 
         &:active {
           box-shadow: none;
+          background: $star-black;
+          color: $neutral-white;
+        }
+
+        &:-webkit-autofill {
+          box-shadow: 0 0 0px 1000px $star-dark-gray inset;
+          -webkit-text-fill-color: $neutral-white;
+          transition: background-color 5000s ease-in-out 0s; 
+        }
+
+        &:enabled:valid {
+          box-shadow: none;
+          background: $star-black;
+          color: $neutral-white;
         }
 
         &:focus,
         &:not(:placeholder-shown) {
-            background-color: $star-medium-gray;
+            background: $star-medium-gray;
             color: $neutral-white;
             box-shadow: none;
 
             & + .register__label,
             & + .login__label {
-                background-color: $star-charcoal;
+                background: $star-charcoal;
                 border: 0.125rem solid $star-medium-gray;
                 color: $star-ash-gray;
             }
@@ -1107,6 +1121,7 @@ textarea {
         &:not(:focus):placeholder-shown {
             &::placeholder {
                 color: transparent;
+                background: $star-black;
                 box-shadow: none;
             }
         }
