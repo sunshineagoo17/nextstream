@@ -1048,7 +1048,7 @@ textarea {
     &__social-button--google,
     &__guest-link {
         background: linear-gradient(45deg, $star-light-gray, $star-medium-gray);
-        color: $neutral-black;
+        color: $neutral-white;
 
         &:hover {
             background: linear-gradient(45deg, $star-iridescent-gold, $star-glowing-amber);
@@ -1107,7 +1107,7 @@ textarea {
     &__terms-link,
     &__signin-link,
     &__guest-signin-link {
-        color: $star-silver-gray;
+        color: $star-horizon-gold;
         font-weight: bold;
 
         &:visited,
@@ -1121,7 +1121,7 @@ textarea {
 
         &:active {
             background: $star-gradient-gray-silver;
-            color: $neutral-black;
+            color: $neutral-white;
         }
     }
 }
@@ -1131,6 +1131,24 @@ textarea {
 
     &__hero {
         background: $star-dark-gray;
+    }
+
+    &__button--previous {
+        color: $neutral-black;
+
+        &:hover {
+            color: $neutral-black;
+            .register__button-icon {
+                color: $neutral-black; 
+            }
+        }
+
+        &:active {
+            color: $neutral-black;
+            .register__button-icon {
+                color: $neutral-black; 
+            }
+        }
     }
 }
 

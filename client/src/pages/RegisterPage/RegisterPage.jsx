@@ -294,7 +294,7 @@ export const RegisterPage = () => {
               </div>
               <div className="register__button-group">
                 <button className="register__button register__button--previous" onClick={goToPreviousPage}>
-                  <FontAwesomeIcon icon={faArrowLeft} className="register__button-icon" />
+                  <FontAwesomeIcon icon={faArrowLeft} className="register__button-icon register__button-icon--arrow" />
                   <span>Previous</span>
                 </button>
                 <button className="register__button register__button--signup" onClick={handleSignUp} disabled={isLoading}>
@@ -302,7 +302,7 @@ export const RegisterPage = () => {
                     <div className="register__loader-circle"></div>
                   ) : (
                     <div className="register__btn-wrapper">
-                      <FontAwesomeIcon icon={faUserPlus} className="register__button-icon" />
+                      <FontAwesomeIcon icon={faUserPlus} className="register__button-icon register__button-icon--user" />
                       <span>Sign Up</span>
                     </div>
                   )}
