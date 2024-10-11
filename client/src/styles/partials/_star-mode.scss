@@ -1561,211 +1561,227 @@ textarea {
     }
   }
 
-  // Streamboard
-  .streamboard {
-    background: $cloud-frosted-white;
-    border: .3125rem solid $cloud-pale-gray;
+// Streamboard
+.streamboard {
+  background: $star-dark-gray;
+  border: .3125rem solid $star-medium-gray;
 
-    &__title {
-      background: $cloud-dark-neumorph-base;
+  &__title {
+    background: $star-dark-neumorph-base;
+  }
+
+  &__copy {
+    color: $star-text-light;
+  }
+
+  &__search-bar-button-search {
+    background: $star-light-gray;
+    color: $neutral-white;
+  }
+
+  &__search-bar-button-clear {
+    background: $neutral-black;
+    color: $neutral-white;
+  }
+
+  &__media-column--to_watch {
+    background: $star-frosted-dark-gray;
+  }
+
+  &__media-item-title {
+    background: $star-charcoal;
+    color: $star-ash-gray;
+    text-shadow: none;
+  }
+
+  &__pagination-button {
+    background: $star-charcoal;
+    color: $star-text-light;
+    transition: background-color .3s ease, transform .3s ease;
+  
+    &:hover {
+      color: $star-starlight-yellow;
+      background: $star-medium-gray;
+      transform: scale(1.1);
     }
-
-    &__copy {
-      color: $neutral-white;
-    }
-
-    &__search-bar-button-search {
-      background: $cloud-dark-gray;
-    }
-
-    &__search-bar-button-clear {
-      background: $cloud-very-deep-gray;
-      color: $neutral-white;
-    }
-
-    &__media-column--to_watch {
-      background: $cloud-frosted-light-gray;
-    }
-
-    &__media-item-title {
-      background: $cloud-frosted-dark-gray;
-      color: $cloud-very-deep-gray;
-      text-shadow: none;
-    }
-
-    &__pagination-button {
-      background: $cloud-dark-gray;
-      color: $neutral-white;
-      transition: background-color .3s ease, transform .3s ease;
-    
-      &:hover {
-        color: $cloud-midnight-blue;
-        background: $neutral-white;
-        transform: scale(1.1); 
-      }
-    
-      &:active {
-        color: $neutral-white;
-        background: $primary-button-blue;
-        transform: scale(0.95); 
-      }
-    }
-
-    &__link {
-      font-weight: normal;
-      color: $neutral-white;
-      border: .125rem solid $cloud-very-light-blue;
-      transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease; 
-    
-      &:hover {
-        background-color: $cloud-dusk-blue;
-        transform: scale(1.1); 
-      }
-    
-      &:active {
-        border: none;
-        box-shadow: none;
-        background-color: $cloud-stormy-blue;
-        color: $cloud-light-blue;
-        transform: scale(0.95);
-      }
-    }
-
-    &__season-input, 
-    &__episode-input {
-      background: $cloud-pale-gray;
+  
+    &:active {
       color: $neutral-black;
-    }
-
-    &__episode-label,
-    &__season-label {
-      color: $cloud-very-deep-gray;
-    }
-
-    &__season-episode-inputs {
-      background: $cloud-pale-gray;
-    }
-
-    &__reset-button,
-    &__save-button,
-    &__tag-button,
-    &__review-button,
-    &__lightbulb-icon,
-    &__media-type-icon,
-    &__calendar-icon,
-    &__trash-icon {
-      color: $cloud-midnight-blue;
-
-      &:hover {
-        color: $neutral-white;
-      }
-    }
-
-    &__pizza-icon,
-    &__genre-icon {
-      color: $cloud-medium-gray;
-    }
-
-    &__genre-text,
-    &__media-item-duration {
-      color: $neutral-black;
-    }
-
-    &__media-column--scheduled {
-      background: $cloud-pale-gray;
-    }
-
-    &__media-column--watched {
-      background: $cloud-light-gray;
-    }
-
-    &__media-column--watched::before,
-    &__media-column--scheduled::before,
-    &__media-column--to_watch::before {
-      background: $cloud-dark-gray;
+      background: $star-iridescent-gold;
+      transform: scale(0.95);
     }
   }
 
-  .review-modal,
-  .tag-modal {
-    background: $cloud-dark-neumorph-shadow-light;
+  &__link {
+    font-weight: normal;
+    color: $star-text-light;
+    border: .125rem solid $star-bright-citrine;
+    transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease; 
+  
+    &:hover {
+      background-color: $star-horizon-gold;
+      color: $neutral-black;
+      transform: scale(1.1);
+    }
+  
+    &:active {
+      border: none;
+      box-shadow: none;
+      background-color: $star-glowing-amber;
+      color: $neutral-black;
+      transform: scale(0.95);
+    }
+  }
 
-    &__eraser-icon {
-      color: $cloud-dawn-blue;
-      cursor: url(../../assets/cursors/cursor-pointer-st.svg), pointer;
+  &__season-input, 
+  &__episode-input {
+    background: $star-medium-gray;
+    color: $star-text-dark;
+  }
 
-      &:hover {
-        color: $cloud-dusk-blue;
-      }
+  &__episode-label,
+  &__season-label {
+    background: $neutral-black;
+    color: $neutral-white;
+  }
 
-      &:active {
-        color: $cloud-stormy-blue;
-      }
+  &__season-episode-inputs {
+    background: $star-dark-gray;
+  }
+
+  &__reset-button,
+  &__save-button,
+  &__tag-button,
+  &__review-button,
+  &__lightbulb-icon,
+  &__media-type-icon,
+  &__calendar-icon,
+  &__trash-icon {
+    background: $neutral-black;
+    color: $star-glowing-amber;
+
+    &:hover {
+      color: $star-text-light;
     }
 
-    &__title {
-      color: $neutral-white;
+    &:active {
+      background: $neutral-white;
+      color: $star-deep-topaz;
+    }
+  }
+
+  &__pizza-icon,
+  &__genre-icon {
+    color: $star-silver-gray;
+  }
+
+  &__media-item-duration {
+    color: $neutral-white;
+  }
+
+  &__genre-text {
+    color: $neutral-white;
+  }
+
+  &__media-column--scheduled {
+    background: $star-dark-gray;
+  }
+
+  &__media-column--watched {
+    background: $star-charcoal;
+  }
+
+  &__media-column--watched::before,
+  &__media-column--scheduled::before,
+  &__media-column--to_watch::before {
+    background: $neutral-black;
+  }
+}
+
+.review-modal,
+.tag-modal {
+  background: $star-black;
+
+  &__eraser-icon {
+    color: $star-sunray-gold;
+    cursor: url(../../assets/cursors/cursor-pointer-st.svg), pointer;
+
+    &:hover {
+      color: $star-horizon-gold;
     }
 
-    &__textarea,    
-    &__input {
-      border: .125rem solid $neutral-white;
+    &:active {
+      color: $star-sunray-gold;
+    }
+  }
+
+  &__title {
+    color: $star-text-light;
+  }
+
+  &__textarea,    
+  &__input {
+    border: .125rem solid $star-text-light;
+    background: $star-medium-gray;
+    color: $star-text-dark;
+  }
+
+  &__button--save {
+    background: $star-black;
+    border: .125rem solid $star-text-light;
+
+    &:focus,
+    &:hover {
+      color: $star-deep-topaz;
+      background: $neutral-white;
     }
 
-    &__button--save {
+    &:active {
+      color: $star-deep-topaz;
       background: $neutral-black;
-      border: .125rem solid $neutral-white;
-
-      &:focus,
-      &:hover {
-        color: $cloud-stormy-blue;
-        background: $neutral-white;
-      }
-
-      &:active {
-        border: .125rem solid $cloud-stormy-blue;
-      }
-    }
-
-    &__button--delete {
-      color: $neutral-black;
-      border: .125rem solid $cloud-light-gray;
-
-      &:focus,
-      &:hover {
-        border: none;
-        background: $frosted-glass;
-        color: $cloud-stormy-blue;
-      }
-
-      &:active {
-        color: $neutral-white;
-        background: $frosted-glass;
-        border: .125rem solid $neutral-white;
-      }
-    }
-
-    &__button--close {
-      color: $neutral-black;
-      border: .125rem solid $neutral-black;
-
-      &:focus,
-      &:hover {
-        background: $cloud-stormy-blue;
-        color: $neutral-white;   
-        border: none;
-      }
-
-      &:active {
-        border: .125rem solid $neutral-white;
-      }
+      border: .125rem solid $star-glowing-amber;
     }
   }
 
-  .voice-search-streamboard__voice-button {
-    background: $cloud-light-gray;
+  &__button--delete {
+    color: $neutral-white;
+    border: .125rem solid $star-light-gray;
+
+    &:focus,
+    &:hover {
+      border: none;
+      background: $star-frosted-gold;
+      color: $neutral-black;
+    }
+
+    &:active {
+      color: $star-text-light;
+      background: $star-frosted-gold;
+      border: .125rem solid $star-text-light;
+    }
+  }
+
+  &__button--close {
     color: $neutral-black;
+    border: .125rem solid $star-text-dark;
+
+    &:focus,
+    &:hover {
+      background: $star-sunray-gold;
+      color: $neutral-black;
+      border: none;
+    }
+
+    &:active {
+      border: .125rem solid $star-text-light;
+    }
   }
+}
+
+.voice-search-streamboard__voice-button {
+  background: $star-silver-gray;
+  color: $neutral-white;
+}
 
   // NextStream Bot
   .nextstream-bot {
