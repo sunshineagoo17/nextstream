@@ -4485,25 +4485,31 @@ textarea {
   
   // Emoji Modal
   .emoji-btn {
-    background: $cloud-frosted-dark-gray;
-    color: $cloud-very-deep-gray;
-    border: .125rem solid $cloud-medium-gray;
+    background: $star-black;
+    color: $star-honey-glow;
+    border: .125rem solid $star-frosted-lemon;
 
     &:hover {
         background: $neutral-white;
-        color: $cloud-very-deep-gray;
-        border: .125rem solid $neutral-white;
+        color: $neutral-black;
+        border: .125rem solid $star-honey-glow;
     }
 
     &:active {
-        background: $cloud-frosted-white;
-        color: $cloud-deep-gray;
+        background: $star-deep-topaz;
+        color: $neutral-black;
         box-shadow: $shadow-cloud-primary;
+        border: .125rem solid $neutral-white;
     }
   }
 
   .emoji-picker {
-    background: $cloud-frosted-light-gray;
+    background: $star-sunray-gold;
+
+    input {
+      background: $frosted-glass-warm;
+      color: $neutral-black;
+    }
   }
 
   // Voice Messages - Friends Page
