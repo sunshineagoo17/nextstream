@@ -3149,18 +3149,19 @@
       }
     }
 
-    &__calendar-icon,
+    &__calendar-button,
     &__media-icon {
       color: $cloud-dark-gray;
 
       &:focus,
       &:hover {
         color: $neutral-white;
+        background: $cloud-stormy-blue;
       }
 
       &:active {
         background: $neutral-white;
-        color: $neutral-black;
+        color: $cloud-stormy-blue;
       }
     }
 

@@ -286,7 +286,9 @@ const TopPicksPage = () => {
 
   return (
     <div className="top-picks-page">
-      <LightBlobBg />
+      <div className='top-picks-page__blob-bg'>
+        <LightBlobBg />
+      </div>
       <div className="top-picks-page__header-container">
         <h1 className="top-picks-page__title">
             {name ? `${name}'s Top Picks` : 'Your Top Picks'}
