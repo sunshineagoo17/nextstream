@@ -4540,7 +4540,7 @@ textarea {
     }
 
     &__overlay {
-      background: rgba($cloud-clear-blue, .8);
+      background: rgba($star-black, .8);
       z-index: 500;
     }
 
@@ -4640,34 +4640,51 @@ textarea {
   // Mini Calendar
   .mini-calendar {
     &__day-names {
-      background: $cloud-frosted-white;
-      box-shadow: $shadow-cloud-primary;
+      background: $star-frosted-dark-gray;
+      box-shadow: $star-shadow-primary;
+    }
+
+    &__title {
+      background: $star-black;
+      color: $neutral-white;
+      border: .15rem solid $star-deep-topaz;
+    }
+
+    &__day-names {
+      background: $neutral-black;
+      color: $star-black;
+    }
+
+    &__day-name {
+      background: $neutral-white;
+      color: $neutral-black;
+      border: none;
     }
 
     &__day--selected {
-      background: $cloud-breeze-blue;
-      color: $primary-dark-blue;
+      background: $star-glowing-amber;
+      color: $star-black;
     }
 
     &__close-btn,
     &__nav-btn {
-      background: $neutral-white;
-      color: $neutral-black;
+      background: $star-black;
+      color: $star-text-light;
 
       &:hover {
-        background: $cloud-breeze-blue;
-        color: $primary-dark-blue;
+        background: $star-glowing-amber;
+        color: $star-black;
       }
 
       &:active {
-        background: $primary-dark-blue;
-        color: $cloud-breeze-blue;
+        background: $star-deep-topaz;
+        color: $star-light-gray;
       }
     }
   }
 
   .calendar-page {
-    background: $cloud-frosted-light-gray;
+    background: $star-black;
 
     &__title {
       background: $cloud-frosted-white;
