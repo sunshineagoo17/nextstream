@@ -23,23 +23,23 @@
 
   .hover-menu__button {
     @include block-item(2.85rem, 2.85rem);
-    padding: .25rem;
+    padding: 0.25rem;
     background-color: $primary-light-blue;
-    border: .125rem solid $neutral-white;
+    border: 0.125rem solid $neutral-white;
     box-shadow: $shadow-primary;
-    border-radius: .35rem;
+    border-radius: 0.35rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all .3s ease;
+    transition: all 0.3s ease;
 
     &:hover {
-      box-shadow: 0 0 .625rem $primary-light-blue; 
+      box-shadow: 0 0 0.625rem $primary-light-blue; 
     }
   
     &:active {
-      transform: scale(.95);
-      box-shadow: 0 0 .625rem $primary-dark-blue;
+      transform: scale(0.95);
+      box-shadow: 0 0 0.625rem $primary-dark-blue;
     }
 
     @include tablet {
@@ -57,22 +57,22 @@
     span {
       display: block;
       width: 100%;
-      border-radius: .5rem;
-      height: .2rem;
+      border-radius: 0.5rem;
+      height: 0.2rem;
       background-color: $neutral-white;
-      transition: all .3s ease;
+      transition: all 0.3s ease;
       box-shadow: $shadow-primary;
     }
 
     &.open {
       span:nth-child(1) {
-        transform: rotate(45deg) translate(.57rem, .5rem);
+        transform: rotate(45deg) translate(0.57rem, 0.5rem);
       }
       span:nth-child(2) {
         opacity: 0;
       }
       span:nth-child(3) {
-        transform: rotate(-45deg) translate(.55rem, -.5rem);
+        transform: rotate(-45deg) translate(0.55rem, -0.5rem);
       }
     }
   }
@@ -84,8 +84,8 @@
     transform: translateX(-50%);
     width: 12rem;
     background: $frosted-glass;
-    backdrop-filter: blur(.625rem);
-    border-radius: .5rem;
+    backdrop-filter: blur(0.625rem);
+    border-radius: 0.5rem;
     box-shadow: $shadow-secondary;
     display: flex;
     flex-direction: column;
@@ -93,48 +93,48 @@
     padding: 1rem;
 
     .hover-menu__item {
-      padding: .5rem 1rem;
+      padding: 0.5rem 1rem;
       text-decoration: none;
       width: 100%;
       color: $primary-dark-blue;
-      border-radius: .25rem;
-      transition: background .3s ease;
+      border-radius: 0.25rem;
+      transition: background 0.3s ease;
 
       &:hover {
         @include glow-animation;
-        background: rgba($primary-light-blue, .2);
-        border-radius: .5rem;
-        border: .0625rem solid $primary-medium-blue;
+        background: rgba($primary-light-blue, 0.2);
+        border-radius: 0.5rem;
+        border: 0.0625rem solid $primary-medium-blue;
         color: $primary-medium-blue;
       }
 
       &:active {
         background: $primary-dark-blue;
         color: $primary-pale-blue;
-        border: .1875rem solid $primary-pale-cyan;
-        border-radius: .5rem;
+        border: 0.1875rem solid $primary-pale-cyan;
+        border-radius: 0.5rem;
       }
     }
   }
 
   &.dark-background {
     .hover-menu__content {
-      background: rgba($primary-dark-blue, .7);
+      background: rgba($primary-dark-blue, 0.7);
       color: $neutral-white;
 
       .hover-menu__item {
         color: $neutral-white;
 
         &:hover {
-          background: rgba($primary-very-light-blue, .2);
-          border: .0625rem solid $primary-very-light-blue;
+          background: rgba($primary-very-light-blue, 0.2);
+          border: 0.0625rem solid $primary-very-light-blue;
           color: $primary-medium-blue;
         }
 
         &:active {
           background: $primary-dark-blue;
           color: $neutral-white;
-          border: .1875rem solid $primary-light-blue;
+          border: 0.1875rem solid $primary-light-blue;
         }
       }
 
@@ -155,14 +155,14 @@
 
         &:hover {
           background: $trans-candy-pink;
-          border: .0625rem solid $trans-light-pink;
+          border: 0.0625rem solid $trans-light-pink;
           color: $trans-deep-blue;
         }
 
         &:active {
           background: $trans-deep-blue;
           color: $neutral-white;
-          border: .1875rem solid $trans-light-blue;
+          border: 0.1875rem solid $trans-light-blue;
         }
       }
 
@@ -183,19 +183,47 @@
 
         &:hover {
           background: $cloud-haze-blue; 
-          border: .0625rem solid $cloud-soft-blue;
+          border: 0.0625rem solid $cloud-soft-blue;
           color: $primary-medium-blue;
         }
 
         &:active {
           background: $cloud-stormy-blue;
           color: $neutral-white;
-          border: .1875rem solid $neutral-white;
+          border: 0.1875rem solid $neutral-white;
         }
       }
 
       .hover-menu__lines span {
         background-color: $cloud-light-blue; 
+      }
+    }
+  }
+
+  // Star Mode Background
+  &.star-mode-background {
+    .hover-menu__content {
+      background: $star-frosted-dark-gray;
+      color: $star-text-light;
+
+      .hover-menu__item {
+        color: $star-ash-gray;
+
+        &:hover {
+          background: $star-medium-gray;
+          border: 0.0625rem solid $neutral-white;
+          color: $neutral-white;
+        }
+
+        &:active {
+          background: $star-dark-gray;
+          color: $star-starlight-yellow;
+          border: 0.1875rem solid $star-starlight-yellow;
+        }
+      }
+
+      .hover-menu__lines span {
+        background-color: $star-text-dark;
       }
     }
   }
