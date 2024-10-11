@@ -3,7 +3,8 @@
 
 [data-theme='star-mode'] {
   // Background and text colors
-  color: $cloud-text-dark;
+  background-color: $star-black;
+  color: $neutral-white;
   body,
   label {
     cursor: url('../../assets/cursors/cursor-arrow-cl.svg'), auto;
@@ -31,7 +32,7 @@ textarea {
 input[type='radio'],
 input[type='checkbox'] {
   appearance: none;
-  background-color: rgba($star-medium-gray, 0.15); // Darker background
+  background-color: rgba($star-medium-gray, 0.15); 
   backdrop-filter: blur(0.75rem);
   border: 0.0625rem solid rgba($star-light-gray, 0.4);
   box-shadow: 0.25rem 0.25rem 0.375rem rgba($star-black, 0.15), -0.25rem -0.25rem 0.375rem rgba($neutral-white, 0.5);
@@ -1396,6 +1397,9 @@ textarea {
     }
 
     &__rating-container {
+      background: none;
+      box-shadow: none;
+      border: none;
       filter: grayscale(100%); 
       transition: filter .3s ease, transform .3s ease;
 
@@ -1932,6 +1936,7 @@ textarea {
     }
 
     &__rating-container {
+      background: none;
       filter: grayscale(100%); 
       transition: filter .3s ease, transform .3s ease;
     
@@ -2607,6 +2612,7 @@ textarea {
     &__content-container {
         background: $star-black;
     }
+
     &__description {
         border: .1875rem solid $star-medium-gray;
     }
@@ -2656,6 +2662,7 @@ textarea {
       }
     }
   
+    &__no-cast-copy,
     &__cast-character,
     &__no-streaming-services {
       color: $star-silver-gray;
@@ -3065,8 +3072,11 @@ textarea {
   
 // Top Picks
 .user-rating-container {
-    border-radius: 50%;
+    border-radius: 100%;
     background: $neutral-white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border: .125rem solid $neutral-white;
     filter: grayscale(100%) brightness(1); 
     transition: filter .3s ease, transform .3s ease;
@@ -3114,6 +3124,12 @@ textarea {
             background: $neutral-black;
             color: $star-frosted-lemon;
         }
+    }
+
+    &__rating-icon {
+      background: $star-starlight-yellow;
+      border: 2px solid $star-honey-glow;
+      border-radius: 50%;
     }
 
     &__card {
@@ -4023,184 +4039,209 @@ textarea {
   }
 }
 
-  // NextSearch
-  .next-search {
-    background: linear-gradient(135deg, rgba($frosted-glass, .75), rgba($cloud-medium-gray, 1));
-
+// NextSearch
+.next-search {
+  background: linear-gradient(
+    135deg,
+    rgba($star-black, 0.75),
+    rgba($star-black, 1)
+  );
+  
     &__title {
-      background: linear-gradient(180deg, $cloud-dark-frosted-dark-gray, darken($cloud-dark-frosted-dark-gray, 15%));
+      background: linear-gradient(180deg, $star-dark-gray, darken($star-dark-gray, 15%));
+      color: $star-text-light;
     }
-
+  
     &__card {
-      background: $neutral-white;
+      background: $star-black;
+      color: $star-text-light;
     }
-
+  
     &__loading-svg {
-      filter: grayscale(100%) brightness(80%);
+      filter: grayscale(100%) brightness(1.2);
       transition: filter .3s ease, transform .3s ease;
     }
-
+  
     &__sub-tab {
-      color: $neutral-black;
+      color: $star-light-gray;
     }
-
+  
     &__sub-tab--active {
-      background: $neutral-white;
+      background: $star-black;
+      color: $star-text-light;
     }
-
+  
     &__tab {
-      background: $cloud-frosted-white;
+      background: $star-frosted-dark-gray;
       text-shadow: none;
+      color: $star-text-gray;
     }
-
+  
     &__tab--active {
-      color: $cloud-very-deep-gray;
+      color: $star-bright-citrine;
       text-shadow: none;
     }
-
+  
     &__popular-section {
-      border: .5rem solid $cloud-pale-gray;
+      border: .5rem solid $star-medium-gray;
     }
-
+  
     &__card--popular {
-      border: .1875rem solid $neutral-white;
+      border: .1875rem solid $star-black;
+      background: $star-charcoal;
     }
-
+  
     &__title--popular,
     &__title--results {
-      border: .1875rem solid $cloud-light-gray;
-      color: $neutral-black;
+      border: .1875rem solid $star-silver-gray;
+      color: $star-text-light;
     }
-
+  
     &__icons-row {
-      background: $neutral-white;
+      background: $star-black;
+      color: $star-text-light;
     }
-
+  
     &__known-for,
     &__cast {
-      color: $cloud-very-deep-gray;
+      color: $star-ash-gray;
     }
-
+  
     &__lightbulb-icon,
     &__media-icon,
     &__cal-icon,
     &__share-icon,
     &__like-icon,
     &__dislike-icon {
-      color: $cloud-overcast-blue; 
+      color: $star-iridescent-gold; 
     }
-
+  
     &__nav-arrow {
       cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
-      color: $neutral-white;
-      border: .125rem solid $neutral-white;
-
+      color: $star-text-light;
+      border: .125rem solid $star-light-gray;
+  
       &:hover {
-        color: $cloud-stormy-blue;
+        color: $star-starlight-yellow;
       }
-
+  
       &:active {
-        color: $neutral-white;
+        color: $star-text-light;
+      }
+    }
+  
+    &__poster {
+      border-bottom: .25rem solid $star-black;
+      border-top: .25rem solid $star-black;
+      filter: grayscale(100%) brightness(1.2);
+      transition: filter .3s ease, transform .3s ease;
+      
+      &:hover {
+        filter: grayscale(0%) brightness(1.5); 
+      }
+    }
+  
+    &__scroll-container-popular,
+    &__scroll-container-results {
+      background: $star-dark-gray;
+      border-radius: 1.05rem;
+      scrollbar-color: $star-dark-gray $star-silver-gray;
+    }
+  
+    &__popular-section,
+    &__results-section {
+      background: $star-frosted-dark-gray;
+  
+      &::before {
+        background: $star-black;
+        color: $star-ash-gray;
+        border: .15rem solid $star-medium-gray;
+        border-bottom: .3rem solid $star-medium-gray;
+      }
+    }
+  
+    &__scroll-container-results {
+      border: .5rem solid $star-horizon-gold;
+      border-bottom: 1rem solid $star-horizon-gold;
+    }
+  
+    &__scroll-container-popular {
+      border: .5rem solid $star-black;
+      border-bottom: 1rem solid $star-black;
+    }
+  
+    &__copy {
+      background: $star-frosted-medium-gray;
+      color: $star-text-light;
+    }
+  
+    &__close-icon,
+    &__search-icon,
+    &__eraser-icon {
+      color: $star-silver-gray;
+  
+      &:focus,
+      &:hover {
+        color: $star-honey-glow;
+        background: none;
+        border: none;
+      }
+  
+      &:active {
+        color: $star-bright-citrine;
+        background: $star-black;
+        border: none;
       }
     }
 
     &__rating-container {
-      filter: grayscale(100%) brightness(80%);
-      transition: filter .3s ease, transform .3s ease;
-      
-      &:hover {
-        filter: grayscale(0%) brightness(1); 
-      }
-    }
-
-    &__poster {
-      border-bottom: .25rem solid $neutral-white;
-      border-top: .25rem solid $neutral-white;
-      filter: grayscale(100%) brightness(80%);
-      transition: filter .3s ease, transform .3s ease;
-      
-      &:hover {
-        filter: grayscale(0%) brightness(1); 
-      }
-    }
-
-    &__scroll-container-popular,
-    &__scroll-container-results {
-      display: flex;
-      overflow-x: scroll;
-      scrollbar-width: thin; 
-      -ms-overflow-style: none; 
-      scroll-behavior: smooth;
-      background: $neutral-white;
-      width: 100%;
-      border-radius: 1.05rem;
-      scrollbar-color: $cloud-dark-gray $cloud-pale-gray;
-    }
-
-    &__popular-section,
-    &__results-section {
-      background: $cloud-frosted-white;
-
-      &::before {
-        background: $neutral-white;
-        color: $cloud-very-deep-gray;
-        border: .15rem solid $cloud-light-gray;
-        border-bottom: .3rem solid $cloud-light-gray;
-      }
-    }
-
-    &__scroll-container-results {
-      border: .5rem solid $cloud-morning-blue;
-      border-bottom: 1rem solid $cloud-morning-blue;
+      background: none;
     }
   
-    &__scroll-container-popular {
-      border: .5rem solid $neutral-white;
-      border-bottom: 1rem solid $neutral-white;
-    }
-
-    &__copy {
-      background: $frosted-glass;
-      box-shadow: none;
-    }
-
-    &__search-icon,
-    &__eraser-icon {
-      color: $cloud-medium-gray;
-
-      &:hover {
-        color: $cloud-dawn-blue;
-      }
-
-      &:active {
-        color: $cloud-stormy-blue;
-      }
-    }
-
     &__input {
+      background: $star-dark-gray;
+      color: $star-text-light;
+  
       &::placeholder {
-        color: $cloud-medium-gray;
+        color: $star-silver-gray;
       }
-
+  
       &:focus {
-        border: .25rem solid $cloud-dawn-blue;
-        box-shadow: none;
+        border: .25rem solid $star-glowing-amber;
+        box-shadow: $star-shadow-primary;
       }
     }
   }
-
+  
   .voice-search__voice-button {
+    background: $star-frosted-medium-gray;
+    color: $star-text-gray;
+  
     &:hover {
-      background: linear-gradient(135deg, lighten($neutral-white, 10%) 0%, lighten($cloud-frosted-white, 5%) 100%);
-      color: $cloud-stormy-blue;
+      background: linear-gradient(135deg, lighten($star-frosted-medium-gray, 10%), lighten($star-frosted-medium-gray, 5%));
+      color: $star-glowing-amber;
     }
-
+  
     &:active {
-      background: $cloud-stormy-blue;
-      color: $neutral-white;
+      background: $star-bright-citrine;
+      color: $star-black;
     }
   }
 
+  .user-rating {
+    background: $neutral-white;
+    border-radius: 50%;
+  }
+
+  .user-rating-container {
+    background: none;
+    border: none;
+    box-shadow: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
   // Emoji Modal
   .emoji-btn {
     background: $cloud-frosted-dark-gray;
