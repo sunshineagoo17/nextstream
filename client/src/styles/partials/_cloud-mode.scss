@@ -2947,6 +2947,9 @@
   }
 
   .top-picks-page {
+    background: $cloud-frosted-white;
+    margin: 0;
+    
     &__description,
     &__text,
     &__copy {
