@@ -855,256 +855,284 @@ textarea {
     }
   }  
 
-  // Login
-  .register,
-  .login {
+// Login and Register
+.register,
+.login {
+    background: $star-dark-gray;
+
     &__title {
-      color: $cloud-deep-gray;
+        color: $star-ash-gray;
     }
 
     &__container {
-      background: $cloud-frosted-white;
+        background: $star-charcoal;
     }
 
     &__image-card {
-      display: none;
+        display: none;
 
-      @include tablet {
+        @include tablet {
         height: auto;
         border-radius: 1.25rem;
-        box-shadow: $shadow-tertiary;
+        box-shadow: $star-shadow-secondary;
         display: flex;
         justify-content: center;
         align-items: center;
         max-width: 25rem;
         width: 100%;
-        border: .25rem solid $neutral-white;
-      }
-      
-      img {
-        filter: grayscale(100%) brightness(0.9); 
-        transition: filter .3s ease, transform .3s ease;
-    
-        &:hover {
-          filter: grayscale(0%) brightness(1); 
+        border: 0.25rem solid $neutral-black;
         }
-      }
+
+        img {
+            filter: grayscale(100%) brightness(0.9);
+            transition: filter 0.3s ease, transform 0.3s ease;
+
+            &:hover {
+                filter: grayscale(0%) brightness(1);
+            }
+        }
     }
 
     &__content-card {
-      background-color: $cloud-frosted-light-gray;
-      border: .85rem solid;
-      @include cloudAnimateBorder;
-      @include cloudBorderAnimation;
+        background-color: rgba($star-medium-gray, 0.85);
+        border: 0.125rem solid $star-dark-gray;
+        border-radius: 0.85rem;
+        box-shadow: $star-shadow-primary;
+        @include cloudAnimateBorder;
+        @include cloudBorderAnimation;
     }
 
     &__forgot-password-link {
-      color: $cloud-deep-gray;
+        color: $star-ash-gray;
+        padding-left: 0.25rem;
+        padding-right: 0.25rem;
+        border: 0.0938rem solid $star-ash-gray;
+        background: none;
 
-      &:hover,
-      &:focus {
-        padding-left: .25rem;
-        padding-right: .25rem;
-        background-color: $cloud-dusk-blue;
-        border: .0938rem solid $primary-pale-blue;
-        color: $neutral-white;
-        text-decoration: none;
-        box-shadow: $shadow-primary;
-    }
+        &:hover,
+        &:focus {
+            background-color: $star-gradient-citrine;
+            border: 0.0938rem solid $star-iridescent-gold;
+            color: $neutral-white;
+            text-decoration: none;
+            box-shadow: $star-shadow-primary;
+        }
 
-      &:active {
-        padding-left: .25rem;
-        padding-right: .25rem;
-        background-color: $cloud-dusk-blue;
-        color: $neutral-white;
-        border: .125rem solid $neutral-light-grey;
-        border-radius: .25rem;
-        transform: scale(.9);
-        text-decoration: none;
-        font-weight: bold;
-      }
+        &:active {
+            background-color: $star-gradient-gray-silver;
+            color: $neutral-white;
+            border: 0.125rem solid $star-light-gray;
+            border-radius: 0.25rem;
+            transform: scale(0.9);
+            text-decoration: none;
+            font-weight: bold;
+        }
     }
 
     &__password-toggle-icon {
-      color: $cloud-dawn-blue;
+        color: $star-ash-gray;
+
+        &:hover {
+            color: $neutral-white;
+        }
+
+        &:active {
+            color: $star-glowing-amber;
+        }
     }
 
     &__remember-txt {
-      color: $neutral-black;
+        color: $star-ash-gray;
+    }
+
+    &__button--previous {
+        &:hover {
+            background: $star-gradient-citrine;
+            border: 0.0625rem solid $star-horizon-gold;
+            color: $neutral-black;
+        }
+
+        &::before {
+            @include block-item(200%, 100%);
+            content: "";
+            position: absolute;
+            top: 0;
+            right: -100%;
+            background: linear-gradient(to left, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: right 0.5s;
+        }
+
+        &:hover::before {
+            right: 100%;
+            color: $neutral-black;
+        }
     }
 
     &__button--signup,
     &__button--signin {
-      @include block-item(6.8119rem, 3.5rem);
-      background: $cloud-dark-gray;
-      color: $neutral-white;
-      box-shadow: $cloud-shadow-primary;
-      position: relative;
-      overflow: hidden;
-      font-size: .85rem;
-    
-      @include tablet {
-        @include block-item(9rem, 4.5rem);
-        font-size: 1rem;
-      }
-    
-      &:hover {
-        background: $cloud-dawn-blue;
-        border: .0625rem solid $cloud-haze-blue;
-      }
-    
-      &::before {
-        @include block-item(200%, 100%);
-        content: "";
-        position: absolute;
-        top: 0;
-        right: -100%;
-        background: linear-gradient(to left, transparent, rgba(255, 255, 255, .2), transparent);
-        transition: right .5s;
-      }
-    
-      &:hover::before {
-        right: 100%;
-      }
+        @include block-item(6.8119rem, 3.5rem);
+        background: $star-dark-gray;
+        color: $neutral-white;
+        box-shadow: $star-shadow-primary;
+        position: relative;
+        overflow: hidden;
+        font-size: 0.85rem;
+
+        @include tablet {
+            @include block-item(9rem, 4.5rem);
+            font-size: 1rem;
+        }
+
+        &:hover {
+            background: $star-gradient-citrine;
+            border: 0.0625rem solid $star-horizon-gold;
+            color: $neutral-black;
+        }
+
+        &::before {
+            @include block-item(200%, 100%);
+            content: "";
+            position: absolute;
+            top: 0;
+            right: -100%;
+            background: linear-gradient(to left, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: right 0.5s;
+        }
+
+        &:hover::before {
+            right: 100%;
+        }
     }
 
     &__btn-create-account {
-      background: linear-gradient(120deg, $cloud-off-white, $neutral-white); 
-      border: .125rem solid $cloud-medium-gray;
-      border-radius: .3125rem;
-      color: $cloud-very-deep-gray;
-      padding: .625rem 2.5rem;
-      font-size: .65rem;
-      text-shadow: $cloud-shadow-primary;
-      margin-top: 1rem;
-      line-height: .85rem;
-      transition: background .3s ease, transform .3s ease, box-shadow .3s ease;
-      box-shadow: $cloud-shadow-secondary;
-    
-      &:hover {
-        transform: scale(1.05);
-        box-shadow: 0 .375rem .5rem rgba($cloud-very-deep-gray, .15);
-        border: none;
-        text-shadow: none;
-        color: $neutral-white;
-        background: linear-gradient(60deg, $cloud-haze-blue, $cloud-stormy-blue); 
-      }
-    
-      &:active {
-        transform: scale(.95);
-        color: $cloud-text-dark;
-        box-shadow: 0 .125rem .25rem rgba($cloud-deep-gray, .2);
-        background: linear-gradient(360deg, $cloud-stormy-blue, $primary-dark-blue); 
-        border: none;
-        color: $cloud-clear-blue;
-        text-shadow: $cloud-shadow-primary;
-      }
-    
-      &:focus { 
-        outline: none;
-        box-shadow: $cloud-shadow-primary; 
-      }
-    
-      @include tablet {
-        padding: .625rem 1rem;
-        font-size: .85rem;
-      }
-    }
-    
-    &__oauth-btn-google,
-    &__social-button--google {
-      background: linear-gradient(45deg, $cloud-light-gray, $cloud-medium-gray); 
-      color: $neutral-black;
-    
-      &:hover {
-        background: linear-gradient(45deg, $cloud-clear-blue, $cloud-light-blue); 
-        color: $cloud-text-dark;
-        text-shadow: $cloud-shadow-primary;
-      }
-    
-      &:active {
-        background: $cloud-off-white; 
-        color: $cloud-midnight-blue;
-      }
-    }
-    
-    &__guest-link {
-      background: linear-gradient(45deg, $cloud-light-gray, $cloud-medium-gray); 
-      color: $neutral-black;
-    
-      &:hover {
-        background: linear-gradient(45deg, $cloud-light-blue, $cloud-clear-blue); 
-        color: $cloud-text-dark;
-        text-shadow: $cloud-shadow-primary;
-      }
-    
-      &:active {
-        background: $cloud-off-white; 
-        color: $cloud-midnight-blue;
-      }
-    }
-    
-    &__input {
-      border: .125rem solid $neutral-light-grey;
-      box-shadow: $shadow-primary;
-      background: $neutral-white;
-      color: $neutral-black;
-  
-      &:focus,
-      &:not(:placeholder-shown) {
-        background-color: $cloud-light-gray;
+        background: linear-gradient(120deg, $star-bright-citrine, $star-glowing-amber);
+        border: 0.125rem solid $star-medium-gray;
+        border-radius: 0.3125rem;
         color: $neutral-black;
-  
-        & + .login__label {
-          background-color: $neutral-white;
-          border: .125rem solid $neutral-light-grey;
-          color: $cloud-very-deep-gray;
+        padding: 0.625rem 2.5rem;
+        font-size: 0.65rem;
+        text-shadow: none;
+        margin-top: 1rem;
+        line-height: 0.85rem;
+        transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: $star-shadow-secondary;
+
+        &:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0.375rem 0.5rem rgba($neutral-black, 0.15);
+            border: none;
+            color: $neutral-black;
+            background: linear-gradient(60deg, $star-honey-glow, $star-deep-topaz);
         }
-  
-        &::placeholder {
-          color: $neutral-light-grey;
+
+        &:active {
+            transform: scale(0.95);
+            color: $neutral-black;
+            box-shadow: 0 0.125rem 0.25rem rgba($star-dark-gray, 0.2);
+            background: linear-gradient(360deg, $star-sunray-gold, $star-bright-citrine);
+            border: none;
         }
-      }
-  
-      &:not(:focus):placeholder-shown {
-        &::placeholder {
-          color: transparent;
+
+        &:focus {
+            outline: none;
+            box-shadow: $star-shadow-primary;
         }
-      }
+
+        @include tablet {
+            padding: 0.625rem 1rem;
+            font-size: 0.85rem;
+        }
+    }
+
+    &__oauth-btn-google,
+    &__social-button--google,
+    &__guest-link {
+        background: linear-gradient(45deg, $star-light-gray, $star-medium-gray);
+        color: $neutral-black;
+
+        &:hover {
+            background: linear-gradient(45deg, $star-iridescent-gold, $star-glowing-amber);
+            color: $neutral-black;
+            text-shadow: none;
+        }
+
+        &:active {
+            background: $star-gradient-muted-gold;
+            color: $star-black;
+            box-shadow: none;
+        }
+    }
+
+    &__input {
+        border: 0.125rem solid $star-light-gray;
+        box-shadow: $star-shadow-primary;
+        background: $star-dark-gray;
+        color: $neutral-white;
+
+        &:focus,
+        &:not(:placeholder-shown) {
+            background-color: $star-medium-gray;
+            color: $neutral-white;
+
+            & + .register__label,
+            & + .login__label {
+                background-color: $star-charcoal;
+                border: 0.125rem solid $star-medium-gray;
+                color: $star-ash-gray;
+            }
+
+            &::placeholder {
+                color: $star-silver-gray;
+            }
+        }
+
+        &:not(:focus):placeholder-shown {
+            &::placeholder {
+                color: transparent;
+            }
+        }
     }
 
     &__label {
-      background: $cloud-light-gray;
-      color: $neutral-black;
+        background: $star-medium-gray;
+        color: $neutral-white;
     }
 
     &__account-available,
     &__guest-text,
     &__terms-txt {
-      color: $cloud-deep-gray;
+        color: $star-ash-gray;
     }
 
     &__terms-link,
     &__signin-link,
     &__guest-signin-link {
-      color: $cloud-very-deep-gray;
-      font-weight: bold;
+        color: $star-silver-gray;
+        font-weight: bold;
 
-      &:visited,
-      &:focus,
-      &:hover {
-        font-weight: normal;
-        background: $cloud-dusk-blue;
-        color: $neutral-white;
-        border: .0625rem solid $neutral-white;
-      }
+        &:visited,
+        &:focus,
+        &:hover {
+            font-weight: normal;
+            background: $star-gradient-citrine;
+            color: $neutral-black;
+            border: 0.0625rem solid $neutral-white;
+        }
 
-      &:active {
-        background: $cloud-stormy-blue;
-        color: $neutral-white;
-      }
+        &:active {
+            background: $star-gradient-gray-silver;
+            color: $neutral-black;
+        }
     }
-  }
+}
+
+.register {
+    background: $star-dark-gray;
+
+    &__hero {
+        background: $star-dark-gray;
+    }
+}
 
   // NextSwipe 
   .nextswipe-page {
