@@ -2309,45 +2309,66 @@ textarea {
     }
   }
 
-  // Quickstart Guide 
-  .quickstart-guide {
-    &__fave-icon {
-      color: $cloud-dawn-blue;
+    // Quickstart Guide 
+    .quickstart-guide {
+        &__overlay {
+            background: $star-frosted-black;
+        }
 
-      &:active {
-        color: $cloud-stormy-blue;
-      }
+        &__container {
+            background: $star-black;
+        }
+
+        &__fave-icon {
+            color: $star-glowing-amber;
+
+            &:hover {
+                background: $star-glowing-amber;
+                color: $neutral-white;
+            }
+    
+            &:active {
+                background: $neutral-white;
+                color: $star-iridescent-gold;
+            }
+        }
+    
+        &__title {
+            color: $star-text-light;
+        }
+    
+        &__button {
+            background: $star-gradient-muted-gold;
+            color: $star-charcoal;
+        
+            &:focus,
+            &:visited,
+            &:hover {
+                background: $star-horizon-gold;
+                color: $neutral-black;
+            }
+    
+            &:active {
+                background: $star-deep-topaz;
+                color: $star-charcoal;
+            }
+        }
+    
+        &__close {
+            color: $star-deep-topaz;
+            background: $star-black;
+
+            &:hover {
+                background: $star-starlight-yellow;
+                color: $star-black;
+            }
+    
+            &:active {
+                color: $star-starlight-yellow;
+                background: $neutral-black;
+            }
+        }
     }
-
-    &__title {
-      color: $neutral-black;
-    }
-
-    &__button {
-      background: $cloud-gradient-pale-blue;
-      color: $cloud-stormy-blue;
-
-      &:focus,
-      &:visited,
-      &:hover {
-        background: $cloud-stormy-blue;
-        color: $neutral-white;
-      }
-
-      &:active {
-        background: $cloud-breeze-blue;
-        color: $cloud-stormy-blue;
-      }
-    }
-
-    &__close {
-      color: $cloud-stormy-blue;
-
-      &:active {
-        color: $neutral-white;
-      }
-    }
-  }
 
   // NextWatch
   .nextwatch-page {
