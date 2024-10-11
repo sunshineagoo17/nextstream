@@ -408,3 +408,60 @@ $cloud-shadow-secondary: 3px 3px 6px rgba(0, 0, 0, 0.08), -3px -3px 6px rgba(255
 $cloud-text-dark: #2B2E33;
 $cloud-text-gray: #5F6164;
 $cloud-text-light: #9DA1A6;
+
+// Star Mode Colours
+// Blacks and Grays:
+$star-black: #0A0A0A;
+$star-charcoal: #1C1C1E;
+$star-dark-gray: #2E2E30;
+$star-medium-gray: #48484A;
+$star-light-gray: #7A7A7C;
+$star-silver-gray: #A9A9AB;
+$star-ash-gray: #C4C4C6;
+
+// Warm Accents (Golds and Yellows):
+$star-starlight-yellow: #FFE66D;
+$star-horizon-gold: #E5B700;
+$star-iridescent-gold: #FFC857;
+$star-glowing-amber: #FFD973;
+$star-sunray-gold: #FFCC33;
+$star-soft-daffodil: #FFF4B2;
+$star-honey-glow: #FFB84D;
+$star-golden-hour: #FFDE85;
+$star-frosted-lemon: #FFF8DC;
+$star-bright-citrine: #FFEB3B;
+$star-deep-topaz: #FFB300;
+$star-pearl-gold: #FFDBAC;
+
+// Frosted Glass and Soft Effects:
+$star-frosted-black: rgba(15, 15, 15, 0.8);
+$star-frosted-dark-gray: rgba(34, 34, 36, 0.7);
+$star-frosted-medium-gray: rgba(80, 80, 84, 0.6);
+$star-frosted-silver-gray: rgba(180, 180, 185, 0.4);
+$star-frosted-gold: rgba(245, 207, 83, 0.5); 
+
+// Neumorphic Colors:
+$star-neumorph-shadow-light: rgba(0, 0, 0, 0.15);
+$star-neumorph-highlight-light: rgba(255, 255, 255, 0.12);
+$star-neumorph-base: #262626;
+$star-neumorph-deep-shadow: rgba(0, 0, 0, 0.35);
+$star-dark-neumorph-shadow-light: rgba(0, 0, 0, 0.25);
+$star-dark-neumorph-highlight-light: rgba(255, 255, 255, 0.18);
+$star-dark-neumorph-base: #111111;
+$star-dark-neumorph-deep-shadow: rgba(0, 0, 0, 0.55);
+
+// Gradients:
+$star-gradient-black-gray: linear-gradient(135deg, #111111, #2C2C2E, #565658);
+$star-gradient-gray-silver: linear-gradient(135deg, #2E2E30, #4A4A4D, #A9A9AB);
+$star-gradient-muted-gold: linear-gradient(135deg, #FFFFFF, #EAC481, #FFF4B2);
+$star-gradient-iridescent: linear-gradient(135deg, #FFFFFF, #FFD784, #FFE3A8, #FFF8DC);
+$star-gradient-citrine: linear-gradient(135deg, #FFFFFF, #FFDD77, #FFC857, #FFE66D);
+
+// Shadows (For Neumorphism and Soft Depth):
+$star-shadow-primary: 5px 5px 10px rgba(0, 0, 0, 0.3), -5px -5px 10px rgba(255, 255, 255, 0.1);
+$star-shadow-secondary: 3px 3px 6px rgba(0, 0, 0, 0.25), -3px -3px 6px rgba(255, 255, 255, 0.1);
+
+// Text Colors:
+$star-text-dark: #E0E0E0;
+$star-text-gray: #B0B0B0;
+$star-text-light: #FFFFFF;

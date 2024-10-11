@@ -5,6 +5,7 @@
 @use "./partials/dark-mode" as *;
 @use "./partials/trans-mode" as *;
 @use "./partials/cloud-mode" as *;
+@use "./partials/star-mode" as *;
 
 @mixin borderGlowLogo() {
   @keyframes borderGlowLogo {

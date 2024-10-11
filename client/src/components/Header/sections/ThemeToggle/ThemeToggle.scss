@@ -29,7 +29,7 @@
   }
 
   .sun {
-    color: $neutral-white; 
+    color: $neutral-white;
     padding: .6rem;
     background: $primary-light-blue;
     box-shadow: $shadow-secondary;
@@ -69,7 +69,7 @@
     border-radius: .5rem;
     border: .125rem solid $neutral-white;
     transition: background 0.5s, transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
-    
+
     &:before {
       content: '';
       position: absolute;
@@ -91,7 +91,7 @@
       transform: translateY(-4px);
       animation: cloud-hover 2s infinite ease-in-out;
       border: .125rem solid $cloud-breeze-blue;
-      
+
       &:before {
         transform: translate(-50%, -50%) scale(1.3);
         opacity: 0.8;
@@ -106,7 +106,7 @@
       animation: cloud-fade-out 1s ease forwards;
       border: .125rem solid $cloud-haze-blue;
       border-radius: 50%;
-      
+
       &:before {
         transform: translate(-50%, -50%) scale(1.5);
         opacity: 0.2;
@@ -118,18 +118,18 @@
   // Rainbow button for Trans Mode
   .rainbow {
     color: transparent;
-    padding: .5rem; // Slightly larger padding for better balance
+    padding: .5rem;
     background: linear-gradient(145deg, $trans-blue 0%, $trans-pink 25%, $trans-candy-pink 50%, $trans-deep-blue 75%, $trans-pale-blue 100%);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), 0 6px 25px rgba(255, 153, 204, 0.4), inset 0 0 8px rgba(119, 153, 255, 0.3);
-    border-radius: .875rem; // More rounded for a softer, modern look
-    border: .125rem solid rgba(255, 255, 255, 0.25); // Slightly translucent border for subtlety
+    border-radius: .875rem;
+    border: .125rem solid rgba(255, 255, 255, 0.25);
     transition: background 0.6s ease-in-out, transform 0.3s ease-in-out, box-shadow 0.5s ease-in-out, color 0.4s ease-in-out;
-  
+
     &:hover {
-      border: .125rem solid $trans-pink; // Pink border on hover
+      border: .125rem solid $trans-pink;
       background-position: 200%;
-      transform: scale(1.1); 
-      color: $trans-electric-blue; // Matching the hover text color to trans-theme
+      transform: scale(1.1);
+      color: $trans-electric-blue;
       background-clip: text;
       transition: transform 0.4s, color 0.6s ease-out;
       box-shadow: 0 0 .625rem .1875rem rgba(255, 99, 199, .7), 0 0 1.25rem .3125rem rgba(255, 99, 199, .4);
@@ -139,16 +139,13 @@
     &:active {
       background-position: 100%;
       border-radius: 50%;
-      background: linear-gradient(135deg, $trans-pink, $trans-deep-blue, $trans-candy-pink, $trans-pale-blue); // Darker trans-mode gradient on click
-      transform: scale(0.85); // Sharper shrink effect on click
-      box-shadow: inset 0 0 2rem rgba(255, 99, 199, 0.6), // Deeper inner glow for focus
-                  0 0 1.75rem rgba(119, 153, 255, 0.8), // Stronger outer glow for pop
-                  0 0 3rem rgba(119, 255, 153, 0.6); // Extended range outer glow
+      background: linear-gradient(135deg, $trans-pink, $trans-deep-blue, $trans-candy-pink, $trans-pale-blue);
+      transform: scale(0.85);
+      box-shadow: inset 0 0 2rem rgba(255, 99, 199, 0.6), 0 0 1.75rem rgba(119, 153, 255, 0.8), 0 0 3rem rgba(119, 255, 153, 0.6);
       color: $neutral-white;
       border: .125rem solid $trans-pale-blue;
       transition: transform 0.15s ease, background 0.3s ease, box-shadow 0.15s ease;
-  
-      // Ripple effect radiating from the center
+
       &:before {
         content: '';
         position: absolute;
@@ -165,6 +162,40 @@
     }
   }
 
+  .star {
+    color: $neutral-white;
+    padding: 0.75rem;
+    background: #f0e68c;
+    box-shadow: inset 5px 5px 15px rgba(0, 0, 0, 0.15), 
+                inset -5px -5px 15px rgba(255, 255, 255, 0.7), 
+                0 0 1.5rem rgba(255, 223, 0, 0.8), 
+                0 0 2.5rem rgba(255, 255, 102, 0.6);
+    border-radius: 50%;
+    transition: background 0.5s, transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+  
+    animation: twilight-glow 2s infinite alternate;
+  
+    &:hover {
+      background: #fffacd; 
+      box-shadow: inset 3px 3px 8px rgba(0, 0, 0, 0.2), 
+                  inset -3px -3px 8px rgba(255, 255, 255, 0.5), 
+                  0 0 3rem rgba(255, 255, 102, 0.9), 
+                  0 0 4.5rem rgba(255, 255, 204, 0.7);
+      transform: scale(1.1);
+      animation: spin-and-pulse 5s infinite linear;
+    }
+  
+    &:active {
+      background: #fdfd96; 
+      transform: scale(0.95);
+      box-shadow: inset 2px 2px 6px rgba(0, 0, 0, 0.2), 
+                  inset -2px -2px 6px rgba(255, 255, 255, 0.4), 
+                  0 0 3.5rem rgba(255, 250, 205, 1), 
+                  inset 0 0 1.8rem rgba(255, 223, 0, 0.8);
+      animation: none;
+    }
+  }
+  
   .light-effect {
     @include block-item(0, 0);
     position: absolute;
@@ -256,6 +287,48 @@
   100% {
     clip-path: circle(50%);
     transition: clip-path .5s cubic-bezier(.68, -.55, .27, 1.55);
+  }
+}
+
+@keyframes spin-and-pulse {
+  0% {
+    transform: rotate(0deg) scale(1.05);
+    background: #f0e68c;
+    box-shadow: inset 5px 5px 15px rgba(0, 0, 0, 0.15), 
+                inset -5px -5px 15px rgba(255, 255, 255, 0.7), 
+                0 0 2.5rem rgba(255, 255, 102, 0.8), 
+                0 0 3.5rem rgba(255, 255, 204, 0.7);
+  }
+  50% {
+    transform: rotate(180deg) scale(1.15);
+    background: #fffacd;
+    box-shadow: inset 3px 3px 8px rgba(0, 0, 0, 0.2), 
+                inset -3px -3px 8px rgba(255, 255, 255, 0.5), 
+                0 0 3.5rem rgba(255, 255, 255, 1), 
+                0 0 4.5rem rgba(255, 255, 255, 0.9);
+  }
+  100% {
+    transform: rotate(360deg) scale(1.05);
+    background: #f0e68c;
+    box-shadow: inset 5px 5px 15px rgba(0, 0, 0, 0.15), 
+                inset -5px -5px 15px rgba(255, 255, 255, 0.7), 
+                0 0 2.5rem rgba(255, 255, 102, 0.8), 
+                0 0 3.5rem rgba(255, 255, 204, 0.7);
+  }
+}
+
+@keyframes twilight-glow {
+  0% {
+    box-shadow: inset 5px 5px 15px rgba(0, 0, 0, 0.15), 
+                inset -5px -5px 15px rgba(255, 255, 255, 0.7), 
+                0 0 1.5rem rgba(255, 215, 0, 0.8), 
+                0 0 2.5rem rgba(255, 255, 102, 0.6);
+  }
+  100% {
+    box-shadow: inset 5px 5px 15px rgba(0, 0, 0, 0.15), 
+                inset -5px -5px 15px rgba(255, 255, 255, 0.7), 
+                0 0 2rem rgba(255, 255, 102, 1), 
+                0 0 3rem rgba(255, 255, 204, 0.8);
   }
 }
 
