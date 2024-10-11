@@ -1077,55 +1077,53 @@ textarea {
     }
 
     &__input {
-        border: 0.125rem solid $star-light-gray;
-        box-shadow: $star-shadow-primary;
-        background: $star-dark-gray;
+      border: 0.125rem solid $star-light-gray;
+      box-shadow: $star-shadow-primary;
+      background: $star-dark-gray;
+      color: $neutral-white;
+    
+      &:active {
+        box-shadow: none;
+        background: $star-black;
         color: $neutral-white;
-
-        &:active {
-          box-shadow: none;
-          background: $star-black;
-          color: $neutral-white;
+      }
+    
+      &:-webkit-autofill {
+        box-shadow: 0 0 0px 1000px $star-dark-gray inset;
+        -webkit-text-fill-color: $neutral-white;
+        transition: background-color 5000s ease-in-out 0s;
+      }
+    
+      &:enabled:valid {
+        box-shadow: none;
+        background: $star-black;
+        color: $neutral-white;
+      }
+    
+      &:focus,
+      &:not(:placeholder-shown) {
+        background: $star-medium-gray;
+        color: $neutral-white;
+        box-shadow: none;
+    
+        & + .register__label,
+        & + .login__label {
+          background: $star-charcoal;
+          border: 0.125rem solid $star-medium-gray;
+          color: $star-ash-gray;
         }
-
-        &:-webkit-autofill {
-          box-shadow: 0 0 0px 1000px $star-dark-gray inset;
-          -webkit-text-fill-color: $neutral-white;
-          transition: background-color 5000s ease-in-out 0s; 
+    
+        &::placeholder {
+          color: $star-silver-gray;
         }
-
-        &:enabled:valid {
-          box-shadow: none;
-          background: $star-black;
-          color: $neutral-white;
+      }
+    
+      &:not(:focus):placeholder-shown {
+        &::placeholder {
+          color: transparent;
         }
-
-        &:focus,
-        &:not(:placeholder-shown) {
-            background: $star-medium-gray;
-            color: $neutral-white;
-            box-shadow: none;
-
-            & + .register__label,
-            & + .login__label {
-                background: $star-charcoal;
-                border: 0.125rem solid $star-medium-gray;
-                color: $star-ash-gray;
-            }
-
-            &::placeholder {
-                color: $star-silver-gray;
-            }
-        }
-
-        &:not(:focus):placeholder-shown {
-            &::placeholder {
-                color: transparent;
-                background: $star-black;
-                box-shadow: none;
-            }
-        }
-    }
+      }
+    }    
 
     &__label {
         background: $star-medium-gray;

@@ -813,53 +813,70 @@
       background: $trans-black;
     }
 
+    &__signin-link,
+    &__guest-signin-link {
+      transition: transform .1s ease, background-color .1s ease, color .1s ease;
+
+      &:hover,
+      &:focus {
+        color: $neutral-white;
+        background: $primary-medium-blue;
+        border: none;
+        transform: scale(1.1);
+      }
+
+      &:active {
+        transform: scale(.9);
+        color: $neutral-white;
+        background: $primary-button-blue;
+      }
+    }
+
     &__input {
       border: 0.125rem solid $trans-electric-blue;
       box-shadow: $shadow-cool-primary;
-      background: $trans-black;
-      color: $trans-black;
-
+      background: $trans-deep-blue;
+      color: $neutral-white;
+    
       &:active {
         box-shadow: none;
         background: $trans-deep-blue;
         color: $trans-pale-blue;
       }
-
+    
       &:-webkit-autofill {
         box-shadow: 0 0 0px 1000px $trans-black inset;
         -webkit-text-fill-color: $neutral-white;
-        transition: background-color 5000s ease-in-out 0s; 
+        transition: background-color 5000s ease-in-out 0s;
       }
-
+    
       &:enabled:valid {
         box-shadow: none;
         background: $trans-black;
         color: $neutral-white;
       }
-
+    
       &:focus {
         box-shadow: none;
         background: $trans-deep-blue;
         color: $trans-pale-blue;
       }
-   
+    
       &:not(:placeholder-shown) {
-          background: $trans-black;
-          color: $neutral-white;
-          box-shadow: none;
-
-          &::placeholder {
-              color: $trans-electric-blue;
-          }
-      }
-
-        &:not(:focus):placeholder-shown {
-            &::placeholder {
-                color: transparent;
-                background: $trans-black;
-                box-shadow: none;
-            }
+        background: $trans-black;
+        color: $neutral-white;
+        box-shadow: none;
+    
+        &::placeholder {
+          color: $trans-electric-blue;
         }
+      }
+    
+      &:not(:focus):placeholder-shown {
+        &::placeholder {
+          color: transparent;
+        }
+      }
     }
   }
 
