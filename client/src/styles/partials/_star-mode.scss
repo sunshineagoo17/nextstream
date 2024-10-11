@@ -4064,10 +4064,15 @@ textarea {
       background: $star-black;
       color: $star-text-light;
     }
-  
+
+    &__not-loading-svg,
     &__loading-svg {
-      filter: grayscale(100%) brightness(1.2);
+      filter: grayscale(100%);
       transition: filter .3s ease, transform .3s ease;
+
+      &:hover {
+        filter: grayscale(0%) brightness(1);
+      }
     }
   
     &__sub-tab {
@@ -4122,19 +4127,35 @@ textarea {
     &__like-icon,
     &__dislike-icon {
       color: $star-iridescent-gold; 
+
+      &:hover {
+        color: $neutral-black;
+        background: $star-deep-topaz;
+      }
+
+      &:active {
+        border: none;
+        box-shadow: none;
+        color: $star-deep-topaz;
+        background: $neutral-white;
+      }
     }
   
     &__nav-arrow {
       cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
-      color: $star-text-light;
-      border: .125rem solid $star-light-gray;
+      color: $neutral-white;
+      border: .125rem solid $neutral-white;
   
       &:hover {
-        color: $star-starlight-yellow;
+        color: $neutral-white;
+        background: $star-deep-topaz;
+        border: none;
       }
   
       &:active {
-        color: $star-text-light;
+        color: $star-deep-topaz;
+        border: .125rem solid $star-deep-topaz;
+        background: $neutral-black;
       }
     }
   
@@ -4153,7 +4174,7 @@ textarea {
     &__scroll-container-results {
       background: $star-dark-gray;
       border-radius: 1.05rem;
-      scrollbar-color: $star-dark-gray $star-silver-gray;
+      scrollbar-color: $star-deep-topaz $neutral-white;
     }
   
     &__popular-section,
@@ -4169,8 +4190,8 @@ textarea {
     }
   
     &__scroll-container-results {
-      border: .5rem solid $star-horizon-gold;
-      border-bottom: 1rem solid $star-horizon-gold;
+      border: .5rem solid $star-dark-gray;
+      border-bottom: 1rem solid $star-dark-gray;
     }
   
     &__scroll-container-popular {
@@ -4204,6 +4225,8 @@ textarea {
 
     &__rating-container {
       background: none;
+      border: none;
+      box-shadow: none;
     }
   
     &__input {
