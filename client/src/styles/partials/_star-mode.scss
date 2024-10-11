@@ -3822,70 +3822,86 @@ textarea {
     }
   }
 
-  // Contact Us Modal
-  .modal-forgot-password,
-  .modal-contact {
-    background: rgba($neutral-white, .85);
+// Contact Us Modal
+.modal-forgot-password,
+.modal-contact {
+  background: rgba($neutral-black, 0.85);
 
-    &__container {
-      background: $cloud-frosted-dark-gray;
+  &__container {
+    background: $star-frosted-dark-gray;
+  }
+
+  &__reset,
+  &__submit-text,
+  &__close {
+    background: $star-glowing-amber;
+    color: $neutral-black;
+
+    &:focus,
+    &:hover {
+      background: $star-light-gray;
+      color: $star-charcoal;
     }
 
-    &__reset,
-    &__submit-text,
-    &__close {
-      background: $cloud-clear-blue;
-      color: $primary-dark-blue;
-
-      &:focus,
-      &:hover {
+    &:active {
         background: $neutral-white;
-        color: $cloud-stormy-blue;
-      }
-    }
-
-    &__reset,
-    &__submit-text {
-      &:active {
-        border: none;
-      }
-    }
-
-    &__input,
-    &__txtarea {
-      &:focus {
-        color: $neutral-black;
-        background-color: $neutral-white;
-        box-shadow: $shadow-cloud-primary;
-        border-radius: .5rem;
-        border: .125rem solid $cloud-dark-gray;
-      }
-  
-      &:active {
-        background-color: $cloud-deep-gray;
-        color: $neutral-white;
-      }
-    }
-
-    &__label-container,
-    &__label-input,
-    &__label-txt,
-    &__label-txtarea,
-    &__label-txtarea-txt {
-      border: .1875rem solid $cloud-pale-gray;
-    }
-
-    &__label-container {
-      background: $neutral-white;
-    }
-
-    &__label,
-    &__label-txtarea-txt,
-    &__label-txt {
-      color: $cloud-very-deep-gray;
-      box-shadow: none;
+        color: $star-deep-topaz;
     }
   }
+
+  &__reset,
+  &__submit-text {
+    &:active {
+      border: none;
+      background: $star-bright-citrine;
+      color: $neutral-black;
+    }
+  }
+
+  &__input,
+  &__txtarea {
+    &:focus {
+      color: $neutral-black;
+      background-color: $star-light-gray;
+      box-shadow: $star-shadow-primary;
+      border-radius: 0.5rem;
+      border: 0.125rem solid $star-medium-gray;
+    }
+
+    &:active {
+      background-color: $star-dark-gray;
+      color: $neutral-white;
+    }
+
+    &:not(:focus) {
+        color: $star-silver-gray; 
+    }
+  }
+
+  &__label-container,
+  &__label-input,
+  &__label-txt,
+  &__label-txtarea,
+  &__label-txtarea-txt {
+    background: $star-charcoal;
+    border: 0.1875rem solid $star-silver-gray;
+  }
+
+  &__label-container {
+    background: $star-medium-gray;
+  }
+
+  &__label {
+    color: $neutral-white;
+    box-shadow: none;
+  }
+
+  &__label-txtarea-txt,
+  &__label-txt {
+    color: $star-ash-gray;
+    box-shadow: none;
+  }
+}
 
   // NextSearch
   .next-search {
