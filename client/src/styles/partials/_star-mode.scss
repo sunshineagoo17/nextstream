@@ -1156,111 +1156,101 @@ textarea {
   // NextSwipe 
   .nextswipe-page {
     &__container {
-      background: $cloud-off-white;
+      background: $star-light-gray;
     }
-
+  
     &__title-container {
-      background: $cloud-dark-gradient-white-gray;
+      background: $star-gradient-gray-silver;
     }
-
+  
     &__background {
-      filter: grayscale(100%) brightness(0.9); 
-      transition: filter .3s ease, transform .3s ease;
-    
+      filter: grayscale(100%) brightness(0.8);
+      transition: filter 0.3s ease, transform 0.3s ease;
+      
       &:hover {
-        filter: grayscale(0%) brightness(1); 
+        filter: grayscale(0%) brightness(1.2);
       }
     }
-
+  
     &__media-card {
+      // border: 0.125rem solid $star-neumorph-base;
+      background: $star-frosted-dark-gray;
       @include cloudAnimateBorder;
       @include cloudBorderAnimation;
     }
-
+  
     &__nav-button {
-      background-color: rgba($neutral-black, .1);
-      color: $cloud-dusk-blue;
-
+      background-color: rgba($star-black, .7);
+      color: $star-bright-citrine;
+  
       &:hover {
-        background-color: rgba($cloud-stormy-blue, .7);
-        color: $neutral-white;
+        background-color: rgba($star-glowing-amber, 0.7);
+        color: $star-text-light;
       }
-
+  
       &:active {
-        background-color: rgba($neutral-white, .6);
-        color: $cloud-stormy-blue;
-        border: .125rem solid $cloud-very-light-blue;
+        background-color: rgba($star-light-gray, 0.6);
+        color: $star-starlight-yellow;
+        border: 0.125rem solid $star-frosted-gold;
         box-shadow: none;
       }
     }
-
+  
     &__calendar-button {
-      @include block-item(5rem, 3rem);
-      border: .0625rem solid $cloud-off-white;
-      padding: .5rem 1rem;
-      background: $cloud-gradient-light-gray;
-      color: $cloud-text-dark;
-      box-shadow: $cloud-shadow-primary;
-      position: relative;
-      margin-top: 1rem;
-      overflow: hidden;
-      font-size: .85rem;
+      border: 0.0625rem solid $star-medium-gray;
+      background: $star-gradient-muted-gold;
+      color: $neutral-black;
+      box-shadow: $star-shadow-primary;
+      font-size: 0.85rem;
       border-radius: 1rem;
       display: flex;
       justify-content: center;
       align-items: center;
-      transition: transform .3s ease-in-out;
-    
-      @include tablet {
-        @include block-item(11.5rem, 4.5rem);
-        font-size: 1rem;
-        display: inline-flex;
-      }
-    
+      transition: transform 0.3s ease-in-out;
+      
       &:focus,
       &:hover {
-        background: $cloud-dusk-blue;
-        color: $cloud-off-white;
-        border: .0625rem solid $cloud-soft-sky-blue;
+        background: $star-deep-topaz;
+        color: $neutral-black;
+        border: 0.0625rem solid $star-horizon-gold;
         transform: scale(1.03);
       }
-    
+      
       &::before {
         content: "";
-        @include block-item(200%, 100%);
         position: absolute;
         top: 0;
         right: -100%;
-        background: linear-gradient(to left, transparent, rgba(255, 255, 255, .2), transparent);
-        transition: right .5s;
+        background: linear-gradient(to left, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: right 0.5s;
       }
-    
+      
       &:hover::before {
         right: 100%;
       }
-    
+      
       &:active {
-        transform: scale(.95);
-        background: $cloud-stormy-blue;
+        transform: scale(0.95);
+        background: $star-glowing-amber;
+        color: $neutral-black;
       }
-    
+      
       svg {
-        @include tablet {
-          margin-right: .5rem;
-          border: .125rem solid $cloud-light-blue;
-          padding: .15rem .15rem .3rem .15rem;
-          border-radius: .5rem;
-        }
+        margin-right: 0.5rem;
+        color: $neutral-black;
+        border: 0.125rem solid $star-deep-topaz;
+        padding: 0.15rem;
+        border-radius: 0.5rem;
       }
     }
   }
-
+  
   .circle-rating {
-    filter: grayscale(100%) brightness(0.9); 
-    transition: filter .3s ease, transform .3s ease;
+    filter: grayscale(100%) brightness(0.8);
+    transition: filter 0.3s ease, transform 0.3s ease;
     
     &:hover {
-      filter: grayscale(0%) brightness(1); 
+      filter: grayscale(0%) brightness(1.2);
     }
   }
   
@@ -1268,28 +1258,34 @@ textarea {
     &__type-icon,
     &__lightbulb-icon,
     &__share-icon {
-      color: $cloud-dark-gray;
-
+      color: $star-silver-gray;
+  
       &:hover {
-        color: $neutral-white;
+        color: $star-starlight-yellow;
+        background: $neutral-black;
+      }
+
+      &:active {
+        color: $neutral-black;
+        background: $star-starlight-yellow;
       }
     }
-
+  
     &__overview,
     &__title {
       color: $neutral-black;
     }
-
+  
     &__image {
-      filter: grayscale(100%) brightness(0.9); 
-      transition: filter .3s ease, transform .3s ease;
-    
+      filter: grayscale(100%) brightness(0.8);
+      transition: filter 0.3s ease, transform 0.3s ease;
+      
       &:hover {
-        filter: grayscale(0%) brightness(1); 
+        filter: grayscale(0%) brightness(1.2);
       }
     }
   }
-
+  
   // NextStream Gpt 
   .nextstream-gpt {
     background: $cloud-frosted-white;
