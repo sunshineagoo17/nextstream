@@ -2477,6 +2477,10 @@
       cursor: url('../../assets/cursors/cursor-pointer-cl.svg'), pointer;
     }
 
+    &__cast-img-placeholder {
+      color: $cloud-overcast-blue;
+    }
+
     &__nextwatch-link,
     &__calendar-button,
     &__share-button,

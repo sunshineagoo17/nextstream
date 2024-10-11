@@ -6,7 +6,8 @@ import {
   faMap, faBomb, faPalette, faLaugh, faFingerprint, faClapperboard, faTheaterMasks, faQuidditch, faGhost, faUserSecret,
   faVideoCamera, faFaceKissWinkHeart, faMusic, faHandSpock, faMask, faChildren, faShareAlt,
   faFighterJet, faScroll, faHatCowboy, faChild, faTelevision,
-  faBalanceScale, faHeartBroken, faBolt, faExplosion, faMeteor, faUser, faMicrophone, faListCheck
+  faBalanceScale, faHeartBroken, faBolt, faExplosion, faMeteor, faMicrophone, faListCheck,
+  faPortrait
 } from '@fortawesome/free-solid-svg-icons';
 import { AuthContext } from '../../context/AuthContext/AuthContext'; 
 import { Tooltip } from 'react-tooltip';
@@ -467,7 +468,7 @@ const NextViewPage = () => {
                                                                 className="nextview-page__cast-img"
                                                             />
                                                         ) : (
-                                                            <FontAwesomeIcon icon={faUser} className="nextview-page__cast-img-placeholder" />
+                                                            <FontAwesomeIcon icon={faPortrait} className="nextview-page__cast-img-placeholder" />
                                                         )}
                                                         <div className="nextview-page__cast-name">{member.name}</div>
                                                         <div className="nextview-page__cast-character">as {member.character}</div>
