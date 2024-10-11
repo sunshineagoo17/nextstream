@@ -304,6 +304,12 @@
       color: $neutral-black;
     }
 
+    &__calendar-info {
+      p {
+        color: $neutral-white;
+      }
+    }
+
     &__video-container {
       filter: grayscale(100%);
       transition: filter .3s ease, transform .3s ease;
@@ -339,6 +345,7 @@
       color: $cloud-overcast-blue;
     }
 
+    &__delete-invite-btn,
     &__remove-friend {
       background: $neutral-black;
       color: $neutral-white;
@@ -554,6 +561,11 @@
     &__card-subtitle--friends,
     &__card-subtitle--search,
     &__no-users-txt {
+      color: $neutral-black;
+    }
+
+    &__shared-count {
+      background: $neutral-white;
       color: $neutral-black;
     }
 

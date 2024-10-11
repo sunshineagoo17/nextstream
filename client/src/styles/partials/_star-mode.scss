@@ -301,6 +301,17 @@ textarea {
       color: $neutral-black;
     }
 
+    &__calendar-info {
+      p {
+        color: $neutral-white;
+      }
+    }
+
+    &__shared-count {
+      background: $neutral-white;
+      color: $neutral-black;
+    }
+
     &__video-container {
       filter: grayscale(100%);
       transition: filter .3s ease, transform .3s ease;
@@ -336,6 +347,7 @@ textarea {
       color: $cloud-overcast-blue;
     }
 
+    &__delete-invite-btn,
     &__remove-friend {
       background: $neutral-black;
       color: $neutral-white;
@@ -1570,6 +1582,24 @@ textarea {
     background: $star-dark-neumorph-base;
   }
 
+  &__search-bar-input {
+    &::placeholder {
+      color: $star-horizon-gold;
+    }
+
+    &:active,
+    &:focus {
+      color: $neutral-white;
+      background: $neutral-black;
+      border: .125rem solid $star-glowing-amber;
+      box-shadow: none;
+    }
+
+    &:not(:placeholder-shown) {
+      color: $star-ash-gray;
+    }
+  }
+
   &__copy {
     color: $star-text-light;
   }
@@ -1577,11 +1607,31 @@ textarea {
   &__search-bar-button-search {
     background: $star-light-gray;
     color: $neutral-white;
+
+    &:hover {
+      background: $star-horizon-gold;
+      color: $neutral-black;
+    }
+
+    &:active {
+      background: $neutral-black;
+      color: $star-deep-topaz;
+    }
   }
 
   &__search-bar-button-clear {
     background: $neutral-black;
     color: $neutral-white;
+
+    &:hover {
+      background: $star-horizon-gold;
+      color: $neutral-black;
+    }
+
+    &:active {
+      background: $neutral-black;
+      color: $star-deep-topaz;
+    }
   }
 
   &__media-column--to_watch {
@@ -1707,11 +1757,11 @@ textarea {
     cursor: url(../../assets/cursors/cursor-pointer-st.svg), pointer;
 
     &:hover {
-      color: $star-horizon-gold;
+      color: $neutral-white;
     }
 
     &:active {
-      color: $star-sunray-gold;
+      color: $star-deep-topaz;
     }
   }
 
@@ -1723,7 +1773,11 @@ textarea {
   &__input {
     border: .125rem solid $star-text-light;
     background: $star-medium-gray;
-    color: $star-text-dark;
+    color: $neutral-white;
+
+    &::placeholder {
+      color: $star-ash-gray;
+    }
   }
 
   &__button--save {
@@ -1781,6 +1835,16 @@ textarea {
 .voice-search-streamboard__voice-button {
   background: $star-silver-gray;
   color: $neutral-white;
+
+  &:hover {
+    background: $star-horizon-gold;
+    color: $neutral-black;
+  }
+
+  &:active {
+    background: $neutral-black;
+    color: $star-deep-topaz;
+  }
 }
 
   // NextStream Bot
