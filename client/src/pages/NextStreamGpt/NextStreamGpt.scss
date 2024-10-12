@@ -414,10 +414,10 @@
       text-shadow: $shadow-primary;
       background: linear-gradient(
         145deg,
-        rgba(255, 255, 255, .3),
-        rgba(255, 255, 255, .15)
+        rgba($primary-button-blue, .3),
+        rgba($primary-dark-blue, .15)
       );
-      border: .0625rem solid rgba(255, 255, 255, .2);
+      border: .0625rem solid rgba($primary-button-blue, .2);
       box-shadow: 0 .25rem .75rem rgba($neutral-black, .1);
     }
 

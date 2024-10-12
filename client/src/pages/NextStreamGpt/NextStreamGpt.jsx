@@ -19,7 +19,7 @@ import './NextStreamGpt.scss';
 
 const NextStreamGpt = () => {
   const { userId, isAuthenticated } = useContext(AuthContext);
-  const [results, setResults] = useState(null);
+  const [results, setResults] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [trailerUrl, setTrailerUrl] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -867,8 +867,8 @@ const NextStreamGpt = () => {
         </div>
       </div>
 
-      <div className='nextstream-gpt__results-section'>
-        {results !== null && results.length > 0 ? (
+      {results && results.length > 0 && (
+        <div className='nextstream-gpt__results-section'>
           <div className='nextstream-gpt__carousel'>
             {showLeftArrowResults && (
               <FontAwesomeIcon
@@ -880,17 +880,15 @@ const NextStreamGpt = () => {
             <div
               className='nextstream-gpt__scroll-container-results'
               ref={searchScrollRef}>
-              {results.map(
+              {[...new Map(results.map((item) => [item.id, item])).values()].map(
                 (result) =>
                   result && (
                     <div
                       key={result.id}
                       className='nextstream-gpt__card nextstream-gpt__card--results'>
                       <h3 className='nextstream-gpt__title--results'>
-                        {result.title || result.name || 'Unknown Title'}{' '}
-                        {/* Fallback for missing titles */}
+                        {result.title || result.name || 'Unknown Title'}
                       </h3>
-
                       <div className='nextstream-gpt__poster-container-results'>
                         <button>
                           <img
@@ -899,15 +897,11 @@ const NextStreamGpt = () => {
                             className='nextstream-gpt__poster nextstream-gpt__poster--results'
                           />
                         </button>
-
                         {result.media_type !== 'person' && (
                           <div className='nextstream-gpt__rating-container'>
-                            <UserRating
-                              rating={(result.vote_average || 0) * 10}
-                            />
+                            <UserRating rating={(result.vote_average || 0) * 10} />
                           </div>
                         )}
-
                         {result.media_type !== 'person' && (
                           <div
                             className='nextstream-gpt__play-overlay'
@@ -923,7 +917,6 @@ const NextStreamGpt = () => {
                           </div>
                         )}
                       </div>
-
                       <div className='nextstream-gpt__icons-row'>
                         {result.media_type === 'person' ? (
                           <>
@@ -956,9 +949,7 @@ const NextStreamGpt = () => {
                                 }
                                 className='nextstream-gpt__media-icon'
                                 title={
-                                  result.media_type === 'tv'
-                                    ? 'TV Show'
-                                    : 'Movie'
+                                  result.media_type === 'tv' ? 'TV Show' : 'Movie'
                                 }
                               />
                             </Link>
@@ -971,43 +962,43 @@ const NextStreamGpt = () => {
                               />
                             </Link>
 
-                          <button>
-                            <FontAwesomeIcon
-                              icon={faCalendarPlus}
-                              title='Add to Calendar'
-                              className='nextstream-gpt__cal-icon'
-                              onClick={() =>
-                                handleAddToCalendar(
-                                  result.title,
-                                  result.media_type,
-                                  result.id
-                                )
-                              }
-                            />
-                          </button>
+                            <button>
+                              <FontAwesomeIcon
+                                icon={faCalendarPlus}
+                                title='Add to Calendar'
+                                className='nextstream-gpt__cal-icon'
+                                onClick={() =>
+                                  handleAddToCalendar(
+                                    result.title,
+                                    result.media_type,
+                                    result.id
+                                  )
+                                }
+                              />
+                            </button>
 
                             {likedStatus[result.id] === 1 ? (
-                            <button>
-                              <FontAwesomeIcon
-                                icon={faThumbsUp}
-                                title='Like Title'
-                                className='nextstream-gpt__like-icon active'
-                                onClick={() =>
-                                  handleDislike(result.id, result.media_type)
-                                }
-                              />
-                            </button>
+                              <button>
+                                <FontAwesomeIcon
+                                  icon={faThumbsUp}
+                                  title='Like Title'
+                                  className='nextstream-gpt__like-icon active'
+                                  onClick={() =>
+                                    handleDislike(result.id, result.media_type)
+                                  }
+                                />
+                              </button>
                             ) : likedStatus[result.id] === 0 ? (
-                            <button>
-                              <FontAwesomeIcon
-                                icon={faThumbsDown}
-                                title='Dislike Title'
-                                className='nextstream-gpt__dislike-icon active'
-                                onClick={() =>
-                                  handleLike(result.id, result.media_type)
-                                }
-                              />
-                            </button>
+                              <button>
+                                <FontAwesomeIcon
+                                  icon={faThumbsDown}
+                                  title='Dislike Title'
+                                  className='nextstream-gpt__dislike-icon active'
+                                  onClick={() =>
+                                    handleLike(result.id, result.media_type)
+                                  }
+                                />
+                              </button>
                             ) : (
                               <>
                                 <button>
@@ -1063,8 +1054,8 @@ const NextStreamGpt = () => {
               </button>
             )}
           </div>
-        ) : null}
-      </div>
+        </div>
+      )}
 
       {showLoader && (
         <div className='nextstream-gpt__loading-container'>

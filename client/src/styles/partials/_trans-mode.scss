@@ -1205,6 +1205,11 @@
       background: $trans-gradient-electricblue-candypink;
     }
 
+    &__message--bot {
+      color: $neutral-white;
+      background: $trans-deep-blue;
+    }
+
     &__chat-container {
       background-color: $primary-dark-blue;
     }

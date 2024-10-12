@@ -589,6 +589,11 @@
       color: $neutral-white;
     }
 
+    &__message--bot {
+      color: $neutral-white;
+      background: $neutral-black;
+    }
+
     &__disclaimer-note {
       color: $primary-very-light-blue;
     }
