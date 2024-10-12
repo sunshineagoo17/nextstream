@@ -182,6 +182,23 @@
   }
 
   // Calendar Page
+  .calendar {
+    &__clear-icon {
+      &:hover {
+        color: $neutral-black;
+      }
+
+      &:active {
+        background: $primary-very-light-blue;
+        color: $primary-dark-blue;
+      }
+    }
+
+    &__event-icon {
+      color: $neutral-black !important;
+    }
+  }
+
   .share-event__title.neumorphic-text {
     color: $neutral-white;
   }
@@ -189,17 +206,6 @@
   .modal {
     .modal-input {
       cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
-    }
-  }
-
-  .calendar__clear-icon {
-    &:hover {
-      color: $neutral-black;
-    }
-
-    &:active {
-      background: $primary-very-light-blue;
-      color: $primary-dark-blue;
     }
   }
 

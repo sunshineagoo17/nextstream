@@ -4053,6 +4053,15 @@
       background: $cloud-frosted-light-blue;
     }
 
+    &__event-time,
+    &__event-title {
+      color: $neutral-black;
+    }
+
+    &__event-icon {
+      color: $cloud-very-deep-gray !important;
+    }
+
     &__overlay {
       background: rgba($cloud-clear-blue, .8);
       z-index: 500;

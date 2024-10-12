@@ -931,6 +931,7 @@
     display: none;
 
     @include tablet {
+      color: $primary-medium-blue !important;
       display: block;
     }
   }

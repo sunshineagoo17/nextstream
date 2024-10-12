@@ -4533,10 +4533,10 @@ textarea {
 
   // Calendar Page
   .calendar {
-    background: $cloud-frosted-light-gray;
+    background: $star-frosted-black;
 
     &__header {
-      background: $cloud-frosted-light-blue;
+      background: $star-frosted-dark-gray;
     }
 
     &__overlay {
@@ -4562,56 +4562,78 @@ textarea {
   
       &:hover {
         background: $neutral-black;
-        color: $neutral-white;
+        color: $star-deep-topaz;
       }
   
       &:active {
-        background: $primary-very-light-blue;
-        color: $primary-dark-blue;
+        background: $star-deep-topaz;
+        color: $neutral-black;
       }
     }
 
     &__toggle-sidebar-btn {
-      background: $frosted-glass;
+      background: $neutral-white;
       color: $neutral-black;
 
       &:hover {
-        background: $cloud-stormy-blue;
-        color: $neutral-white;
+        background: $star-deep-topaz;
+        color: $neutral-black;
       }
 
       &:active {
-        background: $neutral-white;
-        color: $cloud-stormy-blue;
+        background: $neutral-black;
+        color: $star-deep-topaz;
       }
     }
 
+    &__event-content {
+      background: $neutral-black;
+    }
+
+    &__event-title,
+    &__event-time {
+      color: $neutral-white;
+    }
+
+    &__event-icon {
+      color: $neutral-white !important;
+    }
+
     &__search-bar {
-      color: $neutral-dark-grey;
-      background: $neutral-white;
+      color: $neutral-white;
+      background: $neutral-black;
       border: .125rem solid $cloud-frosted-light-gray;
 
       &::placeholder {
-        color: $cloud-dark-gray;
+        color: $star-ash-gray;
       }
 
       &:active,
       &:focus {
-        color: $neutral-black;
-        border: .125rem solid $cloud-medium-gray;
+        color: $star-golden-hour;
+        background: $star-black;
+        border: .125rem solid $star-starlight-yellow;
       }
 
       &:-ms-input-placeholder {
-        color: $neutral-black;
+        color: $star-ash-gray;
       }
   
       &::-ms-input-placeholder {
-        color: $neutral-black;
+        color: $star-ash-gray;
       }  
     }
 
     &__search-icon {
-      color: $neutral-black;
+      color: $star-deep-topaz;
+
+      &:hover {
+        color: $neutral-white;
+      }
+
+      &:active {
+        color: $star-frosted-lemon;
+      }
     }
 
     &__search-container {
@@ -4620,18 +4642,18 @@ textarea {
     }
 
     &__delete-events-btn {
-      background: $frosted-glass;
+      background: $neutral-white;
       color: $neutral-black;
 
       &:hover {
-        background: $primary-dark-blue; 
-        color: $neutral-white;
+        background: $star-deep-topaz; 
+        color: $neutral-black;
         border: .125rem solid $neutral-white;
       }
 
       &:active {
-        background: $neutral-white;
-        color: $primary-dark-blue;
+        background: $neutral-black;
+        color: $star-deep-topaz;
         border: none;
       }
     }
@@ -4698,7 +4720,7 @@ textarea {
     }
 
     &__hero {
-      background: $star-neumorph-base;
+      background: $star-dark-neumorph-base;
     }
 
     &__hero-text {
@@ -4717,7 +4739,8 @@ textarea {
     .fc-toolbar-title {
       border: .125rem solid $star-medium-gray;
       box-shadow: $star-shadow-secondary;
-      color: $star-text-light;
+      color: $neutral-white;
+      background: $neutral-black;
     }
   }
 
