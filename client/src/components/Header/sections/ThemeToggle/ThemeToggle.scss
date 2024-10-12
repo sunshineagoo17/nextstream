@@ -29,12 +29,12 @@
   }
 
   .sun {
-    color: $neutral-white;
+    color: #FFC107;
     padding: .6rem;
-    background: $primary-light-blue;
+    background: $primary-pale-blue;
     box-shadow: $shadow-secondary;
     border-radius: .5rem;
-    border: .125rem solid $neutral-white;
+    border: .125rem solid #fee100;
     transition: background .5s, clip-path .5s ease-in-out;
 
     &:hover {
@@ -195,7 +195,53 @@
       animation: none;
     }
   }
-  
+
+  // Snowflake Styling
+  .snowflake {
+    color: $primary-very-light-blue;
+    padding: 0.45rem;
+    background: rgba(255, 255, 255, 0.2); 
+    border-radius: 50%;
+    backdrop-filter: blur(10px); 
+    border: .125rem solid rgba(255, 255, 255, 0.3); 
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37); 
+    transition: background 0.4s, transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+
+    &:hover {
+      background: $primary-very-light-blue;
+      color: $neutral-white;
+      transform: scale(1.2) rotate(10deg); 
+      box-shadow: 0 0 1.5rem rgba(200, 230, 255, 0.7), 0 0 2.5rem rgba(173, 216, 230, 0.5);
+      animation: snowflake-hover-glow 2.5s infinite ease-in-out, snowflake-movement 4s ease-in-out infinite;
+    }
+
+    &:active {
+      background: $neutral-white;
+      color: $primary-very-light-blue;
+      transform: scale(0.95);
+      box-shadow: inset 0 0 0.75rem rgba(255, 255, 255, 0.3), inset 0 0 1.5rem rgba(173, 216, 230, 0.5);
+    }
+  }
+
+  @keyframes snowflake-hover-glow {
+    0%, 100% {
+      box-shadow: 0 0 1.5rem rgba(200, 230, 255, 0.7), 0 0 2.5rem rgba(173, 216, 230, 0.5);
+    }
+    50% {
+      box-shadow: 0 0 2.5rem rgba(255, 255, 255, 0.8), 0 0 3.5rem rgba(173, 216, 230, 0.7);
+    }
+  }
+
+
+  @keyframes snowflake-movement {
+    0%, 100% {
+      transform: scale(1.2) rotate(10deg) translateY(0);
+    }
+    50% {
+      transform: scale(1.2) rotate(-10deg) translateY(-8px);
+    }
+  }
+
   .light-effect {
     @include block-item(0, 0);
     position: absolute;

@@ -465,3 +465,42 @@ $star-shadow-secondary: 3px 3px 6px rgba(0, 0, 0, 0.25), -3px -3px 6px rgba(255,
 $star-text-dark: #E0E0E0;
 $star-text-gray: #B0B0B0;
 $star-text-light: #FFFFFF;
+
+// Sun Mode Colors
+// Whites and Grays
+$sun-white: #FFFFFF;
+$sun-silver: #ECECEC;
+$sun-light-gray: #F5F5F5;
+$sun-ash-gray: #C4C4C6; 
+
+// Warm Accents (Yellows and Oranges)
+$sun-yellow: #FFE066;
+$sun-golden-hour: #FFD700;
+$sun-sunrise-orange: #FFB74D;
+$sun-soft-lemon: #FFFACD;
+$sun-light-gold: #FFF8E1;
+
+// Frosted Glass and Soft Effects
+$sun-frosted-white: rgba(255, 255, 255, 0.8);
+$sun-frosted-silver: rgba(230, 230, 230, 0.6);
+$sun-frosted-gold: rgba(255, 223, 186, 0.5);
+
+// Neumorphic Colors
+$sun-neumorph-shadow-light: rgba(240, 240, 240, 0.5);
+$sun-neumorph-highlight-light: rgba(255, 255, 255, 0.9);
+$sun-neumorph-base: #FFF8E1;
+$sun-deep-shadow: rgba(200, 200, 200, 0.3);
+
+// Gradients
+$sun-gradient-yellow: linear-gradient(135deg, #FFE066, #FFD700);
+$sun-gradient-sunrise: linear-gradient(135deg, #FFF8E1, #FFB74D);
+$sun-gradient-lemon: linear-gradient(135deg, #FFFFFF, #FFFACD);
+
+// Shadows for Contrast
+$sun-shadow-primary: 5px 5px 10px rgba(200, 200, 200, 0.4), -5px -5px 10px rgba(255, 255, 255, 0.7);
+$sun-shadow-secondary: 3px 3px 6px rgba(180, 180, 180, 0.2), -3px -3px 6px rgba(255, 255, 255, 0.5);
+
+// Text Colors
+$sun-text-dark: #404040; 
+$sun-text-light: #FFFFFF;
+$sun-text-yellow: #FFD700;

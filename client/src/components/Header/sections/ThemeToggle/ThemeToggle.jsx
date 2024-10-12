@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMoon, faSun, faRainbow, faCloud, faStar } from '@fortawesome/free-solid-svg-icons';
+import { faMoon, faSun, faRainbow, faCloud, faStar, faSnowflake } from '@fortawesome/free-solid-svg-icons';
 import './ThemeToggle.scss';
 
 const ThemeToggle = () => {
-  const [theme, setTheme] = useState('light');
+  const [theme, setTheme] = useState('snow-mode'); // Default to snow-mode (formerly light)
 
-  // Check for saved theme in localStorage or default to 'light'
+  // Check for saved theme in localStorage or default to 'snow-mode'
   useEffect(() => {
-    const savedTheme = localStorage.getItem('theme') || 'light';
+    const savedTheme = localStorage.getItem('theme') || 'snow-mode';
     document.documentElement.setAttribute('data-theme', savedTheme);
     setTheme(savedTheme);
   }, []);
@@ -17,27 +17,31 @@ const ThemeToggle = () => {
   const toggleTheme = () => {
     let newTheme = '';
 
-    if (theme === 'light') {
-      newTheme = 'dark';
+    if (theme === 'snow-mode') {
+      newTheme = 'sun-mode'; // Switch from snow to sun-mode
+    } else if (theme === 'sun-mode') {
+      newTheme = 'dark'; // Switch from sun-mode to dark
     } else if (theme === 'dark') {
-      newTheme = 'cloud-mode';
+      newTheme = 'cloud-mode'; // Switch from dark to cloud-mode
     } else if (theme === 'cloud-mode') {
-      newTheme = 'trans-mode';
+      newTheme = 'trans-mode'; // Switch from cloud-mode to trans-mode
     } else if (theme === 'trans-mode') {
-      newTheme = 'star-mode';
+      newTheme = 'star-mode'; // Switch from trans-mode to star-mode
     } else {
-      newTheme = 'light'; 
+      newTheme = 'snow-mode'; // Back to snow-mode
     }
 
     document.documentElement.setAttribute('data-theme', newTheme);
     setTheme(newTheme);
-    localStorage.setItem('theme', newTheme); 
+    localStorage.setItem('theme', newTheme);
   };
 
   return (
     <button onClick={toggleTheme} className={`dark-mode-toggle ${theme}`}>
       {/* Icon changes based on current theme */}
-      {theme === 'dark' ? (
+      {theme === 'sun-mode' ? (
+        <FontAwesomeIcon icon={faSun} className="icon sun" />
+      ) : theme === 'dark' ? (
         <FontAwesomeIcon icon={faMoon} className="icon moon" />
       ) : theme === 'trans-mode' ? (
         <FontAwesomeIcon icon={faRainbow} className="icon rainbow" />
@@ -46,7 +50,7 @@ const ThemeToggle = () => {
       ) : theme === 'star-mode' ? (
         <FontAwesomeIcon icon={faStar} className="icon star" />
       ) : (
-        <FontAwesomeIcon icon={faSun} className="icon sun" />
+        <FontAwesomeIcon icon={faSnowflake} className="icon snowflake" />
       )}
       <span className="light-effect"></span>
     </button>
