@@ -1836,6 +1836,11 @@ textarea {
     }
   }
 
+  &__tag-button,
+  &__review-button {
+    border: none;
+  }
+
   &__genre-icon {
     color: $star-silver-gray;
   }
