@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect, useCallback } from 'react';
+import { useContext, useState, useRef, useEffect, useCallback } from 'react';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { getFriends, rejectFriendRequest, fetchSharedCalendarEvents, respondToSharedEvent, fetchPendingCalendarInvitesService, sendFriendRequest, acceptFriendRequest, removeFriend, searchUsers, fetchPendingRequests as fetchPendingRequestsService } from '../../services/friendsService';
 import { fetchMessages, sendMessage, deleteMessage, markAllMessagesAsRead } from '../../services/messageService';
@@ -12,8 +12,6 @@ import io from 'socket.io-client';
 import FriendsVideo from "../../assets/animation/add-friends.webm";
 import VoiceMessageFriends from '../../components/VoiceInteraction/VoiceMessageFriends/VoiceMessageFriends';
 import './FriendsPage.scss';
-
-const socket = io('http://localhost:8080');
 
 const FriendsPage = () => {
   const { isAuthenticated, userId } = useContext(AuthContext);
@@ -30,6 +28,7 @@ const FriendsPage = () => {
   const [sharedCalendarEvents, setSharedCalendarEvents] = useState([]);
   const [showCalendar, setShowCalendar] = useState(false);
   const [calendarKey, setCalendarKey] = useState(0);
+  const socketRef = useRef(null);
 
   const handleShowCalendar = () => {
     setShowCalendar(true);
@@ -57,7 +56,6 @@ const FriendsPage = () => {
     }
   }, [userId]);
 
-  // Fetch friends list
   const fetchFriends = useCallback(async () => {
     try {
       const friendsData = await getFriends();
@@ -100,7 +98,6 @@ const FriendsPage = () => {
     }
   }, [friends, userId]);
 
-  // Fetch pending friend requests
   const fetchPendingRequests = useCallback(async () => {
     try {
       const pendingData = await fetchPendingRequestsService();
@@ -110,7 +107,6 @@ const FriendsPage = () => {
     }
   }, []);
 
-  // Fetch pending calendar invites
   const fetchPendingCalendarInvites = useCallback(async () => {
     try {
       const invites = await fetchPendingCalendarInvitesService(userId);
@@ -120,7 +116,6 @@ const FriendsPage = () => {
     }
   }, [userId]);
 
-  // Handle accept or decline calendar invite (for both pending and shared events)
   const handleRespondToInvite = async (inviteId, isAccepted) => {
     try {
       await respondToSharedEvent(userId, inviteId, isAccepted);
@@ -133,7 +128,7 @@ const FriendsPage = () => {
         const updatedEvents = await fetchSharedCalendarEvents(userId);
         setSharedCalendarEvents(updatedEvents);
 
-        socket.emit('calendar_event_updated', {
+        socketRef.current.emit('calendar_event_updated', {
           userId,
           inviteId,
         });
@@ -142,7 +137,7 @@ const FriendsPage = () => {
           prevEvents.filter((event) => event.inviteId !== inviteId)
         );
 
-        socket.emit('calendar_event_removed', {
+        socketRef.current.emit('calendar_event_updated', {
           userId,
           inviteId,
         });
@@ -189,50 +184,54 @@ const FriendsPage = () => {
     getEvents,
   ]);
 
-  // Manage socket connections and cleanup
   useEffect(() => {
     if (userId) {
-      socket.emit('join_room', userId);
-
-      socket.on('new_calendar_invite', (newInvite) => {
-        setPendingCalendarInvites((prev) => [...prev, newInvite]);
-      });
-
-      socket.on('calendar_event_updated', (data) => {
-        if (data.userId === userId) {
-          setSharedCalendarEvents((prevEvents) => [...prevEvents, data.event]);
+      if (!socketRef.current) {
+        socketRef.current = io('http://localhost:8080');
+        socketRef.current.emit('join_room', userId);
+      }
+  
+      const handleReceiveMessage = (data) => {
+        setMessages((prevMessages) => [...prevMessages, { ...data, is_read: false }]);
+      };
+  
+      const handleTyping = (data) => {
+        if (data.friendId === userId) {
+          setTyping(true);
         }
-      });
-
-      socket.on('calendar_event_removed', (data) => {
-        if (data.userId === userId) {
-          setSharedCalendarEvents((prevEvents) =>
-            prevEvents.filter((event) => event.inviteId !== data.inviteId)
-          );
+      };
+  
+      const handleStopTyping = (data) => {
+        if (data.friendId === userId) {
+          setTyping(false);
         }
-      });
+      };
+  
+      socketRef.current.on('receive_message', handleReceiveMessage);
+      socketRef.current.on('typing', handleTyping);
+      socketRef.current.on('stop_typing', handleStopTyping);
 
       return () => {
-        socket.off('new_calendar_invite');
-        socket.off('calendar_event_updated');
-        socket.off('calendar_event_removed');
-        socket.emit('leave_room', userId);
+        if (socketRef.current) {
+          socketRef.current.off('receive_message', handleReceiveMessage);
+          socketRef.current.off('typing', handleTyping);
+          socketRef.current.off('stop_typing', handleStopTyping);
+        }
       };
     }
   }, [userId]);
 
-  // Typing indicator handler with timeout
   const handleTyping = () => {
     if (!typing) {
       setTyping(true);
-      socket.emit('typing', { userId, friendId: selectedFriend?.id });
+      socketRef.current.emit('typing', { userId, friendId: selectedFriend?.id });
     }
-
+  
     const timeoutId = setTimeout(() => {
       setTyping(false);
-      socket.emit('stop_typing', { userId, friendId: selectedFriend?.id });
+      socketRef.current.emit('stop_typing', { userId, friendId: selectedFriend?.id });
     }, 3000);
-
+  
     return () => clearTimeout(timeoutId);
   };
 
@@ -244,27 +243,25 @@ const FriendsPage = () => {
     }
   };
 
-  // Typing indicator listener
   useEffect(() => {
-    socket.on('typing', (data) => {
+    socketRef.current.on('typing', (data) => {
       if (data.friendId === userId) {
         setTyping(true);
       }
     });
-
-    socket.on('stop_typing', (data) => {
+  
+    socketRef.current.on('stop_typing', (data) => {
       if (data.friendId === userId) {
         setTyping(false);
       }
     });
-
+  
     return () => {
-      socket.off('typing');
-      socket.off('stop_typing');
+      socketRef.current.off('typing');
+      socketRef.current.off('stop_typing');
     };
   }, [userId]);
 
-  // Select a friend and fetch messages
   const handleSelectFriend = async (friend) => {
     setSelectedFriend(friend);
     setNewMessage('');
@@ -326,23 +323,54 @@ const FriendsPage = () => {
   }, [selectedFriend]);
 
   useEffect(() => {
-    socket.on('receive_message', (data) => {
-      const newMessage = {
-        ...data,
-        is_read: false,
+    if (userId) {
+      if (!socketRef.current) {
+        socketRef.current = io('http://localhost:8080');
+        socketRef.current.emit('join_room', userId);
+      }
+  
+      const handleReceiveMessage = (data) => {
+        setMessages((prevMessages) => [...prevMessages, { ...data, is_read: false }]);
       };
-      console.log('New message received:', newMessage);
-      setMessages((prevMessages) => [...prevMessages, newMessage]);
-    });
+  
+      const handleTyping = (data) => {
+        if (data.friendId === userId) {
+          setTyping(true);
+        }
+      };
+  
+      const handleStopTyping = (data) => {
+        if (data.friendId === userId) {
+          setTyping(false);
+        }
+      };
+  
+      socketRef.current.on('receive_message', handleReceiveMessage);
+      socketRef.current.on('typing', handleTyping);
+      socketRef.current.on('stop_typing', handleStopTyping);
+  
+      return () => {
+        if (socketRef.current) {
+          socketRef.current.off('receive_message', handleReceiveMessage);
+          socketRef.current.off('typing', handleTyping);
+          socketRef.current.off('stop_typing', handleStopTyping);
+        }
+      };
+    }
+  }, [userId]);
 
-    return () => {
-      socket.off('receive_message');
-    };
-  }, []);
+  useEffect(() => {
+    if (userId && socketRef.current) {
+      return () => {
+        socketRef.current.emit('leave_room', userId);
+        socketRef.current.disconnect();  
+      };
+    }
+  }, [userId]);  
 
   const handleSendMessage = async (messageText = newMessage) => {
-    const textToSend = typeof messageText === 'string' ? messageText.trim() : '';  
-  
+    const textToSend = messageText.trim();
+
     if (textToSend && selectedFriend?.id) {
       const newMessageObj = {
         senderId: userId,
@@ -351,20 +379,18 @@ const FriendsPage = () => {
         timestamp: new Date().toISOString(),
         is_read: false,
       };
-  
-      setMessages((prevMessages) => [...prevMessages, newMessageObj]);
-  
-      try {
-        socket.emit('send_message', newMessageObj); 
-  
-        await sendMessage(selectedFriend.id, textToSend);
 
+      setMessages((prevMessages) => [...prevMessages, newMessageObj]);
+
+      try {
+        socketRef.current.emit('send_message', newMessageObj); 
+        await sendMessage(selectedFriend.id, textToSend);
         setNewMessage('');
       } catch (error) {
         console.log('Error sending message:', error);
       }
     }
-  };  
+  };
   
   const handleDeleteMessage = async (messageId) => {
     try {
@@ -386,7 +412,6 @@ const FriendsPage = () => {
     setTyping(false);
   };
 
-  // Search users to send friend requests
   const handleSearch = async () => {
     if (!searchTerm.trim()) {
       console.log('Please enter a search term.');
@@ -412,7 +437,6 @@ const FriendsPage = () => {
     }
   };
 
-  // Send a friend request
   const handleSendFriendRequest = async (friendId) => {
     const isAlreadyFriend = friends.some((friend) => friend.id === friendId);
 
@@ -441,7 +465,6 @@ const FriendsPage = () => {
     }
   };
 
-  // Decline a friend request
   const handleDeclineFriendRequest = async (friendId) => {
     try {
       await rejectFriendRequest(friendId);
@@ -481,7 +504,6 @@ const FriendsPage = () => {
     }
   }, [selectedFriend]);
 
-  // Accept a friend request
   const handleAcceptFriendRequest = async (friendId) => {
     try {
       await acceptFriendRequest(friendId);
@@ -499,7 +521,6 @@ const FriendsPage = () => {
     }
   };
 
-  // Remove a friend
   const handleRemoveFriend = async (friendId) => {
     try {
       await removeFriend(friendId);
