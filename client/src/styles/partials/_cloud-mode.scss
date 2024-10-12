@@ -300,14 +300,24 @@
       background: linear-gradient(145deg, $cloud-medium-gray, darken($cloud-dark-gray, 5%));
     }
 
+    &__pending-calendar__pending-item {
+      background: $frosted-glass;
+    }
+
+    &__calendar-info {
+      color: $neutral-white !important;
+      p, strong {
+        color: $neutral-white !important;
+      }
+    }
+
     &__copy {
       color: $neutral-black;
     }
 
-    &__calendar-info {
-      p {
-        color: $neutral-white;
-      }
+    &__pending-count {
+      background: $frosted-glass;
+      color: $neutral-black;
     }
 
     &__video-container {
@@ -439,6 +449,7 @@
         color: $neutral-black;
       }
     }
+
     &__message { 
       &.me {
         &.unread {
@@ -533,6 +544,10 @@
       background: $cloud-frosted-white;
     }
 
+    &__unread-msg-count {
+      color: $neutral-black;
+    }
+    
     &__no-msgs,
     &__chat-header-title {
       color: $neutral-black;
@@ -3679,6 +3694,16 @@
       }
     }
 
+    &__delete-invite {
+      background: $neutral-black !important;
+      color: $neutral-white !important;
+    }
+
+    &__accept-invite {
+      background: $neutral-white !important;
+      color: $neutral-black !important;
+    }
+
     &__box {
       background: $cloud-overcast-blue;
       border: .1875rem solid $neutral-white;
@@ -3737,6 +3762,43 @@
     &__checkbox--inactive {
       background: $cloud-stormy-blue;
       color: $cloud-light-blue;
+    }
+  }
+
+  .friends-page__calendar-actions {
+    button {
+      &.friends-page__accept-invite {
+        background: $neutral-white;
+        color: $neutral-black;
+        box-shadow: $shadow-senary;
+        
+        &:hover {
+          background: $feedback-mint-light-green;
+          color: $pastel-dark-green;
+        }
+
+        &:active {
+          background: $feedback-very-light-mint-green;
+          color: $pastel-dark-green;
+          box-shadow: none;
+        }
+      }
+
+      &.friends-page__delete-invite {
+        background: $neutral-black;
+        color: $neutral-white;
+
+        &:hover {
+          color: $pastel-dark-pink;
+          background: $feedback-error-light-peach;
+        }
+
+        &:active {
+          background: $pastel-pink;
+          color: $pastel-dark-pink;
+          box-shadow: none;
+        }
+      }
     }
   }
 

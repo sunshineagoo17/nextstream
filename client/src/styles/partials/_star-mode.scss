@@ -499,6 +499,27 @@ textarea {
     }
   }
 
+  &__delete-invite {
+    background: $star-dark-gray !important;
+    color: $star-text-light !important;
+    transition: background .3s ease, transform .2s ease;
+
+    &:hover {
+      background: $star-deep-topaz !important;
+      color: $star-text-light !important;
+    }
+  }
+
+  &__accept-invite {
+    background: $star-glowing-amber !important;
+    color: $star-black !important;
+
+    &:hover {
+      background: $star-bright-citrine !important;
+      color: $star-dark-gray !important;
+    }
+  }
+
   &__accept-friend {
     background: $star-glowing-amber;
     color: $star-black;
@@ -529,6 +550,24 @@ textarea {
     &:hover {
       background: $star-bright-citrine;
       color: $star-black;
+    }
+
+    &:focus,
+    &:active {
+      animation: starmodeRippleOut .8s forwards;
+      color: $star-deep-topaz;
+    }
+  }
+
+  @keyframes starmodeRippleOut{
+    0% {
+      box-shadow: 0 0 0 0 rgba(255, 255, 255, .5);
+    }
+    100% {
+      box-shadow: 0 0 .9375rem .3125rem rgba($star-starlight-yellow, .6);
+      color: $star-deep-topaz;
+      background: $neutral-white;
+      border: .125rem solid $star-starlight-yellow;
     }
   }
 
@@ -608,6 +647,22 @@ textarea {
 
   &__shared-calendar {
     background: $star-medium-gray;
+  }
+
+  &__pending-calendar__pending-item {
+    background: $frosted-glass;
+  }
+
+  &__pending-count {
+    background: $frosted-glass;
+    color: $star-deep-topaz;
+  }
+
+  &__calendar-info {
+    color: $neutral-white !important;
+    strong {
+      color: $neutral-white !important;
+    }
   }
 }
 
