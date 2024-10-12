@@ -4250,21 +4250,22 @@ textarea {
   }
 
   &__btn-save-account {
-    background: $star-gradient-iridescent;
+    background: $star-starlight-yellow;
     animation: shimmer .5s linear infinite;
     border: .125rem solid $primary-dark-blue;
   
+    &:focus,
     &:hover {
-      background: $star-gradient-citrine;
+      background: $star-gradient-iridescent;
     }
   
     &:active {
-      background: $star-gradient-muted-gold;
+      background: $neutral-white;
     }
   }
 
   &__btn-save-account-bg {
-    background: $star-gradient-iridescent;
+    background: $star-medium-gray;
   }
 
   &__location-icon {
@@ -4326,14 +4327,13 @@ textarea {
   &__box {
     background: $star-deep-topaz;
     border: .1875rem solid $neutral-white;
-
+  
     &:hover {
-      background-color: $star-soft-daffodil;
-      color: $neutral-black;
+      background: $star-gradient-citrine;
       border: .1875rem solid $star-glowing-amber;
     }
   }
-
+  
   &__delete-account {
     background: $star-iridescent-gold;
     color: $star-text-light;
@@ -4342,13 +4342,13 @@ textarea {
     &:hover {
       backdrop-filter: blur(.25rem);
       box-shadow: 0 0 .625rem rgba(255, 0, 0, .5);
-      background: $star-soft-daffodil;
-      border: .1875rem solid $star-deep-topaz;
+      background: $star-gradient-citrine;
+      border: .1875rem solid $star-silver-gray;
     }
 
     &:active {
-      background-color: $star-deep-topaz;
-      border-color: $star-deep-topaz;
+      background-color: lighten($star-glowing-amber, 10%);
+      border: .1875rem solid $star-ash-gray;
       box-shadow: 0 0 .625rem rgba(255, 0, 0, .3);
     }
   }
@@ -4367,7 +4367,7 @@ textarea {
     border: .1875rem solid $neutral-white;
 
     &:hover {
-      background-color: $star-soft-daffodil;
+      background: $star-gradient-citrine;
       border: .1875rem solid $star-glowing-amber;
       color: $neutral-black;
     }
