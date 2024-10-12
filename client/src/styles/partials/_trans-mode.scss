@@ -2060,8 +2060,26 @@
     }
 
     &__dropdown {
+      @include block-item(13.9688rem, 3.5625rem);
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: 1rem;
       background: $trans-electric-blue;
+      border-radius: .5rem;
       color: $trans-pastel-pink;
+      padding-left: 1rem;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23E0E0E0' width='24px' height='24px'><path d='M12 15.5c-.3 0-.5-.1-.7-.3l-5-5c-.4-.4-.4-1 0-1.4s1-.4 1.4 0L12 13.8l4.3-4.3c.4-.4 1-.4 1.4 0s.4 1 0 1.4l-5 5c-.2.2-.4.3-.7.3z'/></svg>");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      background-size: 1.125rem 1.125rem;
+    
+      &:focus {
+        background: $trans-electric-blue;
+      }
     }
 
     &__btn-save-account {

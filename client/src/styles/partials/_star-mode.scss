@@ -4057,293 +4057,353 @@ textarea {
   
   // Profile
   .profile-img {
-    background: $cloud-frosted-dark-gray;
+    box-shadow: $star-shadow-primary;  
+    border: .25rem solid $star-light-gray; 
+    background-color: $star-black;
+    transition: all 0.5s ease-in-out; 
+    position: relative;
+  
+    &::before {
+      background: none;
+    }
+  
+    &:hover {
+      background: $star-deep-topaz;
+      border: .25rem solid $star-frosted-lemon;
+      transform: scale(1.05); 
+      box-shadow: 0 0 15px $star-frosted-gold, 0 0 30px $star-horizon-gold; 
+  
+      transition: all 0.5s ease-in-out; 
 
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: inherit;
+        border: .25rem solid rgba($star-frosted-lemon, 0.5);
+        box-shadow: 0 0 20px rgba($star-frosted-lemon, 0.7);
+        pointer-events: none; 
+        transition: all 0.5s ease-in-out;
+      }
+    }
+  
     &__username,
     &__status {
-      color: $neutral-black;
+      color: $star-text-light;
     }
 
     &__button {
-      background: $neutral-white;
-      color: $cloud-overcast-blue;
+      background: $star-deep-topaz;
+      color: $neutral-black;
+      border: none;
       transition: background .3s ease, color .3s ease, transform .3s ease; 
     
       &:hover {
-        color: $neutral-white;
-        background: $cloud-dawn-blue;
+        color: $star-honey-glow;
+        background: $star-black;
         transform: scale(1.05);
       }
     
       &:active {
-        color: $cloud-stormy-blue;
+        color: $neutral-black;
         background: $neutral-white;
         transform: scale(.95); 
       }
     }    
   }
+
+.profile {
+  background: $star-black;
+
+  &__main {
+    background: $star-frosted-black;
+    border: none;
+  }
+
+  &__details-header,
+  &__password-header,
+  &__subscription-header,
+  &__notifications-header,
+  &__region-header {
+    background: $neutral-black;
+    color: $neutral-white;
+    border: .125rem solid $star-medium-gray;
+  }
+
+  &__content-subscription-container,
+  &__content-details,
+  &__content-password,
+  &__content-notifications,
+  &__content-region {
+    background: $star-neumorph-base;
+    border: .125rem solid $star-medium-gray;
+  }
+
+  &__title {
+    color: $neutral-white;
+  }
+
+  &__region-title {
+    color: $star-text-light;
+  }
+
+  &__dropdown {
+    @include block-item(13.9688rem, 3.5625rem);
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    font-size: 1rem;
+    background: $star-medium-gray;
+    border: .125rem solid $star-light-gray;
+    border-radius: .5rem;
+    box-shadow: $star-shadow-primary;
+    color: $star-text-light;
+    padding-left: 1rem;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23E0E0E0' width='24px' height='24px'><path d='M12 15.5c-.3 0-.5-.1-.7-.3l-5-5c-.4-.4-.4-1 0-1.4s1-.4 1.4 0L12 13.8l4.3-4.3c.4-.4 1-.4 1.4 0s.4 1 0 1.4l-5 5c-.2.2-.4.3-.7.3z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1.125rem 1.125rem;
   
-  .profile {
-    background: $cloud-frosted-white;
-
-    &__main {
-      background: $frosted-glass;
+    &:focus {
+      background-color: $star-dark-gray;
     }
+  }
 
-    &__title {
-      color: $cloud-deep-gray;
-    }
+  &__input {
+    border: .125rem solid $star-light-gray;
+    box-shadow: none;
 
-    &__region-title {
-      color: $neutral-black;
-    }
+    &:focus,
+    &:not(:placeholder-shown) {
+      background-color: $star-charcoal;
+      color: $neutral-white;
+      border-color: $star-ash-gray;
+      padding-left: .85rem;
+      font-size: 1rem;
 
-    &__dropdown {
-      border: .125rem solid $cloud-medium-gray;
-      color: $neutral-black;
-    }
-
-    &__input {
-      border: .125rem solid $cloud-light-gray;
-      box-shadow: none;
-
-      &:focus,
-      &:not(:placeholder-shown) {
-        background-color: $cloud-pale-gray;
-        color: $neutral-black;
-        border-color: $cloud-deep-gray;
-        padding-left: .85rem;
+      & + .profile__label {
+        top: -.85rem;
         font-size: 1rem;
-  
-        & + .profile__label {
-          top: -.85rem;
-          font-size: 1rem;
-          background-color: $cloud-light-gray;
-          border: .0625rem solid $cloud-light-gray;
-          color: $neutral-black;
-        }
-  
-        &::placeholder {
-          color: $cloud-stormy-blue;
-          font-size: .85rem;
-        }
-      }
-    }
-
-    &__notification-text {
-      color: $neutral-black;
-    }
-
-    &__label {
-      background: $cloud-dark-gray;
-      color: $neutral-white;
-    }
-
-    &__text-wrapper {
-      background: $neutral-white;
-      color: $cloud-very-deep-gray;
-    }
-
-    &__password-toggle-icon {
-      color: $cloud-light-gray;
-      transition: transform .3s ease, background .3s ease, color .3s ease; 
-
-      &:hover {
-        color: $cloud-dawn-blue;
-        transform: scale(1.05); 
+        background-color: $star-ash-gray;
+        border: .0625rem solid $star-ash-gray;
+        color: $neutral-black;
       }
 
-      &:active {
-        color: $cloud-stormy-blue;
-        transform: scale(.95); 
+      &::placeholder {
+        color: $star-sunray-gold;
+        font-size: .85rem;
       }
-    }
-
-    &__notifications-alerts-icon {
-      color: $cloud-dawn-blue;
-      transition: transform .3s ease, background .3s ease, color .3s ease;
-
-      &:hover {
-        background: $cloud-overcast-blue;
-        color: $neutral-white;
-        transform: scale(1.05);
-      }
-
-      &:active {
-        background: $neutral-white;
-        color: $cloud-stormy-blue;
-        transform: scale(.95);
-      }
-    }
-
-    &__btn-save-account {
-      background: linear-gradient(
-        180deg,
-        $cloud-off-white 0%,
-        $cloud-medium-gray 100%
-      );
-      animation: shimmer .5s linear infinite;
-    
-      &:hover {
-        background: linear-gradient(
-          180deg,
-          $cloud-soft-blue 0%,
-          $cloud-dawn-blue 100%
-        );
-      }
-    
-      &:active {
-        background: linear-gradient(
-          180deg,
-          $cloud-clear-blue 0%,
-          $cloud-soft-blue 100%
-        );
-      }
-    }
-    
-    &__btn-save-account-bg {
-      background: linear-gradient(
-        180deg,
-        $cloud-off-white 0%,
-        $cloud-light-blue 100%
-      );
-    }
-    
-    &__location-icon {
-      color: $cloud-dawn-blue;
-      transition: transform .3s ease, background .3s ease, color .3s ease;
-
-      &:hover {
-        cursor: url('../../assets/cursors/cursor-pointer-st.svg'), pointer;
-        background: $cloud-overcast-blue;
-        color: $neutral-white;
-        transform: scale(1.05);
-      }
-
-      &:active {
-        background: $neutral-white;
-        color: $cloud-stormy-blue;
-        transform: scale(.95);
-      }
-    }
-
-    &__details-header,
-    &__password-header,
-    &__subscription-header,
-    &__notifications-header,
-    &__region-header {
-      background: $neutral-white;
-    }
-
-    &__details-content,
-    &__password-content,
-    &__notifications-content,
-    &__subscription-status-wrapper,
-    &__region-content {
-      background: $neutral-white;
     }
   }
 
-  .subscription-status {
-    background: $neutral-white;
+  &__notification-text {
+    color: $star-text-light;
+  }
 
-    &__icon {
-      color: $cloud-dawn-blue;
-      transition: transform .3s ease, background .3s ease, color .3s ease; 
-  
-      &:hover {
-        background: $cloud-overcast-blue;
-        color: $neutral-white;
-        transform: scale(1.05); 
-      }
-  
-      &:active {
-        background: $neutral-white;
-        color: $cloud-stormy-blue;
-        transform: scale(.95); 
-      }
+  &__label {
+    background: $neutral-black;
+    color: $neutral-white;
+  }
+
+  &__text-wrapper {
+    background: $neutral-black;
+    color: $neutral-white;
+    border: .0625rem solid $star-frosted-medium-gray;
+  }
+
+  &__password-toggle-icon {
+    color: $star-medium-gray;
+    transition: transform .3s ease, background .3s ease, color .3s ease; 
+
+    &:hover {
+      color: $star-horizon-gold;
+      transform: scale(1.05); 
     }
 
-    &__box {
-      background: $cloud-overcast-blue;
-      border: .1875rem solid $neutral-white;
-
-      &:hover {
-        background-color: $feedback-very-light-mint-green;
-        border: .1875rem solid $feedback-mint-green;
-      }
-    }
-
-    &__delete-account {
-      background: $cloud-dawn-blue;
-      color: $neutral-black;
-      border: .1875rem solid $neutral-black;
-
-      &:hover {
-        backdrop-filter: blur(.25rem);
-        box-shadow: 0 0 .625rem rgba(255, 0, 0, .5);
-        background: $feedback-error-light-peach;
-        border: .1875rem solid $feedback-error-peach;
-      }
-
-      &:active {
-        background-color: $feedback-error-peach;
-        border-color: $feedback-error-peach;
-        box-shadow: 0 0 .625rem rgba(255, 0, 0, .3);
-      }
-    }
-
-    &__delete-txt {
-      color: $neutral-black;
-    }
-
-    &__title {
-      color: $neutral-black;
-    }
-
-    &__checkbox--active {
-      background: $cloud-overcast-blue;
-      color: $neutral-white;
-      border: .1875rem solid $neutral-white;
-
-      &:hover {
-        background-color: $feedback-very-light-mint-green;
-        border: .1875rem solid $feedback-mint-green;
-        color: $neutral-white;
-      }
-
-      &:active {
-        background-color: lighten($feedback-mint-light-green, 10%);
-        border-color: lighten($feedback-mint-light-green, 10%);
-        color: $cloud-stormy-blue;
-      }
-    }
-
-    &__checkbox--inactive {
-      background: $cloud-stormy-blue;
-      color: $cloud-light-blue;
+    &:active {
+      color: $star-deep-topaz;
+      transform: scale(.95); 
     }
   }
 
-  // Toggle Button Component
-  .toggle-button {
-    &__switch {
+  &__notifications-alerts-icon {
+    color: $star-iridescent-gold;
+    transition: transform .3s ease, background .3s ease, color .3s ease;
+
+    &:hover {
+      background: $star-honey-glow;
+      color: $star-text-light;
+      transform: scale(1.05);
+    }
+
+    &:active {
+      background: $star-light-gray;
+      color: $star-deep-topaz;
+      transform: scale(.95);
+    }
+  }
+
+  &__btn-save-account {
+    background: $star-gradient-iridescent;
+    animation: shimmer .5s linear infinite;
+    border: .125rem solid $primary-dark-blue;
+  
+    &:hover {
+      background: $star-gradient-citrine;
+    }
+  
+    &:active {
+      background: $star-gradient-muted-gold;
+    }
+  }
+
+  &__btn-save-account-bg {
+    background: $star-gradient-iridescent;
+  }
+
+  &__location-icon {
+    color: $star-iridescent-gold;
+    transition: transform .3s ease, background .3s ease, color .3s ease;
+
+    &:hover {
+      background: $star-honey-glow;
       cursor: url('../../assets/cursors/cursor-pointer-st.svg'), pointer;
-      background-color: $cloud-pale-gray;
-      transition: background-color .3s ease;
-      box-shadow: $shadow-primary;
-  
-      &.checked {
-        background-color: $cloud-dawn-blue;
-      }
-  
-      &::before {
-        content: '';
-        background-color: $cloud-dawn-blue;
-        transition: transform .3s ease;
-      }
+      color: $star-text-light;
+      transform: scale(1.05);
+    }
+
+    &:active {
+      background: $star-light-gray;
+      color: $star-deep-topaz;
+      transform: scale(.95);
     }
   }
+
+  &__details-header,
+  &__password-header,
+  &__subscription-header,
+  &__notifications-header,
+  &__region-header {
+    background: $star-light-gray;
+  }
+
+  &__details-content,
+  &__password-content,
+  &__notifications-content,
+  &__subscription-status-wrapper,
+  &__region-content {
+    background: $star-black;
+    border: .1875rem solid $star-light-gray;
+  }
+}
+
+.subscription-status {
+  background: $star-black;
+
+  &__icon {
+    color: $star-iridescent-gold;
+    transition: transform .3s ease, background .3s ease, color .3s ease;
+
+    &:hover {
+      background: $star-honey-glow;
+      color: $star-text-light;
+      transform: scale(1.05);
+    }
+
+    &:active {
+      background: $star-light-gray;
+      color: $star-deep-topaz;
+      transform: scale(.95);
+    }
+  }
+
+  &__box {
+    background: $star-deep-topaz;
+    border: .1875rem solid $neutral-white;
+
+    &:hover {
+      background-color: $star-soft-daffodil;
+      color: $neutral-black;
+      border: .1875rem solid $star-glowing-amber;
+    }
+  }
+
+  &__delete-account {
+    background: $star-iridescent-gold;
+    color: $star-text-light;
+    border: .1875rem solid $star-light-gray;
+
+    &:hover {
+      backdrop-filter: blur(.25rem);
+      box-shadow: 0 0 .625rem rgba(255, 0, 0, .5);
+      background: $star-soft-daffodil;
+      border: .1875rem solid $star-deep-topaz;
+    }
+
+    &:active {
+      background-color: $star-deep-topaz;
+      border-color: $star-deep-topaz;
+      box-shadow: 0 0 .625rem rgba(255, 0, 0, .3);
+    }
+  }
+
+  &__delete-txt {
+    color: $neutral-black;
+  }
+
+  &__title {
+    color: $star-text-light;
+  }
+
+  &__checkbox--active {
+    background: $star-deep-topaz;
+    color: $neutral-white;
+    border: .1875rem solid $neutral-white;
+
+    &:hover {
+      background-color: $star-soft-daffodil;
+      border: .1875rem solid $star-glowing-amber;
+      color: $neutral-black;
+    }
+
+    &:active {
+      background-color: lighten($star-glowing-amber, 10%);
+      border-color: lighten($star-glowing-amber, 10%);
+      color: $star-sunray-gold;
+    }
+  }
+
+  &__checkbox--inactive {
+    background: $star-sunray-gold;
+    color: $star-frosted-lemon;
+  }
+}
+
+// Toggle Button Component
+.toggle-button {
+  &__switch {
+    cursor: url('../../assets/cursors/cursor-pointer-st.svg'), pointer;
+    background-color: $star-ash-gray;
+    transition: background-color .3s ease;
+    box-shadow: $star-shadow-primary;
+
+    &.checked {
+      background-color: $star-honey-glow;
+    }
+
+    &::before {
+      content: '';
+      background-color: $star-iridescent-gold;
+      transition: transform .3s ease;
+    }
+  }
+}
 
 // Contact Us Modal
 .modal-forgot-password,
