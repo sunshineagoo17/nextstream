@@ -1295,6 +1295,16 @@
       color: $cloud-deep-gray;
     }
 
+    &__message--bot {
+        background: $neutral-white !important;
+        color: $neutral-black;
+        border: .0625rem solid $neutral-white !important;
+    }
+
+    &__bot-message {
+      color: $neutral-black;
+    }
+
     &__message--user {
       color: $neutral-white;
       background: $primary-button-blue;
@@ -1331,11 +1341,11 @@
     }
 
     &__gpt-icon-inline {
-      color: $primary-medium-blue;
+      color: $cloud-dark-gray;
       background: $neutral-white;
 
       &:hover {
-        background: $primary-button-blue;
+        background: $cloud-dark-gray;
         color: $neutral-white;
       }
     }
@@ -1520,6 +1530,25 @@
     .scroll-container-results {
       scrollbar-color: $cloud-dark-gray $cloud-light-gray;
       scrollbar-width: thin;
+    }
+  }
+
+  .voice-message-mizu__voice-button {
+    &:hover {
+      background-color: $robot-dark-blue;
+      transform: scale(1.05);
+      color: $neutral-white;
+      box-shadow: 0 .5rem 1rem rgba($neutral-black, .15),
+      inset 0 .5rem 1rem rgba(255, 255, 255, .1);
+    }
+
+    &:active {
+        box-shadow: inset .375rem .375rem .75rem rgba($neutral-black, .2),
+        inset -.375rem -.375rem .75rem rgba(255, 255, 255, .7);
+        transform: scale(.95);
+        color: $robot-dark-blue;
+        transform: scale(.95);
+        background: $cloud-breeze-blue;
     }
   }
 

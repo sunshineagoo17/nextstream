@@ -869,7 +869,7 @@
 
     &__scroll-container-popular,
     &__scroll-container-results {
-      background: $primary-pale-blue;
+      background: $frosted-glass;
       scrollbar-color: $primary-medium-blue $primary-light-blue;
 
       /* Custom Scrollbar for WebKit Browsers */
@@ -965,6 +965,25 @@
         left: 100%;
         transition: left 1s;
       }
+    }
+  }
+
+  .voice-message-mizu__voice-button {
+    &:hover {
+      background-color: $robot-dark-blue;
+      transform: scale(1.05);
+      color: $neutral-white;
+      box-shadow: 0 .5rem 1rem rgba($neutral-black, .15),
+      inset 0 .5rem 1rem rgba(255, 255, 255, .1);
+    }
+
+    &:active {
+        box-shadow: inset .375rem .375rem .75rem rgba($neutral-black, .2),
+        inset -.375rem -.375rem .75rem rgba(255, 255, 255, .7);
+        transform: scale(.95);
+        color: $robot-dark-blue;
+        transform: scale(.95);
+        background: $primary-very-light-blue;
     }
   }
 
