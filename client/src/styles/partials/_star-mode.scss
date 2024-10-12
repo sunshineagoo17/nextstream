@@ -1430,10 +1430,14 @@ textarea {
   
   // NextStream Gpt 
   .nextstream-gpt {
-    background: $cloud-frosted-white;
+    background: $star-black;
 
     &__disclaimer-content {
       background: $neutral-black;
+    }
+
+    &__text--center {
+      color: $neutral-black
     }
 
     &__disclaimer-modal {
@@ -1470,86 +1474,90 @@ textarea {
     }
 
     &__bot-typing-indicator-bubble {
-      background-color: $cloud-breeze-blue;
+      background-color: $neutral-white;
     }
 
     &__empty-message {
-      color: $cloud-deep-gray;
+      color: $star-medium-gray;
+    }
+
+    &__copy {
+      background: $star-black;
+      color: $neutral-white;
+      border: .25rem solid $neutral-black;
     }
 
     &__message--user {
-      color: $neutral-white;
-      background: $primary-button-blue;
-      border: .0625rem solid $cloud-dawn-blue;
+      color: $neutral-black;
+      background: $star-glowing-amber;
+      border: .0625rem solid $star-starlight-yellow;
     }
 
     &__message--bot {
-      color: $neutral-white;
-      background: $primary-dark-blue;
-      text-shadow: none;
-      border: .0625rem solid $cloud-stormy-blue;
+      color: $star-text-light;
+      background: $neutral-black;
+      border: .0625rem solid $star-ash-gray;
     }
 
     &__user-icon-inline {
-      color: $primary-button-blue;
-      background: $neutral-white;
+      color: $star-bright-citrine;
+      background: $neutral-black;
 
       &:hover {
-        background: $primary-medium-blue;
-        color: $neutral-white;
+        background: $neutral-white;
+        color: $star-black;
       }
     }
 
     &__input {
       &::placeholder {
-        color: $cloud-medium-gray;
+        color: $star-silver-gray;
       }
 
       &:focus {
-        background: $cloud-medium-gray;
-        border: .25rem solid $cloud-very-deep-gray;
-        color: $neutral-black;
+        background: $star-medium-gray;
+        border: .25rem solid $star-dark-gray;
+        color: $star-text-light;
       }
     }
 
     &__gpt-icon-inline {
-      color: $primary-medium-blue;
-      background: $neutral-white;
+      color: $neutral-black;
+      background: $star-bright-citrine;
 
       &:hover {
-        background: $primary-button-blue;
-        color: $neutral-white;
+        background: $neutral-white;
+        color: $star-deep-topaz;
       }
     }
 
     &__chat-container {
-      background: $cloud-neumorph-base;
+      background: $star-neumorph-base;
     }
 
     &__speech-icon {
-      background: $cloud-medium-gray;
-      color: $neutral-white;
-      border: .125rem solid $neutral-white;
-      box-shadow: none;
+      background: $star-medium-gray;
+      color: $star-text-light;
+      border: .125rem solid $star-text-light;
     }
 
     &__typing-indicator-bubble {
-      background: $cloud-stormy-blue;
+      background: $star-charcoal;
     }
 
     &__scroll-container-results {
-      border: .5rem solid $neutral-black;
-      border-bottom: 1rem solid $neutral-black;
+      border: .5rem solid $star-black;
+      border-bottom: 1rem solid $star-black;
     }
-   
+
     &__poster {
       cursor: url('../../assets/cursors/cursor-pointer-st.svg'), pointer;
-      filter: grayscale(100%) brightness(0.9); 
+      filter: grayscale(100%) brightness(0.9);
       transition: filter .3s ease, transform .3s ease;
 
       &:hover {
         cursor: url('../../assets/cursors/cursor-pointer-st.svg'), pointer;
-        filter: grayscale(0%) brightness(1); 
+        filter: grayscale(0%) brightness(1);
       }
     }
 
@@ -1557,38 +1565,48 @@ textarea {
       background: none;
       box-shadow: none;
       border: none;
-      filter: grayscale(100%); 
+      filter: grayscale(100%);
       transition: filter .3s ease, transform .3s ease;
 
       &:hover {
-        filter: grayscale(0%) brightness(1); 
+        filter: grayscale(0%) brightness(1);
       }
     }
 
     &__icons-row {
-      background: $frosted-glass;
+      background: $star-neumorph-base;
+      border: .125rem solid $neutral-black;
     }
 
     &__card {
-      background: $cloud-frosted-white;
+      background: $star-frosted-dark-gray;
     }
 
     &__nav-arrow {
       cursor: url('../../assets/cursors/cursor-pointer-st.svg'), pointer;
-      color: $neutral-white;
-      border: .1875rem solid $neutral-white;
-      background: $primary-darker-blue;
+      color: $star-text-light;
+      border: .1875rem solid $star-text-light;
+      background: $star-charcoal;
 
       &:hover {
-        background: $neutral-white;
-        color: $cloud-stormy-blue;
+        background: $star-text-light;
+        color: $star-medium-gray;
       }
 
       &:active {
-        background: $cloud-dark-frosted-dark-gray;
-        color: $cloud-clear-blue;
-        border: .1875rem solid $neutral-black;
+        background: $neutral-black;
+        color: $star-deep-topaz;
+        border: .1875rem solid $star-deep-topaz;
       }
+    }
+
+    &__card--results {
+      border: .1875rem solid $neutral-black;
+    }
+
+    &__title--results {
+      color: $neutral-white;
+      border: .1875rem solid $neutral-black;
     }
 
     &__lightbulb-icon,
@@ -1597,73 +1615,56 @@ textarea {
     &__share-icon,
     &__like-icon,
     &__dislike-icon {
-      color: $neutral-black;
+      color: $neutral-white;
 
       &:hover {
-        background: $cloud-stormy-blue;
-        color: $neutral-white;
+        background: none;
+        box-shadow: none;
+        border: none;
+        color: $star-starlight-yellow;
       }
 
       &:active {
-        background: $cloud-clear-blue;
-        color: $primary-dark-blue;
+        background: $star-deep-topaz;
+        box-shadow: none;
+        border: none;
+        color: $neutral-black;
       }
     }
 
     &__results-section {
       &::before {
-        background: $neutral-black;
-        color: $neutral-white;
-      }
-    }
-
-    &__messages {
-      background: $cloud-light-gray;
-      border: .25rem solid $cloud-light-gray;
-
-      /* Scrollbar width */
-      scrollbar-width: thin;
-      scrollbar-color: $cloud-deep-gray $frosted-glass;
-
-      /* For WebKit-based browsers (Chrome, Safari, Edge) */
-      &::-webkit-scrollbar {
-        width: .75rem;
-        height: .75rem;
-      }
-
-      &::-webkit-scrollbar-track {
-        background: $neutral-white;
-      }
-
-      &::-webkit-scrollbar-thumb {
-        background-color: $cloud-deep-gray;
-        border-radius: .625rem;
-        border: .1875rem solid $neutral-white;
-      }
-
-      &::-webkit-scrollbar-thumb:hover {
-        background-color: darken($cloud-deep-gray, 10%);
+        background: $star-black;
+        color: $star-text-light;
       }
     }
 
     &__chatbot-svg {
-      filter: grayscale(100%) brightness(0.9); 
+      filter: grayscale(100%) brightness(0.9);
       transition: filter .3s ease, transform .3s ease;
-    
+  
       &:hover {
-        filter: grayscale(0%) brightness(1); 
+        filter: grayscale(0%) brightness(1);
       }
     }
 
     &__title {
-      background: linear-gradient(
-        180deg,
-        $neutral-black,
-        lighten($neutral-white, 50%)
-      );
+      border: .1875rem solid $star-medium-gray;
     }
 
-    /* For webkit browsers */
+    &__chat-block {
+      border: .3125rem solid $neutral-black;
+    }
+
+    &__messages {
+      background: $star-medium-gray;
+      border: .25rem solid $star-light-gray;
+    }
+
+    &__title {
+      background: $star-gradient-black-gray;
+    }
+
     &__scroll-container-popular,
     &__scroll-container-results {
       display: flex;
@@ -1671,40 +1672,51 @@ textarea {
       scrollbar-width: thin;
       -ms-overflow-style: none;
       scroll-behavior: smooth;
-      background: $cloud-dark-gray;
+      background: $star-dark-gray;
       width: 100%;
       border-radius: 1.05rem;
-      scrollbar-color: $cloud-dark-gray $cloud-light-gray;
+      scrollbar-color: $star-deep-topaz $star-medium-gray;
 
-      /* Custom Scrollbar for WebKit Browsers */
       &::-webkit-scrollbar {
         height: .5rem;
-        color: $cloud-light-gray;
+        color: $star-deep-topaz;
       }
 
       &::-webkit-scrollbar-thumb {
-        background-color: $cloud-dark-gray;
+        background-color: $star-dark-gray;
         border-radius: .625rem;
       }
 
       &::-webkit-scrollbar-thumb:hover {
-        background-color: $cloud-dark-gray;
+        background-color: $star-dark-gray;
       }
 
       &::-webkit-scrollbar-track {
-        background-color: $cloud-light-gray;
+        background-color: $star-medium-gray;
       }
 
       &::-webkit-scrollbar-corner {
-        background-color: $cloud-light-gray;
+        background-color: $star-medium-gray;
       }
     }
+  }
 
-    /* For Firefox */
-    .scroll-container-popular,
-    .scroll-container-results {
-      scrollbar-color: $cloud-dark-gray $cloud-light-gray;
-      scrollbar-width: thin;
+  .voice-message-mizu__voice-button {
+    &:hover {
+      background-color: $robot-dark-blue;
+      transform: scale(1.05);
+      color: $neutral-white;
+      box-shadow: 0 .5rem 1rem rgba($neutral-black, .15),
+      inset 0 .5rem 1rem rgba(255, 255, 255, .1);
+    }
+
+    &:active {
+        box-shadow: inset .375rem .375rem .75rem rgba($neutral-black, .2),
+        inset -.375rem -.375rem .75rem rgba(255, 255, 255, .7);
+        transform: scale(.95);
+        color: $robot-dark-blue;
+        transform: scale(.95);
+        background: $star-deep-topaz;
     }
   }
 
