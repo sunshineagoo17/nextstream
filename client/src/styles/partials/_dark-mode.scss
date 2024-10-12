@@ -653,12 +653,12 @@
       }
 
       &.typing-icon {
-        animation: pulseIcon 2.5s infinite ease-in-out;
+        animation: darkmodePulseIcon 2.5s infinite ease-in-out;
         color: $neutral-white;
       }
     }
 
-    @keyframes pulseIcon {
+    @keyframes darkmodePulseIcon {
       0%,
       100% {
         transform: scale(1);

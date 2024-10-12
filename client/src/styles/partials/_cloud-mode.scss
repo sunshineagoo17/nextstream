@@ -1999,6 +1999,22 @@
         background: $cloud-very-deep-gray;
         color: $neutral-white;
       }
+
+      &.typing-icon {
+        animation: cloudmodePulseIcon 2.5s infinite ease-in-out;
+        color: $neutral-white;
+      }
+    }
+    
+    @keyframes cloudmodePulseIcon {
+      0%, 100% {
+        transform: scale(1);
+        color: $cloud-overcast-blue;
+      }
+      50% {
+        transform: scale(1.2);
+        color: $neutral-white;
+      }
     }
 
     &__clear-chat-text {
