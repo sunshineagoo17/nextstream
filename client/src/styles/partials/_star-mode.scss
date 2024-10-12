@@ -1433,21 +1433,40 @@ textarea {
     background: $cloud-frosted-white;
 
     &__disclaimer-content {
-      background: $cloud-frosted-light-gray;
+      background: $neutral-black;
     }
 
-    &__disclaimer-header {
-      border: .25rem solid $cloud-morning-blue;
-      color: $cloud-stormy-blue;
-      text-shadow: none;
+    &__disclaimer-modal {
+      background: rgba($neutral-black, .8);
     }
 
     &__disclaimer-copy {
+      color: $neutral-white;
+    }
+
+    &__disclaimer-close {
       color: $neutral-black;
+      
+      &:hover {
+        background: $neutral-black;
+        color: $star-deep-topaz;
+      }
+
+      &:active {
+        background: $star-deep-topaz;
+        color: $neutral-black;
+      }
+    }
+
+    &__disclaimer-header {
+      border: .25rem solid $star-deep-topaz;
+      color: $neutral-white;
+      background: $star-black;
+      text-shadow: none;
     }
 
     &__disclaimer-note {
-      color: $cloud-stormy-blue;
+      color: $star-deep-topaz;
     }
 
     &__bot-typing-indicator-bubble {
@@ -2002,7 +2021,7 @@ textarea {
   }
 
   &__text--center {
-    color: $neutral-white;
+    color: $neutral-black
   }
 
   &__gpt-icon,

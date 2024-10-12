@@ -671,7 +671,7 @@ const NextStreamBot = () => {
             
             <button
               className='nextstream-bot__send-button'
-              onClick={handleSendMessage}
+              onClick={() => handleSendMessage(searchQuery)}
               disabled={!searchQuery.trim()}>
               <FontAwesomeIcon
                 icon={faPaperPlane}

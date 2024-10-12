@@ -810,7 +810,7 @@ const NextStreamGpt = () => {
 
             <button
               className='nextstream-gpt__send-button'
-              onClick={handleSendMessage}
+              onClick={() => handleSendMessage(searchQuery)}
               disabled={!searchQuery.trim()}>
               <FontAwesomeIcon
                 icon={faPaperPlane}
