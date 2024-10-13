@@ -4775,32 +4775,32 @@
     align-items: center;
   }
   
-  // Emoji Modal
+  // Emoji Modal 
   .emoji-btn {
-    background: $star-black;
-    color: $star-honey-glow;
-    border: .125rem solid $star-frosted-lemon;
+    background: $sun-yellow;
+    color: $neutral-black;
+    border: .125rem solid $neutral-white;
 
     &:hover {
-        background: $neutral-white;
-        color: $neutral-black;
-        border: .125rem solid $star-honey-glow;
+      background: $sun-sunrise-orange;
+      color: $sun-text-dark;
+      border: .125rem solid $sun-soft-lemon;
     }
 
     &:active {
-        background: $star-deep-topaz;
-        color: $neutral-black;
-        box-shadow: $shadow-cloud-primary;
-        border: .125rem solid $neutral-white;
+      background: $sun-ocean-breeze;
+      color: $sun-text-dark;
+      box-shadow: $sun-shadow-primary;
+      border: .125rem solid $sun-white;
     }
   }
 
   .emoji-picker {
-    background: $star-sunray-gold;
+    background: $sun-ocean-breeze;
 
     input {
-      background: $frosted-glass-warm;
-      color: $neutral-black;
+      background: $sun-frosted-white;
+      color: $sun-text-dark;
     }
   }
 
