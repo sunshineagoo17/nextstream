@@ -4813,7 +4813,7 @@
     }
 
     &__overlay {
-      background: rgba($star-black, .8);
+      background: rgba($sun-white, .8);
       z-index: 500;
     }
 
@@ -4931,45 +4931,45 @@
   // Mini Calendar
   .mini-calendar {
     &__day-names {
-      background: $star-frosted-dark-gray;
-      box-shadow: $star-shadow-primary;
+      background: $sun-frosted-silver;
+      box-shadow: $sun-shadow-primary;
     }
 
     &__title {
-      background: $star-black;
-      color: $neutral-white;
-      border: .15rem solid $star-deep-topaz;
+      background: $sun-white;
+      color: $sun-text-dark;
+      border: .15rem solid $sun-golden-hour;
     }
 
     &__day-names {
-      background: $neutral-black;
-      color: $star-black;
+      background: $sun-icy-blue;
+      color: $sun-text-dark;
     }
 
     &__day-name {
-      background: $neutral-white;
-      color: $neutral-black;
+      background: $sun-white;
+      color: $sun-text-dark;
       border: none;
     }
 
     &__day--selected {
-      background: $star-glowing-amber;
-      color: $star-black;
+      background: $sun-yellow;
+      color: $sun-text-dark;
     }
 
     &__close-btn,
     &__nav-btn {
-      background: $star-black;
-      color: $star-text-light;
+      background: $sun-golden-hour;
+      color: $sun-text-dark;
 
       &:hover {
-        background: $star-glowing-amber;
-        color: $star-black;
+        background: $sun-light-gold;
+        color: $sun-text-dark;
       }
 
       &:active {
-        background: $star-deep-topaz;
-        color: $star-light-gray;
+        background: $sun-pale-baby-blue;
+        color: $neutral-black;
       }
     }
   }
@@ -5028,12 +5028,12 @@
   }
 
   .share-event__title.neumorphic-text {
-    color: $star-text-light;
-    border: .125rem solid $star-medium-gray;
+    color: $neutral-black;
+    border: .125rem solid $neutral-white;
   }
 
   .share-event__label {
-    color: $neutral-white;
+    color: $neutral-black;
   }
 
   .share-event__button {
@@ -5044,7 +5044,7 @@
     }
 
     &:active {
-      color: $neutral-white !important;
+      color: $primary-dark-blue !important;
     }
   }
 
@@ -5056,150 +5056,149 @@
     background: $star-dark-gray;
   }
 
+  // Modal
   .modal {
+    background: rgba($neutral-white, .75);
     .modal-content {
-      background: $star-frosted-dark-gray;
-      
+      background: $sun-frosted-silver;
+
       button {
-        background: $star-glowing-amber;
-        color: $star-black;
-        border: .125rem solid $star-medium-gray;
+        background: $sun-yellow;
+        color: $neutral-black;
+        border: .125rem solid $neutral-white;
 
         &:hover {
-          background: $star-deep-topaz;
-          color: $neutral-white;
+          background: $neutral-black;
+          color: $sun-yellow;
           border: .125rem solid $neutral-white;
         }
 
         &:active {
-          background: $star-black;
-          color: $star-starlight-yellow;
+          background: $sun-ocean-breeze;
+          color: $primary-dark-blue;
           border: none;
         }
       }
 
       .modal-close-btn {
-        background: $star-frosted-dark-gray;
-        color: $star-text-light;
+        background: $sun-frosted-white;
+        color: $sun-text-dark;
 
         &:hover {
-          background: $star-glowing-amber;
-          color: $star-black;
+          background: $sun-golden-hour;
+          color: $neutral-black;
         }
 
         &:active {
-          background: $neutral-black;
-          color: $star-glowing-amber;
+          background: $sun-ocean-breeze;
+          color: $primary-dark-blue;
         }
       }
 
       .modal-input {
-        background: $star-frosted-silver-gray;
-        box-shadow: $star-shadow-primary;
-        border: .125rem solid $star-medium-gray;
+        background: $sun-white;
+        box-shadow: $sun-shadow-primary;
+        border: .125rem solid $sun-neumorph-shadow-light;
 
         .modal-input-container {
           .modal-input {
-            background: $star-frosted-silver-gray;
+            background: $sun-frosted-gold;
             cursor: url('../../assets/cursors/cursor-pointer-sun.svg'), pointer;
           }
         }
       }
     }
-  }
 
-  /* Apply custom cursor for all input fields */
-  input {
-    color: $star-glowing-amber;
-    cursor: url('../../assets/cursors/cursor-pointer-sun.svg'), pointer;
+    // Custom cursor for all input fields
+    input {
+      color: $primary-dark-blue;
+      cursor: url('../../assets/cursors/cursor-pointer-sun.svg'), pointer;
 
-    svg {
+      svg {
+        cursor: url('../../assets/cursors/cursor-pointer-sun.svg'), pointer;
+      }
+    }
+
+    input:hover {
       cursor: url('../../assets/cursors/cursor-pointer-sun.svg'), pointer;
     }
-  }
 
-  /* Ensure the custom cursor appears when hovering on the input, including the calendar icon */
-  input:hover {
-    cursor: url('../../assets/cursors/cursor-pointer-sun.svg'), pointer;
-  }
+    input[type="datetime-local"] {
+      cursor: url('../../assets/cursors/cursor-pointer-sun.svg'), pointer;
+    }
 
-  /* Target specific input types like datetime-local */
-  input[type="datetime-local"] {
-    cursor: url('../../assets/cursors/cursor-pointer-sun.svg'), pointer;
-  }
+    input[type="datetime-local"]:focus {
+      cursor: url('../../assets/cursors/cursor-pointer-sun.svg'), pointer;
+    }
 
-  /* Ensure cursor changes on focus */
-  input[type="datetime-local"]:focus {
-    cursor: url('../../assets/cursors/cursor-pointer-sun.svg'), pointer;
-  }
+    input[type='datetime-local']::-webkit-calendar-picker-indicator {
+      cursor: url('../../assets/cursors/cursor-pointer-sun.svg'), pointer;
+    }
 
-  input[type='datetime-local']::-webkit-calendar-picker-indicator {
-    cursor: url('../../assets/cursors/cursor-pointer-sun.svg'), pointer;
-  }
+    .fc {
+      .fc-toolbar {
+        .fc-button-group {
+          .fc-button {
+            background: $sun-frosted-gold;
+            color: $sun-text-dark;
+            cursor: url('../../assets/cursors/cursor-pointer-sun.svg'), pointer;
+          }
 
-  .fc {
-    .fc-toolbar {
-      .fc-button-group {
-        .fc-button {
-          background: $star-frosted-medium-gray;
-          color: $star-text-light;
-          cursor: url('../../assets/cursors/cursor-pointer-sun.svg'), pointer;
+          &.fc-button-active {
+            background: $sun-text-dark;
+            color: $sun-neumorph-base;
+            cursor: url('../../assets/cursors/cursor-pointer-sun.svg'), pointer;
+
+            &:hover {
+              cursor: url('../../assets/cursors/cursor-pointer-sun.svg'), pointer;
+            }
+
+            &:active {
+              cursor: url('../../assets/cursors/cursor-pointer-sun.svg'), pointer;
+            }
+          }
         }
+      }
+    }
 
-        &.fc-button-active {
-          background: $star-text-light;
-          color: $star-dark-gray;
-          cursor: url('../../assets/cursors/cursor-pointer-sun.svg'), pointer;
+    .add-to-cal {
+      &__link {
+        &--google {
+          background: $sun-gradient-sunrise;
+          color: $neutral-black;
+          transition: transform .3s ease, background .3s ease, color .3s ease; 
 
           &:hover {
-            cursor: url('../../assets/cursors/cursor-pointer-sun.svg'), pointer;
+            background: $neutral-black;
+            color: $sun-yellow;
+            transform: scale(1.05);
           }
 
           &:active {
-            cursor: url('../../assets/cursors/cursor-pointer-sun.svg'), pointer;
+            background: $sun-ocean-breeze;
+            color: $neutral-black;
+            border: .125rem solid $neutral-white;
+            transform: scale(.95); 
           }
         }
-      }
-    }
-  }
 
-  .add-to-cal {
-    &__link {
-      &--google {
-        background: $star-frosted-medium-gray;
-        color: $star-text-light;
-        transition: transform .3s ease, background .3s ease, color .3s ease; 
-      
-        &:hover {
-          background: $star-gradient-citrine;
-          color: $star-black;
-          transform: scale(1.05);
-        }
-      
-        &:active {
-          background: $star-bright-citrine;
+        &--apple {
+          background: $sun-gradient-sunrise;
           color: $neutral-black;
-          border: .125rem solid $star-medium-gray;
-          transform: scale(.95); 
-        }
-      }
-      
-      &--apple {
-        background: $star-frosted-medium-gray;
-        color: $star-text-light;
-        transition: transform .3s ease, background .3s ease, color .3s ease; 
-      
-        &:hover {
-          background: $star-gradient-muted-gold;
-          color: $star-black;
-          transform: scale(1.05);
-        }
-      
-        &:active {
-          background: $star-frosted-lemon;
-          color: $neutral-black;
-          border: .125rem solid $star-medium-gray;
-          transform: scale(.95);
+          transition: transform .3s ease, background .3s ease, color .3s ease; 
+
+          &:hover {
+            background: $neutral-black;
+            color: $sun-yellow;
+            transform: scale(1.05);
+          }
+
+          &:active {
+            background: $sun-ocean-breeze;
+            color: $neutral-black;
+            border: .125rem solid $neutral-white;
+            transform: scale(.95); 
+          }
         }
       }
     }
