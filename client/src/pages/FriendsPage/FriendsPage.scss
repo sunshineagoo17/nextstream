@@ -1133,17 +1133,18 @@
   &__pending-count {
     margin-left: .5rem; 
     padding: .1rem .5rem;
+    font-family: $primary-font;
     color: $feedback-dark-orange;
     border: .0625rem solid $neutral-white;
     background: $feedback-light-orange;
     border-radius: .5rem;
-    font-family: $primary-font;
     box-shadow: $shadow-primary;
   }
 
   &__shared-count {
     margin-left: .5rem; 
     padding: .1rem .5rem;
+    font-family: $primary-font;
     border: .0625rem solid $neutral-white;
     background: $feedback-mint-light-green;
     border-radius: .5rem;

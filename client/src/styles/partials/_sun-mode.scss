@@ -672,8 +672,9 @@
     }
   
     &__shared-count {
-      background: $sun-silver;
-      color: $sun-text-dark;
+      background: $sun-icy-blue;
+      color: $primary-dark-blue;
+      border: .0625rem solid $neutral-white;
     }
   
     &__video-container {
@@ -1000,7 +1001,9 @@
     }
 
     &__unread-msg-count {
+      background: $sun-ocean-breeze;
       color: $primary-dark-blue;
+      border: .0625rem solid $neutral-white;
     }
   
     &__user-info,
@@ -1043,8 +1046,9 @@
     }
   
     &__pending-count {
-      background: $frosted-glass;
+      background: $sun-icy-blue;
       color: $primary-dark-blue;
+      border: .0625rem solid $neutral-white;
     }
   
     &__calendar-info {
