@@ -4471,27 +4471,27 @@
 // Contact Us Modal
 .modal-forgot-password,
 .modal-contact {
-  background: rgba($neutral-black, 0.85);
+  background: rgba($sun-ash-gray, 0.85);
 
   &__container {
-    background: $star-frosted-dark-gray;
+    background: $sun-frosted-silver;
   }
 
   &__reset,
   &__submit-text,
   &__close {
-    background: $star-glowing-amber;
+    background: $sun-light-gold;
     color: $neutral-black;
 
     &:focus,
     &:hover {
-      background: $star-light-gray;
-      color: $star-charcoal;
+      background: $sun-light-gray;
+      color: $sun-text-dark;
     }
 
     &:active {
-        background: $neutral-white;
-        color: $star-deep-topaz;
+      background: $sun-white;
+      color: $sun-golden-hour;
     }
   }
 
@@ -4499,7 +4499,7 @@
   &__submit-text {
     &:active {
       border: none;
-      background: $star-bright-citrine;
+      background: $sun-yellow;
       color: $neutral-black;
     }
   }
@@ -4508,19 +4508,19 @@
   &__txtarea {
     &:focus {
       color: $neutral-black;
-      background-color: $star-light-gray;
-      box-shadow: $star-shadow-primary;
+      background-color: $sun-light-gray;
+      box-shadow: $sun-shadow-primary;
       border-radius: 0.5rem;
-      border: 0.125rem solid $star-medium-gray;
+      border: 0.125rem solid $sun-silver;
     }
 
     &:active {
-      background-color: $star-dark-gray;
+      background-color: $sun-silver;
       color: $neutral-white;
     }
 
     &:not(:focus) {
-        color: $star-silver-gray; 
+      color: $sun-ash-gray; 
     }
   }
 
@@ -4529,22 +4529,22 @@
   &__label-txt,
   &__label-txtarea,
   &__label-txtarea-txt {
-    background: $star-charcoal;
-    border: 0.1875rem solid $star-silver-gray;
+    background: $sun-silver;
+    border: 0.1875rem solid $sun-ash-gray;
   }
 
   &__label-container {
-    background: $star-medium-gray;
+    background: $sun-light-gray;
   }
 
   &__label {
-    color: $neutral-white;
+    color: $neutral-black;
     box-shadow: none;
   }
 
   &__label-txtarea-txt,
   &__label-txt {
-    color: $star-ash-gray;
+    color: $cloud-text-dark;
     box-shadow: none;
   }
 }
