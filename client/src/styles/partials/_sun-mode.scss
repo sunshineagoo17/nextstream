@@ -611,15 +611,36 @@
 
   // Friends List  
   .friends-page {
-    background: linear-gradient(145deg, $sun-icy-blue, darken($sun-ocean-breeze, 15%));
+    background: $cloud-frosted-white;
   
     &__heading-container {
-      background: $cloud-frosted-white;
+      background: linear-gradient(145deg, $sun-icy-blue, darken($sun-ocean-breeze, 15%));
       border: .3125rem solid $sun-white;
     }
   
     &__header {
-      color: $neutral-black;
+      color: $neutral-white;
+    }
+
+    &__container--friends-cards {
+      background: $primary-pale-blue;
+    }
+
+    &__container--bottom {
+      background: $sun-icy-blue;
+    }
+
+    &__container--chat {
+      background: $sun-morning-mist-blue;
+    }
+    
+    &__chat,
+    &__pending-calendar,
+    &__shared-calendar,
+    &__search-section,
+    &__pending-section,
+    &__list {
+      background: $cloud-frosted-white;
     }
 
     &__copy {
@@ -634,16 +655,19 @@
     }
   
     &__clear-friends-search {
-      color: $sun-ocean-breeze;
-  
+      color: $sun-sunrise-orange;
+      background: none;
+
       &:hover {
-        color: $primary-button-blue;
         background: none;
+        border: none;
+        color: $sun-yellow;
       }
-  
+
       &:active {
-        color: $sun-sunrise-orange;
+        color: $sun-ocean-breeze;
         background: none;
+        border: none;
       }
     }
   
@@ -653,7 +677,7 @@
     }
   
     &__video-container {
-      background: $sun-white;
+      background: linear-gradient(145deg, $sun-icy-blue, darken($primary-pale-blue, 15%));
       filter: grayscale(100%);
       transition: filter .3s ease, transform .3s ease;
   
@@ -670,17 +694,17 @@
     }
   
     &__search-button {
-      background: $sun-soft-lemon;
-      color: $sun-text-dark;
+      background: $sun-yellow;
+      color: $neutral-black;
   
       &:hover {
-        background: $sun-yellow;
-        color: $sun-text-dark;
+        background: $sun-soft-lemon;
+        color: $neutral-black;
       }
   
       &:active {
-        background: $sun-golden-hour;
-        color: $neutral-black;
+        background: $sun-ocean-breeze;
+        color: $primary-dark-blue;
       }
     }
   
@@ -697,6 +721,11 @@
         background: $sun-yellow;
         color: $sun-text-dark;
       }
+
+      &:active {
+        background: $sun-icy-blue;
+        color: $primary-dark-blue;
+      }
     }
   
     &__cal-icon-container {
@@ -707,8 +736,14 @@
       transition: transform 0.3s ease, box-shadow 0.3s ease;
   
       &:hover {
-        background: $sun-golden-hour;
+        background: $sun-sunrise-orange;
+        color: $neutral-black;
         border: .1875rem solid $sun-frosted-gold;
+      }
+
+      &:active {
+        background: $sun-ocean-breeze;
+        color: $primary-dark-blue;
       }
     }
   
@@ -718,8 +753,8 @@
     }
   
     &__close-btn {
-      background: $sun-soft-lemon;
-      color: $sun-text-dark;
+      background: $sun-ocean-breeze;
+      color: $primary-dark-blue;
       border: none;
   
       &:hover {
@@ -727,7 +762,7 @@
       }
   
       &:active {
-        background: $sun-blushing-orange;
+        background: $sun-icy-blue;
       }
     }
   
@@ -743,8 +778,8 @@
       }
   
       &:active {
-        background: $sun-white;
-        color: $sun-yellow;
+        background: $neutral-white;
+        color: $sun-ocean-breeze;
         transform: scale(.95);
       }
     }
@@ -767,13 +802,14 @@
       }
   
       &:active {
-        background: darken($sun-yellow, 10%);
+        background: $sun-ocean-breeze;
+        color: $primary-dark-blue;
         transform: scale(.95);
       }
     }
   
     &__delete-icon {
-      color: $neutral-black;
+      color: $neutral-white;
       transition: background-color .3s ease, transform .5s ease;
   
       &:focus,
@@ -831,8 +867,13 @@
       transition: background .3s ease, transform .2s ease;
   
       &:hover {
-        background: $sun-yellow !important;
-        color: $neutral-black !important;
+        background: $sun-icy-blue !important;
+        color: $primary-dark-blue !important;
+      }
+
+      &:active {
+        background: $sun-ocean-breeze !important;
+        color: $primary-dark-blue !important;
       }
     }
   
@@ -841,20 +882,34 @@
       color: $sun-text-dark !important;
   
       &:hover {
-        background: $sun-yellow !important;
-        color: $sun-text-dark !important;
+        background: $sun-sunrise-orange !important;
+        color: $neutral-black !important;
+      }
+
+      &:active {
+        background: $sun-icy-blue !important;
+        color: $primary-dark-blue !important;
       }
     }
   
     &__accept-friend {
       background: $sun-golden-hour;
-      color: $sun-text-dark;
+      color: $neutral-black;
       transition: transform .3s ease, box-shadow .3s ease, background-color .3s ease;
   
       &:hover {
         background: $sun-yellow;
         color: $sun-text-dark;
       }
+
+      &:active {
+        background: $sun-icy-blue;
+        color: $primary-dark-blue;
+      }
+    }
+
+    &__freind-requests-actions {
+      background: $frosted-glass;
     }
   
     &__pending-item {
@@ -869,13 +924,13 @@
     }
   
     &__add-friend {
-      background: $sun-light-gray;
+      background: $sun-yellow;
       color: $sun-text-dark;
       transition: background .3s ease, transform .3s ease;
   
       &:hover {
-        background: $sun-yellow;
-        color: $sun-text-dark;
+        background: $sun-ocean-breeze;
+        color: $primary-dark-blue;
       }
   
       &:focus,
@@ -926,12 +981,12 @@
     }
   
     &__chat-button {
-      background: $sun-ocean-breeze;
-      color: $primary-dark-blue;
+      background: $sun-yellow;
+      color: $sun-text-dark;
   
       &:hover {
-        background: $sun-yellow;
-        color: $sun-text-dark;
+        background: $sun-ocean-breeze;
+        color: $primary-dark-blue;
       }
   
       &:active {
@@ -945,7 +1000,7 @@
     }
 
     &__unread-msg-count {
-      color: $neutral-black;
+      color: $primary-dark-blue;
     }
   
     &__user-info,
@@ -960,23 +1015,23 @@
     }
   
     &__chat {
-      background: $sun-white;
+      background: $neutral-white;
     }
   
     &__search-section {
-      background: $sun-light-gray;
+      background: $neutral-white;
     }
   
     &__pending-section {
-      background: $sun-light-gray;
+      background: $sun-silver;
     }
   
     &__list {
-      background: $sun-neumorph-highlight-light;
+      background: $star-text-dark;
     }
   
     &__pending-calendar {
-      background: $sun-light-gray;
+      background: $neutral-white;
     }
   
     &__shared-calendar {
@@ -984,12 +1039,12 @@
     }
   
     &__pending-calendar__pending-item {
-      background: $sun-frosted-silver;
+      background: $frosted-glass;
     }
   
     &__pending-count {
-      background: $sun-frosted-silver;
-      color: $sun-sunrise-orange;
+      background: $frosted-glass;
+      color: $primary-dark-blue;
     }
   
     &__calendar-info {
@@ -1001,20 +1056,21 @@
   }
   
   .voice-message-friends__voice-button {
-    background: $sun-sunrise-orange;
+    background: $sun-yellow;
     color: $neutral-black;
     border: .125rem solid $neutral-white;
   
       &:hover {
-        background: $neutral-white;
-        color: $sun-sunrise-orange;
-        border: .125rem solid $sun-sunrise-orange;
+        background: $sun-sunrise-orange;
+        color: $sun-text-dark;
+        border: .125rem solid $sun-soft-lemon;
       }
   
       &:active {
         background: $sun-ocean-breeze;
-        color: $primary-dark-blue;
+        color: $sun-text-dark;
         box-shadow: $sun-shadow-primary;
+        border: .125rem solid $sun-white;
       }
   }
   
