@@ -609,402 +609,409 @@
     }
   }
 
+  // Friends List  
+  .friends-page {
+    background: linear-gradient(145deg, $sun-icy-blue, darken($sun-ocean-breeze, 15%));
   
-// Friends List - Star Mode
-.friends-page {
-  background: $star-dark-neumorph-base;
+    &__heading-container {
+      background: $cloud-frosted-white;
+      border: .3125rem solid $sun-white;
+    }
+  
+    &__copy {
+      background: $sun-frosted-white;
+      color: $sun-text-dark;
+    }
+  
+    &__calendar-info {
+      p {
+        color: $sun-text-dark;
+      }
+    }
+  
+    &__clear-friends-search {
+      color: $sun-ocean-breeze;
+  
+      &:hover {
+        color: $primary-button-blue;
+        background: none;
+      }
+  
+      &:active {
+        color: $sun-sunrise-orange;
+        background: none;
+      }
+    }
+  
+    &__shared-count {
+      background: $sun-silver;
+      color: $sun-text-dark;
+    }
+  
+    &__video-container {
+      background: $sun-white;
+      filter: grayscale(100%);
+      transition: filter .3s ease, transform .3s ease;
+  
+      &:hover {
+        filter: grayscale(0%) brightness(1);
+      }
+    }
+  
+    &__no-shared-cal-txt,
+    &__card-subtitle--shared,
+    &__card-subtitle--pendingrequests,
+    &__no-pending-cal-txt {
+      color: $neutral-black;
+    }
+  
+    &__search-button {
+      background: $sun-soft-lemon;
+      color: $sun-text-dark;
+  
+      &:hover {
+        background: $sun-yellow;
+        color: $sun-text-dark;
+      }
+  
+      &:active {
+        background: $sun-golden-hour;
+        color: $neutral-black;
+      }
+    }
+  
+    &__avatar-default {
+      color: $sun-ocean-breeze;
+    }
+  
+    &__delete-invite-btn,
+    &__remove-friend {
+      background: $sun-light-gray;
+      color: $sun-text-dark;
+  
+      &:hover {
+        background: $sun-yellow;
+        color: $sun-text-dark;
+      }
+    }
+  
+    &__cal-icon-container {
+      background: $sun-yellow;
+      color: $sun-text-dark;
+      border: none;
+  
+      &:hover {
+        background: $sun-golden-hour;
+        border: .1875rem solid $sun-frosted-gold;
+      }
+    }
+  
+    &__close-icon,
+    &__close-cal-txt {
+      color: $sun-text-dark;
+    }
+  
+    &__close-btn {
+      background: $sun-soft-lemon;
+      color: $sun-text-dark;
+      border: none;
+  
+      &:hover {
+        background: $sun-golden-hour;
+      }
+  
+      &:active {
+        background: $sun-blushing-orange;
+      }
+    }
+  
+    &__chat-close {
+      background: $sun-golden-hour;
+      color: $sun-text-dark;
+      transition: background .3s ease, transform .3s ease-in-out;
+  
+      &:hover {
+        background: $sun-text-dark;
+        color: $sun-golden-hour;
+        transform: scale(1.05);
+      }
+  
+      &:active {
+        background: $sun-white;
+        color: $sun-yellow;
+        transform: scale(.95);
+      }
+    }
+  
+    &__username--pending {
+      background: $sun-light-gray;
+      color: $neutral-black;
+      border: .125rem solid $sun-silver;
+    }
+  
+    &__decline-friend {
+      background: $sun-light-gray;
+      color: $sun-text-dark;
+      transition: background .3s ease, transform .2s ease;
+  
+      &:hover {
+        background: $sun-yellow;
+        color: $neutral-black;
+        transform: scale(1.05);
+      }
+  
+      &:active {
+        background: darken($sun-yellow, 10%);
+        transform: scale(.95);
+      }
+    }
+  
+    &__delete-icon {
+      color: $neutral-black;
+      transition: background-color .3s ease, transform .5s ease;
+  
+      &:focus,
+      &:hover {
+        color: $sun-yellow;
+        background: $sun-text-dark;
+      }
+  
+      &:active {
+        color: $sun-white;
+        background: $sun-text-dark;
+      }
+    }
+  
+    &__message {
+      &.me {
+        &.unread {
+          opacity: 1;
+          font-weight: bold;
+          background: $star-deep-topaz;
+          color: $neutral-black;
+          border: .125rem solid $sun-light-gray;
+        }
+  
+        &.read {
+          opacity: .9;
+          border: .0625rem solid $sun-light-gray;
+          background: $sun-yellow;
+          color: $neutral-black;
+        }
+      }
+  
+      &.sender {
+        &.unread {
+          opacity: 1;
+          font-weight: bold;
+          color: $sun-text-dark;
+          background: $sun-ocean-breeze;
+          border: .125rem solid $sun-light-gray;
+          box-shadow: $sun-shadow-primary;
+        }
+  
+        &.read {
+          opacity: .9;
+          background: $sun-icy-blue;
+          color: $sun-text-dark;
+          border: .0625rem solid $sun-silver;
+        }
+      }
+    }
+  
+    &__delete-invite {
+      background: $sun-light-gray !important;
+      color: $neutral-black !important;
+      transition: background .3s ease, transform .2s ease;
+  
+      &:hover {
+        background: $sun-yellow !important;
+        color: $neutral-black !important;
+      }
+    }
+  
+    &__accept-invite {
+      background: $sun-golden-hour !important;
+      color: $sun-text-dark !important;
+  
+      &:hover {
+        background: $sun-yellow !important;
+        color: $sun-text-dark !important;
+      }
+    }
+  
+    &__accept-friend {
+      background: $sun-golden-hour;
+      color: $sun-text-dark;
+      transition: transform .3s ease, box-shadow .3s ease, background-color .3s ease;
+  
+      &:hover {
+        background: $sun-yellow;
+        color: $sun-text-dark;
+      }
+    }
+  
+    &__pending-item {
+      background: $sun-light-gray;
+    }
+  
+    &__username--search {
+      background: $sun-light-gray;
+      color: $neutral-black;
+      text-shadow: none;
+      font-weight: normal;
+    }
+  
+    &__add-friend {
+      background: $sun-light-gray;
+      color: $sun-text-dark;
+      transition: background .3s ease, transform .3s ease;
+  
+      &:hover {
+        background: $sun-yellow;
+        color: $sun-text-dark;
+      }
+  
+      &:focus,
+      &:active {
+        animation: sunmodeRippleOut .8s forwards;
+        color: $sun-sunrise-orange;
+      }
+    }
+  
+    @keyframes sunmodeRippleOut {
+      0% {
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, .5);
+      }
+      100% {
+        box-shadow: 0 0 .9375rem .3125rem rgba($sun-yellow, .6);
+        color: $sun-sunrise-orange;
+        background: $sun-white;
+        border: .125rem solid $sun-yellow;
+      }
+    }
+  
+    &__clear-btn,
+    &__send-btn {
+      background: $sun-soft-lemon;
+      color: $sun-text-dark;
+      transition: background .3s ease, transform .3s ease-in-out;
+  
+      &:hover {
+        background: $sun-yellow;
+        color: $neutral-black;
+        transform: scale(1.05);
+      }
+  
+      &:active {
+        background: $sun-text-dark !important;
+        color: $sun-sunrise-orange !important;
+        transform: scale(.95);
+      }
+    }
+  
+    &__message-input {
+      background: $sun-frosted-silver;
+    }
+  
+    &__no-msgs,
+    &__chat-header-title {
+      color: $neutral-black;
+    }
+  
+    &__chat-button {
+      background: $sun-ocean-breeze;
+      color: $primary-dark-blue;
+  
+      &:hover {
+        background: $sun-yellow;
+        color: $sun-text-dark;
+      }
+  
+      &:active {
+        background: $frosted-glass;
+        color: $primary-dark-blue;
+      }
+    }
 
-  &__heading-container {
-    background: linear-gradient(145deg, $star-medium-gray, darken($star-dark-gray, 5%));
-    border: .3125rem solid $star-black;
-  }
+    &__bell-icon {
+      color: $sun-ocean-breeze;
+    }
 
-  &__copy {
-    background: $frosted-glass;
-    color: $neutral-white;
-  }
-
-  &__calendar-info {
-    p {
-      color: $star-text-dark;
+    &__unread-msg-count {
+      color: $neutral-black;
+    }
+  
+    &__user-info,
+    &__empty-friends-list,
+    &__label,
+    &__no-pending-txt,
+    &__card-subtitle--requests,
+    &__card-subtitle--friends,
+    &__card-subtitle--search,
+    &__no-users-txt {
+      color: $neutral-black;
+    }
+  
+    &__chat {
+      background: $sun-white;
+    }
+  
+    &__search-section {
+      background: $sun-light-gray;
+    }
+  
+    &__pending-section {
+      background: $sun-light-gray;
+    }
+  
+    &__list {
+      background: $sun-neumorph-highlight-light;
+    }
+  
+    &__pending-calendar {
+      background: $sun-light-gray;
+    }
+  
+    &__shared-calendar {
+      background: $sun-silver;
+    }
+  
+    &__pending-calendar__pending-item {
+      background: $sun-frosted-silver;
+    }
+  
+    &__pending-count {
+      background: $sun-frosted-silver;
+      color: $sun-sunrise-orange;
+    }
+  
+    &__calendar-info {
+      color: $neutral-black !important;
+      strong {
+        color: $neutral-black !important;
+      }
     }
   }
-
-  &__clear-friends-search {
-    color: $star-deep-topaz;
-
-    &:hover {
-      color: $neutral-white;
-      background: none;
-    }
-
-    &:active {
-      color: $star-bright-citrine;
-      background: none;
-    }
-  }
-
-  &__shared-count {
-    background: $star-charcoal;
-    color: $star-text-light;
-  }
-
-  &__video-container {
-    background: $star-black;
-    filter: grayscale(100%);
-    transition: filter .3s ease, transform .3s ease;
-
-    &:hover {
-      filter: grayscale(0%) brightness(1);
-    }
-  }
-
-  &__no-shared-cal-txt,
-  &__card-subtitle--shared,
-  &__card-subtitle--pendingrequests,
-  &__no-pending-cal-txt {
-    color: $star-text-light;
-  }
-
-  &__search-button {
-    background: $star-honey-glow;
-    color: $star-black;
-
-    &:hover {
-      background: $star-bright-citrine;
-      color: $star-dark-gray;
-    }
-
-    &:active {
-      background: $star-glowing-amber;
-      color: $star-text-light;
-    }
-  }
-
-  &__avatar-default {
-    color: $star-ash-gray;
-  }
-
-  &__delete-invite-btn,
-  &__remove-friend {
-    background: $star-dark-gray;
-    color: $star-text-light;
-
-    &:hover {
-      background: $star-deep-topaz;
-      color: $star-black;
-    }
-  }
-
-  &__cal-icon-container {
-    background: $star-deep-topaz;
-    color: $star-black;
-    border: none;
-
-    &:hover {
-      background: $star-horizon-gold;
-      border: .1875rem solid $star-glowing-amber;
-    }
-  }
-
-  &__close-icon,
-  &__close-cal-txt {
+  
+  .voice-message-friends__voice-button {
+    background: $sun-sunrise-orange;
     color: $neutral-black;
-  }
-
-  &__close-btn {
-    background: $star-honey-glow;
-    color: $star-black;
-    border: none;
-
-    &:hover {
-      background: $star-glowing-amber;
-    }
-
-    &:active {
-      background: $star-bright-citrine;
-    }
-  }
-
-  &__chat-close {
-    background: $star-glowing-amber;
-    color: $star-black;
-    transition: background .3s ease, transform .3s ease-in-out;
-
-    &:hover {
-      background: $neutral-black;
-      color: $star-bright-citrine;
-      transform: scale(1.05);
-    }
-
-    &:active {
-      background: $neutral-black;
-      color: $neutral-white;
-      transform: scale(.95);
-    }
-  }
-
-  &__username--pending {
-    background: $star-dark-gray;
-    color: $star-text-light;
-    border: .125rem solid $star-text-dark;
-  }
-
-  &__decline-friend {
-    background: $star-dark-gray;
-    color: $star-text-light;
-    transition: background .3s ease, transform .2s ease;
-
-    &:hover {
-      background: $star-deep-topaz;
-      color: $star-text-light;
-      transform: scale(1.05);
-    }
-
-    &:active {
-      background: darken($star-deep-topaz, 10%);
-      transform: scale(.95);
-    }
-  }
-
-  &__delete-icon {
-    color: $star-text-light;
-    transition: background-color .3s ease, transform .5s ease;
-
-    &:focus,
-    &:hover {
-      color: $star-glowing-amber;
-      background: $neutral-black;
-    }
-
-    &:active {
-      color: $star-black;
-      background: $neutral-white;
-    }
-  }
-
-  &__message {
-    &.me {
-      &.unread {
-        opacity: 1;
-        font-weight: bold;
-        background: $star-dark-neumorph-base;
-        color: $star-text-light;
-        border: .125rem solid $star-medium-gray;
+    border: .125rem solid $neutral-white;
+  
+      &:hover {
+        background: $neutral-white;
+        color: $sun-sunrise-orange;
+        border: .125rem solid $sun-sunrise-orange;
       }
-
-      &.read {
-        opacity: .9;
-        border: .0625rem solid $star-medium-gray;
-        background: $star-dark-gray;
-        color: $star-text-light;
+  
+      &:active {
+        background: $sun-ocean-breeze;
+        color: $primary-dark-blue;
+        box-shadow: $sun-shadow-primary;
       }
-    }
-
-    &.sender {
-      &.unread {
-        opacity: 1;
-        font-weight: bold;
-        color: $star-text-dark;
-        background: $star-medium-gray;
-        border: .125rem solid $star-dark-gray;
-        box-shadow: $star-shadow-primary;
-      }
-
-      &.read {
-        opacity: .9;
-        background: $star-light-gray;
-        color: $star-text-dark;
-        border: .0625rem solid $star-dark-gray;
-      }
-    }
   }
-
-  &__delete-invite {
-    background: $star-dark-gray !important;
-    color: $star-text-light !important;
-    transition: background .3s ease, transform .2s ease;
-
-    &:hover {
-      background: $star-deep-topaz !important;
-      color: $star-text-light !important;
-    }
-  }
-
-  &__accept-invite {
-    background: $star-glowing-amber !important;
-    color: $star-black !important;
-
-    &:hover {
-      background: $star-bright-citrine !important;
-      color: $star-dark-gray !important;
-    }
-  }
-
-  &__accept-friend {
-    background: $star-glowing-amber;
-    color: $star-black;
-    transition: transform .3s ease, box-shadow .3s ease, background-color .3s ease;
-
-    &:hover {
-      background: $star-bright-citrine;
-      color: $star-dark-gray;
-    }
-  }
-
-  &__pending-item {
-    background: $star-dark-gray;
-  }
-
-  &__username--search {
-    background: $star-dark-gray;
-    color: $star-text-light;
-    text-shadow: none;
-    font-weight: normal;
-  }
-
-  &__add-friend {
-    background: $star-dark-gray;
-    color: $star-text-dark;
-    transition: background .3s ease, transform .3s ease;
-
-    &:hover {
-      background: $star-bright-citrine;
-      color: $star-black;
-    }
-
-    &:focus,
-    &:active {
-      animation: starmodeRippleOut .8s forwards;
-      color: $star-deep-topaz;
-    }
-  }
-
-  @keyframes starmodeRippleOut{
-    0% {
-      box-shadow: 0 0 0 0 rgba(255, 255, 255, .5);
-    }
-    100% {
-      box-shadow: 0 0 .9375rem .3125rem rgba($star-starlight-yellow, .6);
-      color: $star-deep-topaz;
-      background: $neutral-white;
-      border: .125rem solid $star-starlight-yellow;
-    }
-  }
-
-  &__clear-btn,
-  &__send-btn {
-    background: $star-glowing-amber;
-    color: $star-black;
-    transition: background .3s ease, transform .3s ease-in-out;
-
-    &:hover {
-      background: $star-bright-citrine;
-      color: $star-text-light;
-      transform: scale(1.05);
-    }
-
-    &:active {
-      background: $neutral-black !important;
-      color: $star-deep-topaz !important;
-      transform: scale(.95);
-    }
-  }
-
-  &__message-input {
-    background: $star-frosted-dark-gray;
-  }
-
-  &__no-msgs,
-  &__chat-header-title {
-    color: $star-text-light;
-  }
-
-  &__chat-button {
-    background: $star-dark-neumorph-shadow-light;
-    color: $star-text-dark;
-
-    &:hover {
-      background: $star-bright-citrine;
-      color: $star-black;
-    }
-
-    &:active {
-      background: $star-glowing-amber;
-      color: $star-text-light;
-    }
-  }
-
-  &__user-info,
-  &__empty-friends-list,
-  &__label,
-  &__no-pending-txt,
-  &__card-subtitle--requests,
-  &__card-subtitle--friends,
-  &__card-subtitle--search,
-  &__no-users-txt {
-    color: $star-text-light;
-  }
-
-  &__chat {
-    background: $star-black;
-  }
-
-  &__search-section {
-    background: $star-dark-gray;
-  }
-
-  &__pending-section {
-    background: $star-medium-gray;
-  }
-
-  &__list {
-    background: $star-dark-neumorph-highlight-light;
-  }
-
-  &__pending-calendar {
-    background: $star-dark-gray;
-  }
-
-  &__shared-calendar {
-    background: $star-medium-gray;
-  }
-
-  &__pending-calendar__pending-item {
-    background: $frosted-glass;
-  }
-
-  &__pending-count {
-    background: $frosted-glass;
-    color: $star-deep-topaz;
-  }
-
-  &__calendar-info {
-    color: $neutral-white !important;
-    strong {
-      color: $neutral-white !important;
-    }
-  }
-}
-
-.voice-message-friends__voice-button {
-  background: $neutral-black;
-  color: $star-deep-topaz;
-  border: .125rem solid $neutral-white;
-
-    &:hover {
-      background: $neutral-white;
-      color: $neutral-black;
-      border: .125rem solid $star-deep-topaz;
-    }
-
-    &:active {
-      background: $star-deep-topaz;
-      color: $neutral-black;
-      box-shadow: $shadow-cloud-primary;
-    }
-  }
-
+  
 // Login and Register
 .register,
 .login {
