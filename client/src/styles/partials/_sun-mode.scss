@@ -1008,14 +1008,14 @@
 // Login and Register
 .register,
 .login {
-    background: $star-dark-gray;
+    background: $sun-light-gray;
 
     &__title {
-        color: $star-ash-gray;
+        color: $sun-ash-gray;
     }
 
     &__container {
-        background: $star-charcoal;
+        background: $sun-white;
     }
 
     &__image-card {
@@ -1024,13 +1024,13 @@
         @include tablet {
         height: auto;
         border-radius: 1.25rem;
-        box-shadow: $star-shadow-secondary;
+        box-shadow: $sun-shadow-secondary;
         display: flex;
         justify-content: center;
         align-items: center;
         max-width: 25rem;
         width: 100%;
-        border: 0.25rem solid $neutral-black;
+        border: 0.25rem solid $sun-silver;
         }
 
         img {
@@ -1044,34 +1044,34 @@
     }
 
     &__content-card {
-        background-color: rgba($star-medium-gray, 0.85);
-        border: 0.125rem solid $star-dark-gray;
+        background-color: rgba($sun-silver, 0.85);
+        border: 0.125rem solid $sun-light-gray;
         border-radius: 0.85rem;
-        box-shadow: $star-shadow-primary;
+        box-shadow: $sun-shadow-primary;
         @include sunAnimateBorder;
         @include sunBorderAnimation;
     }
 
     &__forgot-password-link {
-        color: $star-ash-gray;
+        color: $cloud-text-dark;
         padding-left: 0.25rem;
         padding-right: 0.25rem;
-        border: 0.0938rem solid $star-ash-gray;
+        border: 0.0938rem solid $neutral-white;
         background: none;
 
         &:hover,
         &:focus {
-            background-color: $star-gradient-citrine;
-            border: 0.0938rem solid $star-iridescent-gold;
-            color: $neutral-white;
+            background-color: $sun-gradient-lemon;
+            border: 0.0938rem solid $sun-golden-hour;
+            color: $neutral-black;
             text-decoration: none;
-            box-shadow: $star-shadow-primary;
+            box-shadow: $sun-shadow-primary;
         }
 
         &:active {
-            background-color: $star-gradient-gray-silver;
-            color: $neutral-white;
-            border: 0.125rem solid $star-light-gray;
+            background-color: $sun-gradient-sunrise;
+            color: $primary-dark-blue;
+            border: 0.125rem solid $sun-light-gray;
             border-radius: 0.25rem;
             transform: scale(0.9);
             text-decoration: none;
@@ -1080,26 +1080,31 @@
     }
 
     &__password-toggle-icon {
-        color: $star-ash-gray;
+        color: $sun-ash-gray;
 
         &:hover {
-            color: $neutral-white;
+            color: $sun-sunrise-orange;
         }
 
         &:active {
-            color: $star-glowing-amber;
+            color: $sun-ocean-breeze;
         }
     }
 
     &__remember-txt {
-        color: $star-ash-gray;
+        color: $cloud-text-dark;
     }
 
     &__button--previous {
         &:hover {
-            background: $star-gradient-citrine;
-            border: 0.0625rem solid $star-horizon-gold;
+            background: $sun-gradient-yellow;
+            border: 0.0625rem solid $neutral-white;
             color: $neutral-black;
+        }
+
+        &:active {
+          background: $sun-ocean-breeze;
+          color: $primary-dark-blue;
         }
 
         &::before {
@@ -1121,9 +1126,9 @@
     &__button--signup,
     &__button--signin {
         @include block-item(6.8119rem, 3.5rem);
-        background: $star-dark-gray;
-        color: $neutral-white;
-        box-shadow: $star-shadow-primary;
+        background: $star-gradient-iridescent;
+        color: $neutral-black;
+        box-shadow: $sun-shadow-primary;
         position: relative;
         overflow: hidden;
         font-size: 0.85rem;
@@ -1134,8 +1139,8 @@
         }
 
         &:hover {
-            background: $star-gradient-citrine;
-            border: 0.0625rem solid $star-horizon-gold;
+            background: $sun-ocean-breeze;
+            border: none;
             color: $neutral-black;
         }
 
@@ -1152,11 +1157,16 @@
         &:hover::before {
             right: 100%;
         }
+
+        &:active {
+          background: $sun-white;
+          color: $sun-ocean-breeze;
+        }
     }
 
     &__btn-create-account {
-        background: linear-gradient(120deg, $star-bright-citrine, $star-glowing-amber);
-        border: 0.125rem solid $star-medium-gray;
+        background: linear-gradient(120deg, $sun-yellow, $sun-sunrise-orange);
+        border: 0.125rem solid $sun-light-gray;
         border-radius: 0.3125rem;
         color: $neutral-black;
         padding: 0.625rem 2.5rem;
@@ -1165,27 +1175,27 @@
         margin-top: 1rem;
         line-height: 0.85rem;
         transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-        box-shadow: $star-shadow-secondary;
+        box-shadow: $sun-shadow-secondary;
 
         &:hover {
             transform: scale(1.05);
             box-shadow: 0 0.375rem 0.5rem rgba($neutral-black, 0.15);
             border: none;
             color: $neutral-black;
-            background: linear-gradient(60deg, $star-honey-glow, $star-deep-topaz);
+            background: linear-gradient(60deg, $sun-ocean-breeze, $sun-sunrise-sky);
         }
 
         &:active {
             transform: scale(0.95);
             color: $neutral-black;
-            box-shadow: 0 0.125rem 0.25rem rgba($star-dark-gray, 0.2);
-            background: linear-gradient(360deg, $star-sunray-gold, $star-bright-citrine);
+            box-shadow: 0 0.125rem 0.25rem rgba($sun-light-gray, 0.2);
+            background: $sun-white;
             border: none;
         }
 
         &:focus {
             outline: none;
-            box-shadow: $star-shadow-primary;
+            box-shadow: $sun-shadow-primary;
         }
 
         @include tablet {
@@ -1197,61 +1207,61 @@
     &__oauth-btn-google,
     &__social-button--google,
     &__guest-link {
-        background: linear-gradient(45deg, $star-light-gray, $star-medium-gray);
-        color: $neutral-white;
+        background: linear-gradient(45deg, $sun-silver, $sun-light-gray);
+        color: $neutral-black;
 
         &:hover {
-            background: linear-gradient(45deg, $star-iridescent-gold, $star-glowing-amber);
+            background: linear-gradient(45deg, $sun-golden-hour, $sun-sunrise-orange);
             color: $neutral-black;
             text-shadow: none;
         }
 
         &:active {
-            background: $star-gradient-muted-gold;
-            color: $star-black;
+            background: $sun-ocean-breeze;
+            color: $sun-white;
             box-shadow: none;
         }
     }
 
     &__input {
-      border: 0.125rem solid $star-light-gray;
-      box-shadow: $star-shadow-primary;
-      background: $star-dark-gray;
-      color: $neutral-white;
+      border: 0.125rem solid $sun-silver;
+      box-shadow: $sun-shadow-primary;
+      background: $sun-light-gray;
+      color: $neutral-black;
     
       &:active {
         box-shadow: none;
-        background: $star-black;
-        color: $neutral-white;
+        background: $sun-white;
+        color: $neutral-black;
       }
     
       &:-webkit-autofill {
-        box-shadow: 0 0 0px 1000px $star-dark-gray inset;
-        -webkit-text-fill-color: $neutral-white;
+        box-shadow: 0 0 0px 1000px $sun-light-gray inset;
+        -webkit-text-fill-color: $neutral-black;
         transition: background-color 5000s ease-in-out 0s;
       }
     
       &:enabled:valid {
         box-shadow: none;
-        background: $star-black;
-        color: $neutral-white;
+        background: $sun-white;
+        color: $neutral-black;
       }
     
       &:focus,
       &:not(:placeholder-shown) {
-        background: $star-medium-gray;
-        color: $neutral-white;
+        background: $sun-silver;
+        color: $neutral-black;
         box-shadow: none;
     
         & + .register__label,
         & + .login__label {
-          background: $star-charcoal;
-          border: 0.125rem solid $star-medium-gray;
-          color: $star-ash-gray;
+          background: $sun-white;
+          border: 0.125rem solid $sun-light-gray;
+          color: $cloud-stormy-blue;
         }
     
         &::placeholder {
-          color: $star-silver-gray;
+          color: $sun-ash-gray;
         }
       }
     
@@ -1263,43 +1273,43 @@
     }    
 
     &__label {
-        background: $star-medium-gray;
-        color: $neutral-white;
+        background: $sun-light-gray;
+        color: $neutral-black;
     }
 
     &__account-available,
     &__guest-text,
     &__terms-txt {
-        color: $star-ash-gray;
+        color: $star-charcoal;
     }
 
     &__terms-link,
     &__signin-link,
     &__guest-signin-link {
-        color: $star-horizon-gold;
+        color: $sun-soft-tangerine;
         font-weight: bold;
 
         &:visited,
         &:focus,
         &:hover {
             font-weight: normal;
-            background: $star-gradient-citrine;
+            background: $sun-gradient-yellow;
             color: $neutral-black;
             border: 0.0625rem solid $neutral-white;
         }
 
         &:active {
-            background: $star-gradient-gray-silver;
-            color: $neutral-white;
+            background: $sun-pale-baby-blue;
+            color: $neutral-black;
         }
     }
 }
 
 .register {
-    background: $star-dark-gray;
+    background: $sun-light-gray;
 
     &__hero {
-        background: $star-dark-gray;
+        background: $sun-light-gray;
     }
 
     &__button--previous {
