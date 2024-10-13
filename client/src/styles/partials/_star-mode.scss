@@ -379,6 +379,8 @@ textarea {
     background: $star-deep-topaz;
     color: $star-black;
     border: none;
+    box-shadow: 0 5px 15px rgba($star-bright-citrine, 0.4) !important;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 
     &:hover {
       background: $star-horizon-gold;

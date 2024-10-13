@@ -618,6 +618,10 @@
       border: .3125rem solid $sun-white;
     }
   
+    &__header {
+      color: $neutral-black;
+    }
+
     &__copy {
       background: $sun-frosted-white;
       color: $sun-text-dark;
@@ -699,6 +703,8 @@
       background: $sun-yellow;
       color: $sun-text-dark;
       border: none;
+      box-shadow: 0 5px 15px rgba($sun-ocean-breeze, 0.4) !important;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
   
       &:hover {
         background: $sun-golden-hour;

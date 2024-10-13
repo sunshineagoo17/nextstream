@@ -369,6 +369,8 @@
     &__cal-icon-container {
       background: $cloud-dawn-blue;
       color: $primary-dark-blue;
+      box-shadow: 0 5px 15px rgba($sun-ocean-breeze, 0.4) !important;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
       border: none;
 
       &:hover {
