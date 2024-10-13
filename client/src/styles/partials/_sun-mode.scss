@@ -527,16 +527,18 @@
 
         &:focus,
         &:hover {
-            border: .0625rem solid $sun-sunrise-orange;
-            box-shadow: none;
-            background: none;
+          border: .0625rem solid $sun-sunrise-orange;
+          box-shadow: none;
+          border-radius: .5rem;
+          background: none;
         }
 
-        &:active {
-            border: .125rem solid $sun-ocean-breeze;
-            box-shadow: none;
-            background: none;
-        }
+      &:active {
+        border: .125rem solid $sun-ocean-breeze;
+        box-shadow: none;
+        background: none;
+        border-radius: 1rem;
+      }
     }
   
     &__register {
@@ -562,12 +564,7 @@
     }
   
     &__logo-wordmark {
-        filter: brightness(100%) grayscale(0%) contrast(100%);
-        transition: filter .3s ease, transform .3s ease;
-    
-        &:hover {
-            filter: brightness(150%) grayscale(0%) contrast(100%);
-        }
+      filter: invert(100%) brightness(0%);
     }
   
     &__copyright {
