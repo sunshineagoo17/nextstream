@@ -1483,44 +1483,44 @@
     background: $star-black;
 
     &__disclaimer-content {
-      background: $neutral-black;
+      background: $sun-light-gray;
     }
-
+    
     &__text--center {
-      color: $neutral-black
+      color: $sun-text-dark;
     }
-
+    
     &__disclaimer-modal {
-      background: rgba($neutral-black, .8);
+      background: rgba($sun-ash-gray, .85);
     }
-
+    
     &__disclaimer-copy {
-      color: $neutral-white;
-    }
-
-    &__disclaimer-close {
       color: $neutral-black;
+    }
+    
+    &__disclaimer-close {
+      color: $sun-text-dark;
       
       &:hover {
-        background: $neutral-black;
-        color: $star-deep-topaz;
+        background: $sun-light-gold;
+        color: $sun-soft-tangerine;
       }
-
+    
       &:active {
-        background: $star-deep-topaz;
-        color: $neutral-black;
+        background: $sun-golden-hour;
+        color: $sun-text-dark;
       }
     }
-
+    
     &__disclaimer-header {
-      border: .25rem solid $star-deep-topaz;
-      color: $neutral-white;
-      background: $star-black;
+      border: .25rem solid $sun-golden-hour;
+      color: $neutral-black;
+      background: $sun-silver;
       text-shadow: none;
     }
-
+    
     &__disclaimer-note {
-      color: $star-deep-topaz;
+      color: $sun-soft-tangerine;
     }
 
     &__bot-typing-indicator-bubble {
@@ -2719,67 +2719,67 @@
     }
   }
 
-    // Quickstart Guide 
-    .quickstart-guide {
-        &__overlay {
-            background: $star-frosted-black;
-        }
-
-        &__container {
-            background: $star-black;
-        }
-
-        &__fave-icon {
-            color: $star-glowing-amber;
-
-            &:hover {
-                background: $star-glowing-amber;
-                color: $neutral-white;
-            }
-    
-            &:active {
-                background: $neutral-white;
-                color: $star-iridescent-gold;
-            }
-        }
-    
-        &__title {
-            color: $star-text-light;
-        }
-    
-        &__button {
-            background: $star-gradient-muted-gold;
-            color: $star-charcoal;
-        
-            &:focus,
-            &:visited,
-            &:hover {
-                background: $star-horizon-gold;
-                color: $neutral-black;
-            }
-    
-            &:active {
-                background: $star-deep-topaz;
-                color: $star-charcoal;
-            }
-        }
-    
-        &__close {
-            color: $star-deep-topaz;
-            background: $star-black;
-
-            &:hover {
-                background: $star-starlight-yellow;
-                color: $star-black;
-            }
-    
-            &:active {
-                color: $star-starlight-yellow;
-                background: $neutral-black;
-            }
-        }
+  // Quickstart Guide 
+  .quickstart-guide {
+    &__overlay {
+      background: $sun-frosted-white;
     }
-
+  
+    &__container {
+      background: $sun-white;
+    }
+  
+    &__fave-icon {
+      color: $sun-sunrise-orange;
+  
+      &:hover {
+        background: $sun-sunrise-orange;
+        color: $neutral-black;
+      }
+  
+      &:active {
+        background: $sun-icy-blue;
+        color: $sun-ocean-breeze;
+      }
+    }
+  
+    &__title {
+      color: $sun-text-dark;
+    }
+  
+    &__button {
+      background: $sun-gradient-sunrise;
+      color: $sun-text-dark;
+  
+      &:focus,
+      &:visited,
+      &:hover {
+        background: $neutral-black;
+        color: $sun-yellow;
+      }
+  
+      &:active {
+        background: $sun-sunrise-orange;
+        color: $sun-text-dark;
+      }
+    }
+  
+    &__close {
+      color: $neutral-black;
+      background: $cloud-frosted-white;
+  
+      &:hover {
+        background: $sun-yellow;
+        color: $neutral-black;
+      }
+  
+      &:active {
+        color: $neutral-black;
+        background: $sun-ocean-breeze;
+      }
+    }
+  }
+    
   // NextWatch
   .nextwatch-page {
     &__similar-card,
