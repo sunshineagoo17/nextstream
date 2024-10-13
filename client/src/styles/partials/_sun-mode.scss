@@ -4036,8 +4036,8 @@
 
   .reset-password {
     &__label {
-      background: $sun-gradient-lemon;
-      color: $sun-yellow;
+      background: $sun-ocean-breeze;
+      color: $neutral-black;
     }
 
     &__input {
@@ -4047,8 +4047,9 @@
       box-shadow: none;
 
       & + .reset-password__label {
+        background: $sun-gradient-yellow;
         border: none;
-        color: $sun-text-light;
+        color: $neutral-black;
       }
 
       &::placeholder {
@@ -4064,7 +4065,7 @@
       }
 
       &:active {
-        color: $sun-text-light;
+        color: $sun-ocean-breeze;
       }
     }
   }
@@ -4075,13 +4076,13 @@
     color: $sun-text-dark;
 
     &:hover {
-      background: $sun-golden-hour;
-      color: $sun-text-light;
+      background: $sun-sunrise-orange;
+      color: $neutral-black;
     }
 
     &:active {
-      background: $sun-soft-lemon;
-      color: $sun-text-dark;
+      background: $sun-ocean-breeze;
+      color: $neutral-black;
     }
   }
 
