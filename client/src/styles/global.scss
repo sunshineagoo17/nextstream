@@ -6,6 +6,7 @@
 @use "./partials/trans-mode" as *;
 @use "./partials/cloud-mode" as *;
 @use "./partials/star-mode" as *;
+@use "./partials/sun-mode" as *;
 
 @mixin borderGlowLogo() {
   @keyframes borderGlowLogo {

@@ -278,3 +278,59 @@
   
     animation: cloudBorderGlowLogo 3s infinite alternate;
   }  
+
+  // Animation for sun mode
+  // Mixin for Border Glow Effect 
+  @mixin sunBorderGlowLogo() {
+    @keyframes sunBorderGlowLogo {
+      0% {
+        border-color: $sun-golden-hour;
+      }
+      25% {
+        border-color: $sun-sunrise-orange;
+      }
+      50% {
+        border-color: $sun-soft-lemon;
+      }
+      75% {
+        border-color: $sun-morning-mist-blue;
+      }
+      100% {
+        border-color: $sun-ocean-breeze;
+      }
+    }
+
+    animation: sunBorderGlowLogo 3s infinite alternate;
+  }
+
+  // Mixin for Animated Border 
+  @mixin sunAnimateBorder() {
+    @keyframes sunAnimateBorder {
+      0% {
+        border-color: $sun-golden-hour;
+      }
+      25% {
+        border-color: $sun-sunrise-orange;
+      }
+      35% {
+        border-color: $sun-soft-lemon;
+      }
+      50% {
+        border-color: $sun-pale-baby-blue;
+      }
+      75% {
+        border-color: $sun-sunrise-sky;
+      }
+      85% {
+        border-color: $sun-ocean-breeze;
+      }
+      100% {
+        border-color: $sun-morning-mist-blue;
+      }
+    }
+  }
+
+  // Mixin for Animated Border 
+  @mixin sunBorderAnimation {
+    animation: sunAnimateBorder 17s infinite alternate;
+  }

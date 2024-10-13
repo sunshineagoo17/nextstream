@@ -467,11 +467,12 @@ $star-text-gray: #B0B0B0;
 $star-text-light: #FFFFFF;
 
 // Sun Mode Colors
+
 // Whites and Grays
 $sun-white: #FFFFFF;
 $sun-silver: #ECECEC;
 $sun-light-gray: #F5F5F5;
-$sun-ash-gray: #C4C4C6; 
+$sun-ash-gray: #C4C4C6;
 
 // Warm Accents (Yellows and Oranges)
 $sun-yellow: #FFE066;
@@ -479,6 +480,17 @@ $sun-golden-hour: #FFD700;
 $sun-sunrise-orange: #FFB74D;
 $sun-soft-lemon: #FFFACD;
 $sun-light-gold: #FFF8E1;
+$sun-soft-tangerine: #FFA07A;
+$sun-peach-fuzz: #FFDAB9;
+$sun-blushing-orange: #FFCBA4;
+$sun-mellow-apricot: #FFD3B6;
+
+// Soft Blues
+$sun-sunrise-sky: #ADD8E6;
+$sun-pale-baby-blue: #B3DDF2;
+$sun-morning-mist-blue: #D6EAF8;
+$sun-icy-blue: #E3F2FD;
+$sun-ocean-breeze: #A1C6EA;
 
 // Frosted Glass and Soft Effects
 $sun-frosted-white: rgba(255, 255, 255, 0.8);
@@ -495,12 +507,13 @@ $sun-deep-shadow: rgba(200, 200, 200, 0.3);
 $sun-gradient-yellow: linear-gradient(135deg, #FFE066, #FFD700);
 $sun-gradient-sunrise: linear-gradient(135deg, #FFF8E1, #FFB74D);
 $sun-gradient-lemon: linear-gradient(135deg, #FFFFFF, #FFFACD);
+$sun-gradient-blue-orange: linear-gradient(135deg, #ADD8E6, #FFDAB9);
 
 // Shadows for Contrast
 $sun-shadow-primary: 5px 5px 10px rgba(200, 200, 200, 0.4), -5px -5px 10px rgba(255, 255, 255, 0.7);
 $sun-shadow-secondary: 3px 3px 6px rgba(180, 180, 180, 0.2), -3px -3px 6px rgba(255, 255, 255, 0.5);
 
 // Text Colors
-$sun-text-dark: #404040; 
+$sun-text-dark: #404040;
 $sun-text-light: #FFFFFF;
 $sun-text-yellow: #FFD700;
