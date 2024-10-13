@@ -227,4 +227,32 @@
       }
     }
   }
+
+  // Sun Mode Background
+  &.sun-mode-background {
+    .hover-menu__content {
+      background: $sun-frosted-silver;
+      color: $cloud-very-deep-gray;
+
+      .hover-menu__item {
+        color: $cloud-very-deep-gray;
+
+        &:hover {
+          background: $sun-light-gray;
+          border: 0.0625rem solid $sun-white;
+          color: $sun-soft-tangerine;
+        }
+
+        &:active {
+          background: $sun-icy-blue;
+          color: $neutral-black;
+          border: 0.1875rem solid $sun-yellow;
+        }
+      }
+
+      .hover-menu__lines span {
+        background-color: $sun-text-dark;
+      }
+    }
+  }
 }
