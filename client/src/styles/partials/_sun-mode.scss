@@ -3987,144 +3987,151 @@
   // Search Results
   .search-results {
     &__background {
-      filter: grayscale(100%) brightness(0.8);
+      filter: grayscale(100%) brightness(0.9);
       transition: filter 0.3s ease, transform 0.3s ease;
       
       &:hover {
         filter: grayscale(0%) brightness(1.2);
       }
     }
-  
+
     &__poster {
-      filter: grayscale(100%) brightness(0.8);
+      border: none;
+      filter: grayscale(100%) brightness(0.9);
       transition: filter 0.3s ease, transform 0.3s ease;
       
       &:hover {
         filter: grayscale(0%) brightness(1.2);
       }
     }
-  
+
     &__no-data-img {
-      filter: grayscale(100%) brightness(0.8);
+      filter: grayscale(100%) brightness(0.9);
       transition: filter 0.3s ease, transform 0.3s ease;
       
       &:hover {
         filter: grayscale(0%) brightness(1.2);
       }
     }
-  
+
     &__content-card {
-      background: $star-black;
+      background: $sun-white;
     }
 
     &__no-results-copy,
     &__intro,
     &__title {
-      color: $star-text-light;
+      color: $sun-text-dark;
     }
-  
+
     &__text--bottom,
     &__text--top {
-      color: $star-ash-gray;
+      color: $neutral-black;
     }
-  
+
     &__card-media-container {
-      background: $star-frosted-dark-gray;
+      background: $sun-icy-blue;
     }
-  
+
     &__media-icon {
-      color: $star-text-light;
-  
+      color: $neutral-white;
+      background: $sun-ocean-breeze;
+
       &:hover {
-        background: $neutral-white;
-        color: $star-deep-topaz;
+        background: $sun-white;
+        color: $sun-sunrise-orange;
       }
-  
+
       &:active {
-        background: $star-deep-topaz;
-        color: $neutral-white;
+        background: $sun-sunrise-orange;
+        color: $sun-white;
       }
     }
-  
+
     &__poster--default,
     &__no-image {
       box-shadow: none;
     }
-  
+
     &__error-no-img-txt {
-      color: $star-text-gray;
+      color: $neutral-black;
     }
-  
+
     &__link {
       cursor: url(../../assets/cursors/cursor-pointer-sun.svg), pointer;
-      border: 0.125rem solid $star-text-light;
+      border: 0.125rem solid $sun-text-dark;
       border-radius: 1rem;
-      color: $star-text-light;
+      color: $sun-text-dark;
     }
-  
+
     &__page-nav-wrapper {
-      background-color: $star-dark-gray;
-      border: 0.15rem solid $star-light-gray;
-  
+      background-color: $sun-light-gray;
+      border: 0.15rem solid $sun-silver;
+
       &:hover {
-        background: $star-deep-topaz;
+        background: $sun-sunrise-orange;
         border: none;
       }
-  
+
       &:active {
-        background: $neutral-black;
-        border: 0.15rem solid $star-deep-topaz;
+        background: $sun-ocean-breeze;
+        border: 0.15rem solid $sun-ocean-breeze;
       }
     }
-  
+
     &__next-icon,
     &__previous-icon {
-      color: $neutral-white;
+      color: $neutral-black;
     }
-  
+
     &__pagination-circle {
-      border: 0.125rem solid $star-glowing-amber;
-      background: rgba($star-text-light, 0.7);
-  
+      border: 0.125rem solid $sun-golden-hour;
+      background: $neutral-white;
+
       &.active {
-        background-color: $star-starlight-yellow;
-        box-shadow: 0 0 0.25rem $star-glowing-amber;
+        background-color: $sun-sunrise-orange;
+        box-shadow: 0 0 0.25rem $sun-yellow;
       }
     }
-  
+
     &__error-no-img-title {
       box-shadow: none;
-      color: $star-text-light;
-      border: 0.0625rem solid $star-light-gray;
-  
+      color: $sun-text-dark;
+      border: 0.0625rem solid $sun-silver;
+
       &:hover {
-        color: $star-medium-gray;
+        color: $sun-ash-gray;
+      }
+
+      &:active {
+        background: $sun-icy-blue;
+        color: $primary-button-blue;
       }
     }
-  
+
     &__card {
-      background: $star-gradient-gray-silver;
+      background: $sun-gradient-sunrise;
       cursor: url(../../assets/cursors/cursor-pointer-sun.svg), pointer;
-      color: $star-text-light;
+      color: $sun-golden-hour;
     }
-  
+
     &__login-link,
     &__register-link {
-      color: $neutral-white;
+      color: $sun-soft-tangerine;
       text-decoration: none;
-      border: 0.0625rem solid $star-dark-gray;
-  
+      border: 0.0625rem solid $sun-sunrise-orange;
+
       &:hover,
       &:focus,
       &:visited {
-        background-color: $star-bright-citrine;
-        border: 0.0625rem solid $neutral-white;
-        color: $neutral-black;
+        background-color: $sun-yellow;
+        border: 0.0625rem solid $sun-white;
+        color: $sun-text-dark;
       
         &:active {
-          background-color: $neutral-black;
-          color: $star-deep-topaz;
-          border: 0.125rem solid $star-starlight-yellow;
+          background: $sun-icy-blue;
+          color: $primary-dark-blue;
+          border: 0.125rem solid $sun-icy-blue;
         }
       }
     }
