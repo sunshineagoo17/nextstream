@@ -4879,10 +4879,10 @@
 
   // Calendar Page
   .calendar {
-    background: $star-frosted-black;
+    background: $sun-frosted-white;
 
     &__header {
-      background: $star-frosted-dark-gray;
+      background: $sun-frosted-silver;
     }
 
     &__overlay {
@@ -4891,90 +4891,99 @@
     }
 
     &__radio {
-      color: $cloud-very-deep-gray;
-      background: $cloud-very-deep-gray;
+      color: $sun-light-gray;
+      background: $sun-light-gray;
     }
 
     &__main {
       border: none;
-      box-shadow: $shadow-cloud-primary;
+      box-shadow: $sun-shadow-primary;
     }
 
     &__clear-icon {
-      background: $cloud-deep-gray;
-      color: $neutral-white;
-      padding: .1rem;
+      background: none;
+      color: $sun-ocean-breeze;
+      border: none;
+      box-shadow: none;
       top: 30%;
   
       &:hover {
-        background: $neutral-black;
-        color: $star-deep-topaz;
+        background: none;
+        border: none;
+        color: $sun-sunrise-orange;
+        box-shadow: none;
       }
   
       &:active {
-        background: $star-deep-topaz;
-        color: $neutral-black;
+        background: none;
+        border: none;
+        box-shadow: none;
+        color: $sun-soft-tangerine;
       }
     }
 
     &__toggle-sidebar-btn {
-      background: $neutral-white;
-      color: $neutral-black;
+      background: $sun-white;
+      color: $sun-text-dark;
 
       &:hover {
-        background: $star-deep-topaz;
-        color: $neutral-black;
+        background: $sun-yellow;
+        color: $sun-text-dark;
       }
 
       &:active {
-        background: $neutral-black;
-        color: $star-deep-topaz;
+        background: $sun-text-dark;
+        color: $sun-yellow;
       }
     }
 
     &__event-content {
-      background: $neutral-black;
+      background: $sun-light-gray;
     }
 
     &__event-title,
     &__event-time {
-      color: $neutral-white;
+      color: $sun-text-dark;
     }
 
     &__event-icon {
-      color: $neutral-white !important;
+      color: $sun-text-dark !important;
     }
 
     &__search-bar {
-      color: $neutral-white;
-      background: $neutral-black;
-      border: .125rem solid $cloud-frosted-light-gray;
+      color: $sun-text-dark;
+      background: $sun-white;
+      border: .125rem solid $sun-ash-gray;
 
       &::placeholder {
-        color: $star-ash-gray;
+        color: $sun-ash-gray;
       }
 
       &:active,
       &:focus {
-        color: $star-golden-hour;
-        background: $star-black;
-        border: .125rem solid $star-starlight-yellow;
+        color: $primary-dark-blue;
+        background: $primary-pale-blue;
+        border: .125rem solid $sun-ocean-breeze;
       }
 
       &:-ms-input-placeholder {
-        color: $star-ash-gray;
+        color: $sun-ash-gray;
       }
   
       &::-ms-input-placeholder {
-        color: $star-ash-gray;
+        color: $sun-ash-gray;
       }  
     }
 
     &__search-icon {
-      color: $star-deep-topaz;
+      color: $sun-sunrise-orange;
 
       &:hover {
-        color: $neutral-white;
+        color: $sun-yellow;
+      }
+
+      &:active {
+        color: $neutral-black;
       }
     }
 
@@ -4984,18 +4993,18 @@
     }
 
     &__delete-events-btn {
-      background: $neutral-white;
-      color: $neutral-black;
+      background: $sun-white;
+      color: $sun-text-dark;
 
       &:hover {
-        background: $star-deep-topaz; 
-        color: $neutral-black;
-        border: .125rem solid $neutral-white;
+        background: $sun-yellow; 
+        color: $sun-text-dark;
+        border: .125rem solid $sun-white;
       }
 
       &:active {
-        background: $neutral-black;
-        color: $star-deep-topaz;
+        background: $sun-text-dark;
+        color: $sun-yellow;
         border: none;
       }
     }
@@ -5049,84 +5058,115 @@
 
   // Calendar Page
   .calendar-page {
-    background: $star-black;
+    background: $sun-frosted-white;
 
     &__title {
-      background: $star-dark-gray;
-      color: $star-text-light;
-      border: 0.1875rem solid $star-medium-gray;
+      background: $neutral-white;
+      color: $primary-dark-blue;
+      border: 0.1875rem solid $sun-yellow;
     }
 
     &__subtitle {
-      color: $star-text-gray;
+      color: $neutral-black;
     }
 
     &__hero {
-      background: $star-dark-neumorph-base;
+      background: $neutral-white;
     }
 
     &__hero-text {
-      background: $star-gradient-gray-silver;
-      box-shadow: $star-shadow-primary;
+      background: $sun-gradient-yellow;
+      box-shadow: $sun-shadow-primary;
+      border: .125rem solid $neutral-white;
     }
   }
 
-  .fc .fc-toolbar .fc-button-group .fc-button:not(:disabled).fc-button-active, 
-  .fc .fc-toolbar .fc-button-group .fc-button:not(:disabled):active {
-    background: $star-charcoal;
-    color: $star-text-light;
-  }
-
-  .fc-toolbar {
-    .fc-toolbar-title {
-      border: .125rem solid $star-medium-gray;
-      box-shadow: $star-shadow-secondary;
-      color: $neutral-white;
-      background: $neutral-black;
-    }
-  }
-
-  .fc-daygrid-day {
-    border: .0625rem solid $star-medium-gray;
-  }
-
-  .fc-header-toolbar {
-    background: $star-frosted-dark-gray;
-  }
-
-  .fc-day-today {
-    background-color: $star-glowing-amber !important;
-    border-color: $star-charcoal !important;
-    color: $star-black;
-  }
-
-  .share-event__title.neumorphic-text {
-    color: $neutral-black;
-    border: .125rem solid $neutral-white;
-  }
-
-  .share-event__label {
-    color: $neutral-black;
-  }
-
-  .share-event__button {
+  .fc-next-button,
+  .fc-prev-button {
+    background: $sun-sunrise-orange !important;
     color: $neutral-black !important;
 
     &:hover {
+      background: $sun-soft-lemon !important;
+      color: $neutral-black !important;
+    }
+
+    &:active {
+      background: $neutral-white !important;
+      color: $neutral-black !important;
+    }
+
+  }
+
+  .fc-today-button {
+    background: $sun-yellow !important;
+    color: $neutral-black !important;
+
+    &:hover {
+      background: $neutral-black !important;
       color: $neutral-white !important;
     }
 
     &:active {
-      color: $primary-dark-blue !important;
+      background: $neutral-white !important;
+      color: $neutral-black !important;
+    }
+  }
+
+  .fc-toolbar {
+    .fc-toolbar-title {
+      border: .125rem solid $sun-ash-gray;
+      box-shadow: $sun-shadow-secondary;
+      color: $sun-text-dark;
+      background: $sun-white;
+    }
+  }
+
+  .fc-daygrid-day {
+    border: .0625rem solid $sun-ash-gray;
+  }
+
+  .fc-header-toolbar {
+    background: $sun-frosted-silver;
+  }
+
+  .fc-day-today {
+    background-color: $sun-soft-tangerine !important;
+    border-color: $sun-light-gray !important;
+    color: $neutral-black;
+  }
+
+  .share-event__title.neumorphic-text {
+    color: $sun-text-dark;
+    border: .125rem solid $sun-white;
+  }
+
+  .share-event__label {
+    color: $sun-text-dark;
+  }
+
+  .share-event__button {
+    color: $sun-text-dark !important;
+
+    &:hover {
+      color: $sun-white !important;
+    }
+
+    &:active {
+      color: $sun-sunrise-orange !important;
     }
   }
 
   .fc-col-header-cell {
-    background: $star-charcoal;
+    background: $sun-ash-gray;
   }
 
   tbody {
-    background: $star-dark-gray;
+    background: $sun-light-gray;
+  }
+
+  thead {
+    color: $neutral-black;
   }
 
   // Modal
@@ -5184,18 +5224,22 @@
 
     // Custom cursor for all input fields
     input {
-      color: $primary-dark-blue;
+      color: $sun-text-dark;
       cursor: url('../../assets/cursors/cursor-pointer-sun.svg'), pointer;
-
+    
+      &:hover {
+        cursor: url('../../assets/cursors/cursor-pointer-sun.svg'), pointer;
+      }
+    
+      &:focus {
+        cursor: url('../../assets/cursors/cursor-pointer-sun.svg'), pointer;
+      }
+    
       svg {
         cursor: url('../../assets/cursors/cursor-pointer-sun.svg'), pointer;
       }
     }
-
-    input:hover {
-      cursor: url('../../assets/cursors/cursor-pointer-sun.svg'), pointer;
-    }
-
+    
     input[type="datetime-local"] {
       cursor: url('../../assets/cursors/cursor-pointer-sun.svg'), pointer;
     }
