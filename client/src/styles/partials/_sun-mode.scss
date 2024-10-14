@@ -3824,157 +3824,163 @@
   
   // Auth Search Results 
   .auth-search-results {
-  
+
     &__pagination-circles {
       cursor: url('../../assets/cursors/cursor-pointer-sun.svg'), pointer;
     }
-  
+
     &__card {
       cursor: url('../../assets/cursors/cursor-arrow-sun.svg'), auto;
     }
-  
+
     &__calendar-button,
     &__calendar-icon,
     &__media-icon {
       cursor: url('../../assets/cursors/cursor-pointer-sun.svg'), pointer;
     }
-  
+
     &__background {
       filter: grayscale(100%);
       transition: filter .3s ease, transform .3s ease;
-    
+
       &:hover {
         filter: grayscale(0%) brightness(1); 
       }
     }
-  
+
     &__content-card {
-      border: .375rem solid $star-charcoal;
-      background: $star-black;
+      border: .375rem solid $sun-ocean-breeze;
+      background: $sun-white;
     }
-  
+
     &__card {
-      background: $star-gradient-gray-silver;
-      border: .0625rem solid $star-medium-gray;
+      background: $sun-gradient-sunrise;
+      border: .0625rem solid $sun-light-gray;
     }
-  
+
+    &__no-providers {
+      background: $primary-button-blue;
+    }
+
     &__streaming-services,
     &__poster {
       filter: grayscale(100%);
       transition: filter .3s ease, transform .3s ease;
-    
+
       &:hover {
         filter: grayscale(0%) brightness(1); 
       }
     }
-  
+
     &__no-data-img {
       filter: grayscale(100%);
       transition: filter .3s ease, transform .3s ease;
-    
+
       &:hover {
         filter: grayscale(0%) brightness(1); 
       }
     }
-  
+
     &__no-results-copy {
-      background: $star-medium-gray;
+      background: $neutral-black;
     }
-  
+
     &__intro,
     &__title {
-      color: $star-text-light;
+      color: $sun-text-dark;
     }
-  
+
     &__chevron-icon {
-      color: $star-ash-gray;
+      color: $sun-silver;
     }
-  
+
     &__page-nav-wrapper {
-      background-color: $star-medium-gray;
-      border: .15rem solid $star-charcoal;
-  
+      background-color: $sun-light-gray;
+      border: .15rem solid $sun-ash-gray;
+
       &:hover {
-        background: $star-deep-topaz;
+        background: $sun-sunrise-orange;
+        border: .15rem solid $sun-yellow;
       }
-  
+
       &:active {
-        background: $star-charcoal;
-        border: .15rem solid $star-starlight-yellow;
+        background: $sun-ocean-breeze;
+        border: .15rem solid $sun-ocean-breeze;
       }
     }
-  
+
     &__error-no-img-title {
-      color: $star-ash-gray;
-      border: .0625rem solid $star-light-gray;
+      color: $neutral-black;
+      border: .0625rem solid $sun-light-gray;
     }
-  
+
     &__error-no-img-txt {
-        color: $star-ash-gray;
+      color: $neutral-black;
     }
-  
+
     &__no-image {
       box-shadow: none;
-      border: .125rem solid $star-light-gray;
+      border: .125rem solid $sun-light-gray;
     }
-  
+
     &__thumbs-up,
     &__thumbs-down,
     &__share-icon {
       box-shadow: none;
-      color: $star-starlight-yellow;
-      background: $neutral-black;
-      border: .125rem solid $star-black;
-  
+      color: $sun-sunrise-orange;
+      background: $sun-white;
+      border: .125rem solid $sun-light-gray;
+
       &:focus,
       &:hover {
-        background: $star-glowing-amber;
-        color: $star-black;
+        background: $sun-sunrise-orange;
+        color: $sun-text-dark;
         border: none;
         box-shadow: none;
       }
-  
+
       &:active {
-        background: $star-black;
-        color: $star-starlight-yellow;
-        border: .125rem solid $neutral-white;
+        background: $neutral-white;
+        color: $sun-ocean-breeze;
+        border: none;
         box-shadow: none;
       }
     }
-  
+
     &__calendar-button,
     &__media-icon {
-      color: $star-dark-gray;
-  
+      color: $sun-ocean-breeze;
+      background: $neutral-white;
+
       &:focus,
       &:hover {
-        color: $neutral-black;
-        background: $star-starlight-yellow;
+        color: $sun-text-dark;
+        background: $sun-yellow;
       }
-  
+
       &:active {
-        background: $star-black;
-        color: $star-starlight-yellow;
+        background: $neutral-black;
+        color: $sun-yellow;
       }
     }
-  
+
     &__next-icon,
     &__previous-icon {
-      color: $star-text-light;
+      color: $sun-text-dark;
     }
-  
+
     &__pagination-circle {
-      border: .125rem solid $star-silver-gray;
-      background: rgba($star-light-gray, .7);
-  
+      border: .125rem solid $sun-sunrise-orange;
+      background: rgba($sun-light-gray, .7);
+
       &.active {
-        background-color: $star-bright-citrine;
-        box-shadow: 0 0 .25rem $star-deep-topaz;
+        background-color: $sun-yellow;
+        box-shadow: 0 0 .25rem $sun-sunrise-orange;
       }
     }
-  
+
     &__card-media-container {
-      background: $star-frosted-medium-gray;
+      background: $sun-frosted-silver;
     }
   }
   
