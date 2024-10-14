@@ -4300,9 +4300,9 @@
 
   // Profile
   .profile-img {
-    box-shadow: $star-shadow-primary;  
-    border: .25rem solid $star-light-gray; 
-    background-color: $star-black;
+    box-shadow: $sun-shadow-primary;  
+    border: .25rem solid $sun-light-gray; 
+    background-color: $sun-white;
     transition: all 0.5s ease-in-out; 
     position: relative;
   
@@ -4311,13 +4311,13 @@
     }
   
     &:hover {
-      background: $star-deep-topaz;
-      border: .25rem solid $star-frosted-lemon;
+      background: $sun-soft-lemon;
+      border: .25rem solid $sun-frosted-gold;
       transform: scale(1.05); 
-      box-shadow: 0 0 15px $star-frosted-gold, 0 0 30px $star-horizon-gold; 
+      box-shadow: 0 0 15px $sun-frosted-gold, 0 0 30px $sun-golden-hour; 
   
       transition: all 0.5s ease-in-out; 
-
+  
       &::after {
         content: '';
         position: absolute;
@@ -4326,8 +4326,8 @@
         right: 0;
         bottom: 0;
         border-radius: inherit;
-        border: .25rem solid rgba($star-frosted-lemon, 0.5);
-        box-shadow: 0 0 20px rgba($star-frosted-lemon, 0.7);
+        border: .25rem solid rgba($sun-frosted-gold, 0.5);
+        box-shadow: 0 0 20px rgba($sun-frosted-gold, 0.7);
         pointer-events: none; 
         transition: all 0.5s ease-in-out;
       }
@@ -4335,318 +4335,324 @@
   
     &__username,
     &__status {
-      color: $star-text-light;
+      color: $sun-text-dark;
     }
-
+  
     &__button {
-      background: $star-deep-topaz;
-      color: $neutral-black;
+      background: $sun-yellow;
+      color: $sun-text-dark;
       border: none;
       transition: background .3s ease, color .3s ease, transform .3s ease; 
     
       &:hover {
-        color: $star-honey-glow;
-        background: $star-black;
+        color: $sun-sunrise-orange;
+        background: $neutral-black;
         transform: scale(1.05);
       }
     
       &:active {
-        color: $neutral-black;
-        background: $neutral-white;
+        color: $sun-icy-blue;
+        background: $primary-button-blue;
         transform: scale(.95); 
       }
     }    
   }
-
-.profile {
-  background: $star-black;
-
-  &__main {
-    background: $star-frosted-black;
-    border: none;
-  }
-
-  &__details-header,
-  &__password-header,
-  &__subscription-header,
-  &__notifications-header,
-  &__region-header {
-    background: $neutral-black;
-    color: $neutral-white;
-    border: .125rem solid $star-medium-gray;
-  }
-
-  &__content-subscription-container,
-  &__content-details,
-  &__content-password,
-  &__content-notifications,
-  &__content-region {
-    background: $star-neumorph-base;
-    border: .125rem solid $star-medium-gray;
-  }
-
-  &__title {
-    color: $neutral-white;
-  }
-
-  &__region-title {
-    color: $star-text-light;
-  }
-
-  &__dropdown {
-    @include block-item(13.9688rem, 3.5625rem);
-    display: flex;
-    align-items: center;
-    gap: .5rem;
-    font-size: 1rem;
-    background: $star-medium-gray;
-    border: .125rem solid $star-light-gray;
-    border-radius: .5rem;
-    box-shadow: $star-shadow-primary;
-    color: $star-text-light;
-    padding-left: 1rem;
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23E0E0E0' width='24px' height='24px'><path d='M12 15.5c-.3 0-.5-.1-.7-.3l-5-5c-.4-.4-.4-1 0-1.4s1-.4 1.4 0L12 13.8l4.3-4.3c.4-.4 1-.4 1.4 0s.4 1 0 1.4l-5 5c-.2.2-.4.3-.7.3z'/></svg>");
-    background-repeat: no-repeat;
-    background-position: right 1rem center;
-    background-size: 1.125rem 1.125rem;
   
-    &:focus {
-      background-color: $star-dark-gray;
+  .profile {
+    background: $sun-white;
+  
+    &__main {
+      background: $sun-frosted-white;
+      border: none;
     }
-  }
-
-  &__input {
-    border: .125rem solid $star-light-gray;
-    box-shadow: none;
-
-    &:focus,
-    &:not(:placeholder-shown) {
-      background-color: $star-charcoal;
-      color: $neutral-white;
-      border-color: $star-ash-gray;
-      padding-left: .85rem;
+  
+    &__details-header,
+    &__password-header,
+    &__subscription-header,
+    &__notifications-header,
+    &__region-header {
+      background: $sun-light-gray;
+      color: $sun-text-dark;
+      border: .125rem solid $sun-silver;
+    }
+  
+    &__content-subscription-container,
+    &__content-details,
+    &__content-password,
+    &__content-notifications,
+    &__content-region {
+      background: $sun-neumorph-base;
+      border: .125rem solid $sun-light-gray;
+    }
+  
+    &__title {
+      color: $sun-text-dark;
+    }
+  
+    &__region-title {
+      color: $sun-text-dark;
+    }
+  
+    &__dropdown {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
       font-size: 1rem;
-
-      & + .profile__label {
-        top: -.85rem;
-        font-size: 1rem;
-        background-color: $star-ash-gray;
-        border: .0625rem solid $star-ash-gray;
-        color: $neutral-black;
-      }
-
-      &::placeholder {
-        color: $star-sunray-gold;
-        font-size: .85rem;
-      }
-    }
-  }
-
-  &__notification-text {
-    color: $star-text-light;
-  }
-
-  &__label {
-    background: $neutral-black;
-    color: $neutral-white;
-  }
-
-  &__text-wrapper {
-    background: $neutral-black;
-    color: $neutral-white;
-    border: .0625rem solid $star-frosted-medium-gray;
-  }
-
-  &__password-toggle-icon {
-    color: $star-medium-gray;
-    transition: transform .3s ease, background .3s ease, color .3s ease; 
-
-    &:hover {
-      color: $star-horizon-gold;
-      transform: scale(1.05); 
-    }
-
-    &:active {
-      color: $star-deep-topaz;
-      transform: scale(.95); 
-    }
-  }
-
-  &__notifications-alerts-icon {
-    color: $star-iridescent-gold;
-    transition: transform .3s ease, background .3s ease, color .3s ease;
-
-    &:hover {
-      background: $star-honey-glow;
-      color: $star-text-light;
-      transform: scale(1.05);
-    }
-
-    &:active {
-      background: $star-light-gray;
-      color: $star-deep-topaz;
-      transform: scale(.95);
-    }
-  }
-
-  &__btn-save-account {
-    background: $star-starlight-yellow;
-    animation: shimmer .5s linear infinite;
-    border: .125rem solid $primary-dark-blue;
+      background: $sun-light-gray;
+      border: .125rem solid $sun-silver;
+      border-radius: .5rem;
+      box-shadow: $sun-shadow-primary;
+      color: $sun-text-dark;
+      padding-left: 1rem;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23B3DDF2' width='24px' height='24px'><path d='M12 15.5c-.3 0-.5-.1-.7-.3l-5-5c-.4-.4-.4-1 0-1.4s1-.4 1.4 0L12 13.8l4.3-4.3c.4-.4 1-.4 1.4 0s.4 1 0 1.4l-5 5c-.2.2-.4.3-.7.3z'/></svg>");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      background-size: 1.125rem 1.125rem;
   
-    &:focus,
-    &:hover {
-      background: $star-gradient-iridescent;
+      &:focus {
+        background-color: $primary-pale-blue;
+        border: .125rem solid $sun-icy-blue;
+      }
     }
   
-    &:active {
+    &__input {
+      border: .125rem solid $sun-silver;
+      box-shadow: none;
       background: $neutral-white;
-    }
-  }
-
-  &__btn-save-account-bg {
-    background: $star-medium-gray;
-  }
-
-  &__location-icon {
-    color: $star-iridescent-gold;
-    transition: transform .3s ease, background .3s ease, color .3s ease;
-
-    &:hover {
-      background: $star-honey-glow;
-      cursor: url('../../assets/cursors/cursor-pointer-sun.svg'), pointer;
-      color: $star-text-light;
-      transform: scale(1.05);
-    }
-
-    &:active {
-      background: $star-light-gray;
-      color: $star-deep-topaz;
-      transform: scale(.95);
-    }
-  }
-
-  &__details-header,
-  &__password-header,
-  &__subscription-header,
-  &__notifications-header,
-  &__region-header {
-    background: $star-light-gray;
-  }
-
-  &__details-content,
-  &__password-content,
-  &__notifications-content,
-  &__subscription-status-wrapper,
-  &__region-content {
-    background: $star-black;
-    border: .1875rem solid $star-light-gray;
-  }
-}
-
-.subscription-status {
-  background: $star-black;
-
-  &__icon {
-    color: $star-iridescent-gold;
-    transition: transform .3s ease, background .3s ease, color .3s ease;
-
-    &:hover {
-      background: $star-honey-glow;
-      color: $star-text-light;
-      transform: scale(1.05);
-    }
-
-    &:active {
-      background: $star-light-gray;
-      color: $star-deep-topaz;
-      transform: scale(.95);
-    }
-  }
-
-  &__box {
-    background: $star-deep-topaz;
-    border: .1875rem solid $neutral-white;
   
-    &:hover {
-      background: $star-gradient-citrine;
-      border: .1875rem solid $star-glowing-amber;
+      &:focus,
+      &:not(:placeholder-shown) {
+        background-color: $sun-icy-blue;
+        color: $primary-dark-blue;
+        border-color: $sun-ocean-breeze;
+        padding-left: .85rem;
+        font-size: 1rem;
+  
+        & + .profile__label {
+          top: -.85rem;
+          font-size: 1rem;
+          background-color: $neutral-white;
+          border: .0625rem solid $sun-light-gray;
+          color: $neutral-black;
+        }
+  
+        &::placeholder {
+          color: $sun-sunrise-orange;
+          font-size: .85rem;
+        }
+      }
+    }
+  
+    &__notification-text {
+      color: $sun-text-dark;
+    }
+  
+    &__label {
+      background: $sun-icy-blue;
+      border: .0625rem solid $sun-silver;
+      color: $primary-button-blue;
+    }
+  
+    &__text-wrapper {
+      background: $sun-light-gray;
+      color: $sun-text-dark;
+      border: .0625rem solid $sun-frosted-silver;
+    }
+  
+    &__password-toggle-icon {
+      color: $sun-ash-gray;
+      transition: transform .3s ease, background .3s ease, color .3s ease; 
+  
+      &:hover {
+        color: $sun-golden-hour;
+        transform: scale(1.05); 
+      }
+  
+      &:active {
+        color: $sun-sunrise-orange;
+        transform: scale(.95); 
+      }
+    }
+  
+    &__notifications-alerts-icon {
+      color: $sun-sunrise-orange;
+      transition: transform .3s ease, background .3s ease, color .3s ease;
+  
+      &:hover {
+        background: $neutral-white;
+        color: $star-text-gray;
+        transform: scale(1.05);
+      }
+  
+      &:active {
+        background: $sun-light-gray;
+        color: $sun-ocean-breeze;
+        transform: scale(.95);
+      }
+    }
+
+    &__btn-save-account-bg {
+      @include block-item(9.625rem, 3.1875rem);
+      background: linear-gradient(180deg, rgb(238, 244, 252) 0%, $sun-yellow 100%);
+      border-radius: .75rem;
+      box-shadow: $shadow-quinary;
+      position: absolute;
+      top: .1875rem;
+    }
+  
+    &__btn-save-account {
+      background: $sun-yellow;
+      animation: shimmer .5s linear infinite;
+      border: .125rem solid $sun-icy-blue;
+    
+      &:focus,
+      &:hover {
+        background: $sun-sunrise-orange;
+      }
+    
+      &:active {
+        background: $sun-white;
+      }
+    }
+  
+    &__location-icon {
+      color: $sun-sunrise-orange;
+      transition: transform .3s ease, background .3s ease, color .3s ease;
+  
+      &:hover {
+        background: $neutral-white;
+        color: $star-text-gray;
+        cursor: url('../../assets/cursors/cursor-pointer-sun.svg'), pointer;
+        transform: scale(1.05);
+      }
+  
+      &:active {
+        background: $sun-light-gray;
+        color: $sun-ocean-breeze;
+        transform: scale(.95);
+      }
+    }
+  
+    &__details-header,
+    &__password-header,
+    &__subscription-header,
+    &__notifications-header,
+    &__region-header {
+      background: $sun-light-gray;
+    }
+  
+    &__details-content,
+    &__password-content,
+    &__notifications-content,
+    &__subscription-status-wrapper,
+    &__region-content {
+      background: $sun-white;
+      border: .1875rem solid $sun-light-gray;
     }
   }
   
-  &__delete-account {
-    background: $star-iridescent-gold;
-    color: $star-text-light;
-    border: .1875rem solid $star-light-gray;
-
-    &:hover {
-      backdrop-filter: blur(.25rem);
-      box-shadow: 0 0 .625rem rgba(255, 0, 0, .5);
-      background: $star-gradient-citrine;
-      border: .1875rem solid $star-silver-gray;
+  .subscription-status {
+    background: $sun-white;
+  
+    &__icon {
+      color: $sun-sunrise-orange;
+      transition: transform .3s ease, background .3s ease, color .3s ease;
+  
+      &:hover {
+        background: $neutral-white;
+        color: $star-text-gray;
+        transform: scale(1.05);
+      }
+  
+      &:focus,
+      &:active {
+        background: $sun-icy-blue;
+        color: $sun-ocean-breeze;
+        transform: scale(.95);
+      }
     }
 
-    &:active {
-      background-color: lighten($star-glowing-amber, 10%);
-      border: .1875rem solid $star-ash-gray;
-      box-shadow: 0 0 .625rem rgba(255, 0, 0, .3);
-    }
-  }
-
-  &__delete-txt {
-    color: $neutral-black;
-  }
-
-  &__title {
-    color: $star-text-light;
-  }
-
-  &__checkbox--active {
-    background: $star-deep-topaz;
-    color: $neutral-white;
-    border: .1875rem solid $neutral-white;
-
-    &:hover {
-      background: $star-gradient-citrine;
-      border: .1875rem solid $star-glowing-amber;
+    &__title {
       color: $neutral-black;
     }
-
-    &:active {
-      background-color: lighten($star-glowing-amber, 10%);
-      border-color: lighten($star-glowing-amber, 10%);
-      color: $star-sunray-gold;
+  
+    &__box {
+      background: $sun-sunrise-orange;
+      border: .1875rem solid $sun-silver;
+  
+      &:hover {
+        background: $sun-gradient-sunrise;
+        border: .1875rem solid $sun-soft-lemon;
+      }
+    }
+  
+    &__delete-account {
+      background: $sun-soft-lemon;
+      color: $sun-text-dark;
+      border: .1875rem solid $sun-light-gray;
+  
+      &:hover {
+        backdrop-filter: blur(.25rem);
+        box-shadow: 0 0 .625rem rgba(255, 0, 0, .5);
+        background: $sun-gradient-sunrise;
+        border: .1875rem solid $sun-soft-lemon;
+      }
+  
+      &:active {
+        background-color: lighten($sun-soft-lemon, 10%);
+        border: .1875rem solid $sun-ash-gray;
+        box-shadow: 0 0 .625rem rgba(255, 0, 0, .3);
+      }
+    }
+  
+    &__delete-txt {
+      color: $sun-text-dark;
+    }
+  
+    &__checkbox--active {
+      color: $sun-white;
+      background: $sun-sunrise-orange;
+      border: .1875rem solid $sun-silver;
+  
+      &:hover {
+        background: $sun-gradient-sunrise;
+        border: .1875rem solid $sun-soft-lemon;
+        color: $sun-text-dark;
+      }
+  
+      &:active {
+        background-color: $sun-icy-blue;
+        border-color: lighten($sun-soft-lemon, 10%);
+        color: $sun-ocean-breeze;
+      }
+    }
+  
+    &__checkbox--inactive {
+      background: $sun-yellow;
+      color: $neutral-black;
     }
   }
-
-  &__checkbox--inactive {
-    background: $star-sunray-gold;
-    color: $star-frosted-lemon;
-  }
-}
-
-// Toggle Button Component
-.toggle-button {
-  &__switch {
-    cursor: url('../../assets/cursors/cursor-pointer-sun.svg'), pointer;
-    background-color: $star-ash-gray;
-    transition: background-color .3s ease;
-    box-shadow: $star-shadow-primary;
-
-    &.checked {
-      background-color: $star-honey-glow;
-    }
-
-    &::before {
-      content: '';
-      background-color: $star-iridescent-gold;
-      transition: transform .3s ease;
+  
+  // Toggle Button Component
+  .toggle-button {
+    &__switch {
+      cursor: url('../../assets/cursors/cursor-pointer-sun.svg'), pointer;
+      background-color: $sun-ash-gray;
+      transition: background-color .3s ease;
+      box-shadow: $sun-shadow-primary;
+  
+      &.checked {
+        background-color: $sun-yellow;
+      }
+  
+      &::before {
+        content: '';
+        background-color: $sun-yellow;
+        transition: transform .3s ease;
+      }
     }
   }
-}
+  
 
 // Contact Us Modal
 .modal-forgot-password,
