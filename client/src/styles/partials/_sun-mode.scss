@@ -3182,192 +3182,182 @@
 
   // NextView
   .nextview-page {
-    background: $star-charcoal;
+    background: $sun-light-gray;
 
     &__background {
       filter: grayscale(100%) brightness(0.9);
       transition: filter 0.3s ease, transform 0.3s ease;
-  
+
       &:hover {
-        filter: grayscale(0%) brightness(1);
+        filter: grayscale(0%) brightness(1.2);
       }
     }
-  
+
     &__cast-card {
-        background: $neutral-black;
+      background: $sun-white;
     }
 
-    &__cast-item {  
-        cursor: url('../../assets/cursors/cursor-pointer-sun.svg'), pointer;
+    &__cast-item {
+      cursor: url('../../assets/cursors/cursor-pointer-sun.svg'), pointer;
     }
-  
+
     &__nextwatch-link,
     &__calendar-button,
     &__share-button,
     &__thumbs-up,
     &__thumbs-down {
-      color: $star-honey-glow;
-      background-color: $star-black;
-      border: .125rem solid $star-charcoal;
-  
+      color: $sun-sunrise-orange;
+      background-color: $neutral-white;
+      border: .125rem solid $sun-ash-gray;
+
       &:focus,
       &:hover {
-        background: $star-black;
-        color: $neutral-white;
-        border: 0.125rem solid $star-starlight-yellow;
+        background: $neutral-white;
+        color: $sun-text-dark;
+        border: 0.125rem solid $sun-golden-hour;
       }
-  
+
       &:active {
-        background: $star-bright-citrine;
-        color: $neutral-black;
-        box-shadow: $star-shadow-primary;
-        border: 0.1875rem solid $star-horizon-gold;
+        background: $neutral-white;
+        color: $sun-soft-tangerine;
+        box-shadow: $sun-shadow-primary;
+        border: 0.1875rem solid $sun-soft-tangerine;
       }
     }
-  
-    &__nextwatch-link {
-        &:hover {
-            background: $star-frosted-medium-gray;
-            color: $star-ash-gray;
-        }
-    
-        &:active {
-            background: $star-glowing-amber;
-            color: $star-dark-gray;
-        }
-    }
-  
+
     &__nextwatch-icon {
-      color: $star-honey-glow;
+      color: $sun-sunrise-orange;
     }
-  
+
     &__star-icon,
     &__genre-icon,
     &__media-icon {
-      color: $star-ash-gray;
+      color: $sun-ash-gray;
     }
 
     &__content-container {
-        background: $star-black;
+      background: $sun-white;
     }
 
     &__description {
-        border: .1875rem solid $star-medium-gray;
+      border: .1875rem solid $sun-silver;
     }
-  
+
     &__cast-name,
     &__cast-copy,
     &__streaming-copy {
-      color: $neutral-white;
+      color: $sun-text-dark;
     }
-  
+
     &__poster-container,
     &__cast-img {
       filter: grayscale(100%) brightness(0.9);
       transition: filter 0.3s ease, transform 0.3s ease;
-  
+
       &:hover {
-        filter: grayscale(0%) brightness(1);
+        filter: grayscale(0%) brightness(1.2);
       }
     }
-  
+
     &__cast-arrow {
       box-shadow: none;
-      background: $neutral-black;
-      color: $star-ash-gray;
-      border: 0.125rem solid $star-ash-gray;
-  
+      background: $sun-ash-gray;
+      color: $sun-text-dark;
+      border: 0.125rem solid $star-text-dark;
+
       &:hover {
-        background: $star-dark-gray;
-        color: $star-starlight-yellow;
-        border: 0.125rem solid $star-starlight-yellow;
+        background: $neutral-white;
+        color: $sun-sunrise-orange;
+        border: 0.125rem solid $sun-sunrise-orange;
       }
-  
+
       &:active {
-        background: $star-starlight-yellow;
-        color: $star-dark-gray;
-        border: 0.125rem solid $star-charcoal;
+        background: $sun-sunrise-orange;
+        color: $neutral-black;
+        border: 0.125rem solid $sun-light-gray;
       }
     }
-  
+
     &__cast-scroll {
       &::-webkit-scrollbar {
-        background-color: $star-medium-gray;
+        background-color: $sun-light-gray;
       }
-  
+
       &::-webkit-scrollbar-thumb {
-        background-color: $neutral-white;
+        background-color: $sun-yellow;
       }
     }
-  
+
     &__no-cast-copy,
     &__cast-character,
     &__no-streaming-services {
-      color: $star-silver-gray;
+      color: $star-text-gray;
     }
 
     &__rating,
     &__duration {
-        border: .125rem solid $star-medium-gray;
-        color: $star-silver-gray;
+      border: .125rem solid $sun-silver;
+      color: $star-text-gray;
     }
-  
+
     &__genre-item {
-      border: 0.1875rem solid $star-medium-gray;
+      border: 0.1875rem solid $sun-silver;
       box-shadow: none;
-      color: $star-silver-gray;
+      color: $star-text-gray;
     }
 
     &__cast-img-placeholder {
-        color: $star-horizon-gold
+      color: $sun-yellow;
     }
-  
+
     &__cast-container,
     &__streaming,
     &__details-container {
-      border: 0.3125rem solid $star-medium-gray;
+      border: 0.3125rem solid $sun-silver;
       box-shadow: none;
     }
-  
+
     &__media-type {
-      border: 0.1875rem solid $star-medium-gray;
+      border: 0.1875rem solid $sun-silver;
       box-shadow: none;
     }
-  
+
     &__poster-container {
-      border: 0.3125rem solid $star-silver-gray;
+      border: 0.3125rem solid $sun-silver;
     }
-  
+
     &__heading-container {
-      background: $star-dark-neumorph-deep-shadow;
-      border: 0.3125rem solid $star-frosted-silver-gray;
+      background: $star-gradient-citrine;
+      border: 0.3125rem solid $sun-silver;
     }
-  
+
     &__certification {
-      background: $star-horizon-gold;
-      color: $neutral-black;
+      background: $cloud-frosted-white;
+      color: $sun-text-dark;
     }
-  
+
     &__description {
-      background: $star-frosted-medium-gray;
-      color: $star-text-dark;
+      background: $sun-frosted-silver;
+      color: $sun-text-dark;
     }
-  
+
     &__release-date,
     &__title {
-      color: $neutral-white;
+      color: $sun-text-dark;
     }
-  
+
     &__rating,
     &__duration {
-       background: none; 
+      background: none;
     }
+
     &__copy {
-      color: $neutral-white;
+      background: $cloud-frosted-white;
+      color: $sun-text-dark;
     }
-  
+
     &__content {
-      border: 0.3125rem solid $star-silver-gray;
+      border: 0.3125rem solid $sun-silver;
     }
   }
 
