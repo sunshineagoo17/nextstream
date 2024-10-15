@@ -1407,13 +1407,28 @@
   // NextSwipe 
   .nextswipe-page {
     &__container {
-      background: $star-light-gray;
+      background: $sun-light-gray;
     }
-  
+
     &__title-container {
-      background: $star-gradient-gray-silver;
+      background: $sun-gradient-sunrise;
     }
-  
+
+    &__graphic,
+    &__no-more-media-image {
+      filter: grayscale(100%) brightness(0.9);
+      transition: filter 0.3s ease, transform 0.3s ease;
+
+      &:hover {
+          filter: grayscale(0%) brightness(1);
+      }
+    }
+
+    &__intro,
+    &__title {
+      color: $neutral-black;
+    }
+
     &__background {
       filter: grayscale(100%) brightness(0.8);
       transition: filter 0.3s ease, transform 0.3s ease;
@@ -1422,35 +1437,35 @@
         filter: grayscale(0%) brightness(1.2);
       }
     }
-  
+
     &__media-card {
-      background: $star-frosted-dark-gray;
+      background: $sun-frosted-silver;
       @include sunAnimateBorder;
       @include sunBorderAnimation;
     }
-  
+
     &__nav-button {
-      background-color: rgba($star-black, .7);
-      color: $star-bright-citrine;
-  
+      background-color: rgba($sun-light-gray, .7);
+      color: $sun-sunrise-orange;
+
       &:hover {
-        background-color: rgba($star-glowing-amber, 0.7);
-        color: $star-text-light;
+        background-color: rgba($sun-sunrise-orange, 0.7);
+        color: $sun-text-light;
       }
-  
+
       &:active {
-        background-color: rgba($neutral-white, 0.8);
-        color: $star-deep-topaz;
-        border: 0.125rem solid $star-frosted-gold;
+        background-color: rgba($sun-white, 0.8);
+        color: $sun-ocean-breeze;
+        border: 0.125rem solid $sun-ocean-breeze;
         box-shadow: none;
       }
     }
-  
+
     &__calendar-button {
-      border: 0.0625rem solid $star-medium-gray;
-      background: $star-gradient-muted-gold;
+      border: 0.0625rem solid $sun-light-gray;
+      background: $sun-gradient-yellow;
       color: $neutral-black;
-      box-shadow: $star-shadow-primary;
+      box-shadow: $sun-shadow-primary;
       font-size: 0.85rem;
       border-radius: 1rem;
       display: flex;
@@ -1460,9 +1475,9 @@
       
       &:focus,
       &:hover {
-        background: $star-deep-topaz;
-        color: $neutral-black;
-        border: 0.0625rem solid $star-horizon-gold;
+        background: $sun-sunrise-orange;
+        color: $sun-text-dark;
+        border: 0.0625rem solid $sun-yellow;
         transform: scale(1.03);
       }
       
@@ -1481,22 +1496,23 @@
       
       &:active {
         transform: scale(0.95);
-        background: $star-glowing-amber;
-        color: $neutral-black;
+        background: $sun-ocean-breeze;
+        color: $primary-dark-blue;
+        border: 0.0625rem solid $sun-icy-blue;
       }
       
       svg {
         margin-right: 0.5rem;
-        color: $neutral-black;
-        border: 0.125rem solid $star-deep-topaz;
+        color: $sun-text-dark;
+        border: 0.125rem solid $sun-blushing-orange;
         padding: 0.15rem;
         border-radius: 0.5rem;
       }
     }
   }
-  
+
   .circle-rating {
-    background: $neutral-white;
+    background: $sun-white;
     border-radius: 50%;
     filter: grayscale(100%) brightness(0.8);
     transition: filter 0.3s ease, transform 0.3s ease;
@@ -1505,42 +1521,43 @@
       filter: grayscale(0%) brightness(1.2);
     }
   }
-  
+
   .media-card {
-    background: $neutral-black;
+    background: $sun-white;
 
     &__details {
-      background: $neutral-black;
+      background: $sun-white;
       border-bottom-left-radius: .5rem;
       border-bottom-right-radius: .5rem;
     }
 
     &__image {
-      background: $neutral-black;
+      background: $sun-white;
     }
 
     &__type-icon,
     &__lightbulb-icon,
     &__share-icon {
       background: none;
-      color: $star-silver-gray;
-  
+      color: $sun-ash-gray;
+
       &:hover {
-        color: $star-starlight-yellow;
-        background: $neutral-black;
+        color: $sun-sunrise-orange;
+        background: $sun-white;
       }
 
       &:active {
-        color: $neutral-black;
-        background: $star-starlight-yellow;
+        color: $sun-icy-blue;
+        background: $sun-ocean-breeze;
+        border: none;
       }
     }
-  
+
     &__overview,
     &__title {
-      color: $neutral-white;
+      color: $sun-text-dark;
     }
-  
+
     &__image {
       filter: grayscale(100%) brightness(0.8);
       transition: filter 0.3s ease, transform 0.3s ease;
