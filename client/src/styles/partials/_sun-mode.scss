@@ -2975,136 +2975,141 @@
 
     &__media-title,
     &__recommendations-title {
-      color: $neutral-white;
+      color: $sun-text-dark;
     }
 
     &__duration,
     &__rating,
     &__genre-item,
     &__title {
-      color: $star-text-gray;
+      color: $sun-ocean-breeze;
     }
-  
+
     &__certification {
-      background: $star-medium-gray;
-      color: $star-text-light;
+      background: $sun-light-gray;
+      color: $sun-text-dark;
     }
-  
+
     &__description {
-      color: $star-text-light;
-      background: $star-dark-gray;
-      border: .1875rem solid $star-medium-gray;
+      color: $sun-text-dark;
+      background: $sun-silver;
+      border: .1875rem solid $sun-light-gray;
     }
-  
+
     &__media-copy {
-      background: $star-frosted-medium-gray;
-      box-shadow: $shadow-light-primary;
+      background: $sun-frosted-silver;
+      box-shadow: $sun-shadow-primary;
     }
-  
+
     &__similar-scroll {
       scrollbar-width: thin;
-      scrollbar-color: $star-deep-topaz $star-ash-gray;
-    
+      scrollbar-color: $sun-golden-hour $sun-ash-gray;
+      
       &::-webkit-scrollbar {
-        background-color: $star-ash-gray;
+        background-color: $sun-ash-gray;
       }
-    
+      
       &::-webkit-scrollbar-thumb {
-        background-color: $star-deep-topaz;
+        background-color: $sun-golden-hour;
       }
     }
-  
+
     &__recommendations-scroll {
       scrollbar-width: thin;
-      scrollbar-color: $star-deep-topaz $star-ash-gray;
-  
+      scrollbar-color: $sun-golden-hour $sun-ash-gray;
+
       &::-webkit-scrollbar {
         height: 0.375rem;
-        background-color: $star-ash-gray;
+        background-color: $sun-ash-gray;
       }
-  
+
       &::-webkit-scrollbar-thumb {
-        background-color: $star-deep-topaz;
+        background-color: $sun-golden-hour;
         border-radius: 0.5rem;
       }
     }
-  
+
     &__recommendations-arrow,
     &__similar-arrow {
-      border: 0.125rem solid $neutral-white;
-      background: $star-black;
-      color: $neutral-white;
-  
+      border: 0.125rem solid $sun-sunrise-orange;
+      background: $sun-frosted-silver;
+      color: $sun-sunrise-orange;
+
       &:hover {
-        border: 0.125rem solid $star-glowing-amber;
-        background: $star-black;
-        color: $star-glowing-amber;
+        border: 0.125rem solid $sun-soft-tangerine;
+        background: $sun-white;
+        color: $sun-sunrise-orange;
       }
-  
+
       &:active {
-        border: 0.125rem solid $star-deep-topaz;
-        background: $star-glowing-amber;
-        color: $star-black;
+        border: 0.125rem solid $neutral-black;
+        background: $sun-frosted-silver;
+        color: $neutral-black;
       }
     }
-  
+
     &__similar-name,
     &__recommendations-name {
-      color: $neutral-white;
+      color: $sun-text-dark;
     }
-  
+
     &__similar-rating,
     &__recommendations-rating {
-      color: $star-ash-gray;
+      color: $sun-sunrise-orange;
     }
-  
+
     &__genre-item,
     &__duration,
     &__rating {
-      background: $star-dark-gray;
-      border: .125rem solid $star-medium-gray;
+      background: $sun-light-gray;
+      color: $primary-button-blue;
+      border: .125rem solid $sun-silver;
     }
-  
+
     &__media-type,
     &__calendar-button,
     &__share-button,
     &__thumbs-up,
     &__thumbs-down {
-      background: $star-black;
-      color: $star-honey-glow;
+      background: $sun-yellow;
+      color: $neutral-black;
       transition: transform 0.3s ease, background 0.3s ease;
-  
+
       &:hover {
-        background: $star-deep-topaz;
+        background: $sun-sunrise-orange;
         transform: scale(1.05);
-        color: $neutral-white;
-        border: 0.125rem solid $star-text-light;
+        color: $sun-white;
+        border: 0.125rem solid $sun-yellow;
       }
-    
+
       &:active {
         transform: scale(0.95);
-        background: $star-black;
-        color: $star-glowing-amber;
-        border: 0.1875rem solid $star-glowing-amber;
+        background: $sun-white;
+        color: $sun-soft-tangerine;
+        border: 0.1875rem solid $sun-golden-hour;
       }
     }
-  
-    &__star-rating-icon,
+
+    &__star-rating-icon {
+      color: $sun-sunrise-orange;
+    }
+
     &__star-icon,
     &__genre-icon {
-      color: $star-medium-gray;
+      color: $sun-ocean-breeze;
     }
-  
+
     &__similar-media-icon,
     &__recommendations-icon {
-      color: $neutral-white;
+      color: $sun-text-dark;
     }
 
     &__heading-container {
-      background: $star-frosted-dark-gray;
-      border: .3125rem solid $neutral-black;
+      background: $sun-frosted-silver;
+      background: $sun-gradient-yellow;
+      border: .3125rem solid $sun-silver;
     }
-  
+
     &__poster-container,
     &__similar-default-placeholder,
     &__recommendations-default-placeholder,
@@ -3114,55 +3119,63 @@
       transition: filter 0.3s ease, transform 0.3s ease;
       
       &:hover {
-        filter: grayscale(0%) brightness(1);
+        filter: grayscale(0%) brightness(1.2);
       }
     }
-  
-    &__header {
-      color: $star-text-light;
+
+    &__certification {
+      background: $sun-frosted-silver;
     }
-  
+
+    &__header {
+      color: $neutral-black;
+    }
+
     &__poster-container {
-      border: .3125rem solid $star-medium-gray;
+      border: .3125rem solid $sun-light-gray;
     }
 
     &__similar-copy-container,
     &__recommendations-copy-container {
-      background: $neutral-black;
+      background: $sun-white;
     }
 
     &__copy {
-      color: $star-text-gray;
-      background: $star-dark-gray;
-      box-shadow: $star-shadow-primary;
+      color: $neutral-black;
+      background: $sun-light-gray;
+      box-shadow: $sun-shadow-primary;
     }
 
     &__similar-container,
     &__recommendations-container {
-      background: $neutral-black;
+      background: $sun-white;
     }
 
     &__content-container {
-      border: .3125rem solid $neutral-black;
+      border: .3125rem solid $sun-light-gray;
+    }
+
+    &__title {
+      color: $neutral-black;
     }
 
     &__content {
-      background: $neutral-black;
+      background: $sun-white;
     }
-  
+
     &__similar-container,
     &__recommendations-container,
     &__details-container,
     &__content {
-      border: 0.3125rem solid $star-medium-gray;
+      border: 0.3125rem solid $sun-silver;
     }
-  
+
     &__background {
       filter: grayscale(100%) brightness(0.8);
       transition: filter 0.3s ease, transform 0.3s ease;
       
       &:hover {
-        filter: grayscale(0%) brightness(1);
+        filter: grayscale(0%) brightness(1.2);
       }
     }
   }
