@@ -1561,11 +1561,16 @@
     border: .3125rem solid $cloud-pale-gray;
 
     &__title {
-      background: $cloud-dark-neumorph-base;
+      background: $primary-pale-blue;
+    }
+
+    &__header-text {
+      color: $neutral-black;
     }
 
     &__copy {
-      color: $neutral-white;
+      background: $neutral-white;
+      color: $neutral-black;
     }
 
     &__search-bar-button-search {
@@ -1607,7 +1612,7 @@
 
     &__link {
       font-weight: normal;
-      color: $neutral-white;
+      color: $neutral-black;
       border: .125rem solid $cloud-very-light-blue;
       transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease; 
     
