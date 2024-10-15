@@ -2377,9 +2377,9 @@
 .nextstream-bot {
   @include frosted-glass2;
   border-radius: 1.25rem;
-  box-shadow: $star-shadow-primary;
+  box-shadow: $sun-shadow-primary;
   margin: 1.5rem;
-  border: .3125rem solid $star-silver-gray;
+  border: .3125rem solid $sun-silver;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -2387,30 +2387,34 @@
   position: relative;
   background: linear-gradient(
     135deg,
-    rgba($star-frosted-medium-gray, .75),
-    rgba($star-dark-gray, 1)
+    rgba($sun-frosted-silver, .75),
+    rgba($sun-light-gray, 1)
   );
   overflow: hidden;
 
   &__typing-indicator-bubble {
-    background-color: $star-text-light;
+    background-color: $neutral-black;
+  }
+
+  &__bot-typing-indicator-bubble {
+    background: $sun-sunrise-orange;
   }
 
   &__text--center {
-    color: $neutral-black
+    color: $sun-text-dark;
   }
 
   &__gpt-icon,
   &__btn-txt {
-    color: $neutral-black !important;
+    color: $sun-text-dark !important;
   }
 
   &__chat-container {
-    background: $star-black;
+    background: $sun-white;
   }
 
   &__chat-block {
-    border: .3125rem solid $neutral-black;
+    border: .3125rem solid $sun-yellow;
   }
 
   &__poster--results {
@@ -2427,22 +2431,24 @@
   }
 
   &__title {
-    background: $star-frosted-black;
-    border: .1875rem solid $neutral-black;
+    background: $primary-pale-blue;
+    color: $neutral-black;
+    border: .1875rem solid $sun-ocean-breeze;
   }
 
   &__loader-overlay {
-    background-color: $star-frosted-black;
+    background-color: $sun-frosted-silver;
   }
 
   &__copy {
-    background: $star-frosted-black;
+    background: $sun-ocean-breeze;
+    color: $neutral-black;
     box-shadow: none;
   }
 
   &__gpt-container {
-    background-color: $star-medium-gray;
-    color: $star-text-dark;
+    background-color: $sun-light-gray;
+    color: $sun-text-dark;
   }
 
   &__chatbot-svg {
@@ -2455,109 +2461,111 @@
   }
 
   &__empty-message {
-    color: $star-text-gray;
-    border: .1875rem solid $star-silver-gray;
-    animation: starmodeBounce 4s infinite ease-in-out, starmodeColorShift 5s infinite ease-in-out;
+    color: $neutral-black;
+    border: .1875rem solid $sun-silver;
+    animation: sunmodeBounce 4s infinite ease-in-out, sunmodeColorShift 5s infinite ease-in-out;
 
-    @keyframes starmodeBounce {
+    @keyframes sunmodeBounce {
       0%, 100% {
         transform: scale(1);
-        box-shadow: 0 0 .75rem rgba($star-silver-gray, .3);
+        box-shadow: 0 0 .75rem rgba($sun-silver, .3);
       }
       50% {
         transform: scale(1.05);
-        box-shadow: 0 .75rem 2rem rgba($star-silver-gray, .4);
+        box-shadow: 0 .75rem 2rem rgba($sun-silver, .4);
       }
     }
 
-    @keyframes starmodeColorShift {
+    @keyframes sunmodeColorShift {
       0% {
-        border-color: $star-light-gray;
-        background: $star-black;
+        border-color: $sun-silver;
+        background: $sun-white;
       }
       50% {
-        border-color: $star-medium-gray;
-        background: lighten($star-dark-gray, 10%);
+        border-color: $sun-ash-gray;
+        background: lighten($sun-light-gray, 10%);
       }
       100% {
-        border-color: $star-light-gray;
-        background: $star-black;
+        border-color: $sun-silver;
+        background: $sun-white;
       }
     }
   }
 
   &__input {
     &:focus {
-      border: .25rem solid $star-horizon-gold;
+      border: .25rem solid $sun-yellow;
     }
 
     &::placeholder {
-      color: $star-ash-gray;
+      color: $sun-ash-gray;
     }
   }
 
   &__messages {
-    border: .25rem solid $star-silver-gray;
+    border: .25rem solid $sun-silver;
     scrollbar-width: thin;
-    scrollbar-color: $star-dark-gray $star-silver-gray;
+    scrollbar-color: $sun-light-gray $sun-silver;
   }
 
   &__chat-block {
     background: linear-gradient(
       135deg,
-      rgba($star-frosted-medium-gray, .75),
-      rgba($star-light-gray, 1)
+      rgba($sun-frosted-silver, .75),
+      rgba($sun-light-gray, 1)
     );
-    border: .3125rem solid $star-silver-gray;
-    box-shadow: $star-shadow-secondary;
+    border: .3125rem solid $sun-yellow;
+    box-shadow: $sun-shadow-secondary;
   }
 
   &__message--user {
-    background-color: $star-light-gray;
-    color: $star-text-dark;
-    border: .125rem solid $star-text-light;
+    background-color: $sun-icy-blue;
+    color: $primary-dark-blue;
+    border: .125rem solid $sun-ocean-breeze;
   }
 
   &__message--bot {
-    background-color: $star-dark-gray;
-    color: $star-text-light;
-    box-shadow: $star-shadow-primary;
-    border: .125rem solid $star-text-light;
+    background-color: $sun-light-gold;
+    color: $neutral-black;
+    box-shadow: $sun-shadow-primary;
+    border: .125rem solid $sun-golden-hour;
   }
 
   &__speech-icon {
-    color: $star-horizon-gold;
-    border: .125rem solid $star-iridescent-gold;
-    box-shadow: $star-shadow-primary;
+    color: $sun-yellow;
+    border: .125rem solid $sun-golden-hour;
+    box-shadow: $sun-shadow-primary;
   }
 
   &__send-button {
-    background: $star-honey-glow;
-    color: $neutral-black;
-
+    background: $sun-yellow;
+    color: $sun-text-dark;
+  
     &:hover {
-      background: $star-text-light;
-      color: $star-honey-glow;
+      background: $sun-text-light;
+      color: $sun-sunrise-orange;
     }
-
+  
     &:active {
-      background: $neutral-black;
-      color: $star-glowing-amber;
+      background: $sun-peach-fuzz;
+      color: $sun-soft-tangerine;
     }
   }
 
   &__results-section {
-    background: $star-gradient-gray-silver;
-    color: $star-text-dark;
+    background: $sun-gradient-lemon;
+    color: $sun-text-dark;
 
     &::before {
-      background: $neutral-black;
-      color: $neutral-white;
+      background: $sun-gradient-blue;
+      color: $primary-dark-blue;
+      border: .15rem solid $sun-icy-blue;
+      border-bottom: .3rem solid $sun-icy-blue;
     }
   }
 
   &__card--results {
-    background: $star-frosted-black;
+    background: $sun-frosted-silver;
   }
 
   &__rating-container {
@@ -2570,42 +2578,46 @@
     }
   }
 
+  &__header-text {
+    color: $neutral-black;
+  }
+
   &__scroll-container-results {
     display: flex;
-    border: .5rem solid $star-black;
-    border-bottom: 1rem solid $star-black;
+    border: .5rem solid $sun-light-gray;
+    border-bottom: 1rem solid $sun-light-gray;
     overflow-x: scroll;
     scrollbar-width: thin;
     -ms-overflow-style: none;
     scroll-behavior: smooth;
-    background: $star-black;
+    background: $sun-white;
     width: 100%;
     border-radius: 1.05rem;
-    scrollbar-color: $star-starlight-yellow $star-medium-gray;
+    scrollbar-color: $sun-yellow $sun-light-gray;
     cursor: url('../../assets/cursors/cursor-pointer-sun.svg'), pointer;
   }
 
   &__icons-row {
-    background: $neutral-black;
+    background: $sun-silver;
   }
 
   &__nav-arrow {
-    color: $neutral-white;
+    color: $sun-ocean-breeze;
     border: .1875rem solid $neutral-white;
-    background: $star-black;
+    background: $sun-light-gray;
 
     &:hover {
       transform: scale(1.1);
-      border: .1875rem solid $neutral-black;
-      color: $neutral-black;
-      background: $star-deep-topaz;
+      border: .1875rem solid $sun-sunrise-orange;
+      color: $sun-sunrise-orange;
+      background: $sun-soft-lemon;
     }
 
     &:active {
       transform: scale(.9);
-      border: .1875rem solid $star-deep-topaz;
-      color: $star-deep-topaz;
-      background: $neutral-black;
+      border: .1875rem solid $sun-yellow;
+      color: $sun-yellow;
+      background: $sun-text-dark;
     }
   }
 
@@ -2615,18 +2627,18 @@
   &__share-icon,
   &__like-icon,
   &__dislike-icon {
-    color: $star-light-gray;
+    color: $sun-ocean-breeze;
 
     &:focus,
     &:hover {
-      color: $star-honey-glow;
+      color: $sun-sunrise-orange;
       background: none;
       border: none;
       box-shadow: none;
     }
 
     &:active {
-      color: $neutral-white;
+      color: $primary-button-blue;
       box-shadow: none;
       border: none;
       background: none;
@@ -2634,47 +2646,47 @@
   }
 
   &__title--results {
-    color: $neutral-white;
+    color: $sun-text-dark;
   }
 
   &__poster {
-    border-bottom: .25rem solid $star-text-light;
-    border-top: .25rem solid $star-text-light;
+    border-bottom: .25rem solid $sun-text-dark;
+    border-top: .25rem solid $sun-text-dark;
   }
 
   &__gpt-icon-inline {
-    background: $neutral-black;
-    color: $neutral-white;
+    background: $neutral-white;
+    color: $sun-sunrise-orange;
 
     &:hover {
-      color: $neutral-black;
-      background: $neutral-white;
+      color: $sun-peach-fuzz;
+      background: $sun-soft-tangerine;
     }
   }
 
   &__user-icon-inline {
     background: $neutral-white;
-    color: $neutral-black;
+    color: $sun-ocean-breeze;
 
     &:hover {
-      background: $neutral-black;
-      color: $neutral-white;
+      background: $sun-ocean-breeze;
+      color: $sun-icy-blue;
     }
 
     &.typing-icon {
-      animation: starmodePulseIcon 2.5s infinite ease-in-out;
-      color: $neutral-white;
+      animation: sunmodePulseIcon 2.5s infinite ease-in-out;
+      color: $sun-yellow;
     }
   }
   
-  @keyframes starmodePulseIcon {
+  @keyframes sunmodePulseIcon {
     0%, 100% {
       transform: scale(1);
-      color: $star-deep-topaz;
+      color: $sun-yellow;
     }
     50% {
       transform: scale(1.2);
-      color: $neutral-white;
+      color: $sun-text-light;
     }
   }
 
@@ -2702,17 +2714,32 @@
     }
   }
 
+  &__calendar-close-btn {
+    background: $sun-sunrise-orange;
+    color: $neutral-black;
+
+    &:hover {
+      color: $sun-soft-tangerine;
+      background: $sun-peach-fuzz;
+    }
+
+    &:active {
+      color: $primary-dark-blue;
+      background: $sun-ocean-breeze;
+    }
+  }
+
   &__clear-chat-button,
   &__gpt-button {
     background: linear-gradient(
       135deg,
-      $star-iridescent-gold,
-      $star-sunray-gold
+      $sun-yellow,
+      $sun-soft-lemon
     );
     border: none;
     border-radius: .5rem;
     padding: .5rem 1rem;
-    color: $star-text-light;
+    color: $sun-text-dark;
     font-size: 1rem;
     display: flex;
     align-items: center;
@@ -2720,31 +2747,31 @@
     position: relative;
     overflow: hidden;
     transition: all .4s ease;
-    box-shadow: 0 0 1rem rgba($star-iridescent-gold, .4),
-      inset 0 0 .5rem rgba($star-sunray-gold, .8);
-    animation: starmodePulse 2.5s infinite;
+    box-shadow: 0 0 1rem rgba($sun-yellow, .4),
+      inset 0 0 .5rem rgba($sun-soft-lemon, .8);
+    animation: sunmodePulse 2.5s infinite;
 
     &:hover {
       border-radius: 2.5rem;
       background: linear-gradient(
         135deg,
-        $star-bright-citrine,
-        $star-golden-hour
+        $sun-yellow,
+        $sun-peach-fuzz
       );
       transform: translateY(-.25rem) scale(1.05);
-      box-shadow: 0 0 1.5rem rgba($star-iridescent-gold, .8),
-        inset 0 0 .75rem rgba($star-bright-citrine, .9);
+      box-shadow: 0 0 1.5rem rgba($sun-yellow, .8),
+        inset 0 0 .75rem rgba($sun-peach-fuzz, .9);
     }
 
     &:active {
       transform: scale(.95);
       background: linear-gradient(
         135deg,
-        $star-bright-citrine,
-        $star-deep-topaz
+        $sun-blushing-orange,
+        $sun-deep-shadow
       );
-      box-shadow: 0 0 1rem rgba($star-bright-citrine, .6),
-        inset 0 0 .5rem rgba($star-deep-topaz, .8);
+      box-shadow: 0 0 1rem rgba($sun-blushing-orange, .6),
+        inset 0 0 .5rem rgba($sun-deep-shadow, .8);
     }
 
     &::before {
@@ -2753,7 +2780,7 @@
       position: absolute;
       top: 0;
       left: 0;
-      background: rgba($star-iridescent-gold, .6);
+      background: rgba($sun-yellow, .6);
       filter: blur(1.25rem);
       transition: opacity .5s ease;
       z-index: 0;
@@ -2765,56 +2792,56 @@
     }
   }
 
-  @keyframes starmodePulse {
+  @keyframes sunmodePulse {
     0% {
-      box-shadow: 0 0 1rem rgba($star-iridescent-gold, .4),
-        inset 0 0 .5rem rgba($star-sunray-gold, .8);
+      box-shadow: 0 0 1rem rgba($sun-yellow, .4),
+        inset 0 0 .5rem rgba($sun-soft-lemon, .8);
     }
     50% {
-      box-shadow: 0 0 1.5rem rgba($star-iridescent-gold, .8),
-        inset 0 0 .75rem rgba($star-bright-citrine, .9);
+      box-shadow: 0 0 1.5rem rgba($sun-yellow, .8),
+        inset 0 0 .75rem rgba($sun-peach-fuzz, .9);
     }
     100% {
-      box-shadow: 0 0 1rem rgba($star-iridescent-gold, .4),
-        inset 0 0 .5rem rgba($star-sunray-gold, .8);
+      box-shadow: 0 0 1rem rgba($sun-yellow, .4),
+        inset 0 0 .5rem rgba($sun-soft-lemon, .8);
     }
   }
 
   &__search-icon,
   &__close-icon {
-    color: $star-dark-gray;
+    color: $sun-light-gray;
   }
 
   &__clear-input {
-    color: $star-honey-glow;
+    color: $sun-sunrise-orange;
 
     &:hover {
-      color: $star-glowing-amber;
+      color: $sun-soft-tangerine;
     }
 
     &:active {
-      color: $neutral-white;
+      color: $sun-ocean-breeze;
     }
   }
 
   &__calendar-close-btn {
-    background: $star-light-gray;
-    color: $star-dark-gray;
+    background: $sun-white;
+    color: $sun-text-dark;
   }
 }
 
 .voice-message__voice-button {
-  background: $star-honey-glow;
-  color: $neutral-black;
+  background: $sun-yellow;
+  color: $sun-text-dark;
 
   &:hover {
-    background: $star-text-light;
-    color: $star-honey-glow;
+    background: $sun-text-light;
+    color: $sun-sunrise-orange;
   }
 
   &:active {
-    background: $star-glowing-amber;
-    color: $star-text-light;
+    background: $sun-peach-fuzz;
+    color: $sun-soft-tangerine;
   }
 }
 
