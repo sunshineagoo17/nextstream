@@ -2067,8 +2067,8 @@
 
   &__season-input, 
   &__episode-input {
-    background: $sun-silver;
-    color: $sun-text-dark;
+    background: $primary-pale-blue;
+    color: $neutral-black;
   }
 
   &__episode-label,
@@ -2078,7 +2078,7 @@
   }
 
   &__season-episode-inputs {
-    background: $sun-light-gray;
+    background: $neutral-white;
   }
 
   &__reset-button,
@@ -2251,6 +2251,7 @@
   &:active {
     background: $sun-white;
     color: $sun-soft-tangerine;
+    box-shadow: $shadow-primary;
   }
 }
 
