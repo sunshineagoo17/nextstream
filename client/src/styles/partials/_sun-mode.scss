@@ -2047,6 +2047,21 @@
     background: $sun-gradient-orange;
   }
 
+  &__calendar-close-btn {
+    background: $sun-sunrise-orange;
+    color: $neutral-black;
+
+    &:hover {
+      color: $sun-soft-tangerine;
+      background: $sun-peach-fuzz;
+    }
+
+    &:active {
+      color: $primary-dark-blue;
+      background: $sun-ocean-breeze;
+    }
+  }
+
   &__search-bar-input {
     &::placeholder {
       color: $sun-golden-hour;
@@ -2111,19 +2126,25 @@
   }
 
   &__pagination-button {
-    background: $sun-ash-gray;
-    color: $sun-text-dark;
+    background: $neutral-white;
+    border: .125rem solid $sun-sunrise-orange;
+    color: $neutral-black;
+    text-shadow: none;
     transition: background-color .3s ease, transform .3s ease;
   
     &:hover {
       color: $sun-ocean-breeze;
       background: $primary-pale-blue;
+      border: .125rem solid $sun-ocean-breeze;
+      text-shadow: none;
       transform: scale(1.1);
     }
   
     &:active {
       color: $sun-text-dark;
       background: $sun-gradient-yellow;
+      border: .125rem solid $sun-light-gold;
+      text-shadow: none;
       transform: scale(0.95);
     }
   }
@@ -2336,6 +2357,19 @@
     background: $sun-white;
     color: $sun-soft-tangerine;
     box-shadow: $shadow-primary;
+  }
+}
+
+#streamboardMediaTooltip,
+#lightbulbTooltip,
+#friendTooltip,
+#calTooltip,
+#trashTooltip {
+  background-color: $sun-ocean-breeze;
+  color: $primary-dark-blue;
+
+  &::after {
+    border: $primary-button-blue transparent transparent transparent;
   }
 }
 
@@ -3457,6 +3491,21 @@
     color: $sun-text-dark;
   }
 
+  &__calendar-close-btn {
+    background: $sun-sunrise-orange;
+    color: $neutral-black;
+
+    &:hover {
+      color: $sun-soft-tangerine;
+      background: $sun-peach-fuzz;
+    }
+
+    &:active {
+      color: $primary-dark-blue;
+      background: $sun-ocean-breeze;
+    }
+  }
+
   &__heart-icon {
     box-shadow: none;
     background: $sun-light-gray;
@@ -3775,6 +3824,26 @@
 
 .blob-container {
   filter: grayscale(150%) brightness(1);
+}
+
+#watchlistStatusTooltip,
+#calendarTooltip,
+#searchTooltip,
+#shareTooltip,
+#lockTooltip,
+#lightbulbTooltip,
+#trashTooltip {
+  background-color: $sun-ocean-breeze;
+  color: $primary-dark-blue;
+  padding: .5rem 1rem;
+  border-radius: .5rem;
+  box-shadow: 0 .5rem 1rem rgba($neutral-black, .1);
+  font-size: .85rem;
+  line-height: 1.25rem;
+
+  &::after {
+    border: $primary-button-blue transparent transparent transparent;
+  }
 }
 
 // Top Picks 
