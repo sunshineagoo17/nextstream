@@ -505,9 +505,11 @@ $sun-deep-shadow: rgba(200, 200, 200, 0.3);
 
 // Gradients
 $sun-gradient-yellow: linear-gradient(135deg, #FFE066, #FFD700);
+$sun-gradient-orange: linear-gradient(135deg, #FFA07A, #FFD700);
 $sun-gradient-sunrise: linear-gradient(135deg, #FFF8E1, #FFB74D);
 $sun-gradient-lemon: linear-gradient(135deg, #FFFFFF, #FFFACD);
 $sun-gradient-blue-orange: linear-gradient(135deg, #ADD8E6, #FFDAB9);
+$sun-gradient-blue: linear-gradient(135deg, #A1C6EA, #E3F2FD);
 
 // Shadows for Contrast
 $sun-shadow-primary: 5px 5px 10px rgba(200, 200, 200, 0.4), -5px -5px 10px rgba(255, 255, 255, 0.7);

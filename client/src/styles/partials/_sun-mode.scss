@@ -1960,7 +1960,7 @@
   border: .3125rem solid $sun-ash-gray;
 
   &__title {
-    background: $sun-neumorph-base;
+    background: $sun-gradient-orange;
   }
 
   &__search-bar-input {
@@ -1970,24 +1970,25 @@
 
     &:active,
     &:focus {
-      color: $sun-text-light;
+      color: $neutral-black;
       background: $sun-white;
       border: .125rem solid $sun-yellow;
       box-shadow: none;
     }
 
     &:not(:placeholder-shown) {
-      color: $sun-ash-gray;
+      color: $neutral-black;
     }
   }
 
   &__copy {
+    background: $neutral-white;
     color: $sun-text-dark;
   }
 
   &__search-bar-button-search {
-    background: $sun-silver;
-    color: $sun-text-light;
+    background: $neutral-white;
+    color: $sun-ocean-breeze;
 
     &:hover {
       background: $sun-golden-hour;
@@ -2001,8 +2002,8 @@
   }
 
   &__search-bar-button-clear {
-    background: $sun-white;
-    color: $sun-text-dark;
+    background: $neutral-white;
+    color: $sun-ocean-breeze;
 
     &:hover {
       background: $sun-golden-hour;
@@ -2016,12 +2017,12 @@
   }
 
   &__media-column--to_watch {
-    background: $sun-frosted-silver;
+    background: $primary-pale-blue;
   }
 
   &__media-item-title {
-    background: $sun-ash-gray;
-    color: $sun-text-dark;
+    background: $neutral-white;
+    color: $neutral-black;
     text-shadow: none;
   }
 
@@ -2031,8 +2032,8 @@
     transition: background-color .3s ease, transform .3s ease;
   
     &:hover {
-      color: $sun-yellow;
-      background: $sun-light-gray;
+      color: $sun-ocean-breeze;
+      background: $primary-pale-blue;
       transform: scale(1.1);
     }
   
@@ -2058,8 +2059,8 @@
     &:active {
       border: none;
       box-shadow: none;
-      background-color: $sun-sunrise-orange;
-      color: $sun-text-dark;
+      background-color: $sun-ocean-breeze;
+      color: $primary-dark-blue;
       transform: scale(0.95);
     }
   }
@@ -2072,8 +2073,8 @@
 
   &__episode-label,
   &__season-label {
-    background: $sun-white;
-    color: $sun-text-light;
+    background: $neutral-white;
+    color: $neutral-black;
   }
 
   &__season-episode-inputs {
@@ -2088,88 +2089,90 @@
   &__media-type-icon,
   &__calendar-icon,
   &__trash-icon {
-    background: $sun-white;
-    color: $sun-yellow;
+    background: $neutral-white;
+    color: $sun-sunrise-orange;
 
     &:hover {
-      color: $sun-text-light;
+      color: $sun-ocean-breeze;
     }
 
     &:active {
-      background: $sun-text-light;
-      color: $sun-soft-tangerine;
+      background: $sun-soft-tangerine;
+      color: $neutral-white;
     }
   }
 
   &__tag-button,
   &__review-button {
     border: none;
+    text-shadow: none;
   }
 
   &__genre-icon {
-    color: $sun-ash-gray;
+    color: $sun-sunrise-sky;
   }
 
   &__pizza-icon {
-    color: $sun-ash-gray;
+    color: $sun-sunrise-sky;
     border: .125rem solid $sun-silver;
-    background: $sun-silver;
+    background: $primary-pale-blue;
   }
 
   &__media-genre-item {
     border: .125rem solid $sun-silver;
-    background: $sun-silver;
+    background: $primary-pale-blue;
   }
 
   &__media-item-duration {
-    color: $sun-text-light;
+    color: $neutral-black;
   }
 
   &__genre-text {
-    color: $sun-text-light;
+    color: $neutral-black;
   }
 
   &__media-column--scheduled {
-    background: $sun-light-gray;
+    background: $sun-icy-blue;
   }
 
   &__media-column--watched {
-    background: $sun-ash-gray;
+    background: $sun-morning-mist-blue;
   }
 
   &__media-column--watched::before,
   &__media-column--scheduled::before,
   &__media-column--to_watch::before {
-    background: $sun-white;
+    background: $sun-ocean-breeze;
+    color: $neutral-white;
   }
 }
 
 .review-modal,
 .tag-modal {
-  background: $sun-neumorph-base;
+  background: $primary-pale-blue;
 
   &__eraser-icon {
-    color: $sun-soft-lemon;
+    color: $sun-ocean-breeze;
     cursor: url(../../assets/cursors/cursor-pointer-sun.svg), pointer;
 
     &:hover {
-      color: $sun-text-light;
+      color: $sun-sunrise-orange;
     }
 
     &:active {
-      color: $sun-soft-tangerine;
+      color: $sun-yellow;
     }
   }
 
   &__title {
-    color: $sun-text-dark;
+    color: $neutral-black;
   }
 
   &__textarea,    
   &__input {
-    border: .125rem solid $sun-text-dark;
-    background: $sun-silver;
-    color: $sun-text-light;
+    border: .125rem solid $sun-ocean-breeze;
+    background: $neutral-white;
+    color: $neutral-black;
 
     &::placeholder {
       color: $sun-ash-gray;
@@ -2177,13 +2180,16 @@
   }
 
   &__button--save {
-    background: $sun-white;
-    border: .125rem solid $sun-text-dark;
+    background: $primary-pale-blue;
+    color: $primary-button-blue;
+    text-shadow: none;
+    border: .125rem solid $sun-ocean-breeze;
 
     &:focus,
     &:hover {
-      color: $sun-soft-tangerine;
-      background: $sun-text-light;
+      color: $neutral-black;
+      background: $sun-soft-tangerine;
+      border: .125rem solid $sun-peach-fuzz;
     }
 
     &:active {
@@ -2194,8 +2200,10 @@
   }
 
   &__button--delete {
-    color: $sun-text-light;
-    border: .125rem solid $sun-silver;
+    color: $sun-soft-tangerine;
+    background: $neutral-white;
+    text-shadow: none;
+    border: .125rem solid $sun-soft-tangerine;
 
     &:focus,
     &:hover {
@@ -2205,32 +2213,35 @@
     }
 
     &:active {
-      color: $sun-text-dark;
-      background: $sun-frosted-gold;
-      border: .125rem solid $sun-text-dark;
+      color: $sun-soft-tangerine;
+      background: $neutral-black;
+      border: .125rem solid $sun-soft-tangerine;
     }
   }
 
   &__button--close {
-    color: $sun-text-dark;
-    border: .125rem solid $sun-text-dark;
+    color: $sun-sunrise-orange;
+    text-shadow: none;
+    border: .125rem solid $sun-sunrise-orange;
 
     &:focus,
     &:hover {
-      background: $sun-soft-lemon;
-      color: $sun-text-dark;
+      background: $sun-sunrise-orange;
+      color: $neutral-black;
       border: none;
     }
 
     &:active {
-      border: .125rem solid $sun-text-dark;
+      background: $sun-light-gold;
+      color: $sun-soft-tangerine;
+      border: .125rem solid $sun-yellow;
     }
   }
 }
 
 .voice-search-streamboard__voice-button {
-  background: $sun-silver;
-  color: $sun-text-light;
+  background: $neutral-white;
+  color: $sun-ocean-breeze;
 
   &:hover {
     background: $sun-golden-hour;
