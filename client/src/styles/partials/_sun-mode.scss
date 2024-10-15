@@ -442,18 +442,18 @@
   
     &__icon-bg-video,
     &__icon-bg-tv {
-      color: $sun-golden-hour;
-      background: $neutral-black;
+      color: $sun-sunrise-orange;
+      background: $primary-pale-blue;
       transition: background 0.3s ease;
   
       &:hover {
-        background: $neutral-white;
-        color: $sun-soft-tangerine;
+        background: $sun-soft-tangerine;
+        color: $neutral-white;
       }
   
       &:active {
-        background: $sun-sunrise-orange;
-        color: $neutral-black;
+        background: $sun-icy-blue;
+        color: $sun-ocean-breeze;
       }
     }
   
@@ -2690,7 +2690,7 @@
 
  // Cookies
 .cookie-notification {
-    background: $sun-frosted-silver;
+    background: $primary-pale-blue;
 
     &__message {
       color: $neutral-black;
@@ -3227,15 +3227,11 @@
     &__star-icon,
     &__genre-icon,
     &__media-icon {
-      color: $sun-ash-gray;
+      color: $sun-ocean-breeze;
     }
 
     &__content-container {
       background: $sun-white;
-    }
-
-    &__description {
-      border: .1875rem solid $sun-silver;
     }
 
     &__cast-name,
@@ -3256,9 +3252,9 @@
 
     &__cast-arrow {
       box-shadow: none;
-      background: $sun-ash-gray;
-      color: $sun-text-dark;
-      border: 0.125rem solid $star-text-dark;
+      background: $sun-icy-blue;
+      color: $primary-button-blue;
+      border: 0.125rem solid $sun-ocean-breeze;
 
       &:hover {
         background: $neutral-white;
@@ -3292,13 +3288,13 @@
     &__rating,
     &__duration {
       border: .125rem solid $sun-silver;
-      color: $star-text-gray;
+      color: $primary-button-blue;
     }
 
     &__genre-item {
       border: 0.1875rem solid $sun-silver;
       box-shadow: none;
-      color: $star-text-gray;
+      color: $primary-button-blue;
     }
 
     &__cast-img-placeholder {
@@ -3328,12 +3324,14 @@
 
     &__certification {
       background: $cloud-frosted-white;
-      color: $sun-text-dark;
+      color: $primary-button-blue;
+      text-shadow: none;
     }
 
     &__description {
-      background: $sun-frosted-silver;
+      background: $primary-pale-blue;
       color: $sun-text-dark;
+      border: .1875rem solid $sun-icy-blue;
     }
 
     &__release-date,
@@ -5190,7 +5188,7 @@
 
     &__title {
       background: $neutral-white;
-      color: $primary-dark-blue;
+      color: $primary-button-blue;
       border: 0.1875rem solid $sun-yellow;
     }
 
