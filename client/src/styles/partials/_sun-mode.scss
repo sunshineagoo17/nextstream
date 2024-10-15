@@ -3693,150 +3693,202 @@
   filter: grayscale(150%) brightness(1);
 }
 
-// Top Picks
+// Top Picks 
 .user-rating-container {
-    border-radius: 100%;
+  border-radius: 100%;
+  background: $sun-white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: .125rem solid $sun-white;
+  filter: grayscale(100%) brightness(1); 
+  transition: filter .3s ease, transform .3s ease;
+
+  &:hover {
+    filter: grayscale(0%) brightness(1); 
+  }
+}
+
+.top-picks-page {
+  background: $neutral-white;
+  margin: 0;
+
+  &__description,
+  &__text,
+  &__copy {
+    color: $sun-text-dark;
+  }
+
+  &__fetch-more {
+    background: linear-gradient(45deg, $sun-soft-lemon, $sun-sunrise-orange);
+    color: $sun-text-dark;
+
+    &:hover {
+      background: $sun-sunrise-orange;
+      color: $sun-text-dark;
+    }
+
+    &:active {
+      background: $sun-ocean-breeze;
+      color: $primary-button-blue;
+    }
+  }
+
+  &__toggle {
+    background: linear-gradient(45deg, $sun-sunrise-orange, $sun-soft-lemon);
+    color: $sun-text-dark;
+    
+    &:hover {
+      background: $sun-soft-lemon;
+      color: $sun-text-dark;
+    }
+
+    &:active {
+      background: $sun-ocean-breeze;
+      color: $primary-button-blue;
+    }
+  }
+
+  &__rating-icon {
+    background: $sun-yellow;
+    border: 2px solid $sun-golden-hour;
+    border-radius: 50%;
+  }
+
+  &__card {
     background: $neutral-white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: .125rem solid $neutral-white;
-    filter: grayscale(100%) brightness(1); 
+
+    &:focus,
+    &:hover {
+      background: $primary-pale-blue;
+    }
+
+    &:active {
+      background: $sun-mellow-apricot;
+      box-shadow: 0 0 .25rem $sun-soft-tangerine;
+    }
+  }
+
+  &__description {
+    &::-webkit-scrollbar-thumb {
+      background: $sun-ocean-breeze;
+      border-radius: .625rem;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: $frosted-glass;
+    }
+  }
+
+  &__title {
+    background: $primary-pale-blue;
+    color: $neutral-black;
+    border: .3125rem solid $sun-icy-blue;
+  }
+
+  &__subtitle {
+    background: $neutral-white;
+    color: $neutral-black;
+  }
+
+  &__header-container {
+    background: $sun-pale-baby-blue;
+  }
+
+  &__load-descript {
+    color: $sun-ocean-breeze;
+
+    &:hover {
+      color: $primary-button-blue;
+    }
+
+    &:active {
+      color: $sun-sunrise-orange;
+    }
+  }
+
+  &__text--center {
+    color: $sun-text-dark;
+    border: .1875rem solid $sun-golden-hour;
+  }
+
+  &__calendar-close-btn {
+    background: $sun-sunrise-orange;
+    color: $neutral-black;
+
+    &:hover {
+      color: $sun-soft-tangerine;
+      background: $sun-peach-fuzz;
+    }
+
+    &:active {
+      color: $primary-dark-blue;
+      background: $sun-ocean-breeze;
+    }
+  }
+
+  &__lightbulb-icon,
+  &__media-icon-link,
+  &__search-icon,
+  &__cal-icon,
+  &__share-icon,
+  &__like-icon,
+  &__dislike-icon {
+    color: $sun-sunrise-orange;
+
+    &:hover {
+      border: none;
+      background: none;
+      box-shadow: none;
+      color: $sun-soft-tangerine;
+    }
+
+    &:active {
+      color: $primary-button-blue;
+      background: $sun-ocean-breeze;
+      border: none;
+      box-shadow: none;
+    }
+  }
+  
+  &__loading-svg {
+    filter: grayscale(100%) brightness(0.8); 
+  }
+
+  &__poster-container {
+    filter: grayscale(100%) brightness(0.8); 
     transition: filter .3s ease, transform .3s ease;
+    border: .0625rem solid $sun-yellow;
   
     &:hover {
       filter: grayscale(0%) brightness(1); 
+      border: .2188rem solid $sun-ocean-breeze;
     }
   }
-  
-  .top-picks-page {
-    background: $star-charcoal;
-    margin: 0;
 
-    &__description,
-    &__text,
-    &__copy {
-      color: $star-text-gray;
-    }
+  &__content {
+    background: $primary-pale-blue;
 
-    &__fetch-more {
-        background: linear-gradient(45deg, $star-frosted-lemon, $star-deep-topaz);
-        color: $neutral-black;
-
-        &:hover {
-            background: $star-deep-topaz;
-            color: $neutral-black;
-        }
-
-        &:active {
-            background: $neutral-black;
-            color: $star-deep-topaz;
-        }
-    }
-
-    &__toggle {
-        background: linear-gradient(45deg, $star-deep-topaz, $star-frosted-lemon);
-        color: $neutral-black;
-        
-        &:hover {
-            background: $star-frosted-lemon;
-            color: $neutral-black;
-        }
-
-        &:active {
-            background: $neutral-black;
-            color: $star-frosted-lemon;
-        }
-    }
-
-    &__rating-icon {
-      background: $star-starlight-yellow;
-      border: 2px solid $star-honey-glow;
-      border-radius: 50%;
-    }
-
-    &__card {
-        background: $frosted-glass;
-        
-        &:focus,
-        &:hover {
-            background: $neutral-black;
-        }
-  
-      &:active {
-        background: $star-glowing-amber;
-        box-shadow: 0 0 .25rem $star-deep-topaz;
-      }
-    }
-  
-    &__description {
-      &::-webkit-scrollbar-thumb {
-        background: $star-medium-gray;
-        border-radius: .625rem;
-      }
-  
-      &::-webkit-scrollbar-track {
-        background: $star-frosted-silver-gray;
-      }
-    }
-  
-    &__title {
-      background: $star-charcoal;
-      color: $neutral-white;
-      border: .3125rem solid $star-iridescent-gold;
-    }
-  
-    &__subtitle {
-      background: $star-dark-gray;
-      color: $star-text-light;
-    }
-  
-    &__header-container {
-      background: $star-medium-gray;
-    }
-  
-    &__load-descript {
-      color: $star-ash-gray;
-    }
-  
-    &__text--center {
-      color: $neutral-black;
-      border: .1875rem solid $star-golden-hour;
-    }
-  
-    &__lightbulb-icon,
-    &__media-icon-link,
-    &__search-icon,
-    &__cal-icon,
-    &__share-icon,
-    &__like-icon,
-    &__dislike-icon {
-      color: $star-horizon-gold;
-    }
-    
-    &__loading-svg {
-      filter: grayscale(100%) brightness(0.8); 
-    }
-  
-    &__poster-container {
-      filter: grayscale(100%) brightness(0.8); 
-      transition: filter .3s ease, transform .3s ease;
-    
-      &:hover {
-        filter: grayscale(0%) brightness(1); 
-        border: .2188rem solid $star-light-gray;
-      }
-    }
-  
-    &__content {
-      background: $neutral-black;
-  
-      @include tablet {
-        border: .625rem solid $star-charcoal;
-      }
+    @include tablet {
+      border: .625rem solid $sun-yellow;
     }
   }
-  
+}
+
+#mediaTooltip,
+#calTooltip,
+#shareIconTooltip,
+#likeTooltip,
+#lightbulbTooltip,
+#dislikeTooltip {
+  background-color: $sun-ocean-breeze;
+  color: $primary-dark-blue;
+
+  &::after {
+    border: $primary-button-blue transparent transparent transparent;
+  }
+}
+
   // Auth Search Results 
   .auth-search-results {
 
