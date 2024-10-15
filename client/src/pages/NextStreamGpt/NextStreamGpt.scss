@@ -159,11 +159,7 @@
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    background: linear-gradient(
-      135deg,
-      rgba($primary-button-blue, .75),
-      rgba($primary-medium-blue, 1)
-    );
+    background: $neutral-white;
   }
 
   &__gpt-button--og,
@@ -206,7 +202,7 @@
     @include block-item(100%, auto);
     display: flex;
     flex-direction: column;
-    background-color: $robot-medium-blue;
+    background-color: $primary-pale-blue;
     align-items: center;
     padding: 1rem;
     justify-content: center;
@@ -388,7 +384,7 @@
     max-width: 100%;
 
     &--user {
-      color: $neutral-white;
+      color: $primary-button-blue;
       text-align: right;
       justify-content: flex-end;
       align-self: flex-end;
@@ -535,13 +531,13 @@
   &__user-icon-inline {
     padding: .25rem;
     border-radius: 1.5rem;
-    background: $robot-very-light-blue;
-    color: $robot-antenna;
+    background: $primary-button-blue;
+    color: $neutral-white;
 
     &:hover {
       animation: tilt-head 3.5s infinite ease-in-out;
-      color: $neutral-white;
-      background: $robot-antenna;
+      color: $primary-button-blue;
+      background: $sun-icy-blue;
       box-shadow: $shadow-primary;
     }
 
@@ -1768,8 +1764,8 @@
       font-size: .95rem;
       left: 50%;
       transform: translateX(-50%);
-      background: $robot-dark-blue;
-      color: $primary-pale-blue;
+      background: $neutral-white;
+      color: $primary-button-blue;
       padding: .25rem .75rem;
       border-radius: .5rem;
       box-shadow: $shadow-secondary;
@@ -1778,8 +1774,8 @@
       text-shadow: $shadow-primary;
       font-family: $secondary-font;
       z-index: 1;
-      border: .15rem solid $neutral-white;
-      border-bottom: .3rem solid $neutral-white;
+      border: .15rem solid $primary-pale-blue;
+      border-bottom: .3rem solid $primary-pale-blue;
 
       @include tablet {
         font-size: 1.15rem;

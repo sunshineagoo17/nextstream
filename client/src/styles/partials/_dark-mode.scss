@@ -589,6 +589,10 @@
       color: $neutral-white;
     }
 
+    &__message--user {
+      color: $primary-pale-blue;
+    }
+
     &__message--bot {
       color: $neutral-white;
       background: $neutral-black;

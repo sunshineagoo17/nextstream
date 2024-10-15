@@ -1209,6 +1209,10 @@
       background: $trans-gradient-electricblue-candypink;
     }
 
+    &__message--user {
+      color: $trans-pastel-pink;
+    }
+
     &__message--bot {
       color: $neutral-white;
       background: $trans-deep-blue;
