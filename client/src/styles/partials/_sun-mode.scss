@@ -1424,6 +1424,21 @@
       }
     }
 
+    &__calendar-close-btn {
+      background: $sun-sunrise-orange;
+      color: $neutral-black;
+
+      &:hover {
+        color: $sun-soft-tangerine;
+        background: $sun-peach-fuzz;
+      }
+
+      &:active {
+        color: $primary-dark-blue;
+        background: $sun-ocean-breeze;
+      }
+    }
+
     &__intro,
     &__title {
       color: $neutral-black;
@@ -1511,17 +1526,44 @@
     }
   }
 
-  .circle-rating {
-    background: $sun-white;
-    border-radius: 50%;
-    filter: grayscale(100%) brightness(0.8);
-    transition: filter 0.3s ease, transform 0.3s ease;
-    
+  .circle-rating-container {
+    filter: grayscale(100%) brightness(0.9);
+      transition: filter 0.3s ease, transform 0.3s ease;
+
     &:hover {
-      filter: grayscale(0%) brightness(1.2);
+        filter: grayscale(0%) brightness(1);
     }
   }
 
+  .details-tooltip {
+    background: $sun-ocean-breeze !important;
+    color: $primary-dark-blue !important;
+
+    &::after {
+      border-color: $sun-ocean-breeze !important;
+    }
+  }
+
+  .tooltip-text {
+    background: $sun-ocean-breeze !important;
+    color: $primary-dark-blue !important;
+    position: absolute;
+    bottom: 100%; 
+    left: 50%;
+    margin-left: -3.75rem;
+  
+    &::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -.3125rem;
+      border-width: .3125rem;
+      border-style: solid;
+      border-color: $sun-ocean-breeze transparent transparent transparent;
+    }
+  }
+  
   .media-card {
     background: $sun-white;
 
@@ -1574,6 +1616,21 @@
 
     &__disclaimer-content {
       background: $sun-light-gray;
+    }
+
+    &__calendar-close-btn {
+      background: $sun-sunrise-orange;
+      color: $neutral-black;
+
+      &:hover {
+        color: $sun-soft-tangerine;
+        background: $sun-peach-fuzz;
+      }
+
+      &:active {
+        color: $primary-dark-blue;
+        background: $sun-ocean-breeze;
+      }
     }
 
     &__clear-chat-button {
@@ -1952,6 +2009,33 @@
         }
       }
     }    
+  }
+
+  #personTooltip,
+  #trendingTvTooltip,
+  #trendingMoviesTooltip,
+  #trendingAllTooltip,
+  #tvPopularTooltip,
+  #tvTopTooltip,
+  #tvOnAirTooltip,
+  #tvAirsTodayTooltip,
+  #movieNowPlayingTooltip,
+  #moviePopularTooltip,
+  #movieTopRatedTooltip,
+  #movieUpcomingReleasesTooltip,
+  #mediaTooltip,
+  #calTooltip,
+  #searchTooltip,
+  #closeTooltip,
+  #shareIconTooltip,
+  #likeTooltip,
+  #dislikeTooltip {
+    background-color: $sun-ocean-breeze;
+    color: $primary-dark-blue;
+
+    &::after {
+      border: $primary-button-blue transparent transparent transparent;
+    }
   }
 
 // Streamboard 
@@ -5233,6 +5317,15 @@
         background: $sun-pale-baby-blue;
         color: $neutral-black;
       }
+    }
+  }
+
+  #deleteDisabledTooltip {
+    background-color: $sun-ocean-breeze;
+    color: $primary-dark-blue;
+  
+    &::after {
+      border: $primary-button-blue transparent transparent transparent;
     }
   }
 
