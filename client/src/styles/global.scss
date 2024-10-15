@@ -7,6 +7,7 @@
 @use "./partials/cloud-mode" as *;
 @use "./partials/star-mode" as *;
 @use "./partials/sun-mode" as *;
+@use "./partials/rain-mode" as *;
 
 @mixin borderGlowLogo() {
   @keyframes borderGlowLogo {

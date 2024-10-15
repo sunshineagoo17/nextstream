@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMoon, faSun, faRainbow, faCloud, faStar, faSnowflake } from '@fortawesome/free-solid-svg-icons';
+import { faMoon, faSun, faRainbow, faCloud, faStar, faSnowflake, faCloudRain } from '@fortawesome/free-solid-svg-icons';
 import './ThemeToggle.scss';
 
 const ThemeToggle = () => {
-  const [theme, setTheme] = useState('snow-mode'); // Default to snow-mode (formerly light)
+  const [theme, setTheme] = useState('snow-mode'); 
 
   // Check for saved theme in localStorage or default to 'snow-mode'
   useEffect(() => {
@@ -24,7 +24,9 @@ const ThemeToggle = () => {
     } else if (theme === 'dark') {
       newTheme = 'cloud-mode'; // Switch from dark to cloud-mode
     } else if (theme === 'cloud-mode') {
-      newTheme = 'trans-mode'; // Switch from cloud-mode to trans-mode
+      newTheme = 'rain-mode'; // Switch from cloud-mode to rain-mode
+    } else if (theme === 'rain-mode') {
+      newTheme = 'trans-mode'; // Switch from rain-mode to trans-mode
     } else if (theme === 'trans-mode') {
       newTheme = 'star-mode'; // Switch from trans-mode to star-mode
     } else {
@@ -43,6 +45,8 @@ const ThemeToggle = () => {
         <FontAwesomeIcon icon={faSun} className="icon sun" />
       ) : theme === 'dark' ? (
         <FontAwesomeIcon icon={faMoon} className="icon moon" />
+      ) : theme === 'rain-mode' ? (
+        <FontAwesomeIcon icon={faCloudRain} className="icon rain" />
       ) : theme === 'trans-mode' ? (
         <FontAwesomeIcon icon={faRainbow} className="icon rainbow" />
       ) : theme === 'cloud-mode' ? (

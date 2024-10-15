@@ -334,3 +334,59 @@
   @mixin sunBorderAnimation {
     animation: sunAnimateBorder 17s infinite alternate;
   }
+
+  // Animation for Rain Mode
+  // Mixin for Border Glow Effect 
+  @mixin rainBorderGlowLogo() {
+    @keyframes rainBorderGlowLogo {
+      0% {
+        border-color: $rain-fern-green;
+      }
+      25% {
+        border-color: $rain-rainy-sky-blue;
+      }
+      50% {
+        border-color: $rain-rain-drop-blue;
+      }
+      75% {
+        border-color: $rain-wet-grass-green;
+      }
+      100% {
+        border-color: $rain-cloudy-ocean-blue;
+      }
+    }
+
+    animation: rainBorderGlowLogo 3s infinite alternate;
+  }
+
+  // Mixin for Animated Border 
+  @mixin rainAnimateBorder() {
+    @keyframes rainAnimateBorder {
+      0% {
+        border-color: $rain-storm-cloud-blue;
+      }
+      25% {
+        border-color: $rain-seaweed-green;
+      }
+      35% {
+        border-color: $rain-cool-aqua;
+      }
+      50% {
+        border-color: $rain-rain-drop-blue;
+      }
+      75% {
+        border-color: $rain-forest-green;
+      }
+      85% {
+        border-color: $rain-soft-seafoam;
+      }
+      100% {
+        border-color: $rain-foggy-mist-gray;
+      }
+    }
+  }
+
+  // Mixin for Animated Border 
+  @mixin rainBorderAnimation() {
+    animation: rainAnimateBorder 17s infinite alternate;
+  }

@@ -519,3 +519,52 @@ $sun-shadow-secondary: 3px 3px 6px rgba(180, 180, 180, 0.2), -3px -3px 6px rgba(
 $sun-text-dark: #404040;
 $sun-text-light: #FFFFFF;
 $sun-text-yellow: #FFD700;
+
+// Rain Mode
+// Greens
+$rain-forest-green: #0B3D28;
+$rain-mossy-green: #355E3B;
+$rain-fern-green: #6D8B5F;
+$rain-seaweed-green: #3B7A57;
+$rain-evergreen: #2C5234;
+
+// Blues and Grays
+$rain-rainy-sky-blue: #6A89CC;
+$rain-storm-cloud-blue: #3A506B;
+$rain-dew-drop-gray: #5A6E7F;
+$rain-foggy-mist-gray: #B0C4DE;
+$rain-slate-gray: #708090;
+$rain-midnight-storm-gray: #2F4F4F;
+
+// Accents (Blues and Greens)
+$rain-wet-grass-green: #4E8A53;
+$rain-cool-aqua: #4CB1D4;
+$rain-rain-drop-blue: #89CFF0;
+$rain-cloudy-ocean-blue: #3C91E6;  
+$rain-soft-seafoam: #B4E1FA;  
+
+// Frosted Glass and Soft Effects
+$rain-frosted-glass: rgba(180, 220, 248, 0.65);
+$rain-frosted-green: rgba(118, 150, 86, 0.6);
+$rain-frosted-blue: rgba(200, 220, 255, 0.6);
+
+// Neumorphic Colors
+$rain-neumorph-shadow-light: rgba(0, 0, 0, 0.1);
+$rain-neumorph-highlight-light: rgba(255, 255, 255, 0.7);
+$rain-neumorph-base: #5A6E7F;
+$rain-deep-shadow: rgba(30, 30, 30, 0.4);
+
+// Gradients
+$rain-gradient-green: linear-gradient(135deg, #355E3B, #6B8E23);
+$rain-gradient-blue-gray: linear-gradient(135deg, #6A89CC, #708090);
+$rain-gradient-moss: linear-gradient(135deg, #0B3D28, #556B2F);
+$rain-gradient-sky: linear-gradient(135deg, #3A506B, #89CFF0);
+
+// Shadows for Contrast
+$rain-shadow-primary: 5px 5px 10px rgba(30, 30, 30, 0.4), -5px -5px 10px rgba(200, 200, 200, 0.6);
+$rain-shadow-secondary: 3px 3px 6px rgba(50, 50, 50, 0.2), -3px -3px 6px rgba(255, 255, 255, 0.5);
+
+// Text Colors
+$rain-text-dark: #2C3E50;
+$rain-text-light: #ECF0F1;
+$rain-text-green: #355E3B;

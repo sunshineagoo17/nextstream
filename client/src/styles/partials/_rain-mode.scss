@@ -1,0 +1,5763 @@
+@use 'colors' as *;
+@use 'mixins' as *;
+
+[data-theme='rain-mode'] {
+    // Set the sun-mode background and text colors
+    background-color: $rain-dew-drop-gray;
+    color: $neutral-white;
+  
+    body,
+    label {
+      cursor: url('../../assets/cursors/cursor-arrow-rain.svg'), auto;
+    }
+  
+    // Custom cursor for interactive elements
+    button,
+    a,
+    .Link,
+    img,
+    [role='button'],
+    [data-tooltip],
+    [tabindex],
+    input[type='checkbox'],
+    input[type='text'],
+    input[type='radio'],
+    input[type='range'],
+    input[type='button'],
+    input[type='submit'],
+    select,
+    textarea {
+      cursor: url('../../assets/cursors/cursor-pointer-rain.svg'), pointer;
+    }
+  
+    // Radio and checkbox styles in sun mode
+    input[type='radio'],
+    input[type='checkbox'] {
+      appearance: none;
+      background-color: rgba($rain-dew-drop-gray, 0.15);
+      backdrop-filter: blur(0.75rem);
+      border: 0.0625rem solid rgba($rain-slate-gray, 0.4);
+      box-shadow: 0.25rem 0.25rem 0.375rem rgba($rain-slate-gray, 0.15), -0.25rem -0.25rem 0.375rem rgba($rain-foggy-mist-gray, 0.5);
+      width: 1.5rem;
+      height: 1.5rem;
+      border-radius: 50%;
+      position: relative;
+      cursor: pointer;
+      outline: none;
+      transition: all 0.3s ease-in-out;
+
+      &:hover {
+        background-color: rgba($rain-slate-gray, 0.3);
+        box-shadow: 0.375rem 0.375rem 0.75rem rgba($rain-slate-gray, 0.2), -0.375rem -0.375rem 0.75rem rgba($rain-foggy-mist-gray, 0.6);
+      }
+
+      &:checked {
+        background-color: rgba($rain-wet-grass-green, 0.6);
+        border-color: rgba($rain-seaweed-green, 0.8);
+        box-shadow: inset 0.1875rem 0.1875rem 0.375rem rgba($rain-slate-gray, 0.2), inset -0.1875rem -0.1875rem 0.375rem rgba($rain-foggy-mist-gray, 0.5);
+      }
+
+      &:after {
+        content: '';
+        display: block;
+        @include block-item(0.8rem, 0.8rem);
+        background-color: $rain-soft-seafoam;
+        border-radius: 50%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        transition: transform 0.3s ease-in-out;
+      }
+
+      &:checked:after {
+        transform: translate(-50%, -50%) scale(1);
+      }
+    }
+  
+    input[type='checkbox'] {
+        border-radius: 0.25rem;
+  
+        &:after {
+          width: 0.6rem;
+          height: 0.6rem;
+          border-radius: 0;
+        }
+  
+        &:checked {
+            background-color: rgba($rain-wet-grass-green, 0.6);
+        }
+    }
+  
+    // Hover styles for interactive elements
+    button:hover,
+    a:hover,
+    .Link:hover,
+    img:hover,
+    [role='button']:hover,
+    [data-tooltip]:hover,
+    [tabindex]:hover,
+    input[type='checkbox']:hover,
+    input[type='text']:hover,
+    input[type='radio']:hover,
+    input[type='range']:hover,
+    input[type='button']:hover,
+    input[type='submit']:hover,
+    label:hover,
+    select:hover,
+    textarea:hover {
+      cursor: url('../../assets/cursors/cursor-pointer-rain.svg'), pointer;
+    }
+  
+    // Focus styles for interactive elements
+    button:focus,
+    a:focus,
+    .Link:focus,
+    img:focus,
+    [role='button']:focus,
+    [data-tooltip]:focus,
+    [tabindex]:focus,
+    input[type='checkbox']:focus,
+    input[type='text']:focus,
+    input[type='radio']:focus,
+    input[type='range']:focus,
+    input[type='button']:focus,
+    input[type='submit']:focus,
+    label:focus,
+    select:focus,
+    textarea:focus {
+      cursor: url('../../assets/cursors/cursor-pointer-rain.svg'), pointer;
+    }
+  
+    // Input styles in sun mode
+    input,
+    textarea {
+      background-color: rgba($rain-dew-drop-gray, 0.85);
+      color: $rain-text-light;
+
+      &:focus {
+        background-color: rgba($rain-foggy-mist-gray, 0.9);
+        border-color: $rain-slate-gray;
+      }
+    }
+  
+    // Styling for dropdowns and suggestions
+    select,
+    .dropdown,
+    .ui-autocomplete,
+    .browser-suggestion-list {
+      cursor: url('../../assets/cursors/cursor-pointer-rain.svg'), pointer;
+    }
+  
+    // Active input state
+    input[type='text']:active,
+    input[type='text']:valid,
+    input[type='text']:required,
+    input[type='text']:enabled {
+      cursor: url('../../assets/cursors/cursor-pointer-rain.svg'), pointer;
+    }
+
+// Homepage
+
+// Header 
+.header {
+    background: $rain-dew-drop-gray;
+  
+    &__login-container {
+      background: $rain-slate-gray;
+  
+      &:hover {
+        background: $rain-rainy-sky-blue;
+        box-shadow: $rain-shadow-primary;
+      }
+  
+      &:active {
+        background: $rain-rain-drop-blue;
+      }
+    }
+
+    &__sign-in-icon {
+        color: $rain-midnight-storm-gray;
+    }
+  
+    &__search-icon--mobile,
+    &__search-icon {
+      background: $rain-slate-gray;
+    }
+  
+    &__search-bar--mobile,
+    &__search-bar {
+        background: $rain-dew-drop-gray;
+        border: .125rem solid $rain-slate-gray;
+    }
+  
+    &__logo-wrapper {
+      &:hover {
+        @include rainBorderGlowLogo(); 
+      }
+    }
+
+    &__sign-in-txt {
+        color: $rain-text-dark;
+    }
+  
+    &__clear-btn,
+    &__clear-btn--mobile {
+      color: $rain-midnight-storm-gray;
+  
+      &:focus,
+      &:hover {
+        color: $rain-forest-green;
+        background: none;
+        border: none;
+        box-shadow: none;
+      }
+  
+      &:active {
+        color: $rain-cool-aqua;
+        background: none;
+        border: none;
+        box-shadow: none;
+      }
+    }
+  
+    &__logo {
+        filter: brightness(0) invert(0);
+    }
+
+    &__search-input,
+    &__search-input--mobile {
+        background: $rain-dew-drop-gray;
+        color: $rain-text-dark;
+
+        &::placeholder {
+            color: $rain-rain-drop-blue;
+        }
+
+        &:focus {
+            color: $rain-text-dark;
+            background-color: $rain-foggy-mist-gray;
+        }
+
+        &:active {
+            background-color: $rain-soft-seafoam;
+        }
+    }
+}
+  
+// Hover Menu
+.hover-menu__button {
+    background: $rain-storm-cloud-blue;
+  
+    &:hover {
+      background: $rain-gradient-green;
+    }
+  }
+
+// Hero
+.hero {
+    background: $rain-dew-drop-gray;
+  
+    &__subtitle--tagline,
+    &__title {
+      color: $rain-text-dark;
+    }
+  
+    &__subtitle--tagline {
+        background: $rain-frosted-glass;
+        border: .1875rem solid $rain-rainy-sky-blue;
+        transition: background 0.4s ease, border 0.4s ease;
+
+        &:hover {
+            background: $rain-frosted-blue;
+            border: .1875rem solid $rain-soft-seafoam;
+        }
+    }
+
+    &__btn {
+        color: $rain-text-dark;
+    }
+  
+    &__logo--mobile,
+    &__logo {
+      content: url('../../assets/images/logo-brand-mark-gray.svg');
+  
+      &:hover {
+        content: url('../../assets/images/logo-brand-mark-dark.svg');
+      }
+    }
+
+    &__title {
+      color: $rain-cool-aqua;
+    }
+  
+    &__logo {
+      @include tablet {
+        border-radius: 3.25rem;
+      }
+    }
+  
+    &__subtitle {
+      color: $rain-text-light;
+    }
+  
+    &__logo-border,
+    &__logo-border--mobile {
+      @include rainAnimateBorder;
+      @include rainBorderAnimation;
+      background: $rain-gradient-sky;
+    }
+  
+    &__btn-container {
+      background: $rain-slate-gray;
+      transition: background-color .3s ease, transform .3s ease;
+  
+      &:hover {
+        background: $rain-rainy-sky-blue;
+        box-shadow: $rain-shadow-primary;
+        transform: scale(1.05);
+      }
+  
+      &:active {
+        background: $rain-rain-drop-blue;
+        transform: scale(.95);
+      }
+    }
+  }
+
+  .content {
+    border-top: .25rem solid $rain-slate-gray;
+    border-bottom: .25rem solid $rain-slate-gray;
+    background: $rain-dew-drop-gray;
+
+    &__label-header-new-container,
+    &__label-header-container {
+      background: $rain-gradient-green;
+    }
+  
+    &__label-header-new-releases,
+    &__label-features {
+      color: $rain-text-light;
+    }
+
+    &__new-releases {
+        border-top: .25rem solid $rain-slate-gray;
+    }
+  
+    &__card-features__feature__icon-bg {
+      background: $rain-gradient-sky;
+  
+      &:hover {
+        background: $rain-gradient-blue-gray;
+      }
+  
+      &:active {
+        background: $rain-gradient-moss;
+      }
+    }
+  
+    &__card-features__feature__label {
+      color: $rain-text-dark;
+  
+      &:hover {
+        background: $rain-rainy-sky-blue;
+        color: $rain-text-light;
+      }
+  
+      &:active {
+        background: $rain-soft-seafoam;
+        color: $rain-text-green;
+      }
+    }
+  
+    &__new-releases-subtitle {
+      color: $neutral-white;
+    }
+  
+    &__card1-container,
+    &__card2-container,
+    &__card3-container,
+    &__card4-container,
+    &__card5-container,
+    &__card6-container {
+      cursor: url('../../assets/cursors/cursor-pointer-rain.svg'), pointer;
+    }
+  
+    &__poster1,
+    &__poster2,
+    &__poster3,
+    &__poster4,
+    &__poster5,
+    &__poster6 {
+      cursor: url('../../assets/cursors/cursor-pointer-rain.svg'), pointer;
+      filter: grayscale(100%);
+      transition: filter .3s ease, transform .3s ease;
+  
+      &:hover {
+        filter: grayscale(0%) brightness(1); 
+        border: .15rem solid $rain-slate-gray;
+      }
+    }
+  
+    &__card1,
+    &__card2,
+    &__card3,
+    &__card4,
+    &__card5,
+    &__card6 {
+      background: $rain-frosted-green;
+    }
+  
+    .content__nav-circles {
+      .content__nav-circle {
+        border: .0938rem solid $rain-slate-gray;
+  
+        &:hover {
+          background-color: rgba($rain-wet-grass-green, .8);
+          border: .0938rem solid $rain-seaweed-green;
+        }
+  
+        &--active {
+          background-color: $rain-fern-green;
+          box-shadow: 0 0 .25rem $rain-forest-green;
+          border: .125rem solid $rain-mossy-green;
+        }
+      }
+    }
+  
+    &__page-nav-wrapper-next,
+    &__page-nav-wrapper-previous {
+      cursor: url('../../assets/cursors/cursor-pointer-rain.svg'), pointer;
+      background-color: $rain-gradient-blue-gray;
+      border: .15rem solid $rain-slate-gray;
+      color: $rain-text-light;
+  
+      &:hover {
+        background: $rain-rainy-sky-blue;
+        border: .15rem solid $rain-frosted-blue;
+      }
+  
+      &:active {
+        background: $rain-forest-green;
+        border: .15rem solid $rain-text-light;
+      }
+    }
+  
+    &__icon-bg-video,
+    &__icon-bg-tv {
+      color: $rain-rain-drop-blue;
+      background: $rain-storm-cloud-blue;
+      transition: background 0.3s ease;
+  
+      &:hover {
+        background: $rain-rainy-sky-blue;
+        color: $rain-text-light;
+      }
+  
+      &:active {
+        background: $rain-forest-green;
+        color: $neutral-white;
+      }
+    }
+  
+    &__card-media-container {
+      background: linear-gradient(135deg, rgba(240, 240, 240, 0.4), rgba(200, 200, 200, 0.6));
+      backdrop-filter: blur(1.25rem);
+      -webkit-backdrop-filter: blur(1.25rem);
+      box-shadow: 0 .75rem 1.5rem rgba(240, 240, 240, 0.6), 0 .75rem 1.5rem rgba(255, 223, 186, 0.5);
+      border-radius: 1.25rem;
+      border: .125rem solid rgba(255, 255, 255, 0.4);
+    
+      animation: rainmode-pulse-strong-grey-glow 5s infinite alternate ease-in-out;
+    }
+    
+    @keyframes rainmode-pulse-strong-grey-glow {
+      0% {
+        box-shadow: 0 0 1.875rem rgba(255, 255, 255, 0.8), 0 0 3.75rem rgba(180, 220, 248, 0.8);
+      }
+      50% {
+        box-shadow: 0 0 3.125rem rgba(255, 255, 255, 0.9), 0 0 5rem rgba(180, 220, 248, 1);
+      }
+      100% {
+        box-shadow: 0 0 1.875rem rgba(255, 255, 255, 0.8), 0 0 3.75rem rgba(180, 220, 248, 0.8);
+      }
+    }
+  }
+  
+  .content-new-releases__register-btn {
+    color: $rain-soft-seafoam;
+  
+    &:hover {
+      background: $rain-rainy-sky-blue;
+      color: $rain-text-dark;
+    }
+  
+    &:focus,
+    &:visited,
+    &:active {
+      background: $rain-soft-seafoam;
+      color: $rain-text-dark;
+    }
+  }
+
+// Footer 
+.footer {
+    background: $rain-dew-drop-gray;
+  
+    &__btn-register {
+      background: $rain-slate-gray;
+      color: $rain-text-dark;
+      transition: background-color .3s ease, transform .3s ease;
+  
+      &:hover {
+        background: $rain-rainy-sky-blue;
+        box-shadow: $rain-shadow-primary;
+        transform: scale(1.05);
+      }
+  
+      &:active {
+        background: $rain-soft-seafoam;
+        transform: scale(.95);
+      }
+    }
+
+    &__about-link,
+    &__privacy-policy-link, 
+    &__tac-link {
+        border: none;
+        box-shadow: none;
+        background: none;
+
+        &:focus,
+        &:hover {
+          border: .0625rem solid $rain-rain-drop-blue;
+          box-shadow: none;
+          border-radius: .5rem;
+          background: none;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+      &:active {
+        border: .125rem solid $rain-cool-aqua;
+        box-shadow: none;
+        background: none;
+        border-radius: 1rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  
+    &__register {
+        color: $rain-text-dark;
+    }
+
+    &__btn-contact {
+      background: $rain-wet-grass-green;
+      transition: background-color .3s ease, transform .3s ease;
+  
+      &:hover {
+        background: $rain-fern-green;
+        box-shadow: $rain-shadow-secondary;
+        transform: scale(1.05);
+      }    
+  
+      &:active {
+        background: $rain-seaweed-green;
+        transform: scale(.95);
+        box-shadow: none;
+        border: none;
+      }
+    }
+  
+    &__logo-wordmark {
+      filter: invert(100%) brightness(0%);
+    }
+  
+    &__copyright {
+      color: $rain-foggy-mist-gray;
+    }
+  
+    &__about,
+    &__privacy-policy,
+    &__tac {
+      border: none;
+      box-shadow: none;
+      color: $rain-soft-seafoam;
+    
+      &:hover {
+        color: $neutral-white;
+        border: none;
+        box-shadow: none;
+        background: none;
+      }
+  
+      &:focus,
+      &:visited,
+      &:active {
+        border: none;
+        box-shadow: none;
+        color: $rain-cool-aqua;
+        background: none;
+        text-shadow: none;
+      }
+    }
+  
+    &__logo-container {
+      &:hover {
+        @include rainBorderGlowLogo();
+      }
+    }
+  }
+
+  // Friends List  
+  .friends-page {
+    background: $cloud-frosted-white;
+  
+    &__heading-container {
+      background: linear-gradient(145deg, $sun-icy-blue, darken($sun-ocean-breeze, 15%));
+      border: .3125rem solid $sun-white;
+    }
+  
+    &__header {
+      color: $neutral-white;
+    }
+
+    &__container--friends-cards {
+      background: $primary-pale-blue;
+    }
+
+    &__container--bottom {
+      background: $sun-icy-blue;
+    }
+
+    &__container--chat {
+      background: $sun-morning-mist-blue;
+    }
+    
+    &__chat,
+    &__pending-calendar,
+    &__shared-calendar,
+    &__search-section,
+    &__pending-section,
+    &__list {
+      background: $cloud-frosted-white;
+    }
+
+    &__copy {
+      background: $sun-frosted-white;
+      color: $sun-text-dark;
+    }
+  
+    &__calendar-info {
+      p {
+        color: $sun-text-dark;
+      }
+    }
+  
+    &__clear-friends-search {
+      color: $sun-sunrise-orange;
+      background: none;
+
+      &:hover {
+        background: none;
+        border: none;
+        color: $sun-yellow;
+      }
+
+      &:active {
+        color: $sun-ocean-breeze;
+        background: none;
+        border: none;
+      }
+    }
+  
+    &__shared-count {
+      background: $sun-icy-blue;
+      color: $primary-dark-blue;
+      border: .0625rem solid $neutral-white;
+    }
+  
+    &__video-container {
+      background: linear-gradient(145deg, $sun-icy-blue, darken($primary-pale-blue, 15%));
+      filter: grayscale(100%);
+      transition: filter .3s ease, transform .3s ease;
+  
+      &:hover {
+        filter: grayscale(0%) brightness(1);
+      }
+    }
+  
+    &__no-shared-cal-txt,
+    &__card-subtitle--shared,
+    &__card-subtitle--pendingrequests,
+    &__no-pending-cal-txt {
+      color: $neutral-black;
+    }
+  
+    &__search-button {
+      background: $sun-yellow;
+      color: $neutral-black;
+  
+      &:hover {
+        background: $sun-soft-lemon;
+        color: $neutral-black;
+      }
+  
+      &:active {
+        background: $sun-ocean-breeze;
+        color: $primary-dark-blue;
+      }
+    }
+  
+    &__avatar-default {
+      color: $sun-ocean-breeze;
+    }
+  
+    &__delete-invite-btn,
+    &__remove-friend {
+      background: $sun-light-gray;
+      color: $sun-text-dark;
+  
+      &:hover {
+        background: $sun-yellow;
+        color: $sun-text-dark;
+      }
+
+      &:active {
+        background: $sun-icy-blue;
+        color: $primary-dark-blue;
+      }
+    }
+  
+    &__cal-icon-container {
+      background: $sun-yellow;
+      color: $sun-text-dark;
+      border: none;
+      box-shadow: 0 5px 15px rgba($sun-ocean-breeze, 0.4) !important;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+      &:hover {
+        background: $sun-sunrise-orange;
+        color: $neutral-black;
+        border: .1875rem solid $sun-frosted-gold;
+      }
+
+      &:active {
+        background: $sun-ocean-breeze;
+        color: $primary-dark-blue;
+      }
+    }
+  
+    &__close-icon,
+    &__close-cal-txt {
+      color: $sun-text-dark;
+    }
+  
+    &__close-btn {
+      background: $sun-ocean-breeze;
+      color: $primary-dark-blue;
+      border: none;
+  
+      &:hover {
+        background: $sun-golden-hour;
+      }
+  
+      &:active {
+        background: $sun-icy-blue;
+      }
+    }
+  
+    &__chat-close {
+      background: $sun-golden-hour;
+      color: $sun-text-dark;
+      transition: background .3s ease, transform .3s ease-in-out;
+  
+      &:hover {
+        background: $sun-text-dark;
+        color: $sun-golden-hour;
+        transform: scale(1.05);
+      }
+  
+      &:active {
+        background: $neutral-white;
+        color: $sun-ocean-breeze;
+        transform: scale(.95);
+      }
+    }
+  
+    &__username--pending {
+      background: $sun-light-gray;
+      color: $neutral-black;
+      border: .125rem solid $sun-silver;
+    }
+  
+    &__decline-friend {
+      background: $sun-light-gray;
+      color: $sun-text-dark;
+      transition: background .3s ease, transform .2s ease;
+  
+      &:hover {
+        background: $sun-yellow;
+        color: $neutral-black;
+        transform: scale(1.05);
+      }
+  
+      &:active {
+        background: $sun-ocean-breeze;
+        color: $primary-dark-blue;
+        transform: scale(.95);
+      }
+    }
+  
+    &__delete-icon {
+      color: $neutral-white;
+      transition: background-color .3s ease, transform .5s ease;
+  
+      &:focus,
+      &:hover {
+        color: $sun-yellow;
+        background: $sun-text-dark;
+      }
+  
+      &:active {
+        color: $sun-white;
+        background: $sun-text-dark;
+      }
+    }
+  
+    &__message {
+      &.me {
+        &.unread {
+          opacity: 1;
+          font-weight: bold;
+          background: $star-deep-topaz;
+          color: $neutral-black;
+          border: .125rem solid $sun-light-gray;
+        }
+  
+        &.read {
+          opacity: .9;
+          border: .0625rem solid $sun-light-gray;
+          background: $sun-yellow;
+          color: $neutral-black;
+        }
+      }
+  
+      &.sender {
+        &.unread {
+          opacity: 1;
+          font-weight: bold;
+          color: $sun-text-dark;
+          background: $sun-ocean-breeze;
+          border: .125rem solid $sun-light-gray;
+          box-shadow: $sun-shadow-primary;
+        }
+  
+        &.read {
+          opacity: .9;
+          background: $sun-icy-blue;
+          color: $sun-text-dark;
+          border: .0625rem solid $sun-silver;
+        }
+      }
+    }
+  
+    &__delete-invite {
+      background: $sun-light-gray !important;
+      color: $neutral-black !important;
+      transition: background .3s ease, transform .2s ease;
+  
+      &:hover {
+        background: $sun-icy-blue !important;
+        color: $primary-dark-blue !important;
+      }
+
+      &:active {
+        background: $sun-ocean-breeze !important;
+        color: $primary-dark-blue !important;
+      }
+    }
+  
+    &__accept-invite {
+      background: $sun-golden-hour !important;
+      color: $sun-text-dark !important;
+  
+      &:hover {
+        background: $sun-sunrise-orange !important;
+        color: $neutral-black !important;
+      }
+
+      &:active {
+        background: $sun-icy-blue !important;
+        color: $primary-dark-blue !important;
+      }
+    }
+  
+    &__accept-friend {
+      background: $sun-golden-hour;
+      color: $neutral-black;
+      transition: transform .3s ease, box-shadow .3s ease, background-color .3s ease;
+  
+      &:hover {
+        background: $sun-yellow;
+        color: $sun-text-dark;
+      }
+
+      &:active {
+        background: $sun-icy-blue;
+        color: $primary-dark-blue;
+      }
+    }
+
+    &__freind-requests-actions {
+      background: $frosted-glass;
+    }
+  
+    &__pending-item {
+      background: $sun-light-gray;
+    }
+  
+    &__username--search {
+      background: $sun-light-gray;
+      color: $neutral-black;
+      text-shadow: none;
+      font-weight: normal;
+    }
+  
+    &__add-friend {
+      background: $sun-yellow;
+      color: $sun-text-dark;
+      transition: background .3s ease, transform .3s ease;
+  
+      &:hover {
+        background: $sun-ocean-breeze;
+        color: $primary-dark-blue;
+      }
+  
+      &:focus,
+      &:active {
+        animation: sunmodeRippleOut .8s forwards;
+        color: $sun-sunrise-orange;
+      }
+    }
+  
+    @keyframes sunmodeRippleOut {
+      0% {
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, .5);
+      }
+      100% {
+        box-shadow: 0 0 .9375rem .3125rem rgba($sun-yellow, .6);
+        color: $sun-sunrise-orange;
+        background: $sun-white;
+        border: .125rem solid $sun-yellow;
+      }
+    }
+  
+    &__clear-btn,
+    &__send-btn {
+      background: $sun-soft-lemon;
+      color: $sun-text-dark;
+      transition: background .3s ease, transform .3s ease-in-out;
+  
+      &:hover {
+        background: $sun-yellow;
+        color: $neutral-black;
+        transform: scale(1.05);
+      }
+  
+      &:active {
+        background: $sun-text-dark !important;
+        color: $sun-sunrise-orange !important;
+        transform: scale(.95);
+      }
+    }
+  
+    &__message-input {
+      background: $sun-frosted-silver;
+    }
+  
+    &__no-msgs,
+    &__chat-header-title {
+      color: $neutral-black;
+    }
+  
+    &__chat-button {
+      background: $sun-yellow;
+      color: $sun-text-dark;
+  
+      &:hover {
+        background: $sun-ocean-breeze;
+        color: $primary-dark-blue;
+      }
+  
+      &:active {
+        background: $frosted-glass;
+        color: $primary-dark-blue;
+      }
+    }
+
+    &__bell-icon {
+      color: $sun-ocean-breeze;
+    }
+
+    &__unread-msg-count {
+      background: $sun-ocean-breeze;
+      color: $primary-dark-blue;
+      border: .0625rem solid $neutral-white;
+    }
+  
+    &__user-info,
+    &__empty-friends-list,
+    &__label,
+    &__no-pending-txt,
+    &__card-subtitle--requests,
+    &__card-subtitle--friends,
+    &__card-subtitle--search,
+    &__no-users-txt {
+      color: $neutral-black;
+    }
+  
+    &__chat {
+      background: $neutral-white;
+    }
+  
+    &__search-section {
+      background: $neutral-white;
+    }
+  
+    &__pending-section {
+      background: $sun-silver;
+    }
+  
+    &__list {
+      background: $star-text-dark;
+    }
+  
+    &__pending-calendar {
+      background: $neutral-white;
+    }
+  
+    &__shared-calendar {
+      background: $sun-silver;
+    }
+  
+    &__pending-calendar__pending-item {
+      background: $frosted-glass;
+    }
+  
+    &__pending-count {
+      background: $sun-icy-blue;
+      color: $primary-dark-blue;
+      border: .0625rem solid $neutral-white;
+    }
+  
+    &__calendar-info {
+      color: $neutral-black !important;
+      strong {
+        color: $neutral-black !important;
+      }
+    }
+  }
+  
+  .voice-message-friends__voice-button {
+    background: $sun-yellow;
+    color: $neutral-black;
+    border: .125rem solid $neutral-white;
+  
+      &:hover {
+        background: $sun-sunrise-orange;
+        color: $sun-text-dark;
+        border: .125rem solid $sun-soft-lemon;
+      }
+  
+      &:active {
+        background: $sun-ocean-breeze;
+        color: $sun-text-dark;
+        box-shadow: $sun-shadow-primary;
+        border: .125rem solid $sun-white;
+      }
+  }
+  
+// Login and Register
+.register,
+.login {
+    background: $sun-light-gray;
+
+    &__title {
+        color: $neutral-black;
+    }
+
+    &__container {
+        background: $sun-white;
+    }
+
+    &__image-card {
+        display: none;
+
+        @include tablet {
+        height: auto;
+        border-radius: 1.25rem;
+        box-shadow: $sun-shadow-secondary;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        max-width: 25rem;
+        width: 100%;
+        border: 0.25rem solid $sun-silver;
+        }
+
+        img {
+            filter: grayscale(100%) brightness(0.9);
+            transition: filter 0.3s ease, transform 0.3s ease;
+
+            &:hover {
+                filter: grayscale(0%) brightness(1);
+            }
+        }
+    }
+
+    &__content-card {
+        background-color: rgba($sun-silver, 0.85);
+        border: 0.125rem solid $sun-light-gray;
+        border-radius: 0.85rem;
+        box-shadow: $sun-shadow-primary;
+        @include sunAnimateBorder;
+        @include sunBorderAnimation;
+    }
+
+    &__forgot-password-link {
+        color: $cloud-text-dark;
+        padding-left: 0.25rem;
+        padding-right: 0.25rem;
+        border: 0.0938rem solid $neutral-white;
+        background: none;
+
+        &:hover,
+        &:focus {
+            background-color: $sun-gradient-lemon;
+            border: 0.0938rem solid $sun-golden-hour;
+            color: $neutral-black;
+            text-decoration: none;
+            box-shadow: $sun-shadow-primary;
+        }
+
+        &:active {
+            background-color: $sun-gradient-sunrise;
+            color: $primary-dark-blue;
+            border: 0.125rem solid $sun-light-gray;
+            border-radius: 0.25rem;
+            transform: scale(0.9);
+            text-decoration: none;
+            font-weight: bold;
+        }
+    }
+
+    &__password-toggle-icon {
+        color: $sun-ash-gray;
+
+        &:hover {
+            color: $sun-sunrise-orange;
+        }
+
+        &:active {
+            color: $sun-ocean-breeze;
+        }
+    }
+
+    &__remember-txt {
+        color: $cloud-text-dark;
+    }
+
+    &__button--previous {
+        &:hover {
+            background: $sun-gradient-yellow;
+            border: 0.0625rem solid $neutral-white;
+            color: $neutral-black;
+        }
+
+        &:active {
+          background: $sun-ocean-breeze;
+          color: $primary-dark-blue;
+        }
+
+        &::before {
+            @include block-item(200%, 100%);
+            content: "";
+            position: absolute;
+            top: 0;
+            right: -100%;
+            background: linear-gradient(to left, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: right 0.5s;
+        }
+
+        &:hover::before {
+            right: 100%;
+            color: $neutral-black;
+        }
+    }
+
+    &__button--signup,
+    &__button--signin {
+        @include block-item(6.8119rem, 3.5rem);
+        background: $star-gradient-iridescent;
+        color: $neutral-black;
+        box-shadow: $sun-shadow-primary;
+        position: relative;
+        overflow: hidden;
+        font-size: 0.85rem;
+
+        @include tablet {
+            @include block-item(9rem, 4.5rem);
+            font-size: 1rem;
+        }
+
+        &:hover {
+            background: $sun-ocean-breeze;
+            border: none;
+            color: $neutral-black;
+        }
+
+        &::before {
+            @include block-item(200%, 100%);
+            content: "";
+            position: absolute;
+            top: 0;
+            right: -100%;
+            background: linear-gradient(to left, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: right 0.5s;
+        }
+
+        &:hover::before {
+            right: 100%;
+        }
+
+        &:active {
+          background: $sun-white;
+          color: $sun-ocean-breeze;
+        }
+    }
+
+    &__btn-create-account {
+        background: linear-gradient(120deg, $sun-yellow, $sun-sunrise-orange);
+        border: 0.125rem solid $sun-light-gray;
+        border-radius: 0.3125rem;
+        color: $neutral-black;
+        padding: 0.625rem 2.5rem;
+        font-size: 0.65rem;
+        text-shadow: none;
+        margin-top: 1rem;
+        line-height: 0.85rem;
+        transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: $sun-shadow-secondary;
+
+        &:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0.375rem 0.5rem rgba($neutral-black, 0.15);
+            border: none;
+            color: $neutral-black;
+            background: linear-gradient(60deg, $sun-ocean-breeze, $sun-sunrise-sky);
+        }
+
+        &:active {
+            transform: scale(0.95);
+            color: $neutral-black;
+            box-shadow: 0 0.125rem 0.25rem rgba($sun-light-gray, 0.2);
+            background: $sun-white;
+            border: none;
+        }
+
+        &:focus {
+            outline: none;
+            box-shadow: $sun-shadow-primary;
+        }
+
+        @include tablet {
+            padding: 0.625rem 1rem;
+            font-size: 0.85rem;
+        }
+    }
+
+    &__oauth-btn-google,
+    &__social-button--google,
+    &__guest-link {
+        background: linear-gradient(45deg, $sun-silver, $sun-light-gray);
+        color: $neutral-black;
+
+        &:hover {
+            background: linear-gradient(45deg, $sun-golden-hour, $sun-sunrise-orange);
+            color: $neutral-black;
+            text-shadow: none;
+        }
+
+        &:active {
+            background: $sun-ocean-breeze;
+            color: $sun-white;
+            box-shadow: none;
+        }
+    }
+
+    &__input {
+      border: 0.125rem solid $sun-silver;
+      box-shadow: $sun-shadow-primary;
+      background: $sun-light-gray;
+      color: $neutral-black;
+    
+      &:active {
+        box-shadow: none;
+        background: $sun-white;
+        color: $neutral-black;
+      }
+    
+      &:-webkit-autofill {
+        box-shadow: 0 0 0px 1000px $sun-light-gray inset;
+        -webkit-text-fill-color: $neutral-black;
+        transition: background-color 5000s ease-in-out 0s;
+      }
+    
+      &:enabled:valid {
+        box-shadow: none;
+        background: $sun-white;
+        color: $neutral-black;
+      }
+    
+      &:focus,
+      &:not(:placeholder-shown) {
+        background: $sun-silver;
+        color: $neutral-black;
+        box-shadow: none;
+    
+        & + .register__label,
+        & + .login__label {
+          background: $sun-white;
+          border: 0.125rem solid $sun-light-gray;
+          color: $cloud-stormy-blue;
+        }
+    
+        &::placeholder {
+          color: $sun-ash-gray;
+        }
+      }
+    
+      &:not(:focus):placeholder-shown {
+        &::placeholder {
+          color: transparent;
+        }
+      }
+    }    
+
+    &__label {
+        background: $sun-light-gray;
+        color: $neutral-black;
+    }
+
+    &__account-available,
+    &__guest-text,
+    &__terms-txt {
+        color: $star-charcoal;
+    }
+
+    &__terms-link,
+    &__signin-link,
+    &__guest-signin-link {
+        color: $sun-soft-tangerine;
+        font-weight: bold;
+
+        &:visited,
+        &:focus,
+        &:hover {
+            font-weight: normal;
+            background: $sun-gradient-yellow;
+            color: $neutral-black;
+            border: 0.0625rem solid $neutral-white;
+        }
+
+        &:active {
+            background: $sun-pale-baby-blue;
+            color: $neutral-black;
+        }
+    }
+}
+
+.register {
+    background: $sun-light-gray;
+
+    &__hero {
+        background: $sun-light-gray;
+    }
+
+    &__button--previous {
+        color: $neutral-black;
+
+        &:hover {
+            color: $neutral-black;
+            .register__button-icon {
+                color: $neutral-black; 
+            }
+        }
+
+        &:active {
+            color: $neutral-black;
+            .register__button-icon {
+                color: $neutral-black; 
+            }
+        }
+    }
+}
+
+  // NextSwipe 
+  .nextswipe-page {
+    &__container {
+      background: $sun-light-gray;
+    }
+
+    &__title-container {
+      background: $sun-gradient-sunrise;
+    }
+
+    &__graphic,
+    &__no-more-media-image {
+      filter: grayscale(100%) brightness(0.9);
+      transition: filter 0.3s ease, transform 0.3s ease;
+
+      &:hover {
+          filter: grayscale(0%) brightness(1);
+      }
+    }
+
+    &__calendar-close-btn {
+      background: $sun-sunrise-orange;
+      color: $neutral-black;
+
+      &:hover {
+        color: $sun-soft-tangerine;
+        background: $sun-peach-fuzz;
+      }
+
+      &:active {
+        color: $primary-dark-blue;
+        background: $sun-ocean-breeze;
+      }
+    }
+
+    &__intro,
+    &__title {
+      color: $neutral-black;
+    }
+
+    &__background {
+      filter: grayscale(100%) brightness(0.8);
+      transition: filter 0.3s ease, transform 0.3s ease;
+      
+      &:hover {
+        filter: grayscale(0%) brightness(1.2);
+      }
+    }
+
+    &__media-card {
+      background: $sun-frosted-silver;
+      @include sunAnimateBorder;
+      @include sunBorderAnimation;
+    }
+
+    &__nav-button {
+      background-color: rgba($sun-light-gray, .7);
+      color: $sun-sunrise-orange;
+
+      &:hover {
+        background-color: rgba($sun-sunrise-orange, 0.7);
+        color: $sun-text-light;
+      }
+
+      &:active {
+        background-color: rgba($sun-white, 0.8);
+        color: $sun-ocean-breeze;
+        border: 0.125rem solid $sun-ocean-breeze;
+        box-shadow: none;
+      }
+    }
+
+    &__calendar-button {
+      border: 0.0625rem solid $sun-light-gray;
+      background: $sun-gradient-yellow;
+      color: $neutral-black;
+      box-shadow: $sun-shadow-primary;
+      font-size: 0.85rem;
+      border-radius: 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: transform 0.3s ease-in-out;
+      
+      &:focus,
+      &:hover {
+        background: $sun-sunrise-orange;
+        color: $sun-text-dark;
+        border: 0.0625rem solid $sun-yellow;
+        transform: scale(1.03);
+      }
+      
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: -100%;
+        background: linear-gradient(to left, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: right 0.5s;
+      }
+      
+      &:hover::before {
+        right: 100%;
+      }
+      
+      &:active {
+        transform: scale(0.95);
+        background: $sun-ocean-breeze;
+        color: $primary-dark-blue;
+        border: 0.0625rem solid $sun-icy-blue;
+      }
+      
+      svg {
+        margin-right: 0.5rem;
+        color: $sun-text-dark;
+        border: 0.125rem solid $sun-blushing-orange;
+        padding: 0.15rem;
+        border-radius: 0.5rem;
+      }
+    }
+  }
+
+  .circle-rating-container {
+    filter: grayscale(100%) brightness(0.9);
+      transition: filter 0.3s ease, transform 0.3s ease;
+
+    &:hover {
+        filter: grayscale(0%) brightness(1);
+    }
+  }
+
+  .details-tooltip {
+    background: $sun-ocean-breeze !important;
+    color: $primary-dark-blue !important;
+
+    &::after {
+      border-color: $sun-ocean-breeze !important;
+    }
+  }
+
+  .tooltip-text {
+    background: $sun-ocean-breeze !important;
+    color: $primary-dark-blue !important;
+    position: absolute;
+    bottom: 100%; 
+    left: 50%;
+    margin-left: -3.75rem;
+  
+    &::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -.3125rem;
+      border-width: .3125rem;
+      border-style: solid;
+      border-color: $sun-ocean-breeze transparent transparent transparent;
+    }
+  }
+  
+  .media-card {
+    background: $sun-white;
+
+    &__details {
+      background: $sun-white;
+      border-bottom-left-radius: .5rem;
+      border-bottom-right-radius: .5rem;
+    }
+
+    &__image {
+      background: $sun-white;
+    }
+
+    &__type-icon,
+    &__lightbulb-icon,
+    &__share-icon {
+      background: none;
+      color: $sun-ash-gray;
+
+      &:hover {
+        color: $sun-sunrise-orange;
+        background: $sun-white;
+      }
+
+      &:active {
+        color: $sun-icy-blue;
+        background: $sun-ocean-breeze;
+        border: none;
+      }
+    }
+
+    &__overview,
+    &__title {
+      color: $sun-text-dark;
+    }
+
+    &__image {
+      filter: grayscale(100%) brightness(0.8);
+      transition: filter 0.3s ease, transform 0.3s ease;
+      
+      &:hover {
+        filter: grayscale(0%) brightness(1.2);
+      }
+    }
+  }
+  
+  // NextStream Gpt 
+  .nextstream-gpt {
+    background: $neutral-white;
+
+    &__disclaimer-content {
+      background: $sun-light-gray;
+    }
+
+    &__calendar-close-btn {
+      background: $sun-sunrise-orange;
+      color: $neutral-black;
+
+      &:hover {
+        color: $sun-soft-tangerine;
+        background: $sun-peach-fuzz;
+      }
+
+      &:active {
+        color: $primary-dark-blue;
+        background: $sun-ocean-breeze;
+      }
+    }
+
+    &__clear-chat-button {
+      background: linear-gradient(135deg, $sun-icy-blue, $primary-button-blue);
+
+      &:hover {
+        background: linear-gradient(135deg, $primary-button-blue, $sun-ocean-breeze);
+      }
+
+      &:active {
+        background: linear-gradient(135deg, $sun-ash-gray, $neutral-black);
+      }
+    }
+
+    &__clear-input {
+      color: $star-honey-glow;
+
+      &:hover {
+        color: $star-light-gray;
+      }
+
+      &:active {
+        color: $primary-button-blue;
+      }
+    }
+    
+    &__gpt-button--og,
+    &__interrupt-btn {
+      animation: glow 4s infinite alternate;
+      box-shadow: inset .25rem .25rem .5rem rgba($neutral-black, .2),
+        inset -.25rem -.25rem .5rem rgba(255, 255, 255, .7);
+      border-radius: .75rem;
+      background: #e0e0e0;
+      transition: all .3s ease;
+      color: $primary-button-blue;
+
+      &:hover {
+        background: $sun-ocean-breeze;
+        transform: scale(1.05);
+        color: $primary-dark-blue;
+
+        &:active {
+          background: $sun-yellow;
+          color: $neutral-black;
+          animation: none;
+          box-shadow: inset .375rem .375rem .75rem rgba($neutral-black, .2),
+            inset -.375rem -.375rem .75rem rgba(255, 255, 255, .7);
+          transform: scale(.95);
+        }
+      }
+    }
+    
+    &__send-button {
+      animation: glow 4s infinite alternate;
+      box-shadow: inset .25rem .25rem .5rem rgba($neutral-black, .2),
+        inset -.25rem -.25rem .5rem rgba(255, 255, 255, .7);
+      background: #e0e0e0;
+      transition: all .3s ease;
+      color: $primary-button-blue;
+
+      &:hover {
+        background: $sun-ocean-breeze;
+        transform: scale(1.05);
+        color: $primary-dark-blue;
+
+        &:active {
+          background: $sun-yellow;
+          color: $neutral-black;
+          box-shadow: inset .375rem .375rem .75rem rgba($neutral-black, .2),
+            inset -.375rem -.375rem .75rem rgba(255, 255, 255, .7);
+          transform: scale(.95);
+        }
+      }
+    }
+
+    &__text--center {
+      color: $sun-text-dark;
+    }
+    
+    &__disclaimer-modal {
+      background: rgba($sun-ash-gray, .85);
+    }
+    
+    &__disclaimer-copy {
+      color: $neutral-black;
+    }
+    
+    &__disclaimer-close {
+      color: $sun-text-dark;
+      
+      &:hover {
+        background: $sun-light-gold;
+        color: $sun-soft-tangerine;
+      }
+    
+      &:active {
+        background: $sun-golden-hour;
+        color: $sun-text-dark;
+      }
+    }
+    
+    &__disclaimer-header {
+      border: .25rem solid $sun-golden-hour;
+      color: $neutral-black;
+      background: $sun-silver;
+      text-shadow: none;
+    }
+    
+    &__disclaimer-note {
+      color: $sun-soft-tangerine;
+    }
+
+    &__bot-typing-indicator-bubble {
+      background-color: $primary-button-blue;
+    }
+    
+    &__empty-message {
+      color: $cloud-text-gray;
+    }
+    
+    &__copy {
+      background: $sun-white;
+      color: $sun-text-dark;
+      border: .25rem solid $sun-silver;
+    }
+    
+    &__message--user {
+      color: $sun-text-dark;
+      background: $sun-sunrise-orange;
+      border: .0625rem solid $sun-yellow;
+    }
+    
+    &__message--bot {
+      color: $sun-text-dark;
+      background: $sun-icy-blue;
+      text-shadow: none;
+      border: .0625rem solid $sun-light-gray;
+    }
+    
+    &__user-icon-inline {
+      color: $sun-blushing-orange;
+      background: $sun-white;
+    
+      &:hover {
+        background: $sun-soft-tangerine;
+        color: $neutral-white;
+      }
+
+      &.typing-icon {
+        animation: sunPulseUserIcon 2.5s infinite ease-in-out;
+        color: $neutral-white;
+      }
+    }
+  
+    @keyframes sunPulseUserIcon {
+      0%,
+      100% {
+        transform: scale(1);
+        color: $sun-sunrise-orange;
+      }
+      50% {
+        transform: scale(1.2);
+        color: $neutral-white;
+      }
+    }
+    
+    &__input {
+      &::placeholder {
+        color: $sun-golden-hour;
+      }
+    
+      &:focus {
+        background: $sun-morning-mist-blue;
+        border: .25rem solid $sun-ocean-breeze;
+        color: $primary-dark-blue;
+      }
+    }
+    
+    &__gpt-icon-inline {
+      color: $sun-ocean-breeze;
+      background: $neutral-white;
+    
+      &:hover {
+        background: $primary-button-blue;
+        color: $neutral-white;
+      }
+    }
+    
+    &__chat-container {
+      background: $neutral-white;
+    }
+    
+    &__speech-icon {
+      background: $sun-ocean-breeze;
+      color: $neutral-white;
+      border: .125rem solid $sun-light-gold;
+    }
+    
+    &__typing-indicator-bubble {
+      background: $sun-ocean-breeze;
+    }
+    
+    &__scroll-container-results {
+      border: .5rem solid $sun-white;
+      border-bottom: 1rem solid $sun-white;
+    }
+    
+    &__poster {
+      cursor: url('../../assets/cursors/cursor-pointer-rain.svg'), pointer;
+      filter: grayscale(100%) brightness(0.9);
+      transition: filter .3s ease, transform .3s ease;
+    
+      &:hover {
+        cursor: url('../../assets/cursors/cursor-pointer-rain.svg'), pointer;
+        filter: grayscale(0%) brightness(1);
+      }
+    }
+    
+    &__rating-container {
+      background: none;
+      box-shadow: none;
+      border: none;
+      filter: grayscale(100%);
+      transition: filter .3s ease, transform .3s ease;
+    
+      &:hover {
+        filter: grayscale(0%) brightness(1);
+      }
+    }
+    
+    &__icons-row {
+      background: $sun-pale-baby-blue;
+      border: .125rem solid $sun-silver;
+    }
+    
+    &__card {
+      background: $neutral-white;
+    }
+    
+    &__nav-arrow {
+      cursor: url('../../assets/cursors/cursor-pointer-rain.svg'), pointer;
+      color: $sun-text-dark;
+      border: .1875rem solid $neutral-white;
+      background: $sun-peach-fuzz;
+    
+      &:hover {
+        background: $sun-soft-lemon;
+        color: $sun-soft-tangerine;
+      }
+    
+      &:active {
+        background: $sun-ocean-breeze;
+        color: $primary-dark-blue;
+        border: .1875rem solid $neutral-white;
+      }
+    }
+    
+    &__card--results {
+      border: .1875rem solid $sun-icy-blue;
+    }
+    
+    &__title--results {
+      color: $sun-text-dark;
+      border: .1875rem solid $sun-silver;
+    }
+    
+    &__lightbulb-icon,
+    &__media-icon,
+    &__cal-icon,
+    &__share-icon,
+    &__like-icon,
+    &__dislike-icon {
+      color: $sun-white;
+    
+      &:hover {
+        background: none;
+        box-shadow: none;
+        border: none;
+        color: $sun-yellow;
+      }
+    
+      &:active {
+        background: none;
+        box-shadow: none;
+        border: none;
+        color: $primary-button-blue;
+      }
+    }
+    
+    &__results-section {
+      &::before {
+        background: $sun-ocean-breeze;
+        color: $neutral-white;
+      }
+    }
+    
+    &__chatbot-svg {
+      filter: grayscale(100%) brightness(0.9);
+      transition: filter .3s ease, transform .3s ease;
+    
+      &:hover {
+        filter: grayscale(0%) brightness(1);
+      }
+    }
+    
+    &__title {
+      border: .1875rem solid $sun-ocean-breeze;
+    }
+    
+    &__chat-block {
+      border: .3125rem solid $sun-yellow;
+    }
+    
+    &__messages {
+      background: $sun-frosted-silver;
+      border: .25rem solid $sun-silver;
+    }
+    
+    &__title {
+      background: $sun-gradient-blue;
+    }
+    
+    &__scroll-container-results {
+      display: flex;
+      overflow-x: scroll;
+      scrollbar-width: thin;
+      -ms-overflow-style: none;
+      scroll-behavior: smooth;
+      background: $frosted-glass;
+      width: 100%;
+      border-radius: 1.05rem;
+      scrollbar-color: $sun-pale-baby-blue $sun-sunrise-orange;
+    
+      &::-webkit-scrollbar {
+        height: .5rem;
+        color: $sun-peach-fuzz;
+      }
+    
+      &::-webkit-scrollbar-thumb {
+        background-color: $sun-sunrise-sky;
+        border-radius: .625rem;
+      }
+    
+      &::-webkit-scrollbar-thumb:hover {
+        background-color: $sun-ocean-breeze;
+      }
+    
+      &::-webkit-scrollbar-track {
+        background-color: $sun-morning-mist-blue;
+      }
+    
+      &::-webkit-scrollbar-corner {
+        background-color: $sun-morning-mist-blue;
+      }
+    }
+    
+    .voice-message-mizu__voice-button {
+      animation: glow 4s infinite alternate;
+      box-shadow: inset .25rem .25rem .5rem rgba($neutral-black, .2),
+        inset -.25rem -.25rem .5rem rgba(255, 255, 255, .7);
+      background: #e0e0e0;
+      transition: all .3s ease;
+      color: $primary-button-blue;
+
+      &:hover {
+        background: $sun-ocean-breeze;
+        transform: scale(1.05);
+        color: $primary-dark-blue;
+
+        &:active {
+          background: $sun-yellow;
+          color: $neutral-black;
+          box-shadow: inset .375rem .375rem .75rem rgba($neutral-black, .2),
+            inset -.375rem -.375rem .75rem rgba(255, 255, 255, .7);
+          transform: scale(.95);
+        }
+      }
+    }    
+  }
+
+  #personTooltip,
+  #trendingTvTooltip,
+  #trendingMoviesTooltip,
+  #trendingAllTooltip,
+  #tvPopularTooltip,
+  #tvTopTooltip,
+  #tvOnAirTooltip,
+  #tvAirsTodayTooltip,
+  #movieNowPlayingTooltip,
+  #moviePopularTooltip,
+  #movieTopRatedTooltip,
+  #movieUpcomingReleasesTooltip,
+  #mediaTooltip,
+  #calTooltip,
+  #searchTooltip,
+  #closeTooltip,
+  #shareIconTooltip,
+  #likeTooltip,
+  #dislikeTooltip {
+    background-color: $sun-ocean-breeze;
+    color: $primary-dark-blue;
+
+    &::after {
+      border: $primary-button-blue transparent transparent transparent;
+    }
+  }
+
+// Streamboard 
+.streamboard {
+  background: $sun-light-gray;
+  border: .3125rem solid $sun-ash-gray;
+
+  &__title {
+    background: $sun-gradient-orange;
+  }
+
+  &__calendar-close-btn {
+    background: $sun-sunrise-orange;
+    color: $neutral-black;
+
+    &:hover {
+      color: $sun-soft-tangerine;
+      background: $sun-peach-fuzz;
+    }
+
+    &:active {
+      color: $primary-dark-blue;
+      background: $sun-ocean-breeze;
+    }
+  }
+
+  &__search-bar-input {
+    &::placeholder {
+      color: $sun-golden-hour;
+    }
+
+    &:active,
+    &:focus {
+      color: $neutral-black;
+      background: $sun-white;
+      border: .125rem solid $sun-yellow;
+      box-shadow: none;
+    }
+
+    &:not(:placeholder-shown) {
+      color: $neutral-black;
+    }
+  }
+
+  &__copy {
+    background: $neutral-white;
+    color: $sun-text-dark;
+  }
+
+  &__search-bar-button-search {
+    background: $neutral-white;
+    color: $sun-ocean-breeze;
+
+    &:hover {
+      background: $sun-golden-hour;
+      color: $sun-text-dark;
+    }
+
+    &:active {
+      background: $sun-white;
+      color: $sun-soft-tangerine;
+    }
+  }
+
+  &__search-bar-button-clear {
+    background: $neutral-white;
+    color: $sun-ocean-breeze;
+
+    &:hover {
+      background: $sun-golden-hour;
+      color: $sun-text-dark;
+    }
+
+    &:active {
+      background: $sun-white;
+      color: $sun-soft-tangerine;
+    }
+  }
+
+  &__media-column--to_watch {
+    background: $primary-pale-blue;
+  }
+
+  &__media-item-title {
+    background: $neutral-white;
+    color: $neutral-black;
+    text-shadow: none;
+  }
+
+  &__pagination-button {
+    background: $neutral-white;
+    border: .125rem solid $sun-sunrise-orange;
+    color: $neutral-black;
+    text-shadow: none;
+    transition: background-color .3s ease, transform .3s ease;
+  
+    &:hover {
+      color: $sun-ocean-breeze;
+      background: $primary-pale-blue;
+      border: .125rem solid $sun-ocean-breeze;
+      text-shadow: none;
+      transform: scale(1.1);
+    }
+  
+    &:active {
+      color: $sun-text-dark;
+      background: $sun-gradient-yellow;
+      border: .125rem solid $sun-light-gold;
+      text-shadow: none;
+      transform: scale(0.95);
+    }
+  }
+
+  &__link {
+    font-weight: normal;
+    color: $sun-text-dark;
+    border: .125rem solid $sun-golden-hour;
+    transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease; 
+  
+    &:hover {
+      background-color: $sun-golden-hour;
+      color: $sun-text-dark;
+      transform: scale(1.1);
+    }
+  
+    &:active {
+      border: none;
+      box-shadow: none;
+      background-color: $sun-ocean-breeze;
+      color: $primary-dark-blue;
+      transform: scale(0.95);
+    }
+  }
+
+  &__season-input, 
+  &__episode-input {
+    background: $primary-pale-blue;
+    color: $neutral-black;
+  }
+
+  &__episode-label,
+  &__season-label {
+    background: $neutral-white;
+    color: $neutral-black;
+  }
+
+  &__season-episode-inputs {
+    background: $neutral-white;
+  }
+
+  &__reset-button,
+  &__save-button,
+  &__tag-button,
+  &__review-button,
+  &__lightbulb-icon,
+  &__media-type-icon,
+  &__calendar-icon,
+  &__trash-icon {
+    background: $neutral-white;
+    color: $sun-sunrise-orange;
+
+    &:hover {
+      color: $sun-ocean-breeze;
+    }
+
+    &:active {
+      background: $sun-soft-tangerine;
+      color: $neutral-white;
+    }
+  }
+
+  &__tag-button,
+  &__review-button {
+    border: none;
+    text-shadow: none;
+  }
+
+  &__genre-icon {
+    color: $sun-sunrise-sky;
+  }
+
+  &__pizza-icon {
+    color: $sun-sunrise-sky;
+    border: .125rem solid $sun-silver;
+    background: $primary-pale-blue;
+  }
+
+  &__media-genre-item {
+    border: .125rem solid $sun-silver;
+    background: $primary-pale-blue;
+  }
+
+  &__media-item-duration {
+    color: $neutral-black;
+  }
+
+  &__genre-text {
+    color: $neutral-black;
+  }
+
+  &__media-column--scheduled {
+    background: $sun-icy-blue;
+  }
+
+  &__media-column--watched {
+    background: $sun-morning-mist-blue;
+  }
+
+  &__media-column--watched::before,
+  &__media-column--scheduled::before,
+  &__media-column--to_watch::before {
+    background: $sun-ocean-breeze;
+    color: $neutral-white;
+  }
+}
+
+.review-modal,
+.tag-modal {
+  background: $primary-pale-blue;
+
+  &__eraser-icon {
+    color: $sun-ocean-breeze;
+    cursor: url(../../assets/cursors/cursor-pointer-rain.svg), pointer;
+
+    &:hover {
+      color: $sun-sunrise-orange;
+    }
+
+    &:active {
+      color: $sun-yellow;
+    }
+  }
+
+  &__title {
+    color: $neutral-black;
+  }
+
+  &__textarea,    
+  &__input {
+    border: .125rem solid $sun-ocean-breeze;
+    background: $neutral-white;
+    color: $neutral-black;
+
+    &::placeholder {
+      color: $sun-ash-gray;
+    }
+  }
+
+  &__button--save {
+    background: $primary-pale-blue;
+    color: $primary-button-blue;
+    text-shadow: none;
+    border: .125rem solid $sun-ocean-breeze;
+
+    &:focus,
+    &:hover {
+      color: $neutral-black;
+      background: $sun-soft-tangerine;
+      border: .125rem solid $sun-peach-fuzz;
+    }
+
+    &:active {
+      color: $sun-icy-blue;
+      background: $primary-button-blue;
+      border: .125rem solid $sun-icy-blue;
+    }
+  }
+
+  &__button--delete {
+    color: $sun-soft-tangerine;
+    background: $neutral-white;
+    text-shadow: none;
+    border: .125rem solid $sun-soft-tangerine;
+
+    &:focus,
+    &:hover {
+      border: none;
+      background: $sun-frosted-gold;
+      color: $sun-text-dark;
+    }
+
+    &:active {
+      color: $sun-soft-tangerine;
+      background: $neutral-black;
+      border: .125rem solid $sun-soft-tangerine;
+    }
+  }
+
+  &__button--close {
+    color: $sun-sunrise-orange;
+    text-shadow: none;
+    border: .125rem solid $sun-sunrise-orange;
+
+    &:focus,
+    &:hover {
+      background: $sun-sunrise-orange;
+      color: $neutral-black;
+      border: none;
+    }
+
+    &:active {
+      background: $sun-light-gold;
+      color: $sun-soft-tangerine;
+      border: .125rem solid $sun-yellow;
+    }
+  }
+}
+
+.voice-search-streamboard__voice-button {
+  background: $neutral-white;
+  color: $sun-ocean-breeze;
+
+  &:hover {
+    background: $sun-golden-hour;
+    color: $sun-text-dark;
+  }
+
+  &:active {
+    background: $sun-white;
+    color: $sun-soft-tangerine;
+    box-shadow: $shadow-primary;
+  }
+}
+
+#streamboardMediaTooltip,
+#lightbulbTooltip,
+#friendTooltip,
+#calTooltip,
+#trashTooltip {
+  background-color: $sun-ocean-breeze;
+  color: $primary-dark-blue;
+
+  &::after {
+    border: $primary-button-blue transparent transparent transparent;
+  }
+}
+
+// NextStream Bot
+.nextstream-bot {
+  @include frosted-glass2;
+  border-radius: 1.25rem;
+  box-shadow: $sun-shadow-primary;
+  margin: 1.5rem;
+  border: .3125rem solid $sun-silver;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  background: linear-gradient(
+    135deg,
+    rgba($sun-frosted-silver, .75),
+    rgba($sun-light-gray, 1)
+  );
+  overflow: hidden;
+
+  &__typing-indicator-bubble {
+    background-color: $neutral-black;
+  }
+
+  &__bot-typing-indicator-bubble {
+    background: $sun-sunrise-orange;
+  }
+
+  &__text--center {
+    color: $sun-text-dark;
+  }
+
+  &__gpt-icon,
+  &__btn-txt {
+    color: $sun-text-dark !important;
+  }
+
+  &__chat-container {
+    background: $sun-white;
+  }
+
+  &__chat-block {
+    border: .3125rem solid $sun-yellow;
+  }
+
+  &__poster--results {
+    filter: grayscale(100%) brightness(0.9);
+    transition: filter .3s ease, transform .3s ease;
+
+    &:hover {
+      filter: grayscale(0%) brightness(1);
+    }
+  }
+
+  &__loading-svg {
+    filter: grayscale(100%) brightness(0.9);
+  }
+
+  &__title {
+    background: $primary-pale-blue;
+    color: $neutral-black;
+    border: .1875rem solid $sun-ocean-breeze;
+  }
+
+  &__loader-overlay {
+    background-color: $sun-frosted-silver;
+  }
+
+  &__copy {
+    background: $sun-ocean-breeze;
+    color: $neutral-black;
+    box-shadow: none;
+  }
+
+  &__gpt-container {
+    background-color: $sun-light-gray;
+    color: $sun-text-dark;
+  }
+
+  &__chatbot-svg {
+    filter: grayscale(100%) brightness(0.9);
+    transition: filter .3s ease, transform .3s ease;
+
+    &:hover {
+      filter: grayscale(0%) brightness(1);
+    }
+  }
+
+  &__empty-message {
+    color: $neutral-black;
+    border: .1875rem solid $sun-silver;
+    animation: sunmodeBounce 4s infinite ease-in-out, sunmodeColorShift 5s infinite ease-in-out;
+
+    @keyframes sunmodeBounce {
+      0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 .75rem rgba($sun-silver, .3);
+      }
+      50% {
+        transform: scale(1.05);
+        box-shadow: 0 .75rem 2rem rgba($sun-silver, .4);
+      }
+    }
+
+    @keyframes sunmodeColorShift {
+      0% {
+        border-color: $sun-silver;
+        background: $sun-white;
+      }
+      50% {
+        border-color: $sun-ash-gray;
+        background: lighten($sun-light-gray, 10%);
+      }
+      100% {
+        border-color: $sun-silver;
+        background: $sun-white;
+      }
+    }
+  }
+
+  &__input {
+    &:focus {
+      border: .25rem solid $sun-yellow;
+    }
+
+    &::placeholder {
+      color: $sun-ash-gray;
+    }
+  }
+
+  &__messages {
+    border: .25rem solid $sun-silver;
+    scrollbar-width: thin;
+    scrollbar-color: $sun-light-gray $sun-silver;
+  }
+
+  &__chat-block {
+    background: linear-gradient(
+      135deg,
+      rgba($sun-frosted-silver, .75),
+      rgba($sun-light-gray, 1)
+    );
+    border: .3125rem solid $sun-yellow;
+    box-shadow: $sun-shadow-secondary;
+  }
+
+  &__message--user {
+    background-color: $sun-icy-blue;
+    color: $primary-dark-blue;
+    border: .125rem solid $sun-ocean-breeze;
+  }
+
+  &__message--bot {
+    background-color: $sun-light-gold;
+    color: $neutral-black;
+    box-shadow: $sun-shadow-primary;
+    border: .125rem solid $sun-golden-hour;
+  }
+
+  &__speech-icon {
+    color: $sun-yellow;
+    border: .125rem solid $sun-golden-hour;
+    box-shadow: $sun-shadow-primary;
+  }
+
+  &__send-button {
+    background: $sun-yellow;
+    color: $sun-text-dark;
+  
+    &:hover {
+      background: $sun-text-light;
+      color: $sun-sunrise-orange;
+    }
+  
+    &:active {
+      background: $sun-peach-fuzz;
+      color: $sun-soft-tangerine;
+    }
+  }
+
+  &__results-section {
+    background: $sun-gradient-lemon;
+    color: $sun-text-dark;
+
+    &::before {
+      background: $sun-gradient-blue;
+      color: $primary-dark-blue;
+      border: .15rem solid $sun-icy-blue;
+      border-bottom: .3rem solid $sun-icy-blue;
+    }
+  }
+
+  &__card--results {
+    background: $sun-frosted-silver;
+  }
+
+  &__rating-container {
+    background: none;
+    filter: grayscale(100%);
+    transition: filter .3s ease, transform .3s ease;
+
+    &:hover {
+      filter: grayscale(0%) brightness(1);
+    }
+  }
+
+  &__header-text {
+    color: $neutral-black;
+  }
+
+  &__scroll-container-results {
+    display: flex;
+    border: .5rem solid $sun-light-gray;
+    border-bottom: 1rem solid $sun-light-gray;
+    overflow-x: scroll;
+    scrollbar-width: thin;
+    -ms-overflow-style: none;
+    scroll-behavior: smooth;
+    background: $sun-white;
+    width: 100%;
+    border-radius: 1.05rem;
+    scrollbar-color: $sun-yellow $sun-light-gray;
+    cursor: url('../../assets/cursors/cursor-pointer-rain.svg'), pointer;
+  }
+
+  &__icons-row {
+    background: $sun-silver;
+  }
+
+  &__nav-arrow {
+    color: $sun-ocean-breeze;
+    border: .1875rem solid $neutral-white;
+    background: $sun-light-gray;
+
+    &:hover {
+      transform: scale(1.1);
+      border: .1875rem solid $sun-sunrise-orange;
+      color: $sun-sunrise-orange;
+      background: $sun-soft-lemon;
+    }
+
+    &:active {
+      transform: scale(.9);
+      border: .1875rem solid $sun-yellow;
+      color: $sun-yellow;
+      background: $sun-text-dark;
+    }
+  }
+
+  &__lightbulb-icon,
+  &__media-icon,
+  &__cal-icon,
+  &__share-icon,
+  &__like-icon,
+  &__dislike-icon {
+    color: $sun-ocean-breeze;
+
+    &:focus,
+    &:hover {
+      color: $sun-sunrise-orange;
+      background: none;
+      border: none;
+      box-shadow: none;
+    }
+
+    &:active {
+      color: $primary-button-blue;
+      box-shadow: none;
+      border: none;
+      background: none;
+    }
+  }
+
+  &__title--results {
+    color: $sun-text-dark;
+  }
+
+  &__poster {
+    border-bottom: .25rem solid $sun-text-dark;
+    border-top: .25rem solid $sun-text-dark;
+  }
+
+  &__gpt-icon-inline {
+    background: $neutral-white;
+    color: $sun-sunrise-orange;
+
+    &:hover {
+      color: $sun-peach-fuzz;
+      background: $sun-soft-tangerine;
+    }
+  }
+
+  &__user-icon-inline {
+    background: $neutral-white;
+    color: $sun-ocean-breeze;
+
+    &:hover {
+      background: $sun-ocean-breeze;
+      color: $sun-icy-blue;
+    }
+
+    &.typing-icon {
+      animation: sunmodePulseIcon 2.5s infinite ease-in-out;
+      color: $sun-yellow;
+    }
+  }
+  
+  @keyframes sunmodePulseIcon {
+    0%, 100% {
+      transform: scale(1);
+      color: $sun-yellow;
+    }
+    50% {
+      transform: scale(1.2);
+      color: $sun-text-light;
+    }
+  }
+
+  &__clear-chat-text {
+    color: $neutral-black;
+
+    &:hover {
+      color: $neutral-black;
+    }
+
+    &:active {
+      color: $neutral-black;
+    }
+  }
+
+  &__clear-chat-icon {
+    color: $neutral-black;
+
+    &:hover {
+      color: $neutral-black;
+    }
+
+    &:active {
+      color: $neutral-black;
+    }
+  }
+
+  &__calendar-close-btn {
+    background: $sun-sunrise-orange;
+    color: $neutral-black;
+
+    &:hover {
+      color: $sun-soft-tangerine;
+      background: $sun-peach-fuzz;
+    }
+
+    &:active {
+      color: $primary-dark-blue;
+      background: $sun-ocean-breeze;
+    }
+  }
+
+  &__clear-chat-button,
+  &__gpt-button {
+    background: linear-gradient(
+      135deg,
+      $sun-yellow,
+      $sun-soft-lemon
+    );
+    border: none;
+    border-radius: .5rem;
+    padding: .5rem 1rem;
+    color: $sun-text-dark;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    position: relative;
+    overflow: hidden;
+    transition: all .4s ease;
+    box-shadow: 0 0 1rem rgba($sun-yellow, .4),
+      inset 0 0 .5rem rgba($sun-soft-lemon, .8);
+    animation: sunmodePulse 2.5s infinite;
+
+    &:hover {
+      border-radius: 2.5rem;
+      background: linear-gradient(
+        135deg,
+        $sun-yellow,
+        $sun-peach-fuzz
+      );
+      transform: translateY(-.25rem) scale(1.05);
+      box-shadow: 0 0 1.5rem rgba($sun-yellow, .8),
+        inset 0 0 .75rem rgba($sun-peach-fuzz, .9);
+    }
+
+    &:active {
+      transform: scale(.95);
+      background: linear-gradient(
+        135deg,
+        $sun-blushing-orange,
+        $sun-deep-shadow
+      );
+      box-shadow: 0 0 1rem rgba($sun-blushing-orange, .6),
+        inset 0 0 .5rem rgba($sun-deep-shadow, .8);
+    }
+
+    &::before {
+      content: '';
+      @include block-item(100%, 100%);
+      position: absolute;
+      top: 0;
+      left: 0;
+      background: rgba($sun-yellow, .6);
+      filter: blur(1.25rem);
+      transition: opacity .5s ease;
+      z-index: 0;
+      opacity: .75;
+    }
+
+    &:hover::before {
+      opacity: 1;
+    }
+  }
+
+  @keyframes sunmodePulse {
+    0% {
+      box-shadow: 0 0 1rem rgba($sun-yellow, .4),
+        inset 0 0 .5rem rgba($sun-soft-lemon, .8);
+    }
+    50% {
+      box-shadow: 0 0 1.5rem rgba($sun-yellow, .8),
+        inset 0 0 .75rem rgba($sun-peach-fuzz, .9);
+    }
+    100% {
+      box-shadow: 0 0 1rem rgba($sun-yellow, .4),
+        inset 0 0 .5rem rgba($sun-soft-lemon, .8);
+    }
+  }
+
+  &__search-icon,
+  &__close-icon {
+    color: $sun-light-gray;
+  }
+
+  &__clear-input {
+    color: $sun-sunrise-orange;
+
+    &:hover {
+      color: $sun-soft-tangerine;
+    }
+
+    &:active {
+      color: $sun-ocean-breeze;
+    }
+  }
+
+  &__calendar-close-btn {
+    background: $sun-white;
+    color: $sun-text-dark;
+  }
+}
+
+.voice-message__voice-button {
+  background: $sun-yellow;
+  color: $sun-text-dark;
+
+  &:hover {
+    background: $sun-text-light;
+    color: $sun-sunrise-orange;
+  }
+
+  &:active {
+    background: $sun-peach-fuzz;
+    color: $sun-soft-tangerine;
+  }
+}
+
+ // Cookies
+.cookie-notification {
+    background: $primary-pale-blue;
+
+    &__message {
+      color: $neutral-black;
+    }
+  
+    &__disable-btn,
+    &__enable-btn {
+      background: $sun-gradient-yellow;
+      color: $neutral-black;
+      border: none;
+  
+      &:focus,
+      &:hover {
+        background: $sun-ocean-breeze;
+        color: $neutral-black;
+        border: none;
+        box-shadow: none;
+      }
+  
+      &:active {
+        background: $sun-soft-tangerine;
+        color: $neutral-black;
+        box-shadow: $star-shadow-secondary;
+      }
+    }
+  
+    &__close-btn {
+      color: $sun-sunrise-orange;
+      transition: background-color .3s ease, transform .3s ease;
+  
+      &:hover {
+        color: $sun-ocean-breeze;
+        transform: scale(1.05);
+      }
+  
+      &:active {
+        color: $sun-soft-tangerine;
+        transform: scale(.95);
+      }
+    }
+  }
+  
+  // Spotlight
+  .spotlight-page {
+    &__heading-container {
+      background: $sun-gradient-yellow;
+      border: 0.3125rem solid $sun-text-yellow;
+    }
+
+    &__background {
+      filter: grayscale(100%) brightness(0.9);
+      transition: filter 0.3s ease, transform 0.3s ease;
+
+      &:hover {
+        filter: grayscale(0%) brightness(1.2);
+      }
+    }
+
+    &__info-txt {
+      color: $sun-text-dark;
+    }
+
+    &__credit-poster {
+      filter: grayscale(100%) brightness(0.9);
+      transition: filter 0.3s ease, transform 0.3s ease;
+
+      &:hover {
+        filter: grayscale(0%) brightness(1.2);
+      }
+    }
+
+    &__image-container {
+      filter: grayscale(100%) brightness(0.9);
+      border: 0.5rem solid $sun-white;
+      transition: filter 0.3s ease, transform 0.3s ease;
+
+      &:hover {
+        filter: grayscale(0%) brightness(1.2);
+      }
+    }
+
+    &__filmography-title {
+      color: $sun-silver;
+    }
+
+    &__personal-info-icon {
+      color: $sun-sunrise-orange;
+
+      &:hover {
+        background: $neutral-white;
+        color: $sun-soft-tangerine;
+      }
+    }
+
+    &__nav-arrow {
+      box-shadow: none;
+      background: $sun-light-gray;
+      color: $sun-sunrise-orange;
+      border: 0.125rem solid $sun-sunrise-orange;
+
+      &:hover {
+        background: $sun-icy-blue;
+        color: $sun-ocean-breeze;
+        border: 0.125rem solid $sun-ocean-breeze;
+      }
+
+      &:active {
+        background: $sun-mellow-apricot;
+        color: $sun-text-dark;
+        border: 0.125rem solid $sun-blushing-orange;
+      }
+    }
+
+    &__credits-container {
+      border: 0.1875rem solid $sun-text-yellow;
+      scrollbar-width: thin;
+      scrollbar-color: $sun-sunrise-orange $sun-frosted-silver;
+
+      /* WebKit Scrollbar Styles */
+      &::-webkit-scrollbar {
+        background-color: $sun-frosted-silver;
+        height: .75rem;
+        box-shadow: $sun-shadow-primary;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: $sun-sunrise-orange;
+        box-shadow: $sun-shadow-secondary;
+        border-radius: 1rem;
+      }
+
+      &::-webkit-scrollbar-track {
+        background-color: $sun-frosted-silver;
+        box-shadow: $sun-shadow-primary;
+      }
+    }
+
+    &__filmography-container,
+    &__info-container {
+      background: $sun-light-gray;
+      color: $sun-text-dark;
+    }
+
+    &__text-container,
+    &__credits-container {
+      box-shadow: $shadow-senary;
+      background: $sun-silver;
+      border: 0.1875rem solid $sun-silver;
+    }
+
+    &__copy {
+      background: $neutral-white;
+      color: $sun-text-dark;
+    }
+
+    &__content {
+      background: $sun-light-gray;
+      border: 0.3125rem solid $sun-silver;
+    }
+
+    &__content-container {
+      border: .3125rem solid $sun-white;
+    }
+
+    &__person-bio {
+      background: $sun-silver;
+      border: 0.1875rem solid $sun-white;
+      color: $sun-text-dark;
+    }
+
+    &__info-txt {
+      color: $sun-text-dark;
+    }
+
+    &__person-name {
+      color: $neutral-black;
+    }
+
+    &__credit-title {
+      background: $sun-light-gray;
+      color: $neutral-black;
+      border: 0.125rem solid $sun-silver;
+    }
+
+    &__filmography-title {
+      color: $neutral-black;
+    }
+
+    &__read-more {
+      color: $sun-sunrise-orange;
+
+      &:focus,
+      &:visited,
+      &:hover {
+        color: $neutral-white;
+        background: $sun-ocean-breeze;
+        border: .0625rem solid $sun-icy-blue;
+      }
+
+      &:active {
+        color: $sun-soft-tangerine;
+        background: $sun-light-gold;
+        border: .125rem solid $sun-soft-tangerine;
+      }
+    }
+  }
+
+  // Quickstart Guide 
+  .quickstart-guide {
+    &__overlay {
+      background: $sun-frosted-white;
+    }
+  
+    &__container {
+      background: $sun-white;
+    }
+  
+    &__fave-icon {
+      color: $sun-sunrise-orange;
+  
+      &:hover {
+        background: $sun-sunrise-orange;
+        color: $neutral-black;
+      }
+  
+      &:active {
+        background: $sun-icy-blue;
+        color: $sun-ocean-breeze;
+      }
+    }
+  
+    &__title {
+      color: $sun-text-dark;
+    }
+  
+    &__button {
+      background: $sun-gradient-sunrise;
+      color: $sun-text-dark;
+  
+      &:focus,
+      &:visited,
+      &:hover {
+        background: $neutral-black;
+        color: $sun-yellow;
+      }
+  
+      &:active {
+        background: $sun-sunrise-orange;
+        color: $sun-text-dark;
+      }
+    }
+  
+    &__close {
+      color: $neutral-black;
+      background: $cloud-frosted-white;
+  
+      &:hover {
+        background: $sun-yellow;
+        color: $neutral-black;
+      }
+  
+      &:active {
+        color: $neutral-black;
+        background: $sun-ocean-breeze;
+      }
+    }
+  }
+    
+  // NextWatch
+  .nextwatch-page {
+    &__similar-card,
+    &__recommendations-card,
+    &__recommendations-rating,
+    &__similar-rating {
+      cursor: url('../../assets/cursors/cursor-pointer-rain.svg'), pointer;
+    }
+
+    &__media-title,
+    &__recommendations-title {
+      color: $sun-text-dark;
+    }
+
+    &__duration,
+    &__rating,
+    &__genre-item,
+    &__title {
+      color: $sun-ocean-breeze;
+    }
+
+    &__certification {
+      background: $sun-light-gray;
+      color: $sun-text-dark;
+    }
+
+    &__description {
+      color: $sun-text-dark;
+      background: $sun-silver;
+      border: .1875rem solid $sun-light-gray;
+    }
+
+    &__media-copy {
+      background: $sun-frosted-silver;
+      box-shadow: $sun-shadow-primary;
+    }
+
+    &__similar-scroll {
+      scrollbar-width: thin;
+      scrollbar-color: $sun-golden-hour $sun-ash-gray;
+      
+      &::-webkit-scrollbar {
+        background-color: $sun-ash-gray;
+      }
+      
+      &::-webkit-scrollbar-thumb {
+        background-color: $sun-golden-hour;
+      }
+    }
+
+    &__recommendations-scroll {
+      scrollbar-width: thin;
+      scrollbar-color: $sun-golden-hour $sun-ash-gray;
+
+      &::-webkit-scrollbar {
+        height: 0.375rem;
+        background-color: $sun-ash-gray;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: $sun-golden-hour;
+        border-radius: 0.5rem;
+      }
+    }
+
+    &__recommendations-arrow,
+    &__similar-arrow {
+      border: 0.125rem solid $sun-sunrise-orange;
+      background: $sun-frosted-silver;
+      color: $sun-sunrise-orange;
+
+      &:hover {
+        border: 0.125rem solid $sun-soft-tangerine;
+        background: $sun-white;
+        color: $sun-sunrise-orange;
+      }
+
+      &:active {
+        border: 0.125rem solid $neutral-black;
+        background: $sun-frosted-silver;
+        color: $neutral-black;
+      }
+    }
+
+    &__similar-name,
+    &__recommendations-name {
+      color: $sun-text-dark;
+    }
+
+    &__similar-rating,
+    &__recommendations-rating {
+      color: $sun-sunrise-orange;
+    }
+
+    &__genre-item,
+    &__duration,
+    &__rating {
+      background: $sun-light-gray;
+      color: $primary-button-blue;
+      border: .125rem solid $sun-silver;
+    }
+
+    &__media-type,
+    &__calendar-button,
+    &__share-button,
+    &__thumbs-up,
+    &__thumbs-down {
+      background: $sun-yellow;
+      color: $neutral-black;
+      transition: transform 0.3s ease, background 0.3s ease;
+
+      &:hover {
+        background: $sun-sunrise-orange;
+        transform: scale(1.05);
+        color: $sun-white;
+        border: 0.125rem solid $sun-yellow;
+      }
+
+      &:active {
+        transform: scale(0.95);
+        background: $sun-white;
+        color: $sun-soft-tangerine;
+        border: 0.1875rem solid $sun-golden-hour;
+      }
+    }
+
+    &__star-rating-icon {
+      color: $sun-sunrise-orange;
+    }
+
+    &__star-icon,
+    &__genre-icon {
+      color: $sun-ocean-breeze;
+    }
+
+    &__similar-media-icon,
+    &__recommendations-icon {
+      color: $sun-text-dark;
+    }
+
+    &__heading-container {
+      background: $sun-frosted-silver;
+      background: $sun-gradient-yellow;
+      border: .3125rem solid $sun-silver;
+    }
+
+    &__poster-container,
+    &__similar-default-placeholder,
+    &__recommendations-default-placeholder,
+    &__recommendations-img,
+    &__similar-img {
+      filter: grayscale(100%) brightness(0.8);
+      transition: filter 0.3s ease, transform 0.3s ease;
+      
+      &:hover {
+        filter: grayscale(0%) brightness(1.2);
+      }
+    }
+
+    &__certification {
+      background: $sun-frosted-silver;
+    }
+
+    &__header {
+      color: $neutral-black;
+    }
+
+    &__poster-container {
+      border: .3125rem solid $sun-light-gray;
+    }
+
+    &__similar-copy-container,
+    &__recommendations-copy-container {
+      background: $sun-white;
+    }
+
+    &__copy {
+      color: $neutral-black;
+      background: $sun-light-gray;
+      box-shadow: $sun-shadow-primary;
+    }
+
+    &__similar-container,
+    &__recommendations-container {
+      background: $sun-white;
+    }
+
+    &__content-container {
+      border: .3125rem solid $sun-light-gray;
+    }
+
+    &__title {
+      color: $neutral-black;
+    }
+
+    &__content {
+      background: $sun-white;
+    }
+
+    &__similar-container,
+    &__recommendations-container,
+    &__details-container,
+    &__content {
+      border: 0.3125rem solid $sun-silver;
+    }
+
+    &__background {
+      filter: grayscale(100%) brightness(0.8);
+      transition: filter 0.3s ease, transform 0.3s ease;
+      
+      &:hover {
+        filter: grayscale(0%) brightness(1.2);
+      }
+    }
+  }
+
+  // NextView
+  .nextview-page {
+    background: $sun-light-gray;
+
+    &__background {
+      filter: grayscale(100%) brightness(0.9);
+      transition: filter 0.3s ease, transform 0.3s ease;
+
+      &:hover {
+        filter: grayscale(0%) brightness(1.2);
+      }
+    }
+
+    &__cast-card {
+      background: $sun-white;
+    }
+
+    &__cast-item {
+      cursor: url('../../assets/cursors/cursor-pointer-rain.svg'), pointer;
+    }
+
+    &__nextwatch-link,
+    &__calendar-button,
+    &__share-button,
+    &__thumbs-up,
+    &__thumbs-down {
+      color: $sun-sunrise-orange;
+      background-color: $neutral-white;
+      border: .125rem solid $sun-ash-gray;
+
+      &:focus,
+      &:hover {
+        background: $neutral-white;
+        color: $sun-text-dark;
+        border: 0.125rem solid $sun-golden-hour;
+      }
+
+      &:active {
+        background: $neutral-white;
+        color: $sun-soft-tangerine;
+        box-shadow: $sun-shadow-primary;
+        border: 0.1875rem solid $sun-soft-tangerine;
+      }
+    }
+
+    &__nextwatch-icon {
+      color: $sun-sunrise-orange;
+    }
+
+    &__star-icon,
+    &__genre-icon,
+    &__media-icon {
+      color: $sun-ocean-breeze;
+    }
+
+    &__content-container {
+      background: $sun-white;
+    }
+
+    &__cast-name,
+    &__cast-copy,
+    &__streaming-copy {
+      color: $sun-text-dark;
+    }
+
+    &__poster-container,
+    &__cast-img {
+      filter: grayscale(100%) brightness(0.9);
+      transition: filter 0.3s ease, transform 0.3s ease;
+
+      &:hover {
+        filter: grayscale(0%) brightness(1.2);
+      }
+    }
+
+    &__cast-arrow {
+      box-shadow: none;
+      background: $sun-icy-blue;
+      color: $primary-button-blue;
+      border: 0.125rem solid $sun-ocean-breeze;
+
+      &:hover {
+        background: $neutral-white;
+        color: $sun-sunrise-orange;
+        border: 0.125rem solid $sun-sunrise-orange;
+      }
+
+      &:active {
+        background: $sun-sunrise-orange;
+        color: $neutral-black;
+        border: 0.125rem solid $sun-light-gray;
+      }
+    }
+
+    &__cast-scroll {
+      &::-webkit-scrollbar {
+        background-color: $sun-light-gray;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: $sun-yellow;
+      }
+    }
+
+    &__no-cast-copy,
+    &__cast-character,
+    &__no-streaming-services {
+      color: $star-text-gray;
+    }
+
+    &__rating,
+    &__duration {
+      border: .125rem solid $sun-silver;
+      color: $primary-button-blue;
+    }
+
+    &__genre-item {
+      border: 0.1875rem solid $sun-silver;
+      box-shadow: none;
+      color: $primary-button-blue;
+    }
+
+    &__cast-img-placeholder {
+      color: $sun-yellow;
+    }
+
+    &__cast-container,
+    &__streaming,
+    &__details-container {
+      border: 0.3125rem solid $sun-silver;
+      box-shadow: none;
+    }
+
+    &__media-type {
+      border: 0.1875rem solid $sun-silver;
+      box-shadow: none;
+    }
+
+    &__poster-container {
+      border: 0.3125rem solid $sun-silver;
+    }
+
+    &__heading-container {
+      background: $star-gradient-citrine;
+      border: 0.3125rem solid $sun-silver;
+    }
+
+    &__certification {
+      background: $cloud-frosted-white;
+      color: $primary-button-blue;
+      text-shadow: none;
+    }
+
+    &__description {
+      background: $primary-pale-blue;
+      color: $sun-text-dark;
+      border: .1875rem solid $sun-icy-blue;
+    }
+
+    &__release-date,
+    &__title {
+      color: $sun-text-dark;
+    }
+
+    &__rating,
+    &__duration {
+      background: none;
+    }
+
+    &__copy {
+      background: $cloud-frosted-white;
+      color: $sun-text-dark;
+    }
+
+    &__content {
+      border: 0.3125rem solid $sun-silver;
+    }
+  }
+
+// Faves Page (Sun Mode Added)
+.faves-page {
+  &__title {
+    background: $sun-white;
+    color: $sun-text-dark;
+  }
+
+  &__calendar-close-btn {
+    background: $sun-sunrise-orange;
+    color: $neutral-black;
+
+    &:hover {
+      color: $sun-soft-tangerine;
+      background: $sun-peach-fuzz;
+    }
+
+    &:active {
+      color: $primary-dark-blue;
+      background: $sun-ocean-breeze;
+    }
+  }
+
+  &__heart-icon {
+    box-shadow: none;
+    background: $sun-light-gray;
+    color: $sun-yellow;
+    border: .25rem solid $sun-icy-blue;
+  }
+
+  &__search-bar-container {
+    background: $sun-frosted-silver;
+  }
+
+  &__filter-card-title {
+    color: $sun-text-dark;
+  }
+
+  &__filter-card {
+    background: $primary-pale-blue;
+
+    &:active {
+      border-color: $sun-silver;
+    }
+  }
+
+  &__filter-label {
+    border: .0325rem solid $sun-white;
+    border-bottom: .15rem solid $sun-white;
+  }
+
+  &__label-featured {
+    background: $sun-yellow;
+    color: $neutral-black;
+  }
+
+  &__label-audiences {
+    background: $sun-mellow-apricot;
+    color: $neutral-black;
+  }
+
+  &__label-cultural {
+    background: $sun-sunrise-orange;
+    color: $neutral-black;
+  }
+
+  &__label-genres {
+    background: $primary-very-light-blue;
+    color: $neutral-black;
+  }
+
+  &__filter-icon {
+    background: $neutral-white;
+    color: $sun-sunrise-orange;
+
+    &:hover {
+      background: $sun-golden-hour;
+      color: $sun-text-dark;
+    }
+
+    &:active {
+      color: $sun-ocean-breeze;
+      background: $primary-pale-blue;
+    }
+  }
+
+  &__content {
+    background: $sun-white;
+    box-shadow: none;
+    border: .125rem solid $sun-yellow;
+
+    @include tablet {
+      border: .3rem solid $sun-yellow;
+    }
+  }
+
+  &__clear-icon,
+  &__magnifying-glass-icon {
+    color: $sun-text-dark;
+
+    &:hover {
+      color: $sun-golden-hour;
+    }
+
+    &:active {
+      color: $sun-ocean-breeze;
+    }
+  }
+
+  &__copy-container {
+    background: $sun-frosted-silver;
+    border: .3125rem solid $sun-silver;
+  }
+
+  &__copy,
+  &__copy-header {
+    color: $sun-text-dark;
+  }
+
+  &__filters-container {
+    background: $sun-white;
+    border: .3125rem solid $sun-silver;
+    box-shadow: none;
+  }
+
+  &__svg-text {
+    color: $sun-text-dark;
+    border: .1875rem solid $sun-ash-gray;
+  }
+
+  &__text-link {
+    background: $sun-silver;
+    color: $sun-text-dark;
+    transition: background .3s, color .3s, border-color .3s;
+
+    &:hover,
+    &:focus,
+    &:visited {
+      background: $sun-white;
+      border: .0625rem solid $sun-sunrise-orange;
+      color: $sun-sunrise-orange;
+    }
+
+    &:active {
+      background-color: $sun-mellow-apricot;
+      color: $neutral-black;
+      border: .125rem solid $sun-silver;
+      transform: scale(.9);
+    }
+  }
+
+  &__card {
+    background: $primary-pale-blue;
+
+    &:hover {
+      background-color: $sun-white;
+    }
+
+    &:active {
+      background-color: $sun-silver;
+      box-shadow: 0 0 .25rem $sun-silver;
+    }
+  }
+
+  &__subtitle {
+    background: $neutral-white;
+    color: $neutral-black;
+  }
+
+  &__show-more,
+  &__reset,
+  &__fetch-faves {
+    background: linear-gradient(45deg, $sun-white, $sun-silver);
+    color: $neutral-black;
+
+    &:hover {
+      background: linear-gradient(45deg, $sun-golden-hour, $sun-light-gold);
+      color: $neutral-black;
+    }
+
+    &:active {
+      background: $sun-icy-blue;
+      color: $primary-button-blue;
+    }
+  }
+
+  &__lightbulb-icon,
+  &__status-icon,
+  &__media-icon-link,
+  &__search-icon,
+  &__share-icon,
+  &__cal-icon,
+  &__lock-icon,
+  &__trash-icon {
+    color: $sun-ocean-breeze;
+    transition: color .3s, background .3s, transform .3s ease-in-out;
+
+    &:hover {
+      background: $sun-sunrise-orange;
+      color: $sun-light-gold;
+      border: none;
+      box-shadow: none;
+      transform: scale(1.1);
+    }
+
+    &:focus,
+    &:active {
+      background: $neutral-white;
+      color: $sun-sunrise-orange;
+      border: none;
+      box-shadow: none;
+      transform: scale(.9);
+    }
+  }
+
+  &__load-descript {
+    color: $sun-ocean-breeze;
+    transition: color .3s, background .3s, transform .3s ease-in-out;
+
+    &:hover {
+      color: $sun-yellow;
+      transform: scale(1.1);
+    }
+
+    &:active {
+      color: $sun-sunrise-orange;
+      border: none;
+      transform: scale(.9);
+    }
+  }
+
+  &__description,
+  &__text {
+    color: $neutral-black;
+  }
+
+  &__description {
+    &::-webkit-scrollbar {
+      width: .375rem;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: $sun-ocean-breeze;
+      border-radius: .625rem;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: $frosted-glass;
+    }
+  }
+
+  &__poster-container {
+    filter: grayscale(100%) brightness(.9);
+    transition: filter .3s ease, transform .3s ease;
+
+    &:hover {
+      filter: grayscale(0%) brightness(1);
+      border: .2188rem solid $sun-yellow;
+    }
+  }
+
+  &__no-faves-svg {
+    filter: grayscale(100%) brightness(1.5);
+    transition: filter .3s ease, transform .3s ease;
+
+    &:hover {
+      filter: grayscale(0%) brightness(1);
+    }
+  }
+
+  &__clear-search,
+  &__reset-filters {
+    background: $sun-text-light;
+    color: $sun-text-dark;
+
+    &:focus,
+    &:active {
+      box-shadow: none;
+    }
+  }
+
+  &__search-bar {
+    background-color: $sun-golden-hour;
+    backdrop-filter: blur(.625rem);
+    box-shadow: $sun-shadow-primary;
+    border: .25rem solid rgba(255, 255, 255, .7);
+    transition: all .3s ease-in-out;
+
+    & input {
+      border: none;
+      outline: none;
+      background: transparent;
+      color: $sun-text-dark;
+
+      &::placeholder {
+        color: $sun-white;
+        text-shadow: $sun-shadow-secondary;
+      }
+
+      &:hover::placeholder {
+        text-shadow: none;
+      }
+    }
+
+    &:hover {
+      background: rgba(255, 255, 255, .8);
+      box-shadow: 0 .5rem 1rem rgba($sun-text-dark, .2), 0 -.5rem 1rem rgba(255, 255, 255, .7);
+      border: .0625rem solid rgba(255, 255, 255, .4);
+      transform: scale(1.025);
+    }
+
+    &:focus-within {
+      background: $sun-text-light;
+      border: .25rem solid rgba(255, 255, 255, .5);
+      transform: scale(1.05);
+      box-shadow: $sun-shadow-primary;
+    }
+  }
+}
+
+.voice-search-faves__voice-button {
+  background: $sun-white;
+  color: $sun-text-dark;
+
+  &:hover {
+    background: linear-gradient(135deg, lighten($sun-yellow, 10%) 0%, lighten($sun-yellow, 5%) 100%);
+    color: $sun-text-dark;
+  }
+
+  &:active {
+    background: linear-gradient(135deg, lighten($sun-sunrise-orange, 10%) 0%, lighten($sun-sunrise-orange, 5%) 100%);
+    color: $sun-text-dark;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.blob-container {
+  filter: grayscale(150%) brightness(1);
+}
+
+#watchlistStatusTooltip,
+#calendarTooltip,
+#searchTooltip,
+#shareTooltip,
+#lockTooltip,
+#lightbulbTooltip,
+#trashTooltip {
+  background-color: $sun-ocean-breeze;
+  color: $primary-dark-blue;
+  padding: .5rem 1rem;
+  border-radius: .5rem;
+  box-shadow: 0 .5rem 1rem rgba($neutral-black, .1);
+  font-size: .85rem;
+  line-height: 1.25rem;
+
+  &::after {
+    border: $primary-button-blue transparent transparent transparent;
+  }
+}
+
+// Top Picks 
+.user-rating-container {
+  border-radius: 100%;
+  background: $sun-white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: .125rem solid $sun-white;
+  filter: grayscale(100%) brightness(1); 
+  transition: filter .3s ease, transform .3s ease;
+
+  &:hover {
+    filter: grayscale(0%) brightness(1); 
+  }
+}
+
+.top-picks-page {
+  background: $neutral-white;
+  margin: 0;
+
+  &__description,
+  &__text,
+  &__copy {
+    color: $sun-text-dark;
+  }
+
+  &__fetch-more {
+    background: linear-gradient(45deg, $sun-soft-lemon, $sun-sunrise-orange);
+    color: $sun-text-dark;
+
+    &:hover {
+      background: $sun-sunrise-orange;
+      color: $sun-text-dark;
+    }
+
+    &:active {
+      background: $sun-ocean-breeze;
+      color: $primary-button-blue;
+    }
+  }
+
+  &__toggle {
+    background: linear-gradient(45deg, $sun-sunrise-orange, $sun-soft-lemon);
+    color: $sun-text-dark;
+    
+    &:hover {
+      background: $sun-soft-lemon;
+      color: $sun-text-dark;
+    }
+
+    &:active {
+      background: $sun-ocean-breeze;
+      color: $primary-button-blue;
+    }
+  }
+
+  &__rating-icon {
+    background: $sun-yellow;
+    border: 2px solid $sun-golden-hour;
+    border-radius: 50%;
+  }
+
+  &__card {
+    background: $neutral-white;
+
+    &:focus,
+    &:hover {
+      background: $primary-pale-blue;
+    }
+
+    &:active {
+      background: $sun-mellow-apricot;
+      box-shadow: 0 0 .25rem $sun-soft-tangerine;
+    }
+  }
+
+  &__description {
+    &::-webkit-scrollbar-thumb {
+      background: $sun-ocean-breeze;
+      border-radius: .625rem;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: $frosted-glass;
+    }
+  }
+
+  &__title {
+    background: $primary-pale-blue;
+    color: $neutral-black;
+    border: .3125rem solid $sun-icy-blue;
+  }
+
+  &__subtitle {
+    background: $neutral-white;
+    color: $neutral-black;
+  }
+
+  &__header-container {
+    background: $sun-pale-baby-blue;
+  }
+
+  &__load-descript {
+    color: $sun-ocean-breeze;
+
+    &:hover {
+      color: $primary-button-blue;
+    }
+
+    &:active {
+      color: $sun-sunrise-orange;
+    }
+  }
+
+  &__text--center {
+    color: $sun-text-dark;
+    border: .1875rem solid $sun-golden-hour;
+  }
+
+  &__calendar-close-btn {
+    background: $sun-sunrise-orange;
+    color: $neutral-black;
+
+    &:hover {
+      color: $sun-soft-tangerine;
+      background: $sun-peach-fuzz;
+    }
+
+    &:active {
+      color: $primary-dark-blue;
+      background: $sun-ocean-breeze;
+    }
+  }
+
+  &__lightbulb-icon,
+  &__media-icon-link,
+  &__search-icon,
+  &__cal-icon,
+  &__share-icon,
+  &__like-icon,
+  &__dislike-icon {
+    color: $sun-sunrise-orange;
+
+    &:hover {
+      border: none;
+      background: none;
+      box-shadow: none;
+      color: $sun-soft-tangerine;
+    }
+
+    &:active {
+      color: $primary-button-blue;
+      background: $sun-ocean-breeze;
+      border: none;
+      box-shadow: none;
+    }
+  }
+  
+  &__loading-svg {
+    filter: grayscale(100%) brightness(0.8); 
+  }
+
+  &__poster-container {
+    filter: grayscale(100%) brightness(0.8); 
+    transition: filter .3s ease, transform .3s ease;
+    border: .0625rem solid $sun-yellow;
+  
+    &:hover {
+      filter: grayscale(0%) brightness(1); 
+      border: .2188rem solid $sun-ocean-breeze;
+    }
+  }
+
+  &__content {
+    background: $primary-pale-blue;
+
+    @include tablet {
+      border: .625rem solid $sun-yellow;
+    }
+  }
+}
+
+#mediaTooltip,
+#calTooltip,
+#shareIconTooltip,
+#likeTooltip,
+#lightbulbTooltip,
+#dislikeTooltip {
+  background-color: $sun-ocean-breeze;
+  color: $primary-dark-blue;
+
+  &::after {
+    border: $primary-button-blue transparent transparent transparent;
+  }
+}
+
+  // Auth Search Results 
+  .auth-search-results {
+
+    &__pagination-circles {
+      cursor: url('../../assets/cursors/cursor-pointer-rain.svg'), pointer;
+    }
+
+    &__card {
+      cursor: url('../../assets/cursors/cursor-arrow-rain.svg'), auto;
+    }
+
+    &__calendar-button,
+    &__calendar-icon,
+    &__media-icon {
+      cursor: url('../../assets/cursors/cursor-pointer-rain.svg'), pointer;
+    }
+
+    &__background {
+      filter: grayscale(100%);
+      transition: filter .3s ease, transform .3s ease;
+
+      &:hover {
+        filter: grayscale(0%) brightness(1); 
+      }
+    }
+
+    &__content-card {
+      border: .375rem solid $sun-ocean-breeze;
+      background: $sun-white;
+    }
+
+    &__card {
+      background: $sun-gradient-sunrise;
+      border: .0625rem solid $sun-light-gray;
+    }
+
+    &__no-providers {
+      background: $primary-button-blue;
+    }
+
+    &__streaming-services,
+    &__poster {
+      filter: grayscale(100%);
+      transition: filter .3s ease, transform .3s ease;
+
+      &:hover {
+        filter: grayscale(0%) brightness(1); 
+      }
+    }
+
+    &__no-data-img {
+      filter: grayscale(100%);
+      transition: filter .3s ease, transform .3s ease;
+
+      &:hover {
+        filter: grayscale(0%) brightness(1); 
+      }
+    }
+
+    &__no-results-copy {
+      background: $neutral-black;
+    }
+
+    &__intro,
+    &__title {
+      color: $sun-text-dark;
+    }
+
+    &__chevron-icon {
+      color: $sun-silver;
+    }
+
+    &__page-nav-wrapper {
+      background-color: $sun-light-gray;
+      border: .15rem solid $sun-ash-gray;
+
+      &:hover {
+        background: $sun-sunrise-orange;
+        border: .15rem solid $sun-yellow;
+      }
+
+      &:active {
+        background: $sun-ocean-breeze;
+        border: .15rem solid $sun-ocean-breeze;
+      }
+    }
+
+    &__error-no-img-title {
+      color: $neutral-black;
+      border: .0625rem solid $sun-light-gray;
+    }
+
+    &__error-no-img-txt {
+      color: $neutral-black;
+    }
+
+    &__no-image {
+      box-shadow: none;
+      border: .125rem solid $sun-light-gray;
+    }
+
+    &__thumbs-up,
+    &__thumbs-down,
+    &__share-icon {
+      box-shadow: none;
+      color: $sun-sunrise-orange;
+      background: $sun-white;
+      border: .125rem solid $sun-light-gray;
+
+      &:focus,
+      &:hover {
+        background: $sun-sunrise-orange;
+        color: $sun-text-dark;
+        border: none;
+        box-shadow: none;
+      }
+
+      &:active {
+        background: $neutral-white;
+        color: $sun-ocean-breeze;
+        border: none;
+        box-shadow: none;
+      }
+    }
+
+    &__calendar-button,
+    &__media-icon {
+      color: $sun-ocean-breeze;
+      background: $neutral-white;
+
+      &:focus,
+      &:hover {
+        color: $sun-text-dark;
+        background: $sun-yellow;
+      }
+
+      &:active {
+        background: $neutral-black;
+        color: $sun-yellow;
+      }
+    }
+
+    &__next-icon,
+    &__previous-icon {
+      color: $sun-text-dark;
+    }
+
+    &__pagination-circle {
+      border: .125rem solid $sun-sunrise-orange;
+      background: rgba($sun-light-gray, .7);
+
+      &.active {
+        background-color: $sun-yellow;
+        box-shadow: 0 0 .25rem $sun-sunrise-orange;
+      }
+    }
+
+    &__card-media-container {
+      background: $sun-frosted-silver;
+    }
+  }
+  
+  // Search Results
+  .search-results {
+    &__background {
+      filter: grayscale(100%) brightness(0.9);
+      transition: filter 0.3s ease, transform 0.3s ease;
+      
+      &:hover {
+        filter: grayscale(0%) brightness(1.2);
+      }
+    }
+
+    &__poster {
+      border: none;
+      filter: grayscale(100%) brightness(0.9);
+      transition: filter 0.3s ease, transform 0.3s ease;
+      
+      &:hover {
+        filter: grayscale(0%) brightness(1.2);
+      }
+    }
+
+    &__no-data-img {
+      filter: grayscale(100%) brightness(0.9);
+      transition: filter 0.3s ease, transform 0.3s ease;
+      
+      &:hover {
+        filter: grayscale(0%) brightness(1.2);
+      }
+    }
+
+    &__content-card {
+      background: $sun-white;
+    }
+
+    &__no-results-copy,
+    &__intro,
+    &__title {
+      color: $sun-text-dark;
+    }
+
+    &__text--bottom,
+    &__text--top {
+      color: $neutral-black;
+    }
+
+    &__card-media-container {
+      background: $sun-icy-blue;
+    }
+
+    &__media-icon {
+      color: $neutral-white;
+      background: $sun-ocean-breeze;
+
+      &:hover {
+        background: $sun-white;
+        color: $sun-sunrise-orange;
+      }
+
+      &:active {
+        background: $sun-sunrise-orange;
+        color: $sun-white;
+      }
+    }
+
+    &__poster--default,
+    &__no-image {
+      box-shadow: none;
+    }
+
+    &__error-no-img-txt {
+      color: $neutral-black;
+    }
+
+    &__link {
+      cursor: url(../../assets/cursors/cursor-pointer-rain.svg), pointer;
+      border: 0.125rem solid $sun-text-dark;
+      border-radius: 1rem;
+      color: $sun-text-dark;
+    }
+
+    &__page-nav-wrapper {
+      background-color: $sun-light-gray;
+      border: 0.15rem solid $sun-silver;
+
+      &:hover {
+        background: $sun-sunrise-orange;
+        border: none;
+      }
+
+      &:active {
+        background: $sun-ocean-breeze;
+        border: 0.15rem solid $sun-ocean-breeze;
+      }
+    }
+
+    &__next-icon,
+    &__previous-icon {
+      color: $neutral-black;
+    }
+
+    &__pagination-circle {
+      border: 0.125rem solid $sun-golden-hour;
+      background: $neutral-white;
+
+      &.active {
+        background-color: $sun-sunrise-orange;
+        box-shadow: 0 0 0.25rem $sun-yellow;
+      }
+    }
+
+    &__error-no-img-title {
+      box-shadow: none;
+      color: $sun-text-dark;
+      border: 0.0625rem solid $sun-silver;
+
+      &:hover {
+        color: $sun-ash-gray;
+      }
+
+      &:active {
+        background: $sun-icy-blue;
+        color: $primary-button-blue;
+      }
+    }
+
+    &__card {
+      background: $sun-gradient-sunrise;
+      cursor: url(../../assets/cursors/cursor-pointer-rain.svg), pointer;
+      color: $sun-golden-hour;
+    }
+
+    &__login-link,
+    &__register-link {
+      color: $sun-soft-tangerine;
+      text-decoration: none;
+      border: 0.0625rem solid $sun-sunrise-orange;
+
+      &:hover,
+      &:focus,
+      &:visited {
+        background-color: $sun-yellow;
+        border: 0.0625rem solid $sun-white;
+        color: $sun-text-dark;
+      
+        &:active {
+          background: $sun-icy-blue;
+          color: $primary-dark-blue;
+          border: 0.125rem solid $sun-icy-blue;
+        }
+      }
+    }
+  }
+
+  // About, Privacy, Terms, Unsubscribe, 404, Login Required, Reset Password
+  .reset-password,
+  .login-required,
+  .not-found,
+  .privacy,
+  .unsubscribe-page,
+  .terms,
+  .about {
+    background: $sun-white;
+    backdrop-filter: blur(1.5rem);
+    -webkit-backdrop-filter: blur(1.5rem);
+
+    &__content-card {
+      background: $sun-light-gray;
+    }
+
+    &__container {
+      backdrop-filter: blur(0.75rem);
+      -webkit-backdrop-filter: blur(0.75rem);
+      border-radius: 1rem;
+    }
+
+    &__background {
+      filter: grayscale(100%);
+      transition: filter 0.3s ease, transform 0.3s ease;
+
+      &:hover {
+        filter: grayscale(0%) brightness(1.1);
+      }
+    }
+
+    &__list-item,
+    &__subtitle,
+    &__text,
+    &__title {
+      color: $sun-text-dark;
+    }
+
+    &__graphic {
+      filter: grayscale(100%) brightness(0.9);
+      transition: filter 0.3s ease, transform 0.3s ease;
+
+      &:hover {
+        filter: grayscale(0%) brightness(1);
+      }
+    }
+
+    &__login-link,
+    &__register-link,
+    &__guest-link,
+    &__link {
+      color: $sun-soft-tangerine;
+      text-decoration: none;
+      border: 0.125rem solid $sun-sunrise-orange;
+      transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+
+      &:hover,
+      &:focus,
+      &:visited {
+        background-color: $sun-sunrise-orange;
+        border: 0.0625rem solid $sun-text-light;
+        color: $sun-text-dark;
+        transform: scale(1.05);
+
+        &:active {
+          background-color: $sun-golden-hour;
+          color: $neutral-black;
+          border: 0.125rem solid $sun-text-dark;
+          transform: scale(0.95);
+        }
+      }
+    }
+
+    &__icon {
+      color: $sun-sunrise-orange;
+
+      &:hover {
+        background: $sun-yellow;
+        color: $sun-text-dark;
+      }
+    }
+
+    &__intro {
+      color: $star-text-gray;
+    }
+  }
+
+  .reset-password {
+    &__label {
+      background: $sun-ocean-breeze;
+      color: $neutral-black;
+    }
+
+    &__input {
+      border: 0.125rem solid $sun-ash-gray;
+      background-color: rgba(255, 255, 255, 0.8);
+      color: $sun-text-dark;
+      box-shadow: none;
+
+      & + .reset-password__label {
+        background: $sun-gradient-yellow;
+        border: none;
+        color: $neutral-black;
+      }
+
+      &::placeholder {
+        color: $sun-ash-gray;
+      }
+    }
+
+    &__password-toggle-icon {
+      color: $sun-silver;
+
+      &:hover {
+        color: $sun-yellow;
+      }
+
+      &:active {
+        color: $sun-ocean-breeze;
+      }
+    }
+  }
+
+  .reset-password__button,
+  .unsubscribe-page__button {
+    background: $sun-gradient-yellow;
+    color: $sun-text-dark;
+
+    &:hover {
+      background: $sun-sunrise-orange;
+      color: $neutral-black;
+    }
+
+    &:active {
+      background: $sun-ocean-breeze;
+      color: $neutral-black;
+    }
+  }
+
+  .terms__nextstream-link {
+    color: $sun-soft-tangerine;
+    text-decoration: none;
+    transition: transform 0.3s ease, background-color 0.3s ease, border 0.3s ease, color 0.3s ease;
+
+    &:hover,
+    &:focus,
+    &:visited {
+      background-color: $sun-sunrise-orange;
+      border: 0.0625rem solid $sun-text-light;
+      color: $sun-text-dark;
+      transform: scale(1.1);
+    }
+
+    &:active {
+      background-color: $sun-morning-mist-blue;
+      color: $neutral-black;
+      border: 0.125rem solid $neutral-black;
+      transform: scale(0.95);
+    }
+  }
+
+  // Profile
+  .profile-img {
+    box-shadow: $sun-shadow-primary;  
+    border: .25rem solid $sun-light-gray; 
+    background-color: $sun-white;
+    transition: all 0.5s ease-in-out; 
+    position: relative;
+  
+    &::before {
+      background: none;
+    }
+  
+    &:hover {
+      background: $sun-soft-lemon;
+      border: .25rem solid $sun-frosted-gold;
+      transform: scale(1.05); 
+      box-shadow: 0 0 15px $sun-frosted-gold, 0 0 30px $sun-golden-hour; 
+  
+      transition: all 0.5s ease-in-out; 
+  
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: inherit;
+        border: .25rem solid rgba($sun-frosted-gold, 0.5);
+        box-shadow: 0 0 20px rgba($sun-frosted-gold, 0.7);
+        pointer-events: none; 
+        transition: all 0.5s ease-in-out;
+      }
+    }
+  
+    &__username,
+    &__status {
+      color: $sun-text-dark;
+    }
+  
+    &__button {
+      background: $sun-yellow;
+      color: $sun-text-dark;
+      border: none;
+      transition: background .3s ease, color .3s ease, transform .3s ease; 
+    
+      &:hover {
+        color: $sun-sunrise-orange;
+        background: $neutral-black;
+        transform: scale(1.05);
+      }
+    
+      &:active {
+        color: $sun-icy-blue;
+        background: $primary-button-blue;
+        transform: scale(.95); 
+      }
+    }    
+  }
+  
+  .profile {
+    background: $sun-white;
+  
+    &__main {
+      background: $sun-frosted-white;
+      border: none;
+    }
+  
+    &__details-header,
+    &__password-header,
+    &__subscription-header,
+    &__notifications-header,
+    &__region-header {
+      background: $sun-light-gray;
+      color: $sun-text-dark;
+      border: .125rem solid $sun-silver;
+    }
+  
+    &__content-subscription-container,
+    &__content-details,
+    &__content-password,
+    &__content-notifications,
+    &__content-region {
+      background: $sun-neumorph-base;
+      border: .125rem solid $sun-light-gray;
+    }
+  
+    &__title {
+      color: $sun-text-dark;
+    }
+  
+    &__region-title {
+      color: $sun-text-dark;
+    }
+  
+    &__dropdown {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: 1rem;
+      background: $sun-light-gray;
+      border: .125rem solid $sun-silver;
+      border-radius: .5rem;
+      box-shadow: $sun-shadow-primary;
+      color: $sun-text-dark;
+      padding-left: 1rem;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23B3DDF2' width='24px' height='24px'><path d='M12 15.5c-.3 0-.5-.1-.7-.3l-5-5c-.4-.4-.4-1 0-1.4s1-.4 1.4 0L12 13.8l4.3-4.3c.4-.4 1-.4 1.4 0s.4 1 0 1.4l-5 5c-.2.2-.4.3-.7.3z'/></svg>");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      background-size: 1.125rem 1.125rem;
+  
+      &:focus {
+        background-color: $primary-pale-blue;
+        border: .125rem solid $sun-icy-blue;
+      }
+    }
+  
+    &__input {
+      border: .125rem solid $sun-silver;
+      box-shadow: none;
+      background: $neutral-white;
+  
+      &:focus,
+      &:not(:placeholder-shown) {
+        background-color: $sun-icy-blue;
+        color: $primary-dark-blue;
+        border-color: $sun-ocean-breeze;
+        padding-left: .85rem;
+        font-size: 1rem;
+  
+        & + .profile__label {
+          top: -.85rem;
+          font-size: 1rem;
+          background-color: $neutral-white;
+          border: .0625rem solid $sun-light-gray;
+          color: $neutral-black;
+        }
+  
+        &::placeholder {
+          color: $sun-sunrise-orange;
+          font-size: .85rem;
+        }
+      }
+    }
+  
+    &__notification-text {
+      color: $sun-text-dark;
+    }
+  
+    &__label {
+      background: $sun-icy-blue;
+      border: .0625rem solid $sun-silver;
+      color: $primary-button-blue;
+    }
+  
+    &__text-wrapper {
+      background: $sun-light-gray;
+      color: $sun-text-dark;
+      border: .0625rem solid $sun-frosted-silver;
+    }
+  
+    &__password-toggle-icon {
+      color: $sun-ash-gray;
+      transition: transform .3s ease, background .3s ease, color .3s ease; 
+  
+      &:hover {
+        color: $sun-golden-hour;
+        transform: scale(1.05); 
+      }
+  
+      &:active {
+        color: $sun-sunrise-orange;
+        transform: scale(.95); 
+      }
+    }
+  
+    &__notifications-alerts-icon {
+      color: $sun-sunrise-orange;
+      transition: transform .3s ease, background .3s ease, color .3s ease;
+  
+      &:hover {
+        background: $neutral-white;
+        color: $star-text-gray;
+        transform: scale(1.05);
+      }
+  
+      &:active {
+        background: $sun-light-gray;
+        color: $sun-ocean-breeze;
+        transform: scale(.95);
+      }
+    }
+
+    &__btn-save-account-bg {
+      @include block-item(9.625rem, 3.1875rem);
+      background: linear-gradient(180deg, rgb(238, 244, 252) 0%, $sun-yellow 100%);
+      border-radius: .75rem;
+      box-shadow: $shadow-quinary;
+      position: absolute;
+      top: .1875rem;
+    }
+  
+    &__btn-save-account {
+      background: $sun-yellow;
+      animation: shimmer .5s linear infinite;
+      border: .125rem solid $sun-icy-blue;
+    
+      &:focus,
+      &:hover {
+        background: $sun-sunrise-orange;
+      }
+    
+      &:active {
+        background: $sun-white;
+      }
+    }
+  
+    &__location-icon {
+      color: $sun-sunrise-orange;
+      transition: transform .3s ease, background .3s ease, color .3s ease;
+  
+      &:hover {
+        background: $neutral-white;
+        color: $star-text-gray;
+        cursor: url('../../assets/cursors/cursor-pointer-rain.svg'), pointer;
+        transform: scale(1.05);
+      }
+  
+      &:active {
+        background: $sun-light-gray;
+        color: $sun-ocean-breeze;
+        transform: scale(.95);
+      }
+    }
+  
+    &__details-header,
+    &__password-header,
+    &__subscription-header,
+    &__notifications-header,
+    &__region-header {
+      background: $sun-light-gray;
+    }
+  
+    &__details-content,
+    &__password-content,
+    &__notifications-content,
+    &__subscription-status-wrapper,
+    &__region-content {
+      background: $sun-white;
+      border: .1875rem solid $sun-light-gray;
+    }
+  }
+  
+  .subscription-status {
+    background: $sun-white;
+  
+    &__icon {
+      color: $sun-sunrise-orange;
+      transition: transform .3s ease, background .3s ease, color .3s ease;
+  
+      &:hover {
+        background: $neutral-white;
+        color: $star-text-gray;
+        transform: scale(1.05);
+      }
+  
+      &:focus,
+      &:active {
+        background: $sun-icy-blue;
+        color: $sun-ocean-breeze;
+        transform: scale(.95);
+      }
+    }
+
+    &__title {
+      color: $neutral-black;
+    }
+  
+    &__box {
+      background: $sun-sunrise-orange;
+      border: .1875rem solid $sun-silver;
+  
+      &:hover {
+        background: $sun-gradient-sunrise;
+        border: .1875rem solid $sun-soft-lemon;
+      }
+    }
+  
+    &__delete-account {
+      background: $sun-soft-lemon;
+      color: $sun-text-dark;
+      border: .1875rem solid $sun-light-gray;
+  
+      &:hover {
+        backdrop-filter: blur(.25rem);
+        box-shadow: 0 0 .625rem rgba(255, 0, 0, .5);
+        background: $sun-gradient-sunrise;
+        border: .1875rem solid $sun-soft-lemon;
+      }
+  
+      &:active {
+        background-color: lighten($sun-soft-lemon, 10%);
+        border: .1875rem solid $sun-ash-gray;
+        box-shadow: 0 0 .625rem rgba(255, 0, 0, .3);
+      }
+    }
+  
+    &__delete-txt {
+      color: $sun-text-dark;
+    }
+  
+    &__checkbox--active {
+      color: $sun-white;
+      background: $sun-sunrise-orange;
+      border: .1875rem solid $sun-silver;
+  
+      &:hover {
+        background: $sun-gradient-sunrise;
+        border: .1875rem solid $sun-soft-lemon;
+        color: $sun-text-dark;
+      }
+  
+      &:active {
+        background-color: $sun-icy-blue;
+        border-color: lighten($sun-soft-lemon, 10%);
+        color: $sun-ocean-breeze;
+      }
+    }
+  
+    &__checkbox--inactive {
+      background: $sun-yellow;
+      color: $neutral-black;
+    }
+  }
+  
+  // Toggle Button Component
+  .toggle-button {
+    &__switch {
+      cursor: url('../../assets/cursors/cursor-pointer-rain.svg'), pointer;
+      background-color: $sun-ash-gray;
+      transition: background-color .3s ease;
+      box-shadow: $sun-shadow-primary;
+  
+      &.checked {
+        background-color: $sun-yellow;
+      }
+  
+      &::before {
+        content: '';
+        background-color: $sun-yellow;
+        transition: transform .3s ease;
+      }
+    }
+  }
+  
+
+// Contact Us Modal
+.modal-forgot-password,
+.modal-contact {
+  background: rgba($sun-ash-gray, 0.85);
+
+  &__container {
+    background: $sun-frosted-silver;
+  }
+
+  &__reset,
+  &__submit-text,
+  &__close {
+    background: $sun-light-gold;
+    color: $neutral-black;
+
+    &:focus,
+    &:hover {
+      background: $sun-light-gray;
+      color: $sun-text-dark;
+    }
+
+    &:active {
+      background: $sun-white;
+      color: $sun-golden-hour;
+    }
+  }
+
+  &__reset,
+  &__submit-text {
+    &:active {
+      border: none;
+      background: $sun-yellow;
+      color: $neutral-black;
+    }
+  }
+
+  &__input,
+  &__txtarea {
+    &:focus {
+      color: $neutral-black;
+      background-color: $sun-light-gray;
+      box-shadow: $sun-shadow-primary;
+      border-radius: 0.5rem;
+      border: 0.125rem solid $sun-silver;
+    }
+
+    &:active {
+      background-color: $sun-silver;
+      color: $neutral-white;
+    }
+
+    &:not(:focus) {
+      color: $sun-ash-gray; 
+    }
+  }
+
+  &__label-container,
+  &__label-input,
+  &__label-txt,
+  &__label-txtarea,
+  &__label-txtarea-txt {
+    background: $sun-silver;
+    border: 0.1875rem solid $sun-ash-gray;
+  }
+
+  &__label-container {
+    background: $sun-light-gray;
+  }
+
+  &__label {
+    color: $neutral-black;
+    box-shadow: none;
+  }
+
+  &__label-txtarea-txt,
+  &__label-txt {
+    color: $cloud-text-dark;
+    box-shadow: none;
+  }
+}
+
+// NextSearch
+.next-search {
+  background: linear-gradient(
+    135deg,
+    rgba($sun-light-gray, 0.75),
+    rgba($sun-light-gray, 1)
+  );
+
+  &__title {
+    background: linear-gradient(180deg, $sun-yellow, darken($sun-soft-lemon, 15%));
+    color: $sun-text-dark;
+  }
+
+  &__gpt-button {
+    background: linear-gradient(135deg, $sun-icy-blue, $sun-ocean-breeze);
+    box-shadow: 0 0 1rem rgba($sun-icy-blue, 0.4), inset 0 0 0.5rem rgba($sun-ocean-breeze, 0.8);
+  
+    &:hover {
+      background: linear-gradient(135deg, $sun-icy-blue, $primary-button-blue);
+      box-shadow: 0 0 1rem rgba($sun-icy-blue, 0.4), inset 0 0 0.5rem rgba($primary-button-blue, 0.8);
+    }
+
+    &:active {
+      background: linear-gradient(135deg, $primary-button-blue, $sun-ocean-breeze);
+      box-shadow: 0 0 1rem rgba($primary-button-blue, 0.4), inset 0 0 0.5rem rgba($sun-ocean-breeze, 0.8);
+    }
+  }
+
+  &__text--center,
+  &__not-loading-text--center {
+    color: $neutral-black;
+  }
+
+  &__calendar-close-btn {
+    background: $sun-sunrise-orange;
+    color: $neutral-black;
+
+    &:hover {
+      color: $sun-soft-tangerine;
+      background: $sun-peach-fuzz;
+    }
+
+    &:active {
+      color: $primary-dark-blue;
+      background: $sun-ocean-breeze;
+    }
+  }
+
+  &__card {
+    background: $sun-white;
+    color: $sun-text-dark;
+  }
+
+  &__not-loading-svg,
+  &__loading-svg {
+    filter: grayscale(100%);
+    transition: filter .3s ease, transform .3s ease;
+
+    &:hover {
+      filter: grayscale(0%) brightness(1);
+    }
+  }
+
+  &__sub-tab {
+    background: $frosted-glass;
+    color: $primary-dark-blue;
+
+    &:hover {
+      background: $neutral-white;
+      color: $sun-sunrise-orange;
+    }
+
+    &:active {
+      background: $primary-button-blue;
+      color: $neutral-white;
+    }
+  }
+
+  &__sub-tab--active {
+    background: $neutral-white;
+    color: $sun-sunrise-orange;
+  }
+
+  &__tab {
+    background: $sun-frosted-silver;
+    text-shadow: none;
+    color: $sun-text-dark;
+
+    &:hover {
+      background: $neutral-black;
+      color: $sun-soft-tangerine;
+    }
+
+    &:active {
+      background: $sun-ocean-breeze;
+      color: $primary-button-blue;
+    }
+  }
+
+  &__tab--active {
+    color: $primary-button-blue;
+    text-shadow: none;
+  }
+
+  &__popular-section {
+    border: .5rem solid $sun-silver;
+  }
+
+  &__card--popular {
+    border: .1875rem solid $sun-white;
+    background: $primary-pale-blue;
+  }
+
+  &__title--popular,
+  &__title--results {
+    border: .1875rem solid $neutral-white;
+    color: $neutral-black;
+  }
+
+  &__icons-row {
+    background: $sun-white;
+    color: $sun-text-dark;
+  }
+
+  &__known-for,
+  &__cast {
+    color: $neutral-black;
+  }
+
+  &__gpt-txt {
+    color: $primary-dark-blue;
+
+    &:active {
+      color: $neutral-white;
+    }
+  }
+
+  &__lightbulb-icon,
+  &__media-icon,
+  &__cal-icon,
+  &__share-icon,
+  &__like-icon,
+  &__dislike-icon {
+    color: $sun-golden-hour;
+
+    &:hover {
+      color: $sun-soft-tangerine;
+      background: none;
+      border: none;
+      box-shadow: none;
+    }
+
+    &:active {
+      background: none;
+      border: none;
+      box-shadow: none;
+      color: $sun-ocean-breeze;
+    }
+  }
+
+  &__nav-arrow {
+    cursor: url('../../assets/cursors/cursor-pointer-rain.svg'), pointer;
+    color: $sun-text-light;
+    border: .125rem solid $sun-text-light;
+
+    &:hover {
+      color: $sun-sunrise-orange;
+      background: $sun-soft-lemon;
+      border: $sun-sunrise-orange;
+    }
+
+    &:active {
+      color: $sun-ocean-breeze;
+      border: .125rem solid $sun-ocean-breeze;
+      background: $neutral-white;
+    }
+  }
+
+  &__poster {
+    border-bottom: .25rem solid $sun-yellow;
+    border-top: .25rem solid $sun-yellow;
+    filter: grayscale(100%) brightness(1.2);
+    transition: filter .3s ease, transform .3s ease;
+
+    &:hover {
+      filter: grayscale(0%) brightness(1.5);
+    }
+  }
+
+  &__scroll-container-popular,
+  &__scroll-container-results {
+    background: $sun-silver;
+    border-radius: 1.05rem;
+    scrollbar-color: $sun-yellow $sun-white;
+  }
+
+  &__popular-section,
+  &__results-section {
+    background: $sun-frosted-silver;
+
+    &::before {
+      background: $sun-gradient-blue;
+      color: $primary-button-blue;
+      border: .15rem solid $sun-silver;
+      border-bottom: .3rem solid $sun-silver;
+    }
+  }
+
+  &__scroll-container-results {
+    border: .5rem solid $sun-light-gray;
+    border-bottom: 1rem solid $sun-light-gray;
+  }
+
+  &__scroll-container-popular {
+    border: .5rem solid $sun-white;
+    border-bottom: 1rem solid $sun-white;
+  }
+
+  &__copy {
+    background: $neutral-white;
+    color: $neutral-black;
+  }
+
+  &__close-icon,
+  &__search-icon,
+  &__eraser-icon {
+    color: $sun-ash-gray;
+
+    &:focus,
+    &:hover {
+      color: $sun-sunrise-orange;
+      background: none;
+      border: none;
+      box-shadow: none;
+    }
+
+    &:active {
+      color: $sun-ocean-breeze;
+      background: none;
+      border: none;
+      box-shadow: none;
+    }
+  }
+
+  &__rating-container {
+    background: none;
+    border: none;
+    box-shadow: none;
+  }
+
+  &__input {
+    background: $sun-silver;
+    color: $sun-text-dark;
+
+    &::placeholder {
+      color: $sun-ash-gray;
+    }
+
+    &:focus {
+      border: .25rem solid $sun-soft-lemon;
+      box-shadow: $sun-shadow-primary;
+    }
+  }
+}
+
+.voice-search__voice-button {
+  background: $sun-frosted-silver;
+  color: $star-text-gray;
+
+  &:hover {
+    background: linear-gradient(135deg, lighten($sun-frosted-silver, 10%), lighten($sun-frosted-silver, 5%));
+    color: $sun-sunrise-orange;
+  }
+
+  &:active {
+    background: $sun-soft-lemon;
+    color: $sun-soft-tangerine;
+  }
+}
+
+.user-rating {
+  background: $sun-white;
+  border-radius: 50%;
+}
+
+.user-rating-container {
+  background: none;
+  border: none;
+  box-shadow: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+  // Emoji Modal 
+  .emoji-btn {
+    background: $sun-yellow;
+    color: $neutral-black;
+    border: .125rem solid $neutral-white;
+
+    &:hover {
+      background: $sun-sunrise-orange;
+      color: $sun-text-dark;
+      border: .125rem solid $sun-soft-lemon;
+    }
+
+    &:active {
+      background: $sun-ocean-breeze;
+      color: $sun-text-dark;
+      box-shadow: $sun-shadow-primary;
+      border: .125rem solid $sun-white;
+    }
+  }
+
+  .emoji-picker {
+    background: $sun-ocean-breeze;
+
+    input {
+      background: $sun-frosted-white;
+      color: $sun-text-dark;
+    }
+  }
+
+  // Calendar Page
+  .calendar {
+    background: $sun-frosted-white;
+
+    &__header {
+      background: $sun-frosted-silver;
+    }
+
+    &__overlay {
+      background: rgba($sun-white, .8);
+      z-index: 500;
+    }
+
+    &__radio {
+      color: $sun-light-gray;
+      background: $sun-light-gray;
+    }
+
+    &__main {
+      border: none;
+      box-shadow: $sun-shadow-primary;
+    }
+
+    &__clear-icon {
+      background: none;
+      color: $sun-ocean-breeze;
+      border: none;
+      box-shadow: none;
+      top: 30%;
+  
+      &:hover {
+        background: none;
+        border: none;
+        color: $sun-sunrise-orange;
+        box-shadow: none;
+      }
+  
+      &:active {
+        background: none;
+        border: none;
+        box-shadow: none;
+        color: $sun-soft-tangerine;
+      }
+    }
+
+    &__toggle-sidebar-btn {
+      background: $sun-white;
+      color: $sun-text-dark;
+
+      &:hover {
+        background: $sun-yellow;
+        color: $sun-text-dark;
+      }
+
+      &:active {
+        background: $sun-text-dark;
+        color: $sun-yellow;
+      }
+    }
+
+    &__event-content {
+      background: $sun-light-gray;
+    }
+
+    &__event-title,
+    &__event-time {
+      color: $sun-text-dark;
+    }
+
+    &__event-icon {
+      color: $sun-text-dark !important;
+    }
+
+    &__search-bar {
+      color: $sun-text-dark;
+      background: $sun-white;
+      border: .125rem solid $sun-ash-gray;
+
+      &::placeholder {
+        color: $sun-ash-gray;
+      }
+
+      &:active,
+      &:focus {
+        color: $primary-dark-blue;
+        background: $primary-pale-blue;
+        border: .125rem solid $sun-ocean-breeze;
+      }
+
+      &:-ms-input-placeholder {
+        color: $sun-ash-gray;
+      }
+  
+      &::-ms-input-placeholder {
+        color: $sun-ash-gray;
+      }  
+    }
+
+    &__search-icon {
+      color: $sun-sunrise-orange;
+
+      &:hover {
+        color: $sun-yellow;
+      }
+
+      &:active {
+        color: $neutral-black;
+      }
+    }
+
+    &__search-container {
+      border: none;
+      box-shadow: none;
+    }
+
+    &__delete-events-btn {
+      background: $sun-white;
+      color: $sun-text-dark;
+
+      &:hover {
+        background: $sun-yellow; 
+        color: $sun-text-dark;
+        border: .125rem solid $sun-white;
+      }
+
+      &:active {
+        background: $sun-text-dark;
+        color: $sun-yellow;
+        border: none;
+      }
+    }
+  }
+
+  // Mini Calendar
+  .mini-calendar {
+    &__day-names {
+      background: $sun-frosted-silver;
+      box-shadow: $sun-shadow-primary;
+    }
+
+    &__title {
+      background: $sun-white;
+      color: $sun-text-dark;
+      border: .15rem solid $sun-golden-hour;
+    }
+
+    &__day-names {
+      background: $sun-icy-blue;
+      color: $sun-text-dark;
+    }
+
+    &__day-name {
+      background: $sun-white;
+      color: $sun-text-dark;
+      border: none;
+    }
+
+    &__day--selected {
+      background: $sun-yellow;
+      color: $sun-text-dark;
+    }
+
+    &__close-btn,
+    &__nav-btn {
+      background: $sun-golden-hour;
+      color: $sun-text-dark;
+
+      &:hover {
+        background: $sun-light-gold;
+        color: $sun-text-dark;
+      }
+
+      &:active {
+        background: $sun-pale-baby-blue;
+        color: $neutral-black;
+      }
+    }
+  }
+
+  #deleteDisabledTooltip {
+    background-color: $sun-ocean-breeze;
+    color: $primary-dark-blue;
+  
+    &::after {
+      border: $primary-button-blue transparent transparent transparent;
+    }
+  }
+
+  // Calendar Page
+  .calendar-page {
+    background: $sun-frosted-white;
+
+    &__title {
+      background: $neutral-white;
+      color: $primary-dark-blue;
+      border: 0.1875rem solid $sun-yellow;
+    }
+
+    &__subtitle {
+      color: $neutral-black;
+    }
+
+    &__hero {
+      background: $neutral-white;
+    }
+
+    &__hero-text {
+      background: $sun-gradient-yellow;
+      box-shadow: $sun-shadow-primary;
+      border: .125rem solid $neutral-white;
+    }
+  }
+
+  .fc-next-button,
+  .fc-prev-button {
+    background: $sun-sunrise-orange !important;
+    color: $neutral-black !important;
+
+    &:hover {
+      background: $sun-soft-lemon !important;
+      color: $neutral-black !important;
+    }
+
+    &:active {
+      background: $neutral-white !important;
+      color: $neutral-black !important;
+    }
+
+  }
+
+  .fc-today-button {
+    background: $sun-yellow !important;
+    color: $neutral-black !important;
+
+    &:hover {
+      background: $neutral-black !important;
+      color: $neutral-white !important;
+    }
+
+    &:active {
+      background: $neutral-white !important;
+      color: $neutral-black !important;
+    }
+  }
+
+  .fc-toolbar {
+    .fc-toolbar-title {
+      border: .125rem solid $sun-ash-gray;
+      box-shadow: $sun-shadow-secondary;
+      color: $sun-text-dark;
+      background: $sun-white;
+    }
+  }
+
+  .fc-daygrid-day {
+    border: .0625rem solid $sun-ash-gray;
+  }
+
+  .fc-header-toolbar {
+    background: $sun-frosted-silver;
+  }
+
+  .fc-day-today {
+    background-color: $sun-ocean-breeze !important;
+    border-color: $sun-light-gray !important;
+    color: $neutral-black;
+  }
+
+  .share-event__title.neumorphic-text {
+    color: $sun-text-dark;
+    border: .125rem solid $sun-white;
+  }
+
+  .share-event__label {
+    color: $sun-text-dark;
+  }
+
+  .share-event__button {
+    color: $sun-text-dark !important;
+
+    &:hover {
+      color: $sun-white !important;
+    }
+
+    &:active {
+      color: $sun-sunrise-orange !important;
+    }
+  }
+
+  .fc-col-header-cell {
+    background: $sun-ash-gray;
+  }
+
+  tbody {
+    background: $sun-light-gray;
+  }
+
+  thead {
+    color: $neutral-black;
+  }
+
+  // Modal
+  .modal {
+    background: rgba($neutral-white, .75);
+    .modal-content {
+      background: $sun-frosted-silver;
+
+      button {
+        background: $sun-yellow;
+        color: $neutral-black;
+        border: .125rem solid $neutral-white;
+
+        &:hover {
+          background: $neutral-black;
+          color: $sun-yellow;
+          border: .125rem solid $neutral-white;
+        }
+
+        &:active {
+          background: $sun-ocean-breeze;
+          color: $primary-dark-blue;
+          border: none;
+        }
+      }
+
+      .modal-close-btn {
+        background: $sun-frosted-white;
+        color: $sun-text-dark;
+
+        &:hover {
+          background: $sun-golden-hour;
+          color: $neutral-black;
+        }
+
+        &:active {
+          background: $sun-ocean-breeze;
+          color: $primary-dark-blue;
+        }
+      }
+
+      .modal-input {
+        background: $sun-white;
+        box-shadow: $sun-shadow-primary;
+        border: .125rem solid $sun-neumorph-shadow-light;
+
+        .modal-input-container {
+          .modal-input {
+            background: $sun-frosted-gold;
+            cursor: url('../../assets/cursors/cursor-pointer-rain.svg'), pointer;
+          }
+        }
+      }
+    }
+
+    // Custom cursor for all input fields
+    input {
+      color: $sun-text-dark;
+      cursor: url('../../assets/cursors/cursor-pointer-rain.svg'), pointer;
+    
+      &:hover {
+        cursor: url('../../assets/cursors/cursor-pointer-rain.svg'), pointer;
+      }
+    
+      &:focus {
+        cursor: url('../../assets/cursors/cursor-pointer-rain.svg'), pointer;
+      }
+    
+      svg {
+        cursor: url('../../assets/cursors/cursor-pointer-rain.svg'), pointer;
+      }
+    }
+    
+    input[type="datetime-local"] {
+      cursor: url('../../assets/cursors/cursor-pointer-rain.svg'), pointer;
+    }
+
+    input[type="datetime-local"]:focus {
+      cursor: url('../../assets/cursors/cursor-pointer-rain.svg'), pointer;
+    }
+
+    input[type='datetime-local']::-webkit-calendar-picker-indicator {
+      cursor: url('../../assets/cursors/cursor-pointer-rain.svg'), pointer;
+    }
+
+    .fc {
+      .fc-toolbar {
+        .fc-button-group {
+          .fc-button {
+            background: $sun-frosted-gold;
+            color: $sun-text-dark;
+            cursor: url('../../assets/cursors/cursor-pointer-rain.svg'), pointer;
+          }
+
+          &.fc-button-active {
+            background: $sun-text-dark;
+            color: $sun-neumorph-base;
+            cursor: url('../../assets/cursors/cursor-pointer-rain.svg'), pointer;
+
+            &:hover {
+              cursor: url('../../assets/cursors/cursor-pointer-rain.svg'), pointer;
+            }
+
+            &:active {
+              cursor: url('../../assets/cursors/cursor-pointer-rain.svg'), pointer;
+            }
+          }
+        }
+      }
+    }
+
+    .add-to-cal {
+      &__link {
+        &--google {
+          background: $sun-gradient-sunrise;
+          color: $neutral-black;
+          transition: transform .3s ease, background .3s ease, color .3s ease; 
+
+          &:hover {
+            background: $neutral-black;
+            color: $sun-yellow;
+            transform: scale(1.05);
+          }
+
+          &:active {
+            background: $sun-ocean-breeze;
+            color: $neutral-black;
+            border: .125rem solid $neutral-white;
+            transform: scale(.95); 
+          }
+        }
+
+        &--apple {
+          background: $sun-gradient-sunrise;
+          color: $neutral-black;
+          transition: transform .3s ease, background .3s ease, color .3s ease; 
+
+          &:hover {
+            background: $neutral-black;
+            color: $sun-yellow;
+            transform: scale(1.05);
+          }
+
+          &:active {
+            background: $sun-ocean-breeze;
+            color: $neutral-black;
+            border: .125rem solid $neutral-white;
+            transform: scale(.95); 
+          }
+        }
+      }
+    }
+  }
+}

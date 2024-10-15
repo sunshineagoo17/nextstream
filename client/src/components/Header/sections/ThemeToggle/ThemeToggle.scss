@@ -223,6 +223,125 @@
     }
   }
 
+  // Rain Mode Active Lightning Glow
+  .rain {
+    color: $rain-soft-seafoam;
+    padding: 0.5rem;
+    background: $rain-storm-cloud-blue;
+    box-shadow: $rain-shadow-primary;
+    border-radius: .5rem;
+    border: .125rem solid $rain-slate-gray;
+    transition: background 0.4s, box-shadow 0.4s, transform 0.4s ease;
+    position: relative;
+    overflow: hidden;
+    
+    &:before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.3), rgba(0, 0, 0, 0));
+      border-radius: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      opacity: 0;
+      transition: transform 0.6s ease, opacity 0.6s ease;
+      z-index: -1;
+    }
+
+    &:hover {
+      background: $rain-rainy-sky-blue;
+      color: $primary-dark-blue;
+      box-shadow: 0 0 2.5rem rgba(200, 255, 255, 0.7), 0 0 4rem rgba(150, 200, 255, 0.8);
+      transform: translateY(-2px) scale(1.1);
+      animation: rain-hover 2s infinite alternate ease-in-out;
+
+      &:before {
+        transform: translate(-50%, -50%) scale(1.5);
+        opacity: 0.8;
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 120%;
+        height: 120%;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.6), rgba(255, 255, 0, 0.1));
+        transform: translate(-50%, -50%);
+        opacity: 0;
+        animation: lightning-flash 2s infinite ease-in-out;
+      }
+    }
+
+    // Active state with stronger lightning flash effect
+    &:active {
+      background: $rain-forest-green;
+      border-radius: 1.5rem;
+      color: $neutral-white;
+      box-shadow: 0 0 4rem rgba(255, 255, 255, 0.9), inset 0 0 1.5rem rgba(0, 0, 0, 0.6), inset 0 0 2.5rem rgba(0, 0, 0, 0.4);
+      transform: scale(0.92);
+      animation: button-click-vibration 0.2s ease, lightning-active-glow 0.5s ease-in-out forwards;
+
+      &:before {
+        transform: translate(-50%, -50%) scale(2);
+        opacity: 0.2;
+        transition: transform 0.2s ease, opacity 0.2s ease;
+      }
+    }
+  }
+
+  // Keyframes for the lightning glow animation during active state
+  @keyframes lightning-active-glow {
+    0% {
+      box-shadow: none;
+    }
+    50% {
+      box-shadow: 0 0 6rem rgba(255, 255, 255, 0.9), 0 0 8rem rgba(255, 255, 102, 0.6);
+    }
+    100% {
+      box-shadow: none;
+    }
+  }
+
+  @keyframes rain-hover {
+    0% {
+      transform: translateY(0) scale(1.1);
+    }
+    50% {
+      transform: translateY(-3px) scale(1.05);
+    }
+    100% {
+      transform: translateY(0) scale(1.1);
+    }
+  }
+
+  @keyframes lightning-flash {
+    0%, 100% {
+      opacity: 0;
+      box-shadow: none;
+    }
+    40% {
+      opacity: 1;
+      box-shadow: 0 0 3rem rgba(255, 255, 255, 0.7), 0 0 4rem rgba(255, 255, 102, 0.4);
+    }
+    70% {
+      opacity: 0;
+      box-shadow: none;
+    }
+  }
+
+  @keyframes button-click-vibration {
+    0% { transform: translate(1px, 1px) scale(0.95); }
+    25% { transform: translate(-1px, -2px) scale(0.94); }
+    50% { transform: translate(-3px, 0px) scale(0.93); }
+    75% { transform: translate(2px, 1px) scale(0.92); }
+    100% { transform: translate(1px, -1px) scale(0.92); }
+  }
+
   @keyframes snowflake-hover-glow {
     0%, 100% {
       box-shadow: 0 0 1.5rem rgba(200, 230, 255, 0.7), 0 0 2.5rem rgba(173, 216, 230, 0.5);
@@ -231,7 +350,6 @@
       box-shadow: 0 0 2.5rem rgba(255, 255, 255, 0.8), 0 0 3.5rem rgba(173, 216, 230, 0.7);
     }
   }
-
 
   @keyframes snowflake-movement {
     0%, 100% {
