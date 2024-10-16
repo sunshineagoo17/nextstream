@@ -5316,107 +5316,107 @@
 
   // Calendar Page
   .calendar {
-    background: $sun-frosted-white;
+    background: $rain-slate-gray;
 
     &__header {
-      background: $sun-frosted-silver;
+      background: $rain-frosted-blue;
     }
 
     &__overlay {
-      background: rgba($sun-white, .8);
+      background: rgba($rain-slate-gray, .8);
       z-index: 500;
     }
 
     &__radio {
-      color: $sun-light-gray;
-      background: $sun-light-gray;
+      color: $rain-dew-drop-gray;
+      background: $rain-dew-drop-gray;
     }
 
     &__main {
       border: none;
-      box-shadow: $sun-shadow-primary;
+      box-shadow: $rain-shadow-primary;
     }
 
     &__clear-icon {
       background: none;
-      color: $sun-ocean-breeze;
+      color: $rain-text-dark;
       border: none;
       box-shadow: none;
       top: 30%;
-  
+
       &:hover {
         background: none;
         border: none;
-        color: $sun-sunrise-orange;
+        color: $rain-foggy-mist-gray;
         box-shadow: none;
       }
-  
+
       &:active {
         background: none;
         border: none;
         box-shadow: none;
-        color: $sun-soft-tangerine;
+        color: $neutral-black;
       }
     }
 
     &__toggle-sidebar-btn {
-      background: $sun-white;
-      color: $sun-text-dark;
+      background: $rain-slate-gray;
+      color: $neutral-white;
 
       &:hover {
-        background: $sun-yellow;
-        color: $sun-text-dark;
+        background: $rain-rain-drop-blue;
+        color: $rain-text-dark;
       }
 
       &:active {
-        background: $sun-text-dark;
-        color: $sun-yellow;
+        background: $rain-text-dark;
+        color: $rain-soft-seafoam;
       }
     }
 
     &__event-content {
-      background: $sun-light-gray;
+      background: $rain-slate-gray;
     }
 
     &__event-title,
     &__event-time {
-      color: $sun-text-dark;
+      color: $neutral-white;
     }
 
     &__event-icon {
-      color: $sun-text-dark !important;
+      color: $neutral-white !important;
     }
 
     &__search-bar {
-      color: $sun-text-dark;
-      background: $sun-white;
-      border: .125rem solid $sun-ash-gray;
+      color: $rain-text-dark;
+      background: $rain-soft-seafoam;
+      border: .125rem solid $rain-slate-gray;
 
       &::placeholder {
-        color: $sun-ash-gray;
+        color: $rain-slate-gray;
       }
 
       &:active,
       &:focus {
-        color: $primary-dark-blue;
-        background: $primary-pale-blue;
-        border: .125rem solid $sun-ocean-breeze;
+        color: $neutral-white;
+        background: $rain-rainy-sky-blue;
+        border: .125rem solid $neutral-white;
       }
 
       &:-ms-input-placeholder {
-        color: $sun-ash-gray;
+        color: $rain-slate-gray;
       }
-  
+
       &::-ms-input-placeholder {
-        color: $sun-ash-gray;
-      }  
+        color: $rain-slate-gray;
+      }
     }
 
     &__search-icon {
-      color: $sun-sunrise-orange;
+      color: $rain-text-dark;
 
       &:hover {
-        color: $sun-yellow;
+        color: $rain-foggy-mist-gray;
       }
 
       &:active {
@@ -5430,18 +5430,18 @@
     }
 
     &__delete-events-btn {
-      background: $sun-white;
-      color: $sun-text-dark;
+      background: $rain-slate-gray;
+      color: $neutral-white;
 
       &:hover {
-        background: $sun-yellow; 
-        color: $sun-text-dark;
-        border: .125rem solid $sun-white;
+        background: $rain-rain-drop-blue;
+        color: $rain-text-dark;
+        border: .125rem solid $rain-soft-seafoam;
       }
 
       &:active {
-        background: $sun-text-dark;
-        color: $sun-yellow;
+        background: $rain-text-dark;
+        color: $rain-rain-drop-blue;
         border: none;
       }
     }
@@ -5450,53 +5450,53 @@
   // Mini Calendar
   .mini-calendar {
     &__day-names {
-      background: $sun-frosted-silver;
-      box-shadow: $sun-shadow-primary;
+      background: $rain-frosted-blue;
+      box-shadow: $rain-shadow-primary;
     }
 
     &__title {
-      background: $sun-white;
-      color: $sun-text-dark;
-      border: .15rem solid $sun-golden-hour;
+      background: $rain-soft-seafoam;
+      color: $rain-text-dark;
+      border: .15rem solid $rain-evergreen;
     }
 
     &__day-names {
-      background: $sun-icy-blue;
-      color: $sun-text-dark;
+      background: $rain-rainy-sky-blue;
+      color: $rain-text-dark;
     }
 
     &__day-name {
-      background: $sun-white;
-      color: $sun-text-dark;
+      background: $rain-soft-seafoam;
+      color: $rain-text-dark;
       border: none;
     }
 
     &__day--selected {
-      background: $sun-yellow;
-      color: $sun-text-dark;
+      background: $rain-cloudy-ocean-blue;
+      color: $rain-text-dark;
     }
 
     &__close-btn,
     &__nav-btn {
-      background: $sun-golden-hour;
-      color: $sun-text-dark;
+      background: $rain-foggy-mist-gray;
+      color: $neutral-black;
 
       &:hover {
-        background: $sun-light-gold;
-        color: $sun-text-dark;
+        background: $rain-forest-green;
+        color: $neutral-white;
       }
 
       &:active {
-        background: $sun-pale-baby-blue;
+        background: $rain-cool-aqua;
         color: $neutral-black;
       }
     }
   }
 
   #deleteDisabledTooltip {
-    background-color: $sun-ocean-breeze;
+    background-color: $rain-rain-drop-blue;
     color: $primary-dark-blue;
-  
+
     &::after {
       border: $primary-button-blue transparent transparent transparent;
     }
@@ -5504,48 +5504,48 @@
 
   // Calendar Page
   .calendar-page {
-    background: $sun-frosted-white;
+    background: $rain-slate-gray;
 
     &__title {
-      background: $neutral-white;
-      color: $primary-dark-blue;
-      border: 0.1875rem solid $sun-yellow;
+      background: $frosted-glass;
+      color: $neutral-white;
+      border: 0.1875rem solid $rain-evergreen;
     }
 
     &__subtitle {
-      color: $neutral-black;
+      color: $neutral-white;
     }
 
     &__hero {
-      background: $neutral-white;
+      background: $rain-dew-drop-gray
     }
 
     &__hero-text {
-      background: $sun-gradient-yellow;
-      box-shadow: $sun-shadow-primary;
+      background: $rain-gradient-green;
+      box-shadow: $rain-shadow-primary;
       border: .125rem solid $neutral-white;
     }
   }
 
+  // FullCalendar Buttons
   .fc-next-button,
   .fc-prev-button {
-    background: $sun-sunrise-orange !important;
-    color: $neutral-black !important;
+    background: $rain-forest-green !important;
+    color: $neutral-white !important;
 
     &:hover {
-      background: $sun-soft-lemon !important;
+      background: $rain-fern-green !important;
       color: $neutral-black !important;
     }
 
     &:active {
-      background: $neutral-white !important;
-      color: $neutral-black !important;
+      background: $neutral-black !important;
+      color: $rain-fern-green !important;
     }
-
   }
 
   .fc-today-button {
-    background: $sun-yellow !important;
+    background: $rain-wet-grass-green !important;
     color: $neutral-black !important;
 
     &:hover {
@@ -5561,54 +5561,55 @@
 
   .fc-toolbar {
     .fc-toolbar-title {
-      border: .125rem solid $sun-ash-gray;
-      box-shadow: $sun-shadow-secondary;
-      color: $sun-text-dark;
-      background: $sun-white;
+      border: .125rem solid $rain-slate-gray;
+      box-shadow: $rain-shadow-secondary;
+      color: $neutral-white;
+      background: $rain-slate-gray;
     }
   }
 
   .fc-daygrid-day {
-    border: .0625rem solid $sun-ash-gray;
+    border: .0625rem solid $rain-slate-gray;
   }
 
   .fc-header-toolbar {
-    background: $sun-frosted-silver;
+    background: $rain-frosted-blue;
   }
 
   .fc-day-today {
-    background-color: $sun-ocean-breeze !important;
-    border-color: $sun-light-gray !important;
+    background-color: $rain-cloudy-ocean-blue !important;
+    border-color: $rain-dew-drop-gray !important;
     color: $neutral-black;
   }
 
   .share-event__title.neumorphic-text {
-    color: $sun-text-dark;
-    border: .125rem solid $sun-white;
+    color: $rain-soft-seafoam;
+    border: .125rem solid $rain-soft-seafoam;
   }
 
   .share-event__label {
-    color: $sun-text-dark;
+    color: $neutral-white;
   }
 
   .share-event__button {
-    color: $sun-text-dark !important;
+    color: $rain-text-dark !important;
 
     &:hover {
-      color: $sun-white !important;
+      color: $rain-soft-seafoam !important;
     }
 
     &:active {
-      color: $sun-sunrise-orange !important;
+      background: $rain-cloudy-ocean-blue !important;
+      color: $neutral-white !important;
     }
   }
 
   .fc-col-header-cell {
-    background: $sun-ash-gray;
+    background: $rain-slate-gray;
   }
 
   tbody {
-    background: $sun-light-gray;
+    background: $rain-dew-drop-gray;
   }
 
   thead {
@@ -5617,51 +5618,53 @@
 
   // Modal
   .modal {
-    background: rgba($neutral-white, .75);
+    background: rgba($rain-midnight-storm-gray, .75);
     .modal-content {
-      background: $sun-frosted-silver;
+      background: $rain-slate-gray;
 
       button {
-        background: $sun-yellow;
-        color: $neutral-black;
+        background: $rain-foggy-mist-gray;
+        background: $rain-foggy-mist-gray;
+        color: $primary-dark-blue;
         border: .125rem solid $neutral-white;
 
         &:hover {
           background: $neutral-black;
-          color: $sun-yellow;
-          border: .125rem solid $neutral-white;
+          color: $rain-wet-grass-green;
+          border: .125rem solid $rain-evergreen;
         }
 
         &:active {
-          background: $sun-ocean-breeze;
+          background: $rain-cool-aqua;
           color: $primary-dark-blue;
+          border: .125rem solid $primary-dark-blue;
           border: none;
         }
       }
 
       .modal-close-btn {
-        background: $sun-frosted-white;
-        color: $sun-text-dark;
+        background: $rain-frosted-glass;
+        color: $rain-text-dark;
 
         &:hover {
-          background: $sun-golden-hour;
-          color: $neutral-black;
+          background: $rain-evergreen;
+          color: $neutral-white;
         }
 
         &:active {
-          background: $sun-ocean-breeze;
-          color: $primary-dark-blue;
+          background: $rain-cloudy-ocean-blue;
+          color: $neutral-white;
         }
       }
 
       .modal-input {
-        background: $sun-white;
-        box-shadow: $sun-shadow-primary;
-        border: .125rem solid $sun-neumorph-shadow-light;
+        background: $rain-foggy-mist-gray;
+        box-shadow: $rain-shadow-primary;
+        border: .125rem solid $rain-neumorph-shadow-light;
 
         .modal-input-container {
           .modal-input {
-            background: $sun-frosted-gold;
+            background: $rain-frosted-green;
             cursor: url('../../assets/cursors/cursor-pointer-rain.svg'), pointer;
           }
         }
@@ -5670,22 +5673,22 @@
 
     // Custom cursor for all input fields
     input {
-      color: $sun-text-dark;
+      color: $rain-text-dark;
       cursor: url('../../assets/cursors/cursor-pointer-rain.svg'), pointer;
-    
+
       &:hover {
         cursor: url('../../assets/cursors/cursor-pointer-rain.svg'), pointer;
       }
-    
+
       &:focus {
         cursor: url('../../assets/cursors/cursor-pointer-rain.svg'), pointer;
       }
-    
+
       svg {
         cursor: url('../../assets/cursors/cursor-pointer-rain.svg'), pointer;
       }
     }
-    
+
     input[type="datetime-local"] {
       cursor: url('../../assets/cursors/cursor-pointer-rain.svg'), pointer;
     }
@@ -5702,65 +5705,65 @@
       .fc-toolbar {
         .fc-button-group {
           .fc-button {
-            background: $sun-frosted-gold;
-            color: $sun-text-dark;
-            cursor: url('../../assets/cursors/cursor-pointer-rain.svg'), pointer;
-          }
-
-          &.fc-button-active {
-            background: $sun-text-dark;
-            color: $sun-neumorph-base;
+            background: $rain-frosted-green;
+            color: $rain-text-dark;
             cursor: url('../../assets/cursors/cursor-pointer-rain.svg'), pointer;
 
-            &:hover {
+            &.fc-button-active {
+              background: $rain-text-dark;
+              color: $rain-neumorph-base;
               cursor: url('../../assets/cursors/cursor-pointer-rain.svg'), pointer;
-            }
 
-            &:active {
-              cursor: url('../../assets/cursors/cursor-pointer-rain.svg'), pointer;
+              &:hover {
+                cursor: url('../../assets/cursors/cursor-pointer-rain.svg'), pointer;
+              }
+
+              &:active {
+                cursor: url('../../assets/cursors/cursor-pointer-rain.svg'), pointer;
+              }
             }
           }
         }
       }
-    }
 
-    .add-to-cal {
-      &__link {
-        &--google {
-          background: $sun-gradient-sunrise;
-          color: $neutral-black;
-          transition: transform .3s ease, background .3s ease, color .3s ease; 
+      .add-to-cal {
+        &__link {
+          &--google {
+            background: $rain-gradient-blue-gray;
+            color: $neutral-white;
+            transition: transform .3s ease, background .3s ease, color .3s ease;
 
-          &:hover {
-            background: $neutral-black;
-            color: $sun-yellow;
-            transform: scale(1.05);
+            &:hover {
+              background: $neutral-black;
+              color: $rain-rain-drop-blue;
+              transform: scale(1.05);
+            }
+
+            &:active {
+              background: $rain-gradient-green;
+              color: $neutral-white;
+              border: .125rem solid $rain-evergreen;
+              transform: scale(.95);
+            }
           }
 
-          &:active {
-            background: $sun-ocean-breeze;
-            color: $neutral-black;
-            border: .125rem solid $neutral-white;
-            transform: scale(.95); 
-          }
-        }
+          &--apple {
+            background: $rain-gradient-blue-gray;
+            color: $neutral-white;
+            transition: transform .3s ease, background .3s ease, color .3s ease;
 
-        &--apple {
-          background: $sun-gradient-sunrise;
-          color: $neutral-black;
-          transition: transform .3s ease, background .3s ease, color .3s ease; 
+            &:hover {
+              background: $neutral-black;
+              color: $rain-rain-drop-blue;
+              transform: scale(1.05);
+            }
 
-          &:hover {
-            background: $neutral-black;
-            color: $sun-yellow;
-            transform: scale(1.05);
-          }
-
-          &:active {
-            background: $sun-ocean-breeze;
-            color: $neutral-black;
-            border: .125rem solid $neutral-white;
-            transform: scale(.95); 
+            &:active {
+              background: $rain-gradient-green;
+              color: $neutral-white;
+              border: .125rem solid $rain-evergreen;
+              transform: scale(.95);
+            }
           }
         }
       }
