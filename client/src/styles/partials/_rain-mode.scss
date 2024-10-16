@@ -1613,70 +1613,71 @@
     }
   }
   
-  // NextStream Gpt 
+  // NextStream GPT
   .nextstream-gpt {
-    background: $neutral-white;
+    background: $rain-dew-drop-gray;
 
     &__disclaimer-content {
-      background: $sun-light-gray;
+      background: $rain-slate-gray;
     }
 
     &__calendar-close-btn {
-      background: $sun-sunrise-orange;
+      background: $rain-wet-grass-green;
       color: $neutral-black;
 
       &:hover {
-        color: $sun-soft-tangerine;
-        background: $sun-peach-fuzz;
+        color: $rain-soft-seafoam;
+        background: $rain-cloudy-ocean-blue;
       }
 
       &:active {
-        color: $primary-dark-blue;
-        background: $sun-ocean-breeze;
+        color: $rain-storm-cloud-blue;
+        background: $rain-cool-aqua;
       }
     }
 
     &__clear-chat-button {
-      background: linear-gradient(135deg, $sun-icy-blue, $primary-button-blue);
+      background: linear-gradient(135deg, $rain-rain-drop-blue, $rain-cloudy-ocean-blue);
 
       &:hover {
-        background: linear-gradient(135deg, $primary-button-blue, $sun-ocean-breeze);
+        background: linear-gradient(135deg, $rain-cloudy-ocean-blue, $rain-rainy-sky-blue);
       }
 
       &:active {
-        background: linear-gradient(135deg, $sun-ash-gray, $neutral-black);
+        background: linear-gradient(135deg, $rain-midnight-storm-gray, $neutral-black);
       }
     }
 
     &__clear-input {
-      color: $star-honey-glow;
+      color: $rain-soft-seafoam;
 
       &:hover {
-        color: $star-light-gray;
+        color: $neutral-white;
       }
 
       &:active {
-        color: $primary-button-blue;
+        color: $rain-cloudy-ocean-blue;
       }
     }
-    
+
+    &__clear-chat-button,
     &__gpt-button--og,
     &__interrupt-btn {
       animation: glow 4s infinite alternate;
       box-shadow: inset .25rem .25rem .5rem rgba($neutral-black, .2),
         inset -.25rem -.25rem .5rem rgba(255, 255, 255, .7);
       border-radius: .75rem;
-      background: #e0e0e0;
+      background: $rain-frosted-blue;
       transition: all .3s ease;
-      color: $primary-button-blue;
+      color: $rain-slate-gray;
 
       &:hover {
-        background: $sun-ocean-breeze;
+        background: $rain-cloudy-ocean-blue;
         transform: scale(1.05);
-        color: $primary-dark-blue;
+        color: $rain-storm-cloud-blue;
 
         &:active {
-          background: $sun-yellow;
+          background: $rain-wet-grass-green;
           color: $neutral-black;
           animation: none;
           box-shadow: inset .375rem .375rem .75rem rgba($neutral-black, .2),
@@ -1685,22 +1686,22 @@
         }
       }
     }
-    
+
     &__send-button {
       animation: glow 4s infinite alternate;
       box-shadow: inset .25rem .25rem .5rem rgba($neutral-black, .2),
         inset -.25rem -.25rem .5rem rgba(255, 255, 255, .7);
-      background: #e0e0e0;
+      background: $rain-frosted-blue;
       transition: all .3s ease;
-      color: $primary-button-blue;
+      color: $rain-slate-gray;
 
       &:hover {
-        background: $sun-ocean-breeze;
+        background: $rain-cloudy-ocean-blue;
         transform: scale(1.05);
-        color: $primary-dark-blue;
+        color: $rain-storm-cloud-blue;
 
         &:active {
-          background: $sun-yellow;
+          background: $rain-wet-grass-green;
           color: $neutral-black;
           box-shadow: inset .375rem .375rem .75rem rgba($neutral-black, .2),
             inset -.375rem -.375rem .75rem rgba(255, 255, 255, .7);
@@ -1710,283 +1711,283 @@
     }
 
     &__text--center {
-      color: $sun-text-dark;
+      color: $rain-text-dark;
     }
-    
+
     &__disclaimer-modal {
-      background: rgba($sun-ash-gray, .85);
+      background: rgba($rain-dew-drop-gray, .85);
     }
-    
+
     &__disclaimer-copy {
-      color: $neutral-black;
+      color: $rain-soft-seafoam;
     }
-    
+
     &__disclaimer-close {
-      color: $sun-text-dark;
-      
+      color: $rain-text-dark;
+
       &:hover {
-        background: $sun-light-gold;
-        color: $sun-soft-tangerine;
+        background: $rain-soft-seafoam;
+        color: $rain-storm-cloud-blue;
       }
-    
+
       &:active {
-        background: $sun-golden-hour;
-        color: $sun-text-dark;
+        background: $rain-rainy-sky-blue;
+        color: $rain-text-dark;
       }
     }
-    
+
     &__disclaimer-header {
-      border: .25rem solid $sun-golden-hour;
-      color: $neutral-black;
-      background: $sun-silver;
+      border: .25rem solid $rain-rainy-sky-blue;
+      color: $neutral-white;
+      background: $rain-dew-drop-gray;
       text-shadow: none;
     }
-    
+
     &__disclaimer-note {
-      color: $sun-soft-tangerine;
+      color: $rain-foggy-mist-gray;
     }
 
     &__bot-typing-indicator-bubble {
-      background-color: $primary-button-blue;
+      background-color: $rain-foggy-mist-gray;
     }
-    
+
     &__empty-message {
-      color: $cloud-text-gray;
+      color: $rain-slate-gray;
     }
-    
+
     &__copy {
-      background: $sun-white;
-      color: $sun-text-dark;
-      border: .25rem solid $sun-silver;
+      background: $rain-frosted-blue;
+      color: $rain-text-dark;
+      border: .25rem solid $frosted-glass;
     }
-    
+
     &__message--user {
-      color: $sun-text-dark;
-      background: $sun-sunrise-orange;
-      border: .0625rem solid $sun-yellow;
+      color: $rain-text-dark;
+      background: $rain-wet-grass-green;
+      border: .0625rem solid $rain-seaweed-green;
     }
-    
+
     &__message--bot {
-      color: $sun-text-dark;
-      background: $sun-icy-blue;
+      color: $rain-text-dark;
+      background: $rain-rainy-sky-blue;
       text-shadow: none;
-      border: .0625rem solid $sun-light-gray;
+      border: .0625rem solid $rain-foggy-mist-gray;
     }
-    
+
     &__user-icon-inline {
-      color: $sun-blushing-orange;
-      background: $sun-white;
-    
+      color: $rain-seaweed-green;
+      background: $rain-frosted-blue;
+
       &:hover {
-        background: $sun-soft-tangerine;
+        background: $rain-soft-seafoam;
         color: $neutral-white;
       }
 
       &.typing-icon {
-        animation: sunPulseUserIcon 2.5s infinite ease-in-out;
+        animation: rainPulseUserIcon 2.5s infinite ease-in-out;
         color: $neutral-white;
       }
     }
-  
-    @keyframes sunPulseUserIcon {
+
+    @keyframes rainPulseUserIcon {
       0%,
       100% {
         transform: scale(1);
-        color: $sun-sunrise-orange;
+        color: $rain-wet-grass-green;
       }
       50% {
         transform: scale(1.2);
         color: $neutral-white;
       }
     }
-    
+
     &__input {
       &::placeholder {
-        color: $sun-golden-hour;
+        color: $rain-slate-gray;
       }
-    
+
       &:focus {
-        background: $sun-morning-mist-blue;
-        border: .25rem solid $sun-ocean-breeze;
-        color: $primary-dark-blue;
+        background: $rain-foggy-mist-gray;
+        border: .25rem solid $rain-storm-cloud-blue;
+        color: $rain-text-dark;
       }
     }
-    
+
     &__gpt-icon-inline {
-      color: $sun-ocean-breeze;
-      background: $neutral-white;
-    
+      color: $rain-rain-drop-blue;
+      background: $rain-dew-drop-gray;
+
       &:hover {
-        background: $primary-button-blue;
+        background: $rain-storm-cloud-blue;
         color: $neutral-white;
       }
     }
-    
+
     &__chat-container {
-      background: $neutral-white;
+      background: $rain-dew-drop-gray;
     }
-    
+
     &__speech-icon {
-      background: $sun-ocean-breeze;
+      background: $rain-slate-gray;
       color: $neutral-white;
-      border: .125rem solid $sun-light-gold;
+      border: .125rem solid $rain-foggy-mist-gray;
     }
-    
+
     &__typing-indicator-bubble {
-      background: $sun-ocean-breeze;
+      background: $rain-cloudy-ocean-blue;
     }
-    
+
     &__scroll-container-results {
-      border: .5rem solid $sun-white;
-      border-bottom: 1rem solid $sun-white;
+      border: .5rem solid $rain-frosted-glass;
+      border-bottom: 1rem solid $rain-frosted-glass;
     }
-    
+
     &__poster {
       cursor: url('../../assets/cursors/cursor-pointer-rain.svg'), pointer;
       filter: grayscale(100%) brightness(0.9);
       transition: filter .3s ease, transform .3s ease;
-    
+
       &:hover {
         cursor: url('../../assets/cursors/cursor-pointer-rain.svg'), pointer;
         filter: grayscale(0%) brightness(1);
       }
     }
-    
+
     &__rating-container {
       background: none;
       box-shadow: none;
       border: none;
       filter: grayscale(100%);
       transition: filter .3s ease, transform .3s ease;
-    
+
       &:hover {
         filter: grayscale(0%) brightness(1);
       }
     }
-    
+
     &__icons-row {
-      background: $sun-pale-baby-blue;
-      border: .125rem solid $sun-silver;
+      background: $rain-slate-gray;
+      border: .125rem solid $rain-dew-drop-gray;
     }
-    
+
     &__card {
-      background: $neutral-white;
+      background: $rain-dew-drop-gray;
     }
-    
+
     &__nav-arrow {
       cursor: url('../../assets/cursors/cursor-pointer-rain.svg'), pointer;
-      color: $sun-text-dark;
-      border: .1875rem solid $neutral-white;
-      background: $sun-peach-fuzz;
-    
+      color: $rain-text-dark;
+      border: .1875rem solid $rain-frosted-glass;
+      background: $rain-soft-seafoam;
+
       &:hover {
-        background: $sun-soft-lemon;
-        color: $sun-soft-tangerine;
+        background: $rain-cool-aqua;
+        color: $rain-text-light;
       }
-    
+
       &:active {
-        background: $sun-ocean-breeze;
-        color: $primary-dark-blue;
-        border: .1875rem solid $neutral-white;
+        background: $rain-cloudy-ocean-blue;
+        color: $rain-text-dark;
+        border: .1875rem solid $rain-frosted-glass;
       }
     }
-    
+
     &__card--results {
-      border: .1875rem solid $sun-icy-blue;
+      border: .1875rem solid $rain-storm-cloud-blue;
     }
-    
+
     &__title--results {
-      color: $sun-text-dark;
-      border: .1875rem solid $sun-silver;
+      color: $rain-text-dark;
+      border: .1875rem solid $rain-slate-gray;
     }
-    
+
     &__lightbulb-icon,
     &__media-icon,
     &__cal-icon,
     &__share-icon,
     &__like-icon,
     &__dislike-icon {
-      color: $sun-white;
-    
+      color: $rain-text-light;
+
       &:hover {
         background: none;
         box-shadow: none;
         border: none;
-        color: $sun-yellow;
+        color: $rain-soft-seafoam;
       }
-    
+
       &:active {
         background: none;
         box-shadow: none;
         border: none;
-        color: $primary-button-blue;
+        color: $rain-foggy-mist-gray;
       }
     }
-    
+
     &__results-section {
       &::before {
-        background: $sun-ocean-breeze;
+        background: $rain-storm-cloud-blue;
         color: $neutral-white;
       }
     }
-    
+
     &__chatbot-svg {
       filter: grayscale(100%) brightness(0.9);
       transition: filter .3s ease, transform .3s ease;
-    
+
       &:hover {
         filter: grayscale(0%) brightness(1);
       }
     }
-    
+
     &__title {
-      border: .1875rem solid $sun-ocean-breeze;
+      border: .1875rem solid $rain-foggy-mist-gray;
     }
-    
+
     &__chat-block {
-      border: .3125rem solid $sun-yellow;
+      border: .3125rem solid $rain-soft-seafoam;
     }
-    
+
     &__messages {
-      background: $sun-frosted-silver;
-      border: .25rem solid $sun-silver;
+      background: $rain-frosted-blue;
+      border: .25rem solid $rain-slate-gray;
     }
-    
+
     &__title {
-      background: $sun-gradient-blue;
+      background: $rain-gradient-sky;
     }
-    
+
     &__scroll-container-results {
       display: flex;
       overflow-x: scroll;
       scrollbar-width: thin;
       -ms-overflow-style: none;
       scroll-behavior: smooth;
-      background: $frosted-glass;
+      background: $rain-frosted-glass;
       width: 100%;
       border-radius: 1.05rem;
-      scrollbar-color: $sun-pale-baby-blue $sun-sunrise-orange;
-    
+      scrollbar-color: $rain-rainy-sky-blue $frosted-glass;
+
       &::-webkit-scrollbar {
         height: .5rem;
-        color: $sun-peach-fuzz;
+        color: $rain-rainy-sky-blue;
       }
-    
+
       &::-webkit-scrollbar-thumb {
-        background-color: $sun-sunrise-sky;
+        background-color: $frosted-glass;
         border-radius: .625rem;
       }
-    
+
       &::-webkit-scrollbar-thumb:hover {
-        background-color: $sun-ocean-breeze;
+        background-color: $rain-rainy-sky-blue;
       }
-    
+
       &::-webkit-scrollbar-track {
-        background-color: $sun-morning-mist-blue;
+        background-color: $rain-rainy-sky-blue;
       }
-    
+
       &::-webkit-scrollbar-corner {
-        background-color: $sun-morning-mist-blue;
+        background-color: $frosted-glass;
       }
     }
     
@@ -1994,26 +1995,26 @@
       animation: glow 4s infinite alternate;
       box-shadow: inset .25rem .25rem .5rem rgba($neutral-black, .2),
         inset -.25rem -.25rem .5rem rgba(255, 255, 255, .7);
-      background: #e0e0e0;
+      background: $rain-frosted-blue;
       transition: all .3s ease;
-      color: $primary-button-blue;
-
+      color: $rain-slate-gray;
+    
       &:hover {
-        background: $sun-ocean-breeze;
+        background: $rain-cloudy-ocean-blue;
         transform: scale(1.05);
-        color: $primary-dark-blue;
-
-        &:active {
-          background: $sun-yellow;
-          color: $neutral-black;
-          box-shadow: inset .375rem .375rem .75rem rgba($neutral-black, .2),
-            inset -.375rem -.375rem .75rem rgba(255, 255, 255, .7);
-          transform: scale(.95);
-        }
+        color: $rain-storm-cloud-blue;
       }
-    }    
+    
+      &:active {
+        background: $rain-wet-grass-green;
+        color: $neutral-black;
+        box-shadow: inset .375rem .375rem .75rem rgba($neutral-black, .2),
+          inset -.375rem -.375rem .75rem rgba(255, 255, 255, .7);
+        transform: scale(.95);
+      }
+    }
   }
-
+    
   #personTooltip,
   #trendingTvTooltip,
   #trendingMoviesTooltip,
@@ -2033,14 +2034,14 @@
   #shareIconTooltip,
   #likeTooltip,
   #dislikeTooltip {
-    background-color: $sun-ocean-breeze;
-    color: $primary-dark-blue;
-
+    background-color: $rain-cloudy-ocean-blue;
+    color: $rain-storm-cloud-blue;
+  
     &::after {
-      border: $primary-button-blue transparent transparent transparent;
+      border: $rain-rain-drop-blue transparent transparent transparent;
     }
   }
-
+    
 // Streamboard 
 .streamboard {
   background: $sun-light-gray;
