@@ -3359,21 +3359,21 @@
     }
   }
 
-  // NextView
+  // NextView Page
   .nextview-page {
-    background: $sun-light-gray;
+    background: $rain-slate-gray;
 
     &__background {
-      filter: grayscale(100%) brightness(0.9);
+      filter: grayscale(100%) brightness(0.8);
       transition: filter 0.3s ease, transform 0.3s ease;
 
       &:hover {
-        filter: grayscale(0%) brightness(1.2);
+        filter: grayscale(0%) brightness(1.1);
       }
     }
 
     &__cast-card {
-      background: $sun-white;
+      background: $rain-frosted-blue;
     }
 
     &__cast-item {
@@ -3385,48 +3385,48 @@
     &__share-button,
     &__thumbs-up,
     &__thumbs-down {
-      color: $sun-sunrise-orange;
-      background-color: $neutral-white;
-      border: .125rem solid $sun-ash-gray;
+      color: $rain-cloudy-ocean-blue;
+      background-color: $rain-soft-seafoam;
+      border: .125rem solid $rain-slate-gray;
 
       &:focus,
       &:hover {
-        background: $neutral-white;
-        color: $sun-text-dark;
-        border: 0.125rem solid $sun-golden-hour;
+        background: $rain-soft-seafoam;
+        color: $rain-text-dark;
+        border: 0.125rem solid $rain-wet-grass-green;
       }
 
       &:active {
-        background: $neutral-white;
-        color: $sun-soft-tangerine;
-        box-shadow: $sun-shadow-primary;
-        border: 0.1875rem solid $sun-soft-tangerine;
+        background: $rain-cool-aqua;
+        color: $rain-text-light;
+        box-shadow: $rain-shadow-primary;
+        border: 0.1875rem solid $rain-cloudy-ocean-blue;
       }
     }
 
     &__nextwatch-icon {
-      color: $sun-sunrise-orange;
+      color: $rain-cloudy-ocean-blue;
     }
 
     &__star-icon,
     &__genre-icon,
     &__media-icon {
-      color: $sun-ocean-breeze;
+      color: $rain-rain-drop-blue;
     }
 
     &__content-container {
-      background: $sun-white;
+      background: $rain-storm-cloud-blue;
     }
 
     &__cast-name,
     &__cast-copy,
     &__streaming-copy {
-      color: $sun-text-dark;
+      color: $neutral-white;
     }
 
     &__poster-container,
     &__cast-img {
-      filter: grayscale(100%) brightness(0.9);
+      filter: grayscale(100%) brightness(0.8);
       transition: filter 0.3s ease, transform 0.3s ease;
 
       &:hover {
@@ -3436,91 +3436,91 @@
 
     &__cast-arrow {
       box-shadow: none;
-      background: $sun-icy-blue;
-      color: $primary-button-blue;
-      border: 0.125rem solid $sun-ocean-breeze;
+      background: $neutral-black;
+      color: $rain-foggy-mist-gray;
+      border: 0.125rem solid $rain-foggy-mist-gray;
 
       &:hover {
-        background: $neutral-white;
-        color: $sun-sunrise-orange;
-        border: 0.125rem solid $sun-sunrise-orange;
+        background: $rain-soft-seafoam;
+        color: $neutral-black;
+        border: 0.125rem solid $neutral-black;
       }
 
       &:active {
-        background: $sun-sunrise-orange;
-        color: $neutral-black;
-        border: 0.125rem solid $sun-light-gray;
+        background: $rain-forest-green;
+        color: $neutral-white;
+        border: 0.125rem solid $neutral-white;
       }
     }
 
     &__cast-scroll {
       &::-webkit-scrollbar {
-        background-color: $sun-light-gray;
+        background-color: $rain-slate-gray;
       }
 
       &::-webkit-scrollbar-thumb {
-        background-color: $sun-yellow;
+        background-color: $rain-cloudy-ocean-blue;
       }
     }
 
     &__no-cast-copy,
     &__cast-character,
     &__no-streaming-services {
-      color: $star-text-gray;
+      color: $neutral-black;
     }
 
     &__rating,
     &__duration {
-      border: .125rem solid $sun-silver;
-      color: $primary-button-blue;
+      border: .125rem solid $rain-slate-gray;
+      color: $rain-cloudy-ocean-blue;
     }
 
     &__genre-item {
-      border: 0.1875rem solid $sun-silver;
+      border: 0.1875rem solid $rain-slate-gray;
       box-shadow: none;
-      color: $primary-button-blue;
+      color: $rain-cloudy-ocean-blue;
     }
 
     &__cast-img-placeholder {
-      color: $sun-yellow;
+      color: $rain-rain-drop-blue;
     }
 
     &__cast-container,
     &__streaming,
     &__details-container {
-      border: 0.3125rem solid $sun-silver;
+      border: 0.3125rem solid $rain-slate-gray;
       box-shadow: none;
     }
 
     &__media-type {
-      border: 0.1875rem solid $sun-silver;
+      border: 0.1875rem solid $rain-slate-gray;
       box-shadow: none;
     }
 
     &__poster-container {
-      border: 0.3125rem solid $sun-silver;
+      border: 0.3125rem solid $rain-slate-gray;
     }
 
     &__heading-container {
-      background: $star-gradient-citrine;
-      border: 0.3125rem solid $sun-silver;
+      background: $rain-gradient-blue-gray;
+      border: 0.3125rem solid $rain-slate-gray;
     }
 
     &__certification {
-      background: $cloud-frosted-white;
-      color: $primary-button-blue;
+      background: $frosted-glass;
+      color: $rain-cloudy-ocean-blue;
       text-shadow: none;
     }
 
     &__description {
-      background: $primary-pale-blue;
-      color: $sun-text-dark;
-      border: .1875rem solid $sun-icy-blue;
+      background: $rain-gradient-sky;
+      color: $neutral-white;
+      border: .1875rem solid $rain-slate-gray;
     }
 
     &__release-date,
     &__title {
-      color: $sun-text-dark;
+      color: $neutral-white;
     }
 
     &__rating,
@@ -3529,12 +3529,12 @@
     }
 
     &__copy {
-      background: $cloud-frosted-white;
-      color: $sun-text-dark;
+      background: $frosted-glass;
+      color: $neutral-white;
     }
 
     &__content {
-      border: 0.3125rem solid $sun-silver;
+      border: 0.3125rem solid $rain-slate-gray;
     }
   }
 
