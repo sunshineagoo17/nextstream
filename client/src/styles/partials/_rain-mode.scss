@@ -2901,8 +2901,8 @@
   // Spotlight
   .spotlight-page {
     &__heading-container {
-      background: $sun-gradient-yellow;
-      border: 0.3125rem solid $sun-text-yellow;
+      background: $rain-gradient-sky;
+      border: 0.3125rem solid $rain-rainy-sky-blue;
     }
 
     &__background {
@@ -2914,8 +2914,13 @@
       }
     }
 
+    &__copy {
+      background: $frosted-glass;
+      color: $neutral-white;
+    }
+
     &__info-txt {
-      color: $sun-text-dark;
+      color: $neutral-white;
     }
 
     &__credit-poster {
@@ -2929,7 +2934,7 @@
 
     &__image-container {
       filter: grayscale(100%) brightness(0.9);
-      border: 0.5rem solid $sun-white;
+      border: 0.5rem solid $rain-soft-seafoam;
       transition: filter 0.3s ease, transform 0.3s ease;
 
       &:hover {
@@ -2938,127 +2943,118 @@
     }
 
     &__filmography-title {
-      color: $sun-silver;
+      color: $rain-slate-gray;
     }
 
     &__personal-info-icon {
-      color: $sun-sunrise-orange;
+      color: $rain-soft-seafoam;
 
       &:hover {
         background: $neutral-white;
-        color: $sun-soft-tangerine;
+        color: $rain-cool-aqua;
       }
     }
 
     &__nav-arrow {
       box-shadow: none;
-      background: $sun-light-gray;
-      color: $sun-sunrise-orange;
-      border: 0.125rem solid $sun-sunrise-orange;
+      background: $rain-dew-drop-gray;
+      color: $rain-foggy-mist-gray;
+      border: 0.125rem solid $rain-foggy-mist-gray;
 
       &:hover {
-        background: $sun-icy-blue;
-        color: $sun-ocean-breeze;
-        border: 0.125rem solid $sun-ocean-breeze;
+        background: $rain-rainy-sky-blue;
+        color: $rain-soft-seafoam;
+        border: 0.125rem solid $rain-cloudy-ocean-blue;
       }
 
       &:active {
-        background: $sun-mellow-apricot;
-        color: $sun-text-dark;
-        border: 0.125rem solid $sun-blushing-orange;
+        background: $rain-evergreen;
+        color: $neutral-white;
+        border: 0.125rem solid $rain-seaweed-green;
       }
     }
 
     &__credits-container {
-      border: 0.1875rem solid $sun-text-yellow;
+      border: 0.1875rem solid $rain-cloudy-ocean-blue;
       scrollbar-width: thin;
-      scrollbar-color: $sun-sunrise-orange $sun-frosted-silver;
+      scrollbar-color: $rain-wet-grass-green $rain-frosted-blue;
 
       /* WebKit Scrollbar Styles */
       &::-webkit-scrollbar {
-        background-color: $sun-frosted-silver;
+        background-color: $rain-frosted-blue;
         height: .75rem;
-        box-shadow: $sun-shadow-primary;
+        box-shadow: $rain-shadow-primary;
       }
 
       &::-webkit-scrollbar-thumb {
-        background-color: $sun-sunrise-orange;
-        box-shadow: $sun-shadow-secondary;
+        background-color: $rain-wet-grass-green;
+        box-shadow: $rain-shadow-secondary;
         border-radius: 1rem;
       }
 
       &::-webkit-scrollbar-track {
-        background-color: $sun-frosted-silver;
-        box-shadow: $sun-shadow-primary;
+        background-color: $rain-frosted-blue;
+        box-shadow: $rain-shadow-primary;
       }
     }
 
     &__filmography-container,
     &__info-container {
-      background: $sun-light-gray;
-      color: $sun-text-dark;
+      background: $rain-dew-drop-gray;
+      color: $neutral-white;
     }
 
     &__text-container,
     &__credits-container {
-      box-shadow: $shadow-senary;
-      background: $sun-silver;
-      border: 0.1875rem solid $sun-silver;
-    }
-
-    &__copy {
-      background: $neutral-white;
-      color: $sun-text-dark;
+      box-shadow: $rain-shadow-secondary;
+      background: $rain-slate-gray;
+      border: 0.1875rem solid $rain-slate-gray;
     }
 
     &__content {
-      background: $sun-light-gray;
-      border: 0.3125rem solid $sun-silver;
+      background: $rain-dew-drop-gray;
+      border: 0.3125rem solid $rain-slate-gray;
     }
 
     &__content-container {
-      border: .3125rem solid $sun-white;
+      border: .3125rem solid $rain-soft-seafoam;
     }
 
     &__person-bio {
-      background: $sun-silver;
-      border: 0.1875rem solid $sun-white;
-      color: $sun-text-dark;
+      background: $rain-slate-gray;
+      border: 0.1875rem solid $rain-storm-cloud-blue;
+      color: $neutral-white;
     }
 
     &__info-txt {
-      color: $sun-text-dark;
+      color: $rain-soft-seafoam;
     }
 
     &__person-name {
-      color: $neutral-black;
+      color: $neutral-white;
     }
 
     &__credit-title {
-      background: $sun-light-gray;
-      color: $neutral-black;
-      border: 0.125rem solid $sun-silver;
-    }
-
-    &__filmography-title {
-      color: $neutral-black;
+      background: $rain-dew-drop-gray;
+      color: $rain-soft-seafoam;
+      border: 0.125rem solid $rain-slate-gray;
     }
 
     &__read-more {
-      color: $sun-sunrise-orange;
+      color: $rain-foggy-mist-gray;
 
       &:focus,
       &:visited,
       &:hover {
         color: $neutral-white;
-        background: $sun-ocean-breeze;
-        border: .0625rem solid $sun-icy-blue;
+        background: $rain-cloudy-ocean-blue;
+        border: .0625rem solid $rain-cool-aqua;
       }
 
       &:active {
-        color: $sun-soft-tangerine;
-        background: $sun-light-gold;
-        border: .125rem solid $sun-soft-tangerine;
+        color: $rain-cool-aqua;
+        background: $rain-forest-green;
+        border: .125rem solid $neutral-white;
       }
     }
   }
