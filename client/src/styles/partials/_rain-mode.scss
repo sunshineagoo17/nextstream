@@ -3121,12 +3121,34 @@
   }
     
   // NextWatch
+  .custom-tooltip {
+    background-color: $rain-soft-seafoam !important;
+    color: $neutral-black !important;
+    text-shadow: none;
+  
+    &::after {
+      border-color: $rain-soft-seafoam transparent transparent transparent;
+    }
+  }
+  
   .nextwatch-page {
     &__similar-card,
     &__recommendations-card,
     &__recommendations-rating,
     &__similar-rating {
       cursor: url('../../assets/cursors/cursor-pointer-rain.svg'), pointer;
+    }
+
+    &__cal-close-btn {
+      &:hover {
+        background-color: $rain-slate-gray;
+        color: $neutral-white;
+      }
+
+      &:active {
+        background-color: $rain-forest-green;
+        color: $neutral-white;
+      }
     }
 
     &__media-title,
@@ -3189,11 +3211,11 @@
     &__similar-arrow {
       border: 0.125rem solid $rain-foggy-mist-gray;
       background: $rain-frosted-blue;
-      color: $rain-foggy-mist-gray;
+      color: $neutral-white;
 
       &:hover {
         border: 0.125rem solid $rain-fern-green;
-        background: $neutral-white;
+        background: $neutral-black;
         color: $rain-fern-green;
       }
 
