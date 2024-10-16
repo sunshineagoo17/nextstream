@@ -5285,32 +5285,32 @@
   align-items: center;
 }
 
-  // Emoji Modal 
+  // Emoji Modal
   .emoji-btn {
-    background: $sun-yellow;
+    background: $rain-rainy-sky-blue;
     color: $neutral-black;
-    border: .125rem solid $neutral-white;
+    border: .125rem solid $rain-soft-seafoam;
 
     &:hover {
-      background: $sun-sunrise-orange;
-      color: $sun-text-dark;
-      border: .125rem solid $sun-soft-lemon;
+      background: $rain-evergreen;
+      color: $neutral-white;
+      border: .125rem solid $rain-wet-grass-green;
     }
 
     &:active {
-      background: $sun-ocean-breeze;
-      color: $sun-text-dark;
-      box-shadow: $sun-shadow-primary;
-      border: .125rem solid $sun-white;
+      background: $rain-dew-drop-gray;
+      color: $neutral-white;
+      box-shadow: $rain-shadow-primary;
+      border: .125rem solid $rain-foggy-mist-gray;
     }
   }
 
   .emoji-picker {
-    background: $sun-ocean-breeze;
+    background: $rain-storm-cloud-blue;
 
     input {
-      background: $sun-frosted-white;
-      color: $sun-text-dark;
+      background: $rain-frosted-glass;
+      color: $rain-text-dark;
     }
   }
 
