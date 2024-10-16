@@ -255,4 +255,32 @@
       }
     }
   }
+
+  // Rain Mode Background
+  &.rain-mode-background {
+    .hover-menu__content {
+      background: $rain-frosted-glass;
+      color: $rain-storm-cloud-blue;
+
+      .hover-menu__item {
+        color: $rain-text-dark;
+
+        &:hover {
+          background: $rain-foggy-mist-gray;
+          border: 0.0625rem solid $rain-soft-seafoam;
+          color: $rain-cool-aqua;
+        }
+
+        &:active {
+          background: $rain-cloudy-ocean-blue;
+          color: $rain-text-light;
+          border: 0.1875rem solid $rain-rain-drop-blue;
+        }
+      }
+
+      .hover-menu__lines span {
+        background-color: $rain-text-dark;
+      }
+    }
+  }
 }

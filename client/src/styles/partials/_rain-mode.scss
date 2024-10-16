@@ -2848,47 +2848,47 @@
   }
 }
 
- // Cookies
-.cookie-notification {
-    background: $primary-pale-blue;
+  // Cookies
+  .cookie-notification {
+    background: $rain-storm-cloud-blue;
 
     &__message {
-      color: $neutral-black;
+      color: $neutral-white;
     }
-  
+
     &__disable-btn,
     &__enable-btn {
-      background: $sun-gradient-yellow;
-      color: $neutral-black;
+      background: $rain-gradient-green;
+      color: $neutral-white;
       border: none;
-  
+
       &:focus,
       &:hover {
-        background: $sun-ocean-breeze;
-        color: $neutral-black;
+        background: $rain-cloudy-ocean-blue;
+        color: $rain-text-light;
         border: none;
         box-shadow: none;
       }
-  
+
       &:active {
-        background: $sun-soft-tangerine;
-        color: $neutral-black;
-        box-shadow: $star-shadow-secondary;
+        background: $rain-rainy-sky-blue;
+        color: $neutral-white;
+        box-shadow: $rain-shadow-secondary;
       }
     }
-  
+
     &__close-btn {
-      color: $sun-sunrise-orange;
-      transition: background-color .3s ease, transform .3s ease;
-  
+      color: $rain-foggy-mist-gray;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+
       &:hover {
-        color: $sun-ocean-breeze;
+        color: $rain-rain-drop-blue;
         transform: scale(1.05);
       }
-  
+
       &:active {
-        color: $sun-soft-tangerine;
-        transform: scale(.95);
+        color: $rain-text-light;
+        transform: scale(0.95);
       }
     }
   }

@@ -55,12 +55,13 @@ const HoverMenu = () => {
       // Added regular expression to match the Spotlight page with dynamic segments
       new RegExp(`^/spotlight/${userId}/\\d+$`).test(location.pathname);
   
-    // Check if cloud, trans, star, sun, or dark mode is enabled
+    // Check if cloud, trans, star, sun, dark, or rain mode is enabled
     const isCloudModeEnabled = document.documentElement.getAttribute('data-theme') === 'cloud-mode'; 
     const isTransModeEnabled = document.documentElement.getAttribute('data-theme') === 'trans-mode'; 
     const isStarModeEnabled = document.documentElement.getAttribute('data-theme') === 'star-mode'; 
     const isSunModeEnabled = document.documentElement.getAttribute('data-theme') === 'sun-mode'; 
     const isDarkModeEnabled = document.documentElement.getAttribute('data-theme') === 'dark';
+    const isRainModeEnabled = document.documentElement.getAttribute('data-theme') === 'rain-mode';
   
     if (isCloudModeEnabled) {
       return 'cloud-mode-background'; 
@@ -76,6 +77,10 @@ const HoverMenu = () => {
 
     if (isSunModeEnabled) {
       return 'sun-mode-background';
+    }
+    
+    if (isRainModeEnabled) {
+      return 'rain-mode-background';
     }
   
     return isDarkBackgroundPage || isDarkModeEnabled ? 'dark-background' : '';
