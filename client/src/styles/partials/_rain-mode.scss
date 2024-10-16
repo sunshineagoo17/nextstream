@@ -2943,7 +2943,7 @@
     }
 
     &__filmography-title {
-      color: $rain-slate-gray;
+      color: $rain-soft-seafoam;
     }
 
     &__personal-info-icon {
@@ -3022,12 +3022,12 @@
 
     &__person-bio {
       background: $rain-slate-gray;
-      border: 0.1875rem solid $rain-storm-cloud-blue;
+      border: 0.1875rem solid $rain-slate-gray;
       color: $neutral-white;
     }
 
     &__info-txt {
-      color: $rain-soft-seafoam;
+      color: $neutral-white;
     }
 
     &__person-name {
@@ -3052,9 +3052,9 @@
       }
 
       &:active {
-        color: $rain-cool-aqua;
+        color: $neutral-white;
         background: $rain-forest-green;
-        border: .125rem solid $neutral-white;
+        border: .125rem solid $rain-wet-grass-green;
       }
     }
   }
