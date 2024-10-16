@@ -1411,98 +1411,98 @@
     }
   }
 
-  // NextSwipe 
+  // NextSwipe Page
   .nextswipe-page {
     &__container {
-      background: $sun-light-gray;
+      background: $rain-dew-drop-gray;
     }
 
     &__title-container {
-      background: $sun-gradient-sunrise;
+      background: $rain-gradient-blue-gray;
     }
 
     &__graphic,
     &__no-more-media-image {
-      filter: grayscale(100%) brightness(0.9);
+      filter: grayscale(100%) brightness(0.8);
       transition: filter 0.3s ease, transform 0.3s ease;
 
       &:hover {
-          filter: grayscale(0%) brightness(1);
+        filter: grayscale(0%) brightness(1.1);
       }
     }
 
     &__calendar-close-btn {
-      background: $sun-sunrise-orange;
+      background: $rain-wet-grass-green;
       color: $neutral-black;
 
       &:hover {
-        color: $sun-soft-tangerine;
-        background: $sun-peach-fuzz;
+        color: $rain-soft-seafoam;
+        background: $rain-cloudy-ocean-blue;
       }
 
       &:active {
-        color: $primary-dark-blue;
-        background: $sun-ocean-breeze;
+        color: $rain-evergreen;
+        background: $rain-cool-aqua;
       }
     }
 
     &__intro,
     &__title {
-      color: $neutral-black;
+      color: $rain-text-dark;
     }
 
     &__background {
       filter: grayscale(100%) brightness(0.8);
       transition: filter 0.3s ease, transform 0.3s ease;
-      
+
       &:hover {
-        filter: grayscale(0%) brightness(1.2);
+        filter: grayscale(0%) brightness(1.1);
       }
     }
 
     &__media-card {
-      background: $sun-frosted-silver;
-      @include rainAnimateBorder;
-      @include rainBorderAnimation;
+      background: $rain-frosted-glass;
+      border: .3125rem solid $rain-neumorph-base;
+      box-shadow: $rain-shadow-primary;
     }
 
     &__nav-button {
-      background-color: rgba($sun-light-gray, .7);
-      color: $sun-sunrise-orange;
+      background-color: rgba($rain-dew-drop-gray, .7);
+      color: $rain-wet-grass-green;
 
       &:hover {
-        background-color: rgba($sun-sunrise-orange, 0.7);
-        color: $sun-text-light;
+        background-color: rgba($rain-wet-grass-green, 0.7);
+        color: $rain-text-light;
       }
 
       &:active {
-        background-color: rgba($sun-white, 0.8);
-        color: $sun-ocean-breeze;
-        border: 0.125rem solid $sun-ocean-breeze;
+        background-color: rgba($rain-frosted-blue, 0.8);
+        color: $rain-cloudy-ocean-blue;
+        border: 0.125rem solid $rain-cloudy-ocean-blue;
         box-shadow: none;
       }
     }
 
     &__calendar-button {
-      border: 0.0625rem solid $sun-light-gray;
-      background: $sun-gradient-yellow;
-      color: $neutral-black;
-      box-shadow: $sun-shadow-primary;
+      border: 0.0625rem solid $rain-neumorph-base;
+      background: $rain-gradient-green;
+      color: $rain-text-dark;
+      box-shadow: $rain-shadow-primary;
       font-size: 0.85rem;
       border-radius: 1rem;
       display: flex;
       justify-content: center;
       align-items: center;
       transition: transform 0.3s ease-in-out;
-      
+
       &:focus,
       &:hover {
-        background: $sun-sunrise-orange;
-        color: $sun-text-dark;
-        border: 0.0625rem solid $sun-yellow;
+        background: $rain-wet-grass-green;
+        color: $rain-text-light;
+        border: 0.0625rem solid $rain-cloudy-ocean-blue;
         transform: scale(1.03);
       }
-      
+
       &::before {
         content: "";
         position: absolute;
@@ -1511,22 +1511,22 @@
         background: linear-gradient(to left, transparent, rgba(255, 255, 255, 0.2), transparent);
         transition: right 0.5s;
       }
-      
+
       &:hover::before {
         right: 100%;
       }
-      
+
       &:active {
         transform: scale(0.95);
-        background: $sun-ocean-breeze;
-        color: $primary-dark-blue;
-        border: 0.0625rem solid $sun-icy-blue;
+        background: $rain-cool-aqua;
+        color: $rain-evergreen;
+        border: 0.0625rem solid $rain-cloudy-ocean-blue;
       }
-      
+
       svg {
         margin-right: 0.5rem;
-        color: $sun-text-dark;
-        border: 0.125rem solid $sun-blushing-orange;
+        color: $rain-text-dark;
+        border: 0.125rem solid $rain-evergreen;
         padding: 0.15rem;
         border-radius: 0.5rem;
       }
@@ -1534,31 +1534,31 @@
   }
 
   .circle-rating-container {
-    filter: grayscale(100%) brightness(0.9);
-      transition: filter 0.3s ease, transform 0.3s ease;
+    filter: grayscale(100%) brightness(0.8);
+    transition: filter 0.3s ease, transform 0.3s ease;
 
     &:hover {
-        filter: grayscale(0%) brightness(1);
+      filter: grayscale(0%) brightness(1.1);
     }
   }
 
   .details-tooltip {
-    background: $sun-ocean-breeze !important;
-    color: $primary-dark-blue !important;
+    background: $rain-cool-aqua !important;
+    color: $rain-evergreen !important;
 
     &::after {
-      border-color: $sun-ocean-breeze !important;
+      border-color: $rain-cool-aqua !important;
     }
   }
 
   .tooltip-text {
-    background: $sun-ocean-breeze !important;
-    color: $primary-dark-blue !important;
+    background: $rain-cool-aqua !important;
+    color: $rain-evergreen !important;
     position: absolute;
-    bottom: 100%; 
+    bottom: 100%;
     left: 50%;
     margin-left: -3.75rem;
-  
+
     &::after {
       content: '';
       position: absolute;
@@ -1567,56 +1567,56 @@
       margin-left: -.3125rem;
       border-width: .3125rem;
       border-style: solid;
-      border-color: $sun-ocean-breeze transparent transparent transparent;
+      border-color: $rain-cool-aqua transparent transparent transparent;
     }
   }
-  
+
   .media-card {
-    background: $sun-white;
+    background: $rain-soft-seafoam;
 
     &__details {
-      background: $sun-white;
+      background: $rain-soft-seafoam;
       border-bottom-left-radius: .5rem;
       border-bottom-right-radius: .5rem;
     }
 
     &__image {
-      background: $sun-white;
+      background: $rain-soft-seafoam;
     }
 
     &__type-icon,
     &__lightbulb-icon,
     &__share-icon {
       background: none;
-      color: $sun-ash-gray;
+      color: $rain-slate-gray;
 
       &:hover {
-        color: $sun-sunrise-orange;
-        background: $sun-white;
+        color: $rain-wet-grass-green;
+        background: $rain-frosted-blue;
       }
 
       &:active {
-        color: $sun-icy-blue;
-        background: $sun-ocean-breeze;
+        color: $rain-cool-aqua;
+        background: $rain-cloudy-ocean-blue;
         border: none;
       }
     }
 
     &__overview,
     &__title {
-      color: $sun-text-dark;
+      color: $rain-text-dark;
     }
 
     &__image {
       filter: grayscale(100%) brightness(0.8);
       transition: filter 0.3s ease, transform 0.3s ease;
-      
+
       &:hover {
-        filter: grayscale(0%) brightness(1.2);
+        filter: grayscale(0%) brightness(1.1);
       }
     }
   }
-  
+
   // NextStream GPT
   .nextstream-gpt {
     background: $rain-dew-drop-gray;
@@ -3411,7 +3411,7 @@
     &__star-icon,
     &__genre-icon,
     &__media-icon {
-      color: $rain-rain-drop-blue;
+      color: $rain-cloudy-ocean-blue;
     }
 
     &__content-container {
@@ -3466,19 +3466,19 @@
     &__no-cast-copy,
     &__cast-character,
     &__no-streaming-services {
-      color: $neutral-black;
+      color: $neutral-white;
     }
 
     &__rating,
     &__duration {
       border: .125rem solid $rain-slate-gray;
-      color: $rain-cloudy-ocean-blue;
+      color: $rain-rain-drop-blue;
     }
 
     &__genre-item {
       border: 0.1875rem solid $rain-slate-gray;
       box-shadow: none;
-      color: $rain-cloudy-ocean-blue;
+      color: $rain-rain-drop-blue;
     }
 
     &__cast-img-placeholder {
@@ -3508,7 +3508,7 @@
 
     &__certification {
       background: $frosted-glass;
-      color: $rain-cloudy-ocean-blue;
+      color: $rain-rain-drop-blue;
       text-shadow: none;
     }
 
