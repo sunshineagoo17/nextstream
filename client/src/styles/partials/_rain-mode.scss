@@ -4256,7 +4256,7 @@
     &__background {
       filter: grayscale(100%) brightness(0.9);
       transition: filter 0.3s ease, transform 0.3s ease;
-      
+
       &:hover {
         filter: grayscale(0%) brightness(1.2);
       }
@@ -4266,7 +4266,7 @@
       border: none;
       filter: grayscale(100%) brightness(0.9);
       transition: filter 0.3s ease, transform 0.3s ease;
-      
+
       &:hover {
         filter: grayscale(0%) brightness(1.2);
       }
@@ -4275,43 +4275,43 @@
     &__no-data-img {
       filter: grayscale(100%) brightness(0.9);
       transition: filter 0.3s ease, transform 0.3s ease;
-      
+
       &:hover {
         filter: grayscale(0%) brightness(1.2);
       }
     }
 
     &__content-card {
-      background: $sun-white;
+      background: $rain-storm-cloud-blue;
+    }
+
+    &__text--bottom,
+    &__text--top {
+      color: $rain-rain-drop-blue;
     }
 
     &__no-results-copy,
     &__intro,
     &__title {
-      color: $sun-text-dark;
-    }
-
-    &__text--bottom,
-    &__text--top {
-      color: $neutral-black;
+      color: $neutral-white;
     }
 
     &__card-media-container {
-      background: $sun-icy-blue;
+      background: $rain-rainy-sky-blue;
     }
 
     &__media-icon {
       color: $neutral-white;
-      background: $sun-ocean-breeze;
+      background: $rain-cloudy-ocean-blue;
 
       &:hover {
-        background: $sun-white;
-        color: $sun-sunrise-orange;
+        background: $rain-soft-seafoam;
+        color: $neutral-white;
       }
 
       &:active {
-        background: $sun-sunrise-orange;
-        color: $sun-white;
+        background: $neutral-black;
+        color: $rain-soft-seafoam;
       }
     }
 
@@ -4326,23 +4326,23 @@
 
     &__link {
       cursor: url(../../assets/cursors/cursor-pointer-rain.svg), pointer;
-      border: 0.125rem solid $sun-text-dark;
+      border: 0.125rem solid $rain-text-dark;
       border-radius: 1rem;
-      color: $sun-text-dark;
+      color: $rain-text-dark;
     }
 
     &__page-nav-wrapper {
-      background-color: $sun-light-gray;
-      border: 0.15rem solid $sun-silver;
+      background-color: $rain-dew-drop-gray;
+      border: 0.15rem solid $rain-slate-gray;
 
       &:hover {
-        background: $sun-sunrise-orange;
+        background: $rain-cloudy-ocean-blue;
         border: none;
       }
 
       &:active {
-        background: $sun-ocean-breeze;
-        border: 0.15rem solid $sun-ocean-breeze;
+        background: $rain-rain-drop-blue;
+        border: 0.15rem solid $rain-rain-drop-blue;
       }
     }
 
@@ -4352,53 +4352,53 @@
     }
 
     &__pagination-circle {
-      border: 0.125rem solid $sun-golden-hour;
-      background: $neutral-white;
+      border: 0.125rem solid $rain-evergreen;
+      background: $rain-dew-drop-gray;
 
       &.active {
-        background-color: $sun-sunrise-orange;
-        box-shadow: 0 0 0.25rem $sun-yellow;
+        background-color: $rain-wet-grass-green;
+        box-shadow: 0 0 0.25rem $rain-cloudy-ocean-blue;
       }
     }
 
     &__error-no-img-title {
       box-shadow: none;
-      color: $sun-text-dark;
-      border: 0.0625rem solid $sun-silver;
+      color: $rain-text-dark;
+      border: 0.0625rem solid $rain-dew-drop-gray;
 
       &:hover {
-        color: $sun-ash-gray;
+        color: $rain-slate-gray;
       }
 
       &:active {
-        background: $sun-icy-blue;
-        color: $primary-button-blue;
+        background: $rain-rainy-sky-blue;
+        color: $rain-cloudy-ocean-blue;
       }
     }
 
     &__card {
-      background: $sun-gradient-sunrise;
+      background: $rain-gradient-sky;
       cursor: url(../../assets/cursors/cursor-pointer-rain.svg), pointer;
-      color: $sun-golden-hour;
+      color: $rain-wet-grass-green;
     }
 
     &__login-link,
     &__register-link {
-      color: $sun-soft-tangerine;
+      color: $rain-rain-drop-blue;
       text-decoration: none;
-      border: 0.0625rem solid $sun-sunrise-orange;
+      border: 0.0625rem solid $rain-cloudy-ocean-blue;
 
       &:hover,
       &:focus,
       &:visited {
-        background-color: $sun-yellow;
-        border: 0.0625rem solid $sun-white;
-        color: $sun-text-dark;
-      
+        background-color: $rain-soft-seafoam;
+        border: 0.0625rem solid $neutral-white;
+        color: $rain-text-dark;
+
         &:active {
-          background: $sun-icy-blue;
-          color: $primary-dark-blue;
-          border: 0.125rem solid $sun-icy-blue;
+          background: $rain-rainy-sky-blue;
+          color: $rain-cloudy-ocean-blue;
+          border: 0.125rem solid $rain-rainy-sky-blue;
         }
       }
     }
