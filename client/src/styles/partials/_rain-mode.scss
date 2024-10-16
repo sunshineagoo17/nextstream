@@ -3418,10 +3418,13 @@
       background: $rain-storm-cloud-blue;
     }
 
-    &__cast-name,
     &__cast-copy,
     &__streaming-copy {
       color: $neutral-white;
+    }
+
+    &__cast-name {
+      color: $neutral-black;
     }
 
     &__poster-container,
