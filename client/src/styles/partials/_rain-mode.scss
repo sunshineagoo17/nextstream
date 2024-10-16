@@ -4384,7 +4384,7 @@
 
     &__login-link,
     &__register-link {
-      color: $rain-rain-drop-blue;
+      color: $neutral-white;
       text-decoration: none;
       border: 0.0625rem solid $rain-cloudy-ocean-blue;
 
@@ -4397,8 +4397,8 @@
 
         &:active {
           background: $rain-rainy-sky-blue;
-          color: $rain-cloudy-ocean-blue;
-          border: 0.125rem solid $rain-rainy-sky-blue;
+          color: $neutral-white;
+          border: 0.125rem solid $neutral-white;
         }
       }
     }
