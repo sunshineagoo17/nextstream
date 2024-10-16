@@ -1081,331 +1081,335 @@
       }
   }
   
-// Login and Register
-.register,
-.login {
-    background: $sun-light-gray;
+  // Login and Register
+  .register,
+  .login {
+    background: $rain-dew-drop-gray;
 
     &__title {
-        color: $neutral-black;
+      color: $neutral-white;
     }
 
     &__container {
-        background: $sun-white;
+      background: $rain-gradient-blue-gray;
     }
 
     &__image-card {
-        display: none;
+      display: none;
 
-        @include tablet {
+      @include tablet {
         height: auto;
         border-radius: 1.25rem;
-        box-shadow: $sun-shadow-secondary;
+        box-shadow: $rain-shadow-secondary;
         display: flex;
         justify-content: center;
         align-items: center;
         max-width: 25rem;
         width: 100%;
-        border: 0.25rem solid $sun-silver;
-        }
+        border: 0.25rem solid $rain-slate-gray;
+      }
 
-        img {
-            filter: grayscale(100%) brightness(0.9);
-            transition: filter 0.3s ease, transform 0.3s ease;
+      img {
+        filter: grayscale(100%) brightness(0.9);
+        transition: filter 0.3s ease, transform 0.3s ease;
 
-            &:hover {
-                filter: grayscale(0%) brightness(1);
-            }
+        &:hover {
+          filter: grayscale(0%) brightness(1);
         }
+      }
     }
 
     &__content-card {
-        background-color: rgba($sun-silver, 0.85);
-        border: 0.125rem solid $sun-light-gray;
-        border-radius: 0.85rem;
-        box-shadow: $sun-shadow-primary;
-        @include sunAnimateBorder;
-        @include sunBorderAnimation;
+      background-color: rgba($rain-slate-gray, 0.85);
+      border: 0.125rem solid $rain-dew-drop-gray;
+      border-radius: 0.85rem;
+      box-shadow: $rain-shadow-primary;
+      @include rainAnimateBorder;
+      @include rainBorderAnimation;
     }
 
     &__forgot-password-link {
-        color: $cloud-text-dark;
-        padding-left: 0.25rem;
-        padding-right: 0.25rem;
-        border: 0.0938rem solid $neutral-white;
-        background: none;
+      color: $rain-foggy-mist-gray;
+      padding-left: 0.25rem;
+      padding-right: 0.25rem;
+      border: 0.0938rem solid $rain-foggy-mist-gray;
+      background: none;
 
-        &:hover,
-        &:focus {
-            background-color: $sun-gradient-lemon;
-            border: 0.0938rem solid $sun-golden-hour;
-            color: $neutral-black;
-            text-decoration: none;
-            box-shadow: $sun-shadow-primary;
-        }
+      &:hover,
+      &:focus {
+        background-color: $rain-gradient-green;
+        border: 0.0938rem solid $rain-evergreen;
+        color: $neutral-white;
+        text-decoration: none;
+        box-shadow: $rain-shadow-primary;
+      }
 
-        &:active {
-            background-color: $sun-gradient-sunrise;
-            color: $primary-dark-blue;
-            border: 0.125rem solid $sun-light-gray;
-            border-radius: 0.25rem;
-            transform: scale(0.9);
-            text-decoration: none;
-            font-weight: bold;
-        }
+      &:active {
+        background-color: $rain-gradient-moss;
+        color: $rain-soft-seafoam;
+        border: 0.125rem solid $rain-dew-drop-gray;
+        border-radius: 0.25rem;
+        transform: scale(0.9);
+        text-decoration: none;
+        font-weight: bold;
+      }
     }
 
     &__password-toggle-icon {
-        color: $sun-ash-gray;
+      color: $rain-slate-gray;
 
-        &:hover {
-            color: $sun-sunrise-orange;
-        }
+      &:hover {
+        color: $rain-cloudy-ocean-blue;
+      }
 
-        &:active {
-            color: $sun-ocean-breeze;
-        }
+      &:active {
+        color: $neutral-white;
+      }
     }
 
     &__remember-txt {
-        color: $cloud-text-dark;
+      color: $rain-foggy-mist-gray;
     }
 
     &__button--previous {
-        &:hover {
-            background: $sun-gradient-yellow;
-            border: 0.0625rem solid $neutral-white;
-            color: $neutral-black;
-        }
+      &:hover {
+        background: $rain-gradient-sky;
+        border: 0.0625rem solid $neutral-white;
+        color: $neutral-black;
+      }
 
-        &:active {
-          background: $sun-ocean-breeze;
-          color: $primary-dark-blue;
-        }
+      &:active {
+        background: $rain-cool-aqua;
+        color: $primary-dark-blue;
+      }
 
-        &::before {
-            @include block-item(200%, 100%);
-            content: "";
-            position: absolute;
-            top: 0;
-            right: -100%;
-            background: linear-gradient(to left, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: right 0.5s;
-        }
+      &::before {
+        @include block-item(200%, 100%);
+        content: "";
+        position: absolute;
+        top: 0;
+        right: -100%;
+        background: linear-gradient(to left, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: right 0.5s;
+      }
 
-        &:hover::before {
-            right: 100%;
-            color: $neutral-black;
-        }
+      &:hover::before {
+        right: 100%;
+        color: $neutral-black;
+      }
     }
 
     &__button--signup,
     &__button--signin {
-        @include block-item(6.8119rem, 3.5rem);
-        background: $star-gradient-iridescent;
+      @include block-item(6.8119rem, 3.5rem);
+      background: $rain-gradient-blue-gray;
+      color: $neutral-black;
+      box-shadow: $rain-shadow-primary;
+      position: relative;
+      overflow: hidden;
+      font-size: 0.85rem;
+
+      @include tablet {
+        @include block-item(9rem, 4.5rem);
+        font-size: 1rem;
+      }
+
+      &:hover {
+        background: $rain-cool-aqua;
+        border: none;
         color: $neutral-black;
-        box-shadow: $sun-shadow-primary;
-        position: relative;
-        overflow: hidden;
-        font-size: 0.85rem;
+      }
 
-        @include tablet {
-            @include block-item(9rem, 4.5rem);
-            font-size: 1rem;
-        }
+      &::before {
+        @include block-item(200%, 100%);
+        content: "";
+        position: absolute;
+        top: 0;
+        right: -100%;
+        background: linear-gradient(to left, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: right 0.5s;
+      }
 
-        &:hover {
-            background: $sun-ocean-breeze;
-            border: none;
-            color: $neutral-black;
-        }
+      &:hover::before {
+        right: 100%;
+      }
 
-        &::before {
-            @include block-item(200%, 100%);
-            content: "";
-            position: absolute;
-            top: 0;
-            right: -100%;
-            background: linear-gradient(to left, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: right 0.5s;
-        }
-
-        &:hover::before {
-            right: 100%;
-        }
-
-        &:active {
-          background: $sun-white;
-          color: $sun-ocean-breeze;
-        }
+      &:active {
+        background: $rain-soft-seafoam;
+        color: $rain-cloudy-ocean-blue;
+      }
     }
 
     &__btn-create-account {
-        background: linear-gradient(120deg, $sun-yellow, $sun-sunrise-orange);
-        border: 0.125rem solid $sun-light-gray;
-        border-radius: 0.3125rem;
+      background: linear-gradient(120deg, $rain-cloudy-ocean-blue, $rain-wet-grass-green);
+      border: 0.125rem solid $rain-dew-drop-gray;
+      border-radius: 0.3125rem;
+      color: $neutral-white;
+      padding: 0.625rem 2.5rem;
+      font-size: 0.65rem;
+      text-shadow: none;
+      margin-top: 1rem;
+      line-height: 0.85rem;
+      transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: $rain-shadow-secondary;
+
+      &:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0.375rem 0.5rem rgba($neutral-black, 0.15);
+        border: none;
         color: $neutral-black;
-        padding: 0.625rem 2.5rem;
-        font-size: 0.65rem;
-        text-shadow: none;
-        margin-top: 1rem;
-        line-height: 0.85rem;
-        transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-        box-shadow: $sun-shadow-secondary;
+        background: linear-gradient(60deg, $rain-rain-drop-blue, $rain-cloudy-ocean-blue);
+      }
 
-        &:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0.375rem 0.5rem rgba($neutral-black, 0.15);
-            border: none;
-            color: $neutral-black;
-            background: linear-gradient(60deg, $sun-ocean-breeze, $sun-sunrise-sky);
-        }
+      &:active {
+        transform: scale(0.95);
+        color: $neutral-black;
+        box-shadow: 0 0.125rem 0.25rem rgba($rain-dew-drop-gray, 0.2);
+        background: $rain-soft-seafoam;
+        border: none;
+      }
 
-        &:active {
-            transform: scale(0.95);
-            color: $neutral-black;
-            box-shadow: 0 0.125rem 0.25rem rgba($sun-light-gray, 0.2);
-            background: $sun-white;
-            border: none;
-        }
+      &:focus {
+        outline: none;
+        box-shadow: $rain-shadow-primary;
+      }
 
-        &:focus {
-            outline: none;
-            box-shadow: $sun-shadow-primary;
-        }
-
-        @include tablet {
-            padding: 0.625rem 1rem;
-            font-size: 0.85rem;
-        }
+      @include tablet {
+        padding: 0.625rem 1rem;
+        font-size: 0.85rem;
+      }
     }
 
     &__oauth-btn-google,
     &__social-button--google,
     &__guest-link {
-        background: linear-gradient(45deg, $sun-silver, $sun-light-gray);
-        color: $neutral-black;
+      background: linear-gradient(45deg, $rain-frosted-blue, $rain-soft-seafoam);
+      color: $neutral-black;
 
-        &:hover {
-            background: linear-gradient(45deg, $sun-golden-hour, $sun-sunrise-orange);
-            color: $neutral-black;
-            text-shadow: none;
-        }
+      &:hover {
+        background: linear-gradient(45deg, $rain-evergreen, $rain-forest-green);
+        color: $neutral-white;
+        text-shadow: none;
+      }
 
-        &:active {
-            background: $sun-ocean-breeze;
-            color: $sun-white;
-            box-shadow: none;
-        }
+      &:active {
+        background: $rain-cool-aqua;
+        color: $neutral-white;
+        font-weight: normal;
+        box-shadow: none;
+      }
     }
 
     &__input {
-      border: 0.125rem solid $sun-silver;
-      box-shadow: $sun-shadow-primary;
-      background: $sun-light-gray;
+      border: 0.125rem solid $rain-slate-gray;
+      box-shadow: $rain-shadow-primary;
+      background: $rain-dew-drop-gray;
       color: $neutral-black;
-    
+
       &:active {
         box-shadow: none;
-        background: $sun-white;
-        color: $neutral-black;
+        background: $rain-slate-gray;
+        color: $rain-foggy-mist-gray;
       }
-    
+
       &:-webkit-autofill {
-        box-shadow: 0 0 0px 1000px $sun-light-gray inset;
+        box-shadow: 0 0 0px 1000px $rain-dew-drop-gray inset;
         -webkit-text-fill-color: $neutral-black;
         transition: background-color 5000s ease-in-out 0s;
       }
-    
+
       &:enabled:valid {
         box-shadow: none;
-        background: $sun-white;
-        color: $neutral-black;
+        background: $rain-storm-cloud-blue;
+        color: $neutral-white;
       }
-    
+
       &:focus,
       &:not(:placeholder-shown) {
-        background: $sun-silver;
-        color: $neutral-black;
+        background: $rain-slate-gray;
+        color: $rain-foggy-mist-gray;
         box-shadow: none;
-    
+
         & + .register__label,
         & + .login__label {
-          background: $sun-white;
-          border: 0.125rem solid $sun-light-gray;
-          color: $cloud-stormy-blue;
+          background: $rain-rainy-sky-blue;
+          border: 0.125rem solid $rain-dew-drop-gray;
+          color: $neutral-white;
         }
-    
+
         &::placeholder {
-          color: $sun-ash-gray;
+          color: $rain-slate-gray;
         }
       }
-    
+
       &:not(:focus):placeholder-shown {
         &::placeholder {
           color: transparent;
         }
       }
-    }    
+    }
 
     &__label {
-        background: $sun-light-gray;
-        color: $neutral-black;
+      background: $rain-dew-drop-gray;
+      color: $neutral-white;
     }
 
     &__account-available,
     &__guest-text,
     &__terms-txt {
-        color: $star-charcoal;
+      color: $rain-foggy-mist-gray;
     }
 
     &__terms-link,
     &__signin-link,
     &__guest-signin-link {
-        color: $sun-soft-tangerine;
-        font-weight: bold;
+      color: $neutral-white;
+      font-weight: normal;
+      transition: background-color .3s, transform .3s;
 
-        &:visited,
-        &:focus,
-        &:hover {
-            font-weight: normal;
-            background: $sun-gradient-yellow;
-            color: $neutral-black;
-            border: 0.0625rem solid $neutral-white;
-        }
+      &:visited,
+      &:focus,
+      &:hover {
+        font-weight: normal;
+        background: $rain-gradient-blue-gray;
+        color: $neutral-white;
+        border: 0.0625rem solid $neutral-white;
+        transform: scale(1.05);
+      }
 
-        &:active {
-            background: $sun-pale-baby-blue;
-            color: $neutral-black;
-        }
+      &:active {
+        background: $rain-soft-seafoam;
+        color: $neutral-black;
+        transform: scale(.9);
+      }
     }
-}
+  }
 
-.register {
-    background: $sun-light-gray;
+  .register {
+    background: $rain-dew-drop-gray;
 
     &__hero {
-        background: $sun-light-gray;
+      background: $rain-dew-drop-gray;
     }
 
     &__button--previous {
+      color: $neutral-black;
+
+      &:hover {
         color: $neutral-black;
-
-        &:hover {
-            color: $neutral-black;
-            .register__button-icon {
-                color: $neutral-black; 
-            }
+        .register__button-icon {
+          color: $neutral-black;
         }
+      }
 
-        &:active {
-            color: $neutral-black;
-            .register__button-icon {
-                color: $neutral-black; 
-            }
+      &:active {
+        color: $neutral-black;
+        .register__button-icon {
+          color: $neutral-black;
         }
+      }
     }
-}
+  }
 
   // NextSwipe 
   .nextswipe-page {
@@ -1458,8 +1462,8 @@
 
     &__media-card {
       background: $sun-frosted-silver;
-      @include sunAnimateBorder;
-      @include sunBorderAnimation;
+      @include rainAnimateBorder;
+      @include rainBorderAnimation;
     }
 
     &__nav-button {
