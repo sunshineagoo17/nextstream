@@ -4077,7 +4077,7 @@
   }
 }
 
-  // Auth Search Results 
+  // Auth Search Results
   .auth-search-results {
 
     &__pagination-circles {
@@ -4104,17 +4104,17 @@
     }
 
     &__content-card {
-      border: .375rem solid $sun-ocean-breeze;
-      background: $sun-white;
+      border: .375rem solid $rain-rain-drop-blue;
+      background: $rain-slate-gray;
     }
 
     &__card {
-      background: $sun-gradient-sunrise;
-      border: .0625rem solid $sun-light-gray;
+      background: $rain-gradient-sky;
+      border: .0625rem solid $rain-dew-drop-gray;
     }
 
     &__no-providers {
-      background: $primary-button-blue;
+      background: $rain-cool-aqua;
     }
 
     &__streaming-services,
@@ -4142,31 +4142,31 @@
 
     &__intro,
     &__title {
-      color: $sun-text-dark;
+      color: $neutral-white;
     }
 
     &__chevron-icon {
-      color: $sun-silver;
+      color: $rain-slate-gray;
     }
 
     &__page-nav-wrapper {
-      background-color: $sun-light-gray;
-      border: .15rem solid $sun-ash-gray;
+      background-color: $rain-foggy-mist-gray;
+      border: .15rem solid $rain-slate-gray;
 
       &:hover {
-        background: $sun-sunrise-orange;
-        border: .15rem solid $sun-yellow;
+        background: $rain-cloudy-ocean-blue;
+        border: .15rem solid $rain-rain-drop-blue;
       }
 
       &:active {
-        background: $sun-ocean-breeze;
-        border: .15rem solid $sun-ocean-breeze;
+        background: $rain-rain-drop-blue;
+        border: .15rem solid $rain-rain-drop-blue;
       }
     }
 
     &__error-no-img-title {
       color: $neutral-black;
-      border: .0625rem solid $sun-light-gray;
+      border: .0625rem solid $rain-dew-drop-gray;
     }
 
     &__error-no-img-txt {
@@ -4175,28 +4175,40 @@
 
     &__no-image {
       box-shadow: none;
-      border: .125rem solid $sun-light-gray;
+      border: .125rem solid $rain-dew-drop-gray;
+    }
+
+    &__cal-close-btn {
+      &:hover {
+        background-color: $rain-slate-gray;
+        color: $neutral-white;
+      }
+
+      &:active {
+        background-color: $rain-forest-green;
+        color: $neutral-white;
+      }
     }
 
     &__thumbs-up,
     &__thumbs-down,
     &__share-icon {
       box-shadow: none;
-      color: $sun-sunrise-orange;
-      background: $sun-white;
-      border: .125rem solid $sun-light-gray;
+      color: $rain-cloudy-ocean-blue;
+      background: $rain-soft-seafoam;
+      border: .125rem solid $rain-cloudy-ocean-blue;
 
       &:focus,
       &:hover {
-        background: $sun-sunrise-orange;
-        color: $sun-text-dark;
+        background: $rain-cloudy-ocean-blue;
+        color: $rain-text-dark;
         border: none;
         box-shadow: none;
       }
 
       &:active {
-        background: $neutral-white;
-        color: $sun-ocean-breeze;
+        background: $neutral-black;
+        color: $rain-rain-drop-blue;
         border: none;
         box-shadow: none;
       }
@@ -4204,41 +4216,41 @@
 
     &__calendar-button,
     &__media-icon {
-      color: $sun-ocean-breeze;
+      color: $rain-rain-drop-blue;
       background: $neutral-white;
 
       &:focus,
       &:hover {
-        color: $sun-text-dark;
-        background: $sun-yellow;
+        color: $neutral-white;
+        background: $rain-forest-green;
       }
 
       &:active {
         background: $neutral-black;
-        color: $sun-yellow;
+        color: $rain-wet-grass-green;
       }
     }
 
     &__next-icon,
     &__previous-icon {
-      color: $sun-text-dark;
+      color: $rain-text-dark;
     }
 
     &__pagination-circle {
-      border: .125rem solid $sun-sunrise-orange;
-      background: rgba($sun-light-gray, .7);
+      border: .125rem solid $rain-soft-seafoam;
+      background: rgba($rain-dew-drop-gray, .7);
 
       &.active {
-        background-color: $sun-yellow;
-        box-shadow: 0 0 .25rem $sun-sunrise-orange;
+        background-color: $rain-cool-aqua;
+        box-shadow: 0 0 .25rem $rain-cloudy-ocean-blue;
       }
     }
 
     &__card-media-container {
-      background: $sun-frosted-silver;
+      background: $rain-frosted-blue;
     }
   }
-  
+
   // Search Results
   .search-results {
     &__background {
