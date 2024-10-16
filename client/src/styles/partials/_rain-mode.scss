@@ -5729,39 +5729,39 @@
       .add-to-cal {
         &__link {
           &--google {
-            background: $rain-gradient-blue-gray;
+            background: $rain-gradient-blue-gray !important;
             color: $neutral-white;
             transition: transform .3s ease, background .3s ease, color .3s ease;
 
             &:hover {
-              background: $neutral-black;
-              color: $rain-rain-drop-blue;
+              background: $neutral-black !important;
+              color: $rain-rain-drop-blue !important;
               transform: scale(1.05);
             }
 
             &:active {
-              background: $rain-gradient-green;
-              color: $neutral-white;
-              border: .125rem solid $rain-evergreen;
+              background: $rain-gradient-green !important;
+              color: $neutral-white !important;
+              border: .125rem solid $rain-evergreen !important;
               transform: scale(.95);
             }
           }
 
           &--apple {
-            background: $rain-gradient-blue-gray;
+            background: $rain-gradient-blue-gray !important;
             color: $neutral-white;
             transition: transform .3s ease, background .3s ease, color .3s ease;
 
             &:hover {
-              background: $neutral-black;
-              color: $rain-rain-drop-blue;
+              background: $neutral-black !important;
+              color: $rain-rain-drop-blue !important;
               transform: scale(1.05);
             }
 
             &:active {
-              background: $rain-gradient-green;
-              color: $neutral-white;
-              border: .125rem solid $rain-evergreen;
+              background: $rain-gradient-green !important;
+              color: $neutral-white !important;
+              border: .125rem solid $rain-evergreen !important;
               transform: scale(.95);
             }
           }
