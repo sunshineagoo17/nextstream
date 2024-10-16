@@ -3131,95 +3131,95 @@
 
     &__media-title,
     &__recommendations-title {
-      color: $sun-text-dark;
+      color: $rain-text-dark;
     }
 
     &__duration,
     &__rating,
     &__genre-item,
     &__title {
-      color: $sun-ocean-breeze;
+      color: $rain-cloudy-ocean-blue;
     }
 
     &__certification {
-      background: $sun-light-gray;
-      color: $sun-text-dark;
+      background: $rain-dew-drop-gray;
+      color: $rain-text-dark;
     }
 
     &__description {
-      color: $sun-text-dark;
-      background: $sun-silver;
-      border: .1875rem solid $sun-light-gray;
+      color: $neutral-white;
+      background: $rain-slate-gray;
+      border: .1875rem solid $rain-dew-drop-gray;
     }
 
     &__media-copy {
-      background: $sun-frosted-silver;
-      box-shadow: $sun-shadow-primary;
+      background: $rain-frosted-blue;
+      box-shadow: $rain-shadow-primary;
     }
 
     &__similar-scroll {
       scrollbar-width: thin;
-      scrollbar-color: $sun-golden-hour $sun-ash-gray;
-      
+      scrollbar-color: $rain-cool-aqua $rain-slate-gray;
+
       &::-webkit-scrollbar {
-        background-color: $sun-ash-gray;
+        background-color: $rain-slate-gray;
       }
-      
+
       &::-webkit-scrollbar-thumb {
-        background-color: $sun-golden-hour;
+        background-color: $rain-cool-aqua;
       }
     }
 
     &__recommendations-scroll {
       scrollbar-width: thin;
-      scrollbar-color: $sun-golden-hour $sun-ash-gray;
+      scrollbar-color: $rain-cool-aqua $rain-slate-gray;
 
       &::-webkit-scrollbar {
         height: 0.375rem;
-        background-color: $sun-ash-gray;
+        background-color: $rain-slate-gray;
       }
 
       &::-webkit-scrollbar-thumb {
-        background-color: $sun-golden-hour;
+        background-color: $rain-cool-aqua;
         border-radius: 0.5rem;
       }
     }
 
     &__recommendations-arrow,
     &__similar-arrow {
-      border: 0.125rem solid $sun-sunrise-orange;
-      background: $sun-frosted-silver;
-      color: $sun-sunrise-orange;
+      border: 0.125rem solid $rain-foggy-mist-gray;
+      background: $rain-frosted-blue;
+      color: $rain-foggy-mist-gray;
 
       &:hover {
-        border: 0.125rem solid $sun-soft-tangerine;
-        background: $sun-white;
-        color: $sun-sunrise-orange;
+        border: 0.125rem solid $rain-fern-green;
+        background: $neutral-white;
+        color: $rain-fern-green;
       }
 
       &:active {
-        border: 0.125rem solid $neutral-black;
-        background: $sun-frosted-silver;
-        color: $neutral-black;
+        border: 0.125rem solid $rain-soft-seafoam;
+        background: $neutral-black;
+        color: $rain-soft-seafoam;
       }
     }
 
     &__similar-name,
     &__recommendations-name {
-      color: $sun-text-dark;
+      color: $neutral-white;
     }
 
     &__similar-rating,
     &__recommendations-rating {
-      color: $sun-sunrise-orange;
+      color: $rain-soft-seafoam;
     }
 
     &__genre-item,
     &__duration,
     &__rating {
-      background: $sun-light-gray;
-      color: $primary-button-blue;
-      border: .125rem solid $sun-silver;
+      background: $rain-dew-drop-gray;
+      color: $rain-soft-seafoam;
+      border: .125rem solid $rain-slate-gray;
     }
 
     &__media-type,
@@ -3227,43 +3227,43 @@
     &__share-button,
     &__thumbs-up,
     &__thumbs-down {
-      background: $sun-yellow;
+      background: $rain-soft-seafoam;
       color: $neutral-black;
       transition: transform 0.3s ease, background 0.3s ease;
 
       &:hover {
-        background: $sun-sunrise-orange;
+        background: $rain-forest-green;
         transform: scale(1.05);
-        color: $sun-white;
-        border: 0.125rem solid $sun-yellow;
+        color: $neutral-white;
+        border: 0.125rem solid $rain-seaweed-green;
       }
 
       &:active {
         transform: scale(0.95);
-        background: $sun-white;
-        color: $sun-soft-tangerine;
-        border: 0.1875rem solid $sun-golden-hour;
+        background: $neutral-black;
+        color: $rain-cool-aqua;
+        border: 0.1875rem solid $rain-cloudy-ocean-blue;
       }
     }
 
     &__star-rating-icon {
-      color: $sun-sunrise-orange;
+      color: $rain-rain-drop-blue;
     }
 
     &__star-icon,
     &__genre-icon {
-      color: $sun-ocean-breeze;
+      color: $rain-rain-drop-blue;
     }
 
     &__similar-media-icon,
     &__recommendations-icon {
-      color: $sun-text-dark;
+      color: $rain-text-dark;
     }
 
     &__heading-container {
-      background: $sun-frosted-silver;
-      background: $sun-gradient-yellow;
-      border: .3125rem solid $sun-silver;
+      background: $rain-frosted-blue;
+      background: $rain-gradient-sky;
+      border: .3125rem solid $rain-slate-gray;
     }
 
     &__poster-container,
@@ -3273,63 +3273,64 @@
     &__similar-img {
       filter: grayscale(100%) brightness(0.8);
       transition: filter 0.3s ease, transform 0.3s ease;
-      
+
       &:hover {
         filter: grayscale(0%) brightness(1.2);
       }
     }
 
     &__certification {
-      background: $sun-frosted-silver;
+      background: $frosted-glass;
+      color: $rain-soft-seafoam
     }
 
     &__header {
-      color: $neutral-black;
+      color: $neutral-white;
     }
 
     &__poster-container {
-      border: .3125rem solid $sun-light-gray;
+      border: .3125rem solid $rain-dew-drop-gray;
     }
 
     &__similar-copy-container,
     &__recommendations-copy-container {
-      background: $sun-white;
+      background: $rain-slate-gray;
     }
 
     &__copy {
-      color: $neutral-black;
-      background: $sun-light-gray;
-      box-shadow: $sun-shadow-primary;
+      color: $neutral-white;
+      background: $frosted-glass;
+      box-shadow: $rain-shadow-primary;
     }
 
     &__similar-container,
     &__recommendations-container {
-      background: $sun-white;
+      background: $rain-storm-cloud-blue;
     }
 
     &__content-container {
-      border: .3125rem solid $sun-light-gray;
+      border: .3125rem solid $rain-dew-drop-gray;
     }
 
     &__title {
-      color: $neutral-black;
+      color: $neutral-white;
     }
 
     &__content {
-      background: $sun-white;
+      background: $rain-storm-cloud-blue;
     }
 
     &__similar-container,
     &__recommendations-container,
     &__details-container,
     &__content {
-      border: 0.3125rem solid $sun-silver;
+      border: 0.3125rem solid $rain-slate-gray;
     }
 
     &__background {
       filter: grayscale(100%) brightness(0.8);
       transition: filter 0.3s ease, transform 0.3s ease;
-      
+
       &:hover {
         filter: grayscale(0%) brightness(1.2);
       }
@@ -3515,7 +3516,7 @@
     }
   }
 
-// Faves Page (Sun Mode Added)
+// Faves Page 
 .faves-page {
   &__title {
     background: $sun-white;
