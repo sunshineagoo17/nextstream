@@ -625,6 +625,10 @@
       color: $rain-text-light;
     }
 
+    &__messages {
+      background: $neutral-black;
+    }
+
     &__container--friends-cards {
       background: $rain-neumorph-shadow-light;
     }
@@ -635,6 +639,10 @@
 
     &__container--chat {
       background: $rain-neumorph-shadow-light;
+    }
+
+    &__pending-calendar__pending-item {
+      background: $frosted-glass;
     }
 
     &__chat,
@@ -670,7 +678,7 @@
       &:hover {
         background: none;
         border: none;
-        color: $rain-wet-grass-green;
+        color: $rain-foggy-mist-gray;
       }
 
       &:active {
@@ -725,7 +733,7 @@
     }
 
     &__avatar-default {
-      color: $rain-foggy-mist-gray;
+      color: $rain-rainy-sky-blue;
     }
 
     &__delete-invite-btn,
@@ -814,17 +822,17 @@
 
     &__decline-friend {
       background: $neutral-black;
-      color: $rain-foggy-mist-gray;
+      color: $neutral-white;
       transition: background .3s ease, transform .2s ease;
 
       &:hover {
-        background: $rain-forest-green;
-        color: $neutral-white;
+        background: $rain-rainy-sky-blue;
+        color: $rain-text-light;
         transform: scale(1.05);
       }
 
       &:active {
-        background: $rain-cloudy-ocean-blue;
+        background: $rain-slate-gray;
         color: $neutral-white;
         transform: scale(.95);
       }
@@ -846,7 +854,7 @@
 
       &:active {
         color: $neutral-white;
-        background: $rain-cloudy-ocean-blue;
+        background: $rain-storm-cloud-blue;
       }
     }
 
@@ -888,8 +896,8 @@
     }
 
     &__delete-invite {
-      background: $rain-dew-drop-gray !important;
-      color: $rain-text-dark !important;
+      background: $neutral-black !important;
+      color: $neutral-white !important;
       transition: background .3s ease, transform .2s ease;
 
       &:hover {
@@ -898,14 +906,14 @@
       }
 
       &:active {
-        background: $rain-cloudy-ocean-blue !important;
-        color: $rain-text-dark !important;
+        background: $rain-slate-gray !important;
+        color: $neutral-white !important;
       }
     }
 
     &__accept-invite {
       background: $rain-wet-grass-green !important;
-      color: $rain-text-dark !important;
+      color: $neutral-white !important;
 
       &:hover {
         background: $rain-cloudy-ocean-blue !important;
@@ -919,8 +927,8 @@
     }
 
     &__accept-friend {
-      background: $rain-wet-grass-green;
-      color: $rain-text-light;
+      background: $rain-wet-grass-green !important;
+      color: $neutral-white;
       transition: transform .3s ease, box-shadow .3s ease, background-color .3s ease;
 
       &:hover {
@@ -930,12 +938,12 @@
 
       &:active {
         background: $rain-rainy-sky-blue;
-        color: $rain-text-dark;
+        color: $neutral-white;
       }
     }
 
     &__friend-requests-actions {
-      background: $rain-frosted-glass;
+      background: none;
     }
 
     &__pending-item {
@@ -944,14 +952,14 @@
 
     &__username--search {
       background: $rain-dew-drop-gray;
-      color: $rain-text-dark;
+      color: $rain-foggy-mist-gray;
       text-shadow: none;
       font-weight: normal;
     }
 
     &__add-friend {
       background: $rain-wet-grass-green;
-      color: $rain-text-dark;
+      color: $neutral-white;
       transition: background .3s ease, transform .3s ease;
 
       &:hover {
@@ -962,7 +970,8 @@
       &:focus,
       &:active {
         animation: rainRippleOut .8s forwards;
-        color: $rain-soft-seafoam;
+        background: $rain-rainy-sky-blue;
+        color: $rain-text-light;
       }
     }
 
@@ -1047,7 +1056,7 @@
     }
 
     &__pending-count {
-      background: $rain-foggy-mist-gray;
+      background: $rain-rainy-sky-blue;
       color: $neutral-white;
       border: .0625rem solid $neutral-white;
     }
@@ -1061,21 +1070,21 @@
   }
 
   .voice-message-friends__voice-button {
-    background: $rain-wet-grass-green;
+    background: $rain-rainy-sky-blue;
     color: $neutral-white;
-    border: .125rem solid $neutral-white;
+    border: .125rem solid $rain-soft-seafoam;
 
       &:hover {
-        background: $rain-cloudy-ocean-blue;
-        color: $rain-text-light;
-        border: .125rem solid $rain-soft-seafoam;
+        background: $rain-forest-green;
+        color: $neutral-white;
+        border: .125rem solid $rain-wet-grass-green;
       }
 
       &:active {
-        background: $rain-cool-aqua;
-        color: $rain-text-dark;
+        background: $rain-dew-drop-gray;
+        color: $neutral-white;
         box-shadow: $rain-shadow-primary;
-        border: .125rem solid $rain-soft-seafoam;
+        border: .125rem solid $rain-foggy-mist-gray;
       }
   }
 
@@ -5322,7 +5331,7 @@
   // Emoji Modal
   .emoji-btn {
     background: $rain-rainy-sky-blue;
-    color: $neutral-black;
+    color: $neutral-white;
     border: .125rem solid $rain-soft-seafoam;
 
     &:hover {
