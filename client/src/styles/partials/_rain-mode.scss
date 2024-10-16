@@ -283,7 +283,7 @@
       content: url('../../assets/images/logo-brand-mark-gray.svg');
   
       &:hover {
-        content: url('../../assets/images/logo-brand-mark-dark.svg');
+        content: url('../../assets/images/logo-brand-mark-rain.svg');
       }
     }
 
@@ -612,403 +612,429 @@
     }
   }
 
-  // Friends List  
+  // Friends List
   .friends-page {
-    background: $cloud-frosted-white;
-  
+    background: $rain-slate-gray;
+
     &__heading-container {
-      background: linear-gradient(145deg, $sun-icy-blue, darken($sun-ocean-breeze, 15%));
-      border: .3125rem solid $sun-white;
+      background: linear-gradient(145deg, $rain-rainy-sky-blue, darken($rain-storm-cloud-blue, 15%));
+      border: .3125rem solid $rain-soft-seafoam;
     }
-  
+
     &__header {
-      color: $neutral-white;
+      color: $rain-text-light;
     }
 
     &__container--friends-cards {
-      background: $primary-pale-blue;
+      background: $rain-neumorph-shadow-light;
     }
 
     &__container--bottom {
-      background: $sun-icy-blue;
+      background: $rain-neumorph-shadow-light;
     }
 
     &__container--chat {
-      background: $sun-morning-mist-blue;
+      background: $rain-neumorph-shadow-light;
     }
-    
+
     &__chat,
     &__pending-calendar,
+    &__search-section {
+      background: $rain-slate-gray;
+    }
+
     &__shared-calendar,
-    &__search-section,
-    &__pending-section,
+    &__pending-section {
+      background: $rain-dew-drop-gray;
+    }
+
     &__list {
-      background: $cloud-frosted-white;
+      background: $rain-storm-cloud-blue;
     }
 
     &__copy {
-      background: $sun-frosted-white;
-      color: $sun-text-dark;
+      background: $frosted-glass;
+      color: $neutral-white;
     }
-  
+
     &__calendar-info {
       p {
-        color: $sun-text-dark;
+        color: $neutral-white;
       }
     }
-  
+
     &__clear-friends-search {
-      color: $sun-sunrise-orange;
+      color: $rain-cloudy-ocean-blue;
       background: none;
 
       &:hover {
         background: none;
         border: none;
-        color: $sun-yellow;
+        color: $rain-wet-grass-green;
       }
 
       &:active {
-        color: $sun-ocean-breeze;
+        color: $rain-soft-seafoam;
         background: none;
         border: none;
       }
     }
-  
+
     &__shared-count {
-      background: $sun-icy-blue;
-      color: $primary-dark-blue;
+      background: $rain-rainy-sky-blue;
+      color: $neutral-white;
       border: .0625rem solid $neutral-white;
     }
-  
+
     &__video-container {
-      background: linear-gradient(145deg, $sun-icy-blue, darken($primary-pale-blue, 15%));
+      background: linear-gradient(145deg, $rain-rainy-sky-blue, darken($rain-foggy-mist-gray, 15%));
       filter: grayscale(100%);
       transition: filter .3s ease, transform .3s ease;
-  
+
       &:hover {
-        filter: grayscale(0%) brightness(1);
+        filter: grayscale(0%) brightness(1.1);
       }
     }
-  
+
     &__no-shared-cal-txt,
     &__card-subtitle--shared,
     &__card-subtitle--pendingrequests,
     &__no-pending-cal-txt {
-      color: $neutral-black;
+      color: $neutral-white;
     }
-  
-    &__search-button {
-      background: $sun-yellow;
-      color: $neutral-black;
-  
-      &:hover {
-        background: $sun-soft-lemon;
-        color: $neutral-black;
+
+    &__search {
+      &::placeholder {
+        color: $rain-foggy-mist-gray;
       }
-  
-      &:active {
-        background: $sun-ocean-breeze;
+    }
+
+    &__search-button {
+      background: $rain-wet-grass-green;
+      color: $rain-text-light;
+
+      &:hover {
+        background: $rain-soft-seafoam;
         color: $primary-dark-blue;
       }
+
+      &:active {
+        background: $rain-cloudy-ocean-blue;
+        color: $neutral-white;
+      }
     }
-  
+
     &__avatar-default {
-      color: $sun-ocean-breeze;
+      color: $rain-foggy-mist-gray;
     }
-  
+
     &__delete-invite-btn,
     &__remove-friend {
-      background: $sun-light-gray;
-      color: $sun-text-dark;
-  
+      background: $neutral-black;
+      color: $neutral-white;
+
       &:hover {
-        background: $sun-yellow;
-        color: $sun-text-dark;
+        background: $rain-forest-green;
+        color: $neutral-white;
       }
 
       &:active {
-        background: $sun-icy-blue;
-        color: $primary-dark-blue;
+        background: $rain-rainy-sky-blue;
+        color: $neutral-white;
       }
     }
-  
+
     &__cal-icon-container {
-      background: $sun-yellow;
-      color: $sun-text-dark;
+      background: $rain-wet-grass-green;
+      color: $neutral-white;
       border: none;
-      box-shadow: 0 5px 15px rgba($sun-ocean-breeze, 0.4) !important;
+      box-shadow: 0 5px 15px rgba($rain-cloudy-ocean-blue, 0.4) !important;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-  
+
       &:hover {
-        background: $sun-sunrise-orange;
-        color: $neutral-black;
-        border: .1875rem solid $sun-frosted-gold;
+        background: $rain-cloudy-ocean-blue;
+        color: $rain-text-light;
+        border: .1875rem solid $rain-frosted-green;
       }
 
       &:active {
-        background: $sun-ocean-breeze;
-        color: $primary-dark-blue;
+        background: $rain-cool-aqua;
+        color: $rain-text-dark;
       }
     }
-  
+
     &__close-icon,
     &__close-cal-txt {
-      color: $sun-text-dark;
+      color: $neutral-white;
     }
-  
+
     &__close-btn {
-      background: $sun-ocean-breeze;
-      color: $primary-dark-blue;
+      background: $rain-cloudy-ocean-blue;
+      color: $rain-text-light;
       border: none;
-  
+
       &:hover {
-        background: $sun-golden-hour;
+        background: $rain-forest-green;
       }
-  
+
       &:active {
-        background: $sun-icy-blue;
+        background: $rain-rainy-sky-blue;
       }
     }
-  
+
     &__chat-close {
-      background: $sun-golden-hour;
-      color: $sun-text-dark;
+      background: $rain-forest-green;
+      color: $neutral-white;
+      border: none;
+      box-shadow: none;
       transition: background .3s ease, transform .3s ease-in-out;
-  
+
       &:hover {
-        background: $sun-text-dark;
-        color: $sun-golden-hour;
-        transform: scale(1.05);
-      }
-  
-      &:active {
         background: $neutral-white;
-        color: $sun-ocean-breeze;
-        transform: scale(.95);
-      }
-    }
-  
-    &__username--pending {
-      background: $sun-light-gray;
-      color: $neutral-black;
-      border: .125rem solid $sun-silver;
-    }
-  
-    &__decline-friend {
-      background: $sun-light-gray;
-      color: $sun-text-dark;
-      transition: background .3s ease, transform .2s ease;
-  
-      &:hover {
-        background: $sun-yellow;
-        color: $neutral-black;
+        color: $rain-frosted-green;
+        border: none;
+        box-shadow: none;
         transform: scale(1.05);
       }
-  
+
       &:active {
-        background: $sun-ocean-breeze;
-        color: $primary-dark-blue;
+        background: $rain-foggy-mist-gray;
+        border: none;
+        box-shadow: none;
+        color: $neutral-black;
         transform: scale(.95);
       }
     }
-  
+
+    &__username--pending {
+      background: $rain-dew-drop-gray;
+      color: $rain-text-light;
+      border: .125rem solid $rain-slate-gray;
+    }
+
+    &__decline-friend {
+      background: $neutral-black;
+      color: $rain-foggy-mist-gray;
+      transition: background .3s ease, transform .2s ease;
+
+      &:hover {
+        background: $rain-forest-green;
+        color: $neutral-white;
+        transform: scale(1.05);
+      }
+
+      &:active {
+        background: $rain-cloudy-ocean-blue;
+        color: $neutral-white;
+        transform: scale(.95);
+      }
+    }
+
+    &__search-results {
+      color: $neutral-white;
+    }
+
     &__delete-icon {
       color: $neutral-white;
       transition: background-color .3s ease, transform .5s ease;
-  
+
       &:focus,
       &:hover {
-        color: $sun-yellow;
-        background: $sun-text-dark;
+        color: $neutral-white;
+        background: $rain-forest-green;
       }
-  
+
       &:active {
-        color: $sun-white;
-        background: $sun-text-dark;
+        color: $neutral-white;
+        background: $rain-cloudy-ocean-blue;
       }
     }
-  
+
     &__message {
       &.me {
         &.unread {
           opacity: 1;
           font-weight: bold;
-          background: $star-deep-topaz;
-          color: $neutral-black;
-          border: .125rem solid $sun-light-gray;
+          background: $rain-seaweed-green;
+          color: $neutral-white;
+          border: .125rem solid $rain-dew-drop-gray;
         }
-  
+
         &.read {
           opacity: .9;
-          border: .0625rem solid $sun-light-gray;
-          background: $sun-yellow;
-          color: $neutral-black;
+          border: .0625rem solid $rain-dew-drop-gray;
+          background: $rain-cloudy-ocean-blue;
+          color: $neutral-white;
         }
       }
-  
+
       &.sender {
         &.unread {
           opacity: 1;
           font-weight: bold;
-          color: $sun-text-dark;
-          background: $sun-ocean-breeze;
-          border: .125rem solid $sun-light-gray;
-          box-shadow: $sun-shadow-primary;
+          color: $neutral-white;
+          background: $rain-cloudy-ocean-blue;
+          border: .125rem solid $rain-dew-drop-gray;
+          box-shadow: $rain-shadow-primary;
         }
-  
+
         &.read {
           opacity: .9;
-          background: $sun-icy-blue;
-          color: $sun-text-dark;
-          border: .0625rem solid $sun-silver;
+          background: $rain-rainy-sky-blue;
+          color: $neutral-white;
+          border: .0625rem solid $rain-slate-gray;
         }
       }
     }
-  
+
     &__delete-invite {
-      background: $sun-light-gray !important;
-      color: $neutral-black !important;
+      background: $rain-dew-drop-gray !important;
+      color: $rain-text-dark !important;
       transition: background .3s ease, transform .2s ease;
-  
+
       &:hover {
-        background: $sun-icy-blue !important;
-        color: $primary-dark-blue !important;
+        background: $rain-rainy-sky-blue !important;
+        color: $rain-text-light !important;
       }
 
       &:active {
-        background: $sun-ocean-breeze !important;
-        color: $primary-dark-blue !important;
+        background: $rain-cloudy-ocean-blue !important;
+        color: $rain-text-dark !important;
       }
     }
-  
+
     &__accept-invite {
-      background: $sun-golden-hour !important;
-      color: $sun-text-dark !important;
-  
+      background: $rain-wet-grass-green !important;
+      color: $rain-text-dark !important;
+
       &:hover {
-        background: $sun-sunrise-orange !important;
-        color: $neutral-black !important;
+        background: $rain-cloudy-ocean-blue !important;
+        color: $rain-text-light !important;
       }
 
       &:active {
-        background: $sun-icy-blue !important;
-        color: $primary-dark-blue !important;
+        background: $rain-rainy-sky-blue !important;
+        color: $rain-text-light !important;
       }
     }
-  
+
     &__accept-friend {
-      background: $sun-golden-hour;
-      color: $neutral-black;
+      background: $rain-wet-grass-green;
+      color: $rain-text-light;
       transition: transform .3s ease, box-shadow .3s ease, background-color .3s ease;
-  
+
       &:hover {
-        background: $sun-yellow;
-        color: $sun-text-dark;
+        background: $rain-cloudy-ocean-blue;
+        color: $rain-text-light;
       }
 
       &:active {
-        background: $sun-icy-blue;
-        color: $primary-dark-blue;
+        background: $rain-rainy-sky-blue;
+        color: $rain-text-dark;
       }
     }
 
     &__friend-requests-actions {
-      background: $frosted-glass;
+      background: $rain-frosted-glass;
     }
-  
+
     &__pending-item {
-      background: $sun-light-gray;
+      background: $rain-dew-drop-gray;
     }
-  
+
     &__username--search {
-      background: $sun-light-gray;
-      color: $neutral-black;
+      background: $rain-dew-drop-gray;
+      color: $rain-text-dark;
       text-shadow: none;
       font-weight: normal;
     }
-  
+
     &__add-friend {
-      background: $sun-yellow;
-      color: $sun-text-dark;
+      background: $rain-wet-grass-green;
+      color: $rain-text-dark;
       transition: background .3s ease, transform .3s ease;
-  
+
       &:hover {
-        background: $sun-ocean-breeze;
-        color: $primary-dark-blue;
+        background: $rain-cloudy-ocean-blue;
+        color: $rain-text-light;
       }
-  
+
       &:focus,
       &:active {
-        animation: sunmodeRippleOut .8s forwards;
-        color: $sun-sunrise-orange;
+        animation: rainRippleOut .8s forwards;
+        color: $rain-soft-seafoam;
       }
     }
-  
-    @keyframes sunmodeRippleOut {
+
+    @keyframes rainRippleOut {
       0% {
         box-shadow: 0 0 0 0 rgba(255, 255, 255, .5);
       }
       100% {
-        box-shadow: 0 0 .9375rem .3125rem rgba($sun-yellow, .6);
-        color: $sun-sunrise-orange;
-        background: $sun-white;
-        border: .125rem solid $sun-yellow;
+        box-shadow: 0 0 .9375rem .3125rem rgba($rain-soft-seafoam, .6);
+        color: $rain-cloudy-ocean-blue;
+        background: $rain-soft-seafoam;
+        border: .125rem solid $rain-cloudy-ocean-blue;
       }
     }
-  
+
+    &__msg-placeholder {
+      color: $neutral-white;
+    }
+
     &__clear-btn,
     &__send-btn {
-      background: $sun-soft-lemon;
-      color: $sun-text-dark;
+      background: $rain-soft-seafoam;
+      color: $rain-text-dark;
       transition: background .3s ease, transform .3s ease-in-out;
-  
+
       &:hover {
-        background: $sun-yellow;
-        color: $neutral-black;
+        background: $rain-slate-gray;
+        color: $neutral-white;
         transform: scale(1.05);
       }
-  
+
       &:active {
-        background: $sun-text-dark !important;
-        color: $sun-sunrise-orange !important;
+        background: $rain-text-dark !important;
+        color: $rain-cloudy-ocean-blue !important;
         transform: scale(.95);
       }
     }
-  
+
     &__message-input {
-      background: $sun-frosted-silver;
+      background: $rain-storm-cloud-blue;
     }
-  
+
     &__no-msgs,
     &__chat-header-title {
-      color: $neutral-black;
+      color: $neutral-white;
     }
-  
+
     &__chat-button {
-      background: $sun-yellow;
-      color: $sun-text-dark;
-  
+      background: $rain-wet-grass-green;
+      color: $neutral-white;
+
       &:hover {
-        background: $sun-ocean-breeze;
-        color: $primary-dark-blue;
+        background: $rain-cloudy-ocean-blue;
+        color: $rain-text-light;
       }
-  
+
       &:active {
-        background: $frosted-glass;
-        color: $primary-dark-blue;
+        background: $rain-frosted-glass;
+        color: $rain-text-dark;
       }
     }
 
     &__bell-icon {
-      color: $sun-ocean-breeze;
+      color: $rain-foggy-mist-gray;
     }
 
     &__unread-msg-count {
-      background: $sun-ocean-breeze;
-      color: $primary-dark-blue;
+      background: $rain-foggy-mist-gray;
+      color: $neutral-white;
       border: .0625rem solid $neutral-white;
     }
-  
+
     &__user-info,
     &__empty-friends-list,
     &__label,
@@ -1017,70 +1043,42 @@
     &__card-subtitle--friends,
     &__card-subtitle--search,
     &__no-users-txt {
-      color: $neutral-black;
+      color: $neutral-white;
     }
-  
-    &__chat {
-      background: $neutral-white;
-    }
-  
-    &__search-section {
-      background: $neutral-white;
-    }
-  
-    &__pending-section {
-      background: $sun-silver;
-    }
-  
-    &__list {
-      background: $star-text-dark;
-    }
-  
-    &__pending-calendar {
-      background: $neutral-white;
-    }
-  
-    &__shared-calendar {
-      background: $sun-silver;
-    }
-  
-    &__pending-calendar__pending-item {
-      background: $frosted-glass;
-    }
-  
+
     &__pending-count {
-      background: $sun-icy-blue;
-      color: $primary-dark-blue;
+      background: $rain-foggy-mist-gray;
+      color: $neutral-white;
       border: .0625rem solid $neutral-white;
     }
-  
+
     &__calendar-info {
-      color: $neutral-black !important;
+      color: $neutral-white !important;
       strong {
-        color: $neutral-black !important;
+        color: $neutral-white !important;
       }
     }
   }
-  
+
   .voice-message-friends__voice-button {
-    background: $sun-yellow;
-    color: $neutral-black;
+    background: $rain-wet-grass-green;
+    color: $neutral-white;
     border: .125rem solid $neutral-white;
-  
+
       &:hover {
-        background: $sun-sunrise-orange;
-        color: $sun-text-dark;
-        border: .125rem solid $sun-soft-lemon;
+        background: $rain-cloudy-ocean-blue;
+        color: $rain-text-light;
+        border: .125rem solid $rain-soft-seafoam;
       }
-  
+
       &:active {
-        background: $sun-ocean-breeze;
-        color: $sun-text-dark;
-        box-shadow: $sun-shadow-primary;
-        border: .125rem solid $sun-white;
+        background: $rain-cool-aqua;
+        color: $rain-text-dark;
+        box-shadow: $rain-shadow-primary;
+        border: .125rem solid $rain-soft-seafoam;
       }
   }
-  
+
   // Login and Register
   .register,
   .login {
