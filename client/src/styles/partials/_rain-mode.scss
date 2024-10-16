@@ -4903,60 +4903,65 @@
     }
   }
   
-
 // Contact Us Modal
 .modal-forgot-password,
 .modal-contact {
-  background: rgba($sun-ash-gray, 0.85);
+  background: rgba($rain-dew-drop-gray, 0.85);
 
   &__container {
-    background: $sun-frosted-silver;
+    background: $rain-frosted-blue;
   }
 
   &__reset,
   &__submit-text,
   &__close {
-    background: $sun-light-gold;
-    color: $neutral-black;
+    background: $rain-rainy-sky-blue;
+    color: $rain-text-light;
 
     &:focus,
     &:hover {
-      background: $sun-light-gray;
-      color: $sun-text-dark;
+      background: $rain-midnight-storm-gray;
+      color: $neutral-white;
     }
 
     &:active {
-      background: $sun-white;
-      color: $sun-golden-hour;
+      background: $rain-soft-seafoam;
+      color: $neutral-black;
     }
   }
 
   &__reset,
   &__submit-text {
+    &:hover {
+      color: $neutral-white;
+    }
+
     &:active {
       border: none;
-      background: $sun-yellow;
-      color: $neutral-black;
+      background: $rain-rain-drop-blue;
+      color: $rain-text-dark;
     }
   }
 
   &__input,
   &__txtarea {
+    background: $frosted-glass;
+
     &:focus {
-      color: $neutral-black;
-      background-color: $sun-light-gray;
-      box-shadow: $sun-shadow-primary;
+      color: $rain-text-dark;
+      background-color: $rain-foggy-mist-gray;
+      box-shadow: $rain-shadow-primary;
       border-radius: 0.5rem;
-      border: 0.125rem solid $sun-silver;
+      border: 0.125rem solid $rain-slate-gray;
     }
 
     &:active {
-      background-color: $sun-silver;
-      color: $neutral-white;
+      background-color: $rain-slate-gray;
+      color: $rain-text-light;
     }
 
     &:not(:focus) {
-      color: $sun-ash-gray; 
+      color: $rain-foggy-mist-gray; 
     }
   }
 
@@ -4965,12 +4970,12 @@
   &__label-txt,
   &__label-txtarea,
   &__label-txtarea-txt {
-    background: $sun-silver;
-    border: 0.1875rem solid $sun-ash-gray;
+    background: $rain-dew-drop-gray;
+    border: 0.1875rem solid $rain-slate-gray;
   }
 
   &__label-container {
-    background: $sun-light-gray;
+    background: $rain-foggy-mist-gray;
   }
 
   &__label {
@@ -4980,7 +4985,7 @@
 
   &__label-txtarea-txt,
   &__label-txt {
-    color: $cloud-text-dark;
+    color: $neutral-white;
     box-shadow: none;
   }
 }
