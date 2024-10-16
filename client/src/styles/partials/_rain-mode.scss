@@ -2357,11 +2357,11 @@
   #friendTooltip,
   #calTooltip,
   #trashTooltip {
-    background-color: $rain-cloudy-ocean-blue;
-    color: $rain-text-dark;
+    background-color: $sun-ocean-breeze;
+    color: $primary-dark-blue;
   
     &::after {
-      border: $rain-rain-drop-blue transparent transparent transparent;
+      border: $primary-button-blue transparent transparent transparent;
     }
   }
   
@@ -3525,368 +3525,367 @@
     }
   }
 
-// Faves Page 
-.faves-page {
-  &__title {
-    background: $sun-white;
-    color: $sun-text-dark;
-  }
-
-  &__calendar-close-btn {
-    background: $sun-sunrise-orange;
-    color: $neutral-black;
-
-    &:hover {
-      color: $sun-soft-tangerine;
-      background: $sun-peach-fuzz;
+  .faves-page {
+    &__title {
+      background: $rain-foggy-mist-gray;
+      color: $rain-text-dark;
     }
-
-    &:active {
-      color: $primary-dark-blue;
-      background: $sun-ocean-breeze;
+  
+    &__calendar-close-btn {
+      background: $rain-wet-grass-green;
+      color: $rain-text-light;
+  
+      &:hover {
+        color: $rain-soft-seafoam;
+        background: $rain-mossy-green;
+      }
+  
+      &:active {
+        color: $rain-rain-drop-blue;
+        background: $rain-storm-cloud-blue;
+      }
     }
-  }
-
-  &__heart-icon {
-    box-shadow: none;
-    background: $sun-light-gray;
-    color: $sun-yellow;
-    border: .25rem solid $sun-icy-blue;
-  }
-
-  &__search-bar-container {
-    background: $sun-frosted-silver;
-  }
-
-  &__filter-card-title {
-    color: $sun-text-dark;
-  }
-
-  &__filter-card {
-    background: $primary-pale-blue;
-
-    &:active {
-      border-color: $sun-silver;
-    }
-  }
-
-  &__filter-label {
-    border: .0325rem solid $sun-white;
-    border-bottom: .15rem solid $sun-white;
-  }
-
-  &__label-featured {
-    background: $sun-yellow;
-    color: $neutral-black;
-  }
-
-  &__label-audiences {
-    background: $sun-mellow-apricot;
-    color: $neutral-black;
-  }
-
-  &__label-cultural {
-    background: $sun-sunrise-orange;
-    color: $neutral-black;
-  }
-
-  &__label-genres {
-    background: $primary-very-light-blue;
-    color: $neutral-black;
-  }
-
-  &__filter-icon {
-    background: $neutral-white;
-    color: $sun-sunrise-orange;
-
-    &:hover {
-      background: $sun-golden-hour;
-      color: $sun-text-dark;
-    }
-
-    &:active {
-      color: $sun-ocean-breeze;
-      background: $primary-pale-blue;
-    }
-  }
-
-  &__content {
-    background: $sun-white;
-    box-shadow: none;
-    border: .125rem solid $sun-yellow;
-
-    @include tablet {
-      border: .3rem solid $sun-yellow;
-    }
-  }
-
-  &__clear-icon,
-  &__magnifying-glass-icon {
-    color: $sun-text-dark;
-
-    &:hover {
-      color: $sun-golden-hour;
-    }
-
-    &:active {
-      color: $sun-ocean-breeze;
-    }
-  }
-
-  &__copy-container {
-    background: $sun-frosted-silver;
-    border: .3125rem solid $sun-silver;
-  }
-
-  &__copy,
-  &__copy-header {
-    color: $sun-text-dark;
-  }
-
-  &__filters-container {
-    background: $sun-white;
-    border: .3125rem solid $sun-silver;
-    box-shadow: none;
-  }
-
-  &__svg-text {
-    color: $sun-text-dark;
-    border: .1875rem solid $sun-ash-gray;
-  }
-
-  &__text-link {
-    background: $sun-silver;
-    color: $sun-text-dark;
-    transition: background .3s, color .3s, border-color .3s;
-
-    &:hover,
-    &:focus,
-    &:visited {
-      background: $sun-white;
-      border: .0625rem solid $sun-sunrise-orange;
-      color: $sun-sunrise-orange;
-    }
-
-    &:active {
-      background-color: $sun-mellow-apricot;
-      color: $neutral-black;
-      border: .125rem solid $sun-silver;
-      transform: scale(.9);
-    }
-  }
-
-  &__card {
-    background: $primary-pale-blue;
-
-    &:hover {
-      background-color: $sun-white;
-    }
-
-    &:active {
-      background-color: $sun-silver;
-      box-shadow: 0 0 .25rem $sun-silver;
-    }
-  }
-
-  &__subtitle {
-    background: $neutral-white;
-    color: $neutral-black;
-  }
-
-  &__show-more,
-  &__reset,
-  &__fetch-faves {
-    background: linear-gradient(45deg, $sun-white, $sun-silver);
-    color: $neutral-black;
-
-    &:hover {
-      background: linear-gradient(45deg, $sun-golden-hour, $sun-light-gold);
-      color: $neutral-black;
-    }
-
-    &:active {
-      background: $sun-icy-blue;
-      color: $primary-button-blue;
-    }
-  }
-
-  &__lightbulb-icon,
-  &__status-icon,
-  &__media-icon-link,
-  &__search-icon,
-  &__share-icon,
-  &__cal-icon,
-  &__lock-icon,
-  &__trash-icon {
-    color: $sun-ocean-breeze;
-    transition: color .3s, background .3s, transform .3s ease-in-out;
-
-    &:hover {
-      background: $sun-sunrise-orange;
-      color: $sun-light-gold;
-      border: none;
+  
+    &__heart-icon {
       box-shadow: none;
-      transform: scale(1.1);
+      background: $rain-slate-gray;
+      color: $rain-rain-drop-blue;
+      border: .25rem solid $rain-foggy-mist-gray;
     }
-
-    &:focus,
-    &:active {
-      background: $neutral-white;
-      color: $sun-sunrise-orange;
-      border: none;
+  
+    &__search-bar-container {
+      background: $rain-frosted-glass;
+    }
+  
+    &__filter-card-title {
+      color: $rain-text-dark;
+    }
+  
+    &__filter-card {
+      background: $rain-dew-drop-gray;
+  
+      &:active {
+        border-color: $rain-slate-gray;
+      }
+    }
+  
+    &__filter-label {
+      border: .0325rem solid $rain-foggy-mist-gray;
+      border-bottom: .15rem solid $rain-foggy-mist-gray;
+    }
+  
+    &__label-featured {
+      background: $rain-rain-drop-blue;
+      color: $rain-text-dark;
+    }
+  
+    &__label-audiences {
+      background: $rain-wet-grass-green;
+      color: $rain-text-light;
+    }
+  
+    &__label-cultural {
+      background: $rain-cloudy-ocean-blue;
+      color: $rain-text-light;
+    }
+  
+    &__label-genres {
+      background: $rain-soft-seafoam;
+      color: $rain-text-dark;
+    }
+  
+    &__filter-icon {
+      background: $rain-foggy-mist-gray;
+      color: $rain-rain-drop-blue;
+  
+      &:hover {
+        background: $rain-rainy-sky-blue;
+        color: $rain-text-dark;
+      }
+  
+      &:active {
+        color: $rain-wet-grass-green;
+        background: $rain-dew-drop-gray;
+      }
+    }
+  
+    &__content {
+      background: $rain-foggy-mist-gray;
       box-shadow: none;
-      transform: scale(.9);
+      border: .125rem solid $rain-rain-drop-blue;
+  
+      @include tablet {
+        border: .3rem solid $rain-rain-drop-blue;
+      }
     }
-  }
-
-  &__load-descript {
-    color: $sun-ocean-breeze;
-    transition: color .3s, background .3s, transform .3s ease-in-out;
-
-    &:hover {
-      color: $sun-yellow;
-      transform: scale(1.1);
+  
+    &__clear-icon,
+    &__magnifying-glass-icon {
+      color: $rain-text-dark;
+  
+      &:hover {
+        color: $rain-wet-grass-green;
+      }
+  
+      &:active {
+        color: $rain-cloudy-ocean-blue;
+      }
     }
-
-    &:active {
-      color: $sun-sunrise-orange;
-      border: none;
-      transform: scale(.9);
+  
+    &__copy-container {
+      background: $rain-frosted-glass;
+      border: .3125rem solid $rain-dew-drop-gray;
     }
-  }
-
-  &__description,
-  &__text {
-    color: $neutral-black;
-  }
-
-  &__description {
-    &::-webkit-scrollbar {
-      width: .375rem;
+  
+    &__copy,
+    &__copy-header {
+      color: $rain-text-dark;
     }
-
-    &::-webkit-scrollbar-thumb {
-      background-color: $sun-ocean-breeze;
-      border-radius: .625rem;
-    }
-
-    &::-webkit-scrollbar-track {
-      background: $frosted-glass;
-    }
-  }
-
-  &__poster-container {
-    filter: grayscale(100%) brightness(.9);
-    transition: filter .3s ease, transform .3s ease;
-
-    &:hover {
-      filter: grayscale(0%) brightness(1);
-      border: .2188rem solid $sun-yellow;
-    }
-  }
-
-  &__no-faves-svg {
-    filter: grayscale(100%) brightness(1.5);
-    transition: filter .3s ease, transform .3s ease;
-
-    &:hover {
-      filter: grayscale(0%) brightness(1);
-    }
-  }
-
-  &__clear-search,
-  &__reset-filters {
-    background: $sun-text-light;
-    color: $sun-text-dark;
-
-    &:focus,
-    &:active {
+  
+    &__filters-container {
+      background: $rain-foggy-mist-gray;
+      border: .3125rem solid $rain-slate-gray;
       box-shadow: none;
     }
+  
+    &__svg-text {
+      color: $rain-text-dark;
+      border: .1875rem solid $rain-storm-cloud-blue;
+    }
+  
+    &__text-link {
+      background: $rain-slate-gray;
+      color: $rain-text-dark;
+      transition: background .3s, color .3s, border-color .3s;
+  
+      &:hover,
+      &:focus,
+      &:visited {
+        background: $rain-foggy-mist-gray;
+        border: .0625rem solid $rain-cloudy-ocean-blue;
+        color: $rain-rain-drop-blue;
+      }
+  
+      &:active {
+        background-color: $rain-wet-grass-green;
+        color: $rain-text-light;
+        border: .125rem solid $rain-slate-gray;
+        transform: scale(.9);
+      }
+    }
+  
+    &__card {
+      background: $rain-dew-drop-gray;
+  
+      &:hover {
+        background-color: $rain-foggy-mist-gray;
+      }
+  
+      &:active {
+        background-color: $rain-slate-gray;
+        box-shadow: 0 0 .25rem $rain-slate-gray;
+      }
+    }
+  
+    &__subtitle {
+      background: $rain-frosted-blue;
+      color: $rain-text-dark;
+    }
+  
+    &__show-more,
+    &__reset,
+    &__fetch-faves {
+      background: linear-gradient(45deg, $rain-foggy-mist-gray, $rain-slate-gray);
+      color: $rain-text-dark;
+  
+      &:hover {
+        background: linear-gradient(45deg, $rain-wet-grass-green, $rain-cloudy-ocean-blue);
+        color: $rain-text-dark;
+      }
+  
+      &:active {
+        background: $rain-soft-seafoam;
+        color: $rain-rain-drop-blue;
+      }
+    }
+  
+    &__lightbulb-icon,
+    &__status-icon,
+    &__media-icon-link,
+    &__search-icon,
+    &__share-icon,
+    &__cal-icon,
+    &__lock-icon,
+    &__trash-icon {
+      color: $rain-rain-drop-blue;
+      transition: color .3s, background .3s, transform .3s ease-in-out;
+  
+      &:hover {
+        background: $rain-wet-grass-green;
+        color: $rain-soft-seafoam;
+        border: none;
+        box-shadow: none;
+        transform: scale(1.1);
+      }
+  
+      &:focus,
+      &:active {
+        background: $rain-foggy-mist-gray;
+        color: $rain-wet-grass-green;
+        border: none;
+        box-shadow: none;
+        transform: scale(.9);
+      }
+    }
+  
+    &__load-descript {
+      color: $rain-rain-drop-blue;
+      transition: color .3s, background .3s, transform .3s ease-in-out;
+  
+      &:hover {
+        color: $rain-soft-seafoam;
+        transform: scale(1.1);
+      }
+  
+      &:active {
+        color: $rain-cloudy-ocean-blue;
+        border: none;
+        transform: scale(.9);
+      }
+    }
+  
+    &__description,
+    &__text {
+      color: $rain-text-dark;
+    }
+  
+    &__description {
+      &::-webkit-scrollbar {
+        width: .375rem;
+      }
+  
+      &::-webkit-scrollbar-thumb {
+        background-color: $rain-rain-drop-blue;
+        border-radius: .625rem;
+      }
+  
+      &::-webkit-scrollbar-track {
+        background: $rain-frosted-glass;
+      }
+    }
+  
+    &__poster-container {
+      filter: grayscale(100%) brightness(.9);
+      transition: filter .3s ease, transform .3s ease;
+  
+      &:hover {
+        filter: grayscale(0%) brightness(1);
+        border: .2188rem solid $rain-wet-grass-green;
+      }
+    }
+  
+    &__no-faves-svg {
+      filter: grayscale(100%) brightness(1.5);
+      transition: filter .3s ease, transform .3s ease;
+  
+      &:hover {
+        filter: grayscale(0%) brightness(1);
+      }
+    }
+  
+    &__clear-search,
+    &__reset-filters {
+      background: $rain-text-light;
+      color: $rain-text-dark;
+  
+      &:focus,
+      &:active {
+        box-shadow: none;
+      }
+    }
+  
+    &__search-bar {
+      background-color: $rain-soft-seafoam;
+      backdrop-filter: blur(.625rem);
+      box-shadow: $rain-shadow-primary;
+      border: .25rem solid rgba(255, 255, 255, .7);
+      transition: all .3s ease-in-out;
+  
+      & input {
+        border: none;
+        outline: none;
+        background: transparent;
+        color: $rain-text-dark;
+  
+        &::placeholder {
+          color: $rain-text-light;
+          text-shadow: $rain-shadow-secondary;
+        }
+  
+        &:hover::placeholder {
+          text-shadow: none;
+        }
+      }
+  
+      &:hover {
+        background: rgba(255, 255, 255, .8);
+        box-shadow: 0 .5rem 1rem rgba($rain-text-dark, .2), 0 -.5rem 1rem rgba(255, 255, 255, .7);
+        border: .0625rem solid rgba(255, 255, 255, .4);
+        transform: scale(1.025);
+      }
+  
+      &:focus-within {
+        background: $rain-text-light;
+        border: .25rem solid rgba(255, 255, 255, .5);
+        transform: scale(1.05);
+        box-shadow: $rain-shadow-primary;
+      }
+    }
   }
-
-  &__search-bar {
-    background-color: $sun-golden-hour;
-    backdrop-filter: blur(.625rem);
-    box-shadow: $sun-shadow-primary;
-    border: .25rem solid rgba(255, 255, 255, .7);
-    transition: all .3s ease-in-out;
-
-    & input {
-      border: none;
+  
+  .voice-search-faves__voice-button {
+    background: $rain-foggy-mist-gray;
+    color: $rain-text-dark;
+  
+    &:hover {
+      background: linear-gradient(135deg, lighten($rain-wet-grass-green, 10%) 0%, lighten($rain-wet-grass-green, 5%) 100%);
+      color: $rain-text-dark;
+    }
+  
+    &:active {
+      background: linear-gradient(135deg, lighten($rain-cloudy-ocean-blue, 10%) 0%, lighten($rain-cloudy-ocean-blue, 5%) 100%);
+      color: $rain-text-dark;
+    }
+  
+    &:focus {
       outline: none;
-      background: transparent;
-      color: $sun-text-dark;
-
-      &::placeholder {
-        color: $sun-white;
-        text-shadow: $sun-shadow-secondary;
-      }
-
-      &:hover::placeholder {
-        text-shadow: none;
-      }
-    }
-
-    &:hover {
-      background: rgba(255, 255, 255, .8);
-      box-shadow: 0 .5rem 1rem rgba($sun-text-dark, .2), 0 -.5rem 1rem rgba(255, 255, 255, .7);
-      border: .0625rem solid rgba(255, 255, 255, .4);
-      transform: scale(1.025);
-    }
-
-    &:focus-within {
-      background: $sun-text-light;
-      border: .25rem solid rgba(255, 255, 255, .5);
-      transform: scale(1.05);
-      box-shadow: $sun-shadow-primary;
     }
   }
-}
-
-.voice-search-faves__voice-button {
-  background: $sun-white;
-  color: $sun-text-dark;
-
-  &:hover {
-    background: linear-gradient(135deg, lighten($sun-yellow, 10%) 0%, lighten($sun-yellow, 5%) 100%);
-    color: $sun-text-dark;
+  
+  .blob-container {
+    filter: grayscale(150%) brightness(1);
   }
-
-  &:active {
-    background: linear-gradient(135deg, lighten($sun-sunrise-orange, 10%) 0%, lighten($sun-sunrise-orange, 5%) 100%);
-    color: $sun-text-dark;
+  
+  #watchlistStatusTooltip,
+  #calendarTooltip,
+  #searchTooltip,
+  #shareTooltip,
+  #lockTooltip,
+  #lightbulbTooltip,
+  #trashTooltip {
+    background-color: $sun-ocean-breeze;
+    color: $primary-dark-blue;
+    padding: .5rem 1rem;
+    border-radius: .5rem;
+    box-shadow: 0 .5rem 1rem rgba($rain-midnight-storm-gray, .1);
+    font-size: .85rem;
+    line-height: 1.25rem;
+  
+    &::after {
+      border: $primary-button-blue transparent transparent transparent;
+    }
   }
-
-  &:focus {
-    outline: none;
-  }
-}
-
-.blob-container {
-  filter: grayscale(150%) brightness(1);
-}
-
-#watchlistStatusTooltip,
-#calendarTooltip,
-#searchTooltip,
-#shareTooltip,
-#lockTooltip,
-#lightbulbTooltip,
-#trashTooltip {
-  background-color: $sun-ocean-breeze;
-  color: $primary-dark-blue;
-  padding: .5rem 1rem;
-  border-radius: .5rem;
-  box-shadow: 0 .5rem 1rem rgba($neutral-black, .1);
-  font-size: .85rem;
-  line-height: 1.25rem;
-
-  &::after {
-    border: $primary-button-blue transparent transparent transparent;
-  }
-}
-
+  
 // Top Picks 
 .user-rating-container {
   border-radius: 100%;
