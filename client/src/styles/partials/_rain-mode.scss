@@ -4395,12 +4395,12 @@
   .unsubscribe-page,
   .terms,
   .about {
-    background: $sun-white;
+    background: $rain-frosted-glass;
     backdrop-filter: blur(1.5rem);
     -webkit-backdrop-filter: blur(1.5rem);
 
     &__content-card {
-      background: $sun-light-gray;
+      background: $rain-dew-drop-gray;
     }
 
     &__container {
@@ -4422,7 +4422,7 @@
     &__subtitle,
     &__text,
     &__title {
-      color: $sun-text-dark;
+      color: $rain-text-dark;
     }
 
     &__graphic {
@@ -4438,113 +4438,113 @@
     &__register-link,
     &__guest-link,
     &__link {
-      color: $sun-soft-tangerine;
+      color: $neutral-white;
       text-decoration: none;
-      border: 0.125rem solid $sun-sunrise-orange;
+      border: 0.125rem solid $rain-foggy-mist-gray;
       transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
 
       &:hover,
       &:focus,
       &:visited {
-        background-color: $sun-sunrise-orange;
-        border: 0.0625rem solid $sun-text-light;
-        color: $sun-text-dark;
+        background-color: $rain-rainy-sky-blue;
+        border: 0.0625rem solid $rain-text-light;
+        color: $rain-text-dark;
         transform: scale(1.05);
 
         &:active {
-          background-color: $sun-golden-hour;
-          color: $neutral-black;
-          border: 0.125rem solid $sun-text-dark;
+          background-color: $rain-text-green;
+          color: $neutral-white;
+          border: 0.125rem solid $neutral-white;
           transform: scale(0.95);
         }
       }
     }
 
     &__icon {
-      color: $sun-sunrise-orange;
+      color: $rain-foggy-mist-gray;
 
       &:hover {
-        background: $sun-yellow;
-        color: $sun-text-dark;
+        background: $rain-cloudy-ocean-blue;
+        color: $rain-text-light;
       }
     }
 
     &__intro {
-      color: $star-text-gray;
+      color: $rain-foggy-mist-gray;
     }
   }
 
   .reset-password {
     &__label {
-      background: $sun-ocean-breeze;
-      color: $neutral-black;
+      background: $rain-soft-seafoam;
+      color: $rain-text-dark;
     }
 
     &__input {
-      border: 0.125rem solid $sun-ash-gray;
+      border: 0.125rem solid $rain-slate-gray;
       background-color: rgba(255, 255, 255, 0.8);
-      color: $sun-text-dark;
+      color: $rain-text-dark;
       box-shadow: none;
 
       & + .reset-password__label {
-        background: $sun-gradient-yellow;
+        background: $rain-gradient-blue-gray;
         border: none;
-        color: $neutral-black;
+        color: $neutral-white;
       }
 
       &::placeholder {
-        color: $sun-ash-gray;
+        color: $rain-slate-gray;
       }
     }
 
     &__password-toggle-icon {
-      color: $sun-silver;
+      color: $rain-dew-drop-gray;
 
       &:hover {
-        color: $sun-yellow;
+        color: $rain-wet-grass-green;
       }
 
       &:active {
-        color: $sun-ocean-breeze;
+        color: $rain-rainy-sky-blue;
       }
     }
   }
 
   .reset-password__button,
   .unsubscribe-page__button {
-    background: $sun-gradient-yellow;
-    color: $sun-text-dark;
+    background: $rain-gradient-blue-gray;
+    color: $neutral-white;
 
     &:hover {
-      background: $sun-sunrise-orange;
-      color: $neutral-black;
+      background: $rain-wet-grass-green;
+      color: $rain-text-light;
     }
 
     &:active {
-      background: $sun-ocean-breeze;
-      color: $neutral-black;
+      background: $rain-gradient-sky;
+      color: $neutral-white;
     }
   }
 
   .terms__nextstream-link {
-    color: $sun-soft-tangerine;
+    color: $rain-soft-seafoam;
     text-decoration: none;
     transition: transform 0.3s ease, background-color 0.3s ease, border 0.3s ease, color 0.3s ease;
 
     &:hover,
     &:focus,
     &:visited {
-      background-color: $sun-sunrise-orange;
-      border: 0.0625rem solid $sun-text-light;
-      color: $sun-text-dark;
-      transform: scale(1.1);
-    }
+      background-color: $rain-rainy-sky-blue;
+      border: 0.0625rem solid $rain-text-light;
+      color: $rain-text-dark;
+      transform: scale(1.05);
 
-    &:active {
-      background-color: $sun-morning-mist-blue;
-      color: $neutral-black;
-      border: 0.125rem solid $neutral-black;
-      transform: scale(0.95);
+      &:active {
+        background-color: $rain-text-green;
+        color: $neutral-white;
+        border: 0.125rem solid $neutral-white;
+        transform: scale(0.95);
+      }
     }
   }
 
