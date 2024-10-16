@@ -3058,63 +3058,63 @@
     }
   }
 
-  // Quickstart Guide 
+  // Quickstart Guide
   .quickstart-guide {
     &__overlay {
-      background: $sun-frosted-white;
+      background: rgba($rain-neumorph-base, .7);
     }
-  
+
     &__container {
-      background: $sun-white;
+      background: $rain-dew-drop-gray;
     }
-  
+
     &__fave-icon {
-      color: $sun-sunrise-orange;
-  
+      color: $rain-rain-drop-blue;
+
       &:hover {
-        background: $sun-sunrise-orange;
+        background: $rain-storm-cloud-blue;
         color: $neutral-black;
       }
-  
+
       &:active {
-        background: $sun-icy-blue;
-        color: $sun-ocean-breeze;
+        background: $rain-cloudy-ocean-blue;
+        color: $neutral-white;
       }
     }
-  
+
     &__title {
-      color: $sun-text-dark;
+      color: $rain-soft-seafoam;
     }
-  
+
     &__button {
-      background: $sun-gradient-sunrise;
-      color: $sun-text-dark;
-  
+      background: $rain-gradient-sky;
+      color: $rain-text-light;
+
       &:focus,
       &:visited,
       &:hover {
-        background: $neutral-black;
-        color: $sun-yellow;
+        background: $rain-wet-grass-green;
+        color: $rain-text-light;
       }
-  
+
       &:active {
-        background: $sun-sunrise-orange;
-        color: $sun-text-dark;
+        background: $rain-cloudy-ocean-blue;
+        color: $neutral-white;
       }
     }
-  
+
     &__close {
       color: $neutral-black;
-      background: $cloud-frosted-white;
-  
+      background: $rain-frosted-glass;
+
       &:hover {
-        background: $sun-yellow;
+        background: $rain-soft-seafoam;
         color: $neutral-black;
       }
-  
+
       &:active {
-        color: $neutral-black;
-        background: $sun-ocean-breeze;
+        color: $neutral-white;
+        background: $rain-rainy-sky-blue;
       }
     }
   }
