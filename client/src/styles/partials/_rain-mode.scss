@@ -1464,6 +1464,8 @@
       background: $rain-frosted-glass;
       border: .3125rem solid $rain-neumorph-base;
       box-shadow: $rain-shadow-primary;
+      @include rainAnimateBorder;
+      @include rainBorderAnimation;
     }
 
     &__nav-button {
