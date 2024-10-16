@@ -1448,7 +1448,7 @@
 
     &__intro,
     &__title {
-      color: $rain-text-dark;
+      color: $neutral-white;
     }
 
     &__background {
@@ -1467,8 +1467,8 @@
     }
 
     &__nav-button {
-      background-color: rgba($rain-dew-drop-gray, .7);
-      color: $rain-wet-grass-green;
+      background-color: rgba($neutral-white, .7);
+      color: $rain-forest-green;
 
       &:hover {
         background-color: rgba($rain-wet-grass-green, 0.7);
@@ -1476,9 +1476,9 @@
       }
 
       &:active {
-        background-color: rgba($rain-frosted-blue, 0.8);
-        color: $rain-cloudy-ocean-blue;
-        border: 0.125rem solid $rain-cloudy-ocean-blue;
+        background-color: rgba($neutral-black, 0.8);
+        color: $rain-soft-seafoam;
+        border: 0.125rem solid $rain-soft-seafoam;
         box-shadow: none;
       }
     }
@@ -1486,7 +1486,7 @@
     &__calendar-button {
       border: 0.0625rem solid $rain-neumorph-base;
       background: $rain-gradient-green;
-      color: $rain-text-dark;
+      color: $neutral-white;
       box-shadow: $rain-shadow-primary;
       font-size: 0.85rem;
       border-radius: 1rem;
@@ -1497,7 +1497,7 @@
 
       &:focus,
       &:hover {
-        background: $rain-wet-grass-green;
+        background: $rain-forest-green;
         color: $rain-text-light;
         border: 0.0625rem solid $rain-cloudy-ocean-blue;
         transform: scale(1.03);
@@ -1518,14 +1518,14 @@
 
       &:active {
         transform: scale(0.95);
-        background: $rain-cool-aqua;
-        color: $rain-evergreen;
+        background: $rain-dew-drop-gray;
+        color: $neutral-white;
         border: 0.0625rem solid $rain-cloudy-ocean-blue;
       }
 
       svg {
         margin-right: 0.5rem;
-        color: $rain-text-dark;
+        color: $neutral-white;
         border: 0.125rem solid $rain-evergreen;
         padding: 0.15rem;
         border-radius: 0.5rem;
@@ -1543,17 +1543,17 @@
   }
 
   .details-tooltip {
-    background: $rain-cool-aqua !important;
-    color: $rain-evergreen !important;
+    background: $rain-cloudy-ocean-blue !important;
+    color: $neutral-white !important;
 
     &::after {
-      border-color: $rain-cool-aqua !important;
+      border-color: $rain-cloudy-ocean-blue !important;
     }
   }
 
   .tooltip-text {
-    background: $rain-cool-aqua !important;
-    color: $rain-evergreen !important;
+    background: $rain-cloudy-ocean-blue !important;
+    color: $neutral-white !important;
     position: absolute;
     bottom: 100%;
     left: 50%;
@@ -1572,16 +1572,16 @@
   }
 
   .media-card {
-    background: $rain-soft-seafoam;
+    background: $rain-foggy-mist-gray;
 
     &__details {
-      background: $rain-soft-seafoam;
+      background: $rain-foggy-mist-gray;
       border-bottom-left-radius: .5rem;
       border-bottom-right-radius: .5rem;
     }
 
     &__image {
-      background: $rain-soft-seafoam;
+      background: $rain-foggy-mist-gray;
     }
 
     &__type-icon,
@@ -1597,7 +1597,7 @@
 
       &:active {
         color: $rain-cool-aqua;
-        background: $rain-cloudy-ocean-blue;
+        background: $neutral-white;
         border: none;
       }
     }
