@@ -4566,360 +4566,356 @@
   }
 
   // Profile
-  .profile-img {
-    box-shadow: $sun-shadow-primary;  
-    border: .25rem solid $sun-light-gray; 
-    background-color: $sun-white;
+.profile-img {
+  box-shadow: $rain-shadow-primary;  
+  border: .25rem solid $rain-dew-drop-gray; 
+  background: $rain-gradient-sky !important;
+  transition: all 0.5s ease-in-out; 
+  position: relative;
+
+  &::before {
+    background: none;
+  }
+
+  &:hover {
+    background: $rain-gradient-blue-gray !important;
+    border: .25rem solid $rain-foggy-mist-gray;
+    transform: scale(1.05); 
+    box-shadow: 0 0 15px $rain-frosted-green, 0 0 30px $rain-foggy-mist-gray;
+
     transition: all 0.5s ease-in-out; 
-    position: relative;
-  
-    &::before {
-      background: none;
-    }
-  
-    &:hover {
-      background: $sun-soft-lemon;
-      border: .25rem solid $sun-frosted-gold;
-      transform: scale(1.05); 
-      box-shadow: 0 0 15px $sun-frosted-gold, 0 0 30px $sun-golden-hour; 
-  
-      transition: all 0.5s ease-in-out; 
-  
-      &::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        border-radius: inherit;
-        border: .25rem solid rgba($sun-frosted-gold, 0.5);
-        box-shadow: 0 0 20px rgba($sun-frosted-gold, 0.7);
-        pointer-events: none; 
-        transition: all 0.5s ease-in-out;
-      }
-    }
-  
-    &__username,
-    &__status {
-      color: $sun-text-dark;
-    }
-  
-    &__button {
-      background: $sun-yellow;
-      color: $sun-text-dark;
-      border: none;
-      transition: background .3s ease, color .3s ease, transform .3s ease; 
-    
-      &:hover {
-        color: $sun-sunrise-orange;
-        background: $neutral-black;
-        transform: scale(1.05);
-      }
-    
-      &:active {
-        color: $sun-icy-blue;
-        background: $primary-button-blue;
-        transform: scale(.95); 
-      }
-    }    
-  }
-  
-  .profile {
-    background: $sun-white;
-  
-    &__main {
-      background: $sun-frosted-white;
-      border: none;
-    }
-  
-    &__details-header,
-    &__password-header,
-    &__subscription-header,
-    &__notifications-header,
-    &__region-header {
-      background: $sun-light-gray;
-      color: $sun-text-dark;
-      border: .125rem solid $sun-silver;
-    }
-  
-    &__content-subscription-container,
-    &__content-details,
-    &__content-password,
-    &__content-notifications,
-    &__content-region {
-      background: $sun-neumorph-base;
-      border: .125rem solid $sun-light-gray;
-    }
-  
-    &__title {
-      color: $sun-text-dark;
-    }
-  
-    &__region-title {
-      color: $sun-text-dark;
-    }
-  
-    &__dropdown {
-      display: flex;
-      align-items: center;
-      gap: .5rem;
-      font-size: 1rem;
-      background: $sun-light-gray;
-      border: .125rem solid $sun-silver;
-      border-radius: .5rem;
-      box-shadow: $sun-shadow-primary;
-      color: $sun-text-dark;
-      padding-left: 1rem;
-      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23B3DDF2' width='24px' height='24px'><path d='M12 15.5c-.3 0-.5-.1-.7-.3l-5-5c-.4-.4-.4-1 0-1.4s1-.4 1.4 0L12 13.8l4.3-4.3c.4-.4 1-.4 1.4 0s.4 1 0 1.4l-5 5c-.2.2-.4.3-.7.3z'/></svg>");
-      background-repeat: no-repeat;
-      background-position: right 1rem center;
-      background-size: 1.125rem 1.125rem;
-  
-      &:focus {
-        background-color: $primary-pale-blue;
-        border: .125rem solid $sun-icy-blue;
-      }
-    }
-  
-    &__input {
-      border: .125rem solid $sun-silver;
-      box-shadow: none;
-      background: $neutral-white;
-  
-      &:focus,
-      &:not(:placeholder-shown) {
-        background-color: $sun-icy-blue;
-        color: $primary-dark-blue;
-        border-color: $sun-ocean-breeze;
-        padding-left: .85rem;
-        font-size: 1rem;
-  
-        & + .profile__label {
-          top: -.85rem;
-          font-size: 1rem;
-          background-color: $neutral-white;
-          border: .0625rem solid $sun-light-gray;
-          color: $neutral-black;
-        }
-  
-        &::placeholder {
-          color: $sun-sunrise-orange;
-          font-size: .85rem;
-        }
-      }
-    }
-  
-    &__notification-text {
-      color: $sun-text-dark;
-    }
-  
-    &__label {
-      background: $sun-icy-blue;
-      border: .0625rem solid $sun-silver;
-      color: $primary-button-blue;
-    }
-  
-    &__text-wrapper {
-      background: $sun-light-gray;
-      color: $sun-text-dark;
-      border: .0625rem solid $sun-frosted-silver;
-    }
-  
-    &__password-toggle-icon {
-      color: $sun-ash-gray;
-      transition: transform .3s ease, background .3s ease, color .3s ease; 
-  
-      &:hover {
-        color: $sun-golden-hour;
-        transform: scale(1.05); 
-      }
-  
-      &:active {
-        color: $sun-sunrise-orange;
-        transform: scale(.95); 
-      }
-    }
-  
-    &__notifications-alerts-icon {
-      color: $sun-sunrise-orange;
-      transition: transform .3s ease, background .3s ease, color .3s ease;
-  
-      &:hover {
-        background: $neutral-white;
-        color: $star-text-gray;
-        transform: scale(1.05);
-      }
-  
-      &:active {
-        background: $sun-light-gray;
-        color: $sun-ocean-breeze;
-        transform: scale(.95);
-      }
-    }
 
-    &__btn-save-account-bg {
-      @include block-item(9.625rem, 3.1875rem);
-      background: linear-gradient(180deg, rgb(238, 244, 252) 0%, $sun-yellow 100%);
-      border-radius: .75rem;
-      box-shadow: $shadow-quinary;
+    &::after {
+      content: '';
       position: absolute;
-      top: .1875rem;
-    }
-  
-    &__btn-save-account {
-      background: $sun-yellow;
-      animation: shimmer .5s linear infinite;
-      border: .125rem solid $sun-icy-blue;
-    
-      &:focus,
-      &:hover {
-        background: $sun-sunrise-orange;
-      }
-    
-      &:active {
-        background: $sun-white;
-      }
-    }
-  
-    &__location-icon {
-      color: $sun-sunrise-orange;
-      transition: transform .3s ease, background .3s ease, color .3s ease;
-  
-      &:hover {
-        background: $neutral-white;
-        color: $star-text-gray;
-        cursor: url('../../assets/cursors/cursor-pointer-rain.svg'), pointer;
-        transform: scale(1.05);
-      }
-  
-      &:active {
-        background: $sun-light-gray;
-        color: $sun-ocean-breeze;
-        transform: scale(.95);
-      }
-    }
-  
-    &__details-header,
-    &__password-header,
-    &__subscription-header,
-    &__notifications-header,
-    &__region-header {
-      background: $sun-light-gray;
-    }
-  
-    &__details-content,
-    &__password-content,
-    &__notifications-content,
-    &__subscription-status-wrapper,
-    &__region-content {
-      background: $sun-white;
-      border: .1875rem solid $sun-light-gray;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: inherit;
+      border: .25rem solid rgba($rain-foggy-mist-gray, 0.5);
+      box-shadow: 0 0 20px rgba($rain-foggy-mist-gray, 0.7);
+      pointer-events: none; 
+      transition: all 0.5s ease-in-out;
     }
   }
-  
-  .subscription-status {
-    background: $sun-white;
-  
-    &__icon {
-      color: $sun-sunrise-orange;
-      transition: transform .3s ease, background .3s ease, color .3s ease;
-  
-      &:hover {
-        background: $neutral-white;
-        color: $star-text-gray;
-        transform: scale(1.05);
-      }
-  
-      &:focus,
-      &:active {
-        background: $sun-icy-blue;
-        color: $sun-ocean-breeze;
-        transform: scale(.95);
-      }
+
+  &__username,
+  &__status {
+    color: $neutral-white;
+  }
+
+  &__button {
+    background: $rain-cloudy-ocean-blue;
+    color: $neutral-white;
+    border: none;
+    transition: background .3s ease, color .3s ease, transform .3s ease; 
+
+    &:hover {
+      color: $rain-rain-drop-blue;
+      background: $neutral-white;
+      transform: scale(1.05);
     }
 
-    &__title {
-      color: $neutral-black;
+    &:active {
+      color: $neutral-white;
+      background: $rain-rainy-sky-blue;
+      transform: scale(.95); 
     }
-  
-    &__box {
-      background: $sun-sunrise-orange;
-      border: .1875rem solid $sun-silver;
-  
-      &:hover {
-        background: $sun-gradient-sunrise;
-        border: .1875rem solid $sun-soft-lemon;
-      }
-    }
-  
-    &__delete-account {
-      background: $sun-soft-lemon;
-      color: $sun-text-dark;
-      border: .1875rem solid $sun-light-gray;
-  
-      &:hover {
-        backdrop-filter: blur(.25rem);
-        box-shadow: 0 0 .625rem rgba(255, 0, 0, .5);
-        background: $sun-gradient-sunrise;
-        border: .1875rem solid $sun-soft-lemon;
-      }
-  
-      &:active {
-        background-color: lighten($sun-soft-lemon, 10%);
-        border: .1875rem solid $sun-ash-gray;
-        box-shadow: 0 0 .625rem rgba(255, 0, 0, .3);
-      }
-    }
-  
-    &__delete-txt {
-      color: $sun-text-dark;
-    }
-  
-    &__checkbox--active {
-      color: $sun-white;
-      background: $sun-sunrise-orange;
-      border: .1875rem solid $sun-silver;
-  
-      &:hover {
-        background: $sun-gradient-sunrise;
-        border: .1875rem solid $sun-soft-lemon;
-        color: $sun-text-dark;
-      }
-  
-      &:active {
-        background-color: $sun-icy-blue;
-        border-color: lighten($sun-soft-lemon, 10%);
-        color: $sun-ocean-breeze;
-      }
-    }
-  
-    &__checkbox--inactive {
-      background: $sun-yellow;
-      color: $neutral-black;
+  }    
+}
+
+.profile {
+  background: $rain-slate-gray;
+
+  &__main {
+    background: $rain-dew-drop-gray;
+    border: none;
+  }
+
+  &__btn-save-account-txt {
+    color: $neutral-white;
+  }
+
+  &__details-header,
+  &__password-header,
+  &__subscription-header,
+  &__notifications-header,
+  &__region-header {
+    background: $rain-dew-drop-gray;
+    color: $rain-text-dark;
+    border: .125rem solid $rain-slate-gray;
+  }
+
+  &__content-subscription-container,
+  &__content-details,
+  &__content-password,
+  &__content-notifications,
+  &__content-region {
+    background: $rain-neumorph-base;
+    border: .125rem solid $rain-dew-drop-gray;
+  }
+
+  &__region-title,
+  &__title {
+    color: $neutral-white;
+  }
+
+  &__dropdown {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    font-size: 1rem;
+    background: $rain-rainy-sky-blue;
+    border: .125rem solid $rain-slate-gray;
+    border-radius: .5rem;
+    box-shadow: $rain-shadow-primary;
+    color: $neutral-white;
+    padding-left: 1rem;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%235A6E7F' width='24px' height='24px'><path d='M12 15.5c-.3 0-.5-.1-.7-.3l-5-5c-.4-.4-.4-1 0-1.4s1-.4 1.4 0L12 13.8l4.3-4.3c.4-.4 1-.4 1.4 0s.4 1 0 1.4l-5 5c-.2.2-.4.3-.7.3z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1.125rem 1.125rem;
+
+    &:focus {
+      background-color: $rain-foggy-mist-gray;
+      border: .125rem solid $rain-cloudy-ocean-blue;
     }
   }
+
+  &__input {
+    border: .125rem solid $rain-slate-gray;
+    box-shadow: none;
+    background: $neutral-black;
+    color: $neutral-white;
+
+    &:focus,
+    &:not(:placeholder-shown) {
+      background-color: $rain-rainy-sky-blue;
+      color: $neutral-white;
+      border-color: $rain-rain-drop-blue;
+      padding-left: .85rem;
+      font-size: 1rem;
+
+      & + .profile__label {
+        top: -.85rem;
+        font-size: 1rem;
+        background-color: $rain-dew-drop-gray;
+        border: .0625rem solid $rain-soft-seafoam;
+        color: $neutral-white;
+      }
+
+      &::placeholder {
+        color: $rain-soft-seafoam;
+        font-size: .85rem;
+      }
+    }
+  }
+
+  &__notification-text {
+    color: $neutral-white;
+  }
+
+  &__label {
+    background: $rain-rainy-sky-blue;
+    border: .0625rem solid $rain-slate-gray;
+    color: $neutral-white;
+  }
+
+  &__text-wrapper {
+    background: $rain-dew-drop-gray;
+    color: $neutral-white;
+    border: .0625rem solid $rain-frosted-blue;
+  }
+
+  &__password-toggle-icon {
+    color: $rain-slate-gray;
+    transition: transform .3s ease, background .3s ease, color .3s ease; 
+
+    &:hover {
+      color: $rain-evergreen;
+      transform: scale(1.05); 
+    }
+
+    &:active {
+      color: $rain-rain-drop-blue;
+      transform: scale(.95); 
+    }
+  }
+
+  &__notifications-alerts-icon {
+    color: $rain-rain-drop-blue;
+    transition: transform .3s ease, background .3s ease, color .3s ease;
+
+    &:hover {
+      background: $neutral-white;
+      color: $rain-dew-drop-gray;
+      transform: scale(1.05);
+    }
+
+    &:active {
+      background: $rain-dew-drop-gray;
+      color: $rain-cloudy-ocean-blue;
+      transform: scale(.95);
+    }
+  }
+
+  &__btn-save-account {
+    background: $rain-gradient-sky;
+    animation: shimmer .5s linear infinite;
+    border: .125rem solid $rain-cloudy-ocean-blue;
   
-  // Toggle Button Component
-  .toggle-button {
-    &__switch {
+    &:focus,
+    &:hover {
+      background: $rain-rain-drop-blue;
+    }
+  
+    &:active {
+      background: $rain-gradient-blue-gray;
+    }
+  }
+
+  &__location-icon {
+    color: $rain-rain-drop-blue;
+    transition: transform .3s ease, background .3s ease, color .3s ease;
+
+    &:hover {
+      background: $neutral-white;
+      color: $rain-dew-drop-gray;
       cursor: url('../../assets/cursors/cursor-pointer-rain.svg'), pointer;
-      background-color: $sun-ash-gray;
-      transition: background-color .3s ease;
-      box-shadow: $sun-shadow-primary;
-  
-      &.checked {
-        background-color: $sun-yellow;
-      }
-  
-      &::before {
-        content: '';
-        background-color: $sun-yellow;
-        transition: transform .3s ease;
-      }
+      transform: scale(1.05);
+    }
+
+    &:active {
+      background: $rain-dew-drop-gray;
+      color: $rain-cloudy-ocean-blue;
+      transform: scale(.95);
     }
   }
-  
+
+  &__details-header,
+  &__password-header,
+  &__subscription-header,
+  &__notifications-header,
+  &__region-header {
+    background: $neutral-white;
+  }
+
+  &__details-content,
+  &__password-content,
+  &__notifications-content,
+  &__subscription-status-wrapper,
+  &__region-content {
+    background: $rain-storm-cloud-blue;
+    border: .1875rem solid $rain-dew-drop-gray;
+  }
+}
+
+.subscription-status {
+  background: $rain-storm-cloud-blue;
+
+  &__icon {
+    color: $rain-rain-drop-blue;
+    transition: transform .3s ease, background .3s ease, color .3s ease;
+
+    &:hover {
+      background: $neutral-white;
+      color: $rain-dew-drop-gray;
+      transform: scale(1.05);
+    }
+
+    &:focus,
+    &:active {
+      background: $rain-rainy-sky-blue;
+      color: $rain-cloudy-ocean-blue;
+      transform: scale(.95);
+    }
+  }
+
+  &__title {
+    color: $neutral-white;
+  }
+
+  &__box {
+    color: $neutral-white;
+    background: $rain-gradient-sky;
+    border: .1875rem solid $neutral-white;
+
+    &:hover {
+      color: $neutral-white;
+      background: $rain-rainy-sky-blue;
+      border: .1875rem solid $neutral-white;
+    }
+  }
+
+  &__delete-account {
+    background: $rain-forest-green;
+    color: $rain-text-dark;
+    border: .1875rem solid $rain-dew-drop-gray;
+
+    &:hover {
+      backdrop-filter: blur(.25rem);
+      box-shadow: 0 0 .625rem rgba(0, 128, 0, .5);
+      background: $rain-gradient-moss;
+      border: .1875rem solid $rain-seaweed-green;
+    }
+
+    &:active {
+      background-color: lighten($rain-wet-grass-green, 10%);
+      border: .1875rem solid $rain-slate-gray;
+      box-shadow: 0 0 .625rem rgba(0, 128, 0, .3);
+    }
+  }
+
+  &__delete-txt {
+    color: $neutral-white;
+  }
+
+  &__checkbox--active {
+    color: $neutral-white;
+    background: $rain-gradient-sky;
+    border: .1875rem solid $neutral-white;
+
+    &:hover {
+      color: $neutral-white;
+      background: $rain-rainy-sky-blue;
+      border: .1875rem solid $neutral-white;
+    }
+
+    &:focus,
+    &:active {
+      background-color: $rain-rainy-sky-blue;
+      border: .1875rem solid $rain-foggy-mist-gray;
+      color: $neutral-white;
+    }
+  }
+
+  &__checkbox--inactive {
+    background: $rain-forest-green;
+    color: $neutral-white;
+  }
+}
+
+// Toggle Button Component
+.toggle-button {
+  &__switch {
+    cursor: url('../../assets/cursors/cursor-pointer-rain.svg'), pointer;
+    background-color: $rain-slate-gray;
+    transition: background-color .3s ease;
+    box-shadow: $rain-shadow-primary;
+
+    &.checked {
+      background-color: $rain-rainy-sky-blue;
+    }
+
+    &::before {
+      content: '';
+      background-color: $rain-rainy-sky-blue;
+      transition: transform .3s ease;
+    }
+  }
+}
+
 // Contact Us Modal
 .modal-forgot-password,
 .modal-contact {
