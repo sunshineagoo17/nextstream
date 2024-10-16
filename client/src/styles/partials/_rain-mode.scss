@@ -2266,7 +2266,7 @@
     }
   
     &__title {
-      color: $rain-text-dark;
+      color: $neutral-white;
     }
   
     &__textarea,    
@@ -2287,14 +2287,14 @@
   
       &:focus,
       &:hover {
-        color: $rain-rainy-sky-blue;
-        background: $neutral-white;
+        color: $neutral-black;
+        background: $rain-rainy-sky-blue;
         border: .125rem solid $rain-rainy-sky-blue;
       }
   
       &:active {
-        color: $neutral-black;
-        background: $rain-rainy-sky-blue;
+        color: $rain-rainy-sky-blue;
+        background: $neutral-white;
         border: .125rem solid $rain-rainy-sky-blue;
       }
     }
@@ -2330,9 +2330,9 @@
       }
   
       &:active {
-        background: $rain-rain-drop-blue;
-        color: $neutral-black;
-        border: .125rem solid $neutral-black;
+        background: $rain-slate-gray;
+        color: $neutral-white;
+        border: .125rem solid $neutral-white;
       }
     }
   }
