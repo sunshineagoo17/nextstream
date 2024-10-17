@@ -1576,7 +1576,7 @@
       margin-left: -.3125rem;
       border-width: .3125rem;
       border-style: solid;
-      border-color: $rain-cool-aqua transparent transparent transparent;
+      border-color: $rain-text-dark transparent transparent transparent;
     }
   }
 
@@ -2048,10 +2048,10 @@
   #likeTooltip,
   #dislikeTooltip {
     background-color: $rain-cloudy-ocean-blue;
-    color: $rain-storm-cloud-blue;
+    color: $neutral-white;
   
     &::after {
-      border: $rain-rain-drop-blue transparent transparent transparent;
+      border: $rain-text-dark transparent transparent transparent;
     }
   }
     
@@ -2357,11 +2357,11 @@
   #friendTooltip,
   #calTooltip,
   #trashTooltip {
-    background-color: $sun-ocean-breeze;
-    color: $primary-dark-blue;
+    background-color: $rain-cloudy-ocean-blue;
+    color: $neutral-white;
   
     &::after {
-      border: $primary-button-blue transparent transparent transparent;
+      border: $rain-text-dark transparent transparent transparent;
     }
   }
   
@@ -2398,11 +2398,11 @@
   
     &__gpt-icon,
     &__btn-txt {
-      color: $rain-text-light !important;
+      color: $neutral-white !important;
     }
   
     &__chat-container {
-      background: $rain-frosted-glass;
+      background: $rain-dew-drop-gray;
     }
   
     &__chat-block {
@@ -2489,6 +2489,7 @@
     &__input {
       &:focus {
         border: .25rem solid $rain-wet-grass-green;
+        color: $neutral-black;
       }
   
       &::placeholder {
@@ -2525,15 +2526,18 @@
     &__send-button {
       background: $rain-wet-grass-green;
       color: $neutral-white;
+      border: .0625rem solid $rain-forest-green;
     
       &:hover {
         background: $rain-soft-seafoam;
-        color: $rain-seaweed-green;
+        color: $primary-button-blue;
+        border: none;
       }
     
       &:active {
         background: $rain-cloudy-ocean-blue;
         color: $rain-rain-drop-blue;
+        border: .0625rem solid $rain-rain-drop-blue;
       }
     }
   
@@ -2587,15 +2591,15 @@
     }
   
     &__nav-arrow {
-      color: $rain-rain-drop-blue;
-      border: .1875rem solid $rain-soft-seafoam;
-      background: $neutral-black;
+      color: $rain-rainy-sky-blue;
+      border: .1875rem solid $rain-rainy-sky-blue;
+      background: $neutral-white;
   
       &:hover {
         transform: scale(1.1);
-        border: .1875rem solid $rain-seaweed-green;
-        color: $rain-seaweed-green;
-        background: $neutral-white;
+        color: $rain-rain-drop-blue;
+        border: .1875rem solid $rain-soft-seafoam;
+        background: $neutral-black;
       }
   
       &:active {
@@ -2616,7 +2620,7 @@
   
       &:focus,
       &:hover {
-        color: $rain-foggy-mist-gray;
+        color: $neutral-white;
         background: none;
         border: none;
         box-shadow: none;
@@ -2631,7 +2635,7 @@
     }
   
     &__title--results {
-      color: $rain-foggy-mist-gray;
+      color: $neutral-white;
     }
   
     &__poster {
@@ -2798,7 +2802,7 @@
     }
   
     &__clear-input {
-      color: $rain-seaweed-green;
+      color: $neutral-white;
   
       &:hover {
         color: $rain-rain-drop-blue;
@@ -2818,15 +2822,18 @@
   .voice-message__voice-button {
     background: $rain-wet-grass-green;
     color: $neutral-white;
+    border: .0625rem solid $rain-forest-green;
   
     &:hover {
       background: $rain-soft-seafoam;
-      color: $rain-seaweed-green;
+      color: $primary-button-blue;
+      border: none;
     }
   
     &:active {
       background: $rain-cloudy-ocean-blue;
       color: $rain-rain-drop-blue;
+      border: .0625rem solid $rain-rain-drop-blue;
     }
   }
 
@@ -3096,15 +3103,15 @@
       }
     }
   }
-    
+
   // NextWatch
   .custom-tooltip {
-    background-color: $rain-soft-seafoam !important;
-    color: $neutral-black !important;
+    background-color: $rain-cloudy-ocean-blue !important;
+    color: $neutral-white !important;
     text-shadow: none;
   
     &::after {
-      border-color: $rain-soft-seafoam transparent transparent transparent;
+      border: $rain-text-dark transparent transparent transparent;
     }
   }
   
@@ -3878,8 +3885,8 @@
   #lockTooltip,
   #lightbulbTooltip,
   #trashTooltip {
-    background-color: $sun-ocean-breeze;
-    color: $primary-dark-blue;
+    background-color: $rain-cloudy-ocean-blue;
+    color: $neutral-white;
     padding: .5rem 1rem;
     border-radius: .5rem;
     box-shadow: 0 .5rem 1rem rgba($rain-midnight-storm-gray, .1);
@@ -3887,7 +3894,7 @@
     line-height: 1.25rem;
   
     &::after {
-      border: $primary-button-blue transparent transparent transparent;
+      border: $rain-text-dark transparent transparent transparent;
     }
   }  
   
@@ -5530,11 +5537,11 @@
   }
 
   #deleteDisabledTooltip {
-    background-color: $rain-rain-drop-blue;
-    color: $primary-dark-blue;
+    background-color: $rain-cloudy-ocean-blue;
+    color: $neutral-white;
 
     &::after {
-      border: $primary-button-blue transparent transparent transparent;
+      border: $rain-text-dark transparent transparent transparent;
     }
   }
 
