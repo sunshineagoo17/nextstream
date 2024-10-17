@@ -5550,9 +5550,9 @@
     background: $rain-slate-gray;
 
     &__title {
-      background: $rain-forest-green;
+      background: $frosted-glass;
       color: $neutral-white;
-      border: 0.1875rem solid $rain-evergreen;
+      border: 0.1875rem solid $rain-storm-cloud-blue;
     }
 
     &__subtitle {
@@ -5560,11 +5560,11 @@
     }
 
     &__hero {
-      background: $rain-dew-drop-gray
+      background: $rain-dew-drop-gray;
     }
 
     &__hero-text {
-      background: $rain-gradient-green;
+      background: $rain-gradient-blue-gray;
       box-shadow: $rain-shadow-primary;
       border: .125rem solid $neutral-white;
     }
