@@ -5022,57 +5022,57 @@
   }
 }
 
-// NextSearch
+// NextSearch Page
 .next-search {
   background: linear-gradient(
     135deg,
-    rgba($sun-light-gray, 0.75),
-    rgba($sun-light-gray, 1)
+    rgba($rain-foggy-mist-gray, 0.75),
+    rgba($rain-foggy-mist-gray, 1)
   );
 
   &__title {
-    background: linear-gradient(180deg, $sun-yellow, darken($sun-soft-lemon, 15%));
-    color: $sun-text-dark;
+    background: linear-gradient(180deg, $rain-slate-gray, darken($rain-dew-drop-gray, 15%));
+    color: $rain-text-dark;
   }
 
   &__gpt-button {
-    background: linear-gradient(135deg, $sun-icy-blue, $sun-ocean-breeze);
-    box-shadow: 0 0 1rem rgba($sun-icy-blue, 0.4), inset 0 0 0.5rem rgba($sun-ocean-breeze, 0.8);
+    background: linear-gradient(135deg, $rain-cool-aqua, $rain-cloudy-ocean-blue);
+    box-shadow: 0 0 1rem rgba($rain-cool-aqua, 0.4), inset 0 0 0.5rem rgba($rain-cloudy-ocean-blue, 0.8);
   
     &:hover {
-      background: linear-gradient(135deg, $sun-icy-blue, $primary-button-blue);
-      box-shadow: 0 0 1rem rgba($sun-icy-blue, 0.4), inset 0 0 0.5rem rgba($primary-button-blue, 0.8);
+      background: linear-gradient(135deg, $rain-cool-aqua, $rain-rain-drop-blue);
+      box-shadow: 0 0 1rem rgba($rain-cool-aqua, 0.4), inset 0 0 0.5rem rgba($rain-rain-drop-blue, 0.8);
     }
 
     &:active {
-      background: linear-gradient(135deg, $primary-button-blue, $sun-ocean-breeze);
-      box-shadow: 0 0 1rem rgba($primary-button-blue, 0.4), inset 0 0 0.5rem rgba($sun-ocean-breeze, 0.8);
+      background: linear-gradient(135deg, $rain-rain-drop-blue, $rain-cloudy-ocean-blue);
+      box-shadow: 0 0 1rem rgba($rain-rain-drop-blue, 0.4), inset 0 0 0.5rem rgba($rain-cloudy-ocean-blue, 0.8);
     }
   }
 
   &__text--center,
   &__not-loading-text--center {
-    color: $neutral-black;
+    color: $rain-text-dark;
   }
 
   &__calendar-close-btn {
-    background: $sun-sunrise-orange;
-    color: $neutral-black;
+    background: $rain-seaweed-green;
+    color: $rain-text-light;
 
     &:hover {
-      color: $sun-soft-tangerine;
-      background: $sun-peach-fuzz;
+      color: $rain-soft-seafoam;
+      background: $rain-mossy-green;
     }
 
     &:active {
-      color: $primary-dark-blue;
-      background: $sun-ocean-breeze;
+      color: $rain-rain-drop-blue;
+      background: $rain-storm-cloud-blue;
     }
   }
 
   &__card {
-    background: $sun-white;
-    color: $sun-text-dark;
+    background: $rain-soft-seafoam;
+    color: $rain-text-dark;
   }
 
   &__not-loading-svg,
@@ -5086,73 +5086,75 @@
   }
 
   &__sub-tab {
-    background: $frosted-glass;
-    color: $primary-dark-blue;
+    background: $rain-frosted-glass;
+    color: $neutral-black;
 
     &:hover {
-      background: $neutral-white;
-      color: $sun-sunrise-orange;
+      background: $rain-rainy-sky-blue;
+      color: $neutral-white;
     }
 
     &:active {
-      background: $primary-button-blue;
+      background: $rain-cloudy-ocean-blue;
       color: $neutral-white;
     }
   }
 
   &__sub-tab--active {
-    background: $neutral-white;
-    color: $sun-sunrise-orange;
+    background: $rain-soft-seafoam;
+    color: $primary-dark-blue;
   }
 
   &__tab {
-    background: $sun-frosted-silver;
-    text-shadow: none;
-    color: $sun-text-dark;
+    background: $rain-neumorph-base;
+    color: $neutral-white;
 
     &:hover {
-      background: $neutral-black;
-      color: $sun-soft-tangerine;
+      background: $rain-midnight-storm-gray;
+      color: $neutral-white;
     }
 
     &:active {
-      background: $sun-ocean-breeze;
-      color: $primary-button-blue;
+      background: $rain-cloudy-ocean-blue;
+      color: $rain-rain-drop-blue;
     }
   }
 
   &__tab--active {
-    color: $primary-button-blue;
-    text-shadow: none;
+    color: $rain-rain-drop-blue;
   }
 
   &__popular-section {
-    border: .5rem solid $sun-silver;
+    border: .5rem solid $rain-dew-drop-gray;
   }
 
   &__card--popular {
-    border: .1875rem solid $sun-white;
-    background: $primary-pale-blue;
+    border: .1875rem solid $rain-frosted-blue;
+    background: $rain-slate-gray;
+  }
+
+  &__card--results {
+    border: .1875rem solid $neutral-white;
+    background: $rain-dew-drop-gray;
   }
 
   &__title--popular,
   &__title--results {
-    border: .1875rem solid $neutral-white;
-    color: $neutral-black;
+    border: .1875rem solid $rain-frosted-glass;
+    color: $neutral-white;
   }
 
   &__icons-row {
-    background: $sun-white;
-    color: $sun-text-dark;
+    background: $frosted-glass;
   }
 
   &__known-for,
   &__cast {
-    color: $neutral-black;
+    color: $neutral-white;
   }
 
   &__gpt-txt {
-    color: $primary-dark-blue;
+    color: $neutral-white;
 
     &:active {
       color: $neutral-white;
@@ -5165,10 +5167,10 @@
   &__share-icon,
   &__like-icon,
   &__dislike-icon {
-    color: $sun-golden-hour;
+    color: $rain-foggy-mist-gray;
 
     &:hover {
-      color: $sun-soft-tangerine;
+      color: $rain-soft-seafoam;
       background: none;
       border: none;
       box-shadow: none;
@@ -5178,31 +5180,31 @@
       background: none;
       border: none;
       box-shadow: none;
-      color: $sun-ocean-breeze;
+      color: $neutral-white;
     }
   }
 
   &__nav-arrow {
     cursor: url('../../assets/cursors/cursor-pointer-rain.svg'), pointer;
-    color: $sun-text-light;
-    border: .125rem solid $sun-text-light;
+    color: $rain-text-light;
+    border: .125rem solid $rain-text-light;
 
     &:hover {
-      color: $sun-sunrise-orange;
-      background: $sun-soft-lemon;
-      border: $sun-sunrise-orange;
+      color: $rain-forest-green;
+      background: $rain-wet-grass-green;
+      border: .125rem solid $rain-forest-green;
     }
 
     &:active {
-      color: $sun-ocean-breeze;
-      border: .125rem solid $sun-ocean-breeze;
-      background: $neutral-white;
+      color: $rain-cloudy-ocean-blue;
+      border: .125rem solid $rain-cloudy-ocean-blue;
+      background: $rain-soft-seafoam;
     }
   }
 
   &__poster {
-    border-bottom: .25rem solid $sun-yellow;
-    border-top: .25rem solid $sun-yellow;
+    border-bottom: .25rem solid $rain-wet-grass-green;
+    border-top: .25rem solid $rain-wet-grass-green;
     filter: grayscale(100%) brightness(1.2);
     transition: filter .3s ease, transform .3s ease;
 
@@ -5213,53 +5215,63 @@
 
   &__scroll-container-popular,
   &__scroll-container-results {
-    background: $sun-silver;
+    background: $rain-dew-drop-gray;
     border-radius: 1.05rem;
-    scrollbar-color: $sun-yellow $sun-white;
+    scrollbar-color: $rain-wet-grass-green $frosted-glass;
   }
 
-  &__popular-section,
-  &__results-section {
-    background: $sun-frosted-silver;
+  &__popular-section {
+    background: $rain-neumorph-base;
 
     &::before {
-      background: $sun-gradient-blue;
-      color: $primary-button-blue;
-      border: .15rem solid $sun-silver;
-      border-bottom: .3rem solid $sun-silver;
+      background: $rain-gradient-sky;
+      color: $neutral-white;
+      border: .15rem solid $rain-neumorph-base;
+      border-bottom: .3rem solid $rain-neumorph-base;
+    }
+  }
+
+  &__results-section {
+    background: $rain-neumorph-base;
+
+    &::before {
+      background: $rain-gradient-blue-gray;
+      color: $neutral-white;
+      border: .15rem solid $neutral-white;
+      border-bottom: .3rem solid $neutral-white;
     }
   }
 
   &__scroll-container-results {
-    border: .5rem solid $sun-light-gray;
-    border-bottom: 1rem solid $sun-light-gray;
+    border: .5rem solid $rain-foggy-mist-gray;
+    border-bottom: 1rem solid $rain-foggy-mist-gray;
   }
 
   &__scroll-container-popular {
-    border: .5rem solid $sun-white;
-    border-bottom: 1rem solid $sun-white;
+    border: .5rem solid $rain-soft-seafoam;
+    border-bottom: 1rem solid $rain-soft-seafoam;
   }
 
   &__copy {
-    background: $neutral-white;
-    color: $neutral-black;
+    background: $frosted-glass;
+    color: $neutral-white;
   }
 
   &__close-icon,
   &__search-icon,
   &__eraser-icon {
-    color: $sun-ash-gray;
+    color: $neutral-white;
 
     &:focus,
     &:hover {
-      color: $sun-sunrise-orange;
+      color: $rain-slate-gray;
       background: none;
       border: none;
       box-shadow: none;
     }
 
     &:active {
-      color: $sun-ocean-breeze;
+      color: $rain-cloudy-ocean-blue;
       background: none;
       border: none;
       box-shadow: none;
@@ -5273,37 +5285,37 @@
   }
 
   &__input {
-    background: $sun-silver;
-    color: $sun-text-dark;
+    background: $rain-neumorph-base;
+    color: $rain-text-dark;
 
     &::placeholder {
-      color: $sun-ash-gray;
+      color: $rain-slate-gray;
     }
 
     &:focus {
-      border: .25rem solid $sun-soft-lemon;
-      box-shadow: $sun-shadow-primary;
+      border: .25rem solid $rain-wet-grass-green;
+      box-shadow: $rain-shadow-primary;
     }
   }
 }
 
 .voice-search__voice-button {
-  background: $sun-frosted-silver;
-  color: $star-text-gray;
+  background: $rain-neumorph-base;
+  color: $neutral-white;
 
   &:hover {
-    background: linear-gradient(135deg, lighten($sun-frosted-silver, 10%), lighten($sun-frosted-silver, 5%));
-    color: $sun-sunrise-orange;
+    background: linear-gradient(135deg, lighten($rain-rainy-sky-blue, 10%), lighten($rain-rainy-sky-blue, 5%));
+    color: $neutral-white;
   }
 
   &:active {
-    background: $sun-soft-lemon;
-    color: $sun-soft-tangerine;
+    background: $rain-soft-seafoam;
+    color: $rain-cloudy-ocean-blue;
   }
 }
 
 .user-rating {
-  background: $sun-white;
+  background: $rain-frosted-glass;
   border-radius: 50%;
 }
 
