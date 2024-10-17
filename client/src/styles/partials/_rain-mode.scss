@@ -2365,477 +2365,470 @@
     }
   }
   
-// NextStream Bot
-.nextstream-bot {
-  @include frosted-glass2;
-  border-radius: 1.25rem;
-  box-shadow: $sun-shadow-primary;
-  margin: 1.5rem;
-  border: .3125rem solid $sun-silver;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  background: linear-gradient(
-    135deg,
-    rgba($sun-frosted-silver, .75),
-    rgba($sun-light-gray, 1)
-  );
-  overflow: hidden;
-
-  &__typing-indicator-bubble {
-    background-color: $neutral-black;
-  }
-
-  &__bot-typing-indicator-bubble {
-    background: $sun-sunrise-orange;
-  }
-
-  &__text--center {
-    color: $sun-text-dark;
-  }
-
-  &__gpt-icon,
-  &__btn-txt {
-    color: $sun-text-dark !important;
-  }
-
-  &__chat-container {
-    background: $sun-white;
-  }
-
-  &__chat-block {
-    border: .3125rem solid $sun-yellow;
-  }
-
-  &__poster--results {
-    filter: grayscale(100%) brightness(0.9);
-    transition: filter .3s ease, transform .3s ease;
-
-    &:hover {
-      filter: grayscale(0%) brightness(1);
+  // NextStream Bot
+  .nextstream-bot {
+    @include frosted-glass2;
+    border-radius: 1.25rem;
+    box-shadow: $rain-shadow-primary;
+    margin: 1.5rem;
+    border: .3125rem solid $rain-slate-gray;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    background: linear-gradient(
+      135deg,
+      rgba($rain-frosted-blue, .75),
+      rgba($rain-foggy-mist-gray, 1)
+    );
+    overflow: hidden;
+  
+    &__typing-indicator-bubble {
+      background-color: $rain-foggy-mist-gray;
     }
-  }
-
-  &__loading-svg {
-    filter: grayscale(100%) brightness(0.9);
-  }
-
-  &__title {
-    background: $primary-pale-blue;
-    color: $neutral-black;
-    border: .1875rem solid $sun-ocean-breeze;
-  }
-
-  &__loader-overlay {
-    background-color: $sun-frosted-silver;
-  }
-
-  &__copy {
-    background: $sun-ocean-breeze;
-    color: $neutral-black;
-    box-shadow: none;
-  }
-
-  &__gpt-container {
-    background-color: $sun-light-gray;
-    color: $sun-text-dark;
-  }
-
-  &__chatbot-svg {
-    filter: grayscale(100%) brightness(0.9);
-    transition: filter .3s ease, transform .3s ease;
-
-    &:hover {
-      filter: grayscale(0%) brightness(1);
+  
+    &__bot-typing-indicator-bubble {
+      background: $rain-seaweed-green;
     }
-  }
-
-  &__empty-message {
-    color: $neutral-black;
-    border: .1875rem solid $sun-silver;
-    animation: sunmodeBounce 4s infinite ease-in-out, sunmodeColorShift 5s infinite ease-in-out;
-
-    @keyframes sunmodeBounce {
+  
+    &__text--center {
+      color: $rain-text-dark;
+    }
+  
+    &__gpt-icon,
+    &__btn-txt {
+      color: $rain-text-light !important;
+    }
+  
+    &__chat-container {
+      background: $rain-frosted-glass;
+    }
+  
+    &__chat-block {
+      background: $rain-slate-gray;
+      border: .3125rem solid $rain-wet-grass-green;
+      box-shadow: $rain-shadow-secondary;
+    }
+  
+    &__poster--results {
+      filter: grayscale(100%) brightness(0.9);
+      transition: filter .3s ease, transform .3s ease;
+  
+      &:hover {
+        filter: grayscale(0%) brightness(1);
+      }
+    }
+  
+    &__loading-svg {
+      filter: grayscale(100%) brightness(0.9);
+    }
+  
+    &__title {
+      background: $rain-gradient-blue-gray;
+      color: $rain-text-dark;
+      border: .1875rem solid $rain-rainy-sky-blue;
+    }
+  
+    &__loader-overlay {
+      background-color: $rain-frosted-glass;
+    }
+  
+    &__copy {
+      background: $rain-dew-drop-gray;
+      color: $neutral-white;
+      box-shadow: $shadow-primary;
+    }
+  
+    &__gpt-container {
+      background-color: $rain-slate-gray;
+      color: $rain-text-dark;
+    }
+  
+    &__chatbot-svg {
+      filter: grayscale(100%) brightness(0.9);
+      transition: filter .3s ease, transform .3s ease;
+  
+      &:hover {
+        filter: grayscale(0%) brightness(1);
+      }
+    }
+  
+    &__empty-message {
+      color: $rain-text-dark;
+      border: .1875rem solid $rain-dew-drop-gray;
+      animation: rainmodeBounce 4s infinite ease-in-out, rainmodeColorShift 5s infinite ease-in-out;
+  
+      @keyframes rainmodeBounce {
+        0%, 100% {
+          transform: scale(1);
+          box-shadow: 0 0 .75rem rgba($rain-slate-gray, .3);
+        }
+        50% {
+          transform: scale(1.05);
+          box-shadow: 0 .75rem 2rem rgba($rain-slate-gray, .4);
+        }
+      }
+  
+      @keyframes rainmodeColorShift {
+        0% {
+          border-color: $rain-slate-gray;
+          background: $rain-frosted-glass;
+        }
+        50% {
+          border-color: $rain-dew-drop-gray;
+          background: lighten($rain-foggy-mist-gray, 10%);
+        }
+        100% {
+          border-color: $rain-slate-gray;
+          background: $rain-frosted-glass;
+        }
+      }
+    }
+  
+    &__input {
+      &:focus {
+        border: .25rem solid $rain-wet-grass-green;
+      }
+  
+      &::placeholder {
+        color: $rain-slate-gray;
+      }
+    }
+  
+    &__messages {
+      background: $rain-dew-drop-gray;
+      border: .25rem solid $rain-dew-drop-gray;
+      scrollbar-width: thin;
+      scrollbar-color: $rain-foggy-mist-gray $rain-dew-drop-gray;
+    }
+  
+    &__message--user {
+      background-color: $rain-rainy-sky-blue;
+      color: $rain-text-light;
+      border: .125rem solid $rain-rain-drop-blue;
+    }
+  
+    &__message--bot {
+      background-color: $rain-forest-green;
+      color: $neutral-white;
+      box-shadow: $rain-shadow-primary;
+      border: .125rem solid $rain-wet-grass-green;
+    }
+  
+    &__speech-icon {
+      color: $rain-slate-gray;
+      border: .125rem solid $rain-rainy-sky-blue;
+      box-shadow: $rain-shadow-primary;
+    }
+  
+    &__send-button {
+      background: $rain-wet-grass-green;
+      color: $neutral-white;
+    
+      &:hover {
+        background: $rain-soft-seafoam;
+        color: $rain-seaweed-green;
+      }
+    
+      &:active {
+        background: $rain-cloudy-ocean-blue;
+        color: $rain-rain-drop-blue;
+      }
+    }
+  
+    &__results-section {
+      background: $rain-gradient-moss;
+      color: $rain-text-dark;
+  
+      &::before {
+        background: $rain-gradient-blue-gray;
+        color: $neutral-white;
+        border: .15rem solid $rain-frosted-blue;
+        border-bottom: .3rem solid $rain-frosted-blue;
+      }
+    }
+  
+    &__card--results {
+      background: $rain-dew-drop-gray;
+    }
+  
+    &__rating-container {
+      background: none;
+      filter: grayscale(100%);
+      transition: filter .3s ease, transform .3s ease;
+  
+      &:hover {
+        filter: grayscale(0%) brightness(1);
+      }
+    }
+  
+    &__header-text {
+      color: $neutral-white;
+    }
+  
+    &__scroll-container-results {
+      display: flex;
+      border: .5rem solid $rain-slate-gray;
+      border-bottom: 1rem solid $rain-slate-gray;
+      overflow-x: scroll;
+      scrollbar-width: thin;
+      -ms-overflow-style: none;
+      scroll-behavior: smooth;
+      background: $rain-frosted-glass;
+      width: 100%;
+      border-radius: 1.05rem;
+      scrollbar-color: $rain-wet-grass-green $frosted-glass;
+      cursor: url('../../assets/cursors/cursor-pointer-rain.svg'), pointer;
+    }
+  
+    &__icons-row {
+      background: $frosted-glass;
+    }
+  
+    &__nav-arrow {
+      color: $rain-rain-drop-blue;
+      border: .1875rem solid $rain-soft-seafoam;
+      background: $neutral-black;
+  
+      &:hover {
+        transform: scale(1.1);
+        border: .1875rem solid $rain-seaweed-green;
+        color: $rain-seaweed-green;
+        background: $neutral-white;
+      }
+  
+      &:active {
+        transform: scale(.9);
+        border: .1875rem solid $rain-wet-grass-green;
+        color: $rain-wet-grass-green;
+        background: $rain-text-dark;
+      }
+    }
+  
+    &__lightbulb-icon,
+    &__media-icon,
+    &__cal-icon,
+    &__share-icon,
+    &__like-icon,
+    &__dislike-icon {
+      color: $rain-rain-drop-blue;
+  
+      &:focus,
+      &:hover {
+        color: $rain-foggy-mist-gray;
+        background: none;
+        border: none;
+        box-shadow: none;
+      }
+  
+      &:active {
+        color: $rain-cloudy-ocean-blue;
+        box-shadow: none;
+        border: none;
+        background: none;
+      }
+    }
+  
+    &__title--results {
+      color: $rain-foggy-mist-gray;
+    }
+  
+    &__poster {
+      border-bottom: .25rem solid $rain-text-dark;
+      border-top: .25rem solid $rain-text-dark;
+    }
+  
+    &__gpt-icon-inline {
+      background: $neutral-white;
+      color: $rain-forest-green;
+  
+      &:hover {
+        color: $neutral-white;
+        background: $rain-fern-green;
+      }
+    }
+  
+    &__user-icon-inline {
+      background: $rain-soft-seafoam;
+      color: $rain-cloudy-ocean-blue;
+  
+      &:hover {
+        background: $rain-cloudy-ocean-blue;
+        color: $rain-rain-drop-blue;
+      }
+  
+      &.typing-icon {
+        animation: rainmodePulseIcon 2.5s infinite ease-in-out;
+        color: $rain-fern-green;
+      }
+    }
+    
+    @keyframes rainmodePulseIcon {
       0%, 100% {
         transform: scale(1);
-        box-shadow: 0 0 .75rem rgba($sun-silver, .3);
+        color: $rain-wet-grass-green;
       }
       50% {
-        transform: scale(1.05);
-        box-shadow: 0 .75rem 2rem rgba($sun-silver, .4);
+        transform: scale(1.2);
+        color: $rain-text-light;
       }
     }
-
-    @keyframes sunmodeColorShift {
+  
+    &__clear-chat-text {
+      color: $neutral-white;
+  
+      &:hover {
+        color: $neutral-white;
+      }
+  
+      &:active {
+        color: $neutral-white;
+      }
+    }
+  
+    &__clear-chat-icon {
+      color: $neutral-white;
+  
+      &:hover {
+        color: $neutral-white;
+      }
+  
+      &:active {
+        color: $neutral-white;
+      }
+    }
+  
+    &__calendar-close-btn {
+      background: $rain-seaweed-green;
+      color: $rain-text-light;
+  
+      &:hover {
+        color: $rain-soft-seafoam;
+        background: $rain-mossy-green;
+      }
+  
+      &:active {
+        color: $rain-rain-drop-blue;
+        background: $rain-storm-cloud-blue;
+      }
+    }
+  
+    &__clear-chat-button,
+    &__gpt-button {
+      background: linear-gradient(
+        135deg,
+        $rain-wet-grass-green,
+        $rain-seaweed-green
+      );
+      border: none;
+      border-radius: .5rem;
+      padding: .5rem 1rem;
+      color: $rain-text-light;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      position: relative;
+      overflow: hidden;
+      transition: all .4s ease;
+      box-shadow: 0 0 1rem rgba($rain-wet-grass-green, .4),
+        inset 0 0 .5rem rgba($rain-seaweed-green, .8);
+      animation: rainmodePulse 2.5s infinite;
+  
+      &:hover {
+        border-radius: 2.5rem;
+        background: linear-gradient(
+          135deg,
+          $rain-wet-grass-green,
+          $rain-cool-aqua
+        );
+        transform: translateY(-.25rem) scale(1.05);
+        box-shadow: 0 0 1.5rem rgba($rain-wet-grass-green, .8),
+          inset 0 0 .75rem rgba($rain-cool-aqua, .9);
+      }
+  
+      &:active {
+        transform: scale(.95);
+        background: linear-gradient(
+          135deg,
+          $rain-seaweed-green,
+          $rain-deep-shadow
+        );
+        box-shadow: 0 0 1rem rgba($rain-seaweed-green, .6),
+          inset 0 0 .5rem rgba($rain-deep-shadow, .8);
+      }
+  
+      &::before {
+        content: '';
+        @include block-item(100%, 100%);
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: rgba($rain-wet-grass-green, .6);
+        filter: blur(1.25rem);
+        transition: opacity .5s ease;
+        z-index: 0;
+        opacity: .75;
+      }
+  
+      &:hover::before {
+        opacity: 1;
+      }
+    }
+  
+    @keyframes rainmodePulse {
       0% {
-        border-color: $sun-silver;
-        background: $sun-white;
+        box-shadow: 0 0 1rem rgba($rain-wet-grass-green, .4),
+          inset 0 0 .5rem rgba($rain-seaweed-green, .8);
       }
       50% {
-        border-color: $sun-ash-gray;
-        background: lighten($sun-light-gray, 10%);
+        box-shadow: 0 0 1.5rem rgba($rain-wet-grass-green, .8),
+          inset 0 0 .75rem rgba($rain-cool-aqua, .9);
       }
       100% {
-        border-color: $sun-silver;
-        background: $sun-white;
+        box-shadow: 0 0 1rem rgba($rain-wet-grass-green, .4),
+          inset 0 0 .5rem rgba($rain-seaweed-green, .8);
       }
     }
-  }
-
-  &__input {
-    &:focus {
-      border: .25rem solid $sun-yellow;
-    }
-
-    &::placeholder {
-      color: $sun-ash-gray;
-    }
-  }
-
-  &__messages {
-    border: .25rem solid $sun-silver;
-    scrollbar-width: thin;
-    scrollbar-color: $sun-light-gray $sun-silver;
-  }
-
-  &__chat-block {
-    background: linear-gradient(
-      135deg,
-      rgba($sun-frosted-silver, .75),
-      rgba($sun-light-gray, 1)
-    );
-    border: .3125rem solid $sun-yellow;
-    box-shadow: $sun-shadow-secondary;
-  }
-
-  &__message--user {
-    background-color: $sun-icy-blue;
-    color: $primary-dark-blue;
-    border: .125rem solid $sun-ocean-breeze;
-  }
-
-  &__message--bot {
-    background-color: $sun-light-gold;
-    color: $neutral-black;
-    box-shadow: $sun-shadow-primary;
-    border: .125rem solid $sun-golden-hour;
-  }
-
-  &__speech-icon {
-    color: $sun-yellow;
-    border: .125rem solid $sun-golden-hour;
-    box-shadow: $sun-shadow-primary;
-  }
-
-  &__send-button {
-    background: $sun-yellow;
-    color: $sun-text-dark;
   
-    &:hover {
-      background: $sun-text-light;
-      color: $sun-sunrise-orange;
+    &__search-icon,
+    &__close-icon {
+      color: $rain-foggy-mist-gray;
     }
   
-    &:active {
-      background: $sun-peach-fuzz;
-      color: $sun-soft-tangerine;
+    &__clear-input {
+      color: $rain-seaweed-green;
+  
+      &:hover {
+        color: $rain-rain-drop-blue;
+      }
+  
+      &:active {
+        color: $rain-cloudy-ocean-blue;
+      }
     }
-  }
-
-  &__results-section {
-    background: $sun-gradient-lemon;
-    color: $sun-text-dark;
-
-    &::before {
-      background: $sun-gradient-blue;
-      color: $primary-dark-blue;
-      border: .15rem solid $sun-icy-blue;
-      border-bottom: .3rem solid $sun-icy-blue;
-    }
-  }
-
-  &__card--results {
-    background: $sun-frosted-silver;
-  }
-
-  &__rating-container {
-    background: none;
-    filter: grayscale(100%);
-    transition: filter .3s ease, transform .3s ease;
-
-    &:hover {
-      filter: grayscale(0%) brightness(1);
-    }
-  }
-
-  &__header-text {
-    color: $neutral-black;
-  }
-
-  &__scroll-container-results {
-    display: flex;
-    border: .5rem solid $sun-light-gray;
-    border-bottom: 1rem solid $sun-light-gray;
-    overflow-x: scroll;
-    scrollbar-width: thin;
-    -ms-overflow-style: none;
-    scroll-behavior: smooth;
-    background: $sun-white;
-    width: 100%;
-    border-radius: 1.05rem;
-    scrollbar-color: $sun-yellow $sun-light-gray;
-    cursor: url('../../assets/cursors/cursor-pointer-rain.svg'), pointer;
-  }
-
-  &__icons-row {
-    background: $sun-silver;
-  }
-
-  &__nav-arrow {
-    color: $sun-ocean-breeze;
-    border: .1875rem solid $neutral-white;
-    background: $sun-light-gray;
-
-    &:hover {
-      transform: scale(1.1);
-      border: .1875rem solid $sun-sunrise-orange;
-      color: $sun-sunrise-orange;
-      background: $sun-soft-lemon;
-    }
-
-    &:active {
-      transform: scale(.9);
-      border: .1875rem solid $sun-yellow;
-      color: $sun-yellow;
-      background: $sun-text-dark;
-    }
-  }
-
-  &__lightbulb-icon,
-  &__media-icon,
-  &__cal-icon,
-  &__share-icon,
-  &__like-icon,
-  &__dislike-icon {
-    color: $sun-ocean-breeze;
-
-    &:focus,
-    &:hover {
-      color: $sun-sunrise-orange;
-      background: none;
-      border: none;
-      box-shadow: none;
-    }
-
-    &:active {
-      color: $primary-button-blue;
-      box-shadow: none;
-      border: none;
-      background: none;
-    }
-  }
-
-  &__title--results {
-    color: $sun-text-dark;
-  }
-
-  &__poster {
-    border-bottom: .25rem solid $sun-text-dark;
-    border-top: .25rem solid $sun-text-dark;
-  }
-
-  &__gpt-icon-inline {
-    background: $neutral-white;
-    color: $sun-sunrise-orange;
-
-    &:hover {
-      color: $sun-peach-fuzz;
-      background: $sun-soft-tangerine;
-    }
-  }
-
-  &__user-icon-inline {
-    background: $neutral-white;
-    color: $sun-ocean-breeze;
-
-    &:hover {
-      background: $sun-ocean-breeze;
-      color: $sun-icy-blue;
-    }
-
-    &.typing-icon {
-      animation: sunmodePulseIcon 2.5s infinite ease-in-out;
-      color: $sun-yellow;
+  
+    &__calendar-close-btn {
+      background: $rain-frosted-glass;
+      color: $rain-text-dark;
     }
   }
   
-  @keyframes sunmodePulseIcon {
-    0%, 100% {
-      transform: scale(1);
-      color: $sun-yellow;
-    }
-    50% {
-      transform: scale(1.2);
-      color: $sun-text-light;
-    }
-  }
-
-  &__clear-chat-text {
-    color: $neutral-black;
-
+  .voice-message__voice-button {
+    background: $rain-wet-grass-green;
+    color: $neutral-white;
+  
     &:hover {
-      color: $neutral-black;
+      background: $rain-soft-seafoam;
+      color: $rain-seaweed-green;
     }
-
+  
     &:active {
-      color: $neutral-black;
+      background: $rain-cloudy-ocean-blue;
+      color: $rain-rain-drop-blue;
     }
   }
-
-  &__clear-chat-icon {
-    color: $neutral-black;
-
-    &:hover {
-      color: $neutral-black;
-    }
-
-    &:active {
-      color: $neutral-black;
-    }
-  }
-
-  &__calendar-close-btn {
-    background: $sun-sunrise-orange;
-    color: $neutral-black;
-
-    &:hover {
-      color: $sun-soft-tangerine;
-      background: $sun-peach-fuzz;
-    }
-
-    &:active {
-      color: $primary-dark-blue;
-      background: $sun-ocean-breeze;
-    }
-  }
-
-  &__clear-chat-button,
-  &__gpt-button {
-    background: linear-gradient(
-      135deg,
-      $sun-yellow,
-      $sun-soft-lemon
-    );
-    border: none;
-    border-radius: .5rem;
-    padding: .5rem 1rem;
-    color: $sun-text-dark;
-    font-size: 1rem;
-    display: flex;
-    align-items: center;
-    gap: .5rem;
-    position: relative;
-    overflow: hidden;
-    transition: all .4s ease;
-    box-shadow: 0 0 1rem rgba($sun-yellow, .4),
-      inset 0 0 .5rem rgba($sun-soft-lemon, .8);
-    animation: sunmodePulse 2.5s infinite;
-
-    &:hover {
-      border-radius: 2.5rem;
-      background: linear-gradient(
-        135deg,
-        $sun-yellow,
-        $sun-peach-fuzz
-      );
-      transform: translateY(-.25rem) scale(1.05);
-      box-shadow: 0 0 1.5rem rgba($sun-yellow, .8),
-        inset 0 0 .75rem rgba($sun-peach-fuzz, .9);
-    }
-
-    &:active {
-      transform: scale(.95);
-      background: linear-gradient(
-        135deg,
-        $sun-blushing-orange,
-        $sun-deep-shadow
-      );
-      box-shadow: 0 0 1rem rgba($sun-blushing-orange, .6),
-        inset 0 0 .5rem rgba($sun-deep-shadow, .8);
-    }
-
-    &::before {
-      content: '';
-      @include block-item(100%, 100%);
-      position: absolute;
-      top: 0;
-      left: 0;
-      background: rgba($sun-yellow, .6);
-      filter: blur(1.25rem);
-      transition: opacity .5s ease;
-      z-index: 0;
-      opacity: .75;
-    }
-
-    &:hover::before {
-      opacity: 1;
-    }
-  }
-
-  @keyframes sunmodePulse {
-    0% {
-      box-shadow: 0 0 1rem rgba($sun-yellow, .4),
-        inset 0 0 .5rem rgba($sun-soft-lemon, .8);
-    }
-    50% {
-      box-shadow: 0 0 1.5rem rgba($sun-yellow, .8),
-        inset 0 0 .75rem rgba($sun-peach-fuzz, .9);
-    }
-    100% {
-      box-shadow: 0 0 1rem rgba($sun-yellow, .4),
-        inset 0 0 .5rem rgba($sun-soft-lemon, .8);
-    }
-  }
-
-  &__search-icon,
-  &__close-icon {
-    color: $sun-light-gray;
-  }
-
-  &__clear-input {
-    color: $sun-sunrise-orange;
-
-    &:hover {
-      color: $sun-soft-tangerine;
-    }
-
-    &:active {
-      color: $sun-ocean-breeze;
-    }
-  }
-
-  &__calendar-close-btn {
-    background: $sun-white;
-    color: $sun-text-dark;
-  }
-}
-
-.voice-message__voice-button {
-  background: $sun-yellow;
-  color: $sun-text-dark;
-
-  &:hover {
-    background: $sun-text-light;
-    color: $sun-sunrise-orange;
-  }
-
-  &:active {
-    background: $sun-peach-fuzz;
-    color: $sun-soft-tangerine;
-  }
-}
 
   // Cookies
   .cookie-notification {
