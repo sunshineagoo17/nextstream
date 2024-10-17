@@ -3898,201 +3898,203 @@
     }
   }  
   
-// Top Picks 
-.user-rating-container {
-  border-radius: 100%;
-  background: $sun-white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: .125rem solid $sun-white;
-  filter: grayscale(100%) brightness(1); 
-  transition: filter .3s ease, transform .3s ease;
-
-  &:hover {
-    filter: grayscale(0%) brightness(1); 
-  }
-}
-
-.top-picks-page {
-  background: $neutral-white;
-  margin: 0;
-
-  &__description,
-  &__text,
-  &__copy {
-    color: $sun-text-dark;
-  }
-
-  &__fetch-more {
-    background: linear-gradient(45deg, $sun-soft-lemon, $sun-sunrise-orange);
-    color: $sun-text-dark;
-
-    &:hover {
-      background: $sun-sunrise-orange;
-      color: $sun-text-dark;
-    }
-
-    &:active {
-      background: $sun-ocean-breeze;
-      color: $primary-button-blue;
-    }
-  }
-
-  &__toggle {
-    background: linear-gradient(45deg, $sun-sunrise-orange, $sun-soft-lemon);
-    color: $sun-text-dark;
-    
-    &:hover {
-      background: $sun-soft-lemon;
-      color: $sun-text-dark;
-    }
-
-    &:active {
-      background: $sun-ocean-breeze;
-      color: $primary-button-blue;
-    }
-  }
-
-  &__rating-icon {
-    background: $sun-yellow;
-    border: 2px solid $sun-golden-hour;
-    border-radius: 50%;
-  }
-
-  &__card {
-    background: $neutral-white;
-
-    &:focus,
-    &:hover {
-      background: $primary-pale-blue;
-    }
-
-    &:active {
-      background: $sun-mellow-apricot;
-      box-shadow: 0 0 .25rem $sun-soft-tangerine;
-    }
-  }
-
-  &__description {
-    &::-webkit-scrollbar-thumb {
-      background: $sun-ocean-breeze;
-      border-radius: .625rem;
-    }
-
-    &::-webkit-scrollbar-track {
-      background: $frosted-glass;
-    }
-  }
-
-  &__title {
-    background: $primary-pale-blue;
-    color: $neutral-black;
-    border: .3125rem solid $sun-icy-blue;
-  }
-
-  &__subtitle {
-    background: $neutral-white;
-    color: $neutral-black;
-  }
-
-  &__header-container {
-    background: $sun-pale-baby-blue;
-  }
-
-  &__load-descript {
-    color: $sun-ocean-breeze;
-
-    &:hover {
-      color: $primary-button-blue;
-    }
-
-    &:active {
-      color: $sun-sunrise-orange;
-    }
-  }
-
-  &__text--center {
-    color: $sun-text-dark;
-    border: .1875rem solid $sun-golden-hour;
-  }
-
-  &__calendar-close-btn {
-    background: $sun-sunrise-orange;
-    color: $neutral-black;
-
-    &:hover {
-      color: $sun-soft-tangerine;
-      background: $sun-peach-fuzz;
-    }
-
-    &:active {
-      color: $primary-dark-blue;
-      background: $sun-ocean-breeze;
-    }
-  }
-
-  &__lightbulb-icon,
-  &__media-icon-link,
-  &__search-icon,
-  &__cal-icon,
-  &__share-icon,
-  &__like-icon,
-  &__dislike-icon {
-    color: $sun-sunrise-orange;
-
-    &:hover {
-      border: none;
-      background: none;
-      box-shadow: none;
-      color: $sun-soft-tangerine;
-    }
-
-    &:active {
-      color: $primary-button-blue;
-      background: $sun-ocean-breeze;
-      border: none;
-      box-shadow: none;
-    }
-  }
-  
-  &__loading-svg {
-    filter: grayscale(100%) brightness(0.8); 
-  }
-
-  &__poster-container {
-    filter: grayscale(100%) brightness(0.8); 
+  .user-rating-container {
+    border-radius: 100%;
+    background: $rain-frosted-blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: .125rem solid $rain-foggy-mist-gray;
+    filter: grayscale(100%) brightness(1); 
     transition: filter .3s ease, transform .3s ease;
-    border: .0625rem solid $sun-yellow;
   
     &:hover {
       filter: grayscale(0%) brightness(1); 
-      border: .2188rem solid $sun-ocean-breeze;
     }
   }
+  
+  .top-picks-page {
+    background: $neutral-black;
+    margin: 0;
+  
+    &__description,
+    &__text {
+      color: $neutral-black;
+    }
 
-  &__content {
-    background: $primary-pale-blue;
+    &__copy {
+      color: $neutral-white;
+    }
+  
+    &__fetch-more {
+      background: linear-gradient(45deg, $rain-wet-grass-green, $rain-rainy-sky-blue);
+      color: $neutral-white;
+  
+      &:hover {
+        background: $rain-rainy-sky-blue;
+        color: $neutral-white;
+      }
+  
+      &:active {
+        background: $rain-cloudy-ocean-blue;
+        color: $rain-soft-seafoam;
+      }
+    }
+  
+    &__toggle {
+      background: linear-gradient(45deg, $rain-rainy-sky-blue, $rain-wet-grass-green);
+      color: $rain-text-dark;
+      
+      &:hover {
+        background: $rain-wet-grass-green;
+        color: $rain-text-dark;
+      }
+  
+      &:active {
+        background: $rain-cloudy-ocean-blue;
+        color: $rain-rain-drop-blue;
+      }
+    }
+  
+    &__rating-icon {
+      background: $rain-soft-seafoam;
+      border: 2px solid $rain-rainy-sky-blue;
+      border-radius: 50%;
+    }
+  
+    &__card {
+      background: $rain-storm-cloud-blue;
+  
+      &:focus,
+      &:hover {
+        background: $rain-dew-drop-gray;
+      }
+  
+      &:active {
+        background: $rain-slate-gray;
+        box-shadow: 0 0 .25rem $rain-slate-gray;
+      }
+    }
+  
+    &__description {
+      &::-webkit-scrollbar-thumb {
+        background: $rain-rainy-sky-blue;
+        border-radius: .625rem;
+      }
+  
+      &::-webkit-scrollbar-track {
+        background: $rain-frosted-glass;
+      }
+    }
+  
+    &__title {
+      background: $rain-dew-drop-gray;
+      color: $neutral-white;
+      border: .3125rem solid $rain-foggy-mist-gray;
+    }
+  
+    &__subtitle {
+      background: $frosted-glass;
+      color: $neutral-white;
+    }
+  
+    &__header-container {
+      background: $rain-dew-drop-gray;
+    }
+  
+    &__text--center {
+      color: $rain-text-dark;
+      border: .1875rem solid $rain-storm-cloud-blue;
+    }
+  
+    &__calendar-close-btn {
+      background: $frosted-glass;
+      color: $neutral-white;
+  
+      &:hover {
+        color: $neutral-white;
+        background: $rain-forest-green;
+      }
+  
+      &:active {
+        color: $rain-rainy-sky-blue;
+        background: $neutral-white;
+      }
+    }
+  
+    &__load-descript {
+      color: $rain-cloudy-ocean-blue;
+  
+      &:hover {
+        color: $rain-rain-drop-blue;
+      }
+  
+      &:active {
+        color: $rain-foggy-mist-gray;
+      }
+    }
 
-    @include tablet {
-      border: .625rem solid $sun-yellow;
+    &__lightbulb-icon,
+    &__media-icon-link,
+    &__search-icon,
+    &__cal-icon,
+    &__share-icon,
+    &__like-icon,
+    &__dislike-icon {
+      color: $rain-cloudy-ocean-blue;
+  
+      &:hover {
+        border: none;
+        background: none;
+        box-shadow: none;
+        color: $rain-rain-drop-blue;
+      }
+  
+      &:active {
+        color: $rain-foggy-mist-gray;
+        border: none;
+        background: none;
+        box-shadow: none;
+      }
+    }
+    
+    &__loading-svg {
+      filter: grayscale(100%) brightness(0.8); 
+    }
+  
+    &__poster-container {
+      filter: grayscale(100%) brightness(0.8); 
+      transition: filter .3s ease, transform .3s ease;
+      border: .0625rem solid $rain-wet-grass-green;
+    
+      &:hover {
+        filter: grayscale(0%) brightness(1); 
+        border: .2188rem solid $rain-cloudy-ocean-blue;
+      }
+    }
+  
+    &__content {
+      background: $rain-dew-drop-gray;
+  
+      @include tablet {
+        border: .625rem solid $rain-foggy-mist-gray;
+      }
     }
   }
-}
-
-#mediaTooltip,
-#calTooltip,
-#shareIconTooltip,
-#likeTooltip,
-#lightbulbTooltip,
-#dislikeTooltip {
-  background-color: $sun-ocean-breeze;
-  color: $primary-dark-blue;
-
-  &::after {
-    border: $primary-button-blue transparent transparent transparent;
+  
+  #mediaTooltip,
+  #calTooltip,
+  #shareIconTooltip,
+  #likeTooltip,
+  #lightbulbTooltip,
+  #dislikeTooltip {
+    background-color: $rain-cloudy-ocean-blue;
+    color: $neutral-white;
+  
+    &::after {
+      border: $rain-text-dark transparent transparent transparent;
+    }
   }
-}
 
   // Auth Search Results
   .auth-search-results {
