@@ -2402,11 +2402,11 @@
     }
   
     &__chat-container {
-      background: $rain-dew-drop-gray;
+      background: $rain-midnight-storm-gray;
     }
   
     &__chat-block {
-      background: $rain-slate-gray;
+      background: $rain-storm-cloud-blue;
       border: .3125rem solid $rain-wet-grass-green;
       box-shadow: $rain-shadow-secondary;
     }
@@ -2526,7 +2526,7 @@
     &__send-button {
       background: $rain-wet-grass-green;
       color: $neutral-white;
-      border: .0625rem solid $rain-forest-green;
+      border: .0625rem solid $frosted-glass;
     
       &:hover {
         background: $rain-soft-seafoam;
@@ -2579,7 +2579,7 @@
       scrollbar-width: thin;
       -ms-overflow-style: none;
       scroll-behavior: smooth;
-      background: $rain-frosted-glass;
+      background: $rain-storm-cloud-blue;
       width: 100%;
       border-radius: 1.05rem;
       scrollbar-color: $rain-wet-grass-green $frosted-glass;
@@ -2593,7 +2593,7 @@
     &__nav-arrow {
       color: $rain-rainy-sky-blue;
       border: .1875rem solid $rain-rainy-sky-blue;
-      background: $neutral-white;
+      background: rgba($neutral-black, .7);
   
       &:hover {
         transform: scale(1.1);
@@ -2822,7 +2822,7 @@
   .voice-message__voice-button {
     background: $rain-wet-grass-green;
     color: $neutral-white;
-    border: .0625rem solid $rain-forest-green;
+    border: .0625rem solid $frosted-glass;
   
     &:hover {
       background: $rain-soft-seafoam;
