@@ -408,6 +408,15 @@
     }
   }
 
+  #deleteDisabledTooltip {
+    background-color: $trans-electric-blue;
+    color: $neutral-white;
+
+    &::after {
+      border: $trans-electric-blue transparent transparent transparent;
+    }
+  }
+
   // Calendar Page
   .calendar {
     background: $trans-black;
@@ -1633,6 +1642,33 @@
     }
   }
 
+  #personTooltip,
+  #trendingTvTooltip,
+  #trendingMoviesTooltip,
+  #trendingAllTooltip,
+  #tvPopularTooltip,
+  #tvTopTooltip,
+  #tvOnAirTooltip,
+  #tvAirsTodayTooltip,
+  #movieNowPlayingTooltip,
+  #moviePopularTooltip,
+  #movieTopRatedTooltip,
+  #movieUpcomingReleasesTooltip,
+  #mediaTooltip,
+  #calTooltip,
+  #searchTooltip,
+  #closeTooltip,
+  #shareIconTooltip,
+  #likeTooltip,
+  #dislikeTooltip {
+    background-color: $trans-electric-blue;
+    color: $neutral-white;
+  
+    &::after {
+      border: $trans-electric-blue transparent transparent transparent;
+    }
+  }
+
   // Register Page
   .register {
     background-color: $primary-darker-blue;
@@ -2026,6 +2062,16 @@
     }
   }
 
+  .custom-tooltip {
+    background-color: $trans-electric-blue !important;
+    color: $neutral-white !important;
+    text-shadow: none;
+  
+    &::after {
+      border: $trans-electric-blue transparent transparent transparent;
+    }
+  }
+
   // Profile
   .profile-img {
     border: 0.25rem solid $trans-pastel-pink;
@@ -2280,6 +2326,20 @@
     }
   }
 
+  #mediaTooltip,
+  #calTooltip,
+  #shareIconTooltip,
+  #likeTooltip,
+  #lightbulbTooltip,
+  #dislikeTooltip {
+    background-color: $trans-electric-blue;
+    color: $neutral-white;
+  
+    &::after {
+      border: $trans-electric-blue transparent transparent transparent;
+    }
+  }
+
   // Streamboard
   .streamboard {
     background: $trans-black;
@@ -2478,6 +2538,19 @@
     }
   }
 
+  #streamboardMediaTooltip,
+  #lightbulbTooltip,
+  #friendTooltip,
+  #calTooltip,
+  #trashTooltip {
+    background-color: $trans-electric-blue;
+    color: $neutral-white;
+  
+    &::after {
+      border: $trans-electric-blue transparent transparent transparent;
+    }
+  }
+
   // Quickstart Guide 
   .quickstart-guide {
     &__fave-icon {
@@ -2608,6 +2681,26 @@
     }
   }
 
+  #watchlistStatusTooltip,
+  #calendarTooltip,
+  #searchTooltip,
+  #shareTooltip,
+  #lockTooltip,
+  #lightbulbTooltip,
+  #trashTooltip {
+    background-color: $trans-electric-blue;
+    color: $neutral-white;
+    padding: .5rem 1rem;
+    border-radius: .5rem;
+    box-shadow: 0 .5rem 1rem rgba($trans-electric-blue, .1);
+    font-size: .85rem;
+    line-height: 1.25rem;
+  
+    &::after {
+      border: $trans-electric-blue transparent transparent transparent;
+    }
+  }  
+
   // NextSwipe
   .nextswipe-page {
     &__container {
@@ -2661,6 +2754,35 @@
           }
         }
       }
+  }
+
+  .details-tooltip {
+    background: $trans-electric-blue !important;
+    color: $neutral-white !important;
+
+    &::after {
+      border-color: $trans-electric-blue !important;
+    }
+  }
+
+  .tooltip-text {
+    background: $trans-electric-blue !important;
+    color: $neutral-white !important;
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -3.75rem;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -.3125rem;
+      border-width: .3125rem;
+      border-style: solid;
+      border-color: $trans-electric-blue transparent transparent transparent;
+    }
   }
 
   .media-card {

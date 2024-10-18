@@ -1245,6 +1245,35 @@
       filter: grayscale(0%) brightness(1); 
     }
   }
+
+  .details-tooltip {
+    background: $cloud-stormy-blue !important;
+    color: $neutral-white !important;
+
+    &::after {
+      border-color: $cloud-stormy-blue !important;
+    }
+  }
+
+  .tooltip-text {
+    background: $cloud-stormy-blue !important;
+    color: $neutral-white !important;
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -3.75rem;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -.3125rem;
+      border-width: .3125rem;
+      border-style: solid;
+      border-color: $cloud-stormy-blue transparent transparent transparent;
+    }
+  }
   
   .media-card {
     &__type-icon,
@@ -1563,6 +1592,33 @@
     }
   }
 
+  #personTooltip,
+  #trendingTvTooltip,
+  #trendingMoviesTooltip,
+  #trendingAllTooltip,
+  #tvPopularTooltip,
+  #tvTopTooltip,
+  #tvOnAirTooltip,
+  #tvAirsTodayTooltip,
+  #movieNowPlayingTooltip,
+  #moviePopularTooltip,
+  #movieTopRatedTooltip,
+  #movieUpcomingReleasesTooltip,
+  #mediaTooltip,
+  #calTooltip,
+  #searchTooltip,
+  #closeTooltip,
+  #shareIconTooltip,
+  #likeTooltip,
+  #dislikeTooltip {
+    background-color: $cloud-stormy-blue;
+    color: $neutral-white;
+  
+    &::after {
+      border: $cloud-stormy-blue transparent transparent transparent;
+    }
+  }
+
   // Streamboard
   .streamboard {
     background: $cloud-frosted-white;
@@ -1772,6 +1828,19 @@
   .voice-search-streamboard__voice-button {
     background: $cloud-light-gray;
     color: $neutral-black;
+  }
+
+  #streamboardMediaTooltip,
+  #lightbulbTooltip,
+  #friendTooltip,
+  #calTooltip,
+  #trashTooltip {
+    background-color: $cloud-stormy-blue;
+    color: $neutral-white;
+  
+    &::after {
+      border: $cloud-stormy-blue transparent transparent transparent;
+    }
   }
 
   // NextStream Bot
@@ -2560,6 +2629,16 @@
     }
   }
 
+  .custom-tooltip {
+    background-color: $cloud-stormy-blue !important;
+    color: $neutral-white !important;
+    text-shadow: none;
+  
+    &::after {
+      border: $cloud-stormy-blue transparent transparent transparent;
+    }
+  }
+
   // NextView
   .nextview-page {
 
@@ -3035,6 +3114,27 @@
   .blob-container {
     filter: grayscale(100%) brightness(0.9); 
   }
+
+  #watchlistStatusTooltip,
+  #calendarTooltip,
+  #searchTooltip,
+  #shareTooltip,
+  #lockTooltip,
+  #lightbulbTooltip,
+  #trashTooltip {
+    background-color: $cloud-stormy-blue;
+    color: $neutral-white;
+    padding: .5rem 1rem;
+    border-radius: .5rem;
+    box-shadow: 0 .5rem 1rem rgba($cloud-stormy-blue, .1);
+    font-size: .85rem;
+    line-height: 1.25rem;
+  
+    &::after {
+      border: $cloud-stormy-blue transparent transparent transparent;
+    }
+  }  
+
   // Top Picks
   .user-rating-container {
     filter: grayscale(100%) brightness(0.9); 
@@ -3132,6 +3232,20 @@
       @include tablet {
         border: .625rem solid $neutral-white;
       }
+    }
+  }
+
+  #mediaTooltip,
+  #calTooltip,
+  #shareIconTooltip,
+  #likeTooltip,
+  #lightbulbTooltip,
+  #dislikeTooltip {
+    background-color: $cloud-stormy-blue;
+    color: $neutral-white;
+  
+    &::after {
+      border: $cloud-stormy-blue transparent transparent transparent;
     }
   }
 
@@ -4329,6 +4443,15 @@
         background: $primary-dark-blue;
         color: $cloud-breeze-blue;
       }
+    }
+  }
+
+  #deleteDisabledTooltip {
+    background-color: $cloud-stormy-blue;
+    color: $neutral-white;
+
+    &::after {
+      border: $cloud-stormy-blue transparent transparent transparent;
     }
   }
 
