@@ -6,7 +6,9 @@
     "start": "npm run build-client && node --max-old-space-size=16384 server.js",
     "dev": "nodemon --max-old-space-size=16384 server.js",
     "build-client": "cd ../client && npm install && npm run build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "knex-migrate-latest": "npx knex migrate:latest",
+    "knex-seed-run": "npx knex seed:run"
   },
   "keywords": [],
   "author": "",
