@@ -7,7 +7,9 @@
     "start-server": "npm run start --prefix server",
     "build": "npm run build --prefix client",
     "heroku-postbuild": "npm run build --prefix client",
-    "test": "npm test --prefix client"
+    "test": "npm test --prefix client",
+    "knex-migrate-latest": "knex migrate:latest --knexfile ./server/knexfile.js",
+    "knex-seed-run": "knex seed:run --knexfile ./server/knexfile.js"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.1.0",
