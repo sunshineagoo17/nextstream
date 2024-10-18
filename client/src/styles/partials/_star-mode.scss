@@ -1385,7 +1385,35 @@ textarea {
       filter: grayscale(0%) brightness(1.2);
     }
   }
-  
+  .details-tooltip {
+    background: $neutral-black !important;
+    color: $star-deep-topaz !important;
+
+    &::after {
+      border-color: $neutral-white !important;
+    }
+  }
+
+  .tooltip-text {
+    background: $neutral-black !important;
+    color: $star-deep-topaz !important;
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -3.75rem;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -.3125rem;
+      border-width: .3125rem;
+      border-style: solid;
+      border-color: $neutral-white transparent transparent transparent;
+    }
+  }
+
   .media-card {
     background: $neutral-black;
 
@@ -1723,6 +1751,33 @@ textarea {
     }
   }
 
+  #personTooltip,
+  #trendingTvTooltip,
+  #trendingMoviesTooltip,
+  #trendingAllTooltip,
+  #tvPopularTooltip,
+  #tvTopTooltip,
+  #tvOnAirTooltip,
+  #tvAirsTodayTooltip,
+  #movieNowPlayingTooltip,
+  #moviePopularTooltip,
+  #movieTopRatedTooltip,
+  #movieUpcomingReleasesTooltip,
+  #mediaTooltip,
+  #calTooltip,
+  #searchTooltip,
+  #closeTooltip,
+  #shareIconTooltip,
+  #likeTooltip,
+  #dislikeTooltip {
+    background-color: $neutral-black;
+    color: $star-deep-topaz;
+  
+    &::after {
+      border: $neutral-white transparent transparent transparent;
+    }
+  }
+
 // Streamboard
 .streamboard {
   background: $star-dark-gray;
@@ -2009,6 +2064,19 @@ textarea {
   &:active {
     background: $neutral-black;
     color: $star-deep-topaz;
+  }
+}
+
+#streamboardMediaTooltip,
+#lightbulbTooltip,
+#friendTooltip,
+#calTooltip,
+#trashTooltip {
+  background-color: $neutral-black;
+  color: $star-deep-topaz;
+
+  &::after {
+    border: $neutral-white transparent transparent transparent;
   }
 }
 
@@ -2734,6 +2802,16 @@ textarea {
     }
 
   // NextWatch
+  .custom-tooltip {
+    background-color: $neutral-black !important;
+    color: $star-deep-topaz !important;
+    text-shadow: none;
+  
+    &::after {
+      border: $neutral-white transparent transparent transparent;
+    }
+  }
+
   .nextwatch-page {
     &__similar-card,
     &__recommendations-card,
@@ -3463,6 +3541,21 @@ textarea {
   .blob-container {
     filter: grayscale(150%) brightness(1);
   }  
+
+  #watchlistStatusTooltip,
+  #calendarTooltip,
+  #searchTooltip,
+  #shareTooltip,
+  #lockTooltip,
+  #lightbulbTooltip,
+  #trashTooltip {
+    background-color: $neutral-black;
+    color: $star-deep-topaz;
+  
+    &::after {
+      border: $neutral-white transparent transparent transparent;
+    }
+  }  
   
 // Top Picks
 .user-rating-container {
@@ -3605,6 +3698,20 @@ textarea {
       @include tablet {
         border: .625rem solid $star-charcoal;
       }
+    }
+  }
+
+  #mediaTooltip,
+  #calTooltip,
+  #shareIconTooltip,
+  #likeTooltip,
+  #lightbulbTooltip,
+  #dislikeTooltip {
+    background-color: $neutral-black;
+    color: $star-deep-topaz;
+  
+    &::after {
+      border: $neutral-white transparent transparent transparent;
     }
   }
   
@@ -4923,6 +5030,15 @@ textarea {
         background: $star-deep-topaz;
         color: $star-light-gray;
       }
+    }
+  }
+
+  #deleteDisabledTooltip {
+    background-color: $neutral-black;
+    color: $star-deep-topaz;
+
+    &::after {
+      border: $neutral-white transparent transparent transparent;
     }
   }
 

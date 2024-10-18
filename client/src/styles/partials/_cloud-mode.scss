@@ -297,7 +297,11 @@
     background: $cloud-frosted-white;
 
     &__heading-container {
-      background: linear-gradient(145deg, $cloud-medium-gray, darken($cloud-dark-gray, 5%));
+      background: linear-gradient(145deg, $cloud-overcast-blue, darken($cloud-stormy-blue, 5%));
+    }
+
+    &__header {
+      color: $neutral-white;
     }
 
     &__pending-calendar__pending-item {
@@ -312,21 +316,13 @@
     }
 
     &__copy {
-      color: $neutral-black;
+      background: $frosted-glass;
+      color: $neutral-white;
     }
 
     &__pending-count {
       background: $frosted-glass;
       color: $neutral-black;
-    }
-
-    &__video-container {
-      filter: grayscale(100%);
-      transition: filter .3s ease, transform .3s ease;
-
-      &:hover {
-        filter: grayscale(0%) brightness(1);
-      }
     }
 
     &__no-shared-cal-txt,
@@ -1138,7 +1134,15 @@
     }
 
     &__title-container {
-      background: $cloud-dark-gradient-white-gray;
+      background: $cloud-gradient-white-gray;
+    }
+
+    &__title {
+      color: $cloud-very-deep-gray;
+    }
+
+    &__intro {
+      color: $cloud-deep-gray;
     }
 
     &__background {
@@ -1280,6 +1284,10 @@
       border: .25rem solid $cloud-morning-blue;
       color: $cloud-stormy-blue;
       text-shadow: none;
+    }
+
+    &__header-text {
+      color: $cloud-stormy-blue;
     }
 
     &__disclaimer-copy {
@@ -1486,8 +1494,8 @@
     &__title {
       background: linear-gradient(
         180deg,
-        $neutral-black,
-        lighten($neutral-white, 50%)
+        $cloud-soft-blue,
+        lighten($cloud-haze-blue, 50%)
       );
     }
 
@@ -1788,6 +1796,10 @@
     &__typing-indicator-bubble {
       background-color: $neutral-white;
     }
+
+    &__header-text {
+      color: $cloud-very-deep-gray;
+    }
   
     &__poster--results {
       filter: grayscale(100%) brightness(0.9); 
@@ -1803,7 +1815,7 @@
     }
 
     &__title {
-      background: $cloud-dark-frosted-dark-gray;
+      background: $cloud-gradient-light-gray;
     }
 
     &__loader-overlay {
@@ -1811,8 +1823,9 @@
     }
 
     &__copy {
-      background: $frosted-glass;
-      box-shadow: none;
+      background: $cloud-gradient-pale-blue;
+      box-shadow: $shadow-septenary;
+      color: $cloud-deep-gray;
     }
   
     &__gpt-container {
@@ -2222,8 +2235,12 @@
   // Spotlight
   .spotlight-page {
     &__heading-container {
-      background: $cloud-dark-gradient-light-gray;
+      background: $cloud-gradient-pale-blue;
       border: .3125rem solid $neutral-white;
+    }
+
+    &__header {
+      color: $cloud-stormy-blue;
     }
 
     &__background {
@@ -2307,12 +2324,14 @@
     }
 
     &__copy {
-      color: $cloud-off-white;
+      background: $frosted-glass;
+      color: $cloud-stormy-blue;
+      box-shadow: $shadow-septenary;
     }
 
     &__content {
-      background: $cloud-pale-gray;
-      border: .3125rem solid $cloud-light-gray;
+      background: $cloud-frosted-white;
+      border: .3125rem solid $cloud-breeze-blue;
     }
 
     &__person-bio {
@@ -2320,7 +2339,7 @@
     }
 
     &__person-name {
-      color: $neutral-black;
+      color: $cloud-very-deep-gray;
     }
 
     &__read-more {
@@ -3945,11 +3964,20 @@
     background: linear-gradient(135deg, rgba($frosted-glass, .75), rgba($cloud-medium-gray, 1));
 
     &__title {
-      background: linear-gradient(180deg, $cloud-dark-frosted-dark-gray, darken($cloud-dark-frosted-dark-gray, 15%));
+      background: linear-gradient(180deg, $neutral-light-grey, darken($neutral-white, 15%));
+      box-shadow: $shadow-senary;
     }
 
     &__card {
       background: $neutral-white;
+    }
+
+    &__header-text {
+      color: $cloud-very-deep-gray;
+    }
+
+    &__copy {
+      color: $cloud-deep-gray;
     }
 
     &__loading-svg {
