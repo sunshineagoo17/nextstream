@@ -230,10 +230,10 @@
 
 // Hover Menu
 .hover-menu__button {
-  background: $cloud-dark-gray;
+  background: $cloud-breeze-blue;
 
   &:hover {
-    background: $primary-button-blue;
+    background: $cloud-dark-gray;
   }
 }
 
@@ -247,6 +247,11 @@
 
     &__subtitle--tagline {
       border: .1875rem solid $cloud-breeze-blue;
+      transition: border 0.3s ease;
+
+      &:hover {
+        border: .1875rem solid $frosted-glass;
+      }
     }
 
     &__logo--mobile,
@@ -608,12 +613,12 @@
   .content {
     &__label-header-new-container,
     &__label-header-container {
-      background: $cloud-gradient-light-gray;
+      background: $cloud-breeze-blue;
     }
 
     &__label-header-new-releases,
     &__label-features {
-      color: $cloud-deep-gray;
+      color: $neutral-white;
     }
 
     &__card-features__feature__icon-bg {
@@ -690,7 +695,7 @@
         }
   
         &--active {
-          background-color: $cloud-medium-gray;
+          background-color: $cloud-very-light-blue;
           box-shadow: 0 0 .25rem $cloud-breeze-blue;
           border: .125rem solid $cloud-dawn-blue;
         }
@@ -1134,7 +1139,7 @@
     }
 
     &__title-container {
-      background: $cloud-gradient-white-gray;
+      background: $cloud-very-light-blue;
     }
 
     &__title {
