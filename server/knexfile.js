@@ -21,7 +21,7 @@ module.exports = {
             database: process.env.DB_NAME || 'my_database',
             charset: 'utf8mb4',
         },
-        debug: true,  
+        debug: true,
     },
 
     production: {
@@ -36,6 +36,6 @@ module.exports = {
                 rejectUnauthorized: false,
             },
         },
-        debug: false, 
+        debug: false,
     },
 };
