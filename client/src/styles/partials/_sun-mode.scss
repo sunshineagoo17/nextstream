@@ -1536,17 +1536,17 @@
   }
 
   .details-tooltip {
-    background: $sun-ocean-breeze !important;
-    color: $primary-dark-blue !important;
+    background: $sun-yellow !important;
+    color: $neutral-black !important;
 
     &::after {
-      border-color: $sun-ocean-breeze !important;
+      border-color: $sun-yellow !important;
     }
   }
 
   .tooltip-text {
-    background: $sun-ocean-breeze !important;
-    color: $primary-dark-blue !important;
+    background: $sun-yellow !important;
+    color: $neutral-black !important;
     position: absolute;
     bottom: 100%; 
     left: 50%;
@@ -1560,7 +1560,7 @@
       margin-left: -.3125rem;
       border-width: .3125rem;
       border-style: solid;
-      border-color: $sun-ocean-breeze transparent transparent transparent;
+      border-color: $sun-yellow transparent transparent transparent;
     }
   }
   
@@ -2030,11 +2030,11 @@
   #shareIconTooltip,
   #likeTooltip,
   #dislikeTooltip {
-    background-color: $sun-ocean-breeze;
-    color: $primary-dark-blue;
+    background-color: $sun-yellow;
+    color: $neutral-black;
 
     &::after {
-      border: $primary-button-blue transparent transparent transparent;
+      border: $sun-yellow transparent transparent transparent;
     }
   }
 
@@ -2365,11 +2365,11 @@
 #friendTooltip,
 #calTooltip,
 #trashTooltip {
-  background-color: $sun-ocean-breeze;
-  color: $primary-dark-blue;
+  background-color: $sun-yellow;
+  color: $neutral-black;
 
   &::after {
-    border: $primary-button-blue transparent transparent transparent;
+    border: $sun-yellow transparent transparent transparent;
   }
 }
 
@@ -3117,6 +3117,16 @@
   }
     
   // NextWatch
+  .custom-tooltip {
+    background-color: $sun-yellow !important;
+    color: $neutral-black !important;
+    text-shadow: none;
+  
+    &::after {
+      border: $sun-yellow transparent transparent transparent;
+    }
+  }
+
   .nextwatch-page {
     &__similar-card,
     &__recommendations-card,
@@ -3860,8 +3870,8 @@
 #lockTooltip,
 #lightbulbTooltip,
 #trashTooltip {
-  background-color: $sun-ocean-breeze;
-  color: $primary-dark-blue;
+  background-color: $sun-yellow;
+  color: $neutral-black;
   padding: .5rem 1rem;
   border-radius: .5rem;
   box-shadow: 0 .5rem 1rem rgba($neutral-black, .1);
@@ -3869,7 +3879,7 @@
   line-height: 1.25rem;
 
   &::after {
-    border: $primary-button-blue transparent transparent transparent;
+    border: $sun-yellow transparent transparent transparent;
   }
 }
 
@@ -4061,11 +4071,11 @@
 #likeTooltip,
 #lightbulbTooltip,
 #dislikeTooltip {
-  background-color: $sun-ocean-breeze;
-  color: $primary-dark-blue;
+  background-color: $sun-yellow;
+  color: $neutral-black;
 
   &::after {
-    border: $primary-button-blue transparent transparent transparent;
+    border: $sun-yellow transparent transparent transparent;
   }
 }
 
@@ -5485,11 +5495,11 @@
   }
 
   #deleteDisabledTooltip {
-    background-color: $sun-ocean-breeze;
-    color: $primary-dark-blue;
+    background-color: $sun-yellow;
+    color: $neutral-black;
   
     &::after {
-      border: $primary-button-blue transparent transparent transparent;
+      border: $sun-yellow transparent transparent transparent;
     }
   }
 
