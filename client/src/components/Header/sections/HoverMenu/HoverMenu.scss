@@ -21,8 +21,13 @@
     left: 3.45rem;
   }
 
+  @include large-desktop {
+    top: 2.175rem;
+    left: 8.45rem;
+  }
+
   .hover-menu__button {
-    @include block-item(2.85rem, 2.85rem);
+    @include block-item(2.95rem, 2.85rem);
     padding: 0.25rem;
     background-color: $primary-light-blue;
     border: 0.125rem solid $neutral-white;
@@ -43,7 +48,11 @@
     }
 
     @include tablet {
-      @include block-item(2.95rem, 3.1rem);
+      @include block-item(3rem, 2.9rem);
+    }
+
+    @include desktop {
+      @include block-item(2.95rem, 2.9rem);
     }
   }
 

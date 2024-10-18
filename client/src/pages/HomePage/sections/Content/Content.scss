@@ -422,6 +422,10 @@
           @include glow-animation;
         }
       }
+
+      @include large-desktop {
+        margin-left: 13.25rem;
+      }
     }
   }
 
@@ -484,6 +488,10 @@
         @include glow-animation;
       }
     }
+
+    @include large-desktop {
+      margin-right: 4.65rem;
+    }
   }
 
   .content__label-header-new-releases {
@@ -527,6 +535,10 @@
       @include desktop {
         font-size: 1.25rem;
         line-height: 1.75rem;
+      }
+
+      @include large-desktop {
+        margin-left: 4.8rem;
       }
     }
   }
