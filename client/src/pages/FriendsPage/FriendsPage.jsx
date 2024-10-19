@@ -9,7 +9,7 @@ import EmojiMessages from '../../components/EmojiMessages/EmojiMessages';
 import TypingIndicator from '../../components/TypingIndicator/TypingIndicator';
 import Calendar from '../CalendarPage/sections/Calendar/Calendar';
 import io from 'socket.io-client';
-import FriendsVideo from "../../assets/animation/add-friends.webm";
+import AddFriends from "../../assets/images/add-friends.svg";
 import VoiceMessageFriends from '../../components/VoiceInteraction/VoiceMessageFriends/VoiceMessageFriends';
 import './FriendsPage.scss';
 
@@ -567,15 +567,7 @@ const FriendsPage = () => {
       </div>
 
       <div className='friends-page__video-container'>
-        <video
-          className='friends-page__friends-video'
-          src={FriendsVideo}
-          alt='Adding Friends to Friends List'
-          autoPlay
-          loop
-          muted
-          playsInline
-        />
+         <img src={AddFriends} alt="Add Friends" className='friends-page__friends-video' />
       </div>
       <div className='friends-page__main-content'>
         <div className='friends-page__container friends-page__container--friends-cards'>

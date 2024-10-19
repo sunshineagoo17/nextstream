@@ -118,7 +118,7 @@
       }
 
       #oops {
-        animation: blink 3s infinitE;
+        animation: blink 3s infinite;
       }
 
       #error404 {
