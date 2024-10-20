@@ -1,9 +1,32 @@
 const express = require('express');
 const axios = require('axios');
-const { processInput } = require('../services/nlpService');
+const { Storage } = require('@google-cloud/storage');
 const router = express.Router();
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
 const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
+
+const storage = new Storage({
+  projectId: process.env.GOOGLE_CLOUD_PROJECT_ID,
+  credentials: {
+    client_email: process.env.GOOGLE_CLOUD_CLIENT_EMAIL,
+    private_key: process.env.GOOGLE_CLOUD_PRIVATE_KEY.replace(/\\n/g, '\n'),
+  },
+});
+
+// Function to call NLP service from Google Cloud
+async function processInputFromNLPService(userInput) {
+  try {
+    // Assuming you are calling your NLP service via a Google Cloud endpoint (replace with actual API details)
+    const response = await axios.post(process.env.GOOGLE_CLOUD_NLP_SERVICE_URL, {
+      userInput,
+    });
+
+    return response.data; // Assuming response contains intent, title, person, etc.
+  } catch (error) {
+    console.error('Error calling NLP service:', error);
+    throw new Error('Failed to process input with NLP service');
+  }
+}
 
 // Map to handle genres by intent
 const genreMap = {
@@ -90,7 +113,7 @@ router.post('/', async (req, res) => {
   console.log('Received user input:', userInput);
 
   try {
-    const nlpResult = await processInput(userInput);
+    const nlpResult = await processInputFromNLPService(userInput); 
     console.log('NLP Result:', nlpResult);
 
     const { intent, title, person } = nlpResult;

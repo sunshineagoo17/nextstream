@@ -20,7 +20,7 @@ if (!admin.apps.length) {
       type: process.env.FIREBASE_TYPE,
       project_id: process.env.FIREBASE_PROJECT_ID,
       private_key_id: process.env.FIREBASE_PRIVATE_KEY_ID,
-      private_key: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'), 
+      private_key: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
       client_email: process.env.FIREBASE_CLIENT_EMAIL,
       client_id: process.env.FIREBASE_CLIENT_ID,
       auth_uri: process.env.FIREBASE_AUTH_URI,
@@ -46,6 +46,8 @@ async function loadNlpModel() {
   const bucketName = process.env.GOOGLE_CLOUD_BUCKET_NAME;
   const srcFilename = process.env.GOOGLE_CLOUD_NLP_MODEL_FILENAME;
   const destinationFilename = path.join(__dirname, 'src/services/nlpModel');
+
+  console.log(`Saving model to ${destinationFilename}`);
 
   await storage.bucket(bucketName).file(srcFilename).download({ destination: destinationFilename });
   console.log(`NLP Model downloaded to ${destinationFilename}`);
@@ -81,7 +83,7 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIO(server, {
   cors: {
-    origin: process.env.CLIENT_URL || 'http://localhost:3000', 
+    origin: process.env.CLIENT_URL || 'http://localhost:3000',
     methods: ['GET', 'POST'],
     credentials: true,
   },
@@ -98,7 +100,7 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: process.env.NODE_ENV === 'production' }, 
+    cookie: { secure: process.env.NODE_ENV === 'production' },
   })
 );
 
@@ -138,7 +140,7 @@ io.on('connection', (socket) => {
   // Listen for the send_message event
   socket.on('send_message', async (data) => {
     const { senderId, receiverId, message } = data;
-  
+
     try {
       const savedMessage = await knex('messages').insert({
         sender_id: senderId,
@@ -147,14 +149,14 @@ io.on('connection', (socket) => {
         is_read: false,
         created_at: knex.fn.now(),
       });
-  
+
       io.to(receiverId).emit('receive_message', {
         senderId,
         receiverId,
         message,
         created_at: new Date(),
       });
-  
+
       console.log('Message saved and sent:', savedMessage);
     } catch (error) {
       console.error('Error saving message:', error);
@@ -163,7 +165,7 @@ io.on('connection', (socket) => {
       });
     }
   });
-  
+
   socket.on('send_message', (message) => {
     socket.to(message.receiverId).emit('receive_message', message);
   });
@@ -191,7 +193,7 @@ io.on('connection', (socket) => {
 
       if (response === 'accepted') {
         // Emit event to update the shared calendar with the accepted invite
-        const acceptedInvite = await getInviteDetails(inviteId); // Replace with actual fetching logic
+        const acceptedInvite = await getInviteDetails(inviteId);
         io.to(userId).emit('calendar_event_updated', { event: acceptedInvite });
       } else {
         // Emit event to remove the declined invite from the shared calendar
@@ -241,6 +243,11 @@ io.on('connection', (socket) => {
   });
 });
 
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.status(200).send('OK');
+});
+
 // API Routes
 app.use('/api/email', emailRoutes);
 app.use('/api/auth', authRoutes);
@@ -250,7 +257,7 @@ app.use('/api/profile', profileRoutes);
 app.use('/api/tmdb', tmdbRoutes);
 app.use('/api/external-cal', eventDownloadRoutes);
 app.use('/api/chatbot', chatbotRoutes);
-app.use('/api/train', authenticate, trainRoutes); 
+app.use('/api/train', authenticate, trainRoutes);
 app.use('/api/gpt', gptRoutes);
 
 // Spotlight Routes for person details
@@ -269,9 +276,7 @@ app.use(
         guestAuthenticate(req, res, next);
       }
     } else {
-      return res
-        .status(401)
-        .json({ message: 'Access denied. No token provided.' });
+      return res.status(401).json({ message: 'Access denied. No token provided.' });
     }
   },
   calendarRoutes
@@ -289,6 +294,7 @@ app.use('/api/users', authenticate, userRoutes);
 
 // Serve static files from the React app if needed
 app.use(express.static(path.join(__dirname, 'client/build')));
+console.log(`Serving static files from ${path.join(__dirname, 'client/build')}`);
 
 // Serve React app for specific routes
 const allowedRoutes = ['/', '/terms'];
@@ -317,6 +323,6 @@ loadNlpModel()
     });
   })
   .catch((error) => {
-    console.error('Error loading NLP model from Google Cloud:', error);
+    console.error('Error loading NLP model from Google Cloud:', error.message);
     process.exit(1);
   });
