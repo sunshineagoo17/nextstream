@@ -8,7 +8,8 @@
     "build-client": "cd ../client && npm install && npm run build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "knex-migrate-latest": "npx knex migrate:latest",
-    "knex-seed-run": "npx knex seed:run"
+    "knex-seed-run": "npx knex seed:run",
+    "postinstall": "npm install cookie-parser"
   },
   "keywords": [],
   "author": "",
