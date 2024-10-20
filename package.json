@@ -3,10 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "npm run build && npm run start-server",
+    "start": "npm run start-server",
     "start-server": "npm run start --prefix server",
     "build": "NODE_OPTIONS='--max_old_space_size=6144' npm run build --prefix client",
-    "heroku-postbuild": "npm run build --prefix client",
     "test": "npm test --prefix client",
     "knex-migrate-latest": "knex migrate:latest --knexfile ./server/knexfile.js",
     "knex-seed-run": "knex seed:run --knexfile ./server/knexfile.js"
