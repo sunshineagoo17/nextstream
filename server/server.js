@@ -8,6 +8,7 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const admin = require('firebase-admin');
 const knex = require('../server/src/config/db');
+const fs = require('fs');
 require('dotenv').config();
 
 // Initialize Google Cloud Storage client to load the NLP model
@@ -47,8 +48,15 @@ async function loadNlpModel() {
   const srcFilename = process.env.GOOGLE_CLOUD_NLP_MODEL_FILENAME;
   const destinationFilename = path.join(__dirname, 'src/services/nlpModel');
 
-  console.log(`Saving model to ${destinationFilename}`);
+  if (!bucketName || !srcFilename) {
+    throw new Error('Bucket name or NLP model filename is not defined in the environment variables.');
+  }
 
+  if (!fs.existsSync(path.dirname(destinationFilename))) {
+    fs.mkdirSync(path.dirname(destinationFilename), { recursive: true });
+  }
+
+  console.log(`Downloading model from ${bucketName}/${srcFilename} to ${destinationFilename}`);
   await storage.bucket(bucketName).file(srcFilename).download({ destination: destinationFilename });
   console.log(`NLP Model downloaded to ${destinationFilename}`);
 }
