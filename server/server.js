@@ -51,6 +51,7 @@ async function loadNlpModel() {
   console.log(`NLP Model downloaded to ${destinationFilename}`);
 }
 
+// Import routes
 const emailRoutes = require('./src/routes/emailRoutes');
 const passwordResetRoutes = require('./src/routes/passwordResetRoutes');
 const authRoutes = require('./src/routes/auth');
@@ -72,6 +73,7 @@ const chatbotRoutes = require('./src/routes/chatbotRoutes');
 const trainRoutes = require('./src/routes/trainRoutes');
 const gptRoutes = require('./src/routes/gptRoutes');
 
+// Middleware
 const authenticate = require('./src/middleware/authenticate');
 const guestAuthenticate = require('./src/middleware/guestAuthenticate');
 
@@ -79,7 +81,7 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIO(server, {
   cors: {
-    origin: 'http://localhost:3000',
+    origin: process.env.CLIENT_URL || 'http://localhost:3000', 
     methods: ['GET', 'POST'],
     credentials: true,
   },
@@ -96,13 +98,13 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false },
+    cookie: { secure: process.env.NODE_ENV === 'production' }, 
   })
 );
 
 // Configure CORS
 const corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: process.env.CLIENT_URL || 'http://localhost:3000',
   credentials: true,
 };
 app.use(cors(corsOptions));
