@@ -300,14 +300,19 @@ app.use('/api/friends', authenticate, friendsRoutes);
 app.use('/api/messages', authenticate, friendsMsgsRoutes);
 app.use('/api/users', authenticate, userRoutes);
 
-// Serve static files from the React app if needed
+// Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
 console.log(`Serving static files from ${path.join(__dirname, 'client/build')}`);
 
-// Serve React app for specific routes
+// Serve React app for specific allowed routes
 const allowedRoutes = ['/', '/terms'];
 app.get(allowedRoutes, (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/build/index.html'));
+  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+});
+
+// Catch-all route to serve React's index.html for non-API routes
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 });
 
 // Error handling middleware
