@@ -9,27 +9,30 @@ const register = async (req, res) => {
 
     // Validate required fields
     if (!username || !email || !password) {
-      return res.status(400).json({ message: 'Username, email, and password are required' });
+      return res.status(400).json({ message: 'Username, email, and password are required.' });
     }
 
     // Validate password length
     if (password.length < 8) {
-      return res.status(400).json({ message: 'Password must be at least 8 characters long' });
+      return res.status(400).json({ message: 'Password must be at least 8 characters long.' });
     }
 
     const existingUser = await User.getUserByEmail(email);
     if (existingUser) {
-      return res.status(400).json({ message: 'Email already in use' });
+      return res.status(400).json({ message: 'Email already in use.' });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await User.createUser({ username, email, password: hashedPassword });
-    const token = jwt.sign({ id: user.id, email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
+    // Create JWT with minimal payload
+    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+    // Respond with token and user details
     res.status(201).json({ token, email, username, userId: user.id });
   } catch (err) {
     console.error('Error registering user:', err);
-    res.status(500).json({ message: 'Error registering user', error: err.message });
+    res.status(500).json({ message: 'Error registering user.', error: err.message });
   }
 };
 
@@ -40,20 +43,21 @@ const login = async (req, res) => {
 
     // Validate required fields
     if (!email || !password) {
-      return res.status(400).json({ message: 'Email and password are required' });
+      return res.status(400).json({ message: 'Email and password are required.' });
     }
 
     const user = await User.getUserByEmail(email);
     if (!user || !(await bcrypt.compare(password, user.password))) {
-      return res.status(400).json({ message: 'Invalid email or password' });
+      return res.status(400).json({ message: 'Invalid email or password.' });
     }
 
-    const token = jwt.sign({ id: user.id, email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    // Create JWT with minimal payload
+    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
     res.json({ token, email: user.email, username: user.username, userId: user.id });
   } catch (err) {
     console.error('Error logging in:', err);
-    res.status(500).json({ message: 'Error logging in', error: err.message });
+    res.status(500).json({ message: 'Error logging in.', error: err.message });
   }
 };
 

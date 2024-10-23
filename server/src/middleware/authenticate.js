@@ -1,29 +1,30 @@
 const jwt = require('jsonwebtoken');
 
 const authenticate = (req, res, next) => {
-  // Check for token in headers or cookies
-  const token = req.headers.authorization?.split(' ')[1] || req.cookies.token;
+  // Check for token in cookies first, then in headers
+  const token = req.cookies.token || req.headers.authorization?.split(' ')[1];
 
   if (!token) {
+    // Return 401 if no token is found
     return res.status(401).json({ message: 'Access denied. No token provided.' });
   }
 
   try {
-    // Verify the token and extract payload
+    // Verify the token using the JWT_SECRET and extract the payload
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    console.log('Decoded JWT Payload:', decoded); 
     
-    // Ensure userId exists in the token payload
+    // Ensure that userId is present in the token payload
     if (!decoded.userId) {
       return res.status(400).json({ message: 'Invalid token: userId missing.' });
     }
 
-    // Attach userId to req.user
+    // Attach the userId from the token to the request object
     req.user = { userId: decoded.userId };
-    console.log('Token decoded and req.user set:', req.user);  
 
+    // Proceed to the next middleware
     next();
   } catch (error) {
+    // Catch any token verification errors
     console.log('Invalid token:', error.message);  
     return res.status(400).json({ message: 'Invalid token.' });
   }

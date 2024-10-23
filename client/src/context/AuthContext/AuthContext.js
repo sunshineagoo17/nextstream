@@ -19,14 +19,10 @@ export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = Cookies.get('token') || localStorage.getItem('token');
-    const guestToken = Cookies.get('guestToken') || localStorage.getItem('guestToken');
-    const storedUserId = localStorage.getItem('userId') || Cookies.get('userId');
+    const token = Cookies.get('token');
+    const guestToken = Cookies.get('guestToken');
+    const storedUserId = Cookies.get('userId');
   
-    console.log('Token:', token);
-    console.log('Guest Token:', guestToken);
-    console.log('Stored User ID:', storedUserId);
-
     if (token && storedUserId) {
       setIsAuthenticated(true);
       setIsGuest(false);
@@ -66,10 +62,11 @@ export const AuthProvider = ({ children }) => {
 
     setIsLoading(true);
 
-    Cookies.set('token', token, { expires: rememberMe ? 7 : 1, secure: true, sameSite: 'strict', path: '/' });
-    Cookies.set('userId', userId.toString(), { expires: rememberMe ? 7 : 1, secure: true, sameSite: 'strict', path: '/' });
-    localStorage.setItem('token', token);
-    localStorage.setItem('userId', userId.toString());
+    const isProduction = process.env.NODE_ENV === 'production';
+
+    Cookies.set('token', token, { expires: rememberMe ? 7 : 1, secure: isProduction, sameSite: 'strict', path: '/' });
+    Cookies.set('userId', userId.toString(), { expires: rememberMe ? 7 : 1, secure: isProduction, sameSite: 'strict', path: '/' });
+    
     setIsAuthenticated(true);
     setIsGuest(false);
     setUserId(userId);
@@ -103,22 +100,16 @@ const handleOAuthLogin = async (providerLogin, provider) => {
       const response = await api.post('/api/auth/oauth-login', { email, provider });
   
       if (response.data.success) {
-        // Successful login
-        Cookies.set('token', response.data.token, { expires: 7, secure: true, sameSite: 'strict' });
-        Cookies.set('userId', response.data.userId, { expires: 7, secure: true, sameSite: 'strict' });
-        localStorage.setItem('token', response.data.token);
-        localStorage.setItem('userId', response.data.userId);
-  
-        // Log the user in and redirect to the profile page
+        Cookies.set('token', response.data.token, { expires: 7, secure: process.env.NODE_ENV === 'production', sameSite: 'strict', path: '/' });
+        Cookies.set('userId', response.data.userId, { expires: 7, secure: process.env.NODE_ENV === 'production', sameSite: 'strict', path: '/' });
+
         login(response.data.token, response.data.userId, true);
         showAlertMessage('Login successful! Redirecting...', 'success');
         setTimeout(() => navigate(`/profile/${response.data.userId}`), 3000);
       } else if (response.data.reason === 'email_linked_to_other_provider') {
-        // Handle cases where provider is null
         if (!response.data.provider) {
           showAlertMessage('This email is already linked to a provider, but the provider is unknown. Please log in with the correct provider.', 'error');
         } else {
-          // Display the specific provider linked to the email
           showAlertMessage(`This email is already linked to ${response.data.provider}. Please log in using that account.`, 'error');
         }
       } else {
@@ -152,9 +143,8 @@ const handleOAuthLogin = async (providerLogin, provider) => {
         throw new Error('Failed to obtain guest token');
       }
 
-      Cookies.set('guestToken', guestToken, { expires: 1, secure: true, sameSite: 'strict', path: '/' });
-      localStorage.setItem('guestToken', guestToken);
-      console.log('Guest Token set:', guestToken);
+      Cookies.set('guestToken', guestToken, { expires: 1, secure: process.env.NODE_ENV === 'production', sameSite: 'strict', path: '/' });
+      
       setIsGuest(true);
       setIsAuthenticated(false);
       setIsLoading(false);
@@ -169,26 +159,18 @@ const handleOAuthLogin = async (providerLogin, provider) => {
 
   const logout = async () => {
     try {
-      // Clear Firebase Google authentication session
       await logOut();
       
-      // Clear cookies and local storage
       Cookies.remove('token', { path: '/' });
       Cookies.remove('userId', { path: '/' });
       Cookies.remove('guestToken', { path: '/' });
-      localStorage.removeItem('token');
-      localStorage.removeItem('userId');
-      localStorage.removeItem('guestToken');
-      localStorage.removeItem('quickstartCompleted');
-  
-      // Clear authentication state in the app
+
       setIsAuthenticated(false);
       setIsGuest(false);
       setUserId(null);
       setName('');
       setIsLoading(false);
   
-      // Display success alert to the user
       showAlertMessage('Successfully logged out.', 'success');
   
       navigate('/'); 

@@ -49,7 +49,7 @@ const App = () => {
   const [eventTitle, setEventTitle] = useState('');
   const location = useLocation();
   const { isAuthenticated, isGuest, userId } = useContext(AuthContext);
-  const token = localStorage.getItem('token') || Cookies.get('token');
+  const token = Cookies.get('token');
 
   const [showQuickstart, setShowQuickstart] = useState(true); 
 
@@ -59,7 +59,6 @@ const App = () => {
     const sendTokenToServer = async (token) => {
       try {
         await api.post('/api/profile/update-fcm-token', { fcmToken: token });
-        console.log('Token sent to server successfully.');
       } catch (error) {
         console.error('Error sending token to server:', error);
       }
@@ -69,29 +68,22 @@ const App = () => {
       try {
         const permission = await Notification.requestPermission();
         if (permission === 'granted') {
-          console.log('Notification permission granted.');
-    
           const registration = await navigator.serviceWorker.ready;
-    
           const currentToken = await getToken(messaging, {
             vapidKey: process.env.REACT_APP_VAPID_KEY,
             serviceWorkerRegistration: registration,
           });
     
           if (currentToken) {
-            console.log('FCM Token:', currentToken);
-    
             await sendTokenToServer(currentToken);
     
             messaging.onTokenRefresh(async () => {
-              console.log('FCM Token refreshed');
               const newToken = await getToken(messaging, {
                 vapidKey: process.env.REACT_APP_VAPID_KEY,
                 serviceWorkerRegistration: registration,
               });
               
               if (newToken) {
-                console.log('New FCM Token:', newToken);
                 await sendTokenToServer(newToken); 
               }
             });
@@ -110,7 +102,6 @@ const App = () => {
       requestFCMToken();
     }
 
-    // Handle incoming messages
     const unsubscribe = onMessage(messaging, (payload) => {
       console.log('Message received:', payload);
     });
@@ -121,15 +112,8 @@ const App = () => {
   }, [isAuthenticated, isGuest, userId, token]);
 
   useEffect(() => {
-    console.log('App component useEffect');
-    console.log('isAuthenticated:', isAuthenticated);
-    console.log('isGuest:', isGuest);
-    console.log('userId:', userId);
-  }, [isAuthenticated, isGuest, userId]);
-
-  useEffect(() => {
     // Initialize theme on app load
-    const savedTheme = localStorage.getItem('theme') || 'light';
+    const savedTheme = Cookies.get('theme') || 'light';
     document.documentElement.setAttribute('data-theme', savedTheme);
   }, []);
 
