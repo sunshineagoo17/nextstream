@@ -7,13 +7,21 @@ const api = axios.create({
   withCredentials: true, 
 });
 
-// Adds a request interceptor to include the token in all requests
+// Adds a request interceptor to include the token and ensure the Content-Type header is set
 api.interceptors.request.use(
   (config) => {
     const token = Cookies.get('token');
+    
+    // Add Authorization header if token exists
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
+    
+    // Ensure Content-Type is set for POST/PUT requests
+    if (['post', 'put', 'patch'].includes(config.method) && !config.headers['Content-Type']) {
+      config.headers['Content-Type'] = 'application/json';
+    }
+
     console.log('Request config:', config);
     return config;
   },

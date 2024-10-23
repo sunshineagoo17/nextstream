@@ -1,7 +1,9 @@
 const express = require('express');
 const axios = require('axios');
 const { Storage } = require('@google-cloud/storage');
+const path = require('path');
 const router = express.Router();
+const fs = require('fs');
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
 const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
 
@@ -13,17 +15,37 @@ const storage = new Storage({
   },
 });
 
-// Function to call NLP service from Google Cloud
+const bucketName = 'nextstream'; 
+const fileName = 'nlpService.js'; 
+const localNLPFilePath = path.join(__dirname, '../services/nlpService.js');
+
+// Function to download the NLP service file from Google Cloud Storage
+async function downloadNLPServiceFile() {
+  try {
+    await storage.bucket(bucketName).file(fileName).download({ destination: localNLPFilePath });
+    console.log(`Downloaded NLP service file to ${localNLPFilePath}`);
+  } catch (error) {
+    console.error('Error downloading NLP service file:', error);
+    throw new Error('Failed to download NLP service file');
+  }
+}
+
 async function processInputFromNLPService(userInput) {
   try {
-    // Assuming you are calling your NLP service via a Google Cloud endpoint (replace with actual API details)
-    const response = await axios.post(process.env.GOOGLE_CLOUD_NLP_SERVICE_URL, {
-      userInput,
-    });
+    // Check if the file already exists before downloading
+    if (!fs.existsSync(localNLPFilePath)) {
+      await downloadNLPServiceFile();
+    }
 
-    return response.data; // Assuming response contains intent, title, person, etc.
+    // Dynamically load the file after downloading it
+    const nlpService = require(localNLPFilePath);
+
+    // Call the processInput function from the module
+    const nlpResult = await nlpService.processInput(userInput);
+
+    return nlpResult;
   } catch (error) {
-    console.error('Error calling NLP service:', error);
+    console.error('Error processing NLP service:', error);
     throw new Error('Failed to process input with NLP service');
   }
 }
