@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
+import Cookies from 'js-cookie';
 import { AuthContext } from '../../../../context/AuthContext/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -11,7 +12,7 @@ const CookieNotification = () => {
   const { login, logout } = useContext(AuthContext);
 
   useEffect(() => {
-    const cookieConsent = localStorage.getItem('cookieConsent');
+    const cookieConsent = Cookies.get('cookieConsent');
     if (!cookieConsent) {
       setVisible(true);
     } else {
@@ -28,9 +29,9 @@ const CookieNotification = () => {
 
   const handleEnableCookies = () => {
     setCookiesEnabled(true);
-    localStorage.setItem('cookieConsent', 'enabled');
-    const token = localStorage.getItem('token');
-    const userId = localStorage.getItem('userId');
+    Cookies.set('cookieConsent', 'enabled', { expires: 365, secure: true, sameSite: 'Strict' });
+    const token = Cookies.get('token');
+    const userId = Cookies.get('userId');
     if (token && userId) {
       login(token, userId);
     }
@@ -42,10 +43,10 @@ const CookieNotification = () => {
 
   const handleDisableCookies = () => {
     setCookiesEnabled(false);
-    localStorage.setItem('cookieConsent', 'disabled');
+    Cookies.set('cookieConsent', 'disabled', { expires: 365, secure: true, sameSite: 'Strict' });
     logout();
-    localStorage.removeItem('token');
-    localStorage.removeItem('userId');
+    Cookies.remove('token');
+    Cookies.remove('userId');
     setAnimationClass('fade-out');
     setTimeout(() => {
       setVisible(false);
