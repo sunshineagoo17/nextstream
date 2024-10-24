@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext, useRef } from 'react';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Cookies from 'js-cookie'; 
 import {
   faPlay, faCalendarPlus, faPlus, faChevronDown, faChevronUp, faFilm, faTv, faChevronCircleDown, faChevronCircleUp, faTimes, faThumbsUp, faThumbsDown, faShareAlt, faLightbulb
 } from '@fortawesome/free-solid-svg-icons';
@@ -33,7 +34,7 @@ const TopPicksPage = () => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isFetchingMore, setIsFetchingMore] = useState(false); 
   const [hasFetched, setHasFetched] = useState(false); 
-  const [likedStatus] = useState({});
+  const [likedStatus, setLikedStatus] = useState({});
   const calendarRef = useRef(null);
 
   useEffect(() => {
@@ -132,7 +133,9 @@ const TopPicksPage = () => {
       if (uniqueRecommendations.length > 0) {
         const updatedMedia = [...media, ...uniqueRecommendations];
         setMedia(updatedMedia);
-        localStorage.setItem('media', JSON.stringify(updatedMedia)); 
+
+        Cookies.set('media', JSON.stringify(updatedMedia), { expires: 7 }); 
+
         setPage((prevPage) => prevPage + 1);
         setHasFetched(true);
         setIsExpanded(true);
@@ -145,7 +148,7 @@ const TopPicksPage = () => {
     } finally {
       setIsFetchingMore(false);
     }
-  };  
+  };
 
   const handlePlayTrailer = async (media_id, media_type) => {
     setIsLoading(true);
@@ -221,41 +224,40 @@ const TopPicksPage = () => {
       showAlert('Guests cannot like media. Please log in to access more features.', 'info');
       return;
     }
-
+  
     try {
-      await api.post('/api/interactions', { userId, media_id, interaction: 1, media_type });
+      await api.post('/api/interactions', { media_id, interaction: 1, media_type });
       showAlert('You liked this media!', 'success');
-      const updatedMedia = media.map(item => item.id === media_id ? { ...item, interaction: 1 } : item);
-      const nonInteractedMedia = updatedMedia.filter(item => item.interaction === null || item.interaction === undefined);
-      
-      setMedia(nonInteractedMedia);
-      localStorage.setItem('media', JSON.stringify(nonInteractedMedia)); 
+  
+      setLikedStatus((prevState) => ({
+        ...prevState,
+        [media_id]: 1, 
+      }));
     } catch (error) {
       console.error('Error liking media:', error);
       showAlert('Failed to like the media.', 'error');
     }
-  };  
-
+  };
+  
   const handleDislike = async (media_id, media_type) => {
     if (isGuest) {
       showAlert('Guests cannot dislike media. Please log in to access more features.', 'info');
       return;
     }
-
+  
     try {
-      await api.post('/api/interactions', { userId, media_id, interaction: 0, media_type });
+      await api.post('/api/interactions', { media_id, interaction: 0, media_type });
       showAlert('You disliked this media!', 'success');
-      
-      const updatedMedia = media.map(item => item.id === media_id ? { ...item, interaction: 0 } : item);
-      const nonInteractedMedia = updatedMedia.filter(item => item.interaction === null || item.interaction === undefined);
-      
-      setMedia(nonInteractedMedia);
-      localStorage.setItem('media', JSON.stringify(nonInteractedMedia)); 
+  
+      setLikedStatus((prevState) => ({
+        ...prevState,
+        [media_id]: 0,
+      }));
     } catch (error) {
       console.error('Error disliking media:', error);
       showAlert('Failed to dislike the media.', 'error');
     }
-  };  
+  };
 
   const handleShowMore = (id) => {
     setShowFullDescription((prevState) => ({
@@ -356,37 +358,39 @@ const TopPicksPage = () => {
                         data-tooltip-content="Add to Calendar"
                       />
                     </button>
-                    <button>
+                    {/* Like button */}
+                    <button style={{ display: likedStatus[item.id] !== 0 ? 'inline' : 'none' }}>
                       <FontAwesomeIcon
                         icon={faThumbsUp}
-                        className={`top-picks-page__like-icon ${likedStatus[item.id] === 'liked' ? 'active' : ''}`}
+                        className={`top-picks-page__like-icon ${likedStatus[item.id] === 1 ? 'active' : ''}`}
                         data-tooltip-id="likeTooltip"
                         data-tooltip-content="Like"
                         onClick={() => handleLike(item.id, item.media_type)}
-                        style={{ display: likedStatus[item.id] === 'disliked' ? 'none' : 'inline' }} 
                       />
                     </button>
-                    {likedStatus[item.id] !== 'liked' && (
-                      <button>
-                        <FontAwesomeIcon
-                          icon={faThumbsDown}
-                          className={`top-picks-page__dislike-icon ${likedStatus[item.id] === 'disliked' ? 'active' : ''}`}
-                          data-tooltip-id="dislikeTooltip"
-                          data-tooltip-content="Dislike"
-                          onClick={() => handleDislike(item.id, item.media_type)}
-                          style={{ display: likedStatus[item.id] === 'liked' ? 'none' : 'inline' }}
-                        />
-                      </button>
-                    )}
+
+                    {/* Dislike button */}
+                    <button style={{ display: likedStatus[item.id] !== 1 ? 'inline' : 'none' }}>
+                      <FontAwesomeIcon
+                        icon={faThumbsDown}
+                        className={`top-picks-page__dislike-icon ${likedStatus[item.id] === 0 ? 'active' : ''}`}
+                        data-tooltip-id="dislikeTooltip"
+                        data-tooltip-content="Dislike"
+                        onClick={() => handleDislike(item.id, item.media_type)}
+                      />
+                    </button>
+
+                    {/* Share button */}
                     <button>
                       <FontAwesomeIcon
-                          icon={faShareAlt}
-                          className="top-picks-page__share-icon"
-                          data-tooltip-id="shareIconTooltip"
-                          data-tooltip-content="Share"
-                          onClick={() => handleShare(item.title || item.name, item.id, item.media_type)}
+                        icon={faShareAlt}
+                        className="top-picks-page__share-icon"
+                        data-tooltip-id="shareIconTooltip"
+                        data-tooltip-content="Share"
+                        onClick={() => handleShare(item.title || item.name, item.id, item.media_type)}
                       />
                     </button>
+
                   </p>
                   <p className="top-picks-page__text">
                     Genre: {Array.isArray(item.genres) && item.genres.length > 0 ? item.genres.map((genre) => genre.name || genre).join(', ') : 'N/A'}

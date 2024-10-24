@@ -1,46 +1,44 @@
+import Cookies from 'js-cookie';
 import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMoon, faSun, faRainbow, faCloud, faStar, faSnowflake, faCloudRain } from '@fortawesome/free-solid-svg-icons';
 import './ThemeToggle.scss';
 
 const ThemeToggle = () => {
-  const [theme, setTheme] = useState('snow-mode'); 
+  const [theme, setTheme] = useState('snow-mode');
 
-  // Check for saved theme in localStorage or default to 'snow-mode'
   useEffect(() => {
-    const savedTheme = localStorage.getItem('theme') || 'snow-mode';
+    const savedTheme = Cookies.get('theme') || 'snow-mode';
     document.documentElement.setAttribute('data-theme', savedTheme);
     setTheme(savedTheme);
   }, []);
 
-  // Function to toggle between themes
   const toggleTheme = () => {
     let newTheme = '';
 
     if (theme === 'snow-mode') {
-      newTheme = 'sun-mode'; // Switch from snow to sun-mode
+      newTheme = 'sun-mode';
     } else if (theme === 'sun-mode') {
-      newTheme = 'dark'; // Switch from sun-mode to dark
+      newTheme = 'dark';
     } else if (theme === 'dark') {
-      newTheme = 'cloud-mode'; // Switch from dark to cloud-mode
+      newTheme = 'cloud-mode';
     } else if (theme === 'cloud-mode') {
-      newTheme = 'rain-mode'; // Switch from cloud-mode to rain-mode
+      newTheme = 'rain-mode';
     } else if (theme === 'rain-mode') {
-      newTheme = 'trans-mode'; // Switch from rain-mode to trans-mode
+      newTheme = 'trans-mode';
     } else if (theme === 'trans-mode') {
-      newTheme = 'star-mode'; // Switch from trans-mode to star-mode
+      newTheme = 'star-mode';
     } else {
-      newTheme = 'snow-mode'; // Back to snow-mode
+      newTheme = 'snow-mode';
     }
 
     document.documentElement.setAttribute('data-theme', newTheme);
     setTheme(newTheme);
-    localStorage.setItem('theme', newTheme);
+    Cookies.set('theme', newTheme, { expires: 7 });
   };
 
   return (
     <button onClick={toggleTheme} className={`dark-mode-toggle ${theme}`}>
-      {/* Icon changes based on current theme */}
       {theme === 'sun-mode' ? (
         <FontAwesomeIcon icon={faSun} className="icon sun" />
       ) : theme === 'dark' ? (
