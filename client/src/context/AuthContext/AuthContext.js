@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }) => {
           const response = await api.get(`/api/profile/${storedUserId}`);
           setName(response.data.name);
         } catch (error) {
-          console.error('Error fetching user name:', error);
+          showAlertMessage('Error fetching user name.', 'error');
         }
         setIsLoading(false);
       };
@@ -56,7 +56,6 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (token, userId, rememberMe) => {
     if (!token || !userId) {
-      console.error('Invalid token or userId');
       return;
     }
 
@@ -78,7 +77,6 @@ export const AuthProvider = ({ children }) => {
         navigate(`/profile/${userId}`);
         showAlertMessage('Login successful!', 'success');
       } catch (error) {
-        console.error('Error fetching user name:', error);
         showAlertMessage('Error logging in. Please try again.', 'error');
       }
       setIsLoading(false);
@@ -113,7 +111,6 @@ const handleOAuthLogin = async (providerLogin, provider) => {
           showAlertMessage(`This email is already linked to ${response.data.provider}. Please log in using that account.`, 'error');
         }
       } else {
-        console.error('Login error:', response.data.message);
         showAlertMessage('Login unsuccessful. Please try again.', 'error');
       }
     }
@@ -127,7 +124,6 @@ const handleOAuthLogin = async (providerLogin, provider) => {
         showAlertMessage('Login failed. Please try again.', 'error');
       }
     } else {
-      console.error('OAuth login failed:', error.response?.data || error);
       showAlertMessage('Login failed. Please try again.', 'error');
     }
   }
@@ -152,7 +148,6 @@ const handleOAuthLogin = async (providerLogin, provider) => {
 
       navigate('/top-picks/guest');
     } catch (error) {
-      console.error('Error during guest login:', error);
       showAlertMessage('Failed to log in as a guest.', 'error');
     }
   };
@@ -176,7 +171,6 @@ const handleOAuthLogin = async (providerLogin, provider) => {
       navigate('/'); 
   
     } catch (error) {
-      console.error('Sign-out error:', error);
       showAlertMessage('Error during sign out. Please try again.', 'error');
     }
   };  

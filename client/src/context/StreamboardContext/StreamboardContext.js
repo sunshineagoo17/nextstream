@@ -12,17 +12,19 @@ export const StreamBoardProvider = ({ children }) => {
 
   const fetchMediaItems = async () => {
     try {
-      const toWatchResponse = await api.get(`/api/media-status/to_watch`);
-      const scheduledResponse = await api.get(`/api/media-status/scheduled`);
-      const watchedResponse = await api.get(`/api/media-status/watched`);
-  
+      const [toWatchResponse, scheduledResponse, watchedResponse] = await Promise.all([
+        api.get(`/api/media-status/to_watch`),
+        api.get(`/api/media-status/scheduled`),
+        api.get(`/api/media-status/watched`),
+      ]);
+
       setMediaItems({
         to_watch: toWatchResponse.data,
         scheduled: scheduledResponse.data,
         watched: watchedResponse.data,
       });
     } catch (error) {
-      console.error('Error fetching media items:', error);
+      alert('Failed to fetch media items. Please try again later.');
     }
   };
 
@@ -31,8 +33,7 @@ export const StreamBoardProvider = ({ children }) => {
       await api.put(`/api/media-status/${media_id}`, { status: newStatus });
       setMediaItems((prevItems) => {
         const updatedItems = { ...prevItems };
-  
-        // Remove the media item from its previous status
+
         let movedItem = null;
         for (const status in updatedItems) {
           const itemIndex = updatedItems[status].findIndex(item => item.media_id === media_id);
@@ -41,17 +42,16 @@ export const StreamBoardProvider = ({ children }) => {
             break;
           }
         }
-  
-        // Move the item to the new status
+
         if (movedItem) {
           movedItem.status = newStatus;
           updatedItems[newStatus].unshift(movedItem);
         }
-  
+
         return updatedItems;
       });
     } catch (error) {
-      console.error('Error updating media status:', error);
+      alert('Error updating media status. Please try again later.');
     }
   };
 

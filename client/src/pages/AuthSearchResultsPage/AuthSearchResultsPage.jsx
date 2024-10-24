@@ -53,13 +53,11 @@ const AuthSearchResultsPage = ({ userId }) => {
         }
       });
 
-      // Filter results to include only movies and TV shows
       const filteredResults = response.data.results.filter(result => result.media_type === 'movie' || result.media_type === 'tv');
 
       const updatedResults = await Promise.all(
         filteredResults.map(async (result) => {
           try {
-            // Fetch the interaction status for the user and this media item
             const interactionResponse = await api.get(`/api/interactions/${userId}`, {
               params: {
                 media_id: result.id,
@@ -73,7 +71,6 @@ const AuthSearchResultsPage = ({ userId }) => {
             const providersResponse = await api.get(`/api/tmdb/${result.media_type}/${result.id}/watch/providers`);
             const providers = providersResponse.data || [];
 
-            // Fetch runtime for movies and episode runtime for TV shows
             let duration = 0;
             if (result.media_type === 'movie') {
               const movieDetails = await api.get(`/api/tmdb/movie/${result.id}`);
@@ -85,7 +82,6 @@ const AuthSearchResultsPage = ({ userId }) => {
 
             return { ...result, providers, duration, interaction };
           } catch (error) {
-            console.error(`Error fetching watch providers or interaction for ${result.media_type} ${result.id}:`, error);
             return { ...result, providers: [], duration: 0, interaction: null };
           }
         })
@@ -93,7 +89,6 @@ const AuthSearchResultsPage = ({ userId }) => {
 
       setResults(updatedResults);
     } catch (error) {
-      console.error('Error fetching search results:', error);
       showAlert('Error fetching search results. Please try again later.', 'error');
     } finally {
       setIsLoading(false);
@@ -149,12 +144,10 @@ const AuthSearchResultsPage = ({ userId }) => {
       const result = results.find((result) => result.id === mediaId);
   
       if (!result) {
-        console.error(`No result found for mediaId ${mediaId}`);
         return;
       }
   
       if (!result.media_type) {
-        console.error(`media_type is missing for result with mediaId ${mediaId}`);
         return;
       }
   
@@ -171,7 +164,6 @@ const AuthSearchResultsPage = ({ userId }) => {
         )
       );
   
-      // Show alert based on the interaction type
       if (newInteraction === 1) {
         showAlert('You liked this media!', 'success');
       } else if (newInteraction === 0) {
@@ -180,7 +172,6 @@ const AuthSearchResultsPage = ({ userId }) => {
         showAlert('Interaction removed.', 'info');
       }
     } catch (error) {
-      console.error('Error toggling interaction:', error);
       showAlert('Error toggling interaction. Please try again later.', 'error');
     }
   };
@@ -192,13 +183,11 @@ const AuthSearchResultsPage = ({ userId }) => {
       navigator.share({
         title: `Check out this title - ${title}`,
         url: url,
-      })
-      .then(() => console.log('Successful share!'))
-      .catch((error) => console.error('Error sharing:', error));
+      });
     } else {
       navigator.clipboard.writeText(`Check out this title - ${title}: ${url}`)
       .then(() => showAlert('Link copied to clipboard!', 'success'))
-      .catch((error) => showAlert('Failed to copy link', 'error'));
+      .catch(() => showAlert('Failed to copy link', 'error'));
     }
   };
 
@@ -357,7 +346,6 @@ const AuthSearchResultsPage = ({ userId }) => {
                     </button>
                   </div>
 
-                  {/* Streaming Services */}
                   <div className="auth-search-results__streaming-services">
                     {result.providers && result.providers.length > 0 ? (
                       <>
@@ -390,7 +378,6 @@ const AuthSearchResultsPage = ({ userId }) => {
                     )}
                   </div>
 
-                  {/* Interaction Icons */}
                   <div className="auth-search-results__interaction-icons">
                     {getInteractionIcon(result.interaction, result.id, result.media_type, result.title || result.name)}
                   </div>

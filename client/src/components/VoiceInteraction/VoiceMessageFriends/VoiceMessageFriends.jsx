@@ -16,29 +16,23 @@ const VoiceMessageFriends = ({ handleSendMessage, setNewMessage }) => {
 
       recognition.onstart = () => {
         setIsListening(true);
-        console.log("Voice recognition started...");
       };
 
       recognition.onresult = (event) => {
         const transcript = event.results[0][0].transcript.trim();
-        console.log("Voice recognition result:", transcript);
-        
         setNewMessage(transcript);
-      
         handleSendMessage(transcript);
-      
         setIsListening(false);
       };
-      
-      recognition.onerror = (event) => {
-        console.error("Voice recognition error:", event.error);
+
+      recognition.onerror = () => {
         setIsListening(false);
         alert('Voice recognition error occurred. Please try again.');
       };
 
       recognitionRef.current = recognition;
     } else {
-      console.warn('Speech recognition not supported in this browser.');
+      alert('Speech recognition is not supported in this browser. Please use a supported browser.');
     }
   }, [handleSendMessage, setNewMessage]);
 

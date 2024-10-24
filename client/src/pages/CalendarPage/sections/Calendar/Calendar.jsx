@@ -68,12 +68,10 @@ const Calendar = forwardRef(
       const socket = io(socketUrl);
     
       socket.on('calendar_event_updated', (data) => {
-        console.log('Event updated:', data);
         setEvents((prevEvents) => [...prevEvents, data.event]);
       });
     
       socket.on('calendar_event_removed', (data) => {
-        console.log('Event removed:', data);
         setEvents((prevEvents) =>
           prevEvents.filter((event) => event.id !== data.inviteId)
         );
@@ -117,7 +115,7 @@ const Calendar = forwardRef(
     const fetchEvents = useCallback(async () => {
       try {
         setLoading(true);
-
+    
         if (isGuest) {
           showCustomAlert(
             'Guests have limited access to the calendar page.',
@@ -126,9 +124,9 @@ const Calendar = forwardRef(
           setLoading(false);
           return;
         }
-
+    
         const response = await api.get(`/api/calendar/${userId}/events`);
-
+    
         if (response.data && response.data.length > 0) {
           setEvents(response.data);
           setFilteredEvents(response.data);
@@ -149,17 +147,14 @@ const Calendar = forwardRef(
             'info'
           );
         } else {
-          console.log(
-            'Error fetching events:',
-            error.response ? error.response.data : error.message
-          );
-          showCustomAlert('Failed to fetch events.', 'error');
+          const errorMessage = error.response ? error.response.data : error.message;
+          showCustomAlert(`Failed to fetch events: ${errorMessage}`, 'error');
         }
       } finally {
         setLoading(false);
       }
     }, [userId, isGuest]);
-
+    
     useEffect(() => {
       fetchEvents();
     }, [fetchEvents]);
@@ -213,11 +208,8 @@ const Calendar = forwardRef(
     const handleEventClick = async (clickInfo) => {
       const { event } = clickInfo;
       if (!event) {
-        console.log('Event data not found.');
         return;
       }
-
-      console.log('Event data:', event);
 
       const id = event.id;
       const title = event.title || '';
@@ -244,7 +236,6 @@ const Calendar = forwardRef(
         const { notificationTime, customHours, customMinutes } = response.data;
         return { notificationTime, customHours, customMinutes };
       } catch (error) {
-        console.log('Error fetching notification time:', error);
         return { notificationTime: '30', customHours: 0, customMinutes: 0 };
       }
     };
@@ -286,11 +277,8 @@ const Calendar = forwardRef(
           className: 'frosted-toast-cal',
         });
       } catch (error) {
-        console.log(
-          'Error adding event:',
-          error.response ? error.response.data : error.message
-        );
-        toast.error('Failed to add event.', { className: 'frosted-toast-cal' });
+        const errorMessage = error.response ? error.response.data : error.message;
+        toast.error(`Failed to add event: ${errorMessage}`, { className: 'frosted-toast-cal' });
       } finally {
         setLoading(false);
         setModalVisible(false);
@@ -302,7 +290,6 @@ const Calendar = forwardRef(
     
       if (selectedEvent.eventType !== 'movie' && selectedEvent.eventType !== 'tv') {
         showCustomAlert('Only movies or TV shows are allowed. Please select a valid event type.', 'error');
-        console.error(`Invalid event type during edit: ${selectedEvent.eventType}`);
         setLoading(false); 
         return;
       }
@@ -322,7 +309,6 @@ const Calendar = forwardRef(
           className: 'frosted-toast-cal',
         });
       } catch (error) {
-        console.log('Error updating event:', error.response ? error.response.data : error.message);
         toast.error('Failed to update event.', { className: 'frosted-toast-cal' });
       } finally {
         setLoading(false);
@@ -356,11 +342,8 @@ const Calendar = forwardRef(
           className: 'frosted-toast-cal',
         });
       } catch (error) {
-        console.log(
-          'Error moving event:',
-          error.response ? error.response.data : error.message
-        );
-        toast.error('Failed to move event.', {
+        const errorMessage = error.response ? error.response.data : error.message;
+        toast.error(`Failed to move event: ${errorMessage}`, {
           className: 'frosted-toast-cal',
         });
       } finally {
@@ -384,7 +367,6 @@ const Calendar = forwardRef(
         if (error.response && error.response.status === 403) {
           showCustomAlert('This is a shared event and only the inviter can delete it.', 'info');
         } else {
-          console.log('Error deleting event:', error.response ? error.response.data : error.message);
           toast.error('Failed to delete event.', { className: 'frosted-toast-cal' });
         }
       } finally {
@@ -418,22 +400,17 @@ const Calendar = forwardRef(
         await fetchEvents();
         toast.success(
           `Deleted all events in the current ${viewNames[currentView]} view!`,
-          { className: 'frosted-toast-cal',
-          autoClose: 500,
-          }
+          { className: 'frosted-toast-cal', autoClose: 500 }
         );
       } catch (error) {
-        console.log(
-          'Error deleting events:',
-          error.response ? error.response.data : error.message
-        );
-        toast.error('Failed to delete events.', {
+        const errorMessage = error.response ? error.response.data : error.message;
+        toast.error(`Failed to delete events: ${errorMessage}`, {
           className: 'frosted-toast-cal',
         });
       } finally {
         setLoading(false);
       }
-    };
+    };    
     
     const renderEventContent = (eventInfo) => {
       const handleEventClickWithLoader = async (event) => {
@@ -644,7 +621,6 @@ const Calendar = forwardRef(
     };
 
     const clearSearchInput = () => {
-      console.log("Clearing search query");
       setSearchQuery('');
       setFilteredEvents(events);
     };
