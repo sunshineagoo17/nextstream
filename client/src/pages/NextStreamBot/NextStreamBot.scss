@@ -323,7 +323,7 @@
     overflow-y: auto;
     margin-bottom: 1rem;
     width: 100%;
-    max-height: 35rem;
+    max-height: 19rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -332,6 +332,18 @@
     border-radius: 1rem;
     padding: 1rem .5rem;
     flex-direction: column;
+
+    @include tablet {
+      max-height: 23rem;
+    }
+
+    @include desktop {
+      max-height: 25rem;
+    }
+
+    @include large-desktop {
+      max-height: 27rem;
+    }
 
     /* Scrollbar width */
     scrollbar-width: thin;
