@@ -4,12 +4,10 @@ exports.getFriends = async (req, res) => {
     const { userId } = req.user;
   
     if (!userId) {
-      console.error('Invalid userId:', userId);
       return res.status(400).json({ message: 'Invalid userId' });
     }
   
     try {
-      console.log('Fetching friends for userId:', userId);
   
       // Fetch friends
       const friends = await knex('friends')
@@ -42,10 +40,8 @@ exports.getFriends = async (req, res) => {
         };
       });
   
-      console.log(`Found ${friendsWithUnreadCount.length} friends with unread message counts for userId: ${userId}`);
       res.status(200).json(friendsWithUnreadCount);
     } catch (error) {
-      console.error('Error retrieving friends list with unread message counts:', error);
       res.status(500).json({ message: 'Error retrieving friends list', error: error.message });
     }
   };
@@ -59,8 +55,6 @@ exports.addFriend = async (req, res) => {
     }
 
     try {
-        console.log('User ID:', userId);
-        console.log('Friend ID:', friendId);
 
         // Check if friend exists
         const friendExists = await knex('users').where('id', friendId).first();
@@ -87,7 +81,6 @@ exports.addFriend = async (req, res) => {
 
         res.status(200).json({ message: 'Friend request sent successfully' });
     } catch (error) {
-        console.error('Error adding friend:', error);
         res.status(500).json({ message: 'Error adding friend', error: error.message });
     }
 };
@@ -118,7 +111,6 @@ exports.removeFriend = async (req, res) => {
 
         res.status(200).json({ message: 'Friend removed successfully' });
     } catch (error) {
-        console.error('Error removing friend:', error);
         res.status(500).json({ message: 'Error removing friend', error: error.message });
     }
 };
@@ -146,7 +138,6 @@ exports.acceptFriendRequest = async (req, res) => {
 
         res.status(200).json({ message: 'Friend request accepted successfully' });
     } catch (error) {
-        console.error('Error accepting friend request:', error);
         res.status(500).json({ message: 'Error accepting friend request', error: error.message });
     }
 };
@@ -174,7 +165,6 @@ exports.rejectFriendRequest = async (req, res) => {
 
         res.status(200).json({ message: 'Friend request rejected successfully' });
     } catch (error) {
-        console.error('Error rejecting friend request:', error);
         res.status(500).json({ message: 'Error rejecting friend request', error: error.message });
     }
 };
@@ -194,7 +184,6 @@ exports.getPendingFriendRequests = async (req, res) => {
 
         res.status(200).json(pendingRequests);
     } catch (error) {
-        console.error('Error retrieving pending friend requests:', error);
         res.status(500).json({ message: 'Error retrieving pending friend requests', error: error.message });
     }
 };

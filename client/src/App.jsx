@@ -103,12 +103,20 @@ const App = () => {
     }
 
     const unsubscribe = onMessage(messaging, (payload) => {
-      console.log('Message received:', payload);
+      const notificationTitle = payload.notification?.title || 'New Notification';
+      const notificationOptions = {
+        body: payload.notification?.body,
+        icon: payload.notification?.icon,
+      };
+    
+      if (Notification.permission === 'granted') {
+        new Notification(notificationTitle, notificationOptions);
+      }
     });
-
+    
     return () => {
       unsubscribe();
-    };
+    };    
   }, [isAuthenticated, isGuest, userId, token]);
 
   useEffect(() => {

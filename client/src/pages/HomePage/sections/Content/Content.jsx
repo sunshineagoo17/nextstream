@@ -26,8 +26,6 @@ export const Content = () => {
   };
 
   useEffect(() => {
-    console.log('User ID:', userId);
-
     const fetchNewReleases = async () => {
       try {
         const response = await api.get('/api/tmdb/popular');
@@ -71,9 +69,6 @@ export const Content = () => {
   const handleCardClick = (release) => {
     const mediaType = release.media_type;
     const mediaId = release.id;
-
-    console.log('isAuthenticated:', isAuthenticated);
-    console.log('isGuest:', isGuest);
   
     if (isAuthenticated) {
       navigate(`/nextview/${userId}/${mediaType}/${mediaId}`);

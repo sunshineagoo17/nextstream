@@ -6,9 +6,7 @@ import './App.scss';
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/firebase-messaging-sw.js')
     .then((registration) => {
-      console.log('Service Worker registered with scope:', registration.scope);
-
-      // Post Firebase config to the service worker
+      // Post Firebase config to the service worker without logging
       registration.active.postMessage({
         type: 'SET_FIREBASE_CONFIG',
         config: {
@@ -21,8 +19,8 @@ if ('serviceWorker' in navigator) {
         },
       });
     })
-    .catch((error) => {
-      console.error('Service Worker registration failed:', error);
+    .catch(() => {
+      // Error handling can be done here, if necessary
     });
 }
 

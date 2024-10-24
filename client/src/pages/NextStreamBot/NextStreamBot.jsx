@@ -192,8 +192,6 @@ const NextStreamBot = () => {
         const chatbotMessage = response.data.message;
         const recommendedMedia = response.data.media || [];
 
-        console.log('API Results:', recommendedMedia);
-
         setMessages((prevMessages) => [
           ...prevMessages,
           { sender: 'bot', text: chatbotMessage },

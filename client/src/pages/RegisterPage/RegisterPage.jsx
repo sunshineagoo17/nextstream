@@ -125,7 +125,6 @@ export const RegisterPage = () => {
         }, 3000);
       }
     } catch (error) {
-      console.error('Registration error:', error);
       if (error.response && error.response.data && error.response.data.message) {
         if (error.response.data.message === 'Email already in use') {
           setErrors({ email: 'Email already in use. Please use a different email address.' });
@@ -165,7 +164,6 @@ export const RegisterPage = () => {
         }
       }
     } catch (error) {
-      console.error('OAuth registration error:', error);
       toast.error('Error during OAuth registration. Please try again.');
     } finally {
       setIsLoading(false); 

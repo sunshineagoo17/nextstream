@@ -12,7 +12,6 @@ const TagModal = ({ show, onClose, onSave, tags, mediaId, setAlert, onDelete }) 
     } else {
       setNewTag(''); 
     }
-    console.log('mediaId in TagModal:', mediaId); 
   }, [tags, mediaId]);
 
   const handleSave = () => {

@@ -80,7 +80,6 @@ const NextSwipe = () => {
         setMedia(initialMedia);
         saveStateToLocalStorage(initialMedia, `media_${userId}`);
       } catch (error) {
-        console.error('Error fetching data', error);
         if (error.response && error.response.status === 401) {
           showAlert('You are not authorized. Please log in again.', 'error');
         } else {
@@ -150,7 +149,6 @@ const NextSwipe = () => {
               duration = tvDetails.data.episode_run_time[0] || 0;
             }
           } catch (error) {
-            console.error('Error fetching duration data:', error);
             showAlert('Failed to fetch media duration.', 'error');
           }
           return { ...mediaItem, duration };
@@ -169,7 +167,6 @@ const NextSwipe = () => {
         setNoMoreMedia(true);
       }
     } catch (error) {
-      console.error('Error fetching recommendations', error);
       if (error.response && error.response.status === 401) {
         showAlert('You are not authorized. Please log in again.', 'error');
       } else {
@@ -209,7 +206,6 @@ const NextSwipe = () => {
         });
 
       } catch (error) {
-        console.error('Error recording interaction', error);
         if (error.response && error.response.status === 401) {
           showAlert('You are not authorized. Please log in again.', 'error');
         } else {
@@ -245,7 +241,6 @@ const NextSwipe = () => {
         showAlert("Duration's not available for this media.", 'info');
       }
     } catch (error) {
-      console.error('Error fetching duration data:', error);
       showAlert('Failed to fetch media duration.', 'error');
       return;
     }
@@ -272,7 +267,6 @@ const NextSwipe = () => {
       await api.post(`/api/calendar/${userId}/events`, newEvent);
       setShowCalendar(false);
     } catch (error) {
-      console.error('Error saving event:', error);
       if (error.response && error.response.status === 401) {
         showAlert('You are not authorized. Please log in again.', 'error');
       } else {

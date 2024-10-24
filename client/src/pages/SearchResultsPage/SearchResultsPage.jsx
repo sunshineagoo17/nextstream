@@ -64,7 +64,6 @@ const SearchResultsPage = ({ isAuthenticated, userId }) => {
         setResults(filteredResults);
 
       } catch (error) {
-        console.error('Error fetching search results:', error);
         toast.error('Error fetching search results. Please try again later.', {
           className: 'frosted-toast-search',
         });

@@ -38,12 +38,6 @@ const signInAndRegisterWithGoogle = async () => {
       throw new Error("Google sign-in did not return a user.");
     }
 
-    console.log("Google sign-in successful:", {
-      email: result.user.email,
-      displayName: result.user.displayName,
-      photoURL: result.user.photoURL,
-    });
-
     // Send registration request to your server
     const response = await api.post('/api/auth/oauth-register', {
       email: result.user.email,
@@ -51,15 +45,12 @@ const signInAndRegisterWithGoogle = async () => {
       provider: 'google',
     });
 
-    if (response.data.success) {
-      console.log('User registered successfully with Google:', response.data);
-    } else {
+    if (!response.data.success) {
       throw new Error(response.data.message || 'OAuth registration failed.');
     }
 
     return result;
   } catch (error) {
-    console.error("Google sign-in error:", error);
     throw error;
   }
 };
@@ -75,27 +66,18 @@ const signInWithGoogle = async () => {
       throw new Error("Google sign-in did not return a user.");
     }
 
-    console.log("Google login successful:", {
-      email: result.user.email,
-      displayName: result.user.displayName,
-      photoURL: result.user.photoURL,
-    });
-
     // Send login request to your server to check if the user is already registered
     const response = await api.post('/api/auth/oauth-login', {
       email: result.user.email,
       provider: 'google',
     });
 
-    if (response.data.success) {
-      console.log('User logged in successfully with Google:', response.data);
-    } else {
+    if (!response.data.success) {
       throw new Error(response.data.message || 'OAuth login failed.');
     }
 
     return result;
   } catch (error) {
-    console.error("Google login error:", error);
     throw error;
   }
 };
@@ -104,9 +86,8 @@ const signInWithGoogle = async () => {
 const logOut = async () => {
   try {
     await signOut(auth);
-    console.log('Sign-out successful.');
   } catch (error) {
-    console.error('Sign-out error:', error);
+    throw error;
   }
 };
 

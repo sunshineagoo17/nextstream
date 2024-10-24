@@ -7,12 +7,10 @@ const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
 
 if (!OPENAI_API_KEY) {
-  console.error('No OpenAI API key provided');
   process.exit(1);
 }
 
 if (!TMDB_API_KEY) {
-  console.error('No TMDB API key provided');
   process.exit(1);
 }
 
@@ -36,7 +34,6 @@ const fetchMovies = async (query) => {
       vote_average: movie.vote_average || 0,
     }));
   } catch (error) {
-    console.error('Error fetching movies:', error);
     return [];
   }
 };
@@ -61,7 +58,6 @@ const fetchTvShows = async (query) => {
       vote_average: show.vote_average || 0,
     }));
   } catch (error) {
-    console.error('Error fetching TV shows:', error);
     return [];
   }
 };
@@ -89,7 +85,6 @@ const fetchPerson = async (query) => {
       })),
     }));
   } catch (error) {
-    console.error('Error fetching persons:', error);
     return [];
   }
 };
@@ -139,7 +134,6 @@ router.post('/', async (req, res) => {
       media: mediaResults,
     });
   } catch (error) {
-    console.error('Error from GPT or TMDB API:', error.response ? error.response.data : error.message);
     return res.status(500).json({ error: 'Error communicating with GPT or TMDB API' });
   }
 });

@@ -4,13 +4,11 @@ import api from './api';
 export const getFriends = async () => {
     try {
       const response = await api.get('/api/friends/list'); 
-      console.log('Response from API:', response); 
       return response.data; 
     } catch (error) {
-      console.error('Error fetching friends', error);
       throw error;
     }
-  };  
+};  
 
 // Send a friend request
 export const sendFriendRequest = async (friendId) => {
@@ -50,7 +48,6 @@ export const fetchPendingRequests = async () => {
     const response = await api.get(`/api/friends/pending`);
     return response.data;
   } catch (error) {
-    console.error('Error fetching pending friend requests', error);
     throw error;
   }
 };
@@ -61,7 +58,6 @@ export const fetchPendingCalendarInvitesService = async (userId) => {
     const response = await api.get(`/api/calendar/${userId}/pending-invites`);
     return response.data;
   } catch (error) {
-    console.error('Error fetching pending calendar invites', error);
     throw error;
   }
 };
@@ -74,7 +70,6 @@ export const respondToSharedEvent = async (userId, calendarEventId, isAccepted) 
     });
     return response.data;
   } catch (error) {
-    console.error('Error responding to shared event', error.response?.data || error.message);
     throw error.response?.data || new Error('Failed to respond to shared event.');
   }
 };
@@ -85,7 +80,6 @@ export const getSharedFriendsForEvent = async (userId, eventId) => {
     const response = await api.get(`/api/calendar/${userId}/events/${eventId}/shared`);
     return response.data;
   } catch (error) {
-    console.error('Error fetching shared friends for the event', error);
     throw error;
   }
 };
@@ -96,10 +90,8 @@ export const fetchSharedCalendarEvents = async (userId) => {
     return response.data;
   } catch (error) {
     if (error.response && error.response.status === 404) {
-      console.log('No shared events found for this user');
-      return []; // Return an empty array if no shared events are found
+      return []; 
     }
-    console.error('Error fetching shared calendar events:', error);
     throw error;
   }
 };

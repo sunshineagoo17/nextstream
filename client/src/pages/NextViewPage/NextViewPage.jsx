@@ -75,7 +75,6 @@ const NextViewPage = () => {
 
     useEffect(() => {
         if (!mediaType || !mediaId) {
-            console.error('Media type or media ID is missing.');
             navigate('/not-found'); 
             return;
         }
@@ -106,11 +105,9 @@ const NextViewPage = () => {
                     const castResponse = await api.get(`${process.env.REACT_APP_BASE_URL}/api/tmdb/${mediaType}/${mediaId}/credits`);
                     setCast(castResponse.data.cast);
                 } else {
-                    console.error('No media data found');
                     navigate('/not-found');
                 }
             } catch (error) {
-                console.error('Error fetching media data:', error);
                 showAlert('Error loading data. Please try again later.', 'error');
                 navigate('/not-found');
             } finally {
@@ -134,7 +131,6 @@ const NextViewPage = () => {
                 showAlert('Apologies, no video is available.', 'info');
             }
         } catch (error) {
-            console.error('Error fetching video:', error);
             showAlert('Apologies, no video is available.', 'info');
         } finally {
             setIsTrailerLoading(false);
@@ -183,7 +179,6 @@ const NextViewPage = () => {
                 showAlert('Interaction removed.', 'info');
             }
         } catch (error) {
-            console.error('Error toggling interaction:', error);
             showAlert('Error toggling interaction. Please try again later.', 'error');
         }
     };
@@ -193,7 +188,7 @@ const NextViewPage = () => {
             showAlert('Guests cannot share media. Please register to access this feature.', 'info');
             return;
         }
-
+    
         const url = `${window.location.origin}/nextview/${userId}/${mediaType}/${mediaId}`;
         
         if (navigator.share) {
@@ -201,12 +196,12 @@ const NextViewPage = () => {
                 title: `Check out this title - ${mediaData.title || mediaData.name}`,
                 url: url,
             })
-            .then(() => console.log('Successful share!'))
-            .catch((error) => console.error('Error sharing:', error));
+            .then(() => showAlert('Successful share!', 'success'))
+            .catch(() => showAlert('Error sharing. Please try again.', 'error'));
         } else {
             navigator.clipboard.writeText(`Check out this title - ${mediaData.title || mediaData.name}: ${url}`)
             .then(() => showAlert('Link copied to clipboard!', 'success'))
-            .catch((error) => showAlert('Failed to copy link', 'error'));
+            .catch(() => showAlert('Failed to copy link', 'error'));
         }
     };
 

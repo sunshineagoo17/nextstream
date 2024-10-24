@@ -82,20 +82,17 @@ const MediaItem = ({ item, index, status, moveMediaItem, handleAddToCalendar, ha
 
   const updateSeasonEpisode = async (mediaId, season, episode) => {
     try {
-      const response = await api.put(`/api/media-status/${mediaId}`, {
+      await api.put(`/api/media-status/${mediaId}`, {
         season,
         episode,
       });
-      console.log('Season and episode updated:', response.data);
-
+  
       setAlert({ type: 'success', message: 'Season and episode saved successfully!' });
-    } catch (error) {
-      console.error('Error updating season and episode:', error);
-      
+    } catch {
       setAlert({ type: 'error', message: 'Failed to save season and episode.' });
     }
   };
-
+  
   const resetSeasonEpisode = async (mediaId) => {
     try {
       await api.put(`/api/media-status/${mediaId}`, {
@@ -108,8 +105,6 @@ const MediaItem = ({ item, index, status, moveMediaItem, handleAddToCalendar, ha
 
       setAlert({ type: 'success', message: 'Season and episode reset successfully!' });
     } catch (error) {
-      console.error('Error resetting season and episode:', error);
-  
       setAlert({ type: 'error', message: 'Failed to reset season and episode.' });
     }
   };
@@ -353,7 +348,6 @@ const SearchBar = ({ onSearch, onClearSearch }) => {
   const [query, setQuery] = useState('');
 
   const handleSearch = () => {
-    console.log('Searching for:', query);
     onSearch(query);
   };
 
@@ -449,7 +443,6 @@ const StreamBoard = () => {
       setShowTagModal(false);
       setAlert({ type: 'success', message: 'Tags updated successfully.' });
     } catch (error) {
-      console.error('Error saving tags:', error);
       setAlert({ type: 'error', message: 'Failed to update tags.' });
     }
   };
@@ -473,7 +466,6 @@ const StreamBoard = () => {
       setShowReviewModal(false);
       setAlert({ type: 'success', message: 'Review saved successfully.' });
     } catch (error) {
-      console.error('Error saving review:', error);
       setAlert({ type: 'error', message: 'Failed to save review.' });
     }
   };
@@ -496,7 +488,6 @@ const StreamBoard = () => {
       setShowTagModal(false);
       setAlert({ type: 'success', message: 'Tags deleted successfully.' });
     } catch (error) {
-      console.error('Error deleting tags:', error);
       setAlert({ type: 'error', message: 'Failed to delete tags.' });
     }
   };
@@ -519,7 +510,6 @@ const StreamBoard = () => {
       setShowReviewModal(false);
       setAlert({ type: 'success', message: 'Review deleted successfully.' });
     } catch (error) {
-      console.error('Error deleting review:', error);
       setAlert({ type: 'error', message: 'Failed to delete review.' });
     }
   };  
@@ -553,11 +543,6 @@ const StreamBoard = () => {
   
       // Fetch shared events
       const sharedEventsResponse = await api.get(`/api/calendar/${userId}/shared-events`);
-  
-      console.log(toWatchResponse.data);
-      console.log(scheduledResponse.data);
-      console.log(watchedResponse.data);
-      console.log(sharedEventsResponse.data);  // Log shared events
   
       // Create a lookup object for shared events by mediaId
       const sharedEventsByMediaId = sharedEventsResponse.data.reduce((acc, event) => {
@@ -605,14 +590,13 @@ const StreamBoard = () => {
   
   const moveMediaItem = async (media_id, newStatus) => {
     setLoading(true);
-
+  
     try {
-      const response = await api.put(`/api/media-status/${media_id}`, { status: newStatus });
-      console.log(`Media status updated to ${newStatus}:`, response.data);
-
+      await api.put(`/api/media-status/${media_id}`, { status: newStatus });
+  
       setMediaItems((prevItems) => {
         const updatedItems = { ...prevItems };
-
+  
         let movedItem = null;
         for (const status in updatedItems) {
           const itemIndex = updatedItems[status].findIndex((item) => item.media_id === media_id);
@@ -621,23 +605,22 @@ const StreamBoard = () => {
             break;
           }
         }
-
+  
         if (movedItem) {
           movedItem.status = newStatus;
           updatedItems[newStatus.toLowerCase().replace(' ', '_')].unshift(movedItem);
         }
-
+  
         return updatedItems;
       });
-
+  
       setAlert({ type: 'success', message: 'Media status updated successfully.' });
-    } catch (error) {
-      console.error('Error updating media status:', error);
+    } catch {
       setAlert({ type: 'error', message: 'Failed to update media status.' });
     } finally {
       setLoading(false);
     }
-  };
+  };  
 
   const handleDeleteMedia = async (media_id, media_type) => {
     setLoading(true);
@@ -668,7 +651,6 @@ const StreamBoard = () => {
 
       setAlert({ type: 'success', message: 'Media removed successfully.' });
     } catch (error) {
-      console.error('Error deleting media:', error);
       setAlert({ type: 'error', message: 'Failed to delete media.' });
     } finally {
       setLoading(false);
@@ -701,11 +683,9 @@ const StreamBoard = () => {
       if (mediaType === 'movie') {
         const movieDetails = await api.get(`/api/tmdb/movie/${mediaId}`);
         duration = movieDetails.data.runtime || 0;
-        console.log('Movie details:', movieDetails.data);
       } else if (mediaType === 'tv') {
         const tvDetails = await api.get(`/api/tmdb/tv/${mediaId}`);
         duration = tvDetails.data.episode_run_time[0] || 0;
-        console.log('TV details:', tvDetails.data);
       }
 
       setEventTitle(title);
@@ -716,7 +696,6 @@ const StreamBoard = () => {
 
       if (callback) callback(); 
     } catch (error) {
-      console.error('Error fetching duration data:', error);
       setAlert({ type: 'error', message: 'Failed to fetch media duration.' });
     }
   };
@@ -734,12 +713,10 @@ const StreamBoard = () => {
         media_id: selectedMediaId,
         userId,
       };
-      console.log('Saving event:', newEvent);
       await api.post(`/api/calendar/${userId}/events`, newEvent);
       setShowCalendar(false);
       setAlert({ type: 'success', message: 'Event saved successfully.' });
     } catch (error) {
-      console.error('Error saving event:', error);
       setAlert({ type: 'error', message: 'Failed to save event.' });
     }
   };

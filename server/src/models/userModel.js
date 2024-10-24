@@ -6,7 +6,6 @@ const getAllUsers = async () => {
     try {
         return await db('users').select('*');
     } catch (error) {
-        console.error('Error fetching all users:', error);
         throw error;
     }
 };
@@ -16,7 +15,6 @@ const getUserByEmail = async (email) => {
     try {
         return await db('users').where({ email }).first();
     } catch (error) {
-        console.error('Error fetching user by email:', error);
         throw error;
     }
 };
@@ -26,7 +24,6 @@ const getUserById = async (id) => {
     try {
         return await db('users').where({ id }).first();
     } catch (error) {
-        console.error('Error fetching user by ID:', error);
         throw error;
     }
 };
@@ -48,7 +45,6 @@ const createUser = async (user) => {
         });
         return getUserById(id);
     } catch (error) {
-        console.error('Error creating user:', error);
         throw error;
     }
 };
@@ -64,7 +60,6 @@ const updateUser = async (id, user) => {
             .update(user);
         return getUserById(id);
     } catch (error) {
-        console.error('Error updating user:', error);
         throw error;
     }
 };
@@ -76,7 +71,6 @@ const deleteUser = async (id) => {
             .where({ id })
             .del();
     } catch (error) {
-        console.error('Error deleting user:', error);
         throw error;
     }
 };

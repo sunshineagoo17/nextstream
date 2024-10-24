@@ -21,7 +21,8 @@ const CalendarPage = () => {
           const response = await api.get(`/api/profile/${userId}`);
           setName(response.data.name);
         } catch (error) {
-          console.log('Error fetching user profile:', error);
+          const errorMessage = error.response ? error.response.data : error.message;
+          console.error('Error fetching user profile:', errorMessage);
         } finally {
           setLoading(false);
         }
@@ -29,10 +30,10 @@ const CalendarPage = () => {
         setLoading(false); 
       }
     };
-
+  
     fetchUserProfile();
   }, [userId, setName]);
-
+  
   const openCalendarModal = (title) => {
     setEventTitle(title);
     setIsCalendarModalOpen(true);

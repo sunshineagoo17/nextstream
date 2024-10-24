@@ -12,7 +12,6 @@ const trainModel = async (userId) => {
   const interactions = await fetchAllInteractions(userId);
   
   if (!interactions.length) {
-    console.log("No interactions found for user.");
     return null;
   }
 
@@ -41,19 +40,15 @@ const trainModel = async (userId) => {
   // Save the trained model
   await model.save(`file://${modelPath}`);
 
-  console.log("Model trained and saved.");
-
   return model;
 };
 
 // Load the saved model from the file system
 const loadModel = async () => {
   if (fs.existsSync(`${modelPath}/model.json`)) {
-    console.log('Loading the saved model...');
     const model = await tf.loadLayersModel(`file://${modelPath}/model.json`);
     return model;
   } else {
-    console.log('No model found. Please train the model first.');
     return null;
   }
 };

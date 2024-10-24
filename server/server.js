@@ -186,7 +186,6 @@ io.on('connection', (socket) => {
 
       io.to(userId).emit('calendar_invite_responded', { inviteId, response });
     } catch (error) {
-      console.error('Error responding to calendar invite:', error);
       socket.emit('error_calendar_response', {
         message: 'Error responding to invite.',
       });
@@ -198,9 +197,7 @@ io.on('connection', (socket) => {
     const { requestedUserId, requestDetails } = data;
     try {
       io.to(requestedUserId).emit('receive_friend_request', requestDetails);
-      console.log('New friend request sent:', requestDetails);
     } catch (error) {
-      console.error('Error sending friend request:', error);
       socket.emit('error_friend_request', {
         message: 'Error sending friend request.',
       });
@@ -212,9 +209,7 @@ io.on('connection', (socket) => {
     const { senderUserId, friendDetails } = data;
     try {
       io.to(senderUserId).emit('friend_request_accepted', friendDetails);
-      console.log('Friend request accepted:', friendDetails);
     } catch (error) {
-      console.error('Error accepting friend request:', error);
       socket.emit('error_friend_acceptance', {
         message: 'Error accepting friend request.',
       });

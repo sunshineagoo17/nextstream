@@ -23,9 +23,7 @@ const authenticate = (req, res, next) => {
 
     // Proceed to the next middleware
     next();
-  } catch (error) {
-    // Catch any token verification errors
-    console.log('Invalid token:', error.message);  
+  } catch (error) {  
     return res.status(400).json({ message: 'Invalid token.' });
   }
 };

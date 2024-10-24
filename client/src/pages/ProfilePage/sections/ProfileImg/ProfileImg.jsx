@@ -24,7 +24,7 @@ const ProfileImg = ({ userId, username, isActive, onStatusToggle }) => {
           setImagePreview(`${process.env.REACT_APP_BASE_URL}/${response.data.avatar}`);
         }
       } catch (error) {
-        console.error("Error fetching user data:", error);
+        setAlert({ show: true, message: "Error fetching user data.", type: 'error' });
       }
     };
 
@@ -36,11 +36,9 @@ const ProfileImg = ({ userId, username, isActive, onStatusToggle }) => {
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
     if (!file) {
-      console.error("No image selected");
       return;
     }
 
-    // Check file type
     if (!file.type.match("image/jpeg") && !file.type.match("image/png") && !file.type.match("image/jpg") && !file.type.match("image/gif") && !file.type.match("image/svg") && !file.type.match("image/webp") && !file.type.match("image/bmp") && !file.type.match("image/tiff")) {
       setAlert({ show: true, message: "Please upload a valid image (jpg, jpeg, png, gif, svg, webp, bmp, tiff).", type: 'error' });
       return;
@@ -60,7 +58,6 @@ const ProfileImg = ({ userId, username, isActive, onStatusToggle }) => {
       setImagePreview(`${process.env.REACT_APP_BASE_URL}/${response.data.avatar}`);
       setAlert({ show: true, message: "Image uploaded successfully.", type: 'success' });
     } catch (error) {
-      console.error("Error uploading image:", error);
       setAlert({ show: true, message: "Error uploading image.", type: 'error' });
     } finally {
       setLoading(false);
@@ -76,7 +73,6 @@ const ProfileImg = ({ userId, username, isActive, onStatusToggle }) => {
       setImagePreview(DefaultAvatar);
       setAlert({ show: true, message: "Image deleted successfully. For now, you can use our default avatar.", type: 'success' });
     } catch (error) {
-      console.error("Error deleting avatar:", error);
       setAlert({ show: true, message: "Error deleting avatar.", type: 'error' });
     } finally {
       setLoading(false);
@@ -91,7 +87,7 @@ const ProfileImg = ({ userId, username, isActive, onStatusToggle }) => {
       });
       onStatusToggle(newStatus);
     } catch (error) {
-      console.error("Error updating status:", error);
+      setAlert({ show: true, message: "Error updating status.", type: 'error' });
     }
   };
 

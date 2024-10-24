@@ -448,7 +448,7 @@ const FriendsPage = () => {
 
   const handleSendFriendRequest = async (friendId) => {
     const isAlreadyFriend = friends.some((friend) => friend.id === friendId);
-
+  
     if (isAlreadyFriend) {
       setAlertMessage({
         message: 'This user is already in your friends list!',
@@ -456,20 +456,41 @@ const FriendsPage = () => {
       });
       return;
     }
-
+  
     try {
+      setAlertMessage({
+        message: 'Sending friend request...',
+        type: 'info',
+      });
+  
       const response = await sendFriendRequest(friendId);
-      console.log('Friend request sent:', response);
-      fetchFriends();
-      setAlertMessage({
-        message: 'Friend request sent successfully!',
-        type: 'success',
-      });
+  
+      if (response.success) {
+        await fetchFriends();
+        setAlertMessage({
+          message: 'Friend request sent successfully!',
+          type: 'success',
+        });
+      } else {
+        throw new Error('Failed to send friend request');
+      }
     } catch (error) {
-      setAlertMessage({
-        message: 'Error sending friend request.',
-        type: 'error',
-      });
+      if (error.response && error.response.status === 400) {
+        setAlertMessage({
+          message: 'Friend request failed. Invalid user ID or already a friend.',
+          type: 'error',
+        });
+      } else if (error.response && error.response.status === 500) {
+        setAlertMessage({
+          message: 'Server error. Please try again later.',
+          type: 'error',
+        });
+      } else {
+        setAlertMessage({
+          message: 'Error sending friend request. Please check your connection.',
+          type: 'error',
+        });
+      }
     }
   };
 

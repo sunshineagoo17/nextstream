@@ -76,7 +76,6 @@ const NextWatchPage = () => {
 
   useEffect(() => {
     if (!mediaType || !mediaId) {
-      console.error('Media type or media ID is missing.');
       navigate('/not-found');
       return;
     }
@@ -122,7 +121,6 @@ const NextWatchPage = () => {
         );
         setRecommendations(recommendationsResponse.data.results);
       } catch (error) {
-        console.error('Error fetching media data:', error);
         showAlert('Error loading data. Please try again later.', 'error');
         navigate('/not-found');
       } finally {
@@ -134,7 +132,6 @@ const NextWatchPage = () => {
   }, [mediaId, mediaType, navigate, userId, showAlert]);
 
   useEffect(() => {
-    console.log('Certification value:', certification);
   }, [certification]);
 
   const handlePlayTrailer = async () => {
@@ -152,7 +149,6 @@ const NextWatchPage = () => {
         showAlert('Apologies, no video is available.', 'info');
       }
     } catch (error) {
-      console.error('Error fetching video:', error);
       showAlert('Apologies, no video is available.', 'info');
     } finally {
       setIsTrailerLoading(false);
@@ -210,7 +206,6 @@ const NextWatchPage = () => {
         showAlert('Interaction removed.', 'info');
       }
     } catch (error) {
-      console.error('Error toggling interaction:', error);
       showAlert('Error toggling interaction. Please try again later.', 'error');
     }
   };
@@ -236,15 +231,15 @@ const NextWatchPage = () => {
           title: `Check out this title - ${mediaData.title || mediaData.name}`,
           url: url,
         })
-        .then(() => console.log('Successful share!'))
-        .catch((error) => console.error('Error sharing:', error));
+        .then(() => showAlert('Successful share!', 'success'))
+        .catch(() => showAlert('Error sharing. Please try again.', 'error'));
     } else {
       navigator.clipboard
         .writeText(
           `Check out this title - ${mediaData.title || mediaData.name}: ${url}`
         )
         .then(() => showAlert('Link copied to clipboard!', 'success'))
-        .catch((error) => showAlert('Failed to copy link', 'error'));
+        .catch(() => showAlert('Failed to copy link', 'error'));
     }
   };
 
@@ -423,7 +418,6 @@ const NextWatchPage = () => {
       // Update the URL format to `/nextwatch/:userId/:mediaType/:mediaId`
       navigate(`/nextwatch/${userId}/${newMediaType}/${newMediaId}`);
     } catch (error) {
-      console.error('Error fetching media data:', error);
       showAlert('Error loading data. Please try again later.', 'error');
     } finally {
       setIsLoading(false);

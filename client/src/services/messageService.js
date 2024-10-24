@@ -38,7 +38,6 @@ export const deleteMessage = async (messageId) => {
     const response = await api.delete(`/api/messages/delete/${messageId}`);
     return response.data;
   } catch (error) {
-    console.error('Error deleting message:', error);
     throw error;
   }
 };

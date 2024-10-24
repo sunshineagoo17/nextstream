@@ -6,6 +6,7 @@ import MonsterImg from "../../assets/images/404-monster.svg";
 import DevErrors from "../../assets/images/404-error-devs.svg";
 import TvError from "../../assets/images/404-error-tv.svg";
 import SpaceError from "../../assets/images/404-lost-in-space.svg";
+import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
 import './NotFound.scss';
 
 const imageArr = [
@@ -33,8 +34,14 @@ const imageArr = [
 
 export const NotFound = () => {
     const [isLoading, setIsLoading] = useState(true);
+    const [alert, setAlert] = useState({ show: false, message: '', type: '' });
     const navigate = useNavigate();
     const graphicRef = useRef(null);
+
+    const showAlert = useCallback((message, type) => {
+        setAlert({ show: true, message, type });
+        setTimeout(() => closeAlert(), 3000);
+    }, []);
 
     const getNextOption = useCallback(() => {
         let nextIndex = 0;
@@ -43,12 +50,16 @@ export const NotFound = () => {
             nextIndex = isNaN(lastIndex) ? 0 : (lastIndex + 1) % imageArr.length;
             sessionStorage.setItem("lastShownIndex", nextIndex.toString());
         } catch (e) {
-            console.error("Error accessing sessionStorage", e);
+            showAlert("Could not access session storage.", "error"); 
         }
         return imageArr[nextIndex];
-    }, []);
-
+    }, [showAlert]); 
+    
     const [currentOption, setCurrentOption] = useState(() => getNextOption());
+
+    const closeAlert = () => {
+        setAlert({ show: false, message: '', type: '' });
+    };
 
     useEffect(() => {
         setCurrentOption(getNextOption());
@@ -101,6 +112,13 @@ export const NotFound = () => {
         <>
             {isLoading && <Loader />}
             <div className="not-found">
+                {alert.show && (
+                    <CustomAlerts
+                    message={alert.message}
+                    type={alert.type}
+                    onClose={closeAlert}
+                    />
+                )}
                 <div className="not-found__container">
                     <div className="not-found__content-card">
                         <h1 className="not-found__title">Page Not Found</h1>

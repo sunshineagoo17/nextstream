@@ -97,7 +97,6 @@ const NextStreamGpt = () => {
   // Helper function to fetch movie data by title from TMDB
   const fetchMovieDataByTitle = async (title) => {
     if (!title || typeof title !== 'string') {
-      console.warn(`Invalid title: ${title}`);
       return null;
     }
 
@@ -170,7 +169,6 @@ const NextStreamGpt = () => {
       const movieResults = await Promise.all(movieDataPromises);
       return movieResults;
     } catch (error) {
-      console.error('Error fetching movie data:', error);
       return [];
     }
   };
@@ -315,11 +313,8 @@ const NextStreamGpt = () => {
           userInput: searchQuery,
           userId,
         });
-        console.log('Response:', response.data);
         const chatbotMessage = response.data.message;
         const recommendedMedia = response.data.media || [];
-
-        console.log('API Results:', recommendedMedia);
 
         setMessages((prevMessages) => [
           ...prevMessages,
@@ -425,8 +420,6 @@ const NextStreamGpt = () => {
           userId,
         });
   
-        console.log('GPT Response:', response.data);
-  
         const chatbotMessage = response.data.response;
   
         setMessages((prevMessages) => [
@@ -442,7 +435,6 @@ const NextStreamGpt = () => {
         );
   
         const titles = extractTitlesFromResponse(chatbotMessage);
-        console.log('Extracted Titles:', titles);
   
         if (titles.length === 0) {
           setMessages((prevMessages) => [...prevMessages]);
@@ -461,8 +453,6 @@ const NextStreamGpt = () => {
           (result) => result.media_type === 'person'
         );
   
-        console.log('Person Result:', personResult);
-  
         let personData = null;
   
         if (personResult) {
@@ -474,16 +464,12 @@ const NextStreamGpt = () => {
               ? `https://image.tmdb.org/t/p/w500${personResult.profile_path}`
               : DefaultPoster,
           };
-  
-          console.log('Person Data:', personData);
         }
   
         const combinedResults = [
           ...(personData ? [personData] : []),
           ...mediaResults,
         ];
-  
-        console.log('Combined Results:', combinedResults);
   
         if (combinedResults.length > 0) {
           setResults(combinedResults);
@@ -497,7 +483,6 @@ const NextStreamGpt = () => {
           ]);
         }
       } catch (error) {
-        console.error('Error fetching results:', error);
         setMessages((prevMessages) => [
           ...prevMessages,
           {
@@ -614,12 +599,12 @@ const NextStreamGpt = () => {
       mediaType === 'person'
         ? `${window.location.origin}/spotlight/${userId}/${mediaId}`
         : `${window.location.origin}/nextview/${userId}/${mediaType}/${mediaId}`;
-
+  
     const shareMessage =
       mediaType === 'person'
         ? `Check out this artist - ${mediaTitle}`
         : `Check out this title - ${mediaTitle}`;
-
+  
     if (navigator.share) {
       navigator
         .share({
@@ -627,7 +612,7 @@ const NextStreamGpt = () => {
           url: nextViewUrl,
         })
         .then(() => showAlert('Successful share!', 'success'))
-        .catch((error) => console.error('Error sharing:', error));
+        .catch(() => showAlert('Error sharing. Please try again.', 'error'));
     } else {
       navigator.clipboard
         .writeText(`${shareMessage}: ${nextViewUrl}`)

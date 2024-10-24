@@ -59,7 +59,6 @@ export const ProfilePage = () => {
           setIsSubscribed(response.data.isSubscribed);
           setIsActive(response.data.isActive);
         } catch (error) {
-          console.error('Error fetching profile:', error);
           setSaveMessage({ text: 'Error fetching profile. Please try again.', className: 'error' });
         } finally {
           setIsLoading(false);
@@ -131,7 +130,6 @@ export const ProfilePage = () => {
       ];
       const firstErrorField = errorFields.find(field => field.error);
       if (firstErrorField) {
-        console.log(`Scrolling to first error field: ${firstErrorField.error}`);
         firstErrorField.ref.current.scrollIntoView({ behavior: 'smooth' });
       }
       return;

@@ -66,7 +66,6 @@ router.post('/register', async (req, res) => {
 
     res.status(201).json({ success: true, message: 'User registered successfully', userId, token });
   } catch (error) {
-    console.error('Error registering user:', error);
     res.status(500).json({ success: false, message: 'Error registering user', error });
   }
 });
@@ -75,13 +74,10 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
-    console.log('Login attempt with email:', email);
 
     const user = await knex('users').where({ email }).first();
-    console.log('User found:', user);
 
     if (!user || !(await bcrypt.compare(password, user.password))) {
-      console.log('Invalid email or password');
       return res.status(401).json({ success: false, message: 'Invalid email or password' });
     }
 
@@ -98,7 +94,6 @@ router.post('/login', async (req, res) => {
 
     res.json({ success: true, message: 'Logged in successfully', userId: user.id, token });
   } catch (error) {
-    console.error('Error logging in:', error);
     res.status(500).json({ success: false, message: 'Error logging in', error });
   }
 });
@@ -159,14 +154,12 @@ router.post('/oauth-register', async (req, res) => {
 
     res.status(201).json({ success: true, message: 'OAuth registration successful', userId, token });
   } catch (error) {
-    console.error('Error in OAuth registration:', error);
     res.status(500).json({ success: false, message: 'OAuth registration failed', error });
   }
 });
 
 // OAuth Login (Google)
 router.post('/oauth-login', async (req, res) => {
-  console.log('OAuth login attempt:', req.body);
   
   try {
     const { email, provider } = req.body;
@@ -198,7 +191,6 @@ router.post('/oauth-login', async (req, res) => {
 
     res.status(200).json({ success: true, message: 'OAuth login successful', userId: user.id, token });
   } catch (error) {
-    console.error('Error in OAuth login:', error);
     res.status(500).json({ success: false, message: 'OAuth login failed', error });
   }
 });

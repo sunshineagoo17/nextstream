@@ -23,9 +23,7 @@ const localNLPFilePath = path.join(__dirname, '../services/nlpService.js');
 async function downloadNLPServiceFile() {
   try {
     await storage.bucket(bucketName).file(fileName).download({ destination: localNLPFilePath });
-    console.log(`Downloaded NLP service file to ${localNLPFilePath}`);
   } catch (error) {
-    console.error('Error downloading NLP service file:', error);
     throw new Error('Failed to download NLP service file');
   }
 }
@@ -45,7 +43,6 @@ async function processInputFromNLPService(userInput) {
 
     return nlpResult;
   } catch (error) {
-    console.error('Error processing NLP service:', error);
     throw new Error('Failed to process input with NLP service');
   }
 }
@@ -132,11 +129,8 @@ function removeDuplicates(mediaArray) {
 router.post('/', async (req, res) => {
   const { userInput } = req.body;
 
-  console.log('Received user input:', userInput);
-
   try {
     const nlpResult = await processInputFromNLPService(userInput); 
-    console.log('NLP Result:', nlpResult);
 
     const { intent, title, person } = nlpResult;
 
@@ -25410,7 +25404,6 @@ router.post('/', async (req, res) => {
       });
     }
   } catch (error) {
-    console.error('Error processing chatbot request:', error);
     res.status(500).json({ message: 'Something went wrong.' });
   }
 });
@@ -25486,7 +25479,6 @@ async function searchPersonByName(query) {
       })),
     }));
   } catch (error) {
-    console.error('Error fetching person from TMDB:', error);
     throw new Error('Failed to fetch person');
   }
 }

@@ -101,7 +101,6 @@ const FavouritesPage = () => {
           watched: watched,
         });
       } catch (error) {
-        console.log('Error fetching faves:', error);
         setAlert({ message: 'Error fetching favourites. Please try again later.', type: 'error' });
       } finally {
         setIsLoading(false);
@@ -167,20 +166,16 @@ const FavouritesPage = () => {
   const handlePlayTrailer = async (media_id, media_type) => {
     setIsLoading(true);
     try {
-      console.log(`Fetching trailer for ${media_type} with ID: ${media_id}`);
       const response = await api.get(`/api/faves/${userId}/trailer/${media_type}/${media_id}`);
       const trailerData = response.data;
-      console.log('Trailer Data:', trailerData);
   
       if (trailerData && trailerData.trailerUrl) {
         setTrailerUrl(trailerData.trailerUrl);
         setIsModalOpen(true);
       } else {
-        console.warn('No trailer found in the response:', trailerData);
         showAlert('Apologies, the trailer is not available.', 'info');
       }
     } catch (error) {
-      console.error('Error fetching trailer:', error.response ? error.response.data : error.message);
       showAlert('Apologies, the trailer is not available.', 'info');
     } finally {
       setIsLoading(false);
@@ -207,7 +202,6 @@ const FavouritesPage = () => {
       // Update media status to "scheduled" immediately
       await moveMediaItem(mediaId, 'scheduled');
     } catch (error) {
-      console.error('Error fetching duration data:', error);
       showAlert('Failed to fetch media duration.', 'error');
     }
   };
@@ -238,7 +232,6 @@ const FavouritesPage = () => {
   
       showAlert('Media status updated successfully', 'success');
     } catch (error) {
-      console.error('Error updating media status:', error);
       showAlert('Failed to update media status.', 'error');
     }
   };
@@ -256,11 +249,9 @@ const FavouritesPage = () => {
         media_id: selectedMediaId,
         userId,
       };
-      console.log('Saving event:', newEvent);
       await api.post(`/api/calendar/${userId}/events`, newEvent);
       setShowCalendar(false);
     } catch (error) {
-      console.error('Error saving event:', error);
       if (error.response && error.response.status === 401) {
         showAlert('You are not authorized. Please log in again.', 'error');
       } else {
@@ -338,7 +329,6 @@ const FavouritesPage = () => {
       setDisplayedFaves(mediaWithStatus.slice(0, 4));
       setIsExpanded(false);
     } catch (error) {
-      console.error('Error during search:', error);
       setAlert({ message: 'Error during search. Please try again later.', type: 'error' });
     } finally {
       setIsSearching(false);
@@ -414,14 +404,11 @@ const FavouritesPage = () => {
         };
       });
   
-      console.log('Filtered faves with status:', favesWithStatus);
-  
       // Update state with filtered results and their status
       setFaves(favesWithStatus);
       setFilteredFaves(favesWithStatus);
       setDisplayedFaves(favesWithStatus.slice(0, 4));
     } catch (error) {
-      console.error('Error filtering:', error);
       setAlert({ message: 'Error during filtering. Please try again later.', type: 'error' });
     } finally {
       setIsLoading(false);
@@ -484,7 +471,6 @@ const FavouritesPage = () => {
       setDisplayedFaves((prevFaves) => [...prevFaves, ...newFaves.slice(0, 4)]);
       setPage(currentPage);
     } catch (error) {
-      console.error('Error fetching more media:', error);
       setAlert({ message: 'Error fetching more media. Please try again later.', type: 'error' });
     } finally {
       setIsLoading(false);
@@ -505,7 +491,6 @@ const FavouritesPage = () => {
     }
   
     try {
-      console.log(`Deleting media: ID ${media_id}, Type ${media_type}`);
       await api.delete(`/api/faves/${userId}/delete/${media_id}/${media_type}`);
       
       // Removes the item from faves and displayedFaves
@@ -521,7 +506,6 @@ const FavouritesPage = () => {
       
       showAlert('Media removed from favourites.', 'success');
     } catch (error) {
-      console.error('Error deleting media:', error);
       showAlert('Error deleting media. Please try again later.', 'error');
     }
   };  

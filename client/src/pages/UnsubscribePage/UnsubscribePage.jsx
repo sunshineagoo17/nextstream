@@ -34,12 +34,10 @@ export const UnsubscribePage = () => {
 
     setIsLoading(true); 
     
-    try {
-      console.log('Token being sent to the backend for unsubscribe:', token); 
+    try { 
       const response = await api.post(`/api/unsubscribe`, { token });
       showAlert(response.data.message, 'success');
     } catch (error) {
-      console.error('Unsubscribe error response:', error.response?.data || error.message);
       const errorMessage = error.response?.data?.message || 'We encountered an issue processing your request. Please try again.';
       showAlert(errorMessage, 'error');
     } finally {

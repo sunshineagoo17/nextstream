@@ -6,7 +6,6 @@ const { sendPushNotifications } = require('../services/pushNotificationService')
 // Get all events for a user
 exports.getEvents = async (req, res) => {
   const { userId } = req.params;
-  console.log('Request User ID:', userId);
 
   try {
     // Differentiate between authenticated users and guests
@@ -25,7 +24,6 @@ exports.getEvents = async (req, res) => {
         'media_type', 
         'user_id as createdBy'
       );
-    console.log("Fetched user's own events:", userEvents);
 
     // Fetch shared events (including both accepted and pending invites)
     const sharedEvents = await knex('calendar_events')
@@ -40,13 +38,11 @@ exports.getEvents = async (req, res) => {
         'events.user_id as createdBy'
       );
 
-    console.log('Fetched shared events:', sharedEvents);
     const allEvents = [...userEvents, ...sharedEvents];
 
     // Return a 200 response with an empty array if no events found
     return res.status(200).json(allEvents);
   } catch (error) {
-    console.error('Error fetching events:', error);
     res.status(500).json({ message: 'Error fetching events' });
   }
 };
@@ -75,7 +71,6 @@ exports.shareEventWithFriends = async (req, res) => {
 
     res.status(200).json({ message: 'Event shared successfully with friends.' });
   } catch (error) {
-    console.error('Error sharing event with friends:', error);
     res.status(500).json({ message: 'Error sharing event with friends.' });
   }
 };
@@ -161,7 +156,6 @@ exports.respondToSharedEvent = async (req, res) => {
       updatedEvents,
     });
   } catch (error) {
-    console.error('Error responding to shared event:', error);
     res.status(500).json({ message: 'Error responding to shared event.' });
   }
 };
@@ -209,7 +203,6 @@ exports.searchEvents = async (req, res) => {
 
     res.status(200).json(allEvents);
   } catch (error) {
-    console.error('Error searching events:', error);
     res.status(500).json({ message: 'Error searching events' });
   }
 };
@@ -217,8 +210,6 @@ exports.searchEvents = async (req, res) => {
 // Add a new event
 exports.addEvent = async (req, res) => {
   const { title, start, end, eventType, timezone, media_id, media_type } = req.body;
-
-  console.log('Add Event Request Body:', req.body); 
 
   if (!['movie', 'tv', 'unknown'].includes(eventType)) {
     return res.status(400).json({ message: 'Invalid eventType' });
@@ -253,7 +244,6 @@ exports.addEvent = async (req, res) => {
         duration = mediaDetails.duration;
         genres = mediaDetails.genres;
       } else {
-        console.error(`Could not find media for title: ${title}`);
         return res.status(400).json({ message: `Media not found for title: ${title}` });
       }
     }
@@ -329,7 +319,6 @@ exports.addEvent = async (req, res) => {
       genre: genres || null,
     });
   } catch (error) {
-    console.error('Error adding event:', error);
     res.status(500).json({ message: 'Error adding event' });
   }
 };
@@ -389,7 +378,6 @@ exports.updateEvent = async (req, res) => {
 
     res.status(200).json({ message: 'Event updated successfully' });
   } catch (error) {
-    console.error('Error updating event:', error);
     res.status(500).json({ message: 'Error updating event' });
   }
 };
@@ -430,7 +418,6 @@ exports.deleteEvent = async (req, res) => {
 
     res.status(200).json({ message: 'Event and associated media status removed successfully.' });
   } catch (error) {
-    console.error('Error deleting event:', error);
     res.status(500).json({ message: 'Error deleting event.' });
   }
 };
@@ -439,18 +426,13 @@ exports.deleteEvent = async (req, res) => {
 exports.getTodaysEvents = async (req, res) => {
   try {
     const today = new Date().toISOString().split('T')[0];
-    console.log(`Today's Date: ${today}`);
 
     const events = await knex('events')
       .whereRaw('DATE(start) = ?', [today])
       .select('title', 'start', 'end', 'eventType');
 
-    // Log the events being processed
-    console.log('Events fetched for today:', events);
-
     res.json(events);
   } catch (error) {
-    console.error("Error fetching today's events:", error);
     res.status(500).json({ message: "Error fetching today's events" });
   }
 };
@@ -483,7 +465,6 @@ exports.getPendingCalendarInvites = async (req, res) => {
 
     res.status(200).json(pendingInvites);
   } catch (error) {
-    console.error('Error fetching pending calendar invites:', error);
     res
       .status(500)
       .json({ message: 'Error fetching pending calendar invites' });
@@ -512,7 +493,6 @@ exports.shareEventWithFriends = async (req, res) => {
       .status(200)
       .json({ message: 'Event shared successfully with friends.' });
   } catch (error) {
-    console.error('Error sharing event with friends:', error);
     res.status(500).json({ message: 'Error sharing event with friends.' });
   }
 };
@@ -533,7 +513,6 @@ exports.getSharedFriendsForEvent = async (req, res) => {
     const sharedFriendIds = sharedFriends.map((friend) => friend.friend_id);
     res.status(200).json({ sharedFriendIds });
   } catch (error) {
-    console.error('Error fetching shared friends:', error);
     res.status(500).json({ message: 'Error fetching shared friends.' });
   }
 };
@@ -606,7 +585,6 @@ exports.getSharedEvents = async (req, res) => {
 
     res.status(200).json(formattedEvents);
   } catch (error) {
-    console.error('Error fetching shared events:', error);
     res.status(500).json({ message: 'Error fetching shared events' });
   }
 };
