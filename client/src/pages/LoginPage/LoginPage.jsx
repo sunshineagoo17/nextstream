@@ -68,29 +68,28 @@ export const LoginPage = () => {
 
   const handleSignIn = async () => {
     if (!validateFields()) return;
-
+  
     const userData = { email, password };
     try {
       setIsLoading(true);
       const response = await api.post('/api/auth/login', userData);
-      console.log('Login response:', response);
+  
       if (response.data.token) {
+        Cookies.set('token', response.data.token, { expires: 7, secure: true, sameSite: 'strict' });
+        Cookies.set('userId', response.data.userId, { expires: 7, secure: true, sameSite: 'strict' });
+  
         login(response.data.token, response.data.userId, rememberMe);
-
-        // Store email and password in cookies if rememberMe is checked
+  
         if (rememberMe) {
           Cookies.set('rememberedEmail', email, { expires: 7, secure: true, sameSite: 'strict' });
           Cookies.set('rememberedPassword', password, { expires: 7, secure: true, sameSite: 'strict' });
         } else {
-          // Clear cookies if rememberMe is unchecked
           Cookies.remove('rememberedEmail');
           Cookies.remove('rememberedPassword');
         }
-
-        console.log('Navigating to profile page');
+  
         navigate(`/profile/${response.data.userId}`);
       } else {
-        console.log('Login failed: Token missing in response');
         setErrors({ general: 'Login failed. Please try again.' });
       }
     } catch (error) {
@@ -99,35 +98,32 @@ export const LoginPage = () => {
       setIsLoading(false);
     }
   };
-
+  
   const handleOAuthLogin = async (providerLogin) => {
     try {
       const result = await providerLogin();
       if (result && result.user) {
         const { email } = result.user;
         const response = await api.post('/api/auth/oauth-login', { email });
-
+  
         if (response.data.success) {
+          // Store token and userId in cookies
           Cookies.set('token', response.data.token, { expires: 7, secure: true, sameSite: 'strict' });
           Cookies.set('userId', response.data.userId, { expires: 7, secure: true, sameSite: 'strict' });
-          localStorage.setItem('token', response.data.token);
-          localStorage.setItem('userId', response.data.userId);
-
+  
           login(response.data.token, response.data.userId, rememberMe);
           navigate(`/profile/${response.data.userId}`);
         } else if (response.data.reason === 'email_exists') {
-          // Trigger custom alert for email already linked
           setCustomAlertMessage(`This email is already linked to ${response.data.provider}. Would you like to log in with that provider?`);
         } else {
           setErrors({ general: 'OAuth login failed. Please try again.' });
         }
       }
     } catch (error) {
-      // Show OAuth login error in CustomAlerts
       setCustomAlertMessage('OAuth login error. Please try again.');
     }
   };
-
+  
   const handleCheckboxChange = (event) => {
     setRememberMe(event.target.checked);
   };
