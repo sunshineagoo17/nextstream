@@ -2,11 +2,10 @@ import { useState } from 'react';
 import EmojiPicker from 'emoji-picker-react';
 import "./EmojiMessages.scss";
 
-const EmojiMessages = ({ newMessage, setNewMessage }) => {
+const EmojiMessages = ({ setNewMessage }) => {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
-  const handleEmojiClick = (emojiObject, event) => { 
-    console.log('Selected emoji object:', emojiObject); 
+  const handleEmojiClick = (emojiObject) => { 
     if (emojiObject && emojiObject.emoji) {
       setNewMessage(prevMessage => prevMessage + emojiObject.emoji);
     } else {
