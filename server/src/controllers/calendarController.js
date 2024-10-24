@@ -216,11 +216,14 @@ exports.addEvent = async (req, res) => {
   }
 
   try {
+    // Convert start and end times to UTC before storing them
     const formattedStart = moment
       .tz(start, timezone)
+      .utc()
       .format('YYYY-MM-DD HH:mm:ss');
+    
     const formattedEnd = end
-      ? moment.tz(end, timezone).format('YYYY-MM-DD HH:mm:ss')
+      ? moment.tz(end, timezone).utc().format('YYYY-MM-DD HH:mm:ss')
       : null;
 
     // Differentiate between authenticated users and guests
@@ -236,6 +239,7 @@ exports.addEvent = async (req, res) => {
     let duration;
     let genres;
 
+    // Fetch media details if not provided
     if (!mediaId || !mediaType) {
       const mediaDetails = await getMediaDetailsByTitle(title, eventType === 'movie' ? 'movie' : 'tv');
       if (mediaDetails) {
@@ -248,6 +252,7 @@ exports.addEvent = async (req, res) => {
       }
     }
 
+    // Insert event with UTC times
     const [eventId] = await knex('events').insert({
       user_id: userIdentifier,
       title,
@@ -258,6 +263,7 @@ exports.addEvent = async (req, res) => {
       media_type: mediaType,
     });
 
+    // Update media statuses if applicable
     if (mediaId && mediaType) {
       const mediaDetails = await getMediaDetailsByTitle(title, eventType === 'movie' ? 'movie' : 'tv');
       
@@ -277,8 +283,8 @@ exports.addEvent = async (req, res) => {
           })
           .onConflict(['userId', 'media_id'])
           .merge({ status: 'scheduled', title: mediaTitle });
-        }
-      
+      }
+
       await knex('interactions')
         .insert({
           userId: userIdentifier,
@@ -307,6 +313,7 @@ exports.addEvent = async (req, res) => {
       await sendPushNotifications(user, events);
     }
 
+    // Return event details
     res.status(201).json({
       eventId,
       title,
@@ -333,11 +340,14 @@ exports.updateEvent = async (req, res) => {
   }
 
   try {
+    // Convert start and end times to UTC before storing them
     const formattedStart = moment
       .tz(start, timezone)
+      .utc()
       .format('YYYY-MM-DD HH:mm:ss');
+    
     const formattedEnd = end
-      ? moment.tz(end, timezone).format('YYYY-MM-DD HH:mm:ss')
+      ? moment.tz(end, timezone).utc().format('YYYY-MM-DD HH:mm:ss')
       : null;
 
     // Differentiate between authenticated users and guests
@@ -348,14 +358,15 @@ exports.updateEvent = async (req, res) => {
       userIdentifier = req.params.userId;
     }
 
-    // Update the event in the `events` table
+    // Update the event in the `events` table with UTC times
     await knex('events')
       .where({ id: eventId, user_id: userIdentifier })
       .update({ title, start: formattedStart, end: formattedEnd, eventType });
 
+    // Update media statuses if applicable
     if (media_id && media_type) {
       await knex('media_statuses')
-        .where({ userId: userId, media_id, media_type })
+        .where({ userId: userIdentifier, media_id, media_type })
         .update({ status: 'scheduled' });
     }
 

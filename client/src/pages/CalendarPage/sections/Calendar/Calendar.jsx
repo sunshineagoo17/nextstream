@@ -220,29 +220,23 @@ const Calendar = forwardRef(
 
     const handleEventClick = async (clickInfo) => {
       const { event } = clickInfo;
-      if (!event) {
-        return;
-      }
-
-      const id = event.id;
-      const title = event.title || '';
-      const start = moment(event.start).format('YYYY-MM-DDTHH:mm:ss') || '';
+      if (!event) return;
+    
+      const start = moment.utc(event.start).tz(moment.tz.guess()).format('YYYY-MM-DDTHH:mm:ss');
       const end = event.end
-        ? moment(event.end).format('YYYY-MM-DDTHH:mm:ss')
+        ? moment.utc(event.end).tz(moment.tz.guess()).format('YYYY-MM-DDTHH:mm:ss')
         : start;
-      const eventType = event.extendedProps.eventType || 'movie';
-
+    
       setSelectedEvent({
-        id,
-        title,
+        id: event.id,
+        title: event.title || '',
         start,
         end,
-        eventType,
+        eventType: event.extendedProps.eventType || 'movie',
       });
-      setNewEventType(eventType);
       setModalVisible(true);
     };
-
+    
     const fetchUserNotificationTime = async () => {
       try {
         const response = await api.get(`/api/profile/${userId}`);
@@ -280,6 +274,7 @@ const Calendar = forwardRef(
           end: moment(newEventEndDate).format('YYYY-MM-DDTHH:mm:ss'),
           eventType: newEventType,
           notificationTime: notificationTimeOffset,
+          timezone: moment.tz.guess(), 
         };
     
         await api.post(`/api/calendar/${userId}/events`, newEvent);
