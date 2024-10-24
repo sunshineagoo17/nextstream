@@ -2,7 +2,7 @@ const express = require('express');
 const sgMail = require('@sendgrid/mail');
 const crypto = require('crypto');
 const knex = require('../config/db');
-const { hashPassword } = require('../utils/hashPasswords'); 
+const { hashPassword } = require('../utils/hashPasswords');
 const router = express.Router();
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
@@ -29,7 +29,8 @@ router.post('/forgot-password', async (req, res) => {
       .where({ email })
       .update({ resetPasswordToken: token, resetPasswordExpires: tokenExpiry });
 
-    const resetURL = `http://localhost:3000/reset-password?token=${token}`;
+    // Use environment variable for the base URL
+    const resetURL = `${process.env.FRONTEND_URL}/reset-password?token=${token}`;
 
     const msg = {
       to: email,
@@ -53,7 +54,7 @@ router.post('/forgot-password', async (req, res) => {
             </div>
           </div>
         </div>`,
-    };     
+    };
 
     await sgMail.send(msg);
     res.status(200).json({ message: 'Password reset email sent.' });
@@ -82,7 +83,6 @@ router.post('/reset-password', async (req, res) => {
     }
 
     const hashedPassword = await hashPassword(newPassword);
-    console.log('New hashed password:', hashedPassword);
 
     await knex('users')
       .where({ id: user.id })
@@ -91,8 +91,6 @@ router.post('/reset-password', async (req, res) => {
         resetPasswordToken: null,
         resetPasswordExpires: null,
       });
-
-    console.log('Password updated in database:', hashedPassword);
 
     res.status(200).json({ message: 'Password has been reset.', success: true });
   } catch (error) {
