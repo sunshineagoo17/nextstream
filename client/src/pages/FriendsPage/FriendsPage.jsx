@@ -59,16 +59,13 @@ const FriendsPage = () => {
   const fetchFriends = useCallback(async () => {
     try {
       const friendsData = await getFriends();
-      console.log('Fetched Friends Data:', friendsData);
 
       if (Array.isArray(friendsData)) {
         setFriends(friendsData);
       } else {
         setFriends([]);
-        console.log('Invalid friends data structure.');
       }
     } catch (error) {
-      console.log('Error fetching friends:', error);
     }
   }, []);
 
@@ -85,7 +82,6 @@ const FriendsPage = () => {
             );
             allMessages.push(...unreadMessages);
           } catch (error) {
-            console.log('Error fetching messages for', friend.name, error);
           }
         }
 
@@ -103,7 +99,6 @@ const FriendsPage = () => {
       const pendingData = await fetchPendingRequestsService();
       setPendingRequests(pendingData);
     } catch (error) {
-      console.log('Error fetching pending friend requests:', error);
     }
   }, []);
 
@@ -112,7 +107,6 @@ const FriendsPage = () => {
       const invites = await fetchPendingCalendarInvitesService(userId);
       setPendingCalendarInvites(invites);
     } catch (error) {
-      console.log('Error fetching pending calendar invites:', error);
     }
   }, [userId]);
 
@@ -187,7 +181,11 @@ const FriendsPage = () => {
   useEffect(() => {
     if (userId) {
       if (!socketRef.current) {
-        socketRef.current = io('http://localhost:8080');
+        const socketUrl = process.env.NODE_ENV === 'development' 
+          ? 'http://localhost:8080' 
+          : 'https://www.nextstream.ca'; 
+
+        socketRef.current = io(socketUrl);
         socketRef.current.emit('join_room', userId);
       }
   
@@ -269,7 +267,6 @@ const FriendsPage = () => {
 
     try {
       const messagesData = await fetchMessages(friend.id);
-      console.log('Fetched messages:', messagesData);
       const validMessages = messagesData.map((message) => ({
         ...message,
         senderId: message.senderId || 'unknown_sender',
@@ -277,14 +274,12 @@ const FriendsPage = () => {
 
       validMessages.forEach((message) => {
         console.log(
-          `Message: ${message.message}, senderId: ${message.senderId}, is_read: ${message.is_read}`
         );
       });
 
       await markAllMessagesAsRead(friend.id);
       setMessages(validMessages);
     } catch (error) {
-      console.log('Error fetching messages or marking them as read', error);
     }
   };
 
@@ -293,13 +288,11 @@ const FriendsPage = () => {
       try {
         const events = await fetchSharedCalendarEvents(userId);
         if (events.length === 0) {
-          console.log('No shared events found');
           setSharedCalendarEvents([]);
         } else {
           setSharedCalendarEvents(events);
         }
       } catch (error) {
-        console.error('Error fetching shared events:', error);
       }
     };
 
@@ -315,7 +308,6 @@ const FriendsPage = () => {
           const messagesData = await fetchMessages(selectedFriend.id);
           setMessages(messagesData);
         } catch (error) {
-          console.log('Error fetching messages:', error);
         }
       };
       fetchMessagesForFriend();
@@ -387,7 +379,6 @@ const FriendsPage = () => {
         await sendMessage(selectedFriend.id, textToSend);
         setNewMessage('');
       } catch (error) {
-        console.log('Error sending message:', error);
       }
     }
   };
@@ -399,9 +390,7 @@ const FriendsPage = () => {
       setMessages((prevMessages) =>
         prevMessages.filter((message) => message.id !== messageId)
       );
-      console.log('Message deleted successfully');
     } catch (error) {
-      console.log('Error deleting message:', error);
       setAlertMessage({ message: 'Error deleting message.', type: 'error' });
     }
   };
@@ -414,7 +403,6 @@ const FriendsPage = () => {
 
   const handleSearch = async () => {
     if (!searchTerm.trim()) {
-      console.log('Please enter a search term.');
       return;
     }
 
@@ -432,7 +420,6 @@ const FriendsPage = () => {
 
       setSearchResults(filteredSearchResults);
     } catch (error) {
-      console.log('Error searching users', error);
       setAlertMessage({ message: 'Error searching users.', type: 'error' });
     }
   };
@@ -457,7 +444,6 @@ const FriendsPage = () => {
         type: 'success',
       });
     } catch (error) {
-      console.log('Error sending friend request', error);
       setAlertMessage({
         message: 'Error sending friend request.',
         type: 'error',
@@ -476,7 +462,6 @@ const FriendsPage = () => {
         type: 'success',
       });
     } catch (error) {
-      console.log('Error declining friend request', error);
       setAlertMessage({
         message: 'Error declining friend request.',
         type: 'error',
@@ -513,7 +498,6 @@ const FriendsPage = () => {
       );
       setAlertMessage({ message: 'Friend request accepted!', type: 'success' });
     } catch (error) {
-      console.log('Error accepting friend request', error);
       setAlertMessage({
         message: 'Error accepting friend request.',
         type: 'error',
@@ -530,7 +514,6 @@ const FriendsPage = () => {
         type: 'success',
       });
     } catch (error) {
-      console.log('Error removing friend', error);
       setAlertMessage({ message: 'Error removing friend.', type: 'error' });
     }
   };
