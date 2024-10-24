@@ -337,7 +337,7 @@ const Calendar = forwardRef(
         return;
       }
     
-      // Convert the start and end times to local timezone
+      // Always convert the start and end times to local timezone first
       const localStart = moment(info.event.start).format('YYYY-MM-DDTHH:mm:ss');
       const localEnd = info.event.end
         ? moment(info.event.end).format('YYYY-MM-DDTHH:mm:ss')
@@ -365,12 +365,12 @@ const Calendar = forwardRef(
       } catch (error) {
         const errorMessage = error.response ? error.response.data : error.message;
         showCustomAlert(`Failed to move event: ${errorMessage}`, 'error');
-        info.revert();
+        info.revert(); 
       } finally {
         setLoading(false);
       }
     };
-
+    
     const handleDeleteEvent = useCallback(async () => {
       if (isDeletingEvent.current || !selectedEvent) return;
       isDeletingEvent.current = true;
