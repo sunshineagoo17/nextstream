@@ -72,13 +72,10 @@ const NextSwipe = () => {
 
         // Fetch top picks from the new endpoint
         const response = await api.get(`/api/interactions/toppicks/${userId}`);
-        console.log('Initial API Response:', response.data);
 
         const { topPicks } = response.data;
 
         const initialMedia = uniqueMedia(topPicks);
-
-        console.log('Processed Initial Media:', initialMedia);
 
         setMedia(initialMedia);
         saveStateToLocalStorage(initialMedia, `media_${userId}`);
@@ -138,10 +135,8 @@ const NextSwipe = () => {
 
       // Fetch recommendations from the new endpoint
       const response = await api.get(`/api/interactions/recommendations/${userId}`);
-      console.log('API Response:', response.data);
 
       const { recommendations } = response.data;
-      console.log('Raw Recommendations:', recommendations);
 
       const recommendedMedia = await Promise.all(
         uniqueMedia(recommendations.filter(mediaItem => !swipedMediaIds.includes(mediaItem.id))).map(async (mediaItem) => {

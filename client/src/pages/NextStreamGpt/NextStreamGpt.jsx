@@ -4,6 +4,7 @@ import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import { Tooltip } from 'react-tooltip';
+import Cookies from 'js-cookie';
 import { faChevronLeft, faLightbulb, faStopCircle, faBroom, faRobot, faChevronRight, faPlay, faTimes, faEraser, faComment, faTv, faFilm, faCalendarPlus, faThumbsUp, faThumbsDown, faShareAlt, faUser, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
 import Calendar from '../CalendarPage/sections/Calendar/Calendar';
@@ -53,15 +54,15 @@ const NextStreamGpt = () => {
   };
 
   useEffect(() => {
-    const hasSeenDisclaimer = localStorage.getItem('hasSeenDisclaimer');
+    const hasSeenDisclaimer = Cookies.get('hasSeenDisclaimer');
     if (!hasSeenDisclaimer) {
       setShowDisclaimer(true);
     }
   }, []);
-
+  
   const closeDisclaimer = () => {
     setShowDisclaimer(false);
-    localStorage.setItem('hasSeenDisclaimer', 'true');
+    Cookies.set('hasSeenDisclaimer', 'true', { expires: 365, secure: true, sameSite: 'Strict' });
   };
 
   const handleBotTyping = useCallback(async () => {
