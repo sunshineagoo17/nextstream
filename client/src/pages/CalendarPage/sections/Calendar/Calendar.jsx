@@ -336,23 +336,16 @@ const Calendar = forwardRef(
         info.revert();
         return;
       }
-    
-      // Always convert the start and end times to local timezone first
+ 
       const localStart = moment(info.event.start).format('YYYY-MM-DDTHH:mm:ss');
       const localEnd = info.event.end
         ? moment(info.event.end).format('YYYY-MM-DDTHH:mm:ss')
         : localStart;
-    
-      // Now convert to UTC for sending to the server
-      const utcStart = moment(localStart).utc().format('YYYY-MM-DDTHH:mm:ss');
-      const utcEnd = localEnd
-        ? moment(localEnd).utc().format('YYYY-MM-DDTHH:mm:ss')
-        : utcStart;
-    
+ 
       const updatedEvent = {
         title: info.event.title,
-        start: utcStart,
-        end: utcEnd,
+        start: localStart,
+        end: localEnd,
         eventType: info.event.extendedProps.eventType,
       };
     
@@ -369,7 +362,7 @@ const Calendar = forwardRef(
       } finally {
         setLoading(false);
       }
-    };
+    };    
     
     const handleDeleteEvent = useCallback(async () => {
       if (isDeletingEvent.current || !selectedEvent) return;
