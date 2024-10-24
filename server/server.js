@@ -154,10 +154,6 @@ io.on('connection', (socket) => {
     }
   });
 
-  socket.on('send_message', (message) => {
-    socket.to(message.receiverId).emit('receive_message', message);
-  });
-
   // Listen for new calendar invites
   socket.on('new_calendar_invite', async (data) => {
     const { invitedUserId, inviteDetails } = data;
