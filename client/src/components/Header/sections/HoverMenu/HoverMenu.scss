@@ -6,10 +6,10 @@
 
 .hover-menu__container {
   position: absolute;
-  top: 2.5rem;
+  top: 3.35rem;
   left: 1.5rem;
   transform: translateY(-50%);
-  z-index: 1000;
+  z-index: 9999;
 
   @include tablet {
     top: 2.25rem;

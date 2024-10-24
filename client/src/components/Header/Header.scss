@@ -4,7 +4,7 @@
 @use "../../styles/global.scss" as *;
 
 .header {
-  @include block-item(100%, 9.5rem);
+  @include block-item(100%, 12rem);
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -173,6 +173,7 @@
     align-items: center;
     justify-content: space-between;
     position: relative;
+    margin-top: 1rem;
 
     @include tablet {
       flex-direction: column;
@@ -180,6 +181,7 @@
       flex-direction: row;
       align-items: center;
       justify-content: space-between;
+      margin-top: 0;
     }
   }
 

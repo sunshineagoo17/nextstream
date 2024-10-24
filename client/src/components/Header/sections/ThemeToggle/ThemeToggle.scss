@@ -12,7 +12,7 @@
   padding: .625rem;
   border-radius: 50%;
   transition: transform .3s ease-in-out;
-  z-index: 9999;
+  z-index: 9998;
 
   .icon {
     @include block-item(1rem, 1rem);
