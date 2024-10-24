@@ -60,26 +60,31 @@ const Calendar = forwardRef(
     };
 
     useEffect(() => {
-      const socket = io('http://localhost:8080');
-
+      const socketUrl =
+        process.env.NODE_ENV === 'development'
+          ? 'http://localhost:8080'
+          : 'https://www.nextstream.ca'; 
+    
+      const socket = io(socketUrl);
+    
       socket.on('calendar_event_updated', (data) => {
         console.log('Event updated:', data);
         setEvents((prevEvents) => [...prevEvents, data.event]);
       });
-
+    
       socket.on('calendar_event_removed', (data) => {
         console.log('Event removed:', data);
         setEvents((prevEvents) =>
           prevEvents.filter((event) => event.id !== data.inviteId)
-        ); 
+        );
       });
-
+    
       return () => {
         socket.off('calendar_event_updated');
         socket.off('calendar_event_removed');
         socket.disconnect();
       };
-    }, []);
+    }, []);    
 
     useEffect(() => {
       if (calendarRef.current) {
@@ -249,18 +254,24 @@ const Calendar = forwardRef(
         showCustomAlert('Guests cannot add events.', 'info');
         return;
       }
-
+    
+      if (newEventType !== 'movie' && newEventType !== 'tv') {
+        showCustomAlert('Only movies/shows are allowed. Please enter a valid movie/show title.', 'error');
+        setLoading(false); 
+        return;
+      }
+    
       setLoading(true);
       try {
         const { notificationTime, customHours, customMinutes } =
           await fetchUserNotificationTime();
-
+    
         let notificationTimeOffset = notificationTime;
         if (notificationTime === 'custom') {
           notificationTimeOffset =
             parseInt(customHours || 0) * 60 + parseInt(customMinutes || 0);
         }
-
+    
         const newEvent = {
           title: newEventTitle,
           start: moment(newEventStartDate).format('YYYY-MM-DDTHH:mm:ss'),
@@ -268,7 +279,7 @@ const Calendar = forwardRef(
           eventType: newEventType,
           notificationTime: notificationTimeOffset,
         };
-
+    
         await api.post(`/api/calendar/${userId}/events`, newEvent);
         await fetchEvents();
         toast.success('Event added successfully!', {
@@ -285,40 +296,40 @@ const Calendar = forwardRef(
         setModalVisible(false);
       }
     };
-
+    
     const handleEditEvent = async () => {
       if (!selectedEvent) return;
+    
+      if (selectedEvent.eventType !== 'movie' && selectedEvent.eventType !== 'tv') {
+        showCustomAlert('Only movies or TV shows are allowed. Please select a valid event type.', 'error');
+        console.error(`Invalid event type during edit: ${selectedEvent.eventType}`);
+        setLoading(false); 
+        return;
+      }
+    
       setLoading(true);
       try {
         const updatedEvent = {
           title: selectedEvent.title,
           start: moment(selectedEvent.start).format('YYYY-MM-DDTHH:mm:ss'),
           end: moment(selectedEvent.end).format('YYYY-MM-DDTHH:mm:ss'),
-          eventType: selectedEvent.eventType,
+          eventType: selectedEvent.eventType, 
         };
-
-        await api.put(
-          `/api/calendar/${userId}/events/${selectedEvent.id}`,
-          updatedEvent
-        );
+    
+        await api.put(`/api/calendar/${userId}/events/${selectedEvent.id}`, updatedEvent);
         await fetchEvents();
         toast.success('Event updated successfully!', {
           className: 'frosted-toast-cal',
         });
       } catch (error) {
-        console.log(
-          'Error updating event:',
-          error.response ? error.response.data : error.message
-        );
-        toast.error('Failed to update event.', {
-          className: 'frosted-toast-cal',
-        });
+        console.log('Error updating event:', error.response ? error.response.data : error.message);
+        toast.error('Failed to update event.', { className: 'frosted-toast-cal' });
       } finally {
         setLoading(false);
         setModalVisible(false);
       }
-    };
-
+    };    
+    
     const handleEventDrop = async (info) => {
       const { id } = info.event;
       const isSharedEvent = info.event.extendedProps.isShared === 1;
@@ -787,6 +798,7 @@ const Calendar = forwardRef(
                     : setNewEventEndDate(e.target.value)
                 }
               />
+
               <div className='modal-input event-type-options'>
                 <label>
                   <input
@@ -794,19 +806,10 @@ const Calendar = forwardRef(
                     name='eventType'
                     value='movie'
                     className='calendar__radio'
-                    checked={
-                      selectedEvent
-                        ? selectedEvent.eventType === 'movie'
-                        : newEventType === 'movie'
-                    }
-                    onChange={(e) =>
-                      selectedEvent
-                        ? setSelectedEvent({
-                            ...selectedEvent,
-                            eventType: e.target.value,
-                          })
-                        : setNewEventType(e.target.value)
-                    }
+                    checked={selectedEvent ? selectedEvent.eventType === 'movie' : newEventType === 'movie'}
+                    onChange={(e) => selectedEvent 
+                      ? setSelectedEvent({ ...selectedEvent, eventType: e.target.value })
+                      : setNewEventType(e.target.value)}
                   />
                   Movie
                 </label>
@@ -816,19 +819,10 @@ const Calendar = forwardRef(
                     name='eventType'
                     value='tv'
                     className='calendar__radio'
-                    checked={
-                      selectedEvent
-                        ? selectedEvent.eventType === 'tv'
-                        : newEventType === 'tv'
-                    }
-                    onChange={(e) =>
-                      selectedEvent
-                        ? setSelectedEvent({
-                            ...selectedEvent,
-                            eventType: e.target.value,
-                          })
-                        : setNewEventType(e.target.value)
-                    }
+                    checked={selectedEvent ? selectedEvent.eventType === 'tv' : newEventType === 'tv'}
+                    onChange={(e) => selectedEvent 
+                      ? setSelectedEvent({ ...selectedEvent, eventType: e.target.value })
+                      : setNewEventType(e.target.value)}
                   />
                   TV Show
                 </label>
