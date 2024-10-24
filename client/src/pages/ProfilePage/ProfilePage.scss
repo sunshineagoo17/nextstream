@@ -697,6 +697,7 @@
     background-color: rgba($feedback-mint-light-green, .8); 
     color: $toast-success;
     border: .1875rem solid $feedback-mint-green;
+    z-index: 10001;
   }
 
   &.error {
@@ -705,6 +706,7 @@
     border: .0625rem solid $feedback-error-peach;
     margin-left: .75rem;
     margin-right: .75rem;
+    z-index: 10001;
   }
 
   .save-message__close {
@@ -736,4 +738,5 @@
   color: $primary-pale-blue;
   font-family: $primary-font;
   padding: 1rem;
+  z-index: 10001;
 }
