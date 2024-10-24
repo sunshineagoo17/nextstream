@@ -3,7 +3,6 @@ import { AuthContext } from '../../../../context/AuthContext/AuthContext';
 import { Tooltip } from 'react-tooltip';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faFilm, faTv, faTimes, faTrash, faCalendarAlt, faEraser } from '@fortawesome/free-solid-svg-icons';
-import { ToastContainer, toast, Slide } from 'react-toastify';
 import PropTypes from 'prop-types';
 import FullCalendar from '@fullcalendar/react';
 import io from 'socket.io-client';
@@ -63,12 +62,18 @@ const Calendar = forwardRef(
       const socketUrl =
         process.env.NODE_ENV === 'development'
           ? 'http://localhost:8080'
-          : 'https://www.nextstream.ca'; 
+          : 'https://www.nextstream.ca';
     
       const socket = io(socketUrl);
     
       socket.on('calendar_event_updated', (data) => {
-        setEvents((prevEvents) => [...prevEvents, data.event]);
+        const updatedEvent = {
+          ...data.event,
+          start: moment.utc(data.event.start).tz(moment.tz.guess()).format('YYYY-MM-DDTHH:mm:ss'),
+          end: data.event.end ? moment.utc(data.event.end).tz(moment.tz.guess()).format('YYYY-MM-DDTHH:mm:ss') : null,
+        };
+    
+        setEvents((prevEvents) => [...prevEvents, updatedEvent]);
       });
     
       socket.on('calendar_event_removed', (data) => {
@@ -82,18 +87,26 @@ const Calendar = forwardRef(
         socket.off('calendar_event_removed');
         socket.disconnect();
       };
-    }, []);    
-
+    }, []);
+    
     useEffect(() => {
       if (calendarRef.current) {
         Promise.resolve().then(() => {
           const calendarApi = calendarRef.current.getApi();
           calendarApi.removeAllEvents();
-          calendarApi.addEventSource(events);
+    
+          // Convert UTC to local time before displaying
+          const localizedEvents = events.map((event) => ({
+            ...event,
+            start: moment.utc(event.start).tz(moment.tz.guess()).format('YYYY-MM-DDTHH:mm:ss'),
+            end: event.end ? moment.utc(event.end).tz(moment.tz.guess()).format('YYYY-MM-DDTHH:mm:ss') : null,
+          }));
+    
+          calendarApi.addEventSource(localizedEvents);
         });
       }
-    }, [events]);    
-
+    }, [events]);
+    
     useEffect(() => {
       const handleClickOutside = (event) => {
         if (modalRef.current && !modalRef.current.contains(event.target)) {
@@ -248,19 +261,17 @@ const Calendar = forwardRef(
     
       if (newEventType !== 'movie' && newEventType !== 'tv') {
         showCustomAlert('Only movies/shows are allowed. Please enter a valid movie/show title.', 'error');
-        setLoading(false); 
+        setLoading(false);
         return;
       }
     
       setLoading(true);
       try {
-        const { notificationTime, customHours, customMinutes } =
-          await fetchUserNotificationTime();
+        const { notificationTime, customHours, customMinutes } = await fetchUserNotificationTime();
     
         let notificationTimeOffset = notificationTime;
         if (notificationTime === 'custom') {
-          notificationTimeOffset =
-            parseInt(customHours || 0) * 60 + parseInt(customMinutes || 0);
+          notificationTimeOffset = parseInt(customHours || 0) * 60 + parseInt(customMinutes || 0);
         }
     
         const newEvent = {
@@ -273,12 +284,9 @@ const Calendar = forwardRef(
     
         await api.post(`/api/calendar/${userId}/events`, newEvent);
         await fetchEvents();
-        toast.success('Event added successfully!', {
-          className: 'frosted-toast-cal',
-        });
+        showCustomAlert('Event added successfully!', 'success');
       } catch (error) {
-        const errorMessage = error.response ? error.response.data : error.message;
-        toast.error(`Failed to add event: ${errorMessage}`, { className: 'frosted-toast-cal' });
+        showCustomAlert('Failed to add event. Ensure this is a valid movie or show title.', 'error');
       } finally {
         setLoading(false);
         setModalVisible(false);
@@ -305,11 +313,9 @@ const Calendar = forwardRef(
     
         await api.put(`/api/calendar/${userId}/events/${selectedEvent.id}`, updatedEvent);
         await fetchEvents();
-        toast.success('Event updated successfully!', {
-          className: 'frosted-toast-cal',
-        });
+        showCustomAlert('Event updated successfully!', 'success');
       } catch (error) {
-        toast.error('Failed to update event.', { className: 'frosted-toast-cal' });
+        showCustomAlert('Failed to update event.', 'error');
       } finally {
         setLoading(false);
         setModalVisible(false);
@@ -338,17 +344,14 @@ const Calendar = forwardRef(
       try {
         await api.put(`/api/calendar/${userId}/events/${id}`, updatedEvent);
         await fetchEvents();
-        toast.success('Event moved successfully!', {
-          className: 'frosted-toast-cal',
-        });
+      
+        showCustomAlert('Event moved successfully!', 'success');
       } catch (error) {
         const errorMessage = error.response ? error.response.data : error.message;
-        toast.error(`Failed to move event: ${errorMessage}`, {
-          className: 'frosted-toast-cal',
-        });
+        showCustomAlert(`Failed to move event: ${errorMessage}`, 'error');
       } finally {
         setLoading(false);
-      }
+      }      
     };
 
     const handleDeleteEvent = useCallback(async () => {
@@ -360,21 +363,19 @@ const Calendar = forwardRef(
         await api.delete(`/api/calendar/${userId}/events/${selectedEvent.id}`);
         await fetchEvents();
     
-        toast.success('Event deleted successfully!', {
-          className: 'frosted-toast-cal',
-        });
+        showCustomAlert('Event deleted successfully!', 'success');
       } catch (error) {
         if (error.response && error.response.status === 403) {
           showCustomAlert('This is a shared event and only the inviter can delete it.', 'info');
         } else {
-          toast.error('Failed to delete event.', { className: 'frosted-toast-cal' });
+          showCustomAlert('Failed to delete event.', 'error');
         }
       } finally {
         setLoading(false);
         setModalVisible(false);
         isDeletingEvent.current = false;
       }
-    }, [selectedEvent, fetchEvents, userId]);
+    }, [selectedEvent, fetchEvents, userId]);    
      
     const handleDeleteAllEvents = async () => {
       const currentView = calendarRef.current.getApi().view.type;
@@ -398,15 +399,10 @@ const Calendar = forwardRef(
         }
     
         await fetchEvents();
-        toast.success(
-          `Deleted all events in the current ${viewNames[currentView]} view!`,
-          { className: 'frosted-toast-cal', autoClose: 500 }
-        );
+        showCustomAlert(`Deleted all events in the current ${viewNames[currentView]} view!`, 'success');
       } catch (error) {
         const errorMessage = error.response ? error.response.data : error.message;
-        toast.error(`Failed to delete events: ${errorMessage}`, {
-          className: 'frosted-toast-cal',
-        });
+        showCustomAlert(`Failed to delete events: ${errorMessage}`, 'error');
       } finally {
         setLoading(false);
       }
@@ -471,10 +467,8 @@ const Calendar = forwardRef(
       calendarRef.current.getApi().gotoDate(newDate);
       calendarRef.current.getApi().changeView('timeGridDay', newDate);
       setMiniCalendarVisible(false);
-      toast.info(`Navigated to ${newDate.toDateString()}`, {
-        className: 'frosted-toast-cal',
-      });
-    };
+      showCustomAlert(`Navigated to ${newDate.toDateString()}`, 'info');
+    };    
 
     const renderMiniCalendar = () => {
       const daysInMonth = new Date(
@@ -584,27 +578,20 @@ const Calendar = forwardRef(
         searchWords.every((word) => event.title.toLowerCase().includes(word))
       );
       setFilteredEvents(filtered);
-
+      
       if (filtered.length === 1) {
         calendarRef.current.getApi().gotoDate(filtered[0].start);
         calendarRef.current.getApi().changeView('timeGridDay');
-        toast.success(
-          `Navigated to ${filtered[0].title} on ${moment(
-            filtered[0].start
-          ).format('MMMM Do YYYY')}`,
-          { className: 'frosted-toast-cal' }
+        showCustomAlert(
+          `Navigated to ${filtered[0].title} on ${moment(filtered[0].start).format('MMMM Do YYYY')}`,
+          'success'
         );
       } else if (filtered.length > 1) {
         calendarRef.current.getApi().gotoDate(filtered[0].start);
         calendarRef.current.getApi().changeView('dayGridMonth');
-        toast.success(
-          `Found multiple events for ${searchQuery}. Showing month view.`,
-          { className: 'frosted-toast-cal' }
-        );
+        showCustomAlert(`Found multiple events for ${searchQuery}. Showing month view.`, 'success');
       } else {
-        toast.error(`No events found for ${searchQuery}.`, {
-          className: 'frosted-toast-cal',
-        });
+        showCustomAlert(`No events found for ${searchQuery}.`, 'error');
       }
     };
 
@@ -842,14 +829,6 @@ const Calendar = forwardRef(
             </div>
           </div>
         )}
-        <ToastContainer
-          position='top-center'
-          autoClose={3000}
-          hideProgressBar={true}
-          transition={Slide}
-          closeOnClick
-          pauseOnHover
-        />
       </div>
     );
   }
