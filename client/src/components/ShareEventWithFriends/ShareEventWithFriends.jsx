@@ -15,12 +15,11 @@ const ShareEventWithFriends = ({ eventId, userId, showAlert }) => {
         const friendsData = await getFriends(); 
         setFriends(friendsData);
       } catch (error) {
-        console.error('Error fetching friends', error);
         showAlert('Failed to load friends list.', 'error');
       }
     };
     fetchFriendsList();
-  }, [showAlert]);
+  }, [showAlert]); 
 
   // Fetch friends with whom the event has already been shared
   useEffect(() => {
@@ -29,20 +28,15 @@ const ShareEventWithFriends = ({ eventId, userId, showAlert }) => {
         const sharedFriendsData = await getSharedFriendsForEvent(userId, eventId);
         setSharedFriends(sharedFriendsData.sharedFriendIds); 
       } catch (error) {
-        console.error('Error fetching shared friends', error);
+        showAlert('Error fetching shared friends.', 'error');
       }
     };
 
     if (eventId && userId) {
       fetchSharedFriends();
     }
-  }, [eventId, userId]);
+  }, [eventId, userId, showAlert]); 
 
-  // Log selected friends when they change
-  useEffect(() => {
-    console.log('Selected friends:', selectedFriends);
-  }, [selectedFriends]);
-  
   // Handle selecting and deselecting friends
   const handleSelectFriend = (friendId) => {
     setSelectedFriends((prevSelectedFriends) =>
@@ -52,37 +46,35 @@ const ShareEventWithFriends = ({ eventId, userId, showAlert }) => {
     );
   };
 
-// Share the event with selected friends
-const handleShareEvent = async () => {
-  if (!eventId) {
-    showAlert('Please add the event before sharing it with friends.', 'info');
-    return;
-  }
+  // Share the event with selected friends
+  const handleShareEvent = async () => {
+    if (!eventId) {
+      showAlert('Please add the event before sharing it with friends.', 'info');
+      return;
+    }
 
-  if (selectedFriends.length === 0) {
-    showAlert('Please select at least one friend to share the event.', 'info');
-    return;
-  }
+    if (selectedFriends.length === 0) {
+      showAlert('Please select at least one friend to share the event.', 'info');
+      return;
+    }
 
-  // Check if any selected friends have already been shared with
-  const alreadySharedFriends = selectedFriends.filter(friendId => sharedFriends.includes(friendId));
+    // Check if any selected friends have already been shared with
+    const alreadySharedFriends = selectedFriends.filter(friendId => sharedFriends.includes(friendId));
 
-  if (alreadySharedFriends.length > 0) {
-    showAlert("Event's already been shared with some selected friends.", 'info');
-    return;
-  }
+    if (alreadySharedFriends.length > 0) {
+      showAlert("Event's already been shared with some selected friends.", 'info');
+      return;
+    }
 
-  try {
-    const response = await api.post(`/api/calendar/${userId}/events/${eventId}/share`, {
-      friendIds: selectedFriends,
-    });
-    console.log('Event shared with selected friends:', response.data);
-    showAlert('Event shared successfully!', 'success');
-  } catch (error) {
-    console.error('Error sharing event', error);
-    showAlert('Error sharing the event. Please try again.', 'error');
-  }
-};
+    try {
+      await api.post(`/api/calendar/${userId}/events/${eventId}/share`, {
+        friendIds: selectedFriends,
+      });
+      showAlert('Event shared successfully!', 'success');
+    } catch (error) {
+      showAlert('Error sharing the event. Please try again.', 'error');
+    }
+  };
 
   return (
     <div className="share-event glassmorphic-card">
