@@ -402,10 +402,24 @@ const FriendsPage = () => {
   };
 
   const handleSearch = async () => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  
     if (!searchTerm.trim()) {
+      setAlertMessage({
+        message: 'Please enter an email address to search.',
+        type: 'info',
+      });
       return;
     }
-
+  
+    if (!emailRegex.test(searchTerm.trim())) {
+      setAlertMessage({
+        message: 'Please enter a valid email address.',
+        type: 'error',
+      });
+      return;
+    }
+  
     try {
       const searchResultsData = await searchUsers(searchTerm.trim());
       const filteredSearchResults = searchResultsData.filter(
@@ -417,12 +431,12 @@ const FriendsPage = () => {
           type: 'info',
         });
       }
-
+  
       setSearchResults(filteredSearchResults);
     } catch (error) {
       setAlertMessage({ message: 'Error searching users.', type: 'error' });
     }
-  };
+  };  
 
   const handleSendFriendRequest = async (friendId) => {
     const isAlreadyFriend = friends.some((friend) => friend.id === friendId);
