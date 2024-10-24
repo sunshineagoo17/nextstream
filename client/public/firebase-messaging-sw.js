@@ -1,8 +1,6 @@
 importScripts('https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js');
 importScripts('https://www.gstatic.com/firebasejs/9.0.0/firebase-messaging-compat.js');
 
-console.log('Service worker script started.');
-
 let messaging;
 
 self.addEventListener('message', (event) => {
@@ -17,7 +15,6 @@ self.addEventListener('message', (event) => {
 
     // Handle background messages
     messaging.onBackgroundMessage((payload) => {
-      console.log('[firebase-messaging-sw.js] Received background message', payload);
       const notificationTitle = payload.notification.title;
       const notificationOptions = {
         body: payload.notification.body,
@@ -28,12 +25,7 @@ self.addEventListener('message', (event) => {
       if (Notification.permission === 'granted') {
         self.registration.showNotification(notificationTitle, notificationOptions);
       } else {
-        console.warn('Notification permission not granted.');
       }
     });
-
-    console.log('Firebase initialized in service worker.');
   }
 });
-
-console.log('Service worker script finished.');
