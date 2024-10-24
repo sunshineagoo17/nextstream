@@ -107,7 +107,6 @@ export const LoginPage = () => {
         const response = await api.post('/api/auth/oauth-login', { email });
   
         if (response.data.success) {
-          // Store token and userId in cookies
           Cookies.set('token', response.data.token, { expires: 7, secure: true, sameSite: 'strict' });
           Cookies.set('userId', response.data.userId, { expires: 7, secure: true, sameSite: 'strict' });
   
