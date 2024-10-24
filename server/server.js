@@ -11,9 +11,6 @@ const knex = require('../server/src/config/db');
 const fs = require('fs');
 require('dotenv').config();
 
-// Initialize Google Cloud Storage client to load the NLP model
-const { Storage } = require('@google-cloud/storage');
-
 // Initialize Firebase Admin SDK using environment variables
 if (!admin.apps.length) {
   admin.initializeApp({
@@ -31,34 +28,6 @@ if (!admin.apps.length) {
       universe_domain: process.env.FIREBASE_UNIVERSE_DOMAIN,
     }),
   });
-}
-
-// Google Cloud credentials for NLP service
-const storage = new Storage({
-  projectId: process.env.GOOGLE_CLOUD_PROJECT_ID,
-  credentials: {
-    client_email: process.env.GOOGLE_CLOUD_CLIENT_EMAIL,
-    private_key: process.env.GOOGLE_CLOUD_PRIVATE_KEY.replace(/\\n/g, '\n'),
-  },
-});
-
-// Function to load NLP model from Google Cloud Storage
-async function loadNlpModel() {
-  const bucketName = process.env.GOOGLE_CLOUD_BUCKET_NAME;
-  const srcFilename = process.env.GOOGLE_CLOUD_NLP_MODEL_FILENAME;
-  const destinationFilename = path.join(__dirname, 'src/services/nlpModel');
-
-  if (!bucketName || !srcFilename) {
-    throw new Error('Bucket name or NLP model filename is not defined in the environment variables.');
-  }
-
-  if (!fs.existsSync(path.dirname(destinationFilename))) {
-    fs.mkdirSync(path.dirname(destinationFilename), { recursive: true });
-  }
-
-  console.log(`Downloading model from ${bucketName}/${srcFilename} to ${destinationFilename}`);
-  await storage.bucket(bucketName).file(srcFilename).download({ destination: destinationFilename });
-  console.log(`NLP Model downloaded to ${destinationFilename}`);
 }
 
 // Import routes
@@ -332,21 +301,11 @@ app.use((err, req, res, next) => {
   res.status(500).send('Wait! Something broke!');
 });
 
-// Load the NLP model from Google Cloud during server startup
-loadNlpModel()
-  .then(() => {
-    console.log('NLP model successfully loaded from Google Cloud');
+// Start scheduled jobs
+cronJobs.scheduleJobs();
 
-    // Start scheduled jobs
-    cronJobs.scheduleJobs();
-
-    // Start the server
-    const PORT = process.env.PORT || 8080;
-    server.listen(PORT, () => {
-      console.log(`Server is running on port ${PORT}`);
-    });
-  })
-  .catch((error) => {
-    console.error('Error loading NLP model from Google Cloud:', error.message);
-    process.exit(1);
-  });
+// Start the server
+const PORT = process.env.PORT || 8080;
+server.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
