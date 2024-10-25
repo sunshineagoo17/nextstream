@@ -333,17 +333,15 @@ const Calendar = forwardRef(
     
       if (isSharedEvent) {
         showCustomAlert('This is a shared event and cannot be moved.', 'info');
-        info.revert();  // Revert to the original position if shared
+        info.revert(); 
         return;
       }
     
-      // Preserve original time
       const originalStartTime = moment(info.oldEvent.start).format('HH:mm:ss');
       const originalEndTime = info.oldEvent.end
         ? moment(info.oldEvent.end).format('HH:mm:ss')
         : originalStartTime;
     
-      // Only update the date and keep the original time
       const newStart = moment(info.event.start)
         .format(`YYYY-MM-DDT${originalStartTime}`);
         
@@ -353,7 +351,7 @@ const Calendar = forwardRef(
     
       const updatedEvent = {
         title: info.event.title,
-        start: moment.utc(newStart).format('YYYY-MM-DDTHH:mm:ss'), // Ensure UTC format
+        start: moment.utc(newStart).format('YYYY-MM-DDTHH:mm:ss'),
         end: newEnd ? moment.utc(newEnd).format('YYYY-MM-DDTHH:mm:ss') : null,
         eventType: info.event.extendedProps.eventType,
       };
@@ -365,7 +363,7 @@ const Calendar = forwardRef(
         showCustomAlert('Event moved successfully!', 'success');
       } catch (error) {
         showCustomAlert('Failed to move event.', 'error');
-        info.revert();  // Revert the event if there's an error
+        info.revert(); 
       } finally {
         setLoading(false);
       }
