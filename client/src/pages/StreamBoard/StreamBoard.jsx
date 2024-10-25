@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext, useCallback } from 'react';
+import { useState, useRef, useEffect, useContext, useCallback } from 'react';
 import { useDrag, useDrop, DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -422,6 +422,7 @@ const StreamBoard = () => {
   const [toWatchPage, setToWatchPage] = useState(1);
   const [scheduledPage, setScheduledPage] = useState(1);
   const [watchedPage, setWatchedPage] = useState(1);
+  const calendarModalRef = useRef(null);
 
   const handleSaveTags = async (newTags) => {
     try {
@@ -700,9 +701,27 @@ const StreamBoard = () => {
     }
   };
 
-  const handleCloseCalendar = () => {
+  const handleCloseCalendar = useCallback(() => {
     setShowCalendar(false);
-  };
+  }, []);  
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (calendarModalRef.current && !calendarModalRef.current.contains(event.target)) {
+        handleCloseCalendar();
+      }
+    };
+  
+    if (showCalendar) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+  
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showCalendar, handleCloseCalendar]);  
 
   const handleSaveEvent = async (eventTitle, eventDate) => {
     try {
@@ -826,14 +845,16 @@ const StreamBoard = () => {
             <button className="streamboard__calendar-close-btn" onClick={handleCloseCalendar}>
               <FontAwesomeIcon icon={faClose} className="streamboard__close-icon" />
             </button>
-            <Calendar
-              userId={userId}
-              eventTitle={eventTitle}
-              mediaType={selectedMediaType}
-              duration={duration}
-              handleSave={handleSaveEvent}
-              onClose={handleCloseCalendar}
-            />
+            <div ref={calendarModalRef}>
+              <Calendar
+                userId={userId}
+                eventTitle={eventTitle}
+                mediaType={selectedMediaType}
+                duration={duration}
+                handleSave={handleSaveEvent}
+                onClose={handleCloseCalendar}
+              />
+            </div>
           </div>
         )}
 
