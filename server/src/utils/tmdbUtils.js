@@ -29,11 +29,9 @@ const getMediaDetailsByTitle = async (title, mediaType) => {
         genres,
       };
     } else {
-      console.error(`No ${mediaType} found with title: ${title}`);
       return null;
     }
   } catch (error) {
-    console.error(`Error fetching ${mediaType} details for title ${title}:`, error);
     return null;
   }
 };

@@ -56,12 +56,9 @@ const sendRecommendationNotifications = async (email, recommendations) => {
   };
 
   try {
-    console.log('Sending email with the following details:', msg);
     // Send email using SendGrid
     await sgMail.send(msg);
-    console.log('Email sent successfully');
   } catch (error) {
-    console.error('Error sending email:', error.response ? error.response.body : error);
     throw new Error("Sorry, we couldn't send your recommendations.");
   }
 };

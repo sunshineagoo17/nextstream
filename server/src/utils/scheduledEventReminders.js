@@ -58,12 +58,9 @@ const sendScheduledEventReminders = async (email, events) => {
   };
 
   try {
-    console.log('Sending email to:', email);
     // Send email using SendGrid
     await sgMail.send(msg);
-    console.log('Email sent successfully to:', email);
   } catch (error) {
-    console.error('Error sending email:', error.response ? error.response.body : error);
     throw new Error("Sorry, we couldn't send your reminder notifications.");
   }
 };

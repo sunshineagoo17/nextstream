@@ -108,7 +108,6 @@ app.use('/uploads', express.static(path.join(__dirname, 'src/uploads')));
 
 // Socket.IO Setup
 io.on('connection', (socket) => {
-  console.log('New user connected:', socket.id);
 
   // Typing events for friends chat
   socket.on('typing', (data) => {
@@ -122,7 +121,6 @@ io.on('connection', (socket) => {
   // Join the user to their own room based on their userId
   socket.on('join_room', (roomId) => {
     socket.join(roomId);
-    console.log(`User with socket ID: ${socket.id} joined room: ${roomId}`);
   });
 
   // Listen for the send_message event
@@ -145,9 +143,7 @@ io.on('connection', (socket) => {
         created_at: new Date(),
       });
 
-      console.log('Message saved and sent:', savedMessage);
     } catch (error) {
-      console.error('Error saving message:', error);
       socket.emit('error_message', {
         message: 'Error sending message. Please try again.',
       });
@@ -159,9 +155,7 @@ io.on('connection', (socket) => {
     const { invitedUserId, inviteDetails } = data;
     try {
       io.to(invitedUserId).emit('receive_calendar_invite', inviteDetails);
-      console.log('New calendar invite sent:', inviteDetails);
     } catch (error) {
-      console.error('Error sending calendar invite:', error);
       socket.emit('error_calendar_invite', {
         message: 'Error sending calendar invite.',
       });
@@ -218,7 +212,6 @@ io.on('connection', (socket) => {
 
   // Handle disconnect
   socket.on('disconnect', () => {
-    console.log('User disconnected:', socket.id);
   });
 });
 
@@ -273,7 +266,6 @@ app.use('/api/users', authenticate, userRoutes);
 
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, '../client/build')));
-console.log(`Serving static files from ${path.join(__dirname, '../client/build')}`);
 
 // Serve React app for specific allowed routes
 const allowedRoutes = ['/', '/terms'];
@@ -288,7 +280,6 @@ app.get('*', (req, res) => {
 
 // Error handling middleware
 app.use((err, req, res, next) => {
-  console.error(err.stack);
   res.status(500).send('Wait! Something broke!');
 });
 
