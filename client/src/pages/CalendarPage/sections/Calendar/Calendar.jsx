@@ -95,11 +95,14 @@ const Calendar = forwardRef(
           const calendarApi = calendarRef.current.getApi();
           calendarApi.removeAllEvents();
     
-          // Convert UTC to local time before displaying
           const localizedEvents = events.map((event) => ({
             ...event,
-            start: moment.utc(event.start).tz(moment.tz.guess()).format('YYYY-MM-DDTHH:mm:ss'),
-            end: event.end ? moment.utc(event.end).tz(moment.tz.guess()).format('YYYY-MM-DDTHH:mm:ss') : null,
+            start: moment.utc(event.start).isUTC() 
+              ? moment.utc(event.start).tz(moment.tz.guess()).format('YYYY-MM-DDTHH:mm:ss')
+              : event.start,
+            end: event.end && moment.utc(event.end).isUTC()
+              ? moment.utc(event.end).tz(moment.tz.guess()).format('YYYY-MM-DDTHH:mm:ss')
+              : event.end,
           }));
     
           calendarApi.addEventSource(localizedEvents);
@@ -299,20 +302,17 @@ const Calendar = forwardRef(
     
       setLoading(true);
       try {
-        const localStart = moment(selectedEvent.start).format('YYYY-MM-DDTHH:mm:ss');
-        const localEnd = selectedEvent.end
-          ? moment(selectedEvent.end).format('YYYY-MM-DDTHH:mm:ss')
-          : localStart;
-    
-        const utcStart = moment(localStart).utc().format('YYYY-MM-DDTHH:mm:ss');
-        const utcEnd = localEnd
-          ? moment(localEnd).utc().format('YYYY-MM-DDTHH:mm:ss')
-          : utcStart;
+        const utcStart = moment(selectedEvent.start).isUTC() 
+          ? selectedEvent.start 
+          : moment(selectedEvent.start).utc().format('YYYY-MM-DDTHH:mm:ss');
+        const utcEnd = selectedEvent.end && !moment(selectedEvent.end).isUTC()
+          ? moment(selectedEvent.end).utc().format('YYYY-MM-DDTHH:mm:ss')
+          : selectedEvent.end;
     
         const updatedEvent = {
           title: selectedEvent.title,
           start: utcStart,
-          end: utcEnd,
+          end: utcEnd || utcStart,
           eventType: selectedEvent.eventType, 
         };
     
@@ -325,7 +325,7 @@ const Calendar = forwardRef(
         setLoading(false);
         setModalVisible(false);
       }
-    };
+    };    
     
     const handleEventDrop = async (info) => {
       const { id } = info.event;
@@ -333,19 +333,28 @@ const Calendar = forwardRef(
     
       if (isSharedEvent) {
         showCustomAlert('This is a shared event and cannot be moved.', 'info');
-        info.revert();
+        info.revert();  // Revert to the original position if shared
         return;
       }
- 
-      const localStart = moment(info.event.start).format('YYYY-MM-DDTHH:mm:ss');
-      const localEnd = info.event.end
-        ? moment(info.event.end).format('YYYY-MM-DDTHH:mm:ss')
-        : localStart;
- 
+    
+      // Preserve original time
+      const originalStartTime = moment(info.oldEvent.start).format('HH:mm:ss');
+      const originalEndTime = info.oldEvent.end
+        ? moment(info.oldEvent.end).format('HH:mm:ss')
+        : originalStartTime;
+    
+      // Only update the date and keep the original time
+      const newStart = moment(info.event.start)
+        .format(`YYYY-MM-DDT${originalStartTime}`);
+        
+      const newEnd = info.event.end
+        ? moment(info.event.end).format(`YYYY-MM-DDT${originalEndTime}`)
+        : newStart;
+    
       const updatedEvent = {
         title: info.event.title,
-        start: localStart,
-        end: localEnd,
+        start: moment.utc(newStart).format('YYYY-MM-DDTHH:mm:ss'), // Ensure UTC format
+        end: newEnd ? moment.utc(newEnd).format('YYYY-MM-DDTHH:mm:ss') : null,
         eventType: info.event.extendedProps.eventType,
       };
     
@@ -353,17 +362,15 @@ const Calendar = forwardRef(
       try {
         await api.put(`/api/calendar/${userId}/events/${id}`, updatedEvent);
         await fetchEvents();
-    
         showCustomAlert('Event moved successfully!', 'success');
       } catch (error) {
-        const errorMessage = error.response ? error.response.data : error.message;
-        showCustomAlert(`Failed to move event: ${errorMessage}`, 'error');
-        info.revert(); 
+        showCustomAlert('Failed to move event.', 'error');
+        info.revert();  // Revert the event if there's an error
       } finally {
         setLoading(false);
       }
-    };    
-    
+    };      
+     
     const handleDeleteEvent = useCallback(async () => {
       if (isDeletingEvent.current || !selectedEvent) return;
       isDeletingEvent.current = true;
