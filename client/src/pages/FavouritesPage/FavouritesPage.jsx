@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect, useRef } from 'react';
+import { useState, useContext, useEffect, useRef, useCallback } from 'react';
 import { Tooltip } from 'react-tooltip';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
@@ -47,6 +47,7 @@ const FavouritesPage = () => {
   const [hasSearched, setHasSearched] = useState(false);
   const [filter, setFilter] = useState('');
   const calendarRef = useRef(null);
+  const calendarModalRef = useRef(null);
   const [page, setPage] = useState(1);
   const [lockedMedia, setLockedMedia] = useState({});
   const [mediaStatuses, setMediaStatuses] = useState({
@@ -236,9 +237,27 @@ const FavouritesPage = () => {
     }
   };
 
-  const handleCloseCalendar = () => {
+  const handleCloseCalendar = useCallback(() => {
     setShowCalendar(false);
-  };
+  }, []);  
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (calendarModalRef.current && !calendarModalRef.current.contains(event.target)) {
+        handleCloseCalendar();
+      }
+    };
+  
+    if (showCalendar) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+  
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showCalendar, handleCloseCalendar]);  
 
   const handleSaveEvent = async (eventTitle, eventDate) => {
     try {
@@ -865,15 +884,17 @@ const FavouritesPage = () => {
             <button className="faves-page__calendar-close-btn" onClick={handleCloseCalendar}>
               <FontAwesomeIcon icon={faClose} className="faves-page__close-icon" />
             </button>
-            <Calendar
-              userId={userId}
-              eventTitle={eventTitle}
-              mediaType={selectedMediaType}
-              duration={duration}
-              handleSave={handleSaveEvent}
-              onClose={handleCloseCalendar}
-              ref={calendarRef}
-            />
+            <div ref={calendarModalRef}>
+              <Calendar
+                userId={userId}
+                eventTitle={eventTitle}
+                mediaType={selectedMediaType}
+                duration={duration}
+                handleSave={handleSaveEvent}
+                onClose={handleCloseCalendar}
+                ref={calendarRef}
+              />
+            </div>
           </div>
         )}
         {isLoading && displayedFaves.length > 0 && (
