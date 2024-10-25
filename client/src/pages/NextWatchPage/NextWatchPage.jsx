@@ -767,28 +767,29 @@ const NextWatchPage = () => {
       </div>
 
       {showCalendar && (
-        <div className='nextwatch-page__calendar-modal'>
-          <button
-            className='nextwatch-page__cal-close-btn'
-            onClick={handleCloseCalendar}>
-            <FontAwesomeIcon
-              icon={faClose}
-              className='nextwatch-page__close-icon'
-            />
-          </button>
-          <Calendar
-            userId={userId}
-            eventTitle={mediaData.title || mediaData.name}
-            mediaType={mediaType}
-            duration={
-              mediaType === 'movie'
-                ? mediaData.runtime
-                : mediaData.episode_run_time[0]
-            }
-            onClose={handleCloseCalendar}
-          />
+        <div
+            className="nextwatch-page__calendar-modal"
+            onClick={handleCloseCalendar}  
+        >
+            <button
+                className='nextwatch-page__cal-close-btn'
+                onClick={handleCloseCalendar}  
+            >
+                <FontAwesomeIcon icon={faClose} className='nextwatch-page__close-icon' />
+            </button>
+            
+            <div onClick={(e) => e.stopPropagation()}>
+                <Calendar
+                    userId={userId}
+                    eventTitle={mediaData.title || mediaData.name}
+                    mediaType={mediaType}
+                    duration={mediaType === 'movie' ? mediaData.runtime : mediaData.episode_run_time[0]}
+                    onClose={handleCloseCalendar}
+                />
+            </div>
         </div>
       )}
+
     </div>
   );
 };
