@@ -95,14 +95,11 @@ const Calendar = forwardRef(
           const calendarApi = calendarRef.current.getApi();
           calendarApi.removeAllEvents();
     
+          // Convert all event times to local time for display
           const localizedEvents = events.map((event) => ({
             ...event,
-            start: moment.utc(event.start).isUTC() 
-              ? moment.utc(event.start).tz(moment.tz.guess()).format('YYYY-MM-DDTHH:mm:ss')
-              : event.start,
-            end: event.end && moment.utc(event.end).isUTC()
-              ? moment.utc(event.end).tz(moment.tz.guess()).format('YYYY-MM-DDTHH:mm:ss')
-              : event.end,
+            start: moment.utc(event.start).tz(moment.tz.guess()).format('YYYY-MM-DDTHH:mm:ss'),
+            end: event.end ? moment.utc(event.end).tz(moment.tz.guess()).format('YYYY-MM-DDTHH:mm:ss') : null,
           }));
     
           calendarApi.addEventSource(localizedEvents);
@@ -116,7 +113,7 @@ const Calendar = forwardRef(
           setModalVisible(false);
         }
       };
-    
+
       if (modalVisible) {
         document.addEventListener('mousedown', handleClickOutside);
       } else {
@@ -271,13 +268,16 @@ const Calendar = forwardRef(
           notificationTimeOffset = parseInt(customHours || 0) * 60 + parseInt(customMinutes || 0);
         }
     
+        // Convert local start/end dates to UTC for consistent storage
+        const utcStart = moment(newEventStartDate).utc().format('YYYY-MM-DDTHH:mm:ss');
+        const utcEnd = moment(newEventEndDate).utc().format('YYYY-MM-DDTHH:mm:ss');
+        
         const newEvent = {
           title: newEventTitle,
-          start: moment(newEventStartDate).format('YYYY-MM-DDTHH:mm:ss'),
-          end: moment(newEventEndDate).format('YYYY-MM-DDTHH:mm:ss'),
+          start: utcStart,
+          end: utcEnd,
           eventType: newEventType,
           notificationTime: notificationTimeOffset,
-          timezone: moment.tz.guess(), 
         };
     
         await api.post(`/api/calendar/${userId}/events`, newEvent);
@@ -289,33 +289,22 @@ const Calendar = forwardRef(
         setLoading(false);
         setModalVisible(false);
       }
-    };
+    };    
     
     const handleEditEvent = async () => {
       if (!selectedEvent) return;
     
-      if (selectedEvent.eventType !== 'movie' && selectedEvent.eventType !== 'tv') {
-        showCustomAlert('Only movies or TV shows are allowed. Please select a valid event type.', 'error');
-        setLoading(false); 
-        return;
-      }
+      const utcStart = moment(selectedEvent.start).utc().format('YYYY-MM-DDTHH:mm:ss[Z]');
+      const utcEnd = selectedEvent.end ? moment(selectedEvent.end).utc().format('YYYY-MM-DDTHH:mm:ss[Z]') : utcStart;
+      const updatedEvent = {
+        title: selectedEvent.title,
+        start: utcStart,
+        end: utcEnd,
+        eventType: selectedEvent.eventType,
+      };
     
       setLoading(true);
       try {
-        const utcStart = moment(selectedEvent.start).isUTC() 
-          ? selectedEvent.start 
-          : moment(selectedEvent.start).utc().format('YYYY-MM-DDTHH:mm:ss');
-        const utcEnd = selectedEvent.end && !moment(selectedEvent.end).isUTC()
-          ? moment(selectedEvent.end).utc().format('YYYY-MM-DDTHH:mm:ss')
-          : selectedEvent.end;
-    
-        const updatedEvent = {
-          title: selectedEvent.title,
-          start: utcStart,
-          end: utcEnd || utcStart,
-          eventType: selectedEvent.eventType, 
-        };
-    
         await api.put(`/api/calendar/${userId}/events/${selectedEvent.id}`, updatedEvent);
         await fetchEvents();
         showCustomAlert('Event updated successfully!', 'success');
@@ -325,10 +314,10 @@ const Calendar = forwardRef(
         setLoading(false);
         setModalVisible(false);
       }
-    };    
+    };      
     
     const handleEventDrop = async (info) => {
-      const { id } = info.event;
+      const { id, start, end } = info.event;
       const isSharedEvent = info.event.extendedProps.isShared === 1;
     
       if (isSharedEvent) {
@@ -337,22 +326,14 @@ const Calendar = forwardRef(
         return;
       }
     
-      // Preserve the original time while updating only the date
-      const originalStartTime = moment(info.oldEvent.start).format('HH:mm:ss');
-      const originalEndTime = info.oldEvent.end
-        ? moment(info.oldEvent.end).format('HH:mm:ss')
-        : originalStartTime;
-    
-      // Adjust date while preserving time
-      const newStart = moment(info.event.start).format('YYYY-MM-DD') + 'T' + originalStartTime;
-      const newEnd = info.event.end
-        ? moment(info.event.end).format('YYYY-MM-DD') + 'T' + originalEndTime
-        : newStart;
+      // Convert new times to UTC before updating
+      const utcStart = moment(start).utc().format('YYYY-MM-DDTHH:mm:ss');
+      const utcEnd = end ? moment(end).utc().format('YYYY-MM-DDTHH:mm:ss') : null;
     
       const updatedEvent = {
         title: info.event.title,
-        start: moment.utc(newStart).format('YYYY-MM-DDTHH:mm:ss'),
-        end: newEnd ? moment.utc(newEnd).format('YYYY-MM-DDTHH:mm:ss') : null,
+        start: utcStart,
+        end: utcEnd,
         eventType: info.event.extendedProps.eventType,
       };
     
@@ -367,8 +348,8 @@ const Calendar = forwardRef(
       } finally {
         setLoading(false);
       }
-    };
-     
+    };         
+    
     const handleDeleteEvent = useCallback(async () => {
       if (isDeletingEvent.current || !selectedEvent) return;
       isDeletingEvent.current = true;
@@ -432,11 +413,10 @@ const Calendar = forwardRef(
           setLoading(false);
         }
       };
-
+    
       const eventType = eventInfo.event.extendedProps.eventType;
-      const eventClass =
-        eventType === 'tv' ? 'calendar__event-tv' : 'calendar__event-movie';
-
+      const eventClass = eventType === 'tv' ? 'calendar__event-tv' : 'calendar__event-movie';
+    
       return (
         <div
           className={`calendar__event-content ${eventClass}`}
@@ -447,7 +427,7 @@ const Calendar = forwardRef(
               : eventInfo.event.title}
           </b>
           <i className='calendar__event-time'>
-            {moment(eventInfo.event.start).format('h:mm A')}
+            {moment.utc(eventInfo.event.start).local().format('h:mm A')} 
           </i>
           <FontAwesomeIcon
             icon={eventType === 'tv' ? faTv : faFilm}
@@ -457,7 +437,7 @@ const Calendar = forwardRef(
         </div>
       );
     };
-
+    
     const handlePrevMonth = () => {
       const newMonth = new Date(
         currentMonth.setMonth(currentMonth.getMonth() - 1)
@@ -702,6 +682,7 @@ const Calendar = forwardRef(
                 timeGridWeek: { buttonText: 'Week' },
                 timeGridDay: { buttonText: 'Day' },
               }}
+              timeZone='UTC'
               events={filteredEvents}
               dateClick={handleDateClick}
               eventClick={handleEventClick}
