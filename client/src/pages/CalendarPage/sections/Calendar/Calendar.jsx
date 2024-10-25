@@ -333,20 +333,20 @@ const Calendar = forwardRef(
     
       if (isSharedEvent) {
         showCustomAlert('This is a shared event and cannot be moved.', 'info');
-        info.revert(); 
+        info.revert();
         return;
       }
     
+      // Preserve the original time while updating only the date
       const originalStartTime = moment(info.oldEvent.start).format('HH:mm:ss');
       const originalEndTime = info.oldEvent.end
         ? moment(info.oldEvent.end).format('HH:mm:ss')
         : originalStartTime;
     
-      const newStart = moment(info.event.start)
-        .format(`YYYY-MM-DDT${originalStartTime}`);
-        
+      // Adjust date while preserving time
+      const newStart = moment(info.event.start).format('YYYY-MM-DD') + 'T' + originalStartTime;
       const newEnd = info.event.end
-        ? moment(info.event.end).format(`YYYY-MM-DDT${originalEndTime}`)
+        ? moment(info.event.end).format('YYYY-MM-DD') + 'T' + originalEndTime
         : newStart;
     
       const updatedEvent = {
@@ -363,11 +363,11 @@ const Calendar = forwardRef(
         showCustomAlert('Event moved successfully!', 'success');
       } catch (error) {
         showCustomAlert('Failed to move event.', 'error');
-        info.revert(); 
+        info.revert();
       } finally {
         setLoading(false);
       }
-    };      
+    };
      
     const handleDeleteEvent = useCallback(async () => {
       if (isDeletingEvent.current || !selectedEvent) return;
