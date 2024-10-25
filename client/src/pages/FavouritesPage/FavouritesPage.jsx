@@ -20,6 +20,7 @@ import api from '../../services/api';
 import BlobBg from '../../components/Backgrounds/BlobBg/BlobBg';
 import Loader from '../../components/Loaders/Loader/Loader';
 import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
+import DefaultPoster from '../../assets/images/posternoimg-icon.png';
 import Calendar from '../CalendarPage/sections/Calendar/Calendar';
 import VoiceSearchFaves from '../../components/VoiceInteraction/VoiceSearchFaves/VoiceSearchFaves';
 import './FavouritesPage.scss';
@@ -708,7 +709,7 @@ const FavouritesPage = () => {
                   <div key={`${fave.media_id}-${fave.media_type}-${fave.title}`} className="faves-page__card">
                     <button className="faves-page__poster-container">
                       <img
-                        src={fave.poster_path ? `https://image.tmdb.org/t/p/w500${fave.poster_path}` : 'default-poster-url'}
+                        src={fave.poster_path ? `https://image.tmdb.org/t/p/w500${fave.poster_path}` : DefaultPoster}
                         alt={fave.title}
                         className="faves-page__poster"
                       />
