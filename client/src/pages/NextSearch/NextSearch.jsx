@@ -37,6 +37,7 @@ const NextSearch = () => {
   const [alert, setAlert] = useState({ message: '', type: '', visible: false });
   const [likedStatus, setLikedStatus] = useState({});
   const calendarRef = useRef(null);
+  const calendarModalRef = useRef(null);
   const navigate = useNavigate();
 
   const location = useLocation();
@@ -302,9 +303,27 @@ const NextSearch = () => {
     }
   };
 
-  const handleCloseCalendar = () => {
+  const handleCloseCalendar = useCallback(() => {
     setShowCalendar(false);
-  };
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (calendarModalRef.current && !calendarModalRef.current.contains(event.target)) {
+        handleCloseCalendar();
+      }
+    };
+  
+    if (showCalendar) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+  
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showCalendar, handleCloseCalendar]);  
 
   const handleSaveEvent = async (eventTitle, eventDate) => {
     try {
@@ -888,11 +907,12 @@ const NextSearch = () => {
       )}
 
         {showCalendar && (
-            <div className="next-search__calendar-modal" onClick={handleCloseCalendar}>
+            <div className="next-search__calendar-modal">
                 <button className="next-search__calendar-close-btn" onClick={handleCloseCalendar}>
                     <FontAwesomeIcon icon={faTimes} className="next-search__cal-close-icon" />
                 </button>
-                <div onClick={(e) => e.stopPropagation()}>
+
+                <div ref={calendarModalRef}>
                     <Calendar
                         userId={userId}
                         eventTitle={eventTitle}
