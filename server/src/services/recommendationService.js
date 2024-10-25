@@ -79,13 +79,13 @@ const notifyUserWithRecommendations = async (userId) => {
         }));
         await knex('sent_recommendations').insert(sentRecommendations);
       } else {
-        console.log('No new recommendations to send');
+        console.log('No new recommendations to send.');
       }
     } else {
-      console.log(`User ${userId} does not have notifications enabled or does not exist`);
+      console.log(`User does not have notifications enabled or does not exist.`);
     }
   } catch (error) {
-    console.error('Error notifying user with recommendations:', error);
+    console.error('Error notifying user with recommendations.');
   }
 };
 

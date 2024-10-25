@@ -8,7 +8,6 @@ const fetchAllInteractions = async (userId) => {
       .where('userId', userId);
     return results;
   } catch (error) {
-    console.error("Error fetching interactions:", error);
     return [];
   }
 };

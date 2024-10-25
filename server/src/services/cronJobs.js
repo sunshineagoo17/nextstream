@@ -96,7 +96,7 @@ const fetchPopularReleases = async () => {
     // Cache the results
     cache.set('popularReleases', popularReleases);
   } catch (error) {
-    console.error('Error fetching popular releases:', error);
+    console.error('Error fetching popular releases.');
   }
 };
 
@@ -112,9 +112,9 @@ const scheduleJobs = () => {
       for (const user of users) {
         await generateAndNotifyRecommendations(user.id);
       }
-      console.log('Daily recommendation notifications sent successfully at', moment().tz('America/Toronto').format());
+      console.log('Daily recommendation notifications sent successfully.');
     } catch (error) {
-      console.error('Error sending daily recommendation notifications at', moment().tz('America/Toronto').format(), error);
+      console.error('Error sending daily recommendation notifications.');
     }
   });
 
@@ -136,12 +136,12 @@ const scheduleJobs = () => {
         if (events.length > 0) {
           await sendScheduledEventReminders(user.email, events);
         } else {
-          console.log(`No events found for user ${user.email}`);
+          console.log(`No events found for user.`);
         }
       }
-      console.log('Daily event reminders sent successfully at', moment().tz('America/Toronto').format());
+      console.log('Daily event reminders sent successfully.');
     } catch (error) {
-      console.error('Error sending daily event reminders at', moment().tz('America/Toronto').format(), error);
+      console.error('Error sending daily event reminders.');
     }
   });
 };

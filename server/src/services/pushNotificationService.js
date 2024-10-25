@@ -15,7 +15,6 @@ async function sendPushNotifications(user, events) {
     const fcmToken = user.fcmToken;
 
     if (!fcmToken) {
-        console.error('FCM token is missing for user:', user.id);
         return; 
     }
 
@@ -37,9 +36,9 @@ async function sendPushNotifications(user, events) {
 
         try {
             const response = await admin.messaging().send(message);
-            console.log(`Push notification sent for upcoming title: ${event.title}, response: ${response}`);
+            console.log(`Push notification sent for upcoming title.`);
         } catch (error) {
-            console.error('Error sending push notification:', error);
+            console.error('Error sending push notification.');
         }
     }
 }
