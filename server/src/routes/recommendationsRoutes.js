@@ -11,10 +11,8 @@ const { trainModel, loadModel, predictUserPreference } = require('../models/reco
 const ensureModelTrained = async (userId) => {
   const model = await loadModel();
   if (!model) {
-    console.log('Model not found, training new model...');
     const trainedModel = await trainModel(userId);
     if (!trainedModel) {
-      console.error('Error: Model could not be trained.');
       throw new Error('Model training failed.');
     }
     return trainedModel;
@@ -33,7 +31,6 @@ router.use((req, res, next) => {
 // Function to get media details from TMDB using the media ID and type
 const getMediaDetails = async (media_id, media_type) => {
   if (!media_type) {
-    console.error(`Media type is missing for media ID: ${media_id}`);
     return null;
   }
 
@@ -42,7 +39,6 @@ const getMediaDetails = async (media_id, media_type) => {
     const response = await axios.get(url);
     return response.data;
   } catch (error) {
-    console.error(`Error fetching details for ${media_type} ${media_id}:`, error.response ? error.response.data : error.message);
     return null;
   }
 };
@@ -54,7 +50,6 @@ const applyTensorFlowPredictions = async (model, mediaItems) => {
       const preference = await predictUserPreference(model, media.id, media.media_type);
       return { ...media, preference }; 
     } catch (error) {
-      console.error(`Error predicting preference for media ID: ${media.id}`, error);
       return { ...media, preference: null }; 
     }
   }));
@@ -102,7 +97,6 @@ router.get('/:userId', async (req, res) => {
       for (let media of likedMedia) {
         // Ensure the media type is only 'movie' or 'tv'
         if (!media.media_type || (media.media_type !== 'movie' && media.media_type !== 'tv')) {
-          console.error(`Skipping media with invalid or unsupported media type (expected 'movie' or 'tv') for media ID: ${media.media_id}, type: ${media.media_type}`);
           continue;  
         }
     
@@ -125,7 +119,7 @@ router.get('/:userId', async (req, res) => {
               showRecommendations.push(...similarItems);
             }
           } catch (error) {
-            console.error(`Error fetching similar media for ${media.media_type} ${media.media_id}:`, error.response ? error.response.data : error.message);
+            console.error(`Error fetching similar media.`);
           }
         }
       }
@@ -156,7 +150,6 @@ router.get('/:userId', async (req, res) => {
     let finalRecommendations = await fetchRecommendations();
 
     if (finalRecommendations.length === 0) {
-      console.log('No recommendations found. Falling back to popular media.');
 
       const fetchFallbackMedia = async () => {
         try {
@@ -180,7 +173,6 @@ router.get('/:userId', async (req, res) => {
             ...popularShows.slice(0, 2)
           ];
         } catch (error) {
-          console.error('Error fetching popular media:', error.response ? error.response.data : error.message);
           return [];
         }
       };
@@ -198,7 +190,6 @@ router.get('/:userId', async (req, res) => {
       recommendations: predictedRecommendations
     });
   } catch (error) {
-    console.error('Error fetching recommendations:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });

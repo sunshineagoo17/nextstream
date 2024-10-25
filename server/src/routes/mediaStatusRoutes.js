@@ -66,7 +66,6 @@ router.get('/:status', async (req, res) => {
     // Return the combined result of user's own media items and shared items
     res.json(finalMediaItems);
   } catch (error) {
-    console.error('Error fetching media by status:', error);
     res.status(500).json({ error: 'Failed to fetch media by status' });
   }
 });
@@ -75,8 +74,6 @@ router.get('/:status', async (req, res) => {
 router.put('/:media_id', async (req, res) => {
   const { media_id } = req.params;
   const { status, season, episode, tags, review } = req.body;
-
-  console.log('Received data:', { status, season, episode, tags, review });
 
   if (!req.user || !req.user.userId) {
     return res.status(401).json({ error: 'Unauthorized' });
@@ -104,7 +101,6 @@ router.put('/:media_id', async (req, res) => {
 
     res.json({ success: true });
   } catch (error) {
-    console.error('Error updating media status:', error);
     res.status(500).json({ error: 'Failed to update media status' });
   }
 });
@@ -128,7 +124,6 @@ router.put('/:media_id/reset', async (req, res) => {
 
     res.json({ success: true, message: 'Season and episode reset successfully!' });
   } catch (error) {
-    console.error('Error resetting season and episode:', error);
     res.status(500).json({ error: 'Failed to reset season and episode' });
   }
 });
@@ -136,8 +131,6 @@ router.put('/:media_id/reset', async (req, res) => {
 // POST /media-status
 router.post('/', async (req, res) => {
   const { media_id, status, title, poster_path, overview, media_type, release_date, genre, season, episode } = req.body; 
-
-  console.log('Inside media status creation, req.user:', req.user);
 
   if (!req.user || !req.user.userId) {
     return res.status(401).json({ error: 'Unauthorized' });
@@ -161,7 +154,6 @@ router.post('/', async (req, res) => {
 
     res.json({ success: true });
   } catch (error) {
-    console.error('Error adding media:', error);
     res.status(500).json({ error: 'Failed to add media' });
   }
 });
@@ -201,7 +193,6 @@ router.delete('/:media_id', async (req, res) => {
 
     res.json({ success: true, message: 'Media item, interaction, and associated events deleted successfully' });
   } catch (error) {
-    console.error('Error deleting media item, interaction, and associated events:', error);
     res.status(500).json({ error: 'Failed to delete media item, interaction, and associated events' });
   }
 });
@@ -210,9 +201,6 @@ router.delete('/:media_id', async (req, res) => {
 router.put('/:media_id/tags', async (req, res) => {
   const { media_id } = req.params;
   const { tags } = req.body;
-
-  console.log('Received tags:', tags);
-  console.log('Type of tags:', typeof tags);
 
   if (!req.user || !req.user.userId) {
     return res.status(401).json({ error: 'Unauthorized' });
@@ -228,7 +216,6 @@ router.put('/:media_id/tags', async (req, res) => {
 
     res.json({ success: true, message: 'Tags updated successfully' });
   } catch (error) {
-    console.error('Error updating tags:', error);
     res.status(500).json({ error: 'Failed to update tags' });
   }
 });
@@ -238,8 +225,6 @@ router.put('/:media_id/tags', async (req, res) => {
 router.put('/:media_id/review', async (req, res) => {
   const { media_id } = req.params;
   const { review } = req.body;
-
-  console.log('Received review:', review);
 
   if (!req.user || !req.user.userId) {
     return res.status(401).json({ error: 'Unauthorized' });
@@ -255,7 +240,6 @@ router.put('/:media_id/review', async (req, res) => {
 
     res.json({ success: true, message: 'Review updated successfully' });
   } catch (error) {
-    console.error('Error updating review:', error);
     res.status(500).json({ error: 'Failed to update review' });
   }
 });
@@ -276,7 +260,6 @@ router.delete('/:media_id/tags', async (req, res) => {
 
     res.json({ success: true, message: 'Tags deleted successfully' });
   } catch (error) {
-    console.error('Error deleting tags:', error);
     res.status(500).json({ error: 'Failed to delete tags' });
   }
 });
@@ -297,7 +280,6 @@ router.delete('/:media_id/review', async (req, res) => {
 
     res.json({ success: true, message: 'Review deleted successfully' });
   } catch (error) {
-    console.error('Error deleting review:', error);
     res.status(500).json({ error: 'Failed to delete review' });
   }
 });

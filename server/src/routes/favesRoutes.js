@@ -9,7 +9,6 @@ const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
 // Function to get media details from TMDB
 const getMediaDetails = async (media_id, media_type) => {
   if (!media_type) {
-    console.error(`Media type is missing for media ID: ${media_id}`);
     return null;
   }
 
@@ -44,7 +43,6 @@ const getMediaDetails = async (media_id, media_type) => {
       origin_country
     };
   } catch (error) {
-    console.error(`Error fetching details for ${media_type} ${media_id}:`, error);
     return null;
   }
 };
@@ -54,7 +52,6 @@ const getMediaTrailer = async (media_id, media_type) => {
   try {
     const url = `${TMDB_BASE_URL}/${media_type}/${media_id}/videos?api_key=${TMDB_API_KEY}`;
     const response = await axios.get(url);
-    console.log('Full TMDB response:', response.data); 
 
     let videoTypesChecked = [];
 
@@ -107,11 +104,9 @@ const getMediaTrailer = async (media_id, media_type) => {
         : `https://player.vimeo.com/video/${video.key}`;
       return embedUrl;
     } else {
-      console.log(`No video found. Types checked: ${videoTypesChecked.join(', ')}`);
       return null;
     }
   } catch (error) {
-    console.error(`Error fetching video for ${media_type} ${media_id}:`, error);
     return null;
   }
 };
@@ -205,7 +200,6 @@ router.get('/:userId/faves', async (req, res) => {
 
     res.json(paginatedResults);
   } catch (error) {
-    console.error('Error fetching favorite movies/shows:', error);
     res.status(500).json({ error: 'Error fetching favorite movies/shows' });
   }
 });
@@ -222,7 +216,6 @@ router.get('/:userId/trailer/:media_type/:media_id', async (req, res) => {
 
     res.json({ trailerUrl });
   } catch (error) {
-    console.error(`Error fetching video for ${media_type} ${media_id}:`, error);
     res.status(500).json({ error: 'Error fetching video' });
   }
 });
@@ -247,7 +240,6 @@ router.delete('/:userId/delete/:media_id/:media_type', async (req, res) => {
 
     res.json({ message: 'Media interaction updated to 0 (removed from favorites) and media_statuses updated.' });
   } catch (error) {
-    console.error('Error updating media interaction:', error);
     res.status(500).json({ error: 'Error updating media interaction' });
   }
 });

@@ -80,11 +80,11 @@ const getMediaTrailer = async (media_id, media_type) => {
         : `https://player.vimeo.com/video/${video.key}`;
       return embedUrl;
     } else {
-      console.log(`No video found. Types checked: ${videoTypesChecked.join(', ')}`);
+      console.log(`No video found.`);
       return null;
     }
   } catch (error) {
-    console.error(`Error fetching video for ${media_type} ${media_id}:`, error);
+    console.error(`Error fetching video.`, error);
     return null;
   }
 };
@@ -96,7 +96,6 @@ const getWatchProviders = async (mediaType, mediaId) => {
     const response = await axios.get(url);
     return response.data.results?.CA?.flatrate || [];
   } catch (error) {
-    console.error(`Error fetching watch providers for ${mediaType} ${mediaId}:`, error.message);
     return [];
   }
 };
@@ -104,7 +103,6 @@ const getWatchProviders = async (mediaType, mediaId) => {
 // Function to fetch popular movies and shows, handling pagination
 const fetchPopularReleases = async () => {
   try {
-    console.log('Fetching popular releases...');
     
     const fetchAllPages = async (mediaType) => {
       let results = [];
@@ -134,8 +132,6 @@ const fetchPopularReleases = async () => {
     const movies = await fetchAllPages('movie');
     const shows = await fetchAllPages('tv');
 
-    console.log('Total shows fetched:', shows.length);
-
     let streamingMovies = [];
     let streamingShows = [];
 
@@ -153,8 +149,6 @@ const fetchPopularReleases = async () => {
         streamingShows.push({ ...show, media_type: 'tv' });
       }
     }
-
-    console.log('Shows after filtering by language only:', streamingShows.length);
 
     // Ensure at least 6 movies and 6 shows are selected
     streamingMovies = streamingMovies.slice(0, 6);
@@ -185,13 +179,12 @@ const fetchPopularReleases = async () => {
     if (popularReleases.length > 0) {
       // Cache the results
       cache.set('popularReleases', popularReleases);
-      console.log('Popular releases cached successfully.');
     } else {
       console.warn('No valid popular releases found to cache.');
     }
 
   } catch (error) {
-    console.error('Error fetching popular releases:', error.message);
+    console.error('Error fetching popular releases.');
   }
 };
 
@@ -231,7 +224,6 @@ router.get('/search', async (req, res) => {
 
     res.json({ results: filteredResults });
   } catch (error) {
-    console.error('Error fetching search results:', error.message);
     res.status(500).json({ message: 'Error fetching search results' });
   }
 });
@@ -243,7 +235,6 @@ router.get('/image/:posterPath', async (req, res) => {
     const imageUrl = `https://image.tmdb.org/t/p/w500${posterPath}`;
     res.json({ url: imageUrl });
   } catch (error) {
-    console.error('Error fetching image URL:', error.message);
     res.status(500).json({ message: 'Error fetching image URL' });
   }
 });
@@ -255,7 +246,6 @@ router.get('/:mediaType/:mediaId/watch/providers', async (req, res) => {
     const providers = await getWatchProviders(mediaType, mediaId);
     res.json(providers);
   } catch (error) {
-    console.error(`Error handling watch providers request for ${mediaType} ${mediaId}:`, error.message);
     res.status(500).json({ message: 'Error fetching watch providers' });
   }
 });
@@ -271,7 +261,6 @@ router.get('/:mediaType/:mediaId/credits', async (req, res) => {
     });
     res.json(response.data);
   } catch (error) {
-    console.error(`Error fetching credits for ${mediaType} ${mediaId}:`, error.message);
     res.status(500).json({ message: 'Error fetching credits' });
   }
 });
@@ -289,7 +278,6 @@ router.get('/:mediaType/:mediaId/videos', async (req, res) => {
       res.status(404).json({ message: 'Apologies, no trailer is available.' });
     }
   } catch (error) {
-    console.error(`Error fetching videos for ${mediaType} ${mediaId}:`, error.message);
     res.status(500).json({ message: 'Error fetching videos' });
   }
 });
@@ -318,7 +306,6 @@ router.get('/:mediaType/:mediaId/recommendations', async (req, res) => {
 
     res.json({ results: recommendations });
   } catch (error) {
-    console.error(`Error fetching recommendations for ${mediaType} ${mediaId}:`, error.message);
     res.status(500).json({ message: 'Error fetching recommendations' });
   }
 });
@@ -342,7 +329,6 @@ router.get('/:mediaType/:mediaId/similar', async (req, res) => {
     const similarTitles = response.data.results;
     res.json({ results: similarTitles });
   } catch (error) {
-    console.error(`Error fetching similar titles for ${mediaType} ${mediaId}:`, error.message);
     res.status(500).json({ message: 'Error fetching similar titles' });
   }
 });
@@ -358,7 +344,6 @@ router.get('/movie/:id', async (req, res) => {
     });
     res.json(response.data);
   } catch (error) {
-    console.error(`Error fetching movie details for ${id}:`, error.message);
     res.status(500).json({ message: 'Error fetching movie details' });
   }
 });
@@ -374,7 +359,6 @@ router.get('/tv/:id', async (req, res) => {
     });
     res.json(response.data);
   } catch (error) {
-    console.error(`Error fetching TV show details for ${id}:`, error.message);
     res.status(500).json({ message: 'Error fetching TV show details' });
   }
 });
@@ -438,7 +422,6 @@ router.get('/nextview/:userId/:mediaId/:mediaType', async (req, res) => {
 
       res.json(responseData);
   } catch (error) {
-      console.error('Error fetching next view media data:', error);
       res.status(500).json({ message: 'Error fetching media data' });
   }
 });
@@ -481,7 +464,6 @@ router.get('/person/:id', async (req, res) => {
 
     res.json({ ...personData, knownFor: enrichedKnownFor });
   } catch (error) {
-    console.error(`Error fetching person details for ${id}:`, error.message);
     res.status(500).json({ message: 'Error fetching person details' });
   }
 });
@@ -531,7 +513,6 @@ router.get('/trending/:mediaType/:timeWindow', async (req, res) => {
 
     res.json({ results: response });
   } catch (error) {
-    console.error(`Error fetching trending ${mediaType} for ${timeWindow}:`, error.message);
     res.status(500).json({ message: `Error fetching trending ${mediaType} for ${timeWindow}` });
   }
 });
@@ -554,7 +535,6 @@ router.get('/movie/:movieCategory', async (req, res) => {
     });
     res.json(response.data.results);
   } catch (error) {
-    console.error(`Error fetching ${movieCategory} movies:`, error.message);
     res.status(500).json({ message: `Error fetching ${movieCategory} movies` });
   }
 });
@@ -577,7 +557,6 @@ router.get('/tv/:tvCategory', async (req, res) => {
     });
     res.json(response.data.results);
   } catch (error) {
-    console.error(`Error fetching ${tvCategory} TV shows:`, error.message);
     res.status(500).json({ message: `Error fetching ${tvCategory} TV shows` });
   }
 });

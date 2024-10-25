@@ -16,7 +16,6 @@ const fetchPopularMedia = async (page = 1) => {
         return await axiosInstance.get(url);
       } catch (error) {
         if (attempt === retries) throw error;
-        console.log(`Attempt ${attempt} failed. Retrying...`);
       }
     }
   };
@@ -37,7 +36,6 @@ const fetchPopularMedia = async (page = 1) => {
 
 const getRecommendationsForUser = async (userId) => {
   try {
-    console.log(`Fetching recommendations for user ${userId}`);
 
     const likedMedia = await knex('interactions').select('media_id').where('userId', userId).andWhere('interaction', 1);
     const viewedMedia = await knex('viewed_media').select('media_id').where('userId', userId);
@@ -59,31 +57,26 @@ const getRecommendationsForUser = async (userId) => {
     }
 
     const recommendations = popularMedia.slice(0, 5);
-    console.log('Recommendations fetched:', recommendations);
 
     return recommendations.map(rec => ({ id: rec.id, title: rec.title || rec.name }));
   } catch (error) {
-    console.error('Error fetching recommendations for user:', error);
     throw error;
   }
 };
 
 const notifyUserWithRecommendations = async (userId) => {
   try {
-    console.log(`Notifying user ${userId} with recommendations`);
     const user = await knex('users').where({ id: userId }).first();
     if (user && user.receiveNotifications) {
       const recommendations = await getRecommendationsForUser(userId);
       if (recommendations.length > 0) {
         const recommendationTitles = recommendations.map(rec => rec.title);
-        console.log('Sending recommendations via email:', recommendationTitles);
         await sendRecommendationNotifications(user.email, recommendationTitles);
 
         const sentRecommendations = recommendations.map(rec => ({
           userId,
           recommendationId: rec.id,
         }));
-        console.log('Inserting sent recommendations into the database:', sentRecommendations);
         await knex('sent_recommendations').insert(sentRecommendations);
       } else {
         console.log('No new recommendations to send');

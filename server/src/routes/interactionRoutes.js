@@ -28,7 +28,6 @@ const getMediaDetails = async (media_id, media_type) => {
   try {
     // Check if media_type is not 'person' since 'person' doesn't have genres
     if (media_type === 'person') {
-      console.warn(`Skipping media type 'person' for id ${media_id}`);
       return null;
     }
 
@@ -46,7 +45,6 @@ const getMediaDetails = async (media_id, media_type) => {
       duration,  
     };
   } catch (error) {
-    console.error(`Error fetching media details for ${media_type} ${media_id}:`, error);
     return null;
   }
 };
@@ -97,11 +95,9 @@ const getMediaTrailer = async (media_id, media_type) => {
         : `https://player.vimeo.com/video/${video.key}`;
       return embedUrl;
     } else {
-      console.log(`No video found. Types checked: ${videoTypesChecked.join(', ')}`);
       return null;
     }
   } catch (error) {
-    console.error(`Error fetching video for ${media_type} ${media_id}:`, error);
     return null;
   }
 };
@@ -112,13 +108,10 @@ router.post('/', handleAuthentication, async (req, res) => {
   const userId = req.user.userId;
 
   if (!media_type) {
-    console.error('Media type is missing');
     return res.status(400).json({ error: 'Media type is required' });
   }
 
   try {
-    console.log('Recording interaction:', { userId, media_id, interaction, media_type });
-
     // Check if the interaction already exists
     const existingInteraction = await db('interactions')
       .where({ userId, media_id, media_type })
@@ -129,7 +122,6 @@ router.post('/', handleAuthentication, async (req, res) => {
       await db('interactions')
         .where({ userId, media_id, media_type })
         .update({ interaction });
-      console.log('Interaction updated');
     } else {
       // Insert a new interaction
       await db('interactions').insert({
@@ -138,7 +130,6 @@ router.post('/', handleAuthentication, async (req, res) => {
         interaction,
         media_type
       });
-      console.log('Interaction inserted');
     }
 
     // If the interaction is a like (1), update or insert into `media_statuses`
@@ -152,20 +143,7 @@ router.post('/', handleAuthentication, async (req, res) => {
       const { title, name, poster_path, overview, release_date, genres, duration } = mediaDetails;
       
       // Handle media title depending on whether it's a movie or a TV show
-      const mediaTitle = title || name || 'Untitled'; // 'title' for movies, 'name' for TV shows
-
-      console.log({
-        userId,
-        media_id,
-        status: 'to_watch',
-        title: mediaTitle,
-        poster_path,
-        overview,
-        release_date: release_date || 'Unknown', 
-        genre: genres.join(', '),
-        duration: duration || 'Unknown',  
-        media_type
-      });
+      const mediaTitle = title || name || 'Untitled'; 
 
       await db('media_statuses')
         .insert({
@@ -182,8 +160,6 @@ router.post('/', handleAuthentication, async (req, res) => {
         })
         .onConflict(['userId', 'media_id'])  
         .merge({ status: 'to_watch' });
-        
-      console.log('Media added to media_statuses as to_watch');
     }
 
     await db('viewed_media').insert({
@@ -196,7 +172,6 @@ router.post('/', handleAuthentication, async (req, res) => {
     await trainModel(userId);
     res.status(200).json({ message: 'Interaction recorded and media status updated' });
   } catch (error) {
-    console.error('Error recording interaction:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
@@ -275,7 +250,6 @@ router.get('/toppicks/:userId', handleAuthentication, async (req, res) => {
           await fetchTopPicks(page + 1);
         }
       } catch (error) {
-        console.error('Error fetching top picks:', error);
       }
     };
 
@@ -294,7 +268,6 @@ router.get('/toppicks/:userId', handleAuthentication, async (req, res) => {
 
     res.status(200).json({ topPicks: detailedTopPicks });
   } catch (error) {
-    console.error('Error fetching top picks:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
@@ -380,7 +353,6 @@ router.get('/recommendations/:userId', handleAuthentication, async (req, res) =>
 
     // Fallback to popular media if no recommendations found
     if (finalRecommendations.length === 0) {
-      console.log('No recommendations found. Falling back to popular media.');
       const fetchFallbackMedia = async () => {
         const popularMoviesResponse = await axios.get(`${TMDB_BASE_URL}/movie/popular`, {
           params: { api_key: TMDB_API_KEY, language: 'en-US', page: 1 }
@@ -399,7 +371,6 @@ router.get('/recommendations/:userId', handleAuthentication, async (req, res) =>
 
     res.status(200).json({ recommendations: finalRecommendations });
   } catch (error) {
-    console.error('Error fetching recommendations:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
@@ -425,7 +396,6 @@ router.get('/:userId', handleAuthentication, async (req, res) => {
     const interactions = await query;
     res.json(interactions);
   } catch (error) {
-    console.error('Error fetching interactions:', error);
     res.status(500).json({ error: 'Error fetching interactions' });
   }
 });
@@ -442,7 +412,6 @@ router.get('/:userId/trailer/:media_type/:media_id', handleAuthentication, async
 
     res.json({ trailerUrl });
   } catch (error) {
-    console.error(`Error fetching video for ${media_type} ${media_id}:`, error);
     res.status(500).json({ error: 'Error fetching video' });
   }
 });

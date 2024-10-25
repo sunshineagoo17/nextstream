@@ -6,14 +6,12 @@ const authenticate = require('../middleware/authenticate');
 // Send a message to a friend
 router.post('/send', authenticate, async (req, res) => {
     const { friendId, message } = req.body;
-    const userId = req.user.userId; // Ensure userId is being retrieved from req.user
+    const userId = req.user.userId; 
   
     // Check if userId and friendId are defined
     if (!userId || !friendId) {
       return res.status(400).json({ message: 'Missing userId or friendId' });
     }
-  
-    console.log(`userId: ${userId}, friendId: ${friendId}`); // Debug logging
   
     try {
       // Ensure the user is friends with the recipient
@@ -41,7 +39,6 @@ router.post('/send', authenticate, async (req, res) => {
   
       res.status(201).json({ message: 'Message sent successfully' });
     } catch (error) {
-      console.error('Error sending message:', error);
       res.status(500).json({ message: 'Error sending message' });
     }
   });
@@ -83,7 +80,6 @@ router.get('/history/:friendId', authenticate, async (req, res) => {
 
     res.status(200).json(messages);
   } catch (error) {
-    console.error('Error retrieving message history:', error);
     res.status(500).json({ message: 'Error retrieving message history' });
   }
 });
@@ -100,7 +96,6 @@ router.post('/mark-as-read', authenticate, async (req, res) => {
 
     res.status(200).json({ message: 'Message marked as read' });
   } catch (error) {
-    console.error('Error marking message as read:', error);
     res.status(500).json({ message: 'Error marking message as read' });
   }
 });
@@ -133,16 +128,13 @@ router.post('/mark-all-read/:friendId', authenticate, async (req, res) => {
   
       res.status(200).json({ message: 'All messages marked as read' });
     } catch (error) {
-      console.error('Error marking all messages as read:', error);
       res.status(500).json({ message: 'Error marking all messages as read' });
     }
   });
   
   router.patch('/mark-all-read/:friendId', authenticate, async (req, res) => {
-    const userId = req.user.userId; // Make sure this is from req.user set in authentication middleware
+    const userId = req.user.userId; 
     const { friendId } = req.params;
-  
-    console.log("userId:", userId, "friendId:", friendId); // Debug logging
   
     if (!userId || !friendId) {
       return res.status(400).json({ message: 'Missing userId or friendId' });
@@ -161,7 +153,6 @@ router.post('/mark-all-read/:friendId', authenticate, async (req, res) => {
   
       res.status(200).json({ message: 'All messages marked as read' });
     } catch (error) {
-      console.error('Error marking all messages as read:', error);
       res.status(500).json({ message: 'Error marking all messages as read' });
     }
   });
@@ -190,7 +181,6 @@ router.delete('/delete/:messageId', authenticate, async (req, res) => {
 
     res.status(200).json({ message: 'Message deleted successfully' });
   } catch (error) {
-    console.error('Error deleting message:', error);
     res.status(500).json({ message: 'Error deleting message' });
   }
 });

@@ -25340,11 +25340,6 @@ router.post('/', async (req, res) => {
 
       const uniqueResults = removeDuplicates(combinedResults);
 
-      console.log(
-        'Combined and deduplicated movie, TV, and person results:',
-        uniqueResults
-      );
-
       if (uniqueResults.length > 0) {
         return res.json({
           message: `Here are some results matching your search:`,
@@ -25374,7 +25369,6 @@ router.post('/', async (req, res) => {
       const apiUrl = `${TMDB_BASE_URL}${url}?api_key=${TMDB_API_KEY}`;
 
       const categoryResponse = await axios.get(apiUrl);
-      console.log(`TMDB ${intent} response:`, categoryResponse.data);
 
       if (categoryResponse.data.results.length > 0) {
         const mediaResults = categoryResponse.data.results.map((item) => ({
@@ -25417,10 +25411,8 @@ async function searchMediaByTitle(query, type) {
 
   try {
     const response = await axios.get(url);
-    console.log(`TMDB response for ${query}:`, response.data);
 
     if (response.data.results.length === 0) {
-      console.log(`No results found for ${query}`);
       return [{ message: `No ${mediaType} found matching "${query}".` }];
     }
 
@@ -25443,7 +25435,6 @@ async function searchMediaByTitle(query, type) {
 
     return mediaData;
   } catch (error) {
-    console.error(`Error searching ${mediaType} by title from TMDB:`, error);
     throw new Error(`Failed to search ${mediaType}`);
   }
 }
@@ -25521,13 +25512,9 @@ async function getMediaTrailer(media_id, media_type) {
           : `https://player.vimeo.com/video/${video.key}`;
       return embedUrl;
     } else {
-      console.log(
-        `No video found. Types checked: ${videoTypesChecked.join(', ')}`
-      );
       return null;
     }
   } catch (error) {
-    console.error(`Error fetching video for ${media_type} ${media_id}:`, error);
     return null;
   }
 }
@@ -25538,10 +25525,6 @@ async function getMediaCredits(media_id, media_type) {
     const response = await axios.get(url);
     return response.data.cast.slice(0, 10);
   } catch (error) {
-    console.error(
-      `Error fetching credits for ${media_type} ${media_id}:`,
-      error.message
-    );
     return [];
   }
 }
@@ -25581,7 +25564,6 @@ async function getMediaByGenre(type, genreId) {
 
     return mediaData;
   } catch (error) {
-    console.error(`Error fetching ${mediaType} from TMDB:`, error);
     throw new Error(`Failed to fetch ${mediaType}`);
   }
 }

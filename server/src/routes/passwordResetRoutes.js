@@ -59,7 +59,6 @@ router.post('/forgot-password', async (req, res) => {
     await sgMail.send(msg);
     res.status(200).json({ message: 'Password reset email sent.' });
   } catch (error) {
-    console.error('Error sending password reset email:', error);
     res.status(500).json({ message: 'Error sending password reset email.' });
   }
 });
@@ -94,7 +93,6 @@ router.post('/reset-password', async (req, res) => {
 
     res.status(200).json({ message: 'Password has been reset.', success: true });
   } catch (error) {
-    console.error('Error resetting password:', error);
     res.status(500).json({ message: 'Error resetting password.' });
   }
 });

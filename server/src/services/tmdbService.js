@@ -48,7 +48,6 @@ async function dynamicSearch(query, fetchExtras = false) {
       return [];  // Return an empty array if no results are found
     }
   } catch (error) {
-    console.error('Error fetching from TMDB:', error.message);
     throw new Error(`Failed to search TMDB for query "${query}"`);
   }
 }
@@ -63,7 +62,6 @@ async function getMediaTrailer(mediaId, mediaType) {
     );
     return video ? `https://www.youtube.com/embed/${video.key}` : null;
   } catch (error) {
-    console.error(`Error fetching trailer for ${mediaType} ${mediaId}:`, error.message);
     return null;
   }
 }
@@ -73,9 +71,8 @@ async function getMediaCredits(mediaId, mediaType) {
   const url = `${TMDB_BASE_URL}/${mediaType}/${mediaId}/credits?api_key=${TMDB_API_KEY}`;
   try {
     const response = await axios.get(url);
-    return response.data.cast.slice(0, 10); // Top 10 cast members
+    return response.data.cast.slice(0, 10); 
   } catch (error) {
-    console.error(`Error fetching credits for ${mediaType} ${mediaId}:`, error.message);
     return [];
   }
 }

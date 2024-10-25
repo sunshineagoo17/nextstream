@@ -32,7 +32,6 @@ router.post('/create-ics', (req, res) => {
 
   createEvent(event, (error, value) => {
     if (error) {
-      console.error('Error generating ICS event:', error);
       return res.status(500).send('Error generating calendar file.');
     }
 

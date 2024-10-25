@@ -101,7 +101,6 @@ router.get('/:userId', authenticate, async (req, res) => {
       avatar: user.avatar 
     });
   } catch (error) {
-    console.error('Error fetching profile:', error);
     res.status(500).json({ message: 'Error fetching profile' });
   }
 });
@@ -126,7 +125,6 @@ router.post('/check-password', async (req, res) => {
 
     res.status(200).json({ valid: true });
   } catch (error) {
-    console.error('Error checking password:', error);
     res.status(500).json({ valid: false, message: 'Server error' });
   }
 });
@@ -218,7 +216,6 @@ router.put('/:userId', async (req, res) => {
 
     res.json({ message: 'User profile updated successfully' });
   } catch (error) {
-    console.error('Error updating profile:', error);
     res.status(500).json({ message: 'Error updating profile' });
   }
 });
@@ -230,7 +227,6 @@ router.post('/:userId/avatar', authenticate, ensureUploadsDirectoryExists, uploa
     await knex('users').where({ id: req.params.userId }).update({ avatar: avatarPath });
     res.json({ message: 'Avatar uploaded successfully', avatar: avatarPath });
   } catch (error) {
-    console.error('Error uploading avatar:', error);
     res.status(500).json({ message: 'Error uploading avatar', error: error.message });
   }
 });
@@ -246,7 +242,6 @@ router.delete('/:userId/avatar', authenticate, async (req, res) => {
     await knex('users').where({ id: req.params.userId }).update({ avatar: null });
     res.json({ message: 'Avatar deleted successfully' });
   } catch (error) {
-    console.error('Error deleting avatar:', error);
     res.status(500).json({ message: 'Error deleting avatar' });
   }
 });
@@ -263,7 +258,6 @@ router.post('/:userId/update-status', authenticate, async (req, res) => {
     await knex('users').where({ id: req.params.userId }).update({ isActive });
     res.json({ message: 'User status updated successfully' });
   } catch (error) {
-    console.error('Error updating status:', error);
     res.status(500).json({ message: 'Error updating status' });
   }
 });
@@ -284,14 +278,12 @@ router.delete('/:userId', authenticate, async (req, res) => {
     if (user.firebaseUid) {
       try {
         await admin.auth().deleteUser(user.firebaseUid);
-        console.log(`Deleted Firebase user with UID: ${user.firebaseUid}`);
       } catch (firebaseError) {
-        console.error(`Failed to delete Firebase user: ${firebaseError.message}`);
         // Optionally handle failure to delete the Firebase user, if needed
         return res.status(500).json({ message: 'Error deleting Firebase user.' });
       }
     } else {
-      console.warn(`No Firebase UID found for user ${user.email}`);
+      console.warn(`No Firebase UID found for user`);
     }
 
     // Permanently delete the user from MySQL
@@ -299,7 +291,6 @@ router.delete('/:userId', authenticate, async (req, res) => {
 
     res.json({ message: 'User account and related events deleted successfully' });
   } catch (error) {
-    console.error('Error deleting account:', error);
     res.status(500).json({ message: 'Error deleting account' });
   }
 });
@@ -308,7 +299,6 @@ router.delete('/:userId', authenticate, async (req, res) => {
 router.get('/:userId/location', authenticate, async (req, res) => {
   try {
     const response = await axios.get(`https://ipinfo.io/json?token=${process.env.IPINFO_TOKEN}`);
-    console.log('IP Info Response:', response.data); 
     const region = response.data.region; 
 
     const regionId = regionMapping[region] || null;
@@ -319,7 +309,6 @@ router.get('/:userId/location', authenticate, async (req, res) => {
       res.status(400).json({ error: 'Region not recognized' });
     }
   } catch (error) {
-    console.error('Error fetching location:', error);
     res.status(500).json({ error: 'Failed to fetch location' });
   }
 });
@@ -333,7 +322,6 @@ router.post('/update-fcm-token', authenticate, async (req, res) => {
     return res.status(400).json({ message: 'FCM token is required.' });
   }
   
-  console.log('Updating FCM token for user ID:', userId);  
   try {
     await knex('users')
       .where({ id: userId })
@@ -341,7 +329,6 @@ router.post('/update-fcm-token', authenticate, async (req, res) => {
 
     res.status(200).json({ message: 'FCM Token updated successfully.' });
   } catch (error) {
-    console.error('Error updating FCM token:', error);
     res.status(500).json({ message: 'Error updating FCM token.' });
   }
 });

@@ -36,7 +36,6 @@ router.get('/:person_id', async (req, res) => {
       })),
     });
   } catch (error) {
-    console.error('Error fetching person data:', error.message);
     res.status(500).json({ message: 'Failed to fetch person data' });
   }
 });

@@ -16,7 +16,6 @@ router.post('/', async (req, res) => {
     }
     res.status(200).json({ message: 'Model trained successfully' });
   } catch (error) {
-    console.error('Error training model:', error);
     res.status(500).json({ message: 'Internal server error while training model' });
   }
 });

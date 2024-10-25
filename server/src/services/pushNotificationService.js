@@ -20,11 +20,8 @@ async function sendPushNotifications(user, events) {
     }
 
     for (const event of events) {
-        // Log the event start time and notification offset
         const eventStartTime = moment(event.start).format('YYYY-MM-DD HH:mm:ss');
         const notificationOffset = user.notificationTime || 0; 
-        console.log(`Event Start Time: ${eventStartTime}`);
-        console.log(`Notification Time Offset: ${notificationOffset} minutes`);
 
         const message = {
             notification: {
