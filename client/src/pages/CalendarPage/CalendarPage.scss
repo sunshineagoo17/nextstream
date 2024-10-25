@@ -20,6 +20,11 @@
     padding-right: 3.5rem;
   }
 
+  @include large-desktop {
+    padding-left: 8.5rem;
+    padding-right: 8.5rem;
+  }
+
   &__hero {
     position: relative;
     padding: 2.5rem 1.25rem;

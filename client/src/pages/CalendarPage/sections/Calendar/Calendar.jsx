@@ -805,7 +805,26 @@ const Calendar = forwardRef(
                   TV Show
                 </label>
               </div>
-
+              <div className='calendar__btns-container'>
+                <button
+                  className='calendar__add-btn'
+                  onClick={selectedEvent ? handleEditEvent : handleAddEvent}>
+                  {selectedEvent ? 'Save' : 'Add'}
+                </button>
+                {selectedEvent && (
+                  <button
+                    className='calendar__delete-btn'
+                    onClick={handleDeleteEvent}
+                    data-tooltip-id="deleteDisabledTooltip" 
+                    data-tooltip-content="Only inviter can delete" 
+                  >
+                    Delete
+                  </button>
+                )}
+                <button className='calendar__cancel-btn' onClick={() => setModalVisible(false)}>Cancel</button>
+                <Tooltip id="deleteDisabledTooltip" place="top" />
+              </div>
+              
               {/* AddToCalendar component */}
               <AddToCalendar
                 eventTitle={selectedEvent ? selectedEvent.title : newEventTitle}
@@ -817,24 +836,6 @@ const Calendar = forwardRef(
                 eventDescription='Watch this event!'
               />
 
-              <button
-                className='calendar__add-btn'
-                onClick={selectedEvent ? handleEditEvent : handleAddEvent}>
-                {selectedEvent ? 'Save' : 'Add'}
-              </button>
-              {selectedEvent && (
-                <button
-                  onClick={handleDeleteEvent}
-                  data-tooltip-id="deleteDisabledTooltip" 
-                  data-tooltip-content="Only inviter can delete" 
-                >
-                  Delete
-                </button>
-              )}
-              <button className='calendar__cancel-btn' onClick={() => setModalVisible(false)}>Cancel</button>
-
-              <Tooltip id="deleteDisabledTooltip" place="top" />
-              
               {/* ShareEventWithFriends Component */}
               <ShareEventWithFriends
                 eventId={selectedEvent ? selectedEvent.id : null}

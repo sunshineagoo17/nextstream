@@ -5365,6 +5365,30 @@
       background: $rain-frosted-blue;
     }
 
+    &__add-btn {
+      &:hover {
+        color: $neutral-white !important;
+      }
+
+      &:active {
+        color: $primary-button-blue !important;
+      }
+    }
+  
+    &__delete-btn {
+      color: $primary-dark-blue !important;
+  
+      &:hover {
+        color: $neutral-white !important;
+      }
+    }
+  
+    &__cancel-btn {
+      &:hover {
+        color: $neutral-white !important;
+      }
+    }
+
     &__overlay {
       background: rgba($rain-slate-gray, .8);
       z-index: 500;

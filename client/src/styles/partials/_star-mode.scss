@@ -4876,6 +4876,30 @@ textarea {
       z-index: 500;
     }
 
+    &__add-btn {   
+      color: $neutral-black !important;
+
+      &:hover {
+        color: $neutral-black !important;
+      }
+
+      &:active {
+        color: $primary-button-blue !important;
+      }
+    }
+  
+    &__delete-btn {
+      color: $neutral-black !important;
+  
+      &:hover {
+        color: $neutral-white !important;
+      }
+
+      &:active {
+        color: $primary-dark-blue !important;
+      }
+    }
+
     &__radio {
       color: $cloud-very-deep-gray;
       background: $cloud-very-deep-gray;

@@ -5327,6 +5327,29 @@
       background: rgba($sun-white, .8);
       z-index: 500;
     }
+  
+    &__delete-btn {
+      color: $neutral-black !important;
+  
+      &:hover {
+        color: $sun-yellow !important;
+      }
+
+      &:active {
+        color: $primary-dark-blue !important;
+      }
+    }
+  
+    &__cancel-btn {
+      &:hover {
+        color: $sun-yellow !important;
+      }
+  
+      &:active {
+        background: $primary-button-blue !important;
+        color: $neutral-white !important;
+      }
+    }
 
     &__radio {
       color: $sun-light-gray;

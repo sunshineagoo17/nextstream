@@ -425,6 +425,40 @@
       background: $trans-frosted-glass-blue;
     }
 
+    &__add-btn {
+      color: $primary-dark-blue !important;
+      
+      &:hover {
+        color: $neutral-white !important;
+      }
+
+      &:active {
+        color: $primary-button-blue !important;
+      }
+    }
+  
+    &__delete-btn {
+      color: $primary-dark-blue !important;
+  
+      &:hover {
+        color: $neutral-white !important;
+      }
+
+      &:active {
+        color: $primary-dark-blue !important;
+      }
+    }
+  
+    &__cancel-btn {
+      &:hover {
+        color: $neutral-white !important;
+      }
+
+      &:active {
+        background: $frosted-glass !important;
+      }
+    }
+
     &__event-icon {
       color: $trans-candy-pink !important;
     }

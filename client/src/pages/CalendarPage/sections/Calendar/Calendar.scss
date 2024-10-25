@@ -48,8 +48,40 @@
     max-width: 120rem;
   }
 
+  &__add-btn {
+    &:active {
+      background: $neutral-white !important;
+      color: $primary-button-blue !important;
+      box-shadow: $shadow-cool-primary !important;
+    }
+  }
+
+  &__delete-btn {
+    color: $primary-button-blue !important;
+    border-radius: .25rem !important;
+
+    &:hover {
+      color: $neutral-white !important;
+    }
+  }
+
+  &__cancel-btn {
+    color: $primary-dark-blue !important;
+    box-shadow: $shadow-cool-primary !important;
+
+    &:active {
+      background: $primary-dark-blue !important;
+      color: $neutral-white !important;
+    }
+  }
+
   &__radio {
     margin-right: .5rem;
+  }
+
+  &__btns-container {
+    margin-top: -1rem;
+    margin-bottom: 1.5rem;
   }
 
   &__event-movie {

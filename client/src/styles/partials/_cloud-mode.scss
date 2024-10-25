@@ -4315,6 +4315,48 @@
       background: $cloud-frosted-light-blue;
     }
 
+    &__add-btn {
+      color: $primary-dark-blue !important;
+
+      &:hover {
+        color: $neutral-white !important;
+      }
+
+      &:active {
+        background: $neutral-white !important;
+        color: $primary-button-blue !important;
+        box-shadow: $shadow-cool-primary !important;
+      }
+    }
+  
+    &__delete-btn {
+      color: $primary-dark-blue !important;
+      box-shadow: none !important;
+  
+      &:hover {
+        color: $neutral-white !important;
+      }
+
+      &:active {
+        color: $primary-button-blue !important;
+        box-shadow: $shadow-cool-primary !important;
+      }
+    }
+  
+    &__cancel-btn {
+      color: $primary-dark-blue !important;
+
+      &:hover {
+        color: $neutral-white !important;
+      }
+  
+      &:active {
+        background: $neutral-white !important; 
+        color: $primary-button-blue !important;
+        box-shadow: $shadow-cool-primary !important;
+      }
+    }
+
     &__event-time,
     &__event-title {
       color: $neutral-black;
