@@ -65,6 +65,7 @@ const NextViewPage = () => {
     const [providers, setProviders] = useState([]);
     const [cast, setCast] = useState([]);
     const [scrollPosition, setScrollPosition] = useState(0);
+    const calendarRef = useRef(null);
 
     const castContainerRef = useRef(null);
 
@@ -152,9 +153,25 @@ const NextViewPage = () => {
         setShowCalendar(true);
     };
     
-    const handleCloseCalendar = () => {
+    const handleCloseCalendar = useCallback(() => {
         setShowCalendar(false);
-    };
+    }, []);
+      
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+          if (showCalendar && calendarRef.current && !calendarRef.current.contains(event.target)) {
+            handleCloseCalendar();
+          }
+        };
+      
+        if (showCalendar) {
+          document.addEventListener('mousedown', handleClickOutside);
+        }
+      
+        return () => {
+          document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [showCalendar, handleCloseCalendar]);      
     
     const handleToggleInteraction = async (newInteraction) => {
         if (isGuest) {
@@ -514,26 +531,30 @@ const NextViewPage = () => {
             </div>
 
             {showCalendar && (
-                <div
-                    className="nextview-page__calendar-modal"
-                    onClick={handleCloseCalendar} 
-                >
-                    <button className="nextview-page__cal-close-btn" onClick={handleCloseCalendar}>
-                        <FontAwesomeIcon icon={faClose} className='nextview-page__close-icon' />
-                    </button>
-                    <div
-                        onClick={(e) => e.stopPropagation()} 
+                <div className="nextview-page__calendar-modal">
+                    <button
+                        className="nextview-page__cal-close-btn"
+                        onClick={handleCloseCalendar}
                     >
+                        <FontAwesomeIcon icon={faClose} className="nextview-page__close-icon" />
+                    </button>
+
+                    <div ref={calendarRef}>
                         <Calendar
                             userId={userId}
                             eventTitle={mediaData.title || mediaData.name}
                             mediaType={mediaType}
-                            duration={mediaType === 'movie' ? mediaData.runtime : mediaData.episode_run_time[0]}
+                            duration={
+                                mediaType === 'movie'
+                                    ? mediaData.runtime
+                                    : mediaData.episode_run_time[0]
+                            }
                             onClose={handleCloseCalendar}
                         />
                     </div>
                 </div>
             )}
+
         </div>
     );
 };
