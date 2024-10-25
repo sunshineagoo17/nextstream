@@ -28,6 +28,7 @@ const AuthSearchResultsPage = ({ userId }) => {
   const navigate = useNavigate();
   const calendarRef = useRef(null);
   const initialRender = useRef(true);
+  const calendarModalRef = useRef(null);
 
   const query = new URLSearchParams(location.search).get('q');
 
@@ -120,9 +121,27 @@ const AuthSearchResultsPage = ({ userId }) => {
     setShowCalendar(true);
   };
 
-  const handleCloseCalendar = () => {
+  const handleCloseCalendar = useCallback(() => {
     setShowCalendar(false);
-  };
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (calendarModalRef.current && !calendarModalRef.current.contains(event.target)) {
+        handleCloseCalendar();
+      }
+    };
+  
+    if (showCalendar) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+  
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showCalendar, handleCloseCalendar]);  
 
   const toggleShowMoreProviders = (id) => {
     setShowMoreProviders(prevState => ({
@@ -411,16 +430,20 @@ const AuthSearchResultsPage = ({ userId }) => {
           <button className="auth-search-results__cal-close-btn" onClick={handleCloseCalendar}>
             <FontAwesomeIcon icon={faClose} className='auth-search-results__close-icon' />
           </button>
-          <Calendar
-            userId={userId}
-            eventTitle={eventTitle}
-            mediaType={eventMediaType}
-            duration={eventDuration}  
-            onClose={handleCloseCalendar}
-            ref={calendarRef}
-          />
+
+          <div ref={calendarModalRef}>
+            <Calendar
+              userId={userId}
+              eventTitle={eventTitle}
+              mediaType={eventMediaType}
+              duration={eventDuration}  
+              ref={calendarRef}
+              onClose={handleCloseCalendar}
+            />
+          </div>
         </div>
       )}
+
     </>
   );
 };
