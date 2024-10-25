@@ -49,6 +49,7 @@ const genreIconMapping = {
 };
 
 const NextWatchPage = () => {
+  const calendarModalRef = useRef(null);
   const { mediaId, mediaType } = useParams();
   const navigate = useNavigate();
   const { userId, isGuest } = useContext(AuthContext);
@@ -73,6 +74,24 @@ const NextWatchPage = () => {
     setAlert({ show: true, message, type });
     setTimeout(() => closeAlert(), 3000);
   }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (calendarModalRef.current && !calendarModalRef.current.contains(event.target)) {
+        handleCloseCalendar(); 
+      }
+    };
+
+    if (showCalendar) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showCalendar]);
 
   useEffect(() => {
     if (!mediaType || !mediaId) {
@@ -767,26 +786,30 @@ const NextWatchPage = () => {
       </div>
 
       {showCalendar && (
-        <div
-            className="nextwatch-page__calendar-modal"
-            onClick={handleCloseCalendar}  
-        >
-            <button
-                className='nextwatch-page__cal-close-btn'
-                onClick={handleCloseCalendar}  
-            >
-                <FontAwesomeIcon icon={faClose} className='nextwatch-page__close-icon' />
-            </button>
-            
-            <div onClick={(e) => e.stopPropagation()}>
-                <Calendar
-                    userId={userId}
-                    eventTitle={mediaData.title || mediaData.name}
-                    mediaType={mediaType}
-                    duration={mediaType === 'movie' ? mediaData.runtime : mediaData.episode_run_time[0]}
-                    onClose={handleCloseCalendar}
-                />
-            </div>
+        <div className='nextwatch-page__calendar-modal'>
+          <button
+            className='nextwatch-page__cal-close-btn'
+            onClick={handleCloseCalendar}
+          >
+            <FontAwesomeIcon icon={faClose} className='nextwatch-page__close-icon' />
+          </button>
+
+          {/* Wrap the Calendar content in a div with a ref */}
+          <div
+            ref={calendarModalRef}
+          >
+            <Calendar
+              userId={userId}
+              eventTitle={mediaData.title || mediaData.name}
+              mediaType={mediaType}
+              duration={
+                mediaType === 'movie'
+                  ? mediaData.runtime
+                  : mediaData.episode_run_time[0]
+              }
+              onClose={handleCloseCalendar}
+            />
+          </div>
         </div>
       )}
 

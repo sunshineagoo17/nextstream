@@ -887,22 +887,25 @@ const NextSearch = () => {
         </div>
       )}
 
-      {showCalendar && (
-        <div className="next-search__calendar-modal">
-          <button className="next-search__calendar-close-btn" onClick={handleCloseCalendar}>
-            <FontAwesomeIcon icon={faTimes} className="next-search__cal-close-icon" />
-          </button>
-          <Calendar
-            userId={userId}
-            eventTitle={eventTitle}
-            mediaType={selectedMediaType}
-            duration={duration}
-            handleSave={handleSaveEvent}
-            onClose={handleCloseCalendar}
-            ref={calendarRef}
-          />
-        </div>
-      )}
+        {showCalendar && (
+            <div className="next-search__calendar-modal" onClick={handleCloseCalendar}>
+                <button className="next-search__calendar-close-btn" onClick={handleCloseCalendar}>
+                    <FontAwesomeIcon icon={faTimes} className="next-search__cal-close-icon" />
+                </button>
+                <div onClick={(e) => e.stopPropagation()}>
+                    <Calendar
+                        userId={userId}
+                        eventTitle={eventTitle}
+                        mediaType={selectedMediaType}
+                        duration={duration}
+                        handleSave={handleSaveEvent}
+                        onClose={handleCloseCalendar}
+                        ref={calendarRef}
+                    />
+                </div>
+            </div>
+        )}
+
         {/* Tooltip components */}
         <Tooltip id="personTooltip" place="top" />
         <Tooltip id="lightbulbTooltip" place="top" />
