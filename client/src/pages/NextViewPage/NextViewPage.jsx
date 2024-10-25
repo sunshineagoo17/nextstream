@@ -514,17 +514,24 @@ const NextViewPage = () => {
             </div>
 
             {showCalendar && (
-                <div className="nextview-page__calendar-modal">
+                <div
+                    className="nextview-page__calendar-modal"
+                    onClick={handleCloseCalendar} 
+                >
                     <button className="nextview-page__cal-close-btn" onClick={handleCloseCalendar}>
                         <FontAwesomeIcon icon={faClose} className='nextview-page__close-icon' />
                     </button>
-                    <Calendar
-                        userId={userId}
-                        eventTitle={mediaData.title || mediaData.name}
-                        mediaType={mediaType}
-                        duration={mediaType === 'movie' ? mediaData.runtime : mediaData.episode_run_time[0]}
-                        onClose={handleCloseCalendar}
-                    />
+                    <div
+                        onClick={(e) => e.stopPropagation()} 
+                    >
+                        <Calendar
+                            userId={userId}
+                            eventTitle={mediaData.title || mediaData.name}
+                            mediaType={mediaType}
+                            duration={mediaType === 'movie' ? mediaData.runtime : mediaData.episode_run_time[0]}
+                            onClose={handleCloseCalendar}
+                        />
+                    </div>
                 </div>
             )}
         </div>

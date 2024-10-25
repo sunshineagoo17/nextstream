@@ -113,18 +113,18 @@ const Calendar = forwardRef(
           setModalVisible(false);
         }
       };
-
+    
       if (modalVisible) {
         document.addEventListener('mousedown', handleClickOutside);
       } else {
         document.removeEventListener('mousedown', handleClickOutside);
       }
-
+    
       return () => {
         document.removeEventListener('mousedown', handleClickOutside);
       };
     }, [modalVisible]);
-
+    
     const fetchEvents = useCallback(async () => {
       try {
         setLoading(true);

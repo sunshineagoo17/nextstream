@@ -13,6 +13,7 @@ const CalendarPage = () => {
   const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false);
   const [eventTitle, setEventTitle] = useState('');
   const calendarRef = useRef(null);
+  const pageRef = useRef(null);
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -27,13 +28,13 @@ const CalendarPage = () => {
           setLoading(false);
         }
       } else {
-        setLoading(false); 
+        setLoading(false);
       }
     };
-  
+
     fetchUserProfile();
   }, [userId, setName]);
-  
+
   const openCalendarModal = (title) => {
     setEventTitle(title);
     setIsCalendarModalOpen(true);
@@ -42,6 +43,22 @@ const CalendarPage = () => {
   const closeCalendarModal = () => {
     setIsCalendarModalOpen(false);
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (pageRef.current && !pageRef.current.contains(event.target)) {
+        closeCalendarModal();
+      }
+    };
+
+    if (isCalendarModalOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isCalendarModalOpen]);
 
   if (loading) {
     return <Loader />;
@@ -52,7 +69,7 @@ const CalendarPage = () => {
   }
 
   return (
-    <div className="calendar-page">
+    <div className="calendar-page" ref={pageRef}>
       <ToastContainer
         position="top-center"
         autoClose={3000}
