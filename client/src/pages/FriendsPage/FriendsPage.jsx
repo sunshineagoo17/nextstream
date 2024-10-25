@@ -29,14 +29,33 @@ const FriendsPage = () => {
   const [showCalendar, setShowCalendar] = useState(false);
   const [calendarKey, setCalendarKey] = useState(0);
   const socketRef = useRef(null);
+  const calendarModalRef = useRef(null);
 
   const handleShowCalendar = () => {
     setShowCalendar(true);
   };
 
-  const handleCloseCalendar = () => {
+  const handleCloseCalendar = useCallback(() => {
     setShowCalendar(false);
-  };
+  }, []);
+
+  const handleClickOutside = useCallback((event) => {
+    if (calendarModalRef.current && !calendarModalRef.current.contains(event.target)) {
+      handleCloseCalendar();
+    }
+  }, [handleCloseCalendar]);  
+
+  useEffect(() => {
+    if (showCalendar) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+  
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showCalendar, handleClickOutside]);  
 
   const getEvents = useCallback(async () => {
     try {
@@ -968,12 +987,16 @@ const FriendsPage = () => {
                     Close Calendar
                   </span>
                 </button>
-                <Calendar
-                  key={calendarKey}
-                  userId={userId}
-                  events={sharedCalendarEvents}
-                  onClose={handleCloseCalendar}
-                />
+                <div
+                  ref={calendarModalRef}
+                >
+                  <Calendar
+                    key={calendarKey}
+                    userId={userId}
+                    events={sharedCalendarEvents}
+                    onClose={handleCloseCalendar}
+                  />
+                </div>
               </div>
             )}
           </div>
