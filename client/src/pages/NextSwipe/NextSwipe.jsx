@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext, useRef } from 'react';
+import { useState, useCallback, useEffect, useContext, useRef } from 'react';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { useSwipeable } from 'react-swipeable';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -28,6 +28,7 @@ const NextSwipe = () => {
   const [showSwipeGuide, setShowSwipeGuide] = useState(false); 
   const [isFirstSession, setIsFirstSession] = useState(false); 
   const calendarRef = useRef(null);
+  const calendarModalRef = useRef(null);
 
   const saveStateToLocalStorage = (state, key) => {
     localStorage.setItem(key, JSON.stringify(state));
@@ -251,9 +252,27 @@ const NextSwipe = () => {
     setShowCalendar(true);
   };  
 
-  const handleCloseCalendar = () => {
+  const handleCloseCalendar = useCallback(() => {
     setShowCalendar(false);
-  };
+  }, []);  
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (calendarModalRef.current && !calendarModalRef.current.contains(event.target)) {
+        handleCloseCalendar();
+      }
+    };
+  
+    if (showCalendar) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+  
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showCalendar, handleCloseCalendar]);  
 
   const handleSaveEvent = async (eventTitle, eventDate) => {
     try {
@@ -351,15 +370,17 @@ const NextSwipe = () => {
               <button className="nextswipe-page__calendar-close-btn" onClick={handleCloseCalendar}>
                 <FontAwesomeIcon icon={faClose} className='auth-search-results__close-icon' />
               </button>
-              <Calendar
-                userId={userId}
-                eventTitle={eventTitle}
-                mediaType={selectedMediaType}
-                duration={duration}
-                handleSave={handleSaveEvent}
-                onClose={handleCloseCalendar}
-                ref={calendarRef}
-              />
+              <div ref={calendarModalRef}>
+                <Calendar
+                  userId={userId}
+                  eventTitle={eventTitle}
+                  mediaType={selectedMediaType}
+                  duration={duration}
+                  handleSave={handleSaveEvent}
+                  onClose={handleCloseCalendar}
+                  ref={calendarRef}
+                />
+              </div>
             </div>
           )}
           <div className="nextswipe-page__background">
