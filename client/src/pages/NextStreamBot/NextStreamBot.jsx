@@ -38,6 +38,7 @@ const NextStreamBot = () => {
   const navigate = useNavigate();
   const messagesContainerRef = useRef(null);
   const messagesEndRef = useRef(null);
+  const calendarModalRef = useRef(null);
 
   const location = useLocation();
   const searchScrollRef = useRef(null);
@@ -458,9 +459,27 @@ const NextStreamBot = () => {
     }
   };
 
-  const handleCloseCalendar = () => {
+  const handleCloseCalendar = useCallback(() => {
     setShowCalendar(false);
-  };
+  }, []);  
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (calendarModalRef.current && !calendarModalRef.current.contains(event.target)) {
+        handleCloseCalendar();
+      }
+    };
+  
+    if (showCalendar) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+  
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showCalendar, handleCloseCalendar]);  
 
   const handleSaveEvent = async (eventTitle, eventDate) => {
     try {
@@ -950,15 +969,17 @@ const NextStreamBot = () => {
               className='nextstream-bot__cal-close-icon'
             />
           </button>
-          <Calendar
-            userId={userId}
-            eventTitle={eventTitle}
-            mediaType={selectedMediaType}
-            duration={duration}
-            handleSave={handleSaveEvent}
-            onClose={handleCloseCalendar}
-            ref={calendarRef}
-          />
+          <div ref={calendarModalRef}>
+            <Calendar
+              userId={userId}
+              eventTitle={eventTitle}
+              mediaType={selectedMediaType}
+              duration={duration}
+              handleSave={handleSaveEvent}
+              onClose={handleCloseCalendar}
+              ref={calendarRef}
+            />
+          </div>
         </div>
       )}
 
