@@ -69,12 +69,12 @@ const Calendar = forwardRef(
       socket.on('calendar_event_updated', (data) => {
         const updatedEvent = {
           ...data.event,
-          start: moment.utc(data.event.start).tz(moment.tz.guess()).format('YYYY-MM-DDTHH:mm:ss'),
-          end: data.event.end ? moment.utc(data.event.end).tz(moment.tz.guess()).format('YYYY-MM-DDTHH:mm:ss') : null,
+          start: data.event.start,
+          end: data.event.end || null,
         };
-    
+      
         setEvents((prevEvents) => [...prevEvents, updatedEvent]);
-      });
+      });      
     
       socket.on('calendar_event_removed', (data) => {
         setEvents((prevEvents) =>
@@ -91,19 +91,10 @@ const Calendar = forwardRef(
     
     useEffect(() => {
       if (calendarRef.current) {
-        Promise.resolve().then(() => {
-          const calendarApi = calendarRef.current.getApi();
-          calendarApi.removeAllEvents();
+        const calendarApi = calendarRef.current.getApi();
+        calendarApi.removeAllEvents();
     
-          // Convert all event times to local time for display
-          const localizedEvents = events.map((event) => ({
-            ...event,
-            start: moment.utc(event.start).tz(moment.tz.guess()).format('YYYY-MM-DDTHH:mm:ss'),
-            end: event.end ? moment.utc(event.end).tz(moment.tz.guess()).format('YYYY-MM-DDTHH:mm:ss') : null,
-          }));
-    
-          calendarApi.addEventSource(localizedEvents);
-        });
+        calendarApi.addEventSource(events);
       }
     }, [events]);
     
@@ -205,18 +196,16 @@ const Calendar = forwardRef(
     };
 
     const handleDateClick = (arg) => {
-      const localDate = moment(arg.date).format('YYYY-MM-DDTHH:mm:ss');
-      setNewEventStartDate(localDate);
-
-      const endDate = moment(localDate)
-        .add(duration, 'minutes')
-        .format('YYYY-MM-DDTHH:mm:ss');
+      const startDate = moment(arg.dateStr).startOf('day').format('YYYY-MM-DDTHH:mm:ss');
+      setNewEventStartDate(startDate);
+    
+      const endDate = moment(arg.dateStr).add(duration, 'minutes').format('YYYY-MM-DDTHH:mm:ss');
       setNewEventEndDate(endDate);
-
+    
       setSelectedEvent(null);
       setNewEventType(mediaType || 'movie');
       setModalVisible(true);
-    };
+    };    
 
     const handleEventClick = async (clickInfo) => {
       const { event } = clickInfo;
@@ -268,14 +257,10 @@ const Calendar = forwardRef(
           notificationTimeOffset = parseInt(customHours || 0) * 60 + parseInt(customMinutes || 0);
         }
     
-        // Convert local start/end dates to UTC for consistent storage
-        const utcStart = moment(newEventStartDate).utc().format('YYYY-MM-DDTHH:mm:ss');
-        const utcEnd = moment(newEventEndDate).utc().format('YYYY-MM-DDTHH:mm:ss');
-        
         const newEvent = {
           title: newEventTitle,
-          start: utcStart,
-          end: utcEnd,
+          start: newEventStartDate,
+          end: newEventEndDate,    
           eventType: newEventType,
           notificationTime: notificationTimeOffset,
         };
@@ -289,8 +274,8 @@ const Calendar = forwardRef(
         setLoading(false);
         setModalVisible(false);
       }
-    };    
-    
+    };
+     
     const handleEditEvent = async () => {
       if (!selectedEvent) return;
     
@@ -326,14 +311,10 @@ const Calendar = forwardRef(
         return;
       }
     
-      // Convert new times to UTC before updating
-      const utcStart = moment(start).utc().format('YYYY-MM-DDTHH:mm:ss');
-      const utcEnd = end ? moment(end).utc().format('YYYY-MM-DDTHH:mm:ss') : null;
-    
       const updatedEvent = {
         title: info.event.title,
-        start: utcStart,
-        end: utcEnd,
+        start: moment(start).format('YYYY-MM-DDTHH:mm:ss'),  
+        end: end ? moment(end).format('YYYY-MM-DDTHH:mm:ss') : null, 
         eventType: info.event.extendedProps.eventType,
       };
     
@@ -348,7 +329,7 @@ const Calendar = forwardRef(
       } finally {
         setLoading(false);
       }
-    };         
+    };
     
     const handleDeleteEvent = useCallback(async () => {
       if (isDeletingEvent.current || !selectedEvent) return;
@@ -682,7 +663,7 @@ const Calendar = forwardRef(
                 timeGridWeek: { buttonText: 'Week' },
                 timeGridDay: { buttonText: 'Day' },
               }}
-              timeZone='UTC'
+              timeZone='local'
               events={filteredEvents}
               dateClick={handleDateClick}
               eventClick={handleEventClick}
