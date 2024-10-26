@@ -1293,6 +1293,8 @@
       background-color: $frosted-glass;
     }
 
+    &__tag,
+    &__review,
     &__reset-button,
     &__save-button,
     &__tag-button,
@@ -1303,6 +1305,12 @@
     &__media-type-icon {
       background-color: $primary-dark-blue;
       color: $neutral-white;
+
+      & > .streamboard__review-icon,
+      & > .streamboard__tag-icon {
+          margin-right: 0.375rem;
+          color: inherit; 
+      }
 
       &:hover {
         background-color: $neutral-white;

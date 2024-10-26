@@ -2190,6 +2190,8 @@
       background: $neutral-white;
     }
   
+    &__tag,
+    &__review,
     &__reset-button,
     &__save-button,
     &__tag-button,
@@ -2200,6 +2202,12 @@
     &__trash-icon {
       background: $neutral-white;
       color: $rain-cloudy-ocean-blue;
+
+      & > .streamboard__review-icon,
+      & > .streamboard__tag-icon {
+          margin-right: 0.375rem;
+          color: inherit; 
+      }
   
       &:hover {
         background: $rain-forest-green;

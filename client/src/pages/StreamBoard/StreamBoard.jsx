@@ -9,7 +9,8 @@ import {
   faUserSecret, faVideoCamera, faFaceKissWinkHeart, faMusic, faHandSpock, faMask, faChildren, faFighterJet, faScroll,
   faHatCowboy, faChild, faTelevision, faBalanceScale, faHeartBroken, faBolt, faExplosion, faMeteor, faMicrophone,
   faCalendarPlus, faTrash, faClose, faSearch, faLightbulb, faSave, faRedo, faTag, faPizzaSlice,
-  faEraser
+  faEraser,
+  faCommentDots
 } from '@fortawesome/free-solid-svg-icons';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import TagModal from './sections/TagModal/TagModal';
@@ -280,22 +281,34 @@ const MediaItem = ({ item, index, status, moveMediaItem, handleAddToCalendar, ha
           </button>
         </div>
 
-        {/* Tags display */}
-        {tags && tags.length > 0 && (
-          <div className="streamboard__media-item-tags">
-            {tags.map((tag, index) => (
-              <span
-                key={index}
-                className="streamboard__tag"
-                onClick={handleOpenTagModal} 
-                style={{ cursor: 'pointer' }}  
-              >
-                <FontAwesomeIcon icon={faTag} className="streamboard__tag-icon" />
-                {tag}
+        <div className='streamboard__media-item-meta'>
+          {/* Tags display */}
+          {tags && tags.length > 0 && (
+            <button className="streamboard__media-item-tags">
+              {tags.map((tag, index) => (
+                <span
+                  key={index}
+                  className="streamboard__tag"
+                  onClick={handleOpenTagModal} 
+                >
+                  <FontAwesomeIcon icon={faTag} className="streamboard__tag-icon" />
+                  {tag}
+                </span>
+              ))}
+            </button>
+          )}
+
+          {/* Review display */}
+          {item.review && (
+            <button className="streamboard__media-item-review" onClick={handleOpenReviewModal}>
+              <span className="streamboard__review">
+                <FontAwesomeIcon icon={faCommentDots} className="streamboard__review-icon" /> 
+                {item.review}
               </span>
-            ))}
-          </div>
-        )}
+            </button>
+          )}
+        </div>
+        
       </div>
     </div>
   );
@@ -459,18 +472,17 @@ const StreamBoard = () => {
             item.media_id === selectedMediaId ? { ...item, review: newReview } : item
           );
         });
-  
         return updatedItems;
       });
   
       setReview(newReview);
       setShowReviewModal(false);
-      setAlert({ type: 'success', message: 'Review saved successfully.' });
+      setAlert({ type: 'success', message: 'Review saved successfully!' });
     } catch (error) {
       setAlert({ type: 'error', message: 'Failed to save review.' });
     }
   };
-
+  
   const handleDeleteTags = async () => {
     try {
       await api.delete(`/api/media-status/${selectedMediaId}/tags`);

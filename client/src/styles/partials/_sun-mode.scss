@@ -2186,6 +2186,8 @@
     background: $neutral-white;
   }
 
+  &__tag,
+  &__review,
   &__reset-button,
   &__save-button,
   &__tag-button,
@@ -2197,6 +2199,12 @@
     background: $neutral-white;
     color: $sun-sunrise-orange;
 
+    & > .streamboard__review-icon,
+    & > .streamboard__tag-icon {
+        margin-right: 0.375rem;
+        color: inherit; 
+    }
+
     &:hover {
       color: $sun-ocean-breeze;
     }
@@ -2207,6 +2215,8 @@
     }
   }
 
+  &__tag,
+  &__review,
   &__tag-button,
   &__review-button {
     border: none;
