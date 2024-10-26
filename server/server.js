@@ -71,7 +71,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// Use session middleware
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -81,7 +80,6 @@ app.use(
   })
 );
 
-// Configure CORS with better environment detection
 const allowedOrigins = [process.env.CLIENT_URL];
 if (process.env.NODE_ENV !== 'production') {
   allowedOrigins.push('http://localhost:3000');
@@ -102,14 +100,11 @@ app.use(cors(corsOptions));
 // Initialize NodeCache with TTL of 1 hour
 const NodeCache = require('node-cache');
 const cache = new NodeCache({ stdTTL: 3600 });
-
-// Serve uploaded avatars
+s
 app.use('/uploads', express.static(path.join(__dirname, 'src/uploads')));
 
-// Socket.IO Setup
 io.on('connection', (socket) => {
 
-  // Typing events for friends chat
   socket.on('typing', (data) => {
     socket.to(data.friendId).emit('typing', { friendId: data.userId });
   });
@@ -118,12 +113,10 @@ io.on('connection', (socket) => {
     socket.to(data.friendId).emit('stop_typing', { friendId: data.userId });
   });
 
-  // Join the user to their own room based on their userId
   socket.on('join_room', (roomId) => {
     socket.join(roomId);
   });
 
-  // Listen for the send_message event
   socket.on('send_message', async (data) => {
     const { senderId, receiverId, message } = data;
 
@@ -166,15 +159,12 @@ io.on('connection', (socket) => {
   socket.on('respond_calendar_invite', async (data) => {
     const { inviteId, userId, response } = data;
     try {
-      // Update the database with the response (accept/decline)
       await respondToSharedEvent(userId, inviteId, response);
 
       if (response === 'accepted') {
-        // Emit event to update the shared calendar with the accepted invite
         const acceptedInvite = await getInviteDetails(inviteId);
         io.to(userId).emit('calendar_event_updated', { event: acceptedInvite });
       } else {
-        // Emit event to remove the declined invite from the shared calendar
         io.to(userId).emit('calendar_event_removed', { inviteId });
       }
 
@@ -186,7 +176,6 @@ io.on('connection', (socket) => {
     }
   });
 
-  // Listen for new friend requests
   socket.on('new_friend_request', async (data) => {
     const { requestedUserId, requestDetails } = data;
     try {
@@ -198,7 +187,6 @@ io.on('connection', (socket) => {
     }
   });
 
-  // Listen for friend request acceptance
   socket.on('friend_request_accepted', async (data) => {
     const { senderUserId, friendDetails } = data;
     try {
@@ -210,12 +198,10 @@ io.on('connection', (socket) => {
     }
   });
 
-  // Handle disconnect
   socket.on('disconnect', () => {
   });
 });
 
-// Health check endpoint
 app.get('/health', (req, res) => {
   res.status(200).send('OK');
 });
@@ -232,10 +218,8 @@ app.use('/api/chatbot', chatbotRoutes);
 app.use('/api/train', authenticate, trainRoutes);
 app.use('/api/gpt', gptRoutes);
 
-// Spotlight Routes for person details
 app.use('/api/spotlight', authenticate, spotlightRoutes);
 
-// Calendar Routes (Allow both authenticated users and guests)
 app.use(
   '/api/calendar',
   (req, res, next) => {
@@ -264,26 +248,21 @@ app.use('/api/friends', authenticate, friendsRoutes);
 app.use('/api/messages', authenticate, friendsMsgsRoutes);
 app.use('/api/users', authenticate, userRoutes);
 
-// Serve static files from the React app
 app.use(express.static(path.join(__dirname, '../client/build')));
 
-// Serve React app for specific allowed routes
 const allowedRoutes = ['/', '/terms'];
 app.get(allowedRoutes, (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
 });
 
-// Catch-all route to serve React's index.html for non-API routes
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
 });
 
-// Error handling middleware
 app.use((err, req, res, next) => {
   res.status(500).send('Wait! Something broke!');
 });
 
-// Start scheduled jobs
 cronJobs.scheduleJobs();
 
 // Start the server
