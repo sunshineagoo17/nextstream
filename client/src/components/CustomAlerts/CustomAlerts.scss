@@ -24,6 +24,7 @@
   max-width: 18.75rem;
   animation: slide-in .5s ease-in-out;
   box-sizing: border-box;
+  z-index: 10003;
 
   @include tablet {
     width: 70%;
