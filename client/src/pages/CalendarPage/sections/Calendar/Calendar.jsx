@@ -132,8 +132,15 @@ const Calendar = forwardRef(
         const response = await api.get(`/api/calendar/${userId}/events`);
     
         if (response.data && response.data.length > 0) {
-          setEvents(response.data);
-          setFilteredEvents(response.data);
+          // Convert event times from UTC to local time
+          const eventsWithLocalTime = response.data.map(event => ({
+            ...event,
+            start: moment.utc(event.start).local().format('YYYY-MM-DDTHH:mm:ss'),
+            end: event.end ? moment.utc(event.end).local().format('YYYY-MM-DDTHH:mm:ss') : null,
+          }));
+          
+          setEvents(eventsWithLocalTime);
+          setFilteredEvents(eventsWithLocalTime);
         } else {
           setEvents([]);
           setFilteredEvents([]);
@@ -257,10 +264,14 @@ const Calendar = forwardRef(
           notificationTimeOffset = parseInt(customHours || 0) * 60 + parseInt(customMinutes || 0);
         }
     
+        // Convert start and end times to UTC before submitting
+        const utcStart = moment(newEventStartDate).utc().format('YYYY-MM-DDTHH:mm:ss[Z]');
+        const utcEnd = newEventEndDate ? moment(newEventEndDate).utc().format('YYYY-MM-DDTHH:mm:ss[Z]') : utcStart;
+    
         const newEvent = {
           title: newEventTitle,
-          start: newEventStartDate,
-          end: newEventEndDate,    
+          start: utcStart,
+          end: utcEnd,
           eventType: newEventType,
           notificationTime: notificationTimeOffset,
         };
@@ -275,7 +286,7 @@ const Calendar = forwardRef(
         setModalVisible(false);
       }
     };
-     
+    
     const handleEditEvent = async () => {
       if (!selectedEvent) return;
     
@@ -311,10 +322,14 @@ const Calendar = forwardRef(
         return;
       }
     
+      // Convert start and end times to UTC before submitting
+      const utcStart = moment(start).utc().format('YYYY-MM-DDTHH:mm:ss[Z]');
+      const utcEnd = end ? moment(end).utc().format('YYYY-MM-DDTHH:mm:ss[Z]') : utcStart;
+    
       const updatedEvent = {
         title: info.event.title,
-        start: moment(start).format('YYYY-MM-DDTHH:mm:ss'),  
-        end: end ? moment(end).format('YYYY-MM-DDTHH:mm:ss') : null, 
+        start: utcStart,
+        end: utcEnd,
         eventType: info.event.extendedProps.eventType,
       };
     
