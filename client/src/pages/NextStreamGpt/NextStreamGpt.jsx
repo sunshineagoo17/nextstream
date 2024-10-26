@@ -11,7 +11,7 @@ import Calendar from '../CalendarPage/sections/Calendar/Calendar';
 import api from '../../services/api';
 import UserRating from '../TopPicksPage/sections/UserRating/UserRating';
 import DefaultPoster from '../../assets/images/posternoimg-icon.png';
-import MizuLoader from '../../components/Loaders/MizuLoader/MizuLoader';
+import LogoLoader from '../../components/Loaders/LogoLoader/LogoLoader';
 import ChatRobotAnimation from "../../assets/animation/chat-robot.webm";
 import HelloRobotAnimation from "../../assets/animation/hello-robot.webm";
 import SearchRobotAnimation from "../../assets/animation/search-robot.webm";
@@ -685,7 +685,7 @@ const NextStreamGpt = () => {
 
       {showLoader && (
         <div className='nextstream-gpt__loader-overlay'>
-          <MizuLoader />
+          <LogoLoader />
         </div>
       )}
 

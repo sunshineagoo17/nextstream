@@ -9,7 +9,7 @@ import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
 import ChatbotSvg from "../../assets/images/chat-bot.svg";
 import Calendar from '../CalendarPage/sections/Calendar/Calendar';
 import api from '../../services/api';
-import RobotLoader from '../../components/Loaders/RobotLoader/RobotLoader';
+import LogoLoader from '../../components/Loaders/LogoLoader/LogoLoader';
 import ReelSVG from '../../assets/images/reel-svg.svg';
 import UserRating from '../TopPicksPage/sections/UserRating/UserRating';
 import './NextStreamBot.scss';
@@ -561,7 +561,7 @@ const NextStreamBot = () => {
     <div className='nextstream-bot'>
       {isLoading && (
         <div className='nextstream-bot__loader-overlay'>
-          <RobotLoader />  
+          <LogoLoader />  
         </div>
       )}
 
