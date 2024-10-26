@@ -615,14 +615,16 @@ const StreamBoard = () => {
         return updatedItems;
       });
   
+      setSearchResult((prevResult) => (prevResult && prevResult.media_id === media_id ? null : prevResult));
+  
       setAlert({ type: 'success', message: 'Media status updated successfully.' });
     } catch {
       setAlert({ type: 'error', message: 'Failed to update media status.' });
     } finally {
       setLoading(false);
     }
-  };  
-
+  };
+  
   const handleDeleteMedia = async (media_id, media_type) => {
     setLoading(true);
 
