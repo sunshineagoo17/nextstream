@@ -286,51 +286,6 @@
   
   }
 
-  &__calendar-button {
-    @include block-item(.75rem, .75rem);
-    position: absolute;
-    top: .125rem;
-    right: .125rem;
-    background: rgba(255, 255, 255, .8);
-    border: none;
-    border-radius: 50%;
-    padding: .625rem;
-    color: $primary-medium-blue;
-    box-shadow: $shadow-tertiary;
-    overflow: hidden;
-    transition: transform .2s ease, background-color .2s ease, border-color .2s ease;
-
-    &:hover {
-      transform: scale(1.05);
-      background: $primary-dark-blue;
-      color: $neutral-white;
-    }
-
-    &:active {
-      transform: scale(.9);
-      background: $primary-medium-blue;
-    }
-
-    @include tablet {
-      @include block-item(2rem, 2rem);
-      top: .4375rem;
-      right: .625rem;
-    }
-  }
-
-  &__calendar-icon {
-    @include block-item(.65rem, .65rem);
-    position: relative;
-    top: -.5625rem;
-    right: .3125rem;
-
-      @include tablet {
-        @include block-item(1.25rem, 1.25rem);
-        top: -.3125rem;
-        right: .25rem;
-      }
-    }
-
   &__streaming-services {
     display: flex;
     justify-content: center;
@@ -473,18 +428,27 @@
     border-radius: .5rem;
     @include block-item(auto, 8rem);
     margin-bottom: .05rem;
-
+    transition: transform 0.3s ease;
+  
+    &:hover {
+      transform: scale(1.05); 
+    }
+  
+    &:active {
+      transform: scale(.95);
+    }
+  
     @include tablet {
       @include block-item(100%, 14rem);
       box-shadow: $shadow-primary;
       border-radius: 1rem;
-
+  
       @include desktop {
         @include block-item(100%, 20rem);
       }
     }
   }
-
+  
   &__content-card {
     @include bg-white;
     padding: 2rem;
@@ -686,6 +650,7 @@
     margin-top: .25rem;
   }
 
+  &__calendar-icon,
   &__thumbs-up,
   &__thumbs-down,
   &__share-icon {

@@ -236,7 +236,7 @@ const AuthSearchResultsPage = ({ userId }) => {
     return <FontAwesomeIcon icon={faImage} className="auth-search-results__media-icon auth-search-results__media-none-icon" alt="No Media Type Available" />;
   };
 
-  const getInteractionIcon = (interaction, mediaId, mediaType, title) => {
+  const getInteractionIcon = (interaction, mediaId, mediaType, title, duration) => {
     return (
       <>
         {interaction === 1 ? (
@@ -292,9 +292,19 @@ const AuthSearchResultsPage = ({ userId }) => {
           />
           <Tooltip id={`shareTooltip-${mediaId}`} place="top" className="tooltip-custom" />
         </button>
+        <button>
+          <FontAwesomeIcon
+            icon={faCalendarPlus}
+            className="auth-search-results__calendar-icon"
+            onClick={() => handleAddToCalendar(title, mediaType, duration)}
+            data-tooltip-id={`calendarTooltip-${mediaId}`}
+            data-tooltip-content="ADD TO CAL"
+          />
+          <Tooltip id={`calendarTooltip-${mediaId}`} place="top" className="tooltip-custom" />
+        </button>
       </>
     );
-  };  
+  };
 
   return (
     <>
@@ -356,13 +366,6 @@ const AuthSearchResultsPage = ({ userId }) => {
                       )}
                       {getMediaTypeIcon(result.media_type)}
                     </div>
-                    <button
-                      aria-label="Add to Calendar"
-                      className="auth-search-results__calendar-button"
-                      onClick={() => handleAddToCalendar(result.title || result.name, result.media_type, result.duration)} 
-                    >
-                      <FontAwesomeIcon icon={faCalendarPlus} className='auth-search-results__calendar-icon' />
-                    </button>
                   </div>
 
                   <div className="auth-search-results__streaming-services">
