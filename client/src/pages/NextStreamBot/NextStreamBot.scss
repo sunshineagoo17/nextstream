@@ -1162,7 +1162,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: .5rem;
+    margin-top: 1rem;
     margin-bottom: .5rem;
     border: .125rem solid $neutral-white;
     background: $primary-pale-blue;
@@ -1718,20 +1718,9 @@
     border-radius: 1rem;
   }
 
-  &__poster-container-popular,
   &__poster-container-results {
-    position: relative;
     transition: transform .3s ease, box-shadow .3s ease;
-  }
-
-  &__poster-container-popular {
-    &:hover {
-      transform: rotate(-2deg) translateX(.3125rem);
-    }
-
-    &:active {
-      transform: scale(.9);
-    }
+    position: relative;
   }
 
   &__poster-container-results {
@@ -1763,10 +1752,6 @@
     border-top: .25rem solid $primary-light-blue;
     border-radius: .5rem;
     box-shadow: $shadow-quaternary;
-
-    &--results {
-      margin-bottom: 1rem;
-    }
   }
 
   &__results-section {
