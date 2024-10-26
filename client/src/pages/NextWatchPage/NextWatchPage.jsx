@@ -64,6 +64,7 @@ const NextWatchPage = () => {
   const [showCalendar, setShowCalendar] = useState(false);
   const [alert, setAlert] = useState({ show: false, message: '', type: '' });
   const [scrollPosition, setScrollPosition] = useState(0);
+  const trailerModalRef = useRef(null);
   const [recommendationScrollPosition, setRecommendationScrollPosition] =
     useState(0);
   const [recommendations, setRecommendations] = useState([]);
@@ -80,18 +81,19 @@ const NextWatchPage = () => {
       if (calendarModalRef.current && !calendarModalRef.current.contains(event.target)) {
         handleCloseCalendar(); 
       }
+      if (trailerModalRef.current && !trailerModalRef.current.contains(event.target)) {
+        setShowTrailer(false);
+      }
     };
-
-    if (showCalendar) {
+  
+    if (showCalendar || showTrailer) {
       document.addEventListener('mousedown', handleClickOutside);
-    } else {
-      document.removeEventListener('mousedown', handleClickOutside);
     }
-
+  
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [showCalendar]);
+  }, [showCalendar, showTrailer]);  
 
   useEffect(() => {
     if (!mediaType || !mediaId) {
@@ -758,7 +760,7 @@ const NextWatchPage = () => {
 
       {showTrailer && (
         <div className='nextwatch-page__modal'>
-          <div className='nextwatch-page__modal-content'>
+          <div className='nextwatch-page__modal-content' ref={trailerModalRef}>
             <button
               className='nextwatch-page__modal-content-close'
               onClick={() => setShowTrailer(false)}>

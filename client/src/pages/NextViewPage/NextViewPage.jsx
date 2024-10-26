@@ -66,6 +66,7 @@ const NextViewPage = () => {
     const [cast, setCast] = useState([]);
     const [scrollPosition, setScrollPosition] = useState(0);
     const calendarRef = useRef(null);
+    const trailerModalRef = useRef(null);
 
     const castContainerRef = useRef(null);
 
@@ -159,19 +160,22 @@ const NextViewPage = () => {
       
     useEffect(() => {
         const handleClickOutside = (event) => {
-          if (showCalendar && calendarRef.current && !calendarRef.current.contains(event.target)) {
-            handleCloseCalendar();
-          }
+            if (showCalendar && calendarRef.current && !calendarRef.current.contains(event.target)) {
+                handleCloseCalendar();
+            }
+            if (showTrailer && trailerModalRef.current && !trailerModalRef.current.contains(event.target)) {
+                setShowTrailer(false);
+            }
         };
-      
-        if (showCalendar) {
-          document.addEventListener('mousedown', handleClickOutside);
+    
+        if (showCalendar || showTrailer) {
+            document.addEventListener('mousedown', handleClickOutside);
         }
-      
+    
         return () => {
-          document.removeEventListener('mousedown', handleClickOutside);
+            document.removeEventListener('mousedown', handleClickOutside);
         };
-    }, [showCalendar, handleCloseCalendar]);      
+    }, [showCalendar, showTrailer, handleCloseCalendar]);        
     
     const handleToggleInteraction = async (newInteraction) => {
         if (isGuest) {
@@ -504,7 +508,7 @@ const NextViewPage = () => {
 
             {showTrailer && (
                 <div className="nextview-page__modal">
-                    <div className="nextview-page__modal-content">
+                    <div className="nextview-page__modal-content" ref={trailerModalRef}>
                         <button className="nextview-page__modal-content-close" onClick={() => setShowTrailer(false)}>
                             <FontAwesomeIcon icon={faClose} />
                         </button>

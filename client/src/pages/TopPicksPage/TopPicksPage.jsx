@@ -37,6 +37,7 @@ const TopPicksPage = () => {
   const [likedStatus, setLikedStatus] = useState({});
   const calendarRef = useRef(null);
   const calendarModalRef = useRef(null);
+  const trailerModalRef = useRef(null);
 
   useEffect(() => {
     const fetchInitialMedia = async () => {
@@ -203,24 +204,30 @@ const TopPicksPage = () => {
     setShowCalendar(false);
   }, []);  
 
+  const closeModal = useCallback(() => {
+    setIsModalOpen(false);
+    setTrailerUrl('');
+  }, []);
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (calendarModalRef.current && !calendarModalRef.current.contains(event.target)) {
         handleCloseCalendar();
       }
+      if (trailerModalRef.current && !trailerModalRef.current.contains(event.target)) {
+        closeModal();
+      }
     };
-
-    if (showCalendar) {
+  
+    if (showCalendar || isModalOpen) {
       document.addEventListener('mousedown', handleClickOutside);
-    } else {
-      document.removeEventListener('mousedown', handleClickOutside);
     }
-
+  
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [showCalendar, handleCloseCalendar]);  
-
+  }, [showCalendar, isModalOpen, handleCloseCalendar, closeModal]);
+  
   const handleSaveEvent = async (eventTitle, eventDate) => {
     try {
       const newEvent = {
@@ -292,12 +299,7 @@ const TopPicksPage = () => {
   const showAlert = (message, type) => {
     setAlert({ message, type });
   };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setTrailerUrl('');
-  };
-
+  
   const handleClick = (e) => {
     if (isGuest) {
       e.preventDefault();
@@ -442,7 +444,7 @@ const TopPicksPage = () => {
         )}
         {isModalOpen && (
           <div className="top-picks-page__modal">
-            <div className="top-picks-page__modal-content">
+            <div className="top-picks-page__modal-content" ref={trailerModalRef}>
               <button className="top-picks-page__modal-content-close" onClick={closeModal}>
                 <FontAwesomeIcon icon={faTimes} />
               </button>

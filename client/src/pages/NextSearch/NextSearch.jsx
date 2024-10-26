@@ -38,6 +38,7 @@ const NextSearch = () => {
   const [likedStatus, setLikedStatus] = useState({});
   const calendarRef = useRef(null);
   const calendarModalRef = useRef(null);
+  const trailerModalRef = useRef(null);
   const navigate = useNavigate();
 
   const location = useLocation();
@@ -307,14 +308,27 @@ const NextSearch = () => {
     setShowCalendar(false);
   }, []);
 
+  const handleCloseModal = useCallback(() => {
+    setIsModalOpen(false);
+    setTrailerUrl('');
+  }, []);
+
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (calendarModalRef.current && !calendarModalRef.current.contains(event.target)) {
-        handleCloseCalendar();
+      if (
+        (calendarModalRef.current && !calendarModalRef.current.contains(event.target)) ||
+        (trailerModalRef.current && !trailerModalRef.current.contains(event.target))
+      ) {
+        if (showCalendar) {
+          handleCloseCalendar();
+        }
+        if (isModalOpen) {
+          handleCloseModal();
+        }
       }
     };
   
-    if (showCalendar) {
+    if (showCalendar || isModalOpen) {
       document.addEventListener('mousedown', handleClickOutside);
     } else {
       document.removeEventListener('mousedown', handleClickOutside);
@@ -323,8 +337,8 @@ const NextSearch = () => {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [showCalendar, handleCloseCalendar]);  
-
+  }, [showCalendar, handleCloseCalendar, isModalOpen, handleCloseModal]);
+  
   const handleSaveEvent = async (eventTitle, eventDate) => {
     try {
       const newEvent = {
@@ -890,7 +904,7 @@ const NextSearch = () => {
 
       {isModalOpen && (
         <div className="next-search__modal">
-          <div className="next-search__modal-content">
+          <div className="next-search__modal-content" ref={trailerModalRef}>
             <button className="next-search__modal-content-close" onClick={closeModal}>
                 <FontAwesomeIcon icon={faTimes} />
             </button>

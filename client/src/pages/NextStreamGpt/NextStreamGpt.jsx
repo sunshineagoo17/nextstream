@@ -44,6 +44,7 @@ const NextStreamGpt = () => {
   const isInterrupted = useRef(false);
   const controllerRef = useRef(null);
   const calendarModalRef = useRef(null);
+  const trailerModalRef = useRef(null);
 
   const location = useLocation();
   const searchScrollRef = useRef(null);
@@ -515,10 +516,10 @@ const NextStreamGpt = () => {
     scrollRef.current.scrollBy({ left: 300, behavior: 'smooth' });
   };
 
-  const closeModal = () => {
+  const closeModal = useCallback(() => {
     setIsModalOpen(false);
     setTrailerUrl('');
-  };
+  }, []);
 
   const handleAddToCalendar = async (title, mediaType, mediaId) => {
     try {
@@ -551,18 +552,19 @@ const NextStreamGpt = () => {
       if (calendarModalRef.current && !calendarModalRef.current.contains(event.target)) {
         handleCloseCalendar();
       }
+      if (trailerModalRef.current && !trailerModalRef.current.contains(event.target)) {
+        closeModal();
+      }
     };
   
-    if (showCalendar) {
+    if (showCalendar || isModalOpen) {
       document.addEventListener('mousedown', handleClickOutside);
-    } else {
-      document.removeEventListener('mousedown', handleClickOutside);
     }
   
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [showCalendar, handleCloseCalendar]); 
+  }, [showCalendar, isModalOpen, handleCloseCalendar, closeModal]);
 
   const handleSaveEvent = async (eventTitle, eventDate) => {
     try {
@@ -1082,7 +1084,7 @@ const NextStreamGpt = () => {
 
       {isModalOpen && (
         <div className='nextstream-gpt__modal'>
-          <div className='nextstream-gpt__modal-content'>
+          <div className='nextstream-gpt__modal-content' ref={trailerModalRef}>
             <button
               className='nextstream-gpt__modal-content-close'
               onClick={closeModal}>

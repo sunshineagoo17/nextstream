@@ -50,6 +50,7 @@ const FavouritesPage = () => {
   const calendarRef = useRef(null);
   const calendarModalRef = useRef(null);
   const [page, setPage] = useState(1);
+  const trailerModalRef = useRef(null);
   const [lockedMedia, setLockedMedia] = useState({});
   const [mediaStatuses, setMediaStatuses] = useState({
     to_watch: [],
@@ -242,24 +243,30 @@ const FavouritesPage = () => {
     setShowCalendar(false);
   }, []);  
 
+  const closeModal = useCallback(() => {
+    setIsModalOpen(false);
+    setTrailerUrl('');
+  }, []);  
+  
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (calendarModalRef.current && !calendarModalRef.current.contains(event.target)) {
         handleCloseCalendar();
       }
+      if (trailerModalRef.current && !trailerModalRef.current.contains(event.target)) {
+        closeModal();
+      }
     };
   
-    if (showCalendar) {
+    if (showCalendar || isModalOpen) {
       document.addEventListener('mousedown', handleClickOutside);
-    } else {
-      document.removeEventListener('mousedown', handleClickOutside);
     }
   
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [showCalendar, handleCloseCalendar]);  
-
+  }, [showCalendar, isModalOpen, handleCloseCalendar, closeModal]);
+  
   const handleSaveEvent = async (eventTitle, eventDate) => {
     try {
       const newEvent = {
@@ -278,11 +285,6 @@ const FavouritesPage = () => {
         showAlert('Error saving event. Please try again later.', 'error');
       }
     }
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setTrailerUrl('');
   };
 
   const handleSearchQuery = async () => {
@@ -861,7 +863,7 @@ const FavouritesPage = () => {
         </div>
         {isModalOpen && (
           <div className="faves-page__modal">
-            <div className="faves-page__modal-content">
+            <div className="faves-page__modal-content" ref={trailerModalRef}>
               <button className="faves-page__modal-content-close" onClick={closeModal}>
                 <FontAwesomeIcon icon={faTimes} />
               </button>
