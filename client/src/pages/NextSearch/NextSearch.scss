@@ -537,6 +537,7 @@
     left: 0;
     background-color: $primary-darker-blue;
     display: flex;
+    z-index: 10002;
     justify-content: center;
     align-items: center;
     border-radius: 1rem;
