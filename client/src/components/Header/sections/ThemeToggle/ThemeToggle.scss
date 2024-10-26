@@ -32,26 +32,26 @@
     color: #FFC107;
     padding: .6rem;
     background: $primary-pale-blue;
-    box-shadow: $shadow-secondary;
     border-radius: .5rem;
     border: .125rem solid #fee100;
-    transition: background .5s, clip-path .5s ease-in-out;
-
+    transition: background .5s, box-shadow .3s ease-in-out;
+    box-shadow: 0 0 .5rem rgba(254, 225, 0, 0.3), inset 0 0 .2rem rgba(254, 225, 0, 0.2);
+  
     &:hover {
-      border: .125rem solid #fee100;
       background: #fee100;
       color: $neutral-white;
-      box-shadow: 0 0 .625rem .1875rem rgba(254, 225, 0, .7), 0 0 1.25rem .3125rem rgba(254, 225, 0, .4);
+      box-shadow: 0 0 .5rem rgba(254, 225, 0, 0.6), inset 0 0 .2rem rgba(0, 0, 0, 0.1);
       animation: morph-bg 5s infinite;
+      border-radius: .5rem;
     }
-
+  
     &:active {
       opacity: 1;
       color: #FFA000;
       background: radial-gradient(circle, #FFD700 50%, #FFC107 70%, #FFA000 100%);
-      box-shadow: $shadow-secondary;
+      box-shadow: 0 0 .5rem rgba(254, 225, 0, 0.4), inset 0 0 .2rem rgba(0, 0, 0, 0.15);
       border: .125rem solid $neutral-white;
-      border-radius: 1.5rem;
+      border-radius: .5rem;
     }
   }
 
@@ -60,7 +60,6 @@
     animation: moonlight 1s infinite alternate;
   }
 
-  // Cloud button for Cloud Mode
   .cloud {
     color: $neutral-white;
     padding: .6rem;
@@ -115,37 +114,35 @@
     }
   }
 
-  // Rainbow button for Trans Mode
   .rainbow {
     color: transparent;
     padding: .5rem;
     background: linear-gradient(145deg, $trans-blue 0%, $trans-pink 25%, $trans-candy-pink 50%, $trans-deep-blue 75%, $trans-pale-blue 100%);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), 0 6px 25px rgba(255, 153, 204, 0.4), inset 0 0 8px rgba(119, 153, 255, 0.3);
+    box-shadow: 0 0 .5rem rgba(0, 0, 0, 0.2), inset 0 0 .2rem rgba(119, 153, 255, 0.3);
     border-radius: .875rem;
     border: .125rem solid rgba(255, 255, 255, 0.25);
     transition: background 0.6s ease-in-out, transform 0.3s ease-in-out, box-shadow 0.5s ease-in-out, color 0.4s ease-in-out;
-
+  
     &:hover {
       border: .125rem solid $trans-pink;
-      background-position: 200%;
+      background: linear-gradient(145deg, $trans-blue 0%, $trans-pink 25%, $trans-candy-pink 50%, $trans-deep-blue 75%, $trans-pale-blue 100%);
+      background-size: 200%;
+      background-position: 100%;
       transform: scale(1.1);
       color: $trans-electric-blue;
-      background-clip: text;
-      transition: transform 0.4s, color 0.6s ease-out;
-      box-shadow: 0 0 .625rem .1875rem rgba(255, 99, 199, .7), 0 0 1.25rem .3125rem rgba(255, 99, 199, .4);
-      border-radius: 2.5rem 2.5rem .75rem .75rem;
+      box-shadow: 0 0 .625rem .1875rem rgba(255, 99, 199, .7), inset 0 0 .3rem rgba(0, 0, 0, 0.1);
+      border-radius: .875rem;
     }
-
+  
     &:active {
-      background-position: 100%;
-      border-radius: 50%;
       background: linear-gradient(135deg, $trans-pink, $trans-deep-blue, $trans-candy-pink, $trans-pale-blue);
       transform: scale(0.85);
-      box-shadow: inset 0 0 2rem rgba(255, 99, 199, 0.6), 0 0 1.75rem rgba(119, 153, 255, 0.8), 0 0 3rem rgba(119, 255, 153, 0.6);
+      box-shadow: inset 0 0 1rem rgba(255, 99, 199, 0.4), 0 0 .875rem rgba(119, 153, 255, 0.5);
       color: $neutral-white;
       border: .125rem solid $trans-pale-blue;
+      border-radius: 50%;
       transition: transform 0.15s ease, background 0.3s ease, box-shadow 0.15s ease;
-
+  
       &:before {
         content: '';
         position: absolute;
@@ -166,75 +163,62 @@
     color: $neutral-white;
     padding: 0.75rem;
     background: #f0e68c;
-    box-shadow: inset 5px 5px 15px rgba(0, 0, 0, 0.15), 
-                inset -5px -5px 15px rgba(255, 255, 255, 0.7), 
-                0 0 1.5rem rgba(255, 223, 0, 0.8), 
-                0 0 2.5rem rgba(255, 255, 102, 0.6);
+    animation: moonlight 3s infinite alternate;
     border-radius: 50%;
     transition: background 0.5s, transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
   
-    animation: twilight-glow 2s infinite alternate;
-  
     &:hover {
       background: #fffacd; 
-      box-shadow: inset 3px 3px 8px rgba(0, 0, 0, 0.2), 
-                  inset -3px -3px 8px rgba(255, 255, 255, 0.5), 
-                  0 0 3rem rgba(255, 255, 102, 0.9), 
-                  0 0 4.5rem rgba(255, 255, 204, 0.7);
       transform: scale(1.1);
       animation: spin-and-pulse 5s infinite linear;
     }
   
     &:active {
-      background: #fdfd96; 
+      background: $star-frosted-silver-gray; 
+      color: #fdfd96; 
       transform: scale(0.95);
-      box-shadow: inset 2px 2px 6px rgba(0, 0, 0, 0.2), 
-                  inset -2px -2px 6px rgba(255, 255, 255, 0.4), 
-                  0 0 3.5rem rgba(255, 250, 205, 1), 
-                  inset 0 0 1.8rem rgba(255, 223, 0, 0.8);
       animation: none;
     }
   }
 
-  // Snowflake Styling
   .snowflake {
     color: $primary-very-light-blue;
     padding: 0.45rem;
-    background: rgba(255, 255, 255, 0.2); 
+    background: rgba(255, 255, 255, 0.2);
     border-radius: 50%;
-    backdrop-filter: blur(10px); 
-    border: .125rem solid rgba(255, 255, 255, 0.3); 
-    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37); 
+    backdrop-filter: blur(.625rem);
+    border: .125rem solid rgba($primary-very-light-blue, .5);
+    box-shadow: 0 0 1.5rem rgba(255, 255, 255, 0.5), 0 0 2rem rgba(200, 230, 255, 0.4);
     transition: background 0.4s, transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
-
+  
     &:hover {
       background: $primary-very-light-blue;
       color: $neutral-white;
-      transform: scale(1.2) rotate(10deg); 
-      box-shadow: 0 0 1.5rem rgba(200, 230, 255, 0.7), 0 0 2.5rem rgba(173, 216, 230, 0.5);
-      animation: snowflake-hover-glow 2.5s infinite ease-in-out, snowflake-movement 4s ease-in-out infinite;
+      border-radius: 50%;
+      transform: rotate(10deg);
+      box-shadow: $shadow-cloud-primary;
+      animation: snowflake-movement 4s ease-in-out infinite;
     }
-
+  
     &:active {
       background: $neutral-white;
       color: $primary-very-light-blue;
-      transform: scale(0.95);
-      box-shadow: inset 0 0 0.75rem rgba(255, 255, 255, 0.3), inset 0 0 1.5rem rgba(173, 216, 230, 0.5);
+      border-radius: 50%;
+      box-shadow: inset 0 0 0.75rem rgba(255, 255, 255, 0.6), inset 0 0 1.5rem rgba(255, 255, 255, 0.5), 0 0 2rem rgba(200, 230, 255, 0.4);
+      transform: none;
     }
   }
-
-  // Rain Mode Active Lightning Glow
+  
   .rain {
     color: $rain-soft-seafoam;
     padding: 0.5rem;
     background: $rain-storm-cloud-blue;
-    box-shadow: $rain-shadow-primary;
     border-radius: .5rem;
     border: .125rem solid $rain-slate-gray;
-    transition: background 0.4s, box-shadow 0.4s, transform 0.4s ease;
     position: relative;
     overflow: hidden;
-    
+    box-shadow: 0 0 0.5rem rgba(200, 255, 255, 0.7), inset 0 0 0.3rem rgba(0, 0, 0, 0.2);
+  
     &:before {
       content: '';
       position: absolute;
@@ -246,64 +230,51 @@
       border-radius: 50%;
       transform: translate(-50%, -50%) scale(0);
       opacity: 0;
-      transition: transform 0.6s ease, opacity 0.6s ease;
+      transition: transform 0.1s ease, opacity 0.1s ease;
       z-index: -1;
     }
-
+  
     &:hover {
       background: $rain-rainy-sky-blue;
       color: $primary-dark-blue;
-      box-shadow: 0 0 2.5rem rgba(200, 255, 255, 0.7), 0 0 4rem rgba(150, 200, 255, 0.8);
-      transform: translateY(-2px) scale(1.1);
-      animation: rain-hover 2s infinite alternate ease-in-out;
-
+      border-radius: 50%;
+      box-shadow: 0 0 1rem rgba(150, 200, 255, 0.6), inset 0 0 0.3rem rgba(0, 0, 0, 0.2);
+      transform: scale(1.02);
+  
       &:before {
-        transform: translate(-50%, -50%) scale(1.5);
+        transform: translate(-50%, -50%) scale(1.1);
         opacity: 0.8;
       }
-
+  
       &::after {
         content: '';
         position: absolute;
         top: 50%;
         left: 50%;
-        width: 120%;
-        height: 120%;
+        width: 100%;
+        height: 100%;
         border-radius: 50%;
         background: radial-gradient(circle, rgba(255, 255, 255, 0.6), rgba(255, 255, 0, 0.1));
         transform: translate(-50%, -50%);
         opacity: 0;
-        animation: lightning-flash 2s infinite ease-in-out;
       }
     }
-
-    // Active state with stronger lightning flash effect
+  
     &:active {
       background: $rain-forest-green;
-      border-radius: 1.5rem;
+      border-radius: 50%;
       color: $neutral-white;
-      box-shadow: 0 0 4rem rgba(255, 255, 255, 0.9), inset 0 0 1.5rem rgba(0, 0, 0, 0.6), inset 0 0 2.5rem rgba(0, 0, 0, 0.4);
-      transform: scale(0.92);
-      animation: button-click-vibration 0.2s ease, lightning-active-glow 0.5s ease-in-out forwards;
-
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.6), rgba(255, 255, 0, 0.1));
+      transform: scale(0.98);
+      animation: button-click-vibration 0.1s ease;
+      border-radius: 50%;
+  
       &:before {
-        transform: translate(-50%, -50%) scale(2);
-        opacity: 0.2;
-        transition: transform 0.2s ease, opacity 0.2s ease;
+        transform: translate(-50%, -50%) scale(1.2);
+        opacity: 0.3;
+        transition: transform 0.1s ease, opacity 0.1s ease;
+        border-radius: 50%;
       }
-    }
-  }
-
-  // Keyframes for the lightning glow animation during active state
-  @keyframes lightning-active-glow {
-    0% {
-      box-shadow: none;
-    }
-    50% {
-      box-shadow: 0 0 6rem rgba(255, 255, 255, 0.9), 0 0 8rem rgba(255, 255, 102, 0.6);
-    }
-    100% {
-      box-shadow: none;
     }
   }
 
@@ -316,21 +287,6 @@
     }
     100% {
       transform: translateY(0) scale(1.1);
-    }
-  }
-
-  @keyframes lightning-flash {
-    0%, 100% {
-      opacity: 0;
-      box-shadow: none;
-    }
-    40% {
-      opacity: 1;
-      box-shadow: 0 0 3rem rgba(255, 255, 255, 0.7), 0 0 4rem rgba(255, 255, 102, 0.4);
-    }
-    70% {
-      opacity: 0;
-      box-shadow: none;
     }
   }
 
@@ -458,41 +414,17 @@
   0% {
     transform: rotate(0deg) scale(1.05);
     background: #f0e68c;
-    box-shadow: inset 5px 5px 15px rgba(0, 0, 0, 0.15), 
-                inset -5px -5px 15px rgba(255, 255, 255, 0.7), 
-                0 0 2.5rem rgba(255, 255, 102, 0.8), 
-                0 0 3.5rem rgba(255, 255, 204, 0.7);
+    box-shadow: $shadow-light-primary;
   }
   50% {
     transform: rotate(180deg) scale(1.15);
     background: #fffacd;
-    box-shadow: inset 3px 3px 8px rgba(0, 0, 0, 0.2), 
-                inset -3px -3px 8px rgba(255, 255, 255, 0.5), 
-                0 0 3.5rem rgba(255, 255, 255, 1), 
-                0 0 4.5rem rgba(255, 255, 255, 0.9);
+    box-shadow: $shadow-glow-primary;
   }
   100% {
     transform: rotate(360deg) scale(1.05);
     background: #f0e68c;
-    box-shadow: inset 5px 5px 15px rgba(0, 0, 0, 0.15), 
-                inset -5px -5px 15px rgba(255, 255, 255, 0.7), 
-                0 0 2.5rem rgba(255, 255, 102, 0.8), 
-                0 0 3.5rem rgba(255, 255, 204, 0.7);
-  }
-}
-
-@keyframes twilight-glow {
-  0% {
-    box-shadow: inset 5px 5px 15px rgba(0, 0, 0, 0.15), 
-                inset -5px -5px 15px rgba(255, 255, 255, 0.7), 
-                0 0 1.5rem rgba(255, 215, 0, 0.8), 
-                0 0 2.5rem rgba(255, 255, 102, 0.6);
-  }
-  100% {
-    box-shadow: inset 5px 5px 15px rgba(0, 0, 0, 0.15), 
-                inset -5px -5px 15px rgba(255, 255, 255, 0.7), 
-                0 0 2rem rgba(255, 255, 102, 1), 
-                0 0 3rem rgba(255, 255, 204, 0.8);
+    box-shadow: $shadow-cool-primary;
   }
 }
 
@@ -513,16 +445,5 @@
   100% {
     opacity: 0;
     transform: scale(0.9);
-  }
-}
-
-@keyframes cloud-glow {
-  0% {
-    transform: scale(1);
-    opacity: .7;
-  }
-  100% {
-    transform: scale(1.2);
-    opacity: 1;
   }
 }
