@@ -217,34 +217,22 @@ exports.addEvent = async (req, res) => {
 
   try {
     // Convert start and end times to UTC before storing them
-    const formattedStart = moment
-      .tz(start, timezone)
-      .utc()
-      .format('YYYY-MM-DD HH:mm:ss');
-    
-    const formattedEnd = end
-      ? moment.tz(end, timezone).utc().format('YYYY-MM-DD HH:mm:ss')
-      : null;
+    const formattedStart = moment.tz(start, timezone).utc().format('YYYY-MM-DD HH:mm:ss');
+    const formattedEnd = end ? moment.tz(end, timezone).utc().format('YYYY-MM-DD HH:mm:ss') : null;
 
-    // Differentiate between authenticated users and guests
-    let userIdentifier;
-    if (req.user && req.user.role === 'guest') {
-      userIdentifier = 'guest';
-    } else {
-      userIdentifier = req.params.userId;
-    }
+    // Identify user type
+    const userIdentifier = req.user && req.user.role === 'guest' ? 'guest' : req.params.userId;
 
     let mediaId = media_id;
     let mediaType = media_type;
-    let duration;
-    let genres;
+    let duration, genres;
 
-    // Fetch media details if not provided
+    // Fetch media details if mediaId and mediaType aren't provided
     if (!mediaId || !mediaType) {
       const mediaDetails = await getMediaDetailsByTitle(title, eventType === 'movie' ? 'movie' : 'tv');
       if (mediaDetails) {
         mediaId = mediaDetails.id; // TMDB ID
-        mediaType = eventType === 'movie' ? 'movie' : 'tv';
+        mediaType = eventType;
         duration = mediaDetails.duration;
         genres = mediaDetails.genres;
       } else {
@@ -252,51 +240,46 @@ exports.addEvent = async (req, res) => {
       }
     }
 
-    // Insert event with UTC times
+    // Insert event into the events table with UTC times
     const [eventId] = await knex('events').insert({
       user_id: userIdentifier,
       title,
       start: formattedStart,
       end: formattedEnd,
       eventType,
-      media_id: mediaId, 
+      media_id: mediaId,
       media_type: mediaType,
     });
 
     // Update media statuses if applicable
     if (mediaId && mediaType) {
-      const mediaDetails = await getMediaDetailsByTitle(title, eventType === 'movie' ? 'movie' : 'tv');
-      
-      if (mediaDetails) {
-        const { id: mediaId, title: mediaTitle, duration, genres } = mediaDetails; 
-        const genreString = Array.isArray(genres) ? genres.join(', ') : genres || null;
+      const genreString = Array.isArray(genres) ? genres.join(', ') : genres || null;
 
-        await knex('media_statuses')
-          .insert({
-            userId: userIdentifier,
-            media_id: mediaId,
-            media_type: mediaType,
-            status: 'scheduled',
-            title: mediaTitle, 
-            duration: duration || null,
-            genre: genreString,
-          })
-          .onConflict(['userId', 'media_id'])
-          .merge({ status: 'scheduled', title: mediaTitle });
-      }
+      await knex('media_statuses')
+        .insert({
+          userId: userIdentifier,
+          media_id: mediaId,
+          media_type: mediaType,
+          status: 'scheduled',
+          title,
+          duration,
+          genre: genreString,
+        })
+        .onConflict(['userId', 'media_id'])
+        .merge({ status: 'scheduled', title });
 
       await knex('interactions')
         .insert({
           userId: userIdentifier,
           media_id: mediaId,
           media_type: mediaType,
-          interaction: 1 
+          interaction: 1,
         })
         .onConflict(['userId', 'media_id', 'media_type'])
         .merge({ interaction: 1 });
     }
 
-    // Send push notifications only for authenticated users
+    // Send push notifications for authenticated users
     if (userIdentifier !== 'guest') {
       const user = await knex('users').where({ id: userIdentifier }).first();
       const events = await knex('events')
@@ -305,9 +288,7 @@ exports.addEvent = async (req, res) => {
         .andWhere(
           'start',
           '<',
-          moment(formattedStart)
-            .add(user.notificationTime, 'minutes')
-            .toISOString()
+          moment(formattedStart).add(user.notificationTime, 'minutes').toISOString()
         );
 
       await sendPushNotifications(user, events);
@@ -320,9 +301,9 @@ exports.addEvent = async (req, res) => {
       start: formattedStart,
       end: formattedEnd,
       eventType,
-      media_id: mediaId, 
-      media_type: mediaType, 
-      duration: duration || null,
+      media_id: mediaId,
+      media_type: mediaType,
+      duration,
       genre: genres || null,
     });
   } catch (error) {
@@ -396,7 +377,7 @@ exports.updateEvent = async (req, res) => {
 // Delete an event
 exports.deleteEvent = async (req, res) => {
   const { eventId } = req.params;
-  const { userId } = req.user; 
+  const { userId } = req.user;
 
   try {
     const sharedEvent = await knex('calendar_events')
@@ -417,14 +398,18 @@ exports.deleteEvent = async (req, res) => {
       return res.status(404).json({ message: 'Event not found or not owned by you.' });
     }
 
+    // Delete the event and associated calendar events
     await knex('events').where({ id: eventId, user_id: userId }).del();
-
     await knex('calendar_events').where({ event_id: eventId }).del();
 
     if (event.media_id && event.media_type) {
       await knex('media_statuses')
-        .where({ userId: userId, media_id: event.media_id, media_type: event.media_type }) 
-        .del(); 
+        .where({ userId: userId, media_id: event.media_id, media_type: event.media_type })
+        .del();
+
+      await knex('interactions')
+        .where({ userId: userId, media_id: event.media_id, media_type: event.media_type })
+        .update({ interaction: 0 });
     }
 
     res.status(200).json({ message: 'Event and associated media status removed successfully.' });
