@@ -180,16 +180,18 @@
   }
   
   &__no-more-media-container {
-    @include block-item(18rem, 26.2rem);
+    @include block-item(18rem, 100%);
     @include frosted-glass2;
     display: flex;
     margin-top: 1rem;
+    max-height: 80vh;
     flex-direction: column;
     box-shadow: $shadow-primary;
     border-radius: 1.5rem;
     border: .3125rem solid $primary-dark-blue;
     justify-content: center;
     align-items: center;
+    overflow-y: auto; 
 
     @include tablet {
       @include block-item(30rem, 34.8rem);
