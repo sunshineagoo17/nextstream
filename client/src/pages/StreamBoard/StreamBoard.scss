@@ -812,7 +812,8 @@
     &__media-type-icon,
     &__calendar-icon,
     &__trash-icon {
-        padding: .5rem;
+        padding: .25rem;
+        @include block-item(auto, 1rem);
         border-radius: .5rem;
         background-color: $neutral-white;
         color: $primary-medium-blue;
@@ -831,6 +832,10 @@
             background-color: $primary-light-blue;
             transform: scale(.9);
             border: .125rem solid $neutral-white;
+        }
+
+        @include tablet {
+            padding: .5rem;
         }
     }
 

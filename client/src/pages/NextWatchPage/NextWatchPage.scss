@@ -206,6 +206,7 @@
   &__share-button,
   &__thumbs-up,
   &__thumbs-down {
+    @include block-item(auto, 1rem);
     padding: .25rem;
     border-radius: .5rem;
     font-size: 1rem;

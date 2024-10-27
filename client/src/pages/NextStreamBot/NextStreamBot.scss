@@ -1178,6 +1178,7 @@
   &__share-icon,
   &__like-icon,
   &__dislike-icon {
+    @include block-item(auto, 1rem);
     color: $primary-button-blue;
     transition: transform .3s ease-in-out;
 

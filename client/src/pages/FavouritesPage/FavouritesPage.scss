@@ -730,6 +730,7 @@
   &__cal-icon,
   &__lock-icon,
   &__trash-icon {
+    @include block-item(auto, 1rem);
     color: $primary-button-blue;
     transition: transform .3s ease-in-out;
 

@@ -1164,6 +1164,7 @@
   &__like-icon,
   &__dislike-icon {
     color: $primary-button-blue;
+    @include block-item(auto, 1rem);
     transition: transform .3s ease-in-out;
 
     &:hover {
