@@ -779,10 +779,19 @@
   }
 
   &__empty-chat {
+    @include block-item(100%, auto);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    @include tablet {
+      @include block-item(auto, 18rem);
+    }
+
+    @include desktop {
+      @include block-item(auto, 22rem);
+    }
   }
 
   &__empty-message {
