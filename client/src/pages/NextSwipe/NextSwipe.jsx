@@ -35,8 +35,14 @@ const NextSwipe = () => {
   };
   
   const loadStateFromStorage = (key, defaultValue) => {
-    const savedState = sessionStorage.getItem(key);
-    return savedState ? JSON.parse(savedState) : defaultValue;
+    try {
+      const savedState = sessionStorage.getItem(key);
+      return savedState ? JSON.parse(savedState) : defaultValue;
+    } catch (error) {
+      console.error(`Error parsing session storage for key: ${key}`, error);
+      sessionStorage.removeItem(key); 
+      return defaultValue;
+    }
   };
   
   const uniqueMedia = (mediaArray) => {
@@ -49,21 +55,39 @@ const NextSwipe = () => {
   };
 
   useEffect(() => {
+    const sessionVersion = '1.0';
+    const storedVersion = sessionStorage.getItem('sessionVersion');
+  
+    if (storedVersion !== sessionVersion) {
+      sessionStorage.clear(); 
+      sessionStorage.setItem('sessionVersion', sessionVersion);
+    }
+  
     const storedMedia = loadStateFromStorage(`media_${userId}`, []);
     const storedCurrentIndex = loadStateFromStorage(`currentIndex_${userId}`, 0);
     const storedSwipedMediaIds = loadStateFromStorage(`swipedMediaIds_${userId}`, []);
-    setMedia(storedMedia);
-    setCurrentIndex(storedCurrentIndex);
-    setSwipedMediaIds(storedSwipedMediaIds);
+  
+    if (!storedMedia.length || !Array.isArray(storedSwipedMediaIds)) {
+      sessionStorage.removeItem(`media_${userId}`);
+      sessionStorage.removeItem(`currentIndex_${userId}`);
+      sessionStorage.removeItem(`swipedMediaIds_${userId}`);
+      setMedia([]);
+      setCurrentIndex(0);
+      setSwipedMediaIds([]);
+    } else {
+      setMedia(storedMedia);
+      setCurrentIndex(storedCurrentIndex);
+      setSwipedMediaIds(storedSwipedMediaIds);
+    }
   
     const hasSeenSwipeGuide = sessionStorage.getItem(`hasSeenSwipeGuide_${userId}`);
     if (!hasSeenSwipeGuide && storedCurrentIndex === 0) {
       setIsFirstSession(true);
       setShowSwipeGuide(true);
       sessionStorage.setItem(`hasSeenSwipeGuide_${userId}`, 'true');
-      setTimeout(() => setShowSwipeGuide(false), 7000); 
+      setTimeout(() => setShowSwipeGuide(false), 7000);
     }
-  }, [userId]);
+  }, [userId]);  
   
   useEffect(() => {
     const fetchInitialMedia = async () => {
@@ -123,6 +147,7 @@ const NextSwipe = () => {
       sessionStorage.removeItem(`media_${userId}`);
       sessionStorage.removeItem(`currentIndex_${userId}`);
       sessionStorage.removeItem(`swipedMediaIds_${userId}`);
+      sessionStorage.removeItem(`hasSeenSwipeGuide_${userId}`);
     }
   }, [isAuthenticated, userId]);  
 
