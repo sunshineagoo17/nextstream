@@ -30,15 +30,15 @@ const NextSwipe = () => {
   const calendarRef = useRef(null);
   const calendarModalRef = useRef(null);
 
-  const saveStateToLocalStorage = (state, key) => {
-    localStorage.setItem(key, JSON.stringify(state));
+  const saveStateToStorage = (state, key) => {
+    sessionStorage.setItem(key, JSON.stringify(state));
   };
-
-  const loadStateFromLocalStorage = (key, defaultValue) => {
-    const savedState = localStorage.getItem(key);
+  
+  const loadStateFromStorage = (key, defaultValue) => {
+    const savedState = sessionStorage.getItem(key);
     return savedState ? JSON.parse(savedState) : defaultValue;
   };
-
+  
   const uniqueMedia = (mediaArray) => {
     const seen = new Set();
     return mediaArray.filter(item => {
@@ -49,29 +49,27 @@ const NextSwipe = () => {
   };
 
   useEffect(() => {
-    const storedMedia = loadStateFromLocalStorage(`media_${userId}`, []);
-    const storedCurrentIndex = loadStateFromLocalStorage(`currentIndex_${userId}`, 0);
-    const storedSwipedMediaIds = loadStateFromLocalStorage(`swipedMediaIds_${userId}`, []);
+    const storedMedia = loadStateFromStorage(`media_${userId}`, []);
+    const storedCurrentIndex = loadStateFromStorage(`currentIndex_${userId}`, 0);
+    const storedSwipedMediaIds = loadStateFromStorage(`swipedMediaIds_${userId}`, []);
     setMedia(storedMedia);
     setCurrentIndex(storedCurrentIndex);
     setSwipedMediaIds(storedSwipedMediaIds);
-
-    // Check if the user is new and this is their first session
-    const hasSeenSwipeGuide = localStorage.getItem(`hasSeenSwipeGuide_${userId}`);
+  
+    const hasSeenSwipeGuide = sessionStorage.getItem(`hasSeenSwipeGuide_${userId}`);
     if (!hasSeenSwipeGuide && storedCurrentIndex === 0) {
       setIsFirstSession(true);
       setShowSwipeGuide(true);
-      localStorage.setItem(`hasSeenSwipeGuide_${userId}`, 'true');
+      sessionStorage.setItem(`hasSeenSwipeGuide_${userId}`, 'true');
       setTimeout(() => setShowSwipeGuide(false), 7000); 
     }
   }, [userId]);
-
+  
   useEffect(() => {
     const fetchInitialMedia = async () => {
       try {
         setIsLoading(true);
 
-        // Fetch top picks from the new endpoint
         const response = await api.get(`/api/interactions/toppicks/${userId}`);
 
         const { topPicks } = response.data;
@@ -79,7 +77,7 @@ const NextSwipe = () => {
         const initialMedia = uniqueMedia(topPicks);
 
         setMedia(initialMedia);
-        saveStateToLocalStorage(initialMedia, `media_${userId}`);
+        saveStateToStorage(initialMedia, `media_${userId}`);
       } catch (error) {
         if (error.response && error.response.status === 401) {
           showAlert('You are not authorized. Please log in again.', 'error');
@@ -105,15 +103,15 @@ const NextSwipe = () => {
   }, [userId]);
 
   useEffect(() => {
-    saveStateToLocalStorage(media, `media_${userId}`);
+    saveStateToStorage(media, `media_${userId}`);
   }, [media, userId]);
 
   useEffect(() => {
-    saveStateToLocalStorage(currentIndex, `currentIndex_${userId}`);
+    saveStateToStorage(currentIndex, `currentIndex_${userId}`);
   }, [currentIndex, userId]);
 
   useEffect(() => {
-    saveStateToLocalStorage(swipedMediaIds, `swipedMediaIds_${userId}`);
+    saveStateToStorage(swipedMediaIds, `swipedMediaIds_${userId}`);
   }, [swipedMediaIds, userId]);
 
   useEffect(() => {
@@ -122,19 +120,22 @@ const NextSwipe = () => {
       setCurrentIndex(0);
       setSwipedMediaIds([]);
       setNoMoreMedia(false);
-      localStorage.removeItem(`media_${userId}`);
-      localStorage.removeItem(`currentIndex_${userId}`);
-      localStorage.removeItem(`swipedMediaIds_${userId}`);
+      sessionStorage.removeItem(`media_${userId}`);
+      sessionStorage.removeItem(`currentIndex_${userId}`);
+      sessionStorage.removeItem(`swipedMediaIds_${userId}`);
     }
-  }, [isAuthenticated, userId]);
+  }, [isAuthenticated, userId]);  
 
   const fetchRecommendations = async () => {
     try {
       setIsLoading(true);
       setNoMoreMedia(false);
 
-      // Fetch recommendations from the new endpoint
-      const response = await api.get(`/api/interactions/recommendations/${userId}`);
+      const response = await api.get(`/api/interactions/recommendations/${userId}`, {
+        headers: {
+          'Cache-Control': 'no-cache',
+        },
+      });
 
       const { recommendations } = response.data;
 
@@ -159,11 +160,11 @@ const NextSwipe = () => {
       if (recommendedMedia.length > 0) {
         setMedia((prevMedia) => {
           const updatedMedia = uniqueMedia([...prevMedia, ...recommendedMedia]);
-          saveStateToLocalStorage(updatedMedia, `media_${userId}`);
+          saveStateToStorage(updatedMedia, `media_${userId}`);
           return updatedMedia;
         });
         setCurrentIndex(media.length);
-        saveStateToLocalStorage(media.length, `currentIndex_${userId}`);
+        saveStateToStorage(media.length, `currentIndex_${userId}`);
       } else {
         setNoMoreMedia(true);
       }
@@ -193,13 +194,13 @@ const NextSwipe = () => {
 
         setSwipedMediaIds(prev => {
           const updatedSwipedMediaIds = [...prev, currentMedia.id];
-          saveStateToLocalStorage(updatedSwipedMediaIds, `swipedMediaIds_${userId}`);
+          saveStateToStorage(updatedSwipedMediaIds, `swipedMediaIds_${userId}`);
           return updatedSwipedMediaIds;
         });
 
         setCurrentIndex(prevIndex => {
           const updatedIndex = prevIndex + 1;
-          saveStateToLocalStorage(updatedIndex, `currentIndex_${userId}`);
+          saveStateToStorage(updatedIndex, `currentIndex_${userId}`);
           if (updatedIndex >= media.length) {
             setNoMoreMedia(true);
           }
