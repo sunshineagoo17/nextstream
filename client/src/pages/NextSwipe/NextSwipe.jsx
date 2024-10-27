@@ -3,6 +3,7 @@ import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { useSwipeable } from 'react-swipeable';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarPlus, faClose, faArrowLeft, faArrowRight, faHandPointer } from '@fortawesome/free-solid-svg-icons';
+import { MediaContext } from '../../context/MediaContext/MediaContext';
 import MediaCard from './sections/MediaCard/MediaCard';
 import Calendar from '../CalendarPage/sections/Calendar/Calendar';
 import AnimatedBg from '../../components/Backgrounds/AnimatedBg/AnimatedBg';
@@ -15,13 +16,10 @@ import './NextSwipe.scss';
 
 const NextSwipe = () => {
   const { userId, name, isAuthenticated } = useContext(AuthContext);
-  const [media, setMedia] = useState([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const { media, setMedia, currentIndex, setCurrentIndex, swipedMediaIds, setSwipedMediaIds, isLoading, setIsLoading } = useContext(MediaContext);
   const [showCalendar, setShowCalendar] = useState(false);
   const [selectedMediaType, setSelectedMediaType] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
   const [eventTitle, setEventTitle] = useState('');
-  const [swipedMediaIds, setSwipedMediaIds] = useState([]);
   const [noMoreMedia, setNoMoreMedia] = useState(false);
   const [duration, setDuration] = useState(0);
   const [alert, setAlert] = useState({ show: false, message: '', type: '' });
@@ -29,21 +27,6 @@ const NextSwipe = () => {
   const [isFirstSession, setIsFirstSession] = useState(false); 
   const calendarRef = useRef(null);
   const calendarModalRef = useRef(null);
-
-  const saveStateToStorage = (state, key) => {
-    sessionStorage.setItem(key, JSON.stringify(state));
-  };
-  
-  const loadStateFromStorage = (key, defaultValue) => {
-    try {
-      const savedState = sessionStorage.getItem(key);
-      return savedState ? JSON.parse(savedState) : defaultValue;
-    } catch (error) {
-      console.error(`Error parsing session storage for key: ${key}`, error);
-      sessionStorage.removeItem(key); 
-      return defaultValue;
-    }
-  };
   
   const uniqueMedia = (mediaArray) => {
     const seen = new Set();
@@ -53,41 +36,6 @@ const NextSwipe = () => {
       return !duplicate && (item.media_type === 'movie' || item.media_type === 'tv');
     });
   };
-
-  useEffect(() => {
-    const sessionVersion = '1.0';
-    const storedVersion = sessionStorage.getItem('sessionVersion');
-  
-    if (storedVersion !== sessionVersion) {
-      sessionStorage.clear(); 
-      sessionStorage.setItem('sessionVersion', sessionVersion);
-    }
-  
-    const storedMedia = loadStateFromStorage(`media_${userId}`, []);
-    const storedCurrentIndex = loadStateFromStorage(`currentIndex_${userId}`, 0);
-    const storedSwipedMediaIds = loadStateFromStorage(`swipedMediaIds_${userId}`, []);
-  
-    if (!storedMedia.length || !Array.isArray(storedSwipedMediaIds)) {
-      sessionStorage.removeItem(`media_${userId}`);
-      sessionStorage.removeItem(`currentIndex_${userId}`);
-      sessionStorage.removeItem(`swipedMediaIds_${userId}`);
-      setMedia([]);
-      setCurrentIndex(0);
-      setSwipedMediaIds([]);
-    } else {
-      setMedia(storedMedia);
-      setCurrentIndex(storedCurrentIndex);
-      setSwipedMediaIds(storedSwipedMediaIds);
-    }
-  
-    const hasSeenSwipeGuide = sessionStorage.getItem(`hasSeenSwipeGuide_${userId}`);
-    if (!hasSeenSwipeGuide && storedCurrentIndex === 0) {
-      setIsFirstSession(true);
-      setShowSwipeGuide(true);
-      sessionStorage.setItem(`hasSeenSwipeGuide_${userId}`, 'true');
-      setTimeout(() => setShowSwipeGuide(false), 7000);
-    }
-  }, [userId]);  
   
   useEffect(() => {
     const fetchInitialMedia = async () => {
@@ -95,13 +43,9 @@ const NextSwipe = () => {
         setIsLoading(true);
 
         const response = await api.get(`/api/interactions/toppicks/${userId}`);
-
         const { topPicks } = response.data;
-
         const initialMedia = uniqueMedia(topPicks);
-
         setMedia(initialMedia);
-        saveStateToStorage(initialMedia, `media_${userId}`);
       } catch (error) {
         if (error.response && error.response.status === 401) {
           showAlert('You are not authorized. Please log in again.', 'error');
@@ -124,19 +68,7 @@ const NextSwipe = () => {
       setNoMoreMedia(false);
       setIsLoading(false);
     };
-  }, [userId]);
-
-  useEffect(() => {
-    saveStateToStorage(media, `media_${userId}`);
-  }, [media, userId]);
-
-  useEffect(() => {
-    saveStateToStorage(currentIndex, `currentIndex_${userId}`);
-  }, [currentIndex, userId]);
-
-  useEffect(() => {
-    saveStateToStorage(swipedMediaIds, `swipedMediaIds_${userId}`);
-  }, [swipedMediaIds, userId]);
+  }, [userId, setMedia, setCurrentIndex, setSwipedMediaIds, setIsLoading]);
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -144,12 +76,8 @@ const NextSwipe = () => {
       setCurrentIndex(0);
       setSwipedMediaIds([]);
       setNoMoreMedia(false);
-      sessionStorage.removeItem(`media_${userId}`);
-      sessionStorage.removeItem(`currentIndex_${userId}`);
-      sessionStorage.removeItem(`swipedMediaIds_${userId}`);
-      sessionStorage.removeItem(`hasSeenSwipeGuide_${userId}`);
     }
-  }, [isAuthenticated, userId]);  
+  }, [isAuthenticated, userId, setMedia, setCurrentIndex, setSwipedMediaIds]); 
 
   const fetchRecommendations = async () => {
     try {
@@ -163,7 +91,6 @@ const NextSwipe = () => {
       });
 
       const { recommendations } = response.data;
-
       const recommendedMedia = await Promise.all(
         uniqueMedia(recommendations.filter(mediaItem => !swipedMediaIds.includes(mediaItem.id))).map(async (mediaItem) => {
           let duration = 0;
@@ -183,13 +110,8 @@ const NextSwipe = () => {
       );
 
       if (recommendedMedia.length > 0) {
-        setMedia((prevMedia) => {
-          const updatedMedia = uniqueMedia([...prevMedia, ...recommendedMedia]);
-          saveStateToStorage(updatedMedia, `media_${userId}`);
-          return updatedMedia;
-        });
+        setMedia((prevMedia) => uniqueMedia([...prevMedia, ...recommendedMedia]));
         setCurrentIndex(media.length);
-        saveStateToStorage(media.length, `currentIndex_${userId}`);
       } else {
         setNoMoreMedia(true);
       }
@@ -217,15 +139,9 @@ const NextSwipe = () => {
           media_type: currentMedia.media_type,
         });
 
-        setSwipedMediaIds(prev => {
-          const updatedSwipedMediaIds = [...prev, currentMedia.id];
-          saveStateToStorage(updatedSwipedMediaIds, `swipedMediaIds_${userId}`);
-          return updatedSwipedMediaIds;
-        });
-
+        setSwipedMediaIds(prev => [...prev, currentMedia.id]);
         setCurrentIndex(prevIndex => {
           const updatedIndex = prevIndex + 1;
-          saveStateToStorage(updatedIndex, `currentIndex_${userId}`);
           if (updatedIndex >= media.length) {
             setNoMoreMedia(true);
           }
@@ -282,6 +198,15 @@ const NextSwipe = () => {
     setShowCalendar(false);
   }, []);  
 
+  useEffect(() => {
+    if (currentIndex === 0 && !localStorage.getItem(`hasSeenSwipeGuide_${userId}`)) {
+      setIsFirstSession(true);
+      setShowSwipeGuide(true);
+      localStorage.setItem(`hasSeenSwipeGuide_${userId}`, 'true');
+      setTimeout(() => setShowSwipeGuide(false), 7000);
+    }
+  }, [currentIndex, userId]);
+  
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (calendarModalRef.current && !calendarModalRef.current.contains(event.target)) {

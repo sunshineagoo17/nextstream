@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, useLocation, Navigate } from 'react-router-dom';
 import { AuthProvider, AuthContext } from './context/AuthContext/AuthContext';
 import { SearchBarProvider } from './context/SearchBarContext/SearchBarContext';
+import { MediaProvider } from './context/MediaContext/MediaContext';
 import Cookies from 'js-cookie';
 import api from './services/api'; 
 import HomePage from './pages/HomePage/HomePage';
@@ -201,7 +202,9 @@ const RootApp = () => (
   <Router>
     <AuthProvider>
       <SearchBarProvider> 
-        <App />
+        <MediaProvider> 
+          <App />
+        </MediaProvider>
       </SearchBarProvider>
     </AuthProvider>
   </Router>
