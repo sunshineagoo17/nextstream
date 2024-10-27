@@ -62,6 +62,11 @@
     padding: 1rem;
   }
 
+  @include large-desktop {
+    margin: 6rem 8.65rem 9.5rem 8.65rem;
+    padding: 4rem;
+  }
+
   &::before {
     @include block-item(100%, 100%);
     content: '';
