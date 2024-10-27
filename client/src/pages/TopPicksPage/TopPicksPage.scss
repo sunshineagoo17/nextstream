@@ -242,7 +242,7 @@
 
   &__loading-container,
   &__no-recommendations-container {
-    @include block-item(auto, 30vh);
+    @include block-item(95%, 30vh);
     display: flex;
     background-color: $frosted-glass;
     border: .3125rem solid $neutral-white;
