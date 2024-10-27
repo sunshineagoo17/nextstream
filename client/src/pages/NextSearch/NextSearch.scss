@@ -649,7 +649,7 @@
     justify-content: center;
     margin-top: -1.5rem;
     width: 15rem;
-    padding: .35rem 0;
+    padding: 0;
     border-top: .1875rem solid $neutral-white;
     background-color: $primary-pale-blue;
     border-radius: 0 0 1rem 1rem;
@@ -660,15 +660,15 @@
     }
 
     .next-search__sub-tab {
-      margin: 0 .5rem;
-      padding: .4rem .75rem;
+      margin: .25rem;
+      padding: .25rem;
       color: $primary-medium-blue;
       border-radius: 1rem;
       border: .125rem solid $neutral-white;
       border: none;
       background: $frosted-glass;
       transition: background-color .3s, transform .3s;
-      font-size: .7rem;
+      font-size: .6rem;
       font-weight: normal;
       box-shadow: $shadow-tertiary;
 
@@ -684,6 +684,12 @@
         background-color: $primary-dark-blue;
         transform: scale(.95);
         font-weight: normal;
+      }
+
+      @include tablet {
+        font-size: .7rem;
+        margin: .5rem;
+        padding: .4rem .75rem;
       }
 
       &--active {
