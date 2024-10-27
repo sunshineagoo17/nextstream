@@ -10,9 +10,13 @@
   justify-content: center;
   align-items: center;
   position: relative;
-  padding: 3.5rem;
+  padding: 3.5rem 1.5rem 3.5rem 1.5rem;
   background-color: $frosted-glass;
-  min-height: 100vh;
+  height: auto;
+
+  @include tablet {
+    padding: 3.5rem;
+  }
 
   &__calendar-modal {
     @include block-item(100%, 100%);
@@ -59,8 +63,8 @@
   }
 
   &__graphic-container {
+    @include block-item(100%, auto);
     margin-top: 2rem;
-    width: 20rem;
 
     @include tablet {
       width: 30%;
@@ -68,9 +72,8 @@
   }
 
   &__graphic {
+    @include block-item(100%, auto);
     @include hover-raise-effect;
-    max-width: 100%;
-    height: auto;
     border-radius: .5rem;
     box-shadow: $shadow-primary;
   }
@@ -159,7 +162,7 @@
   }
 
   &__container {
-    width: 130%;
+    @include block-item(100%, auto);
     @include frosted-glass2;
     border-radius: 1.25rem;
     box-shadow: $shadow-quaternary;
@@ -180,18 +183,16 @@
   }
   
   &__no-more-media-container {
-    @include block-item(18rem, 100%);
+    @include block-item(18rem, auto);
     @include frosted-glass2;
     display: flex;
     margin-top: 1rem;
-    max-height: 80vh;
     flex-direction: column;
     box-shadow: $shadow-primary;
     border-radius: 1.5rem;
     border: .3125rem solid $primary-dark-blue;
     justify-content: center;
     align-items: center;
-    overflow-y: auto; 
 
     @include tablet {
       @include block-item(30rem, 34.8rem);
@@ -250,24 +251,29 @@
   }
 
   &__media-card {
+    @include block-item(100%, auto);
     @include bg-white;
     @include animateBorder;
     @include borderAnimation;
     box-shadow: $shadow-senary;
-    border-radius: 4rem;
+    border-radius: 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
     border: .875rem solid;
     flex-direction: column;
     padding: 1.5rem .5rem .5rem .5rem;
-    width: 100%;
     max-width: 31.25rem;
     margin-top: 2rem;
 
     @include large-mobile {
-      padding: 2rem;
+      border-radius: 4rem;
+      padding: 1rem;
       width: 100%;
+    }
+
+    @include tablet {
+      padding: 2rem;
     }
 
     img {
