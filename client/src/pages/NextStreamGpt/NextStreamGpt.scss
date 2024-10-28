@@ -1963,7 +1963,7 @@
     align-items: center;
     background: rgba($neutral-black, .5);
     backdrop-filter: blur(.5rem);
-    z-index: 1000;
+    z-index: 10001;
   }
 
   &__stop-actions {
