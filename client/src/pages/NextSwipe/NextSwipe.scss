@@ -196,7 +196,6 @@
   }
   
   &__no-more-media-container {
-    // @include block-item(15rem, 24.2294rem);
     @include block-item(100%, auto);
     display: flex;
     margin-top: 1rem;
@@ -206,7 +205,6 @@
     border: .3125rem solid $primary-dark-blue;
     justify-content: center;
     align-items: center;
-    // overflow: auto;
 
     @include tablet {
       @include block-item(30rem, 34.8rem);
@@ -429,11 +427,10 @@
     &:active {
       background-color: $primary-medium-blue;
       color: $neutral-white;
-      border-radius: 1.25rem;
       border: .1875rem solid $primary-pale-blue;
-      transform: translateY(.25rem);
       text-decoration: none;
-      font-weight: bold;
+      font-weight: normal;
+      font-size: .85rem;
       box-shadow: 0 0 .625rem $primary-medium-blue, 0 0 1.25rem $primary-medium-blue;
     }
 
@@ -491,7 +488,6 @@
   }
 
   &__no-more-media {
-    // @include block-item(13rem, auto);
     @include block-item(100%, auto);
     text-align: center;
     display: flex;
