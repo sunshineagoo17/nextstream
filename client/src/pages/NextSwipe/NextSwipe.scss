@@ -192,8 +192,7 @@
   }
   
   &__no-more-media-container {
-    @include block-item(15rem, 24.2294rem);
-    // @include frosted-glass2;
+    @include block-item(15rem, auto);
     display: flex;
     margin-top: 1rem;
     flex-direction: column;
@@ -486,7 +485,7 @@
   }
 
   &__no-more-media {
-    @include block-item(13rem, 10rem);
+    @include block-item(13rem, auto);
     text-align: center;
     display: flex;
     flex-direction: column;
