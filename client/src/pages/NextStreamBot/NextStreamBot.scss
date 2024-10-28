@@ -800,8 +800,10 @@
     text-align: center;
     padding: .25rem;
     width: 100%;  
+    display: none;
     
     @include tablet {
+      display: block;
       font-size: .85rem;
       line-height: 1.25rem;
       font-weight: bold;
