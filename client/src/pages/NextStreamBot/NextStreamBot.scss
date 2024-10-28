@@ -63,7 +63,7 @@
   }
 
   @include large-desktop {
-    margin: 6rem 8.65rem 9.5rem 8.65rem;
+    margin: 6rem 8.65rem 7.25rem 8.65rem;
     padding: 4rem;
   }
 
@@ -772,10 +772,19 @@
   }
 
   &__empty-chat {
+    @include block-item(11.0244rem, 10.6875rem);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    @include tablet {
+      @include block-item(auto, 19rem);
+    }
+
+    @include desktop {
+      @include block-item(auto, 21rem);
+    }
   }
 
   &__empty-message {
