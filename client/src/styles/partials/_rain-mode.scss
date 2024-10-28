@@ -1428,6 +1428,28 @@
       background: $rain-gradient-blue-gray;
     }
 
+    &__no-more-media-container {
+      border: .3125rem solid $rain-evergreen;
+    }
+
+    &__no-more-media {
+      background-color: $rain-evergreen;
+
+      p {
+        color: $neutral-white;
+      }
+    }
+
+    &__recommendations-button {
+      color: $neutral-black;
+      border: .125rem solid $neutral-black;
+
+      &:active {
+        color: $neutral-white;
+        border: .125rem solid $neutral-white;
+      }
+    }
+
     &__graphic,
     &__no-more-media-image {
       filter: grayscale(100%) brightness(0.8);

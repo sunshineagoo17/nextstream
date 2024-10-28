@@ -1293,6 +1293,18 @@ textarea {
     &__title-container {
       background: $star-gradient-gray-silver;
     }
+
+    &__no-more-media-container {
+      border: .3125rem solid $neutral-black;
+    }
+
+    &__no-more-media {
+      background-color: $star-dark-gray;
+
+      p {
+        color: $neutral-white;
+      }
+    }
   
     &__background {
       filter: grayscale(100%) brightness(0.8);

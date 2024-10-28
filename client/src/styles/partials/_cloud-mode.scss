@@ -1146,6 +1146,18 @@
       color: $primary-button-blue;
     }
 
+    &__no-more-media-container {
+      border: .3125rem solid $cloud-breeze-blue;
+    }
+
+    &__no-more-media {
+      background-color: $cloud-light-blue;
+
+      p {
+        color: $primary-button-blue;
+      }
+    }
+
     &__intro {
       color: $cloud-deep-gray;
     }

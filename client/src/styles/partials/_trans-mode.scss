@@ -2754,6 +2754,18 @@
       background: $frosted-glass;
     }
 
+    &__no-more-media-container {
+      border: .3125rem solid $trans-electric-blue;
+    }
+
+    &__no-more-media {
+      background-color: $trans-electric-blue;
+
+      p {
+        color: $neutral-white;
+      }
+    }
+
     &__title-container {
       background: $trans-gradient-electricblue-candypink;
     }

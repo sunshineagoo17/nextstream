@@ -1414,6 +1414,26 @@
       background: $sun-gradient-sunrise;
     }
 
+    &__no-more-media-container {
+      border: .3125rem solid $sun-yellow;
+    }
+
+    &__no-more-media {
+      background-color: $neutral-black;
+
+      p {
+        color: $sun-yellow;
+      }
+    }
+
+    &__recommendations-button {
+      color: $neutral-black;
+
+      &:active {
+        color: $neutral-white;
+      }
+    }
+
     &__graphic,
     &__no-more-media-image {
       filter: grayscale(100%) brightness(0.9);
