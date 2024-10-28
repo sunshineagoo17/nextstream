@@ -192,7 +192,7 @@
   }
   
   &__no-more-media-container {
-    @include block-item(18rem, auto);
+    @include block-item(15rem, 24.2294rem);
     @include frosted-glass2;
     display: flex;
     margin-top: 1rem;
@@ -398,12 +398,12 @@
   }
 
   &__recommendations-button {
-    @include block-item(15rem, 5rem);
+    @include block-item(10rem, 3.5rem);
     background-color: $primary-pale-blue;
     color: $primary-medium-blue;
     border: .125rem solid $primary-medium-blue;
-    padding: .5rem 1rem;
-    font-size: 1rem;
+    padding: .5rem;
+    font-size: .85rem;
     font-weight: bold;
     font-family: $primary-font;
     box-shadow: $shadow-senary;
@@ -430,6 +430,12 @@
       text-decoration: none;
       font-weight: bold;
       box-shadow: 0 0 .625rem $primary-medium-blue, 0 0 1.25rem $primary-medium-blue;
+    }
+
+    @include tablet {
+      @include block-item(15rem, 5rem);
+      padding: .5rem 1rem;
+      font-size: 1rem;
     }
     
     @keyframes pulse {
@@ -495,9 +501,13 @@
     opacity: 1;
 
       p {
-        font-size: 1.25rem;
+        font-size: .9rem;
         color: $neutral-white;
         margin-bottom: 1rem;
+
+        @include tablet {
+          font-size: 1rem;
+        }
       }
     }
   }
