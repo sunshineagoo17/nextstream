@@ -192,8 +192,7 @@
   }
   
   &__no-more-media-container {
-    box-sizing: border-box;
-    @include block-item(15rem, auto);
+    @include block-item(15rem, 24.2294rem);
     display: flex;
     margin-top: 1rem;
     flex-direction: column;
@@ -202,7 +201,6 @@
     border: .3125rem solid $primary-dark-blue;
     justify-content: center;
     align-items: center;
-    max-height: calc(100vh - 2rem);
 
     @include tablet {
       @include block-item(30rem, 34.8rem);
@@ -487,11 +485,12 @@
   }
 
   &__no-more-media {
-    @include block-item(100%, 100%);
+    @include block-item(13rem, auto);
     text-align: center;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
+    max-height: 100vh;
     align-items: center;
     padding: 1rem;
     background-color: $primary-dark-blue;
