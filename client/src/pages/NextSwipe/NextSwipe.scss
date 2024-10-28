@@ -427,10 +427,11 @@
     &:active {
       background-color: $primary-medium-blue;
       color: $neutral-white;
-      border: .1875rem solid $primary-pale-blue;
+      border: .125rem solid $primary-pale-blue;
       text-decoration: none;
       font-weight: normal;
-      font-size: .85rem;
+      line-height: 1.2rem;
+      font-size: .75rem;
       box-shadow: 0 0 .625rem $primary-medium-blue, 0 0 1.25rem $primary-medium-blue;
     }
 
