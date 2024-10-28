@@ -404,6 +404,14 @@
     &__container {
         padding: 2rem;
         text-align: center;
+
+        @include desktop {
+           padding: 3.5rem;
+        }
+
+        @include large-desktop {
+            padding: 4.5rem 8.65rem 4.5rem 8.65rem;
+        }
     }
 
     &__status-badge {

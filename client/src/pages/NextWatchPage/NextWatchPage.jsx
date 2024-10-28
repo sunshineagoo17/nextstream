@@ -547,15 +547,16 @@ const NextWatchPage = () => {
             </div>
 
             <div className='nextwatch-page__actions'>
-              <button className='nextwatch-page__media-type'>
+              <button 
+                className='nextwatch-page__media-type-container'
+                onClick={handleMediaTypeClick} 
+                data-tooltip-id={`mediaTypeTooltip-${mediaId}`}
+                data-tooltip-content={`${
+                  mediaType === 'tv' ? 'TV Show' : 'Movie'
+                }`}>
                 <FontAwesomeIcon
-                  className='nextwatch-page__media-icon'
-                  icon={mediaType === 'tv' ? faTv : faFilm}
-                  onClick={handleMediaTypeClick} 
-                  data-tooltip-id={`mediaTypeTooltip-${mediaId}`}
-                  data-tooltip-content={`${
-                    mediaType === 'tv' ? 'TV Show' : 'Movie'
-                  }`}
+                   icon={mediaType === 'tv' ? faTv : faFilm}
+                   className='nextwatch-page__media-button'
                 />
                 <Tooltip
                   id={`mediaTypeTooltip-${mediaId}`}

@@ -28,6 +28,10 @@
     padding: 5rem 3.75rem;
   }
 
+  @include large-desktop {
+    padding: 5rem 8.5rem;
+  }
+
   &__cal-modal {
     display: flex;
     flex-direction: column;

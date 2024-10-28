@@ -44,6 +44,10 @@
     padding: 3.25rem;
   }
 
+  @include large-desktop {
+    padding: 4.5rem 8.35rem;
+  }
+
   &__gradient-subtitle {
     font-weight: bold;
     background: linear-gradient(270deg, $neutral-white, $primary-gradient-blue, $primary-medium-blue);
@@ -201,7 +205,7 @@
     }
   }
 
-  &__media-type,
+  &__media-button,
   &__calendar-button,
   &__share-button,
   &__thumbs-up,
@@ -232,11 +236,12 @@
     }
   }
 
+  &__media-button,
   &__calendar-button,
   &__share-button,
   &__thumbs-up,
   &__thumbs-down {
-    @include block-item(1rem, 1rem);
+    @include block-item(auto, 1rem);
     padding: .65rem;
 
     @include tablet {
@@ -248,21 +253,6 @@
   &__interaction-buttons {
     display: flex;
     justify-content: center;
-  }
-
-  &__media-type {
-    display: flex;
-    align-items: center;
-    border: .0625rem solid $frosted-glass;
-    padding: .65rem;
-    border-radius: .5rem;
-    font-size: 1rem;
-    background-color: $frosted-glass;
-
-    @include tablet {
-      padding: .5rem;
-      font-size: 1.25rem;
-    }
   }
 
   &__content-container {
@@ -485,6 +475,7 @@
     color: $pastel-blue;
   }
 
+  &__media-type-container,
   &__share-button-container,
   &__calendar-button-container {
     border: none;
@@ -712,6 +703,7 @@
   &__rating {
     display: flex;
     align-items: center;
+    justify-content: center;
     font-size: .85rem;
     color: $primary-medium-blue;
     padding: .25rem .5rem;
@@ -735,6 +727,9 @@
 
   &__duration {
     font-size: .85rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: $primary-medium-blue;
     padding: .25rem .5rem;
     background-color: $primary-pale-blue;

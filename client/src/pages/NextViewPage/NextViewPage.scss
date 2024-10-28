@@ -44,6 +44,10 @@
     padding: 3.25rem;
   }
 
+  @include large-desktop {
+    padding: 4.5rem 8.35rem;
+  }
+
   &__gradient-subtitle {
     font-weight: bold;
     background: linear-gradient(270deg, $neutral-white, $primary-gradient-blue, $primary-medium-blue);

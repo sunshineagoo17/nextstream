@@ -4,20 +4,24 @@
 @use "../../styles/global.scss" as *;
 
 .spotlight-page {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    background-color: $frosted-glass;
-    padding: 1.5rem;
-  
-    @include tablet {
-      padding: 2.25rem;
-    }
-  
-    @include desktop {
-      padding: 3.25rem;
-    }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: $frosted-glass;
+  padding: 1.5rem;
+
+  @include tablet {
+    padding: 2.25rem;
+  }
+
+  @include desktop {
+    padding: 3.25rem;
+  }
+
+  @include large-desktop {
+    padding: 4.5rem 8.35rem;
+  }
 
   &__content-container {
     @include frosted-glass2;

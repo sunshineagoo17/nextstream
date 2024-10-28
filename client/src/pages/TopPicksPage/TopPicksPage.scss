@@ -43,8 +43,8 @@
   }
 
   @include large-desktop {
-    margin-top: 1rem;
-    margin-bottom: 3rem;
+    margin: 3.5rem 7rem 3.75rem 7rem;
+    padding: 1.75rem;
   }
 
   &__loading-container {

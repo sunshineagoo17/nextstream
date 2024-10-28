@@ -15,7 +15,16 @@
   height: auto;
 
   @include tablet {
+    padding: 2.5rem;
+  }
+
+  @include desktop {
     padding: 3.5rem;
+  }
+
+  @include large-desktop {
+    margin: 2.5rem 6.8rem 2.5rem 6.8rem;
+    padding: 1.75rem;
   }
 
   &__calendar-modal {
