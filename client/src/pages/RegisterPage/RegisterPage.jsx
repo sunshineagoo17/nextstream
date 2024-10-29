@@ -141,10 +141,10 @@ export const RegisterPage = () => {
 
   const handleOAuthRegister = async (providerLogin) => {
     try {
-      setIsLoading(true);  
+      setIsLoading(true);
 
       if (/Mobi|Android/i.test(navigator.userAgent)) {
-        window.location.href = process.env.REACT_APP_GOOGLE_OAUTH_URL;
+        window.open(process.env.REACT_APP_GOOGLE_OAUTH_URL, '_blank');
         return;
       }
 
@@ -156,13 +156,13 @@ export const RegisterPage = () => {
           displayName,
           provider: result.user.providerData[0]?.providerId || 'unknown',
         });
-  
+
         if (response.data.success) {
           login(response.data.token, response.data.userId, true);
           toast.success('OAuth registration successful! Redirecting to profile page...', {
             className: 'frosted-toast-register',
           });
-  
+
           setTimeout(() => {
             navigate(`/profile/${response.data.userId}`);
           }, 3000);
@@ -171,9 +171,9 @@ export const RegisterPage = () => {
     } catch (error) {
       toast.error('Error during OAuth registration. Please try again.');
     } finally {
-      setIsLoading(false); 
+      setIsLoading(false);
     }
-  };  
+  };
 
   return (
     <>
