@@ -101,6 +101,12 @@ export const LoginPage = () => {
   
   const handleOAuthLogin = async (providerLogin) => {
     try {
+      if (/Mobi|Android/i.test(navigator.userAgent)) {
+        window.location.href = process.env.REACT_APP_GOOGLE_OAUTH_URL;
+        return;
+      }
+  
+      // Desktop flow with providerLogin
       const result = await providerLogin();
       if (result && result.user) {
         const { email } = result.user;
