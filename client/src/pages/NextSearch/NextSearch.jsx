@@ -36,6 +36,7 @@ const NextSearch = () => {
   const [showRightArrowPopular, setShowRightArrowPopular] = useState(false);
   const [alert, setAlert] = useState({ message: '', type: '', visible: false });
   const [likedStatus, setLikedStatus] = useState({});
+  const [triggerSearch, setTriggerSearch] = useState(false);
   const calendarRef = useRef(null);
   const calendarModalRef = useRef(null);
   const trailerModalRef = useRef(null);
@@ -148,11 +149,11 @@ const NextSearch = () => {
         const response = await api.get('/api/tmdb/search', {
           params: { query: searchQuery },
         });
-
+  
         const filteredResults = await Promise.all(
           response.data.results
-            .filter(result => result.media_type === 'movie' || result.media_type === 'tv' || result.media_type === 'person')
-            .map(async result => {
+            .filter(result => ['movie', 'tv', 'person'].includes(result.media_type))
+            .map(async (result) => {
               if (result.media_type === 'person') {
                 const knownFor = result.known_for.map(item => ({
                   id: item.id,
@@ -167,21 +168,22 @@ const NextSearch = () => {
               }
             })
         );
-
+  
         setResults(filteredResults);
       } catch (error) {
         showAlert('Could not fetch search results. Please try again later.', 'error');
       } finally {
         setIsLoading(false);
+        setTriggerSearch(false); 
       }
     }
-  }, [searchQuery, isAuthenticated]);
+  }, [searchQuery, isAuthenticated]);  
 
   useEffect(() => {
-    if (searchQuery.trim()) {
-      handleSearch(); 
+    if (triggerSearch) {
+      handleSearch();
     }
-  }, [searchQuery, handleSearch]);
+  }, [triggerSearch, handleSearch]);
 
   const fetchPopularMedia = useCallback(async (type, subType) => {
     setIsLoading(true);
@@ -440,7 +442,7 @@ const NextSearch = () => {
           <FontAwesomeIcon 
             icon={faSearch}
             className="next-search__search-icon"
-            onClick={handleSearch} 
+            onClick={() => setTriggerSearch(true)}  
             data-tooltip-id="searchTooltip"
             data-tooltip-content="Search" 
           />
@@ -448,7 +450,7 @@ const NextSearch = () => {
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+            onKeyDown={(e) => e.key === 'Enter' && setTriggerSearch(true)}
             placeholder="Search for titles or actors..."
             className="next-search__input"
             disabled={!isAuthenticated}
