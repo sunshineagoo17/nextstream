@@ -2986,6 +2986,13 @@
       background: $trans-blue;
     }
   }
+
+  .content-new-releases__register-btn {
+    &:visited {
+      color: $trans-candy-pink;
+    }
+  }
+
   .content__page-nav-wrapper-next,
   .content__page-nav-wrapper-previous {
     cursor: url('../../assets/cursors/cursor-pointer-tm.svg'), pointer;

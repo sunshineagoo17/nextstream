@@ -848,6 +848,12 @@ textarea {
       }
     }
   }
+
+  .content-new-releases__register-btn {
+    &:visited {
+      color: $star-starlight-yellow;
+    }
+  }
   
   .content-new-releases__register-btn {
     color: $star-text-dark;

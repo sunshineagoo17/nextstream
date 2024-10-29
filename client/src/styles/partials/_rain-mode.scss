@@ -483,6 +483,12 @@
       }
     }
   }
+
+  .content-new-releases__register-btn {
+    &:visited {
+      color: $rain-soft-seafoam;
+    }
+  }
   
   .content-new-releases__register-btn {
     color: $rain-soft-seafoam;

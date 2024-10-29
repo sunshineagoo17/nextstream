@@ -1557,6 +1557,12 @@
     }
   }
 
+  .content-new-releases__register-btn {
+    &:visited {
+      color: $primary-button-blue;
+    }
+  }
+
   .content__page-nav-wrapper-next,
   .content__page-nav-wrapper-previous {
     cursor: url('../../assets/cursors/cursor-pointer-bl.svg'), pointer;
