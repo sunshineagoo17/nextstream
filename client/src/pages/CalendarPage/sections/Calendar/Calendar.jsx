@@ -728,29 +728,34 @@ const Calendar = forwardRef(
                 type='datetime-local'
                 className='modal-input'
                 value={selectedEvent ? selectedEvent.start : newEventStartDate}
-                onChange={(e) =>
-                  selectedEvent
-                    ? setSelectedEvent({
-                        ...selectedEvent,
-                        start: e.target.value,
-                      })
-                    : setNewEventStartDate(e.target.value)
-                }
+                onChange={(e) => {
+                  const dateValue = new Date(e.target.value);
+                  if (!isNaN(dateValue)) {
+                    selectedEvent 
+                      ? setSelectedEvent({ ...selectedEvent, start: e.target.value }) 
+                      : setNewEventStartDate(e.target.value);
+                  } else {
+                    showCustomAlert("Please enter a valid date", "error");
+                  }
+                }}
               />
+
               <input
                 type='datetime-local'
                 className='modal-input'
                 value={selectedEvent ? selectedEvent.end : newEventEndDate}
-                onChange={(e) =>
-                  selectedEvent
-                    ? setSelectedEvent({
-                        ...selectedEvent,
-                        end: e.target.value,
-                      })
-                    : setNewEventEndDate(e.target.value)
-                }
+                onChange={(e) => {
+                  const dateValue = new Date(e.target.value);
+                  if (!isNaN(dateValue)) {
+                    selectedEvent 
+                      ? setSelectedEvent({ ...selectedEvent, end: e.target.value }) 
+                      : setNewEventEndDate(e.target.value);
+                  } else {
+                    showCustomAlert("Please enter a valid date", "error");
+                  }
+                }}
               />
-
+              
               <div className='modal-input event-type-options'>
                 <label>
                   <input
@@ -799,12 +804,10 @@ const Calendar = forwardRef(
               {/* AddToCalendar component */}
               <AddToCalendar
                 eventTitle={selectedEvent ? selectedEvent.title : newEventTitle}
-                eventStart={
-                  selectedEvent ? selectedEvent.start : newEventStartDate
-                }
-                eventEnd={selectedEvent ? selectedEvent.end : newEventEndDate}
-                eventLocation='Online/Theater'
-                eventDescription='Watch this event!'
+                eventStart={selectedEvent ? (selectedEvent.start || new Date().toISOString()) : (newEventStartDate || new Date().toISOString())}
+                eventEnd={selectedEvent ? (selectedEvent.end || new Date().toISOString()) : (newEventEndDate || new Date().toISOString())}
+                eventLocation="Online/Theater"
+                eventDescription="Watch this event!"
               />
 
               {/* ShareEventWithFriends Component */}
