@@ -96,7 +96,7 @@
 
   &__loading-container,
   &__no-faves-container {
-    @include block-item(auto, 33vh);
+    @include block-item(auto, 35.5vh);
     display: flex;
     background-color: $frosted-glass;
     border: .3125rem solid $neutral-white;
