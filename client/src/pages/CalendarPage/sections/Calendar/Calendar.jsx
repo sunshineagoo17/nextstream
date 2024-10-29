@@ -376,13 +376,19 @@ const Calendar = forwardRef(
     
       try {
         setLoading(true);
-    
-        for (const event of eventsToDelete) {
-          await api.delete(`/api/calendar/${userId}/events/${event.id}`);
-        }
+
+        await Promise.all(
+          eventsToDelete.map((event) =>
+            api.delete(`/api/calendar/${userId}/events/${event.id}`)
+          )
+        );
     
         await fetchEvents();
-        showCustomAlert(`Deleted all events in the current ${viewNames[currentView]} view!`, 'success');
+    
+        showCustomAlert(
+          `Deleted all events in the current ${viewNames[currentView]} view!`,
+          'success'
+        );
       } catch (error) {
         const errorMessage = error.response ? error.response.data : error.message;
         showCustomAlert(`Failed to delete events: ${errorMessage}`, 'error');
