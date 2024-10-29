@@ -3680,8 +3680,7 @@
     transition: transform 0.3s ease, background-color 0.3s ease, border 0.3s ease, color 0.3s ease; // Smooth transitions for multiple properties
   
     &:hover,
-    &:focus,
-    &:visited {
+    &:focus {
       background-color: $primary-button-blue;
       border: .0625rem solid $neutral-white;
       color: $neutral-white;
@@ -3693,6 +3692,10 @@
       color: $neutral-white;
       border: .125rem solid $neutral-white;
       transform: scale(0.95); 
+    }
+
+    &:visited {
+      color: $cloud-stormy-blue;
     }
   }
 

@@ -4187,10 +4187,9 @@ textarea {
     color: $star-starlight-yellow;
     text-decoration: none;
     transition: transform 0.3s ease, background-color 0.3s ease, border 0.3s ease, color 0.3s ease;
-  
+
     &:hover,
-    &:focus,
-    &:visited {
+    &:focus {
       background-color: $star-iridescent-gold;
       border: 0.0625rem solid $star-text-light;
       color: $neutral-black;
@@ -4202,6 +4201,10 @@ textarea {
       color: $star-black;
       border: 0.125rem solid $star-text-light;
       transform: scale(0.95);
+    }
+
+    &:visited {
+      color: $star-starlight-yellow;
     }
   }
   
