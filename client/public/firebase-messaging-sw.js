@@ -2,20 +2,49 @@ importScripts('https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js')
 importScripts('https://www.gstatic.com/firebasejs/9.0.0/firebase-messaging-compat.js');
 
 let messaging;
+let firebaseInitialized = false;
 
-// Placeholder push event handler
+// Initialize Firebase and messaging upon receiving configuration
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'SET_FIREBASE_CONFIG') {
+    const firebaseConfig = event.data.config;
+
+    // Initialize Firebase and Firebase Messaging
+    firebase.initializeApp(firebaseConfig);
+    messaging = firebase.messaging();
+    firebaseInitialized = true;
+
+    console.log('Firebase handlers set up for push and background messages');
+  }
+});
+
+// Push event listener with conditional logic for Firebase messaging
 self.addEventListener('push', (event) => {
-  console.log('Push event received but Firebase is not yet initialized:', event);
+  if (firebaseInitialized) {
+    const data = event.data?.json();
+    const title = data?.title || 'NextStream Notification';
+    const options = {
+      body: data?.body || 'You have a new notification from NextStream!',
+      icon: './nextstream-brandmark-logo.svg',
+    };
+    event.waitUntil(self.registration.showNotification(title, options));
+  } else {
+    console.log('Push event received but Firebase is not yet initialized:', event);
+  }
 });
 
-// Placeholder pushsubscriptionchange handler
-self.addEventListener('pushsubscriptionchange', () => {
-  console.log('Push subscription change event detected but Firebase is not yet initialized.');
+// Push subscription change listener
+self.addEventListener('pushsubscriptionchange', (event) => {
+  if (firebaseInitialized) {
+    console.log('Handling pushsubscriptionchange with Firebase initialized');
+    // Handle subscription renewal logic here
+  } else {
+    console.log('Push subscription change detected but Firebase is not yet initialized.');
+  }
 });
 
-// Placeholder notificationclick handler
+// Notification click listener
 self.addEventListener('notificationclick', (event) => {
-  console.log('Notification click received but Firebase is not yet initialized:', event);
   event.notification.close();
   event.waitUntil(
     clients.matchAll({ type: 'window' }).then((clientList) => {
@@ -25,44 +54,21 @@ self.addEventListener('notificationclick', (event) => {
       if (clients.openWindow) return clients.openWindow('/');
     })
   );
+  console.log('Notification click received');
 });
 
-// Set up Firebase-dependent event handlers
-function setupFirebaseHandlers() {
-  // Replace placeholder push event handler with Firebase messaging handler
-  self.addEventListener('push', (event) => {
-    const data = event.data?.json();
-    const title = data?.title || 'NextStream Notification';
-    const options = {
-      body: data?.body || 'You have a new notification from NextStream!',
-      icon: './nextstream-brandmark-logo.svg',
-    };
-    event.waitUntil(self.registration.showNotification(title, options));
-  });
-
-  // Handle background messages with Firebase Messaging
+// Background message handler for Firebase messaging
+if (messaging) {
   messaging.onBackgroundMessage((payload) => {
-    const notificationTitle = payload.notification.title;
-    const notificationOptions = {
-      body: payload.notification.body,
-      icon: './nextstream-brandmark-logo.svg',
-    };
-    self.registration.showNotification(notificationTitle, notificationOptions);
+    if (firebaseInitialized) {
+      const notificationTitle = payload.notification.title;
+      const notificationOptions = {
+        body: payload.notification.body,
+        icon: './nextstream-brandmark-logo.svg',
+      };
+      self.registration.showNotification(notificationTitle, notificationOptions);
+    } else {
+      console.log('Background message received but Firebase is not yet initialized:', payload);
+    }
   });
-
-  console.log('Firebase handlers set up for push and background messages');
 }
-
-// Initialize Firebase after receiving configuration from the main app
-self.addEventListener('message', (event) => {
-  if (event.data && event.data.type === 'SET_FIREBASE_CONFIG') {
-    const firebaseConfig = event.data.config;
-
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-    messaging = firebase.messaging();
-
-    // Set up Firebase-specific event handling
-    setupFirebaseHandlers();
-  }
-});
