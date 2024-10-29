@@ -77,17 +77,6 @@ const App = () => {
     
           if (currentToken) {
             await sendTokenToServer(currentToken);
-    
-            messaging.onTokenRefresh(async () => {
-              const newToken = await getToken(messaging, {
-                vapidKey: process.env.REACT_APP_VAPID_KEY,
-                serviceWorkerRegistration: registration,
-              });
-              
-              if (newToken) {
-                await sendTokenToServer(newToken); 
-              }
-            });
           } else {
             console.log('No registration token available. Request permission to generate one.');
           }
@@ -95,9 +84,9 @@ const App = () => {
           console.warn('Notification permission denied by the user.');
         }
       } catch (err) {
-        console.error('An error occurred while retrieving token. ', err);
+        console.error('An error occurred while retrieving token.', err);
       }
-    };
+    };    
 
     if (isAuthenticated) {
       requestFCMToken();
