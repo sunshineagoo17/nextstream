@@ -771,8 +771,12 @@
     }
   }
 
+  &__chatbot-svg {
+    @include block-item(100%, auto);
+  }
+
   &__empty-chat {
-    @include block-item(11.0244rem, 10.6875rem);
+    @include block-item(11.0244rem, auto);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -788,6 +792,7 @@
   }
 
   &__empty-message {
+    @include block-item(100%, auto);
     animation: bounce 6s infinite ease-in-out, colorShift 3s infinite ease-in-out;
     border: .1875rem solid $primary-very-light-blue;
     border-radius: .5rem;
@@ -799,11 +804,8 @@
     line-height: .8rem;
     text-align: center;
     padding: .25rem;
-    width: 100%;  
-    display: none;
     
     @include tablet {
-      display: block;
       font-size: .85rem;
       line-height: 1.25rem;
       font-weight: bold;
