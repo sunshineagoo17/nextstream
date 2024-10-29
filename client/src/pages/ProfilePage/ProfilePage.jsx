@@ -50,27 +50,33 @@ export const ProfilePage = () => {
       if (userId) {
         try {
           const response = await api.get(`/api/profile/${userId}`);
-          setUser(response.data);
-          setReceiveReminders(response.data.receiveReminders);
-          setReceiveNotifications(response.data.receiveNotifications);
-          setReceivePushNotifications(!!response.data.receivePushNotifications);
-          setNotificationTime(response.data.notificationTime || '30');
-          setSelectedRegion(response.data.region);
-          setIsSubscribed(response.data.isSubscribed);
-          setIsActive(response.data.isActive);
+          const profileData = response.data;
+          setUser(profileData);
+          setReceiveReminders(profileData.receiveReminders);
+          setReceiveNotifications(profileData.receiveNotifications);
+          setReceivePushNotifications(!!profileData.receivePushNotifications);
+          setNotificationTime(profileData.notificationTime || '30');
+          setSelectedRegion(profileData.region);
+          setIsSubscribed(profileData.isSubscribed);
+          setIsActive(profileData.isActive);
+  
+          if (profileData.notificationTime === 'custom') {
+            setCustomHours(profileData.customHours || '');
+            setCustomMinutes(profileData.customMinutes || '');
+          }
         } catch (error) {
           setSaveMessage({ text: 'Error fetching profile. Please try again.', className: 'error' });
         } finally {
           setIsLoading(false);
         }
       } else {
-        setIsLoading(false); 
+        setIsLoading(false);
       }
     };
   
     fetchProfile();
-  }, [userId]);  
-
+  }, [userId]);
+  
   const clearSaveMessage = () => {
     setSaveMessage({ text: '', className: '' });
   };
@@ -143,12 +149,15 @@ export const ProfilePage = () => {
       receiveNotifications,
       receivePushNotifications,
       notificationTime,
-      customHours,
-      customMinutes,
       region: selectedRegion,
       isSubscribed,
-      isActive
+      isActive,
     };
+
+    if (notificationTime === 'custom') {
+      updatedUser.customHours = customHours;
+      updatedUser.customMinutes = customMinutes;
+    }
 
     try {
       if (currentPassword && newPassword) {
