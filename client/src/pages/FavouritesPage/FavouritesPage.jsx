@@ -843,7 +843,7 @@ const FavouritesPage = () => {
                   <>
                     <img src={LikesSVG} alt="Likes Img" className="faves-page__no-faves-svg" />
                     <p className="faves-page__svg-text">
-                      You haven't added any favourites yet. Explore our <a className="faves-page__text-link" href={`/top-picks/${userId}`}>Top Picks</a> to find something to watch!
+                      You haven't added any favourites yet. Explore our <Link to={`/top-picks/${userId}`} className="faves-page__text-link">Top Picks</Link> to find something to watch!
                     </p>
                   </>
                 )}
