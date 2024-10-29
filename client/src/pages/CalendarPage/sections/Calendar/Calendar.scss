@@ -12,21 +12,6 @@
   --fc-event-border-color: transparent;
 }
 
-#deleteDisabledTooltip {
-  background-color: $primary-dark-blue;
-  color: $neutral-white;
-  padding: .5rem 1rem;
-  border-radius: .5rem;
-  box-shadow: 0 .5rem 1rem rgba($neutral-black, .1);
-  font-family: $primary-font;
-  font-size: .85rem;
-  line-height: 1.25rem;
-
-  &::after {
-    border: $primary-button-blue transparent transparent transparent;
-  }
-}
-
 .calendar {
   background: $frosted-glass;
   border-radius: 1rem;

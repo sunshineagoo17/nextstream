@@ -1,6 +1,5 @@
 import { useState, useEffect, useContext, useCallback, forwardRef, useImperativeHandle, useRef } from 'react';
 import { AuthContext } from '../../../../context/AuthContext/AuthContext';
-import { Tooltip } from 'react-tooltip';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faFilm, faTv, faTimes, faTrash, faCalendarAlt, faEraser } from '@fortawesome/free-solid-svg-icons';
 import PropTypes from 'prop-types';
@@ -357,11 +356,7 @@ const Calendar = forwardRef(
     
         showCustomAlert('Event deleted successfully!', 'success');
       } catch (error) {
-        if (error.response && error.response.status === 403) {
-          showCustomAlert('This is a shared event and only the inviter can delete it.', 'info');
-        } else {
-          showCustomAlert('Failed to delete event.', 'error');
-        }
+        showCustomAlert('Failed to delete event.', 'error');
       } finally {
         setLoading(false);
         setModalVisible(false);
@@ -383,10 +378,6 @@ const Calendar = forwardRef(
         setLoading(true);
     
         for (const event of eventsToDelete) {
-          if (event.isShared && event.createdBy !== userId) {
-            showCustomAlert(`Cannot delete shared event: ${event.title}`, 'info');
-            continue;
-          }
           await api.delete(`/api/calendar/${userId}/events/${event.id}`);
         }
     
@@ -398,7 +389,7 @@ const Calendar = forwardRef(
       } finally {
         setLoading(false);
       }
-    };    
+    };
     
     const renderEventContent = (eventInfo) => {
       const handleEventClickWithLoader = async (event) => {
@@ -792,14 +783,11 @@ const Calendar = forwardRef(
                   <button
                     className='calendar__delete-btn'
                     onClick={handleDeleteEvent}
-                    data-tooltip-id="deleteDisabledTooltip" 
-                    data-tooltip-content="Only inviter can delete" 
                   >
                     Delete
                   </button>
                 )}
                 <button className='calendar__cancel-btn' onClick={() => setModalVisible(false)}>Cancel</button>
-                <Tooltip id="deleteDisabledTooltip" place="top" />
               </div>
               
               {/* AddToCalendar component */}

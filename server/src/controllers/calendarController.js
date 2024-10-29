@@ -374,35 +374,32 @@ exports.deleteEvent = async (req, res) => {
   const { userId } = req.user;
 
   try {
-    const sharedEvent = await knex('calendar_events')
+    // Check if the user is either the creator or an invitee of the event
+    const isEventOwner = await knex('events')
+      .where({ id: eventId, user_id: userId })
+      .first();
+    
+    const isInvitee = await knex('calendar_events')
       .where({ event_id: eventId, friend_id: userId })
       .first();
 
-    if (sharedEvent) {
+    if (!isEventOwner && !isInvitee) {
       return res.status(403).json({
-        message: "You cannot delete a shared event that was not created by you.",
+        message: "You are not authorized to delete this event.",
       });
     }
 
-    const event = await knex('events')
-      .where({ id: eventId, user_id: userId })
-      .first();
-
-    if (!event) {
-      return res.status(404).json({ message: 'Event not found or not owned by you.' });
-    }
-
-    // Delete the event and associated calendar events
-    await knex('events').where({ id: eventId, user_id: userId }).del();
+    // Delete the event and associated calendar events if user is authorized
+    await knex('events').where({ id: eventId }).del();
     await knex('calendar_events').where({ event_id: eventId }).del();
 
-    if (event.media_id && event.media_type) {
+    if (isEventOwner?.media_id && isEventOwner?.media_type) {
       await knex('media_statuses')
-        .where({ userId: userId, media_id: event.media_id, media_type: event.media_type })
+        .where({ userId: userId, media_id: isEventOwner.media_id, media_type: isEventOwner.media_type })
         .del();
 
       await knex('interactions')
-        .where({ userId: userId, media_id: event.media_id, media_type: event.media_type })
+        .where({ userId: userId, media_id: isEventOwner.media_id, media_type: isEventOwner.media_type })
         .update({ interaction: 0 });
     }
 
