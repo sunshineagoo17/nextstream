@@ -161,7 +161,7 @@ const FriendsPage = () => {
       setAlertMessage({
         message: isAccepted
           ? 'Event accepted successfully!'
-          : 'Event declined and removed.',
+          : 'Event removed from calendar.',
         type: isAccepted ? 'success' : 'success',
       });
     } catch (error) {

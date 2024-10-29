@@ -82,7 +82,10 @@ exports.respondToSharedEvent = async (req, res) => {
 
   try {
     const sharedEvent = await knex('calendar_events')
-      .where({ id: calendarEventId, friend_id: userId })
+      .where({ id: calendarEventId })
+      .where(function() {
+        this.where('friend_id', userId).orWhere('user_id', userId);
+      })
       .first();
 
     if (!sharedEvent) {
@@ -94,23 +97,14 @@ exports.respondToSharedEvent = async (req, res) => {
         .where({ id: calendarEventId, friend_id: userId })
         .update({ isAccepted: true });
 
-      // Fetch the event details
-      const event = await knex('events')
-        .where({ id: sharedEvent.event_id })
-        .first();
+      const event = await knex('events').where({ id: sharedEvent.event_id }).first();
 
       if (event && event.media_id && event.media_type) {
-        // Fetch media details by title (or other logic)
         const mediaDetails = await getMediaDetailsByTitle(event.title, event.media_type);
-        if (!mediaDetails) {
-          throw new Error('Media details not found');
-        }
+        if (!mediaDetails) throw new Error('Media details not found');
 
-        const mediaTitle = mediaDetails.title;
-        const genre = mediaDetails.genres.join(', '); 
-        const duration = mediaDetails.duration;
-
-        // Update the media status for both the invitee (userId) and the inviter (sharedEvent.user_id)
+        const { title: mediaTitle, genres, duration } = mediaDetails;
+        const genre = genres.join(', ');
         const updateMediaStatus = async (userIdToUpdate) => {
           await knex('media_statuses')
             .insert({
@@ -119,27 +113,27 @@ exports.respondToSharedEvent = async (req, res) => {
               media_type: event.media_type,
               status: 'scheduled',
               title: mediaTitle,
-              genre: genre,
-              duration: duration,
+              genre,
+              duration,
             })
             .onConflict(['user_id', 'media_id'])
             .merge({
               status: 'scheduled',
               title: mediaTitle,
-              genre: genre,
-              duration: duration
+              genre,
+              duration,
             });
         };
 
-        await updateMediaStatus(userId); 
-        await updateMediaStatus(sharedEvent.user_id); 
+        await updateMediaStatus(userId);
+        await updateMediaStatus(sharedEvent.user_id);
       }
     } else {
-      await knex('calendar_events')
-        .where({ id: calendarEventId, friend_id: userId })
-        .del();
+      // Decline: delete the event if declined by either the inviter or invitee
+      await knex('calendar_events').where({ id: calendarEventId }).del();
     }
 
+    // Fetch updated events for the user
     const updatedEvents = await knex('calendar_events')
       .join('events', 'calendar_events.event_id', '=', 'events.id')
       .where({ 'calendar_events.friend_id': userId })
