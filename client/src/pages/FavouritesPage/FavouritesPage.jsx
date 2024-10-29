@@ -830,20 +830,24 @@ const FavouritesPage = () => {
                 ))}
               </div>
             ) : (
-              !isLoading && hasSearched ? (
+              !isLoading && (
                 <div className="faves-page__no-faves-container">
-                  <img src={NoResultsSVG} alt="Likes Img" className="faves-page__no-faves-svg" />
-                  <p className="faves-page__text faves-page__svg-text">
-                    No results found for your search. Please try a different title or genre.
-                  </p>
-                </div>
-              ) : (
-                <div className="faves-page__no-faves-container">
-                  <img src={LikesSVG} alt="Likes Img" className="faves-page__no-faves-svg" />
-                  <p className="faves-page__svg-text">
-                    You haven't added any favourites yet. Explore our <a className="faves-page__text-link" href={`/top-picks/${userId}`}>Top Picks</a> to find something to watch!
-                  </p>
-                </div>
+                  {hasSearched ? (
+                    <>
+                      <img src={NoResultsSVG} alt="Likes Img" className="faves-page__no-faves-svg" />
+                      <p className="faves-page__text faves-page__svg-text">
+                        No results found for your search. Please try a different title or genre.
+                      </p>
+                    </>
+                ) : (
+                  <>
+                    <img src={LikesSVG} alt="Likes Img" className="faves-page__no-faves-svg" />
+                    <p className="faves-page__svg-text">
+                      You haven't added any favourites yet. Explore our <a className="faves-page__text-link" href={`/top-picks/${userId}`}>Top Picks</a> to find something to watch!
+                    </p>
+                  </>
+                )}
+              </div>
               )
             )}
           </>
