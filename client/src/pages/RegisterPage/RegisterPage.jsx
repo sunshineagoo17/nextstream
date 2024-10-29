@@ -142,8 +142,13 @@ export const RegisterPage = () => {
   const handleOAuthRegister = async (providerLogin) => {
     try {
       setIsLoading(true);  
+
+      if (/Mobi|Android/i.test(navigator.userAgent)) {
+        window.location.href = process.env.REACT_APP_GOOGLE_OAUTH_URL;
+        return;
+      }
+
       const result = await providerLogin();
-      
       if (result && result.user) {
         const { email, displayName } = result.user;
         const response = await api.post('/api/auth/oauth-register', {
