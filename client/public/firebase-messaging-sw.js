@@ -24,8 +24,36 @@ self.addEventListener('message', (event) => {
       // Check if notification permission is granted
       if (Notification.permission === 'granted') {
         self.registration.showNotification(notificationTitle, notificationOptions);
-      } else {
       }
     });
   }
+});
+
+// Add `push` event listener immediately
+self.addEventListener('push', (event) => {
+  const data = event.data?.json();
+  const title = data?.title || 'NextStream Notification';
+  const options = {
+    body: data?.body || 'You have a new notification from NextStream!',
+    icon: './nextstream-brandmark-logo.svg',
+  };
+
+  event.waitUntil(self.registration.showNotification(title, options));
+});
+
+// Add `pushsubscriptionchange` event listener immediately
+self.addEventListener('pushsubscriptionchange', (event) => {
+  console.log('Push subscription change event detected:');
+});
+
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close();
+  event.waitUntil(
+    clients.matchAll({ type: 'window' }).then((clientList) => {
+      for (const client of clientList) {
+        if (client.url === '/' && 'focus' in client) return client.focus();
+      }
+      if (clients.openWindow) return clients.openWindow('/');
+    })
+  );
 });
