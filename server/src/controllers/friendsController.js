@@ -46,7 +46,7 @@ exports.getFriends = async (req, res) => {
     }
   };
 
-exports.addFriend = async (req, res) => {
+  exports.addFriend = async (req, res) => {
     const { userId } = req.user;
     const { friendId } = req.body;
 
@@ -55,8 +55,6 @@ exports.addFriend = async (req, res) => {
     }
 
     try {
-
-        // Check if friend exists
         const friendExists = await knex('users').where('id', friendId).first();
         if (!friendExists) {
             return res.status(404).json({ message: 'Friend not found' });
@@ -67,10 +65,10 @@ exports.addFriend = async (req, res) => {
                 this.where({ user_id: userId, friend_id: friendId })
                     .orWhere({ user_id: friendId, friend_id: userId });
             })
-            .first();      
+            .first();
 
         if (existingFriendship) {
-            return res.status(400).json({ message: 'Friendship already exists or pending' });
+            return res.status(200).json({ message: 'Friend request sent successfully!' });
         }
 
         await knex('friends').insert({
@@ -79,7 +77,7 @@ exports.addFriend = async (req, res) => {
             isAccepted: false
         });
 
-        res.status(200).json({ message: 'Friend request sent successfully' });
+        res.status(200).json({ message: 'Friend request sent successfully!' });
     } catch (error) {
         res.status(500).json({ message: 'Error adding friend', error: error.message });
     }

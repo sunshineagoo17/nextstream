@@ -46,17 +46,10 @@ const FriendsPage = () => {
   }, [handleCloseCalendar]);  
 
   useEffect(() => {
-    if (showCalendar) {
-      document.addEventListener('mousedown', handleClickOutside);
-    } else {
-      document.removeEventListener('mousedown', handleClickOutside);
-    }
+    if (showCalendar) document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [showCalendar, handleClickOutside]);
   
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [showCalendar, handleClickOutside]);  
-
   const getEvents = useCallback(async () => {
     try {
       const response = await fetch(`/api/calendar/${userId}/events`);
@@ -78,35 +71,24 @@ const FriendsPage = () => {
   const fetchFriends = useCallback(async () => {
     try {
       const friendsData = await getFriends();
-
-      if (Array.isArray(friendsData)) {
-        setFriends(friendsData);
-      } else {
-        setFriends([]);
-      }
+      setFriends(Array.isArray(friendsData) ? friendsData : []);
     } catch (error) {
+      setAlertMessage({ message: 'Error fetching friends.', type: 'error' });
     }
   }, []);
-
+  
   useEffect(() => {
     const fetchAllUnreadMessages = async () => {
-      if (friends.length > 0) {
-        const allMessages = [];
-
-        for (const friend of friends) {
-          try {
-            const messagesData = await fetchMessages(friend.id);
-            const unreadMessages = messagesData.filter(
-              (message) => !message.is_read
-            );
-            allMessages.push(...unreadMessages);
-          } catch (error) {
-          }
-        }
-
-        setMessages(allMessages);
+      try {
+        const allMessages = await Promise.all(
+          friends.map(friend => fetchMessages(friend.id))
+        );
+        const unreadMessages = allMessages.flat().filter(msg => !msg.is_read);
+        setMessages(unreadMessages);
+      } catch (error) {
+        console.error("Error fetching unread messages:", error);
       }
-    };
+    };    
 
     if (userId) {
       fetchAllUnreadMessages();
@@ -177,7 +159,6 @@ const FriendsPage = () => {
     const fetchSharedEvents = async () => {
       try {
         const eventsData = await fetchSharedCalendarEvents(userId);
-  
         setSharedCalendarEvents(eventsData);
       } catch (error) {
         console.error('Error fetching shared calendar events:', error);
@@ -187,8 +168,8 @@ const FriendsPage = () => {
     if (userId) {
       fetchSharedEvents();
     }
-  }, [userId]);  
-
+  }, [userId]);
+  
   useEffect(() => {
     if (isAuthenticated && userId) {
       fetchFriends();
@@ -207,24 +188,21 @@ const FriendsPage = () => {
   ]);
 
   useEffect(() => {
-    if (userId) {
-      if (!socketRef.current) {
-        const socketUrl = process.env.NODE_ENV === 'development' 
-          ? 'http://localhost:8080' 
-          : 'https://www.nextstream.ca'; 
+    if (userId && !socketRef.current) {
+      const socketUrl = process.env.NODE_ENV === 'development'
+        ? 'http://localhost:8080'
+        : 'https://www.nextstream.ca';
   
-        socketRef.current = io(socketUrl);
-        socketRef.current.emit('join_room', userId);
-      }
+      socketRef.current = io(socketUrl);
+      socketRef.current.emit('join_room', userId);
   
+      // Consolidated listeners
       const handleReceiveMessage = (data) => {
-        setMessages((prevMessages) => [...prevMessages, { ...data, is_read: false }]);
+        setMessages((prevMessages) => [...prevMessages, data]);
       };
-      
       const handleTyping = (data) => {
         if (data.friendId === userId) setTyping(true);
       };
-  
       const handleStopTyping = (data) => {
         if (data.friendId === userId) setTyping(false);
       };
@@ -234,28 +212,27 @@ const FriendsPage = () => {
       socketRef.current.on('stop_typing', handleStopTyping);
   
       return () => {
-        if (socketRef.current) {
-          socketRef.current.off('receive_message', handleReceiveMessage);
-          socketRef.current.off('typing', handleTyping);
-          socketRef.current.off('stop_typing', handleStopTyping);
-        }
+        socketRef.current.off('receive_message', handleReceiveMessage);
+        socketRef.current.off('typing', handleTyping);
+        socketRef.current.off('stop_typing', handleStopTyping);
+        socketRef.current.emit('leave_room', userId);
+        socketRef.current.disconnect();
       };
     }
-  }, [userId, selectedFriend]);
-
-  const handleTyping = () => {
+  }, [userId]);
+  
+  const handleTyping = useCallback(() => {
     if (!typing) {
       setTyping(true);
       socketRef.current.emit('typing', { userId, friendId: selectedFriend?.id });
     }
   
-    const timeoutId = setTimeout(() => {
+    clearTimeout(handleTyping.timeoutId);
+    handleTyping.timeoutId = setTimeout(() => {
       setTyping(false);
       socketRef.current.emit('stop_typing', { userId, friendId: selectedFriend?.id });
     }, 3000);
-  
-    return () => clearTimeout(timeoutId);
-  };
+  }, [userId, selectedFriend, typing]);  
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
@@ -264,25 +241,6 @@ const FriendsPage = () => {
       handleTyping();
     }
   };
-
-  useEffect(() => {
-    socketRef.current.on('typing', (data) => {
-      if (data.friendId === userId) {
-        setTyping(true);
-      }
-    });
-  
-    socketRef.current.on('stop_typing', (data) => {
-      if (data.friendId === userId) {
-        setTyping(false);
-      }
-    });
-  
-    return () => {
-      socketRef.current.off('typing');
-      socketRef.current.off('stop_typing');
-    };
-  }, [userId]);
 
   const handleSelectFriend = async (friend) => {
     setSelectedFriend(friend); 
@@ -334,49 +292,6 @@ const FriendsPage = () => {
       fetchMessagesForFriend();
     }
   }, [selectedFriend]);
-
-  useEffect(() => {
-    if (userId) {
-      if (!socketRef.current) {
-        const socketUrl = process.env.NODE_ENV === 'development' 
-          ? 'http://localhost:8080' 
-          : 'https://www.nextstream.ca'; 
-  
-        socketRef.current = io(socketUrl);
-        socketRef.current.emit('join_room', userId);
-      }
-  
-      // Handle receiving a new message in real-time
-      const handleReceiveMessage = (data) => {
-        setMessages((prevMessages) => [...prevMessages, data]);
-      };
-  
-      // Handle typing events in real-time
-      const handleTyping = (data) => {
-        if (data.friendId === userId) {
-          setTyping(true);
-        }
-      };
-  
-      const handleStopTyping = (data) => {
-        if (data.friendId === userId) {
-          setTyping(false);
-        }
-      };
-  
-      socketRef.current.on('receive_message', handleReceiveMessage);
-      socketRef.current.on('typing', handleTyping);
-      socketRef.current.on('stop_typing', handleStopTyping);
-  
-      return () => {
-        if (socketRef.current) {
-          socketRef.current.off('receive_message', handleReceiveMessage);
-          socketRef.current.off('typing', handleTyping);
-          socketRef.current.off('stop_typing', handleStopTyping);
-        }
-      };
-    }
-  }, [userId, selectedFriend]);
 
   useEffect(() => {
     if (userId && socketRef.current) {
@@ -467,51 +382,37 @@ const FriendsPage = () => {
 
   const handleSendFriendRequest = async (friendId) => {
     const isAlreadyFriend = friends.some((friend) => friend.id === friendId);
-  
+
     if (isAlreadyFriend) {
-      setAlertMessage({
-        message: 'This user is already in your friends list!',
-        type: 'info',
-      });
-      return;
+        setAlertMessage({
+            message: 'This user is already in your friends list!',
+            type: 'info',
+        });
+        return;
     }
-  
+
     try {
-      setAlertMessage({
-        message: 'Sending friend request...',
-        type: 'info',
-      });
-  
-      const response = await sendFriendRequest(friendId);
-  
-      if (response.success) {
-        await fetchFriends();
         setAlertMessage({
-          message: 'Friend request sent successfully!',
-          type: 'success',
+            message: 'Sending friend request...',
+            type: 'info',
         });
-      } else {
-        throw new Error('Failed to send friend request');
-      }
+
+        const response = await sendFriendRequest(friendId);
+
+        if (response.message === 'Friend request sent successfully!') {
+            await fetchFriends();
+            setAlertMessage({
+                message: response.message,
+                type: 'success',
+            });
+        }
     } catch (error) {
-      if (error.response && error.response.status === 400) {
         setAlertMessage({
-          message: 'Friend request failed. Invalid user ID or already a friend.',
-          type: 'error',
+            message: 'Error sending friend request. Please check your connection.',
+            type: 'error',
         });
-      } else if (error.response && error.response.status === 500) {
-        setAlertMessage({
-          message: 'Server error. Please try again later.',
-          type: 'error',
-        });
-      } else {
-        setAlertMessage({
-          message: 'Error sending friend request. Please check your connection.',
-          type: 'error',
-        });
-      }
     }
-  };
+};
 
   const handleDeclineFriendRequest = async (friendId) => {
     try {
