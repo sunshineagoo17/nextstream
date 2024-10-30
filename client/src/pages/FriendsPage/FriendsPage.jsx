@@ -189,37 +189,39 @@ const FriendsPage = () => {
 
   useEffect(() => {
     if (!socketRef.current) {
-      socketRef.current = io({ withCredentials: true });
+      socketRef.current = io(process.env.REACT_APP_BASE_URL, { withCredentials: true });
+      
       socketRef.current.emit('join_room', userId);
-  
+
       const handleReceiveMessage = (data) => {
         setMessages((prevMessages) => {
-          if (!prevMessages.some((message) => message.id === data.id)) {
-            return [...prevMessages, data];
-          }
-          return prevMessages;
+          return prevMessages.some((message) => message.id === data.id)
+            ? prevMessages
+            : [...prevMessages, data];
         });
       };
-  
+
       const handleTyping = (data) => {
         if (data.friendId === userId) setTyping(true);
       };
-  
+
       const handleStopTyping = (data) => {
         if (data.friendId === userId) setTyping(false);
       };
-  
+
       socketRef.current.on('receive_message', handleReceiveMessage);
       socketRef.current.on('typing', handleTyping);
       socketRef.current.on('stop_typing', handleStopTyping);
-  
+
       return () => {
-        socketRef.current.off('receive_message', handleReceiveMessage);
-        socketRef.current.off('typing', handleTyping);
-        socketRef.current.off('stop_typing', handleStopTyping);
-        socketRef.current.emit('leave_room', userId);
-        socketRef.current.disconnect();
-        socketRef.current = null; 
+        if (socketRef.current) {
+          socketRef.current.off('receive_message', handleReceiveMessage);
+          socketRef.current.off('typing', handleTyping);
+          socketRef.current.off('stop_typing', handleStopTyping);
+          socketRef.current.emit('leave_room', userId);
+          socketRef.current.disconnect();
+          socketRef.current = null;
+        }
       };
     }
   }, [userId]);
@@ -298,9 +300,9 @@ const FriendsPage = () => {
     }
   }, [selectedFriend]);
 
-  const handleSendMessage = async (messageText = newMessage) => {
+  const handleSendMessage = useCallback(async (messageText = newMessage) => {
     const textToSend = messageText.trim();
-
+  
     if (textToSend && selectedFriend?.id) {
       const newMessageObj = {
         senderId: userId,
@@ -309,17 +311,18 @@ const FriendsPage = () => {
         timestamp: new Date().toISOString(),
         is_read: false,
       };
-
+  
       setMessages((prevMessages) => [...prevMessages, newMessageObj]);
-
+  
       try {
         socketRef.current.emit('send_message', newMessageObj); 
         await sendMessage(selectedFriend.id, textToSend);
         setNewMessage('');
       } catch (error) {
+        console.error("Error sending message:", error);
       }
     }
-  };
+  }, [newMessage, selectedFriend, userId]);  
   
   const handleDeleteMessage = async (messageId) => {
     try {
