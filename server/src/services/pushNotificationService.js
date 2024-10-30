@@ -20,34 +20,38 @@ async function sendPushNotifications(user, events) {
     }
 
     for (const event of events) {
-        const eventStartTime = moment(event.start).format('YYYY-MM-DD HH:mm:ss');
-        const notificationOffset = user.notificationTime || 0; 
+        const eventStartTime = moment.utc(event.start);
+        const notificationTime = eventStartTime.clone().subtract(user.notificationTime || 0, 'minutes');
+        
+        if (moment().isSameOrAfter(notificationTime)) {
+            const message = {
+                notification: {
+                    title: `Upcoming Stream: ${event.title}`,
+                    body: `Your viewing will start at ${eventStartTime.format('HH:mm')}`,
+                },
+                token: fcmToken,
+                data: {
+                    url: `/calendar/${user.id}/events/${event.id}`,
+                    eventId: event.id.toString(),
+                },
+            };
 
-        const message = {
-            notification: {
-                title: `Upcoming Stream: ${event.title}`,
-                body: `Your viewing will start at ${moment(event.start).format('HH:mm')}`,
-            },
-            token: fcmToken, 
-            data: {
-                url: `/calendar/${user.id}/events/${event.id}`, 
-                eventId: event.id.toString(),
-            },
-        };
+            try {
+                const response = await admin.messaging().send(message);
+                console.log('Push notification sent successfully:', response);
+            } catch (error) {
+                console.error(`Error sending push notification for event ID ${event.id} to user ${user.id}:`, error);
 
-        try {
-            const response = await admin.messaging().send(message);
-            console.log('Push notification sent successfully:', response);
-        } catch (error) {
-            console.error(`Error sending push notification for event ID ${event.id} to user ${user.id}:`, error);
-
-            if (error.code === 'messaging/invalid-recipient') {
-                console.error('Invalid FCM token, please verify that the token is correct.');
-            } else if (error.code === 'messaging/invalid-argument') {
-                console.error('Invalid notification payload structure. Double-check the message object.');
-            } else {
-                console.error('Unexpected error encountered:', error.message);
+                if (error.code === 'messaging/registration-token-not-registered') {
+                    console.error('Invalid FCM token. The token might have expired or been revoked.');
+                } else if (error.code === 'messaging/invalid-argument') {
+                    console.error('Invalid notification payload structure. Double-check the message object.');
+                } else {
+                    console.error('Unexpected error encountered:', error.message);
+                }
             }
+        } else {
+            console.log(`Skipping notification for event ID ${event.id} as the notification time has not been reached.`);
         }
     }
 }
