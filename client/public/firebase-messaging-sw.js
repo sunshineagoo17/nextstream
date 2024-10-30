@@ -5,6 +5,7 @@ let messaging;
 let firebaseInitialized = false;
 const deferredPushEvents = [];
 
+// Set up Firebase configuration and initialize messaging
 self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'SET_FIREBASE_CONFIG') {
     const firebaseConfig = event.data.config;
@@ -15,6 +16,7 @@ self.addEventListener('message', (event) => {
       firebaseInitialized = true;
       console.log('Firebase initialized and messaging set up.');
 
+      // Process any deferred push events after Firebase is initialized
       if (deferredPushEvents.length > 0) {
         console.log('Processing deferred push events:', deferredPushEvents.length);
         deferredPushEvents.forEach((deferredEvent) => handlePushEvent(deferredEvent));
@@ -37,6 +39,7 @@ self.addEventListener('pushsubscriptionchange', (event) => {
   console.log('Push subscription change event triggered:', event);
 });
 
+// Notification click event listener to handle notification interactions
 self.addEventListener('notificationclick', (event) => {
   event.notification.close();
   event.waitUntil(
@@ -53,22 +56,22 @@ self.addEventListener('notificationclick', (event) => {
 function handlePushEvent(event) {
   let data;
   try {
-      data = event.data?.json();
+    data = event.data?.json();
   } catch (error) {
-      console.warn('Data is not JSON, using fallback text:', event.data.text());
-      data = { notification: { title: 'Notification', body: event.data.text() } };
+    console.warn('Data is not JSON, using fallback text:', event.data.text());
+    data = { notification: { title: 'Notification', body: event.data.text() } };
   }
 
   const title = data.notification?.title || 'NextStream Notification';
   const options = {
-      body: data.notification?.body || 'Hiya from NextStream!',
-      icon: data.notification?.icon || './nextstream-brandmark-logo.svg',
+    body: data.notification?.body || 'Hiya from NextStream!',
+    icon: data.notification?.icon || './nextstream-brandmark-logo.svg',
   };
 
   event.waitUntil(self.registration.showNotification(title, options));
 }
 
-if (!firebaseInitialized && messaging) {
+if (firebaseInitialized && messaging) {
   messaging.onBackgroundMessage((payload) => {
     const notificationTitle = payload.notification.title || 'Background Notification';
     const notificationOptions = {
