@@ -1467,6 +1467,18 @@
 
   .hover-menu__container {
     top: 3.25rem;
+
+    @include tablet {
+      top: 2.15rem;
+    }
+
+    @include desktop {
+      top: 2.175rem;
+    }
+    
+    @include large-desktop {
+      top: 2.175rem;
+    }
   }
 
   // Homepage

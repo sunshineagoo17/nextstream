@@ -3692,6 +3692,10 @@ textarea {
       border: .1875rem solid $star-golden-hour;
     }
   
+    &__blob-bg {
+      display: none !important;
+    }
+
     &__lightbulb-icon,
     &__media-icon-link,
     &__search-icon,
