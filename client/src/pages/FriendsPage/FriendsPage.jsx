@@ -188,7 +188,7 @@ const FriendsPage = () => {
   ]);
 
   useEffect(() => {
-    if (userId && !socketRef.current) {
+    if (!socketRef.current) {
       socketRef.current = io({ withCredentials: true });
       socketRef.current.emit('join_room', userId);
   
@@ -219,20 +219,23 @@ const FriendsPage = () => {
         socketRef.current.off('stop_typing', handleStopTyping);
         socketRef.current.emit('leave_room', userId);
         socketRef.current.disconnect();
+        socketRef.current = null; 
       };
     }
-  }, [userId]);  
+  }, [userId]);
   
   const handleTyping = useCallback(() => {
-    if (!typing) {
+    if (socketRef.current && !typing) {
       setTyping(true);
       socketRef.current.emit('typing', { userId, friendId: selectedFriend?.id });
     }
-  
+    
     clearTimeout(handleTyping.timeoutId);
     handleTyping.timeoutId = setTimeout(() => {
-      setTyping(false);
-      socketRef.current.emit('stop_typing', { userId, friendId: selectedFriend?.id });
+      if (socketRef.current) {
+        setTyping(false);
+        socketRef.current.emit('stop_typing', { userId, friendId: selectedFriend?.id });
+      }
     }, 3000);
   }, [userId, selectedFriend, typing]);  
 
@@ -294,15 +297,6 @@ const FriendsPage = () => {
       fetchMessagesForFriend();
     }
   }, [selectedFriend]);
-
-  useEffect(() => {
-    if (userId && socketRef.current) {
-      return () => {
-        socketRef.current.emit('leave_room', userId);
-        socketRef.current.disconnect();  
-      };
-    }
-  }, [userId]);  
 
   const handleSendMessage = async (messageText = newMessage) => {
     const textToSend = messageText.trim();
@@ -455,27 +449,6 @@ const FriendsPage = () => {
       fetchMessagesForFriend();
     }
   }, [selectedFriend, userId]);
-
-  useEffect(() => {
-    const handleReceiveMessage = (data) => {
-      setMessages((prevMessages) => {
-        if (!prevMessages.some((message) => message.id === data.id)) {
-          return [...prevMessages, data];
-        }
-        return prevMessages;
-      });
-    };    
-  
-    if (socketRef.current) {
-      socketRef.current.on('receive_message', handleReceiveMessage);
-    }
-  
-    return () => {
-      if (socketRef.current) {
-        socketRef.current.off('receive_message', handleReceiveMessage);
-      }
-    };
-  }, []);
 
   const handleAcceptFriendRequest = async (friendId) => {
     try {
