@@ -52,6 +52,7 @@ const FavouritesPage = () => {
   const [page, setPage] = useState(1);
   const trailerModalRef = useRef(null);
   const [lockedMedia, setLockedMedia] = useState({});
+  const [inputValue, setInputValue] = useState('');
   const [mediaStatuses, setMediaStatuses] = useState({
     to_watch: [],
     scheduled: [],
@@ -361,12 +362,6 @@ const FavouritesPage = () => {
     navigate(`/nextwatch/${userId}/${media_type}/${media_id}`);
   };  
 
-  const handleSearchEnter = (e) => {
-    if (e.key === 'Enter') {
-      handleSearchQuery();
-    }
-  };  
-
   const handleSearchClick = (mediaId, mediaType) => {
     navigate(`/nextview/${userId}/${mediaType}/${mediaId}`);
   };
@@ -377,6 +372,7 @@ const FavouritesPage = () => {
 
   const clearSearchQuery = () => {
     setSearchQuery('');
+    setInputValue(''); 
     setFilter('');
     setPage(1);
     setHasSearched(false);
@@ -384,7 +380,7 @@ const FavouritesPage = () => {
     setDisplayedFaves(faves.slice(0, 4));
     setIsExpanded(false);
   };
-
+  
   const applyFilter = async (filterType) => {
     setFilter(filterType);
     setPage(1);
@@ -559,13 +555,21 @@ const FavouritesPage = () => {
           <div className="faves-page__search-bar">
             <input
               type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              onKeyDown={handleSearchEnter}
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)} 
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  setSearchQuery(inputValue);
+                  handleSearchQuery(); 
+                }
+              }}
               className="faves-page__search-input"
             />
-            <button>
-              <FontAwesomeIcon icon={faSearch} onClick={handleSearchQuery} className="faves-page__magnifying-glass-icon" />
+            <button onClick={() => {
+              setSearchQuery(inputValue); 
+              handleSearchQuery();
+            }}>
+              <FontAwesomeIcon icon={faSearch} className="faves-page__magnifying-glass-icon" />
             </button>
             {searchQuery && (
             <button>
