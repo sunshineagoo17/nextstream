@@ -471,32 +471,54 @@ const NextSearch = () => {
       {results.length > 0 && (
         <div className="next-search__results-section">
           <div className="next-search__carousel">
-            {showLeftArrowResults && <FontAwesomeIcon icon={faChevronLeft} className="next-search__nav-arrow left" onClick={() => scrollLeft(searchScrollRef)} />}
+            {showLeftArrowResults && (
+              <FontAwesomeIcon
+                icon={faChevronLeft}
+                className="next-search__nav-arrow left"
+                onClick={() => scrollLeft(searchScrollRef)}
+              />
+            )}
             <div className="next-search__scroll-container-results" ref={searchScrollRef}>
               {results.map((result) => (
                 <div key={result.id} className="next-search__card next-search__card--results">
                   <h3 className="next-search__title--results">{result.title || result.name}</h3>
                   <div className="next-search__poster-container-results">
-                    <img
-                      src={
-                        result.media_type === 'person'
-                          ? result.profile_path
-                            ? `https://image.tmdb.org/t/p/w500${result.profile_path}`
+                    {result.media_type === 'person' ? (
+                      <Link to={`/spotlight/${userId}/${result.id}`}>
+                        <img
+                          src={
+                            result.profile_path
+                              ? `https://image.tmdb.org/t/p/w500${result.profile_path}`
+                              : DefaultPoster
+                          }
+                          alt={result.name}
+                          className="next-search__poster next-search__poster--results"
+                        />
+                      </Link>
+                    ) : (
+                      <img
+                        src={
+                          result.poster_path
+                            ? `https://image.tmdb.org/t/p/w500${result.poster_path}`
                             : DefaultPoster
-                          : result.poster_path
-                          ? `https://image.tmdb.org/t/p/w500${result.poster_path}`
-                          : DefaultPoster
-                      }
-                      alt={result.title || result.name}
-                      className="next-search__poster next-search__poster--results"
-                    />
-                    <div className="next-search__rating-container">
-                      <UserRating rating={(result.vote_average || 0) * 10} />
-                    </div>
+                        }
+                        alt={result.title || result.name}
+                        className="next-search__poster next-search__poster--results"
+                      />
+                    )}
+                    {/* Display UserRating only for movies or TV shows */}
+                    {result.media_type !== 'person' && (
+                      <div className="next-search__rating-container">
+                        <UserRating rating={(result.vote_average || 0) * 10} />
+                      </div>
+                    )}
 
                     {/* Play overlay only for non-person media types */}
                     {result.media_type !== 'person' && (
-                      <button className="next-search__play-overlay" onClick={() => handlePlayTrailer(result.id, result.media_type)}>
+                      <button
+                        className="next-search__play-overlay"
+                        onClick={() => handlePlayTrailer(result.id, result.media_type)}
+                      >
                         <FontAwesomeIcon icon={faPlay} className="next-search__play-icon" />
                       </button>
                     )}
