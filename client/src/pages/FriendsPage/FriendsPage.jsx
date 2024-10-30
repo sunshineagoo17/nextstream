@@ -189,13 +189,12 @@ const FriendsPage = () => {
 
   useEffect(() => {
     if (userId && !socketRef.current) {
-
       socketRef.current = io({ withCredentials: true });
       socketRef.current.emit('join_room', userId);
   
       const handleReceiveMessage = (data) => {
         setMessages((prevMessages) => {
-          if (!prevMessages.some(message => message.id === data.id)) {
+          if (!prevMessages.some((message) => message.id === data.id)) {
             return [...prevMessages, data];
           }
           return prevMessages;
@@ -460,12 +459,12 @@ const FriendsPage = () => {
   useEffect(() => {
     const handleReceiveMessage = (data) => {
       setMessages((prevMessages) => {
-        if (!prevMessages.some(message => message.id === data.id)) {
+        if (!prevMessages.some((message) => message.id === data.id)) {
           return [...prevMessages, data];
         }
         return prevMessages;
       });
-    };
+    };    
   
     if (socketRef.current) {
       socketRef.current.on('receive_message', handleReceiveMessage);
