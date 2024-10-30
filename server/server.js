@@ -117,32 +117,40 @@ io.on('connection', (socket) => {
     socket.to(data.friendId).emit('stop_typing', { friendId: data.userId });
   });
 
-  // Join the user to their own room based on their userId
   socket.on('join_room', (roomId) => {
-    socket.join(roomId);
-  });
+    if (!socket.rooms.has(roomId)) {
+      socket.join(roomId);
+      console.log(`User ${roomId} joined room ${roomId}`);
+    }
+  });  
 
-  // Listen for the send_message event
   socket.on('send_message', async (data) => {
     const { senderId, receiverId, message } = data;
 
     try {
-      const savedMessage = await knex('messages').insert({
-        sender_id: senderId,
-        receiver_id: receiverId,
-        message: message,
-        is_read: false,
-        created_at: knex.fn.now(),
-      });
+      await knex.transaction(async (trx) => {
+        const [savedMessageId] = await trx('messages')
+          .insert({
+            sender_id: senderId,
+            receiver_id: receiverId,
+            message: message,
+            is_read: false,
+            created_at: trx.fn.now(),
+          })
+          .returning('id'); 
 
-      io.to(receiverId).emit('receive_message', {
-        senderId,
-        receiverId,
-        message,
-        created_at: new Date(),
+        if (savedMessageId) {
+          io.to(receiverId).emit('receive_message', {
+            senderId,
+            receiverId,
+            message,
+            created_at: new Date(),
+          });
+        }
       });
-
     } catch (error) {
+      console.error('Error inserting message:', error); 
+
       socket.emit('error_message', {
         message: 'Error sending message. Please try again.',
       });
