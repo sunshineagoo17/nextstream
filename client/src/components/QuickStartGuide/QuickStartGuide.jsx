@@ -18,8 +18,8 @@ const QuickstartGuide = ({ onClose, isAuthenticated, currentPage, userId }) => {
 
   const steps = useMemo(() => [
       { text: "Welcome to NextStream! Give it a go. Explore!", position: { top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }},
-      { text: "Use the search bar to find movie titles and shows.", position: { top: '11.5%', left: '4%', transform: 'translate(0, 0)' }},
-      { text: "Here's the hover menu. Check out our pages!", position: { top: '7%', left: '2%', transform: 'translate(0, 0)' }},
+      { text: "Use the search bar to find movie titles and shows.", position: { top: '14%', left: '4%', transform: 'translate(0, 0)' }},
+      { text: "Here's the hover menu. Check out our pages!", position: { top: '8.5%', left: '2%', transform: 'translate(0, 0)' }},
       { text: (
           <>
               <Link to={`/faves/${userId}`}>
