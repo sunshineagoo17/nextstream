@@ -15,7 +15,8 @@ async function sendPushNotifications(user, events) {
     const fcmToken = user.fcmToken;
 
     if (!fcmToken) {
-        return; 
+        console.error('No FCM token provided.');
+        return;
     }
 
     for (const event of events) {
@@ -36,9 +37,17 @@ async function sendPushNotifications(user, events) {
 
         try {
             const response = await admin.messaging().send(message);
-            console.log(`Push notification sent for upcoming title.`);
+            console.log('Push notification sent successfully:', response);
         } catch (error) {
-            console.error('Error sending push notification.');
+            console.error(`Error sending push notification for event ID ${event.id} to user ${user.id}:`, error);
+
+            if (error.code === 'messaging/invalid-recipient') {
+                console.error('Invalid FCM token, please verify that the token is correct.');
+            } else if (error.code === 'messaging/invalid-argument') {
+                console.error('Invalid notification payload structure. Double-check the message object.');
+            } else {
+                console.error('Unexpected error encountered:', error.message);
+            }
         }
     }
 }
