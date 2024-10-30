@@ -196,13 +196,19 @@ const FriendsPage = () => {
       socketRef.current = io(socketUrl);
       socketRef.current.emit('join_room', userId);
   
-      // Consolidated listeners
       const handleReceiveMessage = (data) => {
-        setMessages((prevMessages) => [...prevMessages, data]);
+        setMessages((prevMessages) => {
+          if (!prevMessages.some(message => message.id === data.id)) {
+            return [...prevMessages, data];
+          }
+          return prevMessages;
+        });
       };
+  
       const handleTyping = (data) => {
         if (data.friendId === userId) setTyping(true);
       };
+  
       const handleStopTyping = (data) => {
         if (data.friendId === userId) setTyping(false);
       };
@@ -219,7 +225,7 @@ const FriendsPage = () => {
         socketRef.current.disconnect();
       };
     }
-  }, [userId]);
+  }, [userId]);  
   
   const handleTyping = useCallback(() => {
     if (!typing) {
@@ -339,10 +345,11 @@ const FriendsPage = () => {
 
   const handleCloseChat = () => {
     setSelectedFriend(null);
+    setMessages([]); 
     setNewMessage('');
     setTyping(false);
   };
-
+  
   const handleSearch = async () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   
@@ -455,7 +462,12 @@ const FriendsPage = () => {
 
   useEffect(() => {
     const handleReceiveMessage = (data) => {
-      setMessages((prevMessages) => [...prevMessages, data]);
+      setMessages((prevMessages) => {
+        if (!prevMessages.some(message => message.id === data.id)) {
+          return [...prevMessages, data];
+        }
+        return prevMessages;
+      });
     };
   
     if (socketRef.current) {
