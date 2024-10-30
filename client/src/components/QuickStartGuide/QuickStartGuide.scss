@@ -27,108 +27,21 @@
     transition: transform .3s ease;
 
     &:hover {
-        transform: scale(1.1); 
-        border: none;
-        color: $neutral-white;
-        background: $primary-button-blue;
-        box-shadow: $shadow-primary;
+      transform: scale(1.1); 
+      border: none;
+      color: $neutral-white;
+      background: $primary-button-blue;
+      box-shadow: $shadow-primary;
     }
 
     &:active {
-        transform: scale(.95); 
-        background: $primary-very-light-blue;
-        color: $primary-button-blue;
-        box-shadow: $shadow-primary;
-        border-radius: 1rem;
-    }
-}
-
-  &__arrow {
-    position: absolute;
-    animation: arrowBounce 1.5s infinite ease-in-out;
-
-    &--menu {
-        @include block-item(5rem, 5rem);
-        top: -2.1875rem; 
-        left: 3.125rem; 
-        animation: arrowBounce 1.5s infinite ease-in-out;
-        stroke: $primary-button-blue;
-
-      @include tablet {
-        @include block-item(3.125rem, 3.125rem);
-        top: -.625rem; 
-        left: 2.1875rem; 
-      }
-
-      @include desktop {
-        @include block-item(6.5625rem, 6.5625rem);
-        top: -3.125rem; 
-        left: 2.1875rem;
-      }
-
-      @include large-desktop {
-        @include block-item(5rem, 5rem);
-        top: -2.1875rem; 
-        left: 2.1875rem; 
-      }
-    }
-
-    &--search {
-        @include block-item(6.25rem, 6.25rem);
-        top: -4.6875rem;
-        left: 6.25rem;
-        stroke: $primary-button-blue;
-        animation: show 5s ease-in-out infinite;
-    
-      @include tablet {
-        @include block-item(11.25rem, 11.25rem);
-        top: -9.375rem;
-        left: 5.625rem;
-      }
-
-      @include desktop {
-        @include block-item(11.875rem, 11.875rem);
-        top: -10.625rem;
-        left: 4.375rem;
-      }
-
-      @include large-desktop {
-        @include block-item(13.125rem, 13.125rem);
-        top: -10.625rem;
-        left: 7.5rem;
-      }
+      transform: scale(.95); 
+      background: $primary-very-light-blue;
+      color: $primary-button-blue;
+      box-shadow: $shadow-primary;
+      border-radius: 1rem;
     }
   }
-
-  @keyframes arrowBounce {
-    0%, 100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-.625rem);
-    }
-  }
-
-  @keyframes show {
-    0% {
-      opacity: 0;
-    }
-    20% {
-      opacity: .2;
-    }
-    40% {
-      opacity: .5;
-    }
-    60% {
-      opacity: .7;
-    }
-    80% {
-      opacity: .9;
-    }
-    100% {
-      opacity: 1;
-    }
-  }  
 
   &__container {
     position: absolute;
@@ -180,28 +93,27 @@
     padding: .8rem 1.5rem;
     transition: all .3s ease;
    
-
     &:hover {
-        transform: scale(1.05); 
-        color: $primary-button-blue;
-        border: .1875rem solid $neutral-white;
-        background: linear-gradient(145deg, $primary-very-light-blue, $neutral-white);
-        box-shadow: .25rem .25rem .5rem rgba($neutral-black, .1), -.25rem -.25rem .5rem rgba(255, 255, 255, .5);
-      }
-
-      &:active {
-        transform: scale(.95); 
-        background: linear-gradient(145deg, $primary-very-light-blue, $primary-gradient-blue);
-        border: .25rem solid $neutral-light-grey;
-        box-shadow: $shadow-tertiary;
-        text-shadow: $shadow-primary;
-        color: $neutral-white;
-      }
-  
-      &:focus {
-        outline: none;
-      }
+      transform: scale(1.05); 
+      color: $primary-button-blue;
+      border: .1875rem solid $neutral-white;
+      background: linear-gradient(145deg, $primary-very-light-blue, $neutral-white);
+      box-shadow: .25rem .25rem .5rem rgba($neutral-black, .1), -.25rem -.25rem .5rem rgba(255, 255, 255, .5);
     }
+
+    &:active {
+      transform: scale(.95); 
+      background: linear-gradient(145deg, $primary-very-light-blue, $primary-gradient-blue);
+      border: .25rem solid $neutral-light-grey;
+      box-shadow: $shadow-tertiary;
+      text-shadow: $shadow-primary;
+      color: $neutral-white;
+    }
+  
+    &:focus {
+      outline: none;
+    }
+  }
 
   &__close {
     font-size: .75rem;
