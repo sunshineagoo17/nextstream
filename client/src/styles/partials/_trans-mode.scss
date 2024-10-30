@@ -2290,11 +2290,6 @@
   // Top Picks
   .top-picks-page {
     background: $trans-black;
-    margin: 0;
-
-    @include desktop {
-      padding: 2rem 3.5rem;
-    }
 
     &__content {
       border: 0.125rem solid $trans-soft-pink;

@@ -29,22 +29,17 @@
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 1.25rem;
 
   @include tablet {
     padding: 2.15rem;
-    margin-bottom: 1.5rem;
   }
 
   @include desktop {
-    padding: 1.25rem;
-    margin-left: 2.15rem;
-    margin-right: 2.15rem;
+    padding: 3rem 3.5rem;
   }
 
   @include large-desktop {
-    margin: 3.5rem 7rem 3.75rem 7rem;
-    padding: 1.75rem;
+    padding: 4.5rem 8.65rem 4.5rem 8.65rem;
   }
 
   &__loading-container {
