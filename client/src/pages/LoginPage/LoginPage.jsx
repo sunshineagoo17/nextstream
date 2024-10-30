@@ -102,7 +102,7 @@ export const LoginPage = () => {
   const handleOAuthLogin = async (providerLogin) => {
     try {
       if (/Mobi|Android/i.test(navigator.userAgent)) {
-        window.location.href = process.env.REACT_APP_GOOGLE_OAUTH_URL;
+        window.location.replace(process.env.REACT_APP_GOOGLE_OAUTH_URL);
         return;
       }
   

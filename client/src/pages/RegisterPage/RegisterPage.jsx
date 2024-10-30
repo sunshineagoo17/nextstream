@@ -144,7 +144,7 @@ export const RegisterPage = () => {
       setIsLoading(true);
   
       if (/Mobi|Android/i.test(navigator.userAgent)) {
-        window.location.href = process.env.REACT_APP_GOOGLE_OAUTH_URL;
+        window.location.replace(process.env.REACT_APP_GOOGLE_OAUTH_URL);
         return;
       }
   
@@ -164,7 +164,7 @@ export const RegisterPage = () => {
           });
   
           setTimeout(() => {
-            navigate(`/profile/${response.data.userId}`);
+            navigate(`/profile/${response.data.userId}`, { replace: true });
           }, 3000);
         }
       }
@@ -174,7 +174,7 @@ export const RegisterPage = () => {
       setIsLoading(false);
     }
   };
-
+  
   return (
     <>
       {isLoading && <Loader />}
