@@ -31,8 +31,9 @@ async function sendPushNotifications(user, events) {
                 },
                 token: fcmToken,
                 data: {
-                    url: `/calendar/${user.id}/events/${event.id}`,
                     eventId: event.id.toString(),
+                    click_action: `/calendar?eventId=${event.id}`, 
+                    url: `/calendar/${user.id}/events/${event.id}`, 
                 },
             };
 
