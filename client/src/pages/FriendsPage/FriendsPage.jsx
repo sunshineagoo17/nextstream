@@ -189,11 +189,8 @@ const FriendsPage = () => {
 
   useEffect(() => {
     if (userId && !socketRef.current) {
-      const socketUrl = process.env.NODE_ENV === 'development'
-        ? 'http://localhost:8080'
-        : 'https://www.nextstream.ca';
-  
-      socketRef.current = io(socketUrl);
+
+      socketRef.current = io({ withCredentials: true });
       socketRef.current.emit('join_room', userId);
   
       const handleReceiveMessage = (data) => {
