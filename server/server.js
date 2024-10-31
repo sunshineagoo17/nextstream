@@ -107,6 +107,17 @@ app.use('/uploads', express.static(path.join(__dirname, 'src/uploads')));
 
 // Socket.IO Setup
 io.on('connection', (socket) => {
+  console.log(`Socket connected: ${socket.id}`);
+
+  // Logging to track listener setup and rooms joined
+  const logListeners = () => {
+    console.log(`Listeners count for socket ${socket.id}:`);
+    console.log(`typing: ${socket.listenerCount('typing')}`);
+    console.log(`stop_typing: ${socket.listenerCount('stop_typing')}`);
+    console.log(`send_message: ${socket.listenerCount('send_message')}`);
+  };
+
+  logListeners(); // Initial log for listener setup
 
   // Typing events for friends chat
   socket.on('typing', (data) => {
@@ -120,10 +131,11 @@ io.on('connection', (socket) => {
   socket.on('join_room', (roomId) => {
     if (!socket.rooms.has(roomId)) {
       socket.join(roomId);
-      console.log(`User ${roomId} joined room ${roomId}`);
+      console.log(`User ${socket.id} joined room ${roomId}`);
     }
-  });  
+  });
 
+  // Message sending event
   socket.on('send_message', async (data) => {
     const { senderId, receiverId, message } = data;
 
@@ -133,11 +145,11 @@ io.on('connection', (socket) => {
           .insert({
             sender_id: senderId,
             receiver_id: receiverId,
-            message: message,
+            message,
             is_read: false,
             created_at: trx.fn.now(),
           })
-          .returning('id'); 
+          .returning('id');
 
         if (savedMessageId) {
           io.to(receiverId).emit('receive_message', {
@@ -149,7 +161,7 @@ io.on('connection', (socket) => {
         }
       });
     } catch (error) {
-      console.error('Error inserting message:', error); 
+      console.error('Error inserting message:', error);
 
       socket.emit('error_message', {
         message: 'Error sending message. Please try again.',
@@ -173,15 +185,12 @@ io.on('connection', (socket) => {
   socket.on('respond_calendar_invite', async (data) => {
     const { inviteId, userId, response } = data;
     try {
-      // Update the database with the response (accept/decline)
       await respondToSharedEvent(userId, inviteId, response);
 
       if (response === 'accepted') {
-        // Emit event to update the shared calendar with the accepted invite
         const acceptedInvite = await getInviteDetails(inviteId);
         io.to(userId).emit('calendar_event_updated', { event: acceptedInvite });
       } else {
-        // Emit event to remove the declined invite from the shared calendar
         io.to(userId).emit('calendar_event_removed', { inviteId });
       }
 
@@ -219,10 +228,11 @@ io.on('connection', (socket) => {
 
   // Handle disconnect
   socket.on('disconnect', () => {
-    socket.removeAllListeners('typing');
-    socket.removeAllListeners('stop_typing');
-    socket.removeAllListeners('send_message');
+    console.log(`Socket disconnected: ${socket.id}`);
+    socket.removeAllListeners(); 
   });
+
+  logListeners();
 });
 
 // Health check endpoint

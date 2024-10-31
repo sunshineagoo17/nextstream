@@ -192,6 +192,7 @@ const FriendsPage = () => {
     if (!socketRef.current) {
       socketRef.current = io(process.env.REACT_APP_BASE_URL, { withCredentials: true });
       socketRef.current.emit('join_room', userId);
+      console.log(`Socket initialized for user: ${userId}`);
   
       const handleReceiveMessage = (data) => {
         const messageWithId = {
@@ -204,7 +205,6 @@ const FriendsPage = () => {
   
         if (!savedMessageIds.includes(messageWithId.id)) {
           setMessages((prevMessages) => [...prevMessages, messageWithId]);
-  
           savedMessageIds.push(messageWithId.id);
           localStorage.setItem('receivedMessageIds', JSON.stringify(savedMessageIds));
         }
@@ -218,8 +218,13 @@ const FriendsPage = () => {
         if (data.friendId === userId) setTyping(false);
       };
   
+      socketRef.current.removeAllListeners('receive_message');
       socketRef.current.on('receive_message', handleReceiveMessage);
+  
+      socketRef.current.removeAllListeners('typing');
       socketRef.current.on('typing', handleTyping);
+  
+      socketRef.current.removeAllListeners('stop_typing');
       socketRef.current.on('stop_typing', handleStopTyping);
     }
   
@@ -231,6 +236,7 @@ const FriendsPage = () => {
         socketRef.current.emit('leave_room', userId);
         socketRef.current.disconnect();
         socketRef.current = null;
+        console.log(`Socket disconnected for user: ${userId}`);
       }
     };
   }, [userId]);  
