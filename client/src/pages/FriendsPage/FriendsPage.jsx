@@ -190,49 +190,50 @@ const FriendsPage = () => {
 
   useEffect(() => {
     if (!socketRef.current) {
-        socketRef.current = io(process.env.REACT_APP_BASE_URL, { withCredentials: true });
-        
-        socketRef.current.emit('join_room', userId);
-        
-        const handleReceiveMessage = (data) => {
-          const messageWithId = { 
-            ...data, 
-            id: data.id || nanoid(), 
-            is_read: data.is_read || false 
-          };
-        
-          setMessages((prevMessages) =>
-            prevMessages.some((message) => message.id === messageWithId.id)
-              ? prevMessages
-              : [...prevMessages, messageWithId]
-          );
+      socketRef.current = io(process.env.REACT_APP_BASE_URL, { withCredentials: true });
+      socketRef.current.emit('join_room', userId);
+  
+      const handleReceiveMessage = (data) => {
+        const messageWithId = {
+          ...data,
+          id: data.id || nanoid(),
+          is_read: data.is_read || false,
         };
-         
-        const handleTyping = (data) => {
-            if (data.friendId === userId) setTyping(true);
-        };
-
-        const handleStopTyping = (data) => {
-            if (data.friendId === userId) setTyping(false);
-        };
-
-        socketRef.current.on('receive_message', handleReceiveMessage);
-        socketRef.current.on('typing', handleTyping);
-        socketRef.current.on('stop_typing', handleStopTyping);
+  
+        const savedMessageIds = JSON.parse(localStorage.getItem('receivedMessageIds')) || [];
+  
+        if (!savedMessageIds.includes(messageWithId.id)) {
+          setMessages((prevMessages) => [...prevMessages, messageWithId]);
+  
+          savedMessageIds.push(messageWithId.id);
+          localStorage.setItem('receivedMessageIds', JSON.stringify(savedMessageIds));
+        }
+      };
+  
+      const handleTyping = (data) => {
+        if (data.friendId === userId) setTyping(true);
+      };
+  
+      const handleStopTyping = (data) => {
+        if (data.friendId === userId) setTyping(false);
+      };
+  
+      socketRef.current.on('receive_message', handleReceiveMessage);
+      socketRef.current.on('typing', handleTyping);
+      socketRef.current.on('stop_typing', handleStopTyping);
     }
   
     return () => {
-        // Clean up listeners on unmount
-        if (socketRef.current) {
-            socketRef.current.off('receive_message');
-            socketRef.current.off('typing');
-            socketRef.current.off('stop_typing');
-            socketRef.current.emit('leave_room', userId);
-            socketRef.current.disconnect();
-            socketRef.current = null;
-        }
+      if (socketRef.current) {
+        socketRef.current.off('receive_message');
+        socketRef.current.off('typing');
+        socketRef.current.off('stop_typing');
+        socketRef.current.emit('leave_room', userId);
+        socketRef.current.disconnect();
+        socketRef.current = null;
+      }
     };
-}, [userId]);
+  }, [userId]);  
   
   const handleTyping = useCallback(() => {
     if (socketRef.current && !typing) {
