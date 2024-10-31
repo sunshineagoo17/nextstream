@@ -190,41 +190,36 @@ const FriendsPage = () => {
   useEffect(() => {
     if (!socketRef.current) {
       socketRef.current = io(process.env.REACT_APP_BASE_URL, { withCredentials: true });
-      
       socketRef.current.emit('join_room', userId);
-
-      const handleReceiveMessage = (data) => {
-        setMessages((prevMessages) => {
-          return prevMessages.some((message) => message.id === data.id)
-            ? prevMessages
-            : [...prevMessages, data];
-        });
-      };
-
-      const handleTyping = (data) => {
+      
+      socketRef.current.on('receive_message', (data) => {
+        setMessages((prevMessages) =>
+          prevMessages.some((message) => message.id === data.id) ? prevMessages : [...prevMessages, data]
+        );
+      });
+  
+      socketRef.current.on('typing', (data) => {
         if (data.friendId === userId) setTyping(true);
-      };
-
-      const handleStopTyping = (data) => {
+      });
+  
+      socketRef.current.on('stop_typing', (data) => {
         if (data.friendId === userId) setTyping(false);
-      };
-
-      socketRef.current.on('receive_message', handleReceiveMessage);
-      socketRef.current.on('typing', handleTyping);
-      socketRef.current.on('stop_typing', handleStopTyping);
-
-      return () => {
-        if (socketRef.current) {
-          socketRef.current.off('receive_message', handleReceiveMessage);
-          socketRef.current.off('typing', handleTyping);
-          socketRef.current.off('stop_typing', handleStopTyping);
-          socketRef.current.emit('leave_room', userId);
-          socketRef.current.disconnect();
-          socketRef.current = null;
-        }
-      };
+      });
+  
+      socketRef.current.listenersInitialized = true;
     }
-  }, [userId]);
+  
+    return () => {
+      if (socketRef.current) {
+        socketRef.current.off('receive_message');
+        socketRef.current.off('typing');
+        socketRef.current.off('stop_typing');
+        socketRef.current.emit('leave_room', userId);
+        socketRef.current.disconnect();
+        socketRef.current = null;
+      }
+    };
+  }, [userId]);  
   
   const handleTyping = useCallback(() => {
     if (socketRef.current && !typing) {
