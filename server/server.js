@@ -219,6 +219,9 @@ io.on('connection', (socket) => {
 
   // Handle disconnect
   socket.on('disconnect', () => {
+    socket.removeAllListeners('typing');
+    socket.removeAllListeners('stop_typing');
+    socket.removeAllListeners('send_message');
   });
 });
 
