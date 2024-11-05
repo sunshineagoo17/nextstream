@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }) => {
           const response = await api.get(`/api/profile/${storedUserId}`);
           setName(response.data.name);
         } catch (error) {
-          showAlertMessage('Error fetching user name.', 'error');
+          showAlertMessage('Please log in to access your profile.', 'info');
         }
         setIsLoading(false);
       };
