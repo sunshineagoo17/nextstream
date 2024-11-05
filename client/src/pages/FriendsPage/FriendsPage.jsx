@@ -31,6 +31,7 @@ const FriendsPage = () => {
   const [calendarKey, setCalendarKey] = useState(0);
   const socketRef = useRef(null);
   const calendarModalRef = useRef(null);
+  const socketInitializedRef = useRef(false);
 
   const handleShowCalendar = () => {
     setShowCalendar(true);
@@ -189,27 +190,28 @@ const FriendsPage = () => {
   ]);
 
   useEffect(() => {
-    if (!socketRef.current) {
+    if (!socketInitializedRef.current && !socketRef.current) {
       socketRef.current = io(process.env.REACT_APP_BASE_URL, { withCredentials: true });
       socketRef.current.emit('join_room', userId);
       console.log(`Socket initialized for user: ${userId}`);
-  
+      
       const handleReceiveMessage = (data) => {
         const messageWithId = {
           ...data,
           id: data.id || nanoid(),
           is_read: data.is_read || false,
         };
-  
-        const savedMessageIds = JSON.parse(localStorage.getItem('receivedMessageIds')) || [];
-  
-        if (!savedMessageIds.includes(messageWithId.id)) {
+      
+        const savedMessageIds = new Set(JSON.parse(localStorage.getItem('receivedMessageIds') || '[]'));
+      
+        // Check if message ID already exists in messages state
+        if (!savedMessageIds.has(messageWithId.id) && !messages.some(msg => msg.id === messageWithId.id)) {
           setMessages((prevMessages) => [...prevMessages, messageWithId]);
-          savedMessageIds.push(messageWithId.id);
-          localStorage.setItem('receivedMessageIds', JSON.stringify(savedMessageIds));
+          savedMessageIds.add(messageWithId.id);
+          localStorage.setItem('receivedMessageIds', JSON.stringify(Array.from(savedMessageIds)));
         }
-      };
-  
+      };      
+      
       const handleTyping = (data) => {
         if (data.friendId === userId) setTyping(true);
       };
@@ -218,14 +220,11 @@ const FriendsPage = () => {
         if (data.friendId === userId) setTyping(false);
       };
   
-      socketRef.current.removeAllListeners('receive_message');
       socketRef.current.on('receive_message', handleReceiveMessage);
-  
-      socketRef.current.removeAllListeners('typing');
       socketRef.current.on('typing', handleTyping);
-  
-      socketRef.current.removeAllListeners('stop_typing');
       socketRef.current.on('stop_typing', handleStopTyping);
+  
+      socketInitializedRef.current = true;
     }
   
     return () => {
@@ -237,9 +236,10 @@ const FriendsPage = () => {
         socketRef.current.disconnect();
         socketRef.current = null;
         console.log(`Socket disconnected for user: ${userId}`);
+        socketInitializedRef.current = false;
       }
     };
-  }, [userId]);  
+  }, [userId, messages]);  
   
   const handleTyping = useCallback(() => {
     if (socketRef.current && !typing) {
@@ -301,6 +301,12 @@ const FriendsPage = () => {
       fetchData();
     }
   }, [userId]);
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      localStorage.removeItem('receivedMessageIds');
+    }
+  }, [isAuthenticated]);  
 
   useEffect(() => {
     if (selectedFriend) {
