@@ -192,21 +192,30 @@ const FriendsPage = () => {
   const handleReceiveMessage = useCallback((data) => {
     try {
       const messageWithId = { ...data, id: data.id || nanoid(), is_read: data.is_read || false };
+      console.log("Message received:", messageWithId); 
+  
       const savedMessageIds = new Set(JSON.parse(localStorage.getItem('receivedMessageIds') || '[]'));
   
       if (!savedMessageIds.has(messageWithId.id)) {
         console.log("Received message ID:", messageWithId.id); 
-        setMessages((prevMessages) => [...prevMessages, messageWithId]);
+        
+        setMessages((prevMessages) => {
+          const updatedMessages = [...prevMessages, messageWithId];
+          console.log("Updated messages array:", updatedMessages); 
+          return updatedMessages;
+        });
+  
         savedMessageIds.add(messageWithId.id);
         localStorage.setItem('receivedMessageIds', JSON.stringify(Array.from(savedMessageIds)));
+        console.log("Current savedMessageIds:", Array.from(savedMessageIds)); 
       }
     } catch (error) {
       console.error("Error handling received message:", error);
     }
-  }, []);
+  }, []);  
   
   useEffect(() => {
-    if (!socketInitializedRef.current) {
+    if (!socketInitializedRef.current && userId) {
       if (!socketRef.current) {
         socketRef.current = io(process.env.REACT_APP_BASE_URL, { withCredentials: true });
         socketRef.current.emit('join_room', userId);
@@ -218,7 +227,7 @@ const FriendsPage = () => {
     }
   
     return () => {
-      if (socketRef.current) {
+      if (socketInitializedRef.current) {
         socketRef.current.off('receive_message', handleReceiveMessage);
         socketRef.current.emit('leave_room', userId);
         socketRef.current.disconnect();
@@ -227,7 +236,7 @@ const FriendsPage = () => {
         socketInitializedRef.current = false;
       }
     };
-  }, [userId, handleReceiveMessage]);
+  }, [userId, handleReceiveMessage]);  
    
   const handleTyping = useCallback(() => {
     if (socketRef.current && !typing) {
