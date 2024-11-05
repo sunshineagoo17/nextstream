@@ -218,7 +218,7 @@ export const ProfilePage = () => {
         className: 'frosted-toast-profile',
       });
       setTimeout(() => {
-        logout();
+        logout(false);
         navigate('/');
       }, 3000);
     } catch (error) {
