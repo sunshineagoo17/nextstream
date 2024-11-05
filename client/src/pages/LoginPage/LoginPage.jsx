@@ -101,29 +101,6 @@ export const LoginPage = () => {
   
   const handleOAuthLogin = async (providerLogin) => {
     try {
-      if (/Mobi|Android/i.test(navigator.userAgent)) {
-        const urlParams = new URLSearchParams(window.location.search);
-        const code = urlParams.get('code');
-  
-        if (code) {
-          const response = await api.post('/api/auth/oauth-login', { code });
-  
-          if (response.data.success) {
-            Cookies.set('token', response.data.token, { expires: 7, secure: true, sameSite: 'strict' });
-            Cookies.set('userId', response.data.userId, { expires: 7, secure: true, sameSite: 'strict' });
-  
-            login(response.data.token, response.data.userId, rememberMe);
-            navigate(`/profile/${response.data.userId}`);
-          } else {
-            setErrors({ general: 'OAuth login failed. Please try again.' });
-          }
-          return;
-        } else {
-          window.location.href = process.env.REACT_APP_GOOGLE_OAUTH_URL;
-          return;
-        }
-      }
-  
       const result = await providerLogin();
       if (result && result.user) {
         const { email } = result.user;
