@@ -188,48 +188,38 @@ const FriendsPage = () => {
     fetchPendingCalendarInvites,
     getEvents,
   ]);
-
-  useEffect(() => {
-    if (!socketInitializedRef.current && !socketRef.current) {
-      socketRef.current = io(process.env.REACT_APP_BASE_URL, { withCredentials: true });
-      socketRef.current.emit('join_room', userId);
-      console.log(`Socket initialized for user: ${userId}`);
-      
-      const handleReceiveMessage = (data) => {
-        try {
-          const messageWithId = { ...data, id: data.id || nanoid(), is_read: data.is_read || false };
-          const savedMessageIds = new Set(JSON.parse(localStorage.getItem('receivedMessageIds') || '[]'));
-      
-          if (!savedMessageIds.has(messageWithId.id)) {
-            setMessages((prevMessages) => [...prevMessages, messageWithId]);
-            savedMessageIds.add(messageWithId.id);
-            localStorage.setItem('receivedMessageIds', JSON.stringify(Array.from(savedMessageIds)));
-          }
-        } catch (error) {
-          console.error("Error handling received message:", error);
-        }
-      };
-      
-      const handleTyping = (data) => {
-        if (data.friendId === userId) setTyping(true);
-      };
   
-      const handleStopTyping = (data) => {
-        if (data.friendId === userId) setTyping(false);
-      };
+  const handleReceiveMessage = useCallback((data) => {
+    try {
+      const messageWithId = { ...data, id: data.id || nanoid(), is_read: data.is_read || false };
+      const savedMessageIds = new Set(JSON.parse(localStorage.getItem('receivedMessageIds') || '[]'));
+  
+      if (!savedMessageIds.has(messageWithId.id)) {
+        console.log("Received message ID:", messageWithId.id); 
+        setMessages((prevMessages) => [...prevMessages, messageWithId]);
+        savedMessageIds.add(messageWithId.id);
+        localStorage.setItem('receivedMessageIds', JSON.stringify(Array.from(savedMessageIds)));
+      }
+    } catch (error) {
+      console.error("Error handling received message:", error);
+    }
+  }, []);
+  
+  useEffect(() => {
+    if (!socketInitializedRef.current) {
+      if (!socketRef.current) {
+        socketRef.current = io(process.env.REACT_APP_BASE_URL, { withCredentials: true });
+        socketRef.current.emit('join_room', userId);
+        console.log(`Socket initialized for user: ${userId}`);
+      }
   
       socketRef.current.on('receive_message', handleReceiveMessage);
-      socketRef.current.on('typing', handleTyping);
-      socketRef.current.on('stop_typing', handleStopTyping);
-  
       socketInitializedRef.current = true;
     }
   
     return () => {
       if (socketRef.current) {
-        socketRef.current.off('receive_message');
-        socketRef.current.off('typing');
-        socketRef.current.off('stop_typing');
+        socketRef.current.off('receive_message', handleReceiveMessage);
         socketRef.current.emit('leave_room', userId);
         socketRef.current.disconnect();
         socketRef.current = null;
@@ -237,8 +227,8 @@ const FriendsPage = () => {
         socketInitializedRef.current = false;
       }
     };
-  }, [userId]);  
-  
+  }, [userId, handleReceiveMessage]);
+   
   const handleTyping = useCallback(() => {
     if (socketRef.current && !typing) {
       setTyping(true);
