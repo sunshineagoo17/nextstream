@@ -10,8 +10,6 @@ import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
 import Loader from '../../components/Loaders/Loader/Loader';
 import Cookies from 'js-cookie';
 import './LoginPage.scss';
-
-// FontAwesome Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { faEye, faEyeSlash, faArrowRight, faSignInAlt } from '@fortawesome/free-solid-svg-icons';

@@ -143,13 +143,6 @@ export const RegisterPage = () => {
     try {
       setIsLoading(true);
   
-      const isMobile = /Mobi|Android/i.test(navigator.userAgent);
-    
-      if (isMobile) {
-        window.location.assign(process.env.REACT_APP_GOOGLE_OAUTH_URL);
-        return;
-      }
-    
       const result = await providerLogin();
       if (result && result.user) {
         const { email, displayName } = result.user;
@@ -158,13 +151,13 @@ export const RegisterPage = () => {
           displayName,
           provider: result.user.providerData[0]?.providerId || 'unknown',
         });
-    
+  
         if (response.data.success) {
           login(response.data.token, response.data.userId, true);
           toast.success('OAuth registration successful! Redirecting to profile page...', {
             className: 'frosted-toast-register',
           });
-    
+  
           setTimeout(() => {
             navigate(`/profile/${response.data.userId}`, { replace: true });
           }, 3000);
