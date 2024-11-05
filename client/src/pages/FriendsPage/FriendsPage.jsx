@@ -196,21 +196,19 @@ const FriendsPage = () => {
       console.log(`Socket initialized for user: ${userId}`);
       
       const handleReceiveMessage = (data) => {
-        const messageWithId = {
-          ...data,
-          id: data.id || nanoid(),
-          is_read: data.is_read || false,
-        };
+        try {
+          const messageWithId = { ...data, id: data.id || nanoid(), is_read: data.is_read || false };
+          const savedMessageIds = new Set(JSON.parse(localStorage.getItem('receivedMessageIds') || '[]'));
       
-        const savedMessageIds = new Set(JSON.parse(localStorage.getItem('receivedMessageIds') || '[]'));
-      
-        // Check if message ID already exists in messages state
-        if (!savedMessageIds.has(messageWithId.id) && !messages.some(msg => msg.id === messageWithId.id)) {
-          setMessages((prevMessages) => [...prevMessages, messageWithId]);
-          savedMessageIds.add(messageWithId.id);
-          localStorage.setItem('receivedMessageIds', JSON.stringify(Array.from(savedMessageIds)));
+          if (!savedMessageIds.has(messageWithId.id)) {
+            setMessages((prevMessages) => [...prevMessages, messageWithId]);
+            savedMessageIds.add(messageWithId.id);
+            localStorage.setItem('receivedMessageIds', JSON.stringify(Array.from(savedMessageIds)));
+          }
+        } catch (error) {
+          console.error("Error handling received message:", error);
         }
-      };      
+      };
       
       const handleTyping = (data) => {
         if (data.friendId === userId) setTyping(true);
@@ -239,7 +237,7 @@ const FriendsPage = () => {
         socketInitializedRef.current = false;
       }
     };
-  }, [userId, messages]);  
+  }, [userId]);  
   
   const handleTyping = useCallback(() => {
     if (socketRef.current && !typing) {
@@ -301,12 +299,6 @@ const FriendsPage = () => {
       fetchData();
     }
   }, [userId]);
-
-  useEffect(() => {
-    if (!isAuthenticated) {
-      localStorage.removeItem('receivedMessageIds');
-    }
-  }, [isAuthenticated]);  
 
   useEffect(() => {
     if (selectedFriend) {
