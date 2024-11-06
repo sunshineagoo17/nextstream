@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }) => {
           const response = await api.get(`/api/profile/${storedUserId}`);
           setName(response.data.name);
         } catch (error) {
-          showAlertMessage('Please log in to access your profile.', 'info');
+          showAlertMessage('Please log back in to access your account.', 'info');
         }
         setIsLoading(false);
       };
