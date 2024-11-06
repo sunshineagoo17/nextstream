@@ -176,7 +176,10 @@ const FriendsPage = () => {
     const fetchSharedEvents = async () => {
       try {
         const eventsData = await fetchSharedCalendarEvents(userId);
-        setSharedCalendarEvents(eventsData);
+        const validEvents = eventsData.filter(
+          (event) => event.eventTitle && event.start && event.end
+        );
+        setSharedCalendarEvents(validEvents);
       } catch (error) {
         console.error('Error fetching shared calendar events:', error);
       }

@@ -87,7 +87,11 @@ export const getSharedFriendsForEvent = async (userId, eventId) => {
 export const fetchSharedCalendarEvents = async (userId) => {
   try {
     const response = await api.get(`/api/calendar/${userId}/shared-events`);
-    return response.data;
+    // Filter out events missing essential data
+    const validEvents = response.data.filter(
+      (event) => event.eventTitle && event.start && event.end
+    );
+    return validEvents;
   } catch (error) {
     if (error.response && error.response.status === 404) {
       return []; 
