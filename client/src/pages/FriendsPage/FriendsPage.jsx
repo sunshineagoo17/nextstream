@@ -57,7 +57,6 @@ const FriendsPage = () => {
     try {
       const response = await fetch(`/api/calendar/${userId}/events`);
   
-      // Check if the response's content-type is JSON
       const contentType = response.headers.get('content-type');
       
       if (contentType && contentType.includes('application/json')) {
@@ -195,12 +194,9 @@ const FriendsPage = () => {
       const messageWithId = { ...data, id: data.id || nanoid(), is_read: data.is_read || false };
       console.log("Message received:", messageWithId);
 
-      // Check for duplicate by using message ID
       if (!receivedMessageIds.current.has(messageWithId.id)) {
-        // Add message ID to the set to track it
         receivedMessageIds.current.add(messageWithId.id);
 
-        // Add the message to the state
         setMessages((prevMessages) => [...prevMessages, messageWithId]);
       } else {
         console.log("Duplicate message ignored:", messageWithId);
@@ -218,7 +214,6 @@ const FriendsPage = () => {
     };
   };
 
-  // Define the debounced handleReceiveMessage without useCallback
   const debouncedHandleReceiveMessage = debounceReceiveMessage(handleReceiveMessage, 300);
 
  useEffect(() => {
