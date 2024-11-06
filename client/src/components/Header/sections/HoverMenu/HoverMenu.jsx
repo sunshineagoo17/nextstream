@@ -33,10 +33,10 @@ const HoverMenu = () => {
     };
   }, [menuOpen]);
 
-  // This determines the background class based on the current page
   const getBackgroundClass = () => {
     const darkBackgroundPaths = [
       `/login`,
+      `/profile/${userId}`, 
       `/calendar/${userId}`, 
       `/calendar/guest`,
       `/faves/${userId}`, 
@@ -50,12 +50,9 @@ const HoverMenu = () => {
     ];
   
     const isDarkBackgroundPage = darkBackgroundPaths.includes(location.pathname) ||
-      // Added regular expression to match the NextView page with dynamic segments
       new RegExp(`^/nextview/${userId}/(movie|tv)/\\d+$`).test(location.pathname) ||
-      // Added regular expression to match the Spotlight page with dynamic segments
       new RegExp(`^/spotlight/${userId}/\\d+$`).test(location.pathname);
   
-    // Check if cloud, trans, star, sun, dark, or rain mode is enabled
     const isCloudModeEnabled = document.documentElement.getAttribute('data-theme') === 'cloud-mode'; 
     const isTransModeEnabled = document.documentElement.getAttribute('data-theme') === 'trans-mode'; 
     const isStarModeEnabled = document.documentElement.getAttribute('data-theme') === 'star-mode'; 
