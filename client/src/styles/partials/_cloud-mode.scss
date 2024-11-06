@@ -250,7 +250,7 @@
       transition: border 0.3s ease;
 
       &:hover {
-        border: .1875rem solid $frosted-glass;
+        border: .1875rem solid $cloud-haze-blue;
       }
     }
 
@@ -618,7 +618,11 @@
 
     &__label-header-new-releases,
     &__label-features {
-      color: $neutral-white;
+      color: $cloud-deep-gray;
+
+      &:hover {
+        color: $cloud-dusk-blue;
+      }
     }
 
     &__card-features__feature__icon-bg {
