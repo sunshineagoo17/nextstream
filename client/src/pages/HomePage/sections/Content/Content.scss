@@ -413,14 +413,14 @@
       @include block-item(10.95rem, 3.5rem);
       margin-left: 3.5rem;
       margin-bottom: 2rem;
+      
+      &:hover {
+        @include glow-animation;
+      }
 
       @include desktop {
         @include block-item(17.625rem, 4.9375rem);
         margin-left: 8.4rem;
-
-        &:hover {
-          @include glow-animation;
-        }
       }
 
       @include large-desktop {

@@ -235,63 +235,64 @@ textarea {
 
 // Hero
 .hero {
-    background: $star-black;
-  
-    &__subtitle--tagline,
-    &__title {
-      color: $star-text-light;
-    }
-  
-    &__subtitle--tagline {
-      border: .1875rem solid $star-starlight-yellow;
+  background: $star-black;
+  border-bottom: 0.1875rem solid $star-charcoal;
 
-      &:hover {
-        border: .1875rem solid $star-deep-topaz;
-      }
-    }
-  
-    &__logo--mobile,
-    &__logo {
-      content: url('../../assets/images/logo-brand-mark-gray.svg');
-  
-      &:hover {
-        content: url('../../assets/images/logo-brand-mark-star.svg');
-      }
-    }
-  
-    &__logo {
-      @include tablet {
-        border-radius: 3.25rem;
-      }
-    }
-  
-    &__subtitle {
-      color: $star-silver-gray;
-    }
-  
-    &__logo-border,
-    &__logo-border--mobile {
-      @include cloudAnimateBorder;
-      @include cloudBorderAnimation;
-      background: $star-gradient-black-gray;
-    }
-  
-    &__btn-container {
-      background: $star-dark-gray;
-      transition: background-color .3s ease, transform .3s ease;
-  
-      &:hover {
-        background: $star-horizon-gold;
-        box-shadow: $star-shadow-primary;
-        transform: scale(1.05);
-      }
-  
-      &:active {
-        background: $star-deep-topaz;
-        transform: scale(.95);
-      }
+  &__subtitle--tagline,
+  &__title {
+    color: $star-text-light;
+  }
+
+  &__subtitle--tagline {
+    border: .1875rem solid $star-starlight-yellow;
+
+    &:hover {
+      border: .1875rem solid $star-deep-topaz;
     }
   }
+
+  &__logo--mobile,
+  &__logo {
+    content: url('../../assets/images/logo-brand-mark-gray.svg');
+
+    &:hover {
+      content: url('../../assets/images/logo-brand-mark-star.svg');
+    }
+  }
+
+  &__logo {
+    @include tablet {
+      border-radius: 3.25rem;
+    }
+  }
+
+  &__subtitle {
+    color: $star-silver-gray;
+  }
+
+  &__logo-border,
+  &__logo-border--mobile {
+    @include cloudAnimateBorder;
+    @include cloudBorderAnimation;
+    background: $star-gradient-black-gray;
+  }
+
+  &__btn-container {
+    background: $star-dark-gray;
+    transition: background-color .3s ease, transform .3s ease;
+
+    &:hover {
+      background: $star-horizon-gold;
+      box-shadow: $star-shadow-primary;
+      transform: scale(1.05);
+    }
+
+    &:active {
+      background: $star-deep-topaz;
+      transform: scale(.95);
+    }
+  }
+}
   
 // Friends List - Star Mode
 .friends-page {
@@ -692,9 +693,8 @@ textarea {
   }
 
   .content {
-    border-top: .25rem solid $star-charcoal;
-    border-bottom: .25rem solid $star-charcoal;
     background: $star-black;
+    border-bottom: .1875rem solid $neutral-white;
 
     &__label-header-new-container,
     &__label-header-container {
@@ -707,7 +707,7 @@ textarea {
     }
 
     &__new-releases {
-        border-top: .25rem solid $star-charcoal;
+      border-top: .1875rem solid $neutral-white;
     }
   
     &__card-features__feature__icon-bg {
