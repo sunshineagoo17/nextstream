@@ -1495,7 +1495,11 @@
       background: $primary-darker-blue;
       color: $primary-very-light-blue;
       box-shadow: $shadow-senary;
-      border: 3px solid $primary-button-dark-blue;
+      border: .1875rem solid $primary-button-dark-blue;
+
+      &:hover {
+        border: .1875rem solid $neutral-white;
+      }
     }
 
     &__title {

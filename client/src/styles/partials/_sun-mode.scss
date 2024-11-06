@@ -265,18 +265,18 @@
     }
   
     &__subtitle--tagline {
-        background: $neutral-white;
-        border: .1875rem solid $sun-yellow;
-        transition: background 0.4s ease, border 0.4s ease;
+      background: $neutral-white;
+      border: .1875rem solid $sun-yellow;
+      transition: background 0.4s ease, border 0.4s ease;
 
-        &:hover {
-            background: $frosted-glass;
-            border: .1875rem solid $primary-pale-blue;
-        }
+      &:hover {
+        background: $frosted-glass;
+        border: .1875rem solid $primary-pale-blue;
+      }
     }
 
     &__btn {
-        color: $neutral-black;
+      color: $neutral-black;
     }
   
     &__logo--mobile,

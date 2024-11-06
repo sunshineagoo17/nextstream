@@ -2859,7 +2859,11 @@
       background: $trans-black;
       color: $trans-pale-blue;
       box-shadow: $shadow-senary;
-      border: 3px solid $trans-pink;
+      border: .1875rem solid $trans-pink;
+
+      &:hover {
+        border: .1875rem solid $trans-electric-blue;
+      }
     }
 
     &__btn-container {

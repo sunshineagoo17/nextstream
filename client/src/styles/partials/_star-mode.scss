@@ -244,6 +244,10 @@ textarea {
   
     &__subtitle--tagline {
       border: .1875rem solid $star-starlight-yellow;
+
+      &:hover {
+        border: .1875rem solid $star-deep-topaz;
+      }
     }
   
     &__logo--mobile,
