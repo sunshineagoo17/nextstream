@@ -34,15 +34,15 @@ const FriendsPage = () => {
   const socketInitializedRef = useRef(false);
 
   const [receivedMessageIds, setReceivedMessageIds] = useState(() => {
-    const storedIds = sessionStorage.getItem('receivedMessageIds');
+    const storedIds = localStorage.getItem('receivedMessageIds');
     return storedIds ? JSON.parse(storedIds) : [];
   });
-
+  
   const addMessageId = (id) => {
     setReceivedMessageIds((prevIds) => {
       if (!prevIds.includes(id)) {
         const updatedIds = [...prevIds, id];
-        sessionStorage.setItem('receivedMessageIds', JSON.stringify(updatedIds));
+        localStorage.setItem('receivedMessageIds', JSON.stringify(updatedIds));
         return updatedIds;
       }
       return prevIds;
@@ -243,32 +243,50 @@ const FriendsPage = () => {
     if (userId && !socketInitializedRef.current) {
       socketRef.current = io(process.env.REACT_APP_BASE_URL, { withCredentials: true });
       console.log(`Socket initialized for user: ${userId}`);
-  
-      socketRef.current.on('receive_message', debouncedHandleReceiveMessage);
+      
+      socketRef.current.off('receive_message').on('receive_message', debouncedHandleReceiveMessage);
       socketInitializedRef.current = true;
   
-      // Join room based on selected friend
-      socketRef.current.emit('join_room', `${userId}_${selectedFriend?.id}`);
+      if (selectedFriend) {
+        socketRef.current.emit('join_room', `${userId}_${selectedFriend.id}`);
+      }
     }
   
     return () => {
       if (socketRef.current) {
         socketRef.current.off('receive_message', debouncedHandleReceiveMessage);
-        socketRef.current.emit('leave_room', `${userId}_${selectedFriend?.id}`);
+        if (selectedFriend) {
+          socketRef.current.emit('leave_room', `${userId}_${selectedFriend.id}`);
+        }
         socketRef.current.disconnect();
         console.log(`Socket disconnected for user: ${userId}`);
-        socketInitializedRef.current = false;
       }
     };
-  }, [userId, debouncedHandleReceiveMessage, selectedFriend]);   
-   
+  }, [userId, debouncedHandleReceiveMessage, selectedFriend]);
+  
   useEffect(() => {
-    socketRef.current?.on('disconnect', () => {
-      console.log('Socket disconnected, attempting to reconnect...');
-      socketRef.current?.connect();
-    });
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible' && socketRef.current && !socketRef.current.connected) {
+        socketRef.current.connect();
+      }
+    };
+  
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+  
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
   }, []);
-
+  
+  useEffect(() => {
+    if (socketRef.current) {
+      socketRef.current.on('disconnect', () => {
+        console.log('Socket disconnected, attempting to reconnect...');
+        socketRef.current.connect();
+      });
+    }
+  }, []);  
+  
   const handleTyping = useCallback(() => {
     if (socketRef.current && !typing) {
       setTyping(true);
