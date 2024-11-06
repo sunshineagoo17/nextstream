@@ -32,8 +32,23 @@ const FriendsPage = () => {
   const socketRef = useRef(null);
   const calendarModalRef = useRef(null);
   const socketInitializedRef = useRef(false);
-  const receivedMessageIds = useRef(new Set());
 
+  const [receivedMessageIds, setReceivedMessageIds] = useState(() => {
+    const storedIds = sessionStorage.getItem('receivedMessageIds');
+    return storedIds ? JSON.parse(storedIds) : [];
+  });
+
+  const addMessageId = (id) => {
+    setReceivedMessageIds((prevIds) => {
+      if (!prevIds.includes(id)) {
+        const updatedIds = [...prevIds, id];
+        sessionStorage.setItem('receivedMessageIds', JSON.stringify(updatedIds));
+        return updatedIds;
+      }
+      return prevIds;
+    });
+  };
+  
   const handleShowCalendar = () => {
     setShowCalendar(true);
   };
@@ -189,22 +204,30 @@ const FriendsPage = () => {
     getEvents,
   ]);
   
-  const handleReceiveMessage = useCallback((data) => {
-    try {
-      const messageWithId = { ...data, id: data.id || nanoid(), is_read: data.is_read || false };
-      console.log("Message received:", messageWithId);
-
-      if (!receivedMessageIds.current.has(messageWithId.id)) {
-        receivedMessageIds.current.add(messageWithId.id);
-
-        setMessages((prevMessages) => [...prevMessages, messageWithId]);
-      } else {
-        console.log("Duplicate message ignored:", messageWithId);
+  const handleReceiveMessage = useCallback(
+    (data) => {
+      try {
+        const messageWithId = { ...data, id: data.id || nanoid(), is_read: data.is_read || false };
+        console.log("Message received:", messageWithId);
+  
+        if (!receivedMessageIds.includes(messageWithId.id)) {
+          addMessageId(messageWithId.id);
+          
+          setMessages((prevMessages) => {
+            if (!prevMessages.find((msg) => msg.id === messageWithId.id)) {
+              return [...prevMessages, messageWithId];
+            }
+            return prevMessages;
+          });
+        } else {
+          console.log("Duplicate message ignored:", messageWithId);
+        }
+      } catch (error) {
+        console.error("Error handling received message:", error);
       }
-    } catch (error) {
-      console.error("Error handling received message:", error);
-    }
-  }, []);
+    },
+    [receivedMessageIds]
+  );  
 
   const debounceReceiveMessage = (func, delay) => {
     let timeoutId;
@@ -216,32 +239,36 @@ const FriendsPage = () => {
 
   const debouncedHandleReceiveMessage = debounceReceiveMessage(handleReceiveMessage, 300);
 
- useEffect(() => {
+  useEffect(() => {
     if (userId && !socketInitializedRef.current) {
-      if (!socketRef.current) {
-        socketRef.current = io(process.env.REACT_APP_BASE_URL, { withCredentials: true });
-        console.log(`Socket initialized for user: ${userId}`);
-      }
-
-      socketRef.current.off('receive_message', debouncedHandleReceiveMessage);
+      socketRef.current = io(process.env.REACT_APP_BASE_URL, { withCredentials: true });
+      console.log(`Socket initialized for user: ${userId}`);
+  
       socketRef.current.on('receive_message', debouncedHandleReceiveMessage);
-
-      socketRef.current.emit('join_room', `${userId}_${selectedFriend?.id}`);
       socketInitializedRef.current = true;
+  
+      // Join room based on selected friend
+      socketRef.current.emit('join_room', `${userId}_${selectedFriend?.id}`);
     }
-
+  
     return () => {
       if (socketRef.current) {
         socketRef.current.off('receive_message', debouncedHandleReceiveMessage);
         socketRef.current.emit('leave_room', `${userId}_${selectedFriend?.id}`);
         socketRef.current.disconnect();
-        socketRef.current = null;
         console.log(`Socket disconnected for user: ${userId}`);
         socketInitializedRef.current = false;
       }
     };
-  }, [userId, debouncedHandleReceiveMessage, selectedFriend]);
+  }, [userId, debouncedHandleReceiveMessage, selectedFriend]);   
    
+  useEffect(() => {
+    socketRef.current?.on('disconnect', () => {
+      console.log('Socket disconnected, attempting to reconnect...');
+      socketRef.current?.connect();
+    });
+  }, []);
+
   const handleTyping = useCallback(() => {
     if (socketRef.current && !typing) {
       setTyping(true);
