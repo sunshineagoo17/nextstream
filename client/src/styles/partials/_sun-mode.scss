@@ -1050,6 +1050,29 @@
       color: $primary-dark-blue;
       border: .0625rem solid $neutral-white;
     }
+
+    &__delete-all-btn {
+      background: $sun-yellow;
+      color: $neutral-black;
+      border: .125rem solid $neutral-white;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+    
+      &:hover {
+        background: $sun-sunrise-orange;
+        color: $sun-text-dark;
+        border: .125rem solid $sun-soft-lemon;
+        transform: scale(1.05);
+        box-shadow: 0 0 15px rgba(0, 153, 255, 0.6);
+      }
+    
+      &:active {
+        transform: scale(.95);
+        background: $sun-ocean-breeze;
+        color: $sun-text-dark;
+        box-shadow: $sun-shadow-primary;
+        border: .125rem solid $sun-white;
+      }
+    }
   
     &__calendar-info {
       color: $neutral-black !important;

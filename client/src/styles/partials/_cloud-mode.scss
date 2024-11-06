@@ -305,6 +305,28 @@
       background: linear-gradient(145deg, $cloud-overcast-blue, darken($cloud-stormy-blue, 5%));
     }
 
+    &__delete-all-btn {
+      background: $cloud-frosted-dark-gray;
+      color: $cloud-very-deep-gray;
+      border: .125rem solid $cloud-medium-gray;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+    
+      &:hover {
+        background: $neutral-white;
+        color: $cloud-very-deep-gray;
+        border: .125rem solid $neutral-white;
+        transform: scale(1.05);
+        box-shadow: 0 0 15px rgba(0, 153, 255, 0.6);
+      }
+    
+      &:active {
+        transform: scale(.95);
+        background: $cloud-frosted-white;
+        color: $cloud-deep-gray;
+        box-shadow: $shadow-cloud-primary;
+      }
+    }
+
     &__header {
       color: $neutral-white;
     }

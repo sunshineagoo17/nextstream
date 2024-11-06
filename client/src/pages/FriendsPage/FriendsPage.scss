@@ -4,6 +4,28 @@
 @use "../../styles/partials/mixins" as *;
 @use "../../styles/global.scss" as *;
 
+@keyframes blowAwayEffect {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-20px, -20px);
+  }
+}
+
+@keyframes puffEffect {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.3);
+  }
+}
+
 .glassmorphic-card--shared {
   backdrop-filter: blur(.625rem);
   background: rgba(224, 247, 250, .5); 
@@ -42,6 +64,61 @@
 
   &__close-icon {
     color: $neutral-white;
+  }
+
+  &__delete-all-txt {
+    display: none;
+
+    @include tablet {
+      display: block;
+    }
+  }
+
+  &__delete-all-btn {
+    @include block-item(2.5rem, 2.5rem);
+    padding: .3125rem .625rem;
+    background: $primary-medium-blue;
+    border: none;
+    border-radius: .5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: .5rem;
+    color: $neutral-white;
+    font-size: 0.75rem;
+    font-family: $primary-font;
+    text-shadow: $shadow-primary;
+    box-shadow: $shadow-primary;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+  
+    &:hover {
+      background: $frosted-glass;
+      color: $primary-button-blue;
+      transform: scale(1.05);
+      box-shadow: 0 0 15px rgba(0, 153, 255, 0.6);
+  
+      & > * {
+        animation: blowAwayEffect 0.5s forwards ease-out;
+      }
+    }
+  
+    &:active {
+      transform: scale(.95);
+      background-color: $primary-dark-blue;
+      color: $primary-medium-blue;
+      box-shadow: $shadow-cloud-primary;
+  
+      & > * {
+        animation: puffEffect 0.3s forwards ease-out;
+      }
+    }
+  
+    @include tablet {
+      font-size: 0.85rem;
+      padding: 0.15rem 0.5rem;
+      width: 8rem;
+    }
   }
 
   &__close-cal-txt {

@@ -627,6 +627,29 @@
   .friends-page {
     background: $rain-slate-gray;
 
+    &__delete-all-btn {
+      background: $rain-rainy-sky-blue;
+      color: $neutral-white;
+      border: .125rem solid $rain-soft-seafoam;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+    
+      &:hover {
+        background: $rain-forest-green;
+        color: $neutral-white;
+        border: .125rem solid $rain-wet-grass-green;
+        transform: scale(1.05);
+        box-shadow: 0 0 15px rgba($rain-wet-grass-green, 0.9);
+      }
+    
+      &:active {
+        transform: scale(.95);
+        background: $rain-dew-drop-gray;
+        color: $neutral-white;
+        box-shadow: $rain-shadow-primary;
+        border: .125rem solid $rain-foggy-mist-gray;
+      }
+    }
+
     &__heading-container {
       background: linear-gradient(145deg, $rain-rainy-sky-blue, darken($rain-storm-cloud-blue, 15%));
       border: .3125rem solid $rain-soft-seafoam;

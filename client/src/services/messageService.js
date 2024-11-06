@@ -32,10 +32,20 @@ export const markAllMessagesAsRead = async (friendId) => {
   return response.data;
 };
 
-  // Delete a message
+// Delete a message
 export const deleteMessage = async (messageId) => {
   try {
     const response = await api.delete(`/api/messages/delete/${messageId}`);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Delete all messages
+export const deleteAllMessages = async (friendId) => {
+  try {
+    const response = await api.delete(`/api/messages/${friendId}/delete-all`);
     return response.data;
   } catch (error) {
     throw error;

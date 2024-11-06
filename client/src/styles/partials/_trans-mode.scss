@@ -674,6 +674,29 @@
   .friends-page {
     background: $trans-black;
 
+    &__delete-all-btn {
+      background: $trans-candy-pink;
+      color: $trans-deep-blue;
+      border: .125rem solid $trans-deep-blue;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+    
+      &:hover {
+        background: $trans-deep-blue;
+        color: $trans-candy-pink;
+        border: .125rem solid $trans-candy-pink;
+        transform: scale(1.05);
+        box-shadow: 0 0 15px rgba($trans-electric-pink, 0.9);
+      }
+    
+      &:active {
+        transform: scale(.95);
+        background: $trans-frosted-glass-pink;
+        color: $trans-deep-pink;
+        box-shadow: $shadow-septenary;
+        border: .125rem solid $rain-foggy-mist-gray;
+      }
+    }
+
     &__heading-container {
       border: 0.3125rem solid $trans-candy-pink;    
     }

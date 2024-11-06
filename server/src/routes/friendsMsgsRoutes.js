@@ -185,4 +185,45 @@ router.delete('/delete/:messageId', authenticate, async (req, res) => {
   }
 });
 
+// Delete all messages between the user and a friend
+router.delete('/:friendId/delete-all', authenticate, async (req, res) => {
+  const userId = req.user.userId; 
+  const { friendId } = req.params;
+
+  if (!userId || !friendId) {
+    return res.status(400).json({ message: 'Missing userId or friendId' });
+  }
+
+  try {
+    // Ensure the user is friends with the recipient
+    const friendship = await knex('friends')
+      .where(function() {
+        this.where('user_id', userId).andWhere('friend_id', friendId);
+      })
+      .orWhere(function() {
+        this.where('friend_id', userId).andWhere('user_id', friendId);
+      })
+      .first();
+
+    if (!friendship) {
+      return res.status(400).json({ message: 'You are not friends with this user.' });
+    }
+
+    // Delete all messages between the user and friend
+    await knex('messages')
+      .where(function() {
+        this.where('sender_id', userId).andWhere('receiver_id', friendId);
+      })
+      .orWhere(function() {
+        this.where('sender_id', friendId).andWhere('receiver_id', userId);
+      })
+      .del();
+
+    res.status(200).json({ message: 'All messages deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting all messages:', error);
+    res.status(500).json({ message: 'Error deleting all messages' });
+  }
+});
+
 module.exports = router;

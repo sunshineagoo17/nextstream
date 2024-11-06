@@ -1,9 +1,9 @@
 import { useContext, useState, useRef, useEffect, useCallback } from 'react';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { getFriends, rejectFriendRequest, fetchSharedCalendarEvents, respondToSharedEvent, fetchPendingCalendarInvitesService, sendFriendRequest, acceptFriendRequest, removeFriend, searchUsers, fetchPendingRequests as fetchPendingRequestsService } from '../../services/friendsService';
-import { fetchMessages, sendMessage, deleteMessage, markAllMessagesAsRead } from '../../services/messageService';
+import { fetchMessages, sendMessage, deleteMessage, markAllMessagesAsRead, deleteAllMessages } from '../../services/messageService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faTimes, faTrash, faBell, faClose, faCalendarAlt, faPaperPlane, faEraser } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faTimes, faTrash, faBell, faClose, faCalendarAlt, faPaperPlane, faEraser, faWind } from '@fortawesome/free-solid-svg-icons';
 import { nanoid } from 'nanoid';
 import CustomAlerts from '../../components/CustomAlerts/CustomAlerts';
 import EmojiMessages from '../../components/EmojiMessages/EmojiMessages';
@@ -398,6 +398,24 @@ const FriendsPage = () => {
     }
   };
 
+  const handleDeleteAllMessages = async () => {
+    try {
+      if (selectedFriend) {
+        await deleteAllMessages(selectedFriend.id);
+        setMessages([]);
+        setAlertMessage({
+          message: 'All messages deleted successfully.',
+          type: 'success',
+        });
+      }
+    } catch (error) {
+      setAlertMessage({
+        message: 'Error deleting all messages.',
+        type: 'error',
+      });
+    }
+  };
+  
   const handleCloseChat = () => {
     setSelectedFriend(null);
     setMessages([]); 
@@ -1017,6 +1035,13 @@ const FriendsPage = () => {
                   setNewMessage={setNewMessage}
                   handleSendMessage={handleSendMessage}
                 />
+                <button 
+                  onClick={handleDeleteAllMessages} 
+                  className="friends-page__delete-all-btn"
+                >
+                  <FontAwesomeIcon icon={faWind} />
+                  <p className='friends-page__delete-all-txt'>Clear All</p>
+                </button>
                 <EmojiMessages newMessage={newMessage} setNewMessage={setNewMessage} className="emoji-btn"/>
               </div>
               {typing && (

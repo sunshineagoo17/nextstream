@@ -298,6 +298,28 @@ textarea {
 .friends-page {
   background: $star-dark-neumorph-base;
 
+  &__delete-all-btn {
+    background: $neutral-black;
+    color: $star-deep-topaz;
+    border: .125rem solid $neutral-white;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+  
+    &:hover {
+      background: $neutral-white;
+      color: $neutral-black;
+      border: .125rem solid $star-deep-topaz;
+      transform: scale(1.05);
+      box-shadow: 0 0 15px rgba($star-deep-topaz, 0.9);
+    }
+  
+    &:active {
+      transform: scale(.95);
+      background: $star-deep-topaz;
+      color: $neutral-black;
+      box-shadow: $shadow-cloud-primary;
+    }
+  }
+
   &__heading-container {
     background: linear-gradient(145deg, $star-medium-gray, darken($star-dark-gray, 5%));
     border: .3125rem solid $star-black;
