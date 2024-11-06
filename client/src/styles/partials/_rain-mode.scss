@@ -198,7 +198,7 @@
     }
 
     &__sign-in-txt {
-        color: $rain-text-dark;
+        color: $neutral-white;
     }
   
     &__clear-btn,
@@ -222,7 +222,11 @@
     }
   
     &__logo {
-        filter: brightness(0) invert(0);
+      filter: brightness(0) invert(0);
+
+      &:hover {
+        filter: brightness(0) invert(1);
+      }
     }
 
     &__search-input,
@@ -256,26 +260,26 @@
 
 // Hero
 .hero {
-    background: $rain-dew-drop-gray;
-  
-    &__subtitle--tagline,
-    &__title {
-      color: $rain-text-dark;
-    }
-  
-    &__subtitle--tagline {
-        background: $rain-frosted-glass;
-        border: .1875rem solid $rain-rainy-sky-blue;
-        transition: background 0.4s ease, border 0.4s ease;
+  background: $rain-dew-drop-gray;
 
-        &:hover {
-            background: $rain-frosted-blue;
-            border: .1875rem solid $rain-soft-seafoam;
-        }
+  &__subtitle--tagline,
+  &__title {
+    color: $rain-text-dark;
+  }
+
+  &__subtitle--tagline {
+      background: $rain-frosted-glass;
+      border: .1875rem solid $rain-rainy-sky-blue;
+      transition: background 0.4s ease, border 0.4s ease;
+
+      &:hover {
+          background: $rain-frosted-blue;
+          border: .1875rem solid $rain-soft-seafoam;
+      }
     }
 
     &__btn {
-        color: $rain-text-dark;
+      color: $neutral-white;
     }
   
     &__logo--mobile,
@@ -554,7 +558,7 @@
     }
   
     &__register {
-        color: $rain-text-dark;
+      color: $neutral-white;
     }
 
     &__btn-contact {
@@ -577,6 +581,10 @@
   
     &__logo-wordmark {
       filter: invert(100%) brightness(0%);
+
+      &:hover {
+        filter: brightness(0) invert(1);
+      }
     }
   
     &__copyright {
