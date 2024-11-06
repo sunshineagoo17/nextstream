@@ -140,32 +140,27 @@ io.on('connection', (socket) => {
     const { senderId, receiverId, message } = data;
 
     try {
-      await knex.transaction(async (trx) => {
-        const [savedMessageId] = await trx('messages')
-          .insert({
-            sender_id: senderId,
-            receiver_id: receiverId,
-            message,
-            is_read: false,
-            created_at: trx.fn.now(),
-          })
-          .returning('id');
+        await knex.transaction(async (trx) => {
+            const [savedMessage] = await trx('messages')
+                .insert({
+                    sender_id: senderId,
+                    receiver_id: receiverId,
+                    message,
+                    is_read: false,
+                    created_at: trx.fn.now(),
+                })
+                .returning(['id', 'sender_id', 'receiver_id', 'message', 'created_at']);
 
-        if (savedMessageId) {
-          io.to(receiverId).emit('receive_message', {
-            senderId,
-            receiverId,
-            message,
-            created_at: new Date(),
-          });
-        }
-      });
+            if (savedMessage) {
+                io.to(receiverId).emit('receive_message', savedMessage);
+            }
+        });
     } catch (error) {
-      console.error('Error inserting message:', error);
+        console.error('Error inserting message:', error);
 
-      socket.emit('error_message', {
-        message: 'Error sending message. Please try again.',
-      });
+        socket.emit('error_message', {
+            message: 'Error sending message. Please try again.',
+        });
     }
   });
 

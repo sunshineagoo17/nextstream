@@ -32,6 +32,7 @@ const FriendsPage = () => {
   const socketRef = useRef(null);
   const calendarModalRef = useRef(null);
   const socketInitializedRef = useRef(false);
+  const receivedMessageIds = useRef(new Set());
 
   const handleShowCalendar = () => {
     setShowCalendar(true);
@@ -192,51 +193,59 @@ const FriendsPage = () => {
   const handleReceiveMessage = useCallback((data) => {
     try {
       const messageWithId = { ...data, id: data.id || nanoid(), is_read: data.is_read || false };
-      console.log("Message received:", messageWithId); 
-  
-      const savedMessageIds = new Set(JSON.parse(localStorage.getItem('receivedMessageIds') || '[]'));
-  
-      if (!savedMessageIds.has(messageWithId.id)) {
-        console.log("Received message ID:", messageWithId.id); 
-        
-        setMessages((prevMessages) => {
-          const updatedMessages = [...prevMessages, messageWithId];
-          console.log("Updated messages array:", updatedMessages); 
-          return updatedMessages;
-        });
-  
-        savedMessageIds.add(messageWithId.id);
-        localStorage.setItem('receivedMessageIds', JSON.stringify(Array.from(savedMessageIds)));
-        console.log("Current savedMessageIds:", Array.from(savedMessageIds)); 
+      console.log("Message received:", messageWithId);
+
+      // Check for duplicate by using message ID
+      if (!receivedMessageIds.current.has(messageWithId.id)) {
+        // Add message ID to the set to track it
+        receivedMessageIds.current.add(messageWithId.id);
+
+        // Add the message to the state
+        setMessages((prevMessages) => [...prevMessages, messageWithId]);
+      } else {
+        console.log("Duplicate message ignored:", messageWithId);
       }
     } catch (error) {
       console.error("Error handling received message:", error);
     }
-  }, []);  
-  
-  useEffect(() => {
-    if (!socketInitializedRef.current && userId) {
+  }, []);
+
+  const debounceReceiveMessage = (func, delay) => {
+    let timeoutId;
+    return (...args) => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => func(...args), delay);
+    };
+  };
+
+  // Define the debounced handleReceiveMessage without useCallback
+  const debouncedHandleReceiveMessage = debounceReceiveMessage(handleReceiveMessage, 300);
+
+ useEffect(() => {
+    if (userId && !socketInitializedRef.current) {
       if (!socketRef.current) {
         socketRef.current = io(process.env.REACT_APP_BASE_URL, { withCredentials: true });
-        socketRef.current.emit('join_room', userId);
         console.log(`Socket initialized for user: ${userId}`);
       }
-  
-      socketRef.current.on('receive_message', handleReceiveMessage);
+
+      socketRef.current.off('receive_message', debouncedHandleReceiveMessage);
+      socketRef.current.on('receive_message', debouncedHandleReceiveMessage);
+
+      socketRef.current.emit('join_room', `${userId}_${selectedFriend?.id}`);
       socketInitializedRef.current = true;
     }
-  
+
     return () => {
-      if (socketInitializedRef.current) {
-        socketRef.current.off('receive_message', handleReceiveMessage);
-        socketRef.current.emit('leave_room', userId);
+      if (socketRef.current) {
+        socketRef.current.off('receive_message', debouncedHandleReceiveMessage);
+        socketRef.current.emit('leave_room', `${userId}_${selectedFriend?.id}`);
         socketRef.current.disconnect();
         socketRef.current = null;
         console.log(`Socket disconnected for user: ${userId}`);
         socketInitializedRef.current = false;
       }
     };
-  }, [userId, handleReceiveMessage]);  
+  }, [userId, debouncedHandleReceiveMessage, selectedFriend]);
    
   const handleTyping = useCallback(() => {
     if (socketRef.current && !typing) {
