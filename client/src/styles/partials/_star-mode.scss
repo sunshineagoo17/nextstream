@@ -236,7 +236,7 @@ textarea {
 // Hero
 .hero {
   background: $star-black;
-  border-bottom: 0.1875rem solid $star-charcoal;
+  border-bottom: .1875rem solid $star-charcoal;
 
   &__subtitle--tagline,
   &__title {
@@ -694,7 +694,7 @@ textarea {
 
   .content {
     background: $star-black;
-    border-bottom: .1875rem solid $neutral-white;
+    border-bottom: .1875rem solid $star-charcoal;
 
     &__label-header-new-container,
     &__label-header-container {
@@ -707,7 +707,7 @@ textarea {
     }
 
     &__new-releases {
-      border-top: .1875rem solid $neutral-white;
+      border-top: .1875rem solid $star-charcoal;
     }
   
     &__card-features__feature__icon-bg {
