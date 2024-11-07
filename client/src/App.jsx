@@ -76,7 +76,6 @@ const App = () => {
           });
     
           if (currentToken) {
-            console.log('FCM Token:', currentToken);
             await sendTokenToServer(currentToken);
           } else {
             console.log('No registration token available. Request permission to generate one.');
