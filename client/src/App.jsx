@@ -69,13 +69,16 @@ const App = () => {
       try {
         const permission = await Notification.requestPermission();
         if (permission === 'granted') {
-          const registration = await navigator.serviceWorker.ready;
+          const registration = await navigator.serviceWorker.ready; 
+          console.log('Service worker ready:', registration);
+    
           const currentToken = await getToken(messaging, {
             vapidKey: process.env.REACT_APP_VAPID_KEY,
             serviceWorkerRegistration: registration,
           });
     
           if (currentToken) {
+            console.log('FCM token obtained:', currentToken);
             await sendTokenToServer(currentToken);
           } else {
             console.log('No registration token available. Request permission to generate one.');
@@ -87,7 +90,7 @@ const App = () => {
         console.error('An error occurred while retrieving token.', err);
       }
     };
-
+    
     if (isAuthenticated) {
       requestFCMToken();
     }
