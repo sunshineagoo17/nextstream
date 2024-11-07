@@ -222,16 +222,6 @@ router.put('/:userId', async (req, res) => {
 });
 
 // Upload user avatar
-// router.post('/:userId/avatar', authenticate, ensureUploadsDirectoryExists, upload.single('avatar'), async (req, res) => {
-//   try {
-//     const avatarPath = `uploads/avatars/${req.file.filename}`;
-//     await knex('users').where({ id: req.params.userId }).update({ avatar: avatarPath });
-//     res.json({ message: 'Avatar uploaded successfully', avatar: avatarPath });
-//   } catch (error) {
-//     res.status(500).json({ message: 'Error uploading avatar', error: error.message });
-//   }
-// });
-
 router.post('/:userId/avatar', authenticate, ensureUploadsDirectoryExists, upload.single('avatar'), async (req, res) => {
   try {
     const userId = req.params.userId;
