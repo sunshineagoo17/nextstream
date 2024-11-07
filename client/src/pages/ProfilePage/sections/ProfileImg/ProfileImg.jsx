@@ -1,11 +1,12 @@
 import { useState, useEffect, useContext } from "react";
 import { AuthContext } from '../../../../context/AuthContext/AuthContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUpload, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import api from "../../../../services/api"; 
 import DefaultAvatar from "../../../../assets/images/default-avatar.svg";
 import Loader from "../../../../components/Loaders/Loader/Loader";
 import CustomAlerts from "../../../../components/CustomAlerts/CustomAlerts";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUpload, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import heic2any from 'heic2any';
 import './ProfileImg.scss';
 
 const ProfileImg = ({ userId, username, isActive, onStatusToggle }) => {
@@ -38,17 +39,42 @@ const ProfileImg = ({ userId, username, isActive, onStatusToggle }) => {
     if (!file) {
       return;
     }
-
-    if (!file.type.match("image/jpeg") && !file.type.match("image/png") && !file.type.match("image/jpg") && !file.type.match("image/gif") && !file.type.match("image/svg") && !file.type.match("image/webp") && !file.type.match("image/bmp") && !file.type.match("image/tiff")) {
-      setAlert({ show: true, message: "Please upload a valid image (jpg, jpeg, png, gif, svg, webp, bmp, tiff).", type: 'error' });
+    
+    const validTypes = [
+      "image/heic",
+      "image/jpeg",
+      "image/png",
+      "image/jpg",
+      "image/gif",
+      "image/svg",
+      "image/webp",
+      "image/bmp",
+      "image/tiff"
+    ];
+    
+    if (!validTypes.includes(file.type)) {
+      setAlert({
+        show: true,
+        message: "Please upload a valid image (jpg, jpeg, png, gif, svg, webp, bmp, tiff, heic).",
+        type: 'error'
+      });
       return;
     }
-
-    const formData = new FormData();
-    formData.append("avatar", file);
- 
-    setLoading(true);
+    
+    let convertedFile = file;
+    setLoading(true); 
     try {
+      if (file.type === 'image/heic') {
+        const convertedBlob = await heic2any({ blob: file, toType: 'image/jpeg' });
+        convertedFile = new File([convertedBlob], "converted.jpg", { type: "image/jpeg" });
+        setImagePreview(URL.createObjectURL(convertedFile));
+      } else {
+        setImagePreview(URL.createObjectURL(file));
+      }
+      
+      const formData = new FormData();
+      formData.append("avatar", convertedFile);
+  
       const response = await api.post(`/api/profile/${userId}/avatar`, formData, {
         headers: {
           "Content-Type": "multipart/form-data"
@@ -60,10 +86,10 @@ const ProfileImg = ({ userId, username, isActive, onStatusToggle }) => {
     } catch (error) {
       setAlert({ show: true, message: "Error uploading image.", type: 'error' });
     } finally {
-      setLoading(false);
+      setLoading(false); 
     }
-  };
-
+  };  
+  
   const handleImageDelete = async () => {
     setLoading(true);
     try {
@@ -120,7 +146,7 @@ const ProfileImg = ({ userId, username, isActive, onStatusToggle }) => {
           <input
             className="profile-img__input"
             type="file"
-            accept="image/*"
+            accept=".jpeg, .jpg, .png, .gif, .svg, .webp, .bmp, .tiff, .heic"
             onChange={handleImageUpload}
             style={{ display: "none" }}
             id="file-input"
