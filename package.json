@@ -72,6 +72,7 @@
     "redux-thunk": "^3.1.0",
     "sass": "^1.77.5",
     "sendgrid": "^5.2.3",
+    "sharp": "^0.33.5",
     "simple-icons": "^13.8.0",
     "socket.io": "^4.8.0",
     "socket.io-client": "^4.8.0",

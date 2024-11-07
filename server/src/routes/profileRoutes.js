@@ -10,6 +10,7 @@ const { comparePassword } = require('../utils/hashPasswords');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
+const sharp = require('sharp');
 const { generateAndNotifyRecommendations } = require('../services/recommendationService');
 const { sendScheduledEventReminders } = require('../utils/scheduledEventReminders');
 const { sendPushNotifications } = require('../services/pushNotificationService');
@@ -55,7 +56,7 @@ const ensureUploadsDirectoryExists = (req, res, next) => {
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     const dir = path.join(__dirname, '../uploads/avatars');
-    cb(null, dir); // Use the absolute path for the directory
+    cb(null, dir);
   },
   filename: (req, file, cb) => {
     cb(null, `${req.params.userId}-${Date.now()}${path.extname(file.originalname)}`);
@@ -72,7 +73,7 @@ const upload = multer({
     if (mimetype && extname) {
       return cb(null, true);
     }
-    cb(new Error('Error: File upload only supports the following filetypes - jpeg, jpg, png, gif, svg, webp, bmp, tiff, heic'));
+    cb(new Error('Please upload a valid image (jpg, jpeg, png, gif, svg, webp, bmp, tiff, heic).'));
   }
 });
 
@@ -221,11 +222,35 @@ router.put('/:userId', async (req, res) => {
 });
 
 // Upload user avatar
+// router.post('/:userId/avatar', authenticate, ensureUploadsDirectoryExists, upload.single('avatar'), async (req, res) => {
+//   try {
+//     const avatarPath = `uploads/avatars/${req.file.filename}`;
+//     await knex('users').where({ id: req.params.userId }).update({ avatar: avatarPath });
+//     res.json({ message: 'Avatar uploaded successfully', avatar: avatarPath });
+//   } catch (error) {
+//     res.status(500).json({ message: 'Error uploading avatar', error: error.message });
+//   }
+// });
+
 router.post('/:userId/avatar', authenticate, ensureUploadsDirectoryExists, upload.single('avatar'), async (req, res) => {
   try {
-    const avatarPath = `uploads/avatars/${req.file.filename}`;
-    await knex('users').where({ id: req.params.userId }).update({ avatar: avatarPath });
-    res.json({ message: 'Avatar uploaded successfully', avatar: avatarPath });
+    const userId = req.params.userId;
+    const filePath = path.join(__dirname, '../uploads/avatars', req.file.filename);
+    let finalPath = filePath;
+
+    // Check if the uploaded file is HEIC
+    if (req.file.mimetype === 'image/heic') {
+      const jpegPath = filePath.replace(/\.heic$/, '.jpg'); 
+      await sharp(filePath).toFormat('jpeg').toFile(jpegPath); 
+      fs.unlinkSync(filePath);
+      finalPath = jpegPath; 
+    }
+
+    const avatarUrl = `uploads/avatars/${path.basename(finalPath)}`;
+
+    await knex('users').where({ id: userId }).update({ avatar: avatarUrl });
+
+    res.json({ message: 'Avatar uploaded successfully', avatar: avatarUrl });
   } catch (error) {
     res.status(500).json({ message: 'Error uploading avatar', error: error.message });
   }
