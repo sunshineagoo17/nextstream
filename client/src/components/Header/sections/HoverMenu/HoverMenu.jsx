@@ -6,6 +6,7 @@ import { AuthContext } from '../../../../context/AuthContext/AuthContext';
 
 const HoverMenu = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.matchMedia("(max-width: 768px)").matches);
   const menuRef = useRef(null);
   const links = useMenuLinks();
   const location = useLocation();
@@ -33,10 +34,16 @@ const HoverMenu = () => {
     };
   }, [menuOpen]);
 
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 768px)");
+    const handleResize = () => setIsMobile(mediaQuery.matches);
+    mediaQuery.addEventListener('change', handleResize);
+    return () => mediaQuery.removeEventListener('change', handleResize);
+  }, []);
+
   const getBackgroundClass = () => {
     const darkBackgroundPaths = [
       `/login`,
-      `/profile/${userId}`, 
       `/calendar/${userId}`, 
       `/calendar/guest`,
       `/faves/${userId}`, 
@@ -48,11 +55,14 @@ const HoverMenu = () => {
       `/search`,
       `/streamboard/${userId}`,
     ];
+
+    const darkBackgroundMobilePaths = [`/`, `/profile/${userId}`];
+    const isDarkBackgroundMobile = darkBackgroundMobilePaths.includes(location.pathname) && isMobile;
   
     const isDarkBackgroundPage = darkBackgroundPaths.includes(location.pathname) ||
       new RegExp(`^/nextview/${userId}/(movie|tv)/\\d+$`).test(location.pathname) ||
       new RegExp(`^/spotlight/${userId}/\\d+$`).test(location.pathname);
-  
+
     const isCloudModeEnabled = document.documentElement.getAttribute('data-theme') === 'cloud-mode'; 
     const isTransModeEnabled = document.documentElement.getAttribute('data-theme') === 'trans-mode'; 
     const isStarModeEnabled = document.documentElement.getAttribute('data-theme') === 'star-mode'; 
@@ -60,27 +70,14 @@ const HoverMenu = () => {
     const isDarkModeEnabled = document.documentElement.getAttribute('data-theme') === 'dark';
     const isRainModeEnabled = document.documentElement.getAttribute('data-theme') === 'rain-mode';
   
-    if (isCloudModeEnabled) {
-      return 'cloud-mode-background'; 
-    }
-  
-    if (isTransModeEnabled) {
-      return 'trans-mode-background';
-    }
+    if (isCloudModeEnabled) return 'cloud-mode-background';
+    if (isTransModeEnabled) return 'trans-mode-background';
+    if (isStarModeEnabled) return 'star-mode-background';
+    if (isSunModeEnabled) return 'sun-mode-background';
+    if (isRainModeEnabled) return 'rain-mode-background';
 
-    if (isStarModeEnabled) {
-      return 'star-mode-background';
-    }
-
-    if (isSunModeEnabled) {
-      return 'sun-mode-background';
-    }
-    
-    if (isRainModeEnabled) {
-      return 'rain-mode-background';
-    }
-  
-    return isDarkBackgroundPage || isDarkModeEnabled ? 'dark-background' : '';
+    // Apply dark background for dark paths and mobile-specific paths
+    return (isDarkBackgroundPage || isDarkBackgroundMobile || isDarkModeEnabled) ? 'dark-background' : '';
   };
   
   return (
