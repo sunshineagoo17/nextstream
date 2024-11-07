@@ -36,12 +36,11 @@ const ProfileImg = ({ userId, username, isActive, onStatusToggle }) => {
 
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
-    if (!file) {
-      return;
-    }
-    
+    if (!file) return;
+  
     const validTypes = [
       "image/heic",
+      "image/x-heic",  
       "image/jpeg",
       "image/png",
       "image/jpg",
@@ -51,7 +50,7 @@ const ProfileImg = ({ userId, username, isActive, onStatusToggle }) => {
       "image/bmp",
       "image/tiff"
     ];
-    
+  
     if (!validTypes.includes(file.type)) {
       setAlert({
         show: true,
@@ -60,18 +59,28 @@ const ProfileImg = ({ userId, username, isActive, onStatusToggle }) => {
       });
       return;
     }
-    
+  
     let convertedFile = file;
-    setLoading(true); 
+    setLoading(true);
+  
     try {
-      if (file.type === 'image/heic') {
-        const convertedBlob = await heic2any({ blob: file, toType: 'image/jpeg' });
-        convertedFile = new File([convertedBlob], "converted.jpg", { type: "image/jpeg" });
-        setImagePreview(URL.createObjectURL(convertedFile));
+      if (file.type === 'image/heic' || file.type === 'image/x-heic') {
+        try {
+          const convertedBlob = await heic2any({ blob: file, toType: 'image/jpeg' });
+          convertedFile = new File([convertedBlob], "converted.jpg", { type: "image/jpeg" });
+          setImagePreview(URL.createObjectURL(convertedFile));
+        } catch (conversionError) {
+          console.warn("HEIC conversion failed on client:", conversionError);
+          setAlert({
+            show: true,
+            message: "Client-side HEIC conversion failed. Uploading original file for server-side conversion.",
+            type: "info"
+          });
+        }
       } else {
         setImagePreview(URL.createObjectURL(file));
       }
-      
+  
       const formData = new FormData();
       formData.append("avatar", convertedFile);
   
@@ -83,10 +92,11 @@ const ProfileImg = ({ userId, username, isActive, onStatusToggle }) => {
       });
       setImagePreview(`${process.env.REACT_APP_BASE_URL}/${response.data.avatar}`);
       setAlert({ show: true, message: "Image uploaded successfully.", type: 'success' });
-    } catch (error) {
+    } catch (uploadError) {
+      console.error("Image upload error:", uploadError);
       setAlert({ show: true, message: "Error uploading image.", type: 'error' });
     } finally {
-      setLoading(false); 
+      setLoading(false);
     }
   };  
   
@@ -146,7 +156,7 @@ const ProfileImg = ({ userId, username, isActive, onStatusToggle }) => {
           <input
             className="profile-img__input"
             type="file"
-            accept=".jpeg, .jpg, .png, .gif, .svg, .webp, .bmp, .tiff, .heic"
+            accept=".jpeg, .jpg, .png, .gif, .svg, .webp, .bmp, .tiff, .heic, .x-heic"
             onChange={handleImageUpload}
             style={{ display: "none" }}
             id="file-input"
