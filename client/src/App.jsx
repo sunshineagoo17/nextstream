@@ -4,7 +4,7 @@ import { AuthProvider, AuthContext } from './context/AuthContext/AuthContext';
 import { SearchBarProvider } from './context/SearchBarContext/SearchBarContext';
 import { MediaProvider } from './context/MediaContext/MediaContext';
 import Cookies from 'js-cookie';
-import api from './services/api'; 
+import api from './services/api';
 import HomePage from './pages/HomePage/HomePage';
 import Footer from './components/Footer/Footer';
 import TermsAndConditions from './pages/TermsAndConditions/TermsAndConditions';
@@ -27,24 +27,24 @@ import LoginRequired from './pages/LoginRequired/LoginRequired';
 import SpotlightPage from './pages/SpotlightPage/SpotlightPage';
 import FavouritesPage from './pages/FavouritesPage/FavouritesPage';
 import NextViewPage from './pages/NextViewPage/NextViewPage';
-import TopPicksPage from './pages/TopPicksPage/TopPicksPage'; 
+import TopPicksPage from './pages/TopPicksPage/TopPicksPage';
 import StreamBoard from './pages/StreamBoard/StreamBoard';
-import QuickstartGuide from './components/QuickStartGuide/QuickStartGuide'; 
+import QuickstartGuide from './components/QuickStartGuide/QuickStartGuide';
 import FriendsPage from './pages/FriendsPage/FriendsPage';
 import UnsubscribePage from './pages/UnsubscribePage/UnsubscribePage';
 import NextStreamBot from './pages/NextStreamBot/NextStreamBot';
 import NextStreamGpt from './pages/NextStreamGpt/NextStreamGpt';
-import NextWatchPage from './pages/NextWatchPage/NextWatchPage'; 
+import NextWatchPage from './pages/NextWatchPage/NextWatchPage';
 import AboutPage from './pages/AboutPage/AboutPage';
 import PageTransition from './components/PageTransition/PageTransition';
+import CustomAlerts from './components/CustomAlerts/CustomAlerts';
 import './components/PageTransition/PageTransition.scss';
 import './styles/global.scss';
-
-// Firebase 
-import { messaging } from './services/firebase'; 
+import { messaging } from './services/firebase';
 import { getToken, onMessage } from 'firebase/messaging';
 
 const App = () => {
+  const [alertData, setAlertData] = useState(null); 
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false);
   const [eventTitle, setEventTitle] = useState('');
@@ -52,7 +52,7 @@ const App = () => {
   const { isAuthenticated, isGuest, userId } = useContext(AuthContext);
   const token = Cookies.get('token');
 
-  const [showQuickstart, setShowQuickstart] = useState(true); 
+  const [showQuickstart, setShowQuickstart] = useState(true);
 
   const handleCloseQuickstart = () => setShowQuickstart(false);
 
@@ -76,6 +76,7 @@ const App = () => {
           });
     
           if (currentToken) {
+            console.log('FCM Token:', currentToken);
             await sendTokenToServer(currentToken);
           } else {
             console.log('No registration token available. Request permission to generate one.');
@@ -86,34 +87,30 @@ const App = () => {
       } catch (err) {
         console.error('An error occurred while retrieving token.', err);
       }
-    };    
+    };
 
     if (isAuthenticated) {
       requestFCMToken();
     }
 
     const unsubscribe = onMessage(messaging, (payload) => {
-      const notificationTitle = payload.notification?.title || 'New Notification';
-      const notificationOptions = {
-        body: payload.notification?.body,
-        icon: payload.notification?.icon,
-      };
-    
-      if (Notification.permission === 'granted') {
-        new Notification(notificationTitle, notificationOptions);
-      }
+      setAlertData({
+        message: payload.notification?.body || "Check your calendar for your next stream!",
+        type: 'info',
+      });
     });
-    
+
     return () => {
       unsubscribe();
-    };    
+    };
   }, [isAuthenticated, isGuest, userId, token]);
 
   useEffect(() => {
-    // Initialize theme on app load
     const savedTheme = Cookies.get('theme') || 'light';
     document.documentElement.setAttribute('data-theme', savedTheme);
   }, []);
+
+  const handleCloseAlert = () => setAlertData(null);
 
   const handleContactClick = () => {
     setIsContactModalOpen(true);
@@ -139,7 +136,7 @@ const App = () => {
   
       <main className="layout__main">
         <PageTransition>
-          <Routes location={location} key={location.key || location.pathname}> 
+          <Routes location={location} key={location.key || location.pathname}>
             <Route path="/" element={<HomePage />} />
             <Route path="/terms" element={<TermsAndConditions />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
@@ -158,7 +155,7 @@ const App = () => {
             <Route path="/login-required" element={<LoginRequired />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/nextview/:userId/:mediaType/:mediaId" element={isAuthenticated || isGuest ? <NextViewPage /> : <Navigate to="/login-required" />} />
-            <Route path="/nextwatch/:userId/:mediaType/:mediaId" element={isAuthenticated || isGuest ? <NextWatchPage /> : <Navigate to="/login-required" />} /> 
+            <Route path="/nextwatch/:userId/:mediaType/:mediaId" element={isAuthenticated || isGuest ? <NextWatchPage /> : <Navigate to="/login-required" />} />
             <Route path="/top-picks/:userId" element={isGuest || isAuthenticated ? <TopPicksPage /> : <Navigate to="/login-required" />} />
             <Route path="/streamboard/:userId" element={isAuthenticated ? <StreamBoard /> : <Navigate to="/login-required" />} />
             <Route path="/spotlight/:userId/:personId" element={isAuthenticated ? <SpotlightPage /> : <Navigate to="/login-required" />} />
@@ -183,6 +180,15 @@ const App = () => {
           userId={userId}
         />
       )}
+
+      {/* CustomAlerts for in-app notifications */}
+      {alertData && (
+        <CustomAlerts
+          message={alertData.message}
+          type={alertData.type}
+          onClose={handleCloseAlert}
+        />
+      )}
     </div>
   );
 };
@@ -190,8 +196,8 @@ const App = () => {
 const RootApp = () => (
   <Router>
     <AuthProvider>
-      <SearchBarProvider> 
-        <MediaProvider> 
+      <SearchBarProvider>
+        <MediaProvider>
           <App />
         </MediaProvider>
       </SearchBarProvider>

@@ -5,7 +5,6 @@ let messaging;
 let firebaseInitialized = false;
 const deferredPushEvents = [];
 
-// Set up Firebase configuration and initialize messaging
 self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'SET_FIREBASE_CONFIG') {
     const firebaseConfig = event.data.config;
@@ -16,7 +15,6 @@ self.addEventListener('message', (event) => {
       firebaseInitialized = true;
       console.log('Firebase initialized and messaging set up.');
 
-      // Process any deferred push events after Firebase is initialized
       if (deferredPushEvents.length > 0) {
         console.log('Processing deferred push events:', deferredPushEvents.length);
         deferredPushEvents.forEach((deferredEvent) => handlePushEvent(deferredEvent));
@@ -27,10 +25,11 @@ self.addEventListener('message', (event) => {
 });
 
 self.addEventListener('push', (event) => {
+  console.log('Push event received:', event);
   if (firebaseInitialized) {
     handlePushEvent(event);
   } else {
-    console.log('Push event received but Firebase is not yet initialized:', event);
+    console.log('Push event received but Firebase is not yet initialized. Deferring:', event);
     deferredPushEvents.push(event);
   }
 });
@@ -39,7 +38,6 @@ self.addEventListener('pushsubscriptionchange', (event) => {
   console.log('Push subscription change event triggered:', event);
 });
 
-// Notification click event listener to handle notification interactions
 self.addEventListener('notificationclick', (event) => {
   event.notification.close();
   event.waitUntil(
@@ -59,12 +57,12 @@ function handlePushEvent(event) {
     data = event.data?.json();
   } catch (error) {
     console.warn('Data is not JSON, using fallback text:', event.data.text());
-    data = { notification: { title: 'Notification', body: event.data.text() } };
+    data = { notification: { title: 'NextStream Notification', body: event.data.text() } };
   }
 
   const title = data.notification?.title || 'NextStream Notification';
   const options = {
-    body: data.notification?.body || 'Hiya from NextStream!',
+    body: data.notification?.body || 'Check your calendar. You have media scheduled!',
     icon: data.notification?.icon || './nextstream-brandmark-logo.svg',
   };
 
@@ -73,9 +71,10 @@ function handlePushEvent(event) {
 
 if (firebaseInitialized && messaging) {
   messaging.onBackgroundMessage((payload) => {
-    const notificationTitle = payload.notification.title || 'Background Notification';
+    console.log('Background message received:', payload);
+    const notificationTitle = payload.notification?.title || 'NextStream Notification';
     const notificationOptions = {
-      body: payload.notification.body,
+      body: payload.notification?.body || 'You have a new message!',
       icon: './nextstream-brandmark-logo.svg',
     };
     self.registration.showNotification(notificationTitle, notificationOptions);
