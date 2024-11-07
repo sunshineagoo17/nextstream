@@ -70,21 +70,21 @@ const FriendsPage = () => {
   
   const getEvents = useCallback(async () => {
     try {
-      const response = await fetch(`/api/calendar/${userId}/events`);
-  
+      const response = await fetch(`/api/calendar/${userId}/events?ts=${Date.now()}`);
       const contentType = response.headers.get('content-type');
       
       if (contentType && contentType.includes('application/json')) {
         const data = await response.json();
         if (response.ok) {
-          setSharedCalendarEvents(data);
+          const validData = data.filter(event => event.eventTitle && event.start && event.end);
+          setSharedCalendarEvents(validData);
         }
       }
     } catch (error) {
       console.error('Error fetching events:', error);
     }
-  }, [userId]);
-
+  }, [userId]);  
+  
   const fetchFriends = useCallback(async () => {
     try {
       const friendsData = await getFriends();
@@ -131,15 +131,15 @@ const FriendsPage = () => {
   const handleRespondToInvite = async (inviteId, isAccepted) => {
     try {
       await respondToSharedEvent(userId, inviteId, isAccepted);
-
+  
       setPendingCalendarInvites((prevInvites) =>
         prevInvites.filter((invite) => invite.inviteId !== inviteId)
       );
-
+  
       if (isAccepted) {
         const updatedEvents = await fetchSharedCalendarEvents(userId);
         setSharedCalendarEvents(updatedEvents);
-
+  
         socketRef.current.emit('calendar_event_updated', {
           userId,
           inviteId,
@@ -148,15 +148,15 @@ const FriendsPage = () => {
         setSharedCalendarEvents((prevEvents) =>
           prevEvents.filter((event) => event.inviteId !== inviteId)
         );
-
+  
         socketRef.current.emit('calendar_event_updated', {
           userId,
           inviteId,
         });
       }
-
+  
       setCalendarKey((prevKey) => prevKey + 1);
-
+  
       setAlertMessage({
         message: isAccepted
           ? 'Event accepted successfully!'
@@ -170,11 +170,23 @@ const FriendsPage = () => {
         type: 'error',
       });
     }
-  };
+  };  
 
+  useEffect(() => {
+    if (socketRef.current) {
+      socketRef.current.on('calendar_event_updated', ({ userId, inviteId }) => {
+        getEvents();
+      });
+    }
+    return () => {
+      socketRef.current?.off('calendar_event_updated');
+    };
+  }, [getEvents]);
+  
   useEffect(() => {
     const fetchSharedEvents = async () => {
       try {
+        setSharedCalendarEvents([]); 
         const eventsData = await fetchSharedCalendarEvents(userId);
         const validEvents = eventsData.filter(
           (event) => event.eventTitle && event.start && event.end
@@ -183,7 +195,7 @@ const FriendsPage = () => {
       } catch (error) {
         console.error('Error fetching shared calendar events:', error);
       }
-    };
+    };    
   
     if (userId) {
       fetchSharedEvents();
@@ -269,17 +281,16 @@ const FriendsPage = () => {
   
   useEffect(() => {
     const handleVisibilityChange = () => {
-      if (document.visibilityState === 'visible' && socketRef.current && !socketRef.current.connected) {
-        socketRef.current.connect();
+      if (document.visibilityState === 'visible') {
+        getEvents(); 
       }
     };
-  
     document.addEventListener('visibilitychange', handleVisibilityChange);
   
     return () => {
       document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
-  }, []);
+  }, [getEvents]);
   
   useEffect(() => {
     if (socketRef.current) {
@@ -350,6 +361,12 @@ const FriendsPage = () => {
       fetchData();
     }
   }, [userId]);
+
+  useEffect(() => {
+    return () => {
+      setSharedCalendarEvents([]);
+    };
+  }, []);  
 
   useEffect(() => {
     if (selectedFriend) {
