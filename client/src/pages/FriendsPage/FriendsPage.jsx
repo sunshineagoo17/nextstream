@@ -419,19 +419,9 @@ const FriendsPage = () => {
   }, [newMessage, selectedFriend, userId]);   
   
   const handleDeleteMessage = async (messageId) => {
-    const messageExists = messages.some((message) => message.id === messageId);
-  
-    if (!messageExists) {
-      setAlertMessage({
-        message: 'Message not found or already deleted.',
-        type: 'info',
-      });
-      return;
-    }
-  
     try {
       await deleteMessage(messageId);
-  
+
       setMessages((prevMessages) =>
         prevMessages.filter((message) => message.id !== messageId)
       );
@@ -443,7 +433,7 @@ const FriendsPage = () => {
     } catch (error) {
       setAlertMessage({ message: 'Error deleting message.', type: 'error' });
     }
-  };  
+  };
 
   const handleDeleteAllMessages = async () => {
     if (messages.length === 0) {
@@ -469,7 +459,7 @@ const FriendsPage = () => {
         type: 'error',
       });
     }
-  };  
+  };
   
   const handleCloseChat = () => {
     setSelectedFriend(null);
