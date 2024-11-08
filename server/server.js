@@ -66,6 +66,8 @@ const io = socketIO(server, {
   },
 });
 
+app.set('io', io);
+
 // Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

@@ -203,6 +203,7 @@ exports.searchEvents = async (req, res) => {
 
 // Add a new event
 exports.addEvent = async (req, res) => {
+  const io = req.app.get('io');
   const { title, start, end, eventType, timezone, media_id, media_type } = req.body;
 
   if (!['movie', 'tv', 'unknown'].includes(eventType)) {
@@ -225,7 +226,7 @@ exports.addEvent = async (req, res) => {
     if (!mediaId || !mediaType) {
       const mediaDetails = await getMediaDetailsByTitle(title, eventType === 'movie' ? 'movie' : 'tv');
       if (mediaDetails) {
-        mediaId = mediaDetails.id; // TMDB ID
+        mediaId = mediaDetails.id;
         mediaType = eventType;
         duration = mediaDetails.duration;
         genres = mediaDetails.genres;
@@ -288,7 +289,16 @@ exports.addEvent = async (req, res) => {
       await sendPushNotifications(user, events);
     }
 
-    // Return event details
+    // Emit real-time event addition via Socket.IO
+    io.to(userIdentifier).emit('new_event', {
+      message: `New event '${title}' added`,
+      eventId,
+      title,
+      start: formattedStart,
+      end: formattedEnd,
+      eventType,
+    });
+
     res.status(201).json({
       eventId,
       title,
@@ -307,6 +317,7 @@ exports.addEvent = async (req, res) => {
 
 // Update an existing event
 exports.updateEvent = async (req, res) => {
+  const io = req.app.get('io');
   const { eventId } = req.params;
   const { title, start, end, eventType, timezone, media_id, media_type } = req.body;
 
@@ -361,6 +372,16 @@ exports.updateEvent = async (req, res) => {
 
       await sendPushNotifications(user, events);
     }
+
+    // Emit real-time event update via Socket.IO
+    io.to(userIdentifier).emit('update_event', {
+      message: `Event '${title}' updated`,
+      eventId,
+      title,
+      start: formattedStart,
+      end: formattedEnd,
+      eventType,
+    });
 
     res.status(200).json({ message: 'Event updated successfully' });
   } catch (error) {

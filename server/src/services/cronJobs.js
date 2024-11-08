@@ -5,6 +5,8 @@ const { generateAndNotifyRecommendations } = require('./recommendationService');
 const { sendScheduledEventReminders } = require('../utils/scheduledEventReminders');
 const knexConfig = require('../../knexfile');
 const knex = require('knex')(knexConfig.development);
+const io = require('../../server').io;
+
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
 const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
 const STREAMING_PROVIDERS = ['Amazon Prime Video', 'Apple TV Plus', 'Netflix', 'Crave', 'Disney Plus'];
@@ -142,6 +144,29 @@ const scheduleJobs = () => {
       console.log('Daily event reminders sent successfully.');
     } catch (error) {
       console.error('Error sending daily event reminders.');
+    }
+  });
+
+  // Real-time calendar event notifications - check every minute
+  cron.schedule('* * * * *', async () => {
+    try {
+      const now = moment().utc();
+      const upcomingEvents = await knex('events')
+        .where('start', '>', now.format('YYYY-MM-DD HH:mm:ss'))
+        .andWhere('start', '<=', now.add(15, 'minutes').format('YYYY-MM-DD HH:mm:ss'))
+        .select('user_id', 'title', 'start', 'id');
+
+      // Send real-time notification for each event
+      upcomingEvents.forEach((event) => {
+        io.to(event.user_id).emit('calendar_event_notification', {
+          title: `Upcoming Event: ${event.title}`,
+          message: `Your event "${event.title}" is starting soon at ${moment(event.start).format('HH:mm')}.`,
+          eventId: event.id,
+        });
+        console.log(`Notification sent for event ${event.title} to user ${event.user_id}`);
+      });
+    } catch (error) {
+      console.error('Error in real-time calendar notifications job:', error);
     }
   });
 };

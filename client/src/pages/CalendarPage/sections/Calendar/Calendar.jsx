@@ -68,12 +68,20 @@ const Calendar = forwardRef(
       socket.on('calendar_event_updated', (data) => {
         const updatedEvent = {
           ...data.event,
-          start: data.event.start,
-          end: data.event.end || null,
+          start: moment.utc(data.event.start).local().format('YYYY-MM-DDTHH:mm:ss'),
+          end: data.event.end ? moment.utc(data.event.end).local().format('YYYY-MM-DDTHH:mm:ss') : null,
         };
-      
-        setEvents((prevEvents) => [...prevEvents, updatedEvent]);
-      });      
+        
+        setEvents((prevEvents) => {
+          const eventIndex = prevEvents.findIndex((event) => event.id === updatedEvent.id);
+          if (eventIndex !== -1) {
+            const updatedEvents = [...prevEvents];
+            updatedEvents[eventIndex] = updatedEvent;
+            return updatedEvents;
+          }
+          return [...prevEvents, updatedEvent];
+        });
+      });         
     
       socket.on('calendar_event_removed', (data) => {
         setEvents((prevEvents) =>
