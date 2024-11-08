@@ -60,6 +60,7 @@ const App = () => {
     const sendTokenToServer = async (token) => {
       try {
         await api.post('/api/profile/update-fcm-token', { fcmToken: token });
+        console.log('FCM token successfully sent to the server');
       } catch (error) {
         console.error('Error sending FCM token to server:', error);
       }

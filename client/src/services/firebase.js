@@ -1,7 +1,7 @@
 import { initializeApp, getApps } from 'firebase/app';
-import { getMessaging } from 'firebase/messaging';
+import { getMessaging, getToken } from 'firebase/messaging';
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
-import api from './api'; 
+import api from './api';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -24,16 +24,31 @@ const auth = getAuth(app);
 // Google provider
 const googleProvider = new GoogleAuthProvider();
 googleProvider.setCustomParameters({
-  prompt: 'select_account' 
+  prompt: 'select_account',
 });
+
+// Check if notification permission is granted
+export const hasNotificationPermission = () => Notification.permission === 'granted';
+
+// Request notification permission if not already granted
+export const requestMessagingPermission = async () => {
+  if (Notification.permission === 'granted') return true;
+  try {
+    const permission = await Notification.requestPermission();
+    return permission === 'granted';
+  } catch (error) {
+    console.error('Error requesting notification permission:', error);
+    return false;
+  }
+};
 
 // Register with Google
 const signInAndRegisterWithGoogle = async () => {
   try {
-    await logOut(); 
+    await logOut();
 
     const result = await signInWithPopup(auth, googleProvider);
-    
+
     if (!result || !result.user) {
       throw new Error("Google sign-in did not return a user.");
     }
@@ -58,10 +73,10 @@ const signInAndRegisterWithGoogle = async () => {
 // Login with Google
 const signInWithGoogle = async () => {
   try {
-    await logOut(); 
+    await logOut();
 
     const result = await signInWithPopup(auth, googleProvider);
-    
+
     if (!result || !result.user) {
       throw new Error("Google sign-in did not return a user.");
     }
@@ -91,4 +106,43 @@ const logOut = async () => {
   }
 };
 
-export { messaging, auth, signInAndRegisterWithGoogle, signInWithGoogle, logOut };
+// Send FCM token to server
+export const sendTokenToServer = async (token) => {
+  try {
+    await api.post('/api/profile/update-fcm-token', { fcmToken: token });
+    console.log('FCM token sent to server successfully.');
+  } catch (error) {
+    console.error('Error sending FCM token to server:', error);
+  }
+};
+
+// Obtain FCM token if permission is granted
+export const requestFCMToken = async () => {
+  try {
+    const permissionGranted = await requestMessagingPermission();
+    if (permissionGranted) {
+      const registration = await navigator.serviceWorker.ready;
+      const currentToken = await getToken(messaging, {
+        vapidKey: process.env.REACT_APP_VAPID_KEY,
+        serviceWorkerRegistration: registration,
+      });
+      if (currentToken) {
+        await sendTokenToServer(currentToken);
+      } else {
+        console.warn('No FCM token available. Request permission to generate one.');
+      }
+    } else {
+      console.warn('Notification permission denied by the user.');
+    }
+  } catch (error) {
+    console.error('Error while retrieving FCM token:', error);
+  }
+};
+
+export {
+  messaging,
+  auth,
+  signInAndRegisterWithGoogle,
+  signInWithGoogle,
+  logOut,
+};
