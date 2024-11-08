@@ -140,25 +140,35 @@
     box-shadow: 0 5px 15px rgba(0, 255, 127, 0.4);
     border: 3px solid $feedback-mint-light-green;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    animation: popBounce 0.9s cubic-bezier(0.25, 0.8, 0.25, 1), pulseGlow 3s infinite alternate ease-in-out;
 
     &:hover {
-        transform: scale(1.1) rotate(2deg);  
-        background: $neutral-white;
-        color: $feedback-medium-green;
-        border: 2px solid $feedback-very-light-mint-green;
+      transform: scale(1.05);  
+      background: $neutral-white;
+      color: $feedback-medium-green;
+      border: 2px solid $feedback-very-light-mint-green;
     }
 
     &:active {
-        transform: scale(0.95);
-        background: $feedback-mint-vibrant-green;
-        border: 1px solid $neutral-white;
-        color: $neutral-white;
-        box-shadow: 0 8px 20px rgba(0, 255, 127, 0.6);
-        text-shadow: $shadow-primary;
+      transform: scale(0.95);
+      background: $feedback-mint-vibrant-green;
+      border: 1px solid $neutral-white;
+      color: $neutral-white;
+      box-shadow: 0 8px 20px rgba(0, 255, 127, 0.6);
+      text-shadow: $shadow-primary;
+      border-radius: 1rem;
+      font-weight: bold;
+    }
+
+    @include tablet {
+      animation: popBounce 0.9s cubic-bezier(0.25, 0.8, 0.25, 1), pulseGlow 3s infinite alternate ease-in-out;
+
+      &:hover {
+        transform: scale(1.1) rotate(2deg);  
+      }
+
+      &:active {
         animation: rippleEffect 0.4s ease-out;
-        border-radius: 1rem;
-        font-weight: bold;
+      }
     }
 
     @keyframes popBounce {
