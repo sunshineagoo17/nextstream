@@ -51,6 +51,7 @@ const FriendsPage = () => {
   
   const handleShowCalendar = () => {
     setShowCalendar(true); 
+    setCalendarKey(prevKey => prevKey + 1);
   };  
 
   const handleCloseCalendar = useCallback(() => {
