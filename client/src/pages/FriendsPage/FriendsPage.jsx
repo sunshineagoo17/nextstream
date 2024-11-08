@@ -50,10 +50,8 @@ const FriendsPage = () => {
   };
   
   const handleShowCalendar = () => {
-    console.log("Show Calendar clicked"); 
-    setShowCalendar(true);
-    console.log("showCalendar state after click:", showCalendar); 
-  };
+    setShowCalendar(true); 
+  };  
 
   const handleCloseCalendar = useCallback(() => {
     setShowCalendar(false);
@@ -69,14 +67,14 @@ const FriendsPage = () => {
   useEffect(() => {
     if (showCalendar) {
       document.addEventListener('mousedown', handleClickOutside);
-      document.addEventListener('touchstart', handleClickOutside); 
+      document.addEventListener('touchstart', handleClickOutside);
     }
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
       document.removeEventListener('touchstart', handleClickOutside);
     };
   }, [showCalendar, handleClickOutside]);
-
+  
   useEffect(() => {
     console.log("showCalendar state updated:", showCalendar); 
   }, [showCalendar]);
