@@ -97,7 +97,7 @@ const ShareEventWithFriends = ({ eventId, userId, showAlert }) => {
             </div>
           ))
         ) : (
-          <p className="share-event__no-friends">Invite friends and start sharing events.</p>
+          <p className="share-event__no-friends">Add friends to start sharing events.</p>
         )}
       </div>
       <button

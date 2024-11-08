@@ -4927,6 +4927,16 @@ textarea {
       background: $star-frosted-dark-gray;
     }
 
+    &__cancel-btn {
+      &:hover {
+        color: $star-black !important;
+      }
+
+      &:active {
+        color: $neutral-white !important;
+      }
+    }
+
     &__overlay {
       background: rgba($star-black, .8);
       z-index: 500;
@@ -5242,13 +5252,15 @@ textarea {
       }
 
       .modal-input {
-        background: $star-frosted-silver-gray;
+        background: $neutral-white;
+        color: $neutral-black !important;
         box-shadow: $star-shadow-primary;
         border: .125rem solid $star-medium-gray;
 
         .modal-input-container {
           .modal-input {
-            background: $star-frosted-silver-gray;
+            background: $neutral-white;
+            color: $neutral-black !important;
             cursor: url('../../assets/cursors/cursor-pointer-st.svg'), pointer;
           }
         }

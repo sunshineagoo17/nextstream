@@ -51,8 +51,13 @@
   }
 
   &__cancel-btn {
+    border-radius: .25rem !important;
     color: $primary-dark-blue !important;
     box-shadow: $shadow-cool-primary !important;
+
+    &:hover {
+      color: $neutral-white !important;
+    }
 
     &:active {
       background: $primary-dark-blue !important;
