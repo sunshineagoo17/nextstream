@@ -61,51 +61,55 @@ const App = () => {
       try {
         await api.post('/api/profile/update-fcm-token', { fcmToken: token });
       } catch (error) {
-        console.error('Error sending token to server:', error);
+        console.error('Error sending FCM token to server:', error);
       }
     };
-
+  
     const requestFCMToken = async () => {
       try {
         const permission = await Notification.requestPermission();
         if (permission === 'granted') {
           const registration = await navigator.serviceWorker.ready; 
           console.log('Service worker ready:', registration);
-    
-          const currentToken = await getToken(messaging, {
-            vapidKey: process.env.REACT_APP_VAPID_KEY,
-            serviceWorkerRegistration: registration,
-          });
-    
-          if (currentToken) {
-            console.log('FCM token obtained:', currentToken);
-            await sendTokenToServer(currentToken);
-          } else {
-            console.log('No registration token available. Request permission to generate one.');
+  
+          try {
+            const currentToken = await getToken(messaging, {
+              vapidKey: process.env.REACT_APP_VAPID_KEY,
+              serviceWorkerRegistration: registration,
+            });
+  
+            if (currentToken) {
+              console.log('FCM token obtained:', currentToken);
+              await sendTokenToServer(currentToken);
+            } else {
+              console.warn('No FCM token available. Request permission to generate one.');
+            }
+          } catch (error) {
+            console.error('Error while retrieving FCM token:', error);
           }
         } else {
           console.warn('Notification permission denied by the user.');
         }
-      } catch (err) {
-        console.error('An error occurred while retrieving token.', err);
+      } catch (error) {
+        console.error('An error occurred during FCM token retrieval:', error);
       }
     };
-    
+  
     if (isAuthenticated) {
       requestFCMToken();
     }
-
+  
     const unsubscribe = onMessage(messaging, (payload) => {
       setAlertData({
         message: payload.notification?.body || "Check your calendar for your next stream!",
         type: 'info',
       });
     });
-
+  
     return () => {
       unsubscribe();
     };
-  }, [isAuthenticated, isGuest, userId, token]);
+  }, [isAuthenticated, isGuest, userId, token]);  
 
   useEffect(() => {
     const savedTheme = Cookies.get('theme') || 'light';
