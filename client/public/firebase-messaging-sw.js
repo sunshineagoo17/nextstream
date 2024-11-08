@@ -15,11 +15,23 @@ self.addEventListener('message', (event) => {
       firebaseInitialized = true;
       console.log('Firebase initialized and messaging set up.');
 
+      // Handle deferred push events immediately after initializing
       if (deferredPushEvents.length > 0) {
         console.log('Processing deferred push events:', deferredPushEvents.length);
         deferredPushEvents.forEach((deferredEvent) => handlePushEvent(deferredEvent));
         deferredPushEvents.length = 0;
       }
+
+      // Attach background message handler once initialized
+      messaging.onBackgroundMessage((payload) => {
+        console.log('Background message received:', payload);
+        const notificationTitle = payload.notification?.title || 'NextStream Notification';
+        const notificationOptions = {
+          body: payload.notification?.body || 'You have a new message!',
+          icon: './nextstream-brandmark-logo.svg',
+        };
+        self.registration.showNotification(notificationTitle, notificationOptions);
+      });
     }
   }
 });
@@ -32,23 +44,6 @@ self.addEventListener('push', (event) => {
     console.log('Push event received but Firebase is not yet initialized. Deferring:', event);
     deferredPushEvents.push(event);
   }
-});
-
-self.addEventListener('pushsubscriptionchange', (event) => {
-  console.log('Push subscription change event triggered:', event);
-});
-
-self.addEventListener('notificationclick', (event) => {
-  event.notification.close();
-  event.waitUntil(
-    clients.matchAll({ type: 'window' }).then((clientList) => {
-      for (const client of clientList) {
-        if (client.url === '/' && 'focus' in client) return client.focus();
-      }
-      if (clients.openWindow) return clients.openWindow('/');
-    })
-  );
-  console.log('Notification click received');
 });
 
 function handlePushEvent(event) {
@@ -69,14 +64,19 @@ function handlePushEvent(event) {
   event.waitUntil(self.registration.showNotification(title, options));
 }
 
-if (firebaseInitialized && messaging) {
-  messaging.onBackgroundMessage((payload) => {
-    console.log('Background message received:', payload);
-    const notificationTitle = payload.notification?.title || 'NextStream Notification';
-    const notificationOptions = {
-      body: payload.notification?.body || 'You have a new message!',
-      icon: './nextstream-brandmark-logo.svg',
-    };
-    self.registration.showNotification(notificationTitle, notificationOptions);
-  });
-}
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close();
+  event.waitUntil(
+    clients.matchAll({ type: 'window' }).then((clientList) => {
+      for (const client of clientList) {
+        if (client.url === '/' && 'focus' in client) return client.focus();
+      }
+      if (clients.openWindow) return clients.openWindow('/');
+    })
+  );
+  console.log('Notification click received');
+});
+
+self.addEventListener('pushsubscriptionchange', (event) => {
+  console.log('Push subscription change event triggered:', event);
+});
