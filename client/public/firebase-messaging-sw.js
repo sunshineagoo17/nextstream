@@ -5,6 +5,7 @@ let messaging;
 let firebaseInitialized = false;
 const deferredPushEvents = [];
 
+// Listen for Firebase configuration from main app
 self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'SET_FIREBASE_CONFIG') {
     const firebaseConfig = event.data.config;
@@ -13,16 +14,14 @@ self.addEventListener('message', (event) => {
       firebase.initializeApp(firebaseConfig);
       messaging = firebase.messaging();
       firebaseInitialized = true;
-      console.log('Firebase initialized and messaging set up.');
+      console.log('Firebase initialized with received config.');
 
-      // Handle deferred push events immediately after initializing
-      if (deferredPushEvents.length > 0) {
-        console.log('Processing deferred push events:', deferredPushEvents.length);
-        deferredPushEvents.forEach((deferredEvent) => handlePushEvent(deferredEvent));
-        deferredPushEvents.length = 0;
+      // Process any deferred push events
+      while (deferredPushEvents.length > 0) {
+        const deferredEvent = deferredPushEvents.shift();
+        handlePushEvent(deferredEvent);
       }
 
-      // Attach background message handler once initialized
       messaging.onBackgroundMessage((payload) => {
         console.log('Background message received:', payload);
         const notificationTitle = payload.notification?.title || 'NextStream Notification';
@@ -36,15 +35,34 @@ self.addEventListener('message', (event) => {
   }
 });
 
+// Handle push events, even if Firebase isn't initialized
 self.addEventListener('push', (event) => {
   console.log('Push event received:', event);
+
   if (firebaseInitialized) {
     handlePushEvent(event);
   } else {
-    console.log('Push event received but Firebase is not yet initialized. Deferring:', event);
+    console.warn('Firebase not yet initialized. Deferring push event:', event);
     deferredPushEvents.push(event);
+
+    // Attempt a fallback initialization if not yet initialized
+    if (!firebaseInitialized && deferredPushEvents.length === 1) {
+      initializeFirebaseFallback();
+    }
   }
 });
+
+// Attempt a fallback initialization if configuration hasn't arrived
+function initializeFirebaseFallback() {
+  if (self.firebaseConfig) {
+    firebase.initializeApp(self.firebaseConfig);
+    messaging = firebase.messaging();
+    firebaseInitialized = true;
+    console.log('Firebase initialized with fallback config.');
+    deferredPushEvents.forEach(handlePushEvent);
+    deferredPushEvents.length = 0;
+  }
+}
 
 function handlePushEvent(event) {
   let data;
@@ -64,6 +82,7 @@ function handlePushEvent(event) {
   event.waitUntil(self.registration.showNotification(title, options));
 }
 
+// Handle notification click events
 self.addEventListener('notificationclick', (event) => {
   event.notification.close();
   event.waitUntil(
@@ -77,6 +96,7 @@ self.addEventListener('notificationclick', (event) => {
   console.log('Notification click received');
 });
 
+// Handle push subscription change events
 self.addEventListener('pushsubscriptionchange', (event) => {
   console.log('Push subscription change event triggered:', event);
 });

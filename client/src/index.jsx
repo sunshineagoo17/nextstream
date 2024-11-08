@@ -8,6 +8,7 @@ if ('serviceWorker' in navigator) {
     .then((registration) => {
       console.log('Service Worker registered with scope:', registration.scope);
 
+      // Function to send Firebase config to service worker
       const sendConfigToServiceWorker = () => {
         registration.active?.postMessage({
           type: 'SET_FIREBASE_CONFIG',
@@ -20,9 +21,10 @@ if ('serviceWorker' in navigator) {
             appId: process.env.REACT_APP_FIREBASE_APP_ID,
           },
         });
-        console.log('Firebase configuration sent to active service worker.');
+        console.log('Firebase config sent to service worker.');
       };
 
+      // Wait until the service worker is active, then send config
       if (registration.active) {
         sendConfigToServiceWorker();
       } else {

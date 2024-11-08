@@ -101,11 +101,12 @@ const App = () => {
     }
   
     const unsubscribe = onMessage(messaging, (payload) => {
+      console.log('Message received in foreground:', payload);  
       setAlertData({
         message: payload.notification?.body || "Check your calendar for your next stream!",
         type: 'info',
       });
-    });
+    });    
   
     return () => {
       unsubscribe();
