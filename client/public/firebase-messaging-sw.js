@@ -31,7 +31,7 @@ function initializeFirebase(firebaseConfig) {
   }
 }
 
-// Listen for Firebase configuration from main app
+// Listen for Firebase configuration from the main app
 self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'SET_FIREBASE_CONFIG') {
     initializeFirebase(event.data.config);
@@ -50,16 +50,16 @@ self.addEventListener('push', (event) => {
   }
 });
 
+// Retry initialization if Firebase config is delayed
 function initializeFirebaseFallback() {
-  if (!firebaseInitialized) {
-    setTimeout(() => {
-      if (!firebaseInitialized && self.firebaseConfig) {
-        initializeFirebase(self.firebaseConfig);
-      }
-    }, 1000);
+  if (!firebaseInitialized && self.firebaseConfig) {
+    initializeFirebase(self.firebaseConfig);
+  } else if (!firebaseInitialized) {
+    setTimeout(initializeFirebaseFallback, 1000);
   }
 }
 
+// Call the fallback in case config is delayed
 initializeFirebaseFallback();
 
 function handlePushEvent(event) {
