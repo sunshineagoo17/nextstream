@@ -198,8 +198,16 @@
       color: $neutral-black !important;
     }
 
-    &__cancel-btn {
+    &__delete-btn {
       color: $neutral-white !important;
+    }
+
+    &__cancel-btn {
+      color: $primary-button-blue !important;
+
+      &:active {
+        color: $neutral-white !important;
+      }
     }
   }
 
