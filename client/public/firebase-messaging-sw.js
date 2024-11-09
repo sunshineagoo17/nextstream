@@ -5,37 +5,40 @@ let messaging;
 let firebaseInitialized = false;
 const deferredPushEvents = [];
 
+// Initialize Firebase with config if available
+function initializeFirebase(firebaseConfig) {
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+    messaging = firebase.messaging();
+    firebaseInitialized = true;
+    console.log('Firebase initialized with config.');
+
+    // Process any deferred push events
+    while (deferredPushEvents.length > 0) {
+      const deferredEvent = deferredPushEvents.shift();
+      handlePushEvent(deferredEvent);
+    }
+
+    messaging.onBackgroundMessage((payload) => {
+      console.log('Background message received:', payload);
+      const notificationTitle = payload.notification?.title || 'NextStream Notification';
+      const notificationOptions = {
+        body: payload.notification?.body || 'You have a new message!',
+        icon: './nextstream-brandmark-logo.svg',
+      };
+      self.registration.showNotification(notificationTitle, notificationOptions);
+    });
+  }
+}
+
 // Listen for Firebase configuration from main app
 self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'SET_FIREBASE_CONFIG') {
-    const firebaseConfig = event.data.config;
-
-    if (!firebase.apps.length) {
-      firebase.initializeApp(firebaseConfig);
-      messaging = firebase.messaging();
-      firebaseInitialized = true;
-      console.log('Firebase initialized with received config.');
-
-      // Process any deferred push events
-      while (deferredPushEvents.length > 0) {
-        const deferredEvent = deferredPushEvents.shift();
-        handlePushEvent(deferredEvent);
-      }
-
-      messaging.onBackgroundMessage((payload) => {
-        console.log('Background message received:', payload);
-        const notificationTitle = payload.notification?.title || 'NextStream Notification';
-        const notificationOptions = {
-          body: payload.notification?.body || 'You have a new message!',
-          icon: './nextstream-brandmark-logo.svg',
-        };
-        self.registration.showNotification(notificationTitle, notificationOptions);
-      });
-    }
+    initializeFirebase(event.data.config);
   }
 });
 
-// Handle push events, even if Firebase isn't initialized
+// Handle push events
 self.addEventListener('push', (event) => {
   console.log('Push event received:', event);
 
@@ -44,25 +47,20 @@ self.addEventListener('push', (event) => {
   } else {
     console.warn('Firebase not yet initialized. Deferring push event:', event);
     deferredPushEvents.push(event);
-
-    // Attempt a fallback initialization if not yet initialized
-    if (!firebaseInitialized && deferredPushEvents.length === 1) {
-      initializeFirebaseFallback();
-    }
   }
 });
 
-// Attempt a fallback initialization if configuration hasn't arrived
 function initializeFirebaseFallback() {
-  if (self.firebaseConfig) {
-    firebase.initializeApp(self.firebaseConfig);
-    messaging = firebase.messaging();
-    firebaseInitialized = true;
-    console.log('Firebase initialized with fallback config.');
-    deferredPushEvents.forEach(handlePushEvent);
-    deferredPushEvents.length = 0;
+  if (!firebaseInitialized) {
+    setTimeout(() => {
+      if (!firebaseInitialized && self.firebaseConfig) {
+        initializeFirebase(self.firebaseConfig);
+      }
+    }, 1000);
   }
 }
+
+initializeFirebaseFallback();
 
 function handlePushEvent(event) {
   let data;

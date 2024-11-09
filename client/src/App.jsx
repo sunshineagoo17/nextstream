@@ -69,16 +69,17 @@ const App = () => {
     const requestFCMToken = async () => {
       try {
         const permission = await Notification.requestPermission();
+        console.log('Notification permission:', permission); 
         if (permission === 'granted') {
-          const registration = await navigator.serviceWorker.ready; 
-          console.log('Service worker ready:', registration);
-  
+          console.log('Notification permission granted.');
+          const registration = await navigator.serviceWorker.ready;
+          
           try {
             const currentToken = await getToken(messaging, {
               vapidKey: process.env.REACT_APP_VAPID_KEY,
               serviceWorkerRegistration: registration,
             });
-  
+    
             if (currentToken) {
               console.log('FCM token obtained:', currentToken);
               await sendTokenToServer(currentToken);
@@ -94,19 +95,23 @@ const App = () => {
       } catch (error) {
         console.error('An error occurred during FCM token retrieval:', error);
       }
-    };
+    };    
   
     if (isAuthenticated) {
       requestFCMToken();
     }
   
     const unsubscribe = onMessage(messaging, (payload) => {
-      console.log('Message received in foreground:', payload);  
-      setAlertData({
-        message: payload.notification?.body || "Check your calendar for your next stream!",
-        type: 'info',
-      });
-    });    
+      console.log('Foreground message received:', payload); 
+      try {
+        setAlertData({
+          message: payload.notification?.body || "Check your calendar for your next stream!",
+          type: 'info',
+        });
+      } catch (error) {
+        console.error('Error setting alert data:', error);
+      }
+    });      
   
     return () => {
       unsubscribe();
