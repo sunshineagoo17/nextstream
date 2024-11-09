@@ -67,6 +67,7 @@ const io = socketIO(server, {
 });
 
 app.set('io', io);
+module.exports = { server, io };
 
 // Middleware
 app.use(bodyParser.json());
@@ -109,7 +110,14 @@ app.use('/uploads', express.static(path.join(__dirname, 'src/uploads')));
 
 // Socket.IO Setup
 io.on('connection', (socket) => {
-  console.log(`Socket connected: ${socket.id}`);
+  const userId = socket.handshake.query.userId; 
+
+  if (userId) {
+    socket.join(userId); 
+    console.log(`User ${userId} connected and joined room ${userId}`);
+  } else {
+    console.warn(`No userId provided for socket ${socket.id}`);
+  }
 
   // Logging to track listener setup and rooms joined
   const logListeners = () => {
@@ -119,7 +127,7 @@ io.on('connection', (socket) => {
     console.log(`send_message: ${socket.listenerCount('send_message')}`);
   };
 
-  logListeners(); // Initial log for listener setup
+  logListeners(); 
 
   // Typing events for friends chat
   socket.on('typing', (data) => {
@@ -221,6 +229,12 @@ io.on('connection', (socket) => {
         message: 'Error accepting friend request.',
       });
     }
+  });
+
+  // Listen for calendar event notifications
+  socket.on('calendar_event_notification', (data) => {
+    const { userId, message, eventId } = data;
+    io.to(userId).emit('calendar_event_notification', { message, eventId });
   });
 
   // Handle disconnect

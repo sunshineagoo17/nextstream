@@ -62,6 +62,7 @@ const App = () => {
     const socket = io(socketUrl);
 
     socket.on('calendar_event_notification', (data) => {
+      console.log('Foreground calendar event notification received:', data);
       setAlertData({
         message: data.message || "Check your calendar for your next stream!",
         type: 'info',

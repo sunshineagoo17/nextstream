@@ -5,7 +5,7 @@ const { generateAndNotifyRecommendations } = require('./recommendationService');
 const { sendScheduledEventReminders } = require('../utils/scheduledEventReminders');
 const knexConfig = require('../../knexfile');
 const knex = require('knex')(knexConfig.development);
-const io = require('../../server').io;
+const { io } = require('../../server'); 
 
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
 const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
@@ -155,8 +155,7 @@ const scheduleJobs = () => {
         .where('start', '>', now.format('YYYY-MM-DD HH:mm:ss'))
         .andWhere('start', '<=', now.add(15, 'minutes').format('YYYY-MM-DD HH:mm:ss'))
         .select('user_id', 'title', 'start', 'id');
-
-      // Send real-time notification for each event
+  
       upcomingEvents.forEach((event) => {
         if (event.user_id && event.title) {
           io.to(event.user_id).emit('calendar_event_notification', {
