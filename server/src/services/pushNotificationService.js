@@ -1,6 +1,5 @@
 const admin = require('firebase-admin');
 const moment = require('moment-timezone');
-const path = require('path');
 
 if (!admin.apps.length) {
     const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
@@ -23,10 +22,9 @@ async function sendPushNotifications(user, events) {
         const eventStartTime = moment.utc(event.start);
         const notificationTime = eventStartTime.clone().subtract(user.notificationTime || 0, 'minutes');
 
-         // Log the scheduled notification time in UTC for debugging
-         console.log('Scheduled notification time (UTC):', notificationTime.format());
-         console.log('Current time (UTC):', moment.utc().format()); 
-        
+        console.log('Scheduled notification time (UTC):', notificationTime.format());
+        console.log('Current time (UTC):', moment.utc().format());
+
         if (moment().isSameOrAfter(notificationTime)) {
             const message = {
                 notification: {
@@ -36,8 +34,9 @@ async function sendPushNotifications(user, events) {
                 token: fcmToken,
                 data: {
                     eventId: event.id.toString(),
-                    click_action: `/calendar?eventId=${event.id}`,
-                    url: `/calendar/${user.id}/events/${event.id}`,
+                    click_action: `/calendar?eventId=${event.id}`, 
+                    url: `/calendar/${user.id}/events/${event.id}`, 
+                    notificationType: 'calendarEvent'
                 },
             };
 

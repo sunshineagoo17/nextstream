@@ -5,40 +5,56 @@ let messaging;
 let firebaseInitialized = false;
 const deferredPushEvents = [];
 
-// Initialize Firebase with config if available
-function initializeFirebase(firebaseConfig) {
-  if (!firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig);
-    messaging = firebase.messaging();
-    firebaseInitialized = true;
-    console.log('Firebase initialized with config.');
+// Retrieve Firebase config from IndexedDB
+async function getConfigFromIndexedDB() {
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.open("firebaseConfigDB");
 
-    // Process any deferred push events
-    while (deferredPushEvents.length > 0) {
-      const deferredEvent = deferredPushEvents.shift();
-      handlePushEvent(deferredEvent);
-    }
+    request.onerror = () => reject("Failed to open IndexedDB");
+    request.onsuccess = (event) => {
+      const db = event.target.result;
+      const transaction = db.transaction("configStore", "readonly");
+      const store = transaction.objectStore("configStore");
+      const getRequest = store.get("firebaseConfig");
 
-    messaging.onBackgroundMessage((payload) => {
-      console.log('Background message received:', payload);
-      const notificationTitle = payload.notification?.title || 'NextStream Notification';
-      const notificationOptions = {
-        body: payload.notification?.body || 'You have a new message!',
-        icon: './nextstream-brandmark-logo.svg',
-      };
-      self.registration.showNotification(notificationTitle, notificationOptions);
-    });
-  }
+      getRequest.onsuccess = () => resolve(getRequest.result);
+      getRequest.onerror = () => reject("Failed to retrieve config from IndexedDB");
+    };
+  });
 }
 
-// Listen for Firebase configuration from the main app
-self.addEventListener('message', (event) => {
-  if (event.data && event.data.type === 'SET_FIREBASE_CONFIG') {
-    initializeFirebase(event.data.config);
-  }
-});
+// Initialize Firebase with IndexedDB config
+getConfigFromIndexedDB()
+  .then((firebaseConfig) => {
+    if (firebaseConfig && !firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+      messaging = firebase.messaging();
+      firebaseInitialized = true;
+      console.log("Firebase initialized from IndexedDB config.");
 
-// Handle push events
+      // Process any deferred push events
+      while (deferredPushEvents.length > 0) {
+        const deferredEvent = deferredPushEvents.shift();
+        handlePushEvent(deferredEvent);
+      }
+
+      // Background message handling
+      messaging.onBackgroundMessage((payload) => {
+        console.log('Background message received:', payload);
+        const notificationTitle = payload.notification?.title || 'NextStream Notification';
+        const notificationOptions = {
+          body: payload.notification?.body || 'You have a new message!',
+          icon: './nextstream-brandmark-logo.svg',
+        };
+        self.registration.showNotification(notificationTitle, notificationOptions);
+      });
+    } else {
+      console.warn("Firebase config not found in IndexedDB.");
+    }
+  })
+  .catch(console.error);
+
+// Handle push events, deferring if Firebase isn't initialized
 self.addEventListener('push', (event) => {
   console.log('Push event received:', event);
 
@@ -50,18 +66,7 @@ self.addEventListener('push', (event) => {
   }
 });
 
-// Retry initialization if Firebase config is delayed
-function initializeFirebaseFallback() {
-  if (!firebaseInitialized && self.firebaseConfig) {
-    initializeFirebase(self.firebaseConfig);
-  } else if (!firebaseInitialized) {
-    setTimeout(initializeFirebaseFallback, 1000);
-  }
-}
-
-// Call the fallback in case config is delayed
-initializeFirebaseFallback();
-
+// Function to handle push events and display notifications
 function handlePushEvent(event) {
   let data;
   try {
@@ -94,7 +99,7 @@ self.addEventListener('notificationclick', (event) => {
   console.log('Notification click received');
 });
 
-// Handle push subscription change events
+// Handle push subscription changes
 self.addEventListener('pushsubscriptionchange', (event) => {
   console.log('Push subscription change event triggered:', event);
 });
