@@ -57,7 +57,7 @@ const fetchPopularReleases = async () => {
       if (providers.some(provider => STREAMING_PROVIDERS.includes(provider.provider_name))) {
         streamingMovies.push({ ...movie, media_type: 'movie', providers });
       }
-      if (streamingMovies.length === 3) break; // Stop once we have 3 movies
+      if (streamingMovies.length === 3) break;
     }
 
     // Filter shows
@@ -66,7 +66,7 @@ const fetchPopularReleases = async () => {
       if (providers.some(provider => STREAMING_PROVIDERS.includes(provider.provider_name))) {
         streamingShows.push({ ...show, media_type: 'tv', providers });
       }
-      if (streamingShows.length === 3) break; // Stop once we have 3 shows
+      if (streamingShows.length === 3) break;
     }
 
     // Ensure we have 3 movies and 3 shows
@@ -158,12 +158,16 @@ const scheduleJobs = () => {
 
       // Send real-time notification for each event
       upcomingEvents.forEach((event) => {
-        io.to(event.user_id).emit('calendar_event_notification', {
-          title: `Upcoming Event: ${event.title}`,
-          message: `Your event "${event.title}" is starting soon at ${moment(event.start).format('HH:mm')}.`,
-          eventId: event.id,
-        });
-        console.log(`Notification sent for event ${event.title} to user ${event.user_id}`);
+        if (event.user_id && event.title) {
+          io.to(event.user_id).emit('calendar_event_notification', {
+            title: `Upcoming Event: ${event.title}`,
+            message: `Your event "${event.title}" is starting soon at ${moment(event.start).format('HH:mm')}.`,
+            eventId: event.id,
+          });
+          console.log(`Notification sent for event ${event.title} to user ${event.user_id}`);
+        } else {
+          console.warn(`Incomplete event data for notification: ${JSON.stringify(event)}`);
+        }
       });
     } catch (error) {
       console.error('Error in real-time calendar notifications job:', error);
