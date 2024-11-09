@@ -38,6 +38,7 @@ import NextWatchPage from './pages/NextWatchPage/NextWatchPage';
 import AboutPage from './pages/AboutPage/AboutPage';
 import PageTransition from './components/PageTransition/PageTransition';
 import CustomAlerts from './components/CustomAlerts/CustomAlerts';
+import io from 'socket.io-client'; 
 import './components/PageTransition/PageTransition.scss';
 import './styles/global.scss';
 import { messaging } from './services/firebase';
@@ -53,6 +54,25 @@ const App = () => {
   const token = Cookies.get('token');
 
   const [showQuickstart, setShowQuickstart] = useState(true);
+
+  useEffect(() => {
+    const socketUrl = process.env.NODE_ENV === 'development'
+      ? 'http://localhost:8080'
+      : 'https://www.nextstream.ca';
+    const socket = io(socketUrl);
+
+    socket.on('calendar_event_notification', (data) => {
+      setAlertData({
+        message: data.message || "Check your calendar for your next stream!",
+        type: 'info',
+      });
+    });
+
+    return () => {
+      socket.off('calendar_event_notification');
+      socket.disconnect();
+    };
+  }, [userId])
 
   const handleCloseQuickstart = () => setShowQuickstart(false);
 
