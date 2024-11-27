@@ -4144,7 +4144,9 @@ textarea {
     }
   
     &__icon {
+      background: $primary-pale-blue;
       color: $star-light-gray;
+      border: .0625rem solid $neutral-white;
   
       &:hover {
         background: $star-sunray-gold;

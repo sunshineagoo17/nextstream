@@ -4560,7 +4560,9 @@
     }
 
     &__icon {
-      color: $rain-foggy-mist-gray;
+      background: $primary-pale-blue;
+      color: $rain-storm-cloud-blue;
+      border: .0625rem solid $neutral-white;
 
       &:hover {
         background: $rain-cloudy-ocean-blue;
