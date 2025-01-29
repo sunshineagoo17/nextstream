@@ -414,11 +414,32 @@
 
   &__guest-text {
     font-family: $secondary-font;
-    font-size: .8rem;
     text-align: center;
     color: $primary-medium-blue;
     margin-top: .25rem;
     border: none;
+    font-size: .55rem;
+
+    @include large-mobile {
+      font-size: .8rem;
+    }
+
+    @include tablet {
+      font-size: .85rem;
+    }
+  }
+
+  &__terms-txt {
+    font-family: $secondary-font;
+    font-size: .55rem;
+
+    @include large-mobile {
+      font-size: .8rem;
+    }
+
+    @include tablet {
+      font-size: .85rem;
+    }
   }
 
   &__signin-link,
@@ -435,6 +456,7 @@
     border: .0625rem solid $frosted-glass;
     box-shadow: $shadow-quinary;
     transition: transform .1s ease, background-color .1s ease, color .1s ease;
+    font-size: .55rem;
 
     &:visited {
       text-decoration: none;
@@ -463,6 +485,14 @@
       transform: scale(.9);
       text-decoration: none;
       font-weight: bold;
+    }
+
+    @include large-mobile {
+      font-size: .8rem;
+    }
+
+    @include tablet {
+      font-size: .85rem;
     }
   }
 
