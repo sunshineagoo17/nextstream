@@ -48,10 +48,10 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);  
 
-  const showAlertMessage = (message, type) => {
+  const showAlertMessage = (message, type, duration = 3000) => {
     setAlert({ message, type });
     setShowAlert(true);
-    setTimeout(() => setShowAlert(false), 3000); 
+    setTimeout(() => setShowAlert(false), duration);
   };
 
   const login = async (token, userId, rememberMe) => {
@@ -124,7 +124,11 @@ const handleOAuthLogin = async (providerLogin, provider) => {
         showAlertMessage('Login failed. Please try again.', 'error');
       }
     } else {
-      showAlertMessage('Login failed. Please try again.', 'error');
+      showAlertMessage(
+        "Action failed. If the popup was blocked, please enable them for this site and try again.",
+        'info',
+        5000
+      );
     }
   }
 };  
