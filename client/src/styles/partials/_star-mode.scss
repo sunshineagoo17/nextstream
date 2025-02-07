@@ -722,14 +722,15 @@ textarea {
     &__label-header-container {
       background: $star-gradient-citrine;
     }
+
+    &__features-container {
+      border-top: .125rem solid $neutral-white;
+      border-bottom: .125rem solid $neutral-white;
+    }
   
     &__label-header-new-releases,
     &__label-features {
       color: $star-medium-gray;
-    }
-
-    &__new-releases {
-      border-top: .1875rem solid $star-charcoal;
     }
   
     &__card-features__feature__icon-bg {
