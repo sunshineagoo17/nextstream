@@ -2972,6 +2972,9 @@
         color: $trans-electric-blue;
     }
 
+    &__card-features__feature__label--chatbot,
+    &__card-features__feature__label--friends-chat,
+    &__card-features__feature__label--streamboard,
     &__card-features__feature__label--stream-locator,
     &__card-features__feature__label--schedule-planner,
     &__card-features__feature__label--custom-recommendations {
