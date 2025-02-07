@@ -126,7 +126,7 @@ export const Content = () => {
     }
   };
 
-  const handleNavigateToStreamBoard = () => {
+  const handleNavigateToStreamboard = () => {
     if (isGuest) {
       navigate("/streamboard/guest");
     } else {
@@ -232,16 +232,16 @@ export const Content = () => {
               <div
                 className="content__card-features__feature content__card-features__feature--6"
                 data-tooltip="Organize and track your watchlist easily."
-                onClick={handleNavigateToStreamBoard}>
+                onClick={handleNavigateToStreamboard}>
                 <button className="content__card-features__feature__icon-bg">
                   <img
                     className="content__card-features__feature__streamboard-icon"
                     src={StartIcon}
-                    alt="StreamBoard icon"
+                    alt="Streamboard icon"
                   />
                 </button>
                 <button className="content__card-features__feature__label content__card-features__feature__label--streamboard">
-                  Kanban StreamBoard
+                  Kanban Streamboard
                 </button>
               </div>
             </div>
