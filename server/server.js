@@ -102,6 +102,12 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
+// Allow LinkedIn to embed the site in its in-app browser
+app.use((req, res, next) => {
+  res.setHeader("Content-Security-Policy", "frame-ancestors 'self' https://*.linkedin.com");
+  next();
+});
+
 // Initialize NodeCache with TTL of 1 hour
 const NodeCache = require('node-cache');
 const cache = new NodeCache({ stdTTL: 3600 });
