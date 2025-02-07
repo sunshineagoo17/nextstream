@@ -97,29 +97,31 @@ export const LoginPage = () => {
     }
   };
   
-  const handleOAuthLogin = async (providerLogin) => {
+  const handleOAuthLogin = async (result) => {
+    if (!result || !result.user) {
+      setCustomAlertMessage('OAuth login error. Please try again.');
+      return;
+    }
+  
     try {
-      const result = await providerLogin();
-      if (result && result.user) {
-        const { email } = result.user;
-        const response = await api.post('/api/auth/oauth-login', { email });
+      const { email } = result.user;
+      const response = await api.post('/api/auth/oauth-login', { email });
   
-        if (response.data.success) {
-          Cookies.set('token', response.data.token, { expires: 7, secure: true, sameSite: 'strict' });
-          Cookies.set('userId', response.data.userId, { expires: 7, secure: true, sameSite: 'strict' });
+      if (response.data.success) {
+        Cookies.set('token', response.data.token, { expires: 7, secure: true, sameSite: 'None' });
+        Cookies.set('userId', response.data.userId, { expires: 7, secure: true, sameSite: 'None' });
   
-          login(response.data.token, response.data.userId, rememberMe);
-          navigate(`/profile/${response.data.userId}`);
-        } else if (response.data.reason === 'email_exists') {
-          setCustomAlertMessage(`This email is already linked to ${response.data.provider}. Would you like to log in with that provider?`);
-        } else {
-          setErrors({ general: 'OAuth login failed. Please try again.' });
-        }
+        login(response.data.token, response.data.userId, rememberMe);
+        navigate(`/profile/${response.data.userId}`);
+      } else if (response.data.reason === 'email_exists') {
+        setCustomAlertMessage(`This email is already linked to ${response.data.provider}. Would you like to log in with that provider?`);
+      } else {
+        setErrors({ general: 'OAuth login failed. Please try again.' });
       }
     } catch (error) {
       setCustomAlertMessage('OAuth login error. Please try again.');
     }
-  };  
+  };
   
   const handleCheckboxChange = (event) => {
     setRememberMe(event.target.checked);
@@ -230,9 +232,13 @@ export const LoginPage = () => {
 
               {/* Google Login button */}
               <div className="login__social-login-wrapper">
-                <button className="login__social-button--google" onClick={() => handleOAuthLogin(loginWithGoogle)}>
+                <button className="login__social-button--google" onClick={async () => {
+                  const result = await loginWithGoogle();
+                  handleOAuthLogin(result);
+                }}>
                   <FontAwesomeIcon icon={faGoogle} className="login__social-icon" /> Login with Google
                 </button>
+
                 <button className="login__guest-link" onClick={handleGuestClick} aria-label="Continue as Guest">Login as a Guest</button>
               </div>
 
