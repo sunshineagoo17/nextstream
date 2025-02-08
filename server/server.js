@@ -80,7 +80,10 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: process.env.NODE_ENV === 'production' },
+    cookie: { 
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'None', 
+    },
   })
 );
 
@@ -102,9 +105,23 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
-// Allow LinkedIn to embed the site in its in-app browser
+// Content-Security-Policy for LinkedIn's in-app browser
 app.use((req, res, next) => {
-  res.setHeader("Content-Security-Policy", "frame-ancestors 'self' https://*.linkedin.com");
+  res.setHeader(
+    "Content-Security-Policy",
+    "default-src 'self' https://*.linkedin.com https://*.nextstream.ca; " +
+    "frame-ancestors 'self' https://*.linkedin.com; " +
+    "img-src 'self' data: https: blob:; " +
+    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.linkedin.com https://*.nextstream.ca; " +
+    "style-src 'self' 'unsafe-inline' https://*.linkedin.com https://fonts.googleapis.com; " +
+    "font-src 'self' https://fonts.gstatic.com;"
+  );
+  next();
+});
+
+// Ensure proper referrer handling
+app.use((req, res, next) => {
+  res.setHeader("Referrer-Policy", "no-referrer-when-downgrade");
   next();
 });
 
