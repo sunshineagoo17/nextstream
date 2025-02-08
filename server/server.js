@@ -105,22 +105,6 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
-app.use((req, res, next) => {
-  res.setHeader(
-    "Content-Security-Policy",
-    "default-src 'self' https://*.linkedin.com https://*.nextstream.ca data: blob:; " +
-    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.linkedin.com https://*.nextstream.ca; " +
-    "style-src 'self' 'unsafe-inline' https://*.linkedin.com https://fonts.googleapis.com; " +
-    "font-src 'self' https://fonts.gstatic.com;"
-  );
-  next();
-});
-
-app.use((req, res, next) => {
-  res.setHeader("Cross-Origin-Opener-Policy", "same-origin-allow-popups");
-  next();
-});
-
 // Initialize NodeCache with TTL of 1 hour
 const NodeCache = require('node-cache');
 const cache = new NodeCache({ stdTTL: 3600 });
