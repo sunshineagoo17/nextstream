@@ -125,7 +125,7 @@ const handleOAuthLogin = async (providerLogin, provider) => {
       }
     } else {
       showAlertMessage(
-        "Action failed. If the popup was blocked, please enable them for this site and try again.",
+        "Action failed. Allow popups and try again. On mobile, enable them in browser settings.",
         'info',
         5000
       );
