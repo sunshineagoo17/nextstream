@@ -105,13 +105,10 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
-// Content-Security-Policy for LinkedIn's in-app browser
 app.use((req, res, next) => {
   res.setHeader(
     "Content-Security-Policy",
-    "default-src 'self' https://*.linkedin.com https://*.nextstream.ca; " +
-    "frame-ancestors 'self' https://*.linkedin.com; " +
-    "img-src 'self' data: https: blob:; " +
+    "default-src 'self' https://*.linkedin.com https://*.nextstream.ca data: blob:; " +
     "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.linkedin.com https://*.nextstream.ca; " +
     "style-src 'self' 'unsafe-inline' https://*.linkedin.com https://fonts.googleapis.com; " +
     "font-src 'self' https://fonts.gstatic.com;"
@@ -119,9 +116,8 @@ app.use((req, res, next) => {
   next();
 });
 
-// Ensure proper referrer handling
 app.use((req, res, next) => {
-  res.setHeader("Referrer-Policy", "no-referrer-when-downgrade");
+  res.setHeader("Cross-Origin-Opener-Policy", "same-origin-allow-popups");
   next();
 });
 
