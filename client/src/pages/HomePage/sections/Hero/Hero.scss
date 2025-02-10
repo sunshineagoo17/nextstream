@@ -41,9 +41,11 @@
     margin-top: .5rem;
     margin-bottom: .5rem;
     box-shadow: $shadow-quinary;
+    transition: border .3s ease, box-shadow .3s ease; 
 
     &:hover {
       border: .1875rem solid $primary-button-blue;
+      box-shadow: 0 0 .625rem rgba($primary-button-blue, .5);
     }
 
     @include tablet {

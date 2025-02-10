@@ -1504,9 +1504,11 @@
       color: $primary-very-light-blue;
       box-shadow: $shadow-senary;
       border: .1875rem solid $primary-button-dark-blue;
+      transition: border .3s ease, box-shadow .3s ease; 
 
       &:hover {
         border: .1875rem solid $neutral-white;
+        box-shadow: 0 0 .625rem rgba($neutral-white, .5);
       }
     }
 

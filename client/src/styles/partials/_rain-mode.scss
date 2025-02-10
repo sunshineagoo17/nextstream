@@ -270,11 +270,12 @@
   &__subtitle--tagline {
       background: $rain-frosted-glass;
       border: .1875rem solid $rain-rainy-sky-blue;
-      transition: background 0.4s ease, border 0.4s ease;
+      transition: background .3s ease, border .3s ease, box-shadow .3s ease; 
 
       &:hover {
-          background: $rain-frosted-blue;
-          border: .1875rem solid $rain-soft-seafoam;
+        background: $rain-frosted-blue;
+        border: .1875rem solid $rain-soft-seafoam;
+        box-shadow: 0 0 .625rem rgba($rain-soft-seafoam, .5);
       }
     }
 
