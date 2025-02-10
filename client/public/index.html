@@ -28,6 +28,31 @@
     <!-- Adobe Fonts Embed Code -->
     <!-- <link rel="stylesheet" href="https://use.typekit.net/mbo2ylu.css"> -->
     <link href="styleguide.scss" rel="stylesheet" />
+
+    <script>
+      function isLinkedInApp() {
+        return /LinkedIn/i.test(navigator.userAgent);
+      }
+
+      function openInDefaultBrowser() {
+        var url = "https://nextstream.ca";
+
+        // Check if user is inside LinkedIn's in-app browser
+        if (isLinkedInApp()) {
+          // Open in a new tab (often forces external browser)
+          window.open(url, "_blank");
+
+          // Alternative method (for extra force on iOS)
+          setTimeout(function () {
+            window.location.href = url;
+          }, 500);
+        }
+      }
+
+      // Run script on page load
+      openInDefaultBrowser();
+    </script>
+
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
