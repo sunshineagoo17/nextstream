@@ -244,10 +244,13 @@ textarea {
   }
 
   &__subtitle--tagline {
-    border: .1875rem solid $star-starlight-yellow;
+    box-shadow: 0 .25rem .5rem rgba($star-deep-topaz, .3);
+    border: .1875rem solid $star-deep-topaz;
+    transition: border .3s ease, box-shadow .3s ease-in-out; 
 
     &:hover {
-      border: .1875rem solid $star-deep-topaz;
+      border: .1875rem solid $neutral-white;
+      box-shadow: 0 .375rem .75rem rgba($star-deep-topaz, .5);
     }
   }
 

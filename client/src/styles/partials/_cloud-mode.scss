@@ -247,10 +247,11 @@
 
     &__subtitle--tagline {
       border: .1875rem solid $cloud-breeze-blue;
-      transition: border 0.3s ease;
+      transition: border .3s ease, box-shadow .3s ease; 
 
       &:hover {
         border: .1875rem solid $cloud-haze-blue;
+        box-shadow: 0 0 .625rem rgba($cloud-haze-blue, .5);
       }
     }
 
