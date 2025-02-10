@@ -19,15 +19,15 @@ export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = Cookies.get('token');
-    const guestToken = Cookies.get('guestToken');
-    const storedUserId = Cookies.get('userId');
-  
+    const token = Cookies.get('token') || sessionStorage.getItem('token');
+    const guestToken = Cookies.get('guestToken') || sessionStorage.getItem('guestToken');
+    const storedUserId = Cookies.get('userId') || sessionStorage.getItem('userId');
+
     if (token && storedUserId) {
       setIsAuthenticated(true);
       setIsGuest(false);
       setUserId(parseInt(storedUserId, 10));
-  
+
       const fetchUserName = async () => {
         try {
           const response = await api.get(`/api/profile/${storedUserId}`);
@@ -37,7 +37,7 @@ export const AuthProvider = ({ children }) => {
         }
         setIsLoading(false);
       };
-  
+
       fetchUserName();
     } else if (guestToken) {
       setIsGuest(true);
@@ -46,7 +46,7 @@ export const AuthProvider = ({ children }) => {
     } else {
       setIsLoading(false);
     }
-  }, []);  
+  }, []);
 
   const showAlertMessage = (message, type, duration = 3000) => {
     setAlert({ message, type });
@@ -65,7 +65,10 @@ export const AuthProvider = ({ children }) => {
 
     Cookies.set('token', token, { expires: rememberMe ? 7 : 1, secure: isProduction, sameSite: 'strict', path: '/' });
     Cookies.set('userId', userId.toString(), { expires: rememberMe ? 7 : 1, secure: isProduction, sameSite: 'strict', path: '/' });
-    
+
+    sessionStorage.setItem('token', token);
+    sessionStorage.setItem('userId', userId.toString());
+
     setIsAuthenticated(true);
     setIsGuest(false);
     setUserId(userId);
@@ -164,6 +167,10 @@ const handleOAuthLogin = async (providerLogin, provider) => {
       Cookies.remove('userId', { path: '/' });
       Cookies.remove('guestToken', { path: '/' });
 
+      sessionStorage.removeItem('token');
+      sessionStorage.removeItem('userId');
+      sessionStorage.removeItem('guestToken');
+
       setIsAuthenticated(false);
       setIsGuest(false);
       setUserId(null);
@@ -177,7 +184,7 @@ const handleOAuthLogin = async (providerLogin, provider) => {
     } catch (error) {
       showAlertMessage('Error during sign out. Please try again.', 'error');
     }
-  };  
+  };
 
   if (isLoading) {
     return <Loader />;
