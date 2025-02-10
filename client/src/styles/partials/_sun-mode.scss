@@ -267,11 +267,12 @@
     &__subtitle--tagline {
       background: $neutral-white;
       border: .1875rem solid $sun-yellow;
-      transition: background 0.4s ease, border 0.4s ease;
+      transition: background .3s ease, border .3s ease, box-shadow .3s ease; 
 
       &:hover {
-        background: $frosted-glass;
         border: .1875rem solid $primary-pale-blue;
+        box-shadow: 0 0 .625rem rgba($primary-pale-blue, .5);
+        background: $frosted-glass;
       }
     }
 
