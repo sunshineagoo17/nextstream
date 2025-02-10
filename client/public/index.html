@@ -10,21 +10,37 @@
       content="NextStream is a global streaming guide and scheduler, helping you find where to stream your favorite movies and shows. It offers personalized recommendations and advanced scheduling features, allowing you to plan your viewing experience effortlessly."
     />
     <meta name="developer and designer" content="Sunshine Agoo" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
+    <!-- Open Graph Meta Tags (For Facebook, LinkedIn, etc.) -->
+    <meta property="og:title" content="NextStream - Your Streaming Guide" />
+    <meta
+      property="og:description"
+      content="Find where to stream your favorite movies & shows. Personalized recommendations and scheduling features."
+    />
+    <meta
+      property="og:image"
+      content="%PUBLIC_URL%/nextstream-brandmark-logo-socials.jpg"
+    />
+    <meta property="og:url" content="https://www.nextstream.ca" />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter Card Meta Tags (For Twitter Previews) -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="NextStream - Your Streaming Guide" />
+    <meta
+      name="twitter:description"
+      content="Find where to stream your favourite movies & shows. Personalized recommendations and scheduling features."
+    />
+    <meta
+      name="twitter:image"
+      content="%PUBLIC_URL%/nextstream-brandmark-logo-socials.jpg"
+    />
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+
     <title>NextStream</title>
+
     <!-- Adobe Fonts Embed Code -->
     <!-- <link rel="stylesheet" href="https://use.typekit.net/mbo2ylu.css"> -->
     <link href="styleguide.scss" rel="stylesheet" />
@@ -35,7 +51,7 @@
       }
 
       function openInDefaultBrowser() {
-        var url = "https://www.nextstream.ca";
+        var url = "https://nextstream.ca";
 
         // Check if user is inside LinkedIn's in-app browser
         if (isLinkedInApp()) {
@@ -57,8 +73,8 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-    
-      <!-- This HTML file is a template.
+
+    <!-- This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
 
       You can add webfonts, meta tags, or analytics to this file.
