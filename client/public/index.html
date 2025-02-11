@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/nextstream-favicon.ico" />
+    <link rel="icon" href="https://www.nextstream.ca/nextstream-favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <meta
@@ -19,7 +19,7 @@
     />
     <meta
       property="og:image"
-      content="%PUBLIC_URL%/nextstream-brandmark-logo-socials.jpg"
+      content="https://www.nextstream.ca/nextstream-brandmark-logo-socials.jpg"
     />
     <meta property="og:url" content="https://www.nextstream.ca" />
     <meta property="og:type" content="website" />
@@ -33,11 +33,11 @@
     />
     <meta
       name="twitter:image"
-      content="%PUBLIC_URL%/nextstream-brandmark-logo-socials.jpg"
+      content="https://www.nextstream.ca/nextstream-brandmark-logo-socials.jpg"
     />
 
     <!-- Web App Manifest -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link rel="manifest" href="https://www.nextstream.ca/manifest.json" />
 
     <title>NextStream</title>
 
@@ -50,36 +50,30 @@
         return /LinkedIn/i.test(navigator.userAgent);
       }
 
-      function openInDefaultBrowser() {
-        var url = "https://nextstream.ca";
-
-        // Check if user is inside LinkedIn's in-app browser
+      function showOpenButton() {
         if (isLinkedInApp()) {
-          // Open in a new tab (often forces external browser)
-          window.open(url, "_blank");
-
-          // Alternative method (for extra force on iOS)
-          setTimeout(function () {
-            window.location.href = url;
-          }, 500);
+          document.getElementById("open-browser-btn").style.display = "block";
         }
       }
 
-      // Run script on page load
-      openInDefaultBrowser();
+      window.addEventListener("load", showOpenButton);
     </script>
 
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
+    <div id="root">
+      <a id="open-browser-btn" href="https://www.nextstream.ca" target="_blank"
+        style="padding: 10px 20px; font-size: 16px; margin: 20px; cursor: pointer; display: none; 
+        background: #0073b1; color: white; text-decoration: none; border-radius: 5px;">
+        Open in Browser
+      </a>
+    </div>
 
     <!-- This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
-
       You can add webfonts, meta tags, or analytics to this file.
       The build step will place the bundled scripts into the <body> tag.
-
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`. -->
   </body>
