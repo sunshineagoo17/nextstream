@@ -49,15 +49,31 @@
       function isLinkedInApp() {
         return /LinkedIn/i.test(navigator.userAgent);
       }
-
-      function showOpenButton() {
-        if (isLinkedInApp()) {
-          document.getElementById("open-browser-btn").style.display = "block";
+    
+      function openInBrowser(event) {
+        const url = "https://www.nextstream.ca";
+    
+        const newTab = window.open(url, "_blank");
+    
+        if (!newTab || newTab.closed || typeof newTab.closed === "undefined") {
+          window.location.href = url;
         }
       }
-
+    
+      function showOpenButton() {
+        if (isLinkedInApp()) {
+          const button = document.getElementById("open-browser-btn");
+          button.style.display = "block";
+    
+          button.addEventListener("click", function (event) {
+            event.preventDefault(); 
+            openInBrowser();
+          });
+        }
+      }
+    
       window.addEventListener("load", showOpenButton);
-    </script>
+    </script>    
 
   </head>
   <body>
