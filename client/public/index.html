@@ -45,48 +45,17 @@
     <!-- <link rel="stylesheet" href="https://use.typekit.net/mbo2ylu.css"> -->
     <link href="styleguide.scss" rel="stylesheet" />
 
-    <script>
-      function isLinkedInApp() {
-        return /LinkedIn/i.test(navigator.userAgent);
-      }
-
-      function openInBrowser(event) {
-        const url = "https://www.nextstream.ca";
-
-        const newTab = window.open(url, "_blank");
-
-        if (!newTab || newTab.closed || typeof newTab.closed === "undefined") {
-          window.location.href = url;
-        }
-      }
-
-      function showOpenButton() {
-        if (isLinkedInApp()) {
-          const button = document.getElementById("open-browser-btn");
-          button.style.display = "block";
-        }
-      }
-
-      window.addEventListener("load", showOpenButton);
-    </script>
-
+    <!-- Link to External JavaScript File -->
+    <script src="js/script.js" defer></script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root">
-      <a id="open-browser-btn" href="https://www.nextstream.ca" target="_blank"
-        onclick="openInBrowser(event)"
-        style="padding: 10px 20px; font-size: 16px; margin: 20px; cursor: pointer; display: none; 
+      <a id="open-browser-btn" nextstream-data-url="https://www.nextstream.ca"
+        style="padding: 10px 20px; font-size: 16px; margin: 20px; cursor: pointer; display: block; 
         background: #0073b1; color: white; text-decoration: none; border-radius: 5px;">
         Open in Browser
       </a>
     </div>
-
-    <!-- This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`. -->
   </body>
 </html>
