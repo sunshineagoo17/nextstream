@@ -2919,7 +2919,9 @@
     }
 
     &__logo {
-        border-radius: 3.25rem;
+      @include tablet {
+        border-radius: 4.5rem;
+      }
     }
 
     &__logo-border--mobile,
